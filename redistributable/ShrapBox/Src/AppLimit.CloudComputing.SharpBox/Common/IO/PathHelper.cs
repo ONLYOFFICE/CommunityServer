@@ -31,40 +31,38 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
         /// <returns></returns>
         public Boolean IsPathRooted()
         {
-        	return _path.Length != 0 && _path[0] == Delimiter;
+            return _path.Length != 0 && _path[0] == Delimiter;
         }
 
         /// <summary>
         /// Returns all path elements in a path
         /// </summary>
         /// <returns></returns>
-    	public String[] GetPathElements()
-        {            
-            String workingPath;
-
+        public String[] GetPathElements()
+        {
             // remove heading and trailing /
-            workingPath = IsPathRooted() ? _path.Remove(0, 1) : _path;
-            
+            var workingPath = IsPathRooted() ? _path.Remove(0, 1) : _path;
+
             workingPath = workingPath.TrimEnd(Delimiter);
-            
+
             return workingPath.Length == 0 ? new String[0] : workingPath.Split(Delimiter);
         }
-        
+
         /// <summary>
         /// Returns the directory name
         /// </summary>
         /// <returns></returns>
         public String GetDirectoryName()
         {
-        	int idx = _path.LastIndexOf(Delimiter);
-        	return idx == 0 ? "" : _path.Substring(0, idx);
+            var idx = _path.LastIndexOf(Delimiter);
+            return idx == 0 ? "" : _path.Substring(0, idx);
         }
 
         /// <summary>
         /// Returns the filename
         /// </summary>
         /// <returns></returns>
-    	public String GetFileName()
+        public String GetFileName()
         {
             return Path.GetFileName(_path);
         }
@@ -84,8 +82,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
             // build the path
             if (right.Length == 0)
                 return left;
-            else
-                return left + Delimiter + right;
+
+            return left + Delimiter + right;
         }
     }
 }

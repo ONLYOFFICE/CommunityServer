@@ -16,9 +16,10 @@
         return;
     }
 
-    if(session && session.user && session.portal) {
+    if(session && session.user && session.portal && typeof(session.mailEnabled) !== "undefined") {
         req.user = session.user;
         req.portal = session.portal;
+        req.mailEnabled = session.mailEnabled;
         next();
         return;
     }
@@ -34,10 +35,11 @@
 
     co(function*(){
         var batchRequest = apiRequestManager.batchFactory()
-            .get("people/@self.json?fields=id,userName,displayName,isVisitor")
-            .get("portal.json?fields=tenantId,tenantDomain");
+            .get("people/@self.json?fields=id,userName,displayName")
+            .get("portal.json?fields=tenantId,tenantDomain")
+            .get("settings/security/2A923037-8B2D-487b-9A22-5AC0918ACF3F");
 
-        [session.user, session.portal] = [req.user, req.portal] = yield apiRequestManager.batch(batchRequest, req);
+        [session.user, session.portal, session.mailEnabled] = [req.user, req.portal, req.mailEnabled] = yield apiRequestManager.batch(batchRequest, req);
         session.save();
         next();
     }).catch((err) => {

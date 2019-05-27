@@ -28,6 +28,8 @@ namespace ASC.Web.Core.Users
 {
     public enum UserSortOrder
     {
-        DisplayName = 1,
+        DisplayName,
+        FirstName,
+        LastName
     }
 }

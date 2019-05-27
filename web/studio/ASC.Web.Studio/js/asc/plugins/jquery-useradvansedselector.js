@@ -86,11 +86,27 @@
 
         initAdvSelectorData: function () {
             var that = this,
-                data = that.options.showDisabled ? window.UserManager.getAllUsers() : ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
-            if (!that.options.withGuests) {
-                data = $.grep(data, function (el) { return el.isVisitor == false });
+                data = [];
+
+            var dataItems = window.UserManager.getAllUsers(!that.options.showDisabled);
+
+            for (var i = 0, length = dataItems.length; i < length; i++) {
+                var dataItem = dataItems[i];
+                
+                if(!that.options.withGuests && dataItem.isVisitor)
+                    continue;
+
+                var newObj = {
+                    title: dataItem.displayName,
+                    id: dataItem.id,
+                    status: dataItem.isPending || dataItem.isActivated === false ? ASC.Resources.Master.Resource.UserPending : "",
+                    groups: window.GroupManager.getGroups(dataItem.groups)
+                };
+
+                data.push(newObj);
             }
-            that.rewriteObjectItem.call(that, data);
+
+            that.rewriteObjectItem.call(that, data.sort(SortData));
 
             // var   filter = {
             //        employeeStatus: 1,
@@ -117,13 +133,13 @@
         },
 
         initAdvSelectorGroupsData: function () {
-            var that = this,
-                data = ASC.Resources.Master.ApiResponses_Groups.response;
+            var that = this;
 
-            that.rewriteObjectGroup.call(that, data);
+            that.rewriteObjectGroup.call(that, window.GroupManager.getAllGroups());
+
             if (that.options.isAdmin) {
-                var groups = [],
-                    dataIds = [];
+                var groups = [];
+
                 that.$groupsListSelector.find(".advanced-selector-list li").hide();
                 that.items.forEach(function (e) {
                     groups = groups.concat(e.groups).unique();
@@ -164,29 +180,9 @@
 
         rewriteObjectItem: function (data) {
             var that = this;
-            that.items = [];
 
-            for (var i = 0, length = data.length; i < length; i++) {
-                var newObj = {};
-                newObj.title = data[i].displayName || data[i].title;
-                newObj.id = data[i].id;
-                newObj.isVisitor = data[i].isVisitor;
-                newObj.profileUrl = data[i].profileUrl;
-                if (data[i].hasOwnProperty("isPending")) {
-                    newObj.status = data[i].isPending ? "pending" : "";
-                }
-                if (data[i].hasOwnProperty("groups")) {
-                    newObj.groups = data[i].groups;
-                    if (data[i].groups && data[i].groups.length && !data[i].groups[0].id) {
-                        newObj.groups.map(function (el) {
-                            el.id = el.ID;
-                        })
-                    }
-                }
-                that.items.push(newObj);
-            }
+            that.items = data;
 
-            that.items = that.items.sort(SortData);
             that.$element.data('items', that.items);
             that.showItemsListAdvSelector.call(that);
         },
@@ -268,7 +264,7 @@
                                 id: profile.id,
                                 title: profile.displayName,
                                 isVisitor: profile.isVisitor,
-                                status: "pending",
+                                status: ASC.Resources.Master.Resource.UserPending,
                                 groups: []
                             };
 
@@ -292,7 +288,7 @@
                 id: item.id,
                 title: item.displayName,
                 isVisitor: item.isVisitor,
-                status: item.isPending ? "pending" : "",
+                status: item.isPending || item.isActivated === false ? ASC.Resources.Master.Resource.UserPending : "",
                 groups: []
             };
             this.actionsAfterCreateItem.call(this, { newitem: newuser, response: item, nameProperty: "groups" });
@@ -323,6 +319,7 @@
         emptylist: resources.UserSelectorEmptyList,
         isAdmin: false,
         withGuests: true,
+        showDisabled: false,
         isInitializeItems: true
     });
 

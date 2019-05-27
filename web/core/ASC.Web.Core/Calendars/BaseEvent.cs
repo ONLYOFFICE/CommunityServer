@@ -64,6 +64,8 @@ namespace ASC.Web.Core.Calendars
         public virtual DateTime UtcEndDate { get; set; }
 
         public virtual DateTime UtcStartDate { get; set; }
+        
+        public virtual DateTime UtcUpdateDate { get; set; }
 
         public virtual EventContext Context { get; set; }
 
@@ -106,10 +108,10 @@ namespace ASC.Web.Core.Calendars
                 if (this.TimeZone != null)
                 {
                     if (this.UtcStartDate != DateTime.MinValue && startDate.Kind == DateTimeKind.Utc)
-                        startDate = startDate + TimeZone.BaseUtcOffset;
+                        startDate = startDate.Add(TimeZone.GetOffset());
 
-                    if (this.UtcEndDate != DateTime.MinValue && startDate.Kind == DateTimeKind.Utc)
-                        endDate = endDate + TimeZone.BaseUtcOffset;
+                    if (this.UtcEndDate != DateTime.MinValue && endDate.Kind == DateTimeKind.Utc)
+                        endDate = endDate.Add(TimeZone.GetOffset());
                 }
 
                 if (this.UtcStartDate != DateTime.MinValue)

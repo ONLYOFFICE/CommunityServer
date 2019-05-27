@@ -118,7 +118,7 @@ namespace ASC.Web.Core
 
         public static bool IsDisabled(this IWebItem item, Guid userID)
         {
-            return item != null && (!WebItemSecurity.IsAvailableForUser(item.ID.ToString("N"), userID) || !item.Visible);
+            return item != null && (!WebItemSecurity.IsAvailableForUser(item.ID, userID) || !item.Visible);
         }
 
         public static bool IsSubItem(this IWebItem item)

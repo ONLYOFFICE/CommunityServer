@@ -203,7 +203,7 @@ textarea {
     text-decoration: underline;
 
     &:after{
-        background: url( "../images/import.png" ) no-repeat scroll 0 0 transparent;
+        background-image: url('../../../../../skins/default/Images/svg/crm/up.svg');
         color: @textColor;
         cursor: pointer;
         .crm-img-pseudo-base(50%, 0);
@@ -219,24 +219,11 @@ select.disabled {
 }
 .crm-private-lock{
     background: url("../images/icons.png") 1px -159px no-repeat transparent;
-    
     display: inline-block;
     height: 16px;
     margin-top: -4px;
     vertical-align: middle;
     width: 16px;
-}
-.rub {
-    border-bottom: 1px solid #000000;
-    display: inline-block;
-    font-size: 14px;
-    line-height: 4px;
-    width: 0.4em;
-    margin-right: 3px;
-    vertical-align: middle;
-}
-.gray-text .rub {
-    border-color: #83888D;
 }
 
 
@@ -642,6 +629,11 @@ TagView.ascx
 /*******************************************************************************
 Navigation panel with page navigator
 *******************************************************************************/
+body.media-width-0-1200 {
+    .main-list {
+        padding-bottom: 48px;
+    }
+}
 
 .crm-navigationPanel {
     width: 100%;
@@ -1053,6 +1045,10 @@ ContactSelector.ascx
     display: none;
     position: absolute;
     z-index: 10;
+
+    div {
+        padding: 5px;
+    }
 }
 
 .ui-autocomplete .ui-menu-item:last-child {
@@ -1350,7 +1346,7 @@ Import From CSV
             position: relative;
 
             &:after {
-                background: url( "../images/import.png" ) no-repeat scroll 0 0 transparent;
+                background-image: url('../../../../../skins/default/Images/svg/crm/upload.svg');
                 .crm-img-pseudo-base(50%, -17px, 16px, 16px);
                 margin-top: -7px;
             }
@@ -1447,7 +1443,7 @@ body.media-width-min {
 button.ui-datepicker-trigger,
 button.ui-datepicker-trigger:active,
 button.ui-datepicker-trigger:hover {
-    background: url("../images/icons.png") 2px 0 no-repeat #ffffff;
+    background: url('../../../../../skins/default/Images/svg/crm/calendar.svg') no-repeat #ffffff;
     cursor: pointer;
     height: 19px;
     border: 0 none;

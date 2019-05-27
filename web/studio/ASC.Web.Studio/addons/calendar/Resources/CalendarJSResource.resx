@@ -604,4 +604,145 @@ portal users or use any other email to invite people to your event.</value>
   <data name="deleteSettings_singleHeader" xml:space="preserve">
     <value>Delete event</value>
   </data>
+  <data name="calendarExportEvents_byLink" xml:space="preserve">
+    <value>By link</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>From file</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>To configure the export of events from this calendar to another calendar, copy the corresponding link and add it to the required calendar.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>Export and Sync</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Sync with calendar by link</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Import events</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Import to</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>New calendar</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Import events</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Select iCal file</value>
+  </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Time:</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
+    <value>Create todo</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
+    <value>Delete todo</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
+    <value>The deleted todo cannot be restored. Are you sure you want to continue?</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
+    <value>New todo</value>
+  </data>
+  <data name="calendarTodoList_noDueDate" xml:space="preserve">
+    <value>No due date</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="calendarTodoList_title" xml:space="preserve">
+    <value>To-do</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
+    <value>Edit todo</value>
+  </data>
+  <data name="icalStream_export_todo_description" xml:space="preserve">
+    <value>To configure the export of todos  to another calendar, copy the corresponding link and add it to the required calendar.</value>
+  </data>
+  <data name="menuDeleteMarkedTodo" xml:space="preserve">
+    <value>Hide to-do marked as done on page load</value>
+  </data>
+  <data name="menuSyncLinks" xml:space="preserve">
+    <value>Export and Sync</value>
+  </data>
+  <data name="menuTodoInCalendar" xml:space="preserve">
+    <value>Show to-do in calendar</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="calendarEventEditor_todoButton" xml:space="preserve">
+    <value>Todo</value>
+  </data>
+  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
+    <value>new todo</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_off" xml:space="preserve">
+    <value>Mark as not done</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_on" xml:space="preserve">
+    <value>Mark as done</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="calendarButtonNewText_todo" xml:space="preserve">
+    <value>Todo</value>
+  </data>
+  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
+    <value>Sent invitations</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="icalStream_preparing_error_message" xml:space="preserve">
+    <value>Link preparation failed</value>
+  </data>
+  <data name="icalStream_preparing_message" xml:space="preserve">
+    <value>Preparing the link for export</value>
+  </data>
+  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
+    <value>The title cannot contain any of the following characters: {0}</value>
+  </data>
+  <data name="icalStream_export_help" xml:space="preserve">
+    <value>Connection instructions in the</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Help Center</value>
+  </data>
 </root>

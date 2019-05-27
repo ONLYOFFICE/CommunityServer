@@ -24,29 +24,23 @@
 */
 
 
-#region Import
-
-using ASC.Common.Web;
-using ASC.Data.Storage.Configuration;
-using Google;
-using Google.Apis.Auth.OAuth2;
-using Google.Cloud.Storage.V1;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Optimization;
-
-#endregion
+using ASC.Common.Logging;
+using ASC.Common.Web;
+using ASC.Data.Storage.Configuration;
+using Google;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
 
 
 namespace ASC.Web.Core.Client.Bundling

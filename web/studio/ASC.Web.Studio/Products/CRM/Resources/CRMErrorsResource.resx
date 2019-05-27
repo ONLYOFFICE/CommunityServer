@@ -180,6 +180,9 @@
   <data name="HistoryEventDataTooLong" xml:space="preserve">
     <value>Data too long for column 'content'</value>
   </data>
+  <data name="InvalidCurrencyRate" xml:space="preserve">
+    <value>Invalid currency rate: {0}</value>
+  </data>
   <data name="InvalidFile" xml:space="preserve">
     <value>Invalid file</value>
   </data>
@@ -230,5 +233,8 @@
   </data>
   <data name="TaskCategoryNotFound" xml:space="preserve">
     <value>Category is not found</value>
+  </data>
+  <data name="UnknownCurrency" xml:space="preserve">
+    <value>Unknown currency: {0}</value>
   </data>
 </root>

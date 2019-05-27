@@ -71,10 +71,15 @@
             img {
                 border: none;
                 vertical-align: bottom;
+                max-height: 42px;
             }
         }
     }
     &:not(.try-welcome-top) .studio-top-logo .top-logo img { max-height: 23px; }
+
+    body.custom-mode .studio-top-logo .top-logo img {
+        max-height: 23px;
+    }
 
     .studio-action-panel {
         .dropdown-item {
@@ -112,8 +117,6 @@
         padding: 4px;
 
         .inner-text {
-            .borderRadius();
-            background: url("@{img-change-url}top-studio-menu.png") no-repeat 0 0;
             cursor: pointer;
             display: block !important;
             height: 32px;
@@ -134,6 +137,19 @@
                 right: 2px;
                 white-space: nowrap;
             }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                fill: #CFD9E3;
+                position: absolute;
+                top: 8px;
+                left: 8px;
+        }
+
+            &:hover svg {
+                fill: #FFFFFF;
+            }
         }
 
             &.has-led .inner-label,
@@ -143,84 +159,12 @@
                 display: block;
             }
 
-        &.tariffs .inner-text {
-            background-position: 0 0;
-
-            &:hover {
-                background-position: 0 -32px;
-            }
-
-            .inner-label {
+        &.tariffs .inner-text .inner-label {
                 font-size: 9px;
                 right: -2px;
                 width: 30px;
                 text-align: center;
             }
-        }
-
-        &.calendar .inner-text {
-            background-position: -32px 0;
-
-            &:hover {
-                background-position: -32px -32px;
-            }
-        }
-
-        &.talk .inner-text {
-            background-position: -64px 0;
-
-            &:hover {
-                background-position: -64px -32px;
-            }
-        }
-
-        &.mail .inner-text {
-            background-position: -96px 0;
-
-            &:hover {
-                background-position: -96px -32px;
-            }
-        }
-
-        &.feed .inner-text {
-            background-position: -128px 0;
-
-            &:hover {
-                background-position: -128px -32px;
-            }
-        }
-
-        &.search .inner-text {
-            background-position: -160px 0;
-
-            &:hover {
-                background-position: -160px -32px;
-            }
-        }
-
-        &.settings .inner-text {
-            background-position: -192px 0;
-
-            &:hover {
-                background-position: -192px -32px;
-            }
-        }
-
-        &.video .inner-text {
-            background-position: -224px 0;
-
-            &:hover {
-                background-position: -224px -32px;
-            }
-        }
-
-        &.voip .inner-text {
-            background-position: -256px 0;
-
-            &:hover {
-                background-position: -256px -32px;
-            }
-        }
 
         &.signin {
             margin: 8px 0 0 20px;
@@ -243,8 +187,14 @@ body.desktop .studio-top-panel {
     padding: 4px 0 5px;
     margin: 6px 24px 0 0;
 
+    .active-icon-svg{
+        fill: #cfd9e3;
+        width: 16px;
+        height: 16px;
+    }
+
     .active-icon {
-        background: url("@{img-change-url}icons_nav_panel.png") no-repeat 0 15px transparent;
+        background: url("ImagesCSS/icons_nav_panel.png") no-repeat 0 15px transparent;
         display: inline-block;
         float: left;
         height: 16px;
@@ -299,6 +249,10 @@ body.desktop .studio-top-panel {
         &.talk {
             background-position: -15px -1326px;
         }
+        &.install-apps
+        {
+            background-position: -15px -1347px;
+    }
     }
 
     &.with-subitem {
@@ -318,7 +272,7 @@ body.desktop .studio-top-panel {
         float: left;
         font-size: 14px;
         font-weight: bold;
-        max-width: 110px;
+        max-width: 125px;
         outline: none;        
     }
 }
@@ -579,9 +533,8 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx)
  {
-    .studio-top-panel  .top-item-box .inner-text {  background-image: url("@{img-change-url}top-studio-menu_retina.png"); background-size: 288px 64px;}
-    .product-menu .active-icon { background-image: url("@{img-change-url}icons_nav_panel_retina.png"); background-size: 32px 1352px; }
-	.studio-action-panel.modules li .dropdown-item-icon { background-image: url("@{img-change-url}icons_nav_panel_retina.png"); background-size: 32px 1352px; }
+    //.product-menu .active-icon { background-image: url("ImagesCSS/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
+	//.studio-action-panel.modules li .dropdown-item-icon { background-image: url("ImagesCSS/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
     /*.studio-action-panel.modules li .dropdown-item { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }*/
 }
 /*******************************************************************************

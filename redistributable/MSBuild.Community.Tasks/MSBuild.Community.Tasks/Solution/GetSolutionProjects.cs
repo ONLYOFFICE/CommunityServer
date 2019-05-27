@@ -1,6 +1,6 @@
-#region Copyright © 2006 Andy Johns. All rights reserved.
+#region Copyright Â© 2006 Andy Johns. All rights reserved.
 /*
-Copyright © 2006 Andy Johns. All rights reserved.
+Copyright Â© 2006 Andy Johns. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
@@ -29,6 +29,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //$Id$
 
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using Microsoft.Build.Utilities;
@@ -55,12 +57,15 @@ namespace MSBuild.Community.Tasks
     ///     <Message Text="%(ProjectFiles.ProjectGUID)" />
     ///     <Message Text="Full paths to project files:" />
     ///     <Message Text="%(ProjectFiles.FullPath)" />
+    ///     <Message Text="Project Type GUIDs:" />
+    ///     <Message Text="%(ProjectFiles.ProjectTypeGUID)" />
     ///   </Target>
     /// ]]></code>
     /// </example>
     public class GetSolutionProjects : Task
     {
-        private const string ExtractProjectsFromSolutionRegex = @"=\s*""(?<ProjectName>.+?)""\s*,\s*""(?<ProjectFile>.+?)""\s*,\s*""(?<ProjectGUID>.+?)""";
+        private const string SolutionFolderProjectType = "{2150E333-8FDC-42A3-9474-1A3956D46DE8}";
+        private const string ExtractProjectsFromSolutionRegex = @"Project\(""(?<ProjectTypeGUID>.+?)""\)\s*=\s*""(?<ProjectName>.+?)""\s*,\s*""(?<ProjectFile>.+?)""\s*,\s*""(?<ProjectGUID>.+?)""";
         private string solutionFile = "";
         private ITaskItem[] output = null;
 
@@ -108,7 +113,8 @@ namespace MSBuild.Community.Tasks
 
             string solutionText = File.ReadAllText(solutionFile);
             MatchCollection matches = Regex.Matches(solutionText, ExtractProjectsFromSolutionRegex);
-            output = new TaskItem[matches.Count];
+            List<ITaskItem> taskItems = new List<ITaskItem>();
+
             for(int i=0; i<matches.Count; i++)
             {
                 string projectPathRelativeToSolution = matches[i].Groups["ProjectFile"].Value;
@@ -116,14 +122,23 @@ namespace MSBuild.Community.Tasks
                 string projectFile = projectPathRelativeToSolution;
                 string projectName = matches[i].Groups["ProjectName"].Value;
                 string projectGUID = matches[i].Groups["ProjectGUID"].Value;
+                string projectTypeGUID = matches[i].Groups["ProjectTypeGUID"].Value;
+
+				// do not include Solution Folders in output
+				if (projectTypeGUID.Equals(SolutionFolderProjectType, StringComparison.OrdinalIgnoreCase))
+				{
+				    continue;
+				}
 
                 ITaskItem project = new TaskItem(projectPathOnDisk);
                 project.SetMetadata("ProjectPath", projectFile);
                 project.SetMetadata("ProjectName", projectName);
                 project.SetMetadata("ProjectGUID", projectGUID);
-                output[i] = project;
+                project.SetMetadata("ProjectTypeGUID", projectGUID);
+				taskItems.Add(project);
             }
 
+            output = taskItems.ToArray();
             return true;
         }
 

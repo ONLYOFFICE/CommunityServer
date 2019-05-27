@@ -23,23 +23,17 @@
     <!-- Core -->
     <ProjectToBuild Include="$(ASCDir)common\ASC.Common\ASC.Common.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Core.Common\ASC.Core.Common.csproj"/>
+	<ProjectToBuild Include="$(ASCDir)module\ASC.ElasticSearch\ASC.ElasticSearch.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.IPSecurity\ASC.IPSecurity.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage\ASC.Data.Storage.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj' )"/>
+	<ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.Migration\ASC.Data.Storage.Migration.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Notify.Textile\ASC.Notify.Textile.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.TeamLabSvc\ASC.TeamLabSvc\ASC.TeamLabSvc.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Feed\ASC.Feed.csproj"/>
-
+	
     <!-- Api client -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Client\ASC.Api.Client.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Api\ASC.Api.Client\' )"/>
-
-    <!-- Jabber -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Server\ASC.Xmpp.Server.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj"/>
-
-    <!-- Full Text Index -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.FullTextIndex\ASC.FullTextIndex.csproj"/>
 
     <!-- Web -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj"/>
@@ -82,35 +76,25 @@
     <!-- PM -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj"/>
 
-    <!-- People-->
+    <!-- Mail Core -->  
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\ASC.Mail.Server\ASC.Mail.Server.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail\ASC.Mail.csproj"/>
+
+	<!-- People-->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\People\ASC.Web.People.csproj"/>
-
-    <!-- Mail Core -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail.Core\Net\ASC.Mail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj" />
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj"/>
-
+	
     <!-- Mail Services -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Aggregator\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\ASC.Mail.Watchdog.Service.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Aggregator\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.EmlDownloader\ASC.Mail.EmlDownloader.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Aggregator\' ) "/>
-
-    <!-- MailServer -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\Interfaces\Interfaces.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\MailServerUtils\MailServerUtils.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\MockAdministration\MockAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\PostfixAdministration\PostfixAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsCheckerService\ASC.MailServer.DnsCheckerService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\ASC.Mail.Watchdog.Service.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.EmlDownloader\ASC.Mail.EmlDownloader.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\ASC.Mail.StorageCleaner.Service.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
 
     <!-- Mail Site -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj' ) "/>
 
     <!-- Autoreply -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail.Autoreply\ASC.Mail.Autoreply.csproj" Condition=" Exists('$(ASCDir)module\ASC.Mail\ASC.Mail.Autoreply\') "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Autoreply\ASC.Mail.Core\Net\ASC.Mail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Autoreply\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Autoreply\ASC.Mail.Autoreply\ASC.Mail.Autoreply.csproj" Condition=" Exists('$(ASCDir)module\ASC.Mail.Autoreply\ASC.Mail.Autoreply\') "/>
 
     <!-- Reassigns -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Data.Reassigns\ASC.Data.Reassigns.csproj" Condition=" Exists('$(ASCDir)module\ASC.Data.Reassigns\') "/>
@@ -132,7 +116,10 @@
 
     <!-- Talk -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\talk\ASC.Web.Talk.csproj"/>
-
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Server\ASC.Xmpp.Server.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj"/>
+	
     <!-- Calendar -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\calendar\ASC.Web.Calendar.csproj"/>
 
@@ -141,6 +128,15 @@
 
     <!-- SocketIO service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj' ) "/>
+    
+    <!-- Thumbnails service -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Thumbnails.Svc\ASC.Thumbnails.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Thumbnails.Svc\ASC.Thumbnails.Svc.csproj' ) "/>
+
+    <!-- UrlShortener service -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.UrlShortener.Svc\ASC.UrlShortener.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.UrlShortener.Svc\ASC.UrlShortener.Svc.csproj' ) "/>
+
+    <!-- Radicale -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Radicale\ASC.Radicale.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Radicale\ASC.Radicale.csproj' ) "/>
 
     <ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
     <!-- ThumbnailHelper -->
@@ -167,6 +163,8 @@
         StopOnFirstFailure="true"/>
 
     <Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
+    <Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.Thumbnails\" ContinueOnError="true"/>
+    <Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.UrlShortener\" ContinueOnError="true"/>
 
   </Target>
 

@@ -275,5 +275,14 @@ namespace ASC.Web.People.Resources {
                 return ResourceManager.GetString("TariffActiveUserLimit", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} active users{2} (guests are not taken into consideration)..
+        /// </summary>
+        public static string TariffActiveUserLimitExcludingGuests {
+            get {
+                return ResourceManager.GetString("TariffActiveUserLimitExcludingGuests", resourceCulture);
+            }
+        }
     }
 }

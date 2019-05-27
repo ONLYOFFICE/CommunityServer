@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ASC.Files.Core
 {
@@ -72,21 +73,25 @@ namespace ASC.Files.Core
         /// <param name="parentId"></param>
         /// <param name="orderBy"></param>
         /// <param name="filterType"></param>
+        /// <param name="subjectGroup"></param>
         /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
         /// <param name="withSubfolders"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false);
+        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool withSubfolders = false);
 
         /// <summary>
         /// Gets the folder (s) by ID (s)
         /// </summary>
         /// <param name="folderIds"></param>
+        /// <param name="filterType"></param>
+        /// <param name="subjectGroup"></param>
+        /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
         /// <param name="searchSubfolders"></param>
         /// <param name="checkShare"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true);
+        List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true);
 
         /// <summary>
         ///     Get folder, contains folder with id
@@ -113,16 +118,18 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="folderId">folder id</param>
         /// <param name="toFolderId">destination folder id</param>
-        object MoveFolder(object folderId, object toFolderId);
+        /// <param name="cancellationToken"></param>
+        object MoveFolder(object folderId, object toFolderId, CancellationToken? cancellationToken);
 
         /// <summary>
         ///     copy folder
         /// </summary>
         /// <param name="folderId"></param>
         /// <param name="toFolderId"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns> 
         /// </returns>
-        Folder CopyFolder(object folderId, object toFolderId);
+        Folder CopyFolder(object folderId, object toFolderId, CancellationToken? cancellationToken);
 
         /// <summary>
         /// Validate the transfer operation directory to another directory.
@@ -199,19 +206,9 @@ namespace ASC.Files.Core
         /// Only in TMFolderDao
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="folderType"></param>
+        /// <param name="bunch"></param>
         /// <returns></returns>
-        IEnumerable<Folder> Search(string text, FolderType folderType);
-
-        /// <summary>
-        /// Search the list of folders containing text in title
-        /// Only in TMFolderDao
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="folderType1"></param>
-        /// <param name="folderType2"></param>
-        /// <returns></returns>
-        IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2);
+        IEnumerable<Folder> Search(string text, bool bunch = false);
 
         /// <summary>
         /// Only in TMFolderDao

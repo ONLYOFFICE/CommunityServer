@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides: monoserveApiSystem
-# Required-Start: $local_fs $syslog $remote_fs
+# Required-Start: $local_fs $syslog $remote_fs mysql
 # Required-Stop: $local_fs $syslog $remote_fs
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
@@ -23,6 +23,7 @@ ARGS="/logfile=/var/log/onlyoffice/$NAME.log /config=/etc/hyperfastcgi/onlyoffic
 
 do_start() {
 	echo -n "Starting $NAME... "
+	export MONO_THREADS_SUSPEND=preemptive
 	export MONO_IOMAP=all
 	
 	test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g www-data -d /var/run/onlyoffice

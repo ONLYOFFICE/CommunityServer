@@ -28,6 +28,8 @@ using ASC.Web.UserControls.Bookmarking.Common.Util;
 using System;
 using System.Configuration;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace ASC.Web.UserControls.Bookmarking.Util
@@ -51,6 +53,11 @@ namespace ASC.Web.UserControls.Bookmarking.Util
             get { return ConfigurationManager.AppSettings["bookmarking.thumbnail-url"] != null; }
         }
 
+        public static string ServiceUrl
+        {
+            get { return ConfigurationManager.AppSettings["bookmarking.thumbnail-url"]; }
+        }
+
         public static IThumbnailHelper Instance
         {
             get
@@ -72,9 +79,11 @@ namespace ASC.Web.UserControls.Bookmarking.Util
 
     internal class ServiceThumbnailHelper : IThumbnailHelper
     {
-        private string ServiceFormatUrl
+        private static readonly string CoreMachineKey;
+
+        static ServiceThumbnailHelper()
         {
-            get { return ConfigurationManager.AppSettings["bookmarking.thumbnail-url"]; }
+            CoreMachineKey = ConfigurationManager.AppSettings["core.machinekey"];
         }
 
         public void MakeThumbnail(string url, bool async, bool notOverride, HttpContext context, int tenantID)
@@ -84,29 +93,12 @@ namespace ASC.Web.UserControls.Bookmarking.Util
 
         public string GetThumbnailUrl(string Url, BookmarkingThumbnailSize size)
         {
-            var sizeValue = string.Format("{0}x{1}", size.Width, size.Height);
-            return string.Format(ServiceFormatUrl, Url, sizeValue, Url.GetHashCode());
+            return string.Format("/thumb.ashx?url={0}", Url);
         }
 
         public string GetThumbnailUrlForUpdate(string Url, BookmarkingThumbnailSize size)
         {
-            var url = GetThumbnailUrl(Url, size);
-            try
-            {
-                var req = WebRequest.Create(url);
-                using (var resp = (HttpWebResponse)req.GetResponse())
-                {
-                    if (resp.StatusCode == HttpStatusCode.OK)
-                    {
-                        return url;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            return null;
+            return GetThumbnailUrl(Url, size);
         }
 
         public void DeleteThumbnail(string Url)

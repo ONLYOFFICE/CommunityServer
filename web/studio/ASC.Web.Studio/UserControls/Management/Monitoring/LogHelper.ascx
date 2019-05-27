@@ -7,9 +7,9 @@
         <p class="monitoring-describe"><%= MonitoringResource.LogsText %></p>
         <div class=""><%= MonitoringResource.LogsDateInterval %></div>
         <div class="interval-date">
-            <input type="text" class="textEditCalendar start-date"/>
+            <input type="text" class="textEditCalendar start-date" autocomplete="off"/>
             <span class="separate-date"></span>
-            <input type="text" class="textEditCalendar end-date"/>
+            <input type="text" class="textEditCalendar end-date" autocomplete="off"/>
         </div>
         <div class="middle-button-container">
             <a id="downloadLogsBtn" class="button blue middle"><%= Resource.DownloadButton %></a>

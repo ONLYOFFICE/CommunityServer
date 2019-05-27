@@ -31,8 +31,8 @@ using System.Text;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Expressions;
 using ASC.ActiveDirectory.Base.Settings;
+using ASC.Common.Logging;
 using ASC.Security.Cryptography;
-using log4net;
 
 namespace ASC.ActiveDirectory.Base
 {
@@ -47,7 +47,7 @@ namespace ASC.ActiveDirectory.Base
         protected LdapHelper(LdapSettings settings)
         {
             Settings = settings;
-            Log = LogManager.GetLogger(typeof(LdapHelper));
+            Log = LogManager.GetLogger("ASC");
         }
 
         public abstract void Connect();
@@ -110,7 +110,7 @@ namespace ASC.ActiveDirectory.Base
             return false;
         }
 
-        public string GetPassword(byte[] passwordBytes)
+        public static string GetPassword(byte[] passwordBytes)
         {
             if (passwordBytes == null || passwordBytes.Length == 0)
                 return string.Empty;
@@ -125,6 +125,22 @@ namespace ASC.ActiveDirectory.Base
                 password = string.Empty;
             }
             return password;
+        }
+
+        public static byte[] GetPasswordBytes(string password)
+        {
+            byte[] passwordBytes;
+
+            try
+            {
+                passwordBytes = InstanceCrypto.Encrypt(new UnicodeEncoding().GetBytes(password));
+            }
+            catch (Exception)
+            {
+                passwordBytes = null;
+            }
+
+            return passwordBytes;
         }
 
         public abstract void Dispose();

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Data.Reassigns</RootNamespace>
     <AssemblyName>ASC.Data.Reassigns</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -33,9 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -43,11 +43,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RemoveProgressItem.cs" />
@@ -89,9 +84,9 @@
       <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
       <Name>ASC.Web.Projects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.GarbageEraser\ASC.Mail.GarbageEraser.csproj">
-      <Project>{f94b1e30-6309-4df9-b793-cecaee6fa95e}</Project>
-      <Name>ASC.Mail.GarbageEraser</Name>
+    <ProjectReference Include="..\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>

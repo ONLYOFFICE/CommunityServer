@@ -244,8 +244,8 @@ ASC.CRM.Common = (function() {
                 jq(this).removeAttr("title")
                     .unbind("mouseenter").mouseenter(function () {
                         var $obj = jq(this),
-                            top = $obj.position().top + $obj.height() + 5,
-                            left = $obj.position().left + 5;
+                            top = $obj.offset().top + $obj.height() + 5,
+                            left = $obj.offset().left + 5;
 
                         jq(my_tooltip).data("overTaskDescrPanel", true);
                         jq(my_tooltip).css("top", top);
@@ -449,48 +449,51 @@ ASC.CRM.Common = (function() {
         getAddressTextForDisplay: function (addressObj) {
             if (typeof (addressObj) != "object") return "";
 
-            var text = addressObj.street != "" && addressObj.street != null ? jq.htmlEncodeLight(addressObj.street) : "",
-                tmp = addressObj.city != "" && addressObj.city != null ? jq.htmlEncodeLight(addressObj.city) + ", " : "";
+            var items = [],
+                subitems = [];
 
-            if (addressObj.state != "" && addressObj.state != null) {
-                tmp += jq.htmlEncodeLight(addressObj.state) + ", ";
-            }
-            if (addressObj.zip != "" && addressObj.zip != null) {
-                tmp += jq.htmlEncodeLight(addressObj.zip);
-            }
-            tmp = jq.trim(tmp);
-            tmp = tmp.charAt(tmp.length - 1) === ',' ? tmp.substring(0, tmp.length - 1) : tmp;
-            if (tmp != "") {
-                text = text != "" ? text + ",<br/>" + tmp : tmp;
-            }
-            text = text != "" && addressObj.country != "" && addressObj.country != null
-                    ? text + ",<br/>" + jq.htmlEncodeLight(addressObj.country)
-                    : (addressObj.country != "" && addressObj.country != null ? jq.htmlEncodeLight(addressObj.country) : text);
-            return text;
+            if (addressObj.street)
+                items.push(jq.htmlEncodeLight(addressObj.street));
+
+            if (addressObj.city)
+                subitems.push(addressObj.city);
+
+            if (addressObj.state)
+                subitems.push(addressObj.state);
+
+            if (addressObj.zip)
+                subitems.push(addressObj.zip);
+
+            if (subitems.length)
+                items.push(jq.htmlEncodeLight(subitems.join(", ")));
+
+            if (addressObj.country)
+                items.push(jq.htmlEncodeLight(addressObj.country));
+
+            return items.join(",<br/>");
         },
 
         getAddressQueryForMap: function (addressObj) {
             if (typeof (addressObj) != "object") return "";
 
-            var query = "";
-            if (addressObj.street != "" && addressObj.street != null) {
-                query += addressObj.street + ", ";
-            }
-            if (addressObj.city != "" && addressObj.city != null) {
-                query += addressObj.city + ", ";
-            }
-            if (addressObj.state != "" && addressObj.state != null) {
-                query += addressObj.state + ", ";
-            }
-            if (addressObj.zip != "" && addressObj.zip != null) {
-                query += addressObj.zip + ", ";
-            }
-            if (addressObj.country != "" && addressObj.country != null) {
-                query += addressObj.country + ", ";
-            }
-            query = jq.trim(query).replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, ' ');
-            query = query.charAt(query.length - 1) === ',' ? query.substring(0, query.length - 1) : query;
-            return query;
+            var items = [];
+
+            if (addressObj.street)
+                items.push(addressObj.street);
+
+            if (addressObj.city)
+                items.push(addressObj.city);
+
+            if (addressObj.state)
+                items.push(addressObj.state);
+
+            if (addressObj.zip)
+                items.push(addressObj.zip);
+
+            if (addressObj.country)
+                items.push(addressObj.country);
+
+            return jq.trim(items.join(", ")).replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, ' ');
         },
 
 
@@ -674,19 +677,12 @@ ASC.CRM.Common = (function() {
             if (jq("#exportListToCSV").length == 1) {
                 jq("#exportListToCSV").parent().remove();
             }
-            if (jq("#openListInEditor").length == 1) {
-                jq("#openListInEditor").parent().remove();
-            }
         },
 
         hideExportButtons: function () {
             if (jq("#exportListToCSV").length == 1) {
                 jq("#exportListToCSV").parent().addClass("display-none");
             }
-            if (jq("#openListInEditor").length == 1) {
-                jq("#openListInEditor").parent().addClass("display-none");
-            }
-
             if (!jq("#otherActions li:not(.display-none)").length) {
                 jq("#menuOtherActionsButton").hide();
             }
@@ -696,37 +692,14 @@ ASC.CRM.Common = (function() {
             if (jq("#exportListToCSV").length == 1) {
                 jq("#exportListToCSV").parent().removeClass("display-none");
             }
-            if (jq("#openListInEditor").length == 1) {
-                jq("#openListInEditor").parent().removeClass("display-none");
-            }
-
             if (!!jq("#otherActions li:not(.display-none)").length) {
                 jq("#menuOtherActionsButton").show();
             }
         },
 
         exportCurrentListToCsv : function() {
-            var index = window.location.href.indexOf('#'),
-                basePath = index >= 0 ? window.location.href.substr(0, index) : window.location.href,
-                anchor = index >= 0 ? window.location.href.substr(index, window.location.href.length) : "";
             jq("#otherActions").hide();
-            window.location.href = [
-                basePath,
-                window.location.search != null && window.location.search != "" ? "&" : "?",
-                "action=export",
-                anchor].join('');
-        },
-
-        openExportFile : function() {
-            var index = window.location.href.indexOf('#'),
-                basePath = index >= 0 ? window.location.href.substr(0, index) : window.location.href;
-            jq("#otherActions").hide();
-
-            window.open([
-                basePath,
-                window.location.search != null && window.location.search != "" ? "&" : "?",
-                "action=export&view=editor"]
-                .join(''));
+            ASC.CRM.PartialExport.startExport();
         },
 
         getMailModuleBasePath: function () {
@@ -930,10 +903,6 @@ ASC.CRM.Common = (function() {
 
         setDocumentTitle : function (module) {
             document.title = jq.format("{0} - {1}", module, ASC.CRM.Resources.CRMCommonResource.ProductName);
-        },
-
-        getCurrencySymbol: function (symbol, abbr) {
-            return abbr != "RUB" ? symbol : "<span class='rub'>Р</span>";
         },
 
         bindOnbeforeUnloadEvent: function () {
@@ -1435,7 +1404,7 @@ ASC.CRM.HistoryView = (function () {
                 .advansedFilter({
                     anykey: false,
                     hintDefaultDisable: true,
-                    maxfilters: 3,
+                    maxfilters: -1,
                     maxlength: "100",
                     store: false,
                     filters: [
@@ -1748,24 +1717,37 @@ ASC.CRM.HistoryView = (function () {
             }, 100);
 
             setInterval(function () {
-                var text = jq.trim(jq("#historyCKEditor").val());
-
-                if (ASC.CRM.HistoryView.historyCKEditor) {
-                    text = jq.trim(ASC.CRM.HistoryView.historyCKEditor.getData());
-                }
+                var $button = jq("#historyBlock .middle-button-container a.button.blue.middle");
+                var $input = jq("#historyBlock input.textEditCalendar");
+                var $message = jq("#historyBlock .lond-data-text");
+                var isValid = true;
+                var text = jq.trim(ASC.CRM.HistoryView.historyCKEditor ? ASC.CRM.HistoryView.historyCKEditor.getData() : jq("#historyCKEditor").val());
 
                 if (!text.length) {
-                    jq("#historyBlock .lond-data-text").text("").addClass("display-none");
-                    jq("#historyBlock .middle-button-container a.button.blue.middle").addClass("disable");
+                    $message.text("").addClass("display-none");
+                    isValid = false;
                 } else if (text.length > ASC.CRM.Data.MaxHistoryEventCharacters) {
-                    jq("#historyBlock .lond-data-text")
+                    $message
                         .text(ASC.CRM.Resources.CRMCommonResource.HistoryLongDataMsg.format(text.length - ASC.CRM.Data.MaxHistoryEventCharacters))
                         .removeClass("display-none");
-                    jq("#historyBlock .middle-button-container a.button.blue.middle").addClass("disable");
+                    isValid = false;
                 } else {
-                    jq("#historyBlock .lond-data-text").text("").addClass("display-none");
-                    jq("#historyBlock .middle-button-container a.button.blue.middle.disable").removeClass("disable");
+                    $message.text("").addClass("display-none");
                 }
+
+                if (jq.isDateFormat($input.val().trim())) {
+                    $input.css("borderColor", "");
+                } else {
+                    $input.css("borderColor", "#CC0000");
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    $button.removeClass("disable");
+                } else {
+                    $button.addClass("disable");
+                }
+
             }, 500);
 
             _initFilter();
@@ -3950,3 +3932,47 @@ var ga_Actions = {
     quickAction: "quick-action",
     generateNew: "generate-new"
 };
+
+
+ASC.CRM.PartialExport = (function () {
+
+    var initialized = false,
+        filterObj = null,
+        entityType = null;
+
+    function startExport(data) {
+
+        ProgressDialog.generate(data ||
+        {
+            entityType: entityType,
+            base64FilterString: jq(filterObj).advansedFilter("hash")
+        });
+    }
+
+    function init(filter, type) {
+        filterObj = filter;
+        entityType = type;
+
+        ProgressDialog.init(
+            {
+                header: ASC.CRM.Resources.CRMCommonResource.ExportData,
+                footer: ASC.CRM.Resources.CRMCommonResource.ExportDataInfo.format("<a class='link underline' href='/products/files/'>", "</a>"),
+                progress: ASC.CRM.Resources.CRMCommonResource.ExportDataProgress
+            },
+            jq("#studioPageContent .mainPageContent .containerBodyBlock:first"),
+            {
+                terminate: Teamlab.cancelCrmCancelPartialExport,
+                status: Teamlab.getCrmPartialExportStatus,
+                generate: Teamlab.startCrmPartialExport
+            });
+        
+        if (initialized) return;
+        
+        initialized = true;
+    };
+
+    return {
+        init: init,
+        startExport: startExport
+    };
+})();

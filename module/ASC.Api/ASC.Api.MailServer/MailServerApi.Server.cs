@@ -24,12 +24,10 @@
 */
 
 
-using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.MailServer.DataContracts;
-using ASC.Api.MailServer.Extensions;
-using System.Security;
+using ASC.Core;
+using ASC.Mail.Data.Contracts;
 
 namespace ASC.Api.MailServer
 {
@@ -42,22 +40,9 @@ namespace ASC.Api.MailServer
         /// <short>Get mail server</short> 
         /// <category>Servers</category>
         [Read(@"server")]
-        public TenantServerData GetMailServer()
+        public ServerData GetMailServer()
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            var dns = GetUnusedDnsRecords();
-
-            return new TenantServerData
-                           {
-                               Id = MailServer.Id,
-                               Dns = dns,
-                               ServerLimits = new TenantServerLimitsData
-                                   {
-                                       MailboxMaxCountPerUser = MailboxPerUserLimit
-                                   }
-                           };
+            return MailEngineFactory.ServerEngine.GetMailServer();
         }
 
         /// <summary>
@@ -67,30 +52,21 @@ namespace ASC.Api.MailServer
         /// <short>Get mail server</short> 
         /// <category>Servers</category>
         [Read(@"serverinfo/get")]
-        public FullServerData GetMailServerFullInfo()
+        public ServerFullData GetMailServerFullInfo()
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
+            var fullServerInfo = MailEngineFactory.ServerEngine.GetMailServerFullInfo();
 
-            var fullServerInfo = new FullServerData();
-            var mailboxes = new List<MailboxData>();
-            var mailgroups = new List<MailGroupData>();
+            if (!CoreContext.Configuration.Standalone)
+                return fullServerInfo;
 
-            var server = GetMailServer();
-            var domains = GetDomains();
+            var commonDomain = fullServerInfo.Domains.FirstOrDefault(d => d.IsSharedDomain);
+            if (commonDomain == null)
+                return fullServerInfo;
 
-            if (domains.Any())
-            {
-                mailboxes = GetMailboxes();
-
-                if (mailboxes.Any())
-                    mailgroups = GetMailGroups();
-            }
-
-            fullServerInfo.Server = server;
-            fullServerInfo.Domains = domains;
-            fullServerInfo.Mailboxes = mailboxes;
-            fullServerInfo.Mailgroups = mailgroups;
+            //Skip common domain
+            fullServerInfo.Domains = fullServerInfo.Domains.Where(d => !d.IsSharedDomain).ToList();
+            fullServerInfo.Mailboxes =
+                fullServerInfo.Mailboxes.Where(m => m.Address.DomainId != commonDomain.Id).ToList();
 
             return fullServerInfo;
         }
@@ -102,12 +78,9 @@ namespace ASC.Api.MailServer
         /// <short>Get free DNS records</short>
         /// <category>DnsRecords</category>
         [Read(@"freedns/get")]
-        public DnsData GetUnusedDnsRecords()
+        public ServerDomainDnsData GetUnusedDnsRecords()
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            return MailServer.GetFreeDnsRecords(MailServerFactory).ToDnsData();
+            return MailEngineFactory.ServerEngine.GetOrCreateUnusedDnsData();
         }
     }
 }

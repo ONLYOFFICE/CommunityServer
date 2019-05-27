@@ -58,15 +58,15 @@ namespace ASC.Web.Studio.Core.HelpCenter
             ListItems = new List<HelpCenterItem>();
         }
 
-        public override void Init(string html, string helpLinkBlock, string url)
+        public override void Init(string html, string helpLinkBlock, string baseUrl)
         {
             if (string.IsNullOrEmpty(html)) return;
 
             try
             {
-                if (!url.EndsWith("/"))
+                if (!baseUrl.EndsWith("/"))
                 {
-                    url = url.Remove(url.LastIndexOf("/"), 3);
+                    baseUrl = baseUrl + "/";
                 }
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
@@ -102,7 +102,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
                                 if (value.IndexOf("#", StringComparison.Ordinal) != 0 && value.Length > 1)
                                 {
-                                    href.Attributes["href"].Value = url + value.Substring(1);
+                                    href.Attributes["href"].Value = baseUrl + value.TrimStart('/');
                                     href.SetAttributeValue("target", "_blank");
                                 }
                                 else
@@ -123,7 +123,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                             {
                                 var val = img.Attributes["src"].Value;
                                 if(val.StartsWith("data:image") || val.StartsWith("http")) continue;
-                                img.Attributes["src"].Value = GetBase64(url + val);
+                                img.Attributes["src"].Value = GetBase64(baseUrl + val.TrimStart('/'));
                             }
 
                             foreach (var screenPhoto in images.Where(img =>

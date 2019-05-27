@@ -40,7 +40,7 @@ namespace ASC.Web.CRM.Classes
     {
         public FileUploadResult ProcessUpload(HttpContext context)
         {
-            if (!WebItemSecurity.IsAvailableForUser(ProductEntryPoint.ID.ToString(), SecurityContext.CurrentAccount.ID))
+            if (!WebItemSecurity.IsAvailableForMe(ProductEntryPoint.ID))
                 throw CRMSecurity.CreateSecurityException();
 
             var fileUploadResult = new FileUploadResult();

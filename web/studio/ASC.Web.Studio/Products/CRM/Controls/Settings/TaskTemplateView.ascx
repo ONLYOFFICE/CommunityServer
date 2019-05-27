@@ -6,12 +6,14 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div>
+<div class="header-base settingsHeader"><%= CRMSettingResource.TaskTemplates %></div>
+
+<div id="TaskTemplateViewTabs"></div>
+
+<div class="clearFix settingsNewItemBlock">
     <a class="link dotline plus" onclick="ASC.CRM.TaskTemplateView.showTemplateConatainerPanel();" >
         <%= CRMSettingResource.AddNewTaskTemplateContainer%>
     </a>
-
-    <div id="TaskTemplateViewTabs"></div>
 </div>
 
 <div id="templateConatainerPanel" style="display: none">
@@ -124,8 +126,7 @@
 </div>
 
 
-<ul id="templateConatainerContent" class="clearFix">
-</ul>
+<ul id="templateConatainerContent" class="clearFix"></ul>
 
 <div id="emptyContent" style="display: none">
     <asp:PlaceHolder ID="_phEmptyContent" runat="server"></asp:PlaceHolder>

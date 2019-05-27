@@ -19,7 +19,8 @@ winston.stream = {
 
 const redis = {
     host: config.get("redis:host"),
-    port: config.get("redis:port")
+    port: config.get("redis:port"),
+    ttl: 3600
 }
 
 let store;

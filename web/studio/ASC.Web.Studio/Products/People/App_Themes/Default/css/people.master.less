@@ -124,6 +124,12 @@ a.linkAction.button.blue:visited {
     margin-top: 16px;
 }
 
+body.media-width-0-1200 {
+    #peopleContent {
+        padding-bottom: 48px;
+    }
+}
+
 #tableForPeopleNavigation {
     margin-top: 16px;
     width: 100%;
@@ -462,27 +468,6 @@ header menu elements for group operations
     }
 }
 
-.ldap-lock::after,
-.ldap-lock-big::after {
-    content: "LDAP";
-    background-color: #FADB8F;
-    border-radius: 2px;
-    
-}
-
-.ldap-lock::after {
-    font-size: 9px;   
-    margin-left: 2px;
-    vertical-align: middle;
-    padding: 0px 8px;
-}
-
-.ldap-lock-big::after {
-    font-size: 12px;
-    vertical-align: top;
-    padding: 2px 5px;
-}
-
 .sso-lock::after,
 .sso-lock-big::after {
     content: "SSO";
@@ -555,6 +540,15 @@ header menu elements for group operations
         margin: 20px 0;
         font-size: 18px;
     }
+
+    .delete-profile-container {
+        margin-top: 32px;
+
+        input[type=checkbox] {
+            float: left;
+            margin: 2px 5px 0 0;
+        }
+    }
 }
 
 .progress-container {
@@ -610,4 +604,17 @@ header menu elements for group operations
 #confirmInput {
     margin-top: 16px;
     width: 99%;
+}
+
+#groupListContainer {
+    max-height: 570px;
+    overflow: hidden;
+
+    &:hover {
+        overflow-y: auto;
+    }
+
+    .menu-item-label {
+        white-space: nowrap;
+    }
 }

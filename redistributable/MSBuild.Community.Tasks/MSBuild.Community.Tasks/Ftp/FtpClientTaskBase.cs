@@ -327,6 +327,32 @@ namespace MSBuild.Community.Tasks.Ftp
         }
 
         /// <summary>
+        /// Sets the type of file to be transferred.
+        /// </summary>
+        /// <param name="mode">File transfer type: BINARY or ASCII</param>
+        public void SetFileTransferType( String mode )
+        {
+            if (!mode.Equals("binary", StringComparison.InvariantCultureIgnoreCase)
+                && !mode.Equals("ascii", StringComparison.InvariantCultureIgnoreCase))
+            {
+                CloseAndTrowException(new FtpException("Set file transfer type accepts only following values: 'BINARY' or 'ASCII'."));
+            }
+
+            String rawCommand = mode.Equals("binary", StringComparison.InvariantCultureIgnoreCase)
+                ? "TYPE I"
+                : "TYPE A";
+
+            // Send user command and read reply.
+            FtpReply reply = SendCommandAndReadResponse(rawCommand);
+
+            // If setting file transfer mode was not accepted.
+            if (reply.ResultCode != 200)
+            {
+                CloseAndTrowException(new FtpException(reply.Message));
+            }
+        }
+
+        /// <summary>
         /// Changes the working directory.
         /// </summary>
         /// <param name="remoteDirectory">The remote directory.</param>
@@ -377,7 +403,7 @@ namespace MSBuild.Community.Tasks.Ftp
             FtpReply reply = SendCommandAndReadResponse( "CDUP" );
 
             // If no 'okay' reply received, throw exception.
-            if(reply.ResultCode != 250)
+            if(reply.ResultCode != 250 && reply.ResultCode != 200)
             {
                 throw new FtpException( reply.Message );
             }

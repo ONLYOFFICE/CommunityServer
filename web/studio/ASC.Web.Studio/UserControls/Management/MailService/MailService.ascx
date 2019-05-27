@@ -6,7 +6,13 @@
 <div id="mailServiceBlock" class="settings-block">
     <div class="header-base"><%= Resource.MailServiceTitle %></div>
 
-    <p><%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "<a  class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block'>", "</a>") %></p>
+    <p>
+        <% if (string.IsNullOrEmpty(HelpLink)) { %>
+        <%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "", "") %>
+        <% } else { %>
+        <%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "<a  class='link underline' href='" + HelpLink + "/gettingstarted/mail.aspx#MailServer_block'>", "</a>") %>
+        <% } %>
+    </p>
 
     <div class="mail-service-item requiredField">
         <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceServerIp %></div>
@@ -27,7 +33,7 @@
         </div>
         <div class="mail-service-item requiredField">
             <div class="header-base-small headerPanelSmall"><%= Resource.MailServicePassword %></div>
-            <input id="mailServicePassword" type="text" class="mail-service-value textEdit" value="<%= Password %>" placeholder="<%= MailServiceHelper.DefaultPassword %>" />
+            <input id="mailServicePassword" type="password" class="mail-service-value textEdit" value="<%= Password %>" placeholder="<%= MailServiceHelper.DefaultPassword %>" />
             <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultPassword) %></div>
         </div>
     </div>
@@ -48,7 +54,13 @@
 </div>
 
 <div class="settings-help-block" style="float: none">
-    <p><%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "<a href='https://helpcenter.onlyoffice.com/server/docker/mail/docker-installation.aspx'>", "</a>", "<br/>") %></p>
+    <p>
+        <% if (string.IsNullOrEmpty(HelpLink)) { %>
+        <%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "", "", "<br/>") %>
+        <% } else { %>
+        <%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "<a href='" + HelpLink + "/server/docker/mail/docker-installation.aspx'>", "</a>", "<br/>") %>
+        <% } %>
+    </p>
 </div>
 
 <% if(!string.IsNullOrEmpty(ApiHost)) { %>

@@ -29,25 +29,36 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty.Configuration;
 using Twitterizer;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class TwitterLoginProvider : ILoginProvider
+    public class TwitterLoginProvider : BaseLoginProvider<TwitterLoginProvider>
     {
-        public static string TwitterKey
+        public static string TwitterKey { get { return Instance.ClientID; } }
+        public static string TwitterSecret { get { return Instance.ClientSecret; } }
+        public static string TwitterDefaultAccessToken { get { return Instance["twitterAccessToken_Default"]; } }
+        public static string TwitterAccessTokenSecret { get { return Instance["twitterAccessTokenSecret_Default"]; } }
+
+        public override string AccessTokenUrl { get { return "https://api.twitter.com/oauth/access_token"; } }
+        public override string RedirectUri { get { return this["twitterRedirectUrl"]; } }
+        public override string ClientID { get { return this["twitterKey"]; } }
+        public override string ClientSecret { get { return this["twitterSecret"]; } }
+        public override string CodeUrl { get { return "https://api.twitter.com/oauth/request_token"; } }
+
+        public override bool IsEnabled
         {
-            get { return KeyStorage.Get("twitterKey"); }
+            get
+            {
+                return !string.IsNullOrEmpty(ClientID) &&
+                       !string.IsNullOrEmpty(ClientSecret);
+            }
         }
 
-        public static string TwitterSecret
-        {
-            get { return KeyStorage.Get("twitterSecret"); }
-        }
+        public TwitterLoginProvider() { }
+        public TwitterLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) { }
 
-
-        public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
+        public override LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
         {
             if (!string.IsNullOrEmpty(context.Request["denied"]))
             {
@@ -56,7 +67,12 @@ namespace ASC.FederatedLogin.LoginProviders
 
             if (string.IsNullOrEmpty(context.Request["oauth_token"]))
             {
-                var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, context.Request.GetUrlRewriter().AbsoluteUri);
+                var callbackAddress = new UriBuilder(RedirectUri)
+                    {
+                        Query = "state=" + HttpUtility.UrlEncode(context.Request.GetUrlRewriter().AbsoluteUri)
+                    };
+
+                var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, callbackAddress.ToString());
                 var url = OAuthUtility.BuildAuthorizationUri(reqToken.Token).ToString();
                 context.Response.Redirect(url, true);
                 return null;
@@ -79,7 +95,12 @@ namespace ASC.FederatedLogin.LoginProviders
             return ProfileFromTwitter(account);
         }
 
-        public LoginProfile GetLoginProfile(string accessToken)
+        protected override OAuth20Token Auth(HttpContext context, string scopes, Dictionary<string, string> additional = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override LoginProfile GetLoginProfile(string accessToken)
         {
             throw new NotImplementedException();
         }

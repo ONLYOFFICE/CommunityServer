@@ -30,8 +30,10 @@
 
     <div class="middle-button-container">
         <span id="docServiceButtonSave" class="button blue"><%= Resource.SaveButton %></span>
+        <span class="splitter-buttons"></span>
+        <span id="docServiceButtonReset" class="button gray"><%= Resource.ResetButton %></span>
     </div>
 </div>
 <div class="settings-help-block">
-    <p><%= String.Format((Resource.DocServiceUrlHelp2 + (TenantExtra.EnableDocbuilder ? Resource.DocServiceUrlDocbuilderHelp : "")).HtmlEncode(), "<br />", "<b>", "</b>") %></p>
+    <p><%= String.Format(Resource.DocServiceUrlHelp2.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
 </div>

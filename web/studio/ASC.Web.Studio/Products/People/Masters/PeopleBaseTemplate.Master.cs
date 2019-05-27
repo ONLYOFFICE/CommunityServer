@@ -43,7 +43,7 @@ namespace ASC.Web.People.Masters
             _sidepanelHolder.Controls.Add(LoadControl(SideNavigationPanel.Location));
 
             //UserMaker.AddOnlyOne(Page, ControlHolder);
-            ControlHolder.Controls.Add(new ImportUsersWebControl());
+            //ControlHolder.Controls.Add(new ImportUsersWebControl());
             ControlHolder.Controls.Add(LoadControl(ResendInvitesControl.Location));
 
             Master

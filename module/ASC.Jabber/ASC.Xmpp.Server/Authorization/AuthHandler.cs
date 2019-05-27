@@ -24,6 +24,9 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+
 using ASC.Xmpp.Core.authorization.DigestMD5;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.sasl;
@@ -32,11 +35,9 @@ using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Streams;
 using ASC.Xmpp.Server.Users;
 using ASC.Xmpp.Server.Utils;
-using log4net;
-using System;
-using System.Collections.Generic;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.Novell;
+using ASC.Common.Logging;
 
 namespace ASC.Xmpp.Server.Authorization
 {
@@ -45,7 +46,7 @@ namespace ASC.Xmpp.Server.Authorization
     [XmppHandler(typeof(Abort))]
     class AuthHandler : XmppStreamHandler
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(AuthHandler));
+        private readonly ILog log = LogManager.GetLogger("ASC");
         private readonly IDictionary<string, AuthData> authData = new Dictionary<string, AuthData>();
 
         public override void StreamEndHandle(XmppStream stream, ICollection<Node> notSendedBuffer, XmppHandlerContext context)

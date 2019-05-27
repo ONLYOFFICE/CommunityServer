@@ -42,6 +42,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 "~/products/crm/templates/CommonTemplates.html",
                 "~/products/crm/templates/ContactsTemplates.html",
                 "~/products/crm/templates/DealsTemplates.html",
+                "~/products/crm/templates/DealsSelectorTemplates.html",
                 "~/products/crm/templates/SimpleContactListTemplate.html",
                 "~/products/crm/templates/TasksTemplates.html",
                 "~/products/crm/templates/ContactSelectorTemplates.html",

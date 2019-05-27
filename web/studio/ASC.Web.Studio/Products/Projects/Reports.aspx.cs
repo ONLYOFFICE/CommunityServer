@@ -26,13 +26,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
-using ASC.Web.Projects.Classes;
 using PathProvider = ASC.Web.Projects.Classes.PathProvider;
+using Report = ASC.Web.Projects.Classes.Report;
 
 namespace ASC.Web.Projects
 {
@@ -40,11 +41,15 @@ namespace ASC.Web.Projects
     {
         public List<Report> ListReports { get; private set; }
         public List<ReportTemplate> ListTemplates { get; set; }
+        public int ReportsCount { get; set; }
+
         protected override bool CheckSecurity { get { return !Participant.IsVisitor; } }
 
         protected override void PageLoad()
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "reports.js");
+
+            ReportsCount = EngineFactory.ReportEngine.Get().Count();
 
             var tmplId = Request["tmplId"];
             if (!string.IsNullOrEmpty(tmplId))
@@ -56,6 +61,10 @@ namespace ASC.Web.Projects
                 if (!string.IsNullOrEmpty(Request["reportType"]))
                 {
                     _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Reports/ReportView.ascx")));
+                }
+                else if (ReportsCount > 0)
+                {
+                    _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Reports/ReportFile.ascx")));
                 }
                 else
                 {

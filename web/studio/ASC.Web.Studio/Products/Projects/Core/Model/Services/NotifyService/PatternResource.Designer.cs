@@ -101,7 +101,7 @@ namespace ASC.Projects.Core.Services.NotifyService {
         ///
         ///$AdditionalData.get_item(&quot;MessagePreview&quot;) 
         ///
-        ///#foreach($fileInfo in $AdditionalData.get_item(&quot;Files&quot;).Keys) 
+        ///#foreach($fileInfo in $AdditionalData.get_item(&quot;Files&quot;)) 
         ///
         ///#beforeall 
         ///
@@ -109,7 +109,9 @@ namespace ASC.Projects.Core.Services.NotifyService {
         ///
         ///#each 
         ///
-        ///&quot;$fileInfo&quot;:&quot;$AdditionalData.get_item [rest of string was truncated]&quot;;.
+        ///&quot;$fileInfo.Item1&quot;:&quot;$fileInfo.Item2&quot; 
+        ///
+        ///#end [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_EditMessage {
             get {

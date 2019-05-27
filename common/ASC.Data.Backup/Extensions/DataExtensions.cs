@@ -25,12 +25,13 @@
 
 
 using System.Data;
+using System.Data.Common;
 
 namespace ASC.Data.Backup.Extensions
 {
     public static class DataExtensions
     {
-        public static IDbCommand WithTimeout(this IDbCommand command, int timeout)
+        public static DbCommand WithTimeout(this DbCommand command, int timeout)
         {
             if (command != null)
             {
@@ -39,7 +40,7 @@ namespace ASC.Data.Backup.Extensions
             return command;
         }
 
-        public static IDbConnection Fix(this IDbConnection connection)
+        public static DbConnection Fix(this DbConnection connection)
         {
             if (connection != null && connection.State != ConnectionState.Open)
             {

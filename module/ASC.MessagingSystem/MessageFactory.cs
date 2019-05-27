@@ -27,8 +27,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Core;
-using log4net;
 
 namespace ASC.MessagingSystem
 {

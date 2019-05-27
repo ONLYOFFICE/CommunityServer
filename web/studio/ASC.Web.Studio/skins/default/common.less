@@ -136,7 +136,7 @@ input,textarea, select {
     text-align: left;
     width: auto;
     height: auto;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .mainPageTable {
@@ -174,6 +174,11 @@ input,textarea, select {
 
     &.with-mainPageTableSidePanel .mainPageContent {
         padding-left: 24px;
+
+        &.calendar{
+            padding-left: 0;
+            padding-bottom: 0;
+        }
     }
 }
 
@@ -183,12 +188,145 @@ input,textarea, select {
     width: 240px;
 }
 .sidepanel-with-chat {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .mainContainer {
     overflow: hidden;
 }
 
+
+/*******************************************************************************
+    calendar
+*******************************************************************************/
+
+.ui-icon.ui-icon-circle-triangle-e { 
+    background-position: -32px 0; 
+}
+.ui-icon.ui-icon-circle-triangle-w {
+    background-position: -96px 0; 
+}
+
+.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    background-color: transparent;
+    border: none;
+
+    .ui-datepicker-next.ui-corner-all.ui-state-hover, .ui-datepicker-prev.ui-corner-all.ui-state-hover {
+        border-color:#ddd !important;
+        background-color:#ddd !important;
+    }
+}
+.ui-widget-header .ui-corner-all.ui-state-hover {
+    border-color:#ddd;
+    background-color:#ddd;
+}
+.ui-datepicker-title {
+    .ui-datepicker-month, .ui-datepicker-year {
+        border-bottom: 1px dotted black;
+        cursor: pointer;
+        padding-bottom: 0.1em;
+    }
+}
+.asc-datepicker .ui-datepicker .ui-datepicker-calendar td, .ui-datepicker .ui-datepicker-calendar td {
+    padding: 1px 1px 1px 3px;
+}
+
+
+.ui-datepicker.ui-corner-all {
+    width: 20em;
+}
+
+.ui-datepicker.ui-corner-all th {
+    font-weight: normal;
+}
+
+.ui-datepicker a.ui-state-default {
+    border: 1px solid #ffffff;
+    background: #fff;
+    font-weight: normal;
+    color: #555555;
+    text-align: center;
+    border-radius: 3px;
+    width: 16px;
+    height: 13px;
+    line-height: 13px;
+}
+
+.ui-datepicker-prev-hover.ui-corner-all {
+    border-color:#ddd !important;
+    background:#ddd !important;
+}
+
+.ui-datepicker-calendar a.ui-state-default {
+    &.ui-state-hover {
+        border: 1px solid #ddd !important;
+        background: #ddd !important;
+        font-weight: normal;
+        color: #555555 !important;
+    }
+}
+
+.ui-datepicker a.ui-state-default {
+    &.ui-state-hover, &.ui-state-active, &.ui-state-highlight.ui-state-active, &.ui-state-highlight.ui-state-hover {
+        border: 1px solid #ddd !important;
+        background: #ddd !important;
+        font-weight: normal;
+        color: #555555 !important;
+    }
+}
+
+.ui-datepicker a.ui-state-default {
+    &.ui-state-highlight {
+        border: 1px solid #fefde9 !important;
+        background: #fefde9 !important;
+        font-weight: normal;
+        color: #555555 !important;
+    }
+}
+
+.asc-datepicker {
+    .ui-datepicker-inline.ui-datepicker {
+
+        &.ui-datepicker.ui-widget.ui-widget-content {
+            width: 20em;
+        }
+
+        .ui-widget-header .ui-corner-all.ui-state-hover {
+            border-color: #ddd;
+            background: #ddd;
+        }
+
+        .ui-datepicker-title .ui-datepicker-month, .ui-datepicker-title .ui-datepicker-year {
+            font-size: 12px;
+        }
+
+        .ui-icon.ui-icon-circle-triangle-w {
+            background-position: -96px 0;
+        }
+
+        .ui-icon.ui-icon-circle-triangle-e {
+            background-position: -32px 0;
+        }
+
+        .ui-datepicker-calendar th span {
+            text-transform: none;
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .ui-datepicker-calendar .ui-state-disabled span.ui-state-default {
+            border-radius: 3px;
+            width: 16px;
+            height: 13px;
+            line-height: 13px;
+            text-align: center;
+        }
+
+        .ui-datepicker-calendar td a {
+            text-align: center;
+            font-size: 11px;
+        }
+    }
+}
 
 /*******************************************************************************
     clearfix

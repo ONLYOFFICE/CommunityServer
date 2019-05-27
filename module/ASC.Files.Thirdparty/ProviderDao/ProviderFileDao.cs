@@ -127,7 +127,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result.ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             var result = Enumerable.Empty<File>();
 
@@ -143,7 +143,8 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                         {
                                             using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                             {
-                                                return fileDao.GetFilesForShare(matchedId.Select(selectorLocal.ConvertId).ToArray());
+                                                return fileDao.GetFilesForShare(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                    filterType, subjectGroup, subjectID, searchText, searchInContent);
                                             }
                                         })
                                         .Where(r => r != null));
@@ -161,13 +162,13 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
 
             using (var fileDao = selector.GetFileDao(parentId))
             {
-                var result = fileDao.GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+                var result = fileDao.GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectGroup, subjectID, searchText, searchInContent, withSubfolders)
                         .Where(r => r != null).ToList();
 
                 if (!result.Any()) return new List<File>();
@@ -302,7 +303,6 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var movedFile = PerformCrossDaoFileCopy(fileId, toFolderId, true);
                 return movedFile.ID;
             }
-
 
             using (var fileDao = selector.GetFileDao(fileId))
             {
@@ -445,7 +445,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             var result = Enumerable.Empty<File>();
 
@@ -461,7 +461,8 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                 {
                                                     using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                                     {
-                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders);
+                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                            filterType, subjectGroup, subjectID, searchText, searchInContent);
                                                     }
                                                 }));
             }
@@ -469,11 +470,11 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result.Distinct().ToList();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             using (var fileDao = TryGetFileDao())
             {
-                return fileDao.Search(text, folderType);
+                return fileDao.Search(text, bunch);
             }
         }
 

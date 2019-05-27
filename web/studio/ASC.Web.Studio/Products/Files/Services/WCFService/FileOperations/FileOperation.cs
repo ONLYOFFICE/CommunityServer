@@ -24,6 +24,15 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Security;
+using System.Security.Principal;
+using System.Threading;
+using System.Threading.Tasks;
+using ASC.Common.Logging;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
 using ASC.Common.Threading;
@@ -33,15 +42,6 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security;
-using System.Security.Principal;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
@@ -144,7 +144,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             }
             catch (Exception error)
             {
-                Error = error.Message;
+                Error = error is TaskCanceledException || error is OperationCanceledException
+                            ? FilesCommonResource.ErrorMassage_OperationCanceledException
+                            : error.Message;
                 Logger.Error(error, error);
             }
             finally

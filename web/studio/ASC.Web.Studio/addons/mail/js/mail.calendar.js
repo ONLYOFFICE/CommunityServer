@@ -75,6 +75,17 @@ window.mailCalendar = (function ($) {
         if (comp.name !== "vcalendar")
             throw "Unsupported ical type (Only VCALENDAR)";
 
+        var vtimezones = comp.getAllSubcomponents("vtimezone");
+        //Add all timezones in iCalendar object to TimezonService
+        //if they are not already registered.
+        vtimezones.forEach(function (vtimezone) {
+
+            if (!(window.ICAL.TimezoneService.has(
+                vtimezone.getFirstPropertyValue("tzid")))) {
+                window.ICAL.TimezoneService.register(vtimezone);
+            }
+        });
+
         var vevent = comp.getFirstSubcomponent("vevent");
         if (!vevent)
             throw "VEVENT not found";
@@ -148,8 +159,8 @@ window.mailCalendar = (function ($) {
         }
 
         window.moment.locale(ASC.Resources.Master.TwoLetterISOLanguageName);
-        var start = window.moment(event.startDate.toJSDate());
-        var end = window.moment(event.endDate.toJSDate());
+        var start = window.moment(new Date(event.startDate.toUnixTime() * 1000));
+        var end = window.moment(new Date(event.endDate.toUnixTime() * 1000));
 
         icalInfo.dtStartAllDay = event.startDate.isDate;
         icalInfo.dtStart = icalInfo.timeZone && !icalInfo.dtStartAllDay ? start.utcOffset(icalInfo.timeZone.offset) : start;

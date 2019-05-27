@@ -54,6 +54,7 @@ using ASC.Xmpp.Core.protocol.iq.agent;
 using ASC.Xmpp.Core.protocol.iq.bind;
 using ASC.Xmpp.Core.protocol.iq.blocklist;
 using ASC.Xmpp.Core.protocol.iq.browse;
+using ASC.Xmpp.Core.protocol.iq.chatmarkers;
 using ASC.Xmpp.Core.protocol.iq.disco;
 using ASC.Xmpp.Core.protocol.iq.jingle;
 using ASC.Xmpp.Core.protocol.iq.last;
@@ -200,7 +201,7 @@ namespace ASC.Xmpp.Core.protocol
             AddElementType("query", Uri.STORAGE_AVATAR, typeof (storage.Avatar));
 
             // XData Stuff
-            AddElementType("x", Uri.X_DATA, typeof (Data));
+            AddElementType("x", Uri.X_DATA, typeof (x.data.Data));
             AddElementType("field", Uri.X_DATA, typeof (Field));
             AddElementType("option", Uri.X_DATA, typeof (Option));
             AddElementType("value", Uri.X_DATA, typeof (Value));
@@ -422,6 +423,10 @@ namespace ASC.Xmpp.Core.protocol
             //Team lab
             AddElementType("query", Uri.X_TM_IQ_HISTORY, typeof (x.tm.history.History));
             AddElementType("item", Uri.X_TM_IQ_HISTORY, typeof (HistoryItem));
+
+            AddElementType("query", Uri.MSG_CHAT_MARKERS, typeof(Chatmarkers));
+            AddElementType("item", Uri.MSG_CHAT_MARKERS, typeof(Chatmarkers));
+
             AddElementType("query", Uri.X_TM_IQ_PRIVATELOG, typeof (PrivateLog));
             AddElementType("item", Uri.X_TM_IQ_PRIVATELOG, typeof (PrivateLogItem));
         }

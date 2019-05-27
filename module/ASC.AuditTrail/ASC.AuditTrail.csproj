@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.AuditTrail</RootNamespace>
     <AssemblyName>ASC.AuditTrail</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
@@ -30,15 +30,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CsvHelper">
-      <HintPath>..\..\packages\CsvHelper.2.3.0\lib\net40-client\CsvHelper.dll</HintPath>
+      <HintPath>..\..\packages\CsvHelper.7.1.0\lib\net45\CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -46,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuditEvent.cs" />
+    <Compile Include="BaseEvent.cs" />
     <Compile Include="LoginEvent.cs" />
     <Compile Include="Mappers\AuditActionMapper.cs" />
     <Compile Include="AuditReportCreator.cs" />

@@ -7,7 +7,7 @@
 
 
 <div id="settings_organisation_profile" class="clearFix">
-        <div class="header-base settingsHeader settingsHeaderBase" style="margin-top:5px;"><%= CRMSettingResource.BasicInformation%></div>
+        <div class="header-base settingsHeader settingsHeaderBase"><%= CRMSettingResource.BasicInformation%></div>
         <div class="headerPanelSmall-splitter">
             <div class="header-base-small headerPanelSmall"><%= CRMContactResource.CompanyName %>:</div>
             <input type="text" class="textEdit settingsOrganisationProfileName"  maxlength="255" value="" /> 
@@ -41,7 +41,9 @@
                    "<br/>",
                    OrganisationLogoManager.OrganisationLogoSize.Width,
                    OrganisationLogoManager.OrganisationLogoSize.Height)%></p>
-                <a target="blank" href="http://helpcenter.onlyoffice.com/gettingstarted/crm.aspx" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <% } %>
             </div>
         </div>
         <span class="fileUploadError"></span>
@@ -114,7 +116,9 @@
                 <p><%=String.Format(CRMSettingResource.SettingsCompanyAddressHelp,
                    "<strong>",
                    "</strong>")%></p>
-                <a target="_blank" href="http://helpcenter.onlyoffice.com/gettingstarted/crm.aspx" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <% } %>
             </div>
         </div>
 

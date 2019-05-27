@@ -24,37 +24,43 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using ASC.Common.Logging;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.client;
+using ASC.Xmpp.Core.protocol.iq.chatmarkers;
 using ASC.Xmpp.Core.protocol.x;
 using ASC.Xmpp.Core.protocol.x.tm.history;
 using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Streams;
 using ASC.Xmpp.Server.Utils;
-using log4net;
-using System;
-using System.Collections.Generic;
+
 
 namespace ASC.Xmpp.Server.Services.Jabber
 {
     [XmppHandler(typeof(Message))]
     [XmppHandler(typeof(History))]
     [XmppHandler(typeof(PrivateLog))]
+    [XmppHandler(typeof(Chatmarkers))]
     public class MessageArchiveHandler : XmppStanzaHandler
     {
         private DbMessageArchive archiveStore;
+
+        private IServiceProvider _serviceProvider;
 
         private static readonly int BUFFER_SIZE = 25;
 
         private readonly List<Message> messageBuffer = new List<Message>(BUFFER_SIZE);
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(MessageArchiveHandler));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
 
         public override void OnRegister(IServiceProvider serviceProvider)
         {
             archiveStore = ((StorageManager)serviceProvider.GetService(typeof(StorageManager))).GetStorage<DbMessageArchive>("archive");
+            _serviceProvider = serviceProvider;
         }
 
         public override void OnUnregister(IServiceProvider serviceProvider)
@@ -68,6 +74,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
             if (iq.Query is PrivateLog && iq.Type == IqType.set) return SetPrivateLog(stream, iq, context);
             if (iq.Query is PrivateLog && (iq.Type == IqType.result || iq.Type == IqType.error)) return null;
             if (iq.Query is History && iq.Type == IqType.get) return GetHistory(stream, iq, context);
+            if (iq.Query is Chatmarkers && iq.Type == IqType.get) return ClearUnreadMessages(stream, iq, context, _serviceProvider);
             return XmppStanzaError.ToServiceUnavailable(iq);
         }
 
@@ -155,13 +162,24 @@ namespace ASC.Xmpp.Server.Services.Jabber
 
             var history = (History)iq.Query;
             history.RemoveAllChildNodes();
-            foreach (var m in archiveStore.GetMessages(iq.From, iq.To, history.From, history.To, history.Count, history.StartIndex))
+            foreach (var m in archiveStore.GetMessages(iq.From, iq.To, history.From, history.To, history.Text, history.Count, history.StartIndex))
             {
                 if (m == null) continue;
 
                 history.AddChild(HistoryItem.FromMessage(m));
             }
 
+            iq.Type = IqType.result;
+            iq.SwitchDirection();
+            return iq;
+        }
+
+        private IQ ClearUnreadMessages(XmppStream stream, IQ iq, XmppHandlerContext context, IServiceProvider serviceProvider)
+        {
+            if (!iq.HasTo) return XmppStanzaError.ToServiceUnavailable(iq);
+
+            archiveStore.ClearUnreadMessages(iq.From, iq.To, serviceProvider);
+           
             iq.Type = IqType.result;
             iq.SwitchDirection();
             return iq;

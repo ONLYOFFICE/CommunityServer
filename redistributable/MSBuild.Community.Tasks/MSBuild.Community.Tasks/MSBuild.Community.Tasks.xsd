@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="Microsoft.Build.Commontypes.xsd" />
+  <xs:element name="EmbedNativeResource" substitutionGroup="msb:Task">
+    <xs:annotation>
+      <xs:documentation>Embed native (rather than .NET) resource into a DLL or EXE.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent mixed="false">
+        <xs:extension base="msb:TaskType">
+          <xs:attribute name="TargetAssemblyPath" type="msb:non_empty_string" use="required">
+            <xs:annotation>
+              <xs:documentation>Gets or sets the assemblie's path into which a resource will be embedded.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ResourcePath" type="msb:non_empty_string" use="required">
+            <xs:annotation>
+              <xs:documentation>Gets or sets the resource path.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ResourceName" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>[Optional] Gets or sets resource's name. Defaults to ResourcePath file name.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ResourceType" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>[Optional] Gets or sets resource's type. Defaults to RC_DATA.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="AssemblyInfo" substitutionGroup="msb:Task">
     <xs:annotation>
       <xs:documentation>Generates an AssemblyInfo files</xs:documentation>
@@ -1598,7 +1629,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Move" substitutionGroup="msb:Task">
+  <xs:element name="MV" substitutionGroup="msb:Task">
     <xs:annotation>
       <xs:documentation>Moves files on the filesystem to a new location.</xs:documentation>
     </xs:annotation>

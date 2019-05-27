@@ -30,6 +30,7 @@ using System.Linq;
 using System.Security;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
+using ASC.CRM.Core.Entities;
 using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
@@ -213,23 +214,41 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Save organisation company address
         /// </summary>
-        /// <param name="companyAddress">Organisation company address</param>
+        /// <param name="street">Organisation company street/building/apartment address</param>
+        /// <param name="city">City</param>
+        /// <param name="state">State</param>
+        /// <param name="zip">Zip</param>
+        /// <param name="country">Country</param>
         /// <short>Save organisation company address</short>
         /// <category>Organisation</category>
-        /// <returns>Organisation company address</returns>
+        /// <returns>Returns a JSON object with the organization company address details</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"settings/organisation/address")]
-        public String UpdateOrganisationSettingsCompanyAddress(String companyAddress)
+        public String UpdateOrganisationSettingsCompanyAddress(String street, String city, String state, String zip, String country)
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
+
             var tenantSettings = Global.TenantSettings;
+
             if (tenantSettings.InvoiceSetting == null)
             {
                 tenantSettings.InvoiceSetting = InvoiceSetting.DefaultSettings;
             }
+
+            var companyAddress = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    type = AddressCategory.Billing.ToString(),
+                    street,
+                    city,
+                    state,
+                    zip,
+                    country
+                });
+
             tenantSettings.InvoiceSetting.CompanyAddress = companyAddress;
 
             tenantSettings.Save();
+
             MessageService.Send(Request, MessageAction.OrganizationProfileUpdatedAddress);
 
             return companyAddress;
@@ -351,47 +370,6 @@ namespace ASC.Api.CRM
             return ToCurrencyInfoWrapper(cur);
         }
 
-        /// <summary>
-        ///  Save SMTP Server Settings
-        /// </summary>
-        /// <short>Save SMTP Settings</short>
-        /// <param name="host">Host name</param>
-        /// <param name="port">Port</param>
-        /// <param name="authentication">Need authentication</param>
-        /// <param name="hostLogin">Host Login</param>
-        /// <param name="hostPassword">Host Password</param>
-        /// <param name="senderDisplayName">Sender Name</param>
-        /// <param name="senderEmailAddress">Sender Email Address</param>
-        /// <param name="enableSSL">Enable SSL</param>
-        /// <category>Common</category>
-        /// <returns>SMTP Server Settings</returns>
-        /// <exception cref="SecurityException"></exception>
-        [Update(@"settings/smtp")]
-        public SMTPServerSetting SaveSMTPSettings(string host, int port, bool authentication, string hostLogin, string hostPassword, string senderDisplayName, string senderEmailAddress, bool enableSSL)
-        {
-            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
-
-            Global.SaveSMTPSettings(host, port, authentication, hostLogin, hostPassword, senderDisplayName, senderEmailAddress, enableSSL);
-            MessageService.Send(Request, MessageAction.CrmSmtpSettingsUpdated);
-
-            var crmSettings = Global.TenantSettings;
-
-            return crmSettings.SMTPServerSetting;
-        }
-
-        /// <visible>false</visible>
-        [Create(@"settings/testmail")]
-        public string SendTestMailSMTP(string toEmail, string mailSubj, string mailBody)
-        {
-            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
-
-            if (string.IsNullOrEmpty(toEmail) || string.IsNullOrEmpty(mailBody)) throw new ArgumentException();
-
-            MailSender.StartSendTestMail(toEmail, mailSubj, mailBody);
-            MessageService.Send(Request, MessageAction.CrmTestMailSent);
-            return "";
-        }
-
         /// <visible>false</visible>
         [Create(@"{entityType:(contact|opportunity|case|task)}/import/start")]
         public string StartImportFromCSV(string entityType, string csvFileURI, string jsonSettings)
@@ -471,33 +449,88 @@ namespace ASC.Api.CRM
 
         /// <visible>false</visible>
         [Read(@"export/status")]
-        public IProgressItem GetExportToCSVStatus()
+        public IProgressItem GetExportStatus()
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
-            return ExportToCSV.GetStatus();
+            return ExportToCsv.GetStatus(false);
         }
 
         /// <visible>false</visible>
         [Update(@"export/cancel")]
-        public IProgressItem Cancel()
+        public IProgressItem CancelExport()
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
-            ExportToCSV.Cancel();
-            return ExportToCSV.GetStatus();
+            ExportToCsv.Cancel(false);
+            return ExportToCsv.GetStatus(false);
         }
 
         /// <visible>false</visible>
         [Create(@"export/start")]
-        public IProgressItem StartExportData()
+        public IProgressItem StartExport()
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
 
             MessageService.Send(Request, MessageAction.CrmAllDataExported);
 
-            return ExportToCSV.Start();
+            return ExportToCsv.Start(null, "exportdata.zip");
         }
 
+        /// <visible>false</visible>
+        [Read(@"export/partial/status")]
+        public IProgressItem GetPartialExportStatus()
+        {
+            return ExportToCsv.GetStatus(true);
+        }
 
+        /// <visible>false</visible>
+        [Update(@"export/partial/cancel")]
+        public IProgressItem CancelPartialExport()
+        {
+            ExportToCsv.Cancel(true);
+            return ExportToCsv.GetStatus(true);
+        }
+
+        /// <visible>false</visible>
+        [Create(@"export/partial/{entityType:(contact|opportunity|case|task|invoiceitem)}/start")]
+        public IProgressItem StartPartialExport(string entityType, string base64FilterString)
+        {
+            if (string.IsNullOrEmpty(base64FilterString)) throw new ArgumentException();
+            
+            FilterObject filterObject;
+            String fileName;
+
+            switch (entityType.ToLower())
+            {
+                case "contact":
+                    filterObject = new ContactFilterObject(base64FilterString);
+                    fileName = "contacts.csv";
+                    MessageService.Send(Request, MessageAction.ContactsExportedToCsv);
+                    break;
+                case "opportunity":
+                    filterObject = new DealFilterObject(base64FilterString);
+                    fileName = "opportunity.csv";
+                    MessageService.Send(Request, MessageAction.OpportunitiesExportedToCsv);
+                    break;
+                case "case":
+                    filterObject = new CasesFilterObject(base64FilterString);
+                    fileName = "cases.csv";
+                    MessageService.Send(Request, MessageAction.CasesExportedToCsv);
+                    break;
+                case "task":
+                    filterObject = new TaskFilterObject(base64FilterString);
+                    fileName = "tasks.csv";
+                    MessageService.Send(Request, MessageAction.CrmTasksExportedToCsv);
+                    break;
+                case "invoiceitem":
+                    fileName = "products_services.csv";
+                    filterObject = new InvoiceItemFilterObject(base64FilterString);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return ExportToCsv.Start(filterObject, fileName);
+        }
 
 
         protected CurrencyInfoWrapper ToCurrencyInfoWrapper(CurrencyInfo currencyInfo)

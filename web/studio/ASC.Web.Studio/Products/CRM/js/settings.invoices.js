@@ -143,16 +143,16 @@ ASC.CRM.InvoiceItemsView = (function () {
         jq("#invoiceItemsHeaderMenu .menu-action-simple-pagenav").html("");
         var $simplePN = jq("<div></div>"),
             lengthOfLinks = 0;
-        if (jq("#divForCasesPager .pagerPrevButtonCSSClass").length != 0) {
+        if (jq("#divForInvoiceItemsPager .pagerPrevButtonCSSClass").length != 0) {
             lengthOfLinks++;
-            jq("#divForCasesPager .pagerPrevButtonCSSClass").clone().appendTo($simplePN);
+            jq("#divForInvoiceItemsPager .pagerPrevButtonCSSClass").clone().appendTo($simplePN);
         }
-        if (jq("#divForCasesPager .pagerNextButtonCSSClass").length != 0) {
+        if (jq("#divForInvoiceItemsPager .pagerNextButtonCSSClass").length != 0) {
             lengthOfLinks++;
             if (lengthOfLinks === 2) {
                 jq("<span style='padding: 0 8px;'>&nbsp;</span>").clone().appendTo($simplePN);
             }
-            jq("#divForCasesPager .pagerNextButtonCSSClass").clone().appendTo($simplePN);
+            jq("#divForInvoiceItemsPager .pagerNextButtonCSSClass").clone().appendTo($simplePN);
         }
         if ($simplePN.children().length != 0) {
             $simplePN.appendTo("#invoiceItemsHeaderMenu .menu-action-simple-pagenav");
@@ -268,7 +268,7 @@ ASC.CRM.InvoiceItemsView = (function () {
         invoiceItem.isChecked = index != -1;
         invoiceItem.priceFormat = ASC.CRM.Common.numberFormat(invoiceItem.price,
                                   {
-                                      before: ASC.CRM.Common.getCurrencySymbol(invoiceItem.currency.symbol, invoiceItem.currency.abbreviation),
+                                      before: invoiceItem.currency.symbol,
                                       after: " " + invoiceItem.currency.abbreviation,
                                       thousands_sep: " ",
                                       dec_point: ASC.CRM.Data.CurrencyDecimalSeparator
@@ -489,7 +489,7 @@ ASC.CRM.InvoiceItemsView = (function () {
     var _initScrolledGroupMenu = function () {
         ScrolledGroupMenu.init({
             menuSelector: "#invoiceItemsHeaderMenu",
-            menuAnchorSelector: "#mainSelectAllInvoiceItems",
+            menuAnchorSelector: "#invoiceItemsHeaderMenu .menuActionCreateNew",
             menuSpacerSelector: "#invoiceItemsList .header-menu-spacer",
             userFuncInTop: function () { jq("#invoiceItemsHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function () { jq("#invoiceItemsHeaderMenu .menu-action-on-top").show(); }
@@ -533,7 +533,7 @@ ASC.CRM.InvoiceItemsView = (function () {
             .advansedFilter({
                 anykey: false,
                 hintDefaultDisable: true,
-                maxfilters: 3,
+                maxfilters: -1,
                 colcount: 1,
                 maxlength: "100",
                 store: true,
@@ -646,23 +646,8 @@ ASC.CRM.InvoiceItemsView = (function () {
         noInvoiceItems: false,
         noInvoiceItemsForQuery: false,
 
-        init: function (exportErrorCookieKey) {
-            var exportErrorText = jq.cookies.get(exportErrorCookieKey)
-            if (exportErrorText != null && exportErrorText != "") {
-                jq.cookies.del(exportErrorCookieKey);
-                jq.tmpl("template-blockUIPanel", {
-                    id: "exportToCsvError",
-                    headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
-                    questionText: "",
-                    innerHtmlText: ['<div>', exportErrorText, '</div>'].join(''),
-                    CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
-                    progressText: ""
-                }).insertAfter("#invoiceItemsList");
-
-                PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#exportToCsvError", 500, 400, 0);
-            }
-
+        init: function () {
+            
             var settings = {
                 page: 1,
                 countOnPage: jq("#tableForInvoiceItemsNavigation select:first>option:first").val()
@@ -707,6 +692,8 @@ ASC.CRM.InvoiceItemsView = (function () {
                 jq("#invoiceItemsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.invoice_item, ga_Actions.filterClick, "sort");
                 jq("#invoiceItemsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.invoice_item, ga_Actions.filterClick, "search_text", "enter");
             });
+            
+            ASC.CRM.PartialExport.init(ASC.CRM.InvoiceItemsView.advansedFilter, "invoiceitem");
         },
 
         setFilter: function (evt, $container, filter, params, selectedfilters) { _changeFilter(); },
@@ -1470,7 +1457,7 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
                     country: jq.trim($addressContainer.find(".contact_country").val())
                 };
 
-                Teamlab.updateOrganisationSettingsAddresses({}, jq.toJSON(data),
+                Teamlab.updateOrganisationSettingsAddresses({}, data,
                     function () {
                         jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMInvoiceResource.AddressesUpdated).insertAfter(".settingsHeaderAddress");
                         jq("#settings_organisation_profile .save_addresses").removeClass("disable");

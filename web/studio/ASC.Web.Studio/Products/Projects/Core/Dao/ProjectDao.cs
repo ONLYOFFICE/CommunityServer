@@ -29,14 +29,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
-using ASC.FullTextIndex;
+using ASC.Core.Users;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using ASC.Web.Projects.Core.Search;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Projects.Data.DAO
@@ -182,12 +185,20 @@ namespace ASC.Projects.Data.DAO
 
         public List<Project> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
+            var teamQuery = new SqlQuery(ParticipantTable + " pp")
+                .SelectCount()
+                .InnerJoin("core_user cup", Exp.EqColumns("cup.tenant", "pp.tenant") & Exp.EqColumns("cup.id", "pp.participant_id"))
+                .Where(Exp.EqColumns("pp.tenant", "p.tenant_id"))
+                .Where(Exp.EqColumns("pp.project_id", "p.id"))
+                .Where("pp.removed", false)
+                .Where("cup.status", EmployeeStatus.Active);
+
             var query = new SqlQuery(ProjectsTable + " p")
                 .Select(ProjectColumns.Select(c => "p." + c).ToArray())
                 .Select(new SqlQuery(MilestonesTable + " m").SelectCount().Where(Exp.EqColumns("m.tenant_id", "p.tenant_id") & Exp.EqColumns("m.project_id", "p.id")).Where(Exp.Eq("m.status", MilestoneStatus.Open)))
                 .Select(new SqlQuery(TasksTable + " t").SelectCount().Where(Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id")).Where(!Exp.Eq("t.status", TaskStatus.Closed)))
                 .Select(new SqlQuery(TasksTable + " t").SelectCount().Where(Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id")))
-                .Select(new SqlQuery(ParticipantTable + " pp").SelectCount().Where(Exp.EqColumns("pp.tenant", "p.tenant_id") & Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false)))
+                .Select(teamQuery)
                 .Select("p.private")
                 .Where("p.tenant_id", Tenant);
 
@@ -282,9 +293,9 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsModule))
+                List<int> projIds;
+                if (FactoryIndexer<ProjectsWrapper>.TrySelectIds(s => s.MatchAll(filter.SearchText), out projIds))
                 {
-                    var projIds = FullTextSearch.Search(FullTextSearch.ProjectsModule.Match(filter.SearchText));
                     query.Where(Exp.In("p.id", projIds));
                 }
                 else
@@ -354,18 +365,18 @@ namespace ASC.Projects.Data.DAO
 
         public List<Project> GetByContactID(int contactId)
         {
-            IEnumerable<int> projectIds;
-            using (var crmDb = new DbManager("crm"))
-            {
-                projectIds = crmDb
-                    .ExecuteList(Query("crm_projects").Select("project_id").Where("contact_id", contactId))
-                    .ConvertAll(r => Convert.ToInt32(r[0]));
-            }
+            var projectIds = Db
+                .ExecuteList(Query("crm_projects").Select("project_id").Where("contact_id", contactId))
+                .ConvertAll(r => Convert.ToInt32(r[0]));
+
+            if(!projectIds.Any()) return new List<Project>(0);
+
             var milestoneCountQuery =
                 new SqlQuery(MilestonesTable + " m").SelectCount()
                     .Where(Exp.EqColumns("m.project_id", "p.id"))
                     .Where(Exp.Eq("m.status", MilestoneStatus.Open))
                     .Where(Exp.EqColumns("m.tenant_id", "p.tenant_id"));
+
             var taskCountQuery =
                 new SqlQuery(TasksTable + " t").SelectCount()
                     .Where(Exp.EqColumns("t.project_id", "p.id"))
@@ -609,19 +620,24 @@ namespace ASC.Projects.Data.DAO
             return GetTeamItemFromCacheOrLoad(projectId, participantId).InTeam;
         }
 
-        public List<Participant> GetTeam(Project project)
+        public List<Participant> GetTeam(Project project, bool withExcluded = false)
         {
             if (project == null) return new List<Participant>();
 
-            return Db.ExecuteList(
-                new SqlQuery(ParticipantTable + " pp")
-                    .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
-                    .Select("pp.participant_id, pp.security, pp.project_id")
-                    .Select(Exp.EqColumns("pp.project_id", "pt.id"))
-                    .Where("pp.tenant", Tenant)
-                    .Where("pp.project_id", project.ID)
-                    .Where("pp.removed", false))
-                .ConvertAll(ToParticipant);
+            var query = new SqlQuery(ParticipantTable + " pp")
+                .InnerJoin(ProjectsTable + " pt",
+                    Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
+                .Select("pp.participant_id, pp.security, pp.project_id")
+                .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                .Where("pp.tenant", Tenant)
+                .Where("pp.project_id", project.ID);
+
+            if (!withExcluded)
+            {
+                query.Where("pp.removed", false);
+            }
+
+            return Db.ExecuteList(query).ConvertAll(ToParticipant);
         }
 
         public List<Participant> GetTeam(IEnumerable<Project> projects)

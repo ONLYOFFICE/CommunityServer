@@ -6,12 +6,13 @@
 <script id="adminTmpl" type="text/x-jquery-tmpl">
     <tr id="adminItem_${id}" class="adminItem">
         <td class="borderBase adminImg">
-            <img src="${smallFotoUrl}" />
+            <img src="{{if $item.isRetina}}${bigFotoUrl}{{else}}${smallFotoUrl}{{/if}}" />
         </td>
         <td class="borderBase">
             <a class="link bold" href="${userUrl}">
                 ${displayName}
             </a>
+            {{if ldap}}<span class="ldap-lock" title=""></span>{{/if}}
             <div>
                 ${title}
             </div>
@@ -105,8 +106,8 @@
                 <% if (i == 0) %>
                 <% { %>
                     <div><%= FullAccessOpportunities[i] %>:</div>
-                <% }  else  { %>
-                    <div class="simple-marker-list"><%= FullAccessOpportunities[i] %>;</div>
+                <% }  else { %>
+                    <div class="simple-marker-list"><%= FullAccessOpportunities[i].TrimEnd(' ', ';', '.') + (i == FullAccessOpportunities.Length - 1 ? "." : ";") %></div>
                 <% } %>
             <% } %>
         </div>
@@ -116,9 +117,10 @@
             <% { %>
                 <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
                     <div><%= String.Format(Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
-                    <% foreach (var oprtunity in p.GetAdminOpportunities()) %>
+                    <% var last = p.GetAdminOpportunities().Last();
+                       foreach (var oprtunity in p.GetAdminOpportunities()) %>
                     <% { %>
-                        <div class="simple-marker-list"><%= oprtunity %>;</div>
+                        <div class="simple-marker-list"><%= oprtunity.TrimEnd(' ', ';', '.') + (oprtunity == last ? "." : ";") %></div>
                     <% } %>
                 </div>
             <% } %>

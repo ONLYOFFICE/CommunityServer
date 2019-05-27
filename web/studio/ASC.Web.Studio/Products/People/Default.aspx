@@ -1,5 +1,5 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
-<%@ Page Title="" Language="C#" MasterPageFile="~/products/people/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.People.Default" EnableViewState="false" %>
+<%@ Page Language="C#" MasterPageFile="~/products/people/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.People.Default" EnableViewState="false" %>
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace=" ASC.Web.Studio.Controls.Common" TagPrefix="sc" %>
 
@@ -155,9 +155,9 @@
             <div class="block-cnt-splitter">
                 <span class="tariff-limit"></span>
                 <%= PeopleResource.ChangeTypeDialogConstraint %>&nbsp;
-                <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                                                 "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                                                 "</a>") : string.Empty %>
+                <% if (IsFreeTariff && !string.IsNullOrEmpty(HelpLink)) { %>
+                <%= String.Format(PeopleResource.ReadAboutNonProfit, "<a class='link underline' href='" + HelpLink + "/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>", "</a>") %>
+                <% } %>
             </div>
             <% } %>
             <div class="block-cnt-splitter action-info">
@@ -230,9 +230,9 @@
             <div class="block-cnt-splitter">
                 <span class="tariff-limit"></span>
                 <%= PeopleResource.ChangeStatusDialogConstraint %>&nbsp;
-                <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                                                 "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                                                 "</a>") : string.Empty %>
+                <% if (IsFreeTariff && !string.IsNullOrEmpty(HelpLink)) { %>
+                <%= String.Format(PeopleResource.ReadAboutNonProfit, "<a class='link underline' href='" + HelpLink + "/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>", "</a>") %>
+                <% } %>
             </div>
             <% } %>
             <div class="block-cnt-splitter action-info">

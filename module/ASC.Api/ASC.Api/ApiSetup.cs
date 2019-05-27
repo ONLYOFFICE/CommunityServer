@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Web.Routing;
 using ASC.Api.Interfaces;
 using ASC.Common.DependencyInjection;
+using ASC.Common.Logging;
 using Autofac;
 
 namespace ASC.Api
@@ -55,6 +56,11 @@ namespace ASC.Api
                     if (!initialized)
                     {
                         var container = AutofacConfigLoader.Load("api");
+
+                        container.Register(c => LogManager.GetLogger("ASC.Api"))
+                            .As<ILog>()
+                            .SingleInstance();
+                        
                         container.Register(c => c.Resolve<IApiRouteConfigurator>().RegisterEntryPoints())
                             .As<IEnumerable<IApiMethodCall>>()
                             .SingleInstance();

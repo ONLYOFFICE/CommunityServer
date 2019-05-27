@@ -24,17 +24,19 @@
 */
 
 
+using System;
+using System.Web;
+using ASC.Web.Files.Classes;
 using AppLimit.CloudComputing.SharpBox;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.StorageProvider;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Files.Core;
-using System;
-using System.Web;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {
-    public class SharpBoxProviderInfo : IProviderInfo
+    public class SharpBoxProviderInfo : IProviderInfo, IDisposable
     {
         public int ID { get; set; }
         public Guid Owner { get; private set; }
@@ -63,9 +65,27 @@ namespace ASC.Files.Thirdparty.Sharpbox
             _createOn = createOn;
         }
 
+        public void Dispose()
+        {
+            if (StorageOpened)
+            {
+                Storage.Close();
+            }
+        }
+
         private CloudStorage CreateStorage()
         {
-            var prms = string.IsNullOrEmpty(_authData.Url) ? new object[] { } : new object[] { new Uri(_authData.Url) };
+            var prms = new object[] { };
+            if (!string.IsNullOrEmpty(_authData.Url))
+            {
+                var uri = _authData.Url;
+                if (Uri.IsWellFormedUriString(uri, UriKind.Relative))
+                {
+                    uri = Uri.UriSchemeHttp + Uri.SchemeDelimiter + uri;
+                }
+                prms = new object[] { new Uri(uri) };
+            }
+
             var storage = new CloudStorage();
             var config = CloudStorage.GetCloudConfigurationEasy(_providerKey, prms);
             if (!string.IsNullOrEmpty(_authData.Token))
@@ -102,6 +122,20 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
         }
 
+        internal bool StorageOpened
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__CLOUD_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    return wrapper != null && wrapper.Storage.IsOpened;
+                }
+                return false;
+            }
+        }
+
         internal void UpdateTitle(string newtitle)
         {
             CustomerTitle = newtitle;
@@ -127,6 +161,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
             catch (UnauthorizedAccessException)
             {
+                return false;
+            }
+            catch (SharpBoxException ex)
+            {
+                Global.Logger.Error("Sharpbox CheckAccess error", ex);
                 return false;
             }
         }
@@ -167,7 +206,8 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
             public void Dispose()
             {
-                Storage.Close();
+                if (Storage.IsOpened)
+                    Storage.Close();
             }
         }
     }

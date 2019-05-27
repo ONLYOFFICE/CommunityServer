@@ -146,7 +146,7 @@ ASC.Files.Common = (function () {
         return (str || "").trim().replace(ASC.Files.Common.characterRegExp, "_");
     };
 
-    var keyCode = { enter: 13, esc: 27, spaceBar: 32, pageUP: 33, pageDown: 34, end: 35, home: 36, left: 37, up: 38, right: 39, down: 40, insertKey: 45, deleteKey: 46, A: 65, C: 67, F: 70, N: 78, a: 97, c: 99, f: 102, n: 110 };
+    var keyCode = { enter: 13, ctrl: 17, esc: 27, spaceBar: 32, pageUP: 33, pageDown: 34, end: 35, home: 36, left: 37, up: 38, right: 39, down: 40, insertKey: 45, deleteKey: 46, A: 65, C: 67, F: 70, N: 78, a: 97, c: 99, f: 102, n: 110 };
 
     return {
         getSitePath: getSitePath,

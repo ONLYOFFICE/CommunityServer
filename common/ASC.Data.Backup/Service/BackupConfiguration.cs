@@ -44,6 +44,16 @@ namespace ASC.Data.Backup.Service
             set { this["tmpFolder"] = value; }
         }
 
+        [ConfigurationProperty("upgradesPath", DefaultValue = "../../Sql")]
+        public string UpgradesPath
+        {
+            get
+            {
+                return (string)this["upgradesPath"];
+            }
+            set { this["upgradesPath"] = value; }
+        }
+
         [ConfigurationProperty("limit", DefaultValue = 100000)]
         public int Limit
         {

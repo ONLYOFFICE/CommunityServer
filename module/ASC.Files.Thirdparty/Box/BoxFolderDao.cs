@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
@@ -40,11 +41,6 @@ namespace ASC.Files.Thirdparty.Box
         public BoxFolderDao(BoxDaoSelector.BoxInfo boxInfo, BoxDaoSelector boxDaoSelector)
             : base(boxInfo, boxDaoSelector)
         {
-        }
-
-        public void Dispose()
-        {
-            BoxProviderInfo.Dispose();
         }
 
         public Folder GetFolder(object folderId)
@@ -68,25 +64,21 @@ namespace ASC.Files.Thirdparty.Box
             return GetBoxItems(parentId, true).Select(item => ToFolder(item as BoxFolder)).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
 
             var folders = GetFolders(parentId).AsEnumerable(); //TODO:!!!
-            //Filter
-            switch (filterType)
+
+            if (subjectID != Guid.Empty)
             {
-                case FilterType.ByUser:
-                    folders = folders.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    folders = folders.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
-                case FilterType.FoldersOnly:
-                case FilterType.None:
-                    break;
-                default:
-                    return new List<Folder>();
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                                 : x.CreateBy == subjectID);
             }
 
             if (!string.IsNullOrEmpty(searchText))
@@ -103,6 +95,9 @@ namespace ASC.Files.Thirdparty.Box
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.Title) : folders.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    folders = orderBy.IsAsc ? folders.OrderBy(x => x.ModifiedOn) : folders.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.CreateOn) : folders.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -113,9 +108,27 @@ namespace ASC.Files.Thirdparty.Box
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
-            return folderIds.Select(GetFolder).ToList();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
+
+            var folders = folderIds.Select(GetFolder);
+
+            if (subjectID.HasValue && subjectID != Guid.Empty)
+            {
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID.Value)
+                                                 : x.CreateBy == subjectID);
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                folders = folders.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return folders.ToList();
         }
 
         public List<Folder> GetParentFolders(object folderId)
@@ -201,7 +214,7 @@ namespace ASC.Files.Thirdparty.Box
             if (parentFolderId != null) BoxProviderInfo.CacheReset(parentFolderId);
         }
 
-        public object MoveFolder(object folderId, object toFolderId)
+        public object MoveFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var boxFolder = GetBoxFolder(folderId);
             if (boxFolder is ErrorFolder) throw new Exception(((ErrorFolder)boxFolder).Error);
@@ -211,7 +224,8 @@ namespace ASC.Files.Thirdparty.Box
 
             var fromFolderId = GetParentFolderId(boxFolder);
 
-            boxFolder = BoxProviderInfo.Storage.MoveFolder(boxFolder.Id, toBoxFolder.Id);
+            var newTitle = GetAvailableTitle(boxFolder.Name, toBoxFolder.Id, IsExist);
+            boxFolder = BoxProviderInfo.Storage.MoveFolder(boxFolder.Id, newTitle, toBoxFolder.Id);
 
             BoxProviderInfo.CacheReset(boxFolder.Id, false);
             BoxProviderInfo.CacheReset(fromFolderId);
@@ -220,7 +234,7 @@ namespace ASC.Files.Thirdparty.Box
             return MakeId(boxFolder.Id);
         }
 
-        public Folder CopyFolder(object folderId, object toFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var boxFolder = GetBoxFolder(folderId);
             if (boxFolder is ErrorFolder) throw new Exception(((ErrorFolder)boxFolder).Error);
@@ -228,7 +242,8 @@ namespace ASC.Files.Thirdparty.Box
             var toBoxFolder = GetBoxFolder(toFolderId);
             if (toBoxFolder is ErrorFolder) throw new Exception(((ErrorFolder)toBoxFolder).Error);
 
-            var newBoxFolder = BoxProviderInfo.Storage.CopyFolder(boxFolder, toBoxFolder.Id);
+            var newTitle = GetAvailableTitle(boxFolder.Name, toBoxFolder.Id, IsExist);
+            var newBoxFolder = BoxProviderInfo.Storage.CopyFolder(boxFolder.Id, newTitle, toBoxFolder.Id);
 
             BoxProviderInfo.CacheReset(newBoxFolder);
             BoxProviderInfo.CacheReset(newBoxFolder.Id, false);
@@ -296,13 +311,7 @@ namespace ASC.Files.Thirdparty.Box
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
         {
-            var storageMaxUploadSize =
-                chunkedUpload
-                    ? BoxProviderInfo.Storage.MaxChunkedUploadFileSize
-                    : BoxProviderInfo.Storage.MaxUploadFileSize;
-
-            if (storageMaxUploadSize == -1)
-                storageMaxUploadSize = long.MaxValue;
+            var storageMaxUploadSize = BoxProviderInfo.Storage.GetMaxUploadSize();
 
             return chunkedUpload ? storageMaxUploadSize : Math.Min(storageMaxUploadSize, SetupInfo.AvailableFileSize);
         }
@@ -313,12 +322,7 @@ namespace ASC.Files.Thirdparty.Box
         {
         }
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
-        {
-            return null;
-        }
-
-        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
+        public IEnumerable<Folder> Search(string text, bool bunch)
         {
             return null;
         }

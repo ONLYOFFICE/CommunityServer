@@ -25,8 +25,11 @@
 
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
+using ASC.Data.Storage;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -69,17 +72,33 @@ namespace ASC.Web.Core.Client.Bundling
         {
             base.Render(writer);
 
-            foreach (var s in bundleData.GetSource())
+            foreach (var s in bundleData.GetSource().Select(ReplaceLess).Select(WebPath.GetPath))
             {
                 writer.WriteLine(bundleData.GetLink(s, false));
             }
+        }
+
+        private string ReplaceLess(string path)
+        {
+            if (Path.GetExtension(path) != ".less" && Path.GetExtension(path) != ".css") return path;
+
+            if (HttpContext.Current != null)
+            {
+                var filePath = HttpContext.Current.Server.MapPath(path);
+                if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath.Replace(".css", ".min.css").Replace(".less", ".min.css")))
+                {
+                    path = path.Replace(".css", ".min.css").Replace(".less", ".min.css");
+                }
+            }
+
+            return path;
         }
 
         private string GetLink()
         {
             var path = bundleData.GetStorageVirtualPath(ClientSettings.ResetCacheKey);
 
-            if (DiscTransform.SuccessInitialized && DiscTransform.IsFile(path))
+            if (DiscTransform.SuccessInitialized && DiscTransform.IsFile(path) && !StaticUploader.CanUpload())
             {
                 return bundleData.GetLink(DiscTransform.GetUri(path), false);
             }

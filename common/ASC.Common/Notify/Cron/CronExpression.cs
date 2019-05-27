@@ -1322,7 +1322,7 @@ namespace ASC.Notify.Cron
                     {
                         var dow = ((int) daysOfWeek.First());
 
-                        int cDow = ((int) d.DayOfWeek) + 1;
+                        int cDow = ((int) d.DayOfWeek);
                         int daysToAdd = 0;
                         if (cDow < dow)
                         {
@@ -1363,7 +1363,7 @@ namespace ASC.Notify.Cron
                     {
                         var dow = ((int) daysOfWeek.First());
 
-                        int cDow = ((int) d.DayOfWeek) + 1;
+                        int cDow = ((int) d.DayOfWeek);
                         int daysToAdd = 0;
                         if (cDow < dow)
                         {
@@ -1408,7 +1408,7 @@ namespace ASC.Notify.Cron
                     }
                     else
                     {
-                        int cDow = ((int) d.DayOfWeek) + 1;
+                        int cDow = ((int) d.DayOfWeek);
                         var dow = ((int) daysOfWeek.First());
 
                         st = daysOfWeek.TailSet(cDow);

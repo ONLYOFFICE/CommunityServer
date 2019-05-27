@@ -82,15 +82,6 @@ body .may-drop-to {
 /*******************************************************************************
     Mobile
 *******************************************************************************/
-body.mobile #confirmRemoveList,
-body.mobile #overwriteList {
-    max-height: none !important;
-}
-body.mobile #treeViewPanelSelector,
-body.mobile .jstree {
-    max-height: none !important;
-    max-width: none !important;
-}
 body.mobile div.blockUI.blockOverlay {
     min-width: 1000px;
     width: 100%;

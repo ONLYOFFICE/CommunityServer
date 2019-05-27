@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ASC.Data.Backup
@@ -37,5 +38,6 @@ namespace ASC.Data.Backup
 	public interface IDataReadOperator : IDisposable
     {
         Stream GetEntry(string key);
+        List<string> Entries { get; }
     }
 }

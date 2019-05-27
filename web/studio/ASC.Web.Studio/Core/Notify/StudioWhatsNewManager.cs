@@ -24,10 +24,13 @@
 */
 
 
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Common.Security.Authentication;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Web.Configuration;
+using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -39,20 +42,8 @@ using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-using ASC.Security.Cryptography;
 using ASC.Web.Core;
-using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
-using log4net;
-using Resources;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Web;
-using System.Web.Configuration;
 
 namespace ASC.Web.Studio.Core.Notify
 {

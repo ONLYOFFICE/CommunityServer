@@ -63,7 +63,8 @@ namespace ASC.Web.Studio.Masters
                         "~/js/asc/core/asc.pagenavigator.js",
                         "~/js/asc/core/asc.tabsnavigator.js",
                         "~/js/asc/core/localstorage.js",
-                        "~/js/third-party/ajaxpro.core.js");
+                        "~/js/third-party/ajaxpro.core.js",
+                        "~/js/asc/plugins/svg4everybody.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -24,7 +24,7 @@
 */
 
 
-window.Attachments = (function() {
+window.Attachments = (function () {
     var moduleName,
         isInit = false,
         isLoaded = false,
@@ -136,7 +136,7 @@ window.Attachments = (function() {
                                     "</a>",
                                 "</p>"]
                             .join('')
-            }).insertAfter("#popupDocumentUploader");
+            }).insertAfter(".wrapperFilesContainer");
         }
 
         ASC.Controls.AnchorController.bind(/files/, initUploader);
@@ -186,10 +186,6 @@ window.Attachments = (function() {
             });
         }
 
-        jq('#attachProjDocuments').on('click', function(event) {
-            ProjectDocumentsPopup.showPortalDocUploader();
-            return false;
-        });
         jq('#questionWindowAttachments #noButton').bind('click', function() {
             jq.unblockUI();
             return false;
@@ -363,6 +359,8 @@ window.Attachments = (function() {
         var type;
         if (ASC.Files.Utility.CanImageView(fileTmpl.title)) {
             type = "image";
+        } else if (ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.canPlay(fileTmpl.title)) {
+            type = "media"
         } else {
             if (ASC.Files.Utility.CanWebEdit(fileTmpl.title) && !ASC.Files.Utility.MustConvert(fileTmpl.title)) {
                 type = "editedFile";
@@ -602,3 +600,7 @@ window.Attachments = (function() {
         setCreateNewEntityFlag: setCreateNewEntityFlag
     };
 })(jQuery);
+
+(jq(document).ready(function () {
+    jq("#mediaPlayer").appendTo("body");
+}));

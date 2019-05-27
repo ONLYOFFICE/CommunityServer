@@ -107,9 +107,7 @@
                         <tr>
                             <td class="describe-text" style="white-space:nowrap;"><%= CRMCommonResource.Currency %>:</td>
                             <td></td>
-                            <td><%= String.Format("{0} - {1}",
-                                String.Equals(cur.Abbreviation, "RUB", StringComparison.OrdinalIgnoreCase) ? "<span class='rub'>Р</span>" : cur.Symbol,
-                                cur.Abbreviation) %></td>
+                            <td><%= String.Format("{0} - {1}", cur.Symbol, cur.Abbreviation) %></td>
                         </tr>
                         <% }
                     } %>
@@ -123,7 +121,7 @@
                     <tr>
                         <td class="describe-text" style="white-space:nowrap;"><%= CRMCommonResource.CreationDate %>:</td>
                         <td></td>
-                        <td><%= TargetContact.CreateOn.ToShortDateString() %></td>
+                        <td><%= TargetContact.CreateOn.ToShortString() %></td>
                     </tr>
 
                     <tr class="">

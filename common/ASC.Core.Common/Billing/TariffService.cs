@@ -24,12 +24,6 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Data;
-using ASC.Core.Tenants;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -38,6 +32,13 @@ using System.Reflection;
 using System.ServiceModel.Configuration;
 using System.Text;
 using System.Threading.Tasks;
+
+using ASC.Common.Caching;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
+using ASC.Core.Data;
+using ASC.Core.Tenants;
 
 namespace ASC.Core.Billing
 {
@@ -51,7 +52,7 @@ namespace ASC.Core.Billing
         private readonly static ICacheNotify notify;
         private readonly static bool billingConfigured = false;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(TariffService));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
         private readonly IQuotaService quotaService;
         private readonly ITenantService tenantService;
         private readonly CoreConfiguration config;
@@ -247,9 +248,13 @@ namespace ASC.Core.Billing
 
         public Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null, string customerId = null)
         {
+            var quota = quotaService.GetTenantQuota(quotaId);
+            if (quota == null) return null;
+
             var key = tenant.HasValue
-                ? GetBillingUrlCacheKey(tenant.Value)
-                : String.Format("notenant{0}", !string.IsNullOrEmpty(affiliateId) ? "_" + affiliateId : "");
+                          ? GetBillingUrlCacheKey(tenant.Value)
+                          : String.Format("notenant{0}", !string.IsNullOrEmpty(affiliateId) ? "_" + affiliateId : "");
+            key += quota.Visible ? "" : "0";
             var urls = cache.Get<Dictionary<string, Tuple<Uri, Uri>>>(key) as IDictionary<string, Tuple<Uri, Uri>>;
             if (urls == null)
             {
@@ -259,14 +264,15 @@ namespace ASC.Core.Billing
                     try
                     {
                         var products = quotaService.GetTenantQuotas()
+                                                   .Where(q => !string.IsNullOrEmpty(q.AvangateId) && q.Visible == quota.Visible)
                                                    .Select(q => q.AvangateId)
-                                                   .Where(id => !string.IsNullOrEmpty(id))
                                                    .ToArray();
+
                         using (var client = GetBillingClient())
                         {
                             urls = tenant.HasValue ?
-                                client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), "__Currency__", "__Language__", "__CustomerID__") :
-                                client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, "__Currency__", "__Language__", "__CustomerID__");
+                                       client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), "__Currency__", "__Language__", "__CustomerID__") :
+                                       client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, "__Currency__", "__Language__", "__CustomerID__");
                         }
                     }
                     catch (Exception error)
@@ -279,9 +285,8 @@ namespace ASC.Core.Billing
 
             ResetCacheExpiration();
 
-            var quota = quotaService.GetTenantQuota(quotaId);
             Tuple<Uri, Uri> tuple;
-            if (quota != null && !string.IsNullOrEmpty(quota.AvangateId) && urls.TryGetValue(quota.AvangateId, out tuple))
+            if (!string.IsNullOrEmpty(quota.AvangateId) && urls.TryGetValue(quota.AvangateId, out tuple))
             {
                 var result = tuple.Item2;
 
@@ -292,9 +297,9 @@ namespace ASC.Core.Billing
                 }
 
                 result = new Uri(result.ToString()
-                    .Replace("__Currency__", currency ?? "")
-                    .Replace("__Language__", (language ?? "").ToLower())
-                    .Replace("__CustomerID__", customerId ?? ""));
+                                       .Replace("__Currency__", currency ?? "")
+                                       .Replace("__Language__", (language ?? "").ToLower())
+                                       .Replace("__CustomerID__", customerId ?? ""));
                 return result;
             }
             return null;

@@ -66,7 +66,7 @@ ASC.Projects.AllMilestones = (function () {
             self = this;
 
             function canCreateMilestone(prj) {
-                return prj.canCreateMilestone && prj.status === 0;
+                return prj.canCreateMilestone;
             }
 
             var actions = [
@@ -146,7 +146,9 @@ ASC.Projects.AllMilestones = (function () {
         // Events
 
         $milestoneList.on(clickEventName, "td.responsible span", function () {
-            var milestone = getMilestoneByTarget(jq(this));
+            var $self = jq(this);
+            if ($self.hasClass("not-action")) return;
+            var milestone = getMilestoneByTarget($self);
             filter.addUser('responsible_for_milestone', milestone.responsibleId, ['user_tasks']);
         });
 
@@ -262,6 +264,7 @@ ASC.Projects.AllMilestones = (function () {
         if (milestone.responsible) {
             template.responsible = milestone.responsible.displayName;
             template.responsibleId = milestone.responsible.id;
+            template.isTerminated = milestone.responsible.isTerminated;
         } else {
             template.responsible = null;
             template.responsibleId = null;

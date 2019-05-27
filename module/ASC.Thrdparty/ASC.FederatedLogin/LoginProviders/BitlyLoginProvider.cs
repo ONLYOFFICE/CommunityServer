@@ -25,29 +25,42 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using ASC.Thrdparty.Configuration;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class BitlyLoginProvider : IValidateKeysProvider
+    public class BitlyLoginProvider : Consumer, IValidateKeysProvider
     {
         private static string BitlyClientId
         {
-            get { return KeyStorage.Get("bitlyClientId"); }
+            get { return Instance["bitlyClientId"]; }
         }
 
         private static string BitlyClientSecret
         {
-            get { return KeyStorage.Get("bitlyClientSecret"); }
+            get { return Instance["bitlyClientSecret"]; }
         }
 
         private static string BitlyUrl
         {
-            get { return KeyStorage.Get("bitlyUrl"); }
+            get { return Instance["bitlyUrl"]; }
+        }
+
+        private static BitlyLoginProvider Instance
+        {
+            get { return ConsumerFactory.Get<BitlyLoginProvider>(); }
+        }
+
+        public BitlyLoginProvider() { }
+
+        public BitlyLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
+        {
         }
 
         public bool ValidateKeys()

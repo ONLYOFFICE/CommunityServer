@@ -217,6 +217,11 @@ namespace ASC.Xmpp.Core.protocol
         public const string MSG_RECEIPT = "urn:xmpp:receipts";
 
         /// <summary>
+        ///   <para>XEP-0333: Chat Markers</para> <para>urn:xmpp:chat-markers:0</para>
+        /// </summary>
+        public const string MSG_CHAT_MARKERS = "urn:xmpp:chat-markers:0";
+
+        /// <summary>
         ///   Multi User Chat (MUC) JEP-0045 http://jabber.org/protocol/muc
         /// </summary>
         public const string MUC = "http://jabber.org/protocol/muc";

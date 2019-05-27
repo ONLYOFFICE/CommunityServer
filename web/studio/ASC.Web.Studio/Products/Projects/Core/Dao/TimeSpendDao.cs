@@ -191,7 +191,7 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                query.Where(Exp.Like("t.note", filter.SearchText, SqlLike.AnyWhere));
+                query.Where(Exp.Like("t.note", filter.SearchText, SqlLike.AnyWhere) | Exp.Like("pt.title", filter.SearchText, SqlLike.AnyWhere));
             }
 
             if (checkAccess)

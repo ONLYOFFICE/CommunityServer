@@ -1,0 +1,174 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2018
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+.Container {
+    margin: auto;
+    padding-left: 0px;
+    width: 920px;
+
+    a:hover, a:visited {
+        color: white;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 1.5em;
+        font-weight: normal;
+        padding-top: 10px;
+    }
+
+    .AppsForPC {
+        display: inline-block;
+        margin-bottom: 50px;
+        margin-right: 52px;
+        max-height: 200px;
+        padding-top: 15px;
+        position: relative;
+        width: 272px;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+
+    .Logo {
+        height: 31px;
+        width: 150px;
+
+        &.Windows {
+            background: no-repeat url("Images/app_install/Windows.png");
+        }
+
+        &.Linux {
+            background: no-repeat url("Images/app_install/Linux.png");
+        }
+
+        &.Mac {
+            background: no-repeat url("Images/app_install/Mac_os.png");
+        }
+
+        &.iOS {
+            background: no-repeat url("Images/app_install/Ios.png");
+            margin-bottom: 28px;
+        }
+
+        &.Null {
+            background-color: white;
+            margin-bottom: 28px;
+        }
+
+        &.Android {
+            background: no-repeat url("Images/app_install/Android.png");
+            margin-bottom: 28px;
+        }
+    }
+
+    .OS {
+        font-size: 1.55em;
+        font-weight: normal;
+        margin: 0px;
+        padding-left: 50px;
+        padding-top: 5px;
+    }
+
+    .AppsLink {
+        border-radius: 3px;
+        border: solid 1px rgba(174, 163, 163, 0.68);
+        height: 112px;
+        margin-top: 21px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 23px;
+    }
+
+    .EditorsFor {
+        float: left;
+        height: 20px;
+        width: 16px;
+
+        &.PC {
+            background: no-repeat url("../default/Images/svg/appInstall/desktop.svg");
+            background-position-y: 2px;
+        }
+
+        &.Documents {
+            background: no-repeat url("../default/Images/svg/appInstall/document.svg");
+            background-position-y: 2px;
+        }
+
+        &.Project {
+            background: no-repeat url("../default/Images/svg/appInstall/projects.svg");
+            background-position-y: 2px;
+        }
+    }
+
+    .EditorsForPCText {
+        font-size: 1.17em;
+        font-weight: 600;
+        margin: 0px;
+        padding-left: 22px;
+        text-align: left;
+    }
+
+    .ButtonForApps {
+        display: inline-block;
+        vertical-align: middle;
+
+        & .ButtonForApps:hover {
+            text-decoration: none;
+        }
+
+        &.AppStore {
+            background-image: url(Images/app_install/app_store.png);
+            height: 45px;
+            margin-top: 10px;
+            width: 153px;
+        }
+
+        &.GooglePlay {
+            background-image: url(Images/app_install/google_play.png);
+            height: 45px;
+            margin-top: 10px;
+            width: 134px;
+        }
+    }
+
+    .button {
+        &.DesctopDownload {
+            font-size: 1.3em;
+            font-weight: 600;
+            height: 27px;
+            line-height: 27px;
+            margin-top: 18px;
+            width: 160px;
+        }
+    }
+}

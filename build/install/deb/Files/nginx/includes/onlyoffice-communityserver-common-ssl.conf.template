@@ -5,18 +5,18 @@ upstream fastcgi_backend_apisystem {
 
 upstream fastcgi_backend {
 	server unix:/var/run/onlyoffice/onlyoffice.socket;
-	keepalive {{ONLYOFFICE_NIGNX_KEEPLIVE}};
+	keepalive {{APP_NIGNX_KEEPLIVE}};
 }
 
 fastcgi_cache_path /var/cache/nginx/onlyoffice
 	levels=1:2
-	keys_zone=onlyoffice:16m
-	max_size=256m
+	keys_zone=onlyoffice:256m
+	max_size=1024m
 	inactive=1d;
 
 geo $ip_external {
      default 1;
-     {{DOCKER_ONLYOFFICE_SUBNET}} 0;
+     {{DOCKER_APP_SUBNET}} 0;
      127.0.0.1 0;
 }
 
@@ -77,8 +77,7 @@ server {
 	client_max_body_size 100m;
 
 	## Strong SSL Security
-	## https://cipherli.st/
-	ssl on;
+	## https://cipherli.st/	
 	ssl_certificate {{SSL_CERTIFICATE_PATH}};
 	ssl_certificate_key {{SSL_KEY_PATH}};
 	ssl_verify_client {{SSL_VERIFY_CLIENT}};
@@ -91,7 +90,7 @@ server {
 	ssl_session_cache shared:SSL:10m;
 	ssl_session_tickets off; # Requires nginx >= 1.5.9
 
-	add_header Strict-Transport-Security "max-age={{ONLYOFFICE_HTTPS_HSTS_MAXAGE}}; includeSubDomains; preload" always;
+	add_header Strict-Transport-Security "max-age={{APP_HTTPS_HSTS_MAXAGE}}; includeSubDomains; preload" always;
 #	add_header X-Frame-Options DENY;
 	add_header X-Content-Type-Options nosniff;
 	add_header Access-Control-Allow-Origin *;	

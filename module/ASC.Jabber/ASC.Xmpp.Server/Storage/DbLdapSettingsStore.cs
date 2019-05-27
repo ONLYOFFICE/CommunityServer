@@ -24,20 +24,21 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Core;
-using ASC.Security.Cryptography;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Script.Serialization;
 
+using ASC.Common.Data.Sql;
+using ASC.Common.Logging;
+using ASC.Core;
+using ASC.Security.Cryptography;
+
 namespace ASC.Xmpp.Server.Storage
 {
     class DbLdapSettingsStore : DbStoreBase
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(DbLdapSettingsStore));
+        private readonly ILog log = LogManager.GetLogger("ASC");
         private readonly Dictionary<string, string> properties = new Dictionary<string, string>(1);
         private const string LDAP_SETTINGS_ID = "197149b3-fbc9-44c2-b42a-232f7e729c16";
 

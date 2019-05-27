@@ -9,11 +9,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Common</RootNamespace>
     <AssemblyName>ASC.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -39,10 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ARSoft.Tools.Net">
-      <HintPath>..\..\packages\ARSoft.Tools.Net.2.2.7\lib\net45\ARSoft.Tools.Net.dll</HintPath>
+      <HintPath>..\..\packages\ARSoft.Tools.Net.2.2.9\lib\net45\ARSoft.Tools.Net.dll</HintPath>
     </Reference>
     <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
@@ -51,32 +49,56 @@
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\NLog.4.5.8\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.1.2.3\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis.Extensions.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.2.2.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
+      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis.Extensions.LegacyConfiguration">
+      <HintPath>..\..\packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers">
+      <HintPath>..\..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Pipelines">
+      <HintPath>..\..\packages\System.IO.Pipelines.4.5.3\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="System.Linq">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>..\..\packages\System.Memory.4.5.2\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels">
+      <HintPath>..\..\packages\System.Threading.Channels.4.5.0\lib\netstandard2.0\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
@@ -87,12 +109,22 @@
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NVelocity">
       <HintPath>..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Pipelines.Sockets.Unofficial">
+      <HintPath>..\..\packages\Pipelines.Sockets.Unofficial.1.0.9\lib\net472\Pipelines.Sockets.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.PerformanceCounter">
+      <HintPath>..\..\packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\AscCache.cs" />
@@ -102,8 +134,12 @@
     <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Collections\CachedDictionaryBase.cs" />
     <Compile Include="Collections\HttpRequestDictionary.cs" />
-    <Compile Include="Data\AdoProxy\DbCommandProxy.cs" />
-    <Compile Include="Data\AdoProxy\DbConnectionProxy.cs" />
+    <Compile Include="Data\AdoProxy\DbCommandProxy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\AdoProxy\DbConnectionProxy.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\AdoProxy\DbTransactionProxy.cs" />
     <Compile Include="Data\AdoProxy\ExecuteHelper.cs" />
     <Compile Include="Data\AdoProxy\ProxyContext.cs" />
@@ -141,6 +177,8 @@
     <Compile Include="Data\Sql\SqlInsert.cs" />
     <Compile Include="Data\Sql\SqlQuery.cs" />
     <Compile Include="Data\Sql\SqlUpdate.cs" />
+    <Compile Include="Data\StreamExtension.cs" />
+    <Compile Include="Data\TempStream.cs" />
     <Compile Include="DependencyInjection\AutofacConfigLoader.cs" />
     <Compile Include="DependencyInjection\AutofacConfigurationSection.cs" />
     <Compile Include="DependencyInjection\ComponentElement.cs" />
@@ -155,6 +193,8 @@
     <Compile Include="DependencyInjection\TypeManipulation.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
+    <Compile Include="Logging\SelfCleaningTarget.cs" />
+    <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\SelfCleaningAppender.cs" />
     <Compile Include="Logging\SpecialFolderPathConverter.cs" />
     <Compile Include="Module\BaseWcfClient.cs" />
@@ -294,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\TimeZoneConverter\timeZoneNames.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

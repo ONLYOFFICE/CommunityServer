@@ -123,7 +123,8 @@ namespace ASC.Web.Files
                                   "ui.js"
                        )
                        .AddSource(ResolveUrl,
-                                  "~/js/third-party/clipboard.js"
+                                  "~/js/third-party/clipboard.js",
+                                  "~/products/files/controls/desktop/desktop.js"
                        )
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                   "controls/accessrights/accessrights.js"

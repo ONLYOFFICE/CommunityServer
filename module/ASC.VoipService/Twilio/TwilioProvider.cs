@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Logging;
 using Twilio.Clients;
 using Twilio.Exceptions;
 using Twilio.Jwt;
@@ -62,7 +63,7 @@ namespace ASC.VoipService.Twilio
 
         public VoipRecord GetRecord(string callId, string recordSid)
         {
-            var logger = log4net.LogManager.GetLogger("ASC");
+            var logger = LogManager.GetLogger("ASC");
             logger.DebugFormat("recordSid {0}", recordSid);
 
             var result = new VoipRecord { Id = recordSid };

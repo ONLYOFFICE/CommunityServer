@@ -189,6 +189,14 @@ namespace MSBuild.Community.Tasks
             set { _rules = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the rule set.
+        /// </summary>
+        /// <value>
+        /// The rule set.
+        /// </value>
+        public string RuleSet { get; set; }
+
         private string _analysisReportFileName;
 
         /// <summary>
@@ -312,6 +320,19 @@ namespace MSBuild.Community.Tasks
         {
             get { return _failOnError; }
             set { _failOnError = value; }
+        }
+
+        private bool _ignoreGeneratedCode;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether FxCop should ignore 
+        /// generated code. Defaults to <c>false</c>.
+        /// </summary>
+        /// <value><c>true</c> if ignore generated code; otherwise, <c>false</c>.</value>
+        public bool IgnoreGeneratedCode
+        {
+            get { return _ignoreGeneratedCode; }
+            set { _ignoreGeneratedCode = value; }
         }
 
         #endregion
@@ -471,6 +492,11 @@ namespace MSBuild.Community.Tasks
                 }
             }
 
+            if (!string.IsNullOrEmpty(RuleSet))
+            {
+                _programArguments.AppendFormat("/ruleset:{0} ", RuleSet);
+            }
+
             if (IncludeSummaryReport)
             {
                 _programArguments.Append("/s ");
@@ -489,6 +515,11 @@ namespace MSBuild.Community.Tasks
             if (Verbose)
             {
                 _programArguments.Append("/v ");
+            }
+
+            if (IgnoreGeneratedCode)
+            {
+                _programArguments.Append("/igc ");
             }
 
             return _programArguments.ToString();

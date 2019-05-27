@@ -241,15 +241,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No tasks to be exported for this filter.
-        /// </summary>
-        public static string ExportTaskListEmptyError {
-            get {
-                return ResourceManager.GetString("ExportTaskListEmptyError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Find a company or a person by name.
         /// </summary>
         public static string FindContactByName {

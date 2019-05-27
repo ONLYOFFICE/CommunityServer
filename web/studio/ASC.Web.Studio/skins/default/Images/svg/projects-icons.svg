@@ -1,0 +1,43 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="projectsIconsdiscussions" viewBox="0 0 16 16">
+<path d="M14 2h-12c-0.552 0-1 0.448-1 1v0 8c0 0.552 0.448 1 1 1v0h2v3l4-3h6c0.552 0 1-0.448 1-1v0-8c0-0.552-0.448-1-1-1v0zM9 11h-2v-2h2zM9 8h-2v-5h2z"></path>
+</symbol>
+<symbol id="projectsIconsdocuments" viewBox="0 0 16 16">
+<path d="M10 2h-7c-0.552 0-1 0.448-1 1v0 10c0 0.552 0.448 1 1 1v0h10c0.552 0 1-0.448 1-1v0-7zM4 4h5v1h-5zM4 6h5v1h-5zM12 11h-8v-1h8zM12 9h-8v-1h8z"></path>
+</symbol>
+<symbol id="projectsIconsgantt-diagram" viewBox="0 0 16 16">
+<path d="M2 11h7v2h-7v-2z"></path>
+<path d="M2 2h7v2h-7v-2z"></path>
+<path d="M2 8h12v2h-12v-2z"></path>
+<path d="M5 5h9v2h-9v-2z"></path>
+</symbol>
+<symbol id="projectsIconsmilestones" viewBox="0 0 16 16">
+<path d="M6 12h-0.99v-1.97l9-4.040-9-3.99h-1.010v10h-1v1h-1v1h5v-1h-1v-1z"></path>
+</symbol>
+<symbol id="projectsIconsprojects" viewBox="0 0 16 16">
+<path d="M10.88 4.93c-0.224-1.002-1.029-1.767-2.036-1.928l-0.014-0.002h0.17v-2h-1v2h0.13c-1.233 0.156-2.176 1.199-2.176 2.461 0 0.766 0.347 1.45 0.893 1.905l0.004 0.003 5.15 6.63 2 1v-2zM8.5 6.5c-0.015 0.001-0.032 0.001-0.050 0.001-0.58 0-1.050-0.47-1.050-1.050s0.47-1.050 1.050-1.050c0.579 0 1.049 0.469 1.050 1.049v0c0.001 0.015 0.001 0.032 0.001 0.050 0 0.552-0.448 1-1 1-0 0-0.001 0-0.001 0h0z"></path>
+<path d="M3 13.050l0.020 1.94 1.96-1.010 2.99-3.57-2.46-3.69-2.51 6.33z"></path>
+</symbol>
+<symbol id="projectsIconsproject-templates" viewBox="0 0 16 16">
+<path d="M4 2v2h-2v10h10v-2h2v-10zM10 12h-6v-6h6zM13 11h-1v-7h-7v-1h8z"></path>
+</symbol>
+<symbol id="projectsIconsstatistic" viewBox="0 0 16 16">
+<path d="M2 9.010h3v4h-3v-4z"></path>
+<path d="M10 3.010h3v10h-3v-10z"></path>
+<path d="M6 7.010h3v6h-3v-6z"></path>
+</symbol>
+<symbol id="projectsIconstasks" viewBox="0 0 16 16">
+<path d="M6.22 7l-1.42 1.42 2.59 2.59 0.020-0.010 0.010 0.010 6.59-6.59-1.42-1.42-5.18 5.19-1.19-1.19z"></path>
+<path d="M12 12h-8v-8h5.52l2-2h-8.52c-0.552 0-1 0.448-1 1v0 10c0 0.552 0.448 1 1 1v0h10c0.552 0 1-0.448 1-1v0-6.53l-2 2z"></path>
+</symbol>
+<symbol id="projectsIconstimetrack" viewBox="0 0 16 16">
+<path d="M10.25 7.25h-1.5v-2.25c0-0.414-0.336-0.75-0.75-0.75s-0.75 0.336-0.75 0.75v0 3c0 0.414 0.336 0.75 0.75 0.75v0h2.25c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75v0z"></path>
+<path d="M8 1c-3.866 0-7 3.134-7 7s3.134 7 7 7c3.866 0 7-3.134 7-7v0c0-3.866-3.134-7-7-7v0zM8 13c-2.761 0-5-2.239-5-5s2.239-5 5-5c2.761 0 5 2.239 5 5v0c0 2.761-2.239 5-5 5v0z"></path>
+</symbol>
+<symbol id="projectsIconsupload" viewBox="0 0 16 16">
+<rect x="2" y="12" width="12" height="2"/>
+<path d="M6 6V11H10V6H14L8 0L2 6H6Z" />
+</symbol>
+</defs>
+</svg>

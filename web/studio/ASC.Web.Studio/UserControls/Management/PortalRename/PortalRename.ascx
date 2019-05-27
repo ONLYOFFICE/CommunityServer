@@ -1,4 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortalRename.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PortalRename" %>
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -24,7 +26,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= string.Format(Resource.HelpAnswerPortalRename.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
+        <p><%= string.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.HelpAnswerPortalRenameCustomMode.HtmlEncode() : Resource.HelpAnswerPortalRename.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
     </div>
 </div>
 <% } %>

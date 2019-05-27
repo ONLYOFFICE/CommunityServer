@@ -27,6 +27,7 @@
 using System;
 using System.Linq;
 using System.Configuration;
+using System.Threading.Tasks;
 using ASC.Data.Storage.Configuration;
 using Amazon;
 using Amazon.S3;
@@ -44,7 +45,17 @@ namespace ASC.Data.Storage.S3
         private bool configErrors;
         private bool configured;
 
-        public void DeleteExpiredUploads(TimeSpan trustInterval)
+        public void DeleteExpiredUploadsAsync(TimeSpan trustInterval)
+        {
+            var task = new Task(() =>
+            {
+                DeleteExpiredUploads(trustInterval);
+            }, TaskCreationOptions.LongRunning);
+
+            task.Start();
+        }
+
+        private void DeleteExpiredUploads(TimeSpan trustInterval)
         {
             Configure();
 

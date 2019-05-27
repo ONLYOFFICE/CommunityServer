@@ -21,7 +21,7 @@
         <div class="headerPanelSmall-splitter requiredField">
             <span class="requiredErrorText"><%= CRMInvoiceResource.IssueDateRequiredErrorMsg %></span>
             <div class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.IssueDate %>:</div>
-            <input type="text" id="invoiceIssueDate" class="textEdit textEditCalendar" name="invoiceIssueDate"/>
+            <input type="text" id="invoiceIssueDate" class="textEdit textEditCalendar" name="invoiceIssueDate" autocomplete="off"/>
         </div>
 
         <div class="headerPanelSmall-splitter requiredField">
@@ -87,7 +87,7 @@
                 <span class="HelpCenterSwitcher" id="duedatePresetHelpSwitcher"></span>
                 <div class="popup_helper" id="duedatePresetHelpInfo"><%: CRMInvoiceResource.DueDateHelpInfoText %></div>
             </div>
-            <input type="text" id="invoiceDueDate" class="textEdit textEditCalendar" name="invoiceDueDate" />
+            <input type="text" id="invoiceDueDate" class="textEdit textEditCalendar" name="invoiceDueDate" autocomplete="off"/>
             <span class="splitter"></span>
             <a id="duedate_0" class="link dotline duedate-link"><%= CRMInvoiceResource.DueDatePresetInfoText %></a>
             <span class="splitter"></span>

@@ -43,8 +43,8 @@ namespace ASC.Projects.Engine
             notify.Subscribe<ProjectCacheItem>((i, a) => cache.Remove(GetCountKey(i.Tenant)));
         }
 
-        public CachedProjectEngine(bool disableNotificationParameter, EngineFactory factory)
-            : base(disableNotificationParameter, factory)
+        public CachedProjectEngine(bool disableNotificationParameter)
+            : base(disableNotificationParameter)
         {
             
         }

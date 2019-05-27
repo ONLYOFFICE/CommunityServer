@@ -88,7 +88,7 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
         private const string CallbackJavascript =
             @"function snd(){{client.sendAndClose({0},{1});}} window.onload = snd;";
 
-        public void AddContactInfo(string name, IEnumerable<string> emails)
+        public void AddContactInfo(string name, string emails)
         {
             var lastname = string.Empty;
             if (!string.IsNullOrEmpty(name))
@@ -104,11 +104,11 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
             AddContactInfo(name, lastname, emails);
         }
 
-        public void AddContactInfo(string name, string lastname, IEnumerable<string> emails)
+        public void AddContactInfo(string name, string lastname, string emails)
         {
-            if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(lastname))
+            if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(lastname) && !String.IsNullOrEmpty(emails))
             {
-                var _name = emails.FirstOrDefault().Contains("@") ? emails.FirstOrDefault().Substring(0, emails.FirstOrDefault().IndexOf("@")).Split('.') : emails.FirstOrDefault().Split('.');
+                var _name = emails.Contains("@") ? emails.Substring(0, emails.IndexOf("@")).Split('.') : emails.Split('.');
                 if (_name.Length > 1)
                 {
                     name = _name[0];
@@ -119,7 +119,7 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
             var info = new ContactInfo
             {
                 FirstName = String.IsNullOrEmpty(name) ? String.Empty : name,
-                Email = String.IsNullOrEmpty(emails.FirstOrDefault()) ? String.Empty : emails.FirstOrDefault(),
+                Email = String.IsNullOrEmpty(emails) ? String.Empty : emails,
                 LastName = String.IsNullOrEmpty(lastname) ? String.Empty : lastname
             };
 

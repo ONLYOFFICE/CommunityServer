@@ -57,6 +57,7 @@ window.commonSettingsPage = (function($) {
                             mailBox.markFolderAsChanged(TMMail.sysfolders.spam.id);
                             mailCache.clear();
                             serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+                            window.userFoldersPanel.refresh();
                         },
                         error: function (e, error) {
                             window.toastr.error(window.MailApiErrorsResource.ErrorInternalServer);

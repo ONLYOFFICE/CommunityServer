@@ -1,0 +1,16 @@
+oWs.SetColumnWidth(2, 20);
+
+writeRow([0, 1, 2, 4, 5], reportColumns, [3, 4], {
+	color: darkGrayBorderColor
+}, {
+	size: smallFontSize,
+	color: grayFontColor
+});
+
+for (var i = 0; i < reportData.length; i++)
+	writeRow([0, 1, 2, 4, 5], reportData[i], [3, 4], {
+		color: lightGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: reportData[i][2] == reportColumns[6] ? blackFontColor : grayFontColor
+	}, true);

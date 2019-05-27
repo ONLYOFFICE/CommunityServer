@@ -187,6 +187,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to d.
+        /// </summary>
+        public static string Days {
+            get {
+                return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to due date.
         /// </summary>
         public static string DeadLine {

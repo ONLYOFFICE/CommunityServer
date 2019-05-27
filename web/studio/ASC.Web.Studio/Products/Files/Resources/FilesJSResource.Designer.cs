@@ -70,6 +70,24 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string AceStatusEnum_Comment {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Form Filling.
+        /// </summary>
+        public static string AceStatusEnum_FillForms {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_FillForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string AceStatusEnum_Owner {
@@ -133,6 +151,24 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string ButtonFilterAuthor {
+            get {
+                return ResourceManager.GetString("ButtonFilterAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No subfolders.
+        /// </summary>
+        public static string ButtonFilterCurrentFolderOnly {
+            get {
+                return ResourceManager.GetString("ButtonFilterCurrentFolderOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string ButtonFilterDocument {
@@ -142,11 +178,11 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files.
+        ///   Looks up a localized string similar to All files.
         /// </summary>
-        public static string ButtonFilterFile {
+        public static string ButtonFilterFiles {
             get {
-                return ResourceManager.GetString("ButtonFilterFile", resourceCulture);
+                return ResourceManager.GetString("ButtonFilterFiles", resourceCulture);
             }
         }
         
@@ -169,6 +205,33 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In content.
+        /// </summary>
+        public static string ButtonFilterInContent {
+            get {
+                return ResourceManager.GetString("ButtonFilterInContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media.
+        /// </summary>
+        public static string ButtonFilterMedia {
+            get {
+                return ResourceManager.GetString("ButtonFilterMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string ButtonFilterOther {
+            get {
+                return ResourceManager.GetString("ButtonFilterOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Presentations.
         /// </summary>
         public static string ButtonFilterPresentation {
@@ -183,6 +246,15 @@ namespace ASC.Web.Files.Resources {
         public static string ButtonFilterSpreadsheet {
             get {
                 return ResourceManager.GetString("ButtonFilterSpreadsheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ButtonFilterType {
+            get {
+                return ResourceManager.GetString("ButtonFilterType", resourceCulture);
             }
         }
         
@@ -223,11 +295,20 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date.
+        ///   Looks up a localized string similar to Created.
         /// </summary>
-        public static string ButtonSortModified {
+        public static string ButtonSortCreated {
             get {
-                return ResourceManager.GetString("ButtonSortModified", resourceCulture);
+                return ResourceManager.GetString("ButtonSortCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        public static string ButtonSortModifiedNew {
+            get {
+                return ResourceManager.GetString("ButtonSortModifiedNew", resourceCulture);
             }
         }
         
@@ -237,15 +318,6 @@ namespace ASC.Web.Files.Resources {
         public static string ButtonSortName {
             get {
                 return ResourceManager.GetString("ButtonSortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New.
-        /// </summary>
-        public static string ButtonSortNew {
-            get {
-                return ResourceManager.GetString("ButtonSortNew", resourceCulture);
             }
         }
         
@@ -898,6 +970,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy {1}{0}{2}.
+        /// </summary>
+        public static string InfoCopyDescribe {
+            get {
+                return ResourceManager.GetString("InfoCopyDescribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} copied elements.
         /// </summary>
         public static string InfoCopyGroup {
@@ -912,6 +993,15 @@ namespace ASC.Web.Files.Resources {
         public static string InfoCopyItem {
             get {
                 return ResourceManager.GetString("InfoCopyItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} elements.
+        /// </summary>
+        public static string InfoCountDescribe {
+            get {
+                return ResourceManager.GetString("InfoCountDescribe", resourceCulture);
             }
         }
         
@@ -966,6 +1056,15 @@ namespace ASC.Web.Files.Resources {
         public static string InfoMoveAccessError {
             get {
                 return ResourceManager.GetString("InfoMoveAccessError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move {1}{0}{2}.
+        /// </summary>
+        public static string InfoMoveDescribe {
+            get {
+                return ResourceManager.GetString("InfoMoveDescribe", resourceCulture);
             }
         }
         
@@ -1047,24 +1146,6 @@ namespace ASC.Web.Files.Resources {
         public static string InfoSaveThirdParty {
             get {
                 return ResourceManager.GetString("InfoSaveThirdParty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Elements: {0}.
-        /// </summary>
-        public static string InfoSelectCount {
-            get {
-                return ResourceManager.GetString("InfoSelectCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}Drag the element(s) with the mouse to add to the folder.
-        /// </summary>
-        public static string InfoSelectingDescribe {
-            get {
-                return ResourceManager.GetString("InfoSelectingDescribe", resourceCulture);
             }
         }
         
@@ -1416,15 +1497,6 @@ namespace ASC.Web.Files.Resources {
         public static string TitleSettingsThirdParty {
             get {
                 return ResourceManager.GetString("TitleSettingsThirdParty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Types.
-        /// </summary>
-        public static string Types {
-            get {
-                return ResourceManager.GetString("Types", resourceCulture);
             }
         }
         

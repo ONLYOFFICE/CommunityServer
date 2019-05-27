@@ -72,7 +72,7 @@ PopupBox = function(id, width, height, backgroundCSSClass, borderCSSClass, serve
         }
     }
 
-    this.BeginBox = '<div class="' + this.BorderCSSClass + ' ' + this.BackgroundCSSClass + '" style="z-index:9999999; position:absolute; display:none; width:' + this.Whidth + 'px;" id=' + this.ID + '>';
+    this.BeginBox = '<div class="' + this.BorderCSSClass + ' ' + this.BackgroundCSSClass + '" style="z-index:9999999; position:absolute; display:none; width:' + this.Width + 'px;" id=' + this.ID + '>';
     this.EndBox = '</div>';
     this.Content = '<div id=' + this.ContentID + '></div>';
 

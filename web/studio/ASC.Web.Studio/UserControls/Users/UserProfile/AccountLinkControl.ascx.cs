@@ -49,11 +49,14 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         {
             get
             {
-                return
-                    !string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
-                    || !string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId)
-                    || !string.IsNullOrEmpty(TwitterLoginProvider.TwitterKey)
-                    || !string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId);
+                return GoogleLoginProvider.Instance.IsEnabled
+                    || FacebookLoginProvider.Instance.IsEnabled
+                    || TwitterLoginProvider.Instance.IsEnabled
+                    || LinkedInLoginProvider.Instance.IsEnabled
+                    || MailRuLoginProvider.Instance.IsEnabled
+                    || VKLoginProvider.Instance.IsEnabled
+                    || YandexLoginProvider.Instance.IsEnabled
+                    || GosUslugiLoginProvider.Instance.IsEnabled;
             }
         }
 
@@ -94,17 +97,24 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             var fromOnly = string.IsNullOrWhiteSpace(HttpContext.Current.Request["fromonly"]) ? string.Empty : HttpContext.Current.Request["fromonly"].ToLower();
 
-            if (!string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "google" || fromOnly == "openid"))
-                AddProvider(ProviderConstants.Google, linkedAccounts);
+            var providers = new List<string>
+            {
+                ProviderConstants.Google,
+                ProviderConstants.Facebook,
+                ProviderConstants.Twitter,
+                ProviderConstants.LinkedIn,
+                ProviderConstants.MailRu,
+                ProviderConstants.VK,
+                ProviderConstants.Yandex,
+                ProviderConstants.GosUslugi
+            };
 
-            if (!string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "facebook"))
-                AddProvider(ProviderConstants.Facebook, linkedAccounts);
-
-            if (!string.IsNullOrEmpty(TwitterLoginProvider.TwitterKey) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "twitter"))
-                AddProvider(ProviderConstants.Twitter, linkedAccounts);
-
-            if (!string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "linkedin"))
-                AddProvider(ProviderConstants.LinkedIn, linkedAccounts);
+            foreach (var provider in providers.Where(provider => string.IsNullOrEmpty(fromOnly) || fromOnly == provider || (provider == "google" && fromOnly == "openid")))
+            {
+                var loginProvider = ProviderManager.GetLoginProvider(provider);
+                if (loginProvider != null && loginProvider.IsEnabled)
+                    AddProvider(provider, linkedAccounts);
+            }
         }
 
         private void AddProvider(string provider, IEnumerable<LoginProfile> linkedAccounts)
@@ -115,7 +125,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                     Provider = provider,
                     Url = VirtualPathUtility.ToAbsolute("~/login.ashx")
                           + "?auth=" + provider
-                          + (SettingsView || InviteView || !MobileDetector.IsMobile
+                          + (SettingsView || InviteView || (!MobileDetector.IsMobile && !Request.DesktopApp())
                                  ? ("&mode=popup&callback=" + ClientCallback)
                                  : ("&mode=Redirect&returnurl=" + HttpUtility.UrlEncode(new Uri(Request.GetUrlRewriter(), "auth.aspx").ToString())))
                 });

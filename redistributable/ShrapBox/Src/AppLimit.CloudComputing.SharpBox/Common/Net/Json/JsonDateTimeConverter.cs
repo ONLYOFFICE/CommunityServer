@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Json
 {
@@ -29,7 +26,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Json
 
         private static Month ToMonth(String Input)
         {
-            return (Month)Enum.Parse(typeof(Month), Input, true);
+            return (Month)Enum.Parse(typeof (Month), Input, true);
         }
 
         /// <summary>
@@ -51,19 +48,19 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Json
                 throw new InvalidOperationException();
 
             // date
-            String day = dateTime.Substring(5, 2);
-            String month = dateTime.Substring(8, 3);
-            Month m = ToMonth(month);
-            String year = dateTime.Substring(12, 4);
+            var day = dateTime.Substring(5, 2);
+            var month = dateTime.Substring(8, 3);
+            var m = ToMonth(month);
+            var year = dateTime.Substring(12, 4);
 
             // time
-            String hour = dateTime.Substring(17, 2);
-            String min = dateTime.Substring(20, 2);
-            String sec = dateTime.Substring(23, 2);
+            var hour = dateTime.Substring(17, 2);
+            var min = dateTime.Substring(20, 2);
+            var sec = dateTime.Substring(23, 2);
 
             return new DateTime(Convert.ToInt32(year), Convert.ToInt32(m), Convert.ToInt32(day),
-                                    Convert.ToInt32(hour), Convert.ToInt32(min), Convert.ToInt32(sec),
-                                    DateTimeKind.Utc);
+                                Convert.ToInt32(hour), Convert.ToInt32(min), Convert.ToInt32(sec),
+                                DateTimeKind.Utc);
         }
     }
 }

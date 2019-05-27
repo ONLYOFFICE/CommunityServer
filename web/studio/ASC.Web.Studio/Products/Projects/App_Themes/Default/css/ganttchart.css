@@ -52,6 +52,7 @@
 .gantt-chart-top-panel, .addition {
     margin: 0;
     background-color: #f2f2f2;
+    position: relative;
 }
 .gantt-chart-top-panel {
     padding:24px;
@@ -1075,7 +1076,8 @@ div.gantt-splitter:hover:after{
 .icon-private:after {
     position: absolute;
     content: "";
-	background: url("../images/small-icons.png") -1px -36px no-repeat;
+	background: url('../../../../../skins/default/Images/svg/projects/lockorange.svg') no-repeat;
+    background-size:85% 85%;
 	width: 16px;
 	height: 16px;
 	top: 25%;

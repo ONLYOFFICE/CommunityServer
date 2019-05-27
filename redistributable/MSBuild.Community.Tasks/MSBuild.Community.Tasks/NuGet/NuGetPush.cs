@@ -51,6 +51,11 @@ namespace MSBuild.Community.Tasks.NuGet
         public string APIKey { get; set; }
 
         /// <summary>
+        /// The NuGet configuation file. If not specified, file %AppData%\NuGet\NuGet.config is used as configuration file.
+        /// </summary>
+        public string ConfigFile { get; set; }
+
+        /// <summary>
         /// Specifies the server URL.
         /// </summary>
         public string Source { get; set; }
@@ -62,6 +67,19 @@ namespace MSBuild.Community.Tasks.NuGet
         ///   <c>true</c> if create only; otherwise, <c>false</c>.
         /// </value>
         public bool CreateOnly { get; set; }
+
+        /// <summary>
+        /// Display this amount of details in the output: normal, quiet, detailed.
+        /// </summary>
+        public string Verbosity { get; set; }
+
+        /// <summary>
+        /// (v3.5) Forces NuGet to run using an invariant, English-based culture.
+        /// </summary>
+        /// <remarks>
+        /// Only available starting in version 3.5.
+        /// </remarks>
+        public bool ForceEnglishOutput { get; set; }
 
         /// <summary>
         /// Returns a string value containing the command line arguments to pass directly to the executable file.
@@ -76,8 +94,12 @@ namespace MSBuild.Community.Tasks.NuGet
             builder.AppendFileNameIfNotNull(File);
             builder.AppendFileNameIfNotNull(APIKey);
             builder.AppendSwitchIfNotNull("-Source ", Source);
+            builder.AppendSwitchIfNotNull("-Verbosity ", Verbosity);
+            builder.AppendSwitchIfNotNull("-ConfigFile ", ConfigFile);
             if (CreateOnly)
                 builder.AppendSwitch("-CreateOnly");
+            if (ForceEnglishOutput)
+                builder.AppendSwitch("-ForceEnglishOutput");
 
             return builder.ToString();
         }

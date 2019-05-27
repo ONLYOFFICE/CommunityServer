@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
   <data name="AceStatusEnum_Read" xml:space="preserve">
     <value>Read Only</value>
   </data>
@@ -225,14 +231,17 @@
   <data name="ButtonFilterDocument" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="ButtonFilterFile" xml:space="preserve">
-    <value>Files</value>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>All files</value>
   </data>
   <data name="ButtonFilterFolder" xml:space="preserve">
     <value>Folders</value>
   </data>
   <data name="ButtonFilterImage" xml:space="preserve">
     <value>Images</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
   </data>
   <data name="ButtonFilterPresentation" xml:space="preserve">
     <value>Presentations</value>
@@ -297,7 +306,13 @@
   <data name="ButtonSelectAll" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Send by email</value>
+  </data>
   <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Sharing Settings</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
     <value>Sharing Settings</value>
   </data>
   <data name="ButtonChangeOwner" xml:space="preserve">
@@ -345,21 +360,6 @@
   <data name="ButtonSendDocuSignDialog" xml:space="preserve">
     <value>Send</value>
   </data>
-  <data name="ButtonSortAuthor" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="ButtonSortModified" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="ButtonSortName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="ButtonSortSize" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="ButtonSortType" xml:space="preserve">
-    <value>Type</value>
-  </data>
   <data name="ButtonToParentFolder" xml:space="preserve">
     <value>Back to parent folder</value>
   </data>
@@ -377,9 +377,6 @@
   </data>
   <data name="ButtonViaFacebook" xml:space="preserve">
     <value>Facebook</value>
-  </data>
-  <data name="ButtonViaGoogle" xml:space="preserve">
-    <value>Google</value>
   </data>
   <data name="ButtonViaTwitter" xml:space="preserve">
     <value>Twitter</value>
@@ -549,6 +546,9 @@
   <data name="EmptyScreenHeader" xml:space="preserve">
     <value>No files to be displayed in this section</value>
   </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>No files in this folder</value>
+  </data>
   <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
     <value>No connected accounts</value>
   </data>
@@ -561,6 +561,12 @@
   <data name="Everyone" xml:space="preserve">
     <value>All Users</value>
   </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>Select the file in {0} format</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Select files of type: {0}</value>
+  </data>
   <data name="FilesWillBeCompressed" xml:space="preserve">
     <value>Files will be compressed into the {0}.zip file{1}</value>
   </data>
@@ -572,6 +578,9 @@
   </data>
   <data name="GetGreeAccountBtn" xml:space="preserve">
     <value>Start Now</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Shorten</value>
   </data>
   <data name="Group" xml:space="preserve">
     <value>Group</value>
@@ -591,11 +600,8 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="MailMergeFileTitle" xml:space="preserve">
-    <value>File name</value>
-  </data>
-  <data name="MailMergeOpenTab" xml:space="preserve">
-    <value>Open merged document in new tab</value>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>If you choose to convert the file to the format different from the original, some data might be lost.</value>
   </data>
   <data name="MainHeaderSelectAll" xml:space="preserve">
     <value>Select all</value>
@@ -639,6 +645,9 @@
   <data name="OpenFolder" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Open location</value>
+  </data>
   <data name="OriginalFormat" xml:space="preserve">
     <value>Original format</value>
   </data>
@@ -654,13 +663,13 @@
   <data name="ProjectFiles" xml:space="preserve">
     <value>Project Documents</value>
   </data>
-  <data name="RecipientsFormat" xml:space="preserve">
-    <value>Select the data source file in {0} format</value>
-  </data>
   <data name="Remove" xml:space="preserve">
     <value>delete</value>
   </data>
   <data name="RemoveIsNew" xml:space="preserve">
+    <value>Mark as Read</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
     <value>Mark as Read</value>
   </data>
   <data name="RemoveIsNewAll" xml:space="preserve">
@@ -668,6 +677,12 @@
   </data>
   <data name="RemoveShareMessage" xml:space="preserve">
     <value>Remove message</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Open saved document in new tab</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
@@ -782,6 +797,15 @@
   </data>
   <data name="ThirdPartyYandex" xml:space="preserve">
     <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Search in</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>and {0}all subfolders{1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Click for searchibg without subfolders</value>
   </data>
   <data name="TitleSelectFile" xml:space="preserve">
     <value>Select</value>

@@ -2149,6 +2149,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login Fail. Too many attempts.
+        /// </summary>
+        public static string LoginFailBruteForce {
+            get {
+                return ResourceManager.GetString("LoginFailBruteForce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login Fail. Profile Disabled.
         /// </summary>
         public static string LoginFailDisabledProfile {
@@ -2230,6 +2239,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login via authenticator application Failed.
+        /// </summary>
+        public static string LoginFailViaTfaApp {
+            get {
+                return ResourceManager.GetString("LoginFailViaTfaApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login History Report Downloaded.
         /// </summary>
         public static string LoginHistoryReportDownloaded {
@@ -2262,6 +2280,15 @@ namespace ASC.AuditTrail {
         public static string LoginSuccessSocialAccount {
             get {
                 return ResourceManager.GetString("LoginSuccessSocialAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Via Social Application Success.
+        /// </summary>
+        public static string LoginSuccessSocialApp {
+            get {
+                return ResourceManager.GetString("LoginSuccessSocialApp", resourceCulture);
             }
         }
         
@@ -2307,6 +2334,15 @@ namespace ASC.AuditTrail {
         public static string LoginSuccessViaSSO {
             get {
                 return ResourceManager.GetString("LoginSuccessViaSSO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful Login via authenticator application.
+        /// </summary>
+        public static string LoginSuccesViaTfaApp {
+            get {
+                return ResourceManager.GetString("LoginSuccesViaTfaApp", resourceCulture);
             }
         }
         
@@ -3760,6 +3796,33 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Two-factor Authentication Settings Updated: Two-factor auth was disabled.
+        /// </summary>
+        public static string TwoFactorAuthenticationSettingsDisabled {
+            get {
+                return ResourceManager.GetString("TwoFactorAuthenticationSettingsDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two-factor Authentication Settings Updated: SMS confirmation was enabled.
+        /// </summary>
+        public static string TwoFactorAuthenticationSettingsEnabledBySms {
+            get {
+                return ResourceManager.GetString("TwoFactorAuthenticationSettingsEnabledBySms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two-factor Authentication Settings Updated: Authentication app was enabled.
+        /// </summary>
+        public static string TwoFactorAuthenticationSettingsEnabledByTfaApp {
+            get {
+                return ResourceManager.GetString("TwoFactorAuthenticationSettingsEnabledByTfaApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Two-factor Authentication Settings Updated.
         /// </summary>
         public static string TwoFactorAuthenticationSettingsUpdated {
@@ -4012,6 +4075,24 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authenticator application disconnected: {0}.
+        /// </summary>
+        public static string UserTfaDisconnected {
+            get {
+                return ResourceManager.GetString("UserTfaDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New backup codes for the authentication app are created.
+        /// </summary>
+        public static string UserTfaGenerateCodes {
+            get {
+                return ResourceManager.GetString("UserTfaGenerateCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Social Account Unlinked. Provider: {0}.
         /// </summary>
         public static string UserUnlinkedSocialAccount {
@@ -4035,6 +4116,15 @@ namespace ASC.AuditTrail {
         public static string UserUpdatedAvatarThumbnails {
             get {
                 return ResourceManager.GetString("UserUpdatedAvatarThumbnails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Updated.
+        /// </summary>
+        public static string UserUpdatedEmail {
+            get {
+                return ResourceManager.GetString("UserUpdatedEmail", resourceCulture);
             }
         }
         

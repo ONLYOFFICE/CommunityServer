@@ -136,7 +136,7 @@ namespace ASC.Web.CRM.Controls.Deals
             return String.Format("{2}{0:N} {1} <br/> <span>{3}</span>",
                                 TargetDeal.BidValue,
                                 currencyInfo.Abbreviation,
-                                String.Equals(currencyInfo.Abbreviation, "RUB", StringComparison.OrdinalIgnoreCase) ? "<span class='rub'>Р</span>" : currencyInfo.Symbol,
+                                currencyInfo.Symbol,
                                 RenderExpectedValue());
         }
 

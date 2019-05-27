@@ -24,7 +24,6 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -41,6 +40,7 @@ using System.Web;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 
 namespace TMResourceData
 {

@@ -24,48 +24,27 @@
 */
 
 
-using System;
-using System.Collections.Generic;
 using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail
 {
-    public class AuditEvent
+    public class AuditEvent : BaseEvent
     {
-        public int Id { get; set; }
-
-        public string IP { get; set; }
-        
         public string Initiator { get; set; }
 
-        public string Browser { get; set; }
-        
-        public bool Mobile { get; set; }
-
-        public string Platform { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public int TenantId { get; set; }
-
-        public Guid UserId { get; set; }
-
-        public string UserName { get; set; }
-
-        public string Page { get; set; }
-
+        [Event("ActionIdCol", 33)]
         public int Action { get; set; }
-        
-        public string ActionText { get; set; }
-        
+
+        [Event("ActionTypeCol", 30)]
         public string ActionTypeText { get; set; }
-        
+
+        [Event("ProductCol", 31)]
         public string Product { get; set; }
-        
+
+        [Event("ModuleCol", 32)]
         public string Module { get; set; }
 
-        public IList<string> Description { get; set; }
-
+        [Event("TargetIdCol", 34)]
         public MessageTarget Target { get; set; }
     }
 }

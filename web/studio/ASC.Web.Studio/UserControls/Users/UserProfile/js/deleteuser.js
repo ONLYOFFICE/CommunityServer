@@ -62,7 +62,7 @@ var ProfileManager = new function () {
         });
         
         jq("#confirmationDeleteUserPanel .middle-button-container .reassign-btn").unbind("click").bind("click", function () {
-            window.location.replace("reassigns.aspx?user=" + encodeURIComponent(userName));
+            window.location.replace("reassigns.aspx?delete=true&user=" + encodeURIComponent(userName));
         });
 
         StudioBlockUIManager.blockUI("#confirmationDeleteUserPanel", 500, 500, 0);

@@ -216,7 +216,7 @@
                     {{/each}}
                 </select>
 
-                <button class="button gray btn-icon ringtone-play-btn __play" id="queue-wait-ringtone-play-btn" data-src="settings.queue.waitUrl" data-type="queue"></button>
+                <button class="button gray btn-icon ringtone-play-btn __play {{if !settings.queue || !settings.queue.waitUrl}} disable {{/if}}" id="queue-wait-ringtone-play-btn" data-src="${settings.queue.waitUrl}" data-type="queue"></button>
                 <button class="button gray btn-icon __upload" id="queue-wait-ringtone-load-btn" onclick=" return false; "></button>
             </div>
 
@@ -231,7 +231,7 @@
                     {{/each}}
                 </select>
 
-                <button class="button gray btn-icon ringtone-play-btn __play" id="voicemail-ringtone-play-btn" data-src="settings.voiceMail" data-type="voice"></button>
+                <button class="button gray btn-icon ringtone-play-btn __play {{if !settings.voiceMail}} disable {{/if}}" id="voicemail-ringtone-play-btn" data-src="${settings.voiceMail}" data-type="voice"></button>
                 <button class="button gray btn-icon __upload" id="voicemail-ringtone-load-btn" onclick=" return false; "></button>
             </div>
         </div>

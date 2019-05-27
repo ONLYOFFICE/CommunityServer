@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Projects</RootNamespace>
     <AssemblyName>ASC.Web.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -50,24 +50,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="BasecampRestAPI">
-      <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.1\lib\net45\BasecampRestAPI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\..\..\..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
@@ -100,7 +95,9 @@
     <Content Include="App_Themes\Default\Images\small-icons.png" />
     <Content Include="App_Themes\Default\Images\timer-icons.png" />
     <Content Include="Controls\Common\CommonList.ascx" />
+    <Content Include="Controls\Common\ProjectDocumentsPopup.ascx" />
     <Content Include="Controls\Projects\ProjectAction.ascx" />
+    <Content Include="Controls\Reports\ReportFile.ascx" />
     <Content Include="Controls\Templates\EditTemplate.ascx" />
     <Content Include="Core\Model\Services\NotifyService\patterns.xml" />
     <Content Include="js\addmilestonecontainer.js" />
@@ -115,7 +112,6 @@
     <Compile Include="Classes\Global.cs" />
     <Compile Include="Classes\PathProvider.cs" />
     <Compile Include="Classes\ReportInfo.cs" />
-    <Compile Include="Classes\ReportTransformer.cs" />
     <Compile Include="Classes\RequestContext.cs" />
     <Compile Include="Classes\UrlAction.cs" />
     <Compile Include="Classes\UrlConstant.cs" />
@@ -126,7 +122,6 @@
     <Compile Include="Classes\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Configuration\ImportFromBasecamp.cs" />
     <Compile Include="Configuration\ProductEntryPoint.cs" />
     <Compile Include="Configuration\ProductSubscriptionManager.cs" />
     <Compile Include="Configuration\ProjectsSpaceUsageStatManager.cs" />
@@ -152,6 +147,13 @@
     <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\ProjectDocumentsPopup.ascx.cs">
+      <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\ProjectDocumentsPopup.ascx.designer.cs">
+      <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Messages\DiscussionAction.ascx.cs">
       <DependentUpon>DiscussionAction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -165,6 +167,13 @@
     </Compile>
     <Compile Include="Controls\Projects\ProjectAction.ascx.designer.cs">
       <DependentUpon>ProjectAction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportFile.ascx.cs">
+      <DependentUpon>ReportFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportFile.ascx.designer.cs">
+      <DependentUpon>ReportFile.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Reports\ReportFilters.ascx.cs">
       <DependentUpon>ReportFilters.ascx</DependentUpon>
@@ -267,6 +276,7 @@
     <Compile Include="Core\Model\Domain\Entities\TimeSpend.cs" />
     <Compile Include="Core\Model\Domain\FilterOperationResult.cs" />
     <Compile Include="Core\Model\Domain\ProjectEntity.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportFile.cs" />
     <Compile Include="Core\Model\Domain\Reports\ReportFilter.cs" />
     <Compile Include="Core\Model\Domain\Reports\ReportFilterSerializer.cs" />
     <Compile Include="Core\Model\Domain\Reports\ReportTemplate.cs" />
@@ -292,6 +302,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PatternResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Core\Search\CommentsWrapper.cs" />
+    <Compile Include="Core\Search\MilestonesWrapper.cs" />
+    <Compile Include="Core\Search\TasksWrapper.cs" />
+    <Compile Include="Core\Search\DiscussionsWrapper.cs" />
+    <Compile Include="Core\Search\ProjectsWrapper.cs" />
+    <Compile Include="Core\Search\SubtasksWrapper.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -306,26 +322,12 @@
     <Compile Include="GanttChart.aspx.designer.cs">
       <DependentUpon>GanttChart.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GeneratedReport.aspx.cs">
-      <DependentUpon>GeneratedReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GeneratedReport.aspx.designer.cs">
-      <DependentUpon>GeneratedReport.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Import.aspx.cs">
-      <DependentUpon>Import.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import.aspx.designer.cs">
-      <DependentUpon>Import.aspx</DependentUpon>
     </Compile>
     <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
@@ -445,6 +447,7 @@
     <Compile Include="Test\MilestonesTest.cs" />
     <Compile Include="Test\ProjectsTest.cs" />
     <Compile Include="Test\ReassignTest.cs" />
+    <Compile Include="Test\SearchTest.cs" />
     <Compile Include="Test\TaskSecurityTest.cs" />
     <Compile Include="Test\TasksTest.cs" />
     <Compile Include="Test\TimeTrackingTest.cs" />
@@ -532,19 +535,21 @@
     <Content Include="Controls\Reports\ReportView.ascx" />
     <Content Include="App_Themes\Default\css\projectTeam.less" />
     <Content Include="App_Themes\Default\css\reports.css" />
+    <Content Include="App_Themes\Default\css\settings.less" />
+    <Content Include="App_Themes\Default\css\projectDocumentsPopup.less" />
     <None Include="App_Themes\Default\css\timetracking.less" />
     <Content Include="App_Themes\Default\Images\product_logo.png" />
     <Content Include="Default.aspx" />
     <Content Include="GanttChart.aspx" />
-    <Content Include="GeneratedReport.aspx" />
     <Content Include="Help.aspx" />
-    <Content Include="Import.aspx" />
     <Content Include="js\common_filter_projects.js" />
     <Content Include="js\contacts.js" />
     <Content Include="js\ganttchart.js" />
     <Content Include="js\discussions.js" />
     <Content Include="js\helper.js" />
     <Content Include="js\import.js" />
+    <Content Include="js\jquery-tagsadvansedselector.js" />
+    <Content Include="js\projectDocumentsPopup.js" />
     <Content Include="js\settings.js" />
     <Content Include="js\subtasks.js" />
     <Content Include="js\jq_projects_extensions.js" />
@@ -585,41 +590,28 @@
     <Content Include="Reports.aspx" />
     <Content Include="Settings.aspx" />
     <Content Include="Tasks.aspx" />
-    <EmbeddedResource Include="templates\MilestonesExpired.csv.xsl" />
-    <EmbeddedResource Include="templates\MilestonesNearest.csv.xsl" />
-    <EmbeddedResource Include="templates\ProjectsList.csv.xsl" />
-    <EmbeddedResource Include="templates\ProjectsWithoutActiveMilestones.csv.xsl" />
-    <EmbeddedResource Include="templates\ProjectsWithoutActiveTasks.csv.xsl" />
-    <EmbeddedResource Include="templates\TasksByProjects.csv.xsl" />
-    <EmbeddedResource Include="templates\TasksByUsers.csv.xsl" />
-    <EmbeddedResource Include="templates\TasksExpired.csv.xsl" />
-    <EmbeddedResource Include="templates\TasksExpired.html.xsl" />
-    <EmbeddedResource Include="templates\TimeSpend_0.csv.xsl" />
-    <EmbeddedResource Include="templates\TimeSpend_1.csv.xsl" />
-    <EmbeddedResource Include="templates\UsersActivity.csv.xsl" />
-    <EmbeddedResource Include="templates\UsersWithoutActiveTasks.csv.xsl" />
-    <EmbeddedResource Include="templates\UsersWorkload.csv.xsl" />
-    <EmbeddedResource Include="templates\EmptyReport.html.xsl" />
     <Content Include="Timer.aspx" />
     <Content Include="TimeTracking.aspx" />
     <Content Include="TMDocs.aspx" />
-    <EmbeddedResource Include="templates\MilestonesExpired.html.xsl" />
-    <EmbeddedResource Include="templates\MilestonesNearest.html.xsl" />
-    <EmbeddedResource Include="templates\UsersWithoutActiveTasks.html.xsl" />
-    <EmbeddedResource Include="templates\ProjectsWithoutActiveMilestones.html.xsl" />
-    <EmbeddedResource Include="templates\ProjectsWithoutActiveTasks.html.xsl" />
-    <EmbeddedResource Include="templates\UsersWorkload.html.xsl" />
-    <EmbeddedResource Include="templates\email.xsl" />
-    <EmbeddedResource Include="templates\csv.xsl" />
-    <EmbeddedResource Include="templates\ProjectsList.html.xsl" />
-    <EmbeddedResource Include="templates\UsersActivity.html.xsl" />
-    <EmbeddedResource Include="templates\TimeSpend_0.html.xsl" />
-    <EmbeddedResource Include="templates\TimeSpend_1.html.xsl" />
-    <EmbeddedResource Include="templates\TasksByProjects.html.xsl" />
-    <EmbeddedResource Include="templates\TasksByUsers.html.xsl" />
     <Content Include="App_Themes\Default\css\common.less" />
     <Content Include="Test\App.config" />
     <Content Include="App_Themes\Default\css\discussions.less" />
+    <EmbeddedResource Include="DocbuilderTemplates\master.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\ProjectsWithoutActiveMilestones.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\MilestonesExpired.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\MilestonesNearest.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\ProjectsList.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\ProjectsWithoutActiveTasks.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TasksByProjects.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TasksByUsers.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TasksExpired.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TimeSpend_0.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TimeSpend_1.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\UsersActivity.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\UsersWithoutActiveTasks.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\UsersWorkload_0.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\TimeSpend_2.docbuilder" />
+    <EmbeddedResource Include="DocbuilderTemplates\UsersWorkload_1.docbuilder" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">
@@ -728,13 +720,9 @@
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
-      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
-      <Name>ASC.FullTextIndex</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
-      <Name>ASC.MessagingSystem</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
@@ -763,9 +751,10 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1680</DevelopmentServerPort>
+          <DevelopmentServerPort>54559</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/ASC.Web.Projects</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -776,5 +765,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

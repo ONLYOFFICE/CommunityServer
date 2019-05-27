@@ -15,7 +15,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
 
         public CachedServiceWrapper(IStorageProviderService service)
         {
-            if (service == null) 
+            if (service == null)
                 throw new ArgumentNullException("service");
 
             _service = service;
@@ -42,12 +42,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
             return _service.GetLimits(session);
         }
 
-        public ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string nameOrId, ICloudDirectoryEntry parent)
+        public ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
-            return FsCache.Get(GetSessionKey(session), GetCacheKey(session, nameOrId, parent), () => _service.RequestResource(session, nameOrId, parent));
+            return FsCache.Get(GetSessionKey(session), GetCacheKey(session, name, parent), () => _service.RequestResource(session, name, parent));
         }
 
-        private string GetSessionKey(IStorageProviderSession session)
+        private static string GetSessionKey(IStorageProviderSession session)
         {
             return session.GetType().Name + " " + session.SessionToken;
         }
@@ -123,9 +123,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
             return _service.CreateDownloadStream(session, fileSystemEntry);
         }
 
-        public void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream)
+        public void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream)
         {
-            _service.CommitStreamOperation(session, fileSystemEntry, Direction, NotDisposedStream);
+            _service.CommitStreamOperation(session, fileSystemEntry, direction, notDisposedStream);
         }
 
         public void UploadResourceContent(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, Stream targetDataStream, FileOperationProgressChanged progressCallback, object progressContext)

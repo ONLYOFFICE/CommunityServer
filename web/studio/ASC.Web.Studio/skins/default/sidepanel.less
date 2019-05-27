@@ -46,7 +46,7 @@
         display: block;
         list-style: none;
         overflow: hidden;
-        padding: 4px 0 4px 0;
+        padding: 5px 0 5px 0;
 
         .feed-new-count {
             float: right;
@@ -56,7 +56,7 @@
 
         .category-wrapper {
             overflow: hidden;
-            padding: 4px 0;
+            padding: 5px 0 5px 0;
         }
 
         .menu-item-label {
@@ -108,10 +108,14 @@
             .category-wrapper {
                 padding: 0;
             }
+
+            .expander, .menu-sub-list {
+                display: none;
+            }
         }
 
         &.sub-list {
-            padding: 1px 0 0 0;
+            padding: 0;
 
             .expander {
                 float: left;
@@ -282,20 +286,37 @@
 }
 
 
+.menu-item-svg {
+    width: 16px;
+    height: 16px;
+    fill: #83888d;
+
+    &-green {
+        fill: #7ca52f;
+    }
+}
+.statistics-icons-svg {
+    width: 16px;
+    height: 16px;
+    fill: #83888d;
+    display: block;
+    margin: auto;
+    margin-bottom: 6px;
+}
 
 .menu-item-icon 
 {
     width: 16px;
     height: 16px;
     margin:2px 5px 0 1px;
-    background: url("@{imagesBaseUrl}icons_nav_panel.png") no-repeat 0 0;
+   // background: url("@{imagesBaseUrl}icons_nav_panel.png") no-repeat 0 0;
     float:left;
 
     &.home{ background-position: 0 0;} 
     &.people{ background-position: 0 -26px;} 
     &.projects{ background-position: 0 -52px; } 
     &.milestones{ background-position: 0 -78px;} 
-    &.tasks{ background-position: 0 -104px; } 
+    &.tasks{ background-position: 0 -104px;}
     &.messages{ background-position: 0 -129px;} 
     &.documents{ background-position: 0 -156px; } 
     &.reports{ background-position: 0 -182px; } 
@@ -325,17 +346,18 @@
     &.general{ background-position: 0 -806px; } 
     &.productsandinstruments{ background-position: 0 -833px; } 
     &.payment{ background-position: 0 -858px; } 
+    &.payment.rub{ background-position: 0 -1352px; } 
     &.statistic{ background-position: 0 -884px; } 
-    &.ldapsettings{ background-position: 0 -988px; }
     &.help{ background-position: 0 -910px; } 
     &.support {background-position: 0 -936px;}
     &.thirdpartyauthorization {background-position: 0 -961px;}
+    &.ldapsettings{ background-position: 0 -988px; }
     &.monitoring{ background-position: 0 -1014px; }
     &.security{ background-position: 0 -1040px;} 
-    &.loginhistory { background-position: 0 -1092px; }
     &.audittrail { background-position: 0 -1066px; }
-    &.integration { background-position: 0 -1128px; }
+    &.loginhistory { background-position: 0 -1092px; }
     &.chart{ background-position: 0 -1118px;} 
+    &.integration { background-position: 0 -1128px; }
     &.video-guides{ background-position: 0 -1170px;} 
     &.tariff{ background-position: 0 -1196px;}
     &.userforum{ background-position: 0 -1222px;}
@@ -403,7 +425,7 @@
             background-color: transparent;
             background-repeat: no-repeat;
             font-size: 15px;
-            padding: 1px 12px;
+            padding: 1px 5px;
         }
     }
 
@@ -504,7 +526,8 @@
             }
 
             &.mail {
-                background: url("@{img-change-url}refresh.png") center 4px no-repeat;
+                background: url('@{img-change-url}rotate.svg') center 3px no-repeat;
+                background-size:70%;
             }
         }
     }
@@ -541,8 +564,8 @@
 
 
 .menu-upload-icon {
-    background-image: url("@{img-change-url}mainmenu_upload.png");
-    background-position: center 4px;
+   // background-image: url("@{img-change-url}mainmenu_upload.png");
+    //background-position: center 4px;
 }
 
 :root .page-menu .menu-actions .menu-main-button {
@@ -676,7 +699,7 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
     .menu-item-icon{
-		background: url("@{imagesBaseUrl}icons_nav_panel_retina.png") no-repeat 0 0;
-		background-size: 32px 1352px;
+		//background: url("@{imagesBaseUrl}icons_nav_panel_retina.png") no-repeat 0 0;
+		background-size: 32px 1416px;
     }
 }

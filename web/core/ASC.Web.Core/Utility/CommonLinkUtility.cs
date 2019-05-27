@@ -30,11 +30,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using ASC.Core;
+using ASC.Core.Common;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
-using log4net;
 
 namespace ASC.Web.Studio.Utility
 {
@@ -60,7 +60,8 @@ namespace ASC.Web.Studio.Utility
         DocService = 17,
         FullTextSearch = 18,
         WhiteLabel = 19,
-        MailService = 20
+        MailService = 20,
+        Storage = 21
     }
 
     //  emp-invite - confirm ivite by email
@@ -84,134 +85,42 @@ namespace ASC.Web.Studio.Utility
         ProfileRemove,
         PhoneActivation,
         PhoneAuth,
-        Auth
+        Auth,
+        TfaActivation,
+        TfaAuth
     }
 
     public static class CommonLinkUtility
     {
-        private const string LOCALHOST = "localhost";
         private static readonly Regex RegFilePathTrim = new Regex("/[^/]*\\.aspx", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        private static UriBuilder _serverRoot;
-        private static string _vpath;
 
         public const string ParamName_ProductSysName = "product";
         public const string ParamName_UserUserName = "user";
         public const string ParamName_UserUserID = "uid";
 
-        static CommonLinkUtility()
-        {
-            try
-            {
-                var uriBuilder = new UriBuilder(Uri.UriSchemeHttp, LOCALHOST);
-                if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                {
-                    var u = HttpContext.Current.Request.GetUrlRewriter();
-                    uriBuilder = new UriBuilder(u.Scheme, LOCALHOST, u.Port);
-                }
-                _serverRoot = uriBuilder;
-            }
-            catch (Exception error)
-            {
-                LogManager.GetLogger("ASC.Web").Error(error);
-            }
-        }
-
         public static void Initialize(string serverUri)
         {
-            if (string.IsNullOrEmpty(serverUri))
-            {
-                throw new ArgumentNullException("serverUri");
-            }
-
-            var uri = new Uri(serverUri.Replace('*', 'x').Replace('+', 'x'));
-            _serverRoot = new UriBuilder(uri.Scheme, LOCALHOST, uri.Port);
-            _vpath = "/" + uri.AbsolutePath.Trim('/');
+            BaseCommonLinkUtility.Initialize(serverUri);
         }
 
         public static string VirtualRoot
         {
-            get { return ToAbsolute("~"); }
+            get { return BaseCommonLinkUtility.VirtualRoot; }
         }
 
         public static string ServerRootPath
         {
-            get
-            {
-                var result = new UriBuilder(_serverRoot.Uri);
-
-                // first, take from current request
-                if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                {
-                    var u = HttpContext.Current.Request.GetUrlRewriter();
-                    result = new UriBuilder(u.Scheme, u.Host, u.Port);
-
-                    if (CoreContext.Configuration.Standalone && !result.Uri.IsLoopback)
-                    {
-                        // save for stanalone
-                        _serverRoot.Host = result.Host;
-                    }
-                }
-
-                if (result.Uri.IsLoopback)
-                {
-                    // take values from db if localhost or no http context thread
-                    var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                    result.Host = tenant.TenantDomain;
-
-#if DEBUG
-                    // for Visual Studio debug
-                    if (tenant.TenantAlias == LOCALHOST)
-                    {
-                        result.Host = LOCALHOST;
-                    }
-#endif
-
-                    if (!string.IsNullOrEmpty(tenant.MappedDomain))
-                    {
-                        var mapped = tenant.MappedDomain.ToLowerInvariant();
-                        if (!mapped.Contains(Uri.SchemeDelimiter))
-                        {
-                            mapped = Uri.UriSchemeHttp + Uri.SchemeDelimiter + mapped;
-                        }
-                        result = new UriBuilder(mapped);
-                    }
-                }
-
-                return result.Uri.ToString().TrimEnd('/');
-            }
+            get { return BaseCommonLinkUtility.ServerRootPath; }
         }
 
         public static string GetFullAbsolutePath(string virtualPath)
         {
-            if (String.IsNullOrEmpty(virtualPath))
-                return ServerRootPath;
-
-            if (virtualPath.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase) ||
-                virtualPath.StartsWith("mailto:", StringComparison.InvariantCultureIgnoreCase) ||
-                virtualPath.StartsWith("javascript:", StringComparison.InvariantCultureIgnoreCase) ||
-                virtualPath.StartsWith("https://", StringComparison.InvariantCultureIgnoreCase))
-                return virtualPath;
-
-            if (string.IsNullOrEmpty(virtualPath) || virtualPath.StartsWith("/"))
-            {
-                return ServerRootPath + virtualPath;
-            }
-            return ServerRootPath + VirtualRoot.TrimEnd('/') + "/" + virtualPath.TrimStart('~', '/');
+            return BaseCommonLinkUtility.GetFullAbsolutePath(virtualPath);
         }
 
         public static string ToAbsolute(string virtualPath)
         {
-            if (_vpath == null)
-            {
-                return VirtualPathUtility.ToAbsolute(virtualPath);
-            }
-
-            if (string.IsNullOrEmpty(virtualPath) || virtualPath.StartsWith("/"))
-            {
-                return virtualPath;
-            }
-            return (_vpath != "/" ? _vpath : string.Empty) + "/" + virtualPath.TrimStart('~', '/');
+            return BaseCommonLinkUtility.ToAbsolute(virtualPath);
         }
 
         public static string Logout
@@ -591,7 +500,7 @@ namespace ASC.Web.Studio.Utility
             //todo: lost query string!!!
 
 
-            return baseUri.ToString();
+            return baseUri.ToString().TrimEnd('/');
         }
 
         #endregion

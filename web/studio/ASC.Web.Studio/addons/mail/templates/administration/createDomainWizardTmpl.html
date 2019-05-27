@@ -1,15 +1,15 @@
 ﻿<script id="createDomainWizardTmpl" type="text/x-jquery-tmpl">
     <div id="mail_server_create_domain_wizard">
-        {{tmpl({require_dns_info: require_dns_info, domain_name: domain_name}) "domainWizardStep" + step}}
-        {{if step == 1 || step == 2 || step == 5}}
+        {{tmpl({require_dns_info: require_dns_info, domain_name: domain_name}) tplName}}
+        {{if step == 1 || !ASC.Resources.Master.Standalone && step == 2 || step == total}}
         <div class="progressContainer">
             <div class="loader" style="display: none;">${ASC.Mail.Resources.MailResource.LoadingLabel}</div>
         </div>
         {{/if}}
-        <div class="buttons" style="{{if step == 1 || step == 2 || step == 5}}margin-top: 0;{{else}}margin-top: 15px;{{/if}}">
+        <div class="buttons" style="{{if step == 1 || !ASC.Resources.Master.Standalone && step == 2 || step == total}}margin-top: 0;{{else}}margin-top: 15px;{{/if}}">
             <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
             <button class="button middle blue next pull-right" type="button">
-                {{if step == 5}}
+                {{if step == total}}
                     ${ASC.Mail.Resources.MailAdministrationResource.DomainWizardCompleteBtn}
                 {{else}}
                     ${ASC.Mail.Resources.MailAdministrationResource.DomainWizardNextBtn}
@@ -18,7 +18,7 @@
             {{if step != 1}}
             <button class="button middle gray prev pull-right" type="button" style="margin-right: 8px;">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardPrevBtn}</button>
             {{/if}}
-            <span class="step pull-right"> ${ASC.Mail.Resources.MailAdministrationResource.DomainWizardStep.replace('%1', step).replace('%2', 5)}</span>  
+            <span class="step pull-right"> ${ASC.Mail.Resources.MailAdministrationResource.DomainWizardStep.replace('%1', step).replace('%2', total)}</span>
         </div>
     </div>
 </script>
@@ -66,9 +66,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardOwnershpCheckRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">TXT</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName} <span class="bold">${require_dns_info.dns.domainCheckRecord.name}</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold">"${require_dns_info.dns.domainCheckRecord.value}"</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">TXT</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName}&nbsp;<span class="bold">${require_dns_info.dns.domainCheckRecord.name}</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold">"${require_dns_info.dns.domainCheckRecord.value}"</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -107,9 +107,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardMXRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">MX</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold">${require_dns_info.dns.mxRecord.host}.</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardPriority} <span class="bold">${require_dns_info.dns.mxRecord.priority}</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">MX</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold">${require_dns_info.dns.mxRecord.host}.</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardPriority}&nbsp;<span class="bold">${require_dns_info.dns.mxRecord.priority}</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -133,9 +133,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardSPFRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">TXT</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName} <span class="bold">${require_dns_info.dns.spfRecord.name}</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold">"${require_dns_info.dns.spfRecord.value}"</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">TXT</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName}&nbsp;<span class="bold">${require_dns_info.dns.spfRecord.name}</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold">"${require_dns_info.dns.spfRecord.value}"</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -159,9 +159,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardDKIMRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">TXT</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName} <span class="bold">${require_dns_info.dns.dkimRecord.selector}._domainkey</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold dkim_record">"${require_dns_info.dns.dkimRecord.publicKey}"</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">TXT</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName}&nbsp;<span class="bold">${require_dns_info.dns.dkimRecord.selector}._domainkey</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold dkim_record">"${require_dns_info.dns.dkimRecord.publicKey}"</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -197,9 +197,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardMXRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">MX</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold">${require_dns_info.dns.mxRecord.host}.</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardPriority} <span class="bold">${require_dns_info.dns.mxRecord.priority}</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">MX</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold">${require_dns_info.dns.mxRecord.host}.</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardPriority}&nbsp;<span class="bold">${require_dns_info.dns.mxRecord.priority}</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -212,9 +212,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardSPFRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">TXT</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName} <span class="bold">${require_dns_info.dns.spfRecord.name}</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class="bold">"${require_dns_info.dns.spfRecord.value}"</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">TXT</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName}&nbsp;<span class="bold">${require_dns_info.dns.spfRecord.name}</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class="bold">"${require_dns_info.dns.spfRecord.value}"</span></span></li>
                         </ul>
                     </div>
                 </td>
@@ -227,9 +227,9 @@
                     <div class="dns_record">
                         <span class="dns_record_info">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardDKIMRecord}</span>
                         <ul>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType} <span class="bold">TXT</span></span></li>
-                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName} <span class="bold">${require_dns_info.dns.dkimRecord.selector}._domainkey</span></span></li>
-                            <li><span class="dkim">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue} <span class=" dkim_record bold">"${require_dns_info.dns.dkimRecord.publicKey}"</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardType}&nbsp;<span class="bold">TXT</span></span></li>
+                            <li><span>${ASC.Mail.Resources.MailAdministrationResource.DomainWizardName}&nbsp;<span class="bold">${require_dns_info.dns.dkimRecord.selector}._domainkey</span></span></li>
+                            <li><span class="dkim">${ASC.Mail.Resources.MailAdministrationResource.DomainWizardTextOrValue}&nbsp;<span class=" dkim_record bold">"${require_dns_info.dns.dkimRecord.publicKey}"</span></span></li>
                         </ul>
                     </div>
                 </td>

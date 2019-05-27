@@ -1,10 +1,6 @@
-#region usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-#endregion
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net
 {
@@ -863,15 +859,15 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             AddMimeMapping(".*", "application/octet-stream");
         }
 
-        private static void AddMimeMapping(string extension, string MimeType)
+        private static void AddMimeMapping(string extension, string mimeType)
         {
             if (ExtensionToMimeMappingTable.ContainsKey(extension))
             {
-                AddMimeSynonym((string) ExtensionToMimeMappingTable[extension], MimeType);
+                AddMimeSynonym((string)ExtensionToMimeMappingTable[extension], mimeType);
             }
             else
             {
-                ExtensionToMimeMappingTable.Add(extension, MimeType);
+                ExtensionToMimeMappingTable.Add(extension, mimeType);
             }
         }
 
@@ -893,11 +889,11 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             int startIndex = fileName.LastIndexOf('.');
             if (0 < startIndex && fileName.LastIndexOf('\\') < startIndex)
             {
-                str = (string) ExtensionToMimeMappingTable[fileName.Substring(startIndex)];
+                str = (string)ExtensionToMimeMappingTable[fileName.Substring(startIndex)];
             }
             if (str == null)
             {
-                str = (string) ExtensionToMimeMappingTable[".*"];
+                str = (string)ExtensionToMimeMappingTable[".*"];
             }
             return str;
         }
@@ -907,11 +903,11 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             if (string.IsNullOrEmpty(mimeMapping)) return null;
             foreach (DictionaryEntry entry in ExtensionToMimeMappingTable)
             {
-                var mime = (string) entry.Value;
-                if (mime == mimeMapping.ToLowerInvariant()) return (string) entry.Key;
+                var mime = (string)entry.Value;
+                if (mime == mimeMapping.ToLowerInvariant()) return (string)entry.Key;
                 if (MimeSynonyms.ContainsKey(mime))
                 {
-                    if (MimeSynonyms[mime].Contains(mimeMapping.ToLowerInvariant())) return (string) entry.Key;
+                    if (MimeSynonyms[mime].Contains(mimeMapping.ToLowerInvariant())) return (string)entry.Key;
                 }
             }
             return null;

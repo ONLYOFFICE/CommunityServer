@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.HealthCheck</RootNamespace>
     <AssemblyName>ASC.HealthCheck</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,12 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="BasecampRestAPI">
-      <HintPath>..\..\..\packages\BasecampRestAPI.1.0.0.1\lib\net45\BasecampRestAPI.dll</HintPath>
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -44,23 +41,11 @@
     <Reference Include="Microsoft.Owin">
       <HintPath>..\..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener">
-      <HintPath>..\..\..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Hosting">
       <HintPath>..\..\..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Administration">
-      <HintPath>..\..\..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -90,13 +75,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
     <Reference Include="DotNetZip">
-      <HintPath>..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +133,10 @@
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
       <Name>ASC.Web.CRM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Feed.Aggregator\ASC.Feed.Aggregator.csproj">
       <Project>{d88d20aa-55b4-480b-a320-29a69fb6b150}</Project>
       <Name>ASC.Feed.Aggregator</Name>
@@ -162,10 +145,6 @@
     <ProjectReference Include="..\..\ASC.Feed\ASC.Feed.csproj">
       <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
       <Name>ASC.Feed</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
-      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
-      <Name>ASC.FullTextIndex</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Notify\ASC.Notify\ASC.Notify.csproj">
       <Project>{8484a675-1c93-4d87-8ff2-7530a5711208}</Project>

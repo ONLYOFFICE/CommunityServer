@@ -28,12 +28,12 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.Exceptions;
-using ASC.Web.Core.Files;
+using ASC.Mail.Core;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Exceptions;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Utils;
 using ASC.Web.Mail.Resources;
@@ -44,19 +44,17 @@ namespace ASC.Web.Mail.HttpHandlers
 {
     public class FilesUploader : FileUploadHandler
     {
-        private static readonly MailBoxManager MailBoxManager = new MailBoxManager();
-
         private static int TenantId
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
 
-        private string Username
+        private static string Username
         {
             get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
 
-        private CultureInfo CurrentCulture
+        private static CultureInfo CurrentCulture
         {
             get
             {
@@ -70,113 +68,141 @@ namespace ASC.Web.Mail.HttpHandlers
 
         public override FileUploadResult ProcessUpload(HttpContext context)
         {
+            var log = LogManager.GetLogger("ASC.Mail.FilesUploader");
+
+            string message;
+
             var fileName = string.Empty;
-            MailAttachment attachment = null;
+
+            MailAttachmentData mailAttachmentData = null;
+
             try
             {
-                if (FileToUpload.HasFilesToUpload(context))
+                if (!FileToUpload.HasFilesToUpload(context))
+                    throw new Exception(MailScriptResource.AttachmentsBadInputParamsError);
+
+                if (!SecurityContext.IsAuthenticated)
                 {
-                    try
-                    {
-                        Thread.CurrentThread.CurrentCulture = CurrentCulture;
-                        Thread.CurrentThread.CurrentUICulture = CurrentCulture;
-
-                        var mailId = Convert.ToInt32(context.Request["messageId"]);
-                        var copyToMy = Convert.ToInt32(context.Request["copyToMy"]);
-
-                        if (mailId < 1) throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not yet saved!");
-
-                        var item = MailBoxManager.GetMailInfo(TenantId, Username, mailId, new MailMessage.Options());
-                        if (item == null)
-                            throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
-
-                        if (string.IsNullOrEmpty(item.StreamId)) throw new AttachmentsException(AttachmentsException.Types.BadParams, "Have no stream");
-
-                        var postedFile = new FileToUpload(context);
-                        fileName = context.Request["name"];
-
-                        if (copyToMy == 1)
-                        {
-                            var uploadedFile = FileUploader.Exec(Global.FolderMy.ToString(), fileName, postedFile.ContentLength, postedFile.InputStream, true);
-                            return new FileUploadResult
-                                {
-                                    Success = true,
-                                    FileName = uploadedFile.Title,
-                                    FileURL = FilesLinkUtility.GetFileWebPreviewUrl(uploadedFile.Title, uploadedFile.ID),
-                                    Data = new MailAttachment
-                                        {
-                                            fileId = Convert.ToInt32(uploadedFile.ID),
-                                            fileName = uploadedFile.Title,
-                                            size = uploadedFile.ContentLength,
-                                            contentType = uploadedFile.ConvertedType,
-                                            attachedAsLink = true,
-                                            tenant = TenantId,
-                                            user = Username
-                                        }
-                                };
-                        }
-
-                        attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, mailId, fileName, postedFile.InputStream);
-
-                        return new FileUploadResult
-                            {
-                                Success = true,
-                                FileName = attachment.fileName,
-                                FileURL = attachment.storedFileUrl,
-                                Data = attachment
-                            };
-                    }
-                    catch(AttachmentsException e)
-                    {
-                        string errorMessage;
-
-                        switch (e.ErrorType)
-                        {
-                            case AttachmentsException.Types.BadParams:
-                                errorMessage = MailScriptResource.AttachmentsBadInputParamsError;
-                                break;
-                            case AttachmentsException.Types.EmptyFile:
-                                errorMessage = MailScriptResource.AttachmentsEmptyFileNotSupportedError;
-                                break;
-                            case AttachmentsException.Types.MessageNotFound:
-                                errorMessage = MailScriptResource.AttachmentsMessageNotFoundError;
-                                break;
-                            case AttachmentsException.Types.TotalSizeExceeded:
-                                errorMessage = MailScriptResource.AttachmentsTotalLimitError;
-                                break;
-                            case AttachmentsException.Types.DocumentNotFound:
-                                errorMessage = MailScriptResource.AttachmentsDocumentNotFoundError;
-                                break;
-                            case AttachmentsException.Types.DocumentAccessDenied:
-                                errorMessage = MailScriptResource.AttachmentsDocumentAccessDeniedError;
-                                break;
-                            default:
-                                errorMessage = MailScriptResource.AttachmentsUnknownError;
-                                break;
-                        }
-                        throw new Exception(errorMessage);
-                    }
-                    catch(TenantQuotaException)
-                    {
-                        throw;
-                    }
-                    catch(Exception)
-                    {
-                        throw new Exception(MailScriptResource.AttachmentsUnknownError);
-                    }
+                    throw new HttpException(403, "Access denied.");
                 }
-                throw new Exception(MailScriptResource.AttachmentsBadInputParamsError);
-            }
-            catch(Exception ex)
-            {
-                return new FileUploadResult
+
+                Thread.CurrentThread.CurrentCulture = CurrentCulture;
+                Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+                var mailId = Convert.ToInt32(context.Request["messageId"]);
+                var copyToMy = Convert.ToInt32(context.Request["copyToMy"]);
+
+                if (mailId < 1)
+                    throw new AttachmentsException(AttachmentsException.Types.MessageNotFound,
+                        "Message not yet saved!");
+
+                var engine = new EngineFactory(TenantId, Username);
+
+                var item = engine.MessageEngine.GetMessage(mailId, new MailMessageData.Options());
+                if (item == null)
+                    throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
+
+                if (string.IsNullOrEmpty(item.StreamId))
+                    throw new AttachmentsException(AttachmentsException.Types.BadParams, "Have no stream");
+
+                var postedFile = new FileToUpload(context);
+
+                fileName = context.Request["name"];
+
+                if (string.IsNullOrEmpty(fileName))
+                    throw new AttachmentsException(AttachmentsException.Types.BadParams, "Empty name param");
+
+                if (copyToMy == 1)
+                {
+                    var uploadedFile = FileUploader.Exec(Global.FolderMy.ToString(), fileName,
+                        postedFile.ContentLength, postedFile.InputStream, true);
+
+                    return new FileUploadResult
                     {
-                        Success = false,
-                        FileName = fileName,
-                        Data = attachment,
-                        Message = ex.Message,
+                        Success = true,
+                        FileName = uploadedFile.Title,
+                        FileURL = FileShareLink.GetLink(uploadedFile, false),
+                        Data = new MailAttachmentData
+                        {
+                            fileId = Convert.ToInt32(uploadedFile.ID),
+                            fileName = uploadedFile.Title,
+                            size = uploadedFile.ContentLength,
+                            contentType = uploadedFile.ConvertedType,
+                            attachedAsLink = true,
+                            tenant = TenantId,
+                            user = Username
+                        }
                     };
+                }
+
+                mailAttachmentData = engine.AttachmentEngine
+                    .AttachFileToDraft(TenantId, Username, mailId, fileName, postedFile.InputStream,
+                        postedFile.ContentLength);
+
+                return new FileUploadResult
+                {
+                    Success = true,
+                    FileName = mailAttachmentData.fileName,
+                    FileURL = mailAttachmentData.storedFileUrl,
+                    Data = mailAttachmentData
+                };
             }
+            catch (HttpException he)
+            {
+                log.Error("FileUpload handler failed", he);
+
+                context.Response.StatusCode = he.GetHttpCode();
+                message = he.Message != null
+                    ? HttpUtility.HtmlEncode(he.Message)
+                    : MailApiErrorsResource.ErrorInternalServer;
+            }
+            catch (AttachmentsException ex)
+            {
+                log.Error("FileUpload handler failed", ex);
+
+                switch (ex.ErrorType)
+                {
+                    case AttachmentsException.Types.BadParams:
+                        message = MailScriptResource.AttachmentsBadInputParamsError;
+                        break;
+                    case AttachmentsException.Types.EmptyFile:
+                        message = MailScriptResource.AttachmentsEmptyFileNotSupportedError;
+                        break;
+                    case AttachmentsException.Types.MessageNotFound:
+                        message = MailScriptResource.AttachmentsMessageNotFoundError;
+                        break;
+                    case AttachmentsException.Types.TotalSizeExceeded:
+                        message = MailScriptResource.AttachmentsTotalLimitError;
+                        break;
+                    case AttachmentsException.Types.DocumentNotFound:
+                        message = MailScriptResource.AttachmentsDocumentNotFoundError;
+                        break;
+                    case AttachmentsException.Types.DocumentAccessDenied:
+                        message = MailScriptResource.AttachmentsDocumentAccessDeniedError;
+                        break;
+                    default:
+                        message = MailScriptResource.AttachmentsUnknownError;
+                        break;
+                }
+            }
+            catch (TenantQuotaException ex)
+            {
+                log.Error("FileUpload handler failed", ex);
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                log.Error("FileUpload handler failed", ex);
+                message = MailScriptResource.AttachmentsUnknownError;
+            }
+
+            return new FileUploadResult
+            {
+                Success = false,
+                FileName = fileName,
+                Data = mailAttachmentData,
+                Message = string.IsNullOrEmpty(message) ? MailApiErrorsResource.ErrorInternalServer : message
+            };
         }
     }
 }

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 using ASC.Core;
@@ -41,8 +42,6 @@ using Resources;
 
 using AjaxPro;
 using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
 
 namespace ASC.Web.Studio.Core.Backup
 {
@@ -52,7 +51,7 @@ namespace ASC.Web.Studio.Core.Backup
         #region backup
 
         [AjaxMethod]
-        public BackupProgress StartBackup(BackupStorageType storageType, StorageParams storageParams, bool backupMail)
+        public BackupProgress StartBackup(BackupStorageType storageType, Dictionary<string, string> storageParams, bool backupMail)
         {
             DemandPermissionsBackup();
             DemandSize();
@@ -62,25 +61,19 @@ namespace ASC.Web.Studio.Core.Backup
                     TenantId = GetCurrentTenantId(),
                     UserId = SecurityContext.CurrentAccount.ID,
                     BackupMail = backupMail,
-                    StorageType = storageType
+                    StorageType = storageType,
+                    StorageParams = storageParams
                 };
 
             switch (storageType)
             {
                 case BackupStorageType.ThridpartyDocuments:
                 case BackupStorageType.Documents:
-                    backupRequest.StorageBasePath = storageParams.FolderId;
+                    backupRequest.StorageBasePath = storageParams["folderId"];
                     break;
-                case BackupStorageType.CustomCloud:
-                    backupRequest.StorageBasePath = storageParams.FilePath;
-                    ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
-                    CoreContext.Configuration.SaveSection(new AmazonS3Settings
-                        {
-                            AccessKeyId = storageParams.AccessKeyId,
-                            SecretAccessKey = storageParams.SecretAccessKey,
-                            Bucket = storageParams.Bucket,
-                            Region = storageParams.Region
-                        });
+                case BackupStorageType.Local:
+                    if (!CoreContext.Configuration.Standalone) throw new Exception("Access denied");
+                    backupRequest.StorageBasePath = storageParams["filePath"];
                     break;
             }
 
@@ -139,7 +132,7 @@ namespace ASC.Web.Studio.Core.Backup
 
 
         [AjaxMethod]
-        public void CreateSchedule(BackupStorageType storageType, StorageParams storageParams, int backupsStored, CronParams cronParams, bool backupMail)
+        public void CreateSchedule(BackupStorageType storageType, Dictionary<string, string> storageParams, int backupsStored, CronParams cronParams, bool backupMail)
         {
             DemandPermissionsBackup();
             DemandSize();
@@ -155,25 +148,19 @@ namespace ASC.Web.Studio.Core.Backup
                     BackupMail = backupMail,
                     Cron = cronParams.ToString(),
                     NumberOfBackupsStored = backupsStored,
-                    StorageType = storageType
+                    StorageType = storageType,
+                    StorageParams = storageParams
                 };
 
             switch (storageType)
             {
                 case BackupStorageType.ThridpartyDocuments:
                 case BackupStorageType.Documents:
-                    scheduleRequest.StorageBasePath = storageParams.FolderId;
+                    scheduleRequest.StorageBasePath = storageParams["folderId"];
                     break;
-                case BackupStorageType.CustomCloud:
-                    ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
-                    CoreContext.Configuration.SaveSection(
-                        new AmazonS3Settings
-                            {
-                                AccessKeyId = storageParams.AccessKeyId,
-                                SecretAccessKey = storageParams.SecretAccessKey,
-                                Bucket = storageParams.Bucket,
-                                Region = storageParams.Region
-                            });
+                case BackupStorageType.Local:
+                    if (!CoreContext.Configuration.Standalone) throw new Exception("Access denied");
+                    scheduleRequest.StorageBasePath = storageParams["filePath"];
                     break;
             }
 
@@ -188,39 +175,64 @@ namespace ASC.Web.Studio.Core.Backup
         {
             DemandPermissionsBackup();
 
+            ScheduleResponse response;
             using (var service = new BackupServiceClient())
             {
-                var response = service.GetSchedule(GetCurrentTenantId());
+                response = service.GetSchedule(GetCurrentTenantId());
                 if (response == null)
                 {
                     return null;
                 }
-
-                var schedule = new Schedule
-                    {
-                        StorageType = response.StorageType,
-                        StorageParams = new StorageParams(),
-                        CronParams = new CronParams(response.Cron),
-                        BackupMail = response.BackupMail,
-                        BackupsStored = response.NumberOfBackupsStored,
-                        LastBackupTime = response.LastBackupTime
-                    };
-
-                if (response.StorageType == BackupStorageType.CustomCloud)
-                {
-                    var amazonSettings = CoreContext.Configuration.GetSection<AmazonS3Settings>();
-                    schedule.StorageParams.AccessKeyId = amazonSettings.AccessKeyId;
-                    schedule.StorageParams.SecretAccessKey = amazonSettings.SecretAccessKey;
-                    schedule.StorageParams.Bucket = amazonSettings.Bucket;
-                    schedule.StorageParams.Region = amazonSettings.Region;
-                }
-                else
-                {
-                    schedule.StorageParams.FolderId = response.StorageBasePath;
-                }
-
-                return schedule;
             }
+
+            var schedule = new Schedule
+            {
+                StorageType = response.StorageType,
+                StorageParams = response.StorageParams ?? new Dictionary<string, string>(),
+                CronParams = new CronParams(response.Cron),
+                BackupMail = response.BackupMail,
+                BackupsStored = response.NumberOfBackupsStored,
+                LastBackupTime = response.LastBackupTime
+            };
+
+            if (response.StorageType == BackupStorageType.CustomCloud)
+            {
+                var amazonSettings = CoreContext.Configuration.GetSection<AmazonS3Settings>();
+
+                var consumer = ConsumerFactory.GetByName<DataStoreConsumer>("S3");
+                if (!consumer.IsSet)
+                {
+                    consumer["acesskey"] = amazonSettings.AccessKeyId;
+                    consumer["secretaccesskey"] = amazonSettings.SecretAccessKey;
+
+                    consumer["bucket"] = amazonSettings.Bucket;
+                    consumer["region"] = amazonSettings.Region;
+                }
+
+                schedule.StorageType = BackupStorageType.ThirdPartyConsumer;
+                schedule.StorageParams = consumer.AdditionalKeys.ToDictionary(r => r, r => consumer[r]);
+                schedule.StorageParams.Add("module", "S3");
+
+                using (var service = new BackupServiceClient())
+                {
+                    service.CreateSchedule(new CreateScheduleRequest
+                    {
+                        TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                        BackupMail = schedule.BackupMail,
+                        Cron = schedule.CronParams.ToString(),
+                        NumberOfBackupsStored = schedule.BackupsStored,
+                        StorageType = schedule.StorageType,
+                        StorageParams = schedule.StorageParams
+                    });
+                }
+
+            }
+            else if (response.StorageType != BackupStorageType.ThirdPartyConsumer)
+            {
+                schedule.StorageParams["folderId"] = response.StorageBasePath;
+            }
+
+            return schedule;
         }
 
         [AjaxMethod]
@@ -247,14 +259,15 @@ namespace ASC.Web.Studio.Core.Backup
         #region restore
 
         [AjaxMethod]
-        public BackupProgress StartRestore(string backupId, BackupStorageType storageType, StorageParams storageParams, bool notify)
+        public BackupProgress StartRestore(string backupId, BackupStorageType storageType, Dictionary<string, string> storageParams, bool notify)
         {
             DemandPermissionsRestore();
 
             var restoreRequest = new StartRestoreRequest
             {
                 TenantId = GetCurrentTenantId(),
-                NotifyAfterCompletion = notify
+                NotifyAfterCompletion = notify,
+                StorageParams = storageParams
             };
 
             Guid guidBackupId;
@@ -265,18 +278,7 @@ namespace ASC.Web.Studio.Core.Backup
             else
             {
                 restoreRequest.StorageType = storageType;
-                restoreRequest.FilePathOrId = storageParams.FilePath;
-                if (storageType == BackupStorageType.CustomCloud)
-                {
-                    ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
-                    CoreContext.Configuration.SaveSection(new AmazonS3Settings
-                    {
-                        AccessKeyId = storageParams.AccessKeyId,
-                        SecretAccessKey = storageParams.SecretAccessKey,
-                        Bucket = storageParams.Bucket,
-                        Region = storageParams.Region
-                    });
-                }
+                restoreRequest.FilePathOrId = storageParams["filePath"];
             }
 
             using (var service = new BackupServiceClient())
@@ -356,6 +358,14 @@ namespace ASC.Web.Studio.Core.Backup
 
         #endregion
 
+        public string GetTmpFolder()
+        {
+            using (var service = new BackupServiceClient())
+            {
+                return service.GetTmpFolder();
+            }
+        }
+
         private static void DemandSize()
         {
             if (BackupHelper.ExceedsMaxAvailableSize)
@@ -370,38 +380,6 @@ namespace ASC.Web.Studio.Core.Backup
             new CronExpression(cronParams.ToString());
         }
 
-        private static void ValidateS3Settings(string accessKeyId, string secretAccessKey, string bucket, string region)
-        {
-            if (string.IsNullOrEmpty(accessKeyId))
-            {
-                throw new ArgumentException("Empty access key id.", "accessKeyId");
-            }
-            if (string.IsNullOrEmpty(secretAccessKey))
-            {
-                throw new ArgumentException("Empty secret access key.", "secretAccessKey");
-            }
-            if (string.IsNullOrEmpty(bucket))
-            {
-                throw new ArgumentException("Empty s3 bucket.", "bucket");
-            }
-            if (string.IsNullOrEmpty(region))
-            {
-                throw new ArgumentException("Empty s3 region.", "region");
-            }
-            try
-            {
-      
-                using (var s3 = new AmazonS3Client(accessKeyId, secretAccessKey, new AmazonS3Config {RegionEndpoint = RegionEndpoint.GetBySystemName(region)}))
-                {
-                    s3.GetBucketLocation(new GetBucketLocationRequest {BucketName = bucket});
-                }
-            }
-            catch(AmazonS3Exception error)
-            {
-                throw new Exception(error.ErrorCode);
-            }
-        }
-
         private static int GetCurrentTenantId()
         {
             return CoreContext.TenantManager.GetCurrentTenant().TenantId;
@@ -410,21 +388,11 @@ namespace ASC.Web.Studio.Core.Backup
         public class Schedule
         {
             public BackupStorageType StorageType { get; set; }
-            public StorageParams StorageParams { get; set; }
+            public Dictionary<string, string> StorageParams { get; set; }
             public CronParams CronParams { get; set; }
             public bool BackupMail { get; set; }
             public int BackupsStored { get; set; }
             public DateTime LastBackupTime { get; set; }
-        }
-
-        public class StorageParams
-        {
-            public string AccessKeyId { get; set; }
-            public string SecretAccessKey { get; set; }
-            public string Bucket { get; set; }
-            public string FolderId { get; set; }
-            public string FilePath { get; set; }
-            public string Region { get; set; }
         }
 
         public class CronParams

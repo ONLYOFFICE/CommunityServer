@@ -385,7 +385,7 @@
                     for (var i = 0, n = req.__jointrequests.length; i < n; i++) {
                         var jointrequest = req.__jointrequests[i];
                         if (typeof jointrequest.__errorcallback === "function") {
-                            jointrequest.__errorcallback(jointrequest.__params);
+                            jointrequest.__errorcallback(jointrequest.__params, req.__errors);
                         }
                     }
                 }

@@ -29,15 +29,18 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
 {
     public class MilestoneEngine
     {
         public IDaoFactory DaoFactory { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
         public bool DisableNotifications { get; set; }
 
         #region Get Milestones
@@ -94,7 +97,7 @@ namespace ASC.Projects.Engine
             return DaoFactory.MilestoneDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
-        public Dictionary<Guid, int>  GetByFilterCountForReport(TaskFilter filter)
+        public List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter)
         {
             return DaoFactory.MilestoneDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
@@ -187,7 +190,7 @@ namespace ASC.Projects.Engine
             return DaoFactory.MilestoneDao.GetLastModified();
         }
 
-        private static bool CanRead(Milestone m)
+        private bool CanRead(Milestone m)
         {
             return ProjectSecurity.CanRead(m);
         }
@@ -248,6 +251,8 @@ namespace ASC.Projects.Engine
 
             if (!milestone.Responsible.Equals(Guid.Empty))
                 NotifyMilestone(milestone, notifyResponsible, isNew, oldResponsible);
+
+            FactoryIndexer<MilestonesWrapper>.IndexAsync(milestone);
 
             return milestone;
         }
@@ -312,6 +317,8 @@ namespace ASC.Projects.Engine
             var users = new HashSet<Guid> { milestone.Project.Responsible, milestone.Responsible };
 
             NotifyClient.Instance.SendAboutMilestoneDeleting(users, milestone);
+
+            FactoryIndexer<MilestonesWrapper>.DeleteAsync(milestone);
         }
 
         #endregion

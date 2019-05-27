@@ -1,10 +1,10 @@
-Source: onlyoffice-communityserver
+Source: {{package_sysname}}-communityserver
 Section: web
 Priority: optional
-Maintainer: ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
+Maintainer: {{package_section_maintainer}}
 Build-Depends: debhelper (>= 8.0.0)
 
-Package: onlyoffice-communityserver
+Package: {{package_sysname}}-communityserver
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server, mysql-client, mono-complete (>= 5.0), ca-certificates-mono, nginx (>= 0.8.21), mono-webserver-hyperfastcgi, ruby-dev, ruby-god, nodejs (>= 6.10.3)
-Description: ONLYOFFICE Community Server is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
+Depends: ${shlibs:Depends}, ${misc:Depends}, {{package_header_tag_requires}}
+Description: {{package_section_description}}

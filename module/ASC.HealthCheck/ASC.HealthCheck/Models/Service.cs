@@ -39,9 +39,9 @@ using ASC.Core.Notify.Jabber;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
 using ASC.Feed.Aggregator.Config;
 using ASC.Feed.Data;
-using ASC.FullTextIndex;
 using ASC.HealthCheck.Classes;
 using ASC.HealthCheck.Resources;
 using ASC.Notify.Messages;
@@ -454,12 +454,9 @@ namespace ASC.HealthCheck.Models
         {
             try
             {
-                using (var service = new TextIndexServiceClient())
-                {
-                    return service.CheckState()
-                        ? HealthCheckResource.FullTextIndexServiceWorksCorrectMsg
-                        : HealthCheckResource.FullTextIndexServiceWorksIncorrectMsg;
-                }
+                return FactoryIndexer.CheckState()
+                    ? HealthCheckResource.FullTextIndexServiceWorksCorrectMsg
+                    : HealthCheckResource.FullTextIndexServiceWorksIncorrectMsg;
             }
             catch (Exception ex)
             {

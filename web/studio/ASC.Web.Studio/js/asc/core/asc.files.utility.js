@@ -38,7 +38,7 @@ if (typeof ASC.Files.Utility === 'undefined') {
 
 ASC.Files.Utility.FileExtensionLibrary = {
     ArchiveExts: [".zip", ".rar", ".ace", ".arc", ".arj", ".bh", ".cab", ".enc", ".gz", ".ha", ".jar", ".lha", ".lzh", ".pak", ".pk3", ".tar", ".tgz", ".uu", ".uue", ".xxe", ".z", ".zoo"],
-    AviExts: [".avi"],
+    CalendarExts: [".ics", ".ical", ".ifb", ".icalendar"],
     CsvExts: [".csv"],
     DjvuExts: [".djvu"],
     DocExts: [".doc"],
@@ -49,18 +49,15 @@ ASC.Files.Utility.FileExtensionLibrary = {
     DotmExts: [".dotm"],
     DotxExts: [".dotx"],
     EbookExts: [".epub", ".fb2"],
-    FlvExts: [".flv", ".fla"],
+    GsheetExts: [".gsheet"],
+    GslidesExts: [".gslides"],
+    GdocExts: [".gdoc"],
     HtmlExts: [".html", ".htm", ".mht"],
     IafExts: [".iaf"],
     ImgExts: [".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg", ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".png", ".pnm", ".pbm", ".ppm", ".rgb", ".xbm", ".xpm", ".xwd"],
-    M2tsExts: [".m2ts"],
-    MkvExts: [".mkv"],
-    MovExts: [".mov"],
-    Mp4Exts: [".mp4"],
-    MpgExts: [".mpg"],
-    OdpExts: [".odp", ".fodp"],
-    OdsExts: [".ods", ".fods"],
-    OdtExts: [".odt", ".fodt"],
+    OdpExts: [".odp", ".fodp", ".otp"],
+    OdsExts: [".ods", ".fods", ".ots"],
+    OdtExts: [".odt", ".fodt", ".ott"],
     PdfExts: [".pdf"],
     PpsExts: [".pps"],
     PpsxExts: [".ppsx"],
@@ -73,10 +70,12 @@ ASC.Files.Utility.FileExtensionLibrary = {
     PotxExts: [".potx"],
     PotmExts: [".potm"],
     RtfExts: [".rtf"],
-    SoundExts: [".mp3", ".wav", ".pcm", ".aiff", ".3gp", ".flac", ".fla", ".cda"],
+    SoundExts: [".aac", ".flac", ".m4a", ".mp3", ".oga", ".ogg", ".wav"],
+    SoundUnkExts: [".ac3", ".aiff", ".amr", ".ape", ".cda", ".mid", ".mka", ".mpc", ".pcm", ".ra", ".raw", ".wma"],
     SvgExts: [".svg"],
     TxtExts: [".txt"],
-    DvdExts: [".vob"],
+    VideoExts: [".f4v", ".m4v", ".mov", ".mp4", ".ogv", ".webm"],
+    VideoUnkExts: [".3gp", ".asf", ".avi", ".fla", ".flv", ".m2ts", ".mkv", ".mpeg", ".mpg", ".mts", ".svi", ".vob", ".wmv"],
     XlsExts: [".xls", ".xlsb"],
     XlsxExts: [".xlsx"],
     XlsmExts: [".xlsm"],
@@ -85,11 +84,7 @@ ASC.Files.Utility.FileExtensionLibrary = {
     XltxExts: [".xltx"],
     XltmExts: [".xltm"],
     XmlExts: [".xml"],
-    XpsExts: [".xps"],
-    GdocExts: [".gdoc"],
-    GsheetExts: [".gsheet"],
-    GslidesExts: [".gslides"],
-    CalendarExts: [".ics", ".ical", ".ifb", ".icalendar"]
+    XpsExts: [".xps"]
 };
 
 ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
@@ -104,8 +99,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
 
     if (checkInArray(fileExtensionLibrary.ArchiveExts))
         ext = "Archive";
-    else if (checkInArray(fileExtensionLibrary.AviExts))
-        ext = "Avi";
+    else if (checkInArray(fileExtensionLibrary.CalendarExts))
+        ext = "Cal";
     else if (checkInArray(fileExtensionLibrary.CsvExts))
         ext = "Csv";
     else if (checkInArray(fileExtensionLibrary.DjvuExts))
@@ -126,8 +121,12 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Dotm";
     else if (checkInArray(fileExtensionLibrary.EbookExts))
         ext = "Ebook";
-    else if (checkInArray(fileExtensionLibrary.FlvExts))
-        ext = "Flv";
+    else if (checkInArray(fileExtensionLibrary.GsheetExts))
+        ext = "Gsheet";
+    else if (checkInArray(fileExtensionLibrary.GslidesExts))
+        ext = "Gslides";
+    else if (checkInArray(fileExtensionLibrary.GdocExts))
+        ext = "Gdoc";
     else if (checkInArray(fileExtensionLibrary.HtmlExts))
         ext = "Html";
     else if (checkInArray(fileExtensionLibrary.IafExts))
@@ -136,14 +135,6 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Image";
     else if (checkInArray(fileExtensionLibrary.M2tsExts))
         ext = "M2ts";
-    else if (checkInArray(fileExtensionLibrary.MkvExts))
-        ext = "Mkv";
-    else if (checkInArray(fileExtensionLibrary.MovExts))
-        ext = "Mov";
-    else if (checkInArray(fileExtensionLibrary.Mp4Exts))
-        ext = "Mp4";
-    else if (checkInArray(fileExtensionLibrary.MpgExts))
-        ext = "Mpg";
     else if (checkInArray(fileExtensionLibrary.OdpExts))
         ext = "Odp";
     else if (checkInArray(fileExtensionLibrary.OdtExts))
@@ -176,12 +167,16 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Rtf";
     else if (checkInArray(fileExtensionLibrary.SoundExts))
         ext = "Sound";
+    else if (checkInArray(fileExtensionLibrary.SoundUnkExts))
+        ext = "SoundUnk";
     else if (checkInArray(fileExtensionLibrary.SvgExts))
         ext = "Svg";
     else if (checkInArray(fileExtensionLibrary.TxtExts))
         ext = "Txt";
-    else if (checkInArray(fileExtensionLibrary.DvdExts))
-        ext = "Dvd";
+    else if (checkInArray(fileExtensionLibrary.VideoExts))
+        ext = "Video";
+    else if (checkInArray(fileExtensionLibrary.VideoUnkExts))
+        ext = "VideoUnk";
     else if (checkInArray(fileExtensionLibrary.XlsExts))
         ext = "Xls";
     else if (checkInArray(fileExtensionLibrary.XlsxExts))
@@ -200,14 +195,6 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Xml";
     else if (checkInArray(fileExtensionLibrary.XpsExts))
         ext = "Xps";
-    else if (checkInArray(fileExtensionLibrary.GdocExts))
-        ext = "Gdoc";
-    else if (checkInArray(fileExtensionLibrary.GsheetExts))
-        ext = "Gsheet";
-    else if (checkInArray(fileExtensionLibrary.GslidesExts))
-        ext = "Gslides";
-    else if (checkInArray(fileExtensionLibrary.CalendarExts))
-        ext = "Cal";
 
     return "ftFile_" + (compact === true ? 21 : 32) + " ft_" + ext;
 };
@@ -258,8 +245,24 @@ ASC.Files.Utility.CanWebEdit = function (fileTitle) {
     );
 };
 
+ASC.Files.Utility.CanWebEncrypt = function (fileTitle) {
+    return (
+        Teamlab.profile.isVisitor !== true
+            ? jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebEncrypt) != -1
+            : false
+    );
+};
+
 ASC.Files.Utility.CanWebReview = function (fileTitle) {
     return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebReviewed) != -1;
+};
+
+ASC.Files.Utility.CanWebRestrictedEditing = function (fileTitle) {
+    return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebRestrictedEditing) != -1;
+};
+
+ASC.Files.Utility.CanWebComment = function (fileTitle) {
+    return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebCommented) != -1;
 };
 
 ASC.Files.Utility.CanCoAuhtoring = function (fileTitle) {
@@ -312,6 +315,10 @@ ASC.Files.Utility.GetFileDownloadUrl = function (fileId, fileVersion, convertToE
         return url + "&" + ASC.Files.Utility.Resource.ParamOutType + "=" + convertToExtension;
     }
     return url;
+};
+
+ASC.Files.Utility.GetFileRedirectPreviewUrl = function (fileId, orFolderId) {
+    return ASC.Files.Utility.Resource.FileRedirectPreviewUrlString + (!!orFolderId ? ("&folderid=" + encodeURIComponent(orFolderId)) : ("&fileid=" + encodeURIComponent(fileId)));
 };
 
 ASC.Files.Utility.GetFileWebViewerUrl = function (fileId, fileVersion) {

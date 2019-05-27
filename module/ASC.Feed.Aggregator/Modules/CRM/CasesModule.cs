@@ -104,7 +104,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
             {
                 var dao = scope.Resolve<DaoFactory>().ContactDao;
                 var cases = db.ExecuteList(query).ConvertAll(ToCases);
-                return cases.Select(c => new Tuple<Feed, object>(ToFeed(c, dao), c));
+                return cases.Select(c => new Tuple<Feed, object>(ToFeed(c, dao), c)).ToList();
             }
         }
 

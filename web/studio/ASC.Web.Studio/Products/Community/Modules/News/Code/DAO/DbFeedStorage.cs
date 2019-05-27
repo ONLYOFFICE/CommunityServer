@@ -24,6 +24,11 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -31,7 +36,6 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Common.Notify;
 using ASC.Core.Tenants;
-using ASC.FullTextIndex;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
@@ -39,10 +43,8 @@ using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Web.Community.News.Code.DAO
 {
@@ -129,10 +131,10 @@ namespace ASC.Web.Community.News.Code.DAO
 
             if (!string.IsNullOrEmpty(s))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.NewsModule))
+                List<int> news;
+                if (FactoryIndexer<NewsWrapper>.TrySelectIds(r => r.MatchAll(s), out news))
                 {
-                    var ids = FullTextSearch.Search(FullTextSearch.NewsModule.Match(s));
-                    where = where & Exp.In("Id", ids);
+                    where = where & Exp.In("Id", news);
                 }
                 else
                 {
@@ -263,6 +265,7 @@ namespace ASC.Web.Community.News.Code.DAO
 
             NotifyFeed(feed, isEdit, type);
 
+            FactoryIndexer<NewsWrapper>.IndexAsync(feed);
             return feed;
         }
 
@@ -347,8 +350,12 @@ namespace ASC.Web.Community.News.Code.DAO
             }
         }
 
-        public void RemoveFeed(long id)
+        public void RemoveFeed(Feed feed)
         {
+            if (feed == null) return;
+
+            var id = feed.Id;
+
             using (var tx = dbManager.BeginTransaction())
             {
                 dbManager.ExecuteNonQuery(Delete("events_pollanswer").Where(Exp.In("Variant", Query("events_pollvariant").Select("Id").Where(Exp.Eq("Poll", id)))));
@@ -361,6 +368,7 @@ namespace ASC.Web.Community.News.Code.DAO
             }
 
             AscCache.Default.Remove("communityScreen" + TenantProvider.CurrentTenantID);
+            FactoryIndexer<NewsWrapper>.DeleteAsync(feed);
         }
 
         public List<FeedComment> GetFeedComments(long feedId)

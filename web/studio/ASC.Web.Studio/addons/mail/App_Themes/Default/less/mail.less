@@ -27,7 +27,6 @@
 @import "common.less";
 @import "icons.less";
 @import "messages.less";
-@import "autocomplete.less";
 @import "message.less";
 @import "tags.less";
 @import "attachments.less";
@@ -41,9 +40,21 @@
 @import "print.less";
 @import "administration.less";
 @import "calendar.less";
+@import "filters.less";
+@import "folders.less";
+
+#firstLoader {
+    position: fixed;
+    top: 400px;
+    left: 50%;
+}
 
 .savedtime {
     padding: @message-spliter-width / 4 @message-spliter-width 0 0;
+
+    .savedtime-value {
+        padding-left: @base-distance / 4;
+    }
 }
 
 .sysfolder .mail-navigation-table .pagerCurrentPosition,.sysfolder .mail-navigation-table .pagerNavigationLinkCSSClass,.sysfolder #TotalItems.mail-grayText,.sysfolder .mail-grayText.mail-navigation-total {
@@ -164,6 +175,7 @@ a.anchorLinkButton {
         font-size: 12px;
         font-weight: normal;
         margin-bottom: 8px;
+        margin-left: 8px;
     }
 
     .popup-corner {
@@ -319,11 +331,10 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
     position: relative;
     text-decoration: none;
     display: inline-block;
-    float: left;
     white-space: nowrap;
 
     .new-label-menu {
-        margin: 2px 0 0 6px;
+        margin: 2px -2px 0 6px;
     }
 }
 
@@ -345,38 +356,6 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
     float: left;
     margin: 6px 0 0 5px;
     cursor: pointer;
-}
-
-#mail_CreateNewTag {
-    .entertagname {
-        width: 242px;
-        border: 1px solid #c7c7c7;
-        display: inline-block;
-
-        .square {
-            margin: 5px 0 0 6px;
-            display: inline-block;
-            width: 5px;
-            height: 9px;
-            cursor: pointer;
-        }
-
-        input[type="text"] {
-            border: 0px;
-            width: 196px;
-            line-height: 22px;
-        }
-    }
-
-    .entertag_button {
-        margin-bottom: 3px;
-    }
-}
-
-#mail_CreateNewTag.requiredField.requiredFieldError {
-    .entertagname {
-        border-color: #c00 !important;
-    }
 }
 
 .td_attach {
@@ -502,7 +481,10 @@ div.studioSideBoxMailBody {
 }
 
 .subject, .subject a {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     color: #333;
+    border-radius: 0;
 }
 
 div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-navigation span.button {
@@ -554,7 +536,7 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
     }
 }
 
-.arrow-down {
+.baseLinkArrowDown {
     margin: 0 0 2px 3px;
     display: inline-block;
     width: 0;
@@ -587,7 +569,8 @@ div.studioSideBoxMailHeader {
     margin-top: 5px;
 }
 
-a.disable {
+a.disable,
+a.disable:hover {
     cursor: default;
     color: rgb(153, 153, 153);
 }
@@ -833,6 +816,33 @@ textarea {
     }
 }
 
+.bright-blue, .wild-pink {
+    .contentMenuWrapper {
+        .menuAction.btnNext.unlockAction {
+            .arrow-right {
+                border-left: 5px solid #ffffff;
+            }
+        }
+
+        .menuAction.btnPrev.unlockAction {
+            .arrow-left {
+                border-right: 5px solid #ffffff;
+            }
+        }
+        .menuAction.btnNext {
+            .arrow-right {
+                border-left: 5px solid #ffffff;
+            }
+        }
+
+        .menuAction.btnPrev {
+            .arrow-left {
+                border-right: 5px solid #ffffff;
+            }
+        }
+    }
+}
+
 
 
 .contentMenuWrapper {
@@ -1028,6 +1038,16 @@ textarea {
         p {
             margin-top: 1px !important;
         }
+
+        .attentionText {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .questionText {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
     }
     .hint {
         font-size: 14px;
@@ -1095,9 +1115,37 @@ textarea {
     }
 }
 
-.existsTags {
-    max-height:400px;
-    overflow-y:auto;
+#tagsPanelContent {
+
+    .existsTags {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-left: 8px;
+    }
+
+    .createTagMenu {
+        background: none;
+        border: 0;
+        color: #333333;
+        cursor: pointer;
+        display: block;
+        font-size: 12px;
+        line-height: 24px;
+        margin: 0;
+        padding: 0 12px;
+        text-decoration: none;
+    }
+
+        .createTagMenu:hover {
+            background-color: #e9e9e9;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+
+            .entertag_button {
+                text-decoration: none;
+            }
+        }
 }
 
 * html table#newMessage div.helper div.mailbox-from-helper, * html table#newMessage div.helper div.mailbox-to-helper {
@@ -1229,6 +1277,14 @@ input {
         &.domains {
             .blank-icon-mixin(0,5);
         }
+
+        &.userfolder {
+            background-position: -135px -906px;
+        }
+
+        &.userFilter {
+            background-position: 5px -1056px;
+        }
     }
 }
 
@@ -1250,6 +1306,10 @@ input {
         {
             min-height: 237px;
         }
+    }
+
+    .blockUI:not(.blockOverlay) {
+        top: 45% !important;
     }
 }
 
@@ -1429,11 +1489,63 @@ body.media-width-0-1200
     }
 }
 
-#foldersContainer {
-    li { 
-        a { 
-            width: 100%; 
-            height: 100%;
-        }
+.ui-selectable-helper {
+    background-color: #6CA3BF;
+    border: 1px solid #034;
+    cursor: default;
+    display: block;
+    height: 0;
+    opacity: 0.3;
+    position: absolute;
+    width: 0;
+    z-index: 254;
+}
+
+/*******************************************************************************
+    Mouse moving
+*******************************************************************************/
+
+@drag-color: #fcf6e0;
+@drag-hover-color: #F9EEC2;
+
+.mailMouseMove,
+.mailMouseMove * {
+    cursor: alias !important;
+}
+
+#mailMovingTooltip {
+    cursor: alias !important;
+    display: block;
+    font-size: 12px;
+    height: auto;
+    line-height: 24px;
+    margin-left: 13px;
+    margin-top: 6px;
+    max-width: 500px;
+    padding: 4px 16px;
+    position: absolute;
+    word-wrap: break-word;
+    z-index: 301;
+}
+#mailMovingTooltip, #ie#fix {
+    cursor: alias !important;
+}
+* + html #mailMovingTooltip {
+    cursor: move;
+}
+
+.mailMoveTo {
+    background: @drag-color;
+
+    &:hover {
+        background: @drag-hover-color;
     }
+}
+
+.mailMoveToUserFolder .jstree-wholerow {
+    background: @drag-color;
+}
+
+.mailMoveToUserFolderHover {
+    background: @drag-hover-color !important;
 }

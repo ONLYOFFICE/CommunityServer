@@ -77,8 +77,8 @@ namespace ASC.Api.Projects.Wrappers
             Deadline = new ApiDateTime(milestone.DeadLine, TimeZoneInfo.Local);
             IsKey = milestone.IsKey;
             IsNotify = milestone.IsNotify;
-            CanEdit = ProjectSecurity.CanEdit(milestone);
-            CanDelete = ProjectSecurity.CanDelete(milestone);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(milestone);
+            CanDelete = projectApiBase.ProjectSecurity.CanDelete(milestone);
             ActiveTaskCount = milestone.ActiveTaskCount;
             ClosedTaskCount = milestone.ClosedTaskCount;
 

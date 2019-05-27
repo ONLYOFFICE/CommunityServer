@@ -80,19 +80,10 @@
                 <span  id="markallrecipientsLabel"><%=MailScriptResource.MarkAllSendersLabel%></span>
             </label>
         </div>
-        <div class="existsTags">
-        </div>
+        <div class="existsTags webkit-scrollbar"></div>
         <div class="h_line"></div>
-        <div class="actionPanelSection" style="width: 293px;">
-            <div id="mail_CreateNewTag" class="requiredField">
-               <span class="requiredErrorText" style="padding-right: 49px;"><%: MailScriptResource.ErrorEmptyField %></span>
-                <div class="headerPanelSmall" ><%: MailResource.CreateNewTagLabel %></div>
-                <div class="entertagname">
-                    <div title="Select color" class="square"></div>
-                    <input id="createnewtag" type="text" class="textEdit tagname" placeholder="<%=MailResource.TagNamePlaceholder%>" maxlength="255"/>
-                </div>
-                <button class="entertag_button button blue" type="button"><%=MailScriptResource.OkBtnLabel%></button>
-            </div>
+        <div class="createTagMenu">
+            <a title="<%: MailResource.CreateNewTagBtn %>" class="link entertag_button"><%: MailResource.CreateNewTagBtn %></a>
         </div>
     </div>
 </div>

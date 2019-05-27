@@ -44,6 +44,8 @@ ASC.Projects.SubtasksManager = (function () {
     var escKey = 27,
         enterKey = 13;
 
+    var allUsers;
+
     var init = function () {
         if (isInit) {
             return;
@@ -51,6 +53,7 @@ ASC.Projects.SubtasksManager = (function () {
 
         isInit = true;
         teamlab = Teamlab;
+        allUsers = UserManager.getAllUsers(true);
 
         currentUserId = teamlab.profile.id;
         currentProjectId = jq.getURLParam("prjID");
@@ -277,7 +280,7 @@ ASC.Projects.SubtasksManager = (function () {
             return { id: item.id, title: item.displayName };
         }
 
-        var choose = validTeamMembers.find(function (item) { return item.id === subtaskResponsible });
+        var choose = allUsers.find(function (item) { return item.id === subtaskResponsible });
         if (!choose) {
             choose = nobody;
         }

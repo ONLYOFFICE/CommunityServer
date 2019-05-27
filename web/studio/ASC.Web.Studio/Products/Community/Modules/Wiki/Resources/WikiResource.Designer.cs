@@ -493,6 +493,15 @@ namespace ASC.Web.UserControls.Wiki.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Text field is empty..
+        /// </summary>
+        public static string msgPageTextEmpty {
+            get {
+                return ResourceManager.GetString("msgPageTextEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A page with this title already exists..
         /// </summary>
         public static string msgSamePageExists {

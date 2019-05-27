@@ -24,8 +24,10 @@
 					  <div style="padding-top: 10px;padding-top: 0px;"><%=string.Format(TalkOverviewResource.OverviewWebClientDescription, TalkAddon.GetTalkClientURL())%></div>
                       <div class="header-base" style="padding-top: 20px;"><%=TalkOverviewResource.NotificationSetup %></div>
                       <div style="padding-top: 10px;"><%=TalkOverviewResource.DefaultNotificationText%></div>
-                      <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href = '/products/people/profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
-                      <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href = 'http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
+                      <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href='/products/people/profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
+                      <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+                      <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href='" + HelpLink + "/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
+                      <% } %>
 				  </td>
 				  <td colspan="2" style="border-bottom: 1px solid #d1d1d1; padding-bottom: 15px; vertical-align:middle">
 					  <div class="tintMedium" style=" width: 200px;">
@@ -47,11 +49,6 @@
 						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.ContactListWithSettings%></div>
 					      </div>
 					      <div class="talkScreenshots">
-						      <%-- <img src="images/screenshot03.png" alt="" /> --%>
-						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot03.png", TalkAddon.AddonID)%>" alt="" />
-						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.YourStatusChanger%></div>
-					      </div>
-					      <div class="talkScreenshots">
 						      <%-- <img src="images/screenshot04.png" alt="" /> --%>
 						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot04.png", TalkAddon.AddonID)%>" alt="" />
 						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.SettingsOfInputField%></div>
@@ -65,12 +62,11 @@
 			  </tr>
 			  <tr valign="top">
 				  <td colspan="3" style="padding: 0 35px 15px 0">
-                      
-					  <div style = "padding-top: 0px;">
-					    <%=string.Format(TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent,
-                        "<a href = 'http://helpcenter.onlyoffice.com/tipstricks/integrating-talk.aspx'>" + TalkOverviewResource.Here + "</a>")
-                            %>
+                      <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+                      <div style="padding-top: 0;">
+					    <%=string.Format(TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent, "<a href='" + HelpLink + "/tipstricks/integrating-talk.aspx'>" + TalkOverviewResource.Here + "</a>") %>
 					  </div>
+                      <% } %>
 					  <div style="margin-top: 10px; padding-top: 0px;">
 					    <%=string.Format(TalkOverviewResource.ThirdPartyAppsSettingsSectionContent,
                                 "<b>"+JID+"</b>",
@@ -115,16 +111,13 @@
 				  </td>
 					<td style="vertical-align:middle; padding-bottom: 15px;">
 					  <div class="tintMedium" style="width: 122px;">
-						  <div class="header-base" style="margin-top: 40px;"></div>
+						  <div class="header-base" style="margin-top: 10px;"></div>
 						  <div class="talkAdiumClientImage">
 						    <a href="https://adium.im/" class="external" title="<%=TalkOverviewResource.Adium%>" target="_blank">Adium</a>
 						  </div>
 						  <div class="talkqutimClientImage">
 						    <a href="https://qutim.org/" class="external" title="<%=TalkOverviewResource.qutlIM%>" target="_blank">qutIM</a>
 						    </div>
-						  <div class="talkMailRuAgentClientImage">
-						    <a href="https://agent.mail.ru/" class="external" title="<%=TalkOverviewResource.MailRuAgent%>" target="_blank">Mail.ru Agent</a>
-						  </div>
 						  <div class="talkQipClientImage">
 						    <a href="http://welcome.qip.ru/im" class="external" title="<%=TalkOverviewResource.QIP%>" target="_blank">QIP</a>
 						  </div>

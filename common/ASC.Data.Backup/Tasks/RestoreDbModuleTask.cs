@@ -26,13 +26,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
+using System.Text;
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Data.Backup.Exceptions;
 using ASC.Data.Backup.Extensions;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Tasks.Data;
 using ASC.Data.Backup.Tasks.Modules;
 
@@ -47,8 +48,9 @@ namespace ASC.Data.Backup.Tasks
         private readonly ColumnMapper _columnMapper;
         private readonly DbFactory _factory;
         private readonly bool _replaceDate;
+        private readonly bool dump;
 
-        public RestoreDbModuleTask(ILog logger, IModuleSpecifics module, IDataReadOperator reader, ColumnMapper columnMapper, DbFactory factory, bool replaceDate)
+        public RestoreDbModuleTask(ILog logger, IModuleSpecifics module, IDataReadOperator reader, ColumnMapper columnMapper, DbFactory factory, bool replaceDate, bool dump)
             : base(logger, -1, null)
         {
             if (reader == null)
@@ -65,32 +67,38 @@ namespace ASC.Data.Backup.Tasks
             _columnMapper = columnMapper;
             _factory = factory;
             _replaceDate = replaceDate;
+            this.dump = dump;
         }
 
         public override void RunJob()
         {
-            Logger.Debug("begin restore data for module {0}", _module.ModuleName);
+            Logger.DebugFormat("begin restore data for module {0}", _module.ModuleName);
             SetStepsCount(_module.Tables.Count(t => !IgnoredTables.Contains(t.Name)));
+
             using (var connection = _factory.OpenConnection())
             {
                 foreach (var table in _module.GetTablesOrdered().Where(t => !IgnoredTables.Contains(t.Name) && t.InsertMethod != InsertMethod.None))
                 {
-                    Logger.Debug("begin restore table {0}", table.Name);
+                    Logger.DebugFormat("begin restore table {0}", table.Name);
 
                     var transactionsCommited = 0;
                     var rowsInserted = 0;
-                    ActionInvoker.Try(state => RestoreTable(connection.Fix(), (TableInfo)state, ref transactionsCommited, ref rowsInserted), table, 5,
-                                      onAttemptFailure: error => _columnMapper.Rollback(),
-                                      onFailure: error => { throw ThrowHelper.CantRestoreTable(table.Name, error); });
+                    ActionInvoker.Try(
+                        state =>
+                            RestoreTable(connection.Fix(), (TableInfo) state, ref transactionsCommited,
+                                ref rowsInserted), table, 5,
+                        onAttemptFailure: error => _columnMapper.Rollback(),
+                        onFailure: error => { throw ThrowHelper.CantRestoreTable(table.Name, error); });
 
                     SetStepCompleted();
-                    Logger.Debug("{0} rows inserted for table {1}", rowsInserted, table.Name);
+                    Logger.DebugFormat("{0} rows inserted for table {1}", rowsInserted, table.Name);
                 }
             }
-            Logger.Debug("end restore data for module {0}", _module.ModuleName);
+
+            Logger.DebugFormat("end restore data for module {0}", _module.ModuleName);
         }
 
-        private void RestoreTable(IDbConnection connection, TableInfo tableInfo, ref int transactionsCommited, ref int rowsInserted)
+        private void RestoreTable(DbConnection connection, TableInfo tableInfo, ref int transactionsCommited, ref int rowsInserted)
         {
             SetColumns(connection, tableInfo);
 
@@ -98,12 +106,18 @@ namespace ASC.Data.Backup.Tasks
             {
                 var lowImportanceRelations = _module
                     .TableRelations
-                    .Where(r => string.Equals(r.ParentTable, tableInfo.Name, StringComparison.InvariantCultureIgnoreCase))
+                    .Where(
+                        r =>
+                            string.Equals(r.ParentTable, tableInfo.Name, StringComparison.InvariantCultureIgnoreCase))
                     .Where(r => r.Importance == RelationImportance.Low && !r.IsSelfRelation())
                     .Select(r => Tuple.Create(r, _module.Tables.Single(t => t.Name == r.ChildTable)))
                     .ToList();
 
-                foreach (IEnumerable<DataRowInfo> rows in GetRows(tableInfo, stream).Skip(transactionsCommited * TransactionLength).MakeParts(TransactionLength))
+                foreach (
+                    IEnumerable<DataRowInfo> rows in
+                        GetRows(tableInfo, stream)
+                            .Skip(transactionsCommited*TransactionLength)
+                            .MakeParts(TransactionLength))
                 {
                     using (var transaction = connection.BeginTransaction())
                     {
@@ -129,26 +143,30 @@ namespace ASC.Data.Backup.Tasks
                                 {
                                     if (tableInfo.IdType == IdType.Guid)
                                     {
-                                        newIdValue =  Guid.NewGuid().ToString("D");
+                                        newIdValue = Guid.NewGuid().ToString("D");
                                     }
                                     else if (tableInfo.IdType == IdType.Integer)
                                     {
                                         newIdValue = connection
-                                                         .CreateCommand(string.Format("select max({0}) from {1};", tableInfo.IdColumn, tableInfo.Name))
-                                                         .WithTimeout(120)
-                                                         .ExecuteScalar<int>() + 1;
+                                            .CreateCommand(string.Format("select max({0}) from {1};",
+                                                tableInfo.IdColumn, tableInfo.Name))
+                                            .WithTimeout(120)
+                                            .ExecuteScalar<int>() + 1;
                                     }
                                 }
                                 if (newIdValue != null)
                                 {
-                                    _columnMapper.SetMapping(tableInfo.Name, tableInfo.IdColumn, oldIdValue, newIdValue);
+                                    _columnMapper.SetMapping(tableInfo.Name, tableInfo.IdColumn, oldIdValue,
+                                        newIdValue);
                                 }
                             }
 
-                            var insertCommand = _module.CreateInsertCommand(connection, _columnMapper, tableInfo, row);
+                            var insertCommand = _module.CreateInsertCommand(dump, connection, _columnMapper, tableInfo,
+                                row);
                             if (insertCommand == null)
                             {
-                                Logger.Warn("Can't create command to insert row to {0} with values [{1}]", tableInfo, row);
+                                Logger.WarnFormat("Can't create command to insert row to {0} with values [{1}]", tableInfo,
+                                    row);
                                 _columnMapper.Rollback();
                                 continue;
                             }
@@ -169,20 +187,24 @@ namespace ASC.Data.Backup.Tasks
                             {
                                 if (!relation.Item2.HasTenantColumn())
                                 {
-                                    Logger.Warn("Table {0} does not contain tenant id column. Can't apply low importance relations on such tables.", relation.Item2.Name);
+                                    Logger.WarnFormat(
+                                        "Table {0} does not contain tenant id column. Can't apply low importance relations on such tables.",
+                                        relation.Item2.Name);
                                     continue;
                                 }
 
                                 object oldValue = row[relation.Item1.ParentColumn];
-                                object newValue = _columnMapper.GetMapping(relation.Item1.ParentTable, relation.Item1.ParentColumn, oldValue);
+                                object newValue = _columnMapper.GetMapping(relation.Item1.ParentTable,
+                                    relation.Item1.ParentColumn, oldValue);
 
-                                connection.CreateCommand(string.Format("update {0} set {1} = {2} where {1} = {3} and {4} = {5}",
-                                                                       relation.Item1.ChildTable,
-                                                                       relation.Item1.ChildColumn,
-                                                                       newValue is string ? "'" + newValue + "'" : newValue,
-                                                                       oldValue is string ? "'" + oldValue + "'" : oldValue,
-                                                                       relation.Item2.TenantColumn,
-                                                                       _columnMapper.GetTenantMapping())).WithTimeout(120).ExecuteNonQuery();
+                                connection.CreateCommand(
+                                    string.Format("update {0} set {1} = {2} where {1} = {3} and {4} = {5}",
+                                        relation.Item1.ChildTable,
+                                        relation.Item1.ChildColumn,
+                                        newValue is string ? "'" + newValue + "'" : newValue,
+                                        oldValue is string ? "'" + oldValue + "'" : oldValue,
+                                        relation.Item2.TenantColumn,
+                                        _columnMapper.GetTenantMapping())).WithTimeout(120).ExecuteNonQuery();
                             }
                         }
 
@@ -219,7 +241,7 @@ namespace ASC.Data.Backup.Tasks
             return result;
         }
 
-        private void SetColumns(IDbConnection connection, TableInfo table)
+        private void SetColumns(DbConnection connection, TableInfo table)
         {
             var showColumnsCommand = _factory.CreateShowColumnsCommand(table.Name);
             showColumnsCommand.Connection = connection;

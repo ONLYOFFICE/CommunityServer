@@ -80,7 +80,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
         {
             var doc = XDocument.Load(new StringReader(xml));
             return doc.Elements(XName.Get("link", GoogleDocsConstants.AtomNamespace))
-                .SingleOrDefault(x => x.AttributeOrNull("rel").ValueOrEmpty().Equals("next")).ValueOrEmpty();
+                      .SingleOrDefault(x => x.AttributeOrNull("rel").ValueOrEmpty().Equals("next")).ValueOrEmpty();
         }
 
         public static void WriteAtom(WebRequest request, params object[] content)
@@ -112,7 +112,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
         public static XElement EntryElement(String etag, params object[] content)
         {
             var entry = new XElement(XName.Get("entry", GoogleDocsConstants.AtomNamespace), content);
-            if(!String.IsNullOrEmpty(etag))
+            if (!String.IsNullOrEmpty(etag))
                 entry.SetAttributeValue(XName.Get("etag", GoogleDocsConstants.GdNamespace), etag);
             return entry;
         }

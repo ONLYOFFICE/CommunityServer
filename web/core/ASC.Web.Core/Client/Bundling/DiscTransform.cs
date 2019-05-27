@@ -34,11 +34,11 @@ using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Optimization;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Data.Storage.Configuration;
 using ASC.Data.Storage.DiscStorage;
-using log4net;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -75,7 +75,7 @@ namespace ASC.Web.Core.Client.Bundling
                 if (!string.IsNullOrEmpty(BaseStoragePath))
                 {
                     DiscDataHandler.RegisterVirtualPath(BaseVirtualPath, GetFullPhysicalPath("/"), true);
-                    SuccessInitialized = CoreContext.Configuration.Standalone;
+                    SuccessInitialized = CoreContext.Configuration.Standalone && !StaticUploader.CanUpload();
                 }
             }
             catch (Exception fatal)
@@ -112,7 +112,7 @@ namespace ASC.Web.Core.Client.Bundling
             {
                 using (var mutex = new Mutex(true, filePath))
                 {
-                    mutex.WaitOne(60000);
+                    var wait = mutex.WaitOne(60000);
 
                     try
                     {
@@ -148,7 +148,10 @@ namespace ASC.Web.Core.Client.Bundling
                     }
                     finally
                     {
-                        mutex.ReleaseMutex();
+                        if (wait)
+                        {
+                            mutex.ReleaseMutex();
+                        }
                     }
                 }
             }

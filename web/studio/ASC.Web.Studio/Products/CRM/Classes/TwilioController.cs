@@ -33,7 +33,9 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Core.Common.Configuration;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
@@ -42,7 +44,6 @@ using ASC.VoipService.Twilio;
 using ASC.Web.CRM.Core;
 using ASC.Web.Studio.Utility;
 using Autofac;
-using log4net;
 using Twilio.AspNet.Common;
 using Twilio.AspNet.Mvc;
 using Twilio.TwiML;
@@ -493,7 +494,7 @@ namespace ASC.Web.CRM.Classes
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!new RequestValidationHelper().IsValidRequest(filterContext.HttpContext, TwilioLoginProvider.TwilioAuthToken, HttpContext.Current.Request.GetUrlRewriter().AbsoluteUri))
+            if (!new RequestValidationHelper().IsValidRequest(filterContext.HttpContext, ConsumerFactory.Get<Web.Core.Sms.TwilioProvider>()["twilioAuthToken"], HttpContext.Current.Request.GetUrlRewriter().AbsoluteUri))
                 filterContext.Result = new Twilio.AspNet.Mvc.HttpStatusCodeResult(HttpStatusCode.Forbidden);
             base.OnActionExecuting(filterContext);
         }

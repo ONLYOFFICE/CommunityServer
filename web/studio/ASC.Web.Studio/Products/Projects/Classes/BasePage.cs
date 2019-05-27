@@ -48,6 +48,8 @@ namespace ASC.Web.Projects
 
         public EngineFactory EngineFactory { get; private set; }
 
+        public ProjectSecurity ProjectSecurity { get; private set; }
+
         protected virtual bool CheckSecurity { get { return true; } }
 
         protected virtual bool CanRead { get { return true; } }
@@ -62,6 +64,7 @@ namespace ASC.Web.Projects
             PreInit += PagePreInit;
             EngineFactory = Scope.Resolve<EngineFactory>();
             RequestContext = new RequestContext(EngineFactory);
+            ProjectSecurity = Scope.Resolve<ProjectSecurity>();
         }
 
         protected void PagePreInit(object sender, EventArgs e)

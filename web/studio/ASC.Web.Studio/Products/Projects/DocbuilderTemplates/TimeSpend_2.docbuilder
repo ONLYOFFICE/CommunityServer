@@ -1,0 +1,49 @@
+﻿oWs.SetColumnWidth(2, 16);
+oWs.SetColumnWidth(3, 16);
+
+var timeFormat = "[h]\\" + reportColumns[6] + " mm\\" + reportColumns[7];
+
+for (var i = 0; i < reportData.length; i++)
+{
+	writeText(reportData[i][0], {
+		size: chartHeaderFontSize,
+		bold: true
+	});
+	currentRow++;
+	
+	writeRow([0, 3, 4], reportColumns, [1, 2], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	
+	var users = reportData[i][1];
+	var row = currentRow;
+	var sum = [0, 0];
+	for (var j = 0; j < users.length; j++) {
+		users[j][1] /= 24.0;
+		users[j][2] /= 24.0;
+		
+		writeRow([0, 1, 2], users[j], [1, 2], {
+			color: lightGrayBorderColor
+		}, {
+			size: smallFontSize
+		}, true);
+		
+		sum[0] += users[j][1];
+		sum[1] += users[j][2];
+	}
+	writeText(reportColumns[2], {
+		size: smallFontSize,
+		bold: true
+	}, false);
+	writeRow([0, 1], sum, [0, 1], null, {
+		size: smallFontSize,
+		bold: true
+	});
+	var timeRange = oWs.GetRange(nextChar(currentColumn) + row + ":" + nextChar(currentColumn, 2) + (currentRow - 1));
+	timeRange.SetNumberFormat(timeFormat);
+	
+	currentRow += 2;
+}

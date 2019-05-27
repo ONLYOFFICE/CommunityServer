@@ -32,7 +32,9 @@ using System.Web;
 using System.Web.UI;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 using AjaxPro;
+using ASC.ElasticSearch;
 using ASC.Forum;
+using ASC.Web.Community.Search;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 using Newtonsoft.Json;
@@ -203,7 +205,7 @@ namespace ASC.Web.UserControls.Forum
                     
                     ForumDataProvider.UpdateTopic(TenantProvider.CurrentTenantID, EditableTopic.ID, EditableTopic.Title,
                                                     EditableTopic.Sticky, EditableTopic.Closed);
-                
+                    FactoryIndexer<TopicWrapper>.UpdateAsync(EditableTopic); 
                     _errorMessage = "<div class=\"okBox\">" + Resources.ForumUCResource.SuccessfullyEditTopicMessage + "</div>";
                     Response.Redirect(_forumManager.PreviousPage.Url);
 

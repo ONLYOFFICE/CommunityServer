@@ -52,7 +52,7 @@ namespace ASC.Web.Community.News.Code.DAO
 
 		Feed SaveFeed(Feed feed, bool isEdit, FeedType poll);
 		
-		void RemoveFeed(long id);
+		void RemoveFeed(Feed feed);
 
 		void ReadFeed(long feedId, string reader);
 

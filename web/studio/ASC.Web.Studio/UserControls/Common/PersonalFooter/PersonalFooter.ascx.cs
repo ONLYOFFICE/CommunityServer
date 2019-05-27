@@ -26,7 +26,9 @@
 
 using System;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.PersonalFooter
 {
@@ -37,10 +39,29 @@ namespace ASC.Web.Studio.UserControls.Common.PersonalFooter
             get { return "~/UserControls/Common/PersonalFooter/PersonalFooter.ascx"; }
         }
 
+        public static string LocationCustomMode
+        {
+            get { return "~/UserControls/Common/PersonalFooter/PersonalFooterCustomMode.ascx"; }
+        }
+
+        protected string HelpLink;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterStyle("~/usercontrols/common/personalfooter/css/personalfooter.less")
                 .RegisterBodyScripts("~/usercontrols/common/personalfooter/js/personalfooter.js");
+
+            HelpLink = GetHelpLink();
+        }
+
+        private static string GetHelpLink()
+        {
+            var baseHelpLink = CommonLinkUtility.GetHelpLink();
+
+            if (string.IsNullOrEmpty(baseHelpLink))
+                baseHelpLink = WebConfigurationManager.AppSettings["web.faq-url"] ?? string.Empty;
+
+            return baseHelpLink.TrimEnd('/');
         }
     }
 }

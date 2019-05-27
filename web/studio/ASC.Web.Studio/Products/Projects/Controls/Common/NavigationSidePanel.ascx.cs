@@ -31,7 +31,6 @@ using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
@@ -65,7 +64,7 @@ namespace ASC.Web.Projects.Controls.Common
 
             InitControls();
 
-            IsProjectAdmin = ProjectSecurity.CurrentUserAdministrator;
+            IsProjectAdmin = Page.ProjectSecurity.CurrentUserAdministrator;
             IsFullAdmin = Page.Participant.IsFullAdmin;
             IsOutsider = Page.Participant.UserInfo.IsOutsider();
             ShowCreateButton = !Page.Participant.UserInfo.IsOutsider();

@@ -17,11 +17,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
 
         internal Boolean IsDeleted { get; set; }
 
-        public BaseFileEntry(String Name, long Length, DateTime Modified, IStorageProviderService service, IStorageProviderSession session)
+        public BaseFileEntry(String name, long length, DateTime modified, IStorageProviderService service, IStorageProviderSession session)
         {
-            this.Name = Name;
-            this.Length = Length;
-            this.Modified = Modified;
+            Name = name;
+            Length = length;
+            Modified = modified;
             _service = new CachedServiceWrapper(service); //NOTE: Caching
             _session = session;
 

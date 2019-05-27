@@ -115,7 +115,12 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             Resource.LdapSettingsSuccess,
                             Resource.Browser,
                             Resource.SsoUsersListLockTitle,
-                            Resource.SsoUserEditCanOnlyAdminTitle
+                            Resource.SsoUserEditCanOnlyAdminTitle,
+                            Resource.TfaAppShowBackupCodesNote,
+                            Resource.TfaAppShowBackupCodesDescription,
+                            Resource.PrintButton,
+                            Resource.RequestNewButton,
+                            Resource.Choose
                         },
 
                         DatePattern = dateTimeFormat.ShortDatePattern,
@@ -136,7 +141,12 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         CurrentCulture = CultureInfo.CurrentCulture.Name,
                         Resource.FileSizePostfix,
                         Resource.AccessRightsAccessToProduct,
-                        Resource.AccessRightsDisabledProduct
+                        Resource.AccessRightsDisabledProduct,
+                        Resource.EmailAndPasswordIncorrectEmail,
+                        Resource.EmailIsAvailable,
+                        Resource.EmailOnDomainIsNotCreated,
+                        Resource.NoMailServerDomainsMsg,
+                        Resource.EmailAndPasswordCopiedToClipboard
                     })
             };
         }
@@ -172,6 +182,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                                 AccessRightsUsersFromList = CustomNamingPeople.Substitute<Resource>("AccessRightsUsersFromList"),
                                 AccessRightsEmptyUserList = CustomNamingPeople.Substitute<Resource>("AccessRightsEmptyUserList"),
                                 ChooseUser = CustomNamingPeople.Substitute<Resource>("ChooseUser"),
+                                ErrorEmailAlreadyExists = CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists")
                             })
                    };
         }

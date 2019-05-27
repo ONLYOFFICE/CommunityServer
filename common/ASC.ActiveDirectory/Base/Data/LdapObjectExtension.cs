@@ -28,9 +28,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.ActiveDirectory.Base.Settings;
+using ASC.Common.Logging;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using log4net;
+using Mapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
 namespace ASC.ActiveDirectory.Base.Data
 {
@@ -82,6 +83,40 @@ namespace ASC.ActiveDirectory.Base.Data
         private const int MAX_NUMBER_OF_SYMBOLS = 64;
         private const string EXT_MOB_PHONE = "extmobphone";
         private const string EXT_MAIL = "extmail";
+        private const string EXT_PHONE = "extphone";
+        private const string EXT_SKYPE = "extskype";
+
+        private static List<string> GetContacts(this LdapObject ldapUser, Mapping key, LdapSettings settings, ILog log = null)
+        {
+            if (!settings.LdapMapping.ContainsKey(key))
+                return null;
+
+            var bindings = settings.LdapMapping[key].Split(',').Select(x => x.Trim()).ToArray();
+            if (bindings.Length > 1)
+            {
+                var list = new List<string>();
+                foreach (var bind in bindings)
+                {
+                    list.AddRange(ldapUser.GetAttributes(bind, log));
+                }
+                return list;
+            }
+            else
+            {
+                return ldapUser.GetAttributes(bindings[0], log);
+            }
+        }
+
+        private static void PopulateContacts(List<string> Contacts, string type, List<string> values)
+        {
+            if (values == null || !values.Any())
+                return;
+            foreach (var val in values)
+            {
+                Contacts.Add(type);
+                Contacts.Add(val);
+            }
+        }
 
         public static UserInfo ToUserInfo(this LdapObject ldapUser, LdapUserImporter ldapUserImporter, ILog log = null)
         {
@@ -89,36 +124,31 @@ namespace ASC.ActiveDirectory.Base.Data
             var resource = ldapUserImporter.Resource;
 
             var userName = ldapUser.GetAttribute(settings.LoginAttribute, log);
-            var firstName = ldapUser.GetAttribute(settings.FirstNameAttribute, log);
-            var secondName = ldapUser.GetAttribute(settings.SecondNameAttribute, log);
-            var mail = ldapUser.GetAttribute(settings.MailAttribute, log);
-            var emails = ldapUser.GetAttributes(settings.MailAttribute, log);
-            var mobilePhone = ldapUser.GetAttribute(settings.MobilePhoneAttribute, log);
-            var title = ldapUser.GetAttribute(settings.TitleAttribute, log);
-            var location = ldapUser.GetAttribute(settings.LocationAttribute, log);
+
+            var firstName = settings.LdapMapping.ContainsKey(Mapping.FirstNameAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.FirstNameAttribute], log) : string.Empty;
+            var secondName = settings.LdapMapping.ContainsKey(Mapping.SecondNameAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.SecondNameAttribute], log) : string.Empty;
+            var birthDay = settings.LdapMapping.ContainsKey(Mapping.BirthDayAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.BirthDayAttribute], log) : string.Empty;
+            var gender = settings.LdapMapping.ContainsKey(Mapping.GenderAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.GenderAttribute], log) : string.Empty;
+            var primaryPhone = settings.LdapMapping.ContainsKey(Mapping.MobilePhoneAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.MobilePhoneAttribute], log) : string.Empty;
+            var mail = settings.LdapMapping.ContainsKey(Mapping.MailAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.MailAttribute], log) : string.Empty;
+            var title = settings.LdapMapping.ContainsKey(Mapping.TitleAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.TitleAttribute], log) : string.Empty;
+            var location = settings.LdapMapping.ContainsKey(Mapping.LocationAttribute) ? ldapUser.GetAttribute(settings.LdapMapping[Mapping.LocationAttribute], log) : string.Empty;
+
+            var phones = ldapUser.GetContacts(Mapping.AdditionalPhone, settings, log);
+            var mobilePhones = ldapUser.GetContacts(Mapping.AdditionalMobilePhone, settings, log);
+            var emails = ldapUser.GetContacts(Mapping.AdditionalMail, settings, log);
+            var skype = ldapUser.GetContacts(Mapping.Skype, settings, log);
+
 
             if (string.IsNullOrEmpty(userName))
                 throw new Exception("LDAP LoginAttribute is empty");
 
             var contacts = new List<string>();
 
-            if (!string.IsNullOrEmpty(mobilePhone))
-            {
-                contacts.Add(EXT_MOB_PHONE);
-                contacts.Add(mobilePhone);
-            }
-
-            if (emails.Any())
-            {
-                foreach (var email in emails)
-                {
-                    if (email.Equals(mail))
-                        continue;
-
-                    contacts.Add(EXT_MAIL);
-                    contacts.Add(email);
-                }
-            }
+            PopulateContacts(contacts, EXT_PHONE, phones);
+            PopulateContacts(contacts, EXT_MOB_PHONE, mobilePhones);
+            PopulateContacts(contacts, EXT_MAIL, emails);
+            PopulateContacts(contacts, EXT_SKYPE, skype);
 
             var user = new UserInfo
             {
@@ -155,11 +185,44 @@ namespace ASC.ActiveDirectory.Base.Data
                 user.LastName = resource.LastName;
             }
 
+            if (!string.IsNullOrEmpty(birthDay))
+            {
+                DateTime date;
+                if (DateTime.TryParse(birthDay, out date))
+                    user.BirthDate = date;
+            }
+
+            if (!string.IsNullOrEmpty(gender))
+            {
+                bool b;
+                if (bool.TryParse(gender, out b))
+                {
+                    user.Sex = b;
+                }
+                else
+                {
+                    switch (gender.ToLowerInvariant())
+                    {
+                        case "male":
+                        case "m":
+                            user.Sex = true;
+                            break;
+                        case "female":
+                        case "f":
+                            user.Sex = false;
+                            break;
+                    }
+                }
+            }
+
             user.Email = string.IsNullOrEmpty(mail)
                 ? (userName.Contains("@")
                     ? userName
                     : string.Format("{0}@{1}", userName, ldapUserImporter.LDAPDomain))
                 : mail;
+
+            user.MobilePhone = string.IsNullOrEmpty(primaryPhone)
+                ? null : primaryPhone;
 
             return user;
         }

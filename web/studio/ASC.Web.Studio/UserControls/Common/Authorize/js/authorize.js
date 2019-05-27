@@ -44,6 +44,9 @@ var Authorize = new function () {
                     jq("#pwd").focus();
                     return true;
                 }
+                if (jq('body').hasClass('desktop') && !!jq("#desktop_agree_to_terms").length && !(jq("#desktop_agree_to_terms").is(':checked'))) {
+                    return true;
+                }
                 Authorize.Login();
             } else if (code == 27) {
                 jq(this).val("");

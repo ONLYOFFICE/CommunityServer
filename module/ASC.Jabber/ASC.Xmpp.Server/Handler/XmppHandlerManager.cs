@@ -24,17 +24,18 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Xml;
+
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Configuration;
 using ASC.Xmpp.Server.Gateway;
 using ASC.Xmpp.Server.Streams;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml;
+using ASC.Common.Logging;
 using Error = ASC.Xmpp.Core.protocol.Error;
 using Stanza = ASC.Xmpp.Core.protocol.Base.Stanza;
 using StanzaError = ASC.Xmpp.Core.protocol.client.Error;
@@ -51,7 +52,7 @@ namespace ASC.Xmpp.Server.Handler
 
         private readonly XmppStreamValidator validator;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(XmppHandlerManager));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private static readonly ILog logMessages = LogManager.GetLogger("ASC.Xmpp.Server.Messages");
 
@@ -274,7 +275,7 @@ namespace ASC.Xmpp.Server.Handler
                 if (logMessages.IsDebugEnabled)
                 {
                     var msg = string.Format(RECIEVE_FORMAT, e.ConnectionId, e.Namespace, e.Node.ToString(Formatting.Indented));
-                    logMessages.Logger.Log(GetType(), log4net.Core.Level.Trace, msg, null);
+                    logMessages.Trace(msg);
                 }
 
                 var xmppStream = streamManager.GetOrCreateNewStream(e.ConnectionId);
@@ -294,7 +295,7 @@ namespace ASC.Xmpp.Server.Handler
                 if (logMessages.IsDebugEnabled)
                 {
                     var msg = string.Format(RECIEVE_FORMAT, e.ConnectionId, string.Empty, e.Node.ToString(Formatting.Indented));
-                    logMessages.Logger.Log(GetType(), log4net.Core.Level.Trace, msg, null);
+                    logMessages.Trace(msg);
                 }
 
                 var stream = streamManager.GetStream(e.ConnectionId);

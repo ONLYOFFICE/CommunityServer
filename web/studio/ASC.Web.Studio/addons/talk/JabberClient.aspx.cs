@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -32,7 +33,6 @@ using System.Web;
 
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Jabber;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
@@ -42,7 +42,7 @@ using ASC.Web.Talk.ClientScript;
 using ASC.Web.Talk.Resources;
 
 using AjaxPro;
-using log4net;
+using ASC.Common.Logging;
 
 namespace ASC.Web.Talk
 {
@@ -63,6 +63,15 @@ namespace ASC.Web.Talk
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["web.third-party-chat"]))
+            {
+                var thirdPartyChat = ConfigurationManager.AppSettings["web.third-party-chat-url"];
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["web.third-party-chat"]) && !String.IsNullOrEmpty(thirdPartyChat))
+                {
+                    Response.Redirect(thirdPartyChat, false);
+                }
+                
+            }
             _cfg = new TalkConfiguration();
 
             Utility.RegisterTypeForAjax(GetType());
@@ -113,6 +122,8 @@ namespace ASC.Web.Talk
                         "~/addons/talk/js/jlib/flxhr/flxhr.js",
                         "~/addons/talk/js/jlib/flxhr/swfobject.js",
 
+                        "~/js/third-party/xregexp.js",
+
                         "~/addons/talk/js/jlib/strophe/base64.js",
                         "~/addons/talk/js/jlib/strophe/md5.js",
                         "~/addons/talk/js/jlib/strophe/core.js");
@@ -123,7 +134,7 @@ namespace ASC.Web.Talk
                         "~/addons/talk/js/jlib/strophe/base64.js",
                         "~/addons/talk/js/jlib/strophe/md5.js",
                         "~/addons/talk/js/jlib/strophe/core.js",
-
+                        "~/js/third-party/xregexp.js",
                         "~/addons/talk/js/jlib/flxhr/swfobject.js");
                     break;
             }
@@ -291,18 +302,18 @@ namespace ASC.Web.Talk
         }
         private String GetFirebaseConfig()
         {
-            string firebase_projectId = KeyStorage.Get("firebase_projectId");
+            string firebase_projectId = FireBase.Instance.ProjectId;
             firebase_projectId = firebase_projectId.Trim();
             var script = new StringBuilder();
 
             if (firebase_projectId != String.Empty)
             {
-                script.AppendLine("{apiKey: '" + KeyStorage.Get("firebase_apiKey").Trim() + "',");
+                script.AppendLine("{apiKey: '" + FireBase.Instance.ApiKey.Trim() + "',");
                 script.AppendLine(" authDomain: '" + firebase_projectId + ".firebaseapp.com',");
                 script.AppendLine(" databaseURL: 'https://" + firebase_projectId + ".firebaseapp.com',");
                 script.AppendLine(" projectId: '" + firebase_projectId + "',");
                 script.AppendLine(" storageBucket: '" + firebase_projectId + ".appspot.com',");
-                script.AppendLine(" messagingSenderId: '" + KeyStorage.Get("firebase_messagingSenderId").Trim() + "'}");
+                script.AppendLine(" messagingSenderId: '" + FireBase.Instance.MessagingSenderId.Trim() + "'}");
 
                 return script.ToString();
             }

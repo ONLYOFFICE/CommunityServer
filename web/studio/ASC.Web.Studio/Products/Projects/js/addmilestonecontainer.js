@@ -141,8 +141,8 @@ ASC.Projects.MilestoneContainer = (function () {
             x = x - 21;
             y = y + 20;
         } else {
-            x = x - 164;
-            y = y + 29;
+            x = x - $panel.outerWidth() + jq(obj).outerWidth();
+            y = y + jq(obj).outerHeight();
         }
 
         $panel.css("left", x + "px");
@@ -262,7 +262,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
             jq("#newMilestoneTitle").focus();
         });
 
-        jq("#newMilestoneTitle").bind('keydown', function (e) {
+        jq("body").on('keydown', '#newMilestoneTitle', function (e) {
             $addMilestoneContainer.removeClass("red-border");
             var targetId = $addMilestoneContainer.attr('target');
             if (e.which === 13) {
@@ -281,7 +281,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
             }
         });
 
-        $addMilestoneContainer.find(".button").on('click', function () {
+        jq("body").on('click', "#addMilestoneContainer .button", function () {
             var targetId = $addMilestoneContainer.attr('target');
             var milestoneTitle = jq("#newMilestoneTitle");
 
@@ -628,6 +628,8 @@ ASC.Projects.CreateProjectStructure = (function () {
             }
         }
     };
+    var $projectManagerSelector,
+        $projectTeamSelector;
 
     var init = function (str) {
         isInit = true;
@@ -643,8 +645,8 @@ ASC.Projects.CreateProjectStructure = (function () {
         $milestoneActionsPanel = jq("#milestoneActions");
 
         $addMilestone = jq("#addMilestone");
-        var $projectManagerSelector = jq("#projectManagerSelector"),
-           $projectTeamSelector = jq("#projectTeamSelector");
+        $projectManagerSelector = jq("#projectManagerSelector"),
+            $projectTeamSelector = jq("#projectTeamSelector");
 
         $projectManagerSelector.useradvancedSelector({
             withGuests: false,
@@ -825,7 +827,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             $addMilestoneContainer.find("#newMilestoneTitle").focus();
         });
 
-        jq("#newMilestoneTitle").bind('keydown', function (e) {
+        jq("body").on('keydown', '#newMilestoneTitle', function (e) {
             $addMilestoneContainer.removeClass("red-border");
             var targetId = $addMilestoneContainer.attr('target');
             if (e.which === 13) {
@@ -844,7 +846,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             }
         });
 
-        $addMilestoneContainer.find(".button").on("click", function () {
+        jq("body").on('click', "#addMilestoneContainer .button", function () {
             var milestoneTitle = jq("#newMilestoneTitle");
             var targetId = $addMilestoneContainer.attr('target');
 
@@ -919,6 +921,7 @@ ASC.Projects.CreateProjectStructure = (function () {
         });
 
         jq("#milestoneActions .actionList #removeMilestone").bind('click', function () {
+            $addMilestone.after($addMilestoneContainer);
             $addTaskContainer.hide();
             $addTaskContainer.appendTo("#noAssignTaskContainer");
             $milestoneActionsPanel.hide();
@@ -1106,14 +1109,21 @@ ASC.Projects.CreateProjectStructure = (function () {
     }
 
     function onChooseProjectTeam(e, members) {
-        selectedTeam = members;
+        selectedTeam = members.map(function (item) {
+            return Object.assign(Object.assign({}, window.UserManager.getUser(item.id)), item);
+        });
+
         if (pmId || notOnlyVisitors()) {
             showChooseResponsible();
         }
     };
     
     function onChooseProjectManager(e, item) {
+        if (pmId) {
+            $projectTeamSelector.useradvancedSelector("undisable", [pmId]);
+        }
         pmId = item.id;
+        $projectTeamSelector.useradvancedSelector("disable", [pmId]);
         showChooseResponsible();
     };
     

@@ -66,7 +66,7 @@
 </script>
 
 <script id="messageShortTmpl" type="text/x-jquery-tmpl">
-    <div class="message-wrap{{if visible != true}} hidden{{/if}}" message_id="${id}" folder="${folder}" restore_folder_id="${restoreFolderId}">
+    <div class="message-wrap{{if visible != true}} hidden{{/if}}" message_id="${id}" folder="${folder}" restore_folder_id="${restoreFolderId}" date="${date}">
         <table class="short-view{{if visible == true && wasNew == true}} new{{/if}}" message_id="${id}">
             <tbody>
                 <tr class="message_short" data_id="${id}">
@@ -84,7 +84,7 @@
                     </td>
                     <td class="icon">
                         {{if attachments.length > 0}}
-                            <i class="{{if calendarUid != null}}icon-calendar{{else}}icon-attachment{{/if}}"></i>
+                            <i class="{{if !calendarUid }}icon-attachment{{else}}icon-calendar{{/if}}"></i>
                         {{/if}}
                     </td>
                     <td class="date-time">
@@ -241,7 +241,11 @@
                                             {{if $value.isImage == true}}
                                                 class="screenzoom" 
                                             {{else}} 
+                                                {{if $value.isMedia == true}}
+                                                    class="mediafile"
+                                                {{else}}
                                                     {{if $value.canView == false}} download="${$value.fileName}" {{/if}} 
+                                                {{/if}}
                                             {{/if}}>
                                             <span class="file-name">
                                                 ${$item.cutFileName($item.getFileNameWithoutExt($value.fileName))}
@@ -278,7 +282,7 @@
 </script>
 
 <script id="messageTopButtons" type="text/x-jquery-tmpl">
-    <div class="messageHeader" {{if $item.needBottomBorder == false}}style="border-bottom:none;"{{/if}}>
+    <div class="messageHeader" {{if $item.needBottomBorder== false}}style="border-bottom:none;"{{/if}}>
         <div class="contentMenuWrapper">
             <ul class="clearFix contentMenu contentMenuDisplayAll" id="MessageGroupButtons">
                 {{if $item.folder != 4 && $item.folder != 5 }}
@@ -293,29 +297,37 @@
                 </li>
                 {{/if}}
                 <li class="menuAction btnDelete unlockAction">
+                    {{if $item.folder == 4 || $item.folder == 5 }}
+                    <span title="${ASC.Mail.Resources.MailScriptResource.FilterActionDeleteLabel}">${ASC.Mail.Resources.MailScriptResource.FilterActionDeleteLabel}</span>
+                    {{else}}
                     <span title="${ASC.Mail.Resources.MailResource.DeleteBtnLabel}">${ASC.Mail.Resources.MailResource.DeleteBtnLabel}</span>
+                    {{/if}}
                 </li>
                 {{if $item.folder != 4 && $item.folder != 5 }}
-                    {{if $item.folder == 1 }}
-                         <li class="menuAction btnSpam unlockAction">
-                            <span title="${ASC.Mail.Resources.MailScriptResource.SpamLabel}">${ASC.Mail.Resources.MailScriptResource.SpamLabel}</span>
-                        </li>
-                    {{/if}}
+                {{if $item.folder == 1 || $item.folder == 6 }}
+                <li class="menuAction btnSpam unlockAction">
+                    <span title="${ASC.Mail.Resources.MailScriptResource.SpamLabel}">${ASC.Mail.Resources.MailScriptResource.SpamLabel}</span>
+                </li>
+                {{/if}}
                 <li class="menuAction btnAddTag unlockAction">
                     <span title="${ASC.Mail.Resources.MailResource.AddTag}">${ASC.Mail.Resources.MailResource.AddTag}</span>
                     <div class="down_arrow"></div>
                 </li>
                 {{else}}
-                    {{if $item.folder == 4 }}
-                        <li class="menuAction btnRestore unlockAction">
-                            <span title="${ASC.Mail.Resources.MailScriptResource.RestoreBtnLabel}">${ASC.Mail.Resources.MailScriptResource.RestoreBtnLabel}</span>
-                        </li>
-                    {{else}}
-                        <li class="menuAction btnNotSpam unlockAction">
-                            <span title="${ASC.Mail.Resources.MailScriptResource.NotSpamLabel}">${ASC.Mail.Resources.MailScriptResource.NotSpamLabel}</span>
-                        </li>
-                    {{/if}}
+                {{if $item.folder == 4 }}
+                <li class="menuAction btnRestore unlockAction">
+                    <span title="${ASC.Mail.Resources.MailScriptResource.RestoreBtnLabel}">${ASC.Mail.Resources.MailScriptResource.RestoreBtnLabel}</span>
+                </li>
+                {{else}}
+                <li class="menuAction btnNotSpam unlockAction">
+                    <span title="${ASC.Mail.Resources.MailScriptResource.NotSpamLabel}">${ASC.Mail.Resources.MailScriptResource.NotSpamLabel}</span>
+                </li>
                 {{/if}}
+                {{/if}}
+                <li class="menuAction btnMoveTo unlockAction">
+                    <span title="${ASC.Mail.Resources.MailResource.MoveTo}">${ASC.Mail.Resources.MailResource.MoveTo}</span>
+                    <div class="down_arrow"></div>
+                </li>
                 <li class="menuAction btnMore unlockAction">
                     <span title="${ASC.Mail.Resources.MailResource.MoreMenuButton}">...</span>
                 </li>

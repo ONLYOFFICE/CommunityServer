@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace ASC.Core.Users
@@ -141,6 +142,13 @@ namespace ASC.Core.Users
             }
             var format = formats[DisplayUserNameFormat.Default];
             return format.IndexOf("{0}") < format.IndexOf("{1}") ? DisplayUserNameFormat.FirstLast : DisplayUserNameFormat.LastFirst;
+        }
+
+        public static Regex UserNameRegex = new Regex(@"(?s)^(?!.*[:\/]).*$");
+
+        public static bool IsValidUserName(string firstName, string lastName)
+        {
+            return UserNameRegex.IsMatch(firstName + lastName);
         }
     }
 }

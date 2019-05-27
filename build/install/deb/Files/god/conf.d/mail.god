@@ -27,6 +27,10 @@ God.watch do |w|
       c.times = 5
       c.interval = 10.seconds
     end
+    restart.condition(:lambda) do |c|
+      c.interval = 10.seconds
+      c.lambda = lambda{!File.exist?("/var/log/onlyoffice/mail.agg.log")}
+    end
     restart.condition(:file_mtime) do |c|
       c.path = "/var/log/onlyoffice/mail.agg.log"
       c.max_age = 1.minutes

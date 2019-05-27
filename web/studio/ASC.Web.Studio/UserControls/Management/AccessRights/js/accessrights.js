@@ -33,13 +33,23 @@ if (typeof ASC.Settings === "undefined")
 ASC.Settings.AccessRights = new function() {
 
     var pNameList = [];
-    
 
     var getSelectedUsers = function (pName) {
         return window["SelectedUsers_" + pName];
     };
+
     var getSelectedGroups = function (pName) {
         return window["SelectedGroups_" + pName];
+    };
+
+    var setSelectedUsers = function (pName, value) {
+        window["SelectedUsers_" + pName] = value;
+        return getSelectedUsers(pName);
+    };
+
+    var setSelectedGroups = function (pName, value) {
+        window["SelectedGroups_" + pName] = value;
+        return getSelectedGroups(pName);
     };
 
     return {
@@ -48,7 +58,7 @@ ASC.Settings.AccessRights = new function() {
 
             jq("#changeOwnerBtn").click(ASC.Settings.AccessRights.changeOwner);
             jq("#adminTable tbody tr").remove();
-            jq("#adminTmpl").tmpl(window.adminList).prependTo("#adminTable tbody");
+            jq("#adminTmpl").tmpl(window.adminList, { isRetina: jq.cookies.get("is_retina") }).prependTo("#adminTable tbody");
 
             if (window.adminList.length) {
                 jq("#adminTable").removeClass("display-none");
@@ -62,52 +72,48 @@ ASC.Settings.AccessRights = new function() {
                 jq.switcherAction("#switcherAccessRights_" + pName, "#accessRightsContainer_" + pName);
             }
 
-            var adminIds = [window.ownerId],
-                adminsSelector = [];
+            jq("#ownerSelector").on("click", initOwnerSelector);
+            jq("#adminAdvancedSelector").on("click", initAdminSelector);
 
-            window.adminList.forEach(function (admin) {
-                if (admin.id) adminIds.push(admin.id);
-            });
+            function initOwnerSelector() {
+                var os = jq(this);
+                os.off("click", initOwnerSelector);
+                os.useradvancedSelector({
+                    itemsChoose: [],
+                    itemsDisabledIds: [window.ownerId],
+                    canadd: false,       // enable to create the new item
+                    showGroups: true, // show the group list
+                    onechosen: true,
+                    withGuests: false
+                });
+                os.on("showList", function (event, item) {
+                    os.html(item.title).attr("data-id", item.id);
+                    jq("#changeOwnerBtn").removeClass("disable");
+                });
+                os.click();
+            }
 
-            var $ownerSelector = jq("#ownerSelector");
-            $ownerSelector.useradvancedSelector({
-                itemsChoose: [],
-                itemsDisabledIds: [window.ownerId],
-                canadd: false,       // enable to create the new item
-                showGroups: true, // show the group list
-                onechosen: true,
-                withGuests: false
-            });
-
-            $ownerSelector.on("showList", function (event, item) {
-                jq(this).html(item.title).attr("data-id", item.id);
-                jq("#changeOwnerBtn").removeClass("disable");
-            });
-
-            var $adminAdvancedSelector = jq("#adminAdvancedSelector");
-            $adminAdvancedSelector.useradvancedSelector({
-                itemsDisabledIds: adminIds,
-                canadd: true,       // enable to create the new item
-                isAdmin: false, // show Admin only
-                showGroups: true,
-                withGuests: false
-            });
-
-            $adminAdvancedSelector.on("showList", function (event, items) {
-                var adminIds = [],
-                    itemsIds = [];
+            function initAdminSelector() {
+                var as = jq(this);
+                var adminIds = [window.ownerId];
                 window.adminList.forEach(function (admin) {
                     if (admin.id) adminIds.push(admin.id);
                 });
-                items.forEach(function (item) {
-                    itemsIds.push(item.id);
+                as.off("click", initAdminSelector);
+                as.useradvancedSelector({
+                    itemsDisabledIds: adminIds,
+                    canadd: true,       // enable to create the new item
+                    isAdmin: false, // show Admin only
+                    showGroups: true,
+                    withGuests: false
                 });
-
-                for (var j = 0, l = itemsIds.length; j < l; j++) {
-                    ASC.Settings.AccessRights.addAdmin(items[j].id);
-                }
-
-            })
+                as.on("showList", function (event, admins) {
+                    admins.forEach(function (admin) {
+                        ASC.Settings.AccessRights.addAdmin(admin.id);
+                    });
+                });
+                as.click();
+            }
         },
 
         changeOwner: function() {
@@ -139,10 +145,10 @@ ASC.Settings.AccessRights = new function() {
             window.AccessRightsController.AddAdmin(uId, function(res) {
                 if (res.error != null) {
                     toastr.error(res.error.Message);
-                    return false;
+                    return;
                 }
                 window.adminList.push(res.value);
-                jq("#adminTmpl").tmpl(res.value).appendTo("#adminTable tbody");
+                jq("#adminTmpl").tmpl(res.value, { isRetina: jq.cookies.get("is_retina") }).appendTo("#adminTable tbody");
                 jq("#adminTable").removeClass("display-none");
 
                 jq("#adminAdvancedSelector").useradvancedSelector("disable", [uId]);
@@ -181,74 +187,85 @@ ASC.Settings.AccessRights = new function() {
             }
         },
 
-        selectedItem_mouseOver: function(obj) {
-            jq(obj).find("img:first").hide();
-            jq(obj).find("img:last").show();
+        selectedItem_mouseOver: function() {
+            var $obj = jq(this);
+            $obj.find("img:first").hide();
+            $obj.find("img:last").show();
         },
 
-        selectedItem_mouseOut: function(obj) {
-            jq(obj).find("img:first").show();
-            jq(obj).find("img:last").hide();
+        selectedItem_mouseOut: function() {
+            var $obj = jq(this);
+            $obj.find("img:first").show();
+            $obj.find("img:last").hide();
         },
         
-        initProduct: function (pItem) {
-            var pItem = jq.parseJSON(jq.base64.decode(pItem)),
+        initProduct: function (productItem) {
+            var pItem = jq.parseJSON(jq.base64.decode(productItem)),
                 pId = pItem.ID,
                 pName = pItem.ItemName,
                 pIsPuplic = pItem.SelectedUsers.length == 0 && pItem.SelectedGroups.length == 0,
+                su = setSelectedUsers(pName, {}),
+                sg = setSelectedGroups(pName, {});
 
-                su = getSelectedUsers(pName);
-                sg = getSelectedGroups(pName);
+            var len = pItem.SelectedUsers.length;
+            while (len--) {
+                su[pItem.SelectedUsers[len].ID] = pItem.SelectedUsers[len].Name;
+            }
 
-            for (var i = 0, n = pItem.SelectedUsers.length; i < n; i++){
-                var ind = su.IDs.indexOf(pItem.SelectedUsers[i].ID);
-                pItem.SelectedUsers[i].DisplayUserName = ind != -1 ? su.Names[ind] : "";
+            len = pItem.SelectedGroups.length;
+            while (len--) {
+                sg[pItem.SelectedGroups[len].ID] = pItem.SelectedGroups[len].Name;
             }
 
             jq.tmpl("template-productItem", pItem).appendTo("#studioPageContent .mainPageContent:first");
 
-            var us = jq("#userSelector_" + pName);
-            var gs = jq("#groupSelector_" + pName);
-
-
-            us.useradvancedSelector({
-                showGroups: true,
-                withGuests: (pId !== ("6743007c-6f95-4d20-8c88-a8601ce5e76d" || "f4d98afd-d336-4332-8778-3c6945c81ea0"))
-            }).on("showList", ASC.Settings.AccessRights.pushUserIntoList)
-
-            gs.groupadvancedSelector().on("showList", ASC.Settings.AccessRights.pushGroupIntoList)
-
-            us.useradvancedSelector("disable", su.IDs);
-            gs.groupadvancedSelector("disable", sg.IDs);
+            var $container = jq("#accessRightsContainer_" + pName),
+                $allRadio = $container.find("#all_" + pId),
+                $fromListRadio = $container.find("#fromList_" + pId),
+                $content = $container.find("#selectorContent_" + pName),
+                $emptyLabel = $content.find("#emptyUserListLabel_" + pName),
+                $selectedUsers = $content.find("#selectedUsers_" + pName),
+                $selectedGroups = $content.find("#selectedGroups_" + pName),
+                $userSelector = $content.find("#userSelector_" + pName),
+                $groupSelector = $content.find("#groupSelector_" + pName);
 
             if (pIsPuplic) {
-                jq("#all_" + pId).prop("checked", true);
-                jq("#emptyUserListLabel_" + pName).show();
-                jq("#selectorContent_" + pName).hide();
+                $allRadio.prop("checked", true);
+                $emptyLabel.show();
+                $content.hide();
             } else {
-                jq("#fromList_" + pId).prop("checked", true);
-                jq("#emptyUserListLabel_" + pName).hide();
-                jq("#selectorContent_" + pName).show();
+                $fromListRadio.prop("checked", true);
+                $emptyLabel.hide();
+                $content.show();
             }
-            
-            jq("#selectorContent_" + pName).on("mouseover", ".accessRights-selectedItem", function () {
-                ASC.Settings.AccessRights.selectedItem_mouseOver(jq(this));
-                return false;
-            });
-            jq("#selectorContent_" + pName).on("mouseout", ".accessRights-selectedItem", function () {
-                ASC.Settings.AccessRights.selectedItem_mouseOut(jq(this));
-                return false;
-            });
-            jq("#selectedUsers_" + pName).on("click", "img[id^=deleteSelectedUserImg_]", function () {
-                ASC.Settings.AccessRights.deleteUserFromList(jq(this));
-                return false;
-            });
-            jq("#selectedGroups_" + pName).on("click", "img[id^=deleteSelectedGroupImg_]", function () {
-                ASC.Settings.AccessRights.deleteGroupFromList(jq(this));
-                return false;
-            });
+
+            $content.on("mouseover", ".accessRights-selectedItem", ASC.Settings.AccessRights.selectedItem_mouseOver);
+            $content.on("mouseout", ".accessRights-selectedItem", ASC.Settings.AccessRights.selectedItem_mouseOut);
+            $selectedUsers.on("click", "img[id^=deleteSelectedUserImg_]", ASC.Settings.AccessRights.deleteUserFromList);
+            $selectedGroups.on("click", "img[id^=deleteSelectedGroupImg_]", ASC.Settings.AccessRights.deleteGroupFromList);
+            $userSelector.on("click", initUserSelector);
+            $groupSelector.on("click", initGroupSelector);
+
+            function initUserSelector() {
+                var us = jq(this);
+                us.off("click", initUserSelector);
+                us.useradvancedSelector({
+                    showGroups: true,
+                    withGuests: (pName !== "crm" && pName !== "people")
+                }).on("showList", ASC.Settings.AccessRights.pushUserIntoList);
+                us.useradvancedSelector("disable", Object.keys(su));
+                us.click();
+            }
+
+            function initGroupSelector() {
+                var gs = jq(this);
+                gs.off("click", initGroupSelector);
+                gs.groupadvancedSelector().on("showList", ASC.Settings.AccessRights.pushGroupIntoList);
+                gs.groupadvancedSelector("disable", Object.keys(sg));
+                gs.click();
+            }
         },
-        
+
         pushUserIntoList: function (event, users) {
             var pName = jq(this).attr("id").split('_')[1],
                 pId = jq("#accessRightsContainer_" + pName).attr("data-id");
@@ -257,21 +274,20 @@ ASC.Settings.AccessRights = new function() {
             var su = getSelectedUsers(pName);
 
             users.forEach(function (el) {
-                su.IDs.push(el.id);
-                su.Names.push(el.title);
+                su[el.id] = el.title;
 
                 var item = jq("<div></div>")
                     .attr("id", "selectedUser_" + pName + "_" + el.id)
                     .addClass("accessRights-selectedItem");
 
                 var peopleImg = jq("<img>")
-                    .attr("src", su.PeopleImgSrc);
+                    .attr("src", window.imageHelper.PeopleImgSrc);
 
                 var deleteImg = jq("<img>")
-                        .attr("src", su.TrashImgSrc)
-                        .css("display", "none")
-                        .attr("id", "deleteSelectedUserImg_" + pName + "_" + el.id)
-                        .attr("title", su.TrashImgTitle);
+                    .attr("src", window.imageHelper.TrashImgSrc)
+                    .css("display", "none")
+                    .attr("id", "deleteSelectedUserImg_" + pName + "_" + el.id)
+                    .attr("title", window.imageHelper.TrashImgTitle);
 
                 item.append(peopleImg).append(deleteImg).append(Encoder.htmlEncode(el.title));
 
@@ -293,7 +309,7 @@ ASC.Settings.AccessRights = new function() {
 
             Teamlab.setWebItemSecurity({}, data, {
                 success: function () {
-                    us.useradvancedSelector("disable", su.IDs);
+                    us.useradvancedSelector("disable", Object.keys(su));
                 }
             });
         },
@@ -306,21 +322,20 @@ ASC.Settings.AccessRights = new function() {
             var sg = getSelectedGroups(pName);
 
             groups.forEach(function (group) {
-                sg.IDs.push(group.id);
-                sg.Names.push(group.title);
+                sg[group.id] = group.title;
 
                 var item = jq("<div></div>")
                     .attr("id", "selectedGroup_" + pName + "_" + group.id)
                     .addClass("accessRights-selectedItem");
 
                 var groupImg = jq("<img>")
-                    .attr("src", sg.GroupImgSrc);
+                    .attr("src", window.imageHelper.GroupImgSrc);
 
                 var deleteImg = jq("<img>")
-                    .attr("src", sg.TrashImgSrc)
+                    .attr("src", window.imageHelper.TrashImgSrc)
                     .css("display", "none")
                     .attr("id", "deleteSelectedGroupImg_" + pName + "_" + group.id)
-                    .attr("title", sg.TrashImgTitle);
+                    .attr("title", window.imageHelper.TrashImgTitle);
 
                 item.append(groupImg).append(deleteImg).append(Encoder.htmlEncode(group.title));
 
@@ -342,33 +357,28 @@ ASC.Settings.AccessRights = new function() {
 
             Teamlab.setWebItemSecurity({}, data, {
                 success: function () {
-                    gs.groupadvancedSelector("disable", sg.IDs);
+                    gs.groupadvancedSelector("disable", Object.keys(sg));
                 }
             });
         },
-        
-        deleteUserFromList: function (obj) {
-            var idComponent = jq(obj).attr("id").split("_");
+
+        deleteUserFromList: function () {
+            var $obj = jq(this);
+            var idComponent = $obj.attr("id").split("_");
             var pName = idComponent[1];
             var uId = idComponent[2];
             var pId = jq("#accessRightsContainer_" + pName).attr("data-id");
             
-            jq(obj).parent().remove();
+            $obj.parent().remove();
 
             var sg = getSelectedGroups(pName);
             var su = getSelectedUsers(pName);
 
             var us = jq("#userSelector_" + pName);
 
-            for (var i = 0; i < su.IDs.length; i++) {
-                if (su.IDs[i] == uId) {
-                    su.IDs.splice(i, 1);
-                    su.Names.splice(i, 1);
-                    break;
-                }
-            }
+            delete su[uId];
 
-            if (su.IDs.length == 0 && sg.IDs.length == 0)
+            if (!Object.keys(su).length && !Object.keys(sg).length)
                 jq("#emptyUserListLabel_" + pName).show();
 
             var data = {
@@ -386,34 +396,30 @@ ASC.Settings.AccessRights = new function() {
 
             Teamlab.setWebItemSecurity({}, data, {
                 success: function () {
-                    us.useradvancedSelector("undisable", [uId]);
+                    if (us.data("useradvancedSelector"))
+                        us.useradvancedSelector("undisable", [uId]);
                 }
             });
 
         },
-        
-        deleteGroupFromList: function (obj) {
-            var idComponent = jq(obj).attr("id").split("_");
+
+        deleteGroupFromList: function () {
+            var $obj = jq(this);
+            var idComponent = $obj.attr("id").split("_");
             var pName = idComponent[1];
             var gId = idComponent[2];
             var pId = jq("#accessRightsContainer_" + pName).attr("data-id");
 
-            jq(obj).parent().remove();
+            $obj.parent().remove();
 
             var sg = getSelectedGroups(pName);
             var su = getSelectedUsers(pName);
 
             var gs = jq("#groupSelector_" + pName);
 
-            for (var i = 0; i < sg.IDs.length; i++) {
-                if (sg.IDs[i] == gId) {
-                    sg.IDs.splice(i, 1);
-                    sg.Names.splice(i, 1);
-                    break;
-                }
-            }
+            delete sg[gId];
 
-            if (su.IDs.length == 0 && sg.IDs.length == 0)
+            if (!Object.keys(su).length && !Object.keys(sg).length)
                 jq("#emptyUserListLabel_" + pName).show();
 
             var data = {
@@ -431,7 +437,8 @@ ASC.Settings.AccessRights = new function() {
 
             Teamlab.setWebItemSecurity({}, data, {
                 success: function () {
-                    gs.groupadvancedSelector("undisable", [gId]);
+                    if (gs.data("groupadvancedSelector"))
+                        gs.groupadvancedSelector("undisable", [gId]);
                 }
             });
         },
@@ -439,7 +446,7 @@ ASC.Settings.AccessRights = new function() {
         getSubjects: function(pName) {
             var su = getSelectedUsers(pName);
             var sg = getSelectedGroups(pName);
-            return su.IDs.concat(sg.IDs);
+            return Object.keys(su).concat(Object.keys(sg));
         },
         
         setAdmin: function (obj, pId) {
@@ -464,7 +471,8 @@ ASC.Settings.AccessRights = new function() {
             Teamlab.setProductAdministrator({}, data, {
                 success: function () {
                     var us = jq("#userSelector_" + pName);
-                    us.useradvancedSelector("disable", [data.userid]);
+                    if (us.data("useradvancedSelector"))
+                        us.useradvancedSelector("disable", [data.userid]);
                 }
             });
         },
@@ -476,17 +484,18 @@ ASC.Settings.AccessRights = new function() {
                         jq("#adminItem_" + data.userid + " input[type=checkbox]").prop("checked", true).attr("disabled", true);
                         jq(obj).removeAttr("disabled");
                     } else {
-                        jq("#adminItem_" + data.userid + " input[type=checkbox]").removeAttr("checked").removeAttr("disabled");
+                        jq("#adminItem_" + data.userid + " input[type=checkbox]").prop("checked", false).attr("disabled", false);
                     }
                     ASC.Settings.AccessRights.hideUserFromAll(data.userid, data.administrator);
                 }
             });
         },
         
-        hideUserFromAll: function (uId, hide) {
+        hideUserFromAll: function (uId) {
             for (var i = 0; i < pNameList.length; i++){
-                var us = jq("#userSelector_" + pNameList[i]); 
-                us.useradvancedSelector("disable", [uId]);
+                var us = jq("#userSelector_" + pNameList[i]);
+                if (us.data("useradvancedSelector"))
+                    us.useradvancedSelector("disable", [uId]);
             }
         }
     };

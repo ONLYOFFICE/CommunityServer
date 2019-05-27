@@ -36,11 +36,11 @@ using ASC.Web.CRM.Classes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Services.NotifyService;
 using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
-using log4net;
 using ASC.Web.Core;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Core;
@@ -281,7 +281,7 @@ namespace ASC.Web.CRM.HttpHandlers
                             fieldCollector[item.InfoType.ToLocalizedString()] =
                                 PrepareteDataToView(item.InfoType, item.Data));
 
-                    daoFactory.ContactInfoDao.SaveList(contactInfos);
+                    daoFactory.ContactInfoDao.SaveList(contactInfos, contact);
 
                     var notifyList = GetValue("notify_list");
 

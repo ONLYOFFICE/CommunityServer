@@ -31,6 +31,7 @@ using System.Threading;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using Newtonsoft.Json;
@@ -115,13 +116,26 @@ namespace ASC.MessagingSystem.DbSender
             using (var db = DbManager.FromHttpContext(MessagesDbId))
             using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
+                var dict = new Dictionary<string, ClientInfo>();
+
                 foreach (var message in events)
                 {
                     if (!string.IsNullOrEmpty(message.UAHeader))
                     {
                         try
                         {
-                            var clientInfo = Parser.Parse(message.UAHeader);
+
+                            ClientInfo clientInfo;
+
+                            if (dict.ContainsKey(message.UAHeader))
+                            {
+                                clientInfo = dict[message.UAHeader];
+                            }
+                            else
+                            {
+                                clientInfo = Parser.Parse(message.UAHeader);
+                                dict.Add(message.UAHeader, clientInfo);
+                            }
 
                             if (clientInfo != null)
                             {
@@ -129,8 +143,9 @@ namespace ASC.MessagingSystem.DbSender
                                 message.Platform = GetPlatform(clientInfo);
                             }
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
+                            LogManager.GetLogger("ASC").Error("FlushCache " + message.Id, e);
                         }
                     }
 
@@ -240,43 +255,41 @@ namespace ASC.MessagingSystem.DbSender
         {
             try
             {
-                using (var db = DbManager.FromHttpContext(MessagesDbId))
-                {
-                    var activeTenants = CoreContext.TenantManager.GetTenants().Select(t => t.TenantId);
-
-                    foreach (var tenant in activeTenants)
-                    {
-                        var settings = TenantAuditSettings.LoadForTenant(tenant);
-                        DeleteOldEvents(db, LoginEventsTable, tenant, DateTime.UtcNow.Subtract(TimeSpan.FromDays(settings.LoginHistoryLifeTime)));
-                        DeleteOldEvents(db, AuditEventsTable, tenant, DateTime.UtcNow.Subtract(TimeSpan.FromDays(settings.AuditTrailLifeTime)));
-                    }
-                }
+                GetOldEvents(LoginEventsTable, "LoginHistoryLifeTime");
+                GetOldEvents(AuditEventsTable, "AuditTrailLifeTime");
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.Messaging").Error(ex.Message, ex);
+                LogManager.GetLogger("ASC.Messaging").Error(ex.Message, ex);
             }
         }
 
-        private static void DeleteOldEvents(IDbManager dbManager, string table, int tenant, DateTime from)
+        private static void GetOldEvents(string table, string settings)
         {
-            var count = dbManager.ExecuteScalar<int>(new SqlQuery(table)
-                                                         .SelectCount()
-                                                         .Where("tenant_id", tenant)
-                                                         .Where(Exp.Le("date", from)));
+            var sqlQueryLimit = string.Format("(IFNULL((SELECT JSON_EXTRACT(`Data`, '$.{0}') from webstudio_settings where tt.id = TenantID and id='{1}'), {2})) as tout", settings, TenantAuditSettings.LoadForDefaultTenant().ID, TenantAuditSettings.MaxLifeTime);
+            var query = new SqlQuery(table + " t1")
+                .Select("t1.id")
+                .Select(sqlQueryLimit)
+                .Select("t1.`date` AS dout")
+                .InnerJoin("tenants_tenants tt", Exp.EqColumns("tt.id", "t1.tenant_id"))
+                .Having(Exp.Sql("dout < ADDDATE(UTC_DATE(), INTERVAL -tout DAY)"))
+                .SetMaxResults(1000);
 
-            while (count > 0)
+            List<int> ids;
+
+            do
             {
-                dbManager.ExecuteNonQuery(
-                    string.Format("delete from {0} where tenant_id=@Tenant and date<@From limit 1000",
-                                  table), new
-                                      {
-                                          Tenant = tenant,
-                                          From = from
-                                      });
+                using (var dbManager = new DbManager(MessagesDbId, 180000))
+                {
+                    ids = dbManager.ExecuteList(query).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                count = count - 1000;
-            }
+                    if (!ids.Any()) return;
+
+                    var deleteQuery = new SqlDelete(table).Where(Exp.In("id", ids));
+
+                    dbManager.ExecuteNonQuery(deleteQuery);
+                }
+            } while (ids.Any());
         }
     }
 }

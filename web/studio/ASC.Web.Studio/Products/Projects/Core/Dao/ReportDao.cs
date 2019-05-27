@@ -38,20 +38,23 @@ namespace ASC.Projects.Data.DAO
 {
     class ReportDao : BaseDao, IReportDao
     {
-        private readonly string[] columns = new[] { "id", "type", "name", "filter", "cron", "create_by", "create_on", "tenant_id", "auto" };
+        private readonly string[] templateColumns = { "id", "type", "name", "filter", "cron", "create_by", "create_on", "tenant_id", "auto" };
+        private readonly string[] columns = { "id", "type", "name", "fileId", "create_by", "create_on", "tenant_id" };
         private readonly Converter<object[], ReportTemplate> converter;
+        private readonly Converter<object[], ReportFile> fileConverter;
 
         public ReportDao(int tenantID)
             : base(tenantID)
         {
             converter = ToTemplate;
+            fileConverter = ToReportFile;
         }
 
 
         public List<ReportTemplate> GetTemplates(Guid userId)
         {
-            return Db.ExecuteList(Query(ReportTable)
-                                    .Select(columns)
+            return Db.ExecuteList(Query(ReportTemplateTable)
+                                    .Select(templateColumns)
                                     .Where("create_by", userId.ToString())
                                     .OrderBy("name", true))
                 .ConvertAll(converter);
@@ -59,7 +62,7 @@ namespace ASC.Projects.Data.DAO
 
         public List<ReportTemplate> GetAutoTemplates()
         {
-            return Db.ExecuteList(new SqlQuery(ReportTable).Select(columns)
+            return Db.ExecuteList(new SqlQuery(ReportTemplateTable).Select(templateColumns)
                                                         .Where("auto", true)
                                                         .OrderBy("tenant_id", true))
                 .ConvertAll(converter);
@@ -67,7 +70,7 @@ namespace ASC.Projects.Data.DAO
 
         public ReportTemplate GetTemplate(int id)
         {
-            return Db.ExecuteList(Query(ReportTable).Select(columns).Where("id", id)).ConvertAll(converter).SingleOrDefault();
+            return Db.ExecuteList(Query(ReportTemplateTable).Select(templateColumns).Where("id", id)).ConvertAll(converter).SingleOrDefault();
         }
 
         public ReportTemplate SaveTemplate(ReportTemplate template)
@@ -76,8 +79,8 @@ namespace ASC.Projects.Data.DAO
             if (template.CreateOn == default(DateTime)) template.CreateOn = DateTime.Now;
             if (template.CreateBy.Equals(Guid.Empty)) template.CreateBy = CurrentUserID;
 
-            var insert = new SqlInsert(ReportTable, true)
-                .InColumns(columns)
+            var insert = new SqlInsert(ReportTemplateTable, true)
+                .InColumns(templateColumns)
                 .Values(
                     template.Id,
                     template.ReportType,
@@ -95,7 +98,55 @@ namespace ASC.Projects.Data.DAO
 
         public void DeleteTemplate(int id)
         {
-            Db.ExecuteNonQuery(Delete(ReportTable).Where("id", id));
+            Db.ExecuteNonQuery(Delete(ReportTemplateTable).Where("id", id));
+        }
+
+
+
+        public ReportFile Save(ReportFile reportFile)
+        {
+            if (reportFile == null) throw new ArgumentNullException("reportFile");
+            if (reportFile.CreateOn == default(DateTime)) reportFile.CreateOn = DateTime.Now;
+            if (reportFile.CreateBy.Equals(Guid.Empty)) reportFile.CreateBy = CurrentUserID;
+
+            var insert = new SqlInsert(ReportTable, true)
+                .InColumns(columns)
+                .Values(
+                    reportFile.Id,
+                    reportFile.ReportType,
+                    reportFile.Name,
+                    reportFile.FileId,
+                    reportFile.CreateBy.ToString(),
+                    TenantUtil.DateTimeToUtc(reportFile.CreateOn),
+                    CoreContext.TenantManager.GetCurrentTenant().TenantId)
+                .Identity(0, 0, true);
+            reportFile.Id = Db.ExecuteScalar<int>(insert);
+            return reportFile;
+        }
+
+        public IEnumerable<ReportFile> Get()
+        {
+            return Db.ExecuteList(Query(ReportTable)
+                                    .Select(columns)
+                                    .Where("create_by", SecurityContext.CurrentAccount.ID)
+                                    .OrderBy("create_on", false))
+                .ConvertAll(fileConverter);
+        }
+
+        public ReportFile GetByFileId(int id)
+        {
+            return Db.ExecuteList(Query(ReportTable)
+                .Select(columns)
+                .Where("create_by", SecurityContext.CurrentAccount.ID)
+                .Where("fileId", id))
+                .ConvertAll(fileConverter).SingleOrDefault();
+        }
+
+        public void Remove(ReportFile report)
+        {
+            Db.ExecuteNonQuery(Delete(ReportTable)
+                .Where("create_by", SecurityContext.CurrentAccount.ID)
+                .Where("id", report.Id));
         }
 
         private static ReportTemplate ToTemplate(IList<object> r)
@@ -111,6 +162,20 @@ namespace ASC.Projects.Data.DAO
                 CreateOn = TenantUtil.DateTimeFromUtc(tenant.TimeZone, Convert.ToDateTime(r[6])),
                 Tenant = tenant.TenantId,
                 AutoGenerated = Convert.ToBoolean(r[8]),
+            };
+            return template;
+        }
+
+        private static ReportFile ToReportFile(IList<object> r)
+        {
+            var template = new ReportFile
+            {
+                Id = Convert.ToInt32(r[0]),
+                ReportType = (ReportType)Convert.ToInt32(r[1]),
+                Name = (string)r[2],
+                FileId = r[3],
+                CreateBy = ToGuid(r[4]),
+                CreateOn = TenantUtil.DateTimeFromUtc(CoreContext.TenantManager.GetCurrentTenant().TimeZone, Convert.ToDateTime(r[5]))
             };
             return template;
         }

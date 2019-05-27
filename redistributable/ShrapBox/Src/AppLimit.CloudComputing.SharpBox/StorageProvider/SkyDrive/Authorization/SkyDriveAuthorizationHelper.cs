@@ -1,7 +1,4 @@
 using System;
-using System.IO;
-using System.Net;
-using System.Text;
 using System.Web;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20;
 
@@ -85,8 +82,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Authorizatio
             if (String.IsNullOrEmpty(redirectUri))
                 redirectUri = SkyDriveConstants.DefaultRedirectUri;
 
-            String query = String.Format("client_id={0}&redirect_uri={1}&client_secret={2}&code={3}&grant_type=authorization_code",
-                                         clientID, redirectUri, clientSecret, authCode);
+            var query = String.Format("client_id={0}&redirect_uri={1}&client_secret={2}&code={3}&grant_type=authorization_code",
+                                      clientID, redirectUri, clientSecret, authCode);
 
             var json = SkyDriveRequestHelper.PerformRequest(SkyDriveConstants.OAuth20TokenUrl, "application/x-www-form-urlencoded", "POST", query, 2);
             if (json != null)
@@ -113,8 +110,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Authorizatio
             if (sdToken == null || !CanRefresh(sdToken))
                 throw new ArgumentException("Can not refresh given token", "token");
 
-            String query = String.Format("client_id={0}&client_secret={1}&redirect_uri={2}&grant_type=refresh_token&refresh_token={3}",
-                                         sdToken.ClientID, sdToken.ClientSecret, sdToken.RedirectUri, sdToken.RefreshToken);
+            var query = String.Format("client_id={0}&client_secret={1}&redirect_uri={2}&grant_type=refresh_token&refresh_token={3}",
+                                      sdToken.ClientID, sdToken.ClientSecret, sdToken.RedirectUri, sdToken.RefreshToken);
 
             var json = SkyDriveRequestHelper.PerformRequest(SkyDriveConstants.OAuth20TokenUrl, "application/x-www-form-urlencoded", "POST", query, 2);
             if (json != null)

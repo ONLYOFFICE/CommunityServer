@@ -27,7 +27,10 @@
 /*******************************************************************************
   Dropdown action panel
 *******************************************************************************/
-
+.studio-action-panel.community {
+    box-sizing: border-box;
+    width: 240px;
+}
 .studio-action-panel {
     display: none;
     position: absolute;
@@ -166,69 +169,25 @@
    Icons for the moduls list
 *******************************************************************************/
     &.modules li {
+
+        .dropdown-item-svg{
+            width: 16px;
+            height: 16px;
+            fill:#83888d;
+         }
+
         .dropdown-item-icon {
-                background: url(../dark-green/img/icons_nav_panel.png) no-repeat 0px 0px transparent;
-                width: 16px;
-                height: 16px;
-                margin: 6px 5px 0 1px;
-                float: left;
-        }
-
-        &.projects .dropdown-item-icon {
-            background-position: 0px -51px;
-        }
-
-        &.crm .dropdown-item-icon {
-            background-position: 0px -545px;
-        }
-
-        &.documents .dropdown-item-icon {
-            background-position: 0px -155px;
-        }
-
-        &.community .dropdown-item-icon {
-            background-position: 0px -441px;
-        }
-
-        &.people .dropdown-item-icon {
-            background-position: 0px -25px;
-        }
-
-        &.tools .dropdown-item-icon {
-            background-position: 0px -1247px;
-        }
-
-        &.mail .dropdown-item-icon {
-            background-position: 0px -1299px;
-        }
-
-        &.calendar .dropdown-item-icon {
-            background-position: 0px -207px;
-        }
-
-        &.feed .dropdown-item-icon {
-            background-position: 0px -701px;
-        }
-
-        &.settings .dropdown-item-icon {
-            background-position: 0px -389px;
-        }
-
-        &.apps .dropdown-item-icon {
-            background-position: 0px -830px;
-        }
-
-        &.tarrifs .dropdown-item-icon {
-            background-position: 0px -857px;
-        }
-
-        &.talk .dropdown-item-icon {
-            background-position: 0px -1325px;
-        }
+            width: 16px;
+            height: 16px;
+            margin: 8px 5px 0 1px;
+            float: left;
+        } 
     }
 }
 
 #studio_productListPopupPanel {
+    z-index: 2000;
+
     .wrapper
     {
         position: relative;
@@ -239,7 +198,7 @@
 
         &.col2
         {
-            width: 300px;
+            width: 310px;
             .columns
             {
                 -moz-column-count: 2;
@@ -275,7 +234,7 @@
     .tile
     {
         position: relative;
-        width: 150px;
+        width: 155px;
         -webkit-column-break-inside: avoid;
         page-break-inside: avoid;
         break-inside: avoid;
@@ -299,6 +258,7 @@
 .dropdown-item-seporator {
     border-top: 1px dotted #a6a6a6;
     width: 100%;
+    margin: 2px 0;
 }
 
 .create-new-list-header {

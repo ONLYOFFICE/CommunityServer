@@ -5,7 +5,11 @@ upstream fastcgi_backend {
 
 server {
         listen 80;
-
+		listen 443 ssl;
+		
+		ssl_certificate {{SSL_CERTIFICATE_PATH}};
+		ssl_certificate_key {{SSL_KEY_PATH}};
+		
         fastcgi_keep_conn on;
         fastcgi_index   Default.aspx;
         fastcgi_intercept_errors on;

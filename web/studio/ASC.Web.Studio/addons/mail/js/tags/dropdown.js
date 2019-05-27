@@ -25,252 +25,227 @@
 
 
 window.tagsDropdown = (function($) {
-    var popup;
-    var popupId = '#addTagsPanel';
-    var isInit = false;
-    var arrow;
+    var popup,
+        popupId = '#addTagsPanel',
+        isInit = false,
+        showButton;
 
-    var init = function() {
+    function init() {
         if (isInit === false) {
             isInit = true;
 
             popup = $(popupId);
-
-            bindInputs();
-
-            tagsManager.events.bind('delete', onDeleteTag);
-            tagsManager.events.bind('create', onCreateTag);
         }
-    };
+    }
 
-    var onDeleteTag = function() {
-        hide();
-    };
+    function prepareOptions(opts) {
+        if (!opts)
+            opts = {};
 
-    var onCreateTag = function(e, tag) {
-        if (popup.is(":visible")) {
-            setTag(tag.id);
-        }
-        hide();
-    };
+        var options = {};
 
-    // shows add tags panel near obj element depending on current page
-    var showAddTagsPanel = function(obj) {
-        if ($(popupId + ':visible').length) {
-            hide();
-            return;
-        }
+        options.hideMarkRecipients = typeof opts !== "object" ||
+            typeof opts.hideMarkRecipients === "undefined" ||
+            opts.hideMarkRecipients === null
+            ? false
+            : opts.hideMarkRecipients;
 
-        var tagContent = getTagContent();
+        options.onSelect = typeof opts !== "object" ||
+            typeof opts.onSelect === "undefined" ||
+            typeof opts.onSelect !== "function"
+            ? function (e, tag) {
+                console.log("Default onSelect callback has been called", tag);
+            }
+            : opts.onSelect;
 
-        $('#tagsPanelContent .existsTags').html(tagContent);
+        options.onDeselect = typeof opts !== "object" ||
+            typeof opts.onDeselect === "undefined" ||
+            typeof opts.onDeselect !== "function"
+            ? function (e, tag) {
+                console.log("Default onDeselect callback has been called", tag);
+            }
+            : opts.onDeselect;
 
-        var tagNameInput = $(popupId + ' #createnewtag');
-        tagNameInput.val('');
-        tagNameInput.unbind('focus').bind('focus', function() {
-            TMMail.setRequiredError('addTagsPanel', false);
-        });
+        options.getUsedTagsIds = typeof opts !== "object" ||
+            typeof opts.getUsedTagsIds === "undefined" ||
+            typeof opts.getUsedTagsIds !== "function"
+            ? function () {
+                console.log("Default getUsedTagsIds callback has been called");
+                return [];
+            }
+            : opts.getUsedTagsIds;
 
-        var $tag = $(popupId + ' .tag.inactive');
-        $tag.bind('click', function() {
-            setTag($(this).attr('tag_id'));
-        });
+        return options;
+    }
 
-        $tag = $(popupId + ' .tag.tagArrow');
-        $tag.bind('click', function() {
-            mailBox.unsetConversationsTag($(this).attr('tag_id'));
-        });
+    function draw() {
+        var offset = $(showButton).offset();
+        popup.css({ left: offset.left - 24, top: offset.top - 54 }).show();
+    }
 
-        if ((TMMail.pageIs('message') || TMMail.pageIs('conversation')) &&
-            messagePage.getMessageFolder(messagePage.getActualConversationLastMessageId()) != TMMail.sysfolders.trash.id) {
-            showMarkRecipientsCheckbox();
-        } else {
-            hideMarkRecipientsCheckbox();
-        }
+    function showMarkRecipientsCheckbox() {
+        var cbx = popup.find("#markallrecipients");
+        cbx.prop('checked', false);
+        cbx.show();
+        cbx.unbind('click').bind('click', manageCrmTags);
 
-        setTagColor(undefined, tagsManager.getVacantStyle());
+        var cbxLbl = popup.find("#markallrecipientsLabel");
+        cbxLbl.show();
 
-        popup.find('.square').click(function() {
-            tagsColorsPopup.show(this, setTagColor);
-        });
-
-        TMMail.setRequiredError('addTagsPanel', false);
-
-        arrow = $(obj).find('.down_arrow').offset() != null ? $(obj).find('.down_arrow') : $(obj).find('.arrow-down');
-        popup.css({ left: $(obj).offset().left - 24, top: arrow.offset().top - 64 }).show();
-
-        $(popupId).find('.popup-corner').removeClass('bottom');
-
-        dropdown.regHide(filteredHide);
-        dropdown.regScroll(onScroll);
-
-        $(popupId).find('input[placeholder]').placeholder();
-
-        tagNameInput.focus(function() {
-            $(this).closest('.entertagname').css({ 'border-color': '#3186af' });
-        });
-
-        tagNameInput.blur(function() {
-            $(this).closest('.entertagname').css({ 'border-color': '#c7c7c7' });
-        });
-
-        tagNameInput.focus();
-    };
-
-    var onScroll = function() {
-        popup.css({ top: arrow.offset().top - 64 });
-    };
-
-    var showMarkRecipientsCheckbox = function() {
-        $(popupId + ' #markallrecipients').prop('checked', false);
-        $(popupId + ' #markallrecipients').show();
-        $(popupId + ' #markallrecipientsLabel').show();
-        $(popupId + ' #markallrecipients').unbind('click').bind('click', manageCrmTags);
         var fromAddress = messagePage.getFromAddress(messagePage.getActualConversationLastMessageId());
         fromAddress = ASC.Mail.Utility.ParseAddress(fromAddress).email;
+
         if (accountsManager.getAccountByAddress(fromAddress)) {
-            $(popupId + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllRecipientsLabel);
+            cbxLbl.text(MailScriptResource.MarkAllRecipientsLabel);
         } else {
-            $(popupId + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllSendersLabel);
+            cbxLbl.text(MailScriptResource.MarkAllSendersLabel);
         }
-    };
+    }
 
-    var hideMarkRecipientsCheckbox = function() {
-        $(popupId + ' #markallrecipients').prop('checked', false);
-        $(popupId + ' #markallrecipients').hide();
-        $(popupId + ' #markallrecipientsLabel').hide();
-    };
+    function hideMarkRecipientsCheckbox() {
+        var cbx = popup.find("#markallrecipients");
+        cbx.prop('checked', false);
+        cbx.hide();
 
-    var manageCrmTags = function(e) {
-        if (e.target.checked) {
-            $('#tagsPanelContent .tag').each(function() {
-                if ($(this).attr('tag_id') < 0) {
-                    $(this).addClass("disabled");
-                    $(this).unbind("click");
+        var cbxLbl = popup.find("#markallrecipientsLabel");
+        cbxLbl.hide();
+    }
+
+    function manageCrmTags(e) {
+        var tags = popup.find("#tagsPanelContent .tag");
+
+        tags.each(function() {
+            var el = $(this);
+            if (e.target.checked) {
+                if (el.attr('tag_id') < 0) {
+                    el.addClass("disabled");
                 }
-            });
-        } else {
-            $('#tagsPanelContent .tag').each(function() {
-                if ($(this).attr('tag_id') < 0) {
-                    $(this).removeClass("disabled");
-                    var usedTagsIds = getUsedTagsIds();
-                    var tagId = parseInt($(this).attr("tag_id"));
-                    if (-1 == $.inArray(tagId, usedTagsIds)) {
-                        $(this).bind('click', function() {
-                            setTag($(this).attr('tag_id'));
-                        });
-                    } else {
-                        $(this).bind('click', function() {
-                            mailBox.unsetConversationsTag($(this).attr('tag_id'));
-                        });
-                    }
-                }
-            });
-        }
-    };
-
-    var getTagContent = function() {
-        var res;
-        var tags = tagsManager.getAllTags();
-        var usedTagsIds = getUsedTagsIds();
-        for (var i = 0; i < tags.length; i++) {
-            tags[i].used = ($.inArray(tags[i].id, usedTagsIds) > -1);
-        }
-        res = $.tmpl('tagInPanelTmpl', tags, { htmlEncode: TMMail.htmlEncode });
-        return res;
-    };
-
-    var setTag = function(id) {
-        if (checked()) {
-            var tag = tagsManager.getTag(id);
-            var addresses = [];
-
-            var from = ASC.Mail.Utility.ParseAddress(messagePage.getFromAddress(messagePage.getActualConversationLastMessageId()));
-
-            if (accountsManager.getAccountByAddress(from.email)) {
-                addresses = ASC.Mail.Utility.ParseAddresses(messagePage.getToAddresses(messagePage.getActualConversationLastMessageId())).addresses;
-            } else
-                addresses.push(from);
-
-            for (var i = 0; i < addresses.length; i++) {
-                var address = addresses[i];
-                var tagAlreadyAdded = 0 < $.grep(tag.addresses, function(val) { return address.EqualsByEmail(val); }).length;
-                if (!tagAlreadyAdded) {
-                    tag.addresses.push(address.email);
+            } else {
+                if (el.attr('tag_id') < 0) {
+                    el.removeClass("disabled");
                 }
             }
-            tagsManager.updateTag(tag);
+        });
+    }
+
+    function getTagContent(options) {
+        var tags = tagsManager.getAllTags();
+        var usedTagsIds = options.getUsedTagsIds();
+
+        for (var i = 0; i < tags.length; i++) {
+            tags[i].used = usedTagsIds.length > 0 ? ($.inArray(tags[i].id, usedTagsIds) > -1) : false;
         }
 
-        hide();
-        mailBox.setTag(id);
-    };
-
-
-    // Get a list of tags that are set for all selected messages, or for a particular message.
-    var getUsedTagsIds = function() {
-        if (TMMail.pageIs('sysfolders')) {
-            return mailBox.getSelectedMessagesUsedTags();
-        } else {
-            return messagePage.getTags();
-        }
-    };
-
-    var setTagColor = function(obj, style) {
-        popup.find('.entertagname .square').removeClass().addClass('square tag' + style);
-        popup.find('.entertagname .square').attr('colorstyle', style);
-    };
+        var res = $.tmpl('tagInPanelTmpl', tags, { htmlEncode: TMMail.htmlEncode });
+        return res;
+    }
 
     // Rerurns flag value. Flag: Is needed to set tag for all messages sended from that user.
-    var checked = function() {
-        return $(popupId + ' input#markallrecipients').prop('checked');
-    };
+    function checked() {
+        var cbx = popup.find("#markallrecipients");
+        return cbx.prop('checked');
+    }
 
-    var createLabel = function() {
-        var tagName = $.trim(popup.find('input[type="text"]').val());
-        if (tagName.length == 0) {
-            TMMail.setRequiredError('addTagsPanel', true);
-            return false;
-        }
+    function createLabel(options) {
+        hide();
 
-        TMMail.setRequiredError('addTagsPanel', false);
-
-        var tag = { name: tagName, style: popup.find('.actionPanelSection .square').attr('colorstyle'), addresses: [] };
-        tagsManager.createTag(tag);
-
-        return false;
-    };
-
-    var bindInputs = function() {
-        popup.find('.entertag_button').click(createLabel);
-
-        popup.find('input[type="text"]').keypress(function(e) {
-            if (e.which != 13) {
-                return;
+        tagsModal.showCreate({
+            onSuccess: function (tag) {
+                options.onSelect(
+                {
+                    id: tag.id,
+                    name: tag.name
+                });
             }
-            return createLabel();
         });
-    };
+    }
 
-    var hide = function() {
-        popup.hide();
-        tagsColorsPopup.hide();
-        dropdown.unregHide(filteredHide);
-        dropdown.unregHide(onScroll);
-    };
-
-    var filteredHide = function(event) {
+    function filteredHide(event) {
         var elt = (event.target) ? event.target : event.srcElement;
         if (!($(elt).is(popupId + ' *') || $(elt).is(popupId) || $(elt).is('div[colorstyle]'))) {
             hide();
         }
-    };
+    }
 
+    // shows add tags panel near obj element depending on current page
+    function show(obj, opts) {
+        if (popup.is(":visible")) {
+            hide();
+            return;
+        }
+
+        var options = prepareOptions(opts);
+
+        var tagContent = getTagContent(options);
+
+        popup.find(".existsTags").html(tagContent);
+
+        var $tag = popup.find(".tag.inactive");
+        $tag.unbind('click').bind('click', function (e) {
+            var el = $(this);
+
+            if (el.hasClass("disabled")) return;
+
+            options.onSelect.call(e,
+                {
+                    id: el.attr('tag_id'),
+                    name: el.text()
+                });
+            hide();
+        });
+
+        $tag = popup.find(".tag.tagArrow");
+        $tag.unbind('click').bind('click', function (e) {
+            var el = $(this);
+
+            if (el.hasClass("disabled")) return;
+
+            options.onDeselect.call(e,
+                {
+                    id: el.attr('tag_id'),
+                    name: el.text()
+                });
+            hide();
+        });
+
+        if (options.hideMarkRecipients) {
+            hideMarkRecipientsCheckbox();
+        } else {
+            showMarkRecipientsCheckbox();
+        }
+
+        TMMail.setRequiredError('addTagsPanel', false);
+
+        showButton = obj;
+
+        draw();
+
+        popup.find('.popup-corner').removeClass('bottom');
+
+        dropdown.regHide(filteredHide);
+        dropdown.regScroll(draw);
+
+        popup.find('.entertag_button')
+            .unbind('click')
+            .bind('click',
+                function() {
+                    createLabel(options);
+                });
+    }
+
+    function hide() {
+        popup.hide();
+        tagsColorsPopup.hide();
+        dropdown.unregHide(filteredHide);
+        dropdown.unregHide(draw);
+        popup.find('.entertag_button').unbind('click');
+    }
 
     return {
         init: init,
-        show: showAddTagsPanel,
+        show: show,
         hide: hide,
-        checked: checked
+
+        isMarkChecked: checked
     };
 })(jQuery);

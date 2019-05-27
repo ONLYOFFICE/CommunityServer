@@ -142,7 +142,7 @@ namespace ASC.Api.Calendar.iCalParser
                             _curEvent.OriginalStartDate = dateTime;
 
                             if (!isAllDay && !isUTC && _curCalendar.TimeZone != null)
-                                _curEvent.UtcStartDate = dateTime.AddMinutes((-1) * (int)_curCalendar.TimeZone.BaseUtcOffset.TotalMinutes);
+                                _curEvent.UtcStartDate = dateTime.Subtract(_curCalendar.TimeZone.GetOffset());
                             else
                                 _curEvent.UtcStartDate = dateTime;
 
@@ -152,7 +152,7 @@ namespace ASC.Api.Calendar.iCalParser
                         {
                             _curEvent.OriginalEndDate = dateTime;
                             if (!isAllDay && !isUTC && _curCalendar.TimeZone != null)
-                                _curEvent.UtcEndDate = dateTime.AddMinutes((-1) * (int)_curCalendar.TimeZone.BaseUtcOffset.TotalMinutes);
+                                _curEvent.UtcEndDate = dateTime.Subtract(_curCalendar.TimeZone.GetOffset());
                             else if (isAllDay)
                                 _curEvent.UtcEndDate = dateTime.AddDays(-1);
                             else
@@ -237,10 +237,10 @@ namespace ASC.Api.Calendar.iCalParser
                         {
                             var tz = TimeZoneConverter.GetTimeZone(val.TokenText);
                             if (_curPropToken.TokenVal == TokenValue.Tdtstart)
-                                _curEvent.UtcStartDate = _curEvent.OriginalStartDate.AddMinutes((-1)*(int) tz.BaseUtcOffset.TotalMinutes);
+                                _curEvent.UtcStartDate = _curEvent.OriginalStartDate.Subtract(tz.GetOffset());
 
                             else if (_curPropToken.TokenVal == TokenValue.Tdtend)
-                                _curEvent.UtcEndDate = _curEvent.OriginalEndDate.AddMinutes((-1)*(int) tz.BaseUtcOffset.TotalMinutes);
+                                _curEvent.UtcEndDate = _curEvent.OriginalEndDate.Subtract(tz.GetOffset());
                         }
                         break;
                 }

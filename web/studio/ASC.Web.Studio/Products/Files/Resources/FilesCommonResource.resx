@@ -123,6 +123,12 @@
   <data name="AceShareLink" xml:space="preserve">
     <value>Outside portal</value>
   </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
   <data name="AceStatusEnum_Read" xml:space="preserve">
     <value>Read Only</value>
   </data>
@@ -207,6 +213,9 @@
   <data name="CommentEdit" xml:space="preserve">
     <value>Edited</value>
   </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Edited with encrypt</value>
+  </data>
   <data name="CommentOverwrite" xml:space="preserve">
     <value>Overwrited</value>
   </data>
@@ -231,8 +240,8 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>Convert into</value>
   </data>
-  <data name="CopyForEdit" xml:space="preserve">
-    <value>The document converted copy has been created to allow its editing</value>
+  <data name="CopyToForEdit" xml:space="preserve">
+    <value>The document converted copy has been created in folder {0} to allow its editing</value>
   </data>
   <data name="CreatingDate" xml:space="preserve">
     <value>Creation date</value>
@@ -245,6 +254,9 @@
   </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>Document Service is not available. Please contact support</value>
   </data>
   <data name="DocuSignStatusDeclined" xml:space="preserve">
     <value>Declined</value>
@@ -368,6 +380,12 @@
   </data>
   <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
     <value>This document is being edited by you in another tab</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>You don't have enough permission to move the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>You don't have enough permission to move the folder</value>
   </data>
   <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
     <value>You don't have enough permission to view the file</value>
@@ -587,5 +605,11 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>ver.</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Search by contents of documents</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>The operation was canceled</value>
   </data>
 </root>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Net;
 
@@ -11,7 +9,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 
     internal class WebRequestStream : Stream, IDisposable
     {
-        private Stream              _requestStream;
+        private Stream _requestStream;
         private Stack<WebRequestStreamDisposeOperation> _PostDisposeOperations;
         private Stack<WebRequestStreamDisposeOperation> _PreDisposeOperations;
         private Dictionary<WebRequestStreamDisposeOperation, object[]> _DisposeOperationsParams;
@@ -32,7 +30,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             _PostDisposeOperations.Push(opp);
 
-            if ( args != null )
+            if (args != null)
                 _DisposeOperationsParams.Add(opp, args);
         }
 
@@ -71,14 +69,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 
         public override long Position
         {
-            get
-            {
-                return _requestStream.Position;
-            }
-            set
-            {
-                _requestStream.Position = value;
-            }
+            get { return _requestStream.Position; }
+            set { _requestStream.Position = value; }
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -103,26 +95,15 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             _requestStream.Write(buffer, offset, count);
         }
 
-#if WINDOWS_PHONE 
-        public override void Close()
-        {
-
-            base.Close();
-
-
-            _requestStream.Close();
-        }
-#endif
-
         #region IDisposable Members
 
         void IDisposable.Dispose()
-        {                       
+        {
             // dispose our pre opps
             PerformeDisposeOperations(_PreDisposeOperations);
 
             // to all dispose stuff from base
-            base.Dispose();
+            Dispose();
 
             // dispose our post opps
             PerformeDisposeOperations(_PostDisposeOperations);
@@ -134,10 +115,10 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             while (stack.Count > 0)
             {
                 // pop the opp
-                WebRequestStreamDisposeOperation dop = stack.Pop();
+                var dop = stack.Pop();
 
                 // get the args
-                object[] args = null;
+                object[] args;
                 _DisposeOperationsParams.TryGetValue(dop, out args);
 
                 // perform opp

@@ -38,11 +38,12 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
 using ASC.Files.Core;
-using ASC.FullTextIndex;
 
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Core.Search;
 using ASC.Web.Files.Api;
 using ASC.Web.Studio.Core;
 
@@ -400,7 +401,7 @@ namespace ASC.CRM.Core.Dao
             if (item.CreateOn.Kind == DateTimeKind.Utc)
                 item.CreateOn = TenantUtil.DateTimeFromUtc(item.CreateOn);
 
-
+            FactoryIndexer<EventsWrapper>.IndexAsync(item);
             return item;
         }
 
@@ -496,20 +497,16 @@ namespace ASC.CRM.Core.Dao
                 var keywords = searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                    .ToArray();
 
-                var modules = SearchDao.GetFullTextSearchModule(EntityType.RelationshipEvent, searchText);
-
-                var ids = new List<int>();
-                if (!FullTextSearch.SupportModule(modules))
+                List<int> eventsIds;
+                if (!FactoryIndexer<EventsWrapper>.TrySelectIds(s => s.MatchAll(searchText), out eventsIds))
                 {
                     if (keywords.Length > 0)
                         sqlQuery.Where(BuildLike(new[] { "content" }, keywords));
                 }
                 else
                 {
-                    ids = FullTextSearch.Search(modules);
-
-                    if (ids.Count == 0) return new List<RelationshipEvent>();
-                    sqlQuery.Where(Exp.In("id", ids));
+                    if (eventsIds.Count == 0) return new List<RelationshipEvent>();
+                    sqlQuery.Where(Exp.In("id", eventsIds));
                 }
             }
 
@@ -601,6 +598,8 @@ namespace ASC.CRM.Core.Dao
             relativeFiles.ForEach(f => RemoveFile(f));
 
             Db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.Eq("id", item.ID)));
+
+            FactoryIndexer<EventsWrapper>.DeleteAsync(item);
         }
 
         #endregion

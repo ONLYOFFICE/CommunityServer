@@ -24,14 +24,11 @@
 */
 
 
-#region using
-
-using log4net;
 using System;
 using System.IO;
 using System.Text;
+using ASC.Common.Logging;
 
-#endregion
 
 namespace ASC.Xmpp.Core.utils.Xml.Dom
 {
@@ -47,7 +44,7 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
     {
         #region Members
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(DomLoader));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         /// <summary>
         /// </summary>

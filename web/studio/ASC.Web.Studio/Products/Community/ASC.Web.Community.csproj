@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Community</RootNamespace>
     <AssemblyName>ASC.Web.Community</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -56,12 +56,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,6 +97,7 @@
     <Compile Include="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HttpHandlers\ThumbHandler.cs" />
     <Compile Include="Master\ClientScripts\ClientLocalizationResources.cs" />
     <Compile Include="Master\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Master\Community.Master.cs">
@@ -479,7 +476,6 @@
     </Compile>
     <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.designer.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
@@ -493,7 +489,6 @@
     </Compile>
     <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.designer.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
@@ -642,9 +637,7 @@
     </Compile>
     <Compile Include="Modules\Wiki\Code\ActionHelper.cs" />
     <Compile Include="Modules\Wiki\Code\BaseDao.cs" />
-    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs" />
     <Compile Include="Modules\Wiki\Code\Category.cs" />
     <Compile Include="Modules\Wiki\Code\CategoryDao.cs" />
     <Compile Include="Modules\Wiki\Code\Comment.cs" />
@@ -692,7 +685,6 @@
     <Compile Include="Modules\Wiki\Handlers\WikiSection.cs" />
     <Compile Include="Modules\Wiki\ListCategories.aspx.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Wiki\ListCategories.aspx.designer.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
@@ -762,7 +754,6 @@
     </Compile>
     <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.designer.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
@@ -844,6 +835,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BlogPatternsResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Search\BlogsWrapper.cs" />
+    <Compile Include="Search\BookmarksWrapper.cs" />
+    <Compile Include="Search\NewsWrapper.cs" />
+    <Compile Include="Search\PostWrapper.cs" />
+    <Compile Include="Search\TopicWrapper.cs" />
+    <Compile Include="Search\WikiWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.resx">
@@ -993,6 +990,7 @@
     <Content Include="js\tagsAutocompleteBox.js" />
     <Content Include="Master\Styles.ascx" />
     <Content Include="Modules\Birthdays\App_Themes\Default\birthdays.css" />
+    <Content Include="Modules\Birthdays\App_Themes\Default\images\birthday.png" />
     <Content Include="Modules\Birthdays\App_Themes\Default\images\white_cross.png" />
     <Content Include="Modules\Birthdays\Default.aspx" />
     <Content Include="Modules\Birthdays\js\birthdays.js" />
@@ -1615,9 +1613,9 @@
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
-      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
-      <Name>ASC.FullTextIndex</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
@@ -1667,5 +1665,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

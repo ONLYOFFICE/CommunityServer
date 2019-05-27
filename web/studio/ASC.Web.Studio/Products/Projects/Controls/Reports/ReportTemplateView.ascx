@@ -66,9 +66,9 @@
 </div>
 
 <div class="middle-button-container" id="reportButtons">
-    <a id="updateTemplate" class="button blue middle disable"><%= ProjectsCommonResource.Save%></a>
+    <a id="updateTemplate" class="button blue middle" href="javascript:void(0)"><%= ProjectsCommonResource.Save%></a>
     <span class="splitter-buttons"></span>
-    <a class="button gray middle" href="generatedreport.aspx?ID=<%=Template.Id %>"><%=ReportResource.GenerateReport%></a>
+    <a class="button gray middle" id="generateReport" href="javascript:void(0)"><%=ReportResource.GenerateReport%></a>
     <span class="splitter-buttons"></span>
-    <a id="removeReport" class="button gray middle"><%= ProjectsCommonResource.Delete%></a>
+    <a id="removeReport" class="button gray middle" href="javascript:void(0)"><%= ProjectsCommonResource.Delete%></a>
 </div>

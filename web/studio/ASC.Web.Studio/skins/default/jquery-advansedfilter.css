@@ -403,8 +403,8 @@ div.advansed-filter div.advansed-filter-sort-container span.title{display:inline
 div.advansed-filter div.advansed-filter-sort-container span.title:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -2px;}
 
 div.advansed-filter div.advansed-filter-sort-container span.title span.value{border-bottom:1px dotted #333333; cursor:pointer; white-space:nowrap;}
-div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background-position: 1px -68px;}
-div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background-position: 1px -52px;}
+div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background: url('Images/svg/projects/ascending.svg');}
+div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background: url('Images/svg/projects/descending.svg');}
 
 div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title{cursor:default; padding: 0 5px 0 0;}
 div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title:after {border: 0 none;}
@@ -661,7 +661,7 @@ div.advansed-filter-container span.custom-combobox div.combobox-container ul.com
 div.advansed-filter-container span.custom-combobox.mobile-mode{}
 div.advansed-filter-container span.custom-combobox.mobile-mode div.combobox-container{width:auto;}
 div.advansed-filter-container span.custom-combobox.mobile-mode div.combobox-container ul.combobox-options{display:none;}
-div.advansed-filter-container span.custom-combobox.mobile-mode select.custom-combobox{position:relative !important; left:0 !important;}
+div.advansed-filter-container span.custom-combobox.mobile-mode select.custom-combobox{position:relative !important; left:0 !important; max-width: 150px;}
 
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container span.custom-combobox span.combobox-wrapper{bottom:-6px;}
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container span.daterange-selector span.advansed-filter-datepicker-container{margin-top:4px;}

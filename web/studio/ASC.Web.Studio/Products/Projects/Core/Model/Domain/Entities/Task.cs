@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -96,7 +98,10 @@ namespace ASC.Projects.Core.Domain
         {
             if (Security != null) return Security.CanEdit;
 
-            return ProjectSecurity.CanEdit(this);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurity>().CanEdit(this);
+            }
         }
     }
 }

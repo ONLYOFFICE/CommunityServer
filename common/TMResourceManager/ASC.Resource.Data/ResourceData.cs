@@ -368,11 +368,17 @@ namespace TMResourceData
         {
             using (var dbManager = new DbManager(Dbid))
             {
-                var exist = new SqlQuery(ResDataTable + " rd1")
-                    .Select("rd1.title")
+                var notExist = new SqlQuery(ResDataTable + " rd1")
+                    .Select("1")
                     .Where("rd1.fileid = rd.fileid")
                     .Where("rd1.title = concat('del_', rd.title)")
-                    .Where("rd1.cultureTitle = rd.cultureTitle");
+                    .Where("rd1.cultureTitle = 'Neutral'");
+
+                var exist = new SqlQuery(ResDataTable + " rd2")
+                    .Select("1")
+                    .Where("rd2.fileid = rd.fileid")
+                    .Where("rd2.title = rd.title")
+                    .Where("rd2.cultureTitle = 'Neutral'");
 
                 var sql = new SqlQuery(ResFilesTable + " rf").Select("rf.moduleName",
                                                               string.Format("sum(case rd.cultureTitle when '{0}' then (case rd.flag when 3 then 0 else 1 end) else 0 end)", currentData.Language.Title),
@@ -381,7 +387,7 @@ namespace TMResourceData
                                                       .InnerJoin(ResDataTable + " rd", Exp.EqColumns("rd.fileid", "rf.id"))
                                                       .Where("rf.projectName", currentData.Project.Name)
                                                       .Where("rd.resourceType", "text")
-                                                      .Where(!Exp.Like("rd.title", @"del\_", SqlLike.StartWith) & !Exp.Exists(exist))
+                                                      .Where(!Exp.Like("rd.title", @"del\_", SqlLike.StartWith) & Exp.Exists(exist) & !Exp.Exists(notExist))
                                                       .GroupBy("moduleName");
 
 

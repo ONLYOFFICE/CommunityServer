@@ -54,6 +54,11 @@ namespace ASC.Core.Users
             return users;
         }
 
+        public static bool HasAvatar(this UserInfo userInfo)
+        {
+            return UserPhotoManager.UserHasAvatar(userInfo.ID);
+        }
+
         public static Size GetPhotoSize(this UserInfo userInfo)
         {
             return UserPhotoManager.GetPhotoSize(userInfo.ID);
@@ -63,7 +68,17 @@ namespace ASC.Core.Users
         {
             return UserPhotoManager.GetPhotoAbsoluteWebPath(userInfo.ID);
         }
-     
+
+        public static string GetRetinaPhotoURL(this UserInfo userInfo)
+        {
+            return UserPhotoManager.GetRetinaPhotoURL(userInfo.ID);
+        }
+
+        public static string GetMaxPhotoURL(this UserInfo userInfo)
+        {
+            return UserPhotoManager.GetMaxPhotoURL(userInfo.ID);
+        }
+
         public static string GetBigPhotoURL(this UserInfo userInfo)
         {
             return UserPhotoManager.GetBigPhotoURL(userInfo.ID);

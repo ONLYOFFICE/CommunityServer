@@ -29,18 +29,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Configuration;
 using ASC.Core;
-using ASC.Security.Cryptography;
+using ASC.Files.Core;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Core;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.ThirdPartyApp;
@@ -57,6 +57,8 @@ namespace ASC.Web.Files
 {
     public partial class DocEditor : MainPage
     {
+        private static readonly string ResetCacheKey = WebConfigurationManager.AppSettings["web.client.cache.resetkey.ds"];
+
         protected override bool MayNotAuth
         {
             get { return !string.IsNullOrEmpty(Request[FilesLinkUtility.DocShareKey]); }
@@ -152,7 +154,7 @@ namespace ASC.Web.Files
             InitScript();
 
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            DocServiceApiUrl += (DocServiceApiUrl.Contains("?") ? "&" : "?") + "ver=" + ClientSettings.ResetCacheKey;
+            DocServiceApiUrl += (DocServiceApiUrl.Contains("?") ? "&" : "?") + "ver=" + HttpUtility.UrlEncode(ClientSettings.ResetCacheKey + ResetCacheKey);
 
             if (_configuration != null && !string.IsNullOrEmpty(_configuration.DocumentType))
             {
@@ -177,6 +179,10 @@ namespace ASC.Web.Files
                     {
                         var ver = string.IsNullOrEmpty(Request[FilesLinkUtility.Version]) ? -1 : Convert.ToInt32(Request[FilesLinkUtility.Version]);
                         file = DocumentServiceHelper.GetParams(RequestFileId, ver, RequestShareLinkKey, editPossible, !RequestView, true, out _configuration);
+                        if (_valideShareLink)
+                        {
+                            _configuration.Document.SharedLinkKey += RequestShareLinkKey;
+                        }
                     }
                     else
                     {
@@ -210,6 +216,7 @@ namespace ASC.Web.Files
                     _configuration.Document.Permissions.Edit = editPossible && !CoreContext.Configuration.Standalone;
                     _configuration.Document.Permissions.Rename = false;
                     _configuration.Document.Permissions.Review = false;
+                    _configuration.Document.Permissions.FillForms = false;
                     _configuration.Document.Permissions.ChangeHistory = false;
                     _editByUrl = true;
 
@@ -226,9 +233,10 @@ namespace ASC.Web.Files
 
             if (_configuration.EditorConfig.ModeWrite && FileConverter.MustConvert(file))
             {
+                Folder folder;
                 try
                 {
-                    file = FileConverter.ExecDuplicate(file, RequestShareLinkKey);
+                    file = FileConverter.ExecDuplicate(file, RequestShareLinkKey, out folder);
                 }
                 catch (Exception ex)
                 {
@@ -238,7 +246,7 @@ namespace ASC.Web.Files
                     return;
                 }
 
-                var comment = "#message/" + HttpUtility.UrlEncode(FilesCommonResource.CopyForEdit);
+                var comment = "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.CopyToForEdit, folder.Title));
 
                 Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
                 return;
@@ -263,9 +271,15 @@ namespace ASC.Web.Files
             {
                 _configuration.Type = IsMobile ? Services.DocumentService.Configuration.EditorType.Mobile : Services.DocumentService.Configuration.EditorType.Desktop;
 
-                if (FileSharing.CanSetAccess(file))
+                if (FileSharing.CanSetAccess(file)
+                    && !(file.Encrypted
+                         && (!Request.DesktopApp()
+                             || CoreContext.Configuration.Personal)))
                 {
-                    _configuration.EditorConfig.SharingSettingsUrl = CommonLinkUtility.GetFullAbsolutePath(Share.Location + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()));
+                    _configuration.EditorConfig.SharingSettingsUrl = CommonLinkUtility.GetFullAbsolutePath(
+                        Share.Location
+                        + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString())
+                        + (Request.DesktopApp() ? "&desktop=true" : string.Empty));
                 }
             }
 
@@ -276,6 +290,11 @@ namespace ASC.Web.Files
                 FileMarker.RemoveMarkAsNew(file);
             }
 
+            if (SecurityContext.IsAuthenticated)
+            {
+                _configuration.EditorConfig.SaveAsUrl = _configuration.EditorConfig.MergeFolderUrl = CommonLinkUtility.GetFullAbsolutePath(SaveAs.GetUrl);
+            }
+
             if (_configuration.EditorConfig.ModeWrite)
             {
                 _tabId = FileTracker.Add(file.ID);
@@ -284,8 +303,7 @@ namespace ASC.Web.Files
 
                 if (SecurityContext.IsAuthenticated)
                 {
-                    _configuration.EditorConfig.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.Location) + "?" + FileChoice.ParamFilterExt + "=xlsx&" + FileChoice.MailMergeParam + "=true";
-                    _configuration.EditorConfig.MergeFolderUrl = CommonLinkUtility.GetFullAbsolutePath(MailMerge.GetUrl);
+                    _configuration.EditorConfig.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.GetUrlForEditor);
                 }
             }
             else
@@ -302,8 +320,10 @@ namespace ASC.Web.Files
         {
             var inlineScript = new StringBuilder();
 
-            inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";",
-                                      PathProvider.GetFileServicePath);
+            inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";" +
+                                      "ASC.Files.Constants.DocsAPIundefined = \"{1}\";",
+                                      PathProvider.GetFileServicePath,
+                                      FilesCommonResource.DocsAPIundefined);
 
             if (!CoreContext.Configuration.Personal)
             {
@@ -342,6 +362,19 @@ namespace ASC.Web.Files
 
             inlineScript.AppendFormat("\nASC.Files.Editor.configurationParams = {0};",
                                       Services.DocumentService.Configuration.Serialize(_configuration));
+
+            if (Request.DesktopApp() && SecurityContext.IsAuthenticated)
+            {
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                
+                var displayName = DisplayUserSettings.GetFullUserName(user);
+                var email = user.Email;
+
+                inlineScript.AppendFormat("\nASC.displayName = \"{0}\";" +
+                                          "\nASC.email = \"{1}\";",
+                                          displayName,
+                                          email);
+            }
 
             InlineScripts.Scripts.Add(new Tuple<string, bool>(inlineScript.ToString(), false));
         }

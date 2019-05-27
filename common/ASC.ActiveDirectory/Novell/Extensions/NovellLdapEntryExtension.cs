@@ -38,15 +38,15 @@ namespace ASC.ActiveDirectory.Novell.Extensions
 {
     public static class NovellLdapEntryExtension
     {
-        public static object GetAttributeValue(this LdapEntry ldapEntry, string attributeName)
+        public static object GetAttributeValue(this LdapEntry ldapEntry, string attributeName, bool getBytes = false)
         {
             var attribute = ldapEntry.getAttribute(attributeName);
 
             if (attribute == null)
                 return null;
 
-            if (!string.Equals(attributeName, LdapConstants.ADSchemaAttributes.OBJECT_SID,
-                StringComparison.OrdinalIgnoreCase))
+            if (!(string.Equals(attributeName, LdapConstants.ADSchemaAttributes.OBJECT_SID,
+                StringComparison.OrdinalIgnoreCase) || getBytes))
             {
                 return attribute.StringValue;
             }
@@ -57,6 +57,11 @@ namespace ASC.ActiveDirectory.Novell.Extensions
             var value = new byte[attribute.ByteValue.Length];
 
             Buffer.BlockCopy(attribute.ByteValue, 0, value, 0, attribute.ByteValue.Length);
+
+            if (getBytes)
+            {
+                return value;
+            }
 
             return DecodeSid(value);
         }

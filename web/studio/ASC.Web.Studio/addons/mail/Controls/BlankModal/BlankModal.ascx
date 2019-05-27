@@ -1,9 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BlankModal.ascx.cs" Inherits="ASC.Web.Mail.Controls.BlankModal" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Mail.Controls" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Core" %>
 
 <div class="backdrop hidden" blank-page=""></div>
 

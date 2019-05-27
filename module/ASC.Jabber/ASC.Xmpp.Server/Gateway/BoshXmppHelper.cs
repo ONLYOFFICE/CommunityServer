@@ -24,21 +24,21 @@
 */
 
 
-using ASC.Xmpp.Core.protocol.extensions.bosh;
-using ASC.Xmpp.Core.utils;
-using log4net;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
+using ASC.Common.Logging;
+using ASC.Xmpp.Core.protocol.extensions.bosh;
+using ASC.Xmpp.Core.utils;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     static class BoshXmppHelper
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppHelper));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         public static Body ReadBodyFromRequest(HttpListenerContext ctx)
         {

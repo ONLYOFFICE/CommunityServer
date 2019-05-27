@@ -219,9 +219,6 @@
   <data name="ChangeAliasHelper" xml:space="preserve">
     <value>You can change the domain name later using the portal 'Settings' section.</value>
   </data>
-  <data name="CheckAll" xml:space="preserve">
-    <value>Check All</value>
-  </data>
   <data name="ClearFilter" xml:space="preserve">
     <value>Clear Filter</value>
   </data>
@@ -299,12 +296,6 @@
   </data>
   <data name="EmptyCommentErrorMessage" xml:space="preserve">
     <value>Comment cannot be empty</value>
-  </data>
-  <data name="EmptyDocsDescription" xml:space="preserve">
-    <value>The documents and image files you create or upload for your project are kept in this section. These documents are available to all project participants immediately after they are created. Attach files from your computer to the task and they will appear in this list.</value>
-  </data>
-  <data name="EmptyDocsHeaderDescription" xml:space="preserve">
-    <value>No files to be displayed in this section.</value>
   </data>
   <data name="EmptyList" xml:space="preserve">
     <value>Empty</value>
@@ -618,9 +609,6 @@
   <data name="ProjectCreatedText" xml:space="preserve">
     <value>created new project in Projects</value>
   </data>
-  <data name="ProjectDocuments" xml:space="preserve">
-    <value>Project Documents</value>
-  </data>
   <data name="ProjectManager" xml:space="preserve">
     <value>Manager</value>
   </data>
@@ -738,8 +726,8 @@
   <data name="TariffOverduePlan" xml:space="preserve">
     <value>You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using ONLYOFFICE, prolong the existing plan or change it using the table below.</value>
   </data>
-  <data name="TariffOverdueStandalone" xml:space="preserve">
-    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}The payment is overdue or no license could be found.{1}{2} To continue using ONLYOFFICE™, upload license file below.</value>
+  <data name="TariffOverdueStandalone2" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}.</value>
   </data>
   <data name="TariffPaidPlan" xml:space="preserve">
     <value>You are using {0} - {1} active users plan.</value>
@@ -791,6 +779,9 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Not enough free storage space</value>
+  </data>
+  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}The current installation has been updated without a proper license provided.{1}{2} Please upload the updated license to continue using ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Choose the number of your teammates</value>
@@ -947,5 +938,62 @@
   </data>
   <data name="ContactSupportBtn" xml:space="preserve">
     <value>Contact support</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>Call your customers directly from the CRM thanks to {0}ONLYOFFICE Twilio{1} integration</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>Configure your authenticator application</value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>Connect app</value>
+  </data>
+  <data name="TfaAppDescription" xml:space="preserve">
+    <value>The two-factor authentication is enabled to provide additional portal security. Configure your authenticator application to continue work on the portal. For example you could use {0} for {1} and {2} or {3} for {4}.</value>
+  </data>
+  <data name="TfaAppHowTo" xml:space="preserve">
+    <value>To connect your apllication scan the QR code or manually enter your secret key {0} then enter 6-digit code from your application in the field below.</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>Enter 6-digit generated code from your application. If you don't have access to your phone you can use your backup codes.</value>
+  </data>
+  <data name="NotSupportedBrowser" xml:space="preserve">
+    <value>To play the media you will need to update your browser to a recent version.</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Failed to upload file {0} to display</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>Actual Size</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="MediaViewerPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>Rotate Left</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>Rotate Right</value>
+  </data>
+  <data name="MediaViewerZoomIn" xml:space="preserve">
+    <value>Zoom In</value>
+  </data>
+  <data name="MediaViewerZoomOut" xml:space="preserve">
+    <value>Zoom Out</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="MediaViewerMute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>Play</value>
   </data>
 </root>

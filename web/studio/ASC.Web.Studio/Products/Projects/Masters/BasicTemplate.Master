@@ -18,8 +18,8 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
-    <asp:PlaceHolder ID="_projectNavigatePanel" runat="server" />
     <asp:ContentPlaceHolder ID="commonHolder" runat="server" />
+    <asp:PlaceHolder ID="_projectNavigatePanel" runat="server" />
     <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
     <asp:PlaceHolder runat="server" ID="_commonPopupHolder"></asp:PlaceHolder>
 </asp:Content>

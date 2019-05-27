@@ -29,14 +29,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Configuration;
-using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
-using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -44,7 +43,7 @@ namespace ASC.Web.Studio.Utility
 {
     public class WhiteLabelHelper
     {
-        private readonly static ILog Log = LogManager.GetLogger(typeof(WhiteLabelHelper));
+        private readonly static ILog Log = LogManager.GetLogger("ASC");
 
         private const string Base64StartPng = "data:image/png;base64,";
 
@@ -56,7 +55,7 @@ namespace ASC.Web.Studio.Utility
 
         public static void ApplyPartnerWhiteLableSettings()
         {
-            if (!TenantExtra.Enterprise && !TenantExtra.Hosted) return;
+            if (!TenantExtra.Enterprise && !TenantExtra.Hosted && !CoreContext.Configuration.CustomMode) return;
 
             var firstVisit = CompanyWhiteLabelSettings.Instance.IsDefault &&
                              AdditionalWhiteLabelSettings.Instance.IsDefault &&
@@ -70,10 +69,9 @@ namespace ASC.Web.Studio.Utility
 
                 if (!partnerdataStorage.IsFile(JsonDataFilePath)) return;
 
-                var stream = partnerdataStorage.GetReadStream(JsonDataFilePath);
-
                 JObject jsonObject;
 
+                using (var stream = partnerdataStorage.GetReadStream(JsonDataFilePath))
                 using (var reader = new StreamReader(stream))
                 {
                     jsonObject = JObject.Parse(reader.ReadToEnd());
@@ -81,23 +79,19 @@ namespace ASC.Web.Studio.Utility
 
                 if(jsonObject == null) return;
 
-                var companySettings = JsonConvert.DeserializeObject<CompanyWhiteLabelSettings>(jsonObject["CompanyWhiteLabelSettings"].ToString());
-                var additionalSettings = JsonConvert.DeserializeObject<AdditionalWhiteLabelSettings>(jsonObject["AdditionalWhiteLabelSettings"].ToString());
-                var mailSettings = JsonConvert.DeserializeObject<MailWhiteLabelSettings>(jsonObject["MailWhiteLabelSettings"].ToString());
-                var tenantSettings = JsonConvert.DeserializeObject<TenantWhiteLabelSettings>(jsonObject["TenantWhiteLabelSettings"].ToString());
-                var smtpSettingsStr = jsonObject["SmtpSettings"].ToString();
-                var defaultCultureName = jsonObject["DefaultCulture"].ToString();
+                SaveSettings<CompanyWhiteLabelSettings>(jsonObject, "CompanyWhiteLabelSettings");
+                SaveSettings<AdditionalWhiteLabelSettings>(jsonObject, "AdditionalWhiteLabelSettings");
+                SaveSettings<MailWhiteLabelSettings>(jsonObject, "MailWhiteLabelSettings");
+                SaveSettings<TenantWhiteLabelSettings>(jsonObject, "TenantWhiteLabelSettings");
 
-                companySettings.SaveForDefaultTenant();
-                additionalSettings.SaveForDefaultTenant();
-                mailSettings.SaveForDefaultTenant();
-                tenantSettings.SaveForDefaultTenant();
+                var smtpSettingsStr = (jsonObject["SmtpSettings"] ?? "").ToString();
+                var defaultCultureName = (jsonObject["DefaultCulture"] ?? "").ToString();
 
                 if (!String.IsNullOrEmpty(smtpSettingsStr))
                 {
                     try
                     {
-                        SmtpSettings.Deserialize(smtpSettingsStr); // try deserialize SmtpSettings object
+                        SmtpSettings.Deserialize(smtpSettingsStr);
                         CoreContext.Configuration.SaveSetting("SmtpSettings", smtpSettingsStr);
                     }
                     catch (Exception e)
@@ -134,6 +128,19 @@ namespace ASC.Web.Studio.Utility
             {
                 Log.Error(e.Message, e);
             }
+        }
+
+        private static void SaveSettings<T>(JObject jsonObject, string prop) where T : class, ISettings
+        {
+            var jsonObjectToken = jsonObject[prop];
+
+            if (jsonObjectToken == null) return;
+
+            var settings = JsonConvert.DeserializeObject<T>(jsonObjectToken.ToString()) as BaseSettings<T>;
+
+            if (settings == null) return;
+
+            settings.SaveForDefaultTenant();
         }
 
         private static void MakeLogoFiles(IDataStore store, JObject jObject)

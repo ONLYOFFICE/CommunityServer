@@ -28,6 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using ASC.Common.Data.Sql.Expressions;
 
@@ -235,9 +236,15 @@ namespace ASC.Common.Data.Sql
             return Join(SqlJoin.RightOuter, new AsExp(subQuery, alias), on);
         }
 
+        public SqlQuery Select(string column)
+        {
+            columns.Add((SqlIdentifier)column);
+            return this;
+        }
+
         public SqlQuery Select(params string[] columns)
         {
-            Array.ForEach(columns, column => this.columns.Add((SqlIdentifier)column));
+            this.columns.AddRange(columns.Select(r => (SqlIdentifier) r));
             return this;
         }
 

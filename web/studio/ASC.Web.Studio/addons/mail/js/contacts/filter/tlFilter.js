@@ -34,9 +34,13 @@ window.tlFilter = (function($) {
             isInit = true;
 
             $('#tlFilter').advansedFilter({
+                anykey: true,
+                anykeytimeout: 1000,
                 maxfilters: -1,
+                hintDefaultDisable: true,
                 sorters: [
-                    { id: 'displayName', title: MailScriptResource.FilterByTitle, sortOrder: 'ascending', def: true }
+                    { id: 'firstname', title: ASC.Resources.Master.Resource.FirstName, sortOrder: 'ascending', def: ASC.Mail.Master.userDisplayFormat == 1 },
+                    { id: 'lastname', title: ASC.Resources.Master.Resource.LastName, sortOrder: 'ascending', def: ASC.Mail.Master.userDisplayFormat == 2 }
                 ],
                 filters: [
                     {

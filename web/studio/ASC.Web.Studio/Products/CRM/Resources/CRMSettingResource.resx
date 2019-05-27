@@ -189,9 +189,6 @@
   <data name="AddThisTaskTemplateContainer" xml:space="preserve">
     <value>Add this task template container</value>
   </data>
-  <data name="Authentication" xml:space="preserve">
-    <value>Authentication</value>
-  </data>
   <data name="BasicInformation" xml:space="preserve">
     <value>Basic Information</value>
   </data>
@@ -287,9 +284,6 @@
   </data>
   <data name="CreateNewTagListButton" xml:space="preserve">
     <value>New Tag</value>
-  </data>
-  <data name="CreateTestLetter" xml:space="preserve">
-    <value>Create test mail</value>
   </data>
   <data name="CurrencySettings" xml:space="preserve">
     <value>Currency Settings</value>
@@ -457,9 +451,6 @@ call" or "Expression of gratitude".</value>
   <data name="EmptyTitleError" xml:space="preserve">
     <value>The field title cannot be empty</value>
   </data>
-  <data name="EnableSSL" xml:space="preserve">
-    <value>Enable SSL</value>
-  </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
@@ -468,9 +459,6 @@ call" or "Expression of gratitude".</value>
   </data>
   <data name="ExportDataSettingsInfo" xml:space="preserve">
     <value>The export function generates a ZIP-archive containing CSV files with all your CRM data (contacts, opportunities, cases, history, etc.) The email with the link to the created archive will be sent to your email address.</value>
-  </data>
-  <data name="ExportInvoiceItemsEmptyError" xml:space="preserve">
-    <value>No Products &amp; Services to be exported for this filter</value>
   </data>
   <data name="ExternalClient" xml:space="preserve">
     <value>Generate list for external program</value>
@@ -511,15 +499,6 @@ call" or "Expression of gratitude".</value>
   <data name="HistoryCategories" xml:space="preserve">
     <value>History Event Categories</value>
   </data>
-  <data name="Host" xml:space="preserve">
-    <value>Host</value>
-  </data>
-  <data name="HostLogin" xml:space="preserve">
-    <value>Host Login</value>
-  </data>
-  <data name="HostPassword" xml:space="preserve">
-    <value>Host Password</value>
-  </data>
   <data name="InternalSMTP" xml:space="preserve">
     <value>Internal SMTP ({0} email recipients maximum)</value>
   </data>
@@ -559,9 +538,6 @@ call" or "Expression of gratitude".</value>
   <data name="pattern_TestMailSMTPMainBody" xml:space="preserve">
     <value>This is a test mail message created by the ONLYOFFICE™ portal automatically to check the mass mailing feature.\nPlease do not reply to this message.\n\nWe are sorry for any inconveniences caused.\nBest regards,\nPortal {0} administration</value>
   </data>
-  <data name="Port" xml:space="preserve">
-    <value>Port</value>
-  </data>
   <data name="RemoveOption" xml:space="preserve">
     <value>Delete option</value>
   </data>
@@ -589,15 +565,6 @@ call" or "Expression of gratitude".</value>
   <data name="SelectTaskCategoryForReplace" xml:space="preserve">
     <value>Please select a category stage to be replaced with the current category in tasks</value>
   </data>
-  <data name="SenderDisplayName" xml:space="preserve">
-    <value>Sender Display Name</value>
-  </data>
-  <data name="SenderEmailAddress" xml:space="preserve">
-    <value>Sender Email Address</value>
-  </data>
-  <data name="SendTestMail" xml:space="preserve">
-    <value>Send test mail</value>
-  </data>
   <data name="SettingCustomFields" xml:space="preserve">
     <value>Customize user fields</value>
   </data>
@@ -613,15 +580,6 @@ To replace the logo click the 'Change Logo' link and select the image stored on 
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
-  </data>
-  <data name="SMTPSettings" xml:space="preserve">
-    <value>SMTP Settings</value>
-  </data>
-  <data name="SMTPSettingsDescription" xml:space="preserve">
-    <value>The SMTP settings are needed to set up an email account which will be used to send emails to the clients from the CRM client database. Please fill in all the fields and click the 'Save' button to be able to send emails right from the portal.</value>
-  </data>
-  <data name="SMTPSettingsHelp" xml:space="preserve">
-    <value>If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the ONLYOFFICE™ access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work.</value>
   </data>
   <data name="SubmitFormData" xml:space="preserve">
     <value>Send data</value>
@@ -658,9 +616,6 @@ To replace the logo click the 'Change Logo' link and select the image stored on 
   </data>
   <data name="WebToLeadsFormHeader" xml:space="preserve">
     <value>Use the Website Contact Form functionality to build a form that you can publish on your site. It will allow you to capture new contacts automatically. Define the form properties, select the necessary fields and generate the code to create your own web form.</value>
-  </data>
-  <data name="GetDefaultSettings" xml:space="preserve">
-    <value>Get default settings</value>
   </data>
   <data name="AddCurrencyRate" xml:space="preserve">
     <value>Add rate</value>

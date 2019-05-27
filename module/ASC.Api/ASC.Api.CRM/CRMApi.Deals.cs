@@ -754,17 +754,18 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <param optional="true" name="prefix"></param>
         /// <param optional="true" name="contactID"></param>
+        /// <param optional="true" name="internalSearch"></param>
         /// <category>Opportunities</category>
         /// <returns>
         ///    Opportunities list
         /// </returns>
         /// <visible>false</visible>
         [Read(@"opportunity/byprefix")]
-        public IEnumerable<OpportunityWrapper> GetDealsByPrefix(string prefix, int contactID)
+        public IEnumerable<OpportunityWrapper> GetDealsByPrefix(string prefix, int contactID, bool internalSearch = true)
         {
             var result = new List<OpportunityWrapper>();
 
-            if (contactID > 0)
+            if (contactID > 0 && internalSearch)
             {
                 var findedDeals = DaoFactory.DealDao.GetDealsByContactID(contactID);
                 foreach (var item in findedDeals)
@@ -775,12 +776,12 @@ namespace ASC.Api.CRM
                     }
                 }
 
-                _context.SetTotalCount(findedDeals.Count);
+                _context.SetTotalCount(result.Count);
             }
             else
             {
                 const int maxItemCount = 30;
-                var findedDeals = DaoFactory.DealDao.GetDealsByPrefix(prefix, 0, maxItemCount);
+                var findedDeals = DaoFactory.DealDao.GetDealsByPrefix(prefix, 0, maxItemCount, contactID, internalSearch);
                 foreach (var item in findedDeals)
                 {
                     result.Add(ToOpportunityWrapper(item));

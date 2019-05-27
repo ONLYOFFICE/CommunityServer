@@ -24,9 +24,9 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
+using ASC.Common.Logging;
 
 namespace ASC.Xmpp.Server.Gateway
 {
@@ -40,7 +40,7 @@ namespace ASC.Xmpp.Server.Gateway
 
         private readonly IDictionary<string, string> connectionListenerMap = new Dictionary<string, string>();
 
-        private readonly static ILog log = LogManager.GetLogger(typeof(XmppGateway));
+        private readonly static ILog log = LogManager.GetLogger("ASC");
 
 
         public void AddXmppListener(IXmppListener listener)

@@ -66,8 +66,12 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     "~/addons/mail/templates/administration/createMailboxPopupTmpl.html",
                     "~/addons/mail/templates/administration/administrationDataTmpl.html",
                     "~/addons/mail/templates/administration/createMailgroupPopupTmpl.html",
+                    "~/addons/mail/templates/administration/changeMailboxPasswordPopupTmpl.html",
+                    "~/addons/mail/templates/administration/mailboxSettingsPopupTmpl.html",
                     "~/addons/mail/templates/calendarTmpl.html",
-                    "~/addons/mail/templates/commonTmpl.html"
+                    "~/addons/mail/templates/commonTmpl.html",
+                    "~/addons/mail/templates/filters/editFilterTmpl.html",
+                    "~/addons/mail/templates/filters/filtersTmpl.html"
                 };
             }
         }

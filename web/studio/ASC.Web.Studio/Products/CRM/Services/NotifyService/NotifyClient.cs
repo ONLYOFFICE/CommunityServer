@@ -43,15 +43,12 @@ using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Core.Tenants;
-using ASC.Web.CRM.Classes;
 using ASC.CRM.Core;
 using System.Collections.Specialized;
+using ASC.Common.Logging;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
-using log4net;
-using ASC.Web.Studio.Core.Notify;
 using Autofac;
-using Twilio.Types;
 
 #endregion
 

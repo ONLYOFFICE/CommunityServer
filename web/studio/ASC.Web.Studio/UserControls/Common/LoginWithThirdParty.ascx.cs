@@ -31,7 +31,9 @@ using System.Web;
 using System.Web.UI;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
+using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
@@ -44,7 +46,6 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
-using log4net;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -59,7 +60,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var accountLink = (AccountLinkControl) LoadControl(AccountLinkControl.Location);
+            var accountLink = (AccountLinkControl)LoadControl(AccountLinkControl.Location);
             accountLink.ClientCallback = "loginJoinCallback";
             accountLink.SettingsView = false;
             ThirdPartyList.Controls.Add(accountLink);
@@ -68,6 +69,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (loginProfile == null && !IsPostBack || SecurityContext.IsAuthenticated) return;
 
+            string cookiesKey;
             try
             {
                 if (loginProfile == null)
@@ -83,7 +85,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 var userInfo = GetUserByThirdParty(loginProfile);
                 if (!CoreContext.UserManager.UserExists(userInfo.ID)) return;
 
-                var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
+                cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
                 CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
             }
@@ -100,15 +102,19 @@ namespace ASC.Web.Studio.UserControls.Common
                 return;
             }
 
-            var refererURL = (string) Session["refererURL"];
+            var refererURL = (string)Session["refererURL"];
 
             if (String.IsNullOrEmpty(refererURL))
-                Response.Redirect(CommonLinkUtility.GetDefault());
-            else
             {
-                Session["refererURL"] = null;
-                Response.Redirect(refererURL);
+                refererURL = CommonLinkUtility.GetDefault();
             }
+            if (Request.DesktopApp())
+            {
+                refererURL += (refererURL.Contains("?") ? "&" : "?") + "token=" + HttpUtility.HtmlEncode(cookiesKey);
+            }
+
+            Session["refererURL"] = null;
+            Response.Redirect(refererURL);
         }
 
         public static UserInfo GetUserByThirdParty(LoginProfile loginProfile)
@@ -125,11 +131,6 @@ namespace ASC.Web.Studio.UserControls.Common
                     return ASC.Core.Users.Constants.LostUser;
                 }
 
-                if (string.IsNullOrEmpty(loginProfile.EMail))
-                {
-                    throw new Exception(Resource.ErrorNotCorrectEmail);
-                }
-
                 var userInfo = new UserInfo();
 
                 Guid userId;
@@ -137,8 +138,13 @@ namespace ASC.Web.Studio.UserControls.Common
                 {
                     userInfo = CoreContext.UserManager.GetUsers(userId);
                 }
+
                 if (!CoreContext.UserManager.UserExists(userInfo.ID))
                 {
+                    if (string.IsNullOrEmpty(loginProfile.EMail))
+                    {
+                        throw new Exception(Resource.ErrorNotCorrectEmail);
+                    }
                     userInfo = CoreContext.UserManager.GetUserByEmail(loginProfile.EMail);
                 }
 
@@ -189,6 +195,12 @@ namespace ASC.Web.Studio.UserControls.Common
                             LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, userInfo.Email.ToLowerInvariant()));
                         }
                     }
+
+                    var analytics = HttpContext.Current.Request["analytics"] == "on";
+                    var settings = TenantAnalyticsSettings.LoadForCurrentUser();
+                    settings.Analytics = analytics;
+                    settings.SaveForCurrentUser();
+
                     StudioNotifyService.Instance.UserHasJoin();
                     UserHelpTourHelper.IsNewUser = true;
                     PersonalSettings.IsNewUser = true;
@@ -229,7 +241,7 @@ namespace ASC.Web.Studio.UserControls.Common
                     Email = loginProfile.EMail,
                     Title = string.Empty,
                     Location = string.Empty,
-                    CultureName = Thread.CurrentThread.CurrentUICulture.Name,
+                    CultureName = CoreContext.Configuration.CustomMode ? "ru-RU" : Thread.CurrentThread.CurrentUICulture.Name,
                     ActivationStatus = EmployeeActivationStatus.Activated,
                 };
 

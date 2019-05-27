@@ -26,14 +26,18 @@
 
 using System;
 using System.Linq;
+using ASC.Core;
+using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
+using ASC.Web.Projects.Core.Search;
 using ASC.Web.Projects.Masters.ClientScripts;
 using ASC.Web.Projects.Resources;
+using AutoMapper;
 
 
 namespace ASC.Web.Projects.Configuration
@@ -115,8 +119,22 @@ namespace ASC.Web.Projects.Configuration
             NotifyClient.RegisterSecurityInterceptor();
             ClientScriptLocalization = new ClientLocalizationResources();
             DIHelper.Register();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Task, TasksWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r => GetCurrentTenant()));
+                cfg.CreateMap<Message, DiscussionsWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r => GetCurrentTenant()));
+                cfg.CreateMap<Milestone, MilestonesWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r=> GetCurrentTenant()));
+                cfg.CreateMap<Project, ProjectsWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r => GetCurrentTenant()));
+                cfg.CreateMap<Subtask, SubtasksWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r => GetCurrentTenant()));
+                cfg.CreateMap<Comment, CommentsWrapper>().ForMember(r => r.TenantId, opt => opt.MapFrom(r => GetCurrentTenant()));
+            });
         }
 
+        private int GetCurrentTenant()
+        {
+            return CoreContext.TenantManager.GetCurrentTenant().TenantId;
+        }
         public override void Shutdown()
         {
             NotifyClient.UnregisterSendMethods();

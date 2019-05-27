@@ -29,14 +29,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Configuration;
 using ASC.FederatedLogin.LoginProviders;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.Helpers
 {
     public static class ThirdpartyConfiguration
     {
-        private static IEnumerable<string> ThirdPartyProviders
+        public static IEnumerable<string> ThirdPartyProviders
         {
             get { return (WebConfigurationManager.AppSettings["files.thirdparty.enable"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries); }
         }
@@ -50,7 +49,7 @@ namespace ASC.Web.Files.Helpers
                     if (providerDao == null) return false;
                 }
 
-                return SupportBoxInclusion || SupportDropboxInclusion || SupportDocuSignInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion;
+                return SupportBoxInclusion || SupportDropboxInclusion || SupportDocuSignInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion || SupportNextcloudInclusion || SupportOwncloudInclusion || SupportYandexInclusion;
             }
         }
 
@@ -58,8 +57,7 @@ namespace ASC.Web.Files.Helpers
         {
             get
             {
-                return ThirdPartyProviders.Contains("box") &&
-                       !(string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientId) || string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientSecret) || string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20RedirectUrl));
+                return ThirdPartyProviders.Contains("box") && BoxLoginProvider.Instance.IsEnabled;
             }
         }
 
@@ -67,8 +65,7 @@ namespace ASC.Web.Files.Helpers
         {
             get
             {
-                return ThirdPartyProviders.Contains("dropboxv2") &&
-                       !(string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientId) || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientSecret) || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20RedirectUrl));
+                return ThirdPartyProviders.Contains("dropboxv2") && DropboxLoginProvider.Instance.IsEnabled;
             }
         }
 
@@ -76,8 +73,7 @@ namespace ASC.Web.Files.Helpers
         {
             get
             {
-                return ThirdPartyProviders.Contains("onedrive") &&
-                       !(string.IsNullOrEmpty(OneDriveLoginProvider.OneDriveOAuth20ClientId) || string.IsNullOrEmpty(OneDriveLoginProvider.OneDriveOAuth20ClientSecret) || string.IsNullOrEmpty(OneDriveLoginProvider.OneDriveOAuth20RedirectUrl));
+                return ThirdPartyProviders.Contains("onedrive") && OneDriveLoginProvider.Instance.IsEnabled;
             }
         }
 
@@ -91,6 +87,16 @@ namespace ASC.Web.Files.Helpers
             get { return ThirdPartyProviders.Contains("webdav"); }
         }
 
+        public static bool SupportNextcloudInclusion
+        {
+            get { return ThirdPartyProviders.Contains("nextcloud"); }
+        }
+
+        public static bool SupportOwncloudInclusion
+        {
+            get { return ThirdPartyProviders.Contains("owncloud"); }
+        }
+
         public static bool SupportYandexInclusion
         {
             get { return ThirdPartyProviders.Contains("yandex"); }
@@ -98,20 +104,19 @@ namespace ASC.Web.Files.Helpers
 
         public static string DropboxAppKey
         {
-            get { return KeyStorage.Get("dropboxappkey"); }
+            get { return DropboxLoginProvider.Instance["dropboxappkey"]; }
         }
 
         public static string DropboxAppSecret
         {
-            get { return KeyStorage.Get("dropboxappsecret"); }
+            get { return DropboxLoginProvider.Instance["dropboxappsecret"]; }
         }
 
         public static bool SupportDocuSignInclusion
         {
             get
             {
-                return ThirdPartyProviders.Contains("docusign") &&
-                       !(string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientId) || string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientSecret) || string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20RedirectUrl));
+                return ThirdPartyProviders.Contains("docusign") && DocuSignLoginProvider.Instance.IsEnabled;
             }
         }
 
@@ -119,8 +124,7 @@ namespace ASC.Web.Files.Helpers
         {
             get
             {
-                return ThirdPartyProviders.Contains("google") &&
-                       !(string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId) || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientSecret) || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20RedirectUrl));
+                return ThirdPartyProviders.Contains("google") && GoogleLoginProvider.Instance.IsEnabled;
             }
         }
     }

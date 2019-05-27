@@ -33,8 +33,10 @@ using System.Web;
 using AjaxPro;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
+using ASC.ElasticSearch;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Product;
+using ASC.Web.Community.Search;
 using ASC.Web.Community.Wiki.Common;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Users;
@@ -227,6 +229,8 @@ namespace ASC.Web.Community.Wiki
                 }
                 Wiki.RemovePage(pageName);
 
+                FactoryIndexer<WikiWrapper>.DeleteAsync(page);
+
                 Response.RedirectLC("Default.aspx", this);
             }
             catch (Exception err)
@@ -241,6 +245,7 @@ namespace ASC.Web.Community.Wiki
             (Master as WikiMaster).GetDelUniqId += new WikiMaster.GetDelUniqIdHandle(_Default_GetDelUniqId);
 
             Utility.RegisterTypeForAjax(typeof(_Default), Page);
+            RegisterInlineScript();
             LoadViews();
 
             if (IsPostBack) return;
@@ -266,9 +271,10 @@ namespace ASC.Web.Community.Wiki
             {
                 BindPagesByCategory();
             }
+        }
 
-            
-
+        private void RegisterInlineScript()
+        {
             var script = @"
                     window.scrollPreview = function() {
                         jq.scrollTo(jq('#_PrevContainer').position().top, { speed: 500 });
@@ -278,9 +284,13 @@ namespace ASC.Web.Community.Wiki
                         jq.scrollTo(jq('#edit_container').position().top, { speed: 500 });
                     }
                     window.WikiEditBtns = function() {
+                        window.checkUnload=false;
                         LoadingBanner.showLoaderBtn('#actionWikiPage');
                     }
-
+                    window.checkUnload=true;
+                    window.checkUnloadFunc = function() {
+                        return checkUnload;
+                    }
                     window.panelEditBtnsID = '" + pEditButtons.ClientID + @"';
                     jq.dropdownToggle({
                         dropdownID: 'WikiActionsMenuPanel',
@@ -301,8 +311,10 @@ namespace ASC.Web.Community.Wiki
                     }
                     jq('input[id$=txtPageName]').focus();";
 
-            Page.RegisterInlineScript(script);
+            if (Action == ActionOnPage.AddNew || Action == ActionOnPage.Edit)
+                script += "jq.confirmBeforeUnload(window.checkUnloadFunc);";
 
+            Page.RegisterInlineScript(script);
         }
 
         private IWikiObjectOwner _wikiObjOwner;
@@ -849,6 +861,9 @@ namespace ASC.Web.Community.Wiki
                     break;
                 case SaveResult.Error:
                     PrintInfoMessage(WikiResource.msgMarkupError, InfoType.Alert);
+                    break;
+                case SaveResult.PageTextIsEmpty:
+                    PrintInfoMessage(WikiResource.msgPageTextEmpty, infoType);
                     break;
             }
         }

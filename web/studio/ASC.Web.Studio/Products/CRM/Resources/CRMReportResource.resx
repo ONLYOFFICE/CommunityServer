@@ -333,7 +333,7 @@
     <value>Open</value>
   </data>
   <data name="ReportBuildingInfo" xml:space="preserve">
-    <value>All generated reports can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}</value>
+    <value>All generated reports you can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}</value>
   </data>
   <data name="ReportBuildingProgress" xml:space="preserve">
     <value>Report building ({0}% complete)</value>

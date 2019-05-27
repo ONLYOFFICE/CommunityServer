@@ -103,6 +103,11 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
+        [DataMember(EmitDefaultValue = false)]
+        public bool Encrypted { get; set; }
+
+        /// <summary>
+        /// </summary>
         /// <param name="file"></param>
         public FileWrapper(File file)
             : base(file)
@@ -129,6 +134,7 @@ namespace ASC.Api.Documents
             FileStatus = file.FileStatus;
             PureContentLength = file.ContentLength;
             Comment = file.Comment;
+            Encrypted = file.Encrypted;
             try
             {
                 ViewUrl = CommonLinkUtility.GetFullAbsolutePath(file.DownloadUrl);

@@ -68,8 +68,6 @@ window.editContactModal = (function ($) {
         var header;
         if (isNew) {
             header = MailScriptResource.CreateNewContactLabel;
-        } else if (contact.type === 'auto') {
-            header = MailResource.AddToContacts;
         } else {
             header = MailScriptResource.EditContactcLabel;
         }

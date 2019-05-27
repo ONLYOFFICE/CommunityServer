@@ -24,15 +24,14 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using ASC.Common.Logging;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
@@ -45,7 +44,7 @@ namespace ASC.Xmpp.Server.Gateway
         private IPEndPoint bindEndPoint = new IPEndPoint(IPAddress.Any, 5222);
         private TcpListener tcpListener;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(TcpXmppListener));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
         private long maxPacket = 1048576; //1024 kb
 
         public X509Certificate2 Certificate { get; private set; }

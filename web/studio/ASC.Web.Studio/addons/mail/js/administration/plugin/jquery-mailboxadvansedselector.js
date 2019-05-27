@@ -24,7 +24,8 @@
 */
 
 
-(function($) {
+(function ($) {
+    var resources = ASC.Mail.Resources.MailResource;
     var mailboxadvancedSelector = function(element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.mailboxadvancedSelector.defaults, options);
@@ -87,6 +88,11 @@
         });
     };
 
-    $.fn.mailboxadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {});
+    $.fn.mailboxadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
+        showme: true,
+        noresults: resources.MailBoxSelectorNoResult,
+        noitems: resources.MailBoxSelectorNoItems,
+        emptylist: resources.MailBoxSelectorEmptyList
+    });
 
 })(jQuery, window, document, document.body);

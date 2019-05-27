@@ -24,12 +24,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Extensions
         public static String ReplaceFirst(this String src, String replace, String replaceWith)
         {
             var ind = src.IndexOf(replace, StringComparison.InvariantCulture);
-            
+
             if (ind != -1)
             {
-                src = src.Remove(ind, replace.Length).Insert(ind, replaceWith);   
+                src = src.Remove(ind, replace.Length).Insert(ind, replaceWith);
             }
-            
+
             return src;
         }
 
@@ -39,7 +39,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Extensions
 
             if (ind != -1)
             {
-                src = src.Remove(ind, replace.Length).Insert(ind, replaceWith);   
+                src = src.Remove(ind, replace.Length).Insert(ind, replaceWith);
             }
 
             return src;

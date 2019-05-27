@@ -28,13 +28,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security;
+using AppLimit.CloudComputing.SharpBox;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
-using AppLimit.CloudComputing.SharpBox;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.Sharpbox
@@ -76,35 +79,22 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            return GetFiles(fileIds);
-        }
+            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<object> GetFiles(object parentId)
-        {
-            var folder = GetFolderById(parentId).AsEnumerable();
+            var files = GetFiles(fileIds).AsEnumerable();
 
-            return folder
-                .Where(x => !(x is ICloudDirectoryEntry))
-                .Select(x => (object) MakeId(x)).ToList();
-        }
-
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
-        {
-            if (filterType == FilterType.FoldersOnly) return new List<File>();
-
-            //Get only files
-            var files = GetFolderById(parentId).Where(x => !(x is ICloudDirectoryEntry)).Select(x => ToFile(x));
             //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
             switch (filterType)
             {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
                 case FilterType.FoldersOnly:
                     return new List<File>();
                 case FilterType.DocumentsOnly:
@@ -121,6 +111,75 @@ namespace ASC.Files.Thirdparty.Sharpbox
                     break;
                 case FilterType.ArchiveOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return files.ToList();
+        }
+
+        public List<object> GetFiles(object parentId)
+        {
+            var folder = GetFolderById(parentId).AsEnumerable();
+
+            return folder
+                .Where(x => !(x is ICloudDirectoryEntry))
+                .Select(x => (object) MakeId(x)).ToList();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        {
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
+
+            //Get only files
+            var files = GetFolderById(parentId).Where(x => !(x is ICloudDirectoryEntry)).Select(ToFile);
+
+            //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
+            switch (filterType)
+            {
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
@@ -142,6 +201,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
                     files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.ModifiedOn) : files.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -154,28 +216,30 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public Stream GetFileStream(File file, long offset)
         {
-            //NOTE: id here is not converted!
             var fileToDownload = GetFileById(file.ID);
-            //Check length of the file
+
             if (fileToDownload == null)
                 throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
             if (fileToDownload is ErrorEntry)
-                throw new Exception(((ErrorEntry) fileToDownload).Error);
-
-            //if (fileToDownload.Length > SetupInfo.AvailableFileSize)
-            //{
-            //    throw FileSizeComment.FileSizeException;
-            //}
+                throw new Exception(((ErrorEntry)fileToDownload).Error);
 
             var fileStream = fileToDownload.GetDataTransferAccessor().GetDownloadStream();
 
-            if (fileStream != null)
+            if (fileStream != null && offset > 0)
             {
-                if (fileStream.CanSeek)
-                    file.ContentLength = fileStream.Length; // hack for google drive
+                if (!fileStream.CanSeek)
+                {
+                    var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
 
-                if (offset > 0)
-                    fileStream.Seek(offset, SeekOrigin.Begin);
+                    fileStream.CopyTo(tempBuffer);
+                    tempBuffer.Flush();
+                    tempBuffer.Seek(offset, SeekOrigin.Begin);
+
+                    fileStream.Dispose();
+                    return tempBuffer;
+                }
+
+                fileStream.Seek(offset, SeekOrigin.Begin);
             }
 
             return fileStream;
@@ -207,17 +271,43 @@ namespace ASC.Files.Thirdparty.Sharpbox
             else if (file.FolderID != null)
             {
                 var folder = GetFolderById(file.FolderID);
-
                 file.Title = GetAvailableTitle(file.Title, folder, IsExist);
-
                 entry = SharpBoxProviderInfo.Storage.CreateFile(folder, file.Title);
             }
-            if (entry != null)
+
+            if (entry == null)
             {
-                entry.GetDataTransferAccessor().Transfer(fileStream, nTransferDirection.nUpload);
-                return ToFile(entry);
+                return null;
             }
-            return null;
+
+            try
+            {
+                entry.GetDataTransferAccessor().Transfer(fileStream.GetBuffered(), nTransferDirection.nUpload);
+            }
+            catch (SharpBoxException e)
+            {
+                var webException = (WebException)e.InnerException;
+                if (webException != null)
+                {
+                    var response = ((HttpWebResponse)webException.Response);
+                    if (response != null)
+                    {
+                        if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+                        {
+                            throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
+                        }
+                    }
+                    throw;
+                }
+            }
+
+            if (file.ID != null && !entry.Name.Equals(file.Title))
+            {
+                file.Title = GetAvailableTitle(file.Title, entry.Parent, IsExist);
+                SharpBoxProviderInfo.Storage.RenameFileSystemEntry(entry, file.Title);
+            }
+
+            return ToFile(entry);
         }
 
         public void DeleteFile(object fileId)
@@ -274,12 +364,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             var folder = GetFolderById(toFolderId);
 
             var oldFileId = MakeId(entry);
-            var newFileId = oldFileId;
 
-            if (SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
-            {
-                newFileId = MakeId(entry);
-            }
+            if (!SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
+                throw new Exception("Error while moving");
+
+            var newFileId = MakeId(entry);
 
             UpdatePathInDB(oldFileId, newFileId);
 
@@ -476,12 +565,12 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             return null;
         }

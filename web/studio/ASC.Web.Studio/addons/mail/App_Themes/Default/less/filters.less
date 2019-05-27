@@ -1,0 +1,220 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+#editFilterPage {
+    .simpleWrapper {
+        .contentMenuWrapper {
+            margin-bottom: 16px;
+        }
+
+        .startText {
+            vertical-align: text-bottom;
+            padding-right: 6px;
+            display: inline-block;
+        }
+
+        .tl-combobox {
+            vertical-align: text-bottom;
+        }
+
+        .field-condition {
+            height: 24px;
+            margin-bottom: 10px;
+            white-space: nowrap;
+
+            span.span-field {
+                display: table-cell;
+                width: 100%;
+            }
+
+            span {
+                display: table-cell;
+                width: 0;
+            }
+
+            .conditionInput,
+            .filterNameInput {
+                height: 16px;
+                padding: 3px 9px;
+                width: 100%;
+            }
+
+            .delete-field,
+            .clear-field {
+                margin-left: 35px;
+            }
+        }
+
+        .field-with-actions {
+            margin-bottom: 24px;
+            width: 570px;
+
+            .error {
+                color: #cc0000 !important;
+            }
+        }
+
+        .applyToMailboxes {
+            padding-left: 16px;
+        }
+
+        .applyToFolders {
+            padding-left: 16px;
+            padding-top: 4px;
+        }
+
+        .filterApplyToAttachmentsCnt {
+            .tl-combobox {
+                vertical-align: middle;
+                padding-left: 4px;
+            }
+        }
+
+        #applyMultiConditionsContainer {
+            display: inline-block;
+            float: right;
+            width: 275px;
+            margin-top: 1px;
+            text-align: right;
+            margin-right: 35px;
+        }
+
+        #actionsContainer {
+            .menu-list {
+                margin-top: 8px;
+
+                .checkbox {
+                    display: inline;
+                }
+
+                    .checkbox.disable span {
+                        color: #999999;
+                    }
+            }
+        }
+
+        .filterSelector {
+            display: inline-block;
+            margin-left: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        #advancedContainer {
+            .startText {
+                width: 100%;
+                padding-bottom: 8px;
+            }
+        }
+
+        #filterNameContainer {
+            .field-condition {
+                margin-top: -4px;
+            }
+        }
+
+        #checkFilterResults {
+            border-top: 1px solid #d7d8dc;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+#filtersContainer {
+    .filterList {
+        width: 100%;
+
+        .ui-state-default {
+            border: initial;
+            background: #fff;
+            font-weight: initial;
+            color: initial;
+        }
+
+            .ui-state-default:hover {
+                background-color: #e5e5e5;
+            }
+
+        .row {
+            height: 33px;
+            border-bottom: 1px solid #d7d8dc;
+            cursor: pointer;
+
+            .filterEnableCbx {
+                width: 24px;
+                padding-left: 8px;
+                vertical-align: top;
+                padding-top: 10px;
+            }
+
+            .filterBody {
+                width: 100%;
+                padding-top: 8px;
+                padding-bottom: 8px;
+
+                .link,
+                .link:hover,
+                .link:active {
+                    text-decoration: none;
+                }
+            }
+
+            .menu_column {
+                padding-right: 8px;
+                vertical-align: top;
+                padding-top: 10px;
+            }
+        }
+
+            .row.disable {
+                cursor: pointer !important;
+
+                .filterBody {
+                    color: #83888d;
+
+                    .error {
+                        color: #cc0000; 
+                        font-weight: bold;
+                    }
+                }
+            }
+    }
+}
+
+#filtersContainer,
+#filterWnd {
+    .actionText,
+    .conditionText {
+        display: inline-block;
+        max-width: 95%;
+        word-break: break-all;
+
+        .actionValue,
+        .conditionValue {
+            word-wrap: break-word;
+        }
+    }
+}

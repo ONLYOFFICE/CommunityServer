@@ -31,6 +31,7 @@ using ASC.VoipService.Twilio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.VoipService.Dao
 {
@@ -335,17 +336,22 @@ namespace ASC.VoipService.Dao
             return call;
         }
 
+        public static Consumer Consumer
+        {
+            get { return ConsumerFactory.GetByName("twilio"); }
+        }
+
         public static TwilioProvider GetProvider()
         {
-            return new TwilioProvider(TwilioLoginProvider.TwilioAccountSid, TwilioLoginProvider.TwilioAuthToken);
+            return new TwilioProvider(Consumer["twilioAccountSid"], Consumer["twilioAuthToken"]);
         }
 
         public static bool ConfigSettingsExist
         {
             get
             {
-                return !string.IsNullOrEmpty(TwilioLoginProvider.TwilioAccountSid) &&
-                       !string.IsNullOrEmpty(TwilioLoginProvider.TwilioAuthToken);
+                return !string.IsNullOrEmpty(Consumer["twilioAccountSid"]) &&
+                       !string.IsNullOrEmpty(Consumer["twilioAuthToken"]);
             }
         }
 

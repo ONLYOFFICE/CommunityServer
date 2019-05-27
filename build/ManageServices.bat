@@ -16,7 +16,9 @@ if "%~1" == "--install" (
 if "%~1" == "--install-all" (
 	sc create OnlyofficeNotify%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Notify.NotifyServiceLauncher, ASC.Notify\" --log Notify"
 	sc create OnlyofficeJabber%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Xmpp.Host.XmppServerLauncher, ASC.Xmpp.Host\" --log Jabber"
-	sc create OnlyofficeIndex%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.FullTextIndex.Service.FullTextIndexLauncher, ASC.FullTextIndex\" --log Index"
+	sc create OnlyofficeIndex%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.ElasticSearch.Launcher, ASC.ElasticSearch\" --log Index"
+	sc create OnlyofficeRadicale%version%         start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Radicale.Launcher, ASC.Radicale\" --log Radicale"
+	sc create OnlyOfficeStorageMigrate%version%   start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Storage.Migration.Launcher,ASC.Data.Storage.Migration\" --log StorageMigrate"
 	sc create OnlyofficeFeed%version%             start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Feed.Aggregator.FeedAggregatorLauncher, ASC.Feed.Aggregator\" --log Feed"
 	sc create OnlyofficeBackup%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
 	sc create OnlyOfficeSocketIO%version%         start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc\" --log SocketIO"

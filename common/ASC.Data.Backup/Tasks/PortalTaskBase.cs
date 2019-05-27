@@ -26,8 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using ASC.Data.Backup.Logging;
+using System.Text;
+using System.Threading.Tasks;
+using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
 
@@ -45,6 +50,7 @@ namespace ASC.Data.Backup.Tasks
 
     public abstract class PortalTaskBase
     {
+        protected const int TasksLimit = 10;
         protected readonly List<ModuleName> IgnoredModules = new List<ModuleName>();
         protected readonly List<string> IgnoredTables = new List<string>(); //todo: add using to backup and transfer tasks
 
@@ -59,7 +65,7 @@ namespace ASC.Data.Backup.Tasks
 
         protected PortalTaskBase(ILog logger, int tenantId, string configPath)
         {
-            Logger = logger ?? new NullLog();
+            Logger = logger ?? LogManager.GetLogger("ASC");
             TenantId = tenantId;
             ConfigPath = configPath;
             ProcessStorage = true;
@@ -84,25 +90,25 @@ namespace ASC.Data.Backup.Tasks
             return ModuleProvider.AllModules.Where(module => !IgnoredModules.Contains(module.ModuleName));
         }
 
-        protected virtual IEnumerable<BackupFileInfo> GetFilesToProcess()
+        protected IEnumerable<BackupFileInfo> GetFilesToProcess(int tenantId)
         {
             var files = new List<BackupFileInfo>();
             foreach (var module in StorageFactory.GetModuleList(ConfigPath).Where(IsStorageModuleAllowed))
             {
-                var store = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), module);
+                var store = StorageFactory.GetStorage(ConfigPath, tenantId.ToString(), module);
                 var domains = StorageFactory.GetDomainList(ConfigPath, module).ToArray();
 
                 foreach (var domain in domains)
                 {
                     files.AddRange(
                         store.ListFilesRelative(domain, "\\", "*.*", true)
-                             .Select(path => new BackupFileInfo(domain, module, path)));
+                        .Select(path => new BackupFileInfo(domain, module, path, tenantId)));
                 }
 
                 files.AddRange(
                     store.ListFilesRelative(string.Empty, "\\", "*.*", true)
                          .Where(path => domains.All(domain => !path.Contains(domain + "/")))
-                         .Select(path => new BackupFileInfo(string.Empty, module, path)));
+                         .Select(path => new BackupFileInfo(string.Empty, module, path, tenantId)));
             }
 
             return files.Distinct();
@@ -138,7 +144,7 @@ namespace ASC.Data.Backup.Tasks
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged; 
 
         private int stepsCount = 1;
-        private int stepsCompleted = 0;
+        private volatile int stepsCompleted;
 
         protected void SetStepsCount(int value)
         {
@@ -147,9 +153,10 @@ namespace ASC.Data.Backup.Tasks
                 throw new ArgumentOutOfRangeException("value");
             }
             stepsCount = value;
+            Logger.Debug("Steps: " + stepsCount);
         }
 
-        protected void SetStepCompleted()
+        protected void SetStepCompleted(int increment = 1)
         {
             if (stepsCount == 1)
             {
@@ -159,7 +166,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 throw new InvalidOperationException("All steps completed.");
             }
-            ++stepsCompleted;
+            stepsCompleted += increment;
             SetProgress(100 * stepsCompleted / stepsCount);
         }
 
@@ -202,5 +209,99 @@ namespace ASC.Data.Backup.Tasks
         }
 
         #endregion
+
+        protected Dictionary<string, string> ParseConnectionString(string connectionString)
+        {
+            var result = new Dictionary<string, string>();
+
+            var parsed = connectionString.Split(';');
+
+            foreach (var p in parsed)
+            {
+                var keyValue = p.Split('=');
+                result.Add(keyValue[0].ToLowerInvariant(), keyValue[1]);
+            }
+
+            return result;
+        }
+
+        protected void RunMysqlFile(DbFactory dbFactory, string file, bool db = false)
+        {
+            var connectionString = ParseConnectionString(dbFactory.ConnectionStringSettings.ConnectionString);
+            var args = new StringBuilder()
+                .AppendFormat("-h {0} ", connectionString["server"])
+                .AppendFormat("-u {0} ", connectionString["user id"])
+                .AppendFormat("-p{0} ", connectionString["password"]);
+
+            if (db)
+            {
+                args.AppendFormat("-D {0} ", connectionString["database"]);
+            }
+
+            args.AppendFormat("-e \" source {0}\"", file);
+            Logger.DebugFormat("run mysql file {0} {1}", file, args.ToString());
+
+            var startInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = false,
+                UseShellExecute = false,
+                FileName = "mysql",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = args.ToString()
+            };
+
+            using (var proc = Process.Start(startInfo))
+            {
+                if (proc != null)
+                {
+                    proc.WaitForExit();
+
+                    var error = proc.StandardError.ReadToEnd();
+                    Logger.Error(!string.IsNullOrEmpty(error) ? error : proc.StandardOutput.ReadToEnd());
+                }
+            }
+
+            Logger.DebugFormat("complete mysql file {0}", file);
+        }
+
+        protected async Task RunMysqlFile(Stream stream, string delimiter = ";")
+        {
+            using (var dbManager = new DbManager("default", 100000))
+            using (var tr = dbManager.BeginTransaction())
+            {
+                if (stream == null) return;
+
+                using (var reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    string commandText;
+
+                    while ((commandText = await reader.ReadLineAsync()) != null)
+                    {
+                        while (!commandText.Contains(delimiter))
+                        {
+                            var newline = await reader.ReadLineAsync();
+                            if (newline == null)
+                            {
+                                break;
+                            }
+                            commandText += newline;
+                        }
+
+                        try
+                        {
+                            await dbManager.ExecuteNonQueryAsync(commandText, null);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error("Restore", e);
+                        }
+                    }
+                }
+
+                tr.Commit();
+            }
+        }
     }
 }

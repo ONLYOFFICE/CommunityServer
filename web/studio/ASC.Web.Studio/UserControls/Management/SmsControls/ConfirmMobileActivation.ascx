@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmMobileActivation.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ConfirmMobileActivation" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
+<%@ Import Namespace="ASC.Web.Core.Sms" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="mobilephone-panel">
@@ -13,7 +13,7 @@
         <div class="text-base">
             <%= string.IsNullOrEmpty(User.MobilePhone)
                     ? string.Empty
-                    : (string.Format(UserControlsCommonResource.MobileCurrentNumber, "<b>" + "+" + SmsManager.GetPhoneValueDigits(User.MobilePhone) + "</b>") + "<br/>") %>
+                    : (string.Format(UserControlsCommonResource.MobileCurrentNumber, "<b>" + "+" + SmsSender.GetPhoneValueDigits(User.MobilePhone) + "</b>") + "<br/>") %>
             <%= String.Format(UserControlsCommonResource.MobilePhoneDescription, "<br />") %>
         </div>
         <br />
@@ -30,7 +30,7 @@
         <div class="text-base">
             <%= String.Format(UserControlsCommonResource.MobileCodeDescription,
                     "<span id=\"phoneNoise\">",
-                    SmsManager.BuildPhoneNoise(User.MobilePhone),
+                    SmsSender.BuildPhoneNoise(User.MobilePhone),
                     "</span>",
                     Resource.ActivateSendButton,
                     Resource.ActivateAgainGetCodeButton,

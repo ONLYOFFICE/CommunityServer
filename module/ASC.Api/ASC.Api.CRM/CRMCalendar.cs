@@ -69,8 +69,7 @@ namespace ASC.Api.CRM
                 var events = new List<IEvent>();
 
                 if (
-                    !WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(),
-                        SecurityContext.CurrentAccount.ID))
+                    !WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID))
                 {
                     return events;
                 }

@@ -400,32 +400,75 @@
         }
     }
 
+    #mail_server_create_mailbox_popup,
+    #mail_server_create_mailgroup_popup,
+    #mail_server_edit_mailbox {
+        .mailboxNameEdit,
+        .aliasNameBlock {
+            padding-right: @base-distance;
+            width: 200px;
+
+            .textEdit {
+                width: 100%;
+            }
+        }
+
+        .domainName {
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    #mail_server_create_mailbox_popup {
+        .domainName {
+            max-width: 160px;
+        }
+    }
+
+    #mail_server_create_mailgroup_popup {
+        .domainName {
+            max-width: 264px;
+        }
+    }
+
+    #mail_server_edit_mailbox {
+        .domainName {
+            max-width: 248px;
+        }
+
+        .addAlias {
+            margin: 3px 0 0 8px;
+        }
+    }
+
+    #mail_server_create_mailbox_popup,
+    #mail_server_edit_mailbox {
+        .senderName {
+            width: 340px;
+        }
+    }
+
     #mail_server_create_mailbox_popup {
         .textEdit {
             margin-left: 0;
         }
 
-        .senderName {
-            width: 340px;
-        }
-
-        .domainName {
-            float: right;
-            max-width: 140px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
         table {
             width: 100%;
 
-            .mailboxNameEdit {
-                width: 100%;
-                padding-right: @base-distance;
+            #mailboxUserContainer {
 
-                .mailboxName {
-                    width: 100%;
+                .headerPanelSmall {
+                    display: inline-block;
+                    font-weight: bold;
+                    padding-right: @base-distance;
+                }
+
+                #mailboxUserSelector {
+                    display: inline-block;
+                    position: relative;
                 }
             }
         }
@@ -442,88 +485,177 @@
     #mail_server_edit_group {
         .textEdit {
             margin-left: 0;
-            width: 197px;
         }
 
         .header-address {
+            word-break: break-all;
+            word-wrap: break-word;
+
             .bold {
                 margin-bottom: 3px;
             }
         }
 
-        table {
+        .mailbox_table,
+        .mailbox_aliases {
             width: 100%;
+            max-height: @base-distance * 20;
+            overflow-y: auto;
+            margin-top: @base-distance * 2;
 
-            .senderName {
-                width: 335px;
+            tr {
+                border: solid 1px #d1d1d1;
+                border-left: none;
+                border-right: none;
+                height: 33px;
             }
 
-            .addAliasBlock {
-                .headerPanelSmall {
-                    &:after {
-                        content: "";
-                    }
-                }
-
-                .domainName {
-                    float: right;
-                    max-width: 140px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-
-                .aliasNameBlock {
-                    width: 100%;
-                    padding-right: @base-distance;
-
-                    .aliasName {
-                        width: 100%;
-                    }
-                }
-
-                .addAlias {
-                    margin-top: 1px;
-                }
+            .mailbox_address_column {
+                padding-left: 8px;
+                padding-right: 8px;
+                word-wrap: break-word;
+                word-break: break-all;
             }
-        }
-    }
 
-    .mailbox_table,
-    .mailbox_aliases {
-        width: 100%;
-        max-height: @base-distance * 8;
-        overflow-y: auto;
-        margin-top: @base-distance * 2;
+            .delete_entity_column {
+                width: 20px;
+            }
 
-        .mailbox_address,
-        .alias_address {
-            line-height: 20px;
-            display: inline-block;
-            float: left;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #333333;
-            max-width: 256px;
-        }
+            .mailbox_address,
+            .alias_address {
+                line-height: 20px;
+                display: inline-block;
+                float: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #333333;
+            }
 
-        .delete_entity {
-            background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            cursor: pointer;
-            float: left;
-            margin: 2px 0 0 8px;
+            .delete_entity {
+                background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                cursor: pointer;
 
-            &:hover {
-                background-position-y: -20px;
+                &:hover {
+                    background-position-y: -20px;
+                }
             }
         }
     }
 
     .empty_list {
         margin-top: 0;
+    }
+
+    #mail_server_change_mailbox_password_popup {
+        .mailboxTitle {
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        #passValue {
+            height: 20px;
+            width: 243px;
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 4px;
+        }
+
+        #passwordGen {
+            width: 16px;
+            background-color: #83888d;
+            -webkit-mask-image: url(/usercontrols/users/userprofile/css/images/rotate.svg);
+            mask-image: url(/usercontrols/users/userprofile/css/images/rotate.svg);
+            margin-left: 4px;
+            display: inline-block;
+        }
+
+        .validationBlock {
+            position: relative;
+            height: 44px;
+
+            #bubleBlock {
+                position: absolute;
+                left: 314px;
+                top: -4px;
+
+                #passwordInfo {
+                    width: 180px;
+                    padding: 8px 12px 10px;
+                    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+                    position: relative;
+                    background: white;
+
+                    .infoItem {
+                        color: #a9adb0;
+                        padding-left: 6px;
+                    }
+
+                        .infoItem.red {
+                            color: #b40404;
+                        }
+
+                        .infoItem.green {
+                            color: #44bb00;
+                        }
+                }
+
+                .triangle {
+                    width: 0;
+                    height: 0;
+                    border-width: 9px 10px 9px 0px;
+                    border-color: transparent white transparent transparent;
+                    border-style: solid;
+                    filter: drop-shadow(-2px 1px 1px rgba(163, 163, 163, 0.55));
+                    position: absolute;
+                    top: 8px;
+                    left: -10px;
+                }
+            }
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            #passwordShowLabel {
+                position: absolute;
+                top: 6px;
+                left: 254px;
+                height: 16px;
+                width: 16px;
+                background-color: #83888d;
+            }
+
+                #passwordShowLabel.hidePwd {
+                    -webkit-mask-image: url(/usercontrols/users/userprofile/css/images/read-only.svg);
+                    mask-image: url(/usercontrols/users/userprofile/css/images/read-only.svg);
+                }
+
+                #passwordShowLabel.showPwd {
+                    -webkit-mask-image: url(/usercontrols/users/userprofile/css/images/access-deny.svg);
+                    mask-image: url(/usercontrols/users/userprofile/css/images/access-deny.svg);
+                }
+
+            .validationProgress {
+                position: absolute;
+                width: 0px;
+                max-width: 278px;
+                height: 2px;
+                top: 28px;
+            }
+
+            #clip {
+                position: absolute;
+                left: -1000px;
+            }
+
+            #copyValues {
+                border-bottom: 1px dotted black;
+                cursor: pointer;
+            }
+        }
     }
 }
 

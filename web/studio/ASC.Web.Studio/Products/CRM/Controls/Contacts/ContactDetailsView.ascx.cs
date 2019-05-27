@@ -24,23 +24,17 @@
 */
 
 
-#region Import
-
 using System;
 using System.Text;
 using System.Web;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Thrdparty.Configuration;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core;
 using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.CRM.SocialMedia;
-
-#endregion
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM.Controls.Contacts
 {
@@ -68,6 +62,8 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         protected bool MobileVer = false;
 
+        protected string HelpLink { get; set; }
+
         #endregion
 
         #region Events
@@ -75,6 +71,7 @@ namespace ASC.Web.CRM.Controls.Contacts
         protected void Page_Load(object sender, EventArgs e)
         {
             MobileVer = MobileDetector.IsMobile;
+            HelpLink = CommonLinkUtility.GetHelpLink();
 
             ExecFullCardView();
             ExecTasksView();
@@ -135,8 +132,8 @@ namespace ASC.Web.CRM.Controls.Contacts
 
                 TargetContact.ID,
                 (TargetContact is Company).ToString().ToLower(),
-                WebItemSecurity.IsAvailableForUser(WebItemManager.ProjectsProductID.ToString(), SecurityContext.CurrentAccount.ID).ToString().ToLower(),
-                (!string.IsNullOrEmpty(KeyStorage.Get(SocialMediaConstants.ConfigKeyTwitterDefaultAccessToken))).ToString().ToLower(),
+                WebItemSecurity.IsAvailableForMe(WebItemManager.ProjectsProductID).ToString().ToLower(),
+                (!string.IsNullOrEmpty(TwitterLoginProvider.TwitterDefaultAccessToken)).ToString().ToLower(),
                 (int)TargetContact.ShareType,
                 ShowEventLinkToPanel ? "" : "jq('#eventLinkToPanel').hide();"
             );

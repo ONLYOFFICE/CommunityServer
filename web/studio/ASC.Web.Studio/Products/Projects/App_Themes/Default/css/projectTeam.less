@@ -40,6 +40,8 @@
 
     .managerAvatar {
         float: left;
+        width: 82px;
+        height:82px;
     }
 
     .manager-info {
@@ -96,6 +98,7 @@
     }
 }
 
+//TODO: remove no-access
 .no-access .pm-projectTeam-modulePermissionOn span,
 .pm-projectTeam-participantContainer.disable .pm-projectTeam-modulePermissionOn span {
     color: #333;
@@ -182,6 +185,14 @@
         .pm-projectTeam-userPhotoContainer {
             margin-right: 8px;
             position: relative;
+
+            &.retina {
+                max-height: 32px;
+
+                img {
+                    max-height: 32px;
+                }
+            }
         }
 
         .status-blocked {
@@ -204,10 +215,10 @@
         .user-info-container {
             float: left;
 
-            span{
-                max-width:350px; 
-                overflow:hidden; 
-                white-space:nowrap;
+            span {
+                max-width: 350px;
+                overflow: hidden;
+                white-space: nowrap;
             }
         }
 

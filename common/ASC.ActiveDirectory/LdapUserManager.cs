@@ -35,18 +35,18 @@ using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
 using ASC.ActiveDirectory.ComplexOperations.Data;
 using ASC.ActiveDirectory.Novell;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility;
-using log4net;
 
 namespace ASC.ActiveDirectory
 {
     public class LdapUserManager
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(LdapUserManager));
-        
+        private readonly ILog _log = LogManager.GetLogger("ASC");
+
         public LdapLocalization Resource { get; private set; }
 
         public PasswordSettings PasswordSettings { get; private set; }
@@ -88,7 +88,7 @@ namespace ASC.ActiveDirectory
 
             try
             {
-                if (ldapUserInfo == null) 
+                if (ldapUserInfo == null)
                     throw new ArgumentNullException("ldapUserInfo");
 
                 _log.DebugFormat("TryAddLDAPUser(SID: {0}): Email '{1}' UserName: {2}", ldapUserInfo.Sid,
@@ -159,7 +159,7 @@ namespace ASC.ActiveDirectory
 
                 var otherUser = CoreContext.UserManager.GetUserByUserName(ldapUserName);
 
-                if (Equals(otherUser, Constants.LostUser)) 
+                if (Equals(otherUser, Constants.LostUser))
                     return true;
 
                 if (otherUser.IsLDAP())
@@ -286,9 +286,9 @@ namespace ASC.ActiveDirectory
         }
 
         private const string EXT_MOB_PHONE = "extmobphone";
-        private const string MOB_PHONE = "mobphone";
         private const string EXT_MAIL = "extmail";
-        private const string MAIL = "mail";
+        private const string EXT_PHONE = "extphone";
+        private const string EXT_SKYPE = "extskype";
 
         private static void UpdateLdapUserContacts(UserInfo ldapUser, List<string> portalUserContacts)
         {
@@ -297,90 +297,19 @@ namespace ASC.ActiveDirectory
 
             var ldapUserContacts = ldapUser.Contacts;
 
-            var newContacts = new List<string>();
+            var newContacts = new List<string>(ldapUser.Contacts);
 
-            var phones = new List<string>();
-            var mails = new List<string>();
-            var otherContacts = new List<string>();
-
-            for (int i = 0, n = portalUserContacts.Count; i < n; i += 2)
+            for (int i = 0; i < portalUserContacts.Count; i += 2)
             {
+                if (portalUserContacts[i] == EXT_MOB_PHONE || portalUserContacts[i] == EXT_MAIL
+                    || portalUserContacts[i] == EXT_PHONE || portalUserContacts[i] == EXT_SKYPE)
+                    continue;
                 if (i + 1 >= portalUserContacts.Count)
                     continue;
 
-                var type = portalUserContacts[i];
-                var value = portalUserContacts[i + 1];
-
-                switch (type)
-                {
-                    case EXT_MOB_PHONE:
-                    case EXT_MAIL:
-                        break;
-                    case MOB_PHONE:
-                        phones.Add(value);
-                        break;
-                    case MAIL:
-                        mails.Add(value);
-                        break;
-                    default:
-                        otherContacts.Add(type);
-                        otherContacts.Add(value);
-                        break;
-                }
+                newContacts.Add(portalUserContacts[i]);
+                newContacts.Add(portalUserContacts[i + 1]);
             }
-
-            string phone;
-            string mail;
-
-            for (int i = 0, m = ldapUserContacts.Count; i < m; i += 2)
-            {
-                if (i + 1 >= ldapUserContacts.Count) 
-                    continue;
-
-                switch (ldapUserContacts[i])
-                {
-                    case EXT_MOB_PHONE:
-                        phone = ldapUserContacts[i + 1];
-
-                        if (phones.Exists(p => p.Equals(phone)))
-                        {
-                            phones.Remove(phone);
-                        }
-
-                        newContacts.Add(EXT_MOB_PHONE);
-                        newContacts.Add(phone);
-
-                        break;
-                    case EXT_MAIL:
-                        mail = ldapUserContacts[i + 1];
-
-                        if (mails.Exists(p => p.Equals(mail)))
-                        {
-                            mails.Remove(mail);
-                        }
-
-                        newContacts.Add(EXT_MAIL);
-                        newContacts.Add(mail);
-
-                        break;
-                    default:
-                        continue;
-                }
-            }
-
-            phones.ForEach(p =>
-            {
-                newContacts.Add(MOB_PHONE);
-                newContacts.Add(p);
-            });
-
-            mails.ForEach(m =>
-            {
-                newContacts.Add(MAIL);
-                newContacts.Add(m);
-            });
-
-            newContacts.AddRange(otherContacts);
 
             ldapUser.Contacts = newContacts;
         }
@@ -398,7 +327,7 @@ namespace ASC.ActiveDirectory
 
                 if (notEqual(portalUser.FirstName, ldapUser.FirstName))
                 {
-                    _log.DebugFormat("NeedUpdateUser by FirstName -> portal: '{0}', ldap: '{1}'", 
+                    _log.DebugFormat("NeedUpdateUser by FirstName -> portal: '{0}', ldap: '{1}'",
                         portalUser.FirstName ?? "NULL",
                         ldapUser.FirstName ?? "NULL");
                     needUpdate = true;
@@ -468,6 +397,30 @@ namespace ASC.ActiveDirectory
                         string.Join("|", ldapUser.Contacts));
                     needUpdate = true;
                 }
+
+                if (notEqual(portalUser.MobilePhone, ldapUser.MobilePhone))
+                {
+                    _log.DebugFormat("NeedUpdateUser by PrimaryPhone -> portal: '{0}', ldap: '{1}'",
+                        portalUser.MobilePhone ?? "NULL",
+                        ldapUser.MobilePhone ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (!portalUser.BirthDate.Equals(ldapUser.BirthDate))
+                {
+                    _log.DebugFormat("NeedUpdateUser by BirthDate -> portal: '{0}', ldap: '{1}'",
+                        portalUser.BirthDate.ToString() ?? "NULL",
+                        ldapUser.BirthDate.ToString() ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (portalUser.Sex != ldapUser.Sex)
+                {
+                    _log.DebugFormat("NeedUpdateUser by Sex -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Sex.ToString() ?? "NULL",
+                        ldapUser.Sex.ToString() ?? "NULL");
+                    needUpdate = true;
+                }
             }
             catch (Exception ex)
             {
@@ -513,6 +466,9 @@ namespace ASC.ActiveDirectory
                 userToUpdate.Contacts = updateInfo.Contacts;
                 userToUpdate.Title = updateInfo.Title;
                 userToUpdate.Location = updateInfo.Location;
+                userToUpdate.Sex = updateInfo.Sex;
+                userToUpdate.BirthDate = updateInfo.BirthDate;
+                userToUpdate.MobilePhone = updateInfo.MobilePhone;
 
                 if (!userToUpdate.IsOwner()) // Owner must never be terminated by LDAP!
                 {
@@ -542,6 +498,8 @@ namespace ASC.ActiveDirectory
         {
             userInfo = Constants.LostUser;
 
+            NovellLdapUserImporter importer = null;
+
             try
             {
                 var settings = LdapSettings.Load();
@@ -550,24 +508,77 @@ namespace ASC.ActiveDirectory
                     return false;
 
                 _log.DebugFormat("TryGetAndSyncLdapUserInfo(login: \"{0}\")", login);
-                
-                using (var importer = new NovellLdapUserImporter(settings, Resource))
-                {
-                    var ldapUserInfo = importer.Login(login, password);
 
-                    if (ldapUserInfo == null || ldapUserInfo.Item1.Equals(Constants.LostUser))
+                importer = new NovellLdapUserImporter(settings, Resource);
+
+                var ldapUserInfo = importer.Login(login, password);
+
+                if (ldapUserInfo == null || ldapUserInfo.Item1.Equals(Constants.LostUser))
+                {
+                    _log.DebugFormat("NovellLdapUserImporter.Login('{0}') failed.", login);
+                    return false;
+                }
+
+                var portalUser = CoreContext.UserManager.GetUserBySid(ldapUserInfo.Item1.Sid);
+
+                if (portalUser.Status == EmployeeStatus.Terminated || portalUser.Equals(Constants.LostUser))
+                {
+                    if (!ldapUserInfo.Item2.IsDisabled)
                     {
-                        _log.DebugFormat("NovellLdapUserImporter.Login('{0}') failed.", login);
+                        _log.DebugFormat("TryCheckAndSyncToLdapUser(Username: '{0}', Email: {1}, DN: {2})",
+                            ldapUserInfo.Item1.UserName, ldapUserInfo.Item1.Email, ldapUserInfo.Item2.DistinguishedName);
+
+                        if (!TryCheckAndSyncToLdapUser(ldapUserInfo, importer, out userInfo))
+                        {
+                            importer.Dispose();
+                            _log.Debug("TryCheckAndSyncToLdapUser() failed");
+                            return false;
+                        }
+                        importer.Dispose();
+                    }
+                    else
+                    {
+                        importer.Dispose();
                         return false;
                     }
-
+                }
+                else
+                {
                     _log.DebugFormat("TryCheckAndSyncToLdapUser(Username: '{0}', Email: {1}, DN: {2})",
                         ldapUserInfo.Item1.UserName, ldapUserInfo.Item1.Email, ldapUserInfo.Item2.DistinguishedName);
 
-                    if (!TryCheckAndSyncToLdapUser(ldapUserInfo, importer, out userInfo))
+                    var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+                    new System.Threading.Tasks.Task(() =>
                     {
-                        _log.Debug("TryCheckAndSyncToLdapUser() failed");
+                        try
+                        {
+                            CoreContext.TenantManager.SetCurrentTenant(tenant);
+                            SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+
+                            var uInfo = SyncLDAPUser(ldapUserInfo.Item1);
+
+                            var newLdapUserInfo = new Tuple<UserInfo, LdapObject>(uInfo, ldapUserInfo.Item2);
+
+                            if (importer.Settings.GroupMembership)
+                            {
+                                importer.TrySyncUserGroupMembership(newLdapUserInfo);
+                            }
+                        }
+                        finally
+                        {
+                            importer.Dispose();
+                        }
+                    }).Start();
+
+                    if (ldapUserInfo.Item2.IsDisabled)
+                    {
+                        _log.DebugFormat("TryGetAndSyncLdapUserInfo(login: \"{0}\") failed, user is disabled in ldap", login);
                         return false;
+                    }
+                    else
+                    {
+                        userInfo = portalUser;
                     }
                 }
 
@@ -575,6 +586,11 @@ namespace ASC.ActiveDirectory
             }
             catch (Exception ex)
             {
+                if (importer != null)
+                {
+                    importer.Dispose();
+                }
+
                 _log.ErrorFormat("TryGetLdapUserInfo(login: '{0}') failed. Error: {1}", login, ex);
                 userInfo = Constants.LostUser;
                 return false;

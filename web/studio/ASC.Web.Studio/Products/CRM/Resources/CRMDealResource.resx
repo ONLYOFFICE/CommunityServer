@@ -159,9 +159,6 @@
   <data name="ClientDeal" xml:space="preserve">
     <value>Opportunity contact</value>
   </data>
-  <data name="CreateDeal" xml:space="preserve">
-    <value>Create opportunity</value>
-  </data>
   <data name="CreateFirstDeal" xml:space="preserve">
     <value>Add the first opportunity</value>
   </data>
@@ -407,5 +404,14 @@
   </data>
   <data name="TotalOnPage" xml:space="preserve">
     <value>Page total</value>
+  </data>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Add new opportunity</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Select from existing opportunities or add a new one</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Find opportunity by title</value>
   </data>
 </root>

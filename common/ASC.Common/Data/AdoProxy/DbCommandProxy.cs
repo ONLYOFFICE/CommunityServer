@@ -26,17 +26,18 @@
 
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace ASC.Common.Data.AdoProxy
 {
-    class DbCommandProxy : IDbCommand
+    class DbCommandProxy : DbCommand
     {
-        private readonly IDbCommand command;
+        private readonly DbCommand command;
         private readonly ProxyContext context;
         private bool disposed;
 
 
-        public DbCommandProxy(IDbCommand command, ProxyContext ctx)
+        public DbCommandProxy(DbCommand command, ProxyContext ctx)
         {
             if (command == null) throw new ArgumentNullException("command");
             if (ctx == null) throw new ArgumentNullException("ctx");
@@ -46,41 +47,41 @@ namespace ASC.Common.Data.AdoProxy
         }
 
 
-        public void Cancel()
+        public override void Cancel()
         {
             command.Cancel();
         }
 
-        public string CommandText
+        public override string CommandText
         {
             get { return command.CommandText; }
             set { command.CommandText = value; }
         }
 
-        public int CommandTimeout
+        public override int CommandTimeout
         {
             get { return command.CommandTimeout; }
             set { command.CommandTimeout = value; }
         }
 
-        public CommandType CommandType
+        public override CommandType CommandType
         {
             get { return command.CommandType; }
             set { command.CommandType = value; }
         }
 
-        public IDbConnection Connection
+        protected override DbConnection DbConnection
         {
             get { return new DbConnectionProxy(command.Connection, context); }
             set { command.Connection = value is DbConnectionProxy ? value : new DbConnectionProxy(value, context); }
         }
 
-        public IDbDataParameter CreateParameter()
+        protected override DbParameter CreateDbParameter()
         {
             return command.CreateParameter();
         }
 
-        public int ExecuteNonQuery()
+        public override int ExecuteNonQuery()
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "ExecuteNonQuery", dur)))
             {
@@ -88,7 +89,7 @@ namespace ASC.Common.Data.AdoProxy
             }
         }
 
-        public IDataReader ExecuteReader(CommandBehavior behavior)
+        protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, string.Format("ExecuteReader({0})", behavior), dur)))
             {
@@ -96,15 +97,7 @@ namespace ASC.Common.Data.AdoProxy
             }
         }
 
-        public IDataReader ExecuteReader()
-        {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "ExecuteReader", dur)))
-            {
-                return command.ExecuteReader();
-            }
-        }
-
-        public object ExecuteScalar()
+        public override object ExecuteScalar()
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "ExecuteScalar", dur)))
             {
@@ -112,36 +105,36 @@ namespace ASC.Common.Data.AdoProxy
             }
         }
 
-        public IDataParameterCollection Parameters
+        protected override DbParameterCollection DbParameterCollection
         {
             get { return command.Parameters; }
         }
 
-        public void Prepare()
+        public override void Prepare()
         {
             command.Prepare();
         }
 
-        public IDbTransaction Transaction
+        protected override System.Data.Common.DbTransaction DbTransaction
         {
             get { return command.Transaction == null ? null : new DbTransactionProxy(command.Transaction, context); }
-            set { command.Transaction = value is DbTransactionProxy ? ((DbTransactionProxy)value).transaction : value; }
+            set { command.Transaction = value is DbTransactionProxy ? ((DbTransactionProxy)value).Transaction : value; }
         }
 
-        public UpdateRowSource UpdatedRowSource
+        public override bool DesignTimeVisible
+        {
+            get { return command.DesignTimeVisible; }
+            set { command.DesignTimeVisible = value; }
+        }
+
+        public override UpdateRowSource UpdatedRowSource
         {
             get { return command.UpdatedRowSource; }
             set { command.UpdatedRowSource = value; }
         }
 
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!disposed)
             {

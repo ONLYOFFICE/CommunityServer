@@ -24,15 +24,6 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.FullTextIndex;
-using ASC.Web.Community.Product;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +32,17 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
+using ASC.Common.Caching;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Web.Community.Forum;
+using ASC.Web.Community.Product;
+using ASC.Web.Studio.Utility;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Forum
 {
@@ -646,11 +648,14 @@ namespace ASC.Forum
 
         public static List<Topic> SearchTopicsByText(int tenantID, string text, int curPageNumber, int topicOnPageCount, out int topicCount)
         {
-            List<int> topicIDs;
-            var modules = new[] { FullTextSearch.ForumModule.Match(text), FullTextSearch.PostModule.Match(text) };
-            if (FullTextSearch.SupportModule(modules))
+            List<int> topicIDs, tIDs, pIDs = null;
+            if (FactoryIndexer<TopicWrapper>.TrySelectIds(r => r.MatchAll(text), out tIDs) || FactoryIndexer<PostWrapper>.TrySelectIds(r => r.MatchAll(text), out pIDs))
             {
-                topicIDs = FullTextSearch.Search(modules);
+                topicIDs = tIDs;
+                if (pIDs != null)
+                {
+                    topicIDs.AddRange(pIDs);
+                }
             }
             else
             {
@@ -1700,5 +1705,76 @@ where ft.TenantID = @tid and fp.id = @postID")
         }
 
         #endregion
+    }
+
+    public class RemoveDataHelper
+    {
+        public static void RemoveThreadCategory(ThreadCategory category)
+        {
+            List<int> removedPostIDs;
+
+            ForumDataProvider.RemoveThreadCategory(TenantProvider.CurrentTenantID, category.ID, out removedPostIDs);
+
+            ForumManager.Instance.RemoveAttachments(category);
+
+            removedPostIDs.ForEach(
+                idPost =>
+                CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.FileStoreModuleID,
+                                                                 idPost.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        public static void RemoveThread(Thread thread)
+        {
+            List<int> removedPostIDs;
+
+            ForumDataProvider.RemoveThread(TenantProvider.CurrentTenantID, thread.ID, out removedPostIDs);
+
+            ForumManager.Instance.RemoveAttachments(thread);
+
+            removedPostIDs.ForEach(
+                idPost =>
+                CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.FileStoreModuleID,
+                                                                 idPost.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        public static void RemoveTopic(Topic topic)
+        {
+            List<int> removedPostIDs;
+
+            var attachmantOffsetPhysicalPaths = ForumDataProvider.RemoveTopic(TenantProvider.CurrentTenantID, topic.ID,
+                                                                              out removedPostIDs);
+
+            foreach (var ace in Module.Constants.Aces)
+            {
+                CoreContext.AuthorizationManager.RemoveAce(new AzRecord(SecurityContext.CurrentAccount.ID, ace,
+                                                                        Common.Security.Authorizing.AceType.Allow, topic));
+            }
+
+            FactoryIndexer<TopicWrapper>.DeleteAsync(topic);
+
+            ForumManager.Settings.ForumManager.RemoveAttachments(attachmantOffsetPhysicalPaths.ToArray());
+
+            removedPostIDs.ForEach(
+                idPost =>
+                CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.ForumManager.Settings.FileStoreModuleID,
+                                                                 idPost.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        public static DeletePostResult RemovePost(Post post)
+        {
+            var result = ForumDataProvider.RemovePost(TenantProvider.CurrentTenantID, post.ID);
+
+            if (result == DeletePostResult.Successfully)
+            {
+                ForumManager.Settings.ForumManager.RemoveAttachments(post);
+
+                FactoryIndexer<PostWrapper>.DeleteAsync(post);
+
+                CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.ForumManager.Settings.FileStoreModuleID,
+                                                                 post.ID.ToString(CultureInfo.InvariantCulture));
+            }
+
+            return result;
+        }
     }
 }

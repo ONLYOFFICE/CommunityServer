@@ -160,6 +160,7 @@ namespace ASC.Web.Studio.Core.Users
                 switch (contacts[i].type)
                 {
                     case "phone":
+                    case "extphone":
                     case "mobphone":
                     case "extmobphone":
                         phones.Add(contacts[i]);
@@ -201,6 +202,7 @@ namespace ASC.Web.Studio.Core.Users
                 {
                     case "jabber":
                     case "skype":
+                    case "extskype":
                     case "msn":
                     case "aim":
                     case "icq":
@@ -227,11 +229,13 @@ namespace ASC.Web.Studio.Core.Users
                     case "gmail":
 
                     case "phone":
+                    case "extphone":
                     case "mobphone":
                     case "extmobphone":
 
                     case "jabber":
                     case "skype":
+                    case "extskype":
                     case "msn":
                     case "aim":
                     case "icq":

@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides: onlyofficeNotify
-# Required-Start: $local_fs $syslog $remote_fs
+# Required-Start: $local_fs $syslog $remote_fs mysql
 # Required-Stop: $local_fs $syslog $remote_fs
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6

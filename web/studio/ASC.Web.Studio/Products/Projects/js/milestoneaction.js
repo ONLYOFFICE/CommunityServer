@@ -519,9 +519,10 @@ ASC.Projects.MilestoneAction = (function() {
                 $milestoneActionButton.addClass(disableClass);
                 respSelected = [{ id: "", title: resources.CommonResource.Select }];
             } else {
+                var currentProject = common.getProjectById(selectedPrjId);
                 $noActiveParticipantsMilNote.addClass(displayNoneClass);
                 $milestoneActionButton.removeClass(disableClass);
-                respSelected = participants[0];
+                respSelected = participants.find(function (item) { return item.id === currentProject.responsibleId; }) || participants[0];
             }
         }
         

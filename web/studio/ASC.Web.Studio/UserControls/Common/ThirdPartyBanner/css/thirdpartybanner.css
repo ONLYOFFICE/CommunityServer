@@ -44,3 +44,13 @@
     background-image: url("img/twilio.png");
     background-position: 15px 11px;
 }
+.banner-link.banner-large.banner-twilio2 {
+    background-image: url("img/twilio2.png");
+    background-position: 15px 11px;
+    max-height: none;
+    padding: 12px 15px 11px 85px;
+    width: 138px;
+}
+.banner-link.banner-large.banner-twilio2 .cancelButton {
+    margin-top: -8px;
+}

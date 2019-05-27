@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -24,8 +24,16 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Web;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Notify.Signalr;
@@ -39,14 +47,7 @@ using ASC.Feed.Data;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
-using log4net;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Web;
+
 
 namespace ASC.Feed.Aggregator
 {
@@ -163,45 +164,34 @@ namespace ASC.Feed.Aggregator
                                 new HttpResponse(new StringWriter()));
                             }
 
-                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) {Tenant = tenant}).ToList());
-                            log.DebugFormat("{0} feeds in {1} tenant.", feeds.Count(), tenant);
-                            foreach (var tuple in feeds)
-                            {
-                                if (tuple.Item1 == null) continue;
+                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) {Tenant = tenant}).Where(r=> r.Item1 != null).ToList());
+                            log.DebugFormat("{0} feeds in {1} tenant.", feeds.Count, tenant);
 
-                                var r = new FeedRow
-                                    {
-                                        Id = tuple.Item1.Id,
-                                        ClearRightsBeforeInsert = tuple.Item1.Variate,
-                                        Tenant = tenant,
-                                        ProductId = module.Product,
-                                        ModuleId = tuple.Item1.Module,
-                                        AuthorId = tuple.Item1.AuthorId,
-                                        ModifiedById = tuple.Item1.ModifiedBy,
-                                        CreatedDate = tuple.Item1.CreatedDate,
-                                        ModifiedDate = tuple.Item1.ModifiedDate,
-                                        GroupId = tuple.Item1.GroupId,
-                                        Json = JsonConvert.SerializeObject(tuple.Item1, new JsonSerializerSettings
-                                            {
-                                                DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                                            }),
-                                        Keywords = tuple.Item1.Keywords
-                                    };
-
-                                foreach (var u in users)
+                            var tenant1 = tenant;
+                            var module1 = module;
+                            var feedsRow = feeds
+                                .Select(tuple => new Tuple<FeedRow, object>(new FeedRow(tuple.Item1)
                                 {
-                                    if (isStopped)
-                                    {
-                                        return;
-                                    }
-                                    if (TryAuthenticate(u.ID) && module.VisibleFor(tuple.Item1, tuple.Item2, u.ID))
-                                    {
-                                        r.Users.Add(u.ID);
-                                    }
+                                    Tenant = tenant1,
+                                    ProductId = module1.Product
+                                }, tuple.Item2))
+                                .ToList();
+
+                            foreach (var u in users)
+                            {
+                                if (isStopped)
+                                {
+                                    return;
+                                }
+                                if (!TryAuthenticate(u.ID))
+                                {
+                                    continue;
                                 }
 
-                                result.Add(r);
+                                module.VisibleFor(feedsRow, u.ID);
                             }
+
+                            result.AddRange(feedsRow.Select(r=> r.Item1));
                         }
                         catch (Exception ex)
                         {

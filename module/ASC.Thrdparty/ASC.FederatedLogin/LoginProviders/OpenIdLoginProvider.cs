@@ -131,6 +131,14 @@ namespace ASC.FederatedLogin.LoginProviders
             throw new NotImplementedException();
         }
 
+        public string Scopes { get { return ""; } }
+        public string CodeUrl { get { return ""; } }
+        public string AccessTokenUrl { get { return ""; } }
+        public string RedirectUri { get { return ""; } }
+        public string ClientID { get { return ""; } }
+        public string ClientSecret { get { return ""; } }
+        public bool IsEnabled { get { return GoogleLoginProvider.Instance.IsEnabled; } }
+
         internal static LoginProfile ProfileFromOpenId(ClaimsResponse spprofile, FetchResponse fetchprofile, string claimedId, string realmUrlString)
         {
             var profile = new LoginProfile

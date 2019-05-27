@@ -91,7 +91,7 @@
     {{else fieldType ==  4}}
        <span id="custom_field_${id}" class="header-base headerExpand customFieldTitle" onclick="ASC.CRM.SettingsPage.toggleCollapceExpand(this)">${label}</span>
     {{else fieldType ==  5}}
-      <input type="text" id="custom_field_${id}"  name="custom_field_${id}" class="textEdit textEditCalendar" />
+      <input type="text" id="custom_field_${id}"  name="custom_field_${id}" class="textEdit textEditCalendar" autocomplete="off"/>
     {{/if}}
 </script>
 
@@ -805,35 +805,4 @@
         <span>${toCurrency}</span>&nbsp;
         <a class="crm-deleteLink" title="${ASC.CRM.Resources.CRMCommonResource.Delete}"></a>
     </div>
-</script>
-
-<script id="reportProgressRowTmpl" type="text/x-jquery-tmpl">
-    <tr id="${id}" class="rp-row started">
-        <td class="borderBase">
-            <div class="${fileTypeCssClass}"></div>
-        </td>
-        <td class="borderBase">
-            <div class="rp-title-cell" >
-                <span title="${fileName}">${fileName}</span>
-            </div>
-        </td>
-        <td class="borderBase">
-            <div class="rp-progress-cell">
-                <progress max="100" value="0" >
-                    <div class="asc-progress-wrapper">
-                        <div class="asc-progress-value"></div>
-                    </div>
-                </progress>
-                <div class="progress-label">0%</div>
-                <span class="progress-complete gray-text">${ASC.CRM.Resources.CRMReportResource.Complete}</span>
-                <span class="progress-error red-text expl">${ASC.CRM.Resources.CRMReportResource.Error}</span>
-                <div class="popup_helper"></div>
-            </div>
-        </td>
-        <td class="borderBase">
-            <div class="rp-action-cell">
-                <a class="linkMedium gray-text" href="#" target="_blank">${ASC.CRM.Resources.CRMReportResource.Open}</a>
-            </div>
-        </td>
-    </tr>
 </script>

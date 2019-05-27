@@ -28,24 +28,28 @@ using System;
 using System.Collections.Generic;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
 {
     public class CommentEngine
     {
-        public IDaoFactory DaoFactory { get; set; }
         public bool DisableNotifications { get; set; }
-        public TaskEngine TaskEngine { get; set; }
-        public MessageEngine MessageEngine { get; set; }
 
-        public CommentEngine(bool disableNotifications, EngineFactory factory)
+        public IDaoFactory DaoFactory { get; set; }
+        public EngineFactory EngineFactory { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
+
+        public TaskEngine TaskEngine { get { return EngineFactory.TaskEngine; } }
+        public MessageEngine MessageEngine { get { return EngineFactory.MessageEngine; } }
+
+        public CommentEngine(bool disableNotifications)
         {
             DisableNotifications = disableNotifications;
-            TaskEngine = factory.TaskEngine;
-            MessageEngine = factory.MessageEngine;
         }
 
         public List<Comment> GetComments(DomainObject<int> targetObject)
@@ -83,6 +87,15 @@ namespace ASC.Projects.Engine
             if (comment.CreateOn == default(DateTime)) comment.CreateOn = now;
 
             DaoFactory.CommentDao.Save(comment);
+
+            if (!comment.Inactive)
+            {
+                FactoryIndexer<CommentsWrapper>.IndexAsync(comment);
+            }
+            else
+            {
+                FactoryIndexer<CommentsWrapper>.DeleteAsync(comment);
+            }
         }
 
         public ProjectEntity GetEntityByTargetUniqId(Comment comment)

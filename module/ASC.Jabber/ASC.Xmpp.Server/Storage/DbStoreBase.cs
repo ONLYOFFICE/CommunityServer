@@ -24,14 +24,14 @@
 */
 
 
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Xmpp.Server.Configuration;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Xmpp.Server.Configuration;
 
 namespace ASC.Xmpp.Server.Storage
 {

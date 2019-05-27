@@ -24,15 +24,18 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
 using ASC.Files.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
-using System;
-using System.Text;
-using System.Web;
 
 namespace ASC.Web.Files
 {
@@ -43,15 +46,67 @@ namespace ASC.Web.Files
             get { return FilesLinkUtility.FilesBaseAbsolutePath + "filechoice.aspx"; }
         }
 
-        public const string ParamFilterExt = "fileType";
-        public const string MailMergeParam = "mailmerge";
+        public static string GetUrlForEditor
+        {
+            get {return Location + string.Format("?{0}=true&{1}={{{1}}}&{2}={{{2}}}",
+                FromEditorParam,
+                FilterExtParam,
+                FileTypeParam);}
+        }
+
+        public static string GetUrl(string ext = null,
+            bool fromEditor = false,
+            FolderType? root = null,
+            bool? thirdParty = null,
+            FilterType? filterType = null,
+            bool multiple = false,
+            string successButton = null)
+        {
+            var args = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(ext = (ext ?? "").Trim().ToLower())) args.Add(FilterExtParam, ext);
+            if (fromEditor) args.Add(FromEditorParam, "true");
+            if (root.HasValue) args.Add(RootParam, root.ToString());
+            if (thirdParty.HasValue) args.Add(ThirdPartyParam, thirdParty.Value.ToString().ToLower());
+            if (filterType.HasValue) args.Add(FileTypeParam, filterType.Value.ToString());
+            if (multiple) args.Add(MultiSelectParam, "true");
+            if (!string.IsNullOrEmpty(successButton = (successButton ?? "").Trim())) args.Add(SuccessButtonParam, successButton);
+
+            return Location + "?" + string.Join("&", args.Select(arg => HttpUtility.HtmlEncode(arg.Key) + "=" + HttpUtility.HtmlEncode(arg.Value)));
+        }
+
+        public const string FilterExtParam = "fileExt";
+        public const string FromEditorParam = "editor";
         public const string RootParam = "root";
         public const string ThirdPartyParam = "thirdParty";
-        public const string DocumentTypeParam = "documentType";
+        public const string FileTypeParam = "documentType";
+        public const string MultiSelectParam = "multiple";
+        public const string SuccessButtonParam = "ok";
 
         protected string RequestExt
         {
-            get { return (Request[ParamFilterExt] ?? "").Trim().ToLower(); }
+            get
+            {
+                var ext = (Request[FilterExtParam] ?? "").Trim().ToLower();
+                //todo: for DS 5.2 version. remove
+                return
+                    ext == "{" + FilterExtParam.ToLower() + "}"
+                        ? "xlsx"
+                        : ext;
+            }
+        }
+
+        protected FilterType RequestType
+        {
+            get
+            {
+                FilterType filter;
+                return Enum.TryParse(Request[FileTypeParam], out filter) ? filter : FilterType.None;
+            }
+        }
+
+        protected bool FromEditor
+        {
+            get { return !string.IsNullOrEmpty(Request[FromEditorParam]); }
         }
 
         private bool OnlyFolder
@@ -70,6 +125,9 @@ namespace ASC.Web.Files
             var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
             fileSelector.IsFlat = true;
             fileSelector.OnlyFolder = OnlyFolder;
+            fileSelector.Multiple = (Request[MultiSelectParam] ?? "").Trim().ToLower() == "true";
+            var successButton = (Request[SuccessButtonParam] ?? "").Trim();
+            if (!string.IsNullOrEmpty(successButton)) fileSelector.SuccessButton = successButton;
             CommonContainerHolder.Controls.Add(fileSelector);
 
             InitScript();
@@ -91,6 +149,9 @@ namespace ASC.Web.Files
                     case FolderType.USER:
                         rootId = Classes.Global.FolderMy;
                         break;
+                    case FolderType.Projects:
+                        rootId = Classes.Global.FolderProjects;
+                        break;
                 }
                 if (rootId != null)
                     script.AppendFormat("jq(\"#fileSelectorTree > ul > li.tree-node:not([data-id=\\\"{0}\\\"])\").remove();", rootId);
@@ -103,17 +164,16 @@ namespace ASC.Web.Files
                                     RequestExt.Replace("\"", "\\\""));
             }
 
-            FilterType filter;
-            if (Enum.TryParse(Request[DocumentTypeParam], out filter))
+            if (RequestType != FilterType.None)
             {
-                script.AppendFormat("ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType[\"{0}\"] || ASC.Files.Constants.FilterType.None;", filter);
+                script.AppendFormat("ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType[\"{0}\"] || ASC.Files.Constants.FilterType.None;", RequestType);
             }
 
-            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", ({1} == true), ({2} == true), ({3} == true));",
-                                Request[FilesLinkUtility.FolderId],
+            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", ({1} == true), \"{2}\", ({3} == true));",
+                                (Request[FilesLinkUtility.FolderId] ?? "").Replace("\"", "\\\""),
                                 OnlyFolder.ToString().ToLower(),
-                                (!string.IsNullOrEmpty(Request[ThirdPartyParam])).ToString().ToLower(),
-                                (!string.IsNullOrEmpty(Request[MailMergeParam])).ToString().ToLower());
+                                (Request[ThirdPartyParam] ?? "").ToLower().Replace("\"", "\\\""),
+                                FromEditor.ToString().ToLower());
 
             Page.RegisterInlineScript(script.ToString());
         }
@@ -151,6 +211,26 @@ namespace ASC.Web.Files
                                   "controls/emptyfolder/emptyfolder.css",
                                   "controls/tree/tree.css"
                        );
+        }
+
+        public string GetTypeString(FilterType filterType)
+        {
+            switch (filterType)
+            {
+                case FilterType.ArchiveOnly:
+                    return FilesUCResource.ButtonFilterArchive;
+                case FilterType.DocumentsOnly:
+                    return FilesUCResource.ButtonFilterDocument;
+                case FilterType.ImagesOnly:
+                    return FilesUCResource.ButtonFilterImage;
+                case FilterType.PresentationsOnly:
+                    return FilesUCResource.ButtonFilterPresentation;
+                case FilterType.SpreadsheetsOnly:
+                    return FilesUCResource.ButtonFilterSpreadsheet;
+                case FilterType.MediaOnly:
+                    return FilesUCResource.ButtonFilterMedia;
+            }
+            return string.Empty;
         }
     }
 }

@@ -151,6 +151,16 @@ namespace MSBuild.Community.Tasks.Sandcastle
         }
 
         /// <summary>
+        /// Gets the <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.</returns>
+        protected override MessageImportance StandardErrorLoggingImportance
+        {
+            get { return MessageImportance.High; }
+        }
+
+        /// <summary>
         /// Gets the override value of the PATH environment variable.
         /// </summary>
         /// <value></value>

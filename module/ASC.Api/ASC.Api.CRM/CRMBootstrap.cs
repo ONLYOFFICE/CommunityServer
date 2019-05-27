@@ -47,7 +47,7 @@ namespace ASC.Api.CRM
             //Register prodjects' calendar events
             CalendarManager.Instance.RegistryCalendarProvider(userid =>
                 {
-                    if (WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), userid))
+                    if (WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID, userid))
                     {
                         return new List<BaseCalendar> {new CRMCalendar(userid)};
                     }

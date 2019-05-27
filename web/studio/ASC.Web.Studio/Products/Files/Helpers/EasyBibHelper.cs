@@ -26,16 +26,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
+using ASC.Common.Logging;
+using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin.Helpers;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.Files.Classes;
 using Newtonsoft.Json.Linq;
-using log4net;
 
 namespace ASC.Web.Files.Helpers
 {
-    public class EasyBibHelper
+    public class EasyBibHelper : Consumer
     {
         public static ILog Log = Global.Logger;
 
@@ -49,6 +48,21 @@ namespace ASC.Web.Files.Helpers
             book = 0,
             journal = 1,
             website = 2
+        }
+
+        public string AppKey
+        {
+            get { return this["easyBibappkey"]; }
+        }
+
+        public EasyBibHelper()
+        {
+            
+        }
+
+        public EasyBibHelper(string name, int order,  Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
+        {
         }
 
         public static string GetEasyBibCitationsList(int source,  string data)
@@ -101,7 +115,7 @@ namespace ASC.Web.Files.Helpers
         {
             try
             {
-                var easyBibappkey = KeyStorage.Get("easyBibappkey");
+                var easyBibappkey = ConsumerFactory.Get<EasyBibHelper>().AppKey;
 
                 var jsonBlogInfo = JObject.Parse(data);
                 jsonBlogInfo.Add("key", easyBibappkey);

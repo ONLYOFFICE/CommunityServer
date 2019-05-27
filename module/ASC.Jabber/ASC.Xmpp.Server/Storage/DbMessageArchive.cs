@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -24,16 +24,22 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Xmpp.Core.protocol;
-using ASC.Xmpp.Core.protocol.client;
-using ASC.Xmpp.Core.protocol.x;
-using ASC.Xmpp.Core.utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.Remoting.Messaging;
+using System.Web;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Utils;
+using ASC.Core;
+using ASC.Xmpp.Core.protocol;
+using ASC.Xmpp.Core.protocol.client;
+using ASC.Xmpp.Core.protocol.x;
+using ASC.Xmpp.Core.utils;
+using ASC.ElasticSearch;
+using ASC.Web.Talk;
 
 namespace ASC.Xmpp.Server.Storage
 {
@@ -89,7 +95,6 @@ namespace ASC.Xmpp.Server.Storage
             if (messages == null) throw new ArgumentNullException("message");
             if (messages.Length == 0) return;
 
-            var batch = new List<ISqlInstruction>(messages.Length);
             foreach (var m in messages)
             {
                 if (string.IsNullOrEmpty(m.Body) && string.IsNullOrEmpty(m.Subject) && string.IsNullOrEmpty(m.Thread) && m.Html == null)
@@ -100,15 +105,35 @@ namespace ASC.Xmpp.Server.Storage
                 if (m.XDelay == null) m.XDelay = new Delay();
                 if (m.XDelay.Stamp == default(DateTime)) m.XDelay.Stamp = DateTime.UtcNow;
 
-                batch.Add(new SqlInsert("jabber_archive")
-                    .InColumnValue("jid", GetKey(m.From, m.To))
-                    .InColumnValue("stamp", DateTime.UtcNow)
-                    .InColumnValue("message", ElementSerializer.SerializeElement(m)));
+                var message = ElementSerializer.SerializeElement(m);
+                var jid = GetKey(m.From, m.To);
+                var stamp = DateTime.UtcNow;
+
+                var id = ExecuteScalar<int>(
+                    new SqlInsert("jabber_archive")
+                    .InColumnValue("id", 0)
+                    .InColumnValue("jid", jid)
+                    .InColumnValue("stamp", stamp)
+                    .InColumnValue("message", message)
+                    .Identity(0, 0, true));
+
+                FactoryIndexer<JabberWrapper>.IndexAsync(new JabberWrapper
+                {
+                    Id = id,
+                    Jid = jid,
+                    LastModifiedOn = stamp,
+                    Message = message
+                });
             }
-            ExecuteBatch(batch);
         }
 
-        public Message[] GetMessages(Jid from, Jid to, DateTime start, DateTime end, int count, int startindex = 0)
+        public void ClearUnreadMessages(Jid from, Jid to, IServiceProvider serviceProvider)
+        {
+            var offlineStore = ((StorageManager)serviceProvider.GetService(typeof(StorageManager))).OfflineStorage;
+            offlineStore.RemoveAllOfflineMessages(from, to);
+        }
+
+        public Message[] GetMessages(Jid from, Jid to, DateTime start, DateTime end, string text, int count, int startindex = 0)
         {
             if (from == null) throw new ArgumentNullException("from");
             if (to == null) throw new ArgumentNullException("to");
@@ -134,6 +159,25 @@ namespace ASC.Xmpp.Server.Storage
             {
                 q.SetMaxResults(count);
             }
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                try
+                {
+                    List<int> ids;
+                    CallContext.SetData(TenantManager.CURRENT_TENANT, CoreContext.TenantManager.GetTenant(from.Server));
+                    if (FactoryIndexer<Web.Talk.JabberWrapper>.TrySelectIds(r => r.MatchAll(HttpUtility.HtmlDecode(text)), out ids))
+                    {
+                        q.Where(Exp.In("id", ids));
+                    }
+
+                }
+                finally
+                {
+                    CallContext.SetData(TenantManager.CURRENT_TENANT, null);
+                }
+            }
+
             var messages = ExecuteList(q).ConvertAll(r => ElementSerializer.DeSerializeElement<Message>((string)r[0]));
             messages.Reverse();
             return messages.ToArray();

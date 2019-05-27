@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 
-#if WINDOWS_PHONE
-using AppLimit.CloudComputing.oAuth.WP7.SilverLightHelper;
-#endif
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 {
@@ -22,13 +17,9 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 
         private static void StopStopWatch(WebResponse response, Stream ret, WebException exception)
         {
-#if !WINDOWS_PHONE
             // 2. stop the watch from tls
-            LocalDataStoreSlot slot = Thread.GetNamedDataSlot(watchTag);
-            Stopwatch watch = Thread.GetData(slot) as Stopwatch;
-#else
-            Stopwatch watch = null;
-#endif
+            var slot = Thread.GetNamedDataSlot(watchTag);
+            var watch = Thread.GetData(slot) as Stopwatch;
 
             if (watch != null)
             {
@@ -64,7 +55,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
-        public delegate void CreateWebRequestPreparationCallback(WebRequest request, Object context);      
+        public delegate void CreateWebRequestPreparationCallback(WebRequest request, Object context);
 
         /// <summary>
         /// Internal web request generator
@@ -78,55 +69,49 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <returns></returns>
         protected WebRequest CreateWebRequest(String url, String method, ICredentials credentials, Boolean bAllowStreamBuffering, Object context, CreateWebRequestPreparationCallback callback)
         {
-#if !WINDOWS_PHONE
             // 1. create and start the watch
-            Stopwatch watch = new Stopwatch();
+            var watch = new Stopwatch();
             watch.Start();
-#endif
-            
+
             // 2. build uri
-            Uri uriNew = new Uri(url);
+            var uriNew = new Uri(url);
 
             // 2. create request 
-            WebRequest request = CreateBasicWebRequest(uriNew, bAllowStreamBuffering);
-            request.Method = method.ToString().ToUpper();                        
-            
+            var request = CreateBasicWebRequest(uriNew, bAllowStreamBuffering);
+            request.Method = method.ToUpper();
+
             // 3. call back
             if (callback != null)
                 callback(request, context);
 
-#if !WINDOWS_PHONE
             // 4. set the proxy class if needed
             if (WebRequestManager.Instance.GetProxySettings() != null)
                 request.Proxy = WebRequestManager.Instance.GetProxySettings();
 
             // 4.1. check if we got a null proxy
-            if (request.Proxy != null && request.Proxy is WebRequestManagerNullProxy)
+            if (request.Proxy is WebRequestManagerNullProxy)
                 request.Proxy = null;
-#endif
+
             // 5. set the credentials if needed
             if (credentials != null)
             {
                 request.Credentials = credentials;
 
-#if !WINDOWS_PHONE                
                 try
                 {
                     request.PreAuthenticate = true;
                 }
                 catch (NotSupportedException)
-                { }
-#endif
+                {
+                }
             }
 
             // 6. notify
             WebRequestManager.Instance.NotifyWebRequestPrepared(request);
 
-#if !WINDOWS_PHONE
             // 7. add watch object to tls
-            LocalDataStoreSlot slot = Thread.GetNamedDataSlot(watchTag);
+            var slot = Thread.GetNamedDataSlot(watchTag);
             Thread.SetData(slot, watch);
-#endif
 
             // 8. return the request
             return request;
@@ -138,7 +123,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="uri"></param>
         /// <param name="bAllowStreamBuffering"></param>
         /// <returns></returns>
-        protected abstract WebRequest CreateBasicWebRequest(Uri uri, Boolean bAllowStreamBuffering);        
+        protected abstract WebRequest CreateBasicWebRequest(Uri uri, Boolean bAllowStreamBuffering);
 
         /// <summary>
         /// This method returns a webrequest data stream and should be used in 
@@ -149,16 +134,14 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <returns></returns>
         public virtual WebRequestStream GetRequestStream(WebRequest request, long length)
         {
-#if !WINDOWS_PHONE
             // set the conten length
             request.ContentLength = length;
-#endif
-            
+
             // get the network stream
-            Stream nwStream = WebRequestStreamHelper.GetRequestStream(request);
+            var nwStream = WebRequestStreamHelper.GetRequestStream(request);
 
             // return the request streaM;
-            WebRequestStream ws =  new WebRequestStream(nwStream, request, this);
+            var ws = new WebRequestStream(nwStream, request, this);
 
             // add pre dispose opp
             ws.PushPreDisposeOperation(DisposeWebRequestStreams, request, ws);
@@ -171,21 +154,16 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// This method contains the routine which has to be executed when a request 
         /// stream will be disposed and will be called autoamtically
         /// </summary>
-        private void DisposeWebRequestStreams(params object[] arg)
+        private static void DisposeWebRequestStreams(params object[] arg)
         {
             // get the params
-            WebRequest request = arg[0] as WebRequest;
-            WebRequestStream stream = arg[1] as WebRequestStream;
+            var request = arg[0] as WebRequest;
+            var stream = arg[1] as WebRequestStream;
 
             // check if we have a multipart upload
-            WebRequestMultipartFormDataSupport md = new WebRequestMultipartFormDataSupport();
+            var md = new WebRequestMultipartFormDataSupport();
             if (md.IsRequestMultiPartUpload(request))
                 md.FinalizeNetworkFileDataStream(stream);
-
-#if WINDOWS_PHONE 
-            // Close Stream Bugfix for WP7
-            stream.Close();
-#endif
         }
 
         /// <summary>
@@ -195,24 +173,22 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="request"></param>
         /// <returns></returns>
         public virtual WebResponse GetWebResponse(WebRequest request)
-        {            
+        {
             // execute the webrequest
             try
             {
-#if !WINDOWS_PHONE
                 // check the length
                 if (request.ContentLength == -1)
                 {
                     request.ContentLength = 0;
                     request.ContentType = "";
                 }
-#endif
 
                 // Notify
                 WebRequestManager.Instance.NotifyWebRequestExecuting(request);
 
                 // get the response
-                return WebRequestStreamHelper.GetResponse(request);                
+                return WebRequestStreamHelper.GetResponse(request);
             }
             catch (WebException e)
             {
@@ -220,8 +196,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
                 StopStopWatch(null, null, e);
 
                 // rethrow the exception
-                throw e;                
-            }            
+                throw;
+            }
         }
 
         /// <summary>
@@ -236,7 +212,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             try
             {
                 // get the network stream
-                Stream nwStream = WebRequestStreamHelper.GetResponseStream(response);
+                var nwStream = WebRequestStreamHelper.GetResponseStream(response);
 
                 // get the response stream            
                 responseStream = new WebResponseStream(nwStream, response, this);
@@ -260,7 +236,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="response"></param>
         /// <param name="stream"></param>
         public virtual void DisposeWebResponseStreams(WebResponse response, WebResponseStream stream)
-        {            
+        {
         }
 
         /// <summary>
@@ -269,7 +245,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        protected abstract int GetWebResponseStatus(WebResponse response);        
+        protected abstract int GetWebResponseStatus(WebResponse response);
 
         #endregion
 
@@ -293,12 +269,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
-        /// <param name="ProtocolSpecificStatusCode"></param>
+        /// <param name="protocolSpecificStatusCode"></param>
         /// <param name="errorInfo"></param>
         /// <returns></returns>
-        public MemoryStream PerformWebRequest(WebRequest request, Object context, out int ProtocolSpecificStatusCode, out WebException errorInfo)
+        public MemoryStream PerformWebRequest(WebRequest request, Object context, out int protocolSpecificStatusCode, out WebException errorInfo)
         {
-            return PerformWebRequest(request, context, out ProtocolSpecificStatusCode, out errorInfo, null);
+            return PerformWebRequest(request, context, out protocolSpecificStatusCode, out errorInfo, null);
         }
 
         /// <summary>
@@ -306,13 +282,14 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
-        /// <param name="ProtocolSpecificStatusCode"></param>
+        /// <param name="protocolSpecificStatusCode"></param>
         /// <param name="errorInfo"></param>
+        /// <param name="httpCodeCondition"></param>
         /// <returns></returns>
-        public MemoryStream PerformWebRequest(WebRequest request, Object context, out int ProtocolSpecificStatusCode, out WebException errorInfo, Func<int,bool> httpCodeCondition)
+        public MemoryStream PerformWebRequest(WebRequest request, Object context, out int protocolSpecificStatusCode, out WebException errorInfo, Func<int, bool> httpCodeCondition)
         {
             WebHeaderCollection headers;
-            return PerformWebRequest(request, context, null, out ProtocolSpecificStatusCode, out errorInfo, out headers,httpCodeCondition);
+            return PerformWebRequest(request, context, null, out protocolSpecificStatusCode, out errorInfo, out headers, httpCodeCondition);
         }
 
         /// <summary>
@@ -321,13 +298,13 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <param name="content"></param>
-        /// <param name="ProtocolSpecificStatusCode"></param>
+        /// <param name="protocolSpecificStatusCode"></param>
         /// <param name="errorInfo"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public MemoryStream PerformWebRequest(WebRequest request, Object context, Stream content, out int ProtocolSpecificStatusCode, out WebException errorInfo, out WebHeaderCollection headers)
+        public MemoryStream PerformWebRequest(WebRequest request, Object context, Stream content, out int protocolSpecificStatusCode, out WebException errorInfo, out WebHeaderCollection headers)
         {
-            return PerformWebRequest(request, context, content, out ProtocolSpecificStatusCode, out errorInfo, out headers, null);
+            return PerformWebRequest(request, context, content, out protocolSpecificStatusCode, out errorInfo, out headers, null);
         }
 
         /// <summary>
@@ -336,11 +313,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <param name="content"></param>
-        /// <param name="ProtocolSpecificStatusCode"></param>
+        /// <param name="protocolSpecificStatusCode"></param>
         /// <param name="errorInfo"></param>
         /// <param name="headers"></param>
+        /// <param name="httpCodeCondition"></param>
         /// <returns></returns>
-        public MemoryStream PerformWebRequest(WebRequest request, Object context, Stream content, out int ProtocolSpecificStatusCode, out WebException errorInfo, out WebHeaderCollection headers, Func<int, bool> httpCodeCondition)
+        public MemoryStream PerformWebRequest(WebRequest request, Object context, Stream content, out int protocolSpecificStatusCode, out WebException errorInfo, out WebHeaderCollection headers, Func<int, bool> httpCodeCondition)
         {
             // no error
             errorInfo = null;
@@ -359,29 +337,29 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
                 }
 
                 // create the memstream
-                MemoryStream memStream = new MemoryStream();
+                var memStream = new MemoryStream();
 
                 // get the response
-                using (WebResponse response = GetWebResponse(request))
+                using (var response = GetWebResponse(request))
                 {
-                    
+
                     // set the error code
-                    ProtocolSpecificStatusCode = GetWebResponseStatus(response);
+                    protocolSpecificStatusCode = GetWebResponseStatus(response);
 
                     // handle move
-                    if (ProtocolSpecificStatusCode == (int)HttpStatusCode.Moved)
+                    if (protocolSpecificStatusCode == (int)HttpStatusCode.Moved)
                     {
                         // set the headers
-                        headers = response.Headers;                                                
+                        headers = response.Headers;
                     }
-                    else if (httpCodeCondition!=null && httpCodeCondition(ProtocolSpecificStatusCode))
+                    else if (httpCodeCondition != null && httpCodeCondition(protocolSpecificStatusCode))
                     {
                         //Just return. Do nothing
                     }
                     else
                     {
                         // read the data 
-                        using (Stream responseStream = GetResponseStream(response))
+                        using (var responseStream = GetResponseStream(response))
                         {
                             // copy the data into memory                        
                             StreamHelper.CopyStreamData(this, responseStream, memStream, null, null);
@@ -391,12 +369,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 
                             // close the source stream
                             responseStream.Close();
-                        }                        
+                        }
                     }
 
                     // close the response
                     response.Close();
-                }                
+                }
 
                 // return the byte stream
                 return memStream;
@@ -404,15 +382,15 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             catch (WebException e)
             {
                 if (e.Response == null)
-                    ProtocolSpecificStatusCode = (int)HttpStatusCode.BadRequest;
+                    protocolSpecificStatusCode = (int)HttpStatusCode.BadRequest;
                 else
-                    ProtocolSpecificStatusCode = GetWebResponseStatus(e.Response);
+                    protocolSpecificStatusCode = GetWebResponseStatus(e.Response);
 
                 errorInfo = e;
                 return null;
             }
-        }        
-              
+        }
+
         /// <summary>
         /// Forms a webrequest and performs them. The result will generated as memory stream
         /// </summary>
@@ -425,7 +403,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             int code;
             WebException e;
-            return PerformSimpleWebCall(url, method, credentials, context, out code, out e);    
+            return PerformSimpleWebCall(url, method, credentials, context, out code, out e);
         }
 
         /// <summary>
@@ -442,7 +420,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             return PerformSimpleWebCall(url, method, credentials, null, context, out code, out errorInfo);
         }
-        
+
         /// <summary>
         /// Forms a webrequest and performs them. The result will generated as memory stream 
         /// </summary>
@@ -454,29 +432,41 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// <param name="code"></param>
         /// <param name="errorInfo"></param>
         /// <returns></returns>
-        public MemoryStream PerformSimpleWebCall(String url, String method, ICredentials credentials, Stream content, Object context, out int code, out WebException errorInfo)        
+        public MemoryStream PerformSimpleWebCall(String url, String method, ICredentials credentials, Stream content, Object context, out int code, out WebException errorInfo)
         {
             // create a web request
-            WebRequest request = CreateWebRequest(url, method, credentials, false, context);
+            var request = CreateWebRequest(url, method, credentials, false, context);
             if (request == null)
                 throw new Exception("Could not generate WebRequest for " + method + ":" + url);
 
             WebHeaderCollection headers;
-            MemoryStream s = PerformWebRequest(request, context, content, out code, out errorInfo, out headers);
+            var s = PerformWebRequest(request, context, content, out code, out errorInfo, out headers);
 
             if (code == (int)HttpStatusCode.Moved && request is HttpWebRequest)
             {
                 // get new location
-                String newLoc = headers["Location"];
+                var newLoc = headers["Location"];
 
                 // do it again
                 return PerformSimpleWebCall(newLoc, method, credentials, content, context, out code, out errorInfo);
             }
 
+            NetworkCredential networkCredential;
+            if (code == (int)HttpStatusCode.Unauthorized && request is HttpWebRequest && (networkCredential = credentials as NetworkCredential) != null)
+            {
+                var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                // get authentication method
+                var authMethod = search.Match(errorInfo.Response.Headers["WWW-Authenticate"]).Value;
+                var newCredentials = new CredentialCache { { new Uri((new Uri(url)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
+
+                // do it again
+                return PerformSimpleWebCall(url, method, newCredentials, content, context, out code, out errorInfo);
+            }
+
             // go ahead
             return s;
         }
-        
+
         #endregion
 
         #region Multi Part Form Data Support
@@ -491,12 +481,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         public virtual WebRequest CreateWebRequestMultiPartUpload(String url, ICredentials credentials)
         {
             // 1. build a valid webrequest
-            WebRequest request = CreateWebRequest(url, WebRequestMethodsEx.Http.Post, credentials, false, null);
+            var request = CreateWebRequest(url, WebRequestMethodsEx.Http.Post, credentials, false, null);
 
             // 2. set the request paramter
-            WebRequestMultipartFormDataSupport mp = new WebRequestMultipartFormDataSupport();
+            var mp = new WebRequestMultipartFormDataSupport();
             mp.PrepareWebRequest(request);
-            
+
             // 3. go ahead
             return request;
         }
@@ -504,21 +494,20 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         public virtual WebRequestStream GetRequestStreamMultiPartUpload(WebRequest request, String fileName, long fileSize)
         {
             // generate mp support
-            WebRequestMultipartFormDataSupport mp = new WebRequestMultipartFormDataSupport();
+            var mp = new WebRequestMultipartFormDataSupport();
 
             // set the right size
             fileSize = fileSize + mp.GetHeaderFooterSize(fileName);
 
             // set the streaming buffering
-#if !WINDOWS_PHONE
             if (fileSize > 0)
-            {                
+            {
                 // set the maximum content length size
                 request.ContentLength = fileSize;
             }
-#endif
+
             // get the stream
-            WebRequestStream stream = GetRequestStream(request, fileSize);
+            var stream = GetRequestStream(request, fileSize);
 
             // prepare the stream            
             mp.PrepareRequestStream(stream, fileName);
@@ -527,6 +516,6 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             return stream;
         }
 
-        #endregion                                     
+        #endregion
     }
 }

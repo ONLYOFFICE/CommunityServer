@@ -148,6 +148,10 @@ namespace ASC.Web.Files.Services.NotifyService
                     return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_ReadWrite", cultureInfo);
                 case FileShare.Review:
                     return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_Review", cultureInfo);
+                case FileShare.FillForms:
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_FillForms", cultureInfo);
+                case FileShare.Comment:
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_Comment", cultureInfo);
                 default:
                     return String.Empty;
             }

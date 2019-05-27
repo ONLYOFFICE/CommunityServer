@@ -24,17 +24,16 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Resources;
-using ASC.Web.Studio.Controls.Common;
 using System;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Resources;
+using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Web.Files.Controls
 {
@@ -65,6 +64,7 @@ namespace ASC.Web.Files.Controls
             var currUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
             var isVisitor = currUser.IsVisitor();
             var isOutsider = currUser.IsOutsider();
+            var isAdmin = currUser.IsAdmin();
 
             var strCreateFile =
                 !HideAddActions && !isVisitor
@@ -90,16 +90,15 @@ namespace ASC.Web.Files.Controls
 
             var strToParent = string.Format("<div><a class=\"empty-folder-toparent link dotline up\" >{0}</a></div>", FilesUCResource.ButtonToParentFolder);
 
+            var strButtons = new StringBuilder();
+            strButtons.Append(strCreateFile);
+            strButtons.Append(strCreateFolder);
+
             if (AllContainers)
             {
                 //my
                 if (!isVisitor)
                 {
-                    var myButton = new StringBuilder();
-                    myButton.Append(strCreateFile);
-                    myButton.Append(strCreateFolder);
-                    myButton.Append(strToParent);
-
                     var descrMy = string.Format(FileUtility.ExtsWebEdited.Any() ? FilesUCResource.EmptyScreenDescrMy.HtmlEncode() : FilesUCResource.EmptyScreenDescrMyPoor.HtmlEncode(),
                                                 //create
                                                 "<span class=\"hintCreate baseLinkAction\" >", "</span>",
@@ -119,33 +118,20 @@ namespace ASC.Web.Files.Controls
                             Header = FilesUCResource.MyFiles,
                             HeaderDescribe = FilesUCResource.EmptyScreenHeader,
                             Describe = descrMy,
-                            ButtonHTML = myButton.ToString()
+                            ButtonHTML = strButtons.ToString()
                         });
                 }
 
                 if (!CoreContext.Configuration.Personal)
                 {
-                    //forme
-                    var formeButton = new StringBuilder();
-                    formeButton.Append(strCreateFile);
-                    formeButton.Append(strCreateFolder);
-                    formeButton.Append(strToParent);
-
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
                         {
                             ID = "emptyContainer_forme",
                             ImgSrc = PathProvider.GetImagePath("empty_screen_forme.png"),
                             Header = FilesUCResource.SharedForMe,
                             HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                            Describe = FilesUCResource.EmptyScreenDescrForme.HtmlEncode(),
-                            ButtonHTML = formeButton.ToString()
+                            Describe = FilesUCResource.EmptyScreenDescrForme.HtmlEncode()
                         });
-
-                    //corporate
-                    var corporateButton = new StringBuilder();
-                    corporateButton.Append(strCreateFile);
-                    corporateButton.Append(strCreateFolder);
-                    corporateButton.Append(strToParent);
 
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
                         {
@@ -154,11 +140,10 @@ namespace ASC.Web.Files.Controls
                             Header = FilesUCResource.CorporateFiles,
                             HeaderDescribe = FilesUCResource.EmptyScreenHeader,
                             Describe = FilesUCResource.EmptyScreenDescrCorporate.HtmlEncode() + strDragDrop,
-                            ButtonHTML = corporateButton.ToString()
+                            ButtonHTML = isAdmin ? strButtons.ToString() : string.Empty
                         });
                 }
 
-                var strGotoMy = !isVisitor ? string.Format("<div><a href=\"#{1}\" class=\"empty-folder-goto link dotline up\">{0}</a></div>", FilesUCResource.ButtonGotoMy, Global.FolderMy) : string.Empty;
                 //trash
                 EmptyScreenFolder.Controls.Add(new EmptyScreenControl
                     {
@@ -167,26 +152,19 @@ namespace ASC.Web.Files.Controls
                         Header = FilesUCResource.Trash,
                         HeaderDescribe = FilesUCResource.EmptyScreenHeader,
                         Describe = FilesUCResource.EmptyScreenDescrTrash.HtmlEncode(),
-                        ButtonHTML = strGotoMy
+                        ButtonHTML = !isVisitor ? string.Format("<div><a href=\"#{1}\" class=\"empty-folder-goto link dotline up\">{0}</a></div>", FilesUCResource.ButtonGotoMy, Global.FolderMy) : string.Empty
                     });
             }
 
             if (!CoreContext.Configuration.Personal)
             {
-                //project
-                var projectButton = new StringBuilder();
-                projectButton.Append(strCreateFile);
-                projectButton.Append(strCreateFolder);
-                projectButton.Append(strToParent);
-
                 EmptyScreenFolder.Controls.Add(new EmptyScreenControl
                     {
                         ID = "emptyContainer_project",
                         ImgSrc = PathProvider.GetImagePath("empty_screen_project.png"),
                         Header = FilesUCResource.ProjectFiles,
                         HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                        Describe = FilesUCResource.EmptyScreenDescrProject.HtmlEncode() + strDragDrop,
-                        ButtonHTML = projectButton.ToString()
+                        Describe = FilesUCResource.EmptyScreenDescrProject.HtmlEncode() + strDragDrop
                     });
             }
 
@@ -198,9 +176,19 @@ namespace ASC.Web.Files.Controls
                     Header = FilesUCResource.Filter,
                     HeaderDescribe = FilesUCResource.EmptyScreenFilter,
                     Describe = FilesUCResource.EmptyScreenFilterDescr.HtmlEncode(),
-                    ButtonHTML = string.Format("<a id=\"files_clearFilter\" class=\"clearFilterButton link dotline\" >{0}</a>",
-                                               FilesUCResource.ButtonClearFilter)
+                    ButtonHTML = string.Format("<a class=\"clearFilterButton link dotline files-clear-filter\" >{0}</a>", FilesUCResource.ButtonClearFilter)
                 });
+
+            strButtons.Append(strToParent);
+
+            //Subfolder
+            EmptyScreenFolder.Controls.Add(new EmptyScreenControl
+            {
+                ID = "emptyContainer_subfolder",
+                ImgSrc = PathProvider.GetImagePath("empty_screen.png"),
+                HeaderDescribe = FilesUCResource.EmptyScreenFolderHeader,
+                ButtonHTML = strButtons.ToString()
+            });
         }
     }
 }

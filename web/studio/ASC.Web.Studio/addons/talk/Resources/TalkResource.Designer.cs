@@ -214,6 +214,15 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection.
+        /// </summary>
+        public static string Connection {
+            get {
+                return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to {0}.
         /// </summary>
         public static string DefaultConferenceSubjectTemplate {
@@ -570,6 +579,15 @@ namespace ASC.Web.Talk.Resources {
         public static string HistoryFilterLastWeek {
             get {
                 return ResourceManager.GetString("HistoryFilterLastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by contents of messages.
+        /// </summary>
+        public static string IndexTitle {
+            get {
+                return ResourceManager.GetString("IndexTitle", resourceCulture);
             }
         }
         

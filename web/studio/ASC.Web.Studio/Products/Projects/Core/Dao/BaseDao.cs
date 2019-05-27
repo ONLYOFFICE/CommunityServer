@@ -40,7 +40,8 @@ namespace ASC.Projects.Data
         protected static readonly string ProjectsTable = "projects_projects";
         protected static readonly string ParticipantTable = "projects_project_participant";
         protected static readonly string ProjectTagTable = "projects_project_tag";
-        protected static readonly string ReportTable = "projects_report_template";
+        protected static readonly string ReportTemplateTable = "projects_report_template";
+        protected static readonly string ReportTable = "projects_reports";
         protected static readonly string SubtasksTable = "projects_subtasks";
         protected static readonly string TagsTable = "projects_tags";
         protected static readonly string TasksTable = "projects_tasks";

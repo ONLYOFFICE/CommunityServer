@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
@@ -37,6 +38,8 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Xml;
+using ASC.Web.Studio.PublicResources;
+using SubscriptionManager = ASC.Web.Files.Classes.SubscriptionManager;
 
 namespace ASC.Web.Files.Configuration
 {
@@ -57,6 +60,14 @@ namespace ASC.Web.Files.Configuration
         {
             Global.Init();
 
+            var adminOpportunities = CoreContext.Configuration.CustomMode
+                                         ? CustomModeResource.ProductAdminOpportunitiesCustomMode
+                                         : FilesCommonResource.ProductAdminOpportunities;
+
+            var userOpportunities = CoreContext.Configuration.CustomMode
+                                         ? CustomModeResource.ProductUserOpportunitiesCustomMode
+                                         : FilesCommonResource.ProductUserOpportunities;
+
             _productContext =
                 new ProductContext
                     {
@@ -67,8 +78,8 @@ namespace ASC.Web.Files.Configuration
                         DefaultSortOrder = 10,
                         SubscriptionManager = new SubscriptionManager(),
                         SpaceUsageStatManager = new FilesSpaceUsageStatManager(),
-                        AdminOpportunities = () => FilesCommonResource.ProductAdminOpportunities.Split('|').ToList(),
-                        UserOpportunities = () => FilesCommonResource.ProductUserOpportunities.Split('|').ToList(),
+                        AdminOpportunities = () => adminOpportunities.Split('|').ToList(),
+                        UserOpportunities = () => userOpportunities.Split('|').ToList(),
                         CanNotBeDisabled = true,
                     };
             SearchHandlerManager.Registry(new SearchHandler());

@@ -33,10 +33,10 @@ namespace ASC.Web.Studio.ThirdParty
     public partial class Login : MasterPage
     {
         private const string CallbackSuccessJavascript =
-            "function snd(){{try{{window.opener.OAuthCallback(\"{0}\",\"{1}\");}}catch(err){{alert(err);}}window.close();}} window.onload = snd;";
+            "function snd(){{try{{window.opener.OAuthCallback(\"{0}\");}}catch(err){{alert(err);}}window.close();}} window.onload = snd;";
 
         private const string CallbackErrorJavascript =
-            "function snd(){{try{{window.opener.OAuthError(\"{0}\",\"{1}\");}}catch(err){{alert(err);}}window.close();}} window.onload = snd;";
+            "function snd(){{try{{window.opener.OAuthError(\"{0}\");}}catch(err){{alert(err);}}window.close();}} window.onload = snd;";
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,20 +44,44 @@ namespace ASC.Web.Studio.ThirdParty
             base.OnInit(e);
         }
 
-        public void SubmitToken(string accessToken, string source)
+        public void SubmitCode(string code)
         {
+            var urlRedirect = Request["redirect"];
+            if (!string.IsNullOrEmpty(urlRedirect))
+            {
+                Response.Redirect(AppendCode(urlRedirect, code), true);
+            }
+
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "posttoparent",
-                                                        String.Format(CallbackSuccessJavascript, accessToken.Replace("\"", "\\\""), source), true);
+                                                        String.Format(CallbackSuccessJavascript, code.Replace("\"", "\\\"")), true);
         }
 
-        public void SubmitError(string error, string source)
+        public void SubmitError(string error)
         {
+            var urlRedirect = Request["redirect"];
+            if (!string.IsNullOrEmpty(urlRedirect))
+            {
+                Response.Redirect(AppendCode(urlRedirect, null, error), true);
+            }
+
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "posterrortoparent",
-                                                        String.Format(CallbackErrorJavascript, error.Replace("\"", "\\\""), source), true);
+                                                        String.Format(CallbackErrorJavascript, error.Replace("\"", "\\\"")), true);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
+
+        private static string AppendCode(string url, string code = null, string error = null)
+        {
+            url += (url.Contains("#") ? "&" : "#")
+                   + (string.IsNullOrEmpty(error)
+                          ? (string.IsNullOrEmpty(code)
+                                 ? string.Empty
+                                 : "code=" + HttpUtility.UrlEncode(code))
+                          : ("error/" + HttpUtility.UrlEncode(error)));
+
+            return url;
         }
     }
 }

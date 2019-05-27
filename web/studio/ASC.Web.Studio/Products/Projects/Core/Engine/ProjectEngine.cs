@@ -31,34 +31,34 @@ using System.Linq;
 
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Web.Files.Api;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
 {
     public class ProjectEngine
     {
-        public TaskEngine TaskEngine { get; set; }
-        public MilestoneEngine MilestoneEngine { get; set; }
-        public MessageEngine MessageEngine { get; set; }
-        public FileEngine FileEngine { get; set; }
-        public TimeTrackingEngine TimeTrackingEngine { get; set; }
+        public TaskEngine TaskEngine { get { return EngineFactory.TaskEngine; } }
+        public MilestoneEngine MilestoneEngine { get { return EngineFactory.MilestoneEngine; } }
+        public MessageEngine MessageEngine { get { return EngineFactory.MessageEngine; } }
+        public FileEngine FileEngine { get { return EngineFactory.FileEngine; } }
+        public TimeTrackingEngine TimeTrackingEngine { get { return EngineFactory.TimeTrackingEngine; } }
+
+        public EngineFactory EngineFactory { get; set; }
         public IDaoFactory DaoFactory { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
         public bool DisableNotifications { get; set; }
 
         public Func<Project, bool> CanReadDelegate;
 
-        public ProjectEngine(bool disableNotificationParameter, EngineFactory factory)
+        public ProjectEngine(bool disableNotificationParameter)
         {
             CanReadDelegate = CanRead;
             DisableNotifications = disableNotificationParameter;
-            TaskEngine = factory.TaskEngine;
-            MilestoneEngine = factory.MilestoneEngine;
-            MessageEngine = factory.MessageEngine;
-            FileEngine = factory.FileEngine;
-            TimeTrackingEngine = factory.TimeTrackingEngine;
         }
 
         #region Get Projects
@@ -179,7 +179,7 @@ namespace ASC.Projects.Engine
             return DaoFactory.ProjectDao.IsExists(projectID);
         }
 
-        private static bool CanRead(Project project)
+        private bool CanRead(Project project)
         {
             return ProjectSecurity.CanRead(project);
         }
@@ -218,7 +218,7 @@ namespace ASC.Projects.Engine
 
             if (status.HasValue)
             {
-                filter.ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open};
+                filter.ProjectStatuses = new List<ProjectStatus> {status.Value};
             }
 
             return GetByFilterCount(filter);
@@ -274,6 +274,8 @@ namespace ASC.Projects.Engine
                 ProjectSecurity.DemandCreate<Project>(null);
 
                 DaoFactory.ProjectDao.Create(project);
+
+                FactoryIndexer<ProjectsWrapper>.IndexAsync(project);
             }
             else
             {
@@ -283,6 +285,8 @@ namespace ASC.Projects.Engine
                 DaoFactory.ProjectDao.Update(project);
 
                 if (!project.Private) ResetTeamSecurity(oldProject);
+
+                FactoryIndexer<ProjectsWrapper>.UpdateAsync(project);
             }
 
             if (notifyManager && !DisableNotifications && !project.Responsible.Equals(SecurityContext.CurrentAccount.ID))
@@ -322,6 +326,8 @@ namespace ASC.Projects.Engine
 
             MessageEngine.UnSubscribeAll(messages.Select(r => new Message {Project = project, ID = r}).ToList());
             TaskEngine.UnSubscribeAll(tasks.Select(r => new Task {Project = project, ID = r}).ToList());
+
+            FactoryIndexer<ProjectsWrapper>.DeleteAsync(project);
         }
 
         #endregion
@@ -351,6 +357,12 @@ namespace ASC.Projects.Engine
         {
             var project = GetByID(projectId);
             return DaoFactory.ProjectDao.GetTeam(project).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
+        }
+
+        public IEnumerable<Participant> GetProjectTeamExcluded(int projectId)
+        {
+            var project = GetByID(projectId);
+            return DaoFactory.ProjectDao.GetTeam(project, true).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
         }
 
         public IEnumerable<Participant> GetTeam(List<int> projectIds)

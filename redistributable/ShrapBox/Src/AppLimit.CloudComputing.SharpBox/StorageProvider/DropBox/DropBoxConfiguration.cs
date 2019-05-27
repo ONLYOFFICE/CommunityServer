@@ -84,10 +84,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         /// Allows to create the dopbox configuration with a special 
         /// service provider location
         /// </summary>
-        /// <param name="ServiceLocator"></param>
-        public DropBoxConfiguration(Uri ServiceLocator)
+        /// <param name="serviceLocator"></param>
+        public DropBoxConfiguration(Uri serviceLocator)
         {
-            this.ServiceLocator = ServiceLocator;
+            ServiceLocator = serviceLocator;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         /// </summary>
         public CloudStorageLimits Limits
         {
-            get { return new CloudStorageLimits(150*1024*1024, -1) {MaxChunkedUploadFileSize = -1}; }
+            get { return new CloudStorageLimits(150*1024*1024, -1) { MaxChunkedUploadFileSize = -1 }; }
         }
 
         /// <summary>

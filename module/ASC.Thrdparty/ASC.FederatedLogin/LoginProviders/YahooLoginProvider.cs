@@ -27,76 +27,33 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
-using ASC.FederatedLogin.Helpers;
-using ASC.Thrdparty.Configuration;
+using ASC.FederatedLogin.Profile;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class YahooLoginProvider
+    public class YahooLoginProvider : BaseLoginProvider<YahooLoginProvider>
     {
-        public const string YahooOauthCodeUrl = "https://api.login.yahoo.com/oauth2/request_auth";
-        public const string YahooOauthTokenUrl = "https://api.login.yahoo.com/oauth2/get_token";
-
-        public const string YahooScopeContacts = "sdct-r";
-
         public const string YahooUrlUserGuid = "https://social.yahooapis.com/v1/me/guid";
         public const string YahooUrlContactsFormat = "https://social.yahooapis.com/v1/user/{0}/contacts";
 
+        public override string CodeUrl { get { return "https://api.login.yahoo.com/oauth2/request_auth"; } }
+        public override string AccessTokenUrl { get { return "https://api.login.yahoo.com/oauth2/get_token"; } }
+        public override string RedirectUri { get { return this["yahooRedirectUrl"]; } }
+        public override string ClientID { get { return this["yahooClientId"]; } }
+        public override string ClientSecret { get { return this["yahooClientSecret"]; } }
+        public override string Scopes { get { return "sdct-r"; } }
 
-        public static string YahooOAuth20ClientId
+        public YahooLoginProvider() { }
+        public YahooLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) { }
+
+        public OAuth20Token Auth(HttpContext context)
         {
-            get { return KeyStorage.Get("yahooClientId"); }
+            return Auth(context, Scopes);
         }
 
-        public static string YahooOAuth20ClientSecret
+        public override LoginProfile GetLoginProfile(string accessToken)
         {
-            get { return KeyStorage.Get("yahooClientSecret"); }
-        }
-
-        public static string YahooOAuth20RedirectUrl
-        {
-            get { return KeyStorage.Get("yahooRedirectUrl"); }
-        }
-
-        public static OAuth20Token Auth(HttpContext context, string scopes)
-        {
-            var error = context.Request["error"];
-            if (!string.IsNullOrEmpty(error))
-            {
-                if (error == "access_denied")
-                {
-                    error = "Canceled at provider";
-                }
-                throw new Exception(error);
-            }
-
-            var code = context.Request["code"];
-            if (string.IsNullOrEmpty(code))
-            {
-                var additionalArgs =
-                    (context.Request["access_type"] ?? "") == "offline"
-                        ? new Dictionary<string, string>
-                            {
-                                {"access_type", "offline"},
-                                {"approval_prompt", "force"}
-                            }
-                        : null;
-
-                OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                               YahooOauthCodeUrl,
-                                               YahooOAuth20ClientId,
-                                               YahooOAuth20RedirectUrl,
-                                               scopes,
-                                               additionalArgs);
-                return null;
-            }
-
-            var token = OAuth20TokenHelper.GetAccessToken(YahooOauthTokenUrl,
-                                                          YahooOAuth20ClientId,
-                                                          YahooOAuth20ClientSecret,
-                                                          YahooOAuth20RedirectUrl,
-                                                          code);
-            return token;
+            throw new NotImplementedException();
         }
     }
 }

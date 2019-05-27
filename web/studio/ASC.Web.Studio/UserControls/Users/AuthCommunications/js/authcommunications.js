@@ -25,122 +25,135 @@
 
 
 var AuthCommunications = new function () {
-    var initialized = false;
+    var adminMessageInitialized = false,
+        joinDialogInitialized = false;
+
+    var $messLink = jq("#GreetingBlock .help-block-signin .signUpBlock .mess"),
+        $messDialog = jq("#studio_admMessDialog"),
+        $messContent = jq("#studio_admMessContent"),
+        $messEmail = jq("#studio_yourEmail"),
+        $messSituation = jq("#studio_yourSituation"),
+        $messBtn = $messContent.find(".middle-button-container .button"),
+
+        $joinLink = jq("#GreetingBlock .help-block-signin .signUpBlock .join"),
+        $joinDialog = jq("#studio_invJoinDialog"),
+        $joinContent = jq("#studio_invJoinContent"),
+        $joinEmail = jq("#studio_joinEmail"),
+        $joinBtn = $joinContent.find(".middle-button-container .button");
 
     this.ShowAdminMessageDialog = function () {
-        if (!initialized) setBindings();
+        if (!adminMessageInitialized) setAdminMessageBindings();
 
-        if (jq("#studio_admMessDialog:visible").length > 0 && jq("#studio_admMessage:visible").length == 0) {
+        if ($messDialog.is(":visible")) {
             this.SendAdmMail1stState();
             return;
         }
 
-        jq("#GreetingBlock .help-block-signin .signUpBlock .join").removeClass("opened");
-        jq("#GreetingBlock .help-block-signin .signUpBlock .mess").addClass("opened");
-        jq("#studio_invJoinDialog").hide();
-        jq("#studio_admMessDialog").show();
-        jq("#studio_admMessInfo").html("");
-        jq("#studio_yourEmail").val("");
-        jq("#studio_yourSituation").val("");
-        jq("#studio_admMessContent .middle-button-container .button").addClass("disable");
+        $joinLink.removeClass("opened");
+        $joinDialog.hide();
 
-        jq("#studio_admMessContent").show();
-        jq("#studio_admMessage").hide();
+        $messLink.addClass("opened");
+        $messDialog.show();
+        $messSituation.val("");
+        $messEmail.val("");
+        $messBtn.addClass("disable");
 
-        PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.CtrlEnterAction = "AuthCommunications.SendAdminMessage();";
-        
-        function setBindings() {
-            jq("#studio_admMessContent").on("keyup", "#studio_yourSituation, #studio_yourEmail", checkBtnEnabled);
-            jq("#studio_admMessContent").on("paste", "#studio_yourSituation, #studio_yourEmail", function () {
-                setTimeout(checkBtnEnabled, 0);
-            });
-            initialized = true;
+        function setAdminMessageBindings() {
+            $messSituation.on("input", checkMessBtnEnabled);
+            $messEmail.on("input", checkMessBtnEnabled);
 
-            function checkBtnEnabled() {
-                if (jq("#studio_yourSituation").val().trim() && jq("#studio_yourEmail").val().trim())
-                    jq("#studio_admMessContent .middle-button-container .button").removeClass("disable");
+            adminMessageInitialized = true;
+
+            function checkMessBtnEnabled() {
+                var enable = true;
+
+                if (!$messSituation.val().trim())
+                    enable = false;
+
+                if (!jq.isValidEmail($messEmail.val()))
+                    enable = false;
+
+                if (enable)
+                    $messBtn.removeClass("disable");
                 else
-                    jq("#studio_admMessContent .middle-button-container .button").addClass("disable");
+                    $messBtn.addClass("disable");
             }
         };
     };
 
-    this.SendAdminMessage = function (btnObj) {
-        if (jq(btnObj).hasClass("disable"))
+    this.SendAdminMessage = function () {
+        if ($messBtn.hasClass("disable"))
             return;
 
         AjaxPro.onLoading = function (b) {
             if (b) {
-                LoadingBanner.showLoaderBtn("#studio_admMessContent");
+                LoadingBanner.showLoaderBtn($messContent);
             } else {
-                LoadingBanner.hideLoaderBtn("#studio_admMessContent");
+                LoadingBanner.hideLoaderBtn($messContent);
             }
         };
 
-        AuthCommunicationsController.SendAdmMail(jq("#studio_yourEmail").val(), jq("#studio_yourSituation").val(), function (result) {
+        window.AuthCommunicationsController.SendAdmMail($messEmail.val().trim(), $messSituation.val().trim(), function (result) {
             var res = result.value;
-            if (res.Status == 1) {
-                jq("#studio_admMessage").html(res.Message);
-                jq("#studio_admMessContent").hide();
-                jq("#studio_admMessage").show();
-
-                setTimeout("AuthCommunications.SendAdmMail1stState();", 3000);
-            } else {
-                jq("#studio_admMessage").html("<div class=\"errorBox\">" + res.Message + "</div>");
-            }
+            LoadingBanner.showMesInfoBtn($messContent, res.Message, res.Status == 1 ? "success" : "error");
         });
     };
 
     this.SendAdmMail1stState = function () {
-        jq("#GreetingBlock .help-block-signin .signUpBlock .mess").removeClass("opened");
-        jq("#studio_admMessDialog").hide();
+        $messLink.removeClass("opened");
+        $messDialog.hide();
     };
 
     this.ShowInviteJoinDialog = function () {
-        if (jq("#studio_invJoinDialog:visible").length > 0 && jq("#studio_invJoinMessage:visible").length == 0) {
+        if (!joinDialogInitialized) setJoinDialogBindings();
+
+        if ($joinDialog.is(":visible")) {
             this.ShowInviteJoin1stState();
             return;
         }
-        jq("#GreetingBlock .help-block-signin .signUpBlock .mess").removeClass("opened");
-        jq("#GreetingBlock .help-block-signin .signUpBlock .join").addClass("opened");
-        jq("#studio_invJoinInfo").html("");
-        jq("#studio_joinEmail").val("");
 
-        jq("#studio_admMessDialog").hide();
-        jq("#studio_invJoinDialog").show();
+        $messLink.removeClass("opened");
+        $messDialog.hide();
 
-        PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.CtrlEnterAction = "AuthCommunications.SendInviteJoinMail();";
+        $joinLink.addClass("opened");
+        $joinDialog.show();
+        $joinEmail.val("");
+        $joinBtn.addClass("disable");
 
-        jq("#studio_invJoinContent").show();
-        jq("#studio_invJoinMessage").hide();
+        function setJoinDialogBindings() {
+            $joinEmail.on("input", checkJoinBtnEnabled);
+
+            joinDialogInitialized = true;
+
+            function checkJoinBtnEnabled() {
+                if (jq.isValidEmail($joinEmail.val()))
+                    $joinBtn.removeClass("disable");
+                else
+                    $joinBtn.addClass("disable");
+            }
+        };
     };
 
     this.SendInviteJoinMail = function () {
+        if ($joinBtn.hasClass("disable"))
+            return;
+
         AjaxPro.onLoading = function (b) {
             if (b) {
-                LoadingBanner.showLoaderBtn("#studio_invJoinDialog");
+                LoadingBanner.showLoaderBtn($joinContent);
             } else {
-                LoadingBanner.hideLoaderBtn("#studio_invJoinDialog");
+                LoadingBanner.hideLoaderBtn($joinContent);
             }
         };
 
-        AuthCommunicationsController.SendJoinInviteMail(jq("#studio_joinEmail").val(), function (result) {
+        window.AuthCommunicationsController.SendJoinInviteMail($joinEmail.val().trim(), function (result) {
             var res = result.value;
-            if (res.rs1 == 1) {
-                jq("#studio_invJoinMessage").html(res.rs2);
-                jq("#studio_invJoinContent").hide();
-                jq("#studio_invJoinMessage").show();
-                setTimeout("AuthCommunications.ShowInviteJoin1stState();", 3000);
-            } else {
-                jq("#studio_invJoinInfo").html("<div class=\"errorBox\">" + res.rs2 + "</div>");
-            }
+            LoadingBanner.showMesInfoBtn($joinContent, res.Message, res.Status == 1 ? "success" : "error");
         });
     };
 
     this.ShowInviteJoin1stState = function () {
-        jq("#GreetingBlock .help-block-signin .signUpBlock .join").removeClass("opened");
-        jq("#studio_invJoinDialog").hide();
+        $joinLink.removeClass("opened");
+        $joinDialog.hide();
     };
 };

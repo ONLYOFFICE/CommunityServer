@@ -1,0 +1,70 @@
+﻿<script id="filtersTmpl" type="text/x-jquery-tmpl">
+    <table class="filterList">
+        <tbody>
+        {{tmpl(filters, {translateConditionKey: translateConditionKey, translateConditionOperation: translateConditionOperation, translateAction: translateAction, translateActionData: translateActionData, translateMatchMultiConditions: translateMatchMultiConditions, translateApplyToMailboxes: translateApplyToMailboxes, translateApplyToFolder: translateApplyToFolder, translateApplyToAttachments: translateApplyToAttachments}) "filterItemTmpl"}}
+        </tbody>
+    </table>
+</script>
+
+<script id="filterItemTmpl" type="text/x-jquery-tmpl">
+    <tr data_id="${id}" class="row with-entity-menu item-row row-hover {{if !enabled }}disable{{/if}} ui-state-default">
+        <td class="filterEnableCbx">
+            <input id="cbxFilterEnable${id}" type="checkbox" class="on-off-checkbox" {{if enabled }}checked="checked"{{/if}}>
+            <label class="checkbox" for="cbxFilterEnable${id}">&nbsp;</label>
+        </td>
+        <td class="filterBody">
+            {{if name }}
+            <span class="bold">${name}</span>
+            <br>
+            {{/if}}
+            {{each(i, c) conditions}}
+            <span class="conditionText">{{if i == 0}}${ASC.Mail.Resources.MailScriptResource.IfLabel}{{else}}${$item.translateMatchMultiConditions(options.matchMultiConditions)}{{/if}}&nbsp;<b>"${$item.translateConditionKey(c.key)}"</b>&nbsp;${$item.translateConditionOperation(c.operation)}<b class="conditionValue">&nbsp;"${c.value}"</b></span>
+            <br>
+            {{/each}}
+            {{each(i, a) actions}}
+            <span class="actionText">&mdash; ${$item.translateAction(a.action)} 
+                {{if a.data != undefined && a.data != null && a.data != '' }}
+                    ${( $data.actionDataTitle = $item.translateActionData(a.action, a.data) ), ''}
+                    {{if actionDataTitle == null}}
+                        <span class="error">
+                            {{if a.action == ASC.Mail.Filter.Constants.ActionType.MoveTo}}
+                                ${ASC.Mail.Resources.MailScriptResource.FilterErrorFolderRemoved}
+                            {{else}}
+                                ${ASC.Mail.Resources.MailScriptResource.FilterErrorTagRemoved}
+                            {{/if}}
+                        </span>
+                    {{else}}
+                        <span class="actionValue">&nbsp;"${actionDataTitle}"</span>
+                    {{/if}}
+                {{/if}}
+            </span>
+            <br>
+            {{/each}}
+            {{if options.applyTo.folders && options.applyTo.folders.length > 0}}
+            <span class="actionText">${$item.translateApplyToFolder(options.applyTo.folders)}</span>
+            <br>
+            {{/if}}
+            {{if options.applyTo.mailboxes && options.applyTo.mailboxes.length > 0}}
+                ${( $data.applyToMailboxesTitle = $item.translateApplyToMailboxes(options.applyTo.mailboxes) ), ''}
+                {{if applyToMailboxesTitle == null}}
+                <span class="error">
+                    ${ASC.Mail.Resources.MailScriptResource.FilterErrorAllAccountsRemoved}
+                </span>
+                {{else}}
+                <span class="actionText">${applyToMailboxesTitle}</span>
+                {{/if}}
+                <br>
+            {{/if}}
+            {{if options.applyTo.withAttachments > 0}}
+            <span class="actionText">${$item.translateApplyToAttachments(options.applyTo.withAttachments)}</span>
+            <br>
+            {{/if}}
+            {{if options.ignoreOther }}
+            <span class="actionText">${ASC.Mail.Resources.MailScriptResource.FilterIgnoreOther}</span>
+            {{/if}}
+        </td>
+        <td class="menu_column">
+            <div class="entity-menu" title="${ASC.Mail.Resources.MailScriptResource.Actions}" data_id="${id}"></div>
+        </td>
+    </tr>
+</script>

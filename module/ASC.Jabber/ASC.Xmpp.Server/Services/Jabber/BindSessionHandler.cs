@@ -65,6 +65,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
 					if (session.Stream.Id != stream.Id)
 					{
 						context.Sender.SendToAndClose(session.Stream, XmppStreamError.Conflict);
+						answer.AddTag("newTalkWindow", "true");
 					}
 					else
 					{

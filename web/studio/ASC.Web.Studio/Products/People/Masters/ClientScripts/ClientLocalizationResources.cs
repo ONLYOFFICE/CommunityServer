@@ -27,8 +27,11 @@
 using System;
 using System.Web;
 using System.Collections.Generic;
+using System.Linq;
+using ASC.Web.People.Core.Import;
 using ASC.Web.People.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.People.Classes;
 using ASC.Web.Studio.Core.Users;
 using Resources;
 
@@ -43,6 +46,8 @@ namespace ASC.Web.People.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
+            Func<ImportParameters, object> parametersTemplate = r => new {id = r.Id, title = r.Title()};
+
             return new List<KeyValuePair<string, object>>(3)
             {
                 RegisterResourceSet("PeopleJSResource", PeopleJSResource.ResourceManager),
@@ -52,9 +57,60 @@ namespace ASC.Web.People.Masters.ClientScripts
                     UserControlsCommonResource.NextPage,
                     UserControlsCommonResource.PreviousPage,
                     UserControlsCommonResource.NotBeUndone,
-                    Resource.Warning
+                    Resource.Warning,
+                    Import = new {
+                        Resource.ImportContactsFirstName,
+                        Resource.ImportContactsEmptyFirstName,
+                        Resource.ImportContactsInvalidFirstName,
+                        Resource.ImportContactsLastName,
+                        Resource.ImportContactsEmptyLastName,
+                        Resource.ImportContactsInvalidLastName,
+                        Resource.ImportContactsEmail,
+                        Resource.ImportContactsEmptyEmail,
+                        Resource.ImportContactsInvalidEmail,
+                        Resource.ImportContactsFromFileErrorTooLarge,
+                        ImportContactsFromFileError = String.Format(Resource.ImportContactsFromFileError.ReplaceSingleQuote(), "<br />"),
+                        Resource.ImportContactsIncorrectFields,
+                        ImportContactsEmptyData = String.Format(Resource.ImportContactsEmptyData.ReplaceSingleQuote().Replace("\n", ""), "<br />"),
+                        Encoding = EncodingParameters.Encodng.Select(parametersTemplate).ToList(),
+                        Separator = SeparatorParameters.Separator.Select(parametersTemplate).ToList(),
+                        Delimiter = DelimiterParameters.Delimiter.Select(parametersTemplate).ToList(),
+                        ImportFromWhat = GetImportFromList()
+                    }
                 })
             };
+        }
+
+        private static List<ImportDataSource> GetImportFromList()
+        {
+            var importFromList = new List<ImportDataSource>
+                {
+                    new ImportDataSource(ImportFromWhatEnum.FromFile, PeopleResource.ImportFromFile)
+                };
+
+            if (Studio.ThirdParty.ImportContacts.Google.Enable)
+            {
+                importFromList.Add(new ImportDataSource(ImportFromWhatEnum.Google, PeopleResource.ImportFromGoogle));
+            }
+
+            if (Studio.ThirdParty.ImportContacts.Yahoo.Enable)
+            {
+                importFromList.Add(new ImportDataSource(ImportFromWhatEnum.Yahoo, PeopleResource.ImportFromYahoo));
+            }
+
+            return importFromList;
+        }
+
+        public class ImportDataSource
+        {
+            public int id;
+            public string title;
+
+            public ImportDataSource(ImportFromWhatEnum itemType, string itemTitle)
+            {
+                id = (int)itemType;
+                title = itemTitle;
+            }
         }
     }
 

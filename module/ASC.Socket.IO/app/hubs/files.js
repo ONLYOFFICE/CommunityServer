@@ -8,7 +8,6 @@
             return;
         }
 
-        const userId = request.user.id;
         const tenantId = request.portal.tenantId;
 
         socket
@@ -40,7 +39,9 @@
                 if (error) throw error;
                 clients.forEach(function(client) {
                     let clientSocket = files.connected[client];
-                    clientSocket.leave(room);
+                    if(clientSocket){
+                        clientSocket.leave(room);
+                    }
                 });
             });
          }

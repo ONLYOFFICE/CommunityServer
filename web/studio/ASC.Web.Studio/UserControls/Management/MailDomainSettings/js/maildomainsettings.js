@@ -71,7 +71,7 @@ MailDomainSettingsManager = new function() {
         maxNumb++;
         var sb = new String();
         sb += '<div name="' + maxNumb + '" id="studio_domain_box_' + maxNumb + '" class="clearFix" style="margin-bottom:15px;">';
-        sb += '<input type="text" value="" id="studio_domain_box_' + maxNumb + '" class="textEdit" maxlength="60" style="width:300px;"/>'
+        sb += '<input type="text" value="" id="studio_domain_' + maxNumb + '" class="textEdit" maxlength="60" style="width:300px;"/>';
         sb += '<a class="removeDomain" href="javascript:void(0);" onclick="MailDomainSettingsManager.RemoveTrustedDomain(\'' + maxNumb + '\');"><img alt="" align="absmiddle" border="0" src="' + StudioManager.GetImage("trash_16.png") + '"/></a>';
         sb += '</div>';
 
@@ -80,6 +80,8 @@ MailDomainSettingsManager = new function() {
         var count = jq('div[id^="studio_domain_box_"]').length;
         if (count >= 10)
             jq('#addTrustDomainBtn').hide();
+
+        document.getElementById('studio_domain_' + maxNumb).focus();
     };
 
     this.SaveSettings = function () {

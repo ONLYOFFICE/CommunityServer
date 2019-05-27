@@ -15,7 +15,7 @@ TimeoutSec=600
 # Auto-Restart every 24 hours
 WatchdogSec=24h
 
-Restart=always
+Restart=no
 PrivateTmp=false
 
 [Install]

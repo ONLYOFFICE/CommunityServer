@@ -24,8 +24,13 @@
 */
 
 
-.jstree a.selected,
+.jstree li.node-selected > a,
 .jstree li.parent-selected > a {
+    color: @item-menu-selected;
+    font-weight: @item-menu-style;
+}
+
+.markedTree > .active > table > tbody > tr > td > a > span {
     color: @item-menu-selected;
     font-weight: @item-menu-style;
 }

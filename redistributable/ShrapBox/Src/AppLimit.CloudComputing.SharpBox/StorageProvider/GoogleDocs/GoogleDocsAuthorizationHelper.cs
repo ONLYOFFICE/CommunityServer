@@ -47,7 +47,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
 
         private static String GetAccessTokenUrl(GoogleDocsConfiguration configuration, String oAuthVerifier)
         {
-            String accessTokenUrl = configuration.OAuthGetAccessTokenUrl.ToString();
+            var accessTokenUrl = configuration.OAuthGetAccessTokenUrl.ToString();
 
             if (!String.IsNullOrEmpty(oAuthVerifier))
             {
@@ -59,7 +59,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
 
         private static String GetRequestTokenUrl(GoogleDocsConfiguration configuration)
         {
-            String requestTokenUrl = configuration.OAuthGetRequestTokenUrl.ToString();
+            var requestTokenUrl = configuration.OAuthGetRequestTokenUrl.ToString();
 
             if (!String.IsNullOrEmpty(configuration.AccessUrlScope))
             {

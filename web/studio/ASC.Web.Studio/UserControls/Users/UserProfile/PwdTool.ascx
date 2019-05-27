@@ -24,11 +24,11 @@
                     <%= String.Format(Resource.MessageSendPasswordChangeInstructionsOnEmail.HtmlEncode(), "<a target=\"_blank\" name=\"userEmail\"></a>")%>
                 </div>
                 <div id="pwd_rem_panel_buttons" class="middle-button-container">
-                    <a class="button blue" onclick="PasswordTool.RemindPwd();">
+                    <a class="button middle blue" onclick="PasswordTool.RemindPwd();">
                         <%= Resource.SendButton %>
                     </a>
                     <span class="splitter-buttons"></span>
-                    <a class="button gray" onclick="PopupKeyUpActionProvider.CloseDialog();">
+                    <a class="button middle gray" onclick="PopupKeyUpActionProvider.CloseDialog();">
                         <%= Resource.CancelButton %>
                     </a>
                 </div>

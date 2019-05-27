@@ -26,7 +26,6 @@
 
 using ASC.Projects.Core.Domain;
 using ASC.Web.Projects.Classes;
-using ASC.Projects.Engine;
 
 namespace ASC.Web.Projects
 {

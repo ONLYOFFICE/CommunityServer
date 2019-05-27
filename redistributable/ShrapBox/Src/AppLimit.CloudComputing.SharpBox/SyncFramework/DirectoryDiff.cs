@@ -21,7 +21,7 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
         /// <param name="remotePath">path of the remote directory</param>
         public DirectoryDiff(DirectoryInfo localPath, ICloudDirectoryEntry remotePath)
         {
-            _localPath = localPath; 
+            _localPath = localPath;
             _remotePath = remotePath;
         }
 
@@ -33,20 +33,20 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
         public List<DirectoryDiffResultItem> Compare(Boolean bRecursive)
         {
             // 1. create a recursive local file list 
-            SortedDictionary<String, FileSystemInfo> localFiles = CreateLocalFileList(_localPath, bRecursive);
+            var localFiles = CreateLocalFileList(_localPath, bRecursive);
 
             // 2. create a recursive remote file list
-            SortedDictionary<String, ICloudFileSystemEntry> remoteFiles = CreateRemoteFileList(_remotePath, bRecursive);
+            var remoteFiles = CreateRemoteFileList(_remotePath, bRecursive);
 
             // 3. create the result list
             var result = new List<DirectoryDiffResultItem>();
 
             // 4. performe a sorted list comparation
-            int i = 0;
-            int j = 0;
-            int m = Math.Max(localFiles.Keys.Count, remoteFiles.Keys.Count);
+            var i = 0;
+            var j = 0;
+            var m = Math.Max(localFiles.Keys.Count, remoteFiles.Keys.Count);
 
-            while(i < m)
+            while (i < m)
             {
                 String left = null;
                 String right = null;
@@ -60,7 +60,7 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
                 var ritem = new DirectoryDiffResultItem();
 
                 if (right == null)
-                {                    
+                {
                     // right list is at end, all left items are missing
                     ritem.localItem = localFiles.Values.ElementAt(i);
                     ritem.remoteItem = null;
@@ -82,8 +82,8 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
                 else
                 {
                     // compare both elements
-                    int iRet = left.CompareTo(right);
-                    
+                    var iRet = left.CompareTo(right);
+
                     if (iRet == 0)
                     {
                         // are the same elements
@@ -120,7 +120,7 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
                 }
 
                 result.Add(ritem);
-            }           
+            }
 
             return result;
         }
@@ -139,9 +139,9 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
             // do enumeration until stack is empty
             while (directoryStack.Count > 0)
             {
-                ICloudDirectoryEntry current = directoryStack.Pop();
+                var current = directoryStack.Pop();
 
-                foreach (ICloudFileSystemEntry fsinfo in current)
+                foreach (var fsinfo in current)
                 {
                     if (fsinfo is ICloudDirectoryEntry)
                     {
@@ -154,8 +154,8 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
                     }
 
                     // build the path
-                    String path = CloudStorage.GetFullCloudPath(fsinfo, Path.DirectorySeparatorChar);
-                    String startpath = CloudStorage.GetFullCloudPath(start, Path.DirectorySeparatorChar);
+                    var path = CloudStorage.GetFullCloudPath(fsinfo, Path.DirectorySeparatorChar);
+                    var startpath = CloudStorage.GetFullCloudPath(start, Path.DirectorySeparatorChar);
                     path = path.Remove(0, startpath.Length);
 
                     // add the entry to our output list
@@ -180,9 +180,9 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
             // do enumeration until stack is empty
             while (directoryStack.Count > 0)
             {
-                DirectoryInfo current = directoryStack.Pop();
+                var current = directoryStack.Pop();
 
-                foreach (FileSystemInfo fsinfo in current.GetFileSystemInfos())
+                foreach (var fsinfo in current.GetFileSystemInfos())
                 {
                     if ((fsinfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                     {
@@ -193,9 +193,9 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
                         // push the directory to stack
                         directoryStack.Push(fsinfo as DirectoryInfo);
                     }
-                    
+
                     // build path
-                    String path = fsinfo.FullName;
+                    var path = fsinfo.FullName;
                     path = path.Remove(0, start.FullName.Length);
 
                     // add the entry to our output list

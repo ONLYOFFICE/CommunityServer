@@ -31,6 +31,7 @@ using System.IO;
 using System.Net;
 using System.Linq;
 using ASC.Common.Caching;
+using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Data.Storage;
 using ASC.Web.CRM.Configuration;
@@ -422,12 +423,8 @@ namespace ASC.Web.CRM.Classes
 
         public static void TryUploadPhotoFromTmp(int contactID, bool isNewContact, string tmpDirName)
         {
-            var directoryTmpPath = String.IsNullOrEmpty(tmpDirName) ? BuildFileTmpDirectory(contactID) : BuildFileTmpDirectory(tmpDirName);
             var directoryPath = BuildFileDirectory(contactID);
             var dataStore = Global.GetStore();
-
-            if (!dataStore.IsDirectory(directoryTmpPath))
-                return;
 
             try
             {
@@ -438,6 +435,7 @@ namespace ASC.Web.CRM.Classes
                 foreach (var photoSize in new[] {_bigSize, _mediumSize, _smallSize})
                 {
                     var photoTmpPath = FromDataStoreRelative(isNewContact ? 0 : contactID, photoSize, true, tmpDirName);
+                    if (string.IsNullOrEmpty(photoTmpPath)) throw new Exception("Temp phono not found");
 
                     var imageExtension = Path.GetExtension(photoTmpPath);
 
@@ -459,7 +457,7 @@ namespace ASC.Web.CRM.Classes
             }
             catch(Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.CRM").ErrorFormat("TryUploadPhotoFromTmp for contactID={0} failed witth error: {1}", contactID, ex);
+                LogManager.GetLogger("ASC.CRM").ErrorFormat("TryUploadPhotoFromTmp for contactID={0} failed witth error: {1}", contactID, ex);
                 return;
             }
         }

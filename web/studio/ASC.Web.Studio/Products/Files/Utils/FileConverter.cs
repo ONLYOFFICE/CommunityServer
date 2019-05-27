@@ -84,6 +84,11 @@ namespace ASC.Web.Files.Utils
                 return false;
             }
 
+            if (file.Encrypted)
+            {
+                return false;
+            }
+
             var fileExtension = file.ConvertedExtension;
             if (fileExtension.Trim('.').Equals(toExtension.Trim('.'), StringComparison.OrdinalIgnoreCase))
             {
@@ -132,7 +137,7 @@ namespace ASC.Web.Files.Utils
             return new ResponseStream(((HttpWebRequest)WebRequest.Create(convertUri)).GetResponse());
         }
 
-        public static File ExecDuplicate(File file, string doc)
+        public static File ExecDuplicate(File file, string doc, out Folder toFolder)
         {
             var toFolderId = file.FolderID;
 
@@ -157,7 +162,7 @@ namespace ASC.Web.Files.Utils
                 {
                     throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
                 }
-                var toFolder = folderDao.GetFolder(toFolderId);
+                toFolder = folderDao.GetFolder(toFolderId);
                 if (toFolder == null)
                 {
                     throw new DirectoryNotFoundException(FilesCommonResource.ErrorMassage_FolderNotFound);

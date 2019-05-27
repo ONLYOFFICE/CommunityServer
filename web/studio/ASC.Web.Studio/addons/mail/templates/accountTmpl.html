@@ -99,10 +99,10 @@
             <tr>
                 <td>
                     <div id="mail_POPPasswordContainer" class="requiredField">
+                        <a class="link dotline password-view off">${ASC.Mail.Resources.MailScriptResource.ShowPasswordLinkLabel}</a>
                         <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
                         <div class="headerPanelSmall">
                             ${ASC.Mail.Resources.MailResource.Password}
-                            <a class="link dotline password-view off">${ASC.Mail.Resources.MailScriptResource.ShowPasswordLinkLabel}</a>
                         </div>
                         <div>
                             <input id="password" type="password" value="${password}" class="textEdit"/>
@@ -111,10 +111,10 @@
                 </td>
                 <td>
                     <div id="mail_SMTPPasswordContainer" class="{{if smtp_auth == true}} requiredField {{/if}}">
+                        <a class="link dotline password-view off">${ASC.Mail.Resources.MailScriptResource.ShowPasswordLinkLabel}</a>
                         <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
                         <div class="headerPanelSmall">
                             ${ASC.Mail.Resources.MailResource.Password}
-                            <a class="link dotline password-view off">${ASC.Mail.Resources.MailScriptResource.ShowPasswordLinkLabel}</a>
                         </div>
                         <div>
                             <input id="smtp_password" type="password" value="${smtp_password}" class="textEdit"{{if smtp_auth!=true}} disabled="true"{{/if}}/>
@@ -161,7 +161,7 @@
         <div class="buttons new-account">
             <button id="save" class="button middle blue" type="button">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</button>
             <button id="cancel" class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
-            <a id="getDefaultSettings" class="anchorLinkButton link dotline">${ASC.Mail.Resources.MailResource.GetDefaultSettingsLinkLabel}</a>
+            <a id="getDefaultSettings" class="anchorLinkButton link dotline no-select">${ASC.Mail.Resources.MailResource.GetDefaultSettingsLinkLabel}</a>
             {{if ASC.Mail.Master.IsTurnOnOAuth == true && typeof(is_oauth) !=='undefined' && is_oauth == true }}
 
             <div id="oauth_reconnect">

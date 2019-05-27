@@ -155,6 +155,13 @@ namespace System.Web
             return request != null && !string.IsNullOrEmpty(request["desktop"]);
         }
 
+        public static bool SailfishApp(this HttpRequest request)
+        {
+            return request != null
+                   && (!string.IsNullOrEmpty(request["sailfish"])
+                       || !string.IsNullOrEmpty(request.UserAgent) && request.UserAgent.Contains("SailfishOS"));
+        }
+
 
         private static Uri ParseRewriterUrl(string s)
         {

@@ -72,8 +72,7 @@ window.ASC.Files.Converter = (function () {
             if (!ASC.Files.UI.accessEdit()) {
                 if (Teamlab.profile.isVisitor) {
                     PopupKeyUpActionProvider.CloseDialog();
-                    url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
-                    window.open(url, "_blank");
+                    location.href = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
                     return ASC.Files.Marker.removeNewIcon("file", fileId);
                 } else {
                     jq("#confirmCopyConvertToMyText").show();
@@ -84,8 +83,7 @@ window.ASC.Files.Converter = (function () {
             }
         } else if (Teamlab.profile.isVisitor) {
             PopupKeyUpActionProvider.CloseDialog();
-            url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
-            window.open(url, "_blank");
+            location.href = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
             return ASC.Files.Marker.removeNewIcon("file", fileId);
         }
         return true;
@@ -202,12 +200,16 @@ window.ASC.Files.Converter = (function () {
                         name: ASC.Files.FilesJSResources.OriginalFormat,
                         value: ASC.Files.Utility.GetFileExtension(entryTitle)
                     }];
-                var convertFormats = ASC.Files.Utility.GetConvertFormats(entryTitle);
-                if (convertFormats) {
-                    for (var i = 0; i < convertFormats.length; i++) {
-                        formats.push({ name: convertFormats[i], value: convertFormats[i] });
+
+                if (!entryObj.encrypted && entryObj.content_length <= ASC.Files.Constants.AvailableFileSize) {
+                    var convertFormats = ASC.Files.Utility.GetConvertFormats(entryTitle);
+                    if (convertFormats) {
+                        for (var i = 0; i < convertFormats.length; i++) {
+                            formats.push({name: convertFormats[i], value: convertFormats[i]});
+                        }
                     }
                 }
+
                 ftClass = ASC.Files.Utility.getCssClassByFileTitle(entryTitle);
                 entryId = "file_" + entryId;
             } else {
@@ -491,14 +493,14 @@ window.ASC.Files.Converter = (function () {
                 if (checkedCount == count) {
                     jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("checked", true).prop("indeterminate", false);
                 } else {
-                    jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("indeterminate", true);
+                    jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("checked", true).prop("indeterminate", true);
                 }
             } else {
                 jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("checked", false).prop("indeterminate", false);
                 if (checkedCount == 0) {
                     jq(parentBlock).removeClass("cnvrt-file-block-active");
                 } else {
-                    jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("indeterminate", true);
+                    jq(parentBlock).find(".cnvrt-file-block-head input[type=checkbox]").prop("checked", true).prop("indeterminate", true);
                 }
             }
         });
@@ -534,8 +536,7 @@ window.ASC.Files.Converter = (function () {
                 var itemId = ASC.Files.UI.parseItemId(data[0].Key);
                 if (itemId.entryType == "file") {
                     fileId = itemId.entryId;
-                    var url = ASC.Files.Utility.GetFileDownloadUrl(fileId, 0, data[0].Value);
-                    window.open(url, "_blank");
+                    location.href = ASC.Files.Utility.GetFileDownloadUrl(fileId, 0, data[0].Value);
                     return;
                 }
             }
@@ -555,6 +556,7 @@ window.ASC.Files.Converter = (function () {
 
         jq("#confirmCopyConvert").on("click", "#goToCopyFolder", function () {
             var folderId = jq(this).attr("data-id");
+            ASC.Files.Filter.clearFilter(true);
             ASC.Files.Anchor.navigationSet(folderId);
             PopupKeyUpActionProvider.CloseDialog();
         });

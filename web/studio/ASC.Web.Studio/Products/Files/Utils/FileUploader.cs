@@ -91,6 +91,7 @@ namespace ASC.Web.Files.Utils
                     file.ConvertedType = null;
                     file.Comment = FilesCommonResource.CommentUpload;
                     file.Version++;
+                    file.Encrypted = false;
 
                     return file;
                 }

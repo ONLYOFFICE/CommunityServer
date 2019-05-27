@@ -31,5 +31,10 @@
             <a><%= ci.DisplayName %></a>
         </li>
         <% } %>
+        <% if (ShowHelper) { %>
+        <li class="option dropdown-item more-langs" data="">
+            <a><%= Resource.MoreLanguages %></a>
+        </li>
+        <% } %>
     </ul>
 </div>

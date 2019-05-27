@@ -29,7 +29,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
-using ASC.Data.Storage.S3;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
@@ -112,7 +111,7 @@ namespace ASC.Web.Files.Classes
             }
         }
 
-        public static string GetFileStreamUrl(File file)
+        public static string GetFileStreamUrl(File file, string doc = null, bool lastVersion = false)
         {
             if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 
@@ -121,13 +120,22 @@ namespace ASC.Web.Files.Classes
             var query = uriBuilder.Query;
             query += FilesLinkUtility.Action + "=stream&";
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
-            query += FilesLinkUtility.Version + "=" + file.Version + "&";
-            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
+            var version = 0;
+            if (!lastVersion)
+            {
+                version = file.Version;
+                query += FilesLinkUtility.Version + "=" + file.Version + "&";
+            }
+            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID.ToString() + version);
+            if (!string.IsNullOrEmpty(doc))
+            {
+                query += "&" + FilesLinkUtility.DocShareKey + "=" + HttpUtility.UrlEncode(doc);
+            }
 
             return uriBuilder.Uri + "?" + query;
         }
 
-        public static string GetFileChangesUrl(File file)
+        public static string GetFileChangesUrl(File file, string doc = null)
         {
             if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 
@@ -137,6 +145,10 @@ namespace ASC.Web.Files.Classes
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
             query += FilesLinkUtility.Version + "=" + file.Version + "&";
             query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
+            if (!string.IsNullOrEmpty(doc))
+            {
+                query += "&" + FilesLinkUtility.DocShareKey + "=" + HttpUtility.UrlEncode(doc);
+            }
 
             return uriBuilder.Uri + "?" + query;
         }
@@ -161,6 +173,16 @@ namespace ASC.Web.Files.Classes
             query += FilesLinkUtility.Action + "=tmp&";
             query += FilesLinkUtility.FileTitle + "=" + HttpUtility.UrlEncode(fileName) + "&";
             query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileName);
+
+            return uriBuilder.Uri + "?" + query;
+        }
+
+        public static string GetEmptyFileUrl(string extension)
+        {
+            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+            var query = uriBuilder.Query;
+            query += FilesLinkUtility.Action + "=empty&";
+            query += FilesLinkUtility.FileTitle + "=" + HttpUtility.UrlEncode(extension);
 
             return uriBuilder.Uri + "?" + query;
         }

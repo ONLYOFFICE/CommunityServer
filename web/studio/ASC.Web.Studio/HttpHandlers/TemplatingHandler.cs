@@ -24,10 +24,6 @@
 */
 
 
-using ASC.Core;
-using ASC.Web.Core;
-using ASC.Web.Core.Client;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,6 +36,10 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Xml.Linq;
+using ASC.Common.Logging;
+using ASC.Core;
+using ASC.Web.Core;
+using ASC.Web.Core.Client;
 
 namespace ASC.Web.Studio.HttpHandlers
 {

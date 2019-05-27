@@ -27,6 +27,7 @@
 using System;
 using System.Web;
 using AjaxPro;
+using ASC.Common.Logging;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Utils;
 using ASC.Core;
@@ -37,7 +38,6 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Resources;
 using LogoutSsoUserData = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.LogoutSsoUserData;
 using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
@@ -47,7 +47,7 @@ namespace ASC.Web.Studio.HttpHandlers
 {
     public class SsoHandler : IHttpHandler
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(SsoHandler));
+        private readonly ILog _log = LogManager.GetLogger("ASC");
         private const string AUTH_PAGE = "~/auth.aspx";
 
         #region IHttpHandler Members
@@ -258,6 +258,9 @@ namespace ASC.Web.Studio.HttpHandlers
                 }
                 else
                 {
+                    if (!UserFormatter.IsValidUserName(userInfo.FirstName, userInfo.LastName))
+                        throw new Exception(Resource.ErrorIncorrectUserName);
+
                     CoreContext.UserManager.SaveUserInfo(newUserInfo);
                 }
 

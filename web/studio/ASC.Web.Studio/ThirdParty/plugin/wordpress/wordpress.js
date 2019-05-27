@@ -1,12 +1,11 @@
 ﻿(function (window, undefined) {
     var wordpress = {};
     var post = null;
-    OAuthError = function(code, source) {
+    OAuthError = function(error) {
         console.log(arguments);
     };
-    OAuthCallback = function (code, source) {
+    OAuthCallback = function (code) {
         wordpress.code = code;
-        wordpress.source = source;
         var data = {
             code: code
         };

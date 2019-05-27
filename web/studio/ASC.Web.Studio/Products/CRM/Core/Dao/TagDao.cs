@@ -71,6 +71,18 @@ namespace ASC.CRM.Core.Dao
             return Db.ExecuteScalar<bool>(q);
         }
 
+        private int GetTagId(EntityType entityType, String tagName)
+        {
+            var q = new SqlQuery("crm_tag")
+               .Select("id")
+               .Where("tenant_id", TenantID)
+               .Where("entity_type", (int)entityType)
+               .Where("trim(lower(title))", tagName.Trim().ToLower())
+               .SetMaxResults(1);
+
+            return Db.ExecuteScalar<int>(q);
+        }
+
         public String[] GetAllTags(EntityType entityType)
         {
             return Db.ExecuteList(
@@ -230,14 +242,22 @@ namespace ASC.CRM.Core.Dao
 
         }
 
-        public int AddTag(EntityType entityType, String tagName)
+        public int AddTag(EntityType entityType, String tagName, bool returnExisted = false)
         {
             tagName = CorrectTag(tagName);
 
             if (String.IsNullOrEmpty(tagName))
                 throw new ArgumentNullException(CRMErrorsResource.TagNameNotSet);
 
-            if (IsExistInDb(entityType, tagName)) throw new ArgumentException(CRMErrorsResource.TagNameBusy);
+            var existedTagId = GetTagId(entityType, tagName);
+
+            if (existedTagId > 0)
+            {
+                if (returnExisted)
+                    return existedTagId;
+
+                throw new ArgumentException(CRMErrorsResource.TagNameBusy);
+            }
             return AddTagInDb(entityType, tagName);
         }
 

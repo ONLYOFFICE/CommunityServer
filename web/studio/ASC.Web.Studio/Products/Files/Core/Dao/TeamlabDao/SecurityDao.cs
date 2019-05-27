@@ -259,7 +259,7 @@ namespace ASC.Files.Core.Data
                 .ExecuteList(q)
                 .Select(ToFileShareRecord)
                 .OrderBy(r => r.Level)
-                .ThenByDescending(r => r.Share)
+                .ThenByDescending(r => r.Share, new FileShareRecord.ShareComparer())
                 .ToList();
         }
 

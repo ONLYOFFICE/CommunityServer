@@ -25,6 +25,7 @@
 
 
 using System;
+using ASC.Core;
 
 namespace ASC.Web.Mail.Controls
 {
@@ -32,8 +33,11 @@ namespace ASC.Web.Mail.Controls
     {
         public static string Location { get { return "~/addons/mail/Controls/TagsPage/TagsPage.ascx"; } }
 
+        protected bool CustomMode;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            CustomMode = CoreContext.Configuration.CustomMode;
         }
     }
 }

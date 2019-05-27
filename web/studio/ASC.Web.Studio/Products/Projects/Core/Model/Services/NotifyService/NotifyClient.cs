@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Notify;
 using ASC.Core.Common.Notify.Push;
@@ -47,7 +47,6 @@ using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Resources;
 using Autofac;
-using log4net;
 
 namespace ASC.Projects.Core.Services.NotifyService
 {
@@ -98,6 +97,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 {
                     using (var scope = DIHelper.Resolve())
                     {
+                        var projectSecurity = scope.Resolve<ProjectSecurity>();
                         var factory = scope.Resolve<EngineFactory>();
                         var data = r.ObjectID.Split('_');
                         var entityType = data[0];
@@ -116,36 +116,36 @@ namespace ASC.Projects.Core.Services.NotifyService
                                 if (task == null && projectId != 0)
                                 {
                                     var project = factory.ProjectEngine.GetByID(projectId, false);
-                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                    return !projectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                 }
 
-                                return !ProjectSecurity.CanRead(task, new Guid(r.Recipient.ID));
+                                return !projectSecurity.CanRead(task, new Guid(r.Recipient.ID));
                             case "Message":
                                 var discussion = factory.MessageEngine.GetByID(entityId, false);
 
                                 if (discussion == null && projectId != 0)
                                 {
                                     var project = factory.ProjectEngine.GetByID(projectId, false);
-                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                    return !projectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                 }
 
-                                return !ProjectSecurity.CanRead(discussion, new Guid(r.Recipient.ID));
+                                return !projectSecurity.CanRead(discussion, new Guid(r.Recipient.ID));
                             case "Milestone":
                                 var milestone = factory.MilestoneEngine.GetByID(entityId, false);
 
                                 if (milestone == null && projectId != 0)
                                 {
                                     var project = factory.ProjectEngine.GetByID(projectId, false);
-                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                    return !projectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                 }
 
-                                return !ProjectSecurity.CanRead(milestone, new Guid(r.Recipient.ID));
+                                return !projectSecurity.CanRead(milestone, new Guid(r.Recipient.ID));
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogManager.GetLogger("ASC.Projects.Tasks").Error("Send", ex);
+                    LogManager.GetLogger("ASC").Error("Send", ex);
                 }
                 return false;
             });
@@ -1023,7 +1023,7 @@ namespace ASC.Projects.Core.Services.NotifyService
             return null;
         }
 
-        public void SendAboutMessageAction(List<IRecipient> recipients, Message message, bool isNew, Hashtable fileListInfoHashtable)
+        public void SendAboutMessageAction(List<IRecipient> recipients, Message message, bool isNew, List<Tuple<string, string>> fileListInfoHashtable)
         {
             var tags = new List<ITagValue>
                 {

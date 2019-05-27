@@ -31,11 +31,15 @@ using ASC.Api.Attributes;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
 using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Resources;
 
 namespace ASC.Api.CRM
 {
     public partial class CRMApi
     {
+        //TABLE `crm_currency_rate` column `rate` DECIMAL(10,2) NOT NULL
+        public const decimal MaxRateValue = (decimal) 99999999.99;
+
         /// <summary>
         ///    Get the list of currency rates
         /// </summary>
@@ -98,8 +102,9 @@ namespace ASC.Api.CRM
         [Create(@"currency/rates")]
         public CurrencyRateWrapper CreateCurrencyRate(string fromCurrency, string toCurrency, decimal rate)
         {
-            if (string.IsNullOrEmpty(fromCurrency) || string.IsNullOrEmpty(toCurrency) || rate < 0)
-                throw new ArgumentException();
+            ValidateRate(rate);
+
+            ValidateCurrencies(new[] {fromCurrency, toCurrency});
 
             var currencyRate = new CurrencyRate
                 {
@@ -123,16 +128,21 @@ namespace ASC.Api.CRM
         [Update(@"currency/rates/{id:[0-9]+}")]
         public CurrencyRateWrapper UpdateCurrencyRate(int id, string fromCurrency, string toCurrency, decimal rate)
         {
-            if (id <= 0 || string.IsNullOrEmpty(fromCurrency) || string.IsNullOrEmpty(toCurrency) || rate < 0)
+            if (id <= 0)
                 throw new ArgumentException();
 
-            var currencyRate = new CurrencyRate
-                {
-                    ID = id,
-                    FromCurrency = fromCurrency,
-                    ToCurrency = toCurrency,
-                    Rate = rate
-                };
+            ValidateRate(rate);
+
+            ValidateCurrencies(new[] {fromCurrency, toCurrency});
+
+            var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
+
+            if (currencyRate == null)
+                throw new ArgumentException();
+
+            currencyRate.FromCurrency = fromCurrency;
+            currencyRate.ToCurrency = toCurrency;
+            currencyRate.Rate = rate;
 
             currencyRate.ID = DaoFactory.CurrencyRateDao.SaveOrUpdate(currencyRate);
             MessageService.Send(Request, MessageAction.CurrencyRateUpdated, fromCurrency, toCurrency);
@@ -149,17 +159,22 @@ namespace ASC.Api.CRM
         [Create(@"currency/setrates")]
         public List<CurrencyRateWrapper> SetCurrencyRates(String currency, List<CurrencyRate> rates)
         {
-            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
+            if (!CRMSecurity.IsAdmin)
+                throw CRMSecurity.CreateSecurityException();
 
-            if (string.IsNullOrEmpty(currency)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(currency))
+                throw new ArgumentException();
+
+            ValidateCurrencyRates(rates);
 
             currency = currency.ToUpper();
 
             if (Global.TenantSettings.DefaultCurrency.Abbreviation != currency)
             {
-                var cur = CurrencyProvider.Get(currency.ToUpper());
+                var cur = CurrencyProvider.Get(currency);
 
-                if (cur == null) throw new ArgumentException();
+                if (cur == null)
+                    throw new ArgumentException();
 
                 Global.SaveDefaultCurrencySettings(cur);
 
@@ -185,7 +200,10 @@ namespace ASC.Api.CRM
         [Create(@"currency/addrates")]
         public List<CurrencyRateWrapper> AddCurrencyRates(List<CurrencyRate> rates)
         {
-            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
+            if (!CRMSecurity.IsAdmin)
+                throw CRMSecurity.CreateSecurityException();
+
+            ValidateCurrencyRates(rates);
 
             var existingRates = DaoFactory.CurrencyRateDao.GetAll();
 
@@ -224,13 +242,51 @@ namespace ASC.Api.CRM
         [Delete(@"currency/rates/{id:[0-9]+}")]
         public CurrencyRateWrapper DeleteCurrencyRate(int id)
         {
-            if (id <= 0) throw new ArgumentException();
+            if (id <= 0)
+                throw new ArgumentException();
 
             var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
+            
+            if (currencyRate == null)
+                throw new ArgumentException();
 
             DaoFactory.CurrencyRateDao.Delete(id);
 
             return ToCurrencyRateWrapper(currencyRate);
+        }
+
+        private static void ValidateCurrencyRates(IEnumerable<CurrencyRate> rates)
+        {
+            var currencies = new List<string>();
+
+            foreach (var rate in rates)
+            {
+                ValidateRate(rate.Rate);
+                currencies.Add(rate.FromCurrency);
+                currencies.Add(rate.ToCurrency);
+            }
+
+            ValidateCurrencies(currencies.ToArray());
+        }
+        
+        private static void ValidateCurrencies(string[] currencies)
+        {
+            if (currencies.Any(string.IsNullOrEmpty))
+                throw new ArgumentException();
+
+            var available = CurrencyProvider.GetAll().Select(x => x.Abbreviation);
+
+            var unknown = currencies.Where(x => !available.Contains(x)).ToArray();
+
+            if (!unknown.Any()) return;
+
+            throw new ArgumentException(string.Format(CRMErrorsResource.UnknownCurrency, string.Join(",", unknown)));
+        }
+
+        private static void ValidateRate(decimal rate)
+        {
+            if (rate < 0 || rate > MaxRateValue)
+                throw new ArgumentException(string.Format(CRMErrorsResource.InvalidCurrencyRate, rate));
         }
 
         private static CurrencyRateWrapper ToCurrencyRateWrapper(CurrencyRate currencyRate)

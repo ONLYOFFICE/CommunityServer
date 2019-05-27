@@ -15,6 +15,10 @@
     <asp:PlaceHolder ID="CommonContainerHolder" runat="server"></asp:PlaceHolder>
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
         <%=CRMDealResource.TooltipStages%>
-        <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
+        <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+        <a href="<%= HelpLink + "/tipstricks/opportunity-stages.aspx" %>" target="_blank">
+            <%=CRMCommonResource.ButtonLearnMore%>
+        </a>
+        <% } %>
     </div>
 </asp:Content>

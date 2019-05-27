@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides: onlyofficeIndex
-# Required-Start: $local_fs $syslog $remote_fs
+# Required-Start: $local_fs $syslog $remote_fs mysql
 # Required-Stop: $local_fs $syslog $remote_fs
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
@@ -21,7 +21,7 @@ PID=""
 
 DIR=/var/www/onlyoffice/Services/TeamLabSvc
 EXEC=TeamLabSvc.exe
-ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC --service \"ASC.FullTextIndex.Service.FullTextIndexLauncher,ASC.FullTextIndex\" --log Index"
+ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC --service \"ASC.ElasticSearch.Launcher,ASC.ElasticSearch\" --log Index"
 
 
 do_start() {

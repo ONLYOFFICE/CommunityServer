@@ -5,6 +5,6 @@
     /// an access token structure
     /// </summary>
     public interface ICloudStorageAccessToken
-    {    
+    {
     }
 }

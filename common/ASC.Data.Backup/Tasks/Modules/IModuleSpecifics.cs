@@ -26,6 +26,7 @@
 
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.IO;
 using ASC.Data.Backup.Tasks.Data;
 
@@ -58,11 +59,11 @@ namespace ASC.Data.Backup.Tasks.Modules
 
         IEnumerable<TableInfo> GetTablesOrdered(); 
             
-        IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table, int limit, int offset);
-        IDbCommand CreateDeleteCommand(IDbConnection connection, int tenantId, TableInfo table);
-        IDbCommand CreateInsertCommand(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row);
+        DbCommand CreateSelectCommand(DbConnection connection, int tenantId, TableInfo table, int limit, int offset);
+        DbCommand CreateDeleteCommand(DbConnection connection, int tenantId, TableInfo table);
+        DbCommand CreateInsertCommand(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row);
 
-        bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath);
+        bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath);
 
         void PrepareData(DataTable data);
         Stream PrepareData(string key, Stream data, ColumnMapper columnMapper);

@@ -7,15 +7,15 @@ using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
 {
     internal class OAuthStreamParser
-    {        
-        static public OAuthToken ParseTokenInformation(Stream data)
+    {
+        public static OAuthToken ParseTokenInformation(Stream data)
         {
-            var parameters = ParseParameterResult(data);            
+            var parameters = ParseParameterResult(data);
             return new OAuthToken(parameters["oauth_token"], parameters["oauth_token_secret"]);
         }
 
-        static private Dictionary<String, String> ParseParameterResult(Stream data)
-        {        
+        private static Dictionary<String, String> ParseParameterResult(Stream data)
+        {
             var result = GetResultString(data);
 
             if (result.Length > 0)

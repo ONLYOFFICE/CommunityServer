@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Projects</RootNamespace>
     <AssemblyName>ASC.Api.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -46,7 +46,10 @@
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Studio.dll</HintPath>
     </Reference>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -80,7 +83,6 @@
     <Compile Include="Wrappers\TimeWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectApi.Imports.cs" />
     <Compile Include="ProjectApi.Messages.cs" />
     <Compile Include="ProjectApi.Reports.cs" />
     <Compile Include="Calendars\ProjectCalendar.cs" />

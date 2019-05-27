@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Text;
 
 namespace ASC.ActiveDirectory.Base.Expressions
 {
@@ -44,6 +45,20 @@ namespace ASC.ActiveDirectory.Base.Expressions
 
         internal Expression()
         {
+        }
+
+        public string Name {
+            get { return _attributeName; }
+        }
+
+        public string Value
+        {
+            get { return _attributeValue; }
+        }
+
+        public Op Operation
+        {
+            get { return _op; }
         }
 
         /// <summary>
@@ -117,9 +132,51 @@ namespace ASC.ActiveDirectory.Base.Expressions
             var expressionString = "({0}{1}{2}{3})";
             expressionString = string.Format(expressionString,
                 //positive or negative
-                (((int) _op & 0x010000) == 0x010000 || _negative) ? "!" : "", _attributeName, sop, _attributeValue);
+                (((int) _op & 0x010000) == 0x010000 || _negative) ? "!" : "", _attributeName, sop, 
+                EscapeLdapSearchFilter(_attributeValue));
 
             return expressionString;
+        }
+
+        /// <summary>
+        /// Escapes the LDAP search filter to prevent LDAP injection attacks.
+        /// </summary>
+        /// <param name="searchFilter">The search filter.</param>
+        /// <see cref="https://blogs.oracle.com/shankar/entry/what_is_ldap_injection" />
+        /// <see cref="http://msdn.microsoft.com/en-us/library/aa746475.aspx" />
+        /// <returns>The escaped search filter.</returns>
+        private static string EscapeLdapSearchFilter(string searchFilter)
+        {
+            var escape = new StringBuilder(); // If using JDK >= 1.5 consider using StringBuilder
+            foreach (var current in searchFilter)
+            {
+                switch (current)
+                {
+                    case '\\':
+                        escape.Append(@"\5c");
+                        break;
+                    case '*':
+                        escape.Append(@"\2a");
+                        break;
+                    case '(':
+                        escape.Append(@"\28");
+                        break;
+                    case ')':
+                        escape.Append(@"\29");
+                        break;
+                    case '\u0000':
+                        escape.Append(@"\00");
+                        break;
+                    case '/':
+                        escape.Append(@"\2f");
+                        break;
+                    default:
+                        escape.Append(current);
+                        break;
+                }
+            }
+
+            return escape.ToString();
         }
 
         /// <summary>

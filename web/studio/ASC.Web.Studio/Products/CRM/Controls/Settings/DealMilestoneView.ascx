@@ -5,17 +5,17 @@
 
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<p style="margin-bottom: 10px;"><%= CRMSettingResource.DescriptionTextDealMilestone %></p>
-<p style="margin-bottom: 20px;"><%= CRMSettingResource.DescriptionTextDealMilestoneEditDelete %></p>
+<div class="header-base settingsHeader"><%= CRMDealResource.DealMilestone %></div>
+<p class="settingsFirstDescription"><%= CRMSettingResource.DescriptionTextDealMilestone %></p>
+<p class="settingsSecondDescription"><%= CRMSettingResource.DescriptionTextDealMilestoneEditDelete %></p>
 
-<div class="clearFix" style="margin-bottom: 8px;">
+<div class="clearFix settingsNewItemBlock">
     <a id="createNewDealMilestone" class="gray button">
         <span class="plus"><%= CRMSettingResource.CreateNewDealMilestoneListButton%></span>
     </a>
 </div>
 
-<ul id="dealMilestoneList">
-</ul>
+<ul id="dealMilestoneList"></ul>
 
 <div id="dealMilestoneActionMenu" class="studio-action-panel" dealmilestoneid="">
     <ul class="dropdown-content">

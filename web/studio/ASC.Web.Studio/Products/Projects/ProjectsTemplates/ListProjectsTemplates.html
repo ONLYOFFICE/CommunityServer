@@ -18,7 +18,7 @@
         {{/if}}
     </td>
     <td class="responsible">
-        <span class='userLink{{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}} not-action{{/if}}' title="{{if !isSimpleView}}${ASC.Projects.Resources.ProjectResource.TitleProjectManager}{{/if}}">${responsible.displayName}</span>
+        <span class='userLink{{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3' || (responsible.isTerminated && !Teamlab.profile.isAdmin)}} not-action{{/if}}' title="{{if !isSimpleView}}${ASC.Projects.Resources.ProjectResource.TitleProjectManager}{{/if}}">${responsible.displayName}</span>
         {{if participants != 0}}
             <a class="participants" title="${ASC.Projects.Resources.ProjectResource.TitleProjectTeam}" href="${linkParticip}">+${participants}</a>
         {{/if}}
@@ -41,8 +41,8 @@
         {{each team}}
         <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdmin || isManager}} disable{{/if}}" data-partisipantId="${id}">
             <td style="" class="user-info">
-                <div class="pm-projectTeam-userPhotoContainer">
-                    <img src="${avatarSmall}"/>
+                <div class="pm-projectTeam-userPhotoContainer {{if $data.isRetina}}retina{{/if}}">
+                    <img src="{{if $data.isRetina}}${avatar}{{else}}${avatarSmall}{{/if}}"/>
                     {{if status == 2}}
                     <span class="status-blocked"></span>
                     {{/if}}
@@ -120,7 +120,7 @@
 </script>
 
 <script id="projects_securityItem" type="text/x-jquery-tmpl">
-    <span class="right-checker pm-projectTeam-modulePermission{{if check}}On{{else}}Off{{/if}}" data-flag="${flag}">
+    <span class="right-checker pm-projectTeam-modulePermission{{if check}}On{{else}}Off{{/if}} {{if defaultDisabled}}no-dotted{{/if}}" data-flag="${flag}">
         <span>${title}</span>
     </span>
     {{if $item.showSplitter}}

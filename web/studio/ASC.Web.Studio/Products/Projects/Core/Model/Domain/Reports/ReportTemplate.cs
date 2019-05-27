@@ -25,6 +25,13 @@
 
 
 using System;
+using System.IO;
+using ASC.Projects.Engine;
+using ASC.Web.Files.Services.DocumentService;
+using ASC.Web.Files.Utils;
+using ASC.Web.Projects;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Core.Domain.Reports
 {
@@ -69,6 +76,43 @@ namespace ASC.Projects.Core.Domain.Reports
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        internal void SaveDocbuilderReport(ReportState state, string url)
+        {
+            var data = new System.Net.WebClient().DownloadData(url);
+
+            using (var memStream = new MemoryStream(data))
+            {
+                Action<Stream> action = stream =>
+                {
+                    var file = FileUploader.Exec(ProjectsCommonSettings.LoadForCurrentUser().FolderId.ToString(), state.FileName, stream.Length, stream, true);
+                    state.FileId = (int)file.ID;
+                };
+
+                try
+                {
+                    action(memStream);
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    var settings = ProjectsCommonSettings.LoadForCurrentUser();
+                    settings.FolderId = Web.Files.Classes.Global.FolderMy;
+                    settings.SaveForCurrentUser();
+
+                    action(memStream);
+                }
+            }
+
+            using (var scope = DIHelper.Resolve())
+            {
+                scope.Resolve<EngineFactory>().ReportEngine.Save(new ReportFile
+                {
+                    FileId = state.FileId,
+                    Name = Name,
+                    ReportType = ReportType
+                });
+            }
         }
     }
 }

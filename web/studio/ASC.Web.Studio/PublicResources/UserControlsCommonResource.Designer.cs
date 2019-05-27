@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Call your customers directly from the CRM thanks to {0}ONLYOFFICE Twilio{1} integration.
+        /// </summary>
+        public static string BannerTwilio2 {
+            get {
+                return ResourceManager.GetString("BannerTwilio2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         public static string Bookmark {
@@ -363,15 +372,6 @@ namespace Resources {
         public static string ChangeAliasHelper {
             get {
                 return ResourceManager.GetString("ChangeAliasHelper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check All.
-        /// </summary>
-        public static string CheckAll {
-            get {
-                return ResourceManager.GetString("CheckAll", resourceCulture);
             }
         }
         
@@ -615,24 +615,6 @@ namespace Resources {
         public static string EmptyCommentErrorMessage {
             get {
                 return ResourceManager.GetString("EmptyCommentErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The documents and image files you create or upload for your project are kept in this section. These documents are available to all project participants immediately after they are created. Attach files from your computer to the task and they will appear in this list..
-        /// </summary>
-        public static string EmptyDocsDescription {
-            get {
-                return ResourceManager.GetString("EmptyDocsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No files to be displayed in this section..
-        /// </summary>
-        public static string EmptyDocsHeaderDescription {
-            get {
-                return ResourceManager.GetString("EmptyDocsHeaderDescription", resourceCulture);
             }
         }
         
@@ -1114,7 +1096,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate it.
+        ///   Looks up a localized string similar to Activate Now.
         /// </summary>
         public static string LicenseActivateButton {
             get {
@@ -1123,7 +1105,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you have already purchased an ONLYOFFICE license, please upload the file into the field below..
+        ///   Looks up a localized string similar to To activate ONLYOFFICE Enterprise Edition you need to buy a license key..
         /// </summary>
         public static string LicenseActivateDescr {
             get {
@@ -1348,6 +1330,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Size.
+        /// </summary>
+        public static string MediaViewerActualSize {
+            get {
+                return ResourceManager.GetString("MediaViewerActualSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string MediaViewerClose {
+            get {
+                return ResourceManager.GetString("MediaViewerClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullscreen.
+        /// </summary>
+        public static string MediaViewerFullscreen {
+            get {
+                return ResourceManager.GetString("MediaViewerFullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute.
+        /// </summary>
+        public static string MediaViewerMute {
+            get {
+                return ResourceManager.GetString("MediaViewerMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string MediaViewerNext {
+            get {
+                return ResourceManager.GetString("MediaViewerNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string MediaViewerPlay {
+            get {
+                return ResourceManager.GetString("MediaViewerPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string MediaViewerPrevious {
+            get {
+                return ResourceManager.GetString("MediaViewerPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate Left.
+        /// </summary>
+        public static string MediaViewerRotateLeft {
+            get {
+                return ResourceManager.GetString("MediaViewerRotateLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate Right.
+        /// </summary>
+        public static string MediaViewerRotateRight {
+            get {
+                return ResourceManager.GetString("MediaViewerRotateRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom In.
+        /// </summary>
+        public static string MediaViewerZoomIn {
+            get {
+                return ResourceManager.GetString("MediaViewerZoomIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom Out.
+        /// </summary>
+        public static string MediaViewerZoomOut {
+            get {
+                return ResourceManager.GetString("MediaViewerZoomOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
@@ -1519,6 +1600,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To play the media you will need to update your browser to a recent version..
+        /// </summary>
+        public static string NotSupportedBrowser {
+            get {
+                return ResourceManager.GetString("NotSupportedBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow only one choice for this poll question.
         /// </summary>
         public static string OneAnswerVariant {
@@ -1654,6 +1744,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to upload file {0} to display.
+        /// </summary>
+        public static string PreviewError {
+            get {
+                return ResourceManager.GetString("PreviewError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string PreviousPage {
@@ -1686,15 +1785,6 @@ namespace Resources {
         public static string ProjectCreatedText {
             get {
                 return ResourceManager.GetString("ProjectCreatedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project Documents.
-        /// </summary>
-        public static string ProjectDocuments {
-            get {
-                return ResourceManager.GetString("ProjectDocuments", resourceCulture);
             }
         }
         
@@ -2068,11 +2158,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}The payment is overdue or no license could be found.{1}{2} To continue using ONLYOFFICE™, upload license file below..
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}..
         /// </summary>
-        public static string TariffOverdueStandalone {
+        public static string TariffOverdueStandalone2 {
             get {
-                return ResourceManager.GetString("TariffOverdueStandalone", resourceCulture);
+                return ResourceManager.GetString("TariffOverdueStandalone2", resourceCulture);
             }
         }
         
@@ -2230,6 +2320,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}The current installation has been updated without a proper license provided.{1}{2} Please upload the updated license to continue using ONLYOFFICE Enterprise Edition..
+        /// </summary>
+        public static string TariffUpdateWithoutLicense {
+            get {
+                return ResourceManager.GetString("TariffUpdateWithoutLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose the number of your teammates.
         /// </summary>
         public static string TariffUserChoose {
@@ -2325,6 +2424,51 @@ namespace Resources {
         public static string TaskCreatedText {
             get {
                 return ResourceManager.GetString("TaskCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter 6-digit generated code from your application. If you don&apos;t have access to your phone you can use your backup codes..
+        /// </summary>
+        public static string TfaAppAuthDescription {
+            get {
+                return ResourceManager.GetString("TfaAppAuthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure your authenticator application.
+        /// </summary>
+        public static string TfaAppCaption {
+            get {
+                return ResourceManager.GetString("TfaAppCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect app.
+        /// </summary>
+        public static string TfaAppConnctButton {
+            get {
+                return ResourceManager.GetString("TfaAppConnctButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The two-factor authentication is enabled to provide additional portal security. Configure your authenticator application to continue work on the portal. For example you could use {0} for {1} and {2} or {3} for {4}..
+        /// </summary>
+        public static string TfaAppDescription {
+            get {
+                return ResourceManager.GetString("TfaAppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To connect your apllication scan the QR code or manually enter your secret key {0} then enter 6-digit code from your application in the field below..
+        /// </summary>
+        public static string TfaAppHowTo {
+            get {
+                return ResourceManager.GetString("TfaAppHowTo", resourceCulture);
             }
         }
         

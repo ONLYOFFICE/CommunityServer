@@ -58,7 +58,8 @@ var SsoSettings = (function () {
             .attr("id", "ssoFileUpload")
             .attr("type", "file")
             .css("width", "0")
-            .css("height", "0");
+            .css("height", "0")
+            .hide();
 
         inputObj.appendTo(buttonObj.parent());
 

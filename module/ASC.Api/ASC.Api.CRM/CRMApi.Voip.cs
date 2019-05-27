@@ -186,6 +186,7 @@ namespace ASC.Api.CRM
 
             VoipProvider.DisablePhone(phone);
             dao.DeleteNumber(numberId);
+            new SignalRHelper(phone.Number).Reload();
 
             return phone;
         }
@@ -582,6 +583,11 @@ namespace ASC.Api.CRM
             }
 
             dao.SaveOrUpdateNumber(phone);
+
+            if (allowOutgoingCalls.HasValue)
+            {
+                new SignalRHelper(phone.Number).Reload(operatorId.ToString());
+            }
 
             return oper;
         }

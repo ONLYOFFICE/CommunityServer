@@ -32,6 +32,7 @@ using ASC.Web.Calendar.Notification;
 using System.Text;
 using System.Web.UI;
 using System.Web;
+using ASC.Data.Storage;
 
 namespace ASC.Web.Calendar
 {
@@ -129,9 +130,13 @@ namespace ASC.Web.Calendar
 
             sb.AppendFormat(@"<li class=""top-item-box calendar"">
                                   <a class=""inner-text"" href=""{0}"" title=""{1}"">
+                                      <svg><use base=""{2}""  href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuCalendar""></use></svg>
                                       <span class=""inner-label""></span>
                                   </a>
-                              </li>", VirtualPathUtility.ToAbsolute(StartURL), Name);
+                              </li>", 
+                              VirtualPathUtility.ToAbsolute(StartURL), 
+                              Name,
+                              WebPath.GetPath("/"));
 
             return sb.ToString();
         }

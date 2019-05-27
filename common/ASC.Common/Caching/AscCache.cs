@@ -27,10 +27,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text.RegularExpressions;
-using StackExchange.Redis.Extensions.Core.Configuration;
+using StackExchange.Redis.Extensions.Core.Extensions;
 
 namespace ASC.Common.Caching
 {
@@ -43,21 +44,27 @@ namespace ASC.Common.Caching
         public static readonly ICacheNotify Notify;
 
 
-        private readonly ConcurrentDictionary<Type, Action<object, CacheNotifyAction>> actions =
-            new ConcurrentDictionary<Type, Action<object, CacheNotifyAction>>();
-
+        private readonly ConcurrentDictionary<Type, ConcurrentBag<Action<object, CacheNotifyAction>>> actions =
+            new ConcurrentDictionary<Type, ConcurrentBag<Action<object, CacheNotifyAction>>>();
 
         static AscCache()
         {
             Memory = new AscCache();
-            Default = RedisCachingSectionHandlerExtension.IsEnabled() ? new RedisCache() : Memory;
+            Default = ConfigurationManager.GetSection("redisCacheClient") != null ? new RedisCache() : Memory;
             Notify = (ICacheNotify) Default;
+            try
+            {
+                Notify.Subscribe<AscCacheItem>((item, action) => { OnClearCache(); });
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         private AscCache()
         {
         }
-
 
         public T Get<T>(string key) where T : class
         {
@@ -149,29 +156,63 @@ namespace ASC.Common.Caching
         {
             if (onchange != null)
             {
-                actions[typeof(T)] = (o, a) => onchange((T) o, a);
+                Action<object, CacheNotifyAction> action = (o, a) => onchange((T) o, a);
+                actions.AddOrUpdate(typeof(T), 
+                    new ConcurrentBag<Action<object, CacheNotifyAction>> { action },
+                    (type, bag) =>
+                    {
+                        bag.Add(action);
+                        return bag;
+                    });
             }
             else
             {
-                Action<object, CacheNotifyAction> removed;
+                ConcurrentBag<Action<object, CacheNotifyAction>> removed;
                 actions.TryRemove(typeof(T), out removed);
             }
         }
 
         public void Publish<T>(T obj, CacheNotifyAction action)
         {
-            Action<object, CacheNotifyAction> onchange;
+            ConcurrentBag<Action<object, CacheNotifyAction>> onchange;
             actions.TryGetValue(typeof(T), out onchange);
+
             if (onchange != null)
             {
-                onchange(obj, action);
+                onchange.ToArray().ForEach(r => r(obj, action));
             }
         }
 
+        public static void ClearCache()
+        {
+            Notify.Publish(new AscCacheItem(), CacheNotifyAction.Any);
+        }
 
         private MemoryCache GetCache()
         {
             return MemoryCache.Default;
+        }
+
+        private static void OnClearCache()
+        {
+            Default.Remove(new Regex(".*"));
+            var keys = MemoryCache.Default.Select(r => r.Key).ToList();
+
+            foreach (var k in keys)
+            {
+                MemoryCache.Default.Remove(k);
+            }
+        }
+    }
+
+    [Serializable]
+    public class AscCacheItem
+    {
+        public Guid Id { get; set; }
+
+        public AscCacheItem()
+        {
+            Id = Guid.NewGuid();
         }
     }
 }

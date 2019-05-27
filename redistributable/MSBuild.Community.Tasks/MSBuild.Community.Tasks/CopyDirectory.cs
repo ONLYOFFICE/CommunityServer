@@ -1,9 +1,10 @@
 ﻿using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Task = Microsoft.Build.Utilities.Task;
 
 namespace MSBuild.Community.Tasks
 {
@@ -108,15 +109,15 @@ namespace MSBuild.Community.Tasks
                 }
                 sources.AddRange(dirs);
                 sources.AddRange(Directory.GetFiles(fullSource, "*", SearchOption.AllDirectories));
-
-                foreach (var source in sources)
+                
+                Parallel.ForEach(sources, source =>
                 {
                     var fileRelative = Path.DirectorySeparatorChar + source.Substring(fullSource.Length);
 
                     if ((include != null && !include.IsMatch(fileRelative)) ||
                         (exclude != null && exclude.IsMatch(fileRelative)))
                     {
-                        continue;
+                        return;
                     }
 
                     var destPath = Path.Combine(fullDest, fileRelative.Trim(Path.DirectorySeparatorChar));
@@ -135,7 +136,7 @@ namespace MSBuild.Community.Tasks
                         }
                         File.Copy(source, destPath);
                     }
-                }
+                });
 
                 return true;
             }

@@ -138,7 +138,11 @@ namespace ASC.Web.Core.Files
                     };
                 JsonWebToken.JsonSerializer = new JwtSerializer();
                 var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+
+                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                body.Token = token;
             }
 
             var bodyString = JsonConvert.SerializeObject(body);
@@ -246,7 +250,11 @@ namespace ASC.Web.Core.Files
                     };
                 JsonWebToken.JsonSerializer = new JwtSerializer();
                 var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+
+                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                body.Token = token;
             }
 
             var bodyString = JsonConvert.SerializeObject(body);
@@ -304,41 +312,41 @@ namespace ASC.Web.Core.Files
             if (string.IsNullOrEmpty(requestKey) && string.IsNullOrEmpty(scriptUrl))
                 throw new ArgumentException("requestKey or inputScript is empty");
 
-            docbuilderUrl = String.Format("{0}?async={1}&key={2}&url={3}",
-                                          docbuilderUrl,
-                                          isAsync.ToString().ToLowerInvariant(),
-                                          HttpUtility.UrlEncode(requestKey),
-                                          HttpUtility.UrlEncode(scriptUrl));
-
             var request = (HttpWebRequest)WebRequest.Create(docbuilderUrl);
-
             request.Method = "POST";
             request.ContentType = "application/json";
             request.Timeout = Timeout;
+
+            var body = new BuilderBody
+                {
+                    Async = isAsync,
+                    Key = requestKey,
+                    Url = scriptUrl
+                };
 
             if (!string.IsNullOrEmpty(signatureSecret))
             {
                 var payload = new Dictionary<string, object>
                     {
-                        {
-                            "query", new Dictionary<string, string>
-                                {
-                                    {
-                                        "async", isAsync.ToString().ToLowerInvariant()
-                                    },
-                                    {
-                                        "key", requestKey
-                                    },
-                                    {
-                                        "url", scriptUrl
-                                    }
-                                }
-                        }
+                        { "payload", body }
                     };
 
                 JsonWebToken.JsonSerializer = new JwtSerializer();
                 var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+
+                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                body.Token = token;
+            }
+
+            var bodyString = JsonConvert.SerializeObject(body);
+
+            var bytes = Encoding.UTF8.GetBytes(bodyString ?? "");
+            request.ContentLength = bytes.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
             }
 
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
@@ -348,7 +356,6 @@ namespace ASC.Web.Core.Files
             }
 
             string dataResponse = null;
-
             using (var response = (HttpWebResponse)request.GetResponse())
             using (var responseStream = response.GetResponseStream())
             {
@@ -361,11 +368,10 @@ namespace ASC.Web.Core.Files
                 }
             }
 
-
             if (string.IsNullOrEmpty(dataResponse)) throw new Exception("Invalid response");
 
             var responseFromService = JObject.Parse(dataResponse);
-            if (responseFromService == null) throw new WebException("Invalid answer format");
+            if (responseFromService == null) throw new Exception("Invalid answer format");
 
             var errorElement = responseFromService.Value<string>("error");
             if (!string.IsNullOrEmpty(errorElement)) ProcessResponseError(Convert.ToInt32(errorElement));
@@ -381,6 +387,29 @@ namespace ASC.Web.Core.Files
             }
 
             return responseFromService.Value<string>("key");
+        }
+
+        public static bool HealthcheckRequest(string healthcheckUrl)
+        {
+            if (string.IsNullOrEmpty(healthcheckUrl))
+                throw new ArgumentNullException("healthcheckUrl");
+
+            var request = (HttpWebRequest)WebRequest.Create(healthcheckUrl);
+            request.Timeout = Timeout;
+
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var responseStream = response.GetResponseStream())
+            {
+                if (responseStream == null)
+                {
+                    throw new Exception("Empty response");
+                }
+                using (var reader = new StreamReader(responseStream))
+                {
+                    var dataResponse = reader.ReadToEnd();
+                    return dataResponse.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+                }
+            }
         }
 
         public enum CommandMethod
@@ -430,6 +459,9 @@ namespace ASC.Web.Core.Files
             [DataMember(Name = "users", IsRequired = false, EmitDefaultValue = false)]
             public string[] Users { get; set; }
 
+            [DataMember(Name = "token")]
+            public string Token { get; set; }
+
             //not used
             [DataMember(Name = "userdata", IsRequired = false, EmitDefaultValue = false)]
             public string UserData { get; set; }
@@ -466,6 +498,41 @@ namespace ASC.Web.Core.Files
 
             [DataMember(Name = "url", IsRequired = true)]
             public string Url { get; set; }
+
+            [DataMember(Name = "token")]
+            public string Token { get; set; }
+        }
+
+        [Serializable]
+        [DataContract(Name = "Builder", Namespace = "")]
+        [DebuggerDisplay("{Key}")]
+        private class BuilderBody
+        {
+            [DataMember(Name = "async")]
+            public bool Async { get; set; }
+
+            [DataMember(Name = "key", IsRequired = true)]
+            public string Key { get; set; }
+
+            [DataMember(Name = "url", IsRequired = true)]
+            public string Url { get; set; }
+
+            [DataMember(Name = "token")]
+            public string Token { get; set; }
+        }
+
+        [Serializable]
+        [DataContract(Name = "file", Namespace = "")]
+        public class FileLink
+        {
+            [DataMember(Name = "fileType")]
+            public string FileType;
+
+            [DataMember(Name = "token", EmitDefaultValue = false)]
+            public string Token;
+
+            [DataMember(Name = "url")]
+            public string Url;
         }
 
         public class DocumentServiceException : Exception
@@ -519,34 +586,46 @@ namespace ASC.Web.Core.Files
             string errorMessage;
             switch (errorCode)
             {
-                case -22: // public const int c_nErrorUserCountExceed = -22;
+                case -22: // VKEY_USER_COUNT_EXCEED
                     errorMessage = "user count exceed";
                     break;
-                case -21: // public const int c_nErrorKeyExpire = -21;
+                case -21: // VKEY_KEY_EXPIRE
                     errorMessage = "signature expire";
                     break;
-                case -20: // public const int c_nErrorVKeyEncrypt = -20;
+                case -20: // VKEY_ENCRYPT
                     errorMessage = "encrypt signature";
                     break;
-                case -8: // public const int c_nErrorFileVKey = -8;
+                case -11: // UPLOAD_COUNT_FILES
+                    errorMessage = "count files";
+                    break;
+                case -10: // UPLOAD_EXTENSION
+                    errorMessage = "extension";
+                    break;
+                case -9: // UPLOAD_CONTENT_LENGTH
+                    errorMessage = "upload length";
+                    break;
+                case -8: // VKEY
                     errorMessage = "document signature";
                     break;
-                case -6: // public const int c_nErrorDatabase = -6;
+                case -6: // TASK_QUEUE
                     errorMessage = "database";
                     break;
-                case -4: // public const int c_nErrorDownloadError = -4;
+                case -5: // CONVERT_PASSWORD
+                    errorMessage = "password";
+                    break;
+                case -4: // CONVERT_DOWNLOAD
                     errorMessage = "download";
                     break;
-                case -3: // public const int c_nErrorConvertationError = -3;
+                case -3: // CONVERT
                     errorMessage = "convertation";
                     break;
-                case -2: // public const int c_nErrorConvertationTimeout = -2;
+                case -2: // CONVERT_TIMEOUT
                     errorMessage = "convertation timeout";
                     break;
-                case -1: // public const int c_nErrorUnknown = -1;
+                case -1: // UNKNOWN;
                     errorMessage = "unknown error";
                     break;
-                default: // public const int c_nErrorNo = 0;
+                default:
                     errorMessage = "errorCode = " + errorCode;
                     break;
             }

@@ -40,11 +40,6 @@ namespace ASC.Files.Thirdparty.OneDrive
         {
         }
 
-        public void Dispose()
-        {
-            OneDriveProviderInfo.Dispose();
-        }
-
         #region ITagDao Members
 
         public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)

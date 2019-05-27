@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Client.HttpHandlers;
@@ -88,7 +89,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                             StartModule.ProjectsModule,
                             StartModule.DiscussionModule,
                             StartModule.TimeTrackingModule
-                        }
+                        }.Select(r=> new {r.Page, r.StartModuleType, Title = r.Title()})
                     })
             };
         }

@@ -59,6 +59,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionReassignsCompleted,
                     Constants.ActionReassignsFailed,
                     Constants.ActionRemoveUserDataCompleted,
+                    Constants.ActionRemoveUserDataCompletedCustomMode,
                     Constants.ActionRemoveUserDataFailed,
                     Constants.ActionPhoneChange,
                     Constants.ActionMigrationPortalStart,
@@ -95,6 +96,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionSaasUserWellcome,
                     Constants.ActionEnterpriseUserWellcome,
                     Constants.ActionEnterpriseWhitelabelUserWellcome,
+                    Constants.ActionEnterpriseWhitelabelUserWellcomeCustomMode,
                     Constants.ActionHostedUserWellcome,
                     Constants.ActionHostedWhitelabelUserWellcome,
                     Constants.ActionFreeCloudUserWellcome,
@@ -168,7 +170,17 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionPersonalConfirmation,
                     Constants.ActionPersonalPasswordChange,
                     Constants.ActionPersonalEmailChange,
-                    Constants.ActionPersonalProfileDelete
+                    Constants.ActionPersonalProfileDelete,
+
+                    Constants.ActionMailboxCreated,
+                    Constants.ActionMailboxWithoutSettingsCreated,
+
+                    Constants.ActionPersonalCustomModeAfterRegistration1,
+                    Constants.ActionPersonalCustomModeAfterRegistration7,
+                    Constants.ActionPersonalCustomModeConfirmation,
+                    Constants.ActionPersonalCustomModePasswordChange,
+                    Constants.ActionPersonalCustomModeEmailChange,
+                    Constants.ActionPersonalCustomModeProfileDelete
                 );
         }
 

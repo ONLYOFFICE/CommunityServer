@@ -48,14 +48,14 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static List<VideoGuideItem> GetVideoGuidesAll()
         {
-            var url = CommonLinkUtility.GetHelpLink();
-            if (string.IsNullOrEmpty(url))
+            var baseUrl = CommonLinkUtility.GetHelpLink(false); ;
+            if (string.IsNullOrEmpty(baseUrl))
             {
                 return new List<VideoGuideItem>();
             }
 
             var storage = new BaseHelpCenterStorage<VideoGuideData>(HttpContext.Current.Server.MapPath("~/"),"videoguide.html", "videoguide");
-            var storageData = storage.GetData(url, "/video.aspx", CommonLinkUtility.GetHelpLink(false));
+            var storageData = storage.GetData(baseUrl, CommonLinkUtility.GetHelpLink() + "/video.aspx", baseUrl);
             var result = new List<VideoGuideItem>();
             if (storageData != null)
             {
@@ -67,14 +67,14 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         public static List<HelpCenterItem> GetHelpCenter(string module, string helpLinkBlock)
         {
-            var url = CommonLinkUtility.GetHelpLink();
-            if (string.IsNullOrEmpty(url))
+            var baseUrl = CommonLinkUtility.GetHelpLink(false);
+            if (string.IsNullOrEmpty(baseUrl))
             {
                 return null;
             }
 
             var storage = new BaseHelpCenterStorage<HelpCenterData>(HttpContext.Current.Server.MapPath("~/"), "helpcenter.html", "helpcenter");
-            var storageData = storage.GetData(url, "/gettingstarted/" + module, helpLinkBlock);
+            var storageData = storage.GetData(baseUrl, CommonLinkUtility.GetHelpLink() + "/gettingstarted/" + module, helpLinkBlock);
 
             return storageData != null ? storageData.ListItems : null;
         }

@@ -36,6 +36,7 @@ namespace ASC.Core.Tenants
     {
         public const int DEFAULT_TENANT = -1;
 
+        public static readonly string HostName = Dns.GetHostName().ToLowerInvariant();
 
         public Tenant()
         {
@@ -170,7 +171,7 @@ namespace ASC.Core.Tenants
             {
                 //single tenant on local host
                 TenantAlias = "localhost";
-                result = Dns.GetHostName().ToLowerInvariant();
+                result = HostName;
             }
             else
             {

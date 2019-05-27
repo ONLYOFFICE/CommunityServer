@@ -99,7 +99,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.composingMessageFromChat, onComposingMessageFromChat);
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.pausedMessageFromChat, onPausedMessageFromChat);
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvMessageFromChat, onRecvMessageFromChat);
-    ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvOfflineMessagesFromChat, onRecvMessageFromChat);
+    ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvOfflineMessagesFromChat, onRecvOfflineMessageFromChat);
 
     TMTalk.bind(TMTalk.events.pageFocus, onPageFocus);
     TMTalk.bind(TMTalk.events.pageKeyup, onPageKeyup);
@@ -211,8 +211,10 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
       }
     }
   };
-
-  var onRecvMessageFromChat = function (jid, name, date, body) {
+  var onRecvOfflineMessageFromChat = function(jid, name, date, body) {
+    onRecvMessageFromChat(jid, name, date, body, true);
+  };
+  var onRecvMessageFromChat = function (jid, name, date, body, isOffline) {
     var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
     if (TMTalk.properties.focused === false || currentRoomData !== null && currentRoomData.id !== jid) {
       var
@@ -229,6 +231,12 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
       }
       if (found === false) {
         incomingMessages[jid] = true;
+      }
+        
+      var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+      if (openedRooms[jid]) {
+          openedRooms[jid].inBackground = true;
+          localStorageManager.setItem("openedRooms", openedRooms);
       }
     }
   };
@@ -278,6 +286,9 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
         }
         if (ASC.TMTalk.dom.hasClass(node, 'new-message')) {
           classname += ' new-message';
+        }
+        if (ASC.TMTalk.dom.hasClass(node, 'hidden')) {
+            classname += ' hidden';
         }
         node.className = classname;
         break;

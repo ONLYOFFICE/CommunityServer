@@ -24,9 +24,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
         public const String FilesAccessUrlFormat = BaseAccessUrl + "/{0}/files";
 
         //misc
-        public static readonly String[] SupportedFileExtensions = new[] {""};
-        public static readonly Regex ResourceIDRegex = new Regex(@"^(file|folder|photo|album)\.[!\.\w]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant) ;
+        public static readonly String[] SupportedFileExtensions = new[] { "" };
+        public static readonly Regex ResourceIDRegex = new Regex(@"^(file|folder|photo|album)\.[!\.\w]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         public static readonly Regex RootIDRegex = new Regex(@"^folder.\w+$");
-    
+
     }
 }

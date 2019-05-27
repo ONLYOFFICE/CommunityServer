@@ -24,9 +24,9 @@
 */
 
 
-using log4net;
 using System;
 using System.Web;
+using ASC.Common.Logging;
 
 namespace ASC.Data.Storage
 {

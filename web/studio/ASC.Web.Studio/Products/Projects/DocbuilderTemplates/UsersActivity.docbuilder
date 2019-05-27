@@ -1,0 +1,96 @@
+﻿var notGrouped = [];
+var grouped1 = [];
+
+for (var i = 0; i < reportData.length; i++) {
+	if (reportData[i][1].length === 0) {
+		notGrouped.push(reportData[i]);
+	} else {
+		grouped1.push(reportData[i]);
+	}
+}
+
+function showGroups(grouped) {
+    var group = [];
+
+    for (var i = 0; i < grouped.length; i++) {
+        var found = false;
+        var groupItem = grouped[i];
+        for (var k = 0; k < group.length; k++) {
+            if (groupItem[0] === group[k].id) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            group.push({ id: groupItem[0], title: groupItem[1] });
+        }
+    }
+
+    for (var i = 0; i < group.length; i++) {
+        var groupItem = group[i];
+
+        writeText(groupItem.title,
+        {
+            size: chartHeaderFontSize,
+            bold: true
+        });
+
+        currentRow++;
+
+        printHeader();
+
+        var sum = [0, 0, 0, 0];
+
+        for (var j = 0; j < grouped.length; j++) {
+            var groupedItem = grouped[j];
+            if (groupItem.id === groupedItem[0]) {
+                groupedItem = groupedItem.slice(1);
+                writeRow([1, 2, 3, 4, 5],
+                    groupedItem,
+                    [1, 2, 3, 4],
+                    {
+                        color: lightGrayBorderColor
+                    },
+                    {
+                        size: smallFontSize
+                    },
+                    true);
+
+                incrementSum(sum, groupedItem);
+            }
+        }
+
+        printSum(sum);
+    }
+}
+
+function printHeader() {
+    writeRow([0, 1, 2, 3, 4], reportColumns, [1, 2, 3, 4], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+}
+
+function incrementSum(sum, item) {
+    for (var i = 0; i < sum.length; i++) {
+        sum[i] += item[i + 2];
+    }
+}
+
+function printSum(sum) {
+    var options = {
+        size: smallFontSize,
+        bold: true
+    };
+
+    writeText(reportColumns[4], options, false);
+	writeRow([0, 1, 2, 3], sum, [0, 1, 2, 3], null, options);
+
+	currentRow += 2;
+}
+
+showGroups(notGrouped);
+showGroups(grouped1);

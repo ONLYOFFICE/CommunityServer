@@ -81,6 +81,17 @@ namespace MSBuild.Community.Tasks.Subversion
             set { destinationPath = value; }
         }
 
+        private bool buildTree;
+        /// <summary>
+        /// Specifies whether to create any missing directories and subdirectories 
+        /// in the specified <see cref="DestinationPath"/>
+        /// </summary>
+        public bool BuildTree
+        {
+            get { return buildTree; }
+            set { buildTree = value; }
+        }
+
 
         /// <summary>
         /// Generates the SVN command.
@@ -88,7 +99,7 @@ namespace MSBuild.Community.Tasks.Subversion
         /// <returns></returns>
         protected override string GenerateSvnCommand()
         {
-            return String.Format("{0} \"{1}\" \"{2}\"", base.GenerateSvnCommand(), sourcePath, destinationPath);
+            return String.Format("{0} \"{2}\" \"{3}\"{1}", base.GenerateSvnCommand(), BuildTree ? " --parents" : "", sourcePath, destinationPath);
         }
 
         /// <summary>

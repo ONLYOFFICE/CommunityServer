@@ -21,7 +21,7 @@
                     <td class="file-selector-tree">
                         <asp:PlaceHolder runat="server" ID="TreeHolder"></asp:PlaceHolder>
                     </td>
-                    <td class="file-selector-files borderBase">
+                    <td class="file-selector-files borderBase <%= Multiple ? "" : "file-selector-single" %>">
                         <asp:PlaceHolder runat="server" ID="ContentHolder"></asp:PlaceHolder>
                     </td>
                 </tr>

@@ -65,6 +65,9 @@ namespace ASC.Core.Common.Contracts
         [OperationContract]
         BackupProgress GetRestoreProgress(int tenantId);
 
+        [OperationContract]
+        string GetTmpFolder();
+
 
         [OperationContract]
         void CreateSchedule(CreateScheduleRequest request);

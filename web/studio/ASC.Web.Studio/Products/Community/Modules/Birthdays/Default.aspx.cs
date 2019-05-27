@@ -55,7 +55,9 @@ namespace ASC.Web.Community.Birthdays
             {
                 upcomingEmptyContent.Controls.Add(new EmptyScreenControl
                     {
-                        Describe = BirthdaysResource.BirthdaysEmptyUpcomingTitle
+                        ImgSrc = VirtualPathUtility.ToAbsolute("~/products/community/modules/birthdays/app_Themes/default/images/birthday.png"),
+                        Header = BirthdaysResource.BirthdayEmptyScreenCaption,
+                        Describe = BirthdaysResource.BirthdaysEmptyModuleDescription
                     });
             }
 

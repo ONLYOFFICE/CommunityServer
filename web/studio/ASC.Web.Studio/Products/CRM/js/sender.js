@@ -369,7 +369,7 @@ ASC.CRM.SmtpSender = (function () {
 
             jq("#emailsErrorsCount")
             .html(jq("<div></div>").addClass("red-text").html(mess))
-            .append(jq("<a></a>").attr("href", "settings.aspx?type=common").text(ASC.CRM.Resources.CRMJSResource.GoToSettings));
+            .append(jq("<a></a>").attr("href", "/management.aspx?type=10").text(ASC.CRM.Resources.CRMJSResource.GoToSettings));
         },
 
         abortMassSend: function () {
@@ -428,7 +428,7 @@ ASC.CRM.SmtpSender = (function () {
         },
         
         getItems: function () {
-            var s = localStorageManager.getItem("senderTargets") || "[]";
+            var s = localStorageManager.getItem("senderTargets") || [];
             localStorageManager.removeItem("senderTargets");
             return s;
         },

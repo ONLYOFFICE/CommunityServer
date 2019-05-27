@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li>
-                    <div class="savedtime pull-right" style="display: none; ">
+                    <div class="savedtime pull-right" style="display: none;">
                         ${ASC.Mail.Resources.MailResource.SavedAt}: <span class="savedtime-value"></span>
                     </div>
                 </li>
@@ -45,10 +45,10 @@
                     <div class="value">
                         <span id="newmessageFromSelected" class="pointer">
                             <span class="baseLinkAction"></span>
-                            <div class="arrow-down"></div>
+                            <div class="baseLinkArrowDown"></div>
                         </span>
 
-                        <span id="newmessageFromWarning" style="display:none; margin-left: 16px;" class="red-text">
+                        <span id="newmessageFromWarning" style="display: none; margin-left: 16px;" class="red-text">
                             ${ASC.Mail.Resources.MailResource.AccountDisableForSending}&nbsp;
                             <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
                         </span>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="value with-right">
                         <div id="newmessageTo" class="emailselector to">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="1" />
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="1"/>
                             <pre class="emailSelector-input-buffer"></pre>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     </label>
                     <div class="value with-right">
                         <div id="newmessageCopy" class="emailselector cc">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="2" />
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="2"/>
                             <pre class="emailSelector-input-buffer"></pre>
                         </div>
                     </div>
@@ -85,22 +85,26 @@
                     </label>
                     <div class="value with-right">
                         <div id="newmessageBCC" class="emailselector bcc">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="3" />
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="3"/>
                             <pre class="emailSelector-input-buffer"></pre>
                         </div>
                     </div>
                 </div>
                 <div class="value-group">
-                    <label>
-                        ${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:
-                    </label>
-                    <div class="pull-right">
-                        <label for="newmessageImportance" class="checkbox">
-                            <input type="checkbox" id="newmessageImportance" name="Importance"{{if typeof(important) != 'undefined' && important == true}} value="1" checked="true"{{else}} value="0"{{/if}}/>
-                            <span>
-                                ${ASC.Mail.Resources.MailResource.ImportanceLabel}
-                            </span>
-                        </label>
+                    <label>${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:</label>
+                    <div class="pull-right" style="display: inline-block; padding-top: 4px;">
+                        <div class="requestReceipt pull-right" title="${ASC.Mail.Resources.MailResource.RequestNotificationHint}">
+                            <svg class="requestReceipt-svg" width="18" height="18">
+                                <use base="/" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenumail"/>
+                            </svg>
+                        </div>
+                        <div class="importance pull-right" style="padding-right: 4px; padding-top: 1.5px;">
+                            {{if typeof(important) != 'undefined' && important == true}}
+                            <i class="icon-important" title="${ASC.Mail.Resources.MailResource.ImportantLabel}"/>
+                            {{else}}
+                            <i class="icon-unimportant" title="${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}"/>
+                            {{/if}}
+                        </div>
                     </div>
                     <div class="value with-right" style="margin-right: 124px;">
                         <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" tabindex="4" value="${subject}"/>
@@ -110,10 +114,6 @@
                     <label>${ASC.Mail.Resources.MailScriptResource.Tags}:</label>
                     <div class="value"><div class="itemTags"></div></div>
                 </div>
-            </div>
-            <div id="id_block_errors_container" class="error-popup" style="display: none;"> 
-                <span class="text">${ASC.Mail.Resources.MailResource.BlockedContentWarning}</span>
-                <a class="close-info-popup" href="#" onclick="jq('#id_block_errors_container').hide(); return false;">&times;</a>
             </div>
         </div>
     </div>
@@ -133,8 +133,12 @@
                     title="${fileName}"
                {{if isImage == true}}
                     class="screenzoom" 
-               {{else}} 
-                    {{if canView == false}} download="${fileName}" {{/if}} 
+               {{else}}
+                    {{if isMedia == true}}
+                        class="mediafile"
+                    {{else}}
+                        {{if canView == false}} download="${fileName}" {{/if}}
+                    {{/if}}
                {{/if}}>
                <span class="file-name">
                     ${$item.cutFileName($item.getFileNameWithoutExt(fileName))}

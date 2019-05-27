@@ -24,8 +24,6 @@
 */
 
 
-#region Import
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -33,19 +31,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web.Configuration;
-using System.Xml;
 using ASC.CRM.Core;
-using ASC.Web.CRM.Resources;
-using log4net;
-using System.Security.Principal;
-using System.Xml.Linq;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
 using Autofac;
-
-#endregion
 
 namespace ASC.Web.CRM.Classes
 {
@@ -55,7 +46,7 @@ namespace ASC.Web.CRM.Classes
 
         #region Members
 
-        private static readonly ILog _log = LogManager.GetLogger(typeof(CurrencyProvider));
+        private static readonly ILog _log = LogManager.GetLogger("ASC");
         private static readonly object _syncRoot = new object();
         private static readonly Dictionary<String, CurrencyInfo> _currencies;
         private static Dictionary<String, Decimal> _exchangeRates;
@@ -336,13 +327,14 @@ namespace ASC.Web.CRM.Classes
                     Directory.CreateDirectory(dir);
                 }
 
-                var destinationURI = new Uri(String.Format("http://themoneyconverter.com/{0}/{0}.aspx", currency));
+                var destinationURI = new Uri(String.Format("https://themoneyconverter.com/{0}/{0}.aspx", currency));
 
                 var request = (HttpWebRequest)WebRequest.Create(destinationURI);
                 request.Method = "GET";
                 request.AllowAutoRedirect = true;
                 request.MaximumAutomaticRedirections = 2;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0";
+                request.UseDefaultCredentials = true;
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var responseStream = new StreamReader(response.GetResponseStream()))

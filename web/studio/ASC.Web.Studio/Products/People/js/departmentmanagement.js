@@ -122,7 +122,8 @@ var DepartmentManagement = new function () {
         PopupKeyUpActionProvider.EnterAction = 'DepartmentManagement.AddDepartmentCallback()';
     };
 
-    this.EditDepartmentOpenDialog = function (id, gName, gOwner) {
+    this.EditDepartmentOpenDialog = function (groupData) {
+        var id = groupData.id, gName = groupData.name, gOwner = groupData.manager, gMembers = groupData.members;
 
         HideRequiredError();
         DepartmentManagement.initDepartmentDialog();
@@ -140,49 +141,40 @@ var DepartmentManagement = new function () {
         var $headAdvancedSelector = jq("#headAdvancedSelector"),
             $membersAdvancedSelector = jq("#membersAdvancedSelector");
 
-        if (gOwner.id && gOwner.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// profile removed
+        if (gOwner && gOwner.id && gOwner.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// profile removed
             var $headCnt = jq("#departmentManager");
             $headCnt.find(".result-name").attr("data-id", gOwner.id).html(gOwner.displayName);
             $headCnt.removeClass("display-none");
             $headAdvancedSelector.hide();
-            $headAdvancedSelector.useradvancedSelector("select", gOwner.id);
+            $headAdvancedSelector.useradvancedSelector("select", [gOwner.id]);
             $membersAdvancedSelector.useradvancedSelector("disable", [gOwner.id]);
         }
         var $memberList = jq(".members-dep-list");
 
-        var filter = {
-            groupId: id
-        };
+        jq("#membersDepartmentList").html("");
+        $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>");
 
-        Teamlab.getProfilesByFilter({}, {
-            filter: filter,
-            before: function () {
-                jq("#membersDepartmentList").html("");
-                $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>");
-            },
-            after: function(){
-                $memberList.find(".loading-link").remove();
-            },
-            success: function (params, gMembers) {
-                if (gMembers.length) {
-                    var memberIds = [],
-                        members = [];
-                    gMembers.forEach(function (m) {
-                        memberIds.push(m.id);
-                        if (m.id !== gOwner.id) {
-                            members.push({
-                                id: m.id,
-                                title: m.displayName
-                            });
-                        }
+        if (gMembers.length) {
+
+            var memberIds = [],
+                members = [];
+
+            gMembers.forEach(function (m) {
+                memberIds.push(m.id);
+                if (m.id !== gOwner.id) {
+                    members.push({
+                        id: m.id,
+                        title: m.displayName
                     });
-
-                    $membersAdvancedSelector.useradvancedSelector("select", memberIds);
-                    var $o = jq.tmpl("template-selector-selected-items", { Items: members.sort(SortData) });
-                    jq("#membersDepartmentList").html($o);
                 }
-            }
-        });
+            });
+
+            $membersAdvancedSelector.useradvancedSelector("select", memberIds);
+            var $o = jq.tmpl("template-selector-selected-items", { Items: members.sort(SortData) });
+            jq("#membersDepartmentList").html($o);
+        }
+
+        $memberList.find(".loading-link").remove();
     };
 
     this.AddDepartmentCallback = function () {

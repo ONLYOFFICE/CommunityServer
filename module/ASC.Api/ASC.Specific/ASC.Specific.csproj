@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Specific</RootNamespace>
     <AssemblyName>ASC.Specific</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -45,12 +45,8 @@
       <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -75,13 +71,13 @@
     <Compile Include="AscApiConfiguration.cs" />
     <Compile Include="ASCCookieAuthorization.cs" />
     <Compile Include="ASCBasicAuthorization.cs" />
+    <Compile Include="ASCBearerAuthorization.cs" />
     <Compile Include="AuthorizationApi\AuthenticationEntryPoint.cs" />
     <Compile Include="AuthorizationApi\AuthenticationTokenData.cs" />
     <Compile Include="CapabilitiesApi\CapabilitiesData.cs" />
     <Compile Include="CapabilitiesApi\CapabilitiesEntryPoint.cs" />
     <Compile Include="GlobalFilters\ProductSecurityFilter.cs" />
     <Compile Include="IApiSortableDate.cs" />
-    <Compile Include="Log4netLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializationFilters\CustomSerializer.cs" />
   </ItemGroup>

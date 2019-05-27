@@ -107,6 +107,11 @@ namespace ASC.Web.Studio.Core.Users
                 xml.Append("<template><span class=\"label skype\"><span class=\"inner-text\">{0}</span></span></template>");
                 xml.Append("</contact>");
 
+                xml.Append("<contact id=\"extskype\" title=\"" + Resources.Resource.TitleSkype + "\">");
+                xml.Append("<pattern>" + Resources.Resource.HintSkype + "</pattern>");
+                xml.Append("<template><span class=\"label skype\"><span class=\"inner-text\">{0}</span></span></template>");
+                xml.Append("</contact>");
+
                 xml.Append("<contact id=\"msn\" title=\"" + Resources.Resource.TitleMsn + "\">");
                 xml.Append("<pattern>" + Resources.Resource.HintMsn + "</pattern>");
                 xml.Append("<template><span class=\"label msn\"><span class=\"inner-text\">{0}</span></span></template>");
@@ -155,6 +160,11 @@ namespace ASC.Web.Studio.Core.Users
                 xml.Append("<contact id=\"extmobphone\" title=\"" + Resources.Resource.TitleMobphone + "\">");
                 xml.Append("<pattern>" + Resources.Resource.HintMobphone + "</pattern>");
                 xml.Append("<template><span class=\"label mobphone\"><span class=\"inner-text\">{0}</span></span></template>");
+                xml.Append("</contact>");
+
+                xml.Append("<contact id=\"extphone\" title=\"" + Resources.Resource.TitlePhone + "\">");
+                xml.Append("<pattern>" + Resources.Resource.HintPhone + "</pattern>");
+                xml.Append("<template><span class=\"label phone\"><span class=\"inner-text\">{0}</span></span></template>");
                 xml.Append("</contact>");
 
                 xml.Append("</contacts>");

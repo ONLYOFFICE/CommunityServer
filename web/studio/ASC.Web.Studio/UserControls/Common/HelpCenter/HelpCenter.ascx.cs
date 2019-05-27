@@ -80,6 +80,11 @@ namespace ASC.Web.Studio.UserControls.Common.HelpCenter
             HelpLinkBlock = mainLink + index + "=";
 
             HelpCenterItems = HelpCenterHelper.GetHelpCenter(module, HelpLinkBlock);
+
+            if (MediaViewersPlaceHolder != null)
+            {
+                MediaViewersPlaceHolder.Controls.Add(LoadControl(MediaPlayer.Location));
+            }
         }
 
         private IWebItem GetProduct()

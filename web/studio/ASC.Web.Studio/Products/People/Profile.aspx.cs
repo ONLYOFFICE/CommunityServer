@@ -29,12 +29,12 @@ using System.Web;
 using System.Text;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.UserControls.Users.TipsSettings;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.People
 {
@@ -44,7 +44,7 @@ namespace ASC.Web.People
 
         protected bool IsAdmin()
         {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            return WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
 
         protected void Page_Load(object sender, EventArgs e)

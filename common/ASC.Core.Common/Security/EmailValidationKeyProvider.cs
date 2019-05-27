@@ -25,10 +25,10 @@
 
 
 using ASC.Core;
-using log4net;
 using System;
 using System.Configuration;
 using System.Text;
+using ASC.Common.Logging;
 
 namespace ASC.Security.Cryptography
 {
@@ -81,9 +81,8 @@ namespace ASC.Security.Cryptography
 
         public static ValidationResult ValidateEmailKey(string email, string key, TimeSpan validInterval)
         {
-            log.DebugFormat("validating '{0}' with key:{1} interval:{2} tenant:{3}", email, key, validInterval, CoreContext.TenantManager.GetCurrentTenant().TenantId);
             var result = ValidateEmailKeyInternal(email, key, validInterval);
-            log.DebugFormat("validation result:{3}, source: '{0}' with key:{1} interval:{2}", email, key, validInterval, result);
+            log.DebugFormat("validation result: {0}, source: {1} with key: {2} interval: {3} tenant: {4}", result, email, key, validInterval, CoreContext.TenantManager.GetCurrentTenant().TenantId);
             return result;
         }
 

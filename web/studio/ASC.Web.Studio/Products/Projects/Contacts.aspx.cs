@@ -24,9 +24,7 @@
 */
 
 
-using System;
 using System.Web;
-using ASC.Projects.Engine;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Projects.Classes;
@@ -45,7 +43,7 @@ namespace ASC.Web.Projects
         {
             get
             {
-                var crmEnabled = WebItemManager.Instance[new Guid("6743007C-6F95-4d20-8C88-A8601CE5E76D")];
+                var crmEnabled = WebItemManager.Instance[WebItemManager.CRMProductID];
 
                 return crmEnabled != null && !crmEnabled.IsDisabled() && ProjectSecurity.CanReadContacts(Project);
             }

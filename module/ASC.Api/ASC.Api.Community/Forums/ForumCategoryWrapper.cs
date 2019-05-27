@@ -36,6 +36,9 @@ namespace ASC.Api.Forums
     [DataContract(Name = "category", Namespace = "")]
     public class ForumCategoryWrapper : IApiSortableDate
     {
+        [DataMember(Order = 0)]
+        public int Id { get; set; }
+
         [DataMember(Order = 1)]
         public string Title { get; set; }
 
@@ -51,6 +54,8 @@ namespace ASC.Api.Forums
 
         public ForumCategoryWrapper(ThreadCategory category, IEnumerable<Thread> threads)
         {
+            Id = category.ID;
+
             Title = category.Title;
             Updated = Created = (ApiDateTime)category.CreateDate;
 
@@ -69,6 +74,7 @@ namespace ASC.Api.Forums
         {
             return new ForumCategoryWrapper()
                        {
+                           Id = 0,
                            Created = ApiDateTime.GetSample(), 
                            Description = "Sample category", 
                            Title = "Sample title",

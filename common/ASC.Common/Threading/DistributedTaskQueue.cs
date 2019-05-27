@@ -42,7 +42,7 @@ namespace ASC.Common.Threading
         private readonly ICache cache;
         private readonly ICacheNotify notify;
         private readonly TaskScheduler scheduler;
-        private readonly ConcurrentDictionary<string, CancellationTokenSource> cancelations;
+        private static readonly ConcurrentDictionary<string, CancellationTokenSource> cancelations = new ConcurrentDictionary<string, CancellationTokenSource>();
 
 
         static DistributedTaskQueue()
@@ -69,7 +69,6 @@ namespace ASC.Common.Threading
             scheduler = maxThreadsCount <= 0
                 ? TaskScheduler.Default
                 : new LimitedConcurrencyLevelTaskScheduler(maxThreadsCount);
-            cancelations = new ConcurrentDictionary<string, CancellationTokenSource>();
 
             notify.Subscribe<DistributedTaskCancelation>((c, a) =>
             {

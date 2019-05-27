@@ -122,13 +122,13 @@ namespace ASC.Xmpp.Core.protocol.extensions.commands
         /// <summary>
         ///   The X-Data Element
         /// </summary>
-        public Data Data
+        public x.data.Data Data
         {
-            get { return SelectSingleElement(typeof (Data)) as Data; }
+            get { return SelectSingleElement(typeof (x.data.Data)) as x.data.Data; }
             set
             {
-                if (HasTag(typeof (Data)))
-                    RemoveTag(typeof (Data));
+                if (HasTag(typeof (x.data.Data)))
+                    RemoveTag(typeof (x.data.Data));
 
                 if (value != null)
                     AddChild(value);

@@ -1,6 +1,6 @@
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Mail" %>
-<%@ Assembly Name="ASC.Api.Mail" %>
+<%@ Import Namespace="ASC.Data.Storage" %>
 
 <%@ Page Language="C#" EnableViewState="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Mail.MailPage" MasterPageFile="~/Masters/BaseTemplate.master" %>
 
@@ -20,7 +20,12 @@
         </style>
     <% } %>
     
-    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TopContent" runat="server">
+    <div id="firstLoader">
+        <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
+    </div>
 </asp:Content>
 
 <asp:Content ID="MailSideContent" ContentPlaceHolderID="SidePanel" runat="server">
@@ -51,85 +56,99 @@
                 <span class="mail"></span>
             </li>
         </ul>
-        <ul class="menu-list" id="foldersContainer">
-            <li class="menu-item none-sub-list" folderid="1" unread="0">
-                <table>
-                    <tr>
-                        <td width="100%">
-                            <a class="menu-item-label outer-text text-overflow" href="#inbox" folderid="1">
-                                <span class="menu-item-icon inbox"></span>
-                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameInbox %></span>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="lattersCount counter"></div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="menu-item none-sub-list" folderid="2" unread="0">
-                <table>
-                    <tr>
-                        <td width="100%">
-                            <a class="menu-item-label outer-text text-overflow" href="#sent" folderid="2">
-                                <span class="menu-item-icon sent"></span>
-                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameSent %></span>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="lattersCount counter"></div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="menu-item none-sub-list" folderid="3" unread="0">
-                <table>
-                    <tr>
-                        <td width="100%">
-                            <a class="menu-item-label outer-text text-overflow" href="#drafts" folderid="3">
-                                <span class="menu-item-icon drafts"></span>
-                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameDrafts %></span>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="lattersCount counter"></div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="menu-item none-sub-list" folderid="4" unread="0">
-                <table>
-                    <tr>
-                        <td width="100%">
-                            <a class="menu-item-label outer-text text-overflow" href="#trash" folderid="4">
-                                <span class="menu-item-icon trash"></span>
-                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameTrash %></span>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="lattersCount counter"></div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li class="menu-item none-sub-list" folderid="5" unread="0">
-                <table>
-                    <tr>
-                        <td width="100%">
-                            <a class="menu-item-label outer-text text-overflow" href="#spam" folderid="5">
-                                <span class="menu-item-icon spam"></span>
-                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameSpam %></span>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="lattersCount counter"></div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-        </ul>
-        <asp:PlaceHolder ID="MailSidePanelContainer" runat="server" />
         
+        <div id="userFolderContainer" class="webkit-scrollbar">
+            <ul class="menu-list markedTree" id="foldersContainer">
+                <li class="menu-item none-sub-list" folderid="1" unread="0">
+                    <table>
+                        <tr>
+                            <td width="100%">
+                                <a class="menu-item-label outer-text text-overflow" href="#inbox" folderid="1">
+                                    <span class="menu-item-icon inbox"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsinbox"></use></svg></span>
+                                    <span class="menu-item-label inner-text"><%= MailResource.FolderNameInbox %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="lattersCount counter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="menu-item none-sub-list" folderid="2" unread="0">
+                    <table>
+                        <tr>
+                            <td width="100%">
+                                <a class="menu-item-label outer-text text-overflow" href="#sent" folderid="2">
+                                    <span class="menu-item-icon sent"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconssent"></use></svg></span>
+                                    <span class="menu-item-label inner-text"><%= MailResource.FolderNameSent %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="lattersCount counter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="menu-item none-sub-list" folderid="3" unread="0">
+                    <table>
+                        <tr>
+                            <td width="100%">
+                                <a class="menu-item-label outer-text text-overflow" href="#drafts" folderid="3">
+                                    <span class="menu-item-icon drafts"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsblogs"></use></svg></span>
+                                    <span class="menu-item-label inner-text"><%= MailResource.FolderNameDrafts %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="lattersCount counter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="menu-item none-sub-list" folderid="4" unread="0">
+                    <table>
+                        <tr>
+                            <td width="100%">
+                                <a class="menu-item-label outer-text text-overflow" href="#trash" folderid="4">
+                                    <span class="menu-item-icon trash"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconstrash"></use></svg></span>
+                                    <span class="menu-item-label inner-text"><%= MailResource.FolderNameTrash %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="lattersCount counter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="menu-item none-sub-list" folderid="5" unread="0">
+                    <table>
+                        <tr>
+                            <td width="100%">
+                                <a class="menu-item-label outer-text text-overflow" href="#spam" folderid="5">
+                                    <span class="menu-item-icon spam"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsspam"></use></svg></span>
+                                    <span class="menu-item-label inner-text"><%= MailResource.FolderNameSpam %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="lattersCount counter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+
+            <div class="userFolders"></div>
+        </div>
+        
+        <div id="userFoldersManage" style="display: none;">
+            <a class="link gray plus" title="<%= MailResource.UserFolderCreateFolderLink %>">
+                <span><%= MailResource.UserFolderCreateFolderLink %></span>
+            </a>
+            <a class="pull-right" title="<%= MailResource.UserFolderManageFolderLink %>" href="#foldersettings">
+                <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+            </a>
+        </div>
+
+        <asp:PlaceHolder ID="MailSidePanelContainer" runat="server" />
 
         <div id="accountsPanel" class="expandable top-margin-menu hidden" <% if (Accounts.Count > 1)
                                                                              { %> style="display: block;" <% } %>>
@@ -148,7 +167,8 @@
             <div class="category-wrapper">
                 <span class="expander"></span>
                 <a class="menu-item-label outer-text text-overflow" id="addressBookLabel" href="javascript:void(0);">
-                     <span class="menu-item-icon group"></span><span class="menu-item-label inner-text"><%= MailResource.AddressBook %></span>
+                     <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsgroup"></use></svg></span>
+                    <span class="menu-item-label inner-text"><%= MailResource.AddressBook %></span>
                 </a>
             </div>
             <ul id="customContactPanel" class="menu-sub-list">
@@ -179,7 +199,7 @@
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow" id="settingsLabel" href="javascript:void(0);">
-                        <span class="menu-item-icon settings"></span>
+                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
                         <span class="menu-item-label inner-text gray-text settings"><%: MailResource.Settings %></span>
                     </a>
                 </div>
@@ -207,7 +227,17 @@
                             <span class="menu-item-label inner-text"><%: MailResource.TagsSettingsLabel %></span>
                         </a>
                     </li>
-                    <% if (IsAdministrator && !IsPersonal)
+                    <li class="menu-sub-item">
+                        <a class="menu-item-label outer-text text-overflow" id="userFoldersSettings" href="#foldersettings">
+                            <span class="menu-item-label inner-text"><%: MailResource.UserFolderSettingsLabel %></span>
+                        </a>
+                    </li>
+                    <li class="menu-sub-item">
+                        <a class="menu-item-label outer-text text-overflow" id="filterSettings" href="#filtersettings">
+                            <span class="menu-item-label inner-text"><%: MailResource.MessageFilterSettingsLabel %></span>
+                        </a>
+                    </li>
+                    <% if (IsFullAdministrator && !IsPersonal)
                        { %>
                         <li class="menu-sub-item">
                             <a class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights + "#mail" %>">

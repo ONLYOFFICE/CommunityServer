@@ -1,7 +1,6 @@
 ﻿using System;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
@@ -19,7 +18,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
             var elements = ph.GetPathElements();
             var current = parent;
 
-            for (int i = 0; i < elements.Length; i++)
+            for (var i = 0; i < elements.Length; i++)
             {
                 var child = current.GetChild(elements[i], false);
                 if (i == elements.Length - 1)
@@ -37,7 +36,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
                     throw new SharpBoxException(SharpBoxErrorCodes.ErrorFileNotFound);
                 }
 
-                current = (ICloudDirectoryEntry) child;
+                current = (ICloudDirectoryEntry)child;
             }
 
             return null;
@@ -46,7 +45,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
         public override ICloudDirectoryEntry CreateFolder(string name, ICloudDirectoryEntry parent)
         {
             if (parent == null) parent = GetRoot();
-            return _Service.CreateResource(_Session, name, parent) as ICloudDirectoryEntry;
+            return Service.CreateResource(Session, name, parent) as ICloudDirectoryEntry;
         }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="sfr.fr">
+    <domain>sfr.fr</domain>
+    <domain>neuf.fr</domain>
+    <displayName>SFR / Neuf</displayName>
+    <displayShortName>SFR</displayShortName>
+    <incomingServer type="imap">
+      <hostname>imap.sfr.fr</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop.sfr.fr</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.sfr.fr</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <documentation url="http://assistance.sfr.fr/internet_neufbox-de-SFR/utiliser-email/parametrer-id-sfr/fc-505-50680">
+      <descr lang="en">TB2, unclear</descr>
+    </documentation>
+    <documentation url="http://assistance.sfr.fr/internet_neufbox-de-SFR/utiliser-email/configurer-adresse-email-sfr-mac-osX/fc-509-50682">
+      <descr lang="en">Apple Mail</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

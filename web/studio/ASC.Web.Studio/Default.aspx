@@ -27,7 +27,7 @@
             <% foreach (var product in defaultListProducts) %>
             <% {
                    var productStartUrl = VirtualPathUtility.ToAbsolute(product.StartURL);
-                   var productLabel = GetProductLabel(product);
+                   var productLabel = HttpUtility.HtmlEncode(product.Name);
                 %>
                 <div class="product clearFix">
                         <a class="image-link" href="<%= productStartUrl %>">

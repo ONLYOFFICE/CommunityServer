@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="alice.it">
+    <domain>alice.it</domain>
+    <displayName>Alice Italy</displayName>
+    <displayShortName>Alice</displayShortName>
+    <incomingServer type="imap">
+      <hostname>in.alice.it</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>in.alice.it</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>out.alice.it</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <documentation url="http://aiuto.alice.it/informazioni/clientemail/thunderbird.html"/>
+  </emailProvider>
+</clientConfig>

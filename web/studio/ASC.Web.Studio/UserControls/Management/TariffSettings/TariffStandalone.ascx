@@ -4,6 +4,7 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Billing" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -42,7 +43,7 @@
             <td rowspan="5">
                 <div class="license-item">
                     <div class="license-item-modules"><%= UserControlsCommonResource.LicenseModules.HtmlEncode() %></div>
-                    <%= string.Format(UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
+                    <%= string.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseModulesListCustomMode : UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
                 </div>
             </td>
             <td>
@@ -73,7 +74,7 @@
 </div>
 
 <div id="activatePanel">
-    <div><%= UserControlsCommonResource.LicenseActivateDescr.HtmlEncode() %></div>
+    <div><%= CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseActivateDescrCustomMode.HtmlEncode() : UserControlsCommonResource.LicenseActivateDescr.HtmlEncode() %></div>
     <div class="button-margin clearFix">
         <input type="file" id="uploadButton" />
         <a id="licenseKey" class="button gray"><%= UserControlsCommonResource.UploadFile %></a>

@@ -64,7 +64,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             self = this;
 
             function canCreateTimeSpend(prj) {
-                return prj.canCreateTimeSpend && prj.status === 0 && prj.taskCountTotal > 0;
+                return prj.canCreateTimeSpend && prj.taskCountTotal > 0;
             }
 
             var actions = [
@@ -256,7 +256,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             responsible = (time.person || time.createdBy).id,
             prjId = time.task.projectOwner.id;
 
-        baseObject.TimeTrakingEdit.showPopup(prjId, taskId, taskTitle, id, { hours: parseInt(separateTime[0], 10), minutes: parseInt(separateTime[1], 10) }, date, recordNote, responsible);
+        baseObject.TimeTrakingEdit.showPopup(prjId, taskId, taskTitle, id, { hours: parseInt(separateTime[0], 10), minutes: parseInt(separateTime[1], 10), seconds: parseInt(separateTime[2], 10) }, date, recordNote, responsible);
     }
     function taRemoveHandler(id) {
         teamlab.removePrjTime({ timeid: id }, { timeids: [id] }, { success: onRemoveTime, error: onUpdatePrjTimeError });

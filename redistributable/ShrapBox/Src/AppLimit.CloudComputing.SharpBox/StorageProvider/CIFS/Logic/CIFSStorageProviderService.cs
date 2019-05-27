@@ -32,25 +32,25 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
             return new CIFSStorageProviderSession(token, configuration as CIFSConfiguration, this);
         }
 
-        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
             // build path
             String path;
 
-            if (Name.Equals("/"))
+            if (name.Equals("/"))
                 path = session.ServiceConfiguration.ServiceLocator.LocalPath;
             else if (parent == null)
-                path = Path.Combine(path = session.ServiceConfiguration.ServiceLocator.LocalPath, Name);
+                path = Path.Combine(session.ServiceConfiguration.ServiceLocator.LocalPath, name);
             else
-                path = new Uri(GetResourceUrl(session, parent, Name)).LocalPath;
+                path = new Uri(GetResourceUrl(session, parent, name)).LocalPath;
 
             // check if file exists
             if (File.Exists(path))
             {
                 // create the fileinfo
-                FileInfo fInfo = new FileInfo(path);
+                var fInfo = new FileInfo(path);
 
-                BaseFileEntry bf = new BaseFileEntry(fInfo.Name, fInfo.Length, fInfo.LastWriteTimeUtc, this, session) {Parent = parent};
+                var bf = new BaseFileEntry(fInfo.Name, fInfo.Length, fInfo.LastWriteTimeUtc, this, session) { Parent = parent };
 
                 // add to parent
                 if (parent != null)
@@ -59,15 +59,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
                 // go ahead
                 return bf;
             }
-                // check if directory exists
-            else if (Directory.Exists(path))
+            // check if directory exists
+            if (Directory.Exists(path))
             {
                 // build directory info
-                DirectoryInfo dInfo = new DirectoryInfo(path);
+                var dInfo = new DirectoryInfo(path);
 
                 // build bas dir
-                BaseDirectoryEntry dir = CreateEntryByFileSystemInfo(dInfo, session, parent) as BaseDirectoryEntry;
-                if (Name.Equals("/"))
+                var dir = CreateEntryByFileSystemInfo(dInfo, session) as BaseDirectoryEntry;
+                if (name.Equals("/"))
                     dir.Name = "/";
 
                 // add to parent
@@ -80,8 +80,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
                 // go ahead
                 return dir;
             }
-            else
-                return null;
+
+            return null;
         }
 
         public override void RefreshResource(IStorageProviderSession session, ICloudFileSystemEntry resource)
@@ -97,8 +97,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
         public override bool DeleteResource(IStorageProviderSession session, ICloudFileSystemEntry entry)
         {
             // generate the loca path
-            String uriPath = GetResourceUrl(session, entry, null);
-            Uri uri = new Uri(uriPath);
+            var uriPath = GetResourceUrl(session, entry, null);
+            var uri = new Uri(uriPath);
 
             // removed the file
             if (File.Exists(uri.LocalPath))
@@ -114,7 +114,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
         public override bool MoveResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
             // build the new uri
-            String newPlace = GetResourceUrl(session, newParent, fsentry.Name);
+            var newPlace = GetResourceUrl(session, newParent, fsentry.Name);
 
             if (RenameResourceEx(session, fsentry, newPlace))
             {
@@ -126,15 +126,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
 
                 return true;
             }
-            else
-                return false;
+
+            return false;
         }
 
         public override Stream CreateDownloadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry)
         {
             // get the full path
-            String uriPath = GetResourceUrl(session, fileSystemEntry, null);
-            Uri uri = new Uri(uriPath);
+            var uriPath = GetResourceUrl(session, fileSystemEntry, null);
+            var uri = new Uri(uriPath);
 
             // open src file
             return new FileStream(uri.LocalPath, FileMode.Open);
@@ -143,15 +143,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
         public override Stream CreateUploadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long uploadSize)
         {
             // get the full path
-            String uriPath = GetResourceUrl(session, fileSystemEntry, null);
-            Uri uri = new Uri(uriPath);
+            var uriPath = GetResourceUrl(session, fileSystemEntry, null);
+            var uri = new Uri(uriPath);
 
             // set the new size
-            BaseFileEntry f = fileSystemEntry as BaseFileEntry;
+            var f = fileSystemEntry as BaseFileEntry;
             f.Length = uploadSize;
 
             // create the file if not exists
-            FileStream fs = null;
+            FileStream fs;
             if (!File.Exists(uri.LocalPath))
                 fs = File.Create(uri.LocalPath);
             else
@@ -166,22 +166,21 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
             get { return false; }
         }
 
-        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream)
+        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream)
         {
-
         }
 
-        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
             // build the full url
-            String resFull = GetResourceUrl(session, parent, Name);
-            Uri uri = new Uri(resFull);
+            var resFull = GetResourceUrl(session, parent, name);
+            var uri = new Uri(resFull);
 
             // create the director
-            DirectoryInfo dinfo = Directory.CreateDirectory(uri.LocalPath);
+            var dinfo = Directory.CreateDirectory(uri.LocalPath);
 
             // create the filesystem object
-            ICloudFileSystemEntry fsEntry = CreateEntryByFileSystemInfo(dinfo, session, parent);
+            ICloudFileSystemEntry fsEntry = CreateEntryByFileSystemInfo(dinfo, session);
 
             // add parent child
             if (parent != null)
@@ -194,47 +193,46 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
         public override bool RenameResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, string newName)
         {
             // get new name uri
-            String uriPath = GetResourceUrl(session, fsentry.Parent, newName);
+            var uriPath = GetResourceUrl(session, fsentry.Parent, newName);
 
             // do it 
-            return RenameResourceEx(session, fsentry, uriPath.ToString());
+            return RenameResourceEx(session, fsentry, uriPath);
         }
 
 
         #region Helper
 
-        private BaseFileEntry CreateEntryByFileSystemInfo(FileSystemInfo info, IStorageProviderSession session, ICloudDirectoryEntry parent)
+        private BaseFileEntry CreateEntryByFileSystemInfo(FileSystemInfo info, IStorageProviderSession session)
         {
             if (info is DirectoryInfo)
                 return new BaseDirectoryEntry(info.Name, 0, info.LastWriteTimeUtc, this, session);
-            else if (info is FileInfo)
+            if (info is FileInfo)
                 return new BaseFileEntry(info.Name, (info as FileInfo).Length, info.LastWriteTimeUtc, this, session);
-            else
-                throw new Exception("Invalid filesysteminfo type");
+            throw new Exception("Invalid filesysteminfo type");
         }
 
         private void RefreshChildsOfDirectory(IStorageProviderSession session, BaseDirectoryEntry dir)
         {
             // get the location
-            String reslocation = GetResourceUrl(session, dir as ICloudFileSystemEntry, null);
+            var reslocation = GetResourceUrl(session, dir, null);
 
             // ensure that we have a trailing slash                        
             reslocation = reslocation.TrimEnd('/');
             reslocation = reslocation + "/";
 
             // build the uri
-            Uri resUri = new Uri(reslocation);
+            var resUri = new Uri(reslocation);
 
             // convert BaseDir to DirInfo
-            DirectoryInfo dInfo = new DirectoryInfo(resUri.LocalPath);
+            var dInfo = new DirectoryInfo(resUri.LocalPath);
 
             // clear childs
             dir.ClearChilds();
 
             // get all childs
-            foreach (FileSystemInfo fInfo in dInfo.GetFileSystemInfos())
+            foreach (var fInfo in dInfo.GetFileSystemInfos())
             {
-                BaseFileEntry f = CreateEntryByFileSystemInfo(fInfo, session, dir);
+                var f = CreateEntryByFileSystemInfo(fInfo, session);
                 dir.AddChild(f);
             }
         }
@@ -242,23 +240,23 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
         public bool RenameResourceEx(IStorageProviderSession session, ICloudFileSystemEntry fsentry, String newFullPath)
         {
             // get the uri
-            String uriPath = GetResourceUrl(session, fsentry, null);
-            Uri srUri = new Uri(uriPath);
+            var uriPath = GetResourceUrl(session, fsentry, null);
+            var srUri = new Uri(uriPath);
 
             // get new name uri            
-            Uri tgUri = new Uri(newFullPath);
+            var tgUri = new Uri(newFullPath);
 
             // rename
-            FileSystemInfo f = null;
+            FileSystemInfo f;
             if (File.Exists(srUri.LocalPath))
             {
                 f = new FileInfo(srUri.LocalPath);
-                ((FileInfo) f).MoveTo(tgUri.LocalPath);
+                ((FileInfo)f).MoveTo(tgUri.LocalPath);
             }
             else if (Directory.Exists(srUri.LocalPath))
             {
                 f = new DirectoryInfo(srUri.LocalPath);
-                ((DirectoryInfo) f).MoveTo(tgUri.LocalPath);
+                ((DirectoryInfo)f).MoveTo(tgUri.LocalPath);
             }
             else
             {
@@ -280,7 +278,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS.Logic
             }
 
             // update fsEntry
-            BaseFileEntry fs = fsentry as BaseFileEntry;
+            var fs = fsentry as BaseFileEntry;
             fs.Name = Path.GetFileName(tgUri.LocalPath);
             fs.Length = (f is FileInfo ? (f as FileInfo).Length : 0);
             fs.Modified = f.LastWriteTimeUtc;

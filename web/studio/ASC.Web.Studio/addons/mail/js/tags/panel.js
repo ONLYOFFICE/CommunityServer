@@ -29,7 +29,7 @@ window.tagsPanel = (function($) {
         panelContent,
         panelMaxH;
 
-    var init = function() {
+    function init() {
         if (isInit === false) {
             isInit = true;
 
@@ -38,31 +38,31 @@ window.tagsPanel = (function($) {
             panelMaxH = panelContent.parent().css("max-height").replace(/[^-\d\.]/g, '');
             $('#tags_panel').hover(expandTagsPanel, collapseTagsPanel);
 
-            tagsManager.events.bind('refresh', onRefreshTags);
-            tagsManager.events.bind('delete', onDeleteTag);
-            tagsManager.events.bind('update', onUpdateTag);
-            tagsManager.events.bind('increment', onIncrement);
-            tagsManager.events.bind('decrement', onDecrement);
+            tagsManager.bind(tagsManager.events.OnRefresh, onRefreshTags);
+            tagsManager.bind(tagsManager.events.OnDelete, onDeleteTag);
+            tagsManager.bind(tagsManager.events.OnUpdate, onUpdateTag);
+            tagsManager.bind(tagsManager.events.OnIncrement, onIncrement);
+            tagsManager.bind(tagsManager.events.OnDecrement, onDecrement);
 
             jq(window).on("resizeWinTimer", function () {
                 updatePanel();
             });
         }
-    };
+    }
 
-    var expandTagsPanel = function() {
+    function expandTagsPanel() {
         panelContent.parent().stop().animate({ "max-height": panelContent.height() }, 200, function() {
             $('#tags_panel .more').css({ 'visibility': 'hidden' });
         });
-    };
+    }
 
-    var collapseTagsPanel = function() {
+    function collapseTagsPanel() {
         panelContent.parent().stop().animate({ "max-height": panelMaxH }, 200, function() {
             $('#tags_panel .more').css({ 'visibility': 'visible' });
         });
-    };
+    }
 
-    var getTag$Html = function(tag) {
+    function getTag$Html(tag) {
 
         tag.used = isTagInFilter(tag);
 
@@ -87,16 +87,18 @@ window.tagsPanel = (function($) {
             }
 
             mailBox.updateAnchor();
+
+            TMMail.scrollTop();
         });
 
         return $html;
-    };
+    }
 
     function isTagInFilter(tag) {
         return $.inArray(tag.id.toString(), MailFilter.getTags()) >= 0;
     }
 
-    var onRefreshTags = function(e, tags) {
+    function onRefreshTags(e, tags) {
         panelContent.find('.tag[labelid]').remove();
         $.each(tags, function(index, tag) {
             if (0 >= tag.lettersCount) {
@@ -106,45 +108,45 @@ window.tagsPanel = (function($) {
             panelContent.append($html);
         });
         updatePanel();
-    };
+    }
 
-    var unmarkAllTags = function() {
+    function unmarkAllTags() {
         panelContent.find('.tag').removeClass().addClass('tag inactive');
-    };
+    }
 
-    var unmarkTag = function(tagid) {
+    function unmarkTag(tagid) {
         try {
             panelContent.find('.tag[labelid="' + tagid + '"]').removeClass().addClass('tag inactive');
         } catch(err) {
         }
-    };
+    }
 
-    var markTag = function(tagid) {
+    function markTag(tagid) {
         try {
             var tag = tagsManager.getTag(tagid);
             var css = 'tagArrow tag' + tag.style;
             panelContent.find('.tag[labelid="' + tagid + '"]').removeClass('inactive').addClass(css);
         } catch(err) {
         }
-    };
+    }
 
-    var onUpdateTag = function(e, tag) {
+    function onUpdateTag(e, tag) {
         var tagDiv = panelContent.find('.tag[labelid="' + tag.id + '"]');
         tagDiv.find('.square').removeClass().addClass('square tag' + tag.style);
         tagDiv.find('.name').html(TMMail.ltgt(tag.name));
         updatePanel();
-    };
+    }
 
-    var deleteTag = function(id) {
+    function deleteTag(id) {
         panelContent.find('.tag[labelid="' + id + '"]').remove();
         updatePanel();
-    };
+    }
 
-    var onDeleteTag = function(e, id) {
+    function onDeleteTag(e, id) {
         deleteTag(id);
-    };
+    }
 
-    var insertTag = function(tag) {
+    function insertTag(tag) {
         var $html = getTag$Html(tag);
         var tags = panelContent.find('.tag[labelid]');
         var insertFlag = false;
@@ -161,22 +163,22 @@ window.tagsPanel = (function($) {
             panelContent.append($html);
         }
         updatePanel();
-    };
+    }
 
-    var onIncrement = function(e, tag) {
-        if (0 == panelContent.find('.tag[labelid="' + tag.id + '"]').length) {
+    function onIncrement(e, tag) {
+        if (0 === panelContent.find('.tag[labelid="' + tag.id + '"]').length) {
             insertTag(tag);
         }
-    };
+    }
 
-    var onDecrement = function(e, tag) {
+    function onDecrement(e, tag) {
         if (0 >= tag.lettersCount) {
             onDeleteTag(e, tag.id);
         }
-    };
+    }
 
-    var updatePanel = function() {
-        if (0 == $('#tags_panel .tag').length) {
+    function updatePanel() {
+        if (0 === $('#tags_panel .tag').length) {
             $('#tags_panel').hide();
             return;
         }
@@ -186,7 +188,7 @@ window.tagsPanel = (function($) {
         } else {
             $('#tags_panel .more').hide();
         }
-    };
+    }
 
     return {
         init: init,

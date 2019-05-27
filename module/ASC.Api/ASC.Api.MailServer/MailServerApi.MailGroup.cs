@@ -24,16 +24,11 @@
 */
 
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.MailServer.DataContracts;
-using ASC.Api.MailServer.Extensions;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Server.Utils;
-using System.Security;
-using ASC.Web.Studio.Core;
+using ASC.Mail.Data.Contracts;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.MailServer
 {
@@ -49,37 +44,10 @@ namespace ASC.Api.MailServer
         /// <short>Create mail group address</short>
         /// <category>MailGroup</category>
         [Create(@"groupaddress/add")]
-        public MailGroupData CreateMailGroup(string name, int domain_id, List<int> address_ids)
+        public ServerDomainGroupData CreateMailGroup(string name, int domain_id, List<int> address_ids)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException(@"Invalid mailgroup name.", "name");
-
-            if (domain_id < 0)
-                throw new ArgumentException(@"Invalid domain id.", "domain_id");
-
-            if (name.Length > 64)
-                throw new ArgumentException(@"Local part of mailgroup exceed limitation of 64 characters.", "name");
-
-            if (!Parser.IsEmailLocalPartValid(name))
-                throw new ArgumentException(@"Incorrect group name.", "name");
-
-            if (!address_ids.Any())
-                throw new ArgumentException(@"Empty collection of address_ids.", "address_ids");
-
-            var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
-
-            if (domain.Tenant == Defines.SHARED_TENANT_ID)
-                throw new InvalidOperationException("Creating mail group is not allowed for shared domain.");
-
-            var mailgroupName = name.ToLowerInvariant();
-
-            var mailgroup = MailServer.CreateMailGroup(mailgroupName, domain, address_ids, MailServerFactory);
-            MailBoxManager.CachedAccounts.ClearAll();
-
-            return mailgroup.ToMailGroupData();
+            var group = MailEngineFactory.ServerMailgroupEngine.CreateMailGroup(name, domain_id, address_ids);
+            return group;
         }
 
         /// <summary>
@@ -91,26 +59,10 @@ namespace ASC.Api.MailServer
         /// <short>Add group's addresses</short> 
         /// <category>MailGroup</category>
         [Update(@"groupaddress/address/add")]
-        public MailGroupData AddMailGroupAddress(int mailgroup_id, int address_id)
+        public ServerDomainGroupData AddMailGroupAddress(int mailgroup_id, int address_id)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (address_id < 0)
-                throw new ArgumentException(@"Invalid address id.", "address_id");
-
-            if (mailgroup_id < 0)
-                throw new ArgumentException(@"Invalid mailgroup id.", "mailgroup_id");
-
-            var mailgroup = MailServer.GetMailGroup(mailgroup_id, MailServerFactory);
-
-            if (mailgroup == null)
-                throw new ArgumentException("Mailgroup not exists");
-
-            mailgroup.AddMember(address_id, MailServerFactory);
-            MailBoxManager.CachedAccounts.ClearAll();
-
-            return mailgroup.ToMailGroupData();
+            var group = MailEngineFactory.ServerMailgroupEngine.AddMailGroupMember(mailgroup_id, address_id);
+            return group;
         }
 
         /// <summary>
@@ -124,23 +76,7 @@ namespace ASC.Api.MailServer
         [Delete(@"groupaddress/addresses/remove")]
         public int RemoveMailGroupAddress(int mailgroup_id, int address_id)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (address_id < 0)
-                throw new ArgumentException(@"Invalid address id.", "address_id");
-
-            if (mailgroup_id < 0)
-                throw new ArgumentException(@"Invalid mailgroup id.", "mailgroup_id");
-            
-            var mailgroup = MailServer.GetMailGroup(mailgroup_id, MailServerFactory);
-
-            if (mailgroup == null)
-                throw new ArgumentException("Mailgroup not exists");
-
-            mailgroup.RemoveMember(address_id);
-            MailBoxManager.CachedAccounts.ClearAll();
-
+            MailEngineFactory.ServerMailgroupEngine.RemoveMailGroupMember(mailgroup_id, address_id);
             return address_id;
         }
 
@@ -151,16 +87,10 @@ namespace ASC.Api.MailServer
         /// <short>Get mail group list</short>
         /// <category>MailGroup</category>
         [Read(@"groupaddress/get")]
-        public List<MailGroupData> GetMailGroups()
+        public List<ServerDomainGroupData> GetMailGroups()
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            var groups = MailServer.GetMailGroups(MailServerFactory);
-
-            return groups
-                .Select(group => group.ToMailGroupData())
-                .ToList();
+            var groups = MailEngineFactory.ServerMailgroupEngine.GetMailGroups();
+            return groups;
         }
 
         /// <summary>
@@ -173,15 +103,7 @@ namespace ASC.Api.MailServer
         [Delete(@"groupaddress/remove/{id}")]
         public int RemoveMailGroup(int id)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (id < 0)
-                throw new ArgumentException(@"Invalid mailgroup id.", "id");
-
-            MailServer.DeleteMailGroup(id, MailServerFactory);
-            MailBoxManager.CachedAccounts.ClearAll();
-
+            MailEngineFactory.ServerMailgroupEngine.RemoveMailGroup(id);
             return id;
         }
     }

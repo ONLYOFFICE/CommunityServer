@@ -4,16 +4,24 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainContent.ascx.cs" Inherits="ASC.Web.Files.Controls.MainContent" %>
 
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.ElasticSearch" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
+<%@ Import Namespace="ASC.Web.Files.Core.Search" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Files.Services.WCFService.FileOperations" %>
 <%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>">
+<input class="display-none" type="text" name="fakeusernameremembered" />
+<input class="display-none" type="password" name="fakepasswordremembered" />
+
+<div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>" data-deleteConfirm="<%= FilesSettings.ConfirmDelete ? "true" : null %>">
     <%-- Advansed Filter --%>
-    <div class="files-filter">
+    <div class="files-filter"
+        data-sort="<%= FilesSettings.DefaultOrder.SortedBy %>"
+        data-asc="<%= FilesSettings.DefaultOrder.IsAsc.ToString().ToLower() %>"
+        data-content="<%= FactoryIndexer<FilesWrapper>.CanSearchByContent().ToString().ToLower() %>">
         <div></div>
     </div>
 
@@ -29,7 +37,7 @@
         <% if (!Global.IsOutsider)
            { %>
         <li id="mainShare" class="menuAction" title="<%= FilesUCResource.ButtonShareAccess %>">
-            <span><%= FilesUCResource.ButtonShareAccess %></span>
+            <span><%= FilesUCResource.ButtonShareAccessShort %></span>
         </li>
         <% } %>
         <li id="mainDownload" class="menuAction" title="<%= FilesUCResource.ButtonDownload %>">
@@ -50,7 +58,7 @@
             <span><%= FilesUCResource.ButtonCopyTo %></span>
         </li>
         <li id="mainMarkRead" class="menuAction" title="<%= FilesUCResource.RemoveIsNew %>">
-            <span><%= FilesUCResource.RemoveIsNew %></span>
+            <span><%= FilesUCResource.RemoveIsNewShort %></span>
         </li>
         <li id="mainUnsubscribe" class="menuAction" title="<%= FilesUCResource.Unsubscribe %>">
             <span><%= FilesUCResource.Unsubscribe %></span>
@@ -87,8 +95,6 @@
     <ul class="dropdown-content">
         <li id="filesSelectAll"><a class="dropdown-item">
             <%= FilesUCResource.ButtonSelectAll %></a></li>
-        <li id="filesSelectFile"><a class="dropdown-item">
-            <%= FilesUCResource.ButtonFilterFile %></a></li>
         <li id="filesSelectFolder"><a class="dropdown-item">
             <%= FilesUCResource.ButtonFilterFolder %></a></li>
         <li id="filesSelectDocument"><a class="dropdown-item">
@@ -99,8 +105,12 @@
             <%= FilesUCResource.ButtonFilterSpreadsheet %></a></li>
         <li id="filesSelectImage"><a class="dropdown-item">
             <%= FilesUCResource.ButtonFilterImage %></a></li>
+        <li id="filesSelectMedia"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonFilterMedia %></a></li>
         <li id="filesSelectArchive"><a class="dropdown-item">
             <%= FilesUCResource.ButtonFilterArchive %></a></li>
+        <li id="filesSelectFile"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonFilterFiles %></a></li>
     </ul>
 </div>
 <div id="filesActionsPanel" class="studio-action-panel">
@@ -128,6 +138,9 @@
         <li id="buttonCopyto"><a class="dropdown-item">
             <%= FilesUCResource.ButtonCopyTo %>
             (<span></span>)</a></li>
+        <li id="buttonMarkRead"><a class="dropdown-item">
+            <%= FilesUCResource.RemoveIsNew %>
+            (<span></span>)</a></li>
         <li id="buttonRestore"><a class="dropdown-item">
             <%= FilesUCResource.ButtonRestore %>
             (<span></span>)</a></li>
@@ -152,6 +165,8 @@
         <% } %>
         <li id="filesOpen"><a class="dropdown-item">
             <%= FilesUCResource.OpenFile %></a></li>
+        <li id="filesGotoParent"><a class="dropdown-item">
+            <%= FilesUCResource.OpenParent %></a></li>
         <% if (!Global.IsOutsider)
            { %>
         <li id="filesDocuSign"><a class="dropdown-item">
@@ -170,6 +185,8 @@
         <% } %>
         <li id="filesMove"><a class="dropdown-item dropdown-with-item">
             <%= FilesUCResource.ButtonMoveCopy %></a></li>
+        <li id="filesMarkRead"><a class="dropdown-item">
+            <%= FilesUCResource.RemoveIsNew %></a></li>
         <% if (!Global.IsOutsider)
            { %>
         <li id="filesRestore"><a class="dropdown-item">
@@ -185,12 +202,16 @@
     <ul id="actionPanelFolders" class="dropdown-content">
         <li id="foldersOpen"><a class="dropdown-item">
             <%= FilesUCResource.OpenFolder %></a></li>
+        <li id="foldersGotoParent"><a class="dropdown-item">
+            <%= FilesUCResource.OpenParent %></a></li>
         <li id="foldersAccess"><a class="dropdown-item dropdown-with-item">
             <%= FilesUCResource.ButtonAccess %></a></li>
         <li id="foldersDownload"><a class="dropdown-item">
             <%= FilesUCResource.DownloadFolder %></a></li>
         <li id="foldersMove"><a class="dropdown-item dropdown-with-item">
             <%= FilesUCResource.ButtonMoveCopy %></a></li>
+        <li id="foldersMarkRead"><a class="dropdown-item">
+            <%= FilesUCResource.RemoveIsNew %></a></li>
         <% if (!Global.IsOutsider)
            { %>
         <li id="foldersRestore"><a class="dropdown-item">
@@ -214,8 +235,15 @@
            { %>
         <li id="filesShareAccess"><a class="dropdown-item">
             <%= FilesUCResource.ButtonShareAccess %></a></li>
+        <% if (!CoreContext.Configuration.Personal)
+           { %>
         <li id="filesChangeOwner"><a class="dropdown-item">
             <%= FilesUCResource.ButtonChangeOwner %></a></li>
+        <% if (ProductMailAvailable) { %>
+        <li id="filesSendInEmail"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonSendInEmail %></a></li>
+        <% } %>
+        <% } %>
         <% } %>
         <% if (!CoreContext.Configuration.Personal)
            { %>

@@ -30,16 +30,16 @@ window.tagsColorsPopup = (function($) {
     var panel;
     var cornerLeft = 14;
 
-    var init = function() {
+    function init() {
         panel = $('#tagsColorsPanel');
 
         panel.find('div[colorstyle]').bind('click', function() {
             var style = $(this).attr('colorstyle');
             callback(obj, style);
         });
-    };
+    }
 
-    var show = function(objParam, callbackFunc) {
+    function show(objParam, callbackFunc) {
         callback = callbackFunc;
         obj = objParam;
         var $obj = $(objParam);
@@ -53,12 +53,12 @@ window.tagsColorsPopup = (function($) {
                 hide();
             }
         });
-    };
+    }
 
-    var hide = function() {
+    function hide() {
         panel.hide();
         $('body').unbind("click.tagsColorsPopup");
-    };
+    }
 
     return {
         init: init,

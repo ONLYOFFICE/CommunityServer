@@ -1,0 +1,26 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="mailIconsinbox" viewBox="0 0 16 16">
+<path d="M15 8l-6-6v3h-7v6h7v3l6-6z"></path>
+</symbol>
+<symbol id="mailIconssent" viewBox="0 0 16 16">
+<path d="M7 2v3s7.25 1.58 8 7.94c0 0-0.56-2.9-8-2v3l-6-5.94z"></path>
+</symbol>
+<symbol id="mailIconsblogs" viewBox="0 0 16 16">
+<path d="M12 12h-8v-8h4.52l2-2h-7.52c-0.552 0-1 0.448-1 1v0 10c0 0.552 0.448 1 1 1v0h10c0.552 0 1-0.448 1-1v0-7.53l-2 2z"></path>
+<path d="M6 8.5v1.5h1.5l3.5-3.5v-1.5h-1.5l-3.5 3.5z"></path>
+<path d="M12.5 2l-1.5 1.5v1.5h1.5l1.5-1.5v-1.5h-1.5z"></path>
+</symbol>
+<symbol id="mailIconsspam" viewBox="0 0 16 16">
+<path d="M8 2c-3.314 0-6 2.686-6 6s2.686 6 6 6c3.314 0 6-2.686 6-6v0c0-3.314-2.686-6-6-6v0zM11 9h-6v-2h6z"></path>
+</symbol>
+<symbol id="mailIconstrash" viewBox="0 0 16 16">
+<path d="M9 3v-1h-3v1h-4v1h11v-1h-4z"></path>
+<path d="M3 13c0 0.552 0.448 1 1 1v0h7c0.552 0 1-0.448 1-1v0-8h-9zM10.25 6h0.5v7h-0.5zM8.25 6h0.5v7h-0.5zM6.25 6h0.5v7h-0.5zM4.25 6h0.5v7h-0.5z"></path>
+</symbol>
+<symbol id="mailIconsgroup" viewBox="0 0 16 16">
+  <path d="M13 10.51v-1.51c0.44-0.213 0.787-0.56 0.995-0.987l0.005-0.013v-3c-0.261-1.038-1.104-1.824-2.154-1.998l-0.016-0.002h-0.67c-0.249 0.014-0.477 0.087-0.677 0.204l0.007-0.004v4.3c-0.042 0.57-0.417 1.043-0.93 1.227l-0.010 0.003c0.12 0.125 0.272 0.219 0.443 0.268l0.007 0.002v1c1.12 0.51 3.5 2 3.5 2.57v1.43h2.5v-1c0-0.84-3-2.49-3-2.49z"></path>
+  <path d="M9 10v-1.5c0.459-0.185 0.815-0.541 0.996-0.988l0.004-0.012v-3c0-1-1-2.5-2-2.5h-2c-1 0-2 1.5-2 2.5v3c0.185 0.459 0.541 0.815 0.988 0.996l0.012 0.004v1.5s-4 2-4 3v1h12v-1c0-1-4-3-4-3z"></path>
+</symbol>
+</defs>
+</svg>

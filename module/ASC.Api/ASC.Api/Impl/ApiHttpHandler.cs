@@ -50,7 +50,7 @@ namespace ASC.Api.Impl
 
         protected override void DoProcess(HttpContextBase context)
         {
-            Log.Debug("strating request. context: '{0}'", ApiContext);
+            Log.DebugFormat("strating request. context: '{0}'", ApiContext);
 
             //Neeeded to rollback errors
             context.Response.Buffer = true;
@@ -128,7 +128,7 @@ namespace ASC.Api.Impl
             catch (ThreadAbortException e)
             {
                 //Do nothing. someone killing response
-                Log.Error(e, "thread aborted. response not sent");
+                Log.Error("thread aborted. response not sent", e);
                 return;
             }
             catch (HttpException exception)
@@ -141,7 +141,7 @@ namespace ASC.Api.Impl
                 responseError = exception;
                 SetError(context, exception, HttpStatusCode.InternalServerError);
             }
-            Log.Error(responseError, "error happened while sending response. can't be here");
+            Log.Error("error happened while sending response. can't be here", responseError);
             RespondTo(Method, context);//If we got there then something went wrong
         }
 

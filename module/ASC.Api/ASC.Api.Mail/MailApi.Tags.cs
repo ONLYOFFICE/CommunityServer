@@ -29,11 +29,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using ASC.Api.Attributes;
-using ASC.Api.Mail.DataContracts;
-using ASC.Api.Mail.Extensions;
-using ASC.Api.Mail.Resources;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Extensions;
+using ASC.Web.Mail.Resources;
 
 namespace ASC.Api.Mail
 {
@@ -48,7 +46,7 @@ namespace ASC.Api.Mail
         [Read(@"tags")]
         public IEnumerable<MailTagData> GetTags()
         {
-            return MailBoxManager.GetTags(TenantId, Username, false).ToList().ToTagData();
+            return MailEngineFactory.TagEngine.GetTags().ToTagData();
         }
 
         /// <summary>
@@ -64,16 +62,17 @@ namespace ASC.Api.Mail
         [Create(@"tags")]
         public MailTagData CreateTag(string name, string style, IEnumerable<string> addresses)
         {
+            //TODO: Is it necessary?
             Thread.CurrentThread.CurrentCulture = CurrentCulture;
             Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameCantBeEmpty);
 
-            if(MailBoxManager.TagExists(TenantId, Username, name))
+            if (MailEngineFactory.TagEngine.IsTagExists(name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameAlreadyExists.Replace("%1", "\"" + name + "\""));
 
-            return MailBoxManager.SaveMailTag(TenantId, Username, new MailTag(0, name, addresses.ToList(), style, 0)).ToTagData();
+            return MailEngineFactory.TagEngine.CreateTag(name, style, addresses).ToTagData();
 
         }
 
@@ -94,27 +93,27 @@ namespace ASC.Api.Mail
             if (id < 0)
                 throw new ArgumentException(@"Invalid tag id", "id");
 
+            //TODO: Is it necessary?
             Thread.CurrentThread.CurrentCulture = CurrentCulture;
             Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameCantBeEmpty);
 
-            var tag = MailBoxManager.GetMailTag(TenantId, Username, id);
-            if (tag == null)
-                throw new ArgumentException();
+            try
+            {
+                var tag = MailEngineFactory.TagEngine.UpdateTag(id, name, style, addresses);
 
-            //Check exsisting label
-            var t = MailBoxManager.GetMailTag(TenantId, Username, name);
-            if(t != null && t.Id != id) throw new ArgumentException(MailApiResource.ErrorTagNameAlreadyExists.Replace("%1", "\"" + name + "\""));
-                          
+                return tag.ToTagData();
+            }
+            catch (ArgumentException ex)
+            {
+                if (ex.Message.Equals("Tag name already exists"))
+                    throw new ArgumentException(MailApiResource.ErrorTagNameAlreadyExists.Replace("%1",
+                        "\"" + name + "\""));
 
-            tag.Name = name;
-            tag.Style = style;
-            tag.Addresses = new MailTag.AddressesList<string>(addresses);
-            MailBoxManager.SaveMailTag(TenantId, Username, tag);
-
-            return tag.ToTagData();
+                throw;
+            }
         }
 
         /// <summary>
@@ -131,7 +130,9 @@ namespace ASC.Api.Mail
             if (id < 0)
                 throw new ArgumentException(@"Invalid tag id", "id");
 
-            MailBoxManager.DeleteTag(TenantId, Username, id);
+            if (!MailEngineFactory.TagEngine.DeleteTag(id))
+                throw new Exception("DeleteTag failed");
+
             return id;
         }
 
@@ -150,7 +151,8 @@ namespace ASC.Api.Mail
             if (!messages.Any())
                 throw new ArgumentException(@"Messages are empty", "messages");
 
-            MailBoxManager.SetMessagesTag(TenantId, Username, id, messages);
+            MailEngineFactory.TagEngine.SetMessagesTag(messages, id);
+
             return id;
         }
 
@@ -169,7 +171,8 @@ namespace ASC.Api.Mail
             if (!messages.Any())
                 throw new ArgumentException(@"Messages are empty", "messages");
 
-            MailBoxManager.UnsetMessagesTag(TenantId, Username, id, messages);
+            MailEngineFactory.TagEngine.UnsetMessagesTag(messages, id);
+
             return id;
         }
     }

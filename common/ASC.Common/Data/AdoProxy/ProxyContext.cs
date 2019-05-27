@@ -26,6 +26,7 @@
 
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace ASC.Common.Data.AdoProxy
 {
@@ -44,7 +45,7 @@ namespace ASC.Common.Data.AdoProxy
         }
 
 
-        public void FireExecuteEvent(IDbCommand cmd, string method, TimeSpan duration)
+        public void FireExecuteEvent(DbCommand cmd, string method, TimeSpan duration)
         {
             executedEvent(new ExecutedEventArgs("Command." + method, duration, cmd));
         }

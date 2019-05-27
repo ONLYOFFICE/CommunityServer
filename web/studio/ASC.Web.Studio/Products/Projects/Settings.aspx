@@ -5,4 +5,5 @@
 
 <asp:Content runat="server" ID="PageContent" ContentPlaceHolderID="BTPageContent">
 <div id="settings"></div>
+<asp:PlaceHolder runat="server" ID="FolderSelectorHolder"></asp:PlaceHolder>
 </asp:Content>

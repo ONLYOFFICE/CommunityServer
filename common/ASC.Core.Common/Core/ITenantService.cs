@@ -52,8 +52,6 @@ namespace ASC.Core
 
         void SetTenantSettings(int tenant, string key, byte[] data);
 
-        T LoadSettings<T>(int tenantId, Guid userId);
-
         IEnumerable<TenantVersion> GetTenantVersions();
     }
 }

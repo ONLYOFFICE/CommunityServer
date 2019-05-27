@@ -345,7 +345,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Have the same access rights as the portal owner, except the right to|Change portal owner|Backup portal data |Deactivate or delete portal.
+        ///   Looks up a localized string similar to Have the same access rights as the portal owner, except the right to|Change portal owner|Deactivate or delete portal.
         /// </summary>
         public static string AccessRightsFullAccessOpportunities {
             get {
@@ -543,6 +543,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validation code field cannot be empty.
+        /// </summary>
+        public static string ActivateTfaAppEmptyCode {
+            get {
+                return ResourceManager.GetString("ActivateTfaAppEmptyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string AddButton {
@@ -579,15 +588,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Image.
-        /// </summary>
-        public static string AddImage {
-            get {
-                return ResourceManager.GetString("AddImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add allowed IP address.
         /// </summary>
         public static string AddIPRestrictionBtn {
@@ -611,6 +611,15 @@ namespace Resources {
         public static string AddTo {
             get {
                 return ResourceManager.GetString("AddTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to portal.
+        /// </summary>
+        public static string AddToPortalBtn {
+            get {
+                return ResourceManager.GetString("AddToPortalBtn", resourceCulture);
             }
         }
         
@@ -647,15 +656,6 @@ namespace Resources {
         public static string Administration {
             get {
                 return ResourceManager.GetString("Administration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mail Server.
-        /// </summary>
-        public static string AdministrationLabel {
-            get {
-                return ResourceManager.GetString("AdministrationLabel", resourceCulture);
             }
         }
         
@@ -845,6 +845,15 @@ namespace Resources {
         public static string AppsDescriptionHelp {
             get {
                 return ResourceManager.GetString("AppsDescriptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to as the main..
+        /// </summary>
+        public static string AsMain {
+            get {
+                return ResourceManager.GetString("AsMain", resourceCulture);
             }
         }
         
@@ -1488,7 +1497,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third party services like DropBox, Facebook, Twitter etc. Connect your portal with Facebook, Linkedin or Twitter if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module. Connect ONLYOFFICE™ portal with Facebook (update information about people) to refre [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third party services like DropBox, Facebook, Twitter etc. Connect your portal with Facebook, Linkedin or Twitter if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module..
         /// </summary>
         public static string AuthorizationKeysText {
             get {
@@ -1574,6 +1583,15 @@ namespace Resources {
         public static string BackupCloud {
             get {
                 return ResourceManager.GetString("BackupCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third Party Storage.
+        /// </summary>
+        public static string BackupConsumerStorage {
+            get {
+                return ResourceManager.GetString("BackupConsumerStorage", resourceCulture);
             }
         }
         
@@ -1751,11 +1769,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable.
+        ///   Looks up a localized string similar to By SMS.
         /// </summary>
         public static string ButtonSmsEnable {
             get {
                 return ResourceManager.GetString("ButtonSmsEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By authenticator app.
+        /// </summary>
+        public static string ButtonTfaAppEnable {
+            get {
+                return ResourceManager.GetString("ButtonTfaAppEnable", resourceCulture);
             }
         }
         
@@ -1855,6 +1882,15 @@ namespace Resources {
         public static string ChangeLogoButton {
             get {
                 return ResourceManager.GetString("ChangeLogoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password has been successfully changed.
+        /// </summary>
+        public static string ChangePasswordSuccess {
+            get {
+                return ResourceManager.GetString("ChangePasswordSuccess", resourceCulture);
             }
         }
         
@@ -2210,11 +2246,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S3 accesskey.
+        /// </summary>
+        public static string Consumersacesskey {
+            get {
+                return ResourceManager.GetString("Consumersacesskey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rackspace apiKey.
+        /// </summary>
+        public static string ConsumersapiKey {
+            get {
+                return ResourceManager.GetString("ConsumersapiKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectel authPwd.
+        /// </summary>
+        public static string ConsumersauthPwd {
+            get {
+                return ResourceManager.GetString("ConsumersauthPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectel authUser.
+        /// </summary>
+        public static string ConsumersauthUser {
+            get {
+                return ResourceManager.GetString("ConsumersauthUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bitly.
         /// </summary>
         public static string ConsumersBitly {
             get {
                 return ResourceManager.GetString("ConsumersBitly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to login.
+        /// </summary>
+        public static string ConsumersbitlyClientId {
+            get {
+                return ResourceManager.GetString("ConsumersbitlyClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to apiKey.
+        /// </summary>
+        public static string ConsumersbitlyClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersbitlyClientSecret", resourceCulture);
             }
         }
         
@@ -2237,29 +2327,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login.
-        /// </summary>
-        public static string ConsumersBitlyKey {
-            get {
-                return ResourceManager.GetString("ConsumersBitlyKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Api Key.
-        /// </summary>
-        public static string ConsumersBitlySecret {
-            get {
-                return ResourceManager.GetString("ConsumersBitlySecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Box.
         /// </summary>
         public static string ConsumersBox {
             get {
                 return ResourceManager.GetString("ConsumersBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Box ID.
+        /// </summary>
+        public static string ConsumersboxClientId {
+            get {
+                return ResourceManager.GetString("ConsumersboxClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Box Key.
+        /// </summary>
+        public static string ConsumersboxClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersboxClientSecret", resourceCulture);
             }
         }
         
@@ -2282,29 +2372,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to client_id.
-        /// </summary>
-        public static string ConsumersBoxKey {
-            get {
-                return ResourceManager.GetString("ConsumersBoxKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to client_secret.
-        /// </summary>
-        public static string ConsumersBoxSecret {
-            get {
-                return ResourceManager.GetString("ConsumersBoxSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clickatell.
         /// </summary>
         public static string ConsumersClickatell {
             get {
                 return ResourceManager.GetString("ConsumersClickatell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to apiKey.
+        /// </summary>
+        public static string ConsumersclickatellapiKey {
+            get {
+                return ResourceManager.GetString("ConsumersclickatellapiKey", resourceCulture);
             }
         }
         
@@ -2327,20 +2408,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to apiKey.
-        /// </summary>
-        public static string ConsumersClickatellSecret {
-            get {
-                return ResourceManager.GetString("ConsumersClickatellSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to DocuSign.
         /// </summary>
         public static string ConsumersDocuSign {
             get {
                 return ResourceManager.GetString("ConsumersDocuSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DocuSign Key.
+        /// </summary>
+        public static string ConsumersdocuSignClientId {
+            get {
+                return ResourceManager.GetString("ConsumersdocuSignClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DocuSign Secret.
+        /// </summary>
+        public static string ConsumersdocuSignClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersdocuSignClientSecret", resourceCulture);
             }
         }
         
@@ -2354,38 +2444,20 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DocuSign authentication endpoint.
+        /// </summary>
+        public static string ConsumersdocuSignHost {
+            get {
+                return ResourceManager.GetString("ConsumersdocuSignHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавив приложение сервиса DocuSign Вы сможете подписывать файлы модуля Документы. Это позволит вам отправлять файл на получение электронной подписи сотрудникам портала ONLYOFFICE™ средствами сервиса DocuSugn. Подписанный файл будет сохранён в Документах порала ONLYOFFICE™..
         /// </summary>
         public static string ConsumersDocuSignInstruction {
             get {
                 return ResourceManager.GetString("ConsumersDocuSignInstruction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DocuSign Key.
-        /// </summary>
-        public static string ConsumersDocuSignKey {
-            get {
-                return ResourceManager.GetString("ConsumersDocuSignKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DocuSign authentication endpoint.
-        /// </summary>
-        public static string ConsumersDocuSignKeyDefault {
-            get {
-                return ResourceManager.GetString("ConsumersDocuSignKeyDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DocuSign Secret.
-        /// </summary>
-        public static string ConsumersDocuSignSecret {
-            get {
-                return ResourceManager.GetString("ConsumersDocuSignSecret", resourceCulture);
             }
         }
         
@@ -2444,6 +2516,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App key.
+        /// </summary>
+        public static string ConsumerseasyBibappkey {
+            get {
+                return ResourceManager.GetString("ConsumerseasyBibappkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подключить приложение EasyBib для создания библиографических списков..
         /// </summary>
         public static string ConsumersEasyBibDescription {
@@ -2462,20 +2543,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App key.
-        /// </summary>
-        public static string ConsumersEasyBibSecret {
-            get {
-                return ResourceManager.GetString("ConsumersEasyBibSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Facebook.
         /// </summary>
         public static string ConsumersFacebook {
             get {
                 return ResourceManager.GetString("ConsumersFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App Token.
+        /// </summary>
+        public static string ConsumersfacebookAccessToken_Default {
+            get {
+                return ResourceManager.GetString("ConsumersfacebookAccessToken_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facebook ID.
+        /// </summary>
+        public static string ConsumersfacebookClientId {
+            get {
+                return ResourceManager.GetString("ConsumersfacebookClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facebook Key.
+        /// </summary>
+        public static string ConsumersfacebookClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersfacebookClientSecret", resourceCulture);
             }
         }
         
@@ -2498,38 +2597,47 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App ID.
-        /// </summary>
-        public static string ConsumersFacebookKey {
-            get {
-                return ResourceManager.GetString("ConsumersFacebookKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to App Secret.
-        /// </summary>
-        public static string ConsumersFacebookSecret {
-            get {
-                return ResourceManager.GetString("ConsumersFacebookSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User Token.
-        /// </summary>
-        public static string ConsumersFacebookSecretDefalt {
-            get {
-                return ResourceManager.GetString("ConsumersFacebookSecretDefalt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Firebase.
         /// </summary>
         public static string ConsumersFirebase {
             get {
                 return ResourceManager.GetString("ConsumersFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web API key.
+        /// </summary>
+        public static string Consumersfirebase_apiKey {
+            get {
+                return ResourceManager.GetString("Consumersfirebase_apiKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server key.
+        /// </summary>
+        public static string Consumersfirebase_authorization {
+            get {
+                return ResourceManager.GetString("Consumersfirebase_authorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sender ID.
+        /// </summary>
+        public static string Consumersfirebase_messagingSenderId {
+            get {
+                return ResourceManager.GetString("Consumersfirebase_messagingSenderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project ID.
+        /// </summary>
+        public static string Consumersfirebase_projectId {
+            get {
+                return ResourceManager.GetString("Consumersfirebase_projectId", resourceCulture);
             }
         }
         
@@ -2552,47 +2660,74 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Api key.
-        /// </summary>
-        public static string ConsumersFirebaseKey {
-            get {
-                return ResourceManager.GetString("ConsumersFirebaseKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sender ID.
-        /// </summary>
-        public static string ConsumersFirebaseKeyDefault {
-            get {
-                return ResourceManager.GetString("ConsumersFirebaseKeyDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project ID.
-        /// </summary>
-        public static string ConsumersFirebaseSecret {
-            get {
-                return ResourceManager.GetString("ConsumersFirebaseSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Server key.
-        /// </summary>
-        public static string ConsumersFirebaseSecretDefault {
-            get {
-                return ResourceManager.GetString("ConsumersFirebaseSecretDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Google.
         /// </summary>
         public static string ConsumersGoogle {
             get {
                 return ResourceManager.GetString("ConsumersGoogle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google ID.
+        /// </summary>
+        public static string ConsumersgoogleClientId {
+            get {
+                return ResourceManager.GetString("ConsumersgoogleClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google Key.
+        /// </summary>
+        public static string ConsumersgoogleClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersgoogleClientSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GoogleCloud.
+        /// </summary>
+        public static string ConsumersGoogleCloud {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bucket.
+        /// </summary>
+        public static string ConsumersGoogleCloudbucket {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloudbucket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GoogleCloud Description.
+        /// </summary>
+        public static string ConsumersGoogleCloudDescription {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloudDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GoogleCloud Instruction.
+        /// </summary>
+        public static string ConsumersGoogleCloudInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloudInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GoogleCloud jsonPath.
+        /// </summary>
+        public static string ConsumersGoogleCloudjsonPath {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloudjsonPath", resourceCulture);
             }
         }
         
@@ -2611,24 +2746,6 @@ namespace Resources {
         public static string ConsumersGoogleInstruction {
             get {
                 return ResourceManager.GetString("ConsumersGoogleInstruction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client ID.
-        /// </summary>
-        public static string ConsumersGoogleKey {
-            get {
-                return ResourceManager.GetString("ConsumersGoogleKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client secret.
-        /// </summary>
-        public static string ConsumersGoogleSecret {
-            get {
-                return ResourceManager.GetString("ConsumersGoogleSecret", resourceCulture);
             }
         }
         
@@ -2678,11 +2795,182 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rackspace.
+        /// </summary>
+        public static string ConsumersRackspace {
+            get {
+                return ResourceManager.GetString("ConsumersRackspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rackspace Description.
+        /// </summary>
+        public static string ConsumersRackspaceDescription {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rackspace Instruction.
+        /// </summary>
+        public static string ConsumersRackspaceInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private Container.
+        /// </summary>
+        public static string ConsumersRackspaceprivate_container {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceprivate_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public Container.
+        /// </summary>
+        public static string ConsumersRackspacepublic_container {
+            get {
+                return ResourceManager.GetString("ConsumersRackspacepublic_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        public static string ConsumersRackspaceregion {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceregion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3.
+        /// </summary>
+        public static string ConsumersS3 {
+            get {
+                return ResourceManager.GetString("ConsumersS3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3 Description.
+        /// </summary>
+        public static string ConsumersS3Description {
+            get {
+                return ResourceManager.GetString("ConsumersS3Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3 Instruction.
+        /// </summary>
+        public static string ConsumersS3Instruction {
+            get {
+                return ResourceManager.GetString("ConsumersS3Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3 secret access key.
+        /// </summary>
+        public static string Consumerssecretaccesskey {
+            get {
+                return ResourceManager.GetString("Consumerssecretaccesskey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectel.
+        /// </summary>
+        public static string ConsumersSelectel {
+            get {
+                return ResourceManager.GetString("ConsumersSelectel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth Pwd.
+        /// </summary>
+        public static string ConsumersSelectelauthPwd {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelauthPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth User.
+        /// </summary>
+        public static string ConsumersSelectelauthUser {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelauthUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectel Instruction.
+        /// </summary>
+        public static string ConsumersSelectelCloudInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelCloudInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectel Description.
+        /// </summary>
+        public static string ConsumersSelectelDescription {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private container.
+        /// </summary>
+        public static string ConsumersSelectelprivate_container {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelprivate_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public container.
+        /// </summary>
+        public static string ConsumersSelectelpublic_container {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelpublic_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OneDrive.
         /// </summary>
         public static string ConsumersSkyDrive {
             get {
                 return ResourceManager.GetString("ConsumersSkyDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OneDrive ID.
+        /// </summary>
+        public static string Consumersskydriveappkey {
+            get {
+                return ResourceManager.GetString("Consumersskydriveappkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OneDrive Key.
+        /// </summary>
+        public static string Consumersskydriveappsecret {
+            get {
+                return ResourceManager.GetString("Consumersskydriveappsecret", resourceCulture);
             }
         }
         
@@ -2701,24 +2989,6 @@ namespace Resources {
         public static string ConsumersSkyDriveInstruction {
             get {
                 return ResourceManager.GetString("ConsumersSkyDriveInstruction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client ID.
-        /// </summary>
-        public static string ConsumersSkyDriveKey {
-            get {
-                return ResourceManager.GetString("ConsumersSkyDriveKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client Secret.
-        /// </summary>
-        public static string ConsumersSkyDriveSecret {
-            get {
-                return ResourceManager.GetString("ConsumersSkyDriveSecret", resourceCulture);
             }
         }
         
@@ -2752,18 +3022,18 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        public static string ConsumersSmscKey {
+        public static string Consumerssmsclogin {
             get {
-                return ResourceManager.GetString("ConsumersSmscKey", resourceCulture);
+                return ResourceManager.GetString("Consumerssmsclogin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Password or MD5 hash password in lowercase.
         /// </summary>
-        public static string ConsumersSmscSecret {
+        public static string Consumerssmscpsw {
             get {
-                return ResourceManager.GetString("ConsumersSmscSecret", resourceCulture);
+                return ResourceManager.GetString("Consumerssmscpsw", resourceCulture);
             }
         }
         
@@ -2773,6 +3043,24 @@ namespace Resources {
         public static string ConsumersTwilio {
             get {
                 return ResourceManager.GetString("ConsumersTwilio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Sid.
+        /// </summary>
+        public static string ConsumerstwilioAccountSid {
+            get {
+                return ResourceManager.GetString("ConsumerstwilioAccountSid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth Token.
+        /// </summary>
+        public static string ConsumerstwilioAuthToken {
+            get {
+                return ResourceManager.GetString("ConsumerstwilioAuthToken", resourceCulture);
             }
         }
         
@@ -2795,29 +3083,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account Sid.
+        ///   Looks up a localized string similar to Phone number from Twilio (required for SMS authorization).
         /// </summary>
-        public static string ConsumersTwilioKey {
+        public static string Consumerstwiliosender {
             get {
-                return ResourceManager.GetString("ConsumersTwilioKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phone number from twilio (required for sms authorization).
-        /// </summary>
-        public static string ConsumersTwilioKeyDefault {
-            get {
-                return ResourceManager.GetString("ConsumersTwilioKeyDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auth Token.
-        /// </summary>
-        public static string ConsumersTwilioSecret {
-            get {
-                return ResourceManager.GetString("ConsumersTwilioSecret", resourceCulture);
+                return ResourceManager.GetString("Consumerstwiliosender", resourceCulture);
             }
         }
         
@@ -2827,6 +3097,24 @@ namespace Resources {
         public static string ConsumersTwitter {
             get {
                 return ResourceManager.GetString("ConsumersTwitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access Token.
+        /// </summary>
+        public static string ConsumerstwitterAccessToken_Default {
+            get {
+                return ResourceManager.GetString("ConsumerstwitterAccessToken_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access Token Secret.
+        /// </summary>
+        public static string ConsumerstwitterAccessTokenSecret_Default {
+            get {
+                return ResourceManager.GetString("ConsumerstwitterAccessTokenSecret_Default", resourceCulture);
             }
         }
         
@@ -2858,15 +3146,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access Token.
-        /// </summary>
-        public static string ConsumersTwitterKeyDefault {
-            get {
-                return ResourceManager.GetString("ConsumersTwitterKeyDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to API secret.
         /// </summary>
         public static string ConsumersTwitterSecret {
@@ -2876,11 +3155,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access Token Secret.
+        ///   Looks up a localized string similar to Rackspace username.
         /// </summary>
-        public static string ConsumersTwitterSecretDefault {
+        public static string Consumersusername {
             get {
-                return ResourceManager.GetString("ConsumersTwitterSecretDefault", resourceCulture);
+                return ResourceManager.GetString("Consumersusername", resourceCulture);
             }
         }
         
@@ -2914,18 +3193,18 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to WordPress Key.
         /// </summary>
-        public static string ConsumersWordpressKey {
+        public static string ConsumerswpClientId {
             get {
-                return ResourceManager.GetString("ConsumersWordpressKey", resourceCulture);
+                return ResourceManager.GetString("ConsumerswpClientId", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to WordPress Secret.
         /// </summary>
-        public static string ConsumersWordpressSecret {
+        public static string ConsumerswpClientSecret {
             get {
-                return ResourceManager.GetString("ConsumersWordpressSecret", resourceCulture);
+                return ResourceManager.GetString("ConsumerswpClientSecret", resourceCulture);
             }
         }
         
@@ -2935,6 +3214,24 @@ namespace Resources {
         public static string ConsumersYahoo {
             get {
                 return ResourceManager.GetString("ConsumersYahoo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client ID.
+        /// </summary>
+        public static string ConsumersyahooClientId {
+            get {
+                return ResourceManager.GetString("ConsumersyahooClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Secret.
+        /// </summary>
+        public static string ConsumersyahooClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersyahooClientSecret", resourceCulture);
             }
         }
         
@@ -2953,24 +3250,6 @@ namespace Resources {
         public static string ConsumersYahooInstruction {
             get {
                 return ResourceManager.GetString("ConsumersYahooInstruction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client ID.
-        /// </summary>
-        public static string ConsumersYahooKey {
-            get {
-                return ResourceManager.GetString("ConsumersYahooKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client Secret.
-        /// </summary>
-        public static string ConsumersYahooSecret {
-            get {
-                return ResourceManager.GetString("ConsumersYahooSecret", resourceCulture);
             }
         }
         
@@ -3074,6 +3353,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy email and password.
+        /// </summary>
+        public static string CopyEmailAndPassword {
+            get {
+                return ResourceManager.GetString("CopyEmailAndPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy the link.
         /// </summary>
         public static string CopyToClipboard {
@@ -3119,11 +3407,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create email on domain.
+        /// </summary>
+        public static string CreateEmailOnDomain {
+            get {
+                return ResourceManager.GetString("CreateEmailOnDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create mail on the domain.
+        /// </summary>
+        public static string CreateMailOnDomain {
+            get {
+                return ResourceManager.GetString("CreateMailOnDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create New Profile.
         /// </summary>
         public static string CreateNewProfile {
             get {
                 return ResourceManager.GetString("CreateNewProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create on ONLYOFFICE account.
+        /// </summary>
+        public static string CreatePersonalButton {
+            get {
+                return ResourceManager.GetString("CreatePersonalButton", resourceCulture);
             }
         }
         
@@ -3445,6 +3760,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default password:.
+        /// </summary>
+        public static string DefaultPassword {
+            get {
+                return ResourceManager.GetString("DefaultPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default Settings.
         /// </summary>
         public static string DefaultSettings {
@@ -3509,6 +3833,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attention! You are deleting your profile from portal.
+        /// </summary>
+        public static string DeleteProfileConfirm {
+            get {
+                return ResourceManager.GetString("DeleteProfileConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attention! You are about to delete your account..
         /// </summary>
         public static string DeleteProfileConfirmation {
@@ -3532,6 +3865,15 @@ namespace Resources {
         public static string DeleteProfileInfo {
             get {
                 return ResourceManager.GetString("DeleteProfileInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your profile has been successfully deleted.
+        /// </summary>
+        public static string DeleteProfileSuccess {
+            get {
+                return ResourceManager.GetString("DeleteProfileSuccess", resourceCulture);
             }
         }
         
@@ -3653,6 +3995,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Desktop Editors for {0}.
+        /// </summary>
+        public static string DesktopEditorsFor {
+            get {
+                return ResourceManager.GetString("DesktopEditorsFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string DisabledEmployeeTitle {
@@ -3743,15 +4094,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}{1}Docbuilder Service{2} is the server service which allows to convert the source docbuilder script into  OfficeOpen XML format  file..
-        /// </summary>
-        public static string DocServiceUrlDocbuilderHelp {
-            get {
-                return ResourceManager.GetString("DocServiceUrlDocbuilderHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Example: {0}.
         /// </summary>
         public static string DocServiceUrlExample {
@@ -3784,6 +4126,15 @@ namespace Resources {
         public static string DocServiceUrlPortal2 {
             get {
                 return ResourceManager.GetString("DocServiceUrlPortal2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Documents for {0} devices.
+        /// </summary>
+        public static string DocumentsForDevices {
+            get {
+                return ResourceManager.GetString("DocumentsForDevices", resourceCulture);
             }
         }
         
@@ -4004,20 +4355,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Image.
+        ///   Looks up a localized string similar to Edit Photo.
         /// </summary>
-        public static string EditImage {
+        public static string EditPhoto {
             get {
-                return ResourceManager.GetString("EditImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit avatars.
-        /// </summary>
-        public static string EditThumbnailPhoto {
-            get {
-                return ResourceManager.GetString("EditThumbnailPhoto", resourceCulture);
+                return ResourceManager.GetString("EditPhoto", resourceCulture);
             }
         }
         
@@ -4099,6 +4441,15 @@ namespace Resources {
         public static string EmailAndPasswordConfirmPassword {
             get {
                 return ResourceManager.GetString("EmailAndPasswordConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email and password copied to clipboard.
+        /// </summary>
+        public static string EmailAndPasswordCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("EmailAndPasswordCopiedToClipboard", resourceCulture);
             }
         }
         
@@ -4238,11 +4589,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email is available.
+        /// </summary>
+        public static string EmailIsAvailable {
+            get {
+                return ResourceManager.GetString("EmailIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email is not activated.
         /// </summary>
         public static string EmailIsNotConfirmed {
             get {
                 return ResourceManager.GetString("EmailIsNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email on domain is not created.
+        /// </summary>
+        public static string EmailOnDomainIsNotCreated {
+            get {
+                return ResourceManager.GetString("EmailOnDomainIsNotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}The main e-mail is needed to restore access to the portal in case of loss of the password and send notifications.{1}You can create a new mail on the domain as the primary. In this case, you must set a one-time password so that the user can log in to the portal for the first time.{2}The main e-mail can be used as a login when logging in to the portal.{3}.
+        /// </summary>
+        public static string EmailPopupHelper {
+            get {
+                return ResourceManager.GetString("EmailPopupHelper", resourceCulture);
             }
         }
         
@@ -4463,6 +4841,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message text is empty.
+        /// </summary>
+        public static string ErrorEmptyMessage {
+            get {
+                return ResourceManager.GetString("ErrorEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a name.
         /// </summary>
         public static string ErrorEmptyName {
@@ -4535,6 +4922,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect firstname or lastname.
+        /// </summary>
+        public static string ErrorIncorrectUserName {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid activation link.
         /// </summary>
         public static string ErrorInvalidActivationLink {
@@ -4549,6 +4945,15 @@ namespace Resources {
         public static string ErrorIpSecurity {
             get {
                 return ResourceManager.GetString("ErrorIpSecurity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail server not available!.
+        /// </summary>
+        public static string ErrorMailServerNotAvailable {
+            get {
+                return ResourceManager.GetString("ErrorMailServerNotAvailable", resourceCulture);
             }
         }
         
@@ -4679,6 +5084,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to no spaces.
+        /// </summary>
+        public static string ErrorPasswordNoSpaces {
+            get {
+                return ResourceManager.GetString("ErrorPasswordNoSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to special characters.
         /// </summary>
         public static string ErrorPasswordNoSpecialSymbols {
@@ -4693,6 +5107,24 @@ namespace Resources {
         public static string ErrorPasswordNoUpperCase {
             get {
                 return ResourceManager.GetString("ErrorPasswordNoUpperCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to only latin letters.
+        /// </summary>
+        public static string ErrorPasswordOnlyLatinLetters {
+            get {
+                return ResourceManager.GetString("ErrorPasswordOnlyLatinLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request limit is exceeded.
+        /// </summary>
+        public static string ErrorRequestLimitExceeded {
+            get {
+                return ResourceManager.GetString("ErrorRequestLimitExceeded", resourceCulture);
             }
         }
         
@@ -4895,11 +5327,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For mobile.
+        /// </summary>
+        public static string ForMobile {
+            get {
+                return ResourceManager.GetString("ForMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To sign in please follow this {0}link{1}.
         /// </summary>
         public static string ForSignInFollowMessage {
             get {
                 return ResourceManager.GetString("ForSignInFollowMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For your PC.
+        /// </summary>
+        public static string ForYourPC {
+            get {
+                return ResourceManager.GetString("ForYourPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free ONLYOFFICE desktop and mobile apps.
+        /// </summary>
+        public static string FreeOfficeDesktopDndMobileApps {
+            get {
+                return ResourceManager.GetString("FreeOfficeDesktopDndMobileApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free SMS.
+        /// </summary>
+        public static string FreeSms {
+            get {
+                return ResourceManager.GetString("FreeSms", resourceCulture);
             }
         }
         
@@ -4976,6 +5444,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string GeneralSubscriptionName {
+            get {
+                return ResourceManager.GetString("GeneralSubscriptionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get contacts.
         /// </summary>
         public static string GetContacts {
@@ -4985,11 +5462,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get it now.
+        /// </summary>
+        public static string GetItNow {
+            get {
+                return ResourceManager.GetString("GetItNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get shortened link.
         /// </summary>
         public static string GetShortenLink {
             get {
                 return ResourceManager.GetString("GetShortenLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to contact list.
+        /// </summary>
+        public static string GoToContactListBtn {
+            get {
+                return ResourceManager.GetString("GoToContactListBtn", resourceCulture);
             }
         }
         
@@ -5201,8 +5696,17 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Here you can change your portal address. Enter the part that will appear next to the onlyoffice.com/onlyoffice.eu portal address.
-        ///*Please note*: your old portal address will become available to new ONLYOFFICE users once you click the &apos;Save&apos; button..
+        ///   Looks up a localized string similar to ONLYOFFICE includes Google Analytics tracking to help our team better understand how to you use it during your daily work.{0}By enabling this feature? you provide ONLYOFFICE team with valuable metrics, allowing us to better analyze patterns and new features and bug fixes faster..
+        /// </summary>
+        public static string HelpAnswerPortalAnalytics {
+            get {
+                return ResourceManager.GetString("HelpAnswerPortalAnalytics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here you can change your portal address. Enter the part that will appear next to the onlyoffice.com/onlyoffice.eu portal address.{0}
+        ///{1}Please note{2}: your old portal address will become available to new ONLYOFFICE users once you click the {1}Save{2} button..
         /// </summary>
         public static string HelpAnswerPortalRename {
             get {
@@ -5472,92 +5976,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read Howto Articles.
+        ///   Looks up a localized string similar to Manually.
         /// </summary>
-        public static string HowToArticles {
+        public static string ImportButtonManually {
             get {
-                return ResourceManager.GetString("HowToArticles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data Import from Basecamp.
-        /// </summary>
-        public static string HowToImportBaseCamp {
-            get {
-                return ResourceManager.GetString("HowToImportBaseCamp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to import the documents from Box?.
-        /// </summary>
-        public static string HowToImportBox {
-            get {
-                return ResourceManager.GetString("HowToImportBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to import contacts from a CSV file?.
-        /// </summary>
-        public static string HowToImportCSV {
-            get {
-                return ResourceManager.GetString("HowToImportCSV", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importing Files from Other Sources.
-        /// </summary>
-        public static string HowToImportFiles {
-            get {
-                return ResourceManager.GetString("HowToImportFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to import the documents from Google Drive?.
-        /// </summary>
-        public static string HowToImportGoogle {
-            get {
-                return ResourceManager.GetString("HowToImportGoogle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to transfer contacts from a mail client address book to ONLYOFFICE™?.
-        /// </summary>
-        public static string HowToImportMailClient {
-            get {
-                return ResourceManager.GetString("HowToImportMailClient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to import contacts from Yahoo, Google, Windows Live to ONLYOFFICE™?.
-        /// </summary>
-        public static string HowToImportWorld {
-            get {
-                return ResourceManager.GetString("HowToImportWorld", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to import the documents from Zoho?.
-        /// </summary>
-        public static string HowToImportZoho {
-            get {
-                return ResourceManager.GetString("HowToImportZoho", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Watch Video Guide.
-        /// </summary>
-        public static string HowToVideo {
-            get {
-                return ResourceManager.GetString("HowToVideo", resourceCulture);
+                return ResourceManager.GetString("ImportButtonManually", resourceCulture);
             }
         }
         
@@ -5585,6 +6008,15 @@ namespace Resources {
         public static string ImportContactsCancelButton {
             get {
                 return ResourceManager.GetString("ImportContactsCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string ImportContactsClearButton {
+            get {
+                return ResourceManager.GetString("ImportContactsClearButton", resourceCulture);
             }
         }
         
@@ -5621,6 +6053,15 @@ namespace Resources {
         public static string ImportContactsEmptyData {
             get {
                 return ResourceManager.GetString("ImportContactsEmptyData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the user email.
+        /// </summary>
+        public static string ImportContactsEmptyEmail {
+            get {
+                return ResourceManager.GetString("ImportContactsEmptyEmail", resourceCulture);
             }
         }
         
@@ -5724,6 +6165,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected file is too large. The size of the uploaded file should not exceed: {0} kB..
+        /// </summary>
+        public static string ImportContactsFromFileErrorTooLarge {
+            get {
+                return ResourceManager.GetString("ImportContactsFromFileErrorTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MS Outlook Express CSV.
         /// </summary>
         public static string ImportContactsFromFileMS {
@@ -5747,6 +6197,33 @@ namespace Resources {
         public static string ImportContactsIncorrectFields {
             get {
                 return ResourceManager.GetString("ImportContactsIncorrectFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid the user email.
+        /// </summary>
+        public static string ImportContactsInvalidEmail {
+            get {
+                return ResourceManager.GetString("ImportContactsInvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid the user first name.
+        /// </summary>
+        public static string ImportContactsInvalidFirstName {
+            get {
+                return ResourceManager.GetString("ImportContactsInvalidFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid the user last name.
+        /// </summary>
+        public static string ImportContactsInvalidLastName {
+            get {
+                return ResourceManager.GetString("ImportContactsInvalidLastName", resourceCulture);
             }
         }
         
@@ -5805,6 +6282,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delimiter.
+        /// </summary>
+        public static string ImportDelimiter {
+            get {
+                return ResourceManager.GetString("ImportDelimiter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string ImportEncoding {
+            get {
+                return ResourceManager.GetString("ImportEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a CSV exported from {0} Outllok, {1} Gmail, {2} Tunderbird or another application, or generated by yourself..
+        /// </summary>
+        public static string ImportFileCSV {
+            get {
+                return ResourceManager.GetString("ImportFileCSV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename .
+        /// </summary>
+        public static string ImportFileName {
+            get {
+                return ResourceManager.GetString("ImportFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import from Basecamp.
         /// </summary>
         public static string ImportFromBaseCamp {
@@ -5828,6 +6341,33 @@ namespace Resources {
         public static string ImportFromYahoo {
             get {
                 return ResourceManager.GetString("ImportFromYahoo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select another source.
+        /// </summary>
+        public static string ImportSelectAnotherSource {
+            get {
+                return ResourceManager.GetString("ImportSelectAnotherSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the data source.
+        /// </summary>
+        public static string ImportSelectDataSource {
+            get {
+                return ResourceManager.GetString("ImportSelectDataSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Delimiter.
+        /// </summary>
+        public static string ImportTextDelimiter {
+            get {
+                return ResourceManager.GetString("ImportTextDelimiter", resourceCulture);
             }
         }
         
@@ -5909,6 +6449,15 @@ namespace Resources {
         public static string ImportUsersProgressText {
             get {
                 return ResourceManager.GetString("ImportUsersProgressText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting up compliance.
+        /// </summary>
+        public static string ImportWizardSecondStep {
+            get {
+                return ResourceManager.GetString("ImportWizardSecondStep", resourceCulture);
             }
         }
         
@@ -6260,6 +6809,24 @@ namespace Resources {
         public static string LdapSettingsErrorIncorrectLdapFilter {
             get {
                 return ResourceManager.GetString("LdapSettingsErrorIncorrectLdapFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You attempted to take away admin rights from yourself. Your admin rights was unaffected..
+        /// </summary>
+        public static string LdapSettingsErrorLostRights {
+            get {
+                return ResourceManager.GetString("LdapSettingsErrorLostRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account is not linked to the LDAP directory and your LDAP password is no longer active. Please change or set the password to your account at the profile settings page..
+        /// </summary>
+        public static string LdapSettingsErrorRemovedYourself {
+            get {
+                return ResourceManager.GetString("LdapSettingsErrorRemovedYourself", resourceCulture);
             }
         }
         
@@ -6759,6 +7326,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting user {0} as {1} admin.
+        /// </summary>
+        public static string LdapSettingsStatusGivingRights {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusGivingRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading LDAP base info.
         /// </summary>
         public static string LdapSettingsStatusLoadingBaseInfo {
@@ -6782,6 +7358,15 @@ namespace Resources {
         public static string LdapSettingsStatusRemovingOldGroups {
             get {
                 return ResourceManager.GetString("LdapSettingsStatusRemovingOldGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing outdated access rights that have been loaded via LDAP earlier.
+        /// </summary>
+        public static string LdapSettingsStatusRemovingOldRights {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusRemovingOldRights", resourceCulture);
             }
         }
         
@@ -6813,6 +7398,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saving photo.
+        /// </summary>
+        public static string LdapSettingsStatusSavingUserPhoto {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusSavingUserPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving users.
         /// </summary>
         public static string LdapSettingsStatusSavingUsers {
@@ -6827,6 +7421,24 @@ namespace Resources {
         public static string LdapSettingsStatusSyncingUsers {
             get {
                 return ResourceManager.GetString("LdapSettingsStatusSyncingUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating users access rights.
+        /// </summary>
+        public static string LdapSettingsStatusUpdatingAccessRights {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusUpdatingAccessRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating user photos.
+        /// </summary>
+        public static string LdapSettingsStatusUpdatingUserPhotos {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusUpdatingUserPhotos", resourceCulture);
             }
         }
         
@@ -7083,6 +7695,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploaded successfully. {0}Support and updates are not available for this license since {2}.{1}.
+        /// </summary>
+        public static string LicenseUploadedOverdue {
+            get {
+                return ResourceManager.GetString("LicenseUploadedOverdue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to link.
         /// </summary>
         public static string Link {
@@ -7182,6 +7803,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login settings.
+        /// </summary>
+        public static string LoginSettings {
+            get {
+                return ResourceManager.GetString("LoginSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Two-factor authentication{1} via code generating application was enabled for all users by cloud service administrator..
+        /// </summary>
+        public static string LoginSettingsDescription {
+            get {
+                return ResourceManager.GetString("LoginSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login via Social Networks.
         /// </summary>
         public static string LoginSocialNetworks {
@@ -7205,6 +7844,15 @@ namespace Resources {
         public static string LoginWithAccountNotFound {
             get {
                 return ResourceManager.GetString("LoginWithAccountNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization temporarily blocked..
+        /// </summary>
+        public static string LoginWithBruteForce {
+            get {
+                return ResourceManager.GetString("LoginWithBruteForce", resourceCulture);
             }
         }
         
@@ -7803,6 +8451,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Миграция портала {0} в новое хранилище в процессе..
+        /// </summary>
+        public static string MigrationPortalProcessTitle {
+            get {
+                return ResourceManager.GetString("MigrationPortalProcessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Как только процесс миграции в новое хранилище закончится, портал будет готов к работе..
+        /// </summary>
+        public static string MigrationPortalText {
+            get {
+                return ResourceManager.GetString("MigrationPortalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Миграция.
+        /// </summary>
+        public static string MigrationPortalTitle {
+            get {
+                return ResourceManager.GetString("MigrationPortalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New mobile phone.
         /// </summary>
         public static string MobileNewNumber {
@@ -7920,6 +8595,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More languages.
+        /// </summary>
+        public static string MoreLanguages {
+            get {
+                return ResourceManager.GetString("MoreLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Profile.
         /// </summary>
         public static string MyProfile {
@@ -7934,6 +8618,15 @@ namespace Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of fields in first line.
+        /// </summary>
+        public static string NameInFirstLine {
+            get {
+                return ResourceManager.GetString("NameInFirstLine", resourceCulture);
             }
         }
         
@@ -8118,11 +8811,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Offline.
+        ///   Looks up a localized string similar to Not import.
         /// </summary>
-        public static string Offline {
+        public static string NotImport {
             get {
-                return ResourceManager.GetString("Offline", resourceCulture);
+                return ResourceManager.GetString("NotImport", resourceCulture);
             }
         }
         
@@ -8145,11 +8838,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Online.
+        ///   Looks up a localized string similar to ONLYOFFICE apps.
         /// </summary>
-        public static string Online {
+        public static string OnlyofficeApps {
             get {
-                return ResourceManager.GetString("Online", resourceCulture);
+                return ResourceManager.GetString("OnlyofficeApps", resourceCulture);
             }
         }
         
@@ -8307,6 +9000,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payments.
+        /// </summary>
+        public static string Payments {
+            get {
+                return ResourceManager.GetString("Payments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment History.
         /// </summary>
         public static string PaymentsTitle {
@@ -8366,6 +9068,24 @@ namespace Resources {
         public static string PersonalTariffExceedLimitInfoText {
             get {
                 return ResourceManager.GetString("PersonalTariffExceedLimitInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JPG or PNG, max {0}.
+        /// </summary>
+        public static string PhotoMaxSize {
+            get {
+                return ResourceManager.GetString("PhotoMaxSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo not selected.
+        /// </summary>
+        public static string PhotoNotSelected {
+            get {
+                return ResourceManager.GetString("PhotoNotSelected", resourceCulture);
             }
         }
         
@@ -8447,6 +9167,15 @@ namespace Resources {
         public static string PortalAddress {
             get {
                 return ResourceManager.GetString("PortalAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google Analytics tracking.
+        /// </summary>
+        public static string PortalAnalyticsTitle {
+            get {
+                return ResourceManager.GetString("PortalAnalyticsTitle", resourceCulture);
             }
         }
         
@@ -8541,11 +9270,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM.
+        ///   Looks up a localized string similar to Print.
         /// </summary>
-        public static string ProductCRMAndVoIP {
+        public static string PrintButton {
             get {
-                return ResourceManager.GetString("ProductCRMAndVoIP", resourceCulture);
+                return ResourceManager.GetString("PrintButton", resourceCulture);
             }
         }
         
@@ -8600,6 +9329,24 @@ namespace Resources {
         public static string ProfileRemoved {
             get {
                 return ResourceManager.GetString("ProfileRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guests have limited access to some portal features and modules.
+        /// </summary>
+        public static string ProfileTypePopupHelper {
+            get {
+                return ResourceManager.GetString("ProfileTypePopupHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Projects for {0} devices.
+        /// </summary>
+        public static string ProjectsForDevices {
+            get {
+                return ResourceManager.GetString("ProjectsForDevices", resourceCulture);
             }
         }
         
@@ -8748,11 +9495,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create now.
+        /// </summary>
+        public static string RegistryButtonCreateNow {
+            get {
+                return ResourceManager.GetString("RegistryButtonCreateNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start editing.
         /// </summary>
         public static string RegistryButtonStartEditing {
             get {
                 return ResourceManager.GetString("RegistryButtonStartEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I agree that my usage data will be anonymously tracked via Google Analytics.
+        /// </summary>
+        public static string RegistrySettingAnalytics {
+            get {
+                return ResourceManager.GetString("RegistrySettingAnalytics", resourceCulture);
             }
         }
         
@@ -8811,6 +9576,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request new.
+        /// </summary>
+        public static string RequestNewButton {
+            get {
+                return ResourceManager.GetString("RequestNewButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The invitation will be sent to the entered email.
         /// </summary>
         public static string ResendInviteDescription {
@@ -8843,6 +9617,15 @@ namespace Resources {
         public static string ResendInviteTitle {
             get {
                 return ResourceManager.GetString("ResendInviteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ResetButton {
+            get {
+                return ResourceManager.GetString("ResetButton", resourceCulture);
             }
         }
         
@@ -8993,6 +9776,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Return to import settings.
+        /// </summary>
+        public static string ReturnToImportSettingsBtn {
+            get {
+                return ResourceManager.GetString("ReturnToImportSettingsBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sales Email.
         /// </summary>
         public static string SalesEmail {
@@ -9088,6 +9880,15 @@ namespace Resources {
         public static string SelectAllButton {
             get {
                 return ResourceManager.GetString("SelectAllButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select data source.
+        /// </summary>
+        public static string SelectDataSource {
+            get {
+                return ResourceManager.GetString("SelectDataSource", resourceCulture);
             }
         }
         
@@ -9223,6 +10024,15 @@ namespace Resources {
         public static string ServerRegion {
             get {
                 return ResourceManager.GetString("ServerRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set password.
+        /// </summary>
+        public static string SetPassword {
+            get {
+                return ResourceManager.GetString("SetPassword", resourceCulture);
             }
         }
         
@@ -9543,7 +10353,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}.
+        ///   Looks up a localized string similar to {0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication or code from connected authenticator application.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}.
         /// </summary>
         public static string SmsAuthDescription {
             get {
@@ -9710,6 +10520,24 @@ namespace Resources {
         public static string Source {
             get {
                 return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email notifications with product updates, announcements and special offers.
+        /// </summary>
+        public static string SpamSubscriptionDescription {
+            get {
+                return ResourceManager.GetString("SpamSubscriptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify an existing email.
+        /// </summary>
+        public static string SpecifyAnExistingEmail {
+            get {
+                return ResourceManager.GetString("SpecifyAnExistingEmail", resourceCulture);
             }
         }
         
@@ -10049,11 +10877,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To increase storage space select an upgraded pricing plan.{0}To free the storage space, you can delete the personal data of the disabled users. To do this, go to the user profile and select the &quot;Delete personal data&quot; action from the drop-down menu to the right of the name..
+        /// </summary>
+        public static string StatisticsDescription {
+            get {
+                return ResourceManager.GetString("StatisticsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string StatisticsTitle {
             get {
                 return ResourceManager.GetString("StatisticsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage.
+        /// </summary>
+        public static string Storage {
+            get {
+                return ResourceManager.GetString("Storage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to На этой странице вы можете подключить стороннее хранилище и начать перенос в выбранное хранилище. После начала переноса, портал будет недоступен..
+        /// </summary>
+        public static string StorageText {
+            get {
+                return ResourceManager.GetString("StorageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Настройки хранилища.
+        /// </summary>
+        public static string StorageTitle {
+            get {
+                return ResourceManager.GetString("StorageTitle", resourceCulture);
             }
         }
         
@@ -10598,11 +11462,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Temporary password to access portal.
+        /// </summary>
+        public static string TemporaryPasswordToAccess {
+            get {
+                return ResourceManager.GetString("TemporaryPasswordToAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         public static string TenantCreated {
             get {
                 return ResourceManager.GetString("TenantCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage space available for portal.
+        /// </summary>
+        public static string TenantStorageSpace {
+            get {
+                return ResourceManager.GetString("TenantStorageSpace", resourceCulture);
             }
         }
         
@@ -10616,20 +11498,119 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is the maximum storage space available  for portal..
-        /// </summary>
-        public static string TenantUsedSpacePremiumDescription {
-            get {
-                return ResourceManager.GetString("TenantUsedSpacePremiumDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total number of {!users}.
         /// </summary>
         public static string TenantUsersTotal {
             get {
                 return ResourceManager.GetString("TenantUsersTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read more about terms of use.
+        /// </summary>
+        public static string TermsOfUsePopupHelperLink {
+            get {
+                return ResourceManager.GetString("TermsOfUsePopupHelperLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect code.
+        /// </summary>
+        public static string TfaAppAuthMessageError {
+            get {
+                return ResourceManager.GetString("TfaAppAuthMessageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (remaining: {0}).
+        /// </summary>
+        public static string TfaAppBackupCodesRemaining {
+            get {
+                return ResourceManager.GetString("TfaAppBackupCodesRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TFA application settings are not available.
+        /// </summary>
+        public static string TfaAppNotAvailable {
+            get {
+                return ResourceManager.GetString("TfaAppNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset application.
+        /// </summary>
+        public static string TfaAppResetApp {
+            get {
+                return ResourceManager.GetString("TfaAppResetApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authenticator application configuration will be reset..
+        /// </summary>
+        public static string TfaAppResetAppDescription {
+            get {
+                return ResourceManager.GetString("TfaAppResetAppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset application configuration.
+        /// </summary>
+        public static string TfaAppResetAppHeader {
+            get {
+                return ResourceManager.GetString("TfaAppResetAppHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show backup codes.
+        /// </summary>
+        public static string TfaAppShowBackupCodes {
+            get {
+                return ResourceManager.GetString("TfaAppShowBackupCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup codes allowes you to confirm login when you don&apos;t have access to your phone.{0}Now you have only {1} code(s) each can be used only one time. Print them and use when needed..
+        /// </summary>
+        public static string TfaAppShowBackupCodesDescription {
+            get {
+                return ResourceManager.GetString("TfaAppShowBackupCodesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can get new codes anytime. Only codes which was generated last are valid..
+        /// </summary>
+        public static string TfaAppShowBackupCodesNote {
+            get {
+                return ResourceManager.GetString("TfaAppShowBackupCodesNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup codes.
+        /// </summary>
+        public static string TfaAppShowBackupCodesTitle {
+            get {
+                return ResourceManager.GetString("TfaAppShowBackupCodesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have sent too many text messages. Please try again later..
+        /// </summary>
+        public static string TfaTooMuchError {
+            get {
+                return ResourceManager.GetString("TfaTooMuchError", resourceCulture);
             }
         }
         
@@ -10720,15 +11701,6 @@ namespace Resources {
         public static string TitleFacebook {
             get {
                 return ResourceManager.GetString("TitleFacebook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Google.
-        /// </summary>
-        public static string TitleGoogle {
-            get {
-                return ResourceManager.GetString("TitleGoogle", resourceCulture);
             }
         }
         
@@ -11099,15 +12071,6 @@ namespace Resources {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}{!User} can:{1}{2}{4}create/edit/manage/share files and folders;{5}{4}create and edit posts in Blogs, share news, etc;{5}{4}create and edit CRM contacts, task, case, opportunity;{5}{4}create and edit project, team, milestones, tasks, discussions etc.{5}{3}.
-        /// </summary>
-        public static string UserCanDescribe2 {
-            get {
-                return ResourceManager.GetString("UserCanDescribe2", resourceCulture);
             }
         }
         

@@ -28,19 +28,20 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
 using ASC.Files.Core;
-using ASC.FullTextIndex;
+using ASC.Web.CRM.Core.Search;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.Files.Api;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
-using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -373,12 +374,13 @@ namespace ASC.CRM.Core.Dao
 
             var ids = new List<int>();
 
-            if (FullTextSearch.SupportModule(FullTextSearch.CRMEmailsModule))
+            List<int> contactsIds;
+            if (FactoryIndexer<EmailWrapper>.TrySelectIds(s => s.MatchAll(searchText), out contactsIds))
             {
-                ids = FullTextSearch.Search(FullTextSearch.CRMEmailsModule.Match(searchText));
-
-                if (!ids.Any())
+                if (!contactsIds.Any())
                     return contacts;
+
+                ids = contactsIds.Select(r => Convert.ToInt32(r)).ToList();
             }
 
             var isAdmin = CRMSecurity.IsAdmin;
@@ -397,7 +399,7 @@ namespace ASC.CRM.Core.Dao
                         break;
 
                     query
-                        .Where(Exp.In("cci.id", partIds));
+                        .Where(Exp.In("cc.id", partIds));
                 }
                 else
                 {
@@ -650,9 +652,8 @@ namespace ASC.CRM.Core.Dao
                 var keywords = searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                    .ToArray();
 
-                var modules = SearchDao.GetFullTextSearchModule(EntityType.Contact, searchText);
-
-                if (!FullTextSearch.SupportModule(modules))
+                List<int> contactsIds;
+                if (!BundleSearch.TrySelectContact(searchText, out contactsIds))
                 {
                     _log.Debug("FullTextSearch.SupportModule('CRM.Contacts') = false");
                     conditions.Add(BuildLike(new[] { "display_name" }, keywords));
@@ -661,12 +662,14 @@ namespace ASC.CRM.Core.Dao
                 {
                     _log.Debug("FullTextSearch.SupportModule('CRM.Contacts') = true");
                     _log.DebugFormat("FullTextSearch.Search: searchText = {0}", searchText);
-                    var full_text_ids = FullTextSearch.Search(modules);
+                    var full_text_ids = contactsIds;
 
                     if (full_text_ids.Count == 0) return null;
+
                     if (ids.Count != 0)
                     {
                         ids = ids.Where(full_text_ids.Contains).ToList();
+                        if (ids.Count == 0) return null;
                     }
                     else
                     {
@@ -842,6 +845,19 @@ namespace ASC.CRM.Core.Dao
                     case ContactSortedByType.LastName:
                         sqlQuery.OrderBy("last_name", orderBy.IsAsc);
                         sqlQuery.OrderBy("first_name", orderBy.IsAsc);
+                        break;
+                    case ContactSortedByType.History:
+                        sqlQuery.Select("last_event_modifed_on");
+
+                        var subSqlQuery = Query("crm_relationship_event")
+                            .Select("contact_id")
+                            .Select("max(last_modifed_on) as last_event_modifed_on")
+                            .Where(Exp.Gt("contact_id", 0))
+                            .GroupBy("contact_id");
+
+                        sqlQuery.LeftOuterJoin(subSqlQuery, "evt", Exp.EqColumns("id", "evt.contact_id"));
+                        sqlQuery.OrderBy("last_event_modifed_on", orderBy.IsAsc);
+                        sqlQuery.OrderBy("create_on", orderBy.IsAsc);
                         break;
                     default:
                         sqlQuery.OrderBy("display_name", orderBy.IsAsc);
@@ -1140,6 +1156,7 @@ namespace ASC.CRM.Core.Dao
 
             // Delete relative  keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
+            FactoryIndexer<ContactsWrapper>.UpdateAsync(contact);
         }
 
         public void UpdateContactStatus(IEnumerable<int> contactid, int statusid)
@@ -1242,6 +1259,8 @@ namespace ASC.CRM.Core.Dao
         public virtual int SaveContact(Contact contact)
         {
             var result = SaveContactToDb(contact);
+            FactoryIndexer<ContactsWrapper>.IndexAsync(contact);
+
             // Delete relative  keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
             return result;
@@ -1458,6 +1477,16 @@ namespace ASC.CRM.Core.Dao
             // Delete relative  keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
 
+            var person = contact as Person;
+            if (person != null)
+            {
+                FactoryIndexer<ContactsWrapper>.DeleteAsync(person);
+            }
+            else
+            {
+                FactoryIndexer<ContactsWrapper>.DeleteAsync(contact as Company);
+            }
+
             return contact;
         }
 
@@ -1521,6 +1550,8 @@ namespace ASC.CRM.Core.Dao
                     filedao.DeleteFile(filesID);
                 }
             }
+
+            //todo: remove indexes
         }
 
         private void MergeContactInfo(Contact fromContact, Contact toContact)

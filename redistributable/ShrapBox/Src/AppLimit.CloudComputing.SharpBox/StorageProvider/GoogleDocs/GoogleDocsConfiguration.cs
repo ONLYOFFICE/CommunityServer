@@ -7,7 +7,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
         public GoogleDocsConfiguration()
             : this(new Uri(GoogleDocsConstants.GoogleDocsBaseUrl))
         {
-
         }
 
         public GoogleDocsConfiguration(Uri serviceLocator)
@@ -52,7 +51,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs
 
         public CloudStorageLimits Limits
         {
-            get { return new CloudStorageLimits(2L*1024L*1024L*1024L, -1) {MaxChunkedUploadFileSize = -1}; }
+            get { return new CloudStorageLimits(2L*1024L*1024L*1024L, -1) { MaxChunkedUploadFileSize = -1 }; }
         }
 
         public String GDataVersion

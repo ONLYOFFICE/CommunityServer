@@ -63,11 +63,12 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UsersUpdatedStatus, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
-                if (!CoreContext.Configuration.Personal) return;
-
-                UserPhotoManager.RemovePhoto(user.ID);
-                CoreContext.UserManager.DeleteUser(user.ID);
-                MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), user.DisplayUserName(false));
+                if (CoreContext.Configuration.Personal)
+                {
+                    UserPhotoManager.RemovePhoto(user.ID);
+                    CoreContext.UserManager.DeleteUser(user.ID);
+                    MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), user.DisplayUserName(false));
+                }
 
                 operationBlock.Visible = false;
                 result.Visible = true;

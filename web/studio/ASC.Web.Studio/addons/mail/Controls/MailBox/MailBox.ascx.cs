@@ -25,16 +25,12 @@
 
 
 using System;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Web;
+using ASC.Web.Files.Controls;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 //using ASC.Web.Studio.UserControls.Common.DocumentsPopup;
-using ASC.Web.Studio.UserControls.Management;
 
 namespace ASC.Web.Mail.Controls
 {
@@ -64,7 +60,11 @@ namespace ASC.Web.Mail.Controls
                            "~/products/files/controls/tree/tree.css"
             );
 
+        ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
+
         TagsPageHolder.Controls.Add(LoadControl(TagsPage.Location) as TagsPage);
+        TagsPageHolder.Controls.Add(LoadControl(UserFoldersPage.Location) as UserFoldersPage);
+        TagsPageHolder.Controls.Add(LoadControl(FiltersPage.Location) as FiltersPage);
         TagsPageHolder.Controls.Add(LoadControl(AccountsPage.Location) as AccountsPage);
         TagsPageHolder.Controls.Add(LoadControl(ContactsPage.Location) as ContactsPage);
         TagsPageHolder.Controls.Add(LoadControl(CommonSettingsPage.Location) as CommonSettingsPage);
@@ -87,8 +87,9 @@ namespace ASC.Web.Mail.Controls
 
         QuestionPopup.Options.IsPopup = true;
 
-        var fileSelector = (Files.Controls.FileSelector) LoadControl(Files.Controls.FileSelector.Location);
+        var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
         fileSelector.DialogTitle = MailResource.SelectFolderDialogTitle;
+        fileSelector.OnlyFolder = true;
         fileholder.Controls.Add(fileSelector);
     }
 

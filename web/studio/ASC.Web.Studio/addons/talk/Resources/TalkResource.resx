@@ -168,6 +168,9 @@
   <data name="ConferenceGroupName" xml:space="preserve">
     <value>Chat rooms</value>
   </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connection</value>
+  </data>
   <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
     <value>Welcome to {0}</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="HistoryFilterLastWeek" xml:space="preserve">
     <value>last week</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Search by contents of messages</value>
   </data>
   <data name="LabelConferenceSplash" xml:space="preserve">
     <value>Drag a contact here to add a recipient</value>

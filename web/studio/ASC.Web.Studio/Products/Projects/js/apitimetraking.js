@@ -151,7 +151,7 @@ ASC.Projects.TimeTraking = (function($) {
         $('#timerTime #selectUserProjects').bind('change', function() {
             var prjid = parseInt($("#selectUserProjects option:selected").val());
 
-            teamlab.getPrjTeam({}, prjid, {
+            teamlab.getProjectTeamExcluded(prjid, {
                 before: function() {
                     $("#teamList").attr(disabledAttr, disabledAttr);
                     $("#selectUserTasks").attr(disabledAttr, disabledAttr);
@@ -237,6 +237,13 @@ ASC.Projects.TimeTraking = (function($) {
                 if (!(m > 0)) m = 0;
 
                 hours = h + m / 60;
+            }
+
+            if (!$.isDateFormat($inputDate.val().trim())) {
+                $errorPanel.addClass(errorClass).removeClass(successClass);
+                $errorPanel.text(resources.IncorrectDate).show();
+                unlockStartAndAddButtons();
+                return;
             }
 
             var data = { hours: hours, note: description, personId: personid, projectId: prjid };
@@ -526,7 +533,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
             teamlab.updatePrjTime({ oldTime: oldTime, timeid: timeid },
                 timeid,
                 {
-                    hours: h + m / 60,
+                    hours: h + m / 60 + oldTime.seconds /3600,
                     date: teamlab.serializeTimestamp($('#timeTrakingPopup #timeTrakingDate').datepicker('getDate')),
                     note: $('#timeTrakingPopup #timeDescription').val(),
                     personId: $('#teamList option:selected').attr('value')
@@ -596,7 +603,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
                 appendListOptions(ASC.Projects.Common.excludeVisitors(ASC.Projects.Master.Team));
             }
         } else {
-            teamlab.getPrjProjectTeamPersons({}, prjid, { success: onGetTeamByProject });
+            teamlab.getProjectTeamExcluded(prjid, { success: onGetTeamByProject });
         }
 
         StudioBlockUIManager.blockUI($popupContainer, 550, 400, 0, "absolute");

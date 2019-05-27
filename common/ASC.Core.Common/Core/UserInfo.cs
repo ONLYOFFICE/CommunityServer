@@ -38,6 +38,7 @@ namespace ASC.Core.Users
     public sealed class UserInfo : IDirectRecipient, ICloneable
     {
         private readonly HttpRequestDictionary<GroupInfo[]> groupCache = new HttpRequestDictionary<GroupInfo[]>("UserInfo-Groups");
+        private readonly HttpRequestDictionary<IEnumerable<Guid>> groupCacheId = new HttpRequestDictionary<IEnumerable<Guid>>("UserInfo-Groups1");
 
         public UserInfo()
         {
@@ -159,6 +160,11 @@ namespace ASC.Core.Users
             }
 
             return groups;
+        }
+
+        internal IEnumerable<Guid> GetUserGroupsId()
+        {
+            return groupCacheId.Get(ID.ToString(), () => CoreContext.UserManager.GetUserGroupsGuids(ID));
         }
 
         internal void ResetGroupCache()

@@ -1,0 +1,354 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+.scroll-fix {
+    overflow: hidden !important;
+}
+
+.infoblock {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100%;
+	color: white;    
+	z-index: 400;
+    text-align: center;
+}
+
+.infoblock > span {
+	background-color: black;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.jp-loading,
+.jp-error,
+.jp-state-playing #videoOverlay,
+.jp-video-full .jp-details,
+.jp-video-full #mediaViewerToolbox,
+.jp-no-solution {
+    display: none;
+}
+
+#mediaPlayer {
+    display: none;
+    color: #d1d1d1;
+}
+
+#videoViewerOverlay {
+    position: fixed;
+    z-index: 400;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.5;
+}
+
+#videoOverlay {
+    height: 60px;
+    width: 80px;
+    background: url('./Images/play-large.png') rgba(0, 0, 0, 0.5) no-repeat center;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 401;
+    cursor: pointer;
+}
+
+#videoOverlay:hover {
+    background-color: rgba(80, 80, 80, 0.5);
+}
+
+.jp-details {
+    z-index: 401;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    height: 20px;
+    width: 100%;
+    background: rgba(17, 17, 17, 0.867);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#mediaViewerToolbox {
+    z-index: 401;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    height: 20px;
+    width: 100%;
+    background-color: rgba(11, 11, 11, 0.7);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align:center;
+}
+
+#mediaViewerToolbox div {
+    height: 30px;
+    display: inline-block;
+    margin-top: -6px;
+}
+#mediaViewerToolbox > span:first-child {
+    position: absolute;
+    left: 0;
+    margin-left: 10px;
+}
+#mediaViewerToolbox > span:last-child {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+#mediaNext.inactive, #mediaPrev.inactive {
+    opacity: 0.2;
+    cursor: default;
+}
+#mediaNext.inactive:hover, #mediaPrev.inactive:hover {
+    background-color: transparent;
+}
+#mediaNext {
+    margin-left: 20px;
+    background-image: url('./Images/next.png');
+}
+
+#mediaPrev {
+    margin-right: 20px;
+    background-image: url('./Images/previous.png');
+}
+
+#filesMediaPlayer {
+    position: absolute;
+    z-index: 400;
+    padding-bottom: 40px;
+    background-color: rgba(11, 11, 11, 0.7);
+}
+
+#filesMediaPlayer > img {
+    background-color: #e4e4ef;
+}
+
+.jp-type-single {
+    display: none;
+    position: absolute;
+    z-index: 400;
+}
+
+.jp-video-full .jp-controls {
+    background-color: rgba(11, 11, 11, 0.4);
+}
+
+.jp-controls {
+    height: 40px;
+}
+
+.videoControl {
+    display: inline-block;
+	height: 30px;
+    line-height: 30px;
+	margin: 5px;
+	float: left;
+}
+
+.videoControlBtn {
+    width: 40px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.videoControlBtn:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+#mediaPlayerClose {
+    background-image: url('./Images/close.png');
+    position: fixed;
+    top: 9px;
+    right: 10px;
+    height: 30px;
+}
+
+.jp-play {
+    background-image: url('./Images/play.png');
+}
+
+.jp-state-playing .jp-play {
+    background-image: url('./Images/pause.png');
+}
+
+.jp-duration {
+    width: 60px;
+    text-align: center;
+}
+
+.jp-video-270p .jp-full-screen, .jp-video-full .jp-full-screen {
+    display: inline-block;
+    width: 40px;
+}
+
+.jp-video-full .jp-full-screen {
+    background-image: url('./Images/fullscreen-off.png');
+}
+
+.jp-full-screen {
+    width: 0;
+    display: none;
+    background-image: url('./Images/fullscreen-on.png');
+}
+
+.jp-mute {
+    background-image: url('./Images/volume.png');
+    margin: 0;
+}
+
+.jp-state-muted .jp-mute {
+    background-image: url('./Images/volume_muted.png');
+}
+
+.jp-seek, .jp-pos {
+    margin: 12px 0;
+    height: 6px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.jp-seek {
+    background: rgba(200, 200, 200, 0.2);
+}
+
+.jp-pos {
+    background-color: #d1d1d1;
+    text-align: right;
+    pointer-events: none;
+}
+
+.jp-pos > span, .jp-volume-bar-value > span {
+	width: 12px;
+	height: 12px;
+	background: white;
+	display: inline-block;
+	border-radius: 50%;
+	margin-top: -3px;
+	margin-right: -3px;
+}
+
+.jp-pos > span, .jp-volume-bar-value > span {
+	margin-left: -3px;
+}
+
+.jp-volume-holder:hover > .jp-volume-wrapper, .jp-volume-wrapper.isChanging {
+    display: block;
+}
+
+.jp-volume-holder:hover > .jp-mute {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+.jp-volume-wrapper {
+    display: none;
+	background: black;
+	border-radius: 5px;
+	margin-top: -80px;
+    padding: 8px 0;
+}
+
+.jp-volume-bar, .jp-volume-bar-value {
+	width: 6px;
+	margin: 0 auto;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.jp-volume-bar {
+    height: 64px;
+    background: rgba(200, 200, 200, 0.2);
+    position: relative;
+}
+
+.jp-volume-bar-value {
+    background-color: #d1d1d1;
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
+}
+
+#videoDelete {
+    background-image: url('./Images/trash.png');
+}
+#videoDownload {
+    background-image: url('./Images/dl.png');
+}
+
+/* Image Viewer*/
+
+.image-viewer-temp {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden
+}
+
+#imageViewerContainer {
+    cursor: move;
+    position: absolute;
+    z-index: 401;
+}
+
+#imageZoomIn {
+    background-image: url('./Images/zoom-in.png');
+}
+#imageZoomOut {
+    background-image: url('./Images/zoom-out.png');
+}
+#imageFullScale {
+    background-image: url('./Images/zoom-to-actual-pixels.png');
+}
+#imageRotateLeft {
+    background-image: url('./Images/rotate-ccw.png');
+}
+#imageRotateRight {
+    background-image: url('./Images/rotate-cw.png');
+}
+
+#imageViewerInfo {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #303030;
+    color: #FFFFFF;
+    display: none;
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    padding: 4px 10px;
+    z-index: 402;
+}

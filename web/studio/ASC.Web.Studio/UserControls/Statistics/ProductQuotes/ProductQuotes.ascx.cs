@@ -26,15 +26,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using System.Web;
-using System.Text;
 
 namespace ASC.Web.Studio.UserControls.Statistics
 {
@@ -43,7 +42,9 @@ namespace ASC.Web.Studio.UserControls.Statistics
     {
         public const string Location = "~/UserControls/Statistics/ProductQuotes/ProductQuotes.ascx";
 
-        public long CurrentSize { get; set; }
+        private long MaxTotalSpace { get; set; }
+
+        private long UsedSpace { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -51,50 +52,18 @@ namespace ASC.Web.Studio.UserControls.Statistics
                 .RegisterStyle("~/usercontrols/statistics/productquotes/css/productquotes_style.less")
                 .RegisterBodyScripts("~/usercontrols/statistics/productquotes/js/product_quotes.js");
 
-            var data = new List<object>();
-            foreach (var item in WebItemManager.Instance.GetItems(Web.Core.WebZones.WebZoneType.All, ItemAvailableState.All))
-            {
-                if (item.Context == null || item.Context.SpaceUsageStatManager == null)
-                    continue;
-
-                data.Add(new Product { Id = item.ID, Name = item.Name, Icon = item.GetIconAbsoluteURL() });
-            }
-
-            _itemsRepeater.ItemDataBound += _itemsRepeater_ItemDataBound;
-            _itemsRepeater.DataSource = data;
-            _itemsRepeater.DataBind();
+            MaxTotalSpace = TenantExtra.GetTenantQuota().MaxTotalSize;
+            UsedSpace = TenantStatisticsProvider.GetUsedSize();
         }
 
-        private void _itemsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected IEnumerable<IWebItem> GetWebItems()
         {
-
-            var product = e.Item.DataItem as Product;
-            var webItem = WebItemManager.Instance[product.Id];
-
-            var data = new List<object>();
-            var items = webItem.Context.SpaceUsageStatManager.GetStatData();
-
-            foreach (var it in items)
-            {
-                data.Add(new { Name = it.Name, Icon = it.ImgUrl, Disabled = it.Disabled, Size = FileSizeComment.FilesSizeToString(it.SpaceUsage), Url = it.Url });
-            }
-
-            if (items.Count == 0)
-            {
-                e.Item.FindControl("_emptyUsageSpace").Visible = true;
-                e.Item.FindControl("_showMorePanel").Visible = false;
-
-            }
-            else
-            {
-                var repeater = (Repeater)e.Item.FindControl("_usageSpaceRepeater");
-                repeater.DataSource = data;
-                repeater.DataBind();
-
-
-                e.Item.FindControl("_showMorePanel").Visible = (items.Count > 10);
-                e.Item.FindControl("_emptyUsageSpace").Visible = false;
-            }
+            return WebItemManager.Instance.GetItems(Web.Core.WebZones.WebZoneType.All, ItemAvailableState.All)
+                                 .Where(item =>
+                                        item != null &&
+                                        item.Visible &&
+                                        item.Context != null &&
+                                        item.Context.SpaceUsageStatManager != null);
         }
 
         protected String RenderCreatedDate()
@@ -115,23 +84,19 @@ namespace ASC.Web.Studio.UserControls.Statistics
             return result;
         }
 
-        protected String GetMaxTotalSpace()
+        protected String RenderMaxTotalSpace()
         {
-            return FileSizeComment.FilesSizeToString(TenantExtra.GetTenantQuota().MaxTotalSize);
+            return FileSizeComment.FilesSizeToString(MaxTotalSpace);
         }
 
         protected String RenderUsedSpace()
         {
-            var used = TenantStatisticsProvider.GetUsedSize();
-            return FileSizeComment.FilesSizeToString(used);
+            return FileSizeComment.FilesSizeToString(UsedSpace);
         }
 
-        protected sealed class Product
+        protected String RenderUsedSpaceClass()
         {
-            public Guid Id { get; set; }
-            public String Name { get; set; }
-            public String Icon { get; set; }
-            public long Size { get; set; }
+            return !CoreContext.Configuration.Standalone && UsedSpace > MaxTotalSpace*9/10 ? "red-text" : string.Empty;
         }
     }
 }

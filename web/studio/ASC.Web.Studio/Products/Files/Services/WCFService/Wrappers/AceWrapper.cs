@@ -57,22 +57,19 @@ namespace ASC.Web.Files.Services.WCFService
         [DataMember(Name = "link", Order = 3, EmitDefaultValue = false)]
         public string Link { get; set; }
 
-        [DataMember(Name = "link_short", Order = 4, EmitDefaultValue = false)]
-        public string ShortenLink { get; set; }
-
-        [DataMember(Name = "is_group", Order = 5)]
+        [DataMember(Name = "is_group", Order = 4)]
         public bool SubjectGroup { get; set; }
 
-        [DataMember(Name = "owner", Order = 6)]
+        [DataMember(Name = "owner", Order = 5)]
         public bool Owner { get; set; }
 
-        [DataMember(Name = "ace_status", Order = 7)]
+        [DataMember(Name = "ace_status", Order = 6)]
         public FileShare Share { get; set; }
 
-        [DataMember(Name = "locked", Order = 8)]
+        [DataMember(Name = "locked", Order = 7)]
         public bool LockedRights { get; set; }
 
-        [DataMember(Name = "disable_remove", Order = 9)]
+        [DataMember(Name = "disable_remove", Order = 8)]
         public bool DisableRemove { get; set; }
     }
 
@@ -105,6 +102,12 @@ namespace ASC.Web.Files.Services.WCFService
                     break;
                 case FileShare.Review:
                     permission = FilesCommonResource.AceStatusEnum_Review;
+                    break;
+                case FileShare.FillForms:
+                    permission = FilesCommonResource.AceStatusEnum_FillForms;
+                    break;
+                case FileShare.Comment:
+                    permission = FilesCommonResource.AceStatusEnum_Comment;
                     break;
             }
 

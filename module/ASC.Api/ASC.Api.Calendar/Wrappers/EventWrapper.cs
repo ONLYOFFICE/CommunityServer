@@ -45,13 +45,15 @@ namespace ASC.Api.Calendar.Wrappers
         protected IEvent _baseEvent;
 
         private DateTime _utcStartDate = DateTime.MinValue;
-        private DateTime _utcEndDate= DateTime.MinValue;
+        private DateTime _utcEndDate = DateTime.MinValue;
+        private DateTime _utcUpdateDate = DateTime.MinValue;
 
-        private EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone, DateTime utcStartDate, DateTime utcEndDate)
+        private EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone, DateTime utcStartDate, DateTime utcEndDate, DateTime utcUpdateDate)
             :this(baseEvent, userId, timeZone)
         {
             _utcStartDate = utcStartDate;
             _utcEndDate = utcEndDate;
+            _utcUpdateDate = utcUpdateDate;
         } 
 
         public EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone)
@@ -90,7 +92,7 @@ namespace ASC.Api.Calendar.Wrappers
                 if (!_baseEvent.UtcEndDate.Equals(DateTime.MinValue))
                     endDate = d + difference;
 
-                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, d, endDate));
+                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, d, endDate, _baseEvent.UtcUpdateDate));
             }
 
             return list;
@@ -103,6 +105,8 @@ namespace ASC.Api.Calendar.Wrappers
         public string Uid { get { return _baseEvent.Uid; } }
 
         public int TenantId { get; set; }
+
+        public bool Todo { get; set; }
 
         [DataMember(Name = "sourceId", Order = 10)]
         public string CalendarId { get { return _baseEvent.CalendarId; } }
@@ -123,18 +127,20 @@ namespace ASC.Api.Calendar.Wrappers
             {
                 var startD = _utcStartDate != DateTime.MinValue ? _utcStartDate : _baseEvent.UtcStartDate;
                 startD =new DateTime(startD.Ticks, DateTimeKind.Utc);
-
+               
+                var updateD = _utcUpdateDate != DateTime.MinValue ? _utcUpdateDate : _baseEvent.UtcStartDate;
+                
                 if (_baseEvent.AllDayLong && _baseEvent.GetType().GetCustomAttributes(typeof(AllDayLongUTCAttribute), true).Length > 0)
                     return new ApiDateTime(startD, TimeZoneInfo.Utc);
 
-                if(_baseEvent is iCalParser.iCalEvent)
-                    if (_baseEvent.AllDayLong)
-                        return new ApiDateTime(startD, TimeZoneInfo.Utc);
-                    else
-                        return new ApiDateTime(startD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
+                //if(_baseEvent is iCalParser.iCalEvent)
+                //    if (_baseEvent.AllDayLong)
+                //        return new ApiDateTime(startD, TimeZoneInfo.Utc);
+                //    else
+                //        return new ApiDateTime(startD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
 
                 if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
-                    return new ApiDateTime(startD, _timeZone.BaseUtcOffset);
+                    return new ApiDateTime(startD, _timeZone.GetOffset(false, updateD));
 
                 return new ApiDateTime(startD, _timeZone);
             }
@@ -148,17 +154,19 @@ namespace ASC.Api.Calendar.Wrappers
                 var endD = _utcEndDate!= DateTime.MinValue? _utcEndDate : _baseEvent.UtcEndDate;
                 endD = new DateTime(endD.Ticks, DateTimeKind.Utc);
 
+                var updateD = _utcUpdateDate != DateTime.MinValue ? _utcUpdateDate : _baseEvent.UtcStartDate;
+
                 if (_baseEvent.AllDayLong && _baseEvent.GetType().GetCustomAttributes(typeof(AllDayLongUTCAttribute), true).Length > 0)
                     return new ApiDateTime(endD, TimeZoneInfo.Utc);
 
-                if (_baseEvent is iCalParser.iCalEvent)
-                    if (_baseEvent.AllDayLong)
-                        return new ApiDateTime(endD, TimeZoneInfo.Utc);
-                    else
-                        return new ApiDateTime(endD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
+                //if (_baseEvent is iCalParser.iCalEvent)
+                //    if (_baseEvent.AllDayLong)
+                //        return new ApiDateTime(endD, TimeZoneInfo.Utc);
+                //    else
+                //        return new ApiDateTime(endD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
 
                 if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
-                    return new ApiDateTime(endD, _timeZone.BaseUtcOffset);
+                    return new ApiDateTime(endD, _timeZone.GetOffset(false, updateD));
 
                 return new ApiDateTime(endD, _timeZone);
             }

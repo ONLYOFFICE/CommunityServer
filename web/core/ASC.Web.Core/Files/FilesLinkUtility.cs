@@ -196,6 +196,23 @@ namespace ASC.Web.Core.Files
             }
         }
 
+        public static string DocServiceHealthcheckUrl
+        {
+            get
+            {
+                var url = GetUrlSetting("healthcheck");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrlInternal;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        url += "healthcheck";
+                    }
+                }
+                return url;
+            }
+        }
+
         public static string DocServicePortalUrl
         {
             get { return GetUrlSetting("portal"); }
@@ -232,7 +249,7 @@ namespace ASC.Web.Core.Files
                    + (string.IsNullOrEmpty(convertToExtension) ? string.Empty : "&" + OutType + "=" + convertToExtension);
         }
 
-        public static string GetFileWebImageViewUrl(object fileId)
+        public static string GetFileWebMediaViewUrl(object fileId)
         {
             return FilesBaseAbsolutePath + "#preview/" + HttpUtility.UrlEncode(fileId.ToString());
         }
@@ -295,8 +312,8 @@ namespace ASC.Web.Core.Files
 
         public static string GetFileWebPreviewUrl(string fileTitle, object fileId)
         {
-            if (FileUtility.CanImageView(fileTitle))
-                return GetFileWebImageViewUrl(fileId);
+            if (FileUtility.CanImageView(fileTitle) || FileUtility.CanMediaView(fileTitle))
+                return GetFileWebMediaViewUrl(fileId);
 
             if (FileUtility.CanWebView(fileTitle))
             {
@@ -308,9 +325,14 @@ namespace ASC.Web.Core.Files
             return GetFileDownloadUrl(fileId);
         }
 
+        public static string FileRedirectPreviewUrlString
+        {
+            get { return FileHandlerPath + "?" + Action + "=redirect"; }
+        }
+
         public static string GetFileRedirectPreviewUrl(object enrtyId, bool isFile)
         {
-            return FileHandlerPath + "?" + Action + "=redirect&" + (isFile ? FileId : FolderId) + "=" + HttpUtility.UrlEncode(enrtyId.ToString());
+            return FileRedirectPreviewUrlString + "&" + (isFile ? FileId : FolderId) + "=" + HttpUtility.UrlEncode(enrtyId.ToString());
         }
 
         public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength)

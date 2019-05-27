@@ -21,6 +21,11 @@
             const { numberId, contactsResponsibles } = req.body;
             const result = voip.getAgent(numberId, contactsResponsibles);
             res.send(JSON.stringify({item1: result.result, item2: result.isAnyNotOffline}));
+        })
+        .post("/reload", (req, res) => {
+            const { numberRoom, agentId } = req.body;
+            voip.reload(numberRoom, agentId);
+            res.end();
         });
 
     return router;

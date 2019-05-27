@@ -1,0 +1,48 @@
+﻿oWs.SetColumnWidth(2, 20);
+
+var projects = [];
+
+for (var i = 0; i < reportData.length; i++) {
+	var found = false;
+	for (var j = 0; j < projects.length; j++) {
+		if (reportData[i][0] == projects[j][0]) {
+			found = true;
+			break;
+		}
+	}
+	
+	if (!found)
+		projects.push([reportData[i][0], reportData[i][1]]);
+}
+
+for (var i = 0; i < projects.length; i++) {
+	writeText(projects[i][0], {
+		size: chartHeaderFontSize,
+		bold: true
+	});
+	writeText(reportColumns[1] + ": " + projects[i][1]);
+	currentRow++;
+	
+	writeRow([0, 1, 2, 3], reportColumns, [2, 3], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	
+	 var milestones = [];
+	
+	for (var j = 0; j < reportData.length; j++)
+		if (reportData[j][0] == projects[i][0])
+			milestones.push(reportData[j]);	
+	
+	var curR = currentRow;
+	for (var j = 0; j < milestones.length; j++)
+		writeRow([2, 3, 4, 5], milestones[j], [2, 3], {
+			color: lightGrayBorderColor
+		}, {
+			size: smallFontSize,
+		}, true);
+	
+	currentRow += 2;
+}

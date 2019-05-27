@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Xmpp.Server</RootNamespace>
     <AssemblyName>ASC.Xmpp.Server</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TrunkDir>..\..\..\</TrunkDir>
     <SignAssembly>false</SignAssembly>
@@ -56,17 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
-      <Aliases>MonoAlias</Aliases>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -74,9 +64,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.Protocols" />
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -252,13 +240,17 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\addons\talk\ASC.Web.Talk.csproj">
+      <Project>{07ad1522-d100-4ce6-94fa-95cbe5822363}</Project>
+      <Name>ASC.Web.Talk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj">
       <Project>{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}</Project>

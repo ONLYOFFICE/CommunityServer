@@ -25,6 +25,8 @@
 
 
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 using ASC.Core;
@@ -61,19 +63,35 @@ namespace ASC.Web.People
                     SecurityContext.DemandPermissions(new UserSecurityProvider(userId), Constants.Action_EditUser);
 
                     var userPhoto = context.Request.Files[0];
+
+                    if (userPhoto.InputStream.Length > SetupInfo.MaxImageUploadSize)
+                    {
+                        result.Success = false;
+                        result.Message = FileSizeComment.FileImageSizeExceptionString;
+                        return result;
+                    }
+                    
                     var data = new byte[userPhoto.InputStream.Length];
 
                     var br = new BinaryReader(userPhoto.InputStream);
                     br.Read(data, 0, (int)userPhoto.InputStream.Length);
                     br.Close();
 
+                    CheckImgFormat(data);
+
                     if (context.Request["autosave"] == "true")
                     {
+                        if (data.Length > SetupInfo.MaxImageUploadSize)
+                            throw new ImageSizeLimitException();
+
                         var mainPhoto = UserPhotoManager.SaveOrUpdatePhoto(userId, data);
+
                         result.Data =
                             new
                                 {
                                     main = mainPhoto,
+                                    retina = UserPhotoManager.GetRetinaPhotoURL(userId),
+                                    max = UserPhotoManager.GetMaxPhotoURL(userId),
                                     big = UserPhotoManager.GetBigPhotoURL(userId),
                                     medium = UserPhotoManager.GetMediumPhotoURL(userId),
                                     small = UserPhotoManager.GetSmallPhotoURL(userId),
@@ -81,7 +99,7 @@ namespace ASC.Web.People
                     }
                     else
                     {
-                        result.Data = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, UserPhotoManager.MaxFotoSize.Width, UserPhotoManager.MaxFotoSize.Height);
+                        result.Data = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, UserPhotoManager.OriginalFotoSize.Width, UserPhotoManager.OriginalFotoSize.Height);
                     }
 
                     result.Success = true;
@@ -115,6 +133,33 @@ namespace ASC.Web.People
             }
 
             return result;
+        }
+
+        private static void CheckImgFormat(byte[] data)
+        {
+            ImageFormat imgFormat;
+
+            try
+            {
+                using (var stream = new MemoryStream(data))
+                using (var img = new Bitmap(stream))
+                {
+                    imgFormat = img.RawFormat;
+                }
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new ImageSizeLimitException();
+            }
+            catch (ArgumentException error)
+            {
+                throw new UnknownImageFormatException(error);
+            }
+
+            if (!imgFormat.Equals(ImageFormat.Png) && !imgFormat.Equals(ImageFormat.Jpeg))
+            {
+                throw new UnknownImageFormatException();
+            }
         }
     }
 

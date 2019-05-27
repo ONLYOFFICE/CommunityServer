@@ -1,0 +1,18 @@
+BEGIN:vCalendar
+VERSION:2.0
+METHOD:PUBLISH
+BEGIN:vEvent
+DTSTART:20070612T160000Z
+DTEND:20070612T170000Z
+UID:1032340889
+DTSTAMP:20070526T025936Z
+DESCRIPTION:Thank you for your interest in Microsoft Events. We would like to remind you of the following event: MSDN Webcast: Services in ASP.NET AJAX Client Libraries (Level 200). \n\nPlease review the information below.\n\nEvent Code: 1032340889\nEvent Name: MSDN Webcast: Services in ASP.NET AJAX Client Libraries (Level 200)\nStart Date: 6/12/2007\nStart Time: 9:00 AM (GMT-08:00) Pacific Time (US & Canada)\nEnd Date: 6/12/2007\nEnd Time: 10:00 AM (GMT-08:00) Pacific Time (US & Canada)\n\nPlease click on the following link for more information regarding this Event https://msevents.microsoft.com/cui/r.aspx?r=1290603983&c=en-US&t=4. We look forward to seeing you at the Event!
+SUMMARY:Live Webcast - MSDN Webcast: Services in ASP.NET AJAX Client Libraries (Level 200)
+PRIORITY:3
+BEGIN:vAlarm
+TRIGGER:P0DT0H15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:vAlarm
+END:vEvent
+END:vCalendar

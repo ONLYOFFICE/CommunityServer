@@ -33,7 +33,6 @@
 }
 #projectMemberPanel ul {
     max-height: 180px;
-    overflow: auto;
 }
 
 /*--entity-menu--*/

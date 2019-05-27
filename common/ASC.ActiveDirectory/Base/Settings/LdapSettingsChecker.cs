@@ -25,7 +25,7 @@
 
 
 using System;
-using log4net;
+using ASC.Common.Logging;
 
 namespace ASC.ActiveDirectory.Base.Settings
 {
@@ -42,7 +42,7 @@ namespace ASC.ActiveDirectory.Base.Settings
         protected LdapSettingsChecker(LdapUserImporter importer)
         {
             LdapImporter = importer;
-            log = LogManager.GetLogger(typeof(LdapSettingsChecker));
+            log = LogManager.GetLogger("ASC");
         }
 
         public abstract LdapSettingsStatus CheckSettings();

@@ -5,13 +5,13 @@ upstream fastcgi_backend_apisystem {
 
 upstream fastcgi_backend {
 	server unix:/var/run/onlyoffice/onlyoffice.socket;
-	keepalive {{ONLYOFFICE_NIGNX_KEEPLIVE}};
+	keepalive {{APP_NIGNX_KEEPLIVE}};
 }
 
 fastcgi_cache_path /var/cache/nginx/onlyoffice
 	levels=1:2
-	keys_zone=onlyoffice:16m
-	max_size=256m
+	keys_zone=onlyoffice:256m
+	max_size=1024m
 	inactive=1d;
 
 map $http_host $this_host {

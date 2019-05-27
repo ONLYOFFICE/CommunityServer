@@ -33,7 +33,7 @@ using ASC.Api;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
@@ -113,7 +113,7 @@ namespace ASC.Specific.GlobalFilters
                     {
                         context.RequestContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
                         context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.ServiceUnavailable.ToString();
-                        log.Warn("Portal {0} is transfering to another region", context.RequestContext.HttpContext.Request.Url);
+                        log.WarnFormat("Portal {0} is transfering to another region", context.RequestContext.HttpContext.Request.Url);
                     }
 
                     var tariff = CoreContext.PaymentManager.GetTariff(tenant.TenantId);
@@ -121,7 +121,7 @@ namespace ASC.Specific.GlobalFilters
                     {
                         context.RequestContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.PaymentRequired;
                         context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.PaymentRequired.ToString();
-                        log.Warn("Payment Required {0}.", context.RequestContext.HttpContext.Request.Url);
+                        log.WarnFormat("Payment Required {0}.", context.RequestContext.HttpContext.Request.Url);
                     }
                 }
             }
@@ -135,11 +135,11 @@ namespace ASC.Specific.GlobalFilters
                 {
                     CallContext.SetData("asc.web.product_id", pid);
                 }
-                if (!WebItemSecurity.IsAvailableForUser(pid.ToString(), SecurityContext.CurrentAccount.ID))
+                if (!WebItemSecurity.IsAvailableForMe(pid))
                 {
                     context.RequestContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.Forbidden.ToString();
-                    log.Warn("Product {0} denied for user {1}", method.Name, SecurityContext.CurrentAccount);
+                    log.WarnFormat("Product {0} denied for user {1}", method.Name, SecurityContext.CurrentAccount);
                 }
             }
         }

@@ -12,7 +12,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Xmpp.Core</RootNamespace>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TrunkDir>..\..\..\</TrunkDir>
     <SignAssembly>false</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -84,10 +84,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -100,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="protocol\iq\chatmarkers\Chatmarkers.cs" />
     <Compile Include="utils\exceptions\JidException.cs" />
     <Compile Include="protocol\Id.cs" />
     <Compile Include="utils\Idn\CombiningClass.cs" />
@@ -691,6 +688,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

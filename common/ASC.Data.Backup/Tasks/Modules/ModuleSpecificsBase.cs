@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using ASC.Common.Data;
@@ -84,24 +85,24 @@ namespace ASC.Data.Backup.Tasks.Modules
             }
         }
 
-        public IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table, int limit, int offset)
+        public DbCommand CreateSelectCommand(DbConnection connection, int tenantId, TableInfo table, int limit, int offset)
         {
             return connection.CreateCommand(string.Format("select t.* from {0} as t {1} limit {2},{3};", table.Name, GetSelectCommandConditionText(tenantId, table), offset, limit));
         }
 
-        public IDbCommand CreateDeleteCommand(IDbConnection connection, int tenantId, TableInfo table)
+        public DbCommand CreateDeleteCommand(DbConnection connection, int tenantId, TableInfo table)
         {
             var commandText = string.Format("delete t.* from {0} as t {1};", table.Name, GetDeleteCommandConditionText(tenantId, table));
             return connection.CreateCommand(commandText);
         }
 
-        public IDbCommand CreateInsertCommand(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row)
+        public DbCommand CreateInsertCommand(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row)
         {
             if (table.InsertMethod == InsertMethod.None)
                 return null;
 
             Dictionary<string, object> valuesForInsert;
-            if (!TryPrepareRow(connection, columnMapper, table, row, out valuesForInsert))
+            if (!TryPrepareRow(dump, connection, columnMapper, table, row, out valuesForInsert))
                 return null;
 
             var columns = valuesForInsert.Keys.Intersect(table.Columns).ToArray();
@@ -114,7 +115,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                                                   string.Join(",", columns),
                                                   string.Join(",", columns.Select(c => "@" + c)));
 
-            IDbCommand command = connection.CreateCommand(insertCommantText);
+            var command = connection.CreateCommand(insertCommantText);
             foreach (var parameter in valuesForInsert)
             {
                 command.AddParameter(parameter.Key, parameter.Value);
@@ -122,7 +123,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return command;
         }
 
-        public virtual bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath)
+        public virtual bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath)
         {
             return true;
         }
@@ -140,7 +141,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return GetSelectCommandConditionText(tenantId, table);
         }
 
-        protected virtual bool TryPrepareRow(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
+        protected virtual bool TryPrepareRow(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
         {
             preparedRow = new Dictionary<string, object>();
 
@@ -162,7 +163,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 }
                 else
                 {
-                    if (!TryPrepareValue(connection, columnMapper, table, columnName, parentRelations[columnName], ref val))
+                    if (!TryPrepareValue(dump, connection, columnMapper, table, columnName, parentRelations[columnName], ref val))
                         return false;
 
                     if (!table.HasIdColumn() && !table.HasTenantColumn() && val == row[columnName])
@@ -175,7 +176,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return true;
         }
 
-        protected virtual bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
+        protected virtual bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             if (columnName.Equals(table.TenantColumn, StringComparison.OrdinalIgnoreCase))
             {
@@ -203,12 +204,12 @@ namespace ASC.Data.Backup.Tasks.Modules
             return true;
         }
 
-        protected virtual bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
+        protected virtual bool TryPrepareValue(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
         {
             return TryPrepareValue(connection, columnMapper, relations.Single(), ref value);
         }
 
-        protected virtual bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
+        protected virtual bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
         {
             var mappedValue = columnMapper.GetMapping(relation.ParentTable, relation.ParentColumn, value);
             if (mappedValue != null)

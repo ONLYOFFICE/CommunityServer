@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ASC.Core.Common.Contracts
@@ -32,20 +33,17 @@ namespace ASC.Core.Common.Contracts
     [DataContract]
     public enum BackupStorageType
     {
-        [EnumMember]
-        Documents = 0,
+        [EnumMember] Documents = 0,
 
-        [EnumMember]
-        ThridpartyDocuments = 1,
+        [EnumMember] ThridpartyDocuments = 1,
 
-        [EnumMember]
-        CustomCloud = 2,
-        
-        [EnumMember]
-        Local = 3,
+        [EnumMember] CustomCloud = 2,
 
-        [EnumMember]
-        DataStore = 4
+        [EnumMember] Local = 3,
+
+        [EnumMember] DataStore = 4,
+
+        [EnumMember] ThirdPartyConsumer = 5
     }
 
     [DataContract]
@@ -65,6 +63,9 @@ namespace ASC.Core.Common.Contracts
 
         [DataMember]
         public string StorageBasePath { get; set; }
+
+        [DataMember]
+        public Dictionary<string, string> StorageParams { get; set; }
     }
 
     [DataContract]
@@ -148,28 +149,19 @@ namespace ASC.Core.Common.Contracts
 
         [DataMember]
         public bool NotifyAfterCompletion { get; set; }
+
+        [DataMember]
+        public Dictionary<string, string> StorageParams { get; set; }
     }
 
     [DataContract]
-    public class CreateScheduleRequest
+    public class CreateScheduleRequest : StartBackupRequest
     {
-        [DataMember]
-        public int TenantId { get; set; }
-
         [DataMember]
         public string Cron { get; set; }
 
         [DataMember]
-        public bool BackupMail { get; set; }
-
-        [DataMember]
         public int NumberOfBackupsStored { get; set; }
-
-        [DataMember]
-        public BackupStorageType StorageType { get; set; }
-
-        [DataMember]
-        public string StorageBasePath { get; set; }
     }
 
     [DataContract]
@@ -192,5 +184,8 @@ namespace ASC.Core.Common.Contracts
 
         [DataMember]
         public DateTime LastBackupTime { get; set; }
+
+        [DataMember]
+        public Dictionary<string, string> StorageParams { get; set; }
     }
 }

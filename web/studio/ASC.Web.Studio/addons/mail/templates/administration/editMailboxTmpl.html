@@ -20,25 +20,23 @@
                 </tr>
                 <tr>
                     <td>
-                        <div id="mailbox_add_alias" class="requiredField addAliasBlock">
+                        <div id="mailbox_add_alias" class="requiredField">
                             <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
                             <div class="headerPanelSmall bold">${ASC.Mail.Resources.MailAdministrationResource.MailboxAliasLabel}</div>
-                            <table>
+                            <table class="aliasTable">
                                 <tbody>
                                     <tr>
                                         <td class="aliasNameBlock">
                                             <input type="text" class="aliasName textEdit" maxlength="64" autofocus/>
                                         </td>
-                                        <td>
+                                        <td class="domainNameBlock">
                                             <span class="domainName" title="${domain.name}">@${domain.name}</span>
-                                        </td>
-                                        <td>
-                                            <a class="plus plusmail addAlias" title="${ASC.Mail.Resources.MailAdministrationResource.AddButton}" style="float: none;"></a>
+                                            <a class="plus plusmail addAlias" title="${ASC.Mail.Resources.MailAdministrationResource.AddButton}"></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="mailbox_aliases">
+                            <div class="mailbox_aliases webkit-scrollbar">
                                 <table>
                                     {{tmpl(mailbox.aliases) "mailboxAliasTableRowTmpl"}}
                                 </table>
@@ -58,8 +56,10 @@
 
 <script id="mailboxAliasTableRowTmpl" type="text/x-jquery-tmpl">
     <tr class='alias_row' alias_id="${id}">
-        <td>
+        <td class="mailbox_address_column">
             <span class="alias_address">${email}</span>
+        </td>
+        <td class="delete_entity_column">
             <div class="delete_entity"></div>
         </td>
     </tr>

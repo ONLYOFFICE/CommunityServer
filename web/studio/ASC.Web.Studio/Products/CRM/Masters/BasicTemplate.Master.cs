@@ -94,7 +94,8 @@ namespace ASC.Web.CRM
                         "reports.js")
                     .AddSource(ResolveUrl,
                         "~/js/uploader/ajaxupload.js",
-                        "~/js/third-party/autosize.js");
+                        "~/js/third-party/autosize.js",
+                        "~/js/asc/plugins/progressdialog.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()

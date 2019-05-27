@@ -30,6 +30,7 @@ using System.Globalization;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Utility;
 
@@ -89,9 +90,26 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     file_xlsx_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xlsx_21.png"),
                     file_xml_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xml_21.png"),
                     file_xps_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xps_21.png"),
+                    file_docm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_docm_21.png"),
+                    file_dot_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_dot_21.png"),
+                    file_dotm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_dotm_21.png"),
+                    file_dotx_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_dotx_21.png"),
+                    file_pot_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_pot_21.png"),
+                    file_potm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_potm_21.png"),
+                    file_potx_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_potx_21.png"),
+                    file_ppsm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_ppsm_21.png"),
+                    file_pptm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_pptm_21.png"),
+                    file_soundunk_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_soundunk_21.png"),
+                    file_video_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_video_21.png"),
+                    file_videounk_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_videounk_21.png"),
+                    file_xlsm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xlsm_21.png"),
+                    file_xlt_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xlt_21.png"),
+                    file_xltm_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xltm_21.png"),
+                    file_xltx_21 = CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_xltx_21.png"),
                     IsTurnOnAttachmentsGroupOperations = Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.attachments-group-operations"] ?? "false"),
                     IsTurnOnOAuth = MailPage.IsTurnOnOAuth(),
-                    OAuthLocation = VirtualPathUtility.ToAbsolute(OAuth.Location)
+                    OAuthLocation = VirtualPathUtility.ToAbsolute(OAuth.Location),
+                    userDisplayFormat = (int) UserFormatter.GetUserDisplayDefaultOrder()
         })
             };
         }

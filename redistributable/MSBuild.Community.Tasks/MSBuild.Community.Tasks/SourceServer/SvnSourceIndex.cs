@@ -57,6 +57,14 @@ namespace MSBuild.Community.Tasks.SourceServer
             SourceCommandFormat = "svn.exe export %var2%%var3%@%var4% %srcsrvtrg% --non-interactive --trust-server-cert --quiet";
         }
 
+
+        /// <summary>
+        /// Gets or sets the name of the source server.
+        /// </summary>
+        /// <value>The name of the source server.</value>
+        [Required]
+        public string SourceServerName { get; set; }
+
         /// <summary>
         /// Adds the source properties to the symbol file.
         /// </summary>

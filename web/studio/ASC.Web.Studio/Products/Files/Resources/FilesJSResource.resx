@@ -120,6 +120,12 @@
   <data name="AccessSettingsTitle" xml:space="preserve">
     <value>Access Settings {0}</value>
   </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
   <data name="AceStatusEnum_Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
@@ -138,14 +144,20 @@
   <data name="AceStatusEnum_Varies" xml:space="preserve">
     <value>Varies</value>
   </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
   <data name="ButtonFilterArchive" xml:space="preserve">
     <value>Archives</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>No subfolders</value>
   </data>
   <data name="ButtonFilterDocument" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="ButtonFilterFile" xml:space="preserve">
-    <value>Files</value>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>All files</value>
   </data>
   <data name="ButtonFilterFolder" xml:space="preserve">
     <value>Folders</value>
@@ -153,11 +165,23 @@
   <data name="ButtonFilterImage" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>In content</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="ButtonFilterPresentation" xml:space="preserve">
     <value>Presentations</value>
   </data>
   <data name="ButtonFilterSpreadsheet" xml:space="preserve">
     <value>Spreadsheets</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="ButtonShowMore" xml:space="preserve">
     <value>Show more {0}</value>
@@ -171,14 +195,14 @@
   <data name="ButtonSortAuthor" xml:space="preserve">
     <value>Author</value>
   </data>
-  <data name="ButtonSortModified" xml:space="preserve">
-    <value>Date</value>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Modified</value>
   </data>
   <data name="ButtonSortName" xml:space="preserve">
     <value>Title</value>
-  </data>
-  <data name="ButtonSortNew" xml:space="preserve">
-    <value>New</value>
   </data>
   <data name="ButtonSortSize" xml:space="preserve">
     <value>Size</value>
@@ -390,11 +414,17 @@
   <data name="InfoChangeThirdParty" xml:space="preserve">
     <value>'{0}' changed</value>
   </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Copy {1}{0}{2}</value>
+  </data>
   <data name="InfoCopyGroup" xml:space="preserve">
     <value>{0} copied elements</value>
   </data>
   <data name="InfoCopyItem" xml:space="preserve">
     <value>'{0}' copied</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} elements</value>
   </data>
   <data name="InfoCrateFile" xml:space="preserve">
     <value>New file '{0}' is created</value>
@@ -413,6 +443,9 @@
   </data>
   <data name="InfoMoveAccessError" xml:space="preserve">
     <value>You do not have access rights to move some file(s)</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Move {1}{0}{2}</value>
   </data>
   <data name="InfoMoveGroup" xml:space="preserve">
     <value>{0} moved elements</value>
@@ -446,12 +479,6 @@
   </data>
   <data name="InfoSaveThirdParty" xml:space="preserve">
     <value>'{0}' added to '{1}'</value>
-  </data>
-  <data name="InfoSelectCount" xml:space="preserve">
-    <value>Elements: {0}</value>
-  </data>
-  <data name="InfoSelectingDescribe" xml:space="preserve">
-    <value>{0}Drag the element(s) with the mouse to add to the folder</value>
   </data>
   <data name="InfoUploadedSuccess" xml:space="preserve">
     <value>{0} documents are successfully uploaded</value>
@@ -569,9 +596,6 @@
   </data>
   <data name="TitleSettingsThirdParty" xml:space="preserve">
     <value>Connect accounts</value>
-  </data>
-  <data name="Types" xml:space="preserve">
-    <value>Types</value>
   </data>
   <data name="TypeTitleBoxNet" xml:space="preserve">
     <value>Box</value>

@@ -189,4 +189,7 @@
   <data name="TariffActiveUserLimit" xml:space="preserve">
     <value>Your current pricing plan allows you to add {0}{1} active users{2}.</value>
   </data>
+  <data name="TariffActiveUserLimitExcludingGuests" xml:space="preserve">
+    <value>Your current pricing plan allows you to add {0}{1} active users{2} (guests are not taken into consideration).</value>
+  </data>
 </root>

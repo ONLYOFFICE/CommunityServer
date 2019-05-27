@@ -1,7 +1,10 @@
-﻿using System.IO;
-using System.Net;
-using Microsoft.Build.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Microsoft.Build.Utilities;
+using Microsoft.Build.Framework;
+using System.Net;
+using System.IO;
 
 namespace MSBuild.Community.Tasks.Net
 {
@@ -44,6 +47,26 @@ namespace MSBuild.Community.Tasks.Net
         public bool FailOnNon2xxResponse { get; set; }
 
         /// <summary>
+        /// Optional, default is GET. The HTTP method to use for the request.
+        /// </summary>
+        public string Method{ get; set; }
+
+        /// <summary>
+        /// Optional. The username to use with basic authentication.
+        /// </summary>
+        public string Username{ get; set; }
+
+        /// <summary>
+        /// Optional. The password to use with basic authentication.
+        /// </summary>
+        public string Password{ get; set; }
+
+        /// <summary>
+        /// Optional; the name of the file to reqd the request from.
+        /// </summary>
+        public string ReadRequestFrom { get; set; }
+
+        /// <summary>
         /// Optional; the name of the file to write the response to.
         /// </summary>
         public string WriteResponseTo { get; set; }
@@ -66,6 +89,15 @@ namespace MSBuild.Community.Tasks.Net
             }
         }
 
+
+        private bool ReadRequestFromFile
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(ReadRequestFrom);
+            }
+        }
+
         private bool WriteResponseToFile
         {
             get
@@ -80,16 +112,43 @@ namespace MSBuild.Community.Tasks.Net
         public override bool Execute()
         {
             Log.LogMessage("Requesting {0}", Url);
-            var request = WebRequest.Create(Url) as HttpWebRequest;
+            HttpWebRequest request = WebRequest.Create(Url) as HttpWebRequest;
             if (request == null)
             {
                 Log.LogError("Url \"{0}\" did not create an HttpRequest.", Url);
                 return false;
             }
 
-            using (var response = (HttpWebResponse)request.GetResponse())
+	    if (!string.IsNullOrEmpty(Method))
+	    {
+ 		request.Method = Method;
+	    }
+
+	    if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+	    {
+		request.Credentials = new NetworkCredential(Username, Password);
+	    }
+	
+	    if (ReadRequestFromFile) {
+		request.SendChunked = true;
+		using (FileStream source = File.Open(ReadRequestFrom, FileMode.Open))
+		{
+			using (Stream requestStream = request.GetRequestStream())
+			{
+				byte[] buffer = new byte[16 * 1024];
+				int bytesRead;
+				while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+				{
+					requestStream.Write(buffer, 0, bytesRead);
+				}
+			}
+		}
+	    }
+
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
-                var code = (int)response.StatusCode;
+                int code = (int)response.StatusCode;
                 Log.LogMessage("HTTP RESPONSE: {0}, {1}", code, response.StatusDescription);
                 if (FailOnNon2xxResponse)
                 {
@@ -101,15 +160,8 @@ namespace MSBuild.Community.Tasks.Net
                 }
                 if (CheckResponseContents || WriteResponseToFile)
                 {
-                    var responseString = string.Empty;
-                    using (var responseStream = response.GetResponseStream())
-                    {
-                        if (responseStream != null)
-                            using (var responseReader = new StreamReader(responseStream))
-                            {
-                                responseString = responseReader.ReadToEnd();
-                            }
-                    }
+                    StreamReader responseReader = new StreamReader(response.GetResponseStream());
+                    string responseString = responseReader.ReadToEnd();
                     if (WriteResponseToFile)
                     {
                         using (TextWriter tw = new StreamWriter(WriteResponseTo))
@@ -122,7 +174,7 @@ namespace MSBuild.Community.Tasks.Net
                     {
                         if (!responseString.Contains(EnsureResponseContains))
                         {
-                            var length = System.Math.Min(100, responseString.Length);
+                            int length = System.Math.Min(100, responseString.Length);
                             Log.LogError("Response did not contain the specified text.  Started with: " + responseString.Substring(0, length));
                             return false;
                         }

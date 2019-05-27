@@ -13,10 +13,10 @@
                     </a>
                 </div>
 
-                {{if group != null}}
+                {{if (groups && groups.length)}}
                     <div style="margin-top:0px;">
-                        <a class="link underline gray" href="${StudioManager.getLocationPathToModule("people")+"#group="+group.id}">
-                            ${group.name}
+                        <a class="link underline gray" href="${StudioManager.getLocationPathToModule("people")+"#group="+groups[0].id}">
+                            ${groups[0].name}
                         </a>
                     </div>
                 {{/if}}
@@ -24,16 +24,39 @@
                 <div style="margin-top:10px;">${title}</div>
 
                 <div style="margin-top:2px;">
-                    <span class="link underline gray" onclick="ASC.Controls.JabberClient.open('${userName}')">
-                        {{if isOnline === true}}
-                            ${ASC.Resources.Master.Resource.Online}
-                        {{else isOnline === false}}
-                            ${ASC.Resources.Master.Resource.Offline}
-                        {{/if}}
-                    </span>
+                    <span class="link underline gray" onclick="ASC.Controls.JabberClient.open('${userName}')">${ASC.Resources.Master.Resource.OpenTalk}</span>
                 </div>
             </td>
         </tr>
     </table>
 </div>
+</script>
+
+<script id="tfaCodesPopup" type="text/x-jquery-tmpl">
+     {{tmpl 'tfaCodesContentTmpl'}}
+
+    <div id="errorRequestNewCodes" class="errorBox display-none"></div>
+
+    <div class="middle-button-container">
+        <a id="showBackupCodesPrint" class="button middle blue">${ASC.Resources.Master.TemplateResource.PrintButton}</a>
+        <span class="splitter-buttons"></span>
+        <a id="showBackupCodeRequestNew" class="button middle gray">${ASC.Resources.Master.TemplateResource.RequestNewButton}</a>
+        <span class="splitter-buttons"></span>
+        <a id="showBackupCodesClose" class="button middle gray">${ASC.Resources.Master.Resource.CloseButton}</a>
+    </div>
+
+</script>
+
+<script id="tfaCodesContentTmpl" type="text/x-jquery-tmpl">
+    <div>
+        {{html jq.format(ASC.Resources.Master.TemplateResource.TfaAppShowBackupCodesDescription, '<br><br>', jq.format('<b class="codesremain">{0}</b>', unused))}}
+        <div id="showBackupCodes" class="bold">
+            {{tmpl(items) 'tfaCodesTmpl'}}
+        </div>
+        ${ASC.Resources.Master.TemplateResource.TfaAppShowBackupCodesNote}
+    </div>
+</script>
+
+<script id="tfaCodesTmpl" type="text/x-jquery-tmpl">
+    <div {{if isUsed}} class="disabled" {{/if}}>${code}</div>
 </script>

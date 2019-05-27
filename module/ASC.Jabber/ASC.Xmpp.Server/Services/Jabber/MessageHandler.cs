@@ -35,16 +35,16 @@ using System.Web.Script.Serialization;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Thrdparty.Configuration;
+using ASC.Web.Core.Jabber;
 using ASC.Web.Core.Users;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Storage.Interface;
 using ASC.Xmpp.Server.Streams;
-using log4net;
 
 namespace ASC.Xmpp.Server.Services.Jabber
 {
@@ -53,7 +53,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
 	{
         private DbPushStore pushStore;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(XmppHandlerManager));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
         
 		public override void HandleMessage(XmppStream stream, Message message, XmppHandlerContext context)
 		{
@@ -91,19 +91,11 @@ namespace ASC.Xmpp.Server.Services.Jabber
                     var fromFullName = message.HasAttribute("username") ? 
                                         message.GetAttribute("username") : message.From.ToString();
 
-                    var tenantId = -1;
+
                     var messageToDomain = message.To.ToString().Split(new char[] { '@' })[1];
-                   
-                    foreach (
-                        var tenant in CoreContext.TenantManager.GetTenants()
-                        )
-                    {
-                        if (tenant.TenantDomain == messageToDomain)
-                        {
-                            tenantId = tenant.TenantId;
-                            break;
-                        }
-                    }
+                    var tenant = CoreContext.TenantManager.GetTenant(messageToDomain);
+                    var tenantId = tenant != null ? tenant.TenantId : -1;
+
                     var userPushList = new List<UserPushInfo>();
                     userPushList = pushStore.GetUserEndpoint(message.To.ToString().Split(new char[] { '@' })[0]);
 
@@ -111,7 +103,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
                     try
                     {
                         CallContext.SetData(TenantManager.CURRENT_TENANT, new Tenant(tenantId, ""));
-                        firebaseAuthorization = KeyStorage.Get("firebase_authorization");
+                        firebaseAuthorization = FireBase.Instance.Authorization;
                     }
                     catch (Exception exp)
                     {
@@ -127,7 +119,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
                             using (var db = new DbManager("core"))
                             using (var command = db.Connection.CreateCommand())
                             {
-                                var q = new SqlQuery("core_user").Select("id").Where(Exp.Like("username", from));
+                                var q = new SqlQuery("core_user").Select("id").Where(Exp.Like("username", from)).Where("tenant", tenantId);
 
                                 userId = command.ExecuteList(q, DbRegistry.GetSqlDialect(db.DatabaseId))
                                     .ConvertAll(r => Convert.ToString(r[0]))

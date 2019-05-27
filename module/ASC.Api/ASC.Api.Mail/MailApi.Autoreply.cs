@@ -25,9 +25,9 @@
 
 
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator.Common;
 using System;
-using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Mail.Core.Engine;
+using ASC.Mail.Data.Contracts;
 
 namespace ASC.Api.Mail
 {
@@ -45,21 +45,16 @@ namespace ASC.Api.Mail
         /// <param name="subject">New autoreply subject.</param>
         /// <param name="html">New autoreply value.</param>
         [Create(@"autoreply/update/{mailboxId:[0-9]+}")]
-        public MailAutoreply UpdateAutoreply(int mailboxId, bool turnOn, bool onlyContacts,
+        public MailAutoreplyData UpdateAutoreply(int mailboxId, bool turnOn, bool onlyContacts,
             bool turnOnToDate, DateTime fromDate, DateTime toDate, string subject, string html)
         {
-            if (fromDate == DateTime.MinValue) throw new ArgumentException("Invalid parameter", "from");
-            if (turnOnToDate && toDate == DateTime.MinValue) throw new ArgumentException("Invalid parameter", "to");
-            if (turnOnToDate && toDate < fromDate) throw new ArgumentException("Wrong date interval, toDate < fromDate", "to, from");
-            if (String.IsNullOrEmpty(html)) throw new ArgumentException("Invalid parameter", "html");
+            var result = MailEngineFactory
+                .AutoreplyEngine
+                .SaveAutoreply(mailboxId, turnOn, onlyContacts, turnOnToDate, fromDate, toDate, subject, html);
 
-            var imagesReplacer = new StorageManager(TenantId, Username);
-            html = imagesReplacer.ChangeEditorImagesLinks(html, mailboxId);
+            CacheEngine.Clear(Username);
 
-            MailBoxManager.CachedAccounts.Clear(Username);
-
-            return MailBoxManager.UpdateOrCreateMailboxAutoreply(mailboxId, Username,
-                TenantId, turnOn, onlyContacts, turnOnToDate, fromDate, toDate, subject, html);
+            return result;
         }
     }
 }

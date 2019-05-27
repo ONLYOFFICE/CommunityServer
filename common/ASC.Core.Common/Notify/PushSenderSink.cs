@@ -24,20 +24,20 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ASC.Common.Logging;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Configuration;
 using ASC.Notify.Messages;
 using ASC.Notify.Sinks;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Core.Common.Notify
 {
     class PushSenderSink : Sink
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(PushSenderSink));
+        private readonly ILog _log = LogManager.GetLogger("ASC");
         private bool configured = true;
 
 

@@ -5,7 +5,7 @@ module God
         socket = nil
         self.info = []
         begin
-          timeout(5) do
+          Timeout.timeout(5) do
             socket = UNIXSocket.new(self.path)
           end
         rescue Timeout::Error

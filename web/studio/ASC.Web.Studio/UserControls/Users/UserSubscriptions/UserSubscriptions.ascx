@@ -157,63 +157,43 @@
 <a name="subscriptions"></a>
 
 <div class="subs-tabs" >
-    <span id="product_subscribeBox_subNew" data-id="subNew" class="subs-module active" >
-        <span class="subs-icon-module news"></span>
-        <%=Resources.Resource.WhatsNewSubscriptionName%>
+    <span id="product_subscribeBox_subGeneral" data-id="subGeneral" class="subs-module active" >
+        <span class="subs-icon-module general"></span>
+        <%=Resources.Resource.GeneralSubscriptionName%>
     </span>
-    <span id="product_subscribeBox_subTips" data-id="subTips" class="subs-module" >
-        <span class="subs-icon-module tips"></span>
-        <%=Resources.Resource.TipsAndTricsSubscriptionName%>
-    </span>
-    <%if (IsAdmin()) { %>
-    <span id="product_subscribeBox_subAdmin" data-id="subAdmin" class="subs-module">        
-        <span class="subs-icon-module admin"></span>
-        <%=Resources.Resource.Administrator%>                
-    </span>
-    <% } %>   
-     <div id="modules_notifySenders"></div>
-     <div id="productSelector" class="subs-selector"></div>
+    <div id="modules_notifySenders"></div>
+    <div id="productSelector" class="subs-selector"></div>
 </div>  
 
-
 <div class="subs-contents">   
-    <div id="content_product_subscribeBox_subNew" class="tabs active">
-        <div>
-            <div class="subs-only-button">
-                <span id="studio_newSubscriptionButton" class="sub-button"><%=RenderWhatsNewSubscriptionState()%></span>
-                <%= Resources.Resource.SubscribtionDailyNews%>
-            </div>
-
-            <%--What's new Notify by Combobox--%>
-            <div>
-                <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%> </span>
-                <%=RenderWhatsNewNotifyByCombobox() %>
-            </div>
-      </div>
-    </div>
-    <div id="content_product_subscribeBox_subTips" class="tabs">
-        <div>
-            <div class="subs-only-button">
-                <span id="studio_tipsSubscriptionButton" class="sub-button"><%=RenderTipsAndTricsSubscriptionState()%></span>
+    <div id="content_product_subscribeBox_subGeneral" class="tabs active">
+        <div class="subs-only-button">
+            <div class="clearFix">
+                <span id="studio_tipsSubscriptionButton" class="sub-button"><%=RenderTipsAndTricksSubscriptionState()%></span>
                 <%= Resources.Resource.TipsAndTricsSubscriptionDescription%>
             </div>
-      </div>
-    </div>
-    
- <%if (IsAdmin()){%> 
-    <div id="content_product_subscribeBox_subAdmin" class="tabs">
-     <div>
-        <div class="subs-only-button">
-             <span id="studio_adminSubscriptionButton" class="sub-button"><%=RenderAdminNotifySubscriptionState()%></span>
-             <%= Resources.Resource.SubscribtionAdminNotifications%>
+            <% if (IsVisibleSpamSubscription()) { %> 
+            <div class="clearFix">
+                <span id="studio_spamSubscriptionButton" class="sub-button"><%=RenderSpamSubscriptionState()%></span>
+                <%=Resources.Resource.SpamSubscriptionDescription%>
+            </div>
+            <% } %>
+            <br/>
+            <div class="<%= IsAdmin() ? "clearFix" : "" %>">
+                <span id="studio_newSubscriptionButton" class="sub-button"><%=RenderWhatsNewSubscriptionState()%></span>
+                <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionDailyNews%></span>
+                <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%></span>
+                <%=RenderWhatsNewNotifyByCombobox() %>
+            </div>
+            <% if (IsAdmin()) { %> 
+            <div>
+                <span id="studio_adminSubscriptionButton" class="sub-button"><%=RenderAdminNotifySubscriptionState()%></span>
+                <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionAdminNotifications%></span>
+                <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%></span>
+                <%=RenderAdminNotifyNotifyByCombobox()%>
+            </div>
+            <% } %>
         </div>
-
-        <%--Admin Notify Notify By Combobox--%>
-        <div>
-            <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%> </span>
-            <%=RenderAdminNotifyNotifyByCombobox()%></div>
-       </div>
-     </div>
-<%}%>    
+    </div>
     <div id="contents_notifySenders"></div>
 </div>

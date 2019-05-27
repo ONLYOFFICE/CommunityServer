@@ -33,7 +33,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20
         public static OAuth20Token FromJson(String json)
         {
             var parser = new JsonHelper();
-            
+
             if (!parser.ParseJsonMessage(json))
                 return null;
 

@@ -28,11 +28,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Collections;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Common.Data;
+using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
+using ASC.Web.CRM.Core.Search;
 
 #endregion
 
@@ -110,18 +114,33 @@ namespace ASC.CRM.Core.Dao
         public virtual void Delete(int id)
         {
             Db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("id", id)));
+            FactoryIndexer<InfoWrapper>.DeleteAsync(r => r.Where(a => a.Id, id));
         }
 
         public virtual void DeleteByContact(int contactID)
         {
             if (contactID <= 0) return;
-
             Db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("contact_id", contactID)));
+            FactoryIndexer<InfoWrapper>.DeleteAsync(r => r.Where(a => a.ContactId, contactID));
+
+            var infos = GetList(contactID, ContactInfoType.Email, null, null);
+            FactoryIndexer<EmailWrapper>.Update(new EmailWrapper { Id = contactID, EmailInfoWrapper = infos.Select(r => (EmailInfoWrapper)r).ToList() }, UpdateAction.Replace, r => r.EmailInfoWrapper);
         }
 
         public virtual int Update(ContactInfo contactInfo)
         {
-            return UpdateInDb(contactInfo);
+            var result = UpdateInDb(contactInfo);
+            
+            if (contactInfo.InfoType == ContactInfoType.Email)
+            {
+                var infos = GetList(contactInfo.ContactID, ContactInfoType.Email, null, null);
+
+                FactoryIndexer<EmailWrapper>.Update(new EmailWrapper { Id = contactInfo.ContactID, EmailInfoWrapper = infos.Select(r => (EmailInfoWrapper)r).ToList() }, UpdateAction.Replace, r => r.EmailInfoWrapper);
+            }
+
+            FactoryIndexer<InfoWrapper>.UpdateAsync(contactInfo);
+
+            return result;
         }
 
         private int UpdateInDb(ContactInfo contactInfo)
@@ -145,7 +164,26 @@ namespace ASC.CRM.Core.Dao
 
         public int Save(ContactInfo contactInfo)
         {
-            return SaveInDb(contactInfo);
+            var id = SaveInDb(contactInfo);
+
+            contactInfo.ID = id;
+
+            FactoryIndexer<InfoWrapper>.IndexAsync(contactInfo);
+
+            if (contactInfo.InfoType == ContactInfoType.Email)
+            {
+                FactoryIndexer<EmailWrapper>.Index(new EmailWrapper
+                {
+                    Id = contactInfo.ContactID, 
+                    TenantId = TenantID, 
+                    EmailInfoWrapper = new List<EmailInfoWrapper>
+                    {
+                        contactInfo
+                    }
+                });
+            }
+
+            return id;
         }
 
         private int SaveInDb(ContactInfo contactInfo)
@@ -209,7 +247,7 @@ namespace ASC.CRM.Core.Dao
         }
 
 
-        public int[] UpdateList(List<ContactInfo> items)
+        public int[] UpdateList(List<ContactInfo> items, Contact contact = null)
         {
 
             if (items == null || items.Count == 0) return null;
@@ -225,13 +263,22 @@ namespace ASC.CRM.Core.Dao
                 tx.Commit();
             }
 
+            if (contact != null)
+            {
+                FactoryIndexer<EmailWrapper>.IndexAsync(EmailWrapper.ToEmailWrapper(contact, items.Where(r => r.InfoType == ContactInfoType.Email).ToList()));
+                foreach (var item in items.Where(r => r.InfoType != ContactInfoType.Email))
+                {
+                    FactoryIndexer<InfoWrapper>.IndexAsync(item);
+                }
+            }
+
             return result.ToArray();
         }
 
 
 
 
-        public int[] SaveList(List<ContactInfo> items)
+        public int[] SaveList(List<ContactInfo> items, Contact contact = null)
         {
             if (items == null || items.Count == 0) return null;
 
@@ -240,10 +287,23 @@ namespace ASC.CRM.Core.Dao
             using (var tx = Db.BeginTransaction(true))
             {
                 foreach (var contactInfo in items)
-                    result.Add(SaveInDb(contactInfo));
+                {
+                    var contactInfoId = SaveInDb(contactInfo);
+                    contactInfo.ID = contactInfoId;
+                    result.Add(contactInfoId);
+                }
 
 
                 tx.Commit();
+            }
+
+            if (contact != null)
+            {
+                FactoryIndexer<EmailWrapper>.IndexAsync(EmailWrapper.ToEmailWrapper(contact, items.Where(r => r.InfoType == ContactInfoType.Email).ToList()));
+                foreach (var item in items.Where(r => r.InfoType != ContactInfoType.Email))
+                {
+                    FactoryIndexer<InfoWrapper>.IndexAsync(item);
+                }
             }
 
             return result.ToArray();

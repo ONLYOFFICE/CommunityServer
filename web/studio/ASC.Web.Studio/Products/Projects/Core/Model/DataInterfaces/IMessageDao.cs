@@ -45,7 +45,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess);
 
-        Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
+        List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         Message GetById(int id);
 

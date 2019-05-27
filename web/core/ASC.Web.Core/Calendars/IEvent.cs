@@ -85,7 +85,8 @@ namespace ASC.Web.Core.Calendars
         string Description { get; }
         Guid OwnerId { get; }
         DateTime UtcStartDate { get; }
-        DateTime UtcEndDate { get; }        
+        DateTime UtcEndDate { get; }
+        DateTime UtcUpdateDate { get; }
         EventAlertType AlertType { get; }
         bool AllDayLong { get; }
         RecurrenceRule RecurrenceRule { get; }

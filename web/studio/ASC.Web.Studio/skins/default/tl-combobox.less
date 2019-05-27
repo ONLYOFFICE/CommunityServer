@@ -100,6 +100,7 @@
         top: 0;
         .borderRadius(4px);
         .boxShadow();
+        .noneSelect();
 
         .container-corner {
             display: block;
@@ -210,20 +211,9 @@
     }
 
     &.left-align {
-        .combobox-wrapper {
-            left: auto;
-            right: 0;
-        }
-
-        .combobox-container {
-            margin: 0 0 0 -46px;
+        .combobox-wrapper, .combobox-container {
             right: auto;
             left: 0;
-
-            .container-corner {
-                left: 30px;
-                right: auto;
-            }
         }
     }
 }

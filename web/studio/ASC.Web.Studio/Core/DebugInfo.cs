@@ -32,7 +32,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
-
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Web.Core.Files;
 
@@ -119,7 +119,7 @@ namespace ASC.Web.Studio.Core
             }
             catch (Exception e)
             {
-                log4net.LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                LogManager.GetLogger("ASC").Error("DebugInfo", e);
             }
 
             return "";
@@ -165,7 +165,7 @@ namespace ASC.Web.Studio.Core
                 }
                 catch (Exception e)
                 {
-                    log4net.LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                    LogManager.GetLogger("ASC").Error("DebugInfo", e);
                 }
 
                 return "";

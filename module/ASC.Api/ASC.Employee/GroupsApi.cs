@@ -72,7 +72,7 @@ namespace ASC.Api.Employee
         [Read("")]
         public IEnumerable<GroupWrapperSummary> GetAll()
         {
-            return CoreContext.UserManager.GetDepartments().Select(x => new GroupWrapperSummary(x)).ToSmartList();
+            return CoreContext.UserManager.GetDepartments().Select(x => new GroupWrapperSummary(x));
         }
 
         ///<summary>
@@ -106,7 +106,7 @@ namespace ASC.Api.Employee
         [Read("user/{userid}")]
         public IEnumerable<GroupWrapperSummary> GetByUserId(Guid userid)
         {
-            return CoreContext.UserManager.GetUserGroups(userid).Select(x => new GroupWrapperSummary(x)).ToSmartList();
+            return CoreContext.UserManager.GetUserGroups(userid).Select(x => new GroupWrapperSummary(x));
         }
 
         /// <summary>

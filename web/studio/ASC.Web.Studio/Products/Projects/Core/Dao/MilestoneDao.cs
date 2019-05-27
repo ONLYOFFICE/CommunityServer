@@ -24,18 +24,19 @@
 */
 
 
-using ASC.Collections;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Tenants;
-using ASC.FullTextIndex;
-using ASC.Projects.Core.DataInterfaces;
-using ASC.Projects.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ASC.Collections;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Tenants;
+using ASC.Projects.Core.DataInterfaces;
+using ASC.Projects.Core.Domain;
+using ASC.ElasticSearch;
 using ASC.Web.Projects;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -146,11 +147,11 @@ namespace ASC.Projects.Data.DAO
             return Db.ExecuteScalar<int>(queryCount);
         }
 
-        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
+        public List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             var query = new SqlQuery(MilestonesTable + " t")
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
-                .Select("t.create_by")
+                .Select("t.create_by", "t.project_id")
                 .Where("t.tenant_id", Tenant)
                 .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
 
@@ -165,11 +166,11 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery()
                 .SelectCount()
-                .Select("t1.create_by")
-                .GroupBy("t1.create_by")
+                .Select("t1.create_by", "t1.project_id")
+                .GroupBy("create_by", "project_id")
                 .From(query, "t1");
 
-            return Db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
+            return Db.ExecuteList(queryCount).ConvertAll(b => new Tuple<Guid, int, int>(Guid.Parse((string)b[1]), Convert.ToInt32(b[2]), Convert.ToInt32(b[0]))); ;
         }
 
         public List<Milestone> GetByStatus(int projectId, MilestoneStatus milestoneStatus)
@@ -389,9 +390,9 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMilestonesModule))
+                List<int> mIds;
+                if (FactoryIndexer<MilestonesWrapper>.TrySelectIds(s => s.MatchAll(filter.SearchText), out mIds))
                 {
-                    var mIds = FullTextSearch.Search(FullTextSearch.ProjectsMilestonesModule.Match(filter.SearchText));
                     query.Where(Exp.In("t.id", mIds));
                 }
                 else

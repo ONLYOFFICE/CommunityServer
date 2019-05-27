@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="i.softbank.jp">
+    <domain>i.softbank.jp</domain>
+    <displayName>SoftBank</displayName>
+    <displayShortName>SoftBank</displayShortName>
+    <incomingServer type="imap">
+      <hostname>imap.softbank.jp</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILLOCALPART%</username>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.softbank.jp</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILLOCALPART%</username>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

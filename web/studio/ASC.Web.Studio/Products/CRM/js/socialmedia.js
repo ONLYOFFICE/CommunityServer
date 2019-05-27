@@ -94,15 +94,6 @@ ASC.CRM.SocialMedia = (function() {
         _ShowProfilesWindow();
     };
 
-    _FindFacebookProfilesResponse = function(target, addTop, addLeft, response) {
-        _RenderSMProfiles(response, "FacebookProfileTmpl");
-        jq("#divSMProfilesWindow .divWait").hide();
-        _CalculateProfilesWindowHeight();
-
-        ASC.CRM.SocialMedia.FacebookTargetTextbox = jq(target).parent().parent().children('table').find('input');
-        _ShowProfilesWindow();
-    };
-
     _CalculateProfilesWindowHeight = function() {
         var height = jq("#sm_tbl_UserList").outerHeight();
         if (height > 200) {
@@ -373,10 +364,13 @@ ASC.CRM.SocialMedia = (function() {
                     var now = new Date();
                     jq("img.contact_photo").attr("src",
                         [
-                            response != "" ? response : ASC.CRM.SocialMedia.defaultAvatarSrc,
+                            ASC.CRM.SocialMedia.defaultAvatarSrc,
                             '?',
                             now.getTime()]
                         .join(''));
+                    if (jq("#uploadPhotoPath").length == 1) {
+                        jq("#uploadPhotoPath").val("");
+                    }
                 },
                 error: function (params, errors) {
                     PopupKeyUpActionProvider.CloseDialog();
@@ -428,44 +422,6 @@ ASC.CRM.SocialMedia = (function() {
             });
         },
 
-        FindFacebookProfiles: function(target, contactType, addTop, addLeft) {
-            _HideProfilesWindow();
-            jq("#divSMProfilesWindow .divNoProfiles").css("display", "none");
-            jq("#sm_tbl_UserList").html("");
-            jq("#divSMProfilesWindow .divSMProfilesWindowBody .errorBox").remove();
-
-            var searchText,
-                isUser = true;
-
-            //contact type can be "company" or "people"
-            if (contactType == "company") {
-                isUser = false;
-                searchText = jq("[name='baseInfo_companyName']").val();
-            }
-            if (contactType == "people") {
-                searchText = jq("[name='baseInfo_firstName']").val() + " " + jq("[name='baseInfo_lastName']").val();
-            }
-
-            if (searchText === undefined || jq.trim(searchText).length == 0) {
-                return;
-            }
-
-            _CalculateProfilesWindowPosition(jq(target), addTop, addLeft);
-            _ShowWaitProfilesWindow(searchText);
-
-            Teamlab.getCrmContactFacebookProfiles({}, searchText, isUser, {
-                max_request_attempts: 1,
-                success: function (params, response) {
-                    _FindFacebookProfilesResponse(target, addTop, addLeft, response);
-                },
-                error: function (params, errors) {
-                    var err = errors[0];
-                    jq("#divSMProfilesWindow .divWait").hide();
-                    jq("#divSMProfilesWindow .divSMProfilesWindowBody").prepend(jq("<div></div>").addClass("errorBox").text(err));
-                }
-            });
-        },
-
         AddAndSaveTwitterProfileToContact: function(twitterScreenName, contactID) {
             var params = {},
                 data = {
@@ -484,11 +440,6 @@ ASC.CRM.SocialMedia = (function() {
 
         AddTwitterProfileToContact: function(twitterScreenName) {
             jq(ASC.CRM.SocialMedia.TwitterTargetTextbox).val(twitterScreenName);
-            _HideProfilesWindow();
-        },
-
-        AddFacebookProfileToContact: function(profileId) {
-            jq(ASC.CRM.SocialMedia.FacebookTargetTextbox).val(profileId);
             _HideProfilesWindow();
         }
     };

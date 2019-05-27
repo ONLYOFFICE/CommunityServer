@@ -37,7 +37,7 @@ using System.Web.UI ;
 [assembly: AssemblyTitle("FredCK.FCKeditorV2")]
 [assembly: AssemblyDescription("FCKeditor ASP.Net Integration")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ascensio System SIA")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FCKeditor.FCKeditorV2")]
 [assembly: AssemblyCopyright("2003-2008 Frederico Caldeira Knabben")]
 [assembly: AssemblyTrademark("")]

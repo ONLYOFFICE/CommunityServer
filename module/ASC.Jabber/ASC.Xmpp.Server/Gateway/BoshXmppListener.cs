@@ -24,10 +24,10 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using ASC.Common.Logging;
 
 namespace ASC.Xmpp.Server.Gateway
 {
@@ -40,7 +40,7 @@ namespace ASC.Xmpp.Server.Gateway
         private Uri bindUri;
         private long maxPacket = 1048576; //1024 kb
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppListener));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
 
         public override void Configure(IDictionary<string, string> properties)

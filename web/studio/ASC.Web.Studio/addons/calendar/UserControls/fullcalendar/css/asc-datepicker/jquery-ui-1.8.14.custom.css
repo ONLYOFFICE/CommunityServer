@@ -66,9 +66,9 @@
 
 /* Interaction states
 ----------------------------------*/
-.asc-datepicker .ui-state-default, .asc-datepicker .ui-widget-content .ui-state-default, .asc-datepicker .ui-widget-header .ui-state-default { border: 1px solid #ffffff; background: #ffffff url(images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x; font-weight: normal; color: #555555; }
+.asc-datepicker .ui-state-default, .asc-datepicker .ui-widget-content .ui-state-default, .asc-datepicker .ui-widget-header .ui-state-default { border: 1px solid #ffffff; background: #ffffff url(images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x; font-weight: normal; color: #555555; text-align:center; border-radius: 3px; width: 16px; height: 13px; line-height: 13px; }
 .asc-datepicker .ui-state-default a, .asc-datepicker .ui-state-default a:link, .asc-datepicker .ui-state-default a:visited { color: #555555; text-decoration: none; }
-.asc-datepicker .ui-state-hover, .asc-datepicker .ui-widget-content .ui-state-hover, .asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus, .asc-datepicker .ui-widget-content .ui-state-focus, .asc-datepicker .ui-widget-header .ui-state-focus { border: 1px solid #62b5df; background: #d5ebf6 url(images/ui-bg_flat_75_d5ebf6_40x100.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.asc-datepicker .ui-state-hover, .asc-datepicker .ui-widget-content .ui-state-hover, .asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus, .asc-datepicker .ui-widget-content .ui-state-focus, .asc-datepicker .ui-widget-header .ui-state-focus { border: 1px solid #ddd; background: #ddd; font-weight: normal; color: #212121; }
 .asc-datepicker .ui-state-hover a, .asc-datepicker .ui-state-hover a:hover { color: #212121; text-decoration: none; }
 .asc-datepicker .ui-state-active, .asc-datepicker .ui-widget-content .ui-state-active, .asc-datepicker .ui-widget-header .ui-state-active { border: 1px solid #2689ba; background: #62b5df url(images/ui-bg_highlight-soft_65_62b5df_1x100.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; }
 .asc-datepicker .ui-state-active a, .asc-datepicker .ui-state-active a:link, .asc-datepicker .ui-state-active a:visited { color: #ffffff; text-decoration: none; }
@@ -76,7 +76,7 @@
 
 /* Interaction Cues
 ----------------------------------*/
-.asc-datepicker .ui-state-highlight, .asc-datepicker .ui-widget-content .ui-state-highlight, .asc-datepicker .ui-widget-header .ui-state-highlight  {border: 1px solid #f7ef55; background: #fefde9 url(images/ui-bg_glass_55_fefde9_1x400.png) 50% 50% repeat-x; color: #363636; }
+.asc-datepicker .ui-state-highlight, .asc-datepicker .ui-widget-content .ui-state-highlight, .asc-datepicker .ui-widget-header .ui-state-highlight  {border: 1px solid #fefde9; background: #fefde9; color: #363636; }
 .asc-datepicker .ui-state-highlight a, .asc-datepicker .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
 .asc-datepicker .ui-state-error, .asc-datepicker .ui-widget-content .ui-state-error, .asc-datepicker .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(images/ui-bg_inset-soft_95_fef1ec_1x100.png) 50% bottom repeat-x; color: #cd0a0a; }
 .asc-datepicker .ui-state-error a, .asc-datepicker .ui-widget-content .ui-state-error a, .asc-datepicker .ui-widget-header .ui-state-error a { color: #cd0a0a; }
@@ -296,7 +296,7 @@
  *
  * http://docs.jquery.com/UI/Datepicker#theming
  */
-.asc-datepicker .ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.asc-datepicker .ui-datepicker { width: 20em; padding: .2em .2em 0; display: none; }
 .asc-datepicker .ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
 .asc-datepicker .ui-datepicker .ui-datepicker-prev, .asc-datepicker .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
 .asc-datepicker .ui-datepicker .ui-datepicker-prev-hover, .asc-datepicker .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
@@ -355,3 +355,6 @@
     width: 200px; /*must have*/
     height: 200px; /*must have*/
 }
+
+.asc-datepicker .ui-datepicker-title .ui-datepicker-month, 
+.asc-datepicker .ui-datepicker-title .ui-datepicker-year { border-bottom: 1px dotted black; cursor: pointer; padding-bottom: 0.1em; width: 49%;}

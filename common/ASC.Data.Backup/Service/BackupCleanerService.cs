@@ -27,7 +27,7 @@
 using System;
 using System.Linq;
 using System.Threading;
-using ASC.Data.Backup.Logging;
+using ASC.Common.Logging;
 using ASC.Data.Backup.Storage;
 
 namespace ASC.Data.Backup.Service
@@ -35,7 +35,7 @@ namespace ASC.Data.Backup.Service
     public class BackupCleanerService
     {
         private readonly object cleanerLock = new object();
-        private readonly ILog log = LogFactory.Create("ASC.Backup.Cleaner");
+        private readonly ILog log = LogManager.GetLogger("ASC.Backup.Cleaner");
         private Timer cleanTimer;
         private bool isStarted;
 
@@ -84,7 +84,7 @@ namespace ASC.Data.Backup.Service
                     var backupRepository = BackupStorageFactory.GetBackupRepository();
                     
                     var backupsToRemove = backupRepository.GetExpiredBackupRecords();
-                    log.Debug("found {0} backups which are expired", backupsToRemove.Count);
+                    log.DebugFormat("found {0} backups which are expired", backupsToRemove.Count);
 
                     if (!isStarted) return;
                     foreach (var scheduledBackups in backupRepository.GetScheduledBackupRecords().GroupBy(r => r.TenantId))
@@ -96,7 +96,7 @@ namespace ASC.Data.Backup.Service
                             var scheduledBackupsToRemove = scheduledBackups.OrderByDescending(r => r.CreatedOn).Skip(schedule.NumberOfBackupsStored).ToList();
                             if (scheduledBackupsToRemove.Any())
                             {
-                                log.Debug("only last {0} scheduled backup records are to keep for tenant {1} so {2} records must be removed", schedule.NumberOfBackupsStored, schedule.TenantId, scheduledBackupsToRemove.Count);
+                                log.DebugFormat("only last {0} scheduled backup records are to keep for tenant {1} so {2} records must be removed", schedule.NumberOfBackupsStored, schedule.TenantId, scheduledBackupsToRemove.Count);
                                 backupsToRemove.AddRange(scheduledBackupsToRemove);
                             }
                         }
@@ -111,7 +111,9 @@ namespace ASC.Data.Backup.Service
                         if (!isStarted) return;
                         try
                         {
-                            var backupStorage = BackupStorageFactory.GetBackupStorage(backupRecord.StorageType, backupRecord.TenantId);
+                            var backupStorage = BackupStorageFactory.GetBackupStorage(backupRecord);
+                            if (backupStorage == null) continue;
+
                             backupStorage.Delete(backupRecord.StoragePath);
 
                             backupRepository.DeleteBackupRecord(backupRecord.Id);

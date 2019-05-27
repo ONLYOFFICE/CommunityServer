@@ -91,9 +91,6 @@ namespace ASC.Api.Employee
         public string Avatar { get; set; }
 
         [DataMember(Order = 20)]
-        public bool IsOnline { get; set; }
-
-        [DataMember(Order = 20)]
         public bool IsAdmin { get; set; }
 
         [DataMember(Order = 20)]
@@ -131,7 +128,7 @@ namespace ASC.Api.Employee
         }
 
         public EmployeeWraperFull(UserInfo userInfo, ApiContext context)
-            : base(userInfo)
+            : base(userInfo, context)
         {
             UserName = userInfo.UserName;
             IsVisitor = userInfo.IsVisitor();
@@ -173,32 +170,31 @@ namespace ASC.Api.Employee
 
             FillConacts(userInfo);
 
-            var groups = CoreContext.UserManager.GetUserGroups(userInfo.ID).Select(x => new GroupWrapperSummary(x)).ToList();
+            if (CheckContext(context, "groups") || CheckContext(context, "department"))
+            {
+                var groups = CoreContext.UserManager.GetUserGroups(userInfo.ID).Select(x => new GroupWrapperSummary(x)).ToList();
 
-            if (groups.Any())
-            {
-                Groups = groups;
-                Department = string.Join(", ", Groups.Select(d => d.Name.HtmlEncode()));
-            }
-            else
-            {
-                Department = "";
-            }
-
-            if (CheckContext(context, "avatarSmall"))
-            {
-                AvatarSmall = UserPhotoManager.GetSmallPhotoURL(userInfo.ID);
+                if (groups.Any())
+                {
+                    Groups = groups;
+                    Department = string.Join(", ", Groups.Select(d => d.Name.HtmlEncode()));
+                }
+                else
+                {
+                    Department = "";
+                }
             }
 
             if (CheckContext(context, "avatarMedium"))
-                AvatarMedium = UserPhotoManager.GetMediumPhotoURL(userInfo.ID);
+            {
+                AvatarMedium = UserPhotoManager.GetMediumPhotoURL(userInfo.ID) + "?_=" + userInfo.LastModified.GetHashCode();
+            }
 
             if (CheckContext(context, "avatar"))
             {
-                Avatar = UserPhotoManager.GetBigPhotoURL(userInfo.ID);
+                Avatar = UserPhotoManager.GetBigPhotoURL(userInfo.ID) + "?_=" + userInfo.LastModified.GetHashCode();
             }
 
-            IsOnline = false;
             IsAdmin = userInfo.IsAdmin();
 
             if (CheckContext(context, "listAdminModules"))
@@ -232,7 +228,7 @@ namespace ASC.Api.Employee
             }
         }
 
-        private static bool CheckContext(ApiContext context, string field)
+        public static bool CheckContext(ApiContext context, string field)
         {
             return context == null || context.Fields == null ||
                    (context.Fields != null && context.Fields.Contains(field));

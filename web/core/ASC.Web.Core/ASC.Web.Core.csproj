@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Core</RootNamespace>
     <AssemblyName>ASC.Web.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
@@ -63,14 +63,11 @@
     <Reference Include="AjaxPro.2">
       <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK.CloudFront">
-      <HintPath>..\..\packages\AWSSDK.CloudFront.3.3.6.1\lib\net45\AWSSDK.CloudFront.dll</HintPath>
-    </Reference>
     <Reference Include="AWSSDK.Core">
-      <HintPath>..\..\packages\AWSSDK.Core.3.3.21.6\lib\net45\AWSSDK.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.S3">
-      <HintPath>..\..\packages\AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.dll</HintPath>
+      <HintPath>..\..\..\packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core">
       <HintPath>..\..\..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
@@ -81,47 +78,42 @@
     <Reference Include="JWT">
       <HintPath>..\..\..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Flurl, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Flurl">
       <HintPath>..\..\packages\Flurl.Signed.2.3.0\lib\netstandard1.4\Flurl.dll</HintPath>
     </Reference>
-    <Reference Include="Flurl.Http, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Flurl.Http">
       <HintPath>..\..\packages\Flurl.Http.Signed.1.1.2\lib\net45\Flurl.Http.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Api.Gax, Version=2.2.1.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+    <Reference Include="Google.Api.Gax">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Api.Gax.2.2.1\lib\net45\Google.Api.Gax.dll</HintPath>
+      <HintPath>..\..\packages\Google.Api.Gax.2.3.0\lib\net45\Google.Api.Gax.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Api.Gax.Rest, Version=2.2.1.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+    <Reference Include="Google.Api.Gax.Rest">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Api.Gax.Rest.2.2.1\lib\net45\Google.Api.Gax.Rest.dll</HintPath>
+      <HintPath>..\..\packages\Google.Api.Gax.Rest.2.3.0\lib\net45\Google.Api.Gax.Rest.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.1.31.1\lib\net45\Google.Apis.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.1.32.2\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis.Auth">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Auth.1.31.1\lib\net45\Google.Apis.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Auth.1.32.2\lib\net45\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Core.1.31.1\lib\net45\Google.Apis.Core.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Core.1.32.2\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Storage.v1, Version=1.30.0.1035, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis.Storage.v1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Storage.v1.1.31.1.1035\lib\net45\Google.Apis.Storage.v1.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Storage.v1.1.32.2.1189\lib\net45\Google.Apis.Storage.v1.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Cloud.Storage.V1, Version=2.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
+    <Reference Include="Google.Cloud.Storage.V1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Cloud.Storage.V1.2.0.0\lib\net45\Google.Cloud.Storage.V1.dll</HintPath>
+      <HintPath>..\..\packages\Google.Cloud.Storage.V1.2.1.0\lib\net45\Google.Cloud.Storage.V1.dll</HintPath>
     </Reference>
     <Reference Include="openstacknet">
       <HintPath>..\..\packages\openstack.net.1.7.7\lib\net45\openstacknet.dll</HintPath>
@@ -154,8 +146,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Reference Include="Twilio">
+      <HintPath>..\..\..\packages\Twilio.5.6.0\lib\net451\Twilio.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +159,8 @@
     <Compile Include="Calendars\BaseEvent.cs" />
     <Compile Include="Calendars\CalendarColors.cs" />
     <Compile Include="Calendars\CalendarManager.cs" />
+    <Compile Include="Calendars\BaseTodo.cs" />
+    <Compile Include="Calendars\ITodo.cs" />
     <Compile Include="Calendars\IEvent.cs" />
     <Compile Include="Calendars\IExternalCalendar.cs" />
     <Compile Include="Calendars\IiCalFormatView.cs" />
@@ -188,13 +182,22 @@
     </Compile>
     <Compile Include="Client\Bundling\BundleHelper.cs" />
     <Compile Include="Client\Bundling\SelectelStorageTransform.cs" />
+    <Compile Include="Client\Bundling\StorageTransform.cs" />
     <Compile Include="Client\ClientSettings.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptLocalization.cs" />
     <Compile Include="Client\Bundling\ClientScriptReference.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
+    <Compile Include="Extensions\TimeZoneExtension.cs" />
     <Compile Include="Helpers\ApiSystemHelper.cs" />
+    <Compile Include="Jabber\FireBase.cs" />
     <Compile Include="Mail\MailServiceHelper.cs" />
+    <Compile Include="Sms\SmsKeyStorage.cs" />
+    <Compile Include="Sms\SmsProvider.cs" />
+    <Compile Include="Sms\SmsSender.cs" />
+    <Compile Include="Users\UserPhotoThumbnailSettings.cs" />
+    <Compile Include="Users\UserPhotoThumbnailManager.cs" />
     <Compile Include="Utility\PasswordSettings.cs" />
+    <Compile Include="Utility\UrlShortener.cs" />
     <Compile Include="WhiteLabel\AdditionalWhiteLabelSettings.cs" />
     <Compile Include="WhiteLabel\CompanyWhiteLabelSettings.cs" />
     <Compile Include="WhiteLabel\MailWhiteLabelSettings.cs" />
@@ -228,7 +231,6 @@
     <Compile Include="Extensions\ProductModuleExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\UserInfoExtension.cs" />
-    <Compile Include="Helpers\EXIFHelper.cs" />
     <Compile Include="Helpers\GrammaticalHelper.cs" />
     <Compile Include="Helpers\ImageHelpers.cs" />
     <Compile Include="Helpers\ResourceEnumConverter.cs" />
@@ -306,7 +308,14 @@
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
+      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
+      <Name>ASC.VoipService</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

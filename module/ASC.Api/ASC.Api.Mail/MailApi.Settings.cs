@@ -25,7 +25,7 @@
 
 
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Data.Contracts;
 
 namespace ASC.Api.Mail
 {
@@ -103,8 +103,12 @@ namespace ASC.Api.Mail
         [Read(@"settings/cacheMessagesEnabled")]
         public bool GetCacheUnreadMessagesFlag()
         {
-            var value = MailCommonSettings.CacheUnreadMessages;
-            return value;
+            //TODO: Change cache algoritnm and restore it back
+
+            /*var value = MailCommonSettings.CacheUnreadMessages;
+            return value;*/
+
+            return false;
         }
 
         /// <summary>

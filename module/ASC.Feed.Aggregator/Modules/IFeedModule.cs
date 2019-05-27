@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Feed.Data;
 
 namespace ASC.Feed.Aggregator.Modules
 {
@@ -40,5 +41,7 @@ namespace ASC.Feed.Aggregator.Modules
         IEnumerable<Tuple<Feed, object>> GetFeeds(FeedFilter filter);
 
         bool VisibleFor(Feed feed, object data, Guid userId);
+
+        void VisibleFor(List<Tuple<FeedRow, object>> feed, Guid userId);
     }
 }

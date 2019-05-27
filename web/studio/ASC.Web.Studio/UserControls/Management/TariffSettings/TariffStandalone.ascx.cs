@@ -31,6 +31,7 @@ using ASC.Core.Tenants;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -92,6 +93,14 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string TariffDescription()
         {
+            if (TenantExtra.UpdatedWithoutLicense)
+            {
+                return String.Format(UserControlsCommonResource.TariffUpdateWithoutLicense.HtmlEncode(),
+                                     "<span class='tariff-marked'>",
+                                     "</span>",
+                                     "<br />");
+            }
+
             if (CurrentQuota.Trial)
             {
                 if (CurrentTariff.State == TariffState.Trial)
@@ -110,16 +119,16 @@ namespace ASC.Web.Studio.UserControls.Management
             if (TenantExtra.EnterprisePaid
                 && CurrentTariff.DueDate.Date >= DateTime.Today)
             {
-                return "<b>" + UserControlsCommonResource.TariffPaidStandalone.HtmlEncode() + "</b> "
+                return "<b>" + (CoreContext.Configuration.CustomMode ? CustomModeResource.TariffPaidStandaloneCustomMode.HtmlEncode() : UserControlsCommonResource.TariffPaidStandalone.HtmlEncode()) + "</b> "
                        + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
                               ? string.Format(Resource.TariffExpiredDateStandalone, CurrentTariff.DueDate.Date.ToLongDateString())
                               : string.Empty);
             }
 
-            return String.Format(UserControlsCommonResource.TariffOverdueStandalone.HtmlEncode(),
+            return String.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.TariffOverdueStandaloneCustomMode.HtmlEncode() : UserControlsCommonResource.TariffOverdueStandalone2.HtmlEncode(),
                                  "<span class='tariff-marked'>",
                                  "</span>",
-                                 "<br />");
+                                 CurrentTariff.LicenseDate.Date.ToLongDateString());
         }
 
         [AjaxMethod]

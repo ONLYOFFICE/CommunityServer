@@ -105,7 +105,7 @@
                           "</a>") %></label>
 </div>
 <% }
-   else if (TenantExtra.Opensource)
+   else if (TenantExtra.Opensource && !CoreContext.Configuration.CustomMode)
    { %>
 <div class="analytics-accept">
     <input type="checkbox" id="analyticsAcceptedOpenSource" checked="checked">

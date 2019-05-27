@@ -120,11 +120,17 @@
   <data name="BirthdayCongratulateLinkTitle" xml:space="preserve">
     <value>Send Your Greetings</value>
   </data>
+  <data name="BirthdayEmptyScreenCaption" xml:space="preserve">
+    <value>No birthdays for the nearest dates</value>
+  </data>
   <data name="BirthdayRemindLinkTitle" xml:space="preserve">
     <value>Remind about the birthday</value>
   </data>
   <data name="BirthdayRemindReadyLinkTitle" xml:space="preserve">
     <value>Reminder enabled</value>
+  </data>
+  <data name="BirthdaysEmptyModuleDescription" xml:space="preserve">
+    <value>Birthdays can be specified in the 'People' module</value>
   </data>
   <data name="BirthdaysEmptyUpcomingTitle" xml:space="preserve">
     <value>No birthdays for the nearest dates</value>

@@ -59,7 +59,8 @@ namespace ASC.CRM.Core
         ContactType,
         Created,
         FirstName, 
-        LastName
+        LastName,
+        History
     }
 
     public enum SortedByType

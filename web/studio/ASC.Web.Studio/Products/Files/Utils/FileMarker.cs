@@ -293,7 +293,7 @@ namespace ASC.Web.Files.Utils
                         var folderTags = listTags.Where(tag => tag.EntryType == FileEntryType.Folder);
 
                         var providerFolderTags = folderTags.Select(tag => new KeyValuePair<Tag, Folder>(tag, folderDao.GetFolder(tag.EntryId)))
-                                                           .Where(pair => pair.Value.ProviderEntry).ToList();
+                                                           .Where(pair => pair.Value != null && pair.Value.ProviderEntry).ToList();
 
                         foreach (var providerFolderTag in providerFolderTags)
                         {
@@ -308,11 +308,16 @@ namespace ASC.Web.Files.Utils
                 var parentFolders = folderDao.GetParentFolders(folderID);
                 parentFolders.Reverse();
 
-                var rootFolder = parentFolders.Last();
+                var rootFolder = parentFolders.LastOrDefault();
                 object rootFolderId = null;
                 object cacheFolderId = null;
-                if (rootFolder.RootFolderType == FolderType.BUNCH)
+                if (rootFolder == null)
+                {
+                }
+                else if (rootFolder.RootFolderType == FolderType.BUNCH)
+                {
                     cacheFolderId = rootFolderId = Global.FolderProjects;
+                }
                 else if (rootFolder.RootFolderType == FolderType.COMMON)
                 {
                     if (rootFolder.ProviderEntry)
@@ -334,6 +339,7 @@ namespace ASC.Web.Files.Utils
                 {
                     cacheFolderId = Global.FolderShare;
                 }
+
                 if (rootFolderId != null)
                 {
                     parentFolders.Add(folderDao.GetFolder(rootFolderId));
@@ -440,7 +446,7 @@ namespace ASC.Web.Files.Utils
             if (!Global.GetFilesSecurity().CanRead(folder)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ViewFolder);
             if (folder.RootFolderType == FolderType.TRASH && !Equals(folder.ID, Global.FolderTrash)) throw new SecurityException(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
-            Dictionary<FileEntry, Tag> entryTags;
+            var entryTags = new Dictionary<FileEntry, Tag>();
 
             using (var tagDao = Global.DaoFactory.GetTagDao())
             using (var fileDao = Global.DaoFactory.GetFileDao())
@@ -455,7 +461,7 @@ namespace ASC.Web.Files.Utils
                     var folderTags = tags.Where(tag => tag.EntryType == FileEntryType.Folder);
 
                     var providerFolderTags = folderTags.Select(tag => new KeyValuePair<Tag, Folder>(tag, folderDao.GetFolder(tag.EntryId)))
-                                                       .Where(pair => pair.Value.ProviderEntry).ToList();
+                                                       .Where(pair => pair.Value != null && pair.Value.ProviderEntry).ToList();
                     providerFolderTags.Reverse();
 
                     foreach (var providerFolderTag in providerFolderTags)
@@ -469,18 +475,27 @@ namespace ASC.Web.Files.Utils
                 tags = tags.Where(t => t.EntryType == FileEntryType.Folder)
                            .Concat(tags.Where(t => t.EntryType == FileEntryType.File)).ToList();
 
-                entryTags = tags.ToDictionary(
-                    tag =>
-                    tag.EntryType == FileEntryType.File
-                        ? (FileEntry)fileDao.GetFile(tag.EntryId)
-                        : (FileEntry)folderDao.GetFolder(tag.EntryId));
+                foreach (var tag in tags)
+                {
+                    var entry = tag.EntryType == FileEntryType.File
+                                    ? (FileEntry)fileDao.GetFile(tag.EntryId)
+                                    : (FileEntry)folderDao.GetFolder(tag.EntryId);
+                    if (entry != null)
+                    {
+                        entryTags.Add(entry, tag);
+                    }
+                    else
+                    {
+                        //todo: RemoveMarkAsNew(tag);
+                    }
+                }
             }
 
             foreach (var entryTag in entryTags)
             {
                 var entry = entryTag.Key;
                 var parentId =
-                    entryTag.Key.FileEntryType == FileEntryType.File
+                    entry.FileEntryType == FileEntryType.File
                         ? ((File)entry).FolderID
                         : ((Folder)entry).ParentFolderID;
 
@@ -545,7 +560,7 @@ namespace ASC.Web.Files.Utils
                                 tagDao.UpdateNewTags(parentFolderTag);
                             }
 
-                            object cacheFolderId = parent.ID;
+                            var cacheFolderId = parent.ID;
                             var parentsList = folderDao.GetParentFolders(parent.ID);
                             parentsList.Reverse();
                             parentsList.Remove(parent);
@@ -600,12 +615,15 @@ namespace ASC.Web.Files.Utils
                     entries.ToList().ForEach(
                         entry =>
                         {
-                            var folder = entry as Folder;
-                            if (folder != null)
-                            {
-                                var curTag = totalTags.FirstOrDefault(tag => tag.EntryType == FileEntryType.Folder && tag.EntryId.Equals(folder.ID));
+                            var curTag = totalTags.FirstOrDefault(tag => tag.EntryType == entry.FileEntryType && tag.EntryId.Equals(entry.ID));
 
-                                folder.NewForMe = curTag != null ? curTag.Count : 0;
+                            if (entry.FileEntryType == FileEntryType.Folder)
+                            {
+                                ((Folder)entry).NewForMe = curTag != null ? curTag.Count : 0;
+                            }
+                            else if (curTag != null)
+                            {
+                                entry.IsNew = true;
                             }
                         });
                 }

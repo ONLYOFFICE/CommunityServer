@@ -24,12 +24,13 @@
 */
 
 
-using ASC.Common.Data;
-using ASC.Common.Module;
-using ASC.Notify.Config;
-using log4net;
 using System;
 using System.Threading;
+
+using ASC.Common.Data;
+using ASC.Common.Logging;
+using ASC.Common.Module;
+using ASC.Notify.Config;
 
 namespace ASC.Notify
 {

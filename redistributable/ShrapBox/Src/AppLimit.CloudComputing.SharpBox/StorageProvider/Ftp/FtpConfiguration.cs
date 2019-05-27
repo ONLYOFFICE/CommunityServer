@@ -7,7 +7,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP
     /// </summary>
     public class FtpConfiguration : ICloudStorageConfiguration
     {
-        private bool _TrustUnsecureSSLConnections = false;
+        private bool _trustUnsecureSslConnections;
 
         /// <summary>
         /// ctor of the FTP configuration
@@ -22,22 +22,22 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP
         /// </summary>
         public bool TrustUnsecureSSLConnections
         {
-            get { return _TrustUnsecureSSLConnections; }
-            set { _TrustUnsecureSSLConnections = value; }
+            get { return _trustUnsecureSslConnections; }
+            set { _trustUnsecureSslConnections = value; }
         }
 
         #region ICloudStorageConfiguration Members
 
-        private CloudStorageLimits _Limits = new CloudStorageLimits();
+        private CloudStorageLimits _limits = new CloudStorageLimits();
 
         /// <summary>
         /// Sets or gets the limits of a webdav configuration
         /// </summary>
         public CloudStorageLimits Limits
         {
-            get { return _Limits; }
+            get { return _limits; }
 
-            set { _Limits = value; }
+            set { _limits = value; }
         }
 
         /// <summary>

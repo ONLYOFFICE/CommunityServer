@@ -4,9 +4,9 @@ After=network.target syslog.target mysqld.service
 
 [Service]
 PermissionsStartOnly=true
-ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g nginx -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyofficeApiSystem.socket'
+ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g {{NGINX_USER}} -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyofficeApiSystem.socket'
 ExecStart=/usr/bin/hyperfastcgi4 /config=/etc/hyperfastcgi/onlyofficeApiSystem /logfile=/var/log/onlyoffice/onlyofficeApiSystem.log
-Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all
+Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all MONO_THREADS_SUSPEND=preemptive
 
 User=onlyoffice
 Group=onlyoffice

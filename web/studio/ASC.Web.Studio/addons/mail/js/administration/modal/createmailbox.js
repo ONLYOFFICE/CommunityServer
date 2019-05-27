@@ -96,7 +96,14 @@ window.createMailboxModal = (function($) {
         turnOffAllRequiredError();
         displayLoading(true);
         disableButtons(true);
-        serviceManager.addMailbox(name, localPart, currentDomain.id, mailboxUserId, {},
+
+        serviceManager.addMailbox(name,
+            localPart,
+            currentDomain.id,
+            mailboxUserId,
+            true,
+            true,
+            {},
             {
                 success: function() {
                     displayLoading(false);
@@ -118,24 +125,28 @@ window.createMailboxModal = (function($) {
     function initUserSelector(jqRootElement, userSelectorName) {
         var $mailboxUserSelector = $(jqRootElement).find(userSelectorName);
         $mailboxUserSelector.useradvancedSelector({
-            itemsDisabledIds: [],
-            canadd: false,
-            withGuests: false,
-            showGroups: true,
-            onechosen: true,
-            inPopup: true
-        }).on("showList", function(e, item) {
-            var id = item.id, name = item.title;
-            $rootEl.find(userSelectorName).html(name).attr("data-id", id).removeClass("plus");
-            var senderName = $rootEl.find('.senderName');
-            var sender = senderName.val().trim();
-            if (!sender || sender == currentMailboxUser) {
-                currentMailboxUser = (id == window.Teamlab.profile.id) ? TMMail.htmlDecode(Teamlab.profile.displayName) :TMMail.htmlDecode(name);
-                senderName.val(currentMailboxUser);
-            }
-            setFocusToMailboxInput();
-            turnOffAllRequiredError();
-        });
+                showme: true,
+                canadd: false,
+                withGuests: false,
+                showGroups: false,
+                onechosen: true,
+                inPopup: true
+            })
+            .on("showList",
+                function(e, item) {
+                    var id = item.id, name = item.title;
+                    $rootEl.find(userSelectorName).text(name).attr("data-id", id);
+                    var senderName = $rootEl.find('.senderName');
+                    var sender = senderName.val().trim();
+                    if (!sender || sender == currentMailboxUser) {
+                        currentMailboxUser = (id == window.Teamlab.profile.id)
+                            ? TMMail.htmlDecode(Teamlab.profile.displayName)
+                            : TMMail.htmlDecode(name);
+                        senderName.val(currentMailboxUser);
+                    }
+                    setFocusToMailboxInput();
+                    turnOffAllRequiredError();
+                });
     }
 
     function turnOffAllRequiredError() {
@@ -156,6 +167,7 @@ window.createMailboxModal = (function($) {
 
     function disableButtons(disable) {
         $rootEl.find('#mailboxUserSelector').toggleClass('disabled', disable);
+
         TMMail.disableButton($rootEl.find('.cancel'), disable);
         TMMail.disableButton($rootEl.find('.save'), disable);
         TMMail.disableButton($('#commonPopup .cancelButton'), disable);

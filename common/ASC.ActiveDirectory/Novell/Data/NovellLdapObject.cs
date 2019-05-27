@@ -30,7 +30,7 @@ using System.Linq;
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Novell.Extensions;
-using log4net;
+using ASC.Common.Logging;
 using Novell.Directory.Ldap;
 
 namespace ASC.ActiveDirectory.Novell.Data
@@ -60,7 +60,7 @@ namespace ASC.ActiveDirectory.Novell.Data
             if (string.IsNullOrEmpty(ldapUniqueIdAttribute))
                 return;
 
-            _log = LogManager.GetLogger(typeof(LdapObject));
+            _log = LogManager.GetLogger("ASC");
 
             try
             {
@@ -116,9 +116,9 @@ namespace ASC.ActiveDirectory.Novell.Data
         /// </summary>
         /// <param name="propertyName">property name</param>
         /// <returns>value object</returns>
-        public sealed override object GetValue(string propertyName)
+        public sealed override object GetValue(string propertyName, bool getBytes = false)
         {
-            return _ldapEntry.GetAttributeValue(propertyName);
+            return _ldapEntry.GetAttributeValue(propertyName, getBytes);
         }
 
         /// <summary>

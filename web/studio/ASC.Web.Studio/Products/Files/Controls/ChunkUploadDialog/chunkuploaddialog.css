@@ -25,7 +25,7 @@
 
 
 #chunkUploadDialog .progress-dialog-header.menu-upload-icon {
-    background-image: url("images/mainmenu_upload.png");
+    background-image: url("../../../../skins/default/Images/svg/crm/uploadblack.svg");
     background-position: 24px center;
     background-repeat: no-repeat;
     padding-left: 48px;
@@ -53,6 +53,18 @@
 .fu-width-action {
     width: 90px;
 }
+body.wild-pink .upload-svg {
+    fill: #ffffff;
+}
+body.bright-blue .upload-svg {
+    fill: #ffffff;
+}
+.upload-svg {
+    fill: #50565c;
+    width: 16px;
+    height: 16px;
+    padding-top: 3px;
+}
 .fu-row .fu-action-cell {
     text-align: center;
     width: 80px;
@@ -68,6 +80,10 @@
     width: 190px;
 }
 .fu-row .fu-title-cell span {
+    cursor: default;
+}
+.fu-row.done .ftFile_21,
+.fu-row.done .fu-title-cell span {
     cursor: pointer;
 }
 

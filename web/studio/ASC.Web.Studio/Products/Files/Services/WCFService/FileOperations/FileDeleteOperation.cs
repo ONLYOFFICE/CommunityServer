@@ -117,37 +117,41 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     }
                     else
                     {
-                        if (!_immediately && FolderDao.UseTrashForRemove(folder))
+                        var immediately = _immediately || !FolderDao.UseTrashForRemove(folder);
+                        if (immediately && FolderDao.UseRecursiveOperation(folder.ID, null))
                         {
-                            var files = FileDao.GetFiles(folder.ID);
-                            if (!_ignoreException && files.Exists(FileTracker.IsEditing))
+                            DeleteFiles(FileDao.GetFiles(folder.ID));
+                            DeleteFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList());
+
+                            if (FolderDao.IsEmpty(folder.ID))
                             {
-                                Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFolder;
-                            }
-                            else
-                            {
-                                FolderDao.MoveFolder(folder.ID, _trashId);
-                                FilesMessageService.Send(folder, _headers, MessageAction.FolderMovedToTrash, folder.Title);
+                                FolderDao.DeleteFolder(folder.ID);
+                                FilesMessageService.Send(folder, _headers, MessageAction.FolderDeleted, folder.Title);
 
                                 ProcessedFolder(folderId);
                             }
                         }
                         else
                         {
-                            if (FolderDao.UseRecursiveOperation(folder.ID, null))
+                            var files = FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, true);
+                            string tmpError;
+                            if (!_ignoreException && WithError(files, true, out tmpError))
                             {
-                                DeleteFiles(FileDao.GetFiles(folder.ID));
-                                DeleteFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList());
-
-                                if (FolderDao.IsEmpty(folder.ID))
-                                {
-                                    FolderDao.DeleteFolder(folder.ID);
-                                    ProcessedFolder(folderId);
-                                }
+                                Error = tmpError;
                             }
                             else
                             {
-                                FolderDao.DeleteFolder(folder.ID);
+                                if (immediately)
+                                {
+                                    FolderDao.DeleteFolder(folder.ID);
+                                    FilesMessageService.Send(folder, _headers, MessageAction.FolderDeleted, folder.Title);
+                                }
+                                else
+                                {
+                                    FolderDao.MoveFolder(folder.ID, _trashId, null);
+                                    FilesMessageService.Send(folder, _headers, MessageAction.FolderMovedToTrash, folder.Title);
+                                }
+
                                 ProcessedFolder(folderId);
                             }
                         }
@@ -164,21 +168,14 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 CancellationToken.ThrowIfCancellationRequested();
 
                 var file = FileDao.GetFile(fileId);
+                string tmpError;
                 if (file == null)
                 {
                     Error = FilesCommonResource.ErrorMassage_FileNotFound;
                 }
-                else if (!_ignoreException && EntryManager.FileLockedForMe(file.ID))
+                else if (!_ignoreException && WithError(new[] { file }, false, out tmpError))
                 {
-                    Error = FilesCommonResource.ErrorMassage_LockedFile;
-                }
-                else if (!_ignoreException && FileTracker.IsEditing(file.ID))
-                {
-                    Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFile;
-                }
-                else if (!_ignoreException && !FilesSecurity.CanDelete(file))
-                {
-                    Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFile;
+                    Error = tmpError;
                 }
                 else
                 {
@@ -193,6 +190,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         try
                         {
                             FileDao.DeleteFile(file.ID);
+                            FilesMessageService.Send(file, _headers, MessageAction.FileDeleted, file.Title);
                         }
                         catch (Exception ex)
                         {
@@ -204,6 +202,30 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 }
                 ProgressStep(fileId: FolderDao.CanCalculateSubitems(fileId) ? null : fileId);
             }
+        }
+
+        private bool WithError(IEnumerable<File> files, bool folder, out string error)
+        {
+            error = null;
+            foreach (var file in files)
+            {
+                if (!FilesSecurity.CanDelete(file))
+                {
+                    error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFile;
+                    return true;
+                }
+                if (EntryManager.FileLockedForMe(file.ID))
+                {
+                    error = FilesCommonResource.ErrorMassage_LockedFile;
+                    return true;
+                }
+                if (FileTracker.IsEditing(file.ID))
+                {
+                    error = folder ? FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFolder : FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFile;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

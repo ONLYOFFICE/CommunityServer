@@ -65,7 +65,7 @@
     margin-bottom: 16px;
     padding: 0 0 0 8px;
     position: relative;
-    width: 340px;
+    width: 360px;
 }
 .without-emb .sharelink-around {
     width: 100%;
@@ -76,18 +76,50 @@
     height: 16px;
     margin: 4px 0;
     text-overflow: ellipsis;
-    width: 238px;
+    width: 278px;
 }
 .without-emb #shareLink {
-    width: 448px;
+    width: 468px;
 }
-#shareLinkCopy {
+.desktop #shareLink {
+    width: 308px;
+}
+.desktop .without-emb #shareLink {
+    width: 498px;
+}
+.custom-mode #shareLink {
+    width: 328px;
+}
+.desktop.custom-mode #shareLink {
+    width: 348px;
+}
+.custom-mode .without-emb #shareLink {
+    width: 518px;
+}
+.desktop.custom-mode .without-emb #shareLink {
+    width: 538px;
+}
+#shareLinkAction {
+    background-color: white;
+    padding: 2px 4px 2px 0;
+    position: absolute;
+    top: 2px;
+    right: 74px;
+}
+.desktop #shareLinkAction {
+    right: 50px;
+}
+.custom-mode #shareLinkAction {
+    right: 26px;
+}
+.custom-mode.desktop #shareLinkAction {
+    right: 0;
+}
+#shareLinkCopy,
+#getShortenLink {
     background: white;
     cursor: pointer;
-    right: 98px;
-    padding: 4px 8px 6px;
-    position: absolute;
-    top: 0;
+    margin-left: 4px;
 }
 #shareViaSocPanel {
     float: right;
@@ -121,9 +153,6 @@
 #shareViaSocPanel .mail span {
     background-position-x: 0;
 }
-#shareViaSocPanel .google span {
-    background-position-x: -22px;
-}
 #shareViaSocPanel .facebook span {
     background-position-x: -44px;
 }
@@ -138,7 +167,7 @@
     cursor: pointer;
     float: right;
     margin: 6px 0 0 0;
-    max-width: 150px;
+    max-width: 165px;
     padding-right: 13px;
     position: relative;
 }

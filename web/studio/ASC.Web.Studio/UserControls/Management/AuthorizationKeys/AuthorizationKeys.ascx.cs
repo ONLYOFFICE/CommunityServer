@@ -31,18 +31,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using AjaxPro;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Common.Configuration;
 using ASC.Data.Storage;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
-using ASC.Thrdparty.Configuration;
-using ASC.VoipService.Twilio;
+using ASC.Web.Core.Sms;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -87,112 +86,51 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private static IEnumerable<AuthService> GetAuthServices()
         {
-            return from KeyElement keyElement in ConsumerConfigurationSection.GetSection().Keys
-                   where keyElement.Type != KeyElement.KeyType.Default && !string.IsNullOrEmpty(keyElement.ConsumerName)
-                   group keyElement by keyElement.ConsumerName
-                   into keyGroup
-                   let consumerKey = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.Key)
-                   let consumerSecret = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.Secret)
-                   let consumerKeyDefault = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.KeyDefault)
-                   let consumerSecretDefault = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.SecretDefault)
-                   select ToAuthService(keyGroup.Key, consumerKey, consumerSecret, consumerKeyDefault, consumerSecretDefault)
-                   into services
-                   orderby services.Order
-                   select services;
+            return ConsumerFactory.Consumers
+                .Where(consumer => consumer.ManagedKeys.Any())
+                .Select(ToAuthService)
+                .OrderBy(services => services.Order);
         }
 
-        private static AuthService ToAuthService(string consumerName, KeyElement consumerKey, KeyElement consumerSecret, KeyElement consumerKeyDefault, KeyElement consumerSecretDefault)
+        private static AuthService ToAuthService(Consumer consumer)
         {
-            var authService = new AuthService(consumerName);
-            if (consumerKey != null)
-            {
-                authService.WithKey(consumerKey.Name, KeyStorage.Get(consumerKey.Name));
-                if (KeyStorage.CanSet(consumerKey.Name)) authService.CanSet = true;
-                if (consumerKey.Order.HasValue) authService.Order = consumerKey.Order;
-            }
-            if (consumerSecret != null)
-            {
-                authService.WithSecret(consumerSecret.Name, KeyStorage.Get(consumerSecret.Name));
-                if (!authService.CanSet && KeyStorage.CanSet(consumerSecret.Name)) authService.CanSet = true;
-                if (!authService.Order.HasValue && consumerSecret.Order.HasValue) authService.Order = consumerSecret.Order;
-            }
-            if (consumerKeyDefault != null)
-            {
-                authService.WithKeyDefault(consumerKeyDefault.Name, KeyStorage.Get(consumerKeyDefault.Name));
-                if (!authService.CanSet && KeyStorage.CanSet(consumerKeyDefault.Name)) authService.CanSet = true;
-                if (!authService.Order.HasValue && consumerKeyDefault.Order.HasValue) authService.Order = consumerKeyDefault.Order;
-            }
-            if (consumerSecretDefault != null)
-            {
-                authService.WithSecretDefault(consumerSecretDefault.Name, KeyStorage.Get(consumerSecretDefault.Name));
-                if (!authService.CanSet && KeyStorage.CanSet(consumerSecretDefault.Name)) authService.CanSet = true;
-                if (!authService.Order.HasValue && consumerSecretDefault.Order.HasValue) authService.Order = consumerSecretDefault.Order;
-            }
-
-            if (!authService.Order.HasValue) authService.Order = int.MaxValue;
-
-            return authService;
+            return new AuthService(consumer);
         }
-
-        private static readonly Dictionary<string, IValidateKeysProvider> Providers = new Dictionary<string, IValidateKeysProvider>
-            {
-                {
-                    "Bitly",
-                    new BitlyLoginProvider()
-                },
-                {
-                    "Twilio",
-                    new TwilioLoginProvider()
-                },
-                {
-                    "Smsc",
-                    new SmscProvider()
-                }
-            };
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public bool SaveAuthKeys(List<AuthKey> authKeys)
+        public bool SaveAuthKeys(string name, List<AuthKey> props)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             if (!SetupInfo.IsVisibleSettings(ManagementType.ThirdPartyAuthorization.ToString()))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "ThirdPartyAuthorization");
 
             var changed = false;
+            var consumer = ConsumerFactory.GetByName(name);
 
-            var mapKeys = new Dictionary<string, List<KeyElement>>();
-            foreach (var authKey in authKeys.Where(authKey => KeyStorage.Get(authKey.Name) != authKey.Value))
+            var validateKeyProvider = (IValidateKeysProvider)ConsumerFactory.Consumers.FirstOrDefault(r => r.Name == consumer.Name && r is IValidateKeysProvider);
+            if (validateKeyProvider != null)
             {
-                var keyElement = ConsumerConfigurationSection.GetSection().Keys.GetKey(authKey.Name);
-
-                if (keyElement != null && Providers.ContainsKey(keyElement.ConsumerName))
-                {
-                    RemoveOldNumberFromTwilio(Providers[keyElement.ConsumerName]);
-
-                    if (!string.IsNullOrEmpty(authKey.Value))
-                    {
-                        if (!mapKeys.ContainsKey(keyElement.ConsumerName))
-                        {
-                            mapKeys.Add(keyElement.ConsumerName, new List<KeyElement>());
-                        }
-                        mapKeys[keyElement.ConsumerName].Add(keyElement);
-                    }
-                }
-
-
-                KeyStorage.Set(authKey.Name, authKey.Value);
-                changed = true;
+                RemoveOldNumberFromTwilio(validateKeyProvider);
             }
 
-            foreach (var providerKeys in mapKeys)
+            if (props.All(r => string.IsNullOrEmpty(r.Value)))
             {
-                if (!Providers[providerKeys.Key].ValidateKeys())
+                consumer.Clear();
+                changed = true;
+            }
+            else
+            {
+                foreach (var authKey in props.Where(authKey => consumer[authKey.Name] != authKey.Value))
                 {
-                    foreach (var providerKey in providerKeys.Value)
-                    {
-                        KeyStorage.Set(providerKey.Name, null);
-                    }
-                    throw new ArgumentException(Resource.ErrorBadKeys);
+                    consumer[authKey.Name] = authKey.Value;
+                    changed = true;
                 }
+            }
+
+            if (validateKeyProvider != null && !validateKeyProvider.ValidateKeys() && !consumer.All(r=> string.IsNullOrEmpty(r.Value)))
+            {
+                consumer.Clear();
+                throw new ArgumentException(Resource.ErrorBadKeys);
             }
 
             if (changed)
@@ -205,7 +143,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             try
             {
-                var twilioLoginProvider = provider as TwilioLoginProvider;
+                var twilioLoginProvider = provider as TwilioProvider;
                 if (twilioLoginProvider != null)
                 {
                     twilioLoginProvider.ClearOldNumbers();
@@ -213,7 +151,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             catch (Exception e)
             {
-                LogManager.GetLogger(typeof(AuthorizationKeys)).Error(e);
+                LogManager.GetLogger("ASC").Error(e);
             }
         }
     }

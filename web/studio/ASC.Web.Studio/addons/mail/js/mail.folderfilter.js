@@ -30,7 +30,8 @@ window.folderFilter = (function($) {
         skipTagsHide = false, // skip tags filter hide, if user removed all tags from filter control
         events = $({}),
         prevSearch = '',
-        options = {};
+        options = {},
+        defaultTagIdReplacement = -1000000000;
 
     var init = function() {
         if (!isInit) {
@@ -40,6 +41,7 @@ window.folderFilter = (function($) {
                 anykey: true,
                 anykeytimeout: 1000,
                 maxfilters: -1,
+                hintDefaultDisable: true,
                 colcount: 2,
                 sorters: [
                     { id: 'date', title: MailScriptResource.FilterByDate, sortOrder: 'descending', def: true }
@@ -181,7 +183,7 @@ window.folderFilter = (function($) {
     function onShowFilters() {
         var withTagsFilterLink = filter.find('li.filter-item[data-id="tag"]');
         if (withTagsFilterLink) {
-            if ($('#id_tags_panel_content .tag').length > 0) {
+            if (tagsManager.getAllTags().length > 0) {
                 withTagsFilterLink.show();
             } else {
                 withTagsFilterLink.hide();
@@ -261,7 +263,8 @@ window.folderFilter = (function($) {
                     break;
                 }
 
-                $.each(value.value, function(i, vNew) {
+                $.each(value.value, function (i, vNew) {
+                    vNew.id = vNew.id === defaultTagIdReplacement ? -1 : vNew.id;
                     MailFilter.addTag(vNew);
                 });
 
@@ -501,17 +504,18 @@ window.folderFilter = (function($) {
 
     var setTags = function(tags) {
         if (tags.length) {
-            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', params: { value: tags } }] });
+            var listTags = tags.map(function(id) {
+                id = +id === -1 ? defaultTagIdReplacement : id;
+                return id;
+            });
+            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', params: { value: listTags } }] });
         } else {
             if (true === skipTagsHide) {
                 skipTagsHide = false;
                 return;
             }
-            $.each(filter.advansedFilter(), function(index, value) {
-                if ('tag' == value.id) {
-                    hideItem('tag');
-                }
-            });
+
+            hideItem('tag');
         }
     };
 
@@ -528,9 +532,7 @@ window.folderFilter = (function($) {
 
         var tags = [];
         $.each(tagsManager.getAllTags(), function(index, value) {
-            if (value.lettersCount > 0) {
-                tags.push({ value: value.id, classname: 'to', title: value.name });
-            }
+            tags.push({ value: value.id === -1 ? defaultTagIdReplacement : value.id, classname: 'to', title: value.name });
         });
         filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', options: tags }] });
 

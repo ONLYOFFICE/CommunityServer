@@ -26,6 +26,8 @@
 
 using System;
 using System.Web;
+using ASC.Common.Logging;
+using ASC.CRM.Core;
 using ASC.Common.Threading.Progress;
 using ASC.Common.Web;
 using ASC.Core;
@@ -102,7 +104,7 @@ namespace ASC.Web.CRM.Classes
             _userId = userId;
 
             Id = PdfQueueWorker.GetTaskId(tenantId, invoiceId);
-            Status = PdfProgressStatus.Queued;
+            Status = ProgressStatus.Queued;
             Error = null;
             Percentage = 0;
             IsCompleted = false;
@@ -113,7 +115,7 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 Percentage = 0;
-                Status = PdfProgressStatus.Started;
+                Status = ProgressStatus.Started;
 
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
 
@@ -129,13 +131,13 @@ namespace ASC.Web.CRM.Classes
                 PdfCreator.CreateAndSaveFile(_invoiceId);
 
                 Percentage = 100;
-                Status = PdfProgressStatus.Done;
+                Status = ProgressStatus.Done;
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.Web").Error(ex);
+                LogManager.GetLogger("ASC.Web").Error(ex);
                 Percentage = 0;
-                Status = PdfProgressStatus.Failed;
+                Status = ProgressStatus.Failed;
                 Error = ex.Message;
             }
             finally
@@ -158,13 +160,5 @@ namespace ASC.Web.CRM.Classes
         {
             return MemberwiseClone();
         }
-    }
-
-    public enum PdfProgressStatus
-    {
-        Queued,
-        Started,
-        Done,
-        Failed
     }
 }

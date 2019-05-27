@@ -21,7 +21,6 @@
         <li><a class="writeLetter dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.WriteLetter%></a></li>
         <li><a class="viewContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.ViewContact%></a></li>
         <li><a class="editContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.EditContact%></a></li>
-        <li><a class="addContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.AddToContacts%></a></li>
         <li><a class="deleteContact dropdown-item"><%=ASC.Web.Mail.Resources.MailScriptResource.Delete%></a></li>
     </ul>
 </div>

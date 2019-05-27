@@ -15,11 +15,11 @@
  * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
  * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
  *
- * Pursuant to Section 7 Â§ 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
  * relevant author attributions when distributing the software. If the display of the logo in its graphic 
  * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
  * in every copy of the program you distribute. 
- * Pursuant to Section 7 Â§ 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
  *
 */
 
@@ -51,8 +51,8 @@ var defaults = function defaultsModule() {return {
 		aspectRatio: 1.35,
 		minHeight:   500,
 		header: {
-			left:   "",
-			center: "prev,title,next",
+		    left:   "prev,next,title",
+			center: "",
 			right:  ""
 		},
 		weekends: true,
@@ -115,7 +115,10 @@ var defaults = function defaultsModule() {return {
 			month: 'Month',
 			week: 'Week',
 			day: 'Day',
-			list: 'Period'
+			//list: 'Period',
+			list: 'List',
+			todo: "Todo"
+			
 		},
 		defaultTimeZone: {name: "UTC:00", id: "UTC", offset: 0},
 
@@ -173,7 +176,9 @@ var defaults = function defaultsModule() {return {
 			dialogTimezoneLabel:                    "Timezone:",
 			dialogButton_save:                      "Save",
 			dialogButton_cancel:                    "Cancel",
-			dialogButton_delete:                    "Delete",
+            dialogButton_delete:                    "Delete",
+
+            dialogErrorMassageSpecCharacter:        "The title cannot contain any of the following characters: {0}",
 			// list of subscriptions
 			subscriptionsTitle:                     "Subscriptions",
 			subscriptionsDialog:                    "",
@@ -197,21 +202,64 @@ var defaults = function defaultsModule() {return {
 		},
 
 		todoList: {
-			title:         'ToDo List',
+			title:         'To-do',
 			hideLabel:     'Hide ToDo List',
 			showLabel:     'Show ToDo List',
 			addTodoLabel:  'New todo',
-			todoEditorUrl: './fullcalendar/tmpl/todo.editor.tmpl',
-			newTodoTitle:  'New ToDo item',
+			newTodoTitle: 'new todo',
+			
+			overdue: 'Overdue',
+			noDueDate: 'No due date',
+
+			menuTemplate: "",
+			deleteIcon: "",
+			editIcon: "",
+			settingsIcon:"",
+
 			menu: {
 				hideColmpletedTodos: {hide: 'Hide completed items', show: 'Show completed items'},
 				deleteCompletedTodos: 'Delete completed items'
 			},
 			sortByCalendarLabel: 'Sort by calendar',
 			sortByPriorityLabel: 'Sort by priority',
-			sortAlphabeticallyLabel: 'Sort alphabetically'
+			sortAlphabeticallyLabel: 'Sort alphabetically',
+			
+			menuTodoInCalendar: 'Show to-do in calendar',
+			menuDeleteMarkedTodo: 'Hide to-do marked as done on page load',
+			menuSyncLinks: 'Export and Sync'
 		},
+        deleteTodoDialog: {
+            dialogTemplate: "",
+            dialogHeader: "Delete todo",
 
+            dialogSingleBody: "The deleted todo cannot be restored. Are you sure you want to continue?",
+
+            dialogButton_apply: "Apply",
+            dialogButton_cancel: "Cancel",
+        },
+		todoEditor: {
+		    dialogTemplate: "",
+		    
+		    dialogHeader_add: "Create todo",
+		    dialogHeader_edit: "Edit todo",
+		    
+		    dialogDateLabel: "Date",
+		    
+		    titleLabel: "Title",
+		    descriptionLabel: "Description",
+
+		    dialogButton_save: "Save",
+		    dialogButton_cancel: "Cancel",
+		},
+		todoViewer:{
+		    dialogTemplate: "",
+
+		    dialogButton_mark_on: "Mark as done",
+		    dialogButton_mark_off: "Mark as not done",
+            dialogButton_edit: "Edit",
+            dialogButton_delete: "Delete"
+		},
+		
 		eventEditor: {
 			dateFormat:                  "yyyy-MM-dd",
 			timeFormat:                  "HH:mm",
@@ -221,11 +269,14 @@ var defaults = function defaultsModule() {return {
 			dialogTemplate:              "",
 			dialogHeader_add:            "Add new event",
 			dialogSummaryLabel:          "Event name:",
+			eventButton:                 "Event",
+			todoButton:                  "Todo",
 			dialogLocationLabel:         "Where:",
 			dialogAttendeesLabel:        "Guests:",
 			dialogOwnerLabel:            "Owner:",
 			dialogOrganizerLabel:        "Organizer:",
 			dialogAllDayLabel:           "All-day event",
+			dialogSentInvitations:       "Sent invitations",
 			dialogAllDay_no:             "This event is not all-day.",
 			dialogAllDay_yes:            "This is all-day event.",
 			dialogFromLabel:             "From:",
@@ -259,7 +310,7 @@ var defaults = function defaultsModule() {return {
 		    dialogButton_details:        "Details",
 			
 			// new option
-			dialogRepeatOption_custom:   "Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ°",
+			dialogRepeatOption_custom:   "íàñòðîéêà",
 			dialogHeader_createEvent: "Create new event",
 			dialogHeader_editEvent: "Edit event",
 			dialogHeader_viewEvent: "View event",
@@ -360,13 +411,19 @@ var defaults = function defaultsModule() {return {
 			// dialog
 			dialogTemplate:                       "",
 			newiCalTitle:                         "Calendar from iCal feed",
-			
+			importEventsTitle:                    "Import events",
+
 			dialogHeader:                         "Calendar event export",
 			dialogDescription:                    "Use the following address to access your calendar from other applications. You can copy and enter this information into any calendar supporting iCal format. You can save the data into a file in iCal format and export the events into another calendar or application.",
-			
+            dialogCaldavHelp:                     "Connection instructions in the ",
+            dialogHelpCenter:                     "Help Center",
+			dialogTodoDescription:                "To configure the export of todos  to another calendar, copy the corresponding link and add it to the required calendar.",
+
+
 			dialogImportExportLabel:              "Import/Export",
 			dialogStreamLink:                     "Export events from ONLYOFFICE calendar",
 			dialogImportLabel:                    "Import events into ONLYOFFICE calendar",
+			dialogImportLabelNew:                 "Select iCal file",
 			
 			dialogButton_fileSelected:            "file is selected",
 			dialogButton_fileNotSelected:         "no file is selected",
@@ -1051,7 +1108,13 @@ var kEventAddAction           = 1;
 var kEventChangeAction        = 2;
 var kEventDeleteAction        = 3;
 var kEventUnsubscribeAction   = 4;
-var kEventCancelAction   	  = 5;
+var kEventCancelAction        = 5;
+    
+var kTodoAddAction            = 1;
+var kTodoChangeAction         = 2;
+var kTodoDeleteAction         = 3;
+var kTodoUnsubscribeAction    = 4;
+var kTodoCancelAction         = 5;
 
 var kCalendarPermissions      = 1;
 var kEventPermissions         = 2;
@@ -1071,6 +1134,10 @@ function initTemplates(options) {
 
 	var c = options.categories;
 	var e = options.eventEditor;
+	var t = options.todoEditor;
+	var tv = options.todoViewer;
+	var dt = options.deleteTodoDialog;
+	var tl = options.todoList;
 	var rs = options.repeatSettings;
 	var ds = options.deleteSettings;
 	var ic = options.icalStream;
@@ -1078,6 +1145,7 @@ function initTemplates(options) {
 
     var templateData = {
         dialogHeaderAdd: htmlEscape(c.dialogHeader_add),
+        dialogHeaderImport: htmlEscape(c.dialogHeader_import),
         dialogHeaderEdit: htmlEscape(c.dialogHeader_edit),
         defaultCalendarName: htmlEscape(c.defaultTitle),
         dialogBgColorLabel: htmlEscape(c.dialogColor_label),
@@ -1096,8 +1164,10 @@ function initTemplates(options) {
         dialogInputiCalLabel: ic.dialogInputiCalLabel,
         dialogImportExportLabel: ic.dialogImportExportLabel,
         dialogImportLabel: ic.dialogImportLabel,
+        dialogImportLabelNew: ic.dialogImportLabelNew,
         fileNotSelected: ic.dialogButton_fileNotSelected,
         dialogStreamLink: ic.dialogStreamLink,
+        dialogExportLink: ic.dialogExportLink,
         dialogButtonSave: c.dialogButton_save,
         dialogButtonCancel: c.dialogButton_cancel,
         dialogButtonDelete: c.dialogButton_delete,
@@ -1125,6 +1195,7 @@ function initTemplates(options) {
         dialogSavediCalLabel: htmlEscape(ic.dialogSavediCalLabel),
         dialogImportExportLabel: htmlEscape(ic.dialogImportExportLabel),
         dialogImportLabel: htmlEscape(ic.dialogImportLabel),
+        dialogImportLabelNew: htmlEscape(ic.dialogImportLabelNew),
         fileNotSelected: htmlEscape(ic.dialogButton_fileNotSelected),
         dialogStreamLink: htmlEscape(ic.dialogStreamLink),
         dialogButtonSave: c.dialogButton_save,
@@ -1149,6 +1220,8 @@ function initTemplates(options) {
     templateData = {
         dialogHeaderAdd: htmlEscape(e.dialogHeader_add),
         defaultEventSummary: htmlEscape(e.newEventTitle),
+        eventButton: htmlEscape(e.eventButton),
+        todoButton: htmlEscape(e.todoButton),
         dialogLocationLabel: htmlEscape(e.dialogLocationLabel),
         dialogAttendeesLabel: htmlEscape(e.dialogAttendeesLabel),
         dialogOwnerLabel: htmlEscape(e.dialogOwnerLabel),
@@ -1165,6 +1238,7 @@ function initTemplates(options) {
         dialogDescriptionLabel: htmlEscape(e.dialogDescriptionLabel),
         dialogSummaryLabel: htmlEscape(e.dialogSummaryLabel),
         dialogAllDayLabel: htmlEscape(e.dialogAllDayLabel),
+        dialogSentInvitations: htmlEscape(e.dialogSentInvitations),
         dialogAlertOptionDefault: htmlEscape(e.dialogAlertOption_default),
         dialogRepeatOptionNever: htmlEscape(e.dialogRepeatOption_never),
         dialogStatusLabel: htmlEscape(e.dialogStatusLabel),
@@ -1188,7 +1262,11 @@ function initTemplates(options) {
         dialogButtonUnsubscribe: htmlEscape(e.dialogButton_unsubscribe),
         dialogButtonMoreDetails: htmlEscape(e.dialogButton_moreDetails),
         dialogButtonDetails: htmlEscape(e.dialogButton_details),
-        maxlength: defaults.eventMaxTitleLength
+        maxlength: defaults.eventMaxTitleLength,
+        
+        dialogTodoDate: htmlEscape(t.dialogDateLabel),
+        dialogTodoNameLabel: htmlEscape(t.titleLabel),
+        
     };
 
     options.eventEditor.dialogTemplate = $("#eventEditorDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
@@ -1208,8 +1286,19 @@ function initTemplates(options) {
 
     templateData = {
         dialogHeader: htmlEscape(ic.dialogHeader),
+        
+        dialogTodoDescription: htmlEscape(ic.dialogTodoDescription),
+        
         dialogDescription: htmlEscape(ic.dialogDescription),
-        dialogButtonClose: htmlEscape(ic.dialogButton_close)
+        dialogCaldavHelp: htmlEscape(ic.dialogCaldavHelp),
+        dialogHelpCenter: htmlEscape(ic.dialogHelpCenter),
+        dialogPreparingMessage: htmlEscape(ic.dialogPreparingMessage),
+        dialogPreparingErrorMessage: htmlEscape(ic.dialogPreparingErrorMessage),
+        dialogButtonClose: htmlEscape(ic.dialogButton_close),
+        dialogExportCalDav: htmlEscape(ic.dialogExportCalDav),
+        dialogCopyButton: htmlEscape(ic.dialogCopyButton),
+        dialogTryAgainButton: htmlEscape(ic.dialogTryAgainButton),
+        dialogExportIcal: htmlEscape(ic.dialogExportIcal)
     };
 
     options.icalStream.dialogTemplate = $("#icalStreamDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
@@ -1224,6 +1313,50 @@ function initTemplates(options) {
     };
 
     options.confirmPopup.dialogTemplate = $("#attendeeConfirmNotificationTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    
+    templateData = {
+        dialogTitle: htmlEscape(t.dialogHeader_add),
+        dialogDate: htmlEscape(t.dialogDateLabel),
+        
+        dialogNameLabel: htmlEscape(t.titleLabel),
+        dialogDescriptionLabel: htmlEscape(t.descriptionLabel),
+        
+        dialogButtonSave: htmlEscape(t.dialogButton_save),
+        dialogButtonCancel: htmlEscape(t.dialogButton_cancel),
+    };
+    options.todoEditor.dialogTemplate = $("#todoEditorDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    
+    templateData = {
+        dialogButtonMarkOn: htmlEscape(tv.dialogButton_mark_on),
+        dialogButtonMarkOff: htmlEscape(tv.dialogButton_mark_off),
+        dialogButtonEdit: htmlEscape(tv.dialogButton_edit),
+        dialogButtonDelete: htmlEscape(tv.dialogButton_delete),
+    };
+    options.todoViewer.dialogTemplate = $("#todoViewDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    
+    templateData = {
+        
+        dialogHeader: htmlEscape(dt.dialogHeader),
+        dialogText: htmlEscape(dt.deleleDialogText),
+        
+        dialogSingleBody: htmlEscape(dt.dialogSingleBody),
+        
+        dialogButton_apply: htmlEscape(dt.dialogButton_apply),
+        dialogButton_cancel: htmlEscape(dt.dialogButton_cancel),
+
+    };
+    options.deleteTodoDialog.dialogTemplate = $("#deleteTodoDalogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    
+    templateData = {
+        menuTodoInCalendar: htmlEscape(tl.menuTodoInCalendar),
+        menuDeleteMarkedTodo: htmlEscape(tl.menuDeleteMarkedTodo),
+        menuSyncLinks: htmlEscape(tl.menuSyncLinks)
+    };
+    options.todoList.menuTemplate = $("#todoMenuTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    options.todoList.deleteIcon = $("#delete_todo_icon").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    options.todoList.editIcon = $("#edit_todo_icon").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    options.todoList.settingsIcon = $("#settings_todo_icon").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+
 }
 
 
@@ -1321,6 +1454,7 @@ function Calendar(element, options, eventSources) {
 	t.rerenderEvents = rerenderEvents;
 	t.rerenderCategories = rerenderCategories;
 	t.changeView = changeView;
+	t.openTodoList = openTodoList;
 	t.changeViewAndMode = changeViewAndMode;
 	t.select = select;
 	t.unselect = unselect;
@@ -1338,6 +1472,7 @@ function Calendar(element, options, eventSources) {
 	t.option = option;
 	t.trigger = trigger;
 	t.updateSize = updateSize;
+	t.updateEventWin = updateEventWin;
 	t.editEvent = editEvent;
 	t.addAndEditEvent = addAndEditEvent;
 	t.addNewCalendar = addNewCalendar;
@@ -1412,9 +1547,17 @@ function Calendar(element, options, eventSources) {
 				'<div id="fc_container">' +
 					'<table cellpadding="0" cellspacing="0" width="100%" class="fc_table"><tbody><tr>' +
 						'<td class="fc-main"/>' +
-					'</tr></tbody></table>' +
+				       // '<td class="_fc-todo-list"/>' +
+					'</tr></tbody></table>'+
+				    '<div class="fc-todo-list-container"></div>'+
 				'</div>'
+				
 		);
+		var fc_todo_container = fc_container.find(".fc-todo-list-container");
+	    
+		fc_todo_container.on('transitionend MSTransitionEnd webkitTransitionEnd oTransitionEnd', function (event) {
+		    updateSize();
+		});
 
 		header = new Header(t, options);
 		headerElement = header.render();
@@ -1425,16 +1568,21 @@ function Calendar(element, options, eventSources) {
 		catlist = new CategoriesList(t);
 		$("#calendarSidePanelContent").append(catlist.render());
 
-		content = $(
-				"<div class='fc-content' style='position:relative'>" +
-					"<div class='fc-modal'/>" +
-				"</div>")
-				.appendTo(fc_container.find("td.fc-main"));
+		todolist = new TodoList(t);
+		t.todolist = todolist;
+	    fc_todo_container.append(todolist.render());
+
+	    content = $(
+	        "<div class='fc-content' style='position:relative'>" +
+	            "<div class='fc-modal'/>" +
+	            "</div>")
+	        .appendTo(fc_container.find("td.fc-main"));
 
 		eventEditor = new EventEditor(t, content.children(".fc-modal"));
 
 	    eventPage = new EventPage(t);
 
+	   
 		fc_container.appendTo(element);
 
 		var targetView = defaults.defaultView;
@@ -1533,6 +1681,12 @@ function Calendar(element, options, eventSources) {
 		return $('body')[0].offsetWidth !== 0;
 	}
 
+	function openTodoList() {
+	    currentView.clearEvents();
+	    var fc_container = $('#fc_container');
+	    fc_container.toggleClass('open-todo-list');
+	    fc_container.find('.fc-button-todo').toggleClass('fc-state-active');
+	}
 
 
 	/* View Rendering
@@ -1658,8 +1812,33 @@ function Calendar(element, options, eventSources) {
 
 	/* Resizing
 	-----------------------------------------------------------------------------*/
-
+	function updateEventWin() {
+	    var eventObj = eventEditor.getEventObj();
+	    var todoObj = t.todolist.getTodoElem();
+	    if (t.openEventWin) {
+	        if (!t.openEventWin.isTodo && eventObj != undefined) {
+	            if (!eventObj.objectId) {
+	                eventEditor.closePopupEvent(true);
+	                eventEditor.addEvent(eventObj.start, eventObj.end, eventObj.allDay, true);
+	            } else {
+	                var eventOpenElement = jQuery('.fc-event-open');
+	                if (eventOpenElement.length > 0) {
+	                    eventEditor.openEvent(eventOpenElement, eventObj);
+	                }
+	            }
+	        } else if (t.openEventWin.objectId != null && t.openEventWin.isTodo && todoObj != undefined) {
+	            var todoOpenElement = jQuery('.fc-todo-open');
+	            if (todoOpenElement.length > 0) {
+	                eventEditor.openEvent(todoOpenElement, todoObj);
+	            }
+	        }
+	    }
+	    
+    }
 	function updateSize() {
+		if (currentView.name == "agendaWeek") {
+		    currentView.updateHeader();
+		}
 		header.resize();
 		markSizesDirty();
 		if (elementVisible()) {
@@ -1669,6 +1848,7 @@ function Calendar(element, options, eventSources) {
 			unselect();
 			currentView.renderEvents(events);
 			currentView.sizeDirty = false;
+			updateFcHeader()
 		}
 	}
 
@@ -1707,7 +1887,13 @@ function Calendar(element, options, eventSources) {
 		ignoreWindowResize--;
 
 		var oldWidth = content.width();
-		catlist.resize(suggestedViewHeight);
+
+		var paddingStudioPageContent = jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").outerHeight(true) - jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").height();
+		var paddingmainPageTable = jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").outerHeight(true) - jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").height();
+		var smallChatDownPanel = jq('.small_chat_down_panel').length > 0 ? jq('.small_chat_down_panel').height() : 0;
+
+		catlist.resize(suggestedViewHeight - paddingStudioPageContent - paddingmainPageTable - smallChatDownPanel);
+
 		if (todolist && todolist.length > 0) {todolist.resize(suggestedViewHeight);}
 		var newWidth = content.width();
 		if (oldWidth != newWidth) {
@@ -1716,21 +1902,36 @@ function Calendar(element, options, eventSources) {
 		}
 	}
 
+	function updateFcHeader() {
+        var fcHeaderWidth = $('.fc-header').width(),
+            fcHeaderLeft = $('.fc-header-left').width(),
+            fcHeaderRight = $('.fc-header-right').width();
+
+        var diff = fcHeaderWidth - fcHeaderLeft - fcHeaderRight;
+        if (diff > 0 && $(window).width() <= '1200') {
+            $('.fc-header-center').width(diff);
+        }
+    }
 
 	function windowResize() {
 	    if (!ignoreWindowResize) {
 	        
-	        eventEditor.closePopupEvent();    
+	        //eventEditor.closePopupEvent();    
 
 			if (currentView.start) { // view has already been rendered
 				var uid = ++resizeUID;
 				setTimeout(function() { // add a delay
 					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
 						if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
-							ignoreWindowResize++; // in case the windowResize callback changes the height
-							updateSize();
-							currentView.trigger('windowResize', _element);
-							ignoreWindowResize--;
+						    ignoreWindowResize++; // in case the windowResize callback changes the height
+						    updateSize();
+						    currentView.trigger('windowResize', _element);
+						    setTimeout(function() {
+						        updateEventWin();
+						        ignoreWindowResize--;
+						    }, 200);
+						} else {
+						    updateEventWin();
 						}
 					}
 				}, 200);
@@ -1908,6 +2109,16 @@ function Calendar(element, options, eventSources) {
                                 eventObj),
                         function(response) {
                             if (!response.result) {return;}
+                            
+                             var cache = t.getCache();
+                             for (var j = 0; j < cache.length; ++j) {
+                                 if (cache[j].objectId == eventObj.eventId) {
+                                     cache.splice(j, 1);
+                                 }
+                             }
+
+                            cache.concat(response.event);
+                            t.refetchEvents();
                             rerenderEvents();
 
                             if (send)
@@ -1932,10 +2143,11 @@ function Calendar(element, options, eventSources) {
 	}
 
 
-	function rerenderCategories() {
+	function rerenderCategories(resolveTodoList) {
 		catlist.rerenderList();
 		catlist.updateDatepickerSize();
-		if (todolist && todolist.length > 0) {todolist.rerenderList();}
+		todolist.rerenderList(resolveTodoList);
+		//if (todolist && todolist.length > 0) {todolist.rerenderList();}
 	}
 
 
@@ -2161,6 +2373,10 @@ function Header(calendar, options) {
 				button.removeClass(tm + '-state-hover'); // forget why
 				calendar.changeView(buttonName);
 			};
+		}else if (buttonName == 'todo') {
+		    buttonClick = function() {
+		        calendar.openTodoList();
+		    };
 		}
 
 		if (buttonClick) {
@@ -2300,11 +2516,15 @@ function Header(calendar, options) {
 						calendar.addNewCalendar( {pageX: "center", pageY: "center"} );
 					}
 				},
+			    {
+					label: '',
+					cssClass: "dropdown-item-seporator"
+				},
 				{
-					label: calendar.options.icalStream.newiCalTitle,
+					label: calendar.options.icalStream.importEventsTitle,
 					click: function() {
-						calendar.addiCalCalendar( {pageX: "center", pageY: "center"} );
-					}
+					    calendar.addiCalCalendar( {pageX: "center", pageY: "center"} );
+					},
 				}
 			]
 		});
@@ -2313,16 +2533,31 @@ function Header(calendar, options) {
 	function _renderToday(elem) {
 		var op = calendar.options.categories;
 		var today = new Date();
+		var day;
+	    
+		var daynames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		if (window.moment) {
+		    day = window.moment(today).calendar(null, {
+		        lastWeek: 'dddd DD.MM.YYYY',
+		        sameElse: 'dddd DD.MM.YYYY',
+		        nextWeek: 'dddd DD.MM.YYYY'
+		    }).split(' ')[0];
+		  
+		} else {
+		    day = daynames[today.getDay()];
+		}
+	    
 		var r = $(
 				'<div class="fc-header-today">' +
 					'<div class="date-box">' +
+				        '<div class="today">' + day + ', ' + '</div>' +
 						'<div class="today-day">' + htmlEscape(formatDate(today, op.dayFormat)) + '</div>' +
-						'<div class="today-month">' + htmlEscape(formatDate(today, op.monthFormat)) + '</div>' +
-						'<div class="today-year">' + htmlEscape(formatDate(today, op.yearFormat)) + '</div>' +
+						'<div class="today-month">' + htmlEscape(formatDate(today, 'MMM')) + '</div>' +
+						//'<div class="today-year">' + htmlEscape(formatDate(today, op.yearFormat)) + '</div>' +
 					'</div>' +
 				'</div>');
 		r.find(".date-box").children().click(function() {calendar.today();});
-		r.appendTo(elem.find(".fc-header-left"));
+		r.appendTo(elem.find(".fc-header-center"));
 	}
 
 	function _updateViewSelector(mode) {
@@ -2335,6 +2570,21 @@ function Header(calendar, options) {
 			_modes[i].css("display", i != mode ? "none" : "inline-block");
 		}
 		_activeMode = mode;
+	    _updateFcHeader();
+
+	}
+
+	function _updateFcHeader() {
+	    setTimeout(function() {
+	        var fcHeaderWidth = $('.fc-header').width(),
+	            fcHeaderLeft = $('.fc-header-left').width(),
+	            fcHeaderRight = $('.fc-header-right').width();
+
+	        var diff = fcHeaderWidth - fcHeaderLeft - fcHeaderRight;
+	        if (diff > 0 && $(window).width() <= '1200') {
+	            $('.fc-header-center').width(diff);
+	        }
+	    },100);
 	}
 
 	function _setCurrentView(mode) {
@@ -2346,17 +2596,19 @@ function Header(calendar, options) {
 
 	function _renderViewSelectors(elem) {
 		elem.find(".fc-header-right").append(
-				'<span class="fc-view-selector">' +
+				/*'<span class="fc-view-selector">' +
 					'<span class="icon">&nbsp;</span>' +
 					'<span class="label">' + htmlEscape(options.modes.calendarViewLabel) + '</span>' +
 					'<span class="fc-dropdown">&nbsp;</span>' +
-				'</span>' +
+				'</span>' + */
 				'<span class="fc-calendar-buttons"/>' +
 				'<span class="fc-list-buttons"/>');
 		_modes[0] = elem.find(".fc-calendar-buttons")
 				.append(_renderButton.call(_this, "agendaDay"))
 				.append(_renderButton.call(_this, "agendaWeek"))
-				.append(_renderButton.call(_this, "month"));
+				.append(_renderButton.call(_this, "month"))
+                .append(_renderButton.call(_this, "list"))
+                .append(_renderButton.call(_this, "todo"));
 		_modes[1] = elem.find(".fc-list-buttons")
 				.append(_renderButton.call(_this, "listDay"))
 				.append(_renderButton.call(_this, "listWeek"))
@@ -2367,14 +2619,16 @@ function Header(calendar, options) {
 		_classes[0] = "calendar";
 		_classes[1] = "list";
 		_switchTable[0] = {
-			listDay:    "agendaDay",
+		    listDay:    "agendaDay",
+		    todoList:   "todo",
 			listWeek:   "agendaWeek",
 			listMonth:  "month",
 			list:       "month",
 			day:        "agendaDay"
 		};
 		_switchTable[1] = {
-			agendaDay:  "listDay",
+		    agendaDay:  "listDay",
+		    todo:       "todoList",
 			agendaWeek: "listWeek",
 			month:      "listMonth",
 			day:        "listDay"
@@ -2383,10 +2637,11 @@ function Header(calendar, options) {
 			agendaDay:  0,
 			agendaWeek: 0,
 			month:      0,
+		    todo:       0,
 			listDay:    1,
 			listWeek:   1,
 			listMonth:  1,
-			list:       1
+			list:       0
 		};
 
 		_viewSelectorLabel = elem.find(".fc-view-selector .label");
@@ -2712,7 +2967,17 @@ function CategoryDialog(calendar) {
 	var kCreateMode    = 1;
 	var kEditMode      = 2;
 	var kCreateUrlMode = 3;
-	
+	var kEditUrlMode = 4;
+	var kCreateUrlWithoutSyncMode = 5;
+    var kEditModeFile = 6;
+
+    var configuration = {
+        isSyncWithCalendar: 0,
+        isNewCalendar: 0,
+        isExportLink: 0,
+        isExportFile: 0
+    };
+
 	var currentMode;
 
 	var kTitle        = 1;
@@ -2730,10 +2995,15 @@ function CategoryDialog(calendar) {
 					showModal: true,
 					beforeClose: function() {_close.call(_this, false);return false;}
 				});
-				
+	    _updateConfiguration();
 		_dialog.find(".ical-export .ical-link").click(function() {
 			_openIcalStream.call(_this, {pageX: "center", pageY: "center"});
 		});
+		_dialog.find(".export .export-link").click(function () {
+            _openExportStream.call(_this, { pageX: "center", pageY: "center" });
+		    _dialog.popupFrame('hide');
+		});
+       
 	
 		_dialog.find(".buttons .save-btn").click(function() {
 		    if (jq(this).hasClass("disable"))
@@ -2749,7 +3019,14 @@ function CategoryDialog(calendar) {
 			_close.call(_this, false, true);
 		});
 		//
-		_getControl(kTitle).keyup(function() {fcUtil.validateInput(this, fcUtil.validateNonemptyString);});
+        _getControl(kTitle).keyup(function (val) {
+            fcUtil.validateInput(this, fcUtil.validateNonemptyString);
+            var str = jq(this).val();
+            if (str.search(ASC.CalendarController.characterRegExp) != -1) {
+                jq(this).val(ASC.CalendarController.ReplaceSpecCharacter(str));
+                ASC.CalendarController.displayInfoPanel(calendar.options.categories.dialogErrorMassageSpecCharacter.format(ASC.CalendarController.characterString), true);
+            }
+        });
 		_dialog.find(".ical-url-input input").keyup(function() {
 			fcUtil.validateInputHttp(this, fcUtil.validateNonemptyString);
 		});
@@ -2778,10 +3055,24 @@ function CategoryDialog(calendar) {
 					showArrow: false
 				});
 		
-		_icalStream.find(".buttons .cancel-btn, .header .close-btn").click(function() {
+		_icalStream.find(".buttons .cancel-btn, .header .close-btn").click(function () {
 			_closeIcalStream.call(_this, false);
 		});
-		
+        _icalStream.find((".url-link .control input")).click(function () {
+            $(this).select();
+        });
+        _icalStream.find((".url-link .control .button.copy")).click(function () {
+            var control = $($(this)[0].parentNode);
+            if (!control.hasClass('disabled')) {
+                control.find('input').select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) { }
+            }
+        });
+        _icalStream.find((".url-link .control .button.try-again")).click(function () {
+            getCaldavLink();
+        });
 	}());
 
 	function _getControl(controlId) {
@@ -2802,15 +3093,15 @@ function CategoryDialog(calendar) {
 	}
 
 	function _setColor(newColor) {
-		_setIconColor(newColor, _getControl(kColorBox));
-		_dialog.find(".title .bullet").css("color", newColor);
+	    _setIconColor(newColor, _getControl(kColorBox));
+		_dialog.find(".title .bullet").css("background", newColor);
 	}
 
 	function _setTextColor(newColor) {
 		_setIconColor(newColor, _getControl(kTextColorBox));
 	}
 
-	function _setMode(mode) {
+	function _setMode(mode, isImport) {
 		
 		currentMode = mode;
 		
@@ -2821,6 +3112,11 @@ function CategoryDialog(calendar) {
 			
 			case kEditMode:
 				_dialog.addClass("edit-mode"); break;
+		}
+		if (isImport) {
+		    _dialog.addClass("import");
+		} else {
+		    _dialog.removeClass("import");
 		}
 	}
 
@@ -2836,13 +3132,184 @@ function CategoryDialog(calendar) {
 		}
 	}
 
+	function _updateConfiguration() {
+	    var configurationCode = '';
+	  
+	    _dialog.find(".choose_event_source").removeClass("hidden");
+	    _dialog.find(".calendar").removeClass("hidden");
+	    
+	    for (key in configuration) {
+	        configurationCode += configuration[key];
+	    }
+	    switch (configurationCode) {
+	        case "1110":
+	            _dialog.find(".title").removeClass("hidden");
+	            _dialog.find(".color").removeClass("hidden");
+	            _dialog.find(".shared-list").addClass("hidden"); 
+	            _dialog.find(".row").addClass("hidden");
+	            _dialog.find(".ical").addClass("hidden");
+	            _dialog.find(".sync-with-calendar").removeClass("hidden");
+	            _dialog.find(".ical-url-input").removeClass("hidden");
+	            
+	            _dialog.find(".calendar select").val(-1);
+	            _dialog.find(".calendar select").prop('disabled', true);
+	            _dialog.find(".calendar .bullet").css("color", "transparent");
+	            
+	            _setMode.call(_this, kCreateUrlMode, true);
+	            break;
+	        case "0110":
+	            _dialog.find(".title").removeClass("hidden");
+	            _dialog.find(".color").removeClass("hidden");
+	            _dialog.find(".shared-list").removeClass("hidden");
+	            _dialog.find(".row").removeClass("hidden");
+	            _dialog.find(".sync-with-calendar").removeClass("hidden");
+	            _dialog.find(".ical-url-input").removeClass("hidden");
+	            _dialog.find(".ical").addClass("hidden");
+	            
+	            _dialog.find(".calendar select").prop('disabled', false);
+	            
+	            _setMode.call(_this, kCreateUrlWithoutSyncMode, true);
+	            break;
+	        case "0010":
+	            _dialog.find(".title").addClass("hidden");
+	            _dialog.find(".color").addClass("hidden");
+	            _dialog.find(".shared-list").addClass("hidden");
+	            _dialog.find(".row").addClass("hidden");
+	            _dialog.find(".ical").addClass("hidden");
+	            _dialog.find(".sync-with-calendar").removeClass("hidden");
+	            _dialog.find(".ical-url-input").removeClass("hidden");
+	            
+	            _dialog.find(".calendar select").prop('disabled', false);
+
+	            _setMode.call(_this, kEditUrlMode, true);
+	            break;
+	        case "0101":
+	            _dialog.find(".title").removeClass("hidden");
+	            _dialog.find(".color").removeClass("hidden");
+	            _dialog.find(".shared-list").removeClass("hidden");
+	            _dialog.find(".row").removeClass("hidden");
+	            _dialog.find(".sync-with-calendar").addClass("hidden");
+	            _dialog.find(".ical-url-input").addClass("hidden");
+	            _dialog.find(".ical").removeClass("hidden");
+	            
+	            _dialog.find(".calendar select").prop('disabled', false);
+
+	            _setMode.call(_this, kCreateMode, true);
+	            break;
+	        case "0001":
+	            _dialog.find(".title").addClass("hidden");
+	            _dialog.find(".color").addClass("hidden");
+	            _dialog.find(".shared-list").addClass("hidden");
+	            _dialog.find(".row").addClass("hidden");
+	            _dialog.find(".sync-with-calendar").addClass("hidden");
+	            _dialog.find(".ical-url-input").addClass("hidden");
+	            _dialog.find(".ical").removeClass("hidden");
+	            
+	            _dialog.find(".calendar select").prop('disabled', false);
+
+	            _setMode.call(_this, kEditModeFile, true);
+	            break;
+	        case "0000":
+	            _dialog.find(".title").removeClass("hidden");
+	            _dialog.find(".color").removeClass("hidden");
+	            _dialog.find(".shared-list").removeClass("hidden");
+	            _dialog.find(".row").removeClass("hidden");
+	            _dialog.find(".choose_event_source").addClass("hidden");
+	            _dialog.find(".ical").addClass("hidden");
+	            _dialog.find(".calendar").addClass("hidden");
+	            _dialog.find(".sync-with-calendar").addClass("hidden");
+	            break;
+	        default:
+	           
+	    }
+    }
 
 	function _open(anchor) {
 		$(document).bind("keyup", _checkEscKey);
 		_dialog.popupFrame("open", anchor);
-		_dialog.find(".ical-file-selected").html(ic.dialogButton_fileNotSelected);
+	    
+		_dialog.find('#ical-browse-btn').show();
+		_dialog.find(".ical-file-selected").hide();
+		_dialog.find(".ical-file-del").hide();
+	    
 		_dialog.find(".ical-url-input input").val("");
-		
+
+		_dialog.find(".choose_event_source span").removeClass('active');
+		_dialog.find("#events_link").addClass('active');
+		_dialog.find(".buttons .save-btn").removeClass("disable");
+
+		_dialog.find(".sync-with-calendar input").prop('checked', false);
+
+		_dialog.find(".sync-with-calendar input").click(function() {
+		    configuration.isSyncWithCalendar = +(_dialog.find(".sync-with-calendar input").is(":checked"));
+		    configuration.isNewCalendar = 1;
+		    
+		    _updateConfiguration();
+		});
+		_dialog.find(".choose_event_source span").click(function () {
+		    $(".choose_event_source span").removeClass('active');
+		    $(this).addClass('active');
+		    if ($(this)[0].id == "events_link") {
+		        _setMode.call(_this, kCreateUrlMode);
+		        configuration.isExportLink = 1;
+		        configuration.isExportFile = 0;
+		        _dialog.find(".buttons .save-btn").removeClass("disable");
+		    } else {
+		        _setMode.call(_this, kEditModeFile);
+		        configuration.isExportLink = 0;
+		        configuration.isExportFile = 1;
+		        configuration.isSyncWithCalendar = 0;
+                
+		        if (!AjaxUploader.isChanged) _dialog.find(".buttons .save-btn").addClass("disable");
+		        
+		        _dialog.find(".sync-with-calendar input").prop('checked', false);
+		    };
+		    _updateConfiguration();
+		});
+	    
+		_dialog.find(".calendar select").change(function (ev) {
+		    var v = $(this).val();
+		    var s = calendar.getEventSources();
+		   
+		    for (var i = 0; i < s.length; ++i) {
+		        if (s[i].objectId != v) {
+		            if (v == -1) {
+		                _dialog.find(".calendar .bullet").css("background", "transparent");
+		                _dialog.find(".title input").focus();
+		                
+		                configuration.isNewCalendar = 1;
+		                var opt = calendar.options;
+		                var categories = opt.categories;
+		                var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
+		                var newBg = fcUtil.parseCssColor(fcUtil.randomHex(false));
+		                var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
+
+		                _elem = undefined;
+		                _source = {
+		                    title: categories.defaultTitle,
+		                    textColor: newColor.origColor,
+		                    backgroundColor: newBg.origColor,
+		                    borderColor: newBor.color,
+		                    isHidden: false,
+		                    events: [],
+		                    todos: [],
+		                    permissions: { users: [] },
+		                    defaultAlert: { type: 0 },
+		                    timeZone: $.extend({}, opt.defaultTimeZone)
+		                };
+		                _anchor = anchor;
+		            };
+		            _updateConfiguration();
+		            continue;
+		        }
+		        configuration.isNewCalendar = 0;
+		        _source = calendar.getEventSources()[i];
+		        _elem = $('.categories .content-li')[i-2];
+		        _updateConfiguration();
+		        _dialog.find(".calendar .bullet").css("background", s[i].backgroundColor);
+                return;
+		    }
+		});
 		// check length
 		var titleMaxLen = defaults.eventMaxTitleLength;
 		var inputTxt = _dialog.find(".title input");
@@ -2869,18 +3336,28 @@ function CategoryDialog(calendar) {
 					_dialog.find(".ical-file-selected").html(ic.dialog_incorrectFormat).css("color", "#cc3300");
 					return;
 				} 
-				
-				this.isChanged = true; 
-				_dialog.find(".ical-file-selected").html(ic.dialogButton_fileSelected).css("color", "grey");
-				},
-			onSubmit: function(file, extension) {
+				this.isChanged = true;
+			    _dialog.find(".buttons .save-btn").removeClass("disable");
+				_dialog.find('#ical-browse-btn').hide();
+			    _dialog.find(".ical-file-del").show();
+				_dialog.find(".ical-file-selected").show().html(file).css("color", "grey");
+			},
+			onSubmit: function (file, extension) {
 				LoadingBanner.displayLoading(); 
-				},
-			onComplete: function(file, response) { 
+			},
+			onComplete: function (file, response) {
 				LoadingBanner.hideLoading(true);
 				calendar.refetchEvents();
-				}
-			});
+			}
+		});
+
+	    _dialog.find(".ical-file-del").click(function() {
+	        AjaxUploader.isChanged = false;
+	        _dialog.find(".buttons .save-btn").addClass("disable");
+	        _dialog.find('#ical-browse-btn').show();
+	        _dialog.find(".ical-file-del").hide();
+	        _dialog.find(".ical-file-selected").hide().html('');
+	    });
 	}
 	
 	function _openIcalStream(anchor) {
@@ -2897,7 +3374,61 @@ function CategoryDialog(calendar) {
 		_icalStream.popupFrame("open", anchor);
 	}
 
-	function _close(changed, deleted) {
+    var timerId;
+    function getCaldavLink() {
+        clearInterval(timerId);
+        var linkContainer = _icalStream.find(".url-link.caldav");
+        var helpLink = _icalStream.find(".caldav-help");
+
+        linkContainer.find(".control").removeClass('success').removeClass('failure').addClass('disabled').addClass('processing');
+        linkContainer.find(".control input").attr('disabled', 'disabled');
+
+        linkContainer.show();
+        helpLink.show();
+
+        var counter = 0, preparingMessage = ic.dialogPreparingMessage, preparingErrorMessage = ic.dialogPreparingErrorMessage;
+        timerId = setInterval(function () {
+            preparingMessage = preparingMessage + ".";
+            if (counter == 4) {
+                preparingMessage = ic.dialogPreparingMessage;
+                counter = 0;
+            }
+            linkContainer.find(".control input").val(preparingMessage);
+            counter++;
+        }, 500);
+
+        calendar.trigger("getCaldavUrl", _this, _source.objectId, function (response) {
+            clearInterval(timerId);
+            if (response.result) {
+                if (response.url != "") {
+                    linkContainer.find(".control input").val(response.url);
+                    linkContainer.find(".control input").removeAttr("disabled");
+                    linkContainer.find(".control").removeClass("disabled").removeClass('processing').addClass('success');
+                } else {
+                    linkContainer.find(".control input").val(preparingErrorMessage);
+                    linkContainer.find(".control").removeClass('processing').addClass('failure');
+                }
+            }
+        });
+    }
+
+    function _openExportStream(anchor) {
+        $(document).bind("keyup", _checkEscKeyIcalStream);
+        
+        calendar.trigger("getiCalUrl", _this, _source.objectId, function (response) {
+            if (response.result) {
+                var linkContainer = _icalStream.find(".url-link.ical");
+                linkContainer.show();
+                linkContainer.find(".control input").val(response.url);
+                getCaldavLink();
+            }
+        });
+        
+        _icalStream.width(_dialog.width());
+        _icalStream.popupFrame("open", anchor);
+    }
+
+    function _close(changed, deleted) {
 		fcColorPicker.close();
 		if (changed && false == _doDDX.call(_this, true)) {return;}
 		$(document).unbind("keyup", _checkEscKey);
@@ -2907,8 +3438,9 @@ function CategoryDialog(calendar) {
 	}
 	
 	function _closeIcalStream() {
-		$(document).unbind("keyup", _checkEscKeyIcalStream);
-		_icalStream.popupFrame("close");
+	    $(document).unbind("keyup", _checkEscKeyIcalStream);
+	    _icalStream.popupFrame("close");
+	    if (_dialog.popupFrame('isVisible')) _dialog.popupFrame('show');
 	}
 
 	function _checkEscKey(ev) {
@@ -2931,18 +3463,32 @@ function CategoryDialog(calendar) {
 					textColor: _getControl(kTextColorBox),
 					alert:     _dialog.find(".alert select"),
 					timezone:  _dialog.find(".timezone select"),
-					iCalUrl:   _dialog.find(".ical-url-input input")
+					iCalUrl:  _dialog.find(".ical-url-input input"),
+					calendar: _dialog.find(".calendar select"),
+					calendar_b: _dialog.find(".calendar .bullet")
 				},
 				i;
 
 		if (saveData) {     // ------------- SAVE data -------------
-
-			if (false == fcUtil.validateInput(dlg.title, fcUtil.validateNonemptyString)) {return false;}
-			
-			if (currentMode == kCreateUrlMode) {
+		   
+		    if (currentMode == kEditModeFile) { return true; }
+		    
+		    if (false == fcUtil.validateInput(dlg.title, fcUtil.validateNonemptyString)) { return false; }
+		    
+		    if (currentMode == kCreateUrlMode || currentMode == kEditUrlMode || currentMode == kCreateUrlWithoutSyncMode) {
 				if (false == fcUtil.validateInputHttp(dlg.iCalUrl, fcUtil.validateNonemptyString)) {return false;}
-			}
-			
+		    }
+		    
+		    // iCal url
+		    if (currentMode == kCreateUrlMode || currentMode == kEditUrlMode || currentMode == kCreateUrlWithoutSyncMode) {
+		        _source.iCalUrl = dlg.iCalUrl.val();
+		    }
+		    
+		    if (currentMode == kCreateUrlWithoutSyncMode) {
+		        _source.withoutSync = true;
+		    }
+		    if (currentMode == kEditUrlMode) { return true; }
+		    
 			_source.title = $.trim(dlg.title.val());
 			_source.title = _source.title.substr(0, Math.min(
 					calendar.options.eventMaxTitleLength, _source.title.length));
@@ -2973,11 +3519,6 @@ function CategoryDialog(calendar) {
 
 			_source.permissions = _permissions;
 			
-			// iCal url
-			if (currentMode == kCreateUrlMode) {
-				_source.iCalUrl = dlg.iCalUrl.val();
-			}
-
 		} else {            // ------------- LOAD data -------------
 
 			dlg.title.val(_source.title);
@@ -3011,9 +3552,27 @@ function CategoryDialog(calendar) {
 			_permissions = _source.permissions;
 			_permissionsList.render(_permissions, kCalendarPermissions, _source.objectId);
 
+			var options = '<option value="-1" title="' + htmlEscape(calendar.options.newLabel) + '" >&nbsp;&nbsp;&nbsp;&nbsp;' + htmlEscape(calendar.options.newLabel) + '</option><option disabled="disabled"></option>';
+			var calT;
+			var sources = calendar.getEventSources();
+			for (i = 0; i < sources.length; ++i) {
+			    if ((sources[i].objectId != undefined) &&
+						(sources[i].isEditable || !sources[i].isSubscription) && sources[i].isTodo != 1) {
+			        calT = htmlEscape(sources[i].title);
+			        options += '<option value="' + htmlEscape(sources[i].objectId) + '" ' +
+							'title="' + calT + '">' +
+							'&nbsp;&nbsp;&nbsp;&nbsp;' +  // for select elem padding does not work in safari
+							calT + '</option>';
+			    }
+			}
+			dlg.calendar.removeAttr("disabled");
+			
+			dlg.calendar.html(options);
+			dlg.calendar_b.css("background", "transparent");
+
 			var calCount = 0;
 			$.each(calendar.getEventSources(), function(i,src) {
-				if (src.objectId != undefined && !src.isSubscription) {++calCount;}
+			    if (src.objectId != undefined && !src.isSubscription && src.isTodo != 1) {++calCount;}
 			});
 
 			if (calCount > 1 && !jq("#asc_event .event-editor .editor").is(":visible")) {
@@ -3023,6 +3582,18 @@ function CategoryDialog(calendar) {
 			}
 		}
 		return true;
+	}
+	function _getDefaultSource() {
+	    var sources = calendar.getEventSources();
+	    var s1;
+	    for (var i = 0; i < sources.length; ++i) {
+	        if (fcUtil.objectIsValid(sources[i]) && (
+			    fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription)) {
+	            if (s1 == undefined) { s1 = sources[i]; }
+	            if (!sources[i].isHidden) { return sources[i]; }
+	        }
+	    }
+	    return s1;
 	}
 
 
@@ -3036,18 +3607,31 @@ function CategoryDialog(calendar) {
 		_doDDX.call(_this);
 		_setMode.call(_this, kEditMode);
 		
-		_dialog.find(".ical").removeClass("hidden");
-		_dialog.find(".ical-export").removeClass("hidden");
+		_dialog.find(".choose_event_source").addClass("hidden");
+		_dialog.find(".sync-with-calendar").addClass("hidden");
+		_dialog.find(".calendar").addClass("hidden");
+
+		_dialog.find(".ical").addClass("hidden");
+		_dialog.find(".export").removeClass("hidden");
 		_dialog.find(".ical-import").removeClass("hidden");
 		
+		_dialog.find(".title").removeClass("hidden");
 		_dialog.find(".row").removeClass("hidden");
 		_dialog.find(".shared-list").removeClass("hidden");
+		_dialog.find(".export").removeClass("hidden");
 		_dialog.find(".ical-url-input").addClass("hidden");
 		
 		_open.call(_this, anchor);
 	};
 
-	this.addNew = function(anchor) {
+	this.addNew = function (anchor) {
+
+	    configuration.isExportFile = 0;
+	    configuration.isExportLink = 0;
+	    configuration.isNewCalendar = 0;
+	    configuration.isSyncWithCalendar = 0;
+	    _updateConfiguration();
+
 		var opt = calendar.options;
 		var categories = opt.categories;
 		var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
@@ -3071,9 +3655,14 @@ function CategoryDialog(calendar) {
 		_doDDX.call(_this);
 		_setMode.call(_this, kCreateMode);
 		
-		_dialog.find(".ical").removeClass("hidden");
-		_dialog.find(".ical-export").addClass("hidden");
-		_dialog.find(".ical-import").removeClass("hidden");
+		_dialog.find(".export").addClass("hidden");
+
+		/*_dialog.find(".choose_event_source").addClass("hidden");
+		_dialog.find(".ical").addClass("hidden");
+		_dialog.find(".calendar").addClass("hidden");
+		_dialog.find(".sync-with-calendar").addClass("hidden");*/
+
+		//_dialog.find(".ical-import").removeClass("hidden");
 		
 		_dialog.find(".row").removeClass("hidden");
 		_dialog.find(".shared-list").removeClass("hidden");
@@ -3082,7 +3671,14 @@ function CategoryDialog(calendar) {
 		_open.call(_this, anchor);
 	};
 	
-	this.addiCalCalendar = function(anchor) {
+	this.addiCalCalendar = function (anchor) {
+
+	    configuration.isExportLink = 1;
+	    configuration.isExportFile = 0;
+	    configuration.isNewCalendar = 1;
+	    configuration.isSyncWithCalendar = 0;
+	    _updateConfiguration();
+
 		var opt = calendar.options;
 		var categories = opt.categories;
 		var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
@@ -3103,15 +3699,15 @@ function CategoryDialog(calendar) {
 			timeZone: $.extend( {}, opt.defaultTimeZone )
 		};
 		_anchor = anchor;
-		
-		_setMode.call(_this, kCreateUrlMode);
+		if (configuration.isSyncWithCalendar == 0) {
+		    _setMode.call(_this, kCreateUrlWithoutSyncMode, true);
+		} else {
+		    _setMode.call(_this, kCreateUrlMode, true);
+		}
+
 		_doDDX.call(_this);
 		
-		_dialog.find(".ical").addClass("hidden");
-		
-		_dialog.find(".row").addClass("hidden");
-		_dialog.find(".shared-list").addClass("hidden");
-		_dialog.find(".ical-url-input").removeClass("hidden");
+		_dialog.find(".export").addClass("hidden");
 		
 		_open.call(_this, anchor);
 	};
@@ -3244,8 +3840,8 @@ function SubscriptionDialog(calendar) {
 	}
 
 	function _setColor(newColor) {
-		_setIconColor(newColor, _getControl(kColorBox));
-		_dialog.find(".title .bullet").css("color", newColor);
+	    _setIconColor(newColor, _getControl(kColorBox));
+		_dialog.find(".title .bullet").css("background", newColor);
 	}
 
 	function _setTextColor(newColor) {
@@ -3294,7 +3890,7 @@ function SubscriptionDialog(calendar) {
 		}
 		else {
 			_dialog.find(".ical").removeClass("hidden");
-			_dialog.find(".ical-export").removeClass("hidden");
+			_dialog.find(".export").removeClass("hidden");
 			
 			_dialog.find(".ical-saved-url").addClass("hidden");
 			_dialog.find(".buttons").find(".delete-btn").addClass("hidden");
@@ -3816,8 +4412,11 @@ function CategoriesList(calendar) {
 								AjaxUploader._settings.action = response.importUrl;
 								AjaxUploader.submit();
 							}
-							
-							calendar.rerenderEvents();
+							calendar.addEventSource(response.source);
+							_rerenderList.call(_this, kCategoriesOnly, true);
+							_rerenderList.call(_this, kSubscriptionsOnly, true);
+							calendar.refetchEvents();
+
 						});
 			} else {
 				// Add new category
@@ -3933,7 +4532,7 @@ function CategoriesList(calendar) {
 					                  item.isSubscription ? false : item.isShared) +
 					'<div class="label" style="'+ (item.isHidden ? ("color:" + calendar.options.categories.inactiveColor) : "") +'">' +
 						htmlEscape(item.title ? item.title : 'Unknown') + '</div>' +
-					'<div class="edit-icon"/>' +
+					'<div class="edit-icon" title="' + htmlEscape(calendar.options.categories.dialogHeader_edit) + '"/>' +
 				'</div>')
 				.data("sourceIndex", index);
 	}
@@ -3995,25 +4594,34 @@ function CategoriesList(calendar) {
 	}
 
 	function _renderCategories(list) {
-		var sources = calendar.getEventSources();
+	    var sources = calendar.getEventSources();
+	    
+	    //list.find(".categories").removeClass('hidden');
+	    list.find(".my_calendars").removeClass('active');
+	    
+	    
 		var jsp = list.find(".categories").data("jsp");
 		var categ = jsp.getContentPane();
 		categ.empty();
+		
+			for (var i = 0; i < sources.length; ++i) {
+				var cal = sources[i];
 
-		for (var i = 0; i < sources.length; ++i) {
-			var cal = sources[i];
-			if (!cal.title || cal.title.length < 1 || cal.isSubscription) {continue;}
-			cal.isHidden = cal.isHidden == true ? true : false; // convert to boolean
+				if (cal.isTodo == 1) continue;
 
-			var li = _renderListItem.call(_this, i, cal);
-			li.find(".bullet").click(function() {
-				_toggleListItem.call(_this, $(this).parent().get(0));
-			});
-			li.find(".edit-icon").click(function() {
-				_editCategory.call(_this, $(this).parent().get(0));
-			});
-			li.appendTo(categ);
-		}
+				if (!cal.title || cal.title.length < 1 || cal.isSubscription) { continue; }
+				cal.isHidden = cal.isHidden == true ? true : false; // convert to boolean
+
+				var li = _renderListItem.call(_this, i, cal);
+				li.find(".bullet").click(function () {
+					_toggleListItem.call(_this, $(this).parent().get(0));
+				});
+				li.find(".edit-icon").click(function () {
+					_editCategory.call(_this, $(this).parent().get(0));
+				});
+				li.appendTo(categ);
+			}
+		
 
 		jsp.reinitialise();
 	}
@@ -4023,25 +4631,29 @@ function CategoriesList(calendar) {
         if (!list.find(".subscr").length) {
             return;
         }
+	    
+        //list.find(".subscr").removeClass('hidden');
+        list.find(".other_calendars").removeClass('active');
+	    
 		var jsp = list.find(".subscr").data("jsp");
 		var subscr = jsp.getContentPane();
 		subscr.empty();
+		
+			for (var i = 0; i < sources.length; ++i) {
+				var sub = sources[i];
+				if (!sub.title || sub.title.length < 1 || !sub.isSubscription) { continue; }
+				sub.isHidden = sub.isHidden == true ? true : false; // convert to boolean
 
-		for (var i = 0; i < sources.length; ++i) {
-			var sub = sources[i];
-			if (!sub.title || sub.title.length < 1 || !sub.isSubscription) {continue;}
-			sub.isHidden = sub.isHidden == true ? true : false; // convert to boolean
-
-			var li = _renderListItem.call(_this, i, sub);
-			li.find(".bullet").click(function() {
-				_toggleListItem.call(_this, $(this).parent().get(0));
-			});
-			li.find(".edit-icon").click(function() {
-				_editSubscription.call(_this, $(this).parent().get(0));
-			});
-			li.appendTo(subscr);
-		}
-
+				var li = _renderListItem.call(_this, i, sub);
+				li.find(".bullet").click(function () {
+					_toggleListItem.call(_this, $(this).parent().get(0));
+				});
+				li.find(".edit-icon").click(function () {
+					_editSubscription.call(_this, $(this).parent().get(0));
+				});
+				li.appendTo(subscr);
+			}
+		
 		jsp.reinitialise();
 	}
 
@@ -4050,29 +4662,58 @@ function CategoriesList(calendar) {
 		if (list.length < 1) {
 			list = $(
 				'<div class="content">' +
-					'<div class="content-h first">' +
+					'<div class="content-h first my_calendars">' +
 						'<span class="main-label">' + htmlEscape(calendar.options.categories.title) + '</span>' +
 						//<!--'<span class="add-label" title="' + htmlEscape(calendar.options.categories.addNewCategoryLabel) + '"/>' + -->
 					'</div>' +
 					'<div class="categories"/>' +
                     (calendar.options.isPersonal ? "" :
-					'<div class="content-h">' +
+					'<div class="content-h other_calendars">' +
 						'<span class="main-label">' + htmlEscape(calendar.options.categories.subscriptionsTitle) + '</span>' +
 						'<span class="manage-label" title="' + htmlEscape(calendar.options.categories.subscriptionsManageLabel) + '"/>' +
 					'</div>' +
 					'<div class="subscr"/>' +
 				'</div>'));
 			//list.find(".add-label").click(function() {_addNewCategory.call(_this);});
-			list.find(".manage-label").click(function() {_manageSubscriptions.call(_this);});
-			list.find(".categories, .subscr").jScrollPane().css("padding", "");
+			list.find(".manage-label").click(function(event) {
+			    event.preventDefault();
+			    _manageSubscriptions.call(_this);
+			    
+			    list.find(".content-h.other_calendars,.content-h.my_calendars").removeClass('active');
+			    list.find(".subscr,.categories").removeClass('hidden');
+			    _resizeList(true);
+			    
+			    return false;
+			});
+			list.find(".categories, .subscr").jScrollPane();
+
+			list.find(".content-h.my_calendars").click(function () {
+			    $(this).toggleClass('active');
+				list.find(".categories").toggleClass('hidden');
+				_resizeList(true);
+			});
+			list.find(".content-h.other_calendars").click(function () {
+			    $(this).toggleClass('active');
+			    var categoriesHeight = list.find(".categories").height();
+				list.find(".subscr").toggleClass('hidden');
+				_resizeList(true, categoriesHeight);
+			});
 		}
 		_renderCategories.call(_this, list);
 		_renderSubscriptions.call(_this, list);
 		return list;
 	}
 
-	function _resizeList(scrollToEnd) {
-		if (_list.length < 1) {return;}
+	function _resizeList(scrollToEnd, categHeight) {
+	    if (_list.length < 1) {return;}
+
+		var categ = _list.find(".categories");
+		var subscr = _list.find(".subscr");
+
+	    var isCategoriesHidden = categ.hasClass('hidden'),
+	        isSubscrHidden = subscr.hasClass('hidden');
+	    
+
 
 		_list.find(".content-li").each(_ellipsisLongItem);
 
@@ -4080,9 +4721,9 @@ function CategoriesList(calendar) {
 		_list.removeClass("fixed");
 
 		// find lists
-		var categ = _list.find(".categories");
+		
 		var categItems = categ.find(".content-li");
-		var subscr = _list.find(".subscr");
+		
 		var subscrItems = subscr.find(".content-li");
 
 		// restore heights of lists
@@ -4120,8 +4761,14 @@ function CategoriesList(calendar) {
 			if (newCategH > newSubscrH) {newCategH = newCategH - delta;}
 			else                        {newSubscrH = newSubscrH - delta;}
 		}
-
-		categ.css("height", (newCategH - categSpace) + "px");
+		newCategH = isSubscrHidden ? categItems.length * (cih + 1) : newCategH;
+		if (isSubscrHidden && categHeight) {
+		    var resultCategH = categHeight ? categHeight : newCategH - categSpace;
+		    categ.css("height", resultCategH + "px");
+		} else {
+		    categ.css("height", (newCategH - categSpace) + "px");
+		}
+	   
 		subscr.css("height", (newSubscrH - subscrSpace) + "px");
 
 		var categJSP = categ.data("jsp");
@@ -4133,6 +4780,15 @@ function CategoriesList(calendar) {
 		}
 
 		_list.css("visibility", "visible");
+	    
+		if (isCategoriesHidden) {
+		    categ.addClass('hidden');
+		    _list.find(".my_calendars").addClass('active');
+		}
+		if (isSubscrHidden) {
+		    subscr.addClass('hidden');
+		    _list.find(".other_calendars").addClass('active');
+		}
 	}
 
 	function _rerenderList(flag, scrollToEnd) {
@@ -4480,22 +5136,54 @@ function TodoList(calendar) {
 	var _this = this;
 
 	var _list;
+    var _listStates = {};
 	var _editor;
-	var _curTodoElem;
-	var _hideCompleted = false;
+	var _todo_viewer;
+    var _anchor;
+    var _curTodoElem;
+    var _curTodo;
 	var _sortType = 0;
 	var _sortLabel;
 	var _uiBlocker;
+	var _date = null;
+	var _deleteDialog;
+	var _icalStream;
+    var _minTime = -62135596800000;
+    var ic = calendar.options.icalStream;
 
-	function _doDDX(save) {
+    function _parseDateTime(inputD, result) {
+	    var dateStr = inputD.val();
+	    var dateStrIsEmpty = dateStr.search(/\S/) < 0;
+	    var date, time, r;
+	    if (!dateStrIsEmpty) {
+	        date = fcUtil.validateDateString(dateStr);
+	        r = (date === null) ? 0 : 1;
+	    } else {
+	        r = -1;
+	        date = null;
+	        time = null;
+	    }
+	    result.date = { isEmpty: dateStrIsEmpty, isValid: date !== null, value: date };
+	    return r;
+	}
+    
+	function _doDDX(save, isViewer) {
 		var todo = {
 			title:       _editor.find("#fc_todo_title"),
+			start_d:     _editor.find("#fc_todo_start_date"),
+			start_t:     _editor.find("#fc_todo_start_time"),
 			completed:   _editor.find("#fc_todo_completed"),
 			priority:    _editor.find("#fc_todo_priority"),
 			cal:         _editor.find("#fc_todo_cal"),
 			description: _editor.find("#fc_todo_description"),
 			ok:          _editor.find("#fc_todo_ok")
 		};
+	    var viewTodo = {
+	        title: _todo_viewer.find(".title")[0],
+	        start_d: _todo_viewer.find(".date-time .date")[0],
+	        description: _todo_viewer.find(".description .text")[0],
+	        mark_btn: _todo_viewer.find(".buttons .mark-btn")[0]
+	    };
 		var elem = $(_curTodoElem);
 		var sources = calendar.getEventSources();
 		var src = sources[elem.data("sourceIndex")];
@@ -4504,10 +5192,21 @@ function TodoList(calendar) {
 
 		if (save) {    // ------------- SAVE data -------------
 
-			curTodo.title = $.trim(todo.title.val());
+		    curTodo.title = $.trim(todo.title.val());
+		   
+		    if (false == fcUtil.validateInput(todo.title, fcUtil.validateNonemptyString)) { return false; }
+
 			curTodo.completed = todo.completed.is(":checked");
 			curTodo.description = $.trim(todo.description.val());
 			curTodo.priority = todo.priority.val();
+		    curTodo.completed = todo.completed == true ? true : false;
+
+		    var date = {};
+		    var validateDateResult = _validateDateFields(date);
+		    
+		    if (!validateDateResult && !date.data.date.isEmpty) { return false; }
+
+		    curTodo.start = parseDate(date.data.date.value + "T23:59:59");
 
 			var cal = todo.cal.val();
 			if (cal != src.title) {
@@ -4521,19 +5220,35 @@ function TodoList(calendar) {
 					break;
 				}
 			}
-
+			_updateTodo(curTodo);
 			_curTodoElem = undefined;
 			_renderList.call(_this);
+			_closeEditor.call(_this);
 
 		} else {       // ------------- LOAD data -------------
 
-			todo.title.val(curTodo.title);
+			todo.title.val(curTodo.title.trim());
+			todo.title.css("color", "").css("border-color", "");
+			todo.start_d.css("color", "").css("border-color", "");
+			todo.start_t.css("color", "").css("border-color", "");
+
+			_editor.find(".header .title").text(curTodo.objectId ? window.g_fcOptions.todoEditor.dialogHeader_edit : window.g_fcOptions.todoEditor.dialogHeader_add);
 
 			if (curTodo.completed == true) {
 				todo.completed.prop("checked", true);
 			} else {
 				todo.completed.removeAttr("checked");
 			}
+
+		    var minDate = new Date(1, 0, 1);
+		    if ((curTodo.start instanceof Date) && !(curTodo.start.getFullYear() <= minDate.getFullYear())) {
+			    todo.start_d.val(formatDate(curTodo.start, calendar.options.eventEditor.dateFormat));
+			    todo.start_t.val(formatDate(curTodo.start, calendar.options.eventEditor.timeFormat));
+			} else {
+		        todo.start_d.val(_date != null ? (formatDate(_date, calendar.options.eventEditor.dateFormat)) : "");
+		        todo.start_t.val(_date != null ? "00:00" : "");
+		        _date = null;
+		    }
 
 			todo.priority.val(curTodo.priority != undefined ? curTodo.priority : "2");
 
@@ -4546,7 +5261,166 @@ function TodoList(calendar) {
 			todo.cal.val(src.title);
 
 			todo.description.val(curTodo.description != undefined ? curTodo.description : "");
+		    
+			if (isViewer != undefined) {
+			    
+			    viewTodo.mark_btn.innerText = curTodo.completed ? calendar.options.todoViewer.dialogButton_mark_off : calendar.options.todoViewer.dialogButton_mark_on;
+			        
+			    viewTodo.title.innerText = curTodo.title;
+			    viewTodo.description.innerText = curTodo.description != undefined ? curTodo.description : "";
+			    if ((curTodo.start instanceof Date) && !(minDate.getTime() == curTodo.start.getTime())) {
+			        viewTodo.start_d.innerText = formatDate(curTodo.start, calendar.options.eventEditor.dateFormat);
+			    } else {
+			        viewTodo.start_d.innerText = _date != null ? (formatDate(_date, calendar.options.eventEditor.dateFormat)) : "";
+			        _date = null;
+			    }
+			}
+		    _curTodo = curTodo;
 		}
+	}
+	(function _createIcal() {
+	    _icalStream = $(ic.dialogTemplate)
+				.addClass("asc-dialog")
+				.addClass("add-popup")
+				.popupFrame({
+				    anchor: "right,top",
+				    direction: "right,down",
+				    offset: "0,0",
+				    showArrow: false
+				});
+
+	    _icalStream.find(".buttons .cancel-btn, .header .close-btn").click(function () {
+	        _closeTodoExportStream.call(_this);
+	    });
+	    _icalStream.find(".ical-description span")[0].innerHTML = ic.dialogTodoDescription;
+	    
+	    _icalStream.find((".url-link .control input")).click(function () {
+	        $(this).select();
+	    });
+	    _icalStream.find((".url-link .control .button.copy")).click(function () {
+	        var control = $($(this)[0].parentNode);
+	        control.find('input').select();
+	        try {
+	            document.execCommand('copy');
+	        } catch (err) { }
+	    });
+
+	}());
+    
+
+	function _updateTodo(todo, resolve) {
+	    var action = kTodoAddAction;
+	    if (todo.objectId) {
+	        action = kTodoChangeAction;
+	    }
+	    var isExistTodo = false;
+	    calendar.trigger("editTodo", _this,
+                $.extend({ action: action },todo),
+                function (response) {
+                    if (response.result) {
+                        var sources = calendar.getEventSources();
+                        var cache = calendar.getCache();
+                        for (var i = 0; i < sources.length; ++i) {
+                            var source = sources[i];
+                            if (response.todo.length > 0) {
+                                if (source.todos && source.objectId == response.todo[0].sourceId) {
+                                      
+                                    response.todo[0].completed = new Date(response.todo[0].completed).getTime() == _minTime ? false : true;
+                                    response.todo[0].start = ASC.Api.TypeConverter.ServerTimeToClient(response.todo[0].start);
+                                    response.todo[0].source = source;
+                                    
+                                    for (var k = 0; k < cache.length; k++) {
+                                        if (cache[k].objectId == response.todo[0].objectId) {
+
+                                            calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd, resolve);
+                                            isExistTodo = true;
+                                        }
+                                    }
+                                    if (!isExistTodo) {
+                                        source.todos = source.todos.concat(response.todo[0]);
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        if (!isExistTodo && response.todo[0]) {
+
+                            calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd, resolve);
+                        }
+                    }
+
+                });
+    }
+	function _openTodoContainer(_this) {
+	    var $container = $(($(_this)[0].parentNode));
+	    var date = $container.data('date') == null ? new Date(1, 0, 1, 23, 59, 59).getTime() : $container.data('date');
+	    _listStates[date] = !_listStates[date];
+	    $container.toggleClass('close');
+	}
+	function _adjustPopupPosition() {
+	    var vr = calendar.getView().getViewRect();                               // current view's rect
+	    var ar = fcUtil.getElementRect(_anchor);                                 // anchor element's rect
+	    var pw = _todo_viewer.outerWidth(true);// + _settings.outerWidth(true) + 30;     // popup's width
+	    var ph = _todo_viewer.outerHeight(true);                                      // popip's height
+
+	    // adjust popup's ahchor, direction & arrow
+	    if (ar.right + pw <= (vr.right - 250) || ar.left - pw < vr.left) {
+	        _todo_viewer.popupFrame("option", "anchor", "right,top");
+	        _todo_viewer.popupFrame("option", "direction", "right,down");
+	        _todo_viewer.popupFrame("option", "arrow", "left");
+	        _todo_viewer.popupFrame("option", "offset", "-4px,0");
+	        _todo_viewer.popupFrame("updatePosition", _anchor);
+	        pw = _todo_viewer.outerWidth(true);// + _settings.outerWidth(true) + 30;
+	        var offs = ar.right + pw - vr.right;
+	        offs = offs < 0 ? -4 : -offs;
+	        _todo_viewer.popupFrame("option", "offset", offs + "px,0");
+	    } else {
+	        _todo_viewer.popupFrame("option", "anchor", "left,top");
+	        _todo_viewer.popupFrame("option", "direction", "left,down");
+	        _todo_viewer.popupFrame("option", "arrow", "right");
+	        _todo_viewer.popupFrame("option", "offset", "2px,0");
+	    }
+
+	    _todo_viewer.popupFrame("updatePosition", _anchor);
+
+	    // adjust popup's top & arrow position
+	    var skipArrowPos = false;
+	    if (ar.top < vr.top || ar.bottom > vr.bottom) {
+	       // calendar.getView().resetScroll(_eventObj.start.getHours());
+	        ar = fcUtil.getElementRect(_anchor);
+	        if (ar.top < vr.top) {
+	            skipArrowPos = true;
+	            var m = _todo_viewer.popupFrame("option", "offset").match(/^([+-]?\d+(\.\d+)?)(px)?,([+-]?\d+(\.\d+)?)(px)?/i);
+	            var newOffs = m[1] + (m[3] ? m[3] : "") + "," +
+						(vr.top - ar.top + parseInt(m[4], 10)) + (m[6] ? m[6] : "");
+	            _todo_viewer.popupFrame("option", "offset", newOffs);
+	        }
+	    }
+	    var pt = (Math.max(ar.top, vr.top) + Math.min(ar.bottom, vr.bottom) - ph) * 0.5;
+	    var ap = 50;
+	    if (!skipArrowPos) {
+	        if (pt < vr.top) {
+	            ap = Math.round((ph * 0.5 - vr.top + pt) * 100 / ph);
+	        } else if (pt + ph > vr.bottom) {
+	            ap = Math.round((ph * 0.5 + pt + ph - vr.bottom) * 100 / ph);
+	        }
+	    }
+	    _todo_viewer.popupFrame("option", "arrowPosition", ap + "%");
+	}
+	function _openViewer(todoElem, elem) {
+	    _list.addClass("modal");
+	    _uiBlocker.show();
+	    _todo_viewer.popupFrame("option", "showArrow", true);
+	    _anchor = elem;
+	    _adjustPopupPosition.call(_this);
+	    _todo_viewer.popupFrame("close");
+	    _todo_viewer.popupFrame("open", elem);
+	    _uiBlocker.addClass("fc-modal-transparent");
+	    if (todoElem != _curTodoElem) {
+	        _editor.popupFrame("close");
+	        _curTodoElem = todoElem;
+	        _doDDX.call(_this, false, true);
+	    }
 	}
 
 	function _openEditor(todoElem) {
@@ -4557,115 +5431,478 @@ function TodoList(calendar) {
 		}
 		_list.addClass("modal");
 		_uiBlocker.show();
-		_editor.popupFrame("open", todoElem);
+		_editor.popupFrame("open", { pageX: "center", pageY: "center" }, todoElem);
+		_editor.find("#fc_todo_title").focus();
+	}
+
+	function _updateTodoList() {
+	    
+        var sources = calendar.getEventSources();
+        for (var i = 0; i < sources.length; ++i) {
+            var source = sources[i];
+            if (source.todos && source.todos.length > 0) {
+                source.todos = source.todos.filter(function (todo) {
+                    return !!todo.objectId;
+                });
+            }
+        }
+        _renderList.call(_this);
+	    
+    }
+
+	function _closeDeleteDialog() {
+	    _deleteDialog.popupFrame("close");
+	    _uiBlocker.hide();
+	    _curTodoElem = null;
 	}
 
 	function _closeEditor() {
 		_editor.popupFrame("close");
 		_uiBlocker.hide();
 		_list.removeClass("modal");
+
+		_updateTodoList();
+		calendar.openEventWin = null;
+	}
+	function _closeViewer() {
+	    _todo_viewer.popupFrame("close");
+	    _uiBlocker.hide();
+	    _uiBlocker.removeClass("fc-modal-transparent");
+	    _list.removeClass("modal");
+	    calendar.openEventWin = null;
 	}
 
-	function _compileTodos() {
-		var todos = [];
-		var sources = calendar.getEventSources();
+	function _compileTodos(_sources) {
+	    var todos = [];
+	    var todosObj = {};
+	    var sources = _sources ? _sources : calendar.getEventSources();
 		for (var i = 0; i < sources.length; ++i) {
-			var source = sources[i];
+		    var source = sources[i];
 			if (source.todos && source.todos.length > 0) {
 				for (var j = 0; j < source.todos.length; ++j) {
 					source.todos[j].source = source;
 					source.todos[j].sourceIndex = i;
 					source.todos[j].id = j;
+
+				    todosObj[source.todos[j].objectId] = source.todos[j];
 				}
-				todos = todos.concat(source.todos);
+				
 			}
 		}
-		todos.sort(function(left, right) {
-					var res = 0;
-					if (_sortType === 0) {          // sort by calendar
-						res = left.source.title.toLowerCase() < right.source.title.toLowerCase() ? -1 : 1;
-					} else if (_sortType === 1) {   // sort by priority
-						var p1 = left.priority != undefined ? left.priority : 2;
-						var p2 = right.priority != undefined ? right.priority : 2;
-						res = p1 < p2 ? -1 : 1;
-					} else if (_sortType === 2) {   // sort alphabetically
-						res = left.title.toLowerCase() < right.title.toLowerCase() ? -1 : 1;
-					}
-					return res;
-				});
+	    
+		for (var k in todosObj) {
+		    todos.push(todosObj[k]);
+		}
 		return todos;
 	}
+    
+	function _openDelDialog(todoElem) {
+	    
+	    _list.addClass("modal");
+	    _uiBlocker.show();
+	    _curTodoElem = todoElem;
+	    _deleteDialog.popupFrame("open", { pageX: "center", pageY: "center" });
 
-	function _renderList() {
+	}
+
+	var _formatDate = function (d, fmt, monthnames, daynames) {
+	    var
+          c = '',
+          r = [],
+          escape = false,
+          hours = d.getHours(),
+          isam = hours < 12,
+          day = '',
+	      dateName = '';
+	    monthnames = monthnames || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	    daynames = daynames || ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+	    if (fmt.search(/%p|%P/) !== -1) {
+	        if (hours > 12) {
+	            hours = hours - 12;
+	        } else if (hours == 0) {
+	            hours = 12;
+	        }
+	    }
+	    if (window.moment) {
+	        day = window.moment(d).calendar(null, {
+	            lastWeek: 'dddd DD.MM.YYYY',
+	            sameElse: 'dddd DD.MM.YYYY',
+	            nextWeek: 'dddd DD.MM.YYYY'
+	        }).split(' ')[0];
+	        dateName = window.moment(d).calendar(null, {
+	            sameDay: 'D MMMM',
+	            nextDay: 'D MMMM',
+	            nextWeek: 'D MMMM',
+	            lastDay: 'D MMMM',
+	            lastWeek: 'D MMMM',
+	            sameElse: 'D MMMM'
+	        }).split(' ')[1];
+	    } else {
+	        day = daynames[d.getDay()];
+	    }
+	    for (var i = 0, n = fmt.length; i < n; ++i) {
+	        c = fmt.charAt(i);
+	        if (escape) {
+	            switch (c) {
+	                case 'h': c = '' + hours; break;
+	                case 'H': c = leftPad(hours); break;
+	                case 'M': c = leftPad(d.getMinutes()); break;
+	                case 'S': c = leftPad(d.getSeconds()); break;
+	                case 'd': c = '' + d.getDate(); break;
+	                case 'm': c = '' + (d.getMonth() + 1); break;
+	                case 'y': c = '' + d.getFullYear(); break;
+	                case 'b': c = '' + window.moment ? dateName : monthnames[d.getMonth()]; break;
+	                case 'p': c = (isam) ? ('' + 'am') : ('' + 'pm'); break;
+	                case 'P': c = (isam) ? ('' + 'AM') : ('' + 'PM'); break;
+	                case 'D': c = '' + day; break;
+	            }
+	            r.push(c);
+	            escape = false;
+	        } else {
+	            if (c == '%') {
+	                escape = true;
+	            } else {
+	                r.push(c);
+	            }
+	        }
+	    }
+	    return r.join('');
+	};
+	var getDisplayDate = function (date) {
+	    var displaydate = _formatDate(date, '%d %b, %D', ASC.Resources.Master.MonthNamesFull, ASC.Resources.Master.DayNamesFull);
+	    return displaydate !== '' ? displaydate : date.toLocaleTimeString();
+	};
+	var leftPad = function (n) {
+	    n = '' + n;
+	    return n.length === 1 ? '0' + n : n;
+	};
+
+	var resolveNewTodoItemList = function (resolve) {
+	    var containerDate = resolve.containerDate;
+	    newTodoItemList(containerDate);
+    };
+    var newTodoItemList = function(date) {
+        var _date = date;
+        var id = _addNewTodo.call(_this, _date);
+        if (id) {
+            _curTodoElem = undefined;
+            _renderList.call(_this);
+	                    
+            var newElem = _findTodoElement.call(_this, id.sourceIndex, id.todoId);
+            newElem.find(".label").val('');
+            newElem.find(".label").click();
+        }
+    }
+	var changeTodoTitle = function () {
+	    
+	    var elem = $($(this).parent());
+	    var sources = calendar.getEventSources();
+	    var src = sources[elem.data("sourceIndex")];
+	    var curTodo = src.todos[elem.data("todoId")];
+
+	    var $lbl = $(this), text = $lbl.text(),
+	    $txt = $('<input type="text" class="editable-label-text" maxlength="150" value="' + text + '" />');
+
+	    var container = $($(elem).parent()[0]);
+	    var containerDate = container.data("date") != null ? new Date(container.data("date")) : null;
+	    
+	    elem.addClass('edit');
+
+        $lbl.replaceWith($txt);
+        $txt.focus();
+
+	    $txt.blur(function () {
+	        var newText = $(this).val();
+	        if (false != fcUtil.validateInput($(this), fcUtil.validateNonemptyString)) {
+	            $lbl.text(newText);
+	            curTodo.title = newText;
+	            _updateTodo(curTodo);
+	            elem.removeClass('edit');
+	            $txt.replaceWith($lbl);
+	            $lbl.click(changeTodoTitle);
+	            _updateTodoList();
+	        } else {
+	            if (curTodo.objectId == undefined) {
+	                calendar.cleanEmptyEventSources();
+	                elem.detach();
+	            }
+	        }
+          
+        })
+        .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+                var newText = $(this).val();
+                if (false != fcUtil.validateInput($(this), fcUtil.validateNonemptyString)) {
+                    $lbl.text(newText);
+                    curTodo.title = newText;
+
+                    _updateTodo(curTodo, { resolve: true, containerDate: containerDate });
+
+                    $lbl.click(changeTodoTitle);
+                    $txt.replaceWith($lbl);
+                    elem.removeClass('edit');
+                    _curTodoElem = undefined;
+                }
+                else {
+                    if (curTodo.objectId == undefined) {
+                        calendar.cleanEmptyEventSources();
+                        $txt.blur();
+                    }
+                }
+            }
+        });
+    }
+
+	function unique(arr) {
+	    var obj = {};
+	    var result = [];
+
+	    for (var i = 0; i < arr.length; i++) {
+	        var str = arr[i].objectId;
+	        obj[str] = arr[i]; 
+	    }
+	    for (var j in obj) {
+	        result.push(obj[j]);
+	    }
+
+	    return result;
+	}
+
+	function _renderList(resolveTodoList) {
 		var items = _list.find(".content .items");
 		items.empty();
-		//
 		var todos = _compileTodos.call(_this);
-		for (var j = 0; j < todos.length; ++j) {
-			var todo = todos[j];
-			if (todo.completed && _hideCompleted) {continue;}
-			var li = $(
-					'<div class="content-li">' +
-						'<span class="bullet" style="color:' + htmlEscape(todo.source.isHidden ?
-								calendar.options.categories.inactiveColor : todo.source.backgroundColor) +
-								';">' +
-							htmlEscape(calendar.options.categories.itemBullet) + '&nbsp;</span>' +
-						'<span class="label">' +
-							htmlEscape(todo.title ? todo.title : 'Unknown') + '</span>' +
-					'</div>');
-			li.find(".label").click(function() {
-				_openEditor.call(_this, $(this).parent());
-			});
-			li.find(".bullet").click(function() {
-				_completeTodo.call(_this, $(this).parent());
-			});
-			if (todo.completed) {
-				li.addClass("completed");
-			}
-			li.data({"sourceIndex": todo.sourceIndex, "todoId": todo.id});
-			li.appendTo(items);
-		}
+		var sortTodos = todos.sort(function (a, b) {
+		    return a.start - b.start;
+		});
+		var minDate = new Date(1, 0, 1, 23, 59, 59);
+
+	    var now = new Date();
+	    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).valueOf();
+	   
+	    var lastTodoDate;
+	    var container = null;
+	    var counter = 0;
+
+	    for (var j = 0; j < sortTodos.length; j++) {
+	        var todo = sortTodos[j];
+
+	        var todoDate = todo.start ? new Date(todo.start.getFullYear(), todo.start.getMonth(), todo.start.getDate(), 23,59,59).valueOf() : minDate.valueOf();
+
+	        var containerClass = "";
+	        var containerTitle = "";
+	        
+	        var day = todo.start ? getDisplayDate(todo.start).split(' ') : '';
+
+	        counter++;
+	        if (counter == sortTodos.length) {
+	            if (container != null) container.appendTo(items);
+	        }
+	        if (todo.completed && calendar.hideCompletedTodos) {
+	            continue;
+	        }
+	        
+	        var li = $(
+                    '<div class="content-li">' +
+                        '<label><input type="checkbox"' + (todo.completed ? 'checked="checked"' : '') + ' class="bullet"/><span></span></label>' +
+                        '<span class="label">' +
+                            htmlEscape(todo.title ? todo.title : 'Unknown') + '</span> ' +
+                         '<span class="description">' +
+                            htmlEscape(todo.description ? todo.description : '') + '</span>' +
+                        '<div class="edit-todo-button" title="' + htmlEscape(calendar.options.todoEditor.dialogHeader_edit) + '">' + calendar.options.todoList.editIcon + '</div>' +
+                        '<div class="del-todo-button" title="' + htmlEscape(calendar.options.deleteTodoDialog.dialogHeader) + '">' + calendar.options.todoList.deleteIcon + '</div>' +
+                    '</div>');
+
+
+	        li.find(".bullet").change(function () {
+	            _completeTodo.call(_this, $($(this).parent()).parent());
+	        });
+	        li.find(".label").click(changeTodoTitle);
+	        
+	        li.find(".edit-todo-button").click(function() {
+	            _openEditor.call(_this, $(this).parent());
+	        });
+	        li.find(".del-todo-button").click(function () {
+	            _openDelDialog.call(_this, $(this).parent());
+	        });
+	        
+	        li.find(".description").click(function () {
+                _openEditor.call(_this, $(this).parent());
+	        });
+	        if (todo.completed) {
+	            li.addClass("completed");
+	        }
+	        li.data({ "sourceIndex": todo.sourceIndex, "todoId": todo.id });
+
+	        if (lastTodoDate == todoDate) {
+	            li.appendTo(container);
+	        } else {
+	            if (todoDate == minDate.valueOf()) {
+	                containerClass = "no_due_date";
+	                containerTitle = htmlEscape(calendar.options.todoList.noDueDate);
+	            } else if ((todoDate < today - 86400000) || (todoDate < today)) {
+	                if (container != null && container.hasClass('overdue')) {
+	                    li.appendTo(container);
+	                    continue;
+	                } else {
+	                    containerClass = "overdue";
+	                    containerTitle = htmlEscape(calendar.options.todoList.overdue);
+	                }
+	               
+	            } else if (todoDate == today) {
+	                containerClass = "today";
+	                containerTitle = day.length > 0 ? day[day.length - 1] : '';
+	            } else if (86400000 + today == todoDate) {
+	                containerClass = "tomorrow";
+	                containerTitle = day.length > 0 ? day[day.length - 1] : '';
+	            } else {
+	                containerClass = "future";
+	                containerTitle = getDisplayDate(todo.start);
+	            }
+
+	            if (container == null) {
+	                container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
+	                container.data({ "date": containerClass == "overdue" || containerClass == "no_due_date" ? null : todoDate });
+	                container.appendTo(items);
+	            } else {
+	                container.appendTo(items);
+	                container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
+	                container.data({ "date": containerClass == "overdue" || containerClass == "no_due_date" ? null : todoDate });
+	            }
+	            if (_listStates[todoDate] != undefined) {
+	                container.addClass(_listStates[todoDate] ? 'close' : '');
+	            }
+	            _listStates[todoDate] = container.hasClass('close');
+	            container.find(".title").click(function () {
+	                _openTodoContainer(this);
+	            });
+ 
+	            container.find(".add-todo").click(function () {
+	                var containerDate = $($(this).parent()[0]).data("date");
+
+	                _date = containerDate != null ? new Date(containerDate) : null;
+	                var id = _addNewTodo.call(_this, _date);
+	                if (id) {
+	                    _curTodoElem = undefined;
+	                    _renderList.call(_this);
+	                    
+	                    var newElem = _findTodoElement.call(_this, id.sourceIndex, id.todoId);
+	                    newElem.find(".label").val('');
+	                    newElem.find(".label").click();
+	                }
+	            });
+
+	            li.appendTo(container);
+	        }
+	        lastTodoDate = todoDate;
+	        if (counter == sortTodos.length) {
+	            container.appendTo(items);
+	        }
+	    }
+	    if (resolveTodoList != undefined && typeof resolveTodoList == "object" && resolveTodoList.resolve) {
+	        resolveNewTodoItemList(resolveTodoList);
+	    } 
 	}
 
 	function _renderMenu() {
 		if (!fcMenus.todoMenu || fcMenus.todoMenu.length < 1) {
-			fcMenus.todoMenu = $("<div id='fc_todo_menu'/>");
+		    //fcMenus.todoMenu = $("<div id='fc_todo_menu'/>");
+		    fcMenus.todoMenu = $(calendar.options.todoList.menuTemplate); 
 		} else {
 			fcMenus.todoMenu.popupMenu("close");
 			fcMenus.todoMenu.popupMenu("destroy");
 		}
 		fcMenus.todoMenu.popupMenu({
-			anchor: "right,bottom",
-			direction: "left,down",
+		    anchor: "left,bottom",
+		    direction: "right,down",
 			arrow: "up",
 			showArrow: false,
 			cssClassName: "asc-popupmenu",
-			items: [
-				{
-					label: calendar.options.todoList.menu.hideColmpletedTodos.hide,
-					click: function(event, data) {
-						_hideCompletedTodos.call(_this);
-					},
-					state: 1,
-					toggle: function(event, data) {
-						if (data.item.state == 1) {
-							data.item.label = calendar.options.todoList.menu.hideColmpletedTodos.show;
-							data.item.state = 0;
-						} else {
-							data.item.label = calendar.options.todoList.menu.hideColmpletedTodos.hide;
-							data.item.state = 1;
-						}
-					}
-				},
-				{
-					label: calendar.options.todoList.menu.deleteCompletedTodos,
-					click: function(event, data) {
-						_deleteCompletedTodos.call(_this);
-					}
-				}
-			]
+		    closeTimeout: -1
 		});
+	    
+		fcMenus.todoMenu.find('#todo-in-cal-check').prop('checked', localStorageManager.getItem("showTodosInCalendar"));
+		fcMenus.todoMenu.find('#todo-in-cal-check').change(function () {
+		    _hideTodosInCalendar.call(_this); 
+		});
+	    
+		fcMenus.todoMenu.find('#del-mark-td-check').prop('checked', localStorageManager.getItem("hideCompletedTodos"));
+		fcMenus.todoMenu.find('#del-mark-td-check').change(function () {
+		    _hideCompletedTodos.call(_this);
+		});
+		fcMenus.todoMenu.find('#sync-lnk').click(function () {
+		    _openTodoExportStream.call(_this, { pageX: "center", pageY: "center" });
+		});
+		
 	}
+
+	function _getTodoCalendar() {
+        var sources = calendar.getEventSources();
+        for (var i = 0; i < sources.length; i++) {
+            if (sources[i].isTodo == 1) {
+                return sources[i];
+            }
+        }
+        return null;
+    }
+
+	function _closeTodoExportStream() {
+	    _icalStream.popupFrame("close");
+	    _uiBlocker.hide();
+	}
+
+    var timerId;
+
+    function updateTodoExportStream() {
+        var todoCalendar = _getTodoCalendar();
+
+        var linkContainer = _icalStream.find(".url-link.caldav");
+        linkContainer.show();
+        linkContainer.find(".control").removeClass('success').removeClass('failure').addClass('disabled').addClass('processing');
+        linkContainer.find(".control input").attr('disabled', 'disabled');
+            
+        var counter = 0, preparingMessage = ic.dialogPreparingMessage;
+        timerId = setInterval(function() {
+            preparingMessage = preparingMessage + ".";
+            if (counter == 4) {
+                preparingMessage = ic.dialogPreparingMessage;
+                counter = 0;
+            }
+            linkContainer.find(".control input").val(preparingMessage);
+            counter++;
+        }, 500);
+
+        calendar.trigger("getCaldavUrl", _this, todoCalendar != null ? todoCalendar.objectId : 'todo_calendar', function (response) {
+            clearInterval(timerId);
+            if (response.result) {
+                var preparingErrorMessage = ic.dialogPreparingErrorMessage;
+                if (response.url != "" && linkContainer) {
+                    linkContainer.find(".control input").val(response.url);
+                    linkContainer.find(".control input").removeAttr("disabled");
+                    linkContainer.find(".control").removeClass("disabled").removeClass('processing').addClass('success');
+                } else {
+                    linkContainer.find(".control input").val(preparingErrorMessage);
+                    linkContainer.find(".control").removeClass('processing').addClass('failure');
+                }
+            }
+        });
+
+    }
+
+    function _openTodoExportStream(anchor) {
+
+        _icalStream.find((".url-link .control .button.try-again")).click(function () {
+            clearInterval(timerId);
+            updateTodoExportStream();
+        });
+
+        updateTodoExportStream();
+        _uiBlocker.show();
+        _icalStream.width(372);
+        _icalStream.popupFrame("open", anchor);
+
+    }
 
 	function _renderSortMenu() {
 		if (!fcMenus.sortMenu || fcMenus.sortMenu.length < 1) {
@@ -4707,36 +5944,170 @@ function TodoList(calendar) {
 			]
 		});
 	}
+	function _validateDateFields(result) {
+	    var dlg = {
+	        date: _editor.find(".date")
+	    };
 
+	    var frDate = {}, fr = _parseDateTime(dlg.date, frDate);
+	    frDate.dateTime = fr == 1 ? parseDate(frDate.date.value + "T23:59:59") : null;
+
+	    var frc, r;
+	    if (fr == 1) {
+	        r = true;
+	        frc = "";
+	    } else {
+	        r = false;
+	        frc = frDate.date.isValid ? "" : "#cc3300";
+	    }
+	    dlg.date.css("color", "").css("border-color", frc);
+
+	    if (result != undefined) {
+	        result.data = frDate;
+	    }
+	    return r;
+	}
 	function _renderTodoEditor() {
-		$.get(
-				calendar.options.todoList.todoEditorUrl,
-				function(tmpl) {
-					_editor = $(tmpl)
-							.addClass("asc-dialog")
-							.addClass("fc-shadow")
-							.popupFrame({
-									anchor: "left,top",
-									direction: "left,down",
-									arrow: "right",
-									arrowPosition: "50%",
-									showArrow: false});
-					_editor.find("#fc_todo_ok").button().click(function() {
-						_doDDX.call(_this, true);
-						_closeEditor.call(_this);
-					});
-					_editor.find("#fc_todo_cancel").button().click(function() {
-						_closeEditor.call(_this);
-					});
+		
+	    _editor = $(calendar.options.todoEditor.dialogTemplate)
+				.addClass("asc-dialog")
+				.addClass("fc-shadow")
+				.popupFrame({
+					anchor: "left,bottom",
+					direction: "right,down",
+					showArrow: false,
+					showModal: true,
 				});
+	    _todo_viewer = $(calendar.options.todoViewer.dialogTemplate)
+				.addClass("asc-dialog")
+				.addClass("fc-shadow")
+				.popupFrame({
+				    anchor: "right,top",
+				    direction: "right,down",
+				    offset: "-2px,0",
+				    arrow: "left",
+				    arrowPosition: "50%",
+				    showArrow: false
+				});
+	    _deleteDialog = $(calendar.options.deleteTodoDialog.dialogTemplate)
+				.addClass("asc-dialog")
+				.addClass("fc-shadow")
+				.popupFrame({
+				    anchor: "left,bottom",
+				    direction: "right,down",
+				    showArrow: false,
+				    showModal: true,
+				});
+	    
+	    var date = _editor.find(".date");
+	    
+
+	    function loadDate(input, dp, defDate) {
+	        var d = parseISO8601(input.val());
+	        dp.datepicker("setDate", (d instanceof Date) ? d : defDate);
+	    }
+	    function saveDate(input, dp) {
+	        input.val(formatDate(
+					dp.datepicker("getDate"),
+					calendar.options.eventEditor.dateFormat));
+	        input.change();
+	    }
+	    _editor.find(".cal-icon").click(function () {
+	        fcDatepicker.open(calendar, this,
+					function (dp) { loadDate(date, dp, null); },
+					function (elem, dp) {
+					    this.close();
+					    saveDate(date, dp);
+					});
+	    });
+	    
+	    function getCaret(el) {
+	        if (el.selectionStart) {
+	            return el.selectionStart;
+	        } else if (document.selection) {
+	            el.focus();
+ 
+	            var r = document.selection.createRange();
+	            if (r == null) {
+	                return 0;
+	            }
+	            var re = el.createTextRange(),
+                        rc = re.duplicate();
+	            re.moveToBookmark(r.getBookmark());
+	            rc.setEndPoint('EndToStart', re);
+ 
+	            return rc.text.length;
+	        }
+	        return 0;
+	    }
+	    _editor.keypress(function (e) {
+	       if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+	            var $fcTodoDescription = _editor.find('#fc_todo_description');
+	            if($fcTodoDescription.is(":focus"))
+	            {
+	                var caret = getCaret(document.getElementById('fc_todo_description'));
+	                var str = $fcTodoDescription.val();
+	                var fersPat = str.substr(0, caret);
+	                var secondPat = str.substr(caret);
+	                $fcTodoDescription.val(fersPat + '\n' + secondPat);
+	                document.getElementById('fc_todo_description').setSelectionRange(caret + 1, caret + 1);
+	            }
+	       }else if(e.which == 13) {
+	           _doDDX.call(_this, true);
+	       }
+	    });
+	    _editor.find(".time").mask("00:00");
+	    _editor.find(".time, .date")
+				.bind("keyup change", function(result) {
+					if (!!$(this).val()) _validateDateFields(result);
+					else $(this).css("border-color", "");
+				});
+
+	    _editor.find("#fc_todo_title").keyup(function () { fcUtil.validateInput(this, fcUtil.validateNonemptyString); });
+
+		_editor.find("#fc_todo_ok").click(function() {
+			_doDDX.call(_this, true);
+		});
+		_editor.find(".close-btn").click(function () {
+		    _closeEditor.call(_this);
+		});
+		_editor.find("#fc_todo_cancel").click(function() {
+			_closeEditor.call(_this);
+		});
+	    
+
+		_deleteDialog.find(".save-btn").click(function () {
+		    _deleteTodo.call(_this, _curTodoElem);
+		});
+		_deleteDialog.find(".close-btn").click(function () {
+		    _closeDeleteDialog.call(_this);
+		});
+		_deleteDialog.find(".cancel-btn").click(function () {
+		    _closeDeleteDialog.call(_this);
+		});
+	    
+		_todo_viewer.find(".mark-btn").click(function () {
+		    _completeTodo.call(_this, _curTodoElem);
+		    _closeViewer.call(_this);
+		});
+		_todo_viewer.find(".edit-btn").click(function () {
+		    _closeViewer.call(_this);
+		    _openEditor.call(_this, _curTodoElem);
+		});
+		_todo_viewer.find(".delete-btn").click(function () {
+		    _closeViewer.call(_this);
+		    _openDelDialog.call(_this, _curTodoElem);
+		});
+				
 	}
 
-	function _addNewTodo() {
+	function _addNewTodo(todaDate) {
 		var sources = calendar.getEventSources();
 		if (sources.length < 1) {return null;}
 		var todo = {
-			title: calendar.options.todoList.newTodoTitle,
-			completed: false
+			title: " ",
+			completed: false,
+			start: todaDate ? todaDate : null
 		};
 		sources[0].todos.push(todo);
 		return {sourceIndex: 0, todoId: sources[0].todos.length - 1};
@@ -4764,9 +6135,18 @@ function TodoList(calendar) {
 		_renderList.call(_this);
 	}
 
+	function _hideTodosInCalendar() {
+	    calendar.showTodosInCalendar = !calendar.showTodosInCalendar;
+	    localStorageManager.setItem("showTodosInCalendar", calendar.showTodosInCalendar);
+	    calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd);
+	}
 	function _hideCompletedTodos() {
-		_hideCompleted = !_hideCompleted;
-		_renderList.call(_this);
+	    calendar.hideCompletedTodos = !calendar.hideCompletedTodos;
+	    localStorageManager.setItem("hideCompletedTodos", calendar.hideCompletedTodos);
+	    if (!calendar.hideCompletedTodos) {
+	        _renderList.call(_this);
+	        calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd);
+	    }
 	}
 
 	function _completeTodo(todoElem) {
@@ -4774,12 +6154,52 @@ function TodoList(calendar) {
 		var source = calendar.getEventSources()[elem.data("sourceIndex")];
 		var todo = source.todos[elem.data("todoId")];
 		todo.completed = !todo.completed;
+
+		var _elem = $(todoElem);
+		var sources = calendar.getEventSources();
+		var src = sources[_elem.data("sourceIndex")];
+		
+		var curTodo = src.todos[elem.data("todoId")];
+		_updateTodo(curTodo);
 		_curTodoElem = undefined;
-		_renderList.call(_this);
+		if (todo.completed) _elem.addClass("completed");
+		else _elem.removeClass("completed");
+		//_renderList.call(_this);
 	}
 
+	function _deleteTodo(todoElem) {
+	    var elem = $(todoElem);
+	    var sources = calendar.getEventSources();
+	    var todo = sources[elem.data("sourceIndex")].todos[elem.data("todoId")];
+	    
+	    calendar.trigger("editTodo", _this,
+                 $.extend(
+                         { action: kTodoDeleteAction },
+                         todo),
+                 function (response) {
+                     if (response.result) {
+                         
+                         var cache = calendar.getCache();
+                         for (var i = 0; i < sources.length; ++i) {
+                             if (sources[i].todos && sources[i].todos.length > 0) {
+                                 sources[i].todos = sources[i].todos.filter(function (_todo) {
+                                     return _todo.objectId != todo.objectId;
+                                 });
+                             }
+                         }
+                         for (var j = 0; j < cache.length; ++j) {
+                             if (cache[j].objectId == todo.objectId) {
+                                 cache.splice(j, 1);
+                                 break;
+                             }
+                         }
+                         calendar.reportEvents(cache);
+                         _renderList.call(_this);
+                         _closeDeleteDialog.call(_this);
+                     }
 
-	// Public Interface
+                 });
+    }
 
 	this.render = function() {
 		var result = $(
@@ -4788,17 +6208,20 @@ function TodoList(calendar) {
 						"<div class='content'>" +
 							"<div class='content-h'>" +
 								"<span class='label'>" + htmlEscape(calendar.options.todoList.title) + "</span>" +
-								"<span class='fc-dropdown'>&nbsp;</span>" +
-								"<span class='add-btn'>" +
-									htmlEscape(calendar.options.todoList.addTodoLabel) +
-								"</span>" +
+								//"<span class='fc-dropdown'>&nbsp;</span>" +
+								"<span class='fc-settings' title='" + htmlEscape(calendar.options.categories.subscriptionsManageLabel) + "'>" + calendar.options.todoList.settingsIcon + "</span>" +
+                                "<div class='close-btn' title='" + htmlEscape(calendar.options.categories.dialogButton_cancel) + "'>&times;</div>" +
 							"</div>" +
 							"<div class='items'/>" +
-							"<div class='sort-label'>" +
+				            "<span class='add-btn'>" +
+				                htmlEscape(calendar.options.todoList.addTodoLabel) +
+				            "<span class='add-todo'></span>" +
+							"</span>" +
+						/*	"<div class='sort-label'>" +
 								"<span class='label'>" +
 									htmlEscape(calendar.options.todoList.sortByCalendarLabel) + "</span>" +
 								"<span class='fc-dropdown'>&nbsp;</span>" +
-							"</div>" +
+							"</div>" +*/
 						"</div>" +
 						"<div class='fc-modal'/>" +
 					"</div>" +
@@ -4809,19 +6232,31 @@ function TodoList(calendar) {
 		_sortLabel = result.find(".sort-label .label");
 
 		result.find(".add-btn").click(function() {
-					_this.addNewTodo();
-				});
-		result.find(".content-h .label, .content-h .fc-dropdown").click(function() {
-					fcMenus.hideMenus(fcMenus.todoMenu);
-					fcMenus.todoMenu.popupMenu("open", $(this).parent().find(".label"));
-				});
+		    _this.addNewTodo();
+		});
+
+		result.find(".content-h .close-btn").click(function () {
+		    
+		    var fc_container = $('#fc_container');
+		    fc_container.toggleClass('open-todo-list');
+		    fc_container.find('.fc-button-todo').toggleClass('fc-state-active');
+		   
+		});
+
+		result.find(".content-h .label, .content-h .fc-settings").click(function() {
+			fcMenus.hideMenus(fcMenus.todoMenu);
+			fcMenus.todoMenu.popupMenu("open", $(this).parent().find(".label"));
+		});
 		result.find(".sort-label .label, .sort-label .fc-dropdown").click(function() {
-					fcMenus.hideMenus(fcMenus.sortMenu);
-					fcMenus.sortMenu.popupMenu("open", $(this).parent().find(".label"));
-				});
-		_uiBlocker = result.find(".fc-modal").click(function() {
-					_closeEditor.call(_this);
-				});
+			fcMenus.hideMenus(fcMenus.sortMenu);
+			fcMenus.sortMenu.popupMenu("open", $(this).parent().find(".label"));
+		});
+		_uiBlocker = result.find(".fc-modal").click(function () {
+            _closeEditor.call(_this);
+            _closeDeleteDialog.call(_this);
+            _closeTodoExportStream.call(_this);
+            _closeViewer.call(_this);
+		});
 
 		_renderList.call(this);
 		_renderMenu.call(this);
@@ -4831,8 +6266,33 @@ function TodoList(calendar) {
 		return result.children();
 	};
 
-	this.rerenderList = function() {
-		_renderList.call(this);
+	this.createTodo = function (todo) {
+	    _updateTodo(todo);
+	    _curTodoElem = undefined;
+	    _renderList.call(_this);
+	    _closeEditor.call(_this);
+	};
+    
+	this.openTodoEditor = function (todo, elem) {
+	    var todos = $('.fc-todo-list .content-li');
+	    for (var i = 0; i < todos.length; i++) {
+	        if ($(todos[i]).data("todoId") == todo.id) {
+			    _openViewer.call(_this, todos[i], elem);
+			}
+		}
+		
+	};
+    this.updateTodo = function(todo) {
+        _updateTodo(todo);
+    };
+
+    this.getTodoElem = function() {
+        return _curTodo;
+    };
+	
+
+    this.rerenderList = function (resolveTodoList) {
+        _renderList.call(this, resolveTodoList); 
 	};
 
 	this.resize = function(newHeight) {
@@ -4875,7 +6335,9 @@ function EventEditor(calendar, uiBlocker) {
 	var cp = calendar.options.confirmPopup;
 
 	var _modes = {
-		view:						_viewMode,
+	    view:                       _viewMode,
+	    todo:                       _todoMode,
+	    edit:                       _editMode,
 		addDialog:					_addDialogMode,
 		addPopup:					_addPopupMode,
 		addPopupDelSettings:		_addPopupDelSettings
@@ -4937,6 +6399,7 @@ function EventEditor(calendar, uiBlocker) {
 
 	var _anchor;
 	var _eventObj;
+	var _todoObj;
 	var _canEdit;
 	var _canDelete;
 	var _canChangeSource;
@@ -4944,6 +6407,12 @@ function EventEditor(calendar, uiBlocker) {
 
 	var formatDate = calendar.formatDate;
 	var formatDates = calendar.formatDates;
+
+    var _editModes = {
+        event: 0,
+        todo: 1
+    };
+    var _editMode = _editModes.event;
 
 	(function _create() {
 		_dialog = $(calendar.options.eventEditor.dialogTemplate)
@@ -4971,19 +6440,49 @@ function EventEditor(calendar, uiBlocker) {
 		    _close.call(_this, false);
 		    calendar.showEventPageViewer(_canEdit, _anchor, _eventObj);
 		});
+
+		function updateMode(currentBtn) {
+
+		    _dialog.find(".buttonGroup span.active").removeClass('active');
+		    currentBtn.addClass('active');
+		    
+		    var mode;
+		    if (currentBtn.hasClass('event')) {
+		        _editMode = _editModes.event;
+		        mode = 'edit';
+		    } else {
+		        _editMode = _editModes.todo;
+		        mode = 'todo';
+		    }
+		    _modes[mode].call(_this);
+	    }
+
+		_dialog.find(".buttonGroup span").click(function () {
+		    updateMode($(this));
+		});
+		_dialog.find(".buttonGroup span").on('touchstart', function (e) {
+		    
+		    updateMode($(this));
+		    
+		    e.preventDefault();
+		    
+		    _dialog.find('.title input').click().focus();
+		});
 		_dialog.find(".buttons .save-btn").click(function() {
 		    if (jq(this).hasClass("disable"))
 		        return;
 		    
-		    var hasSettings = !_settings.hasClass("hidden");
-			if (hasSettings) {
-				if (!_validateDateFieldsSettings.call(_this)) {
-					return;
-				}
-				_closeSettings.call(_this, hasSettings);
-			}
-			
-			_close.call(_this, true);
+		    if (_editMode == _editModes.event) {
+		        var hasSettings = !_settings.hasClass("hidden");
+		        if (hasSettings) {
+		            if (!_validateDateFieldsSettings.call(_this)) {
+		                return;
+		            }
+		            _closeSettings.call(_this, hasSettings);
+		        }
+		    }
+		    _close.call(_this, true);
+		   
 		});
 		_dialog.find(".buttons .close-btn").click(function() {
 		    _close.call(_this, false);
@@ -5002,7 +6501,7 @@ function EventEditor(calendar, uiBlocker) {
 	    
 		_dialog.find(".buttons .view-details").click(function() {
 		    _close.call(_this, false);
-		    _doDDX.call(_this, true);
+		    _doDDX.call(_this, true, true);
 		    calendar.showEventPageViewer(_canEdit, _anchor, _eventObj);
 		});
 		
@@ -5057,6 +6556,20 @@ function EventEditor(calendar, uiBlocker) {
 		
 		var toD   = _dialog.find(".editor .to-date");
 		var toT   = _dialog.find(".editor .to-time");
+	    
+		var todoD = _dialog.find(".editor .todo_editor .date");
+		var todoT = _dialog.find(".editor .todo_editor .time");
+	    
+		_dialog.find(".editor .todo_editor .cal-icon").click(function () {
+		    fcDatepicker.open(calendar, this,
+					function (dp) { loadDate(todoD, dp, _eventObj.start); },
+					function (elem, dp) {
+					    this.close();
+					    saveDate(todoD, todoT, dp);
+
+					});
+		});
+	    
 		
 		_dialog.find(".editor .from.cal-icon").click(function() {
 			fcDatepicker.open(calendar, this,
@@ -5079,25 +6592,32 @@ function EventEditor(calendar, uiBlocker) {
 					});
 		});
 		//
-		_dialog.find(".editor .from-time, .editor .to-time").mask("99:99");
+		_dialog.find(".editor .from-time, .editor .to-time").mask("00:00");
 		_dialog
 				.find(".editor .from-date, .editor .from-time, .editor .to-date, .editor .to-time")
 				.bind("keyup change", _validateDateFields);
-		//
+	    //
+	    
+		_dialog.find(".editor .todo_editor .time").mask("00:00");
+		_dialog
+				.find(".editor .todo_editor .date, .editor .todo_editor .time")
+				.bind("keyup change", _validateTodoDateFields);
+	    //
 		_dialog.find(".editor .calendar select").change(function (ev) {
 			var v = $(this).val();
 			var s = calendar.getEventSources();
 			for (var i = 0; i < s.length; ++i) {
-				if (s[i].objectId != v) {continue;}
-				_dialog.find(".editor .calendar .bullet").css("color", s[i].backgroundColor);
+				if (s[i].objectId != v) { continue; }
+				if (s[i].isTodo == 1) { continue; }
+				_dialog.find(".editor .calendar .bullet").css("background", s[i].backgroundColor);
 
 			    if (_anchor.length) {
 			        _anchor
-			            .css("border-color", s[i].borderColor)
+			            .css("border-color", s[i].backgroundColor)
 			            .css("background-color", s[i].backgroundColor)
 			            .css("color", s[i].textColor);
 			        _anchor.find(".fc-event-skin, .fc-event-skin-day")
-			            .css("border-color", s[i].borderColor)
+			            .css("border-color", s[i].backgroundColor)
 			            .css("background-color", s[i].backgroundColor)
 			            .css("color", s[i].textColor);
 			    }
@@ -5363,8 +6883,8 @@ function EventEditor(calendar, uiBlocker) {
 			var v = $(this).val();
 			var s = calendar.getEventSources();
 			for (var i = 0; i < s.length; ++i) {
-				if (s[i].objectId != v) {continue;}
-				_settings.find(".calendar .bullet").css("color", s[i].backgroundColor);
+			    if (s[i].objectId != v) { continue; }
+			    _settings.find(".calendar .bullet").css("color", s[i].backgroundColor);
 				return;
 			}
 		});
@@ -5455,6 +6975,9 @@ function EventEditor(calendar, uiBlocker) {
 	    _confirmPopup.find(".buttons .dont-send-btn").click(function() {
 	        _sendGuestsNotification.call(_this, confirmSettings.notificationMode.nobody);
 	    });
+	    _confirmPopup.find(".header .close-btn").click(function() {
+	        _closeConfirmPopup.call(_this, false);
+	    });
 
 	}());
 
@@ -5516,7 +7039,7 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _resetMode() {
-		_dialog.removeClass("add-dialog add-popup edit-popup");
+	    _dialog.removeClass("add-dialog add-popup edit-popup todo-popup");
 		_dialogMode = undefined;
 	}
 
@@ -5529,7 +7052,19 @@ function EventEditor(calendar, uiBlocker) {
 		uiBlocker.addClass("fc-modal-transparent");
 	}
 	
-	function _getAlertLabel(type) {
+	function _editMode() {
+	    _resetMode.call(_this);
+	    _dialog.addClass("edit-popup");
+	    _dialog.find('.title input').focus();
+	}
+
+	function _todoMode() {
+	    _resetMode.call(_this);
+	    _dialog.addClass("edit-popup todo-popup");
+	    _dialog.find('.title input').focus();
+	}
+
+    function _getAlertLabel(type) {
 		if (type != undefined) {
 			switch (type) {
 				case kAlertDefault: 		return calendar.options.eventEditor.dialogAlertOption_default;
@@ -5906,7 +7441,7 @@ function EventEditor(calendar, uiBlocker) {
 		
 		_anchor = elem;
 		_modes[mode].call(_this, elem, eventObj);
-
+		_resizePopup();
 	    _dialog.find(".editor .title input").focus().select();
 
 		_setRepeatSettingsHeight.call(_this);
@@ -6162,20 +7697,30 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _close(changed, deleted) {
-		if (changed) {
-			if (!_canEdit || false == _doDDX.call(_this, true)) {return;}
-			_updateEvent.call(_this);
-			return;
-		}
-		if (_eventObj.source == undefined && _eventObj._id != undefined) {
-			calendar.removeEvents(_eventObj._id);
-		}
-		
-		if ((_eventObj.source != undefined) && !changed && !deleted)
-		    _updateEvent.call(_this, true);
+	    calendar.openEventWin = null;
+	    if (changed) {
+	        if (_editMode == _editModes.event) {
+	            if (!_canEdit || false == _doDDX.call(_this, true)) {
+	                return;
+	            }
+	            _updateEvent.call(_this);
+	        } else {
+	            if (false == _doDDX.call(_this, true)) {
+	                return;
+	            }
+	            _createTodo.call(_this);
+	        }
+	        return;
+	    }
+	    if (_eventObj.source == undefined && _eventObj._id != undefined) {
+	        calendar.removeEvents(_eventObj._id);
+	    }
+
+	    if ((_eventObj.source != undefined) && !changed && !deleted)
+	        _updateEvent.call(_this, true);
+	    $(document).unbind("keyup", _checkEscKey);
+	    _closeDialog.call(_this);
 	    
-		$(document).unbind("keyup", _checkEscKey);
-		_closeDialog.call(_this);
 	}
 	
 	function _closeSettings(changed) {
@@ -6387,7 +7932,34 @@ function EventEditor(calendar, uiBlocker) {
 		result.time = {isEmpty: timeStrIsEmpty, isValid: time !== null, value: time};
 		return r;
 	}
+	function _validateTodoDateFields(result) {
+	    var dlg = {
+	        date: _dialog.find(".editor .todo_editor .date"),
+	        time: _dialog.find(".editor .todo_editor .time"),
+	    };
+	    var todoDate = {}, fr = _parseDateTime(dlg.date, dlg.time, todoDate);
+	    
+	    todoDate.dateTime = fr == 1 ? parseDate(todoDate.date.value + "T23:59:59") : null;
 
+	    var frc, r;
+	    
+	    if (fr == 1) {
+	        r = true;
+	        frc = "";
+	    } else {
+	        r = false;
+	        frc = todoDate.date.isValid ? "" : "#cc3300";
+	    }
+	    dlg.date.css("color", "").css("border-color", frc);
+	 
+	    if (result != undefined) {
+	        result.todoDate = todoDate;
+	    }
+
+	    return r;
+	}
+	var changeTimeFrom = null;
+    
 	function _validateDateFields(result) {
 		var allday = _dialog.find(".editor .all-day input").is(":checked");
 		var dlg = {
@@ -6418,6 +7990,50 @@ function EventEditor(calendar, uiBlocker) {
 		dlg.from_t.css("color", "").css("border-color", frtc);
 		dlg.to.css("color", "").css("border-color", toc);
 		dlg.to_t.css("color", "").css("border-color", totc);
+	    
+		if ($(this).hasClass('from-time') || $(this).hasClass('from-date')) {
+
+		    var oldTime = new Date(Date.parse(_eventObj._start ? _eventObj._start : _eventObj.start));
+		    var newTime = new Date(Date.parse(frDate.dateTime));
+            
+		    if (changeTimeFrom != null) {
+		        oldTime = changeTimeFrom;
+		    }
+            
+		    var diff = newTime.getTime() - oldTime.getTime();
+		    if (diff != NaN && diff != 0) {
+
+		        var date = new Date();
+		        date.setTime(Date.parse(toDate.dateTime) + diff);
+
+		        if (date != 'Invalid Date') {
+		            toDate.dateTime.setTime(Date.parse(toDate.dateTime) + diff);
+
+		            changeTimeFrom = newTime;
+
+		            if ($(this).hasClass('from-time')) {
+		                var time =
+                            (toDate.dateTime.getHours() < 10 ? '0' + toDate.dateTime.getHours() : toDate.dateTime.getHours())
+                            + ":" +
+                            (toDate.dateTime.getMinutes() < 10 ? '0' + toDate.dateTime.getMinutes() : toDate.dateTime.getMinutes());
+		                
+		                toDate.time.value = time;
+		                dlg.to_t[0].value = time;
+                        
+		            } else if ($(this).hasClass('from-date')) {
+                        
+		                var newDate = date.getFullYear() + '-'
+                           + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
+                           + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+                       
+		                toDate.date.value = newDate;
+		                dlg.to[0].value = newDate;
+		            }
+		            _validateDateFields.call(_this);
+		        }
+		    }
+		}
+
 		if (result != undefined) {
 			result.fromDate = frDate;
 			result.toDate   = toDate;
@@ -6495,7 +8111,7 @@ function EventEditor(calendar, uiBlocker) {
 			dlg.from_t.val("").attr("disabled", "disabled");
 			dlg.to_t.val("").attr("disabled", "disabled");
 		} else {
-			var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours() + 1, _eventObj.start.getMinutes())
+			var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours(), _eventObj.start.getMinutes() + 30);
 			
 			if(!dlg.from.val())
 			    dlg.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
@@ -6559,7 +8175,7 @@ function EventEditor(calendar, uiBlocker) {
 		return (repeatRule != undefined);
 	}
 
-	function _doDDX(saveData) {
+	function _doDDX(saveData,toViewDetails) {
 		var sources = calendar.getEventSources();
 		var sourceIsValid = fcUtil.objectIsValid(_eventObj.source);
 		var canChangeAlert = sourceIsValid && (
@@ -6602,6 +8218,12 @@ function EventEditor(calendar, uiBlocker) {
 				description: _dialog.find(".editor .description textarea"),
 				status:      _dialog.find(".editor .status")
 			},
+		    todo: {
+		        title: _dialog.find(".editor .title input"),
+		        date: _dialog.find(".editor .todo_editor .date"),
+		        time: _dialog.find(".editor .todo_editor .time"),
+		        description: _dialog.find(".editor .todo_editor .description textarea"),
+		    },
 			infoText:    _dialog.find(".info-text")
 		};
 		var i;
@@ -6610,56 +8232,91 @@ function EventEditor(calendar, uiBlocker) {
 
 			if (!_canEdit) {return false;}
 
-			if (false == fcUtil.validateInput(dlg.editor.title, fcUtil.validateNonemptyString)) {return false;}
-			_eventObj.title = $.trim(dlg.editor.title.val());
-			_eventObj.title = _eventObj.title.substr(0,
-					Math.min(calendar.options.eventMaxTitleLength, _eventObj.title.length));
+			if (_editMode == _editModes.event) {
 
-			_eventObj.location = $.trim(dlg.editor.location.val());
+				if (false == fcUtil.validateInput(dlg.editor.title, fcUtil.validateNonemptyString) && !toViewDetails) {
+                    return false;
+                }
+                _eventObj.title = $.trim(dlg.editor.title.val());
+                _eventObj.title = _eventObj.title.substr(0,
+                    Math.min(calendar.options.eventMaxTitleLength, _eventObj.title.length));
 
-			_eventObj.allDay = dlg.editor.allday.is(":checked");
+                _eventObj.location = $.trim(dlg.editor.location.val());
 
-			var dates = {};
-			if (!_validateDateFields(dates)) {return false;}
-			_eventObj.start = dates.fromDate.dateTime;
-			_eventObj.end   = dates.toDate.dateTime;
+                _eventObj.allDay = dlg.editor.allday.is(":checked");
 
-			if (canChangeAlert) {
-				//_eventObj.repeat.type = parseInt(dlg.editor.repeat.val(), 10);
-				//_eventObj.alert.type = parseInt(dlg.editor.alert.val(), 10);
-				
-				_eventObj.repeatRule = repeatRule;
-				_eventObj.alert.type = alertType;
-			}
+                var dates = {};
+                if (!_validateDateFields(dates)) {
+                    return false;
+                }
+                _eventObj.start = dates.fromDate.dateTime;
+                _eventObj.end = dates.toDate.dateTime;
 
-			_eventObj.newSourceId = dlg.editor.calendar.val();
+                if (canChangeAlert) {
+                    //_eventObj.repeat.type = parseInt(dlg.editor.repeat.val(), 10);
+                    //_eventObj.alert.type = parseInt(dlg.editor.alert.val(), 10);
 
-			_eventObj.status = $.trim(dlg.editor.status.val());
+                    _eventObj.repeatRule = repeatRule;
+                    _eventObj.alert.type = alertType;
+                }
 
-			_eventObj.attendees = [];
+                _eventObj.newSourceId = dlg.editor.calendar.val();
 
-			if (!_eventObj.organizer && ASC.Mail.DefaultAccount) {
-		        var organizerObj = new ICAL.Property("organizer");
-		        organizerObj.setParameter("cn", ASC.Mail.DefaultAccount.name);
-		        organizerObj.setValue("mailto:" + ASC.Mail.DefaultAccount.email);
-		        _eventObj.organizer = organizerObj.jCal;
-		    }
+                _eventObj.status = $.trim(dlg.editor.status.val());
 
-		    var src;
-			$.each(sources, function(){if (this.objectId == _eventObj.newSourceId) {src = this;return false;}return true;});
-			if (src) {
-				_eventObj.newTimeZone = $.extend({}, src.timeZone);
-			}
+                _eventObj.attendees = [];
 
-			var description = $.trim(dlg.editor.description.val());
-			/*if (description.length > 0)*/ {
-				_eventObj.description = description;
-			}
+                if (!_eventObj.organizer && ASC.Mail.DefaultAccount) {
+                    var organizerObj = new ICAL.Property("organizer");
+                    organizerObj.setParameter("cn", ASC.Mail.DefaultAccount.name);
+                    organizerObj.setValue("mailto:" + ASC.Mail.DefaultAccount.email);
+                    _eventObj.organizer = organizerObj.jCal;
+                }
 
-			delete _eventObj.textColor;
-			delete _eventObj.backgroundColor;
-			delete _eventObj.borderColor;
-			calendar.normalizeEvent(_eventObj);
+                var src;
+                $.each(sources, function() {
+                    if (this.objectId == _eventObj.newSourceId) {
+                        src = this;
+                        return false;
+                    }
+                    return true;
+                });
+                if (src) {
+                    _eventObj.newTimeZone = $.extend({}, src.timeZone);
+                }
+
+                var description = $.trim(dlg.editor.description.val());
+                /*if (description.length > 0)*/
+                {
+                    _eventObj.description = description;
+                }
+
+                delete _eventObj.textColor;
+                delete _eventObj.backgroundColor;
+                delete _eventObj.borderColor;
+                calendar.normalizeEvent(_eventObj);
+            } else {
+                _todoObj = {
+                    title: calendar.options.todoList.newTodoTitle,
+                    completed: false,
+                    start: null
+                };
+                if (false == fcUtil.validateInput(dlg.todo.title, fcUtil.validateNonemptyString)) {
+                    return false;
+                }
+                _todoObj.title = $.trim(dlg.editor.title.val());
+                _todoObj.title = _todoObj.title.substr(0,
+                    Math.min(calendar.options.eventMaxTitleLength, _todoObj.title.length));
+                
+                var dates = {};
+                if (!_validateTodoDateFields(dates) && !dates.todoDate.date.isEmpty ) {
+                    return false;
+                }
+                _todoObj.start = dates.todoDate.dateTime;
+                
+                _todoObj.description = $.trim(dlg.todo.description.val());
+                
+            }
 			
 		} else {					// ------------- LOAD data -------------
 			
@@ -6769,6 +8426,11 @@ function EventEditor(calendar, uiBlocker) {
             //editor from
 			dlg.editor.from.css("color", "").css("border-color", "");
 			dlg.editor.from_t.css("color", "").css("border-color", "");
+
+			dlg.todo.date.css("color", "").css("border-color", "");
+			dlg.todo.time.css("color", "").css("border-color", "");
+			dlg.todo.date.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+			dlg.todo.time.val('00:00');
 		    
 			if (_eventObj.start instanceof Date) {
 				dlg.editor.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
@@ -6794,14 +8456,18 @@ function EventEditor(calendar, uiBlocker) {
 					dlg.editor.to_t.val("");
 				}
 			} else {
-				dlg.editor.to.val("");
-				dlg.editor.to_t.val("");
+			    if (_eventObj.allDay && _eventObj.start instanceof Date) {
+			        dlg.editor.to.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+			    } else {
+			        dlg.editor.to.val("");
+			        dlg.editor.to_t.val("");
+			    }
 			}
 		    
             //viewer from
 			dlg.viewer.from.text(dlg.editor.from.val());
 			
-			if (_eventObj.start instanceof Date && !_eventObj.allDay) {
+			if( (_eventObj.start instanceof Date && !_eventObj.allDay) || (_eventObj.start instanceof Date && _eventObj.allDay && _eventObj.isSegmEvent) ){
 				dlg.viewer.from_t.text(formatDate(_eventObj.start, calendar.options.axisFormat));
 			} else {
 				dlg.viewer.from_t.text("");
@@ -6810,14 +8476,15 @@ function EventEditor(calendar, uiBlocker) {
 		    //viewer to
 			dlg.viewer.to.text(dlg.editor.to.val());
 
-			if (_eventObj.end instanceof Date && !_eventObj.allDay) {
+			if ((_eventObj.end instanceof Date && !_eventObj.allDay) || (_eventObj.end instanceof Date && _eventObj.allDay && _eventObj.isSegmEvent)) {
 				dlg.viewer.to_t.text(formatDate(_eventObj.end, calendar.options.axisFormat));
 			} else {
 				dlg.viewer.to_t.text("");
 			}
 
 			var defaultSource = _getDefaultSource();
-			var calSource = sourceIsValid ? _eventObj.source : defaultSource;
+			var afretResizeSourceIsValid = fcUtil.objectIsValid(_eventObj.afretResizeSource);
+			var calSource = sourceIsValid ? _eventObj.source : afretResizeSourceIsValid ? _eventObj.afretResizeSource : defaultSource;
 
 			dlg.editor.repeat.text(function() {
 				if (!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.Never) && 
@@ -6861,7 +8528,7 @@ function EventEditor(calendar, uiBlocker) {
 			if (_canChangeSource) {
 				for (i = 0; i < sources.length; ++i) {
 					if ((sources[i].objectId != undefined) &&
-							(sources[i].isEditable || !sources[i].isSubscription)) {
+							(sources[i].isEditable || !sources[i].isSubscription) && sources[i].isTodo != 1) {
 						calT = htmlEscape(sources[i].title);
 						options += '<option value="' + htmlEscape(sources[i].objectId) + '" ' +
 								'title="' + calT + '">' +
@@ -6891,8 +8558,8 @@ function EventEditor(calendar, uiBlocker) {
 					dlg.editor.calendar.find("option:selected").text());
 
 			calColor = htmlEscape(calColor);
-			dlg.editor.calendar_b.css("color", calColor);
-			dlg.viewer.calendar_b.css("color", calColor);
+			dlg.editor.calendar_b.css("background", calColor);
+			dlg.viewer.calendar_b.css("background", calColor);
 
 			dlg.editor.status.val(_eventObj.status);
 			dlg.viewer.status.text(dlg.editor.status.find("option:selected").text());
@@ -6919,6 +8586,7 @@ function EventEditor(calendar, uiBlocker) {
 
 			_renderPermissions.call(_this);
 			_handleAllDayClick.call(_this);
+			changeTimeFrom = null;
 		}
 		return true;
 	}
@@ -6929,7 +8597,7 @@ function EventEditor(calendar, uiBlocker) {
 		var s1;
 		for (var i = 0; i < sources.length; ++i) {
 			if (fcUtil.objectIsValid(sources[i]) && (
-			    fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription)) {
+			    fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription) && sources[i].isTodo != 1) {
 				if (s1 == undefined) {s1 = sources[i];}
 				if (!sources[i].isHidden) {return sources[i];}
 			}
@@ -6939,7 +8607,7 @@ function EventEditor(calendar, uiBlocker) {
 
 	function _createEvent(startDate, endDate, allDay) {
 		var evt = {
-			title:           calendar.options.eventEditor.newEventTitle,
+			title:           "",
 			description:     "",
 			allDay:          allDay,
 			start:           startDate,
@@ -7041,7 +8709,11 @@ function EventEditor(calendar, uiBlocker) {
 			}
 		}
 	}
-
+	function _createTodo() {
+	    calendar.todolist.createTodo(_todoObj);
+	    _dialog.popupFrame("close");
+	    uiBlocker.hide();
+	}
 	function _updateEvent(isCancel) {
 		if (!_canEdit) {return;}
 		
@@ -7194,7 +8866,8 @@ function EventEditor(calendar, uiBlocker) {
 
     // Public interface
 
-	this.openEvent = function(elem, event) {
+    this.openEvent = function (elem, event) {
+        calendar.openEventWin = { objectId: event.objectId, isTodo: event.isTodo };
 	    if (ASC.CalendarController.Busy) {
 	        console.log("ASC.CalendarController.Busy");
 	        return false;
@@ -7202,7 +8875,7 @@ function EventEditor(calendar, uiBlocker) {
 
 	    ASC.CalendarController.CancelEditDialog();
 
-	    if (event && !isNaN(event.objectId) && event.uniqueId) {
+		if (event && !isNaN(event.objectId) && event.uniqueId && !event.isTodo) {
 	        Teamlab.getCalendarEventById({},
                 event.objectId,
                 {
@@ -7222,31 +8895,61 @@ function EventEditor(calendar, uiBlocker) {
                     },
                     max_request_attempts: 1
                 });
-	    } else {
+		} if (event.isTodo) {
+			calendar.todolist.openTodoEditor(event, elem);
+		} else {
 	        _open.call(_this, "view", elem, event);
 	    }
 	};
 
-	this.addEvent = function(startDate, endDate, allDay) {
+	this.addEvent = function(startDate, endDate, allDay , isAfterResize) {
 	    if (ASC.CalendarController.Busy) {
 	        console.log("ASC.CalendarController.Busy");
 	        return false;
 	    }
 
+	    calendar.openEventWin = { objectId: null, isTodo: false };
+	    
 	    ASC.CalendarController.CancelEditDialog();
 
 	    // Protect from addind event in nonexistent category
 		var defaultSource = _getDefaultSource();
 		if (defaultSource == undefined) return false;
 
+		_dialog.find(".buttonGroup span.active").removeClass('active');
+		_dialog.find(".buttonGroup span.event").addClass('active');
+	    _editMode = _editModes.event;
+
 		var ev;
 		if (startDate != undefined) {
-			// add event via clicking calendar cell
-			ev = _createEvent(startDate, endDate, allDay);
-			ev.textColor = defaultSource.textColor;
-			ev.backgroundColor = defaultSource.backgroundColor;
-			ev.borderColor = defaultSource.borderColor;
-			calendar.renderEvent(ev);
+		    ev = _createEvent(startDate, endDate, allDay);
+		    if (isAfterResize && _eventObj) {
+		        ev.alert = _eventObj.alert;
+		        ev.allDay = _eventObj.allDay;
+		        ev.location = _eventObj.location;
+		        ev.start = _eventObj.start;
+		        ev.end = _eventObj.end;
+		        ev.title = _eventObj.title; 
+		        
+		        var s = calendar.getEventSources();
+		        for (var i = 0; i < s.length; ++i) {
+		            if (_eventObj.newSourceId != undefined && _eventObj.newSourceId == s[i].objectId) {
+		                ev.afretResizeSource = s[i];
+		            }
+		        }
+
+		        ev.textColor = defaultSource.textColor;
+		        ev.backgroundColor = defaultSource.backgroundColor;
+		        ev.borderColor = defaultSource.borderColor;
+		    } else {
+		        // add event via clicking calendar cell
+		        
+		        ev.textColor = defaultSource.textColor;
+		        ev.backgroundColor = defaultSource.backgroundColor;
+		        ev.borderColor = defaultSource.borderColor;
+		    }
+			
+		    calendar.renderEvent(ev);
 			_open.call(_this, "addPopup", calendar.getView().getEventElement(ev), ev);
 		} else {
 			// add event via header menu
@@ -7262,11 +8965,20 @@ function EventEditor(calendar, uiBlocker) {
 		return _dialog.popupFrame("isVisible");
 	};
     
-	this.closePopupEvent = function() {
+	this.closePopupEvent = function (isResize) {
+	    if (isResize) {
+	        _doDDX.call(_this, true);
+	        calendar.openEventWin = { objectId: null, isTodo: false};
+	    }
 	    if (this.isVisible() && !_dialogMode) {
 	        _close.call(_this, false);
 	    }
 	};
+
+    this.getEventObj = function() {
+        return _eventObj;
+    };
+    
 }
 
 
@@ -7363,14 +9075,187 @@ function EventPage(calendar) {
                 }
                 _closeSettings.call(_this, hasSettings);
             }
+            var oldEventObj = Object.assign({}, _eventObj),
+                compareResult = {},
+                sentInvitations = _dialog.find(".editor .sent-invitations input").is(":checked"),
+                confirmViewMode = _getConfirmViewMode.call(_this);
+            
+            if (sentInvitations) {
+                if (oldEventObj.sourceId != undefined) { //it's not new event
+                    
+                    _doDDX.call(_this, true);
+                    var newEventObj = Object.assign({}, _eventObj);
+                    _eventObj = Object.assign({}, oldEventObj);
 
-            if (_getConfirmViewMode.call(_this)) {
-                _openConfirmPopup.call(_this);
+                    compareResult = deepEventsCompare(oldEventObj, newEventObj);
+
+                    if (!compareResult.isCompare) {
+                        if (compareResult.differentsList.length == 1 && compareResult.differentsList.indexOf("attendees") != -1) {
+                            if (confirmViewMode) {
+                                _openConfirmPopup.call(_this);
+                            }
+                        } else if (compareResult.differentsList.length >= 1) {
+                            if (confirmViewMode) {
+                                _sendGuestsNotification.call(_this, confirmSettings.notificationMode.everybody);
+                            } else {
+                                _close.call(_this, true);
+                            }
+                        }
+                    } else {
+                        _close.call(_this, true);
+                    }
+                } else {
+                    if (confirmViewMode) {
+                        _sendGuestsNotification.call(_this, confirmSettings.notificationMode.everybody);
+                    } else {
+                        _close.call(_this, true);
+                    }
+                }
             } else {
                 _close.call(_this, true);
             }
         });
-        
+       
+        function deepEventsCompare () {
+            var i, l, leftChain, rightChain;
+
+            var result = {
+                isCompare: true,
+                differentsList: []
+            };
+
+            function compare2Objects (x, y, notPush) {
+                var p;
+
+                if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
+                    return result;
+                }
+
+                if (x === y) {
+                    return result;
+                }
+
+                if ((typeof x === 'function' && typeof y === 'function') ||
+                   (x instanceof Date && y instanceof Date) ||
+                   (x instanceof RegExp && y instanceof RegExp) ||
+                   (x instanceof String && y instanceof String) ||
+                   (x instanceof Number && y instanceof Number)) {
+                    return x.toString() === y.toString();
+                }
+
+                if (!(x instanceof Object && y instanceof Object)) {
+                    result.isCompare = false;
+                    return result;
+                }
+
+                if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
+                    result.isCompare = false;
+                    return result;
+                }
+
+                if (x.constructor !== y.constructor) {
+                    result.isCompare = false;
+                    return result;
+                }
+
+                if (x.prototype !== y.prototype) {
+                    result.isCompare = false;
+                    return result;
+                }
+
+                if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
+                    result.isCompare = false;
+                    return result;
+                }
+                
+
+                for (p in y) {
+                    if (y.hasOwnProperty(p) !== x.hasOwnProperty(p) && (p != "newSourceId" && p != "newTimeZone")) {
+                        result.isCompare = false;
+                        if(!notPush) result.differentsList.push(p);
+                    }
+                    else if (typeof y[p] !== typeof x[p] && (p != "newSourceId" && p != "newTimeZone")) {
+                        result.isCompare = false;
+                        if(!notPush) result.differentsList.push(p);
+                    }
+                }
+
+                for (p in x) {
+                    if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                        result.isCompare = false;
+                        if(!notPush) result.differentsList.push(p);
+                    }
+                    else if (typeof y[p] !== typeof x[p]) {
+                        result.isCompare = false;
+                        if(!notPush) result.differentsList.push(p);
+                    }
+                    if (x[p] == null && y[p] != null) {
+                        result.differentsList.push(p);
+                    } else {
+                        switch (typeof (x[p])) {
+                            case 'object':
+                            case 'function':
+
+                                leftChain.push(x);
+                                rightChain.push(y);
+
+                                if (p == "attendees") {
+                                    var t = Object.assign({}, result);
+                                    result = { isCompare: true, differentsList: [] };
+                                    var tmpResult = compare2Objects(x[p], y[p], true);
+                                
+                                    if (!tmpResult.isCompare) {
+                                        result.isCompare = false;
+                                        result.differentsList.push(p);
+                                    }
+                                    result.isCompare = !result.isCompare ? result.isCompare : t.isCompare;
+                                    result.differentsList = result.differentsList.concat(t.differentsList);
+                                    tmpResult = t = null;
+
+                                }else if (!compare2Objects (x[p], y[p])) {
+                                    result.isCompare = false;
+                                    if(!notPush) result.differentsList.push(p);
+                                }
+
+                                leftChain.pop();
+                                rightChain.pop();
+                                break;
+
+                            default:
+                                if (p == "sourceId") {
+                                    if(x[p] !== y["sourceId"] || x[p] !== y["newSourceId"]){
+                                        result.isCompare = false;
+                                        if(!notPush) result.differentsList.push(p);
+                                    }
+                                }else if (x[p] !== y[p]) {
+                                    result.isCompare = false;
+                                    if(!notPush) result.differentsList.push(p);
+                                }
+                                break;
+                        }
+                    }
+                    
+                }
+               
+                return result;
+            }
+
+            if (arguments.length < 1) {
+                return result; 
+            }
+
+            for (i = 1, l = arguments.length; i < l; i++) {
+
+                leftChain = [];
+                rightChain = [];
+
+                compare2Objects(arguments[0], arguments[i]);
+
+            }
+
+            return result;
+        }
+       
         _dialog.find(".event-header .header-back-link, .buttons .cancel-btn, .buttons .close-btn").click(function() {
             _close.call(_this, false);
         });
@@ -7471,7 +9356,7 @@ function EventPage(calendar) {
 					});
         });
 
-        _dialog.find(".editor .from-to .from-time, .editor .from-to .to-time").mask("99:99");
+        _dialog.find(".editor .from-to .from-time, .editor .from-to .to-time").mask("00:00");
         
         _dialog.find(".editor .from-to .from-date, .editor .from-to .from-time, .editor .from-to .to-date, .editor .from-to .to-time")
             .bind("keyup change", _validateDateFields);
@@ -7480,8 +9365,8 @@ function EventPage(calendar) {
             var v = $(this).val();
             var s = calendar.getEventSources();
             for (var i = 0; i < s.length; ++i) {
-                if (s[i].objectId != v) {continue;}
-                _dialog.find(".editor .calendar .bullet").css("color", s[i].backgroundColor);
+                if (s[i].objectId != v || s[i].isTodo == 1) { continue; }
+                _dialog.find(".editor .calendar .bullet").css("background", s[i].backgroundColor);
                 
                 if (s[i].isSubscription) {
                     _dialog.find(".editor .attendees").hide();
@@ -7701,7 +9586,7 @@ function EventPage(calendar) {
             var v = $(this).val();
             var s = calendar.getEventSources();
             for (var i = 0; i < s.length; ++i) {
-                if (s[i].objectId != v) {continue;}
+                if (s[i].objectId != v || s[i].isTodo == 1) { continue; }
                 _settings.find(".calendar .bullet").css("color", s[i].backgroundColor);
                 return;
             }
@@ -7790,6 +9675,9 @@ function EventPage(calendar) {
             _sendGuestsNotification.call(_this, confirmSettings.notificationMode.nobody);
         });
         
+        _confirmPopup.find(".header .close-btn").click(function() {
+            _closeConfirmPopup.call(_this, false);
+        });
 
         
     }());
@@ -8567,6 +10455,7 @@ function EventPage(calendar) {
                 _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogUpdateEventHeader);
                 _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogUpdateGuestsBody);
                 _confirmPopup.find(".send-btn").hide();
+                _confirmPopup.find(".dont-send-btn").hide();
                 _confirmPopup.find(".send-customs-btn, .send-everyone-btn").show();
                 break;
             case confirmSettings.viewMode.deleteEvent:
@@ -8740,6 +10629,8 @@ function EventPage(calendar) {
         return r;
     }
 
+    var changeTimeFrom = null;
+    
     function _validateDateFields(result) {
         var allday = _dialog.find(".editor .all-day input").is(":checked");
         var dlg = {
@@ -8770,6 +10661,50 @@ function EventPage(calendar) {
         dlg.from_t.css("color", "").css("border-color", frtc);
         dlg.to.css("color", "").css("border-color", toc);
         dlg.to_t.css("color", "").css("border-color", totc);
+
+        if ($(this).hasClass('from-time') || $(this).hasClass('from-date')) {
+
+            var oldTime = new Date(Date.parse(_eventObj._start ? _eventObj._start : _eventObj.start));
+            var newTime = new Date(Date.parse(frDate.dateTime));
+            
+            if (changeTimeFrom != null) {
+                oldTime = changeTimeFrom;
+            }
+            
+            var diff = newTime.getTime() - oldTime.getTime();
+            if (diff != NaN && diff != 0) {
+
+                var date = new Date();
+                date.setTime(Date.parse(toDate.dateTime) + diff);
+
+                if (date != 'Invalid Date') {
+                    toDate.dateTime.setTime(Date.parse(toDate.dateTime) + diff);
+
+                    changeTimeFrom = newTime;
+
+                    if ($(this).hasClass('from-time')) {
+                        var time =
+                            (toDate.dateTime.getHours() < 10 ? '0' + toDate.dateTime.getHours() : toDate.dateTime.getHours())
+                            + ":" +
+                            (toDate.dateTime.getMinutes() < 10 ? '0' + toDate.dateTime.getMinutes() : toDate.dateTime.getMinutes());
+
+                        toDate.time.value = time;
+                        $('input.to-time').val(time);
+                        
+                    } else if ($(this).hasClass('from-date')) {
+                        
+                        var newDate = date.getFullYear() + '-'
+                           + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
+                           + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+                       
+                        toDate.date.value = newDate;
+                        $('input.to-date')[0].value = newDate;
+                    }
+                    _validateDateFields.call(_this);
+                }
+            }
+        }
+
         if (result != undefined) {
             result.fromDate = frDate;
             result.toDate   = toDate;
@@ -8847,7 +10782,7 @@ function EventPage(calendar) {
             dlg.from_t.val("").attr("disabled", "disabled");
             dlg.to_t.val("").attr("disabled", "disabled");
         } else {
-            var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours() + 1, _eventObj.start.getMinutes())
+            var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours(), _eventObj.start.getMinutes() + 30);
 			
             if(!dlg.from.val())
                 dlg.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
@@ -8855,6 +10790,9 @@ function EventPage(calendar) {
             dlg.from_t
 					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
 					.removeAttr("disabled");
+            if (_eventObj.end == _eventObj.start) {
+                _eventObj.end = new Date(_eventObj.end.getFullYear(), _eventObj.end.getMonth(), _eventObj.end.getDate(), _eventObj.end.getHours(), _eventObj.end.getMinutes() + 30);
+            }
             dlg.to_t
 					.val(_eventObj.end instanceof Date ?
 							formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
@@ -8958,7 +10896,9 @@ function EventPage(calendar) {
                 calendar_b:  _dialog.find(".editor .calendar .bullet"),
                 users:       _dialog.find(".editor .addUserLink"),
                 usersList:   _dialog.find(".editor .shared-user-list"),
-                description: _dialog.find(".editor .description textarea")
+                description: _dialog.find(".editor .description textarea"),
+                
+                sent_invitations: _dialog.find(".editor .sent-invitations input")
             },
             infoText:    _dialog.find(".info-text")
         };
@@ -9097,6 +11037,8 @@ function EventPage(calendar) {
         dlg.editor.title.css("color", "").css("border-color", "");
         dlg.editor.title.val(_eventObj.title || "");
         dlg.viewer.title.text(_eventObj.title || "");
+
+        dlg.editor.sent_invitations.prop("checked", true);
 
         if (_eventObj.status == 2) {
             dlg.infoText.show();
@@ -9371,7 +11313,8 @@ function EventPage(calendar) {
             for (var i = 0; i < sources.length; ++i) {
                 if(!isNewEvent && sources[i].isSubscription)
                     continue;
-                
+                if (sources[i].isTodo == 1) continue;
+
                 if ((sources[i].objectId != undefined) && (sources[i].isEditable || !sources[i].isSubscription)) {
                     calT = htmlEscape(sources[i].title);
                     options += '<option value="' + htmlEscape(sources[i].objectId) + '" ' +
@@ -9400,8 +11343,8 @@ function EventPage(calendar) {
         dlg.viewer.calendar.text(sourceIsValid ?_eventObj.source.title : dlg.editor.calendar.find("option:selected").text());
 
         calColor = htmlEscape(calColor);
-        dlg.editor.calendar_b.css("color", calColor);
-        dlg.viewer.calendar_b.css("color", calColor);
+        dlg.editor.calendar_b.css("background", calColor);
+        dlg.viewer.calendar_b.css("background", calColor);
 
         dlg.editor.description.val(_eventObj.description || "");
         dlg.viewer.description.text(_eventObj.description || "");
@@ -9424,7 +11367,7 @@ function EventPage(calendar) {
         var validSources = [];
 
         for (var i = 0; i < sources.length; ++i) {
-            if (fcUtil.objectIsValid(sources[i]) && (fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription)) {
+            if (fcUtil.objectIsValid(sources[i]) && (fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription) && sources[i].isTodo != 1) {
                 validSources.push(sources[i]);
             }
         }
@@ -9443,6 +11386,7 @@ function EventPage(calendar) {
     }
 
     function _createEvent(startDate, endDate, allDay) {
+        changeTimeFrom = null;
         var evt = {
             title:           calendar.options.eventEditor.newEventTitle,
             description:     "",
@@ -9619,7 +11563,8 @@ function EventPage(calendar) {
 
     // Public interface
 
-    this.openEvent = function(canEdit, elem, event) {
+    this.openEvent = function (canEdit, elem, event) {
+        changeTimeFrom = null;
         _open.call(_this, canEdit ? "edit" : "view", elem, event);
     };
 
@@ -9667,6 +11612,10 @@ function EventManager(options, _sources) {
 	var t = this;
 
 
+	if (localStorageManager.getItem("showTodosInCalendar") == undefined) {
+	    localStorageManager.setItem("showTodosInCalendar", true);
+	}
+
 	// exports
 	t.isFetchNeeded = isFetchNeeded;
 	t.fetchEvents = fetchEvents;
@@ -9674,11 +11623,15 @@ function EventManager(options, _sources) {
 	t.addEventSource = addEventSource;
 	t.removeEventSource = removeEventSource;
 	t.getEventSources = getEventSources;
+	t.cleanEmptyEventSources = cleanEmptyEventSources;
 	t.updateEvent = updateEvent;
 	t.renderEvent = renderEvent;
 	t.removeEvents = removeEvents;
 	t.clientEvents = clientEvents;
 	t.normalizeEvent = normalizeEvent;
+    t.getCache = getCache;
+    t.showTodosInCalendar = localStorageManager.getItem("showTodosInCalendar");
+    t.hideCompletedTodos = localStorageManager.getItem("hideCompletedTodos");
 
 
 	// imports
@@ -9688,7 +11641,7 @@ function EventManager(options, _sources) {
 
 
 	// locals
-	var stickySource = {events: []};
+	var stickySource = { events: [], todos: [] };
 	var sources = [ stickySource ];
 	var rangeStart, rangeEnd;
 	var currentFetchID = 0;
@@ -9706,7 +11659,7 @@ function EventManager(options, _sources) {
 		return !rangeStart || start < rangeStart || end > rangeEnd;
 	}
 
-	function fetchEvents(start, end) {
+	function fetchEvents(start, end, resolve) {
 		rangeStart = function(d) {
 			var d1 = cloneDate(d, true);
 			if (d1.getDate() != 1) {d1.setDate(1);}
@@ -9734,7 +11687,7 @@ function EventManager(options, _sources) {
 				for (i = 0; i < len; ++i) {
 					fetchEventSource(sources[i], fetchID);
 				}
-				t.rerenderCategories();
+				t.rerenderCategories(resolve);
 			}
 		});
 	}
@@ -9743,11 +11696,25 @@ function EventManager(options, _sources) {
 		_fetchEventSource(source, function(response) {
 			if (fetchID == currentFetchID) {
 				if (response.events) {
-					for (var i=0; i<response.events.length; i++) {
-						response.events[i].source = source;
-						normalizeEvent(response.events[i]);
-					}
-					cache = cache.concat(response.events);
+				    for (var i = 0; i < response.events.length; i++) {
+				        response.events[i].source = source;
+				        response.events[i].false = true;
+				        normalizeEvent(response.events[i]);
+				    }
+				    cache = cache.concat(response.events);
+				}
+				if (response.todos && t.showTodosInCalendar) {
+				    var todos = [];
+				    for (var j = 0; j < response.todos.length; j++) {
+				        if (!t.hideCompletedTodos || (t.hideCompletedTodos && response.todos[j].completed == false)) {
+				            response.todos[j].source = source;
+				            response.todos[j].isTodo = true;
+				            todos.push(response.todos[j]);
+				            normalizeEvent(todos[todos.length-1]);
+				        } 
+				    }
+				    if (source.objectId != undefined) cache = cache.concat(todos);
+
 				}
 				pendingSourceCnt--;
 				if (!pendingSourceCnt) {
@@ -9774,19 +11741,21 @@ function EventManager(options, _sources) {
 			}
 		}
 		var events = source.events;
+		var todos = source.todos;
+		
 		if (events) {
 			if ($.isFunction(events)) {
 				pushLoading();
 				events(cloneDate(rangeStart), cloneDate(rangeEnd), function(events) {
-					callback({result:true,events:events});
+				    callback({ result: true, events: events, todos: todos });
 					popLoading();
 				});
 			}
 			else if ($.isArray(events)) {
-				callback({result:true,events:events});
+				callback({result:true,events:events, todos: todos});
 			}
 			else {
-				callback({result:false,events:[]});
+			    callback({ result: false, events: [], todos: [] });
 			}
 		}
 		else {
@@ -9869,8 +11838,18 @@ function EventManager(options, _sources) {
 		t.rerenderCategories();
 	}
 
+	function getCache() {
+	    return cache;
+	}
 	function getEventSources() {
 		return sources;
+	}
+	function cleanEmptyEventSources() {
+	    for (var i = 0; i < sources.length; i++) {
+	        if (sources[i].isTodo != 1) {
+	            sources[i].todos = [];
+	        }
+	    }
 	}
 
 
@@ -10024,7 +12003,12 @@ function EventManager(options, _sources) {
 		}
 		event._end = event.end ? cloneDate(event.end) : null;
 		if (event.allDay === undefined) {
-			event.allDay = firstDefined(source.allDayDefault, options.allDayDefault);
+		    if (event.isTodo) {
+		        event.allDay = true;
+		    } else {
+		        event.allDay = firstDefined(source.allDayDefault, options.allDayDefault);
+		    }
+			
 		}
 		if (event.className) {
 			if (typeof event.className == 'string') {
@@ -10764,9 +12748,9 @@ function getSkinCss(event, opt, curView) {
 		opt('eventBackgroundColor') ||
 		optionColor);
 	var borderColor = isShort ? 'transparent' : (
-		event.borderColor ||
+		event.backgroundColor ||
 		eventColor ||
-		source.borderColor ||
+		source.backgroundColor ||
 		sourceColor ||
 		opt('eventBorderColor') ||
 		optionColor);
@@ -12066,6 +14050,7 @@ function AgendaView(element, calendar, viewName) {
 	t.getDayList = function() {return dayList;};
 	t.resetScroll = resetScroll;
     t.getCellBounds = getCellBounds;
+    t.updateHeader = updateHeader;
 
 
 	// imports
@@ -12156,6 +14141,11 @@ function AgendaView(element, calendar, viewName) {
 		updateCells();
 	}
 
+    function updateHeader() {
+        updateOptions();
+        updateCells();
+    }
+
 	function updateOptions() {
 		tm = opt('theme') ? 'ui' : 'fc';
 		nwe = opt('weekends') ? 0 : 1;
@@ -12171,8 +14161,19 @@ function AgendaView(element, calendar, viewName) {
 		minMinute = parseTime(opt('minTime'));
 		maxMinute = parseTime(opt('maxTime'));
 		colFormat = opt('columnFormat');
-		if (colFormat.indexOf("dddd") < 0 && colFormat.indexOf("ddd") < 0) {
-			colFormat = "dddd, " + colFormat;
+
+		if (t.name == 'agendaWeek') {
+		    if (window.innerWidth < 1270) {
+		        colFormat = colFormat.replace("dddd", "ddd");
+		    } else {
+		        if (colFormat.indexOf("dddd") < 0 && colFormat.indexOf("ddd") < 0) {
+		            colFormat = "dddd, " + colFormat;
+		        }
+		    }
+		} else {
+		    if (colFormat.indexOf("dddd") < 0 && colFormat.indexOf("ddd") < 0) {
+		        colFormat = "dddd, " + colFormat;
+		    }
 		}
 		if (colCnt < 2) {
 			colFormat = "'<div class=\"center\">'" + colFormat + "'</div>'";
@@ -12341,9 +14342,10 @@ function AgendaView(element, calendar, viewName) {
 	}
 
 	function createTimeMarker(col) {
-		if (!marker || marker.length < 1) {
+	    if (!marker || marker.length < 1) {
 			marker = $(
 					"<div class='fc-time-marker'>" +
+					    "<span class='title'/>" +
 						"<div class='left-side'/>" +
 						"<div class='center-line'/>" +
 						"<div class='right-side'/>" +
@@ -12364,7 +14366,9 @@ function AgendaView(element, calendar, viewName) {
 
 				var localDate = new Date();
 				var utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-				var tenantDate = new Date(utcDate.getTime() + ASC.Resources.Master.TimezoneOffsetMinutes * 60000);
+				var tenantDate = new Date(utcDate.getTime() + ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset * 60000);
+
+				var time = localDate.getHours() + ":" + (localDate.getMinutes() < 10 ? "0" + localDate.getMinutes() : localDate.getMinutes());
 
 				var top = timePosition(tenantDate, tenantDate);
 				var left = colContentLeft(0) - padding;
@@ -12374,6 +14378,7 @@ function AgendaView(element, calendar, viewName) {
 				marker.css("left", (left - l) + "px");
 				marker.css("top", Math.round(top - 0.5 * h) + "px");
 				marker.find(".center-line").css("width", width + "px");
+				marker.find(".title")[0].innerText = time;
 				marker.css("visibility", "visible");
 				markerId = setTimeout(updateTimeMarker, 1000 * 60);
 			} else {
@@ -12394,7 +14399,7 @@ function AgendaView(element, calendar, viewName) {
 		for (i=0; i<colCnt; i++) {
 			date = colDate(i);
 			headCell = dayHeadCells.eq(i);
-			headCell.html(formatDate(date, colFormat));
+		    headCell.html((date.getFullYear() == today.getFullYear()) && colFormat.indexOf("yyyy") != -1? formatDate(date, colFormat.substring(0, colFormat.indexOf("yyyy"))) : formatDate(date, colFormat));
 			(function(d, hc) {
 				var num = hc.find(".number");
 				if (num.length > 0) {
@@ -12996,6 +15001,39 @@ function AgendaEventRenderer() {
 			}
 		}
 		if (opt('allDaySlot')) {
+		    var compileSlotSeg = compileSlotSegs(slotEvents);
+		    if (t.name == "agendaDay") {
+		        if (compileSlotSeg.length > 0) {
+		            for (var j = 0; j < compileSlotSeg.length; j++) {
+		                var startSegm = new Date(compileSlotSeg[j].start);
+		                startSegm.setDate(startSegm.getDate() + 1);
+		                if(startSegm.getTime() == cloneDate(compileSlotSeg[j].end, true).getTime()){
+		                    var _clone = {};
+		                    Object.assign(_clone, compileSlotSeg[j].event);
+		                    _clone._start = _clone.start = compileSlotSeg[j].event.start;
+		                    _clone._end = _clone.end = compileSlotSeg[j].event.end;
+		                    _clone.isEditable = false;
+		                    _clone.isSegmEvent = true;
+		                    dayEvents.push(_clone);
+		                }
+		            }
+		        }
+		    }else if (t.name == "agendaWeek") {
+		        if (compileSlotSeg.length > 0) {
+		            for (var j = 0; j < compileSlotSeg.length; j++) {
+		                var startSegm = new Date(compileSlotSeg[j].start);
+		                startSegm.setDate(startSegm.getDate() + 1);
+		                if(startSegm.getTime() == cloneDate(compileSlotSeg[j].end, true).getTime()){
+		                    var _clone = {};
+		                    Object.assign(_clone, compileSlotSeg[j].event);
+		                    _clone._start = _clone.start = compileSlotSeg[j].event.start;
+		                    _clone._end = _clone.end = compileSlotSeg[j].event.end;
+		                    compileSlotSeg[j].event.isSegmEventWeek = true;
+		                    if (dayEvents.find(function (x) { return x.objectId === _clone.objectId;}) == undefined) dayEvents.push(_clone);
+		                }
+		            }
+		        }
+		    }
 			renderDaySegs(compileDaySegs(dayEvents), modifiedEventId);
 			setHeight(); // no params means set to viewHeight
 		}
@@ -13151,7 +15189,22 @@ function AgendaEventRenderer() {
 			seg.left = left;
 			seg.outerWidth = outerWidth;
 			seg.outerHeight = bottom - top;
-			html += slotSegHtml(event, seg);
+			var slotHtml = slotSegHtml(event, seg);
+			var slot = $(slotHtml);
+			if (t.name == "agendaDay") {
+			    var segStart = new Date(seg.start);
+			    segStart.setDate(segStart.getDate() + 1);
+			    if(segStart.getTime() == cloneDate(seg.end, true).getTime()) {
+			        slot.addClass('hidden');
+			        slotHtml = $('<div>').append(slot.clone()).html();
+			    }
+			}else if (t.name == "agendaWeek") {
+			    if (seg.event.isSegmEventWeek) {
+			        slot.addClass('hidden');
+			        slotHtml = $('<div>').append(slot.clone()).html();
+			    }
+			}
+		    html += slotHtml;
 		}
 		slotSegmentContainer[0].innerHTML = html; // faster than html()
 		eventElements = slotSegmentContainer.children();
@@ -13234,9 +15287,8 @@ function AgendaEventRenderer() {
 				eventElement[0].style.height = height + 'px';
 				// set height of event-content
 				contentElement = eventElement.find('.fc-event-content');
-				cheight = height -
-						eventElement.find(".fc-event-head").outerHeight(true) -
-						eventElement.find(".ui-resizable-s").outerHeight(true);
+			    cheight = height -
+			        eventElement.find(".fc-event-head").outerHeight(true);
 				contentElement.css("height", cheight + "px");
 				// activate tooltip for event-content
 				titleElement = eventElement.find(".fc-event-title");
@@ -13671,9 +15723,9 @@ function BasicListView(element, calendar, viewName) {
 			end = segs[i].end != undefined ? cloneDate(segs[i].end, true) : cloneDate(start);
 
 			eventTitle =
-					typeof event.title == "string" ? event.title.replace(/(.+)\.?\s*$/i, "$1.") : "";
+					typeof event.title == "string" ? event.title.replace(/(.+)\.?\s*$/i, "$1") : "";
 			eventNote =
-					typeof event.description == "string" ? event.description.replace(/(.+)\.?\s*$/i, "$1.") : "";
+					typeof event.description == "string" ? event.description.replace(/(.+)\.?\s*$/i, "$1") : "";
 			eventRow =
 					'<tr class="event-row" id="event_' + event._id + '">' +
 						'<td class="time first">' +
@@ -13687,14 +15739,45 @@ function BasicListView(element, calendar, viewName) {
 									';">' +
 								htmlEscape(calendar.options.categories.itemBullet) + '&nbsp;</span>' + '</td>' +
 						'<td class="title last' + (event.status == 2 ? " fc-event-cancelled" : "") +'">' +
-							'<span class="title">' + htmlEscape(eventTitle) + '</span>' +
+							'<span class="title '+((event.isTodo == true && event.completed == true) ? 'completed':'')+'">' + htmlEscape(eventTitle) + '</span>' +
 							(eventNote && eventNote.length > 0 ?
 									('<span class="note">' + htmlEscape(eventNote) + '</span>') : '') + '</td>' +
 					'</tr>';
 
-			for (; start < end; addDays(start, +1)) {
+			var oneDay = 86400000;
+			var startTime = start.getTime();
+		    var startEventDay = !event.allDay && event.start != null ? new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate()) : null,
+                        endEventDay = !event.allDay && event.end != null ? new Date(event.end.getFullYear(), event.end.getMonth(), event.end.getDate()) : null;
+
+            for (; start < end; addDays(start, +1)) {
+
+                var newEventRow = null;
+                if (!event.allDay && startEventDay != null && endEventDay != null) {
+
+                    var $eventRow = $(eventRow),
+                        spanTime = $eventRow[0].firstChild.firstChild;
+
+                    var startDiff = startTime - startEventDay.getTime(),
+                        endDiff = endEventDay.getTime() - startTime;
+
+                    if (startDiff == 0 && endDiff == 0) {
+                        spanTime.innerHTML = formatDate(event.start, timeFormat) + "<span class='dash'></span>" + formatDate(event.end, timeFormat);    //one day
+                        
+                    } else if (startDiff == 0 && endDiff != 0) {
+                        spanTime.innerHTML = formatDate(event.start, timeFormat) + "<span class='dash'></span><span>...</span>";                        //first day of N
+                        
+                    } else if (startDiff != 0 && endDiff == 0) {
+                        spanTime.innerHTML = "<span>...</span><span class='dash'></span>" + formatDate(event.end, timeFormat);                          //last day
+
+                    } else if (startDiff != 0 && endDiff != 0) {
+                        spanTime.innerHTML = calendar.options.allDayText;
+                    }
+                    newEventRow = $eventRow[0].outerHTML;
+                    startTime += oneDay;
+		        }
+
 				monthTitle = formatDate(start, monthFormat);
-				dayTitle = formatDate(start, dayFormat);
+				dayTitle = start.getFullYear() == now.getFullYear() && dayFormat.indexOf("yyyy") != -1 ? formatDate(start, dayFormat.substring(0, dayFormat.indexOf("yyyy"))) : formatDate(start, dayFormat);
 				mt = "_" + encodeURIComponent(monthTitle).replace(/[^a-z0-9_]/gi, "_");
 				dt = "_" + encodeURIComponent(dayTitle).replace(/[^a-z0-9_]/gi, "_");
 
@@ -13707,14 +15790,14 @@ function BasicListView(element, calendar, viewName) {
 				if (list[mt][dt] === undefined) {
 					list[mt][dt] =
 							{
-								title: '<tr><th colspan="3">' + htmlEscape(dayTitle) + '</th></tr>',
+							    title: '<tr><th colspan="3"><span>' + htmlEscape(dayTitle.split(',')[0]) + '</span><span>' + htmlEscape(dayTitle.split(',')[1]) + '</span></th></tr>',
 								today: now.getDate() == start.getDate() &&
 											 now.getMonth() == start.getMonth() &&
 											 now.getFullYear() == start.getFullYear(),
 								events: []
 							};
 				}
-				list[mt][dt].events.push(eventRow);
+				list[mt][dt].events.push(newEventRow!=null ? newEventRow : eventRow); 
 			}
 		}
 
@@ -13735,18 +15818,18 @@ function BasicListView(element, calendar, viewName) {
 				html += '<table class="fc-lv-events' +
 						(first ? (first = false, ' first') : '') +
 						(list[i][j].today ? ' today' : '') +
-						'" border="0" cellspacing="0" cellpadding="0"><tbody>' + list[i][j].title;
-				// iterate through events
+						'" border="0" cellspacing="0" cellpadding="0"><tbody><td style="width: 25%"><table><tbody>' + list[i][j].title + '</tbody></table></td><td style="width: 75%"><table style="width: 100%"><tbody>';
+			    // iterate through events
 				for (k = 0; k < list[i][j].events.length; ++k) {
 					html += list[i][j].events[k];
 				}
-				html += '</tbody></table>';
+				html += '</tbody></table></td></tbody></table>';
 			}
 		}
 
 		if (html.length > 0) {
-			var w = _eventsList[0].clientWidth - 6/* padding in .fc-lv-scroller */;
-			_eventsList.html('<div style="width:' + w + 'px;">' + html + '</div>');
+		    var w = _eventsList[0].clientWidth - 6/* padding in .fc-lv-scroller */;
+			_eventsList.html('<div">' + html + '</div>');
 			_eventsList.find("table.fc-lv-events").find("tr:last").addClass("last");
 			_eventsList.find("tr.event-row").click(function(ev){
 				var tr = $(this);
@@ -14254,23 +16337,30 @@ function View(element, calendar, viewName) {
 	function eventDrop(e, event, dayDelta, minuteDelta, allDay, ev, ui) {
 		var oldAllDay = event.allDay;
 		var eventId = event._id;
-		moveEvents(eventsByID[eventId], dayDelta, minuteDelta, allDay);
-		trigger(
-			'eventDrop',
-			e,
-			event,
-			dayDelta,
-			minuteDelta,
-			allDay,
-			function() {
-				// TODO: investigate cases where this inverse technique might not work
-				moveEvents(eventsByID[eventId], -dayDelta, -minuteDelta, oldAllDay);
-				reportEventChange(eventId, event);
-			},
-			ev,
-			ui
-		);
-		reportEventChange(eventId, event);
+		
+		if (!event.isTodo) {
+		    moveEvents(eventsByID[eventId], dayDelta, minuteDelta, allDay);
+		    trigger(
+		        'eventDrop',
+		        e,
+		        event,
+		        dayDelta,
+		        minuteDelta,
+		        allDay,
+		        function() {
+		            // TODO: investigate cases where this inverse technique might not work
+		            moveEvents(eventsByID[eventId], -dayDelta, -minuteDelta, oldAllDay);
+		            reportEventChange(eventId, event);
+		        },
+		        ev,
+		        ui
+		    );
+		    reportEventChange(eventId, event);
+		} else {
+		    moveEvents(eventsByID[eventId], dayDelta, minuteDelta, allDay);
+		    calendar.todolist.updateTodo(event);
+
+		}
 	}
 
 
@@ -14310,6 +16400,8 @@ function View(element, calendar, viewName) {
 			addMinutes(addDays(e.start, dayDelta, true), minuteDelta);
 			if (e.end) {
 				e.end = addMinutes(addDays(e.end, dayDelta, true), minuteDelta);
+			}else if (!allDay) {
+			    e.end =  new Date(e.start.getFullYear(), e.start.getMonth(), e.start.getDate(), e.start.getHours(), e.start.getMinutes() + 30);
 			}
 			normalizeEvent(e, options);
 		}
@@ -14518,10 +16610,16 @@ function DayEventRenderer() {
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
 			event = seg.event;
+		    
+			var isOpened = false;
+			if (t.calendar.openEventWin) {
+			    if (event.objectId == t.calendar.openEventWin.objectId) {
+			        isOpened = true;
+			    }
+		    }
+			
 			classes = [
-					'fc-event',
-					event.allDay ? 'fc-event-skin-day' : 'fc-event-skin',
-					'fc-event-hori'];
+					'fc-event', event.allDay ? 'fc-event-skin-day' : 'fc-event-skin', event.isTodo && event.completed ? 'fc-todo-completed' : ' ', isOpened ? event.isTodo ? 'fc-todo-open' : 'fc-event-open' : '', 'fc-event-hori'];
 			if (isEventDraggable(event)) {
 				classes.push('fc-event-draggable');
 			}
@@ -14564,7 +16662,7 @@ function DayEventRenderer() {
 			
 			html +=
 				" class='" + classes.join(' ') + "'" +
-				" style='position:absolute;z-index:8;left:"+left+"px;" + skinCss + "'" +
+				" style='position:absolute;z-index:7;left:"+left+"px;" + skinCss + "'" +
 				">" +
 				"<div" + (event.allDay ?
 					" class='fc-event-inner fc-event-skin-day'" :
@@ -14589,7 +16687,7 @@ function DayEventRenderer() {
 				"<div class='fc-event-title" + (event.status == 2 ? " fc-event-cancelled" : "") +"'>" + htmlEscape(event.title) + "</div>" +
 				"</div>";
 			if (seg.isEnd && isEventResizable(event) && event.allDay) {
-				html +=
+			    html +=  event.isTodo == true ? "" :
 					"<div class='ui-resizable-handle ui-resizable-" + (rtl ? 'w' : 'e') + "'>" +
 					"&nbsp;&nbsp;&nbsp;" + // makes hit area a lot better for IE6/7
 					"</div>";
@@ -14706,7 +16804,19 @@ function DayEventRenderer() {
 			seg = segs[i];
 			element = seg.element;
 			if (element) {
-				element[0].style.width = Math.max(0, seg.outerWidth - seg.hsides) + 'px';
+			    if (seg.isStart == false && seg.isEnd == true) {
+			        element[0].classList.add('fc-segm-right');
+			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px';
+			    }else if (seg.isStart == true && seg.isEnd == false) {
+			        element[0].classList.add('fc-segm-left');
+			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px';
+			    }else if (seg.isStart == false && seg.isEnd == false) {
+			        element[0].classList.add('fc-segm-right');
+			        element[0].classList.add('fc-segm-left');
+			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 20) + 'px';
+			    } else {
+			        element[0].style.width = Math.max(0, seg.outerWidth - seg.hsides) + 'px';
+			    }
 			}
 		}
 	}

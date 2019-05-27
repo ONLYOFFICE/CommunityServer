@@ -178,12 +178,15 @@ ASC.Projects.GantChartPage = (function () {
         });
     };
     var initProjectsFilter = function () {
+        setProjectsFilterFromStorage();
+
         if (null === filterControl) {
             filterControl = jq("#gantt-filter-projects");
             if (filterControl) {
                 jq("#gantt-filter-projects").projectadvancedSelector({
                     itemsChoose: sortedProjectsForFilter,
-                    inPopup: true
+                    inPopup: true,
+                    itemsSelectedIds: currentFilteredProjectsIds
                 });
 
                 jq("#gantt-filter-projects").on("showList", getProjectsDataByFilter);
@@ -191,8 +194,6 @@ ASC.Projects.GantChartPage = (function () {
         } else {
             jq("#gantt-filter-projects").projectadvancedSelector("reset");
         }
-
-        setProjectsFilterFromStorage();
     };
 
     var saveCheckedProjectToStorage = function () {
@@ -278,7 +279,6 @@ ASC.Projects.GantChartPage = (function () {
         }
 
         if (prjCount > 0) {
-            jq("#gantt-filter-projects").projectadvancedSelector("select", currentFilteredProjectsIds);
             getProjectData(listProjectsOnReceive.shift());
 
             if (haveEditProjects) {
@@ -1448,10 +1448,6 @@ ASC.Projects.GantChartPage = (function () {
             respName = project.responsible;
         }
 
-        // NOTE: проект может редактировать админ портала, админ проекта, обычный пользователь пока только просматривать проекты
-        //       посетитель может только просматривать публичные проекты и приватные если он в них включен
-        // TODO: сделать возможность редактирования для пользователя (входит в команду проекта) тех задач и вех что им созданы
-
         var canEdit = false;
         if (common.currentUserIsModuleAdmin() || project.responsible.id == Teamlab.profile.id) {
             canEdit = true;
@@ -1620,32 +1616,48 @@ ASC.Projects.GantChartPage = (function () {
     };
 
     var readTeamLabTasks = function (project) {
-        if (0 !== project.status)   // только открытые или readonly проекты могут иметь задачи на отображение
+        if (0 !== project.status)
             return;
 
         var task;      // loop iterator
         taskForDiagram = project.tasks.slice(0);
         project.taskCount = taskForDiagram.length;
-        project.allTaskHash = {};
+        if (!project.allTaskHash) {
+            project.allTaskHash = {};
+        }
 
         for (var i = 0; i < project.taskCount; i++) {
             task = taskForDiagram[i];
-            project.allTaskHash[task.id] = task;
-            project.allTaskHash[task.id].visible = true;
+            if (project.allTaskHash[task.id]) {
+                task = project.allTaskHash[task.id];
+            } else {
+                project.allTaskHash[task.id] = task;
+                project.allTaskHash[task.id].visible = true;
+            }
             addTaskToChart(task);
         }
     };
     var readTeamLabMilestones = function (project) {
-        if (0 !== project.status)   // только открытые или readonly проекты могут иметь вехи на отображение
+        if (0 !== project.status)
             return;
 
         var milestone;      // loop iterator
-        project.milestonesHash = {};
+
+        if (!project.milestonesHash) {
+            project.milestonesHash = {};
+        }
+
         milestonesForDiagram = project.milestones.slice(0);
         project.milestoneCount = milestonesForDiagram.length;
         for (var i=0; i< project.milestoneCount; i++) {
             milestone = milestonesForDiagram[i];
-            project.milestonesHash[milestone.id] = milestone;
+
+            if (project.milestonesHash[milestone.id]) {
+                milestone = project.milestonesHash[milestone.id];
+            } else {
+                project.milestonesHash[milestone.id] = milestone;
+            }
+
             addMilestoneToChart(milestone);
         }
     };
@@ -2049,7 +2061,7 @@ ASC.Projects.GantChartPage = (function () {
     };
     var removeMilestone = function (milestoneId) {
         blockChartInterface();
-        Teamlab.removePrjMilestone({}, milestoneId, { success: onRemoveMilestone, error: onMilestoneError });
+        Teamlab.removePrjMilestone(milestoneId, { success: onRemoveMilestone, error: onMilestoneError });
     };
     var onRemoveMilestone = function (params, milestone) {
         delete milestonesHash[milestone.id];
@@ -2993,7 +3005,7 @@ ASC.Projects.GantChartPage = (function () {
 
                 document.body.appendChild(dateControl);
 
-                jq("#datepicker-chart").mask("dd.MM.yyyy");
+                jq("#datepicker-chart").mask(ASC.Resources.Master.DatePatternJQ);
                 jq("#datepicker-chart").datepicker({
                     onSelect: function () {
                         chart.modelController().finalizeOperation('timechanage', {

@@ -47,7 +47,7 @@ window.ASC.Files.Anchor = (function () {
                 ASC.Controls.AnchorController.bind(anchorRegExp.error, onError);
                 ASC.Controls.AnchorController.bind(anchorRegExp.message, onMessage);
                 ASC.Controls.AnchorController.bind(anchorRegExp.folder, onFolderSelect);
-                ASC.Controls.AnchorController.bind(anchorRegExp.preview, onPreview);
+                ASC.Controls.AnchorController.bind(anchorRegExp.preview, onPlay);
                 ASC.Controls.AnchorController.bind(anchorRegExp.setting, onSetting);
                 ASC.Controls.AnchorController.bind(anchorRegExp.help, onHelp);
                 ASC.Controls.AnchorController.bind(anchorRegExp.more, onMore);
@@ -111,12 +111,38 @@ window.ASC.Files.Anchor = (function () {
         ASC.Files.UI.updateFolderView();
     };
 
-    var onPreview = function (fileId) {
+    var onPlay = function (fileId) {
         if (jq.browser.safari || jq.browser.mozilla || jq.browser.chrome) {
             fileId = decodeURIComponent(fileId);
         }
-        if (typeof ASC.Files.ImageViewer != "undefined") {
-            ASC.Files.ImageViewer.init(fileId);
+        if (typeof ASC.Files.MediaPlayer != "undefined") {
+            ASC.Files.MediaPlayer.init(fileId, {
+                onCloseAction: function (folderId) {
+                    if (!ASC.Files.Common.isCorrectId(ASC.Files.Folders.currentFolder.id)) {
+                        ASC.Files.Anchor.navigationSet(folderId, false);
+                        return;
+                    }
+
+                    ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, true);
+                },
+                onMediaChangedAction: function (fileId) {
+                    ASC.Files.Marker.removeNewIcon("file", fileId);
+
+                    var hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
+                    ASC.Files.Anchor.move(hash, true);
+                },
+                downloadAction: ASC.Files.Utility.GetFileDownloadUrl,
+                canDelete: function (fileId) {
+                    var entryObj = ASC.Files.UI.getEntryObject("file", fileId);
+                    if (!ASC.Files.UI.accessDelete(entryObj)
+                        || ASC.Files.UI.editingFile(entryObj)
+                        || ASC.Files.UI.lockedForMe(entryObj)) {
+                        return false;
+                    }
+                    return true;
+                },
+                deleteAction: function (fileId, successfulDeletion) { ASC.Files.Folders.deleteItem("file", fileId, successfulDeletion); }
+            });
         } else {
             ASC.Files.Anchor.defaultFolderSet();
         }
@@ -130,6 +156,9 @@ window.ASC.Files.Anchor = (function () {
         switch (settingTab) {
             case "thirdparty":
                 if (ASC.Files.ThirdParty) {
+                    if (location.hash.indexOf("code") != -1) {
+                        ASC.Files.Folders.eventAfter = ASC.Files.ThirdParty.processAnchor;
+                    }
                     ASC.Files.ThirdParty.showSettingThirdParty();
                 } else {
                     ASC.Files.Anchor.defaultFolderSet();
@@ -157,10 +186,12 @@ window.ASC.Files.Anchor = (function () {
             folderId = ASC.Files.Folders.currentFolder.id;
         }
 
-        ASC.Files.UI.lastSelectedEntry = jq("#filesMainContent .file-row:has(.checkbox input:checked)").map(function () {
-            var entryData = ASC.Files.UI.getObjectData(this);
-            return { entryType: entryData.entryType, entryId: entryData.entryId };
-        });
+        if (jq("#filesMainContent .file-row").length) {
+            ASC.Files.UI.lastSelectedEntry = jq("#filesMainContent .file-row:has(.checkbox input:checked)").map(function () {
+                var entryData = ASC.Files.UI.getObjectData(this);
+                return {entryType: entryData.entryType, entryId: entryData.entryId};
+            });
+        }
 
         ASC.Files.Anchor.move(folderId, safemode === true);
     };
@@ -190,6 +221,7 @@ window.ASC.Files.Anchor = (function () {
             return;
         }
         if (ASC.Files.Tree) {
+            ASC.Files.Filter.clearFilter(true);
             if (!ASC.Files.Tree.folderIdCurrentRoot) {
                 if (!ASC.Files.Constants.FOLDER_ID_MY_FILES) {
                     ASC.Files.Anchor.navigationSet(ASC.Files.Constants.FOLDER_ID_COMMON_FILES);
@@ -208,12 +240,14 @@ window.ASC.Files.Anchor = (function () {
         move: move,
         navigationSet: navigationSet,
         defaultFolderSet: defaultFolderSet,
+        modulePath: "/products/files/"
     };
 })();
 
 (function ($) {
     $(function () {
-        if (window.parent == window) {
+        if (location.href.indexOf(ASC.Files.Anchor.modulePath) != -1
+            || location.href.indexOf("/products/projects/tmdocs.aspx")) {
             ASC.Files.Anchor.init();
         }
     });

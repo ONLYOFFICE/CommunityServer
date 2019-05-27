@@ -32,6 +32,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 using ASC.Api;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -394,7 +395,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                         }
                         catch (Exception ex)
                         {
-                            log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                            LogManager.GetLogger("ASC.CRM").Error(ex);
                         }
 
                     }
@@ -529,7 +530,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     contactInfos.AddRange(addressList.Values.ToList());
 
                 dao.ContactInfoDao.DeleteByContact(contact.ID);
-                dao.ContactInfoDao.SaveList(contactInfos);
+                dao.ContactInfoDao.SaveList(contactInfos, contact);
 
                 #endregion
 
@@ -539,7 +540,10 @@ namespace ASC.Web.CRM.Controls.Contacts
 
                 if (!String.IsNullOrEmpty(imagePath))
                 {
-                    ContactPhotoManager.TryUploadPhotoFromTmp(contact.ID, TargetContact == null, TargetContact == null ? imagePath : "");
+                    if (imagePath != "null")
+                    {
+                        ContactPhotoManager.TryUploadPhotoFromTmp(contact.ID, TargetContact == null, TargetContact == null ? imagePath : "");
+                    }
                 }
                 else if (TargetContact != null)
                 {
@@ -568,7 +572,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     }
                     catch(Exception ex)
                     {
-                        log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                        LogManager.GetLogger("ASC.CRM").Error(ex);
                     }
                 }
 
@@ -587,7 +591,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                LogManager.GetLogger("ASC.CRM").Error(ex);
                 var cookie = HttpContext.Current.Request.Cookies.Get(ErrorCookieKey);
                 if (cookie == null)
                 {

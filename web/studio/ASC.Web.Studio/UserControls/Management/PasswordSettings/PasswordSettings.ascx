@@ -6,7 +6,7 @@
    { %>
 <div class="clearFix">
      <div id="studio_passwordSettings" class="settings-block">
-         <div class="header-base clearFix" id="mailDomainSettingsTitle">
+         <div class="header-base clearFix">
              <%= Resource.StudioPasswordSettings %>
          </div>
 

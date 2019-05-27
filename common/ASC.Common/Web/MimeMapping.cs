@@ -43,6 +43,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".3dmf", "x-world/x-3dmf");
             AddMimeMapping(".a", "application/octet-stream");
             AddMimeMapping(".aab", "application/x-authorware-bin");
+            AddMimeMapping(".aac", "audio/x-aac");
             AddMimeMapping(".aam", "application/x-authorware-map");
             AddMimeMapping(".aas", "application/x-authorware-seg");
             AddMimeMapping(".abc", "text/vnd.abc");
@@ -189,6 +190,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".exe", "application/octet-stream");
             AddMimeMapping(".f", "text/plain");
             AddMimeMapping(".f", "text/x-fortran");
+            AddMimeMapping(".f4v", "video/x-f4v");
             AddMimeMapping(".f77", "text/x-fortran");
             AddMimeMapping(".f90", "text/plain");
             AddMimeMapping(".f90", "text/x-fortran");
@@ -196,6 +198,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".fdf", "application/vnd.fdf");
             AddMimeMapping(".fif", "application/fractals");
             AddMimeMapping(".fif", "image/fif");
+            AddMimeMapping(".flac", "audio/flac");
             AddMimeMapping(".fli", "video/fli");
             AddMimeMapping(".fli", "video/x-fli");
             AddMimeMapping(".flo", "image/florian");
@@ -336,6 +339,11 @@ namespace ASC.Common.Web
             AddMimeMapping(".m2a", "audio/mpeg");
             AddMimeMapping(".m2v", "video/mpeg");
             AddMimeMapping(".m3u", "audio/x-mpequrl");
+            AddMimeMapping(".m4a", "audio/m4a");
+            AddMimeMapping(".m4a", "audio/x-m4a");
+            AddMimeMapping(".m4v", "video/mp4");
+            AddMimeMapping(".m4v", "video/mpeg4");
+            AddMimeMapping(".m4v", "video/x-m4v");
             AddMimeMapping(".man", "application/x-troff-man");
             AddMimeMapping(".manifest", "application/x-ms-manifest");
             AddMimeMapping(".map", "application/x-navimap");
@@ -387,6 +395,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".mp3", "audio/x-mpeg-3");
             AddMimeMapping(".mp3", "video/mpeg");
             AddMimeMapping(".mp3", "video/x-mpeg");
+            AddMimeMapping(".mp4", "video/mp4");
             AddMimeMapping(".mpa", "audio/mpeg");
             AddMimeMapping(".mpa", "video/mpeg");
             AddMimeMapping(".mpc", "application/x-project");
@@ -421,9 +430,16 @@ namespace ASC.Common.Web
             AddMimeMapping(".odp", "application/vnd.oasis.opendocument.presentation");
             AddMimeMapping(".ods", "application/vnd.oasis.opendocument.spreadsheet");
             AddMimeMapping(".odt", "application/vnd.oasis.opendocument.text");
+            AddMimeMapping(".oga", "audio/ogg");
+            AddMimeMapping(".ogg", "video/ogg");
+            AddMimeMapping(".ogg", "audio/ogg");
+            AddMimeMapping(".ogv", "video/ogg");
             AddMimeMapping(".omc", "application/x-omc");
             AddMimeMapping(".omcd", "application/x-omcdatamaker");
             AddMimeMapping(".omcr", "application/x-omcregerator");
+            AddMimeMapping(".otp", "application/vnd.oasis.opendocument.presentation-template");
+            AddMimeMapping(".ots", "application/vnd.oasis.opendocument.spreadsheet-template");
+            AddMimeMapping(".ott", "application/vnd.oasis.opendocument.text-template");
             AddMimeMapping(".p", "text/x-pascal");
             AddMimeMapping(".p10", "application/pkcs10");
             AddMimeMapping(".p10", "application/x-pkcs10");
@@ -684,6 +700,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".wcm", "application/vnd.ms-works");
             AddMimeMapping(".wdb", "application/vnd.ms-works");
             AddMimeMapping(".web", "application/vnd.xara");
+            AddMimeMapping(".webm", "video/webm");
             AddMimeMapping(".wiz", "application/msword");
             AddMimeMapping(".wk1", "application/x-123");
             AddMimeMapping(".wks", "application/vnd.ms-works");

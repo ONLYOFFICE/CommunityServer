@@ -75,7 +75,7 @@
                     <resource name="fres.Size" />:
                   </td>
                   <td>
-                    <xsl:value-of select="length" />
+                    <xsl:value-of select="length_string" />
                   </td>
                 </tr>
 

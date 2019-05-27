@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DED03705-E8C4-46D2-B634-55062850BE83}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Mail.Server</RootNamespace>
+    <AssemblyName>ASC.Mail.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\packages\RestSharp.106.1.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Dao\BaseDao.cs" />
+    <Compile Include="Core\Dao\AliasDao.cs" />
+    <Compile Include="Core\Dao\DkimDao.cs" />
+    <Compile Include="Core\Dao\DomainDao.cs" />
+    <Compile Include="Core\Dao\Interfaces\IMailboxDao.cs" />
+    <Compile Include="Core\Dao\Interfaces\IDomainDao.cs" />
+    <Compile Include="Core\Dao\Interfaces\IDkimDao.cs" />
+    <Compile Include="Core\Dao\Interfaces\IAliasDao.cs" />
+    <Compile Include="Core\Dao\MailboxDao.cs" />
+    <Compile Include="Core\DbSchema\Interfaces\ITable.cs" />
+    <Compile Include="Core\DbSchema\Interfaces\ITableFactory.cs" />
+    <Compile Include="Core\DbSchema\MailServerTableFactory.cs" />
+    <Compile Include="Core\DbSchema\Tables\AliasTable.cs" />
+    <Compile Include="Core\DbSchema\Tables\DkimTable.cs" />
+    <Compile Include="Core\DbSchema\Tables\MailboxTable.cs" />
+    <Compile Include="Core\DbSchema\Tables\DomainTable.cs" />
+    <Compile Include="Core\Entities\Dkim.cs" />
+    <Compile Include="Core\Entities\Alias.cs" />
+    <Compile Include="Core\Entities\Mailbox.cs" />
+    <Compile Include="Core\Entities\Domain.cs" />
+    <Compile Include="Core\Entities\ServerApi.cs" />
+    <Compile Include="Core\ServerEngine.cs" />
+    <Compile Include="Exceptions\InvalidPostfixConnectionStringException.cs" />
+    <Compile Include="Exceptions\PostfixEncryptorException.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MD5Crypt.cs" />
+    <Compile Include="Utils\PasswordGenerator.cs" />
+    <Compile Include="Utils\PostfixConnectionStringParser.cs" />
+    <Compile Include="Utils\PostfixMaildirUtil.cs" />
+    <Compile Include="Utils\PostfixPasswordEncryptor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

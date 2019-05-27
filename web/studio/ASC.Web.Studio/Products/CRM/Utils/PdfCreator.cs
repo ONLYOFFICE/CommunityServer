@@ -32,6 +32,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Xml;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Core;
@@ -61,7 +62,7 @@ namespace ASC.Web.CRM.Classes
 
         public static void CreateAndSaveFile(int invoiceId)
         {
-            var log = log4net.LogManager.GetLogger("ASC.CRM");
+            var log = LogManager.GetLogger("ASC.CRM");
             log.DebugFormat("PdfCreator. CreateAndSaveFile. Invoice ID = {0}", invoiceId);
             try
             {
@@ -125,7 +126,7 @@ namespace ASC.Web.CRM.Classes
 
         public static File CreateFile(Invoice data, DaoFactory daoFactory)
         {
-            var log = log4net.LogManager.GetLogger("ASC.CRM");
+            var log = LogManager.GetLogger("ASC.CRM");
             try
             {
                 using (var docxStream = GetStreamDocx(data))
@@ -145,13 +146,13 @@ namespace ASC.Web.CRM.Classes
         {
             var externalUri = Files.Classes.PathProvider.GetTempUrl(docxStream, FormatDocx);
             externalUri = DocumentServiceConnector.ReplaceCommunityAdress(externalUri);
-            log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. externalUri = {0}", externalUri);
+            LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. externalUri = {0}", externalUri);
 
             var revisionId = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
             string urlToFile;
             DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, false, out urlToFile);
 
-            log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. urlToFile = {0}", urlToFile);
+            LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. urlToFile = {0}", urlToFile);
             return urlToFile;
         }
 
@@ -320,24 +321,27 @@ namespace ASC.Web.CRM.Classes
                 }
                 else
                 {
-                    var stream = new MemoryStream(logo);
-                    var img = System.Drawing.Image.FromStream(stream);
-                    var cx = img.Width * 9525;//1px =  9525emu
-                    var cy = img.Height * 9525;//1px =  9525emu
-                    
-                    var newText = parent.CloneNode(true).OuterXml;
-                    newText = newText
-                        .Replace("${width}", cx.ToString(CultureInfo.InvariantCulture))
-                        .Replace("${height}", cy.ToString(CultureInfo.InvariantCulture));
-                    var newEl = new XmlDocument();
-                    newEl.LoadXml(newText);
-                    if (parent.ParentNode != null)
+                    using (var stream = new MemoryStream(logo))
+                    using (var img = System.Drawing.Image.FromStream(stream))
                     {
-                        if (newEl.DocumentElement != null)
+                        var cx = img.Width*9525; //1px =  9525emu
+                        var cy = img.Height*9525; //1px =  9525emu
+
+                        var newText = parent.CloneNode(true).OuterXml;
+                        newText = newText
+                            .Replace("${width}", cx.ToString(CultureInfo.InvariantCulture))
+                            .Replace("${height}", cy.ToString(CultureInfo.InvariantCulture));
+                        var newEl = new XmlDocument();
+                        newEl.LoadXml(newText);
+                        if (parent.ParentNode != null)
                         {
-                            parent.ParentNode.InsertBefore(xDocument.ImportNode(newEl.DocumentElement, true), parent);
+                            if (newEl.DocumentElement != null)
+                            {
+                                parent.ParentNode.InsertBefore(xDocument.ImportNode(newEl.DocumentElement, true),
+                                                               parent);
+                            }
+                            parent.ParentNode.RemoveChild(parent);
                         }
-                        parent.ParentNode.RemoveChild(parent);
                     }
                 }
             }

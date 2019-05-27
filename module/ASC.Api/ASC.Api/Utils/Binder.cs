@@ -192,7 +192,8 @@ namespace ASC.Api.Utils
             return new[]
                        {
                            name, 
-                           StringUtils.ToCamelCase(name)
+                           StringUtils.ToCamelCase(name),
+                           name.ToLower()
                        };
         }
 

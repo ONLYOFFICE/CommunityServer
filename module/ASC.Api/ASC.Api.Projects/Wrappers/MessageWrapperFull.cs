@@ -63,8 +63,8 @@ namespace ASC.Api.Projects.Wrappers
         public MessageWrapperFull(ProjectApiBase projectApiBase, Message message, ProjectWrapperFull project, IEnumerable<EmployeeWraperFull> subscribers)
             : base(projectApiBase, message)
         {
-            CanEditFiles = ProjectSecurity.CanEditFiles(message);
-            CanReadFiles = ProjectSecurity.CanReadFiles(message.Project);
+            CanEditFiles = projectApiBase.ProjectSecurity.CanEditFiles(message);
+            CanReadFiles = projectApiBase.ProjectSecurity.CanReadFiles(message.Project);
             Text = HtmlUtility.GetFull(Text);
             Project = project;
             Subscribers = subscribers.ToList();

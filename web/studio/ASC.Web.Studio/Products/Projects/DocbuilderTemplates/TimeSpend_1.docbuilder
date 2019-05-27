@@ -1,0 +1,78 @@
+﻿oWs.SetColumnWidth(2, 16);
+oWs.SetColumnWidth(3, 16);
+
+var timeFormat = "[h]\\" + reportColumns[6] + " mm\\" + reportColumns[7];
+
+for (var i = 0; i < reportData.length; i++)
+{
+	writeText(reportData[i][0], {
+		size: headerFontSize,
+		bold: true
+	});
+	currentRow++;
+	
+	for (var j = 0; j < reportData[i][1].length; j++)
+	{
+		var proj = reportData[i][1][j];
+		
+		writeText(proj[0][0], {
+			size: chartHeaderFontSize,
+			bold: true
+		});
+		currentRow++;
+		
+		writeText(proj[0][1], {
+			size: smallFontSize
+		});
+		writeText(proj[0][2], {
+			size: smallFontSize
+		});
+		writeText(proj[0][3], {
+			size: smallFontSize
+		});	
+		writeText(proj[0][4], {
+			size: smallFontSize
+		});
+		if (proj[0][4] != "")
+			currentRow++;
+		
+		var tasks = proj[1];
+		
+		writeRow([1, 3, 4, 5], reportColumns, [1, 2], {
+			color: darkGrayBorderColor
+		}, {
+			size: smallFontSize,
+			color: grayFontColor
+		});
+		
+		var row = currentRow;
+		var sum = [0, 0];
+		for (var k = 0; k < tasks.length; k++)
+		{
+			tasks[k][0] /= 24.0;
+			tasks[k][1] /= 24.0;
+			
+			writeRow([4, 0, 1, 3], tasks[k], [1, 2], {
+				color: lightGrayBorderColor
+			}, {
+				size: smallFontSize
+			}, true);
+			
+			sum[0] += tasks[k][0];
+			sum[1] += tasks[k][1];
+		}
+		writeText(reportColumns[2], {
+			size: smallFontSize,
+			bold: true
+		}, false);		
+		writeRow([0, 1], sum, [0, 1], null, {
+			size: smallFontSize,
+			bold: true
+		});		
+		var timeRange = oWs.GetRange(nextChar(currentColumn) + row + ":" + nextChar(currentColumn, 2) + (currentRow - 1));
+		timeRange.SetNumberFormat(timeFormat);
+		
+		currentRow++;
+	}
+	currentRow += 2;
+}

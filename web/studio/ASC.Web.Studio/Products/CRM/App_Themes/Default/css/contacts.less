@@ -176,6 +176,7 @@ ListContactView.ascx
 .sendProcessInfo td {
     padding-bottom: 10px;
     min-height: 15px;
+    vertical-align: top;
 }
 
 #companyTable {
@@ -222,6 +223,7 @@ ListContactView.ascx
 .contactItemPhotoImg {
     border: 1px solid #C7C7C7;
     overflow: hidden;
+    background-color: #FFF;
 }
 .contactItemPhotoImgContainer {
     width: auto;
@@ -770,8 +772,6 @@ ContactDetailsView.ascx
     margin-bottom: 16px;
     width: 500px;
 }
-
-
 #projectsInContactPanel{
     display: none;
     width: 500px;
@@ -790,27 +790,11 @@ ContactDetailsView.ascx
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-
 #dealsInContactPanel{
     display: none;
+    margin-bottom: 16px;
     width: 500px;
-    color: #999999;
 }
-#dealsInContactPanel .menuAction{
-    display: block;
-}
-#dealsInContactPanel .createNewDeal{
-    width:95%;
-}
-#dealsInContactPanel select>option {
-    max-width: 300px;
-}
-#dealsInContactPanel select, #dealsInContactPanel select>option {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 #changeContactStatusConfirmation .noAskingCCSAnymore {
     display: inline-block;
     line-height: 16px;

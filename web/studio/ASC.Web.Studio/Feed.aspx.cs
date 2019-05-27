@@ -177,13 +177,15 @@ namespace ASC.Web.Studio
             return
                 string.Format(@"<li class=""top-item-box feed"">
                                   <a href=""{0}"" class=""feedActiveBox inner-text {2}"" title=""{1}"" data-feedUrl=""{0}"">
+                                      <svg><use base=""{4}"" href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenufeed""></use></svg>
                                       <span class=""inner-label"">{3}</span>
                                   </a>
                                 </li>",
                               VirtualPathUtility.ToAbsolute("~/feed.aspx"),
                               UserControlsCommonResource.FeedTitle,
                               string.Empty,
-                              0);
+                              0,
+                              WebPath.GetPath(@"/"));
         }
 
         #endregion

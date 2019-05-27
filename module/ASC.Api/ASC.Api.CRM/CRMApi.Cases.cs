@@ -37,6 +37,7 @@ using ASC.Core;
 using ASC.MessagingSystem;
 using EnumExtension = ASC.Web.CRM.Classes.EnumExtension;
 using ASC.Core.Users;
+using ASC.ElasticSearch;
 
 namespace ASC.Api.CRM
 {
@@ -136,7 +137,7 @@ namespace ASC.Api.CRM
                     CreateBy = SecurityContext.CurrentAccount.ID,
                     CreateOn = DateTime.UtcNow
                 };
-
+            FactoryIndexer<Web.CRM.Core.Search.CasesWrapper>.IndexAsync(cases);
             SetAccessToCases(cases, isPrivate, accessList, isNotify, false);
 
             var membersList = members != null ? members.ToList() : new List<int>();
@@ -237,7 +238,7 @@ namespace ASC.Api.CRM
         /// <summary>
         ///   Sets access rights for the selected case with the parameters specified in the request
         /// </summary>
-        /// <param name="casesid" optional="false">Case ID</param>
+        /// <param name="caseid" optional="false">Case ID</param>
         /// <param name="isPrivate" optional="false">Case privacy: private or not</param>
         /// <param name="accessList" optional="false">List of users with access to the case</param>
         /// <short>Set rights to case</short> 
@@ -248,11 +249,11 @@ namespace ASC.Api.CRM
         ///   Case 
         /// </returns>
         [Update(@"case/{caseid:[0-9]+}/access")]
-        public CasesWrapper SetAccessToCases(int casesid, bool isPrivate, IEnumerable<Guid> accessList)
+        public CasesWrapper SetAccessToCases(int caseid, bool isPrivate, IEnumerable<Guid> accessList)
         {
-            if (casesid <= 0) throw new ArgumentException();
+            if (caseid <= 0) throw new ArgumentException();
 
-            var cases = DaoFactory.CasesDao.GetByID(casesid);
+            var cases = DaoFactory.CasesDao.GetByID(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
             if (!(CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)) throw CRMSecurity.CreateSecurityException();
@@ -493,6 +494,8 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.CasesDao.DeleteCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
+            FactoryIndexer<Web.CRM.Core.Search.CasesWrapper>.DeleteAsync(cases);
+
             MessageService.Send(Request, MessageAction.CaseDeleted, MessageTarget.Create(cases.ID), cases.Title);
 
             return ToCasesWrapper(cases);
@@ -516,6 +519,8 @@ namespace ASC.Api.CRM
 
             casesids = casesids.Distinct();
             var caseses = DaoFactory.CasesDao.DeleteBatchCases(casesids.ToArray());
+
+            if (caseses == null || !caseses.Any()) return new List<CasesWrapper>();
 
             MessageService.Send(Request, MessageAction.CasesDeleted, MessageTarget.Create(casesids), caseses.Select(c => c.Title));
 

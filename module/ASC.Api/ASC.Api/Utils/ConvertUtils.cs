@@ -65,7 +65,7 @@ namespace ASC.Api.Utils
         {
             try
             {
-                return TypeDescriptor.GetConverter(type).ConvertFromString(new DummyTypeDescriptorContext(), CultureInfo.InvariantCulture, value);
+                return type == typeof(object) ? value : TypeDescriptor.GetConverter(type).ConvertFromString(new DummyTypeDescriptorContext(), CultureInfo.InvariantCulture, value);
             }
             catch (Exception e)
             {

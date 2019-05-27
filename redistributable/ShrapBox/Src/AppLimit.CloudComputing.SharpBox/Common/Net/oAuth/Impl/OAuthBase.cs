@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
 
-#if SILVERLIGHT
-using System.Net;
-#elif !MONODROID
-using System.Web;
-#endif
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
 {
@@ -22,65 +17,68 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         RSASHA1
     }
 
-	internal class OAuthBase 
-    {       
+    internal class OAuthBase
+    {
         /// <summary>
         /// Provides an internal structure to sort the query parameter
         /// </summary>
-        protected class QueryParameter 
-		{
+        protected class QueryParameter
+        {
             private readonly string _name;
             private readonly string _value;
 
-            public QueryParameter(string name, string value) {
+            public QueryParameter(string name, string value)
+            {
                 _name = name;
                 _value = value;
             }
 
-            public string Name 
-			{
+            public string Name
+            {
                 get { return _name; }
             }
 
-            public string Value 
-			{
+            public string Value
+            {
                 get { return _value; }
-            }            
+            }
         }
 
         /// <summary>
         /// Comparer class used to perform the sorting of the query parameters
         /// </summary>
-        protected class QueryParameterComparer : IComparer<QueryParameter> {
+        protected class QueryParameterComparer : IComparer<QueryParameter>
+        {
 
             #region IComparer<QueryParameter> Members
 
-            public int Compare(QueryParameter x, QueryParameter y) {
-                if (x.Name == y.Name) {
+            public int Compare(QueryParameter x, QueryParameter y)
+            {
+                if (x.Name == y.Name)
+                {
                     return string.Compare(x.Value, y.Value);
-                } else {
-                    return string.Compare(x.Name, y.Name);
                 }
+                return string.Compare(x.Name, y.Name);
             }
 
             #endregion
         }
 
-		protected const string OAuthVersion = "1.0";
+        protected const string OAuthVersion = "1.0";
         protected const string OAuthParameterPrefix = "oauth_";
 
         //
         // List of know and used oauth parameters' names
         //        
-		protected const string OAuthConsumerKeyKey = "oauth_consumer_key";
-		protected const string OAuthCallbackKey = "oauth_callback";
-		protected const string OAuthVersionKey = "oauth_version";
-		protected const string OAuthSignatureMethodKey = "oauth_signature_method";
-		protected const string OAuthSignatureKey = "oauth_signature";
-		protected const string OAuthTimestampKey = "oauth_timestamp";
-		protected const string OAuthNonceKey = "oauth_nonce";
-		protected const string OAuthTokenKey = "oauth_token";
-		protected const string OAuthTokenSecretKey = "oauth_token_secret";
+        protected const string OAuthConsumerKeyKey = "oauth_consumer_key";
+        protected const string OAuthCallbackKey = "oauth_callback";
+        protected const string OAuthVersionKey = "oauth_version";
+        protected const string OAuthSignatureMethodKey = "oauth_signature_method";
+        protected const string OAuthSignatureKey = "oauth_signature";
+        protected const string OAuthTimestampKey = "oauth_timestamp";
+        protected const string OAuthNonceKey = "oauth_nonce";
+        protected const string OAuthTokenKey = "oauth_token";
+        protected const string OAuthTokenSecretKey = "oauth_token_secret";
 
         protected const string HMACSHA1SignatureType = "HMAC-SHA1";
         protected const string PlainTextSignatureType = "PLAINTEXT";
@@ -88,7 +86,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
 
         protected Random random = new Random();
 
-        private static readonly Char[] OAuthIgnoreChars = new[] { '_', '-', '.', '~' }; 
+        private static readonly Char[] OAuthIgnoreChars = new[] { '_', '-', '.', '~' };
 
         /// <summary>
         /// Helper function to compute a hash value
@@ -96,17 +94,20 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// <param name="hashAlgorithm">The hashing algoirhtm used. If that algorithm needs some initialization, like HMAC and its derivatives, they should be initialized prior to passing it to this function</param>
         /// <param name="data">The data to hash</param>
         /// <returns>a Base64 string of the hash value</returns>
-        private static string ComputeHash(HashAlgorithm hashAlgorithm, string data) {
-            if (hashAlgorithm == null) {
+        private static string ComputeHash(HashAlgorithm hashAlgorithm, string data)
+        {
+            if (hashAlgorithm == null)
+            {
                 throw new ArgumentNullException("hashAlgorithm");
             }
 
-            if (string.IsNullOrEmpty(data)) {
+            if (string.IsNullOrEmpty(data))
+            {
                 throw new ArgumentNullException("data");
             }
 
-            byte[] dataBuffer = Encoding.UTF8.GetBytes(data);
-            byte[] hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
+            var dataBuffer = Encoding.UTF8.GetBytes(data);
+            var hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
 
             return Convert.ToBase64String(hashBytes);
         }
@@ -116,21 +117,29 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// </summary>
         /// <param name="parameters">The query string part of the Url</param>
         /// <returns>A list of QueryParameter each containing the parameter name and value</returns>
-        private List<QueryParameter> GetQueryParameters(string parameters) {
-            if (parameters.StartsWith("?")) {
+        private static List<QueryParameter> GetQueryParameters(string parameters)
+        {
+            if (parameters.StartsWith("?"))
+            {
                 parameters = parameters.Remove(0, 1);
             }
 
-            List<QueryParameter> result = new List<QueryParameter>();
+            var result = new List<QueryParameter>();
 
-            if (!string.IsNullOrEmpty(parameters)) {
-                string[] p = parameters.Split('&');
-                foreach (string s in p) {
-                    if (!string.IsNullOrEmpty(s) /*&& !s.StartsWith(OAuthParameterPrefix)*/) {
-                        if (s.IndexOf('=') > -1) {
-                            string[] temp = s.Split('=');
+            if (!string.IsNullOrEmpty(parameters))
+            {
+                var p = parameters.Split('&');
+                foreach (var s in p)
+                {
+                    if (!string.IsNullOrEmpty(s) /*&& !s.StartsWith(OAuthParameterPrefix)*/)
+                    {
+                        if (s.IndexOf('=') > -1)
+                        {
+                            var temp = s.Split('=');
                             result.Add(new QueryParameter(temp[0], temp[1]));
-                        } else {
+                        }
+                        else
+                        {
                             result.Add(new QueryParameter(s, string.Empty));
                         }
                     }
@@ -146,7 +155,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// </summary>
         /// <param name="value">The value to Url encode</param>
         /// <returns>Returns a Url encoded string</returns>
-        public static string UrlEncode(string value) 
+        public static string UrlEncode(string value)
         {
             return UrlEncode(value, OAuthIgnoreChars);
         }
@@ -165,7 +174,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
                     sb.Append(ch);
                 else
                 {
-                    byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
+                    var bytes = Encoding.UTF8.GetBytes(ch.ToString());
                     foreach (var b in bytes)
                     {
                         sb.AppendFormat(CultureInfo.InvariantCulture, "%{0:X2}", b);
@@ -181,12 +190,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// </summary>
         /// <param name="parameters">The list of parameters already sorted</param>
         /// <returns>a string representing the normalized parameters</returns>
-		protected string NormalizeRequestParameters(IList<QueryParameter> parameters)
+        protected string NormalizeRequestParameters(IList<QueryParameter> parameters)
         {
             var sb = new StringBuilder();
-            for (int i = 0; i < parameters.Count; i++)
+            for (var i = 0; i < parameters.Count; i++)
             {
-                QueryParameter p = parameters[i];
+                var p = parameters[i];
                 sb.AppendFormat("{0}={1}", p.Name, p.Value);
 
                 if (i < parameters.Count - 1)
@@ -212,38 +221,36 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// <param name="normalizedUrl">The URL without parameters</param>
         /// <param name="normalizedRequestParameters">The request parameters</param>
         /// <returns>The signature base</returns>
-        public string GenerateSignatureBase(Uri url, string consumerKey, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl, out string normalizedRequestParameters) {
-            if (token == null) {
+        public string GenerateSignatureBase(Uri url, string consumerKey, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, string signatureType, out string normalizedUrl, out string normalizedRequestParameters)
+        {
+            if (token == null)
+            {
                 token = string.Empty;
             }
 
-            if (tokenSecret == null) {
-                tokenSecret = string.Empty;
-            }
-
-            if (string.IsNullOrEmpty(consumerKey)) {
+            if (string.IsNullOrEmpty(consumerKey))
+            {
                 throw new ArgumentNullException("consumerKey");
             }
 
-            if (string.IsNullOrEmpty(httpMethod)) {
+            if (string.IsNullOrEmpty(httpMethod))
+            {
                 throw new ArgumentNullException("httpMethod");
             }
 
-            if (string.IsNullOrEmpty(signatureType)) {
+            if (string.IsNullOrEmpty(signatureType))
+            {
                 throw new ArgumentNullException("signatureType");
             }
 
-			normalizedUrl = null;
-			normalizedRequestParameters = null;
-
-            List<QueryParameter> parameters = GetQueryParameters(url.Query.Replace("!", "%21"));
+            var parameters = GetQueryParameters(url.Query.Replace("!", "%21"));
             parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
             parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
             parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
             parameters.Add(new QueryParameter(OAuthSignatureMethodKey, signatureType));
             parameters.Add(new QueryParameter(OAuthConsumerKeyKey, consumerKey));
 
-            if (!string.IsNullOrEmpty(token)) 
+            if (!string.IsNullOrEmpty(token))
             {
                 parameters.Add(new QueryParameter(OAuthTokenKey, token));
             }
@@ -255,10 +262,10 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
             {
                 normalizedUrl += ":" + url.Port;
             }
-            normalizedUrl += url.AbsolutePath.Replace("'", "%27").Replace("!", "%21"); 
+            normalizedUrl += url.AbsolutePath.Replace("'", "%27").Replace("!", "%21");
             normalizedRequestParameters = NormalizeRequestParameters(parameters);
-            
-            StringBuilder signatureBase = new StringBuilder();			
+
+            var signatureBase = new StringBuilder();
             signatureBase.AppendFormat("{0}&", httpMethod.ToUpper());
             signatureBase.AppendFormat("{0}&", UrlEncode(normalizedUrl));
             signatureBase.AppendFormat("{0}", UrlEncode(normalizedRequestParameters));
@@ -272,7 +279,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// <param name="signatureBase">The signature based as produced by the GenerateSignatureBase method or by any other means</param>
         /// <param name="hash">The hash algorithm used to perform the hashing. If the hashing algorithm requires initialization or a key it should be set prior to calling this method</param>
         /// <returns>A base64 string of the hash value</returns>
-        public string GenerateSignatureUsingHash(string signatureBase, HashAlgorithm hash) {
+        public string GenerateSignatureUsingHash(string signatureBase, HashAlgorithm hash)
+        {
             return ComputeHash(hash, signatureBase);
         }
 
@@ -290,8 +298,9 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// <param name="normalizedUrl">The URL without parameters</param>
         /// <param name="normalizedRequestParameters">The request parameters</param>
         /// <returns>A base64 string of the hash value</returns>
-		public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, out string normalizedUrl, out string normalizedRequestParameters) {            
-			return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.HMACSHA1, out normalizedUrl, out normalizedRequestParameters);
+        public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, out string normalizedUrl, out string normalizedRequestParameters)
+        {
+            return GenerateSignature(url, consumerKey, consumerSecret, token, tokenSecret, httpMethod, timeStamp, nonce, SignatureTypes.HMACSHA1, out normalizedUrl, out normalizedRequestParameters);
         }
 
         /// <summary>
@@ -309,22 +318,24 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// <param name="normalizedUrl">The URL without parameters</param>
         /// <param name="normalizedRequestParameters">The request parameters</param>
         /// <returns>A base64 string of the hash value</returns>
-		public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl, out string normalizedRequestParameters) {
-			normalizedUrl = null;
-			normalizedRequestParameters = null;
+        public string GenerateSignature(Uri url, string consumerKey, string consumerSecret, string token, string tokenSecret, string httpMethod, string timeStamp, string nonce, SignatureTypes signatureType, out string normalizedUrl, out string normalizedRequestParameters)
+        {
+            normalizedUrl = null;
+            normalizedRequestParameters = null;
 
-            switch (signatureType) {
-                case SignatureTypes.PLAINTEXT:					
-                    return string.Format("{0}&{1}", consumerSecret, tokenSecret); 
-                case SignatureTypes.HMACSHA1:					
-					string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, timeStamp, nonce, HMACSHA1SignatureType, out normalizedUrl, out normalizedRequestParameters);
+            switch (signatureType)
+            {
+                case SignatureTypes.PLAINTEXT:
+                    return string.Format("{0}&{1}", consumerSecret, tokenSecret);
+                case SignatureTypes.HMACSHA1:
+                    string signatureBase = GenerateSignatureBase(url, consumerKey, token, tokenSecret, httpMethod, timeStamp, nonce, HMACSHA1SignatureType, out normalizedUrl, out normalizedRequestParameters);
 
-					using (var hmacsha1 = new HMACSHA1())
-					{
-						hmacsha1.Key = Encoding.UTF8.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
+                    using (var hmacsha1 = new HMACSHA1())
+                    {
+                        hmacsha1.Key = Encoding.UTF8.GetBytes(string.Format("{0}&{1}", UrlEncode(consumerSecret), string.IsNullOrEmpty(tokenSecret) ? "" : UrlEncode(tokenSecret)));
 
-						return GenerateSignatureUsingHash(signatureBase, hmacsha1);
-					}
+                        return GenerateSignatureUsingHash(signatureBase, hmacsha1);
+                    }
                 case SignatureTypes.RSASHA1:
                     throw new NotImplementedException();
                 default:
@@ -336,23 +347,23 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
         /// Generate the timestamp for the signature        
         /// </summary>
         /// <returns></returns>
-        public virtual string GenerateTimeStamp() {
+        public virtual string GenerateTimeStamp()
+        {
             // Default implementation of UNIX time of the current UTC time
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return Convert.ToInt64(ts.TotalSeconds).ToString();            
+            var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
 
         /// <summary>
         /// Generate a nonce
         /// </summary>
         /// <returns></returns>
-        public virtual string GenerateNonce() 
+        public virtual string GenerateNonce()
         {
             // a nonce is a random string so we will try uuid
-            String nonce = Guid.NewGuid().ToString("N");
+            var nonce = Guid.NewGuid().ToString("N");
             // go ahead
             return nonce;
         }
-
-	}
+    }
 }

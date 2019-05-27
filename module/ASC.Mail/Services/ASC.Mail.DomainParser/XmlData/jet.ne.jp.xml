@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="jet.ne.jp">
+    <domain>jet.ne.jp</domain>
+    <displayName>JETINTERNET</displayName>
+    <displayShortName>JET</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>pop.jet.ne.jp</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <incomingServer type="imap">
+      <hostname>imap.jet.ne.jp</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.jet.ne.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

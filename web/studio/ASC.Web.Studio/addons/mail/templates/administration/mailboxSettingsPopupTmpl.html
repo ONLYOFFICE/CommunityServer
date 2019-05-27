@@ -1,0 +1,129 @@
+﻿<script id="mailboxSettingsPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="mail_server_mailbox_settings_popup">
+        <table>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div class="block-cnt-splitter">
+                            <span>${ASC.Mail.Resources.MailResource.MailboxSetiingsInfoLabel}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.Login}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>{{if typeof(account) == 'undefined' || account == null}}${ASC.Mail.Resources.MailResource.YourMailboxEmailHint}{{else}}<b>${account}</b>{{/if}}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span>${ASC.Mail.Resources.MailResource.Password}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span>${ASC.Mail.Resources.MailResource.YourMailboxPasswordHint}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.MailboxIncommingSetiingsLabel}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.ServerLabel}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span><b>${server}</b></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.Port}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span><b>${port}</b></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span>${ASC.Mail.Resources.MailResource.SSLorTLSLabel}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span><b>{{if incoming_encryption_type == 2}}STARTTLS{{else}}SSL{{/if}}</b></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.MailboxOutgoingSetiingsLabel}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.ServerLabel}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span><b>${smtp_server}</b></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.Port}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span><b>${smtp_port}</b></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span>${ASC.Mail.Resources.MailResource.SSLorTLSLabel}:</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span><b>{{if outcoming_encryption_type == 2}}STARTTLS{{else}}SSL{{/if}}</b></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.OkBtnLabel}</button>
+            <a id="changePasswordLink" class="anchorLinkButton link dotline no-select">${ASC.Mail.Resources.MailResource.ChangeAccountPasswordLabel}</a>
+        </div>
+    </div>
+</script>

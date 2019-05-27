@@ -53,7 +53,7 @@
                 employeeType: 1
             };
 
-            teamlab.getProfilesByFilter({}, {
+            teamlab.getSimpleProfilesByFilter({}, {
                 before: that.showLoaderSimpleSelector.call(that, "manager"),
                 filter: filter,
                 success: function (params, data) {
@@ -87,10 +87,9 @@
         },
 
         initAdvSelectorData: function () {
-            var that = this,
-                data = ASC.Resources.Master.ApiResponses_Groups.response;
+            var that = this;
 
-            that.rewriteObjectItem.call(that, data);
+            that.rewriteObjectItem.call(that, window.GroupManager.getAllGroups());
 
             //teamlab.getGroups({}, {
             //    before: function () {

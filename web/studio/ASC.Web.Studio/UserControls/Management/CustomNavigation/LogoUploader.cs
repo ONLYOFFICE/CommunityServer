@@ -37,6 +37,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Web;
+using ASC.Common.Logging;
 
 namespace ASC.Web.Studio.UserControls.CustomNavigation
 {
@@ -65,7 +66,7 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
                     var data = new byte[logo.InputStream.Length];
 
                     var reader = new BinaryReader(logo.InputStream);
-                    reader.Read(data, 0, (int)logo.InputStream.Length);
+                    reader.Read(data, 0, (int) logo.InputStream.Length);
                     reader.Close();
 
                     using (var stream = new MemoryStream(data))
@@ -79,7 +80,8 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
                     }
 
                     result.Success = true;
-                    result.Message = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, size.Width, size.Height);
+                    result.Message = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, size.Width,
+                        size.Height);
                 }
                 else
                 {
@@ -87,17 +89,17 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
                     result.Message = Resource.ErrorEmptyUploadFileSelected;
                 }
             }
-            catch(ImageWeightLimitException)
+            catch (ImageWeightLimitException)
             {
                 result.Success = false;
                 result.Message = Resource.ErrorImageWeightLimit;
             }
-            catch(ImageSizeLimitException)
+            catch (ImageSizeLimitException)
             {
                 result.Success = false;
                 result.Message = WhiteLabelResource.ErrorImageSize;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = ex.Message.HtmlEncode();
@@ -138,7 +140,7 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC").Error(ex);
+                LogManager.GetLogger("ASC").Error(ex);
                 return null;
             }
         }
@@ -161,7 +163,7 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
             }
             catch (Exception e)
             {
-                log4net.LogManager.GetLogger("ASC").Error(e);
+                LogManager.GetLogger("ASC").Error(e);
             }
         }
 

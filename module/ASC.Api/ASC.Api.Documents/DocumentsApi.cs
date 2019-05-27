@@ -41,22 +41,19 @@ using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Utils;
 using ASC.Core;
-using ASC.Core.Users;
 using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.HttpHandlers;
-using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
-using ASC.FederatedLogin.LoginProviders;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using FilesNS = ASC.Web.Files.Services.WCFService;
@@ -253,7 +250,7 @@ namespace ASC.Api.Documents
         /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <returns>Uploaded file</returns>
         [Create("{folderId}/upload")]
-        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool createNewIfExist, bool storeOriginalFileFlag, bool keepConvertStatus = false)
+        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool? createNewIfExist, bool storeOriginalFileFlag, bool keepConvertStatus = false)
         {
             FilesSettings.StoreOriginalFiles = storeOriginalFileFlag;
 
@@ -291,7 +288,7 @@ namespace ASC.Api.Documents
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("@my/insert")]
-        public FileWrapper InsertFileToMy(Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
+        public FileWrapper InsertFileToMy(Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
             return InsertFile(Global.FolderMy.ToString(), file, title, createNewIfExist, keepConvertStatus);
         }
@@ -306,7 +303,7 @@ namespace ASC.Api.Documents
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("@common/insert")]
-        public FileWrapper InsertFileToCommon(Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
+        public FileWrapper InsertFileToCommon(Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
             return InsertFile(Global.FolderCommon.ToString(), file, title, createNewIfExist, keepConvertStatus);
         }
@@ -322,11 +319,11 @@ namespace ASC.Api.Documents
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("{folderId}/insert")]
-        public FileWrapper InsertFile(string folderId, Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
+        public FileWrapper InsertFile(string folderId, Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
             try
             {
-                var resultFile = FileUploader.Exec(folderId, title, file.Length, file, createNewIfExist, !keepConvertStatus);
+                var resultFile = FileUploader.Exec(folderId, title, file.Length, file, createNewIfExist.HasValue ? createNewIfExist.Value : !FilesSettings.UpdateIfExist, !keepConvertStatus);
                 return new FileWrapper(resultFile);
             }
             catch (FileNotFoundException e)
@@ -777,19 +774,6 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Get presigned Uri
-        /// </summary>
-        /// <param name="fileId">File ID</param>
-        /// <returns>Url</returns>
-        /// <visible>false</visible>
-        [Read("file/{fileId}/presigned")]
-        public string GetPresignedUri(String fileId)
-        {
-            var file = _fileStorageService.GetFile(fileId, -1).NotFoundIfNull("File not found");
-            return DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(file));
-        }
-
-        /// <summary>
         /// Deletes the folder with the ID specified in the request
         /// </summary>
         /// <short>Delete folder</short>
@@ -822,7 +806,7 @@ namespace ASC.Api.Documents
 
             var ids = _fileStorageService.MoveOrCopyFilesCheck(itemList, destFolderId).Keys.Select(id => "file_" + id);
 
-            var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, "", "");
+            var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, false, "", "");
             return entries.Select(x => new FileWrapper((Files.Core.File)x)).ToSmartList();
         }
 
@@ -1156,7 +1140,7 @@ namespace ASC.Api.Documents
                 sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
             }
 
-            return sharedInfo.ShortenLink ?? sharedInfo.Link;
+            return sharedInfo.Link;
         }
 
         /// <summary>
@@ -1296,6 +1280,13 @@ namespace ASC.Api.Documents
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DocumentServiceLocationSetting);
 
+            var https = new Regex(@"^https://", RegexOptions.IgnoreCase);
+            var http = new Regex(@"^http://", RegexOptions.IgnoreCase);
+            if (https.IsMatch(CommonLinkUtility.GetFullAbsolutePath("")) && http.IsMatch(FilesLinkUtility.DocServiceUrl))
+            {
+                throw new Exception("Mixed Active Content is not allowed. HTTPS address for Document Server is required.");
+            }
+
             DocumentServiceConnector.CheckDocServiceUrl();
 
             return new[]
@@ -1377,9 +1368,12 @@ namespace ASC.Api.Documents
                                                                                startIndex,
                                                                                Convert.ToInt32(_context.Count) - 1, //NOTE: in ApiContext +1
                                                                                filterType,
-                                                                               new OrderBy(sortBy, !_context.SortDescending),
+                                                                               filterType == FilterType.ByUser,
                                                                                userIdOrGroupId.ToString(),
-                                                                               _context.FilterValue),
+                                                                               _context.FilterValue,
+                                                                               false,
+                                                                               false,
+                                                                               new OrderBy(sortBy, !_context.SortDescending)),
                                             startIndex);
         }
 
@@ -1445,7 +1439,7 @@ namespace ASC.Api.Documents
             }
             try
             {
-                var token = WordpressLoginProvider.GetAccessToken(code);
+                var token = OAuth20TokenHelper.GetAccessToken<WordpressLoginProvider>(code);
                 WordpressToken.SaveToken(token);
                 var meInfo = WordpressHelper.GetWordpressMeInfo(token.AccessToken);
                 var blogId = JObject.Parse(meInfo).Value<string>("token_site_id");

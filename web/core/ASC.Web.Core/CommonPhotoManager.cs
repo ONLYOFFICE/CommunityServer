@@ -75,7 +75,7 @@ namespace ASC.Web.Core
                     if (!transparent)
                     {
                         graphic.Clear(Color.White);
-                        graphic.SmoothingMode = SmoothingMode.AntiAlias;
+                        graphic.SmoothingMode = SmoothingMode.HighQuality;
                     }
                     graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -98,7 +98,7 @@ namespace ASC.Web.Core
                     if (!transparent)
                     {
                         graphic.Clear(Color.White);
-                        graphic.SmoothingMode = SmoothingMode.AntiAlias;
+                        graphic.SmoothingMode = SmoothingMode.HighQuality;
                     }
                     graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;

@@ -6,7 +6,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
     {
         public Uri ServiceLocator
         {
-            get { return new Uri(SkyDriveConstants.BaseAccessUrl);}
+            get { return new Uri(SkyDriveConstants.BaseAccessUrl); }
         }
 
         public bool TrustUnsecureSSLConnections

@@ -24,17 +24,17 @@
 */
 
 
-using ASC.Xmpp.Core.protocol;
-using ASC.Xmpp.Core.protocol.extensions.bosh;
-using ASC.Xmpp.Core.utils.Xml.Dom;
-using ASC.Xmpp.Server.Utils;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using ASC.Common.Logging;
+using ASC.Xmpp.Core.protocol;
+using ASC.Xmpp.Core.protocol.extensions.bosh;
+using ASC.Xmpp.Core.utils.Xml.Dom;
+using ASC.Xmpp.Server.Utils;
 using ASC.Xmpp.Server.Storage;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
 
@@ -44,7 +44,7 @@ namespace ASC.Xmpp.Server.Gateway
     {
         private const int defaultTimeout = 60; // seconds
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppConnection));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private readonly object locker = new object();
         private readonly TimeSpan waitTimeout;

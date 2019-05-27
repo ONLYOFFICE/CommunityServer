@@ -24,13 +24,14 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Tenants;
-using ASC.FullTextIndex;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Tenants;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Web.UserControls.Wiki.Data
 {
@@ -160,10 +161,12 @@ namespace ASC.Web.UserControls.Wiki.Data
 
             IEnumerable<string> pagenames = null;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.WikiModule))
+            List<int> pages;
+            if (FactoryIndexer<WikiWrapper>.TrySelectIds(r => r.MatchAll(content), out pages))
             {
-                return GetPagesById(FullTextSearch.Search(FullTextSearch.WikiModule.Match(content)));
+                return GetPagesById(pages);
             }
+
             var keys = content.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                               .Select(k => k.Trim())
                               .Where(k => 3 <= k.Length);
@@ -193,22 +196,29 @@ namespace ASC.Web.UserControls.Wiki.Data
         {
             if (page == null) throw new ArgumentNullException("page");
 
-            var i1 = Insert("wiki_pages")
-                .InColumnValue("id", page.ID)
-                .InColumnValue("pagename", page.PageName)
-                .InColumnValue("version", page.Version)
-                .InColumnValue("modified_by", page.UserID)
-                .InColumnValue("modified_on", DateTime.UtcNow);
+            using (var tx = db.BeginTransaction())
+            {
+                var i1 = Insert("wiki_pages")
+                    .InColumnValue("id", page.ID)
+                    .InColumnValue("pagename", page.PageName)
+                    .InColumnValue("version", page.Version)
+                    .InColumnValue("modified_by", page.UserID)
+                    .InColumnValue("modified_on", DateTime.UtcNow)
+                    .Identity(1, 0, true);
 
-            var i2 = Insert("wiki_pages_history")
-                .InColumnValue("pagename", page.PageName)
-                .InColumnValue("version", page.Version)
-                .InColumnValue("create_by", page.UserID)
-                .InColumnValue("create_on", DateTime.UtcNow)
-                .InColumnValue("body", page.Body);
+                page.ID = db.ExecuteScalar<int>(i1);
 
-            db.ExecuteBatch(new[] { i1, i2 });
+                var i2 = Insert("wiki_pages_history")
+                    .InColumnValue("pagename", page.PageName)
+                    .InColumnValue("version", page.Version)
+                    .InColumnValue("create_by", page.UserID)
+                    .InColumnValue("create_on", DateTime.UtcNow)
+                    .InColumnValue("body", page.Body);
 
+                db.ExecuteNonQuery(i2);
+
+                tx.Commit();
+            }
             return page;
         }
 

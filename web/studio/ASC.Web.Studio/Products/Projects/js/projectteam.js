@@ -36,7 +36,8 @@ ASC.Projects.ProjectTeam = (function() {
         loadingBanner,
         clickEventName = "click",
         project,
-        handler;
+        handler,
+        mailModuleEnabled;
 
     var init = function () {
         teamlab = Teamlab;
@@ -55,12 +56,15 @@ ASC.Projects.ProjectTeam = (function() {
                 return item1.isTerminated - item2.isTerminated;
             }).map(mapTeamMember);
 
+            var isRetina = jq.cookies.get("is_retina");
             jq(".tab1").html(jq.tmpl("projects_team",
             {
                 project: prj,
                 team: team,
-                manager: prj.responsible
+                manager: prj.responsible,
+                isRetina: isRetina
             })).show();
+
             jq("#descriptionTab").show();
             project = prj;
 
@@ -108,7 +112,13 @@ ASC.Projects.ProjectTeam = (function() {
 
             calculateWidthBlockUserInfo();
 
-            var teamUserIds = master.TeamWithBlockedUsers.map(function (item) { return item.id; });
+            var teamUserIds = master.TeamWithBlockedUsers
+                .map(function (item) {
+                    return item.id;
+                })
+                .filter(function (item) {
+                    return item !== managerId;
+                });
 
             // userselector for the team
 
@@ -124,6 +134,24 @@ ASC.Projects.ProjectTeam = (function() {
             jq('#RestrictAccessHelp').off("click").on("click", function () {
                 jq(this).helper({ BlockHelperID: 'AnswerForRestrictAccessTeam' });
             });
+
+            if (isRetina) {
+                teamlab.getUserPhoto({}, prj.responsible.id,
+                    {
+                        success: function(params, data) {
+                            if (data && typeof(data.max) === "string" && data.max.indexOf("default") === -1) {
+                                jq(".managerAvatar").attr("src", data.max);
+                            }
+                        }
+                    });
+            }
+        });
+
+        teamlab.getWebItemSecurityInfo({}, "2A923037-8B2D-487b-9A22-5AC0918ACF3F",
+        {
+            success: function(params, data) {
+                mailModuleEnabled = data[0].enabled;
+            }
         });
     };
 
@@ -134,8 +162,8 @@ ASC.Projects.ProjectTeam = (function() {
         var resources = ASC.Projects.Resources;
         var menuItems = [];
 
-        if (!user.isVisitor){
-            if (project.canCreateTask) {
+        if (!user.isVisitor) {
+            if (project.canCreateTask && !user.isTerminated) {
                 menuItems.push(new ActionMenuItem("team_task", resources.TasksResource.AddNewTask, teamAddNewTask.bind(null, userId)));
             }
             if (!teamlab.profile.isVisitor) {
@@ -147,10 +175,13 @@ ASC.Projects.ProjectTeam = (function() {
         }
 
         if (teamlab.profile.id !== userId) {
-            menuItems.push(new ActionMenuItem("team_email", resources.ProjectResource.ClosedProjectTeamWriteMail, teamSendEmailHandler.bind(null, user.email)));
+            if (user.email) {
+                menuItems.push(new ActionMenuItem("team_email", resources.ProjectResource.ClosedProjectTeamWriteMail, teamSendEmailHandler.bind(null, user.email)));
+            }
+
             menuItems.push(new ActionMenuItem("team_jabber", resources.ProjectResource.ClosedProjectTeamWriteInMessenger, teamWriteJabberHandler.bind(null, user.userName)));
 
-            if (project.security.canEditTeam) {
+            if (project.security.canEditTeam && userId !== project.responsibleId) {
                 menuItems.push(new ActionMenuItem("team_remove", resources.CommonResource.RemoveMemberFromTeam, teamRemoveHanlder.bind(null, userId)));
             }
         }
@@ -176,19 +207,19 @@ ASC.Projects.ProjectTeam = (function() {
     };
 
     function teamReportOpenTasksHandler(userId) {
-        var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=open";
-        window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
-        return false;
+        ASC.Projects.ReportGenerator.generate("generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=open");
     };
 
     function teamReportClosedTasksHandler(userId) {
-        var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=closed";
-        window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
-        return false;
+        ASC.Projects.ReportGenerator.generate("generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=closed");
     };
 
     function teamSendEmailHandler(userEmail) {
-        window.location.href = "mailto:" + userEmail;
+        if (mailModuleEnabled) {
+            window.open('../../addons/mail/#composeto/email=' + userEmail, "_blank");
+        } else {
+            window.location.href = "mailto:" + userEmail;
+        }
         return false;
     };
 
@@ -205,8 +236,17 @@ ASC.Projects.ProjectTeam = (function() {
         for (var i = 0, teamLength = master.Team.length; i < teamLength; i++) {
             if (master.Team[i].id == params.userId) {
                 master.Team.splice([i], 1);
+                break;
             }
         }
+
+        for (var i = 0, teamLength = master.TeamWithBlockedUsers.length; i < teamLength; i++) {
+            if (master.TeamWithBlockedUsers[i].id == params.userId) {
+                master.TeamWithBlockedUsers.splice([i], 1);
+                break;
+            }
+        }
+
         baseObject.TaskAction.onUpdateProjectTeam();
     };
 
@@ -263,7 +303,8 @@ ASC.Projects.ProjectTeam = (function() {
         return jq.tmpl('memberTemplate',
         {
             team: team.map(mapTeamMember),
-            project: project
+            project: project,
+            isRetina: jq.cookies.get("is_retina")
         });
     }
 
@@ -276,13 +317,17 @@ ASC.Projects.ProjectTeam = (function() {
                 security(item.canReadFiles, "Files", resources.ProjectsFileResource.Documents),
                 security(item.canReadTasks, "Tasks", resources.TasksResource.AllTasks),
                 security(item.canReadMilestones, "Milestone", resources.MilestoneResource.Milestones),
-                security(item.canReadContacts, "Contacts", resources.CommonResource.ModuleContacts)
+                security(item.canReadContacts, "Contacts", resources.CommonResource.ModuleContacts, item.isVisitor)
             ]
         }, item);
     }
 
-    function security(check, flag, title) {
-        return { check: check, flag: flag, title: title };
+    function security(check, flag, title, defaultDisabled) {
+        var result = { check: check, flag: flag, title: title };
+        if (typeof defaultDisabled === "boolean") {
+            result.defaultDisabled = defaultDisabled;
+        }
+        return result;
     }
 
     function unbindListEvents() {

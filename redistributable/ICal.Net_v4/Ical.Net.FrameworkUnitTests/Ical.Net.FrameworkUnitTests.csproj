@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{90400333-D639-4303-B8F4-DBE0DA5D379D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ical.Net.FrameworkUnitTests</RootNamespace>
+    <AssemblyName>Ical.Net.FrameworkUnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.7.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Calendars\**\*.ics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NodaTime">
+      <HintPath>..\ical.NET\bin\Debug\net46\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlarmTest.cs" />
+    <Compile Include="AttendeeTest.cs" />
+    <Compile Include="CalDateTimeTests.cs" />
+    <Compile Include="CalendarEventTest.cs" />
+    <Compile Include="CalendarPropertiesTest.cs" />
+    <Compile Include="CollectionHelpersTests.cs" />
+    <Compile Include="ComponentTest.cs" />
+    <Compile Include="ConcurrentDeserializationTests.cs" />
+    <Compile Include="CopyTest.cs" />
+    <Compile Include="DataTypeTest.cs" />
+    <Compile Include="DateTimeSerializerTests.cs" />
+    <Compile Include="DeserializationTests.cs" />
+    <Compile Include="DocumentationExamples.cs" />
+    <Compile Include="EqualityAndHashingTests.cs" />
+    <Compile Include="FreeBusyTest.cs" />
+    <Compile Include="GetOccurrenceTests.cs" />
+    <Compile Include="IcsFiles.cs" />
+    <Compile Include="JournalTest.cs" />
+    <Compile Include="ProgramTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurrenceTests.cs" />
+    <Compile Include="SerializationHelpers.cs" />
+    <Compile Include="SerializationTests.cs" />
+    <Compile Include="SimpleDeserializationTests.cs" />
+    <Compile Include="SymmetricSerializationTests.cs" />
+    <Compile Include="TextUtilTests.cs" />
+    <Compile Include="TodoTest.cs" />
+    <Compile Include="VTimeZoneTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Calendars\Alarm\ALARM1.ics" />
+    <Content Include="Calendars\Alarm\ALARM2.ics" />
+    <Content Include="Calendars\Alarm\ALARM3.ics" />
+    <Content Include="Calendars\Alarm\ALARM4.ics" />
+    <Content Include="Calendars\Alarm\ALARM5.ics" />
+    <Content Include="Calendars\Alarm\ALARM6.ics" />
+    <Content Include="Calendars\Alarm\ALARM7.ics" />
+    <Content Include="Calendars\Journal\JOURNAL1.ics" />
+    <Content Include="Calendars\Journal\JOURNAL2.ics" />
+    <Content Include="Calendars\Recurrence\Bug1741093.ics" />
+    <Content Include="Calendars\Recurrence\Bug2912657.ics" />
+    <Content Include="Calendars\Recurrence\Bug2916581.ics" />
+    <Content Include="Calendars\Recurrence\Bug2959692.ics" />
+    <Content Include="Calendars\Recurrence\Bug2966236.ics" />
+    <Content Include="Calendars\Recurrence\Bug3007244.ics" />
+    <Content Include="Calendars\Recurrence\ByMonth1.ics" />
+    <Content Include="Calendars\Recurrence\ByMonth2.ics" />
+    <Content Include="Calendars\Recurrence\ByMonthDay1.ics" />
+    <Content Include="Calendars\Recurrence\Daily1.ics" />
+    <Content Include="Calendars\Recurrence\DailyByDay1.ics" />
+    <Content Include="Calendars\Recurrence\DailyByHourMinute1.ics" />
+    <Content Include="Calendars\Recurrence\DailyCount1.ics" />
+    <Content Include="Calendars\Recurrence\DailyCount2.ics" />
+    <Content Include="Calendars\Recurrence\DailyInterval1.ics" />
+    <Content Include="Calendars\Recurrence\DailyInterval2.ics" />
+    <Content Include="Calendars\Recurrence\DailyUntil1.ics" />
+    <Content Include="Calendars\Recurrence\Empty1.ics" />
+    <Content Include="Calendars\Recurrence\Hourly1.ics" />
+    <Content Include="Calendars\Recurrence\HourlyInterval1.ics" />
+    <Content Include="Calendars\Recurrence\HourlyInterval2.ics" />
+    <Content Include="Calendars\Recurrence\HourlyUntil1.ics" />
+    <Content Include="Calendars\Recurrence\Minutely1.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyByHour1.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyCount1.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyCount2.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyCount3.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyCount4.ics" />
+    <Content Include="Calendars\Recurrence\MinutelyInterval1.ics" />
+    <Content Include="Calendars\Recurrence\Monthly1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyByDay1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyByMonthDay1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyByMonthDay2.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyBySetPos1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyBySetPos2.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByDay1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByDay2.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByDay3.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByMonthDay1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByMonthDay2.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyCountByMonthDay3.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyInterval1.ics" />
+    <Content Include="Calendars\Recurrence\MonthlyUntilByDay1.ics" />
+    <Content Include="Calendars\Recurrence\Secondly1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyCount1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyCountWkst1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyCountWkst2.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyCountWkst3.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyCountWkst4.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyInterval1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyUntil1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyUntilWkst1.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyUntilWkst2.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyWeekStartsLastYear.ics" />
+    <Content Include="Calendars\Recurrence\WeeklyWkst1.ics" />
+    <Content Include="Calendars\Recurrence\Yearly1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByDay1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByMonth1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByMonth2.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByMonth3.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByMonthDay1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyBySetPos1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByWeekNo1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByWeekNo2.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByWeekNo3.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByWeekNo4.ics" />
+    <Content Include="Calendars\Recurrence\YearlyByWeekNo5.ics" />
+    <Content Include="Calendars\Recurrence\YearlyComplex1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyCountByMonth1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyCountByYearDay1.ics" />
+    <Content Include="Calendars\Recurrence\YearlyInterval1.ics" />
+    <Content Include="Calendars\Serialization\Attachment3.ics" />
+    <Content Include="Calendars\Serialization\Attachment4.ics" />
+    <Content Include="Calendars\Serialization\Attendee1.ics" />
+    <Content Include="Calendars\Serialization\Attendee2.ics" />
+    <Content Include="Calendars\Serialization\Bug2033495.ics" />
+    <Content Include="Calendars\Serialization\Bug2148092.ics" />
+    <Content Include="Calendars\Serialization\Bug2938007.ics" />
+    <Content Include="Calendars\Serialization\Calendar1.ics" />
+    <Content Include="Calendars\Serialization\CalendarParameters2.ics" />
+    <Content Include="Calendars\Serialization\CaseInsensitive1.ics" />
+    <Content Include="Calendars\Serialization\CaseInsensitive2.ics" />
+    <Content Include="Calendars\Serialization\CaseInsensitive3.ics" />
+    <Content Include="Calendars\Serialization\CaseInsensitive4.ics" />
+    <Content Include="Calendars\Serialization\Categories1.ics" />
+    <Content Include="Calendars\Serialization\DateTime1.ics" />
+    <Content Include="Calendars\Serialization\DateTime2.ics" />
+    <Content Include="Calendars\Serialization\Duration1.ics" />
+    <Content Include="Calendars\Serialization\EmptyLines1.ics" />
+    <Content Include="Calendars\Serialization\EmptyLines2.ics" />
+    <Content Include="Calendars\Serialization\EmptyLines3.ics" />
+    <Content Include="Calendars\Serialization\EmptyLines4.ics" />
+    <Content Include="Calendars\Serialization\Encoding1.ics" />
+    <Content Include="Calendars\Serialization\Encoding2.ics" />
+    <Content Include="Calendars\Serialization\Encoding3.ics" />
+    <Content Include="Calendars\Serialization\Event1.ics" />
+    <Content Include="Calendars\Serialization\Event2.ics" />
+    <Content Include="Calendars\Serialization\Event3.ics" />
+    <Content Include="Calendars\Serialization\Event4.ics" />
+    <Content Include="Calendars\Serialization\GeographicLocation1.ics" />
+    <Content Include="Calendars\Serialization\Google1.ics" />
+    <Content Include="Calendars\Serialization\Language1.ics" />
+    <Content Include="Calendars\Serialization\Language2.ics" />
+    <Content Include="Calendars\Serialization\Language3.ics" />
+    <Content Include="Calendars\Serialization\Language4.ics" />
+    <Content Include="Calendars\Serialization\Outlook2007LineFolds.ics" />
+    <Content Include="Calendars\Serialization\Parameter1.ics" />
+    <Content Include="Calendars\Serialization\Parameter2.ics" />
+    <Content Include="Calendars\Serialization\Parse1.ics" />
+    <Content Include="Calendars\Serialization\PARSE17.ics" />
+    <Content Include="Calendars\Serialization\ProdID1.ics" />
+    <Content Include="Calendars\Serialization\ProdID2.ics" />
+    <Content Include="Calendars\Serialization\Property1.ics" />
+    <Content Include="Calendars\Serialization\RecurrenceDates1.ics" />
+    <Content Include="Calendars\Serialization\RequestStatus1.ics" />
+    <Content Include="Calendars\Serialization\TimeZone1.ics" />
+    <Content Include="Calendars\Serialization\TimeZone2.ics" />
+    <Content Include="Calendars\Serialization\TimeZone3.ics" />
+    <Content Include="Calendars\Serialization\Todo1.ics" />
+    <Content Include="Calendars\Serialization\Todo2.ics" />
+    <Content Include="Calendars\Serialization\Todo3.ics" />
+    <Content Include="Calendars\Serialization\Todo4.ics" />
+    <Content Include="Calendars\Serialization\Todo5.ics" />
+    <Content Include="Calendars\Serialization\Todo6.ics" />
+    <Content Include="Calendars\Serialization\Todo7.ics" />
+    <Content Include="Calendars\Serialization\Transparency1.ics" />
+    <Content Include="Calendars\Serialization\Transparency2.ics" />
+    <Content Include="Calendars\Serialization\Trigger1.ics" />
+    <Content Include="Calendars\Serialization\USHolidays.ics" />
+    <Content Include="Calendars\Serialization\XProperty1.ics" />
+    <Content Include="Calendars\Serialization\XProperty2.ics" />
+    <Content Include="Calendars\Todo\Todo1.ics" />
+    <Content Include="Calendars\Todo\Todo2.ics" />
+    <Content Include="Calendars\Todo\Todo3.ics" />
+    <Content Include="Calendars\Todo\Todo4.ics" />
+    <Content Include="Calendars\Todo\Todo5.ics" />
+    <Content Include="Calendars\Todo\Todo6.ics" />
+    <Content Include="Calendars\Todo\Todo7.ics" />
+    <Content Include="Calendars\Todo\Todo8.ics" />
+    <Content Include="Calendars\Todo\Todo9.ics" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ical.Net\Ical.Net.csproj">
+      <Project>{71446356-d4ec-4141-b25c-4fae6fa86265}</Project>
+      <Name>Ical.Net</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

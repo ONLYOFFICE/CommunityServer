@@ -30,7 +30,9 @@ using System.Web;
 using System.Web.UI;
 using AjaxPro;
 using ASC.Core.Users;
+using ASC.ElasticSearch;
 using ASC.Forum;
+using ASC.Web.Community.Search;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 
@@ -202,20 +204,16 @@ namespace ASC.Web.UserControls.Forum
 
             try
             {
-                var result = ForumDataProvider.RemovePost(TenantProvider.CurrentTenantID, post.ID);
+                var result = RemoveDataHelper.RemovePost(post);
                 if (result == DeletePostResult.Successfully)
                 {
                     resp.rs1 = "1";
                     resp.rs3 = Resources.ForumUCResource.SuccessfullyDeletePostMessage;
-                    _forumManager.RemoveAttachments(post);
-
-                    CommonControlsConfigurer.FCKUploadsRemoveForItem(_forumManager.Settings.FileStoreModuleID, idPost.ToString());
                 }
                 else if (result == DeletePostResult.ReferencesBlock)
                 {
                     resp.rs1 = "0";
                     resp.rs3 = Resources.ForumUCResource.ExistsReferencesChildPosts;
-
                 }
                 else
                 {

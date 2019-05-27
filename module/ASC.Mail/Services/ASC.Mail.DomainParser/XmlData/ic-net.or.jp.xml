@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="ic-net.or.jp">
+    <domain>ic-net.or.jp</domain>
+    <displayName>IC-NET</displayName>
+    <displayShortName>IC-NET</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mail.ic-net.or.jp</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.ic-net.or.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

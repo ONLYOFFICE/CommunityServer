@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig>
+  <emailProvider id="vp.tiki.ne.jp">
+    <domain>vp.tiki.ne.jp</domain>
+    <displayName>TikiTikiインターネット</displayName>
+    <displayShortName>TikiTiki</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>vp.tiki.ne.jp</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>plain</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>vs.tiki.ne.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>plain</authentication>
+      <addThisServer>true</addThisServer>
+      <useGlobalPreferredServer>false</useGlobalPreferredServer>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

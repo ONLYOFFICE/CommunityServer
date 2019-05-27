@@ -28,13 +28,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Documents;
 using ASC.Api.Employee;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
-using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Projects.Core.Domain;
 using ASC.Specific;
@@ -235,9 +233,9 @@ namespace ASC.Api.Projects
 
         private static IEnumerable<Guid> ToGuidList(string participants)
         {
-            return !string.IsNullOrEmpty(participants) ?
-                participants.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Guid(x))
-                : new List<Guid>();
+            return participants != null ?
+                 participants.Equals(string.Empty) ? new List<Guid>() : participants.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Guid(x))
+                : null;
         }
 
         ///<summary>
@@ -339,6 +337,41 @@ namespace ASC.Api.Projects
             
             messageEngine.DetachFile(discussion, fileid);
             MessageService.Send(Request, MessageAction.DiscussionDetachedFile, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title, file.Title);
+
+            return MessageWrapperSelector(discussion);
+        }
+
+        ///<summary>
+        ///Detaches the selected file from the message with the ID specified in the request
+        ///</summary>
+        ///<short>
+        ///Detach file from message
+        ///</short>
+        ///<category>Files</category>
+        ///<param name="messageid">Message ID</param>
+        ///<param name="files">File ID</param>
+        ///<returns>Message</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        ///<visible>false</visible>
+        [Delete(@"message/{messageid:[0-9]+}/filesmany")]
+        public MessageWrapper DetachFileFromMessage(int messageid, IEnumerable<int> files)
+        {
+            var messageEngine = EngineFactory.MessageEngine;
+            var fileEngine = EngineFactory.FileEngine;
+
+            var discussion = messageEngine.GetByID(messageid).NotFoundIfNull();
+            ProjectSecurity.DemandReadFiles(discussion.Project);
+
+            var filesList = files.ToList();
+            var attachments = new List<Files.Core.File>();
+            foreach (var fileid in filesList)
+            {
+                var file = fileEngine.GetFile(fileid).NotFoundIfNull();
+                attachments.Add(file);
+                messageEngine.DetachFile(discussion, fileid);
+            }
+
+            MessageService.Send(Request, MessageAction.DiscussionDetachedFile, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title, attachments.Select(x => x.Title));
 
             return MessageWrapperSelector(discussion);
         }

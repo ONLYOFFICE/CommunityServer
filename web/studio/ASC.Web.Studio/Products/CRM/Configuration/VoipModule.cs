@@ -32,6 +32,7 @@ using ASC.Web.Core.WebZones;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
+using ASC.Data.Storage;
 
 namespace ASC.Web.CRM.Configuration
 {
@@ -109,10 +110,12 @@ namespace ASC.Web.CRM.Configuration
             return
                 string.Format(@"<li class=""top-item-box voip display-none"">
                                   <a class=""voipActiveBox inner-text"" title=""{0}"">
-                                      <span class=""inner-label"">{1}</span>
+                                      <svg><use base=""{1}"" href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuphone""></use></svg>
+                                      <span class=""inner-label"">{2}</span>
                                   </a>
                                 </li>",
                               "VoIP",
+                              WebPath.GetPath("/"),
                               0);
         }
     }

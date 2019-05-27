@@ -70,6 +70,15 @@ namespace ASC.Web.Community.Birthdays.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No birthdays for the nearest dates.
+        /// </summary>
+        public static string BirthdayEmptyScreenCaption {
+            get {
+                return ResourceManager.GetString("BirthdayEmptyScreenCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remind about the birthday.
         /// </summary>
         public static string BirthdayRemindLinkTitle {
@@ -84,6 +93,15 @@ namespace ASC.Web.Community.Birthdays.Resources {
         public static string BirthdayRemindReadyLinkTitle {
             get {
                 return ResourceManager.GetString("BirthdayRemindReadyLinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birthdays can be specified in the &apos;People&apos; module.
+        /// </summary>
+        public static string BirthdaysEmptyModuleDescription {
+            get {
+                return ResourceManager.GetString("BirthdaysEmptyModuleDescription", resourceCulture);
             }
         }
         

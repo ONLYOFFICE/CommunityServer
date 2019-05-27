@@ -1,4 +1,4 @@
-﻿using ASC.Web.Core;
+using ASC.Web.Core;
 using ASC.Web.CRM.Configuration;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Web.CRM")]
-[assembly: AssemblyCopyright("Copyright © 2018")]
+[assembly: AssemblyCopyright("(c) Ascensio System SIA. All rights reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

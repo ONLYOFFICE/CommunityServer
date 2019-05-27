@@ -153,6 +153,12 @@
   <data name="CreateMailgroupPopupHeader" xml:space="preserve">
     <value>You need to enter the mail group address and choose mailboxes that will be included in this mailgroup.</value>
   </data>
+  <data name="ChangeMailboxPasswordPopupInfo" xml:space="preserve">
+    <value>Enter a new password</value>
+  </data>
+  <data name="ViewMailboxConnectionSettingsPopupInfo" xml:space="preserve">
+    <value>Connection settings</value>
+  </data>
   <data name="DeleteDomain" xml:space="preserve">
     <value>Delete domain</value>
   </data>
@@ -275,6 +281,15 @@
   </data>
   <data name="MailboxUserLabel" xml:space="preserve">
     <value>Mailbox user</value>
+  </data>
+  <data name="MailboxSendSettingsLabel" xml:space="preserve">
+    <value>Send connection settings to:</value>
+  </data>
+  <data name="MailboxSendSettingsThisMailboxLabel" xml:space="preserve">
+    <value>this mailbox address</value>
+  </data>
+  <data name="MailboxSendSettingsProfileMailboxLabel" xml:space="preserve">
+    <value>this mailbox user profile address</value>
   </data>
   <data name="MailgroupAddressLabel" xml:space="preserve">
     <value>Mail group address</value>

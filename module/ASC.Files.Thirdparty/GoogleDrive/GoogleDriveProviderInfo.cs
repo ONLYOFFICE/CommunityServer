@@ -69,6 +69,20 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
         }
 
+        internal bool StorageOpened
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__GOOGLE_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    return wrapper != null && wrapper.Storage.IsOpened;
+                }
+                return false;
+            }
+        }
+
         public int ID { get; set; }
 
         public Guid Owner { get; private set; }
@@ -130,7 +144,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void Dispose()
         {
-            Storage.Close();
+            if (StorageOpened)
+                Storage.Close();
         }
 
         public bool CheckAccess()
@@ -179,7 +194,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (_token == null) throw new UnauthorizedAccessException("Cannot create GoogleDrive session with given token");
             if (_token.IsExpired)
             {
-                _token = OAuth20TokenHelper.RefreshToken(GoogleLoginProvider.GoogleOauthTokenUrl, _token);
+                _token = OAuth20TokenHelper.RefreshToken<GoogleLoginProvider>(_token);
 
                 using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
                 {
@@ -249,7 +264,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (entry == null)
             {
                 entry = Storage.GetEntry(driveId);
-                CacheEntry.Insert("drive-" + ID + driveId, entry, DateTime.UtcNow.Add(CacheExpiration));
+                if (entry != null)
+                    CacheEntry.Insert("drive-" + ID + driveId, entry, DateTime.UtcNow.Add(CacheExpiration));
             }
             return entry;
         }
@@ -264,7 +280,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     if (value == null)
                     {
                         value = Storage.GetEntries(parentDriveId, true);
-                        CacheChildFolders.Insert("drived-" + ID + "-" + parentDriveId, value, DateTime.UtcNow.Add(CacheExpiration));
+                        if (value != null)
+                            CacheChildFolders.Insert("drived-" + ID + "-" + parentDriveId, value, DateTime.UtcNow.Add(CacheExpiration));
                     }
                     return value;
                 }
@@ -274,7 +291,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     if (value == null)
                     {
                         value = Storage.GetEntries(parentDriveId, false);
-                        CacheChildFiles.Insert("drivef-" + ID + "-" + parentDriveId, value, DateTime.UtcNow.Add(CacheExpiration));
+                        if (value != null)
+                            CacheChildFiles.Insert("drivef-" + ID + "-" + parentDriveId, value, DateTime.UtcNow.Add(CacheExpiration));
                     }
                     return value;
                 }

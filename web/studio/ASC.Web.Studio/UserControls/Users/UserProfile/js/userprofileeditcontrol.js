@@ -26,12 +26,146 @@
 
 window.EditProfileManager = (function () {
 
-    var init = function () {
-        var edit = jq.getURLParam("action") == "edit";
+    var teamlab,
+        showRequiredError,
+        removeRequiredErrorClass,
+        isValidEmail,
+        isUserEmail = true,
+        isUserPassword = false,
+        isPasswordApprove = false,
+        isEmailApprove = false,
+        requirePassword,
+        passwordSettings,
+        enabledModulesList,
+        domainsList,
+        localPart,
+        selectedDomain,
+        isError,
+        edit,
+        savedUserDomain = '',
+        classActive = 'active',
+        tmplCheckEmail = "templateCheckingEmail",
+        classEmailInfo = '.emailInfo',
+        redTextColor = '#B40404',
+        greenTextColor = '#44BB00',
+        requiredErrorText = '.requiredErrorText',
+        profileURL = 'profile.aspx?user=';
 
-        initPhotoUploader();
+    var $setPassword,
+        $createEmailOnDomain,
+        $inputUserEmail,
+        $inputPortalEmail,
+        $tablePassword,
+        $titlePassword,
+        $setExistingEmail,
+        $password,
+        $copyValues,
+        $passwordGen,
+        $passwordShow,
+        $generatedPassword,
+        $portalEmail,
+        $profileEmail,
+        $passUpper,
+        $passDigits,
+        $passSpecial,
+        $passMinLength,
+        $passwordInfo,
+        $emailInfo,
+        $domainSelector,
+        $profileFirstName,
+        $profileSecondName,
+        $profilePosition,
+        $profilePlace,
+        $profileRegistrationDate,
+        $profileBirthDate,
+        $userProfilePhoto,
+        $profileComment,
+        $profilePhotoBlock,
+        $passwordShowLabel,
+        $advancedUserType,
+        $popupHelperCreateEmailString;
+
+    var init = function () {
+
+        teamlab = Teamlab;
+        showRequiredError = ShowRequiredError;
+        removeRequiredErrorClass = RemoveRequiredErrorClass;
+        isValidEmail = ASC.Mail.Utility.IsValidEmail;
+
+        $setPassword = jq('#setPassword');
+        $createEmailOnDomain = jq('#createEmailOnDomain');
+        $inputUserEmail = jq('#inputUserEmail');
+        $inputPortalEmail = jq('#inputPortalEmail');
+        $tablePassword = jq('#tablePassword');
+        $titlePassword = jq('#titlePassword');
+        $setExistingEmail = jq('#setExistingEmail');
+        $password = jq('#password');
+        $copyValues = jq('#copyValues');
+        $passwordGen = jq('#passwordGen');
+        $passwordShow = jq('#passwordShow');
+        $generatedPassword = jq('#generatedPassword');
+        $portalEmail = jq('.portalEmail');
+        $profileEmail = jq('#profileEmail');
+        $passUpper = jq('#passUpper');
+        $passDigits = jq('#passDigits');
+        $passSpecial = jq('#passSpecial');
+        $passMinLength = jq('#passMinLength');
+        $passwordInfo = jq('#passwordInfo');
+        $emailInfo = jq(classEmailInfo);
+        $domainSelector = jq('#domainSelector');
+        $profileFirstName = jq("#profileFirstName");
+        $profileSecondName = jq("#profileSecondName");
+        $profilePosition = jq("#profilePosition");
+        $profilePlace = jq("#profilePlace");
+        $profileRegistrationDate = jq("#profileRegistrationDate");
+        $profileBirthDate = jq("#profileBirthDate");
+        $userProfilePhoto = jq("#userProfilePhoto");
+        $profileComment = jq("#profileComment");
+        $profilePhotoBlock = jq('.profile-photo-block');
+        $passwordShowLabel = jq('#passwordShowLabel');
+        $advancedUserType = jq('#advancedUserType');
+        $popupHelperCreateEmailString = jq('#AnswerForEmail p:eq(1)');
+
+        jq(document).on('load', changeBlockPosition);
+        jq(window).on('resize', changeBlockPosition);
+        $setPassword.on('click', showSettingPassword);
+        $createEmailOnDomain.on('click', showCreateEmailOnDomain);
+        $setExistingEmail.on('click', showUseExistingEmail);
+        $password.on('input', checkPassword);
+        $password.on('focus', function () { $passwordInfo.show(); });
+        $password.on('blur', function () { $passwordInfo.hide(); });
+        $copyValues.on('click', copyToClipboard);
+        $passwordGen.on('click', passwordGenerator);
+        $passwordShow.on('click', showOrHidePassword);
+        jq('#advancedUserType span').on('click', toggleSwitch);
+        jq('#advancedSexType span').on('click', toggleSwitch);
+        $profileFirstName.on('input', function () { validateFirstName(false, true, true); });
+        $profileSecondName.on('input', function () { validateLastName(false, true, true); });
+        $portalEmail.on('input', $emailInfo.empty);
+        $profileEmail.on('input', function () { $emailInfo.empty; savedUserDomain = ''; });
+        $portalEmail.on('keyup', function () { delayedCheck($portalEmail); });
+        $profileEmail.on('keyup', function () { delayedCheck($profileEmail); });
+        $inputPortalEmail.on('click', '.optionItem', function () { delayedCheck($portalEmail); cutDomainInSelector(); });
+
+        edit = jq.getURLParam("action") == "edit";
+
+        teamlab.getPortalPasswordSettings({},
+            {
+                success: function (params, data) {
+                    passwordSettings = data;
+                }
+            });
+
+        teamlab.getEnabledModules({},
+            {
+                success: function (params, data) {
+                    enabledModulesList = data;
+                    fillModulesName();
+                }
+            });
 
         initBorderPhoto();
+        hideEmailOnDomainForGuest();
 
         jq("#userProfilePhoto img").on("load", function () {
             initBorderPhoto();
@@ -41,25 +175,7 @@ window.EditProfileManager = (function () {
         jq("#loadPhotoImage").on("click", function () {
             if (jq(this).hasClass("disabled")) return;
 
-            var curPhotoSrc = jq("#userProfilePhoto").find("img").attr("src");
-            ASC.Controls.LoadPhotoImage.showPhotoDialog(curPhotoSrc);
-        });
-
-        jq("#divLoadPhotoWindow .default-image").on("click", function () {
-            if (typeof (window.userId) != "undefined") {
-                var userId = window.userId;
-                ASC.Controls.LoadPhotoImage.setDefaultPhoto(userId);
-            } else {
-                var src = jq(this).attr("data-src");
-                jq("#userProfilePhoto").find("img").attr("src", src);
-                PopupKeyUpActionProvider.CloseDialog();
-                jq(".profile-action-usericon").unblock();
-                jq("#userProfilePhotoDscr").show();
-                jq("#userProfilePhotoError").html("");
-            }
-        });
-        jq("#userType").change(function () {
-            changeDescriptionUserType(this);
+            ASC.Controls.LoadPhotoImage.showDialog();
         });
 
         jq.switcherAction("#switcherCommentButton", "#commentContainer");
@@ -77,15 +193,21 @@ window.EditProfileManager = (function () {
             jq(this).siblings(".combobox-title").removeClass().addClass("combobox-title " + className);
         });
 
-
         renderDepsContacts();
-        var sex = jq("#userdataSex").attr("data-value");
-        jq('#userdataSex option[value=' + sex + ']').attr('selected', true);
 
-        jq("#userType, .group-field").tlcombobox();
+        if (edit) {
+            if (userSex) {
+                jq("#advancedSexType span:first").addClass(classActive);
+            } else if (userSex == 0) {
+                jq("#advancedSexType span:last").addClass(classActive)
+            }
+            $popupHelperCreateEmailString.hide();
+        }
+
+        jq(".group-field").tlcombobox({ align: 'left' });
         jq(".group-field.external").tlcombobox(false);
-        jq("#userdataSex").tlcombobox();
-        jq("#profileFirstName").focus();
+
+        $profileFirstName.focus();
 
         jq(".tabs-content select").each(function () {
             var className = jq(this).find("option:selected").val();
@@ -94,22 +216,31 @@ window.EditProfileManager = (function () {
 
         // Departments
         var userManagerGroups = [];
+        var selectedGroups = {};
         var $chooseGroupsSelector = jq("#chooseGroupsSelector");
         $chooseGroupsSelector.groupadvancedSelector({
-            canadd: Teamlab.profile.isAdmin 
+            canadd: teamlab.profile.isAdmin
         });
-        
+
         $chooseGroupsSelector.on("showList", function (event, items) {
-            var $this = jq(this),
-                itemIds = [];
-            var $o = jq.tmpl("template-selector-selected-items", { Items: items });
+            var itemsForAdd = [];
+            var itemIds = [];
+
+            for (var i = 0, j = items.length; i < j; i++) {
+                var itemsI = items[i];
+                if (!selectedGroups.hasOwnProperty(itemsI.id)) {
+                    selectedGroups[itemsI.id] = undefined;
+                    itemIds.push(itemsI.id);
+                    itemsForAdd.push(itemsI);
+                }
+            }
+
+            var $o = jq.tmpl("template-selector-selected-items", { Items: itemsForAdd });
             jq(".departments-list").append($o);
-            items.forEach(function (u) {
-                itemIds.push(u.id);
-            });
+            $chooseGroupsSelector.groupadvancedSelector("reset", true);
             $chooseGroupsSelector.groupadvancedSelector("disable", itemIds);
         });
-        
+
         $chooseGroupsSelector.on("afterCreate", function (event, item) {
             var groupList = jq("#groupList");
             if (groupList.length) {
@@ -130,16 +261,16 @@ window.EditProfileManager = (function () {
                 depList.append($o);
                 $chooseGroupsSelector.groupadvancedSelector("disable", [item.id]);
             }
-
-
         });
 
         jq("#departmentsField .departments-list").on("click", "li .reset-icon:not(.disabled)", function () {
             var $this = jq(this),
-                $elem = $this.parents("li");
-            $chooseGroupsSelector.groupadvancedSelector("undisable", [$elem.attr("data-id")]);
+                $elem = $this.parents("li"),
+                id = $elem.attr("data-id");
+            $chooseGroupsSelector.groupadvancedSelector("undisable", [id]);
+            delete selectedGroups[id];
             $elem.remove();
-        })
+        });
 
         if (edit) {
             var userName = jq.getURLParam("user");
@@ -147,10 +278,14 @@ window.EditProfileManager = (function () {
             var $o = jq.tmpl("template-selector-selected-items", { Items: window.departmentsList.sort(SortData) }),
                 depIds = [];
             jq("#departmentsField .departments-list").html($o);
-            window.departmentsList.forEach(function (el) { depIds.push(el.id) });
+            window.departmentsList.forEach(function (el) {
+                depIds.push(el.id);
+                selectedGroups[el.id] = undefined;
+            });
+
             $chooseGroupsSelector.groupadvancedSelector("disable", depIds);
 
-            Teamlab.getUserGroups( window.userId, {
+            teamlab.getUserGroups(window.userId, {
                 success: function (params, groups) {
                     for (var i = 0, ln = groups.length; i < ln; i++) {
                         if (groups[i].manager && userName && (groups[i].manager.toLowerCase() == userName.toLowerCase())) {
@@ -158,20 +293,19 @@ window.EditProfileManager = (function () {
                                 {
                                     id: groups[i].id,
                                     title: groups[i].name
-                            });
+                                });
                             $chooseGroupsSelector.groupadvancedSelector("disable", [groups[i].id]);
                         }
                     }
                 }
             });
-
         }
 
         jq("#cancelProfileAction").on("click", function () {
             $this = jq(this);
             window.onbeforeunload = null;
             document.location.replace($this.attr("data-url"));
-        })
+        });
 
         //////
         InitDatePicker();
@@ -179,72 +313,76 @@ window.EditProfileManager = (function () {
         jq("#profileActionButton").on("click", function () {
 
             HideRequiredError();
-            var isVisitor = false;
+            var isVisitor = (jq("#advancedUserType span:first").hasClass(classActive)) ? true : false;
 
-            if (jq("#userType").length) {
-                isVisitor = (jq("#userType").val() == "user") ? false : true;
-            } else {
-                isVisitor = (jq("#userTypeField").attr("data-type") == "user") ? false : true;
-            }
-            var firstName = jq("#profileFirstName").val() ? jq("#profileFirstName").val().trim() : "",
-                lastName = jq("#profileSecondName").val() ? jq("#profileSecondName").val().trim() : "",
-                position = jq("#profilePosition").val() ? jq("#profilePosition").val().trim() : "",
-                location = jq("#profilePlace").val() ? jq("#profilePlace").val().trim() : "",
-                email = jq("#profileEmail").val() ? jq("#profileEmail").val().trim() : "",
-                workFromDate = jq("#profileRegistrationDate").val(),
-                birthDate = jq("#profileBirthDate").val(),
-                pathname = jq("#userProfilePhoto").find("img").attr("src"),
+            var firstName = $profileFirstName.val() ? $profileFirstName.val().trim() : '',
+                lastName = $profileSecondName.val() ? $profileSecondName.val().trim() : '',
+                position = $profilePosition.val() ? $profilePosition.val().trim() : '',
+                location = $profilePlace.val() ? $profilePlace.val().trim() : '',
+                email = getEmail(),
+                password = $password.val(),
+                workFromDate = $profileRegistrationDate.val(),
+                birthDate = $profileBirthDate.val(),
+                pathname = $userProfilePhoto.find('img').attr('src'),
                 sex,
                 departments = [],
-                contacts = [];
+                contacts = [],
+                comment = $profileComment.val();
 
-            var comment = jq("#profileComment").val();
-            if (comment == null || comment == "null") {
-                comment = "";
+            isError = false;
+
+            if (comment === null || comment === 'null') {
+                comment = '';
             }
 
-            var isError = false;
-            if (firstName == "") {
-                ShowRequiredError(jq("#profileFirstName"));
+            if (isUserPassword && requirePassword && (!passwordValidation($password.val()) || password === '')) {
+                showRequiredError($password);
                 isError = true;
             }
-            if (lastName == "") {
-                ShowRequiredError(jq("#profileSecondName"));
+
+            if (!edit) {
+                (isUserEmail)
+                    ? checkEmptyField(email, $profileEmail)
+                    : checkEmptyField(localPart, $portalEmail);
+            }
+
+            if (!ASC.Mail.Utility.IsValidEmail(email)) {
+                if (isUserEmail) {
+                    showRequiredError($profileEmail);
+                } else {
+                    showRequiredError($portalEmail);
+                }
                 isError = true;
             }
-            if (!edit && !jq.isValidEmail(email)) {
-                ShowRequiredError(jq("#profileEmail"));
+
+            if (!validateFirstName(true, false, false)) {
                 isError = true;
             }
-            if (firstName.length > 64) {
-                jq("#profileFirstName").siblings(".requiredErrorText").text(ASC.Resources.Master.Resource.ErrorMessageLongField64);
-                ShowRequiredError(jq("#profileFirstName"));
+
+            if (!validateLastName(true, false, false)) {
                 isError = true;
             }
-            if (lastName.length > 64) {
-                jq("#profileSecondName").siblings(".requiredErrorText").text(ASC.Resources.Master.Resource.ErrorMessageLongField64);
-                ShowRequiredError(jq("#profileSecondName"));
-                isError = true;
-            }
-            if (position.length > 64) {
-                ShowRequiredError(jq("#profilePosition"));
-                isError = true;
-            }
-            if (location.length > 255) {
-                ShowRequiredError(jq("#profilePlace"));
-                isError = true;
-            }
+
+            checkFieldLength(lastName, 64, $profileSecondName, true);
+            checkFieldLength(firstName, 64, $profileFirstName, true);
+            checkFieldLength(position, 64, $profilePosition, false);
+            checkFieldLength(location, 255, $profilePlace, false);
+
             if (workFromDate && !jq.isDateFormat(workFromDate)) {
-                ShowRequiredError(jq("#profileRegistrationDate"));
+                showRequiredError($profileRegistrationDate);
                 isError = true;
             }
             if (birthDate && !jq.isDateFormat(birthDate)) {
-                ShowRequiredError(jq("#profileBirthDate"));
+                showRequiredError($profileBirthDate);
                 isError = true;
             }
-            if (birthDate && workFromDate && jq("#profileRegistrationDate").datepicker('getDate').getTime() < jq("#profileBirthDate").datepicker('getDate').getTime()) {
-                jq("#profileRegistrationDate").siblings(".requiredErrorText").text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
-                ShowRequiredError(jq("#profileRegistrationDate"));
+            if (birthDate && workFromDate && $profileRegistrationDate.datepicker('getDate').getTime() < $profileBirthDate.datepicker('getDate').getTime()) {
+                $profileRegistrationDate.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
+                showRequiredError($profileRegistrationDate);
+                isError = true;
+            }
+            if (birthDate && !isValidBithday()) {
+                showRequiredError($profileBirthDate);
                 isError = true;
             }
 
@@ -252,25 +390,26 @@ window.EditProfileManager = (function () {
                 return;
             }
 
-            var
-            type = "",
-            value = "",
-            isExternalContact = false,
-            $contact = null,
-            $contacts = jq(".contacts-group div.field-with-actions:not(.default)");
+            var type = "",
+                value = "",
+                isExternalContact = false,
+                $contact = null,
+                $contacts = jq(".contacts-group div.field-with-actions:not(.default)");
 
             for (var i = 0, n = $contacts.length; i < n; i++) {
                 $contact = $contacts.slice(i, i + 1);
                 isExternalContact = $contact.attr("isExternalContact");
-                type = $contact.find("select").val();
-                value = $contact.find("input.textEdit").val();
+                type = $contact.find("select").val().trim();
+                value = $contact.find("input.textEdit").val().trim();
 
                 if (isExternalContact) {
-                    if (type === "mail") {
-                        type = "extmail";
-                    }
-                    else if (type === "mobphone") {
-                        type = "extmobphone";
+                    switch (type) {
+                        case "mail":
+                        case "phone":
+                        case "mobphone":
+                        case "skype":
+                            type = "ext" + type;
+                            break;
                     }
                 }
 
@@ -285,31 +424,30 @@ window.EditProfileManager = (function () {
                 }
             }
 
-            switch (jq("#userdataSex").val()) {
-                case "1": sex = "male"; break;
-                case "0": sex = "female"; break;
-                case "-1": sex = ""; break;
-            }
+            (jq('#advancedSexType span:first').hasClass(classActive))
+                ? sex = 'male'
+                : (jq('#advancedSexType span:last').hasClass(classActive))
+                    ? sex = 'female'
+                    : sex = '';
 
             var resetDate = new Date(1900, 00, 01);
 
             if (birthDate && birthDate.length) {
-                birthDate = jq("#profileBirthDate").datepicker('getDate');
+                birthDate = $profileBirthDate.datepicker('getDate');
                 birthDate.setHours(0);
                 birthDate.setMinutes(0);
-                birthDate = Teamlab.serializeTimestamp(birthDate);
+                birthDate = teamlab.serializeTimestamp(birthDate);
             } else if (edit) {
-                birthDate = Teamlab.serializeTimestamp(resetDate);
+                birthDate = teamlab.serializeTimestamp(resetDate);
             }
 
-
             if (workFromDate && workFromDate.length) {
-                workFromDate = jq("#profileRegistrationDate").datepicker('getDate');
+                workFromDate = $profileRegistrationDate.datepicker('getDate');
                 workFromDate.setHours(0);
                 workFromDate.setMinutes(0);
-                workFromDate = Teamlab.serializeTimestamp(workFromDate);
+                workFromDate = teamlab.serializeTimestamp(workFromDate);
             } else if (edit) {
-                workFromDate = Teamlab.serializeTimestamp(resetDate);
+                workFromDate = teamlab.serializeTimestamp(resetDate);
             }
 
             var $depSelectors = jq("#departmentsField .departments-list li");
@@ -319,22 +457,25 @@ window.EditProfileManager = (function () {
                     departments.push($depSelector.attr("data-id"));
                 }
             }
-
             var profile =
-            {
-                isVisitor: isVisitor,
-                firstname: firstName,
-                lastname: lastName,
-                comment: comment,
-                sex: sex,
-                title: position,
-                location: location,
-                birthday: birthDate,
-                worksfrom: workFromDate,
-                contacts: contacts,
-                files: pathname,
-                department: departments
-            };
+                {
+                    isVisitor: isVisitor,
+                    firstname: firstName,
+                    lastname: lastName,
+                    comment: comment,
+                    sex: sex,
+                    title: position,
+                    location: location,
+                    birthday: birthDate,
+                    worksfrom: workFromDate,
+                    contacts: contacts,
+                    files: "", //pathname,
+                    department: departments
+                };
+
+            if (isUserPassword) {
+                profile.password = password;
+            }
 
             if (!edit) {
                 profile.email = email;
@@ -346,121 +487,111 @@ window.EditProfileManager = (function () {
             } else {
                 addProfile(profile);
             }
-
         });
 
         jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
     };
 
     var confirmBeforeUnloadCheck = function () {
-        return jq("#profileFirstName").val().length ||
-                jq("#profileSecondName").val().length ||
-                jq("#profilePosition").val().length ||
-                jq("#profilePlace").val().length ||
-                jq("#profileEmail").val().length ||
-                jq("#profileBirthDate").val().length ||
-                jq("#profileComment").val().length ||
+        return $profileFirstName.val().length ||
+                $profileSecondName.val().length ||
+                $profilePosition.val().length ||
+                $profilePlace.val().length ||
+                $profileEmail.val().length ||
+                $profileBirthDate.val().length ||
+                $profileComment.val().length ||
                 jq(".departments-list.advanced-selector-list-results li").length;
     };
 
     function addProfile(profile) {
         var params = {};
-        Teamlab.addProfile(params, profile, { success: onAddProfile, error: onProfileError });
+        teamlab.addProfile(params, profile, {
+            success: onAddProfile,
+            error: onProfileError
+        });
     };
 
     function onAddProfile(params, profile) {
         profile = this.__responses[0];
         window.onbeforeunload = null;
-        document.location.replace('profile.aspx?user=' + encodeURIComponent(profile.userName));
+        if (!isUserEmail) {
+            teamlab.addMailbox(params, profile.displayName, localPart, getSelectedDomainId(), profile.id, true, false, {
+                success: function (params, res) {
+                    window.ASC.Controls.LoadPhotoImage.save(profile.id, function () {
+                        document.location.replace(profileURL + encodeURIComponent(profile.userName));
+                    });
+                },
+                error: function () {
+                    toastr.error(ASC.Resources.Master.EmailOnDomainIsNotCreated);
+                    setTimeout(window.ASC.Controls.LoadPhotoImage.save(profile.id, function () {
+                        document.location.replace(profileURL + encodeURIComponent(profile.userName));
+                    }), 3000);
+                }
+            });
+        } else {
+            window.ASC.Controls.LoadPhotoImage.save(profile.id, function() {
+                document.location.replace(profileURL + encodeURIComponent(profile.userName));
+            });
+        }
     };
-
 
     function updateProfile(profileId, profile) {
         var params = {};
-        Teamlab.updateProfile(params, profileId, profile, { success: onUpdateProfile, error: onProfileError });
-    }
+        teamlab.updateProfile(params, profileId, profile, {
+            success: onUpdateProfile,
+            error: onProfileError
+        });
+    };
 
     var onUpdateProfile = function (params, profile) {
         window.onbeforeunload = null;
         if (document.location.href.indexOf("my.aspx") > 0) {
             document.location.replace("/my.aspx");
         } else {
-            document.location.replace("profile.aspx?user=" + encodeURIComponent(profile.userName));
+            document.location.replace(profileURL + encodeURIComponent(profile.userName));
         }
     };
-
 
     var IsInitDatePicker = false;
 
     var InitDatePicker = function () {
-
         var fromDateInp = jq("#profileRegistrationDate"),
             birthDateInp = jq("#profileBirthDate"),
             maxBirthDate = null;
 
         if (!IsInitDatePicker) {
-            jq(fromDateInp).mask(ASC.Resources.Master.DatePatternJQ);
-            jq(birthDateInp).mask(ASC.Resources.Master.DatePatternJQ);
+            fromDateInp.mask(ASC.Resources.Master.DatePatternJQ);
+            birthDateInp.mask(ASC.Resources.Master.DatePatternJQ);
 
-            if (fromDateInp) {
-                jq(fromDateInp)
-                         .datepicker({
-                             onSelect: function () {
-                                 var date = jq(this).datepicker("getDate");
-                                 jq(birthDateInp).datepicker("option", "maxDate", date || null);
-                             }
-                         }).val(jq(fromDateInp).attr("data-value"));
-            }
-            if (birthDateInp) {
-                jq(birthDateInp)
-                    .datepicker({
-                        onSelect: function () {
-                            var date = jq(this).datepicker("getDate");
-                            jq(fromDateInp).datepicker("option", "minDate", date || null);
-                        }
-                    }).val(jq(birthDateInp).attr("data-value"));
-            }
+            fromDateInp.datepicker({
+                onSelect: function() {
+                    var date = jq(this).blur().datepicker("getDate");
+                    birthDateInp.datepicker("option", "maxDate", date || null);
+                    jQuery.datepicker._hideDatepicker();
+                }
+            }).val(fromDateInp.attr("data-value"));
+
+            birthDateInp.datepicker({
+                onSelect: function() {
+                    var date = jq(this).blur().datepicker("getDate");
+                    fromDateInp.datepicker("option", "minDate", date || null);
+                    jQuery.datepicker._hideDatepicker();
+                }
+            }).val(birthDateInp.attr("data-value"));
+
             IsInitDatePicker = true;
         };
-        jq(fromDateInp).datepicker("option", "minDate", jq(birthDateInp).datepicker("getDate") || null);
-        maxBirthDate = jq(fromDateInp).datepicker("getDate") || "";
-        jq(birthDateInp).datepicker("option", "maxDate", maxBirthDate.length ? maxBirthDate : null);
+        fromDateInp.datepicker("option", "minDate", birthDateInp.datepicker("getDate") || null);
+        maxBirthDate = fromDateInp.datepicker("getDate") || "";
+        birthDateInp.datepicker("option", "maxDate", maxBirthDate.length ? maxBirthDate : null);
     };
 
     var isValidBithday = function () {
-        var fromDateInp = jq("#profileRegistrationDate"),
-            birthDateInp = jq("#profileBirthDate");
-        return (fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime()) ? true : false;
+        var fromDateInp = $profileRegistrationDate,
+            birthDateInp = $profileBirthDate;
+        return (fromDateInp === '') ? true : (fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime()) ? true : false;
     };
 
-    var ChangeUserPhoto = function (file, response) {
-        jq('.profile-action-usericon').unblock();
-        var result = eval("(" + response + ")");
-        if (result.Success) {
-            jq("#userProfilePhotoDscr").show();
-            jq('#userProfilePhotoError').html('');
-            jq('#userProfilePhoto').find("img").attr("src", result.Data);
-            PopupKeyUpActionProvider.CloseDialog();
-        } else {
-            jq("#userProfilePhotoDscr").hide();
-            jq('#userProfilePhotoError').html(result.Message);
-        }
-    };
-
-    var initPhotoUploader = function () {
-        new AjaxUpload('changeLogo', {
-            action: "ajaxupload.ashx?type=ASC.Web.People.UserPhotoUploader,ASC.Web.People",
-            autoSubmit: true,
-            onChange: function (file, extension) {
-                
-                return true;
-            },
-            onComplete: EditProfileManager.ChangeUserPhoto,
-            parentDialog: jq("#divLoadPhotoWindow"),
-            isInPopup: true,
-            name: "changeLogo"
-        });
-    };
     var initBorderPhoto = function () {
         var $block = jq("#userProfilePhoto"),
             $img = $block.children("img"),
@@ -468,8 +599,8 @@ window.EditProfileManager = (function () {
 
         $img.css("padding", indent + "px 0");
     };
-    var renderDepsContacts = function () {
 
+    var renderDepsContacts = function () {
         if (typeof (window.socContacts) != "undefined" && window.socContacts.length != 0) {
             for (var i = 0, n = window.socContacts.length; i < n; i++) {
                 var soc = window.socContacts[i];
@@ -486,13 +617,14 @@ window.EditProfileManager = (function () {
 
                     var isExternalContact = false;
 
-                    if (classname === "extmail") {
-                        classname = "mail";
-                        isExternalContact = true;
-                    }
-                    else if (classname === "extmobphone") {
-                        classname = "mobphone";
-                        isExternalContact = true;
+                    switch (classname) {
+                        case "extmail":
+                        case "extmobphone":
+                        case "extphone":
+                        case "extskype":
+                            classname = classname.slice(3);
+                            isExternalContact = true;
+                            break;
                     }
 
                     var $newEl = addNewBlock(classname, contact.text, "#contactInfoContainer");
@@ -518,7 +650,9 @@ window.EditProfileManager = (function () {
         jq(clone).children("input").val("");
         jq(item).before(jq(clone));
         var selects = jq(item).siblings().find("select");
-        jq(selects).tlcombobox();
+
+        jq(selects).tlcombobox({ align: 'left' });
+        jq(selects).filter(".external").tlcombobox(false);
     };
 
     var addNewBlock = function (selectedValue, value, fieldID) {
@@ -541,38 +675,523 @@ window.EditProfileManager = (function () {
         unlockProfileActionPageElements();
         toastr.error(this.__errors[0]);
     };
+
     function lockProfileActionPageElements() {
         jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").attr("disabled", "disabled");
-        jq("#userType, #userdataSex , .group-field").tlcombobox(false);
+        jq(".group-field").tlcombobox(false);
         jq(".add-new-field, #loadPhotoImage, #chooseGroupsSelector, #departmentsField .departments-list .reset-icon").addClass("disabled");
+
         LoadingBanner.showLoaderBtn("#userProfileEditPage");
-    }
+    };
 
     function unlockProfileActionPageElements() {
         jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").removeAttr("disabled");
-        jq("#userType, #userdataSex , .group-field").tlcombobox(true);
+        jq(".group-field").tlcombobox(true);
         jq(".add-new-field, #loadPhotoImage, #chooseGroupsSelector, #departmentsField .departments-list .reset-icon").removeClass("disabled");
 
         LoadingBanner.hideLoaderBtn("#userProfileEditPage");
-    }
+    };
 
-    function changeDescriptionUserType(typeSelector) {
-        var isEdit = jq.getURLParam("action") == "edit" ? true : false;
-        if (jq(typeSelector).val() == "user") {
-            jq("#collaboratorCanBlock").hide();
-            jq("#userCanBlock").show();
+    function hideEmailOnDomainForGuest() {
+        if (jq('#advancedUserType span:first').hasClass(classActive)) {
+            $createEmailOnDomain.hide();
+            if (!isUserEmail) {
+                $emailInfo.empty();
+                removeRequiredErrorClass($profileEmail);
+            }
+            showCreateGuest();
+            $popupHelperCreateEmailString.hide();
         } else {
-            jq("#userCanBlock").hide();
-            jq("#collaboratorCanBlock").show();
+            if (!edit) {
+                $popupHelperCreateEmailString.show();
+            }
+
+            if (!$inputPortalEmail.length || domainsList === null) {
+                return;
+            }
+
+            if (domainsList) {
+                $createEmailOnDomain.show();
+                return;
+            }
+
+            teamlab.getMailServer(null, {
+                success: function (params, res) {
+                    fillDomainSelector();
+                    $createEmailOnDomain.show();
+                },
+                error: function () {
+                    $createEmailOnDomain.hide();
+                    domainsList = null;
+                },
+                async: true
+            });
         }
     };
 
+    function toggleSwitch() {
+        var toggle = jq(this),
+            toggleBlock = toggle.parent();
+        if (!toggle.hasClass('disabled') && !toggleBlock.hasClass('disabled')) {
+            toggleBlock.find('.active').not(this).removeClass(classActive);
+            toggle.addClass(classActive);
+            hideEmailOnDomainForGuest();
+        }
+    };
+
+    function fillDomainSelector() {
+        teamlab.getMailDomains(null, {
+            success: function (params, domains) {
+                domainsList = domains;
+                $domainSelector.empty();
+                for (var i = 0; i < domains.length; i++) {
+                    $domainSelector.append('<option class="optionItem" value="' + domains[i].name + '">' + domains[i].name + '</option>');
+                }
+                $domainSelector.tlcombobox();
+                jq('.tl-combobox').css('top', '3px');
+
+                if (jq.browser.mobile) {
+                    $domainSelector.css('max-width', '116px');
+                }
+            }
+        });
+    };
+
+    function getSelectedDomainId() {
+        var selectedDomainId;
+        for (var i = 0; i < domainsList.length; i++) {
+            var domain = jq('span.tl-combobox:first').attr('data-value') || jq('#domainSelector').val();
+            if (domainsList[i].name === domain) {
+                selectedDomainId = domainsList[i].id;
+            }
+        }
+        return selectedDomainId;
+    };
+
+    function validateFirstName(checkIsEmpty, withouthScroll, withouthFocus) {
+        return validateUserName($profileFirstName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.Resource.ErrorInvalidUserFirstName);
+    }
+
+    function validateLastName(checkIsEmpty, withouthScroll, withouthFocus) {
+        return validateUserName($profileSecondName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.Resource.ErrorInvalidUserLastName);
+    }
+
+    function validateUserName(obj, checkIsEmpty, withouthScroll, withouthFocus, errorMsg) {
+        var regexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
+        var val = obj.val().trim();
+
+        if (checkIsEmpty && !val) {
+            showRequiredError(obj, withouthScroll, withouthFocus);
+            obj.next().text("").show();
+            return false;
+        }
+
+        if (val && !regexp.test(val)) {
+            showRequiredError(obj, withouthScroll, withouthFocus);
+            obj.next().text(errorMsg).show();
+            return false;
+        }
+
+        removeRequiredErrorClass(obj);
+        obj.next().hide();
+        return true;
+    }
+
+    function checkUserEmailValidation() {
+        var userEmail = $profileEmail.val().trim();
+        if (userEmail.length > 0) {
+            validationEmail(userEmail, isValidEmail(userEmail), $profileEmail);
+        } else {
+            isEmailApprove = false;
+            undisableCopyToClipboard();
+        }
+    };
+
+    function checkUserEmailExist(userEmail) {
+        var allUsers = UserManager.getAllUsers(),
+            userEmail = userEmail.toLowerCase();
+        if (allUsers.length > 0) {
+            for (var i = 0; i < allUsers.length; i++) {
+                exep = userEmail === allUsers[i].email;
+                existingEmail(exep, $profileEmail);
+                if (exep) { return };
+            }
+        } else {
+            existingEmail(false, $profileEmail);
+        }
+    };
+
+    function checkEmailValidation() {
+        if ($portalEmail.val() !== '') {
+            var localpart = $portalEmail.val().trim(),
+                domain = getSelectedDomainId();
+
+            if (domain === undefined)
+                return;
+
+            teamlab.isMailServerAddressValid(null, localpart, domain, {
+                success: function (params, isValid) {
+                    validationEmail(null, isValid, $portalEmail);
+                }
+            });
+        } else {
+            isEmailApprove = false;
+            undisableCopyToClipboard();
+        }
+    };
+    
+    function checkEmailExistOnDomain() {
+        var localPart = $portalEmail.val().trim().toLowerCase(),
+            domain = getSelectedDomainId();
+
+        if (domain === undefined)
+            return;
+
+        teamlab.isMailServerAddressExists(null, localPart, domain, {
+            success: function (params, exist) {
+                existingEmail(exist, $portalEmail);
+            }
+        });
+    };
+
+    function validationEmail(param, expression, control) {
+        if (expression) {
+            (isUserEmail)
+                ? checkUserEmailExist(param)
+                : checkEmailExistOnDomain();
+        } else {
+            showRequiredError(control, true, true);
+            isError = true;
+            $emailInfo.empty();
+            jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.EmailAndPasswordIncorrectEmail, color: redTextColor }).appendTo(classEmailInfo);
+            isEmailApprove = false;
+            undisableCopyToClipboard();
+        }
+    };
+
+    function existingEmail(expression, control) {
+        if (expression) {
+            showRequiredError(control, true, true);
+            isError = true;
+            $emailInfo.empty();
+            jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.ErrorEmailAlreadyExists, color: redTextColor }).appendTo(classEmailInfo);
+            isEmailApprove = false;
+        } else {
+            $emailInfo.empty();
+            jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.EmailIsAvailable, color: greenTextColor }).appendTo(classEmailInfo);
+            removeRequiredErrorClass(control);
+            isEmailApprove = true;
+        }
+
+        undisableCopyToClipboard();
+    };
+
+    function checkEmptyField(field, $control) {
+        if (field === '') {
+            showRequiredError($control);
+            isError = true;
+        }
+    };
+
+    function checkFieldLength(field, length, $control, showErrMesage) {
+        if (field.length > length) {
+            if (showErrMesage) {
+                $control.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessageLongField64);
+            }
+            showRequiredError($control);
+            isError = true;
+        }
+    };
+
+    function delayedCheck(control) {
+        if (control.val().length) {
+            $emailInfo.empty().fadeIn();
+            setDelay(function () {
+                (isUserEmail)
+                    ? checkUserEmailValidation()
+                    : checkEmailValidation();
+            }, 1000);
+        } else {
+            $emailInfo.hide();
+            removeRequiredErrorClass(control);
+        }
+    };
+
+    var setDelay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
+    function showCreateEmailOnDomain() {
+        isUserEmail = false;
+        $inputUserEmail.hide();
+        $inputPortalEmail.show();
+        showSettingPassword();
+        copyLocalPart();
+        cutDomainInSelector();
+
+        if (domainsList.length < 1) {
+            toastr.error(jq.format(ASC.Resources.Master.NoMailServerDomainsMsg, '<a href=\"/addons/mail/#administration\" class=\"link\" target=\"_blank\">', '</a>'), null, {
+                "closeButton": true,
+                "timeOut": "0",
+                "extendedTimeOut": "0"
+            });
+        }
+    };
+
+    function cutDomainInSelector() {
+        var domainText = $inputPortalEmail.find('.combobox-title-inner-text'),
+            cutDomainText = domainText.text().slice(0, 10);
+
+        if (cutDomainText.length < domainText.text().length) {
+            cutDomainText += '...';
+        }
+        domainText.text(cutDomainText);
+    }
+
+    function showUseExistingEmail() {
+        isUserEmail = true;
+        $inputUserEmail.show();
+        $inputPortalEmail.hide();
+        hideSettingPassword();
+        copyLocalPart();
+    };
+
+    function showCreateGuest() {
+        isUserEmail = true;
+        $inputUserEmail.show();
+        $inputPortalEmail.hide();
+        clearEmailInfo();
+        hideSettingPassword();
+    };
+
+    function copyLocalPart() {
+        if (isUserEmail) {
+            $profileEmail.val(splitEmail($portalEmail)).focus();
+            delayedCheck($profileEmail);
+        } else {
+            $portalEmail.val(splitEmail($profileEmail)).focus();
+            delayedCheck($portalEmail);
+        }
+        clearEmailInfo();
+    };
+
+    function splitEmail($control) {
+        var savedUserLocalPart;
+
+        if ($control.val().indexOf('@') != -1) {
+            savedUserDomain = $control.val().substring($control.val().lastIndexOf("@"));
+            savedUserLocalPart = $control.val().substring(0, $control.val().lastIndexOf("@"));
+        } else {
+            savedUserLocalPart = $control.val();
+        }
+
+        if (isUserEmail) {
+            return savedUserLocalPart + savedUserDomain;
+        } else {
+            return savedUserLocalPart;
+        }
+    };
+
+    function clearEmailInfo() {
+        if (!edit) {
+            removeRequiredErrorClass($profileEmail);
+            removeRequiredErrorClass($portalEmail);
+            $emailInfo.empty();
+        }
+    };
+
+    function showSettingPassword() {
+        isUserPassword = true;
+        $generatedPassword.hide();
+        jq('.validationBlock').show();
+        if (!isUserEmail) {
+            requirePassword = true;
+            $tablePassword.addClass('requiredField');
+            $titlePassword.addClass('requiredTitle');
+        }
+    };
+
+    function hideSettingPassword() {
+        isUserPassword = false;
+        requirePassword = false;
+        $generatedPassword.show();
+        jq('.validationBlock').hide();
+        $tablePassword.removeClass('requiredField');
+        $titlePassword.removeClass('requiredTitle');
+    };
+
+    function checkPassword() {
+        var inputValues = $password.val().trim(),
+            inputLength = inputValues.length,
+            progress = jq('.validationProgress'),
+            progressStep = ($password.width() + 41) / passwordSettings.minLength;
+
+        progress.width(inputLength * progressStep);
+        
+        (passwordValidation(inputValues))
+               ? (progress.css('background', greenTextColor),
+                    removeRequiredErrorClass($password),
+                    isPasswordApprove = true)
+               : (progress.css('background', redTextColor),
+                    isPasswordApprove = false);
+
+        undisableCopyToClipboard();
+    };
+
+    function passwordGenerator() {
+        teamlab.getRandomPassword(null, {
+            success: function (params, password) {
+                $password.val(password);
+                $password.prop('type', 'text');
+                $passwordShowLabel.removeClass('hide').addClass('show');
+                $passwordShow.prop('checked', true);
+                checkPassword();
+            }
+        });
+    };
+
+    function showOrHidePassword() {
+        ($passwordShow.prop('checked'))
+            ? ($password.prop('type', 'text'),
+                $passwordShowLabel.removeClass('hide').addClass('show'))
+            : ($password.prop('type', 'password'),
+                $passwordShowLabel.removeClass('show').addClass('hide'));
+    };
+
+    function undisableCopyToClipboard(condition) {
+        var passwordVisible = $password.val().length,
+            emailVisible = getEmail().length;
+        
+        if (passwordVisible && emailVisible && isPasswordApprove && isEmailApprove) {
+            $copyValues.removeClass('disabled');
+        } else {
+            $copyValues.addClass('disabled');
+        }
+    }
+
+    function copyToClipboard() {
+        var email = getEmail(),
+            password = $password.val(),
+            clip = null,
+            clipAera = jq('#clip').val('email: ' + email + '\npassword: ' + password);
+
+        clip = ASC.Clipboard.destroy(clip);
+
+        clip = ASC.Clipboard.create(clipAera.val(), "copyValues", {});
+
+        toastr.success(ASC.Resources.Master.EmailAndPasswordCopiedToClipboard);
+    };
+
+    function getEmail() {
+        if (isUserEmail) {
+            return $profileEmail.val() ? $profileEmail.val().trim() : "";
+        } else {
+            localPart = $portalEmail.val() ? $portalEmail.val().trim() : "";
+            var domain = jq('span.tl-combobox:first').attr('data-value') || jq('#domainSelector').val();
+            return localPart + '@' + domain;
+        }
+    };
+
+    function passwordValidation(inputValues) {
+        var upper,
+            digits,
+            special;
+
+        (passwordSettings.upperCase)
+            ? upper = /[A-Z]/.test(inputValues)
+            : upper = true;
+
+        (passwordSettings.digits)
+            ? digits = /\d/.test(inputValues)
+            : digits = true;
+
+        (passwordSettings.specSymbols)
+            ? special = /[!@#$%^&*]/.test(inputValues)
+            : special = true;
+
+        checkPasswordInfoColor(upper, digits, special, inputValues);
+
+        return digits && upper && special && inputValues.length >= passwordSettings.minLength;
+    };
+
+    function checkPasswordInfoColor(upper, digits, special, inputValues) {
+        (upper)
+            ? greenText($passUpper)
+            : redText($passUpper);
+
+        (digits)
+            ? greenText($passDigits)
+            : redText($passDigits);
+
+        (special)
+            ? greenText($passSpecial)
+            : redText($passSpecial);
+
+        (inputValues.length >= passwordSettings.minLength)
+            ? greenText($passMinLength)
+            : redText($passMinLength);
+    };
+
+    function greenText(control) {
+        control.removeClass('red').addClass('green');
+    };
+
+    function redText(control) {
+        control.removeClass('green').addClass('red');
+    };
+
+    function fillModulesName() {
+        for (var i = 0; i < enabledModulesList.length; i++) {
+            if (enabledModulesList[i].id != 'crm' && enabledModulesList[i].id != 'voip') {
+                jq('.moduleInfo').append('<tr id=' + enabledModulesList[i].id + '><td>' + jq.trim(enabledModulesList[i].title) + '</td></tr>');
+            }
+        }
+        fillAccessForModules();
+    };
+
+    function fillAccessForModules() {
+        var full = '<div class="access full">&nbsp;</div>',
+            read = '<div class="access read">&nbsp;</div>',
+            write = '<div class="access write">&nbsp;</div>',
+            check = '<div class="access check">&nbsp;</div>';
+
+        for (var i = 0; i < enabledModulesList.length; i++) {
+            var item = jq('.moduleInfo').find('#' + enabledModulesList[i].id);
+            switch (enabledModulesList[i].id) {
+                case 'documents':
+                    item.append('<td>' + full + read + write + '</td><td>' + write + '</td>');
+                    break;
+                case 'community':
+                    item.append('<td>' + full + write + '</td><td>' + write + '</td>');
+                    break;
+                case 'projects':
+                case 'people':
+                case 'mail':
+                    item.append('<td>' + check + '</td>');
+                    break;
+                case 'talk':
+                case 'calendar':
+                    item.append('<td>' + check + '</td><td>' + check + '</td>');
+                    break;
+            }
+        }
+    };
+
+    function changeBlockPosition() {
+        (jq('body').hasClass('media-width-0-1080') || jq.browser.mobile)
+                ? $profilePhotoBlock.addClass('small-window')
+                : $profilePhotoBlock.removeClass('small-window');
+    };
+
     return {
-        init: init,
-        ChangeUserPhoto: ChangeUserPhoto
+        init: init
     };
 })();
 
-jq(function () {
+jq(function() {
     EditProfileManager.init();
-})
+});

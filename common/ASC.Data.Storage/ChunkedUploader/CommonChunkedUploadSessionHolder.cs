@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Data.Storage;
 
 namespace ASC.Core.ChunkedUploader
@@ -41,7 +42,8 @@ namespace ASC.Core.ChunkedUploader
         private long MaxChunkUploadSize { get; set; }
         private const string StoragePath = "sessions";
 
-        public CommonChunkedUploadSessionHolder(IDataStore dataStore, string domain, long maxChunkUploadSize = 10 * 1024 * 1024)
+        public CommonChunkedUploadSessionHolder(IDataStore dataStore, string domain,
+            long maxChunkUploadSize = 10*1024*1024)
         {
             DataStore = dataStore;
             Domain = domain;
@@ -57,7 +59,7 @@ namespace ASC.Core.ChunkedUploader
             }
             catch (Exception err)
             {
-                log4net.LogManager.GetLogger("ASC").Error(err);
+                LogManager.GetLogger("ASC").Error(err);
             }
         }
 
@@ -102,8 +104,8 @@ namespace ASC.Core.ChunkedUploader
             var tempPath = uploadSession.TempPath;
             var uploadId = uploadSession.UploadId;
             var eTags = uploadSession.GetItemOrDefault<List<string>>("ETag")
-                                     .Select((x, i) => new KeyValuePair<int, string>(i + 1, x))
-                                     .ToDictionary(x => x.Key, x => x.Value);
+                .Select((x, i) => new KeyValuePair<int, string>(i + 1, x))
+                .ToDictionary(x => x.Key, x => x.Value);
 
             DataStore.FinalizeChunkedUpload(Domain, tempPath, uploadId, eTags);
         }
@@ -134,7 +136,7 @@ namespace ASC.Core.ChunkedUploader
             var uploadId = uploadSession.UploadId;
             var chunkNumber = uploadSession.GetItemOrDefault<int>("ChunksUploaded") + 1;
 
-            var eTag = DataStore.UploadChunk(Domain, tempPath, uploadId, stream, MaxChunkUploadSize,  chunkNumber, length);
+            var eTag = DataStore.UploadChunk(Domain, tempPath, uploadId, stream, MaxChunkUploadSize, chunkNumber, length);
 
             uploadSession.Items["ChunksUploaded"] = chunkNumber;
             uploadSession.BytesUploaded += length;
@@ -165,7 +167,8 @@ namespace ASC.Core.ChunkedUploader
 
                 if (uploadSession.BytesTotal == uploadSession.BytesUploaded)
                 {
-                    return new FileStream(uploadSession.ChunksBuffer, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+                    return new FileStream(uploadSession.ChunksBuffer, FileMode.Open, FileAccess.Read, FileShare.None,
+                        4096, FileOptions.DeleteOnClose);
                 }
             }
 

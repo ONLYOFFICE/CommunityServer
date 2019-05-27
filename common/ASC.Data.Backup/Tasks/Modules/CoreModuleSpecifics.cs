@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using ASC.Core.Billing;
 using ASC.Data.Backup.Tasks.Data;
@@ -179,7 +180,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.GetSelectCommandConditionText(tenantId, table);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             if (table.Name == "core_usergroup" && columnName == "last_modified")
             {
@@ -189,7 +190,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.TryPrepareValue(connection, columnMapper, table, columnName, ref value);
         }
 
-        protected override bool TryPrepareRow(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
+        protected override bool TryPrepareRow(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
         {
             if (table.Name == "core_acl")
             {
@@ -199,10 +200,10 @@ namespace ASC.Data.Backup.Tasks.Modules
                     return false;
                 }
             }
-            return base.TryPrepareRow(connection, columnMapper, table, row, out preparedRow);
+            return base.TryPrepareRow(dump, connection, columnMapper, table, row, out preparedRow);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
         {
             if (relation.ChildTable == "core_acl" && relation.ChildColumn == "object")
             {
@@ -218,7 +219,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.TryPrepareValue(connection, columnMapper, relation, ref value);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
+        protected override bool TryPrepareValue(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
         {
             var relationList = relations.ToList();
 
@@ -259,7 +260,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 return false;
             }
 
-            return base.TryPrepareValue(connection, columnMapper, table, columnName, relationList, ref value);
+            return base.TryPrepareValue(dump, connection, columnMapper, table, columnName, relationList, ref value);
         }
 
         private static bool ValidateSource(Guid expectedValue, DataRowInfo row)

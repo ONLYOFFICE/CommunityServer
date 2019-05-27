@@ -1,0 +1,24 @@
+﻿for (var i = 0; i < reportData.length; i++) {
+	writeText(reportData[i][0], {
+		size: chartHeaderFontSize,
+		bold: true
+	});
+	currentRow++;
+	
+	writeRow([0, 1, 2, 3], reportColumns, [1, 2, 3], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	
+	for (var j = 0; j < reportData[i][1].length; j++) {
+		writeRow([0, 1, 2, 3], reportData[i][1][j], [1, 2, 3], {
+			color: lightGrayBorderColor
+		}, {
+			size: smallFontSize
+		}, true);
+	}
+
+	currentRow += 2;
+}

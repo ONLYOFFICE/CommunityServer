@@ -31,6 +31,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Feed.Data;
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
@@ -84,7 +85,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
 
         public override bool VisibleFor(Feed feed, object data, Guid userId)
         {
-            if (!WebItemSecurity.IsAvailableForUser(ProductID.ToString(), userId)) return false;
+            if (!WebItemSecurity.IsAvailableForUser(ProductID, userId)) return false;
 
             var tuple = (Tuple<File, SmallShareRecord>)data;
             var file = tuple.Item1;
@@ -109,6 +110,41 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             }
 
             return targetCond && new FileSecurity(new DaoFactory()).CanRead(file, userId);
+        }
+
+        public override void VisibleFor(List<Tuple<FeedRow, object>> feed, Guid userId)
+        {
+            if (!WebItemSecurity.IsAvailableForUser(ProductID, userId)) return;
+
+            var fileSecurity = new FileSecurity(new DaoFactory());
+
+            var feed1 = feed.Select(r =>
+            {
+                var tuple = (Tuple<File, SmallShareRecord>)r.Item2;
+                return new Tuple<FeedRow, File, SmallShareRecord>(r.Item1, tuple.Item1, tuple.Item2);
+            })
+            .ToList();
+
+            var files = feed1.Where(r => r.Item1.Feed.Target == null).Select(r => r.Item2).ToList();
+
+            foreach (var f in feed1.Where(r => r.Item1.Feed.Target != null && !(r.Item3 != null && r.Item3.ShareBy == userId)))
+            {
+                var file = f.Item2;
+                if (IsTarget(f.Item1.Feed.Target, userId) && !files.Any(r => r.UniqID.Equals(file.UniqID)))
+                {
+                    files.Add(file);
+                }
+            }
+
+            var canRead = fileSecurity.CanRead(files, userId).Where(r => r.Item2).ToList();
+
+            foreach (var f in feed1)
+            {
+                if (IsTarget(f.Item1.Feed.Target, userId) && canRead.Any(r => r.Item1.ID.Equals(f.Item2.ID)))
+                {
+                    f.Item1.Users.Add(userId);
+                }
+            }
         }
 
         public override IEnumerable<int> GetTenantsWithFeeds(DateTime fromTime)
@@ -158,13 +194,19 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                        Exp.Lt("s.security", 3) &
                        Exp.Between("s.timestamp", filter.Time.From, filter.Time.To));
 
+            List<Tuple<File, SmallShareRecord>> files;
             using (var db = new DbManager(DbId))
             {
-                var files = db.ExecuteList(q1.UnionAll(q2)).ConvertAll(ToFile);
-                return files
+                files = db.ExecuteList(q1.UnionAll(q2))
+                    .ConvertAll(ToFile)
                     .Where(f => f.Item1.RootFolderType != FolderType.TRASH && f.Item1.RootFolderType != FolderType.BUNCH)
-                    .Select(f => new Tuple<Feed, object>(ToFeed(f), f));
+                    .ToList();
             }
+
+            var folderIDs = files.Select(r => r.Item1.FolderID).ToArray();
+            var folders = new FolderDao(Tenant, DbId).GetFolders(folderIDs, checkShare: false);
+
+            return files.Select(f => new Tuple<Feed, object>(ToFeed(f, folders.FirstOrDefault(r=> r.ID.Equals(f.Item1.FolderID))), f));
         }
 
 
@@ -224,12 +266,10 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             return new Tuple<File, SmallShareRecord>(file, shareRecord);
         }
 
-        private Feed ToFeed(Tuple<File, SmallShareRecord> tuple)
+        private Feed ToFeed(Tuple<File, SmallShareRecord> tuple, Folder rootFolder)
         {
             var file = tuple.Item1;
             var shareRecord = tuple.Item2;
-
-            var rootFolder = new FolderDao(Tenant, DbId).GetFolder(file.FolderID);
 
             if (shareRecord != null)
             {
@@ -273,6 +313,19 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     Target = null,
                     GroupId = GetGroupId(fileItem, file.ModifiedBy, file.FolderID.ToString(), updated ? 1 : 0)
                 };
+        }
+
+        private bool IsTarget(object target, Guid userId)
+        {
+            if (target == null) return true;
+            var owner = (Guid)target;
+            var groupUsers = CoreContext.UserManager.GetUsersByGroup(owner).Select(x => x.ID).ToList();
+            if (!groupUsers.Any())
+            {
+                groupUsers.Add(owner);
+            }
+
+            return groupUsers.Contains(userId);
         }
     }
 }

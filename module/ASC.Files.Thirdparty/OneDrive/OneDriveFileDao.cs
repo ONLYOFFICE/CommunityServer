@@ -45,11 +45,6 @@ namespace ASC.Files.Thirdparty.OneDrive
         {
         }
 
-        public void Dispose()
-        {
-            OneDriveProviderInfo.Dispose();
-        }
-
         public void InvalidateCache(object fileId)
         {
             var onedriveFileId = MakeOneDriveId(fileId);
@@ -87,31 +82,22 @@ namespace ASC.Files.Thirdparty.OneDrive
             return fileIds.Select(GetOneDriveItem).Select(ToFile).ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            return GetFiles(fileIds);
-        }
+            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<object> GetFiles(object parentId)
-        {
-            return GetOneDriveItems(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
-        }
+            var files = GetFiles(fileIds).AsEnumerable();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
-        {
-            if (filterType == FilterType.FoldersOnly) return new List<File>();
-
-            //Get only files
-            var files = GetOneDriveItems(parentId, false).Select(ToFile);
             //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
             switch (filterType)
             {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
                 case FilterType.FoldersOnly:
                     return new List<File>();
                 case FilterType.DocumentsOnly:
@@ -128,6 +114,71 @@ namespace ASC.Files.Thirdparty.OneDrive
                     break;
                 case FilterType.ArchiveOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return files.ToList();
+        }
+
+        public List<object> GetFiles(object parentId)
+        {
+            return GetOneDriveItems(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        {
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
+
+            //Get only files
+            var files = GetOneDriveItems(parentId, false).Select(ToFile);
+
+            //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
+            switch (filterType)
+            {
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
@@ -149,6 +200,9 @@ namespace ASC.Files.Thirdparty.OneDrive
                     files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.ModifiedOn) : files.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -173,7 +227,7 @@ namespace ASC.Files.Thirdparty.OneDrive
             if (onedriveFile == null) throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
             if (onedriveFile is ErrorItem) throw new Exception(((ErrorItem)onedriveFile).Error);
 
-            var fileStream = OneDriveProviderInfo.Storage.DownloadStream(onedriveFile);
+            var fileStream = OneDriveProviderInfo.Storage.DownloadStream(onedriveFile, (int)offset);
 
             return fileStream;
         }
@@ -198,6 +252,11 @@ namespace ASC.Files.Thirdparty.OneDrive
             if (file.ID != null)
             {
                 newOneDriveFile = OneDriveProviderInfo.Storage.SaveStream(MakeOneDriveId(file.ID), fileStream);
+                if (!newOneDriveFile.Name.Equals(file.Title))
+                {
+                    file.Title = GetAvailableTitle(file.Title, GetParentFolderId(newOneDriveFile), IsExist);
+                    newOneDriveFile = OneDriveProviderInfo.Storage.RenameItem(newOneDriveFile.Id, file.Title);
+                }
             }
             else if (file.FolderID != null)
             {
@@ -260,7 +319,8 @@ namespace ASC.Files.Thirdparty.OneDrive
 
             var fromFolderId = GetParentFolderId(onedriveFile);
 
-            onedriveFile = OneDriveProviderInfo.Storage.MoveItem(onedriveFile.Id, toOneDriveFolder.Id);
+            var newTitle = GetAvailableTitle(onedriveFile.Name, toOneDriveFolder.Id, IsExist);
+            onedriveFile = OneDriveProviderInfo.Storage.MoveItem(onedriveFile.Id, newTitle, toOneDriveFolder.Id);
 
             OneDriveProviderInfo.CacheReset(onedriveFile.Id);
             OneDriveProviderInfo.CacheReset(fromFolderId);
@@ -277,7 +337,8 @@ namespace ASC.Files.Thirdparty.OneDrive
             var toOneDriveFolder = GetOneDriveItem(toFolderId);
             if (toOneDriveFolder is ErrorItem) throw new Exception(((ErrorItem)toOneDriveFolder).Error);
 
-            var newOneDriveFile = OneDriveProviderInfo.Storage.CopyItem(onedriveFile, toOneDriveFolder.Id);
+            var newTitle = GetAvailableTitle(onedriveFile.Name, toOneDriveFolder.Id, IsExist);
+            var newOneDriveFile = OneDriveProviderInfo.Storage.CopyItem(onedriveFile.Id, newTitle, toOneDriveFolder.Id);
 
             OneDriveProviderInfo.CacheReset(newOneDriveFile.Id);
             OneDriveProviderInfo.CacheReset(toOneDriveFolder.Id);
@@ -430,7 +491,7 @@ namespace ASC.Files.Thirdparty.OneDrive
                 if (oneDriveSession.Status != ResumableUploadSessionStatus.Completed)
                 {
                     OneDriveProviderInfo.Storage.CancelTransfer(oneDriveSession);
-                    
+
                     oneDriveSession.Status = ResumableUploadSessionStatus.Aborted;
                 }
             }
@@ -449,12 +510,12 @@ namespace ASC.Files.Thirdparty.OneDrive
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             return null;
         }

@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Projects.Engine;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
@@ -44,6 +43,7 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             var mainContent = (MainContent) LoadControl(MainContent.Location);
+            mainContent.NoMediaViewers = true;
             mainContent.FolderIDCurrentRoot = Project == null ? Global.FolderProjects : EngineFactory.FileEngine.GetRoot(Project.ID);
             mainContent.TitlePage = ProjectsCommonResource.ModuleName;
             CommonContainerHolder.Controls.Add(mainContent);
@@ -56,7 +56,6 @@ namespace ASC.Web.Projects
                                "controls/maincontent/maincontent.css",
                                "controls/contentlist/contentlist.css",
                                "controls/accessrights/accessrights.css",
-                               "controls/fileviewer/fileviewer.css",
                                "controls/thirdparty/thirdparty.css",
                                "controls/convertfile/convertfile.css",
                                "controls/emptyfolder/emptyfolder.css",
@@ -87,7 +86,6 @@ namespace ASC.Web.Projects
                 )
                 .RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                      "controls/createmenu/createmenu.js",
-                                     "controls/fileviewer/fileviewer.js",
                                      "controls/convertfile/convertfile.js",
                                      "controls/emptyfolder/emptyfolder.js",
                                      "controls/chunkuploaddialog/chunkuploadmanager.js",

@@ -31,9 +31,9 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Common.Logging;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.WebZones;
-using log4net;
 
 namespace ASC.Web.Core
 {

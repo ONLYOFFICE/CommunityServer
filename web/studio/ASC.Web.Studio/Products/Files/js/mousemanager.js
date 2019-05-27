@@ -34,6 +34,7 @@ window.ASC.Files.Mouse = (function () {
     var mainContentArea = null;
 
     var mouseBtn = false;
+    var disableHover = false;
 
     var timeoutUpdate = null;
 
@@ -53,13 +54,12 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var handleMove = function (e) {
-        if (ASC.Files.Mouse.mouseBtn
-            || jq("#filesSelector, #filesActionsPanel:visible, #filesActionPanel:visible").length != 0) {
+        if (ASC.Files.Mouse.mouseBtn || ASC.Files.Mouse.disableHover) {
             return true;
         }
 
         e = jq.fixEvent(e);
-        jq(this).toggleClass("row-hover", e.type == "mouseenter");
+        this.classList.toggle("row-hover", e.type == "mouseenter");
 
         return true;
     };
@@ -73,7 +73,7 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        if (ASC.Files.ImageViewer && ASC.Files.ImageViewer.isView()) {
+        if (ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.isView) {
             return true;
         }
 
@@ -82,6 +82,7 @@ window.ASC.Files.Mouse = (function () {
              .mainPageTableSidePanel,\
              .mainPageContent,\
              .files-content-panel,\
+             #mainContentHeader,\
              #mainContent,\
              .file-row:not(.row-rename):not(.row-selected),\
              .file-row:not(.row-rename):not(.row-selected) *")) {
@@ -145,6 +146,18 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
+        if (jq(target)
+            .is(".folder-row:not(.error-entry) .entry-title .name a," +
+                ".folder-row:not(.error-entry) .thumb-folder," +
+                ".file-row:not(.folder-row):not(.error-entry) .entry-title .name a," +
+                ".file-row:not(.folder-row):not(.error-entry) .thumb-file")) {
+            ASC.Files.UI.clickRow(e, jq(target).closest(".file-row"));
+
+            ASC.Files.Mouse.preparingMoveTo(e);
+
+            return true;
+        }
+
         ASC.Files.Mouse.mouseSelector.startX = e.pageX;
         ASC.Files.Mouse.mouseSelector.startY = e.pageY;
         ASC.Files.Mouse.updateMainContentArea();
@@ -187,6 +200,7 @@ window.ASC.Files.Mouse = (function () {
             jq("#studioPageContent").append("<div id=\"filesSelector\"></div>");
             ASC.Files.Mouse.collectEntryItems();
             jq("body").addClass("select-action");
+            ASC.Files.Mouse.disableHover = true;
         }
 
         var selectObj = {
@@ -228,7 +242,20 @@ window.ASC.Files.Mouse = (function () {
             }
         }
 
+        autoScroll(e);
+
         return false;
+    };
+
+    var autoScroll = function (e) {
+        var scrollZone = 50;
+        var deltaScroll = 15;
+        if (scrollZone > Math.abs(e.pageY - document.documentElement.scrollTop)) {
+            window.scrollBy(0, -deltaScroll);
+        }
+        if (scrollZone > Math.abs(e.pageY - (document.documentElement.scrollTop + document.documentElement.clientHeight))) {
+            window.scrollBy(0, deltaScroll);
+        }
     };
 
     var finishSelecting = function () {
@@ -237,6 +264,7 @@ window.ASC.Files.Mouse = (function () {
         ASC.Files.Mouse.mouseSelector.startY = 0;
         ASC.Files.Mouse.mouseSelector.entryItems = new Array();
         ASC.Files.Mouse.mouseBtn = false;
+        ASC.Files.Mouse.disableHover = false;
 
         var windowFix = (jq.browser.msie && jq.browser.version < 9 ? jq("body") : jq(window));
         windowFix.unbind("mousemove.MouseSelect mouseup.MouseSelect");
@@ -334,7 +362,7 @@ window.ASC.Files.Mouse = (function () {
         ASC.Files.Mouse.moveToY = e.pageY;
 
         jq("body")
-            .unbind("mouseout.MouseMove mousemove.MouseMove")
+            .unbind("mouseout.MouseMove mousemove.MouseMove keyup.MouseMove keydown.MouseMove")
             .bind("mouseout.MouseMove mousemove.MouseMove", ASC.Files.Mouse.beginMoveTo);
         return true;
     };
@@ -344,7 +372,7 @@ window.ASC.Files.Mouse = (function () {
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))
             || ASC.Files.Mouse.mouseBtn == false) {
-            jq("body").unbind("mouseout.MouseMove mousemove.MouseMove");
+            jq("body").unbind("mouseout.MouseMove mousemove.MouseMove keyup.MouseMove keydown.MouseMove");
             return false;
         }
 
@@ -355,6 +383,7 @@ window.ASC.Files.Mouse = (function () {
 
         ASC.Files.Actions.hideAllActionPanels();
 
+        jq("#contentVersions").removeClass("version-highlight");
         jq("#filesMainContent .row-hover").removeClass("row-hover");
         jq(".may-row-to").removeClass("may-row-to");
 
@@ -363,9 +392,17 @@ window.ASC.Files.Mouse = (function () {
         ASC.Files.Mouse.highlightFolderTo("may-row-to");
 
         jq("body")
-            .unbind("mouseout.MouseMove mousemove.MouseMove mouseup.MouseMove")
+            .unbind("mouseout.MouseMove mousemove.MouseMove mouseup.MouseMove keyup.MouseMove keydown.MouseMove")
             .bind("mouseout.MouseMove mousemove.MouseMove", ASC.Files.Mouse.continueMoveTo)
             .bind("mouseup.MouseMove", ASC.Files.Mouse.finishMoveTo)
+            .bind("keyup.MouseMove keydown.MouseMove", function (ev) {
+                ev = jq.fixEvent(ev);
+                var code = ev.keyCode || ev.which;
+                if (code == ASC.Files.Common.keyCode.ctrl) {
+                    return ASC.Files.Mouse.continueMoveTo(ev);
+                }
+                return true;
+            })
             .on("mouseenter.MouseMove mouseleave.MouseMove", ".may-row-to", ASC.Files.Mouse.checkMoveTo);
         return true;
     };
@@ -378,30 +415,33 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        if (jq("#filesMovingTooltip").length == 0) {
-            var list = jq("#filesMainContent .file-row:has(.checkbox input:checked)");
-
-            var textInfo;
-            if (list.length == 1) {
-                textInfo = ASC.Files.UI.getObjectTitle(list[0]);
-            } else {
-                textInfo = ASC.Files.FilesJSResources.InfoSelectCount.format(list.length);
-            }
-            textInfo = ASC.Files.FilesJSResources.InfoSelectingDescribe.format("<b>" + textInfo + "</b><br/>");
-
-            jq("#filesMainContent").parent().after("<div id=\"filesMovingTooltip\"></div>");
-            jq("#filesMovingTooltip").html(textInfo);
-        }
-        jq("#filesMovingTooltip").css({ "left": e.pageX + "px", "top": e.pageY + "px" });
-
         if (!ASC.Files.UI.accessEdit() || e.ctrlKey) {
+            var textFormat = ASC.Files.FilesJSResources.InfoCopyDescribe;
             jq("body").addClass("file-mouse-copy");
         } else {
+            textFormat = ASC.Files.FilesJSResources.InfoMoveDescribe;
             jq("body").removeClass("file-mouse-copy");
         }
 
+        if (jq("#filesMovingTooltip").length == 0) {
+            jq("#filesMainContent").parent().after("<div id=\"filesMovingTooltip\" class=\"studio-action-panel\"></div>");
+        }
+
+        var textInfo;
+        var list = jq("#filesMainContent .file-row:has(.checkbox input:checked)");
+        if (list.length == 1) {
+            textInfo = ASC.Files.UI.getObjectTitle(list[0]);
+        } else {
+            textInfo = ASC.Files.FilesJSResources.InfoCountDescribe.format(list.length);
+        }
+        textInfo = textFormat.format(textInfo, "<b>", "</b>", "<br/>");
+        jq("#filesMovingTooltip").html(textInfo);
+        var target = e.target || e.srcElement;
+        if (!jq(target).is("body")) {
+            jq("#filesMovingTooltip").css({"left": e.pageX + "px", "top": e.pageY + "px"});
+        }
+
         if (jq.browser.opera) {
-            var target = e.target || e.srcElement;
             target = jq(target);
             if (!target.hasClass("file-row")) {
                 target = jq(target).closest(".file-row");
@@ -432,6 +472,9 @@ window.ASC.Files.Mouse = (function () {
                 el.disabled = true;
             }
         }
+
+        autoScroll(e);
+
         return true;
     };
 
@@ -442,6 +485,7 @@ window.ASC.Files.Mouse = (function () {
     var finishMoveTo = function (e) {
         e = jq.fixEvent(e);
 
+        jq("#contentVersions").addClass("version-highlight");
         jq(".row-to").removeClass("row-to");
         jq(".may-row-to").removeClass("may-row-to");
         jq("body").removeClass("user-select-none file-mouse-move file-mouse-copy");
@@ -461,7 +505,7 @@ window.ASC.Files.Mouse = (function () {
         }
 
         ASC.Files.Folders.isCopyTo = false;
-        jq("body").unbind("mouseout.MouseMove mousemove.MouseMove mouseup.MouseMove mouseenter.MouseMove mouseleave.MouseMove");
+        jq("body").unbind("mouseout.MouseMove mousemove.MouseMove mouseup.MouseMove mouseenter.MouseMove mouseleave.MouseMove keyup.MouseMove keydown.MouseMove");
 
         jq("#filesMovingTooltip").remove();
     };
@@ -490,6 +534,7 @@ window.ASC.Files.Mouse = (function () {
         init: init,
 
         mouseBtn: mouseBtn,
+        disableHover: disableHover,
         mouseSelector: mouseSelector,
         moveToX: moveToX,
         moveToY: moveToY,

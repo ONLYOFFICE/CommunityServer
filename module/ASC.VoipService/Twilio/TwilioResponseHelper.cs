@@ -65,7 +65,7 @@ namespace ASC.VoipService.Twilio
             {
                 if (!string.IsNullOrEmpty(settings.GreetingAudio))
                 {
-                    response.Play(EncodePlay(settings.GreetingAudio));
+                    response.Play(Uri.EscapeUriString(settings.GreetingAudio));
                 }
 
                 response.Enqueue(settings.Queue.Name, GetEcho("Enqueue", agent != null), "POST",
@@ -117,7 +117,7 @@ namespace ASC.VoipService.Twilio
             if (!string.IsNullOrEmpty(queue.WaitUrl))
             {
                 var gather = new Gather(method: "POST", action: GetEcho("gatherQueue"));
-                gather.Play(EncodePlay(queue.WaitUrl));
+                gather.Play(Uri.EscapeUriString(queue.WaitUrl));
                 response.Gather(gather);
             }
             else
@@ -144,7 +144,7 @@ namespace ASC.VoipService.Twilio
         {
             if (to == "hold")
             {
-                return new VoiceResponse().Play(EncodePlay(settings.HoldAudio), 0);
+                return new VoiceResponse().Play(Uri.EscapeUriString(settings.HoldAudio), 0);
             }
 
             Guid newCallerId;
@@ -188,7 +188,7 @@ namespace ASC.VoipService.Twilio
         {
             return string.IsNullOrEmpty(settings.VoiceMail)
                        ? response.Say("")
-                       : response.Play(EncodePlay(settings.VoiceMail)).Record(method: "POST", action: GetEcho("voiceMail"), maxLength: 30);
+                       : response.Play(Uri.EscapeUriString(settings.VoiceMail)).Record(method: "POST", action: GetEcho("voiceMail"), maxLength: 30);
         }
 
         public string GetEcho(string action, bool user = true)
@@ -205,14 +205,6 @@ namespace ASC.VoipService.Twilio
             }
 
             return result;
-        }
-
-        private string EncodePlay(string path)
-        {
-            var lastIndex = path.LastIndexOf('/');
-            var start = path.Substring(0, lastIndex);
-            var end = path.Substring(lastIndex + 1);
-            return  start + '/' + HttpUtility.UrlEncode(end);
         }
     }
 }

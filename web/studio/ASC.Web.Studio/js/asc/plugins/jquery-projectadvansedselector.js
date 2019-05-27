@@ -54,7 +54,7 @@
                 employeeType: 1
             };
 
-            teamlab.getProfilesByFilter({}, {
+            teamlab.getSimpleProfilesByFilter({}, {
                 before: function () {
                     that.showLoaderSimpleSelector.call(that, "manager");
                 },

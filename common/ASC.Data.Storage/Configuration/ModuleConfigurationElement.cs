@@ -45,6 +45,13 @@ namespace ASC.Data.Storage.Configuration
             set { this[Schema.TYPE] = value; }
         }
 
+        [ConfigurationProperty(Schema.DISABLEDMIGRATE)]
+        public bool DisabledMigrate
+        {
+            get { return (bool)this[Schema.DISABLEDMIGRATE]; }
+            set { this[Schema.DISABLEDMIGRATE] = value; }
+        }
+
         [ConfigurationProperty(Schema.DOMAINS)]
         public DomainConfigurationCollection Domains
         {

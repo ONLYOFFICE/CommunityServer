@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider
-{    
+{
     /// <summary>
     /// This class contains the needed access credentials for a specific webdav 
     /// user
@@ -20,8 +17,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <summary>
         /// Password of the end user with access to the WebDav share
         /// </summary>
-        public String Password { get; set; }    
-        
+        public String Password { get; set; }
+
         /// <summary>
         /// returns network credentials which are usable in a webrequest
         /// </summary>
@@ -32,18 +29,17 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         {
             if (UserName.Contains("\\"))
             {
-                String Domain = UserName.Split('\\')[0];
-                String User = UserName.Split('\\')[1];
+                var domain = UserName.Split('\\')[0];
+                var user = UserName.Split('\\')[1];
 
-                return new NetworkCredential(User, Password, Domain);
+                return new NetworkCredential(user, Password, domain);
             }
-            else
-                return new NetworkCredential(UserName, Password);
+            return new NetworkCredential(UserName, Password);
         }
 
         public override string ToString()
         {
-            return string.Format("{0}+{1}",UserName,Password);
+            return string.Format("{0}+{1}", UserName, Password);
         }
     }
 }

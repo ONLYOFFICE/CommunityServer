@@ -109,7 +109,7 @@ namespace ASC.VoipService.Dao
                             "duration", "dial_duration"
                         },
                         {
-                            "cost", "dial_duration"
+                            "price", "price"
                         },
                     };
             }

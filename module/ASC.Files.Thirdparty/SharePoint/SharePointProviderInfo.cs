@@ -139,7 +139,8 @@ namespace ASC.Files.Thirdparty.SharePoint
             if (file == null)
             {
                 file = GetFile(id);
-                FileCache.Insert(key, file, DateTime.UtcNow.Add(CacheExpiration));
+                if (file != null)
+                    FileCache.Insert(key, file, DateTime.UtcNow.Add(CacheExpiration));
             }
             return file;
         }
@@ -154,23 +155,40 @@ namespace ASC.Files.Thirdparty.SharePoint
             {
                 clientContext.ExecuteQuery();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 Notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
-                return new SharePointFileErrorEntry(file.Context, file.Path) { Error = e.Message, ID = id };
+                var serverException = (ServerException)ex;
+                if (serverException.ServerErrorTypeName == (typeof(FileNotFoundException)).ToString())
+                {
+                    return null;
+                }
+                return new SharePointFileErrorEntry(file.Context, file.Path) { Error = ex.Message, ID = id };
             }
 
             return file;
         }
 
-        public Stream GetFileStream(object id)
+        public Stream GetFileStream(object id, int offset = 0)
         {
             var file = GetFileById(id);
 
             if (file is SharePointFileErrorEntry) return null;
             var fileInfo = File.OpenBinaryDirect(clientContext, (string)id);
             clientContext.ExecuteQuery();
-            return fileInfo.Stream;
+
+            var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+            using (var str = fileInfo.Stream)
+            {
+                if (str != null)
+                {
+                    str.CopyTo(tempBuffer);
+                    tempBuffer.Flush();
+                    tempBuffer.Seek(offset, SeekOrigin.Begin);
+                }
+            }
+
+            return tempBuffer;
         }
 
         public File CreateFile(string id, Stream stream)
@@ -336,7 +354,8 @@ namespace ASC.Files.Thirdparty.SharePoint
             if (folder == null)
             {
                 folder = GetFolder(id);
-                FolderCache.Insert(key, folder, DateTime.UtcNow.Add(CacheExpiration));
+                if (folder != null)
+                    FolderCache.Insert(key, folder, DateTime.UtcNow.Add(CacheExpiration));
             }
             return folder;
         }
@@ -353,10 +372,15 @@ namespace ASC.Files.Thirdparty.SharePoint
             {
                 clientContext.ExecuteQuery();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 Notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
-                return new SharePointFolderErrorEntry(folder.Context, folder.Path) { Error = e.Message, ID = id };
+                var serverException = (ServerException)ex;
+                if (serverException.ServerErrorTypeName == (typeof (FileNotFoundException)).ToString())
+                {
+                    return null;
+                }
+                return new SharePointFolderErrorEntry(folder.Context, folder.Path) { Error = ex.Message, ID = id };
             }
 
             return folder;

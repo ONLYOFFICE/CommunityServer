@@ -35,7 +35,6 @@ using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Core;
 using Autofac;
 
 namespace ASC.Projects.Engine
@@ -149,6 +148,16 @@ namespace ASC.Projects.Engine
                    !CurrentUserIsVisitor;
         }
 
+        public bool IsProjectCreator(Project project)
+        {
+            return IsProjectCreator(project, CurrentUserId);
+        }
+
+        public bool IsProjectCreator(Project project, Guid userId)
+        {
+            return (project != null && project.CreateBy == userId);
+        }
+
         public bool IsInTeam(Project project)
         {
             return IsInTeam(project, CurrentUserId);
@@ -195,7 +204,7 @@ namespace ASC.Projects.Engine
 
         public virtual bool CanCreateEntities(Project project)
         {
-            return project != null && Common.Can();
+            return project != null && project.Status == ProjectStatus.Open && Common.Can();
         }
 
         public virtual bool CanReadEntities(Project project, Guid userId)
@@ -261,17 +270,17 @@ namespace ASC.Projects.Engine
             if (!Common.IsProjectsEnabled(userId)) return false;
             if (project == null) return false;
             if (project.Private && Common.IsPrivateDisabled) return false;
-            return !project.Private || Common.IsInTeam(project, userId);
+            return !project.Private || Common.IsProjectCreator(project, userId) || Common.IsInTeam(project, userId);
         }
 
         public override bool CanUpdateEntity(Project project)
         {
-            return base.CanUpdateEntity(project) && Common.IsProjectManager(project);
+            return base.CanUpdateEntity(project) && Common.IsProjectManager(project) || Common.IsProjectCreator(project);
         }
 
         public override bool CanDeleteEntity(Project project)
         {
-            return base.CanDeleteEntity(project) && Common.CurrentUserAdministrator;
+            return base.CanDeleteEntity(project) && Common.CurrentUserAdministrator || Common.IsProjectCreator(project);
         }
 
         public override bool CanGoToFeed(Project project, Guid userId)
@@ -282,17 +291,18 @@ namespace ASC.Projects.Engine
             }
             return WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, userId)
                    || Common.IsInTeam(project, userId, false)
-                   || Common.IsFollow(project, userId);
+                   || Common.IsFollow(project, userId)
+                   || Common.IsProjectCreator(project, userId);
         }
 
         public bool CanEditTeam(Project project)
         {
-            return Common.Can() && Common.IsProjectManager(project);
+            return Common.Can() && (Common.IsProjectManager(project) || Common.IsProjectCreator(project));
         }
 
         public bool CanReadFiles(Project project)
         {
-            return Common.IsProjectsEnabled() && Common.GetTeamSecurity(project, ProjectTeamSecurity.Files);
+            return CanReadFiles(project, SecurityContext.CurrentAccount.ID);
         }
 
         public bool CanReadFiles(Project project, Guid userId)
@@ -617,263 +627,193 @@ namespace ASC.Projects.Engine
 
     public class ProjectSecurity
     {
-        public static bool CanCreate<T>(Project project) where T : DomainObject<int>
+        public ILifetimeScope Scope { get; set; }
+
+        public bool CanCreate<T>(Project project) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanCreateEntities(project);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanCreateEntities(project);
         }
 
-        public static bool CanEdit<T>(T entity) where T : DomainObject<int>
+        public bool CanEdit<T>(T entity) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanUpdateEntity(entity);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanUpdateEntity(entity);
         }
 
-        public static bool CanRead<T>(T entity) where T : DomainObject<int>
+        public bool CanRead<T>(T entity) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity);
         }
 
-        public static bool CanRead<T>(T entity, Guid userId) where T : DomainObject<int>
+        public bool CanRead<T>(T entity, Guid userId) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity, userId);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity, userId);
         }
 
-        public static bool CanRead<T>(Project project) where T : DomainObject<int>
+        public bool CanRead<T>(Project project) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntities(project);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntities(project);
         }
 
-        public static bool CanDelete<T>(T entity) where T : DomainObject<int>
+        public bool CanDelete<T>(T entity) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanDeleteEntity(entity);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanDeleteEntity(entity);
         }
 
-        public static bool CanEditComment(ProjectEntity entity, Comment comment)
+        public bool CanEditComment(ProjectEntity entity, Comment comment)
         {
-            using (var scope = DIHelper.Resolve())
+            var task = entity as Task;
+            if (task != null)
             {
-                var task = entity as Task;
-                if (task != null)
-                {
-                    return scope.Resolve<ProjectSecurityTask>().CanEditComment(task, comment);
-                }
-
-                var message = entity as Message;
-                return scope.Resolve<ProjectSecurityMessage>().CanEditComment(message, comment);
+                return Scope.Resolve<ProjectSecurityTask>().CanEditComment(task, comment);
             }
+
+            var message = entity as Message;
+            return Scope.Resolve<ProjectSecurityMessage>().CanEditComment(message, comment);
         }
 
-        public static bool CanEditComment(Project entity, Comment comment)
+        public bool CanEditComment(Project entity, Comment comment)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanEditComment(entity, comment);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanEditComment(entity, comment);
         }
 
-        public static bool CanCreateComment(ProjectEntity entity)
+        public bool CanCreateComment(ProjectEntity entity)
         {
-            using (var scope = DIHelper.Resolve())
+            var task = entity as Task;
+            if (task != null)
             {
-                var task = entity as Task;
-                if (task != null)
-                {
-                    return scope.Resolve<ProjectSecurityTask>().CanCreateComment(task);
-                }
-
-                var message = entity as Message;
-                return scope.Resolve<ProjectSecurityMessage>().CanCreateComment(message);
+                return Scope.Resolve<ProjectSecurityTask>().CanCreateComment(task);
             }
+
+            var message = entity as Message;
+            return Scope.Resolve<ProjectSecurityMessage>().CanCreateComment(message);
         }
 
-        public static bool CanCreateComment(Project project)
+        public bool CanCreateComment(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanCreateComment(project);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanCreateComment(project);
         }
 
-        public static bool CanEdit(Task task, Subtask subtask)
+        public bool CanEdit(Task task, Subtask subtask)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTask>().CanEdit(task, subtask);
-            }
+            return Scope.Resolve<ProjectSecurityTask>().CanEdit(task, subtask);
         }
 
-        public static bool CanReadFiles(Project project, Guid userId)
+        public bool CanReadFiles(Project project, Guid userId)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanReadFiles(project, userId);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanReadFiles(project, userId);
         }
 
-        public static bool CanReadFiles(Project project)
+        public bool CanReadFiles(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanReadFiles(project);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanReadFiles(project);
         }
 
-        public static bool CanEditFiles<T>(T entity) where T : DomainObject<int>
+        public bool CanEditFiles<T>(T entity) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanEditFiles(entity);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanEditFiles(entity);
         }
 
-        public static bool CanEditTeam(Project project)
+        public bool CanEditTeam(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanEditTeam(project);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanEditTeam(project);
         }
 
-        public static bool CanLinkContact(Project project)
+        public bool CanLinkContact(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanLinkContact(project);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanLinkContact(project);
         }
 
-        public static bool CanReadContacts(Project project)
+        public bool CanReadContacts(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityProject>().CanReadContacts(project);
-            }
+            return Scope.Resolve<ProjectSecurityProject>().CanReadContacts(project);
         }
 
-        public static bool CanEditPaymentStatus(TimeSpend timeSpend)
+        public bool CanEditPaymentStatus(TimeSpend timeSpend)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTimeTracking>().CanEditPaymentStatus(timeSpend);
-            }
+            return Scope.Resolve<ProjectSecurityTimeTracking>().CanEditPaymentStatus(timeSpend);
         }
 
-        public static bool CanCreateSubtask(Task task)
+        public bool CanCreateSubtask(Task task)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTask>().CanCreateSubtask(task);
-            }
+            return Scope.Resolve<ProjectSecurityTask>().CanCreateSubtask(task);
         }
 
-        public static bool CanCreateTimeSpend(Task task)
+        public bool CanCreateTimeSpend(Task task)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTask>().CanCreateTimeSpend(task);
-            }
+            return Scope.Resolve<ProjectSecurityTask>().CanCreateTimeSpend(task);
         }
 
-        public static bool CanGoToFeed<T>(T entity, Guid userId) where T : DomainObject<int>
+        public bool CanGoToFeed<T>(T entity, Guid userId) where T : DomainObject<int>
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityTemplate<T>>().CanGoToFeed(entity, userId);
-            }
+            return Scope.Resolve<ProjectSecurityTemplate<T>>().CanGoToFeed(entity, userId);
         }
 
-        public static bool CanGoToFeed(ParticipantFull participant, Guid userId)
+        public bool CanGoToFeed(ParticipantFull participant, Guid userId)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                var common = scope.Resolve<ProjectSecurityCommon>();
-                if (participant == null || !IsProjectsEnabled(userId)) return false;
-                return common.IsInTeam(participant.Project, userId, false) || common.IsFollow(participant.Project, userId);
-            }
+            var common = Scope.Resolve<ProjectSecurityCommon>();
+            if (participant == null || !IsProjectsEnabled(userId)) return false;
+            return common.IsInTeam(participant.Project, userId, false) || common.IsFollow(participant.Project, userId);
         }
 
-        public static bool IsInTeam(Project project, Guid userId, bool includeAdmin = true)
+        public bool IsInTeam(Project project, Guid userId, bool includeAdmin = true)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityCommon>().IsInTeam(project, userId, includeAdmin);
-            }
+            return Scope.Resolve<ProjectSecurityCommon>().IsInTeam(project, userId, includeAdmin);
         }
 
-        public static void DemandCreate<T>(Project project) where T : DomainObject<int>
+        public void DemandCreate<T>(Project project) where T : DomainObject<int>
         {
             if (!CanCreate<T>(project)) throw CreateSecurityException();
         }
 
-        public static void DemandEdit<T>(T entity) where T : DomainObject<int>
+        public void DemandEdit<T>(T entity) where T : DomainObject<int>
         {
             if (!CanEdit(entity)) throw CreateSecurityException();
         }
 
-        public static void DemandEdit(Task task, Subtask subtask)
+        public void DemandEdit(Task task, Subtask subtask)
         {
             if (!CanEdit(task, subtask)) throw CreateSecurityException();
         }
 
-        public static void DemandDelete<T>(T entity) where T : DomainObject<int>
+        public void DemandDelete<T>(T entity) where T : DomainObject<int>
         {
             if (!CanDelete(entity)) throw CreateSecurityException();
         }
 
-        public static void DemandEditComment(ProjectEntity entity, Comment comment)
+        public void DemandEditComment(ProjectEntity entity, Comment comment)
         {
             if (!CanEditComment(entity, comment)) throw CreateSecurityException();
         }
 
-        public static void DemandEditComment(Project entity, Comment comment)
+        public void DemandEditComment(Project entity, Comment comment)
         {
             if (!CanEditComment(entity, comment)) throw CreateSecurityException();
         }
 
-        public static void DemandCreateComment(Project project)
+        public void DemandCreateComment(Project project)
         {
             if (!CanCreateComment(project)) throw CreateSecurityException();
         }
 
-        public static void DemandCreateComment(ProjectEntity entity)
+        public void DemandCreateComment(ProjectEntity entity)
         {
             if (!CanCreateComment(entity)) throw CreateSecurityException();
         }
 
-        public static void DemandLinkContact(Project project)
+        public void DemandLinkContact(Project project)
         {
-            using (var scope = DIHelper.Resolve())
+            if (!Scope.Resolve<ProjectSecurityProject>().CanLinkContact(project))
             {
-                if (!scope.Resolve<ProjectSecurityProject>().CanLinkContact(project))
-                {
-                    throw CreateSecurityException();
-                }
+                throw CreateSecurityException();
             }
         }
 
-        public static void DemandEditTeam(Project project)
+        public void DemandEditTeam(Project project)
         {
             if (!CanEditTeam(project)) throw CreateSecurityException();
         }
 
-        public static void DemandReadFiles(Project project)
+        public void DemandReadFiles(Project project)
         {
             if (!CanReadFiles(project)) throw CreateSecurityException();
         }
@@ -886,125 +826,98 @@ namespace ASC.Projects.Engine
             }
         }
 
-        public static bool CurrentUserAdministrator
+        public bool CurrentUserAdministrator
         {
             get
             {
-                using (var scope = DIHelper.Resolve())
-                {
-                    return scope.Resolve<ProjectSecurityCommon>().CurrentUserAdministrator;
-                }
+                return Scope.Resolve<ProjectSecurityCommon>().CurrentUserAdministrator;
             }
         }
 
-        public static bool IsPrivateDisabled
+        public bool IsPrivateDisabled
         {
             get
             {
-                using (var scope = DIHelper.Resolve())
-                {
-                    return scope.Resolve<ProjectSecurityCommon>().IsPrivateDisabled;
-                }
+                return Scope.Resolve<ProjectSecurityCommon>().IsPrivateDisabled;
             }
         }
 
-        public static bool IsVisitor()
+        public bool IsVisitor()
         {
             return IsVisitor(SecurityContext.CurrentAccount.ID);
         }
 
-        public static bool IsVisitor(Guid userId)
+        public bool IsVisitor(Guid userId)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityCommon>().IsVisitor(userId);
-            }
+            return Scope.Resolve<ProjectSecurityCommon>().IsVisitor(userId);
         }
 
-        public static bool IsAdministrator()
+        public bool IsAdministrator()
         {
             return IsAdministrator(SecurityContext.CurrentAccount.ID);
         }
 
-        public static bool IsAdministrator(Guid userId)
+        public bool IsAdministrator(Guid userId)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityCommon>().IsAdministrator(userId);
-            }
+            return Scope.Resolve<ProjectSecurityCommon>().IsAdministrator(userId);
         }
 
-        public static bool IsProjectsEnabled()
+        public bool IsProjectsEnabled()
         {
             return IsProjectsEnabled(SecurityContext.CurrentAccount.ID);
         }
 
-        public static bool IsProjectsEnabled(Guid userId)
+        public bool IsProjectsEnabled(Guid userId)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                return scope.Resolve<ProjectSecurityCommon>().IsProjectsEnabled(userId);
-            }
+            return Scope.Resolve<ProjectSecurityCommon>().IsProjectsEnabled(userId);
         }
 
 
-        public static void GetProjectSecurityInfo(Project project)
+        public void GetProjectSecurityInfo(Project project)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
-                var milestoneSecurity = scope.Resolve<ProjectSecurityMilestone>();
-                var messageSecurity = scope.Resolve<ProjectSecurityMessage>();
-                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
-                var timeSpendSecurity = scope.Resolve<ProjectSecurityTimeTracking>();
+            var projectSecurity = Scope.Resolve<ProjectSecurityProject>();
+            var milestoneSecurity = Scope.Resolve<ProjectSecurityMilestone>();
+            var messageSecurity = Scope.Resolve<ProjectSecurityMessage>();
+            var taskSecurity = Scope.Resolve<ProjectSecurityTask>();
+            var timeSpendSecurity = Scope.Resolve<ProjectSecurityTimeTracking>();
 
+            project.Security = GetProjectSecurityInfoWithSecurity(project, projectSecurity, milestoneSecurity, messageSecurity, taskSecurity, timeSpendSecurity);
+        }
+
+        public void GetProjectSecurityInfo(IEnumerable<Project> projects)
+        {
+            var projectSecurity = Scope.Resolve<ProjectSecurityProject>();
+            var milestoneSecurity = Scope.Resolve<ProjectSecurityMilestone>();
+            var messageSecurity = Scope.Resolve<ProjectSecurityMessage>();
+            var taskSecurity = Scope.Resolve<ProjectSecurityTask>();
+            var timeSpendSecurity = Scope.Resolve<ProjectSecurityTimeTracking>();
+
+            foreach (var project in projects)
+            {
                 project.Security = GetProjectSecurityInfoWithSecurity(project, projectSecurity, milestoneSecurity, messageSecurity, taskSecurity, timeSpendSecurity);
             }
         }
 
-        public static void GetProjectSecurityInfo(IEnumerable<Project> projects)
+        public void GetTaskSecurityInfo(Task task)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
-                var milestoneSecurity = scope.Resolve<ProjectSecurityMilestone>();
-                var messageSecurity = scope.Resolve<ProjectSecurityMessage>();
-                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
-                var timeSpendSecurity = scope.Resolve<ProjectSecurityTimeTracking>();
+            var projectSecurity = Scope.Resolve<ProjectSecurityProject>();
+            var taskSecurity = Scope.Resolve<ProjectSecurityTask>();
 
-                foreach (var project in projects)
-                {
-                    project.Security = GetProjectSecurityInfoWithSecurity(project, projectSecurity, milestoneSecurity, messageSecurity, taskSecurity, timeSpendSecurity);
-                }
-            }
+            task.Security = GetTaskSecurityInfoWithSecurity(task, projectSecurity, taskSecurity);
         }
 
-        public static void GetTaskSecurityInfo(Task task)
+        public void GetTaskSecurityInfo(IEnumerable<Task> tasks)
         {
-            using (var scope = DIHelper.Resolve())
-            {
-                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
-                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
+            var projectSecurity = Scope.Resolve<ProjectSecurityProject>();
+            var taskSecurity = Scope.Resolve<ProjectSecurityTask>();
 
+            foreach (var task in tasks)
+            {
                 task.Security = GetTaskSecurityInfoWithSecurity(task, projectSecurity, taskSecurity);
             }
         }
 
-        public static void GetTaskSecurityInfo(IEnumerable<Task> tasks)
-        {
-            using (var scope = DIHelper.Resolve())
-            {
-                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
-                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
-
-                foreach (var task in tasks)
-                {
-                    task.Security = GetTaskSecurityInfoWithSecurity(task, projectSecurity, taskSecurity);
-                }
-            }
-        }
-
-        private static ProjectSecurityInfo GetProjectSecurityInfoWithSecurity(Project project, ProjectSecurityProject projectSecurity, ProjectSecurityMilestone milestoneSecurity, ProjectSecurityMessage messageSecurity, ProjectSecurityTask taskSecurity, ProjectSecurityTimeTracking timeSpendSecurity)
+        private ProjectSecurityInfo GetProjectSecurityInfoWithSecurity(Project project, ProjectSecurityProject projectSecurity, ProjectSecurityMilestone milestoneSecurity, ProjectSecurityMessage messageSecurity, ProjectSecurityTask taskSecurity, ProjectSecurityTimeTracking timeSpendSecurity)
         {
             return new ProjectSecurityInfo
             {
@@ -1027,7 +940,7 @@ namespace ASC.Projects.Engine
             };
         }
 
-        private static TaskSecurityInfo GetTaskSecurityInfoWithSecurity(Task task, ProjectSecurityProject projectSecurity, ProjectSecurityTask taskSecurity)
+        private TaskSecurityInfo GetTaskSecurityInfoWithSecurity(Task task, ProjectSecurityProject projectSecurity, ProjectSecurityTask taskSecurity)
         {
             return new TaskSecurityInfo
             {
@@ -1051,6 +964,4 @@ namespace ASC.Projects.Engine
 
 
     }
-
-    // TimeTracking, Subtask, Contact, File
 }

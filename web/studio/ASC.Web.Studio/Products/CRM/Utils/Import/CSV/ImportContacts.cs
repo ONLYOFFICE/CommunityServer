@@ -521,12 +521,21 @@ namespace ASC.Web.CRM.Classes
             var contactInfoType =
                 (ContactInfoType)Enum.Parse(typeof(ContactInfoType), nameParts[0]);
 
-            if(contactInfoType == ContactInfoType.Email && !propertyValue.TestEmailRegex()) 
-                return;
+            if (contactInfoType == ContactInfoType.Email)
+            {
+                var validEmails = propertyValue
+                    .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(email => email.TestEmailRegex()).ToArray();
+
+                if(!validEmails.Any())
+                    return;
+
+                propertyValue = string.Join(",", validEmails);
+            }
 
             var category = Convert.ToInt32(nameParts[1]);
 
-            bool isPrimary = false;
+            var isPrimary = false;
 
             if ((contactInfoType == ContactInfoType.Email ||
                 contactInfoType == ContactInfoType.Phone ||
@@ -571,7 +580,7 @@ namespace ASC.Web.CRM.Classes
                 return;
             }
 
-            var items = propertyValue.Split(',').Where(item => !string.IsNullOrEmpty(item));
+            var items = propertyValue.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in items)
             {

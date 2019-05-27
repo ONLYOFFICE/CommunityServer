@@ -520,7 +520,7 @@ ASC.Projects.GroupActionPanel = (function () {
                 var $checkboxes = $container.find(".checkbox input");
                 var $rows = $container.find("tr");
 
-                if ($selectAll.is(":" + checkedAttr) && countChecked === 0) {
+                if ($selectAll.is(":" + checkedAttr) && !$selectAll.is(":" + indeterminate) && countChecked === 0) {
                     countChecked = $checkboxes.length;
                     $checkboxes.each(function (id, item) { item.checked = true; });
                     $rows.addClass(checkedRowClass);
@@ -577,14 +577,9 @@ ASC.Projects.GroupActionPanel = (function () {
             countChecked++;
             $input.parents(withCheckbox).addClass(checkedRowClass);
 
-            if (countChecked === allCounts) {
-                $selectAll.prop(checkedAttr, true);
-            }
-
         } else {
             countChecked--;
             $input.parents(withCheckbox).removeClass(checkedRowClass);
-            $selectAll.prop(checkedAttr, false);
         }
 
         if (countChecked > 0) {
@@ -593,7 +588,8 @@ ASC.Projects.GroupActionPanel = (function () {
             lockActionButtons();
         }
 
-        $selectAll.prop(indeterminate, countChecked > 0 && !$selectAll.prop(checkedAttr));
+        $selectAll.prop(checkedAttr, countChecked > 0);
+        $selectAll.prop(indeterminate, countChecked > 0 && countChecked < allCounts);
 
         changeSelectedItemsCounter();
     }
@@ -685,7 +681,8 @@ ASC.Projects.StatusList = (function () {
         for (var i = 0; i < settings.statuses.length; i++) {
 
             var handler = function(statusItemId) {
-                return function() {
+                return function () {
+                    if (jq(this).hasClass(activeClass)) return;
                     currentSettings.handler(currentListStatusObjid, statusItemId);
                 };
             }(settings.statuses[i].id);

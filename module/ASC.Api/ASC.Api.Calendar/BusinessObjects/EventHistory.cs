@@ -47,15 +47,15 @@ namespace ASC.Api.Calendar.BusinessObjects
         public int EventId { get; set; }
         public string Ics { get; set; }
 
-        public List<Ical.Net.Interfaces.ICalendar> History
+        public List<Ical.Net.Calendar> History
         {
             get {
                 var history = DDayICalParser.DeserializeCalendar(Ics);
-                return history == null ? new List<Ical.Net.Interfaces.ICalendar>() : history.ToList();
+                return history == null ? new List<Ical.Net.Calendar>() : history.ToList();
             }
         }
 
-        public bool Contains(Ical.Net.Interfaces.ICalendar calendar)
+        public bool Contains(Ical.Net.Calendar calendar)
         {
             if (!History.Any() || calendar == null || calendar.Events == null || calendar.Events.FirstOrDefault() == null)
                 return false;
@@ -70,7 +70,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             return isExist;
         }
 
-        public Ical.Net.Interfaces.ICalendar GetMerged()
+        public Ical.Net.Calendar GetMerged()
         {
             if (!History.Any()) return null;
 
@@ -80,8 +80,8 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             if(!allCalendars.Any()) return null;
 
-            var recurrenceIdCalendars = new List<Ical.Net.Interfaces.ICalendar>();
-            var calendars = new List<Ical.Net.Interfaces.ICalendar>();
+            var recurrenceIdCalendars = new List<Ical.Net.Calendar>();
+            var calendars = new List<Ical.Net.Calendar>();
 
             foreach (var cal in allCalendars)
             {
@@ -140,17 +140,17 @@ namespace ASC.Api.Calendar.BusinessObjects
                         if (!targetAttendee.Value.OriginalString.Equals(tmpAttendee.Value.OriginalString, StringComparison.OrdinalIgnoreCase))
                             continue;
 
-                        var parameters = new Ical.Net.General.ParameterList();
+                        var parameters = new Ical.Net.ParameterList();
 
                         foreach (var param in targetAttendee.Parameters)
                         {
                             switch (param.Group)
                             {
                                 case "PARTSTAT":
-                                    parameters.Add(new Ical.Net.General.CalendarParameter(param.Group, tmpAttendee.ParticipationStatus));
+                                    parameters.Add(new Ical.Net.CalendarParameter(param.Group, tmpAttendee.ParticipationStatus));
                                     break;
                                 case "RSVP":
-                                    parameters.Add(new Ical.Net.General.CalendarParameter(param.Group, tmpAttendee.Rsvp.ToString().ToUpper()));
+                                    parameters.Add(new Ical.Net.CalendarParameter(param.Group, tmpAttendee.Rsvp.ToString().ToUpper()));
                                     break;
                                 default:
                                     parameters.Add(param);

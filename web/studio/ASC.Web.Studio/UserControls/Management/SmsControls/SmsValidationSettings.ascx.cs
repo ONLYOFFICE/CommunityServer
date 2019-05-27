@@ -28,8 +28,9 @@ using System;
 using System.Web;
 using System.Web.UI;
 using AjaxPro;
-using ASC.Web.Studio.Core;
+using ASC.Web.Core.Sms;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -40,12 +41,10 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/SmsControls/SmsValidationSettings.ascx";
 
-        protected bool IsEnableSmsValidation
-        {
-            get { return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>(); }
-        }
-
         protected bool SmsEnable;
+
+        protected bool TfaAppEnable;
+
         protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -54,6 +53,7 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/SmsValidation.js");
 
             SmsEnable = StudioSmsNotificationSettings.IsVisibleSettings && SmsProviderManager.Enabled();
+            TfaAppEnable = TfaAppAuthSettings.IsVisibleSettings;
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

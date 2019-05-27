@@ -32,9 +32,9 @@ using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Expressions;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
-using log4net;
 // ReSharper disable RedundantToStringCall
 
 namespace ASC.ActiveDirectory.Base
@@ -91,7 +91,7 @@ namespace ASC.ActiveDirectory.Base
 
             Resource = resource;
 
-            _log = LogManager.GetLogger(typeof(LdapUserImporter));
+            _log = LogManager.GetLogger("ASC");
 
             _watchedNestedGroups = new List<string>();
         }
@@ -731,6 +731,46 @@ namespace ASC.ActiveDirectory.Base
             }
 
             return listResults;
+        }
+
+        public List<LdapObject> FindUsersByAttribute(string key, string value, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            var users = new List<LdapObject>();
+
+            if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
+                return users;
+
+            return users.Where(us => !us.IsDisabled && string.Equals((string)us.GetValue(key), value, comparison)).ToList();
+        }
+
+        public List<LdapObject> FindUsersByAttribute(string key, IEnumerable<string> value, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            var users = new List<LdapObject>();
+
+            if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
+                return users;
+
+            return AllDomainUsers.Where(us => !us.IsDisabled && value.Any(val => string.Equals(val, (string)us.GetValue(key), comparison))).ToList();
+        }
+
+        public List<LdapObject> FindGroupsByAttribute(string key, string value, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            var gr = new List<LdapObject>();
+
+            if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
+                return gr;
+
+            return gr.Where(g => !g.IsDisabled && string.Equals((string)g.GetValue(key), value, comparison)).ToList();
+        }
+
+        public List<LdapObject> FindGroupsByAttribute(string key, IEnumerable<string> value, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            var gr = new List<LdapObject>();
+
+            if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
+                return gr;
+
+            return AllDomainGroups.Where(g => !g.IsDisabled && value.Any(val => string.Equals(val, (string)g.GetValue(key), comparison))).ToList();
         }
 
         public Tuple<UserInfo, LdapObject> Login(string login, string password)

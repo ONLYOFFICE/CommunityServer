@@ -43,41 +43,43 @@ body .OwnCloud {
 }
 body .Box,
 body .BoxNet {
-    background-image: url("images/thirdparty_box.png");
-    background-size: 158px 258px;
+    background-image: url("images/svg/icon_box_small.svg");
 }
 body .DropBox,
 body .DropboxV2 {
-    background-image: url("images/thirdparty_dropbox.png");
+    background-image: url("images/svg/icon_dropbox.svg");
 }
 body .DocuSign {
-    background-image: url("images/thirdparty_docusign.png");
+    background-image: url("images/svg/icon_docusign.svg");
 }
 body .Google,
 body .GoogleDrive {
-    background-image: url("images/thirdparty_google.png");
+    background-image: url("images/svg/icon_google_drive.svg");
 }
 body .SharePoint {
-    background-image: url("images/thirdparty_sharepoint.png");
+    background-image: url("images/svg/icon_sharepoint.svg");
 }
 body .OneDrive,
 body .SkyDrive {
-    background-image: url("images/thirdparty_skydrive.png");
+    background-image: url("images/svg/icon_onedrive_1.svg");
 }
 body .SharePoint.SkyDrive {
-    background-image: url("images/thirdparty_onedrivebusiness.png");
+    background-image: url("images/svg/icon_onedrive_1.svg");
 }
 body .WebDav {
-    background-image: url("images/thirdparty_webdav.png");
+    background-image: url("images/svg/icon_webdav.svg");
 }
 body .Yandex {
-    background-image: url("images/thirdparty_yandex.png");
+    background-image: url("images/svg/icon_yandex_disk.svg");
+}
+body .Yandex.ru {
+    background-image: url("images/svg/icon_yandex_disk.svg");
 }
 body .Nextcloud {
-    background-image: url("images/thirdparty_nextcloud.png");
+    background-image: url("images/svg/icon_onedrive.svg");
 }
 body .OwnCloud {
-    background-image: url("images/thirdparty_owncloud.png");
+    background-image: url("images/svg/icon_owncloud.svg");
 }
 
 
@@ -100,22 +102,67 @@ only screen and (                min-resolution: 2dppx)
     Content
 *******************************************************************************/
 .file-row .thumb-folder .provider-key {
-    background-position: 0 -52px;
+    /*background-position: 0 -52px;*/
+    background-position: 0 2px;
     bottom: 0;
     height: 18px;
     position: absolute;
     right: 0;
     width: 18px;
+    background-size:100%;
 }
 #filesMainContent.compact .thumb-folder .provider-key,
 .files-news-panel .thumb-folder .provider-key {
-    background-position: 0 -80px;
+    /*background-position: 0 -80px;*/
     height: 14px;
     width: 14px;
 }
 .jstree .third-party-entry .jstree-icon {
     background-position: 0 0;
+    background-size: 16px;
+    filter: grayscale(1);
 }
+.jstree .third-party-entry .jstree-icon.Box,
+.jstree .third-party-entry .jstree-icon.BoxNet {
+    background-image: url("images/svg/icon_box_small_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.DropBox,
+.jstree .third-party-entry .jstree-icon.DropboxV2  {
+    background-image: url("images/svg/icon_dropbox_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.DocuSign {
+    background-image: url("images/svg/icon_docusign_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Google,
+.jstree .third-party-entry .jstree-icon.GoogleDrive  {
+    background-image: url("images/svg/icon_google-drive_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.SharePoint   {
+    background-image: url("images/svg/icon_sharepoint_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.OneDrive,
+.jstree .third-party-entry .jstree-icon.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.WebDav  {
+    background-image: url("images/svg/icon_webdav_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Yandex {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Yandex.ru {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Nextcloud  {
+    background-image: url("images/svg/icon_nextcloud_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.OwnCloud {
+    background-image: url("images/svg/icon_owncloud_monochrome.svg");
+}
+
 .without-third-party .jstree .third-party-entry {
     display: none;
 }
@@ -154,9 +201,10 @@ only screen and (                min-resolution: 2dppx)
     float: left;
 }
 .account-icon {
-    background-position: 0 -104px;
+    /*background-position: 0 -104px;*/
     height: 40px;
     width: 40px;
+    background-size: 40px;
 }
 .account-popup-icon {
     height: 100px;
@@ -238,11 +286,13 @@ only screen and (                min-resolution: 2dppx)
     white-space: nowrap;
 }
 .edit-account-button span {
-    background-position: 0 -80px;
+    /*background-position: 0 -80px;*/
     display: inline-block;
     height: 14px;
     margin: -2px 3px -2px -7px;
     width: 14px;
+    background-size: 16px;
+    background-position: 100% 50%;
 }
 .account-action-container {
     margin-left: 160px;
@@ -253,6 +303,13 @@ only screen and (                min-resolution: 2dppx)
 /*******************************************************************************
     Third Party editor dialog
 *******************************************************************************/
+.empty-login-data {
+    left: -10000px;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
 #thirdPartyPanel {
     margin-top: -10px;
 }
@@ -268,11 +325,12 @@ only screen and (                min-resolution: 2dppx)
     margin-top: 4px;
 }
 #thirdPartyTitle {
-    background-position: 7px -22px;
+    background-position: 4px 50%;
     background-repeat: no-repeat;
     background-color: transparent;
     padding-left: 30px;
     width: 315px;
+    background-size: 21px;
 }
 #thirdPartyLabelCorporate {
     display: block;
@@ -299,6 +357,45 @@ only screen and (                min-resolution: 2dppx)
     padding-top: 10px;
     text-align: center;
     width: 158px;
+    background-position: 50%;
+
+}
+.add-account-big.Yandex.ru {
+    background-image: url("images/svg/logo_yandex_ru.svg");     
+}
+.add-account-big.Yandex {
+    background-image: url("images/svg/logo_yandex_en.svg");     
+}
+.add-account-big.GoogleDrive {
+    background-image: url("images/svg/logo_google-drive.svg");     
+}
+.add-account-big.Box {
+    background-image: url("images/svg/logo_box.svg");     
+    background-size: 30%;
+}
+.add-account-big.DropboxV2 {
+    background-image: url("images/svg/logo_dropbox.svg");     
+}
+.add-account-big.SharePoint {
+    background-image: url("images/svg/logo_sharepoint.svg");     
+}
+.add-account-big.OneDrive {
+    background-image: url("images/svg/logo_onedrive.svg");     
+}
+.add-account-big.SharePoint.SkyDrive  {
+    background-image: url("images/svg/logo_onedrive-for-business.svg");     
+}
+.add-account-big.Nextcloud {
+    background-image: url("images/svg/logo_nextcloud.svg");     
+}
+.add-account-big.OwnCloud {
+    background-image: url("images/svg/logo_owncloud.svg");     
+}
+.add-account-big.DocuSign {
+    background-image: url("images/svg/logo_docusign.svg");     
+}
+.add-account-big.WebDav {
+    background-image:none;
 }
 /*******************************************************************************
     Tree panel
@@ -311,20 +408,134 @@ only screen and (                min-resolution: 2dppx)
     margin: 8px 0 0;
     padding: 0;
 }
+
+
+.tree-thirdparty-list .add-account-button.Box,
+.tree-thirdparty-list .add-account-button.BoxNet {
+    background-image: url("images/svg/icon_box_small_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.DropBox,
+.tree-thirdparty-list .add-account-button.DropboxV2  {
+    background-image: url("images/svg/icon_dropbox_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.DocuSign {
+    background-image: url("images/svg/icon_docusign_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.Google,
+.tree-thirdparty-list .add-account-button.GoogleDrive  {
+    background-image: url("images/svg/icon_google-drive_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.SharePoint   {
+    background-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.OneDrive,
+.tree-thirdparty-list .add-account-button.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.SharePoint.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.WebDav  {
+    background-image: url("images/svg/icon_webdav_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.Yandex {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.Yandex.ru {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.Nextcloud  {
+    background-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.OwnCloud {
+    background-image: url("images/svg/icon_owncloud_monochrome.svg");
+    opacity: 0.4;
+}
+
+
+
+
+.tree-thirdparty-list .add-account-button.Box:hover,
+.tree-thirdparty-list .add-account-button.BoxNet:hover  {
+    background-image: url("images/svg/icon_box_small.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.DropBox:hover,
+.tree-thirdparty-list .add-account-button.DropboxV2:hover   {
+    background-image: url("images/svg/icon_dropbox.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.DocuSign:hover  {
+    background-image: url("images/svg/icon_docusign.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Google:hover,
+.tree-thirdparty-list .add-account-button.GoogleDrive:hover  {
+    background-image: url("images/svg/icon_google_drive.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.SharePoint:hover   {
+    background-image: url("images/svg/icon_sharepoint.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.OneDrive:hover,
+.tree-thirdparty-list .add-account-button.SkyDrive:hover   {
+    background-image: url("images/svg/icon_onedrive_1.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.SharePoint.SkyDrive:hover   {
+    background-image: url("images/svg/icon_onedrive_1.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.WebDav:hover   {
+    opacity: 1;
+    color: #0082C9;
+}
+.tree-thirdparty-list .add-account-button.Yandex:hover  {
+    background-image: url("images/svg/icon_yandex-disk.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Yandex.ru:hover  {
+    background-image: url("images/svg/icon_yandex-disk.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Nextcloud:hover   {
+    background-image: url("images/svg/icon_onedrive.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.OwnCloud:hover  {
+    background-image: url("images/svg/icon_owncloud.svg");
+    opacity: 1;
+}
+
+
 .tree-thirdparty-list .add-account-button {
-    background-position: 0 -144px;
+    background-position: 50%;
     cursor: pointer;
     float: left;
     height: 32px;
     margin-right: 4px;
     width: 32px;
+    background-size: 100%;
 }
-.tree-thirdparty-list .add-account-button.Box,
-.tree-thirdparty-list .add-account-button.BoxNet {
-    width: 44px;
+.tree-thirdparty-list .add-account-button.WebDav {
+    font-size:22px;
+    text-align: center;
+    background-image:none;
 }
-.tree-thirdparty-list .add-account-button:hover {
-    background-position: 0 -180px;
+.tree-thirdparty-list .add-account-button.WebDav:hover {
+    color:#0082C9;
 }
 
 /*******************************************************************************

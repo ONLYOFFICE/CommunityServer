@@ -48,11 +48,11 @@
                 margin-right: 4px;
                 padding: 10px 0 0 4px;
                 width: 20px;
-                height:20px;
+                height: 20px;
                 float: left;
 
                 input {
-                    margin:4px;
+                    margin: 4px;
                 }
             }
 
@@ -96,13 +96,15 @@
             }
 
             .high_priority {
-                background: url("../images/projects_entity_statuses.png") no-repeat scroll 0 -116px transparent;
+                background: url("../../../../../skins/default/images/svg/projects/important.svg") no-repeat;
                 display: inline-block;
                 float: left;
                 height: 15px;
                 margin-right: 4px;
                 margin-top: 11px;
                 width: 14px;
+                background-position-x: 100%;
+                background-position-y: 1px;
             }
 
             span.timeLeft {
@@ -110,14 +112,24 @@
                 font-size: 12px;
                 line-height: @divHeight;
                 cursor: default;
+                float:right;
+                margin-right:12px;
 
                 &.red {
                     color: #cc3300;
                 }
             }
 
-            .deadline
-            {
+            span.milestone {
+                width: 16px;
+                height:16px;
+                background: url("../../../../../skins/default/images/svg/projects/milstones.svg") no-repeat;
+                float:right;
+                margin-top:12px;
+                background-position: 50%;
+            }
+
+            .deadline {
                 overflow: hidden;
                 white-space: nowrap;
                 height: @divHeight;
@@ -147,6 +159,7 @@
 
                 span.collaps {
                     background: no-repeat scroll right center transparent;
+
                     span {
                         display: inline;
                     }
@@ -398,12 +411,12 @@
         .open,
         .overdue,
         .closed {
-            background: url('../images/projects_entity_statuses.png') no-repeat;
-            background-position: 0 -60px;
+            background: url('../../../../../skins/default/Images/svg/projects/inbox.svg') no-repeat;
         }
 
         .closed {
-            background-position: 0 -80px;
+            background: url('../../../../../skins/default/Images/svg/projects/check_tick.svg') no-repeat;
+            background-position-x: -2px;
         }
     }
 
@@ -588,7 +601,11 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
         width: 150px;
         border-left: none;
         white-space: nowrap;
-        overflow:hidden;
+        overflow: hidden;
+
+        .subtask-responsible-selector {
+            position: relative;
+        }
     }
 
     .subtask-add-button {

@@ -83,7 +83,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
 
         public override bool VisibleFor(Feed feed, object data, Guid userId)
         {
-            if (!WebItemSecurity.IsAvailableForUser(ProductID.ToString(), userId)) return false;
+            if (!WebItemSecurity.IsAvailableForUser(ProductID, userId)) return false;
 
             var tuple = (Tuple<Folder, SmallShareRecord>)data;
             var folder = tuple.Item1;
@@ -161,13 +161,19 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     Exp.Between("s.timestamp", filter.Time.From, filter.Time.To)
                 );
 
+            List<Tuple<Folder, SmallShareRecord>> folders;
             using (var db = new DbManager(DbId))
             {
-                var folders = db.ExecuteList(q1.UnionAll(q2)).ConvertAll(ToFolder);
-                return folders
+                folders = db.ExecuteList(q1.UnionAll(q2))
+                    .ConvertAll(ToFolder)
                     .Where(f => f.Item1.RootFolderType != FolderType.TRASH && f.Item1.RootFolderType != FolderType.BUNCH)
-                    .Select(f => new Tuple<Feed, object>(ToFeed(f), f));
+                    .ToList();
             }
+
+            var parentFolderIDs = folders.Select(r => r.Item1.ParentFolderID).ToArray();
+            var parentFolders = new FolderDao(Tenant, DbId).GetFolders(parentFolderIDs, checkShare: false);
+
+            return folders.Select(f => new Tuple<Feed, object>(ToFeed(f, parentFolders.FirstOrDefault(r => r.ID.Equals(f.Item1.ParentFolderID))), f));
         }
 
 
@@ -219,12 +225,10 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             return new Tuple<Folder, SmallShareRecord>(folder, shareRecord);
         }
 
-        private Feed ToFeed(Tuple<Folder, SmallShareRecord> tuple)
+        private Feed ToFeed(Tuple<Folder, SmallShareRecord> tuple, Folder rootFolder)
         {
             var folder = tuple.Item1;
             var shareRecord = tuple.Item2;
-
-            var rootFolder = new FolderDao(Tenant, DbId).GetFolder(folder.ParentFolderID);
 
             if (shareRecord != null)
             {

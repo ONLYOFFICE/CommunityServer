@@ -89,7 +89,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
 
                 try
                 {
-                    using(var response = request.GetResponse())
+                    using (var response = request.GetResponse())
                     using (var rs = response.GetResponseStream())
                     {
                         if (rs != null)
@@ -121,7 +121,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
             if (String.IsNullOrEmpty(method))
                 method = "GET";
 
-            byte[] bytes = null; 
+            byte[] bytes = null;
             if (!String.IsNullOrEmpty(queryString))
                 bytes = Encoding.UTF8.GetBytes(queryString);
 

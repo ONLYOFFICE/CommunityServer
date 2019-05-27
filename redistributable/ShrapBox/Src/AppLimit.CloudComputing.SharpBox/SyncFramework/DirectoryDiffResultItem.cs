@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 
 namespace AppLimit.CloudComputing.SharpBox.SyncFramework
 {
@@ -16,16 +12,19 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
         /// is nothing such as a CRC check.
         /// </summary>
         Identical = 0,
+
         /// <summary>
         /// The file is present in the local folder but is missing in the remote one.
         /// This is also raised for missing folders.
         /// </summary>
         MissingInLocalFolder,
+
         /// <summary>
         /// The file is present in the local folder but is missing in the remote one.
         /// This is also raised for missing folders.
         /// </summary>
         MissingInRemoteFolder,
+
         /// <summary>
         /// The two files have different sizes.
         /// </summary>
@@ -34,8 +33,8 @@ namespace AppLimit.CloudComputing.SharpBox.SyncFramework
 
     internal class DirectoryDiffResultItem
     {
-        public FileSystemInfo          localItem;
-        public ICloudFileSystemEntry   remoteItem;
-        public ComparisonResult        compareResult;
+        public FileSystemInfo localItem;
+        public ICloudFileSystemEntry remoteItem;
+        public ComparisonResult compareResult;
     }
 }

@@ -34,45 +34,22 @@ window.customFilter = (function ($) {
             isInit = true;
 
             $('#customFilter').advansedFilter({
-                maxfilters: -1,
+                anykey: true,
+                anykeytimeout: 1000,
+                maxfilters: 0,
+                hintDefaultDisable: true,
                 sorters: [
                     { id: 'displayName', title: MailScriptResource.FilterByTitle, sortOrder: 'ascending', def: true }
                 ],
-                filters: [
-                    {
-                        type: "combobox",
-                        id: "personal",
-                        apiparamname: "contactType",
-                        title: MailScriptResource.FilterPersonalContacts,
-                        filtertitle: MailScriptResource.FilterShowGroup,
-                        group: MailScriptResource.FilterShowGroup,
-                        groupby: 'type',
-                        options:
-                        [
-                            { value: '1', classname: '', title: MailScriptResource.FilterPersonalContacts, def: true },
-                            { value: '0', classname: '', title: MailScriptResource.FilterFrequentlyContacted }
-                        ]
-                    },
-                    {
-                        type: "combobox",
-                        id: "auto",
-                        apiparamname: "contactType",
-                        title: MailScriptResource.FilterFrequentlyContacted,
-                        filtertitle: MailScriptResource.FilterShowGroup,
-                        group: MailScriptResource.FilterShowGroup,
-                        groupby: 'type',
-                        options:
-                        [
-                            { value: '1', classname: '', title: MailScriptResource.FilterPersonalContacts },
-                            { value: '0', classname: '', title: MailScriptResource.FilterFrequentlyContacted, def: true }
-                        ]
-                    }
-                ]
+                filters: []
             }).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advanced filter plugin call - because
             // its replace target element with new markup
             filter = $('#customFilter');
+
+            filter.find(".advansed-filter-button").hide();
+
             events.trigger('ready');
         }
     };
@@ -87,13 +64,6 @@ window.customFilter = (function ($) {
 
     function onResetAllFilters(evt, $container, filterid, selectedfilters) {
         events.trigger('resetall', [selectedfilters]);
-    };
-
-    var showItem = function (id, params) {
-        if (!params) {
-            params = {};
-        }
-        filter.advansedFilter({ filters: [{ id: id, params: params }] });
     };
 
     function show() {
@@ -112,20 +82,12 @@ window.customFilter = (function ($) {
         filter.advansedFilter(null);
     };
 
-    var setPersonal = function () {
-        showItem('personal', { value: '1' });
-    };
-
-    var setAuto = function () {
-        showItem('auto', { value: '0' });
-    };
-
     function setSearch(text) {
         filter.advansedFilter({ filters: [{ type: 'text', id: 'text', params: { value: text } }]});
     };
 
     function setSort(sort, order) {
-        filter.advansedFilter({ sorters: [{ id: sort, selected: true, dsc: 'descending' == order }]});
+        filter.advansedFilter({ sorters: [{ id: sort, selected: true, dsc: 'descending' === order }]});
     };
 
     return {
@@ -137,8 +99,6 @@ window.customFilter = (function ($) {
         show: show,
         hide: hide,
 
-        setPersonal: setPersonal,
-        setAuto: setAuto,
         setSearch: setSearch,
         setSort: setSort,
 

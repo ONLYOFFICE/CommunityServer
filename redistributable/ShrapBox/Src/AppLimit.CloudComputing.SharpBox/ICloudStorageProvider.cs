@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace AppLimit.CloudComputing.SharpBox
 {
     public interface ICloudStorageProvider
-    {        
-        ICloudStorageAccessToken CurrentAccessToken { get; }        
+    {
+        ICloudStorageAccessToken CurrentAccessToken { get; }
 
         ICloudStorageAccessToken Open(ICloudStorageConfiguration configuration, ICloudStorageAccessToken token);
 
@@ -29,7 +29,7 @@ namespace AppLimit.CloudComputing.SharpBox
 
         Uri GetFileSystemObjectUrl(String path, ICloudDirectoryEntry parent);
 
-        String GetFileSystemObjectPath(ICloudFileSystemEntry fsObject);                
+        String GetFileSystemObjectPath(ICloudFileSystemEntry fsObject);
     }
 
     internal interface ICloudStorageProviderInternal : ICloudStorageProvider

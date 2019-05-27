@@ -30,24 +30,26 @@ using System.Linq;
 
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
 {
     public class TaskEngine : ProjectEntityEngine
     {
         public IDaoFactory DaoFactory { get; set; }
-        public SubtaskEngine SubtaskEngine { get; set; }
+        public EngineFactory EngineFactory { get; set; }
+        public SubtaskEngine SubtaskEngine { get { return EngineFactory.SubtaskEngine; } }
 
         private readonly Func<Task, bool> canReadDelegate;
 
-        public TaskEngine(bool disableNotifications, SubtaskEngine subtaskEngine)
+        public TaskEngine(bool disableNotifications)
             : base(NotifyConstants.Event_NewCommentForTask, disableNotifications)
         {
             canReadDelegate = CanRead;
-            SubtaskEngine = subtaskEngine;
         }
 
         #region Get Tasks
@@ -139,7 +141,7 @@ namespace ASC.Projects.Engine
             return DaoFactory.TaskDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
-        public  Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter)
+        public List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter)
         {
             return DaoFactory.TaskDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
@@ -202,7 +204,7 @@ namespace ASC.Projects.Engine
             return DaoFactory.TaskDao.IsExists(id);
         }
 
-        private static bool CanRead(Task task)
+        private bool CanRead(Task task)
         {
             return ProjectSecurity.CanRead(task);
         }
@@ -215,20 +217,6 @@ namespace ASC.Projects.Engine
         {
             if (task == null) throw new ArgumentNullException("task");
             if (task.Project == null) throw new Exception("task.Project");
-
-            // check guests responsibles
-            foreach (var responsible in task.Responsibles)
-            {
-                if (ProjectSecurity.IsVisitor(responsible))
-                {
-                    ProjectSecurity.CreateGuestSecurityException();
-                }
-
-                if (!ProjectSecurity.IsInTeam(task.Project, responsible))
-                {
-                    ProjectSecurity.CreateSecurityException();
-                }
-            }
 
             var milestone = task.Milestone != 0 ? DaoFactory.MilestoneDao.GetById(task.Milestone) : null;
             var milestoneResponsible = milestone != null ? milestone.Responsible : Guid.Empty;
@@ -248,6 +236,19 @@ namespace ASC.Projects.Engine
 
             if (isNew)
             {
+                foreach (var responsible in task.Responsibles)
+                {
+                    if (ProjectSecurity.IsVisitor(responsible))
+                    {
+                        ProjectSecurity.CreateGuestSecurityException();
+                    }
+
+                    if (!ProjectSecurity.IsInTeam(task.Project, responsible))
+                    {
+                        ProjectSecurity.CreateSecurityException();
+                    }
+                }
+
                 if (task.CreateBy == default(Guid)) task.CreateBy = SecurityContext.CurrentAccount.ID;
                 if (task.CreateOn == default(DateTime)) task.CreateOn = TenantUtil.DateTimeNow();
 
@@ -267,6 +268,19 @@ namespace ASC.Projects.Engine
                 var newResponsibles = task.Responsibles.Distinct().ToList();
                 var oldResponsibles = oldTask.Responsibles.Distinct().ToList();
 
+                foreach (var responsible in newResponsibles.Except(oldResponsibles))
+                {
+                    if (ProjectSecurity.IsVisitor(responsible))
+                    {
+                        ProjectSecurity.CreateGuestSecurityException();
+                    }
+
+                    if (!ProjectSecurity.IsInTeam(task.Project, responsible))
+                    {
+                        ProjectSecurity.CreateSecurityException();
+                    }
+                }
+
                 removeResponsibles.AddRange(oldResponsibles.Where(p => !newResponsibles.Contains(p)));
                 inviteToResponsibles.AddRange(newResponsibles.Where(participant => !oldResponsibles.Contains(participant)));
 
@@ -275,6 +289,8 @@ namespace ASC.Projects.Engine
 
                 task = DaoFactory.TaskDao.Update(task);
             }
+
+            FactoryIndexer<TasksWrapper>.IndexAsync(task);
 
             if (attachedFileIds != null && attachedFileIds.Any())
             {
@@ -450,6 +466,8 @@ namespace ASC.Projects.Engine
             }
 
             UnSubscribeAll(task);
+
+            FactoryIndexer<TasksWrapper>.DeleteAsync(task);
         }
 
         #endregion

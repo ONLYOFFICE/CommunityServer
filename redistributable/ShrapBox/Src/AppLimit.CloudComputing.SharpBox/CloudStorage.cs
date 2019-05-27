@@ -1,29 +1,18 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Net;
+using System.Net.Security;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
-
-#if !WINDOWS_PHONE && !MONODROID
-using System.Net.Security;
-#endif
-
-using AppLimit.CloudComputing.SharpBox.Common;
+using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
-
+using AppLimit.CloudComputing.SharpBox.StorageProvider.BoxNet;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.FTP;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav;
-using AppLimit.CloudComputing.SharpBox.Common.IO;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.BoxNet;
-
-#if !WINDOWS_PHONE && !MONODROID
-using System.Net;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.CIFS;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.FTP;
-#endif
-
 
 
 namespace AppLimit.CloudComputing.SharpBox
@@ -36,7 +25,7 @@ namespace AppLimit.CloudComputing.SharpBox
     ///  - DropBox
     ///  
     /// </summary>
-    public partial class CloudStorage : ICloudStorageProvider, ICloudStorageAsyncInterface, ICloudStoragePublicAPI
+    public partial class CloudStorage : ICloudStoragePublicAPI
     {
         // some information for token storage
         internal const String TokenProviderConfigurationType = "TokenProvConfigType";
@@ -56,14 +45,13 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <summary>
         /// returns the currently setted access token 
         /// </summary>
-        public ICloudStorageAccessToken CurrentAccessToken 
+        public ICloudStorageAccessToken CurrentAccessToken
         {
             get
             {
                 if (_provider == null)
                     return null;
-                else
-                    return _provider.CurrentAccessToken;
+                return _provider.CurrentAccessToken;
             }
         }
 
@@ -72,10 +60,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// </summary>
         public ICloudStorageConfiguration CurrentConfiguration
         {
-            get
-            {
-                return _configuration;
-            }
+            get { return _configuration; }
         }
 
         /// <summary>
@@ -87,15 +72,13 @@ namespace AppLimit.CloudComputing.SharpBox
             _configurationProviderMap = new Dictionary<String, Type>();
 
             // register provider
-            RegisterStorageProvider(typeof(DropBoxConfiguration), typeof(DropBoxStorageProvider));			
-            RegisterStorageProvider(typeof(WebDavConfiguration), typeof(WebDavStorageProvider));
-            RegisterStorageProvider(typeof(BoxNetConfiguration), typeof(BoxNetStorageProvider));
-#if !WINDOWS_PHONE && !MONODROID
-            RegisterStorageProvider(typeof(FtpConfiguration), typeof(FtpStorageProvider));
-            RegisterStorageProvider(typeof(CIFSConfiguration), typeof(CIFSStorageProvider));
+            RegisterStorageProvider(typeof (DropBoxConfiguration), typeof (DropBoxStorageProvider));
+            RegisterStorageProvider(typeof (WebDavConfiguration), typeof (WebDavStorageProvider));
+            RegisterStorageProvider(typeof (BoxNetConfiguration), typeof (BoxNetStorageProvider));
+            RegisterStorageProvider(typeof (FtpConfiguration), typeof (FtpStorageProvider));
+            RegisterStorageProvider(typeof (CIFSConfiguration), typeof (CIFSStorageProvider));
             RegisterStorageProvider(typeof (GoogleDocsConfiguration), typeof (GoogleDocsStorageProvider));
             RegisterStorageProvider(typeof (StorageProvider.SkyDrive.SkyDriveConfiguration), typeof (StorageProvider.SkyDrive.Logic.SkyDriveStorageProvider));
-#endif
         }
 
         /// <summary>
@@ -104,26 +87,26 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <param name="src"></param>
         public CloudStorage(CloudStorage src)
             : this(src, true)
-        { }
+        {
+        }
 
         /// <summary>
         /// copy ctor 
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="OpenIfSourceWasOpen"></param>
-        public CloudStorage(CloudStorage src, Boolean OpenIfSourceWasOpen)
+        /// <param name="openIfSourceWasOpen"></param>
+        public CloudStorage(CloudStorage src, Boolean openIfSourceWasOpen)
             : this()
         {
             // copy all registered provider from src
             _configurationProviderMap = src._configurationProviderMap;
 
             // open the provider
-            if (src.IsOpened && OpenIfSourceWasOpen)
+            if (src.IsOpened && openIfSourceWasOpen)
                 Open(src._configuration, src.CurrentAccessToken);
             else
                 _configuration = src._configuration;
         }
-
 
         /// <summary>
         /// This method allows to register a storage provider for a specific configuration
@@ -151,7 +134,6 @@ namespace AppLimit.CloudComputing.SharpBox
             return true;
         }
 
-#if !WINDOWS_PHONE && !MONODROID
         /// <summary>
         /// Ignores all invalid ssl certs
         /// </summary>
@@ -160,11 +142,10 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <param name="chain"></param>
         /// <param name="sslPolicyErrors"></param>
         /// <returns></returns>
-        static bool ValidateAllServerCertificates(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        private static bool ValidateAllServerCertificates(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
-#endif
 
         #endregion
 
@@ -174,7 +155,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// True when a the connection to the Cloudstorage will be established
         /// </summary>
         public Boolean IsOpened { get; private set; }
-   
+
         /// <summary>
         /// Calling this method with vendor specific configuration settings and token based credentials
         /// to get access to the cloud storage. The following exceptions are possible:
@@ -195,11 +176,10 @@ namespace AppLimit.CloudComputing.SharpBox
 
             // ensures that the right provider will be used
             SetProviderByConfiguration(configuration);
-            
+
             // save the configuration
             _configuration = configuration;
 
-#if !WINDOWS_PHONE && !MONODROID
             // verify the ssl config
             if (configuration.TrustUnsecureSSLConnections)
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = ValidateAllServerCertificates;
@@ -209,7 +189,6 @@ namespace AppLimit.CloudComputing.SharpBox
 
             // disable the not well implementes Expected100 header settings
             ServicePointManager.Expect100Continue = false;
-#endif
 
             // open the cloud connection                                    
             token = _provider.Open(configuration, token);
@@ -220,7 +199,7 @@ namespace AppLimit.CloudComputing.SharpBox
             // return the token
             return token;
         }
-        
+
         /// <summary>
         /// This method will close the connection to the cloud storage system
         /// </summary>
@@ -323,13 +302,14 @@ namespace AppLimit.CloudComputing.SharpBox
         /// get a .net stream which usable in the same way then local stream are usable.
         /// </summary>
         /// <param name="parent">Link to the parent container, null means the root directory</param>
-        /// <param name="Name">The name of the targeted file</param>        
+        /// <param name="name">The name of the targeted file</param>        
         /// <returns></returns>
-        public ICloudFileSystemEntry CreateFile(ICloudDirectoryEntry parent, String Name)
+        public ICloudFileSystemEntry CreateFile(ICloudDirectoryEntry parent, String name)
         {
             // pass through the provider
-            return _provider == null ? null : _provider.CreateFile(parent, Name);
+            return _provider == null ? null : _provider.CreateFile(parent, name);
         }
+
         /// <summary>
         /// This method returns the direct URL to a specific file system object,
         /// e.g. a file or folder
@@ -381,7 +361,7 @@ namespace AppLimit.CloudComputing.SharpBox
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorOpenedConnectionNeeded);
 
             return SerializeSecurityTokenEx(token, _configuration.GetType(), additionalMetaData);
-        }        
+        }
 
         /// <summary>
         /// This method can be used for serialize a token without have the connection opened :-)
@@ -427,12 +407,12 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <param name="fileName"></param>
         public void SerializeSecurityTokenEx(ICloudStorageAccessToken token, Type configurationType, Dictionary<String, String> additionalMetaData, String fileName)
         {
-            using(FileStream fs = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var fs = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                using (Stream ts = SerializeSecurityTokenEx(token, configurationType, additionalMetaData))
+                using (var ts = SerializeSecurityTokenEx(token, configurationType, additionalMetaData))
                 {
                     // copy
-                    StreamHelper.CopyStreamData(this, ts, fs, null, null);                    
+                    StreamHelper.CopyStreamData(this, ts, fs, null, null);
                 }
 
                 // flush
@@ -452,9 +432,9 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public String SerializeSecurityTokenToBase64Ex(ICloudStorageAccessToken token, Type configurationType, Dictionary<String, String> additionalMetaData)
         {
-            using(Stream tokenStream = SerializeSecurityTokenEx(token, configurationType, additionalMetaData))
+            using (var tokenStream = SerializeSecurityTokenEx(token, configurationType, additionalMetaData))
             {
-                using(MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     // copy to memory
                     StreamHelper.CopyStreamData(this, tokenStream, memStream, null, null);
@@ -475,7 +455,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public ICloudStorageAccessToken DeserializeSecurityToken(Stream tokenStream)
         {
-            Dictionary<String, String> metadata = null;
+            Dictionary<String, String> metadata;
             return DeserializeSecurityToken(tokenStream, out metadata);
         }
 
@@ -486,10 +466,10 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public ICloudStorageAccessToken DeserializeSecurityTokenEx(String fileName)
         {
-            using (FileStream fs = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var fs = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 return DeserializeSecurityToken(fs);
-            }             
+            }
         }
 
         /// <summary>
@@ -502,28 +482,24 @@ namespace AppLimit.CloudComputing.SharpBox
         public ICloudStorageAccessToken DeserializeSecurityToken(Stream tokenStream, out Dictionary<String, String> additionalMetaData)
         {
             // load the data in our list            
-            var serializer = new DataContractSerializer(typeof(Dictionary<String, String>));
+            var serializer = new DataContractSerializer(typeof (Dictionary<String, String>));
 
             // check the type
-            Object obj = serializer.ReadObject(tokenStream);
-            if (!obj.GetType().Equals(typeof(Dictionary<String, String>)))
-#if SILVERLIGHT || MONODROID || MONOTOUCH
-                throw new Exception("A List<String> was expected");
-#else
+            var obj = serializer.ReadObject(tokenStream);
+            if (!obj.GetType().Equals(typeof (Dictionary<String, String>)))
                 throw new InvalidDataException("A List<String> was expected");
-#endif
 
             // evaluate the right provider
-            Dictionary<String, String> tokendata = (Dictionary<String, String>)obj;
+            var tokendata = (Dictionary<String, String>)obj;
 
             // find the right provider by typename
-            ICloudStorageProviderInternal provider = GetProviderByConfigurationTypeName(tokendata[TokenProviderConfigurationType]);
+            var provider = GetProviderByConfigurationTypeName(tokendata[TokenProviderConfigurationType]);
 
             // set the output parameter
-            additionalMetaData = new Dictionary<string,string>();
+            additionalMetaData = new Dictionary<string, string>();
 
             // fill the metadata
-            foreach (KeyValuePair<String, string> kvp in tokendata)
+            foreach (var kvp in tokendata)
             {
                 if (kvp.Key.StartsWith(TokenMetadataPrefix))
                 {
@@ -542,7 +518,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public ICloudStorageAccessToken DeserializeSecurityTokenFromBase64(String tokenString)
         {
-            Dictionary<String, String> additionalMetaData = null;
+            Dictionary<String, String> additionalMetaData;
             return DeserializeSecurityTokenFromBase64(tokenString, out additionalMetaData);
         }
 
@@ -555,14 +531,14 @@ namespace AppLimit.CloudComputing.SharpBox
         public ICloudStorageAccessToken DeserializeSecurityTokenFromBase64(String tokenString, out Dictionary<String, String> additionalMetaData)
         {
             // convert base64 to byte array
-            Byte[] data = Convert.FromBase64String(tokenString);
+            var data = Convert.FromBase64String(tokenString);
 
             // create a token stream 
-            using (MemoryStream tokenStream = new MemoryStream(data))
+            using (var tokenStream = new MemoryStream(data))
             {
                 // read the token stream
                 return DeserializeSecurityToken(tokenStream, out additionalMetaData);
-            }            
+            }
         }
 
         /// <summary>
@@ -573,13 +549,13 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <param name="token">the token</param>
         /// <param name="configurationType">type of configguration which is responsable for the token</param>
         internal void StoreToken(Dictionary<String, String> tokendata, ICloudStorageAccessToken token, Type configurationType)
-        {            
+        {
             // add the configuration information into the 
             tokendata.Add(TokenProviderConfigurationType, configurationType.FullName);
             tokendata.Add(TokenCredentialType, token.GetType().FullName);
 
             // get the provider by toke
-            ICloudStorageProviderInternal provider = GetProviderByConfigurationTypeName(configurationType.FullName);
+            var provider = GetProviderByConfigurationTypeName(configurationType.FullName);
 
             // store all the other information to tokendata
             provider.StoreToken(tokendata, token);
@@ -591,7 +567,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// </summary>
         /// <param name="tokendata">the string list</param>
         /// <returns>The unserialized token</returns>
-        internal ICloudStorageAccessToken LoadToken(Dictionary<String,String> tokendata)
+        internal ICloudStorageAccessToken LoadToken(Dictionary<String, String> tokendata)
         {
             return _provider.LoadToken(tokendata);
         }
@@ -629,21 +605,22 @@ namespace AppLimit.CloudComputing.SharpBox
             SetProviderByConfigurationTypeName(configuration.GetType().FullName);
         }
 
-        private void SetProviderByConfigurationTypeName(String TypeName)
+        private void SetProviderByConfigurationTypeName(String typeName)
         {
-            _provider = GetProviderByConfigurationTypeName(TypeName);
-        }        
+            _provider = GetProviderByConfigurationTypeName(typeName);
+        }
 
-        private ICloudStorageProviderInternal GetProviderByConfigurationTypeName(String TypeName)
+        private ICloudStorageProviderInternal GetProviderByConfigurationTypeName(String typeName)
         {
             // read out the right provider type
-            Type providerType = null;
-            if (!_configurationProviderMap.TryGetValue(TypeName, out providerType))
+            Type providerType;
+            if (!_configurationProviderMap.TryGetValue(typeName, out providerType))
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorNoValidProviderFound);
 
             // build up the provider
             return CreateProviderByType(providerType);
         }
+
         #endregion
     }
 }

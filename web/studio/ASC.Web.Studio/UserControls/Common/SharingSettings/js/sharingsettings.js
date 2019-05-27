@@ -483,10 +483,12 @@ var SharingSettingsManager = function (elementId, sharingData) {
         return _data;
     };
 
-    this.ShowDialog = function (width, height, asFlat) {
+    this.ShowDialog = function (width, height, asFlat, hideSelector) {
         reDrawItems();
         reDrawDefActions();
         hideShareMessage();
+
+        jq("#shareGroupSelector, #shareGroupDefAction").toggle(!hideSelector);
 
         jq("#studio_sharingSettingsDialog .userLink").each(function () {
             var id = jq(this).attr("id");
@@ -517,11 +519,18 @@ var SharingSettingsManager = function (elementId, sharingData) {
     this.SaveAndCloseDialog = function () {
         _data = _workData;
 
+        var close = true;
         if (_manager.OnSave != null) {
-            _manager.OnSave(_data);
+            if (_manager.OnSave(_data) === false) {
+                close = false;
+            }
         }
 
-        return _manager.CloseDialog();
+        if (close) {
+            return _manager.CloseDialog();
+        }
+
+        return false;
     };
 
     this.CloseDialog = function () {

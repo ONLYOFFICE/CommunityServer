@@ -183,11 +183,8 @@ ASC.Projects.Common = (function () {
             case "projecttemplates.aspx":
                 cPage = baseObject.Templates;
                 break;
-            case "generatedreport.aspx":
-                cPage = baseObject.GeneratedReportView;
-                break;
             case "reports.aspx":
-                cPage = baseObject.ReportView;
+                cPage = jq.getURLParam("tmplId") || jq.getURLParam("reportType") ? baseObject.ReportView : baseObject.GeneratedReport;
                 break;
             case "contacts.aspx":
                 cPage = baseObject.Contacts;
@@ -266,54 +263,51 @@ ASC.Projects.Common = (function () {
         function newBlock(image, title, ul) {
             return { image: image, title: title, ul: ul };
         }
-        function onGetPrjSecurityinfo(params, data) {
-            if (!data.canCreateProject) return;
-            var commonResource = baseObject.Resources.CommonResource;
 
-            var tmplObj = {
-                blocks: [
-                    newBlock("icon-tasks.png", commonResource.TasksModuleTitle,
-                        [
-                            commonResource.TasksModuleFirstLine,
-                            commonResource.TasksModuleSecondLine,
-                            commonResource.TasksModuleThirdLine
-                        ]),
-                    newBlock("icon-milestones.png", commonResource.MilestonesModuleTitle,
-                        [
-                            commonResource.MilestonesModuleFirstLine,
-                            commonResource.MilestonesModuleSecondLine,
-                            commonResource.MilestonesModuleThirdLine
-                        ]),
-                    newBlock("icon-document.png", commonResource.DocsModuleTitle,
-                        [
-                            commonResource.DocsModuleFirstLine,
-                            commonResource.DocsModuleSecondLine,
-                            commonResource.DocsModuleThirdLine
-                        ]),
-                    newBlock("icon-discussion.png", commonResource.DiscussionModuleTitle,
-                        [
-                            commonResource.DiscussionModuleFirstLine,
-                            commonResource.DiscussionModuleSecondLine,
-                            commonResource.DiscussionModuleThirdLine
-                        ]),
-                    newBlock("icon-report.png", commonResource.ReportsModuleTitle,
-                        [
-                            commonResource.ReportsModuleFirstLine,
-                            commonResource.ReportsModuleSecondLine,
-                            commonResource.ReportsModuleThirdLine
-                        ])
-                ]
-            };
-            jq.tmpl("projects_dashboard_empty_screen", tmplObj).appendTo("body");
-            var $emptyScreenContainer = jq("#projects_dashboard_empty_screen_container");
-            $emptyScreenContainer.on("click", ".close", function () {
-                $emptyScreenContainer.remove();
-            });
+        if (!ASC.Projects.Master.CanCreateProject) return;
+        var commonResource = baseObject.Resources.CommonResource;
 
-            emptyScreenShowed = true;
+        var tmplObj = {
+            blocks: [
+                newBlock("icon-tasks.png", commonResource.TasksModuleTitle,
+                    [
+                        commonResource.TasksModuleFirstLine,
+                        commonResource.TasksModuleSecondLine,
+                        commonResource.TasksModuleThirdLine
+                    ]),
+                newBlock("icon-milestones.png", commonResource.MilestonesModuleTitle,
+                    [
+                        commonResource.MilestonesModuleFirstLine,
+                        commonResource.MilestonesModuleSecondLine,
+                        commonResource.MilestonesModuleThirdLine
+                    ]),
+                newBlock("icon-document.png", commonResource.DocsModuleTitle,
+                    [
+                        commonResource.DocsModuleFirstLine,
+                        commonResource.DocsModuleSecondLine,
+                        commonResource.DocsModuleThirdLine
+                    ]),
+                newBlock("icon-discussion.png", commonResource.DiscussionModuleTitle,
+                    [
+                        commonResource.DiscussionModuleFirstLine,
+                        commonResource.DiscussionModuleSecondLine,
+                        commonResource.DiscussionModuleThirdLine
+                    ]),
+                newBlock("icon-report.png", commonResource.ReportsModuleTitle,
+                    [
+                        commonResource.ReportsModuleFirstLine,
+                        commonResource.ReportsModuleSecondLine,
+                        commonResource.ReportsModuleThirdLine
+                    ])
+            ]
         };
+        jq.tmpl("projects_dashboard_empty_screen", tmplObj).appendTo("body");
+        var $emptyScreenContainer = jq("#projects_dashboard_empty_screen_container");
+        $emptyScreenContainer.on("click", ".close", function () {
+            $emptyScreenContainer.remove();
+        });
 
-        teamlab.getPrjSecurityinfo({}, { success: onGetPrjSecurityinfo });
+        emptyScreenShowed = true;
     }
 
     var removeBlockedUsersFromTeam = function (team) {
@@ -342,8 +336,8 @@ ASC.Projects.Common = (function () {
             height = 614;
         }
         
-        if (jqbrowser.chrome) {
-            height = 658;
+        if (navigator.userAgent.indexOf("OPR/") > 0) {
+            height = 738;
         }
 
         var params = "width=" + width + ",height=" + height + ",resizable=yes";
@@ -673,6 +667,43 @@ ASC.Projects.Common = (function () {
     };
 
 })();
+
+ASC.Projects.ReportGenerator = (function() {
+    var resources = ASC.Projects.Resources.ProjectsJSResource,
+        teamlab,
+        progressDialog,
+        isInit = false;
+
+    function init() {
+        if (isInit) return;
+        isInit = true;
+
+        progressDialog = ProgressDialog;
+        teamlab = Teamlab;
+
+        progressDialog.init(
+            {
+                header: resources.ReportBuilding,
+                footer: resources.ReportBuildingInfo.format("<a class='link underline' href='/products/files/'>", "</a>"),
+                progress: resources.ReportBuildingProgress
+            },
+            jq("#studioPageContent .mainPageContent"),
+            {
+                terminate: teamlab.terminateProjectsReport,
+                status: teamlab.getProjectsReportStatus,
+                generate: teamlab.generateProjectsReport
+            });
+    }
+
+    function generate(uri) {
+        init();
+        progressDialog.generate({ uri: uri });
+    }
+
+    return {
+        generate: generate
+    }
+}());
 
 jq(document).ready(function () {
     ASC.Projects.Common.baseInit();

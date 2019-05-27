@@ -57,6 +57,11 @@ namespace ASC.Web.CRM.Classes
             signalrServiceClient.MissCall(numberId, call, agent);
         }
 
+        public void Reload(string agentId = null)
+        {
+            signalrServiceClient.Reload(numberId, agentId);
+        }
+
         public Tuple<Agent, bool> GetAgent(List<Guid> contactsResponsibles)
         {
             return signalrServiceClient.GetAgent<Tuple<Agent, bool>>(numberId, contactsResponsibles);

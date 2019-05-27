@@ -40,7 +40,7 @@ jq(function () {
                 jq("#docServiceBlock").unblock();
             },
             error: function (params, error) {
-                LoadingBanner.showMesInfoBtn("#docServiceBlock", error, "error");
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", error[0], "error");
                 jq("#docServiceBlock").unblock();
             }
         });
@@ -92,6 +92,11 @@ jq(function () {
         testDocServiceApi();
 
         return false;
+    });
+
+    jq("#docServiceButtonReset").click(function () {
+        jq("#docServiceUrl,#docServiceUrlInternal,#docServiceUrlPortal").val("");
+        jq("#docServiceButtonSave").click();
     });
 
     jq(".doc-service-value").bind(jq.browser.msie ? "keydown" : "keypress", function (e) {

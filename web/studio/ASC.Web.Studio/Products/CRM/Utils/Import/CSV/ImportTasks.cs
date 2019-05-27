@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -35,7 +35,6 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.CRM.Core.Dao;
 using LumenWorks.Framework.IO.Csv;
-using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
 
 #endregion

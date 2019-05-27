@@ -25,7 +25,7 @@
 
 
 window.crmLinkPopup = (function($) {
-    var contactType = 1;
+    var contactType = 1,
         caseType = 2,
         opportunityType = 3,
         selectedContactIds = [],
@@ -51,35 +51,37 @@ window.crmLinkPopup = (function($) {
         addedRows = 0;
         $('.buttons .link_btn').prop('disabled', false).removeClass('disable');
 
-        if (linkedCount == 0) {
+        if (linkedCount === 0) {
             hideLoader();
         } else {
             $('.buttons .unlink_all').prop('disabled', false).removeClass('disable');
 
             for (var i = 0; i < linkedCount; ++i) {
                 selectedContactIds.push({ "Id": linkedEntities[i].id, "Type": linkedEntities[i].type });
+
+                var newParams = { id: linkedEntities[i].id, entityType: linkedEntities[i].type };
                 switch (linkedEntities[i].type) {
                     case contactType:
-                        window.Teamlab.getCrmContact({ id: linkedEntities[i].id }, linkedEntities[i].id,
+                        window.Teamlab.getCrmContact(newParams, linkedEntities[i].id,
                             {
-                                success: onGetCrmContact,
-                                error: onGetCrmContactError,
+                                success: onGetCrmEntity,
+                                error: onGetCrmEntityError,
                                 is_single: true
                             });
                         break;
                     case caseType:
-                        window.Teamlab.getCrmCase({ id: linkedEntities[i].id }, linkedEntities[i].id,
+                        window.Teamlab.getCrmCase(newParams, linkedEntities[i].id,
                             {
-                                success: onGetCrmCase,
-                                error: onGetCrmCaseError,
+                                success: onGetCrmEntity,
+                                error: onGetCrmEntityError,
                                 is_single: true
                             });
                         break;
                     case opportunityType:
-                        window.Teamlab.getCrmOpportunity({ id: linkedEntities[i].id }, linkedEntities[i].id,
+                        window.Teamlab.getCrmOpportunity(newParams, linkedEntities[i].id,
                             {
-                                success: onGetCrmOpportunity,
-                                error: onGetCrmOpportunityError,
+                                success: onGetCrmEntity,
+                                error: onGetCrmEntityError,
                                 is_single: true
                             });
                         break;
@@ -93,12 +95,8 @@ window.crmLinkPopup = (function($) {
         //Download Img url for crm entity
         var img = linkedTableRow.find('.linked_entity_row_avatar_column img');
         var link = img.attr('src');
-        $.ajax({
-            url: link,
-            context: document.body
-        }).done(function(resp) {
-            img.attr('src', resp);
-        }).always(function() {
+
+        function addRow() {
             //Add unlink handler
             if (isExport) {
                 linkedTableRow.find('.unlink_entity').unbind('click').bind('click', function() {
@@ -107,17 +105,17 @@ window.crmLinkPopup = (function($) {
             } else {
                 linkedTableRow.find('.unlink_entity').unbind('click').bind('click', function() {
                     var data = exportAndLinkUnlinkWorkflow($(this));
-                    if (data.delete_from_new_status == false || data.delete_from_new_status == undefined) {
+                    if (!data.delete_from_new_status) {
                         needDeleteContactIds.push(data.data);
                     }
                 });
             }
             addedRows = addedRows + 1;
-            if (linkedCount == addedRows) {
+            if (linkedCount === addedRows) {
                 hideLoader();
             }
 
-            if ($('.crm_popup .linked_table_parent:visible').length == 0) {
+            if ($('.crm_popup .linked_table_parent:visible').length === 0) {
                 $('.crm_popup .linked_table_parent').show();
             }
 
@@ -125,7 +123,20 @@ window.crmLinkPopup = (function($) {
             if (isExport) {
                 $('.buttons .link_btn').prop('disabled', false).removeClass('disable');
             }
-        });
+        }
+
+        if (!link) {
+            addRow();
+            return;
+        }
+
+        // Pre-load image
+        $.ajax({
+            url: link,
+            context: document.body
+        }).done(function(resp) {
+            img.attr('src', resp);
+        }).always(addRow);
     }
 
     function exportAndLinkUnlinkWorkflow(element) {
@@ -141,7 +152,7 @@ window.crmLinkPopup = (function($) {
 
     function deleteRowFromLinkedTable(data) {
         $('.crm_popup .linked_contacts_table .linked_entity_row[data-entity_id=' + data.Id + '][entity_type=' + data.Type + ']').remove();
-        if ($('.crm_popup .linked_contacts_table .linked_entity_row').length == 0) {
+        if ($('.crm_popup .linked_contacts_table .linked_entity_row').length === 0) {
             $('.crm_popup .linked_table_parent').hide();
         }
     }
@@ -159,87 +170,40 @@ window.crmLinkPopup = (function($) {
 
     function findEntityIn(array, value) {
         for (var i = 0; i < array.length; i += 1) {
-            if (array[i].Id == value.Id && array[i].type == value.type) {
+            if (array[i].Id === value.Id && array[i].type === value.type) {
                 return i;
             }
         }
         return -1;
     }
 
-    function onGetCrmContact(params, contact) {
-        var contactInfo = {};
-        contactInfo.entity_id = contact.id;
-        contactInfo.entity_type = contactType;
-        contactInfo.title = contact.displayName;
-        contactInfo.avatarLink = contact.smallFotoUrl;
+    function onGetCrmEntity(params, contact) {
+        var contactInfo = {
+            id: contact.id,
+            entityType: params.entityType,
+            displayName: contact.displayName || contact.title
+        };
+
+        if (contact.smallFotoUrl) {
+            contactInfo.smallFotoUrl = contact.smallFotoUrl;
+        }
+
         addLinkedTableRow(contactInfo);
     }
 
-    function onGetCrmContactError(params, response) {
-        if (response[0] == 'Not found'
-            && response[1] == 'Not found'
-            && response[2] == 'Not found') {
+    function onGetCrmEntityError(params, response) {
+        if (response[0] === 'Not found' //TODO: Simplify
+            && response[1] === 'Not found'
+            && response[2] === 'Not found') {
             var messageId = getMessageId();
             var data = [{
                 "Id": params.id,
-                "Type": contactType
+                "Type": params.entityType
             }];
             serviceManager.unmarkChainAsCrmLinked(messageId, data);
         }
         addedRows = addedRows + 1;
-        if (linkedCount == addedRows) {
-            hideLoader();
-        }
-    }
-
-    function onGetCrmOpportunity(params, opportunity) {
-        var contactInfo = {};
-        contactInfo.entity_id = opportunity.id;
-        contactInfo.entity_type = opportunityType;
-        contactInfo.title = opportunity.title;
-        addLinkedTableRow(contactInfo);
-    }
-
-    function onGetCrmOpportunityError(params, response) {
-        if (response[0] == 'Not found'
-            && response[1] == 'Not found'
-            && response[2] == 'Not found') {
-            var messageId = getMessageId();
-            var data = [{
-                "Id": params.id,
-                "Type": opportunityType
-            }];
-            serviceManager.unmarkChainAsCrmLinked(messageId, data);
-        }
-
-        addedRows = addedRows + 1;
-        if (linkedCount == addedRows) {
-            hideLoader();
-        }
-    }
-
-    function onGetCrmCase(params, caseInfo) {
-        var contactInfo = {};
-        contactInfo.entity_id = caseInfo.id;
-        contactInfo.entity_type = caseType;
-        contactInfo.title = caseInfo.title;
-        addLinkedTableRow(contactInfo);
-    }
-
-    function onGetCrmCaseError(params, response) {
-        if (response[0] == 'Not found'
-            && response[1] == 'Not found'
-            && response[2] == 'Not found') {
-            var messageId = getMessageId();
-            var data = [{
-                "Id": params.id,
-                "Type": caseType
-            }];
-            serviceManager.unmarkChainAsCrmLinked(messageId, data);
-        }
-
-        addedRows = addedRows + 1;
-        if (linkedCount == addedRows) {
+        if (linkedCount === addedRows) {
             hideLoader();
         }
     }
@@ -253,7 +217,7 @@ window.crmLinkPopup = (function($) {
     }
 
     function getSelectedEntityType() {
-        return $('.crm_popup #entity-type').val();
+        return +$('.crm_popup #entity-type').val();
     }
 
     function getAlreadyLinkedContacts() {
@@ -265,166 +229,18 @@ window.crmLinkPopup = (function($) {
     }
 
     function addAutocomplete(html, isExport) {
-        var input = '#link_search_panel';
-        var searchIcon = '.crm_search_contact_icon';
-        var loadingIcon = '.crm_search_loading_icon';
-
-        var onGetCrmContactsByPrefix = function(params, contacts) {
-
-            var cache = $(input).data("cache");
-            cache.contactCache[params.searchText] = contacts;
-            $(input).data("cache", cache);
-
-            var alreadyLinkedContacts = getAlreadyLinkedContacts();
-            var names = contacts.map(function(val) {
-                if (!alreadyLinkedContacts["1:".concat(val.id)]) {
-                    return {
-                        label: val.displayName,
-                        value: val.id,
-                        entity_type: contactType,
-                        entity_id: val.id,
-                        title: val.displayName,
-                        avatarLink: val.smallFotoUrl
-                    };
-                }
-            }).filter(function(val) { return val != undefined; });
-
-            params.responseFunction(names);
-            $(searchIcon).show();
-            $(loadingIcon).hide();
-        };
-
-        var onGetCrmCaseByPrefix = function(params, cases) {
-
-            var cache = $(input).data("cache");
-            cache.caseCache[params.searchText] = cases;
-            $(input).data("cache", cache);
-
-            var alreadyLinkedContacts = getAlreadyLinkedContacts();
-            var names = cases.map(function(val) {
-                if (!alreadyLinkedContacts["2:".concat(val.id)]) {
-                    return {
-                        label: val.title,
-                        value: val.id,
-                        entity_type: caseType,
-                        entity_id: val.id,
-                        title: val.title,
-                    };
-                }
-            }).filter(function(val) { return val != undefined; });
-
-            params.responseFunction(names);
-            $(searchIcon).show();
-            $(loadingIcon).hide();
-        };
-
-        var onGetCrmOpportunityByPrefix = function(params, opportunities) {
-
-            var cache = $(input).data("cache");
-            cache.opportunityCache[params.searchText] = opportunities;
-            $(input).data("cache", cache);
-
-            var alreadyLinkedContacts = getAlreadyLinkedContacts();
-            var names = opportunities.map(function (val) {
-                if (!alreadyLinkedContacts["3:".concat(val.id)]) {
-                    return {
-                        label: val.title,
-                        value: val.id,
-                        entity_type: opportunityType,
-                        entity_id: val.id,
-                        title: val.title,
-                    };
-                }
-            }).filter(function(val) { return val != undefined; });
-
-            params.responseFunction(names);
-            $(searchIcon).show();
-            $(loadingIcon).hide();
-        };
-
-        var fromCache = function(term, cache, params, callback) {
-            if (term in cache) {
-                callback(params, cache[term]);
-                return true;
-            } else {
-                for (var cacheterm in cache) {
-                    if (cache[cacheterm].length == 0 && term.indexOf(cacheterm) == 0) {
-                        callback(params, []);
-                        return true;
-                    }
-                }
+        html.find('#link_search_panel').CrmSelector("init", {
+            isInPopup: true,
+            getEntityType: getSelectedEntityType,
+            onSelectItem: function (item) {
+                addLinkedTableRow(item, isExport);
+                needAddContactIds.push({ "Id": item.id, "Type": item.entityType });
+            },
+            isExists: function(entityType, id) {
+                var search = "{0}:{1}".format(entityType, id);
+                var alreadyLinkedContacts = getAlreadyLinkedContacts();
+                return alreadyLinkedContacts[search];
             }
-
-            return false;
-        };
-
-        html.find(input).autocomplete({
-            minLength: 1,
-            delay: 500,
-            autoFocus: true,
-            appendTo: html.find(input).parent(),
-            select: function(event, ui) {
-                addLinkedTableRow(ui.item, isExport);
-                needAddContactIds.push({ "Id": ui.item.entity_id, "Type": getSelectedEntityType() });
-                $(input).val('');
-                return false;
-            },
-            create: function() {
-                $(window).resize(function() {
-                    if ($(input).data("ui-autocomplete") != undefined) {
-                        $(input).data("ui-autocomplete").close();
-                    }
-                });
-            },
-            focus: function() {
-                return false;
-            },
-            search: function() {
-                return true;
-            },
-            source: function(request, response) {
-                var term = request.term;
-                
-                $(searchIcon).hide();
-                $(loadingIcon).show();
-
-                var params = { searchText: term, responseFunction: response, input: input };
-                var cache = $(input).data("cache");
-
-                if (getSelectedEntityType() == contactType) {
-                    if (fromCache(term, cache.contactCache, params, onGetCrmContactsByPrefix))
-                        return;
-
-                    window.Teamlab.getCrmContactsByPrefix(params, {
-                        filter: { prefix: term, searchType: -1 },
-                        success: onGetCrmContactsByPrefix
-                    });
-                }
-                if (getSelectedEntityType() == caseType) {
-                    if (fromCache(term, cache.caseCache, params, onGetCrmCaseByPrefix))
-                        return;
-
-                    window.Teamlab.getCrmCasesByPrefix(params, {
-                        filter: { prefix: term, searchType: -1 },
-                        success: onGetCrmCaseByPrefix
-                    });
-                }
-                if (getSelectedEntityType() == opportunityType) {
-                    if (fromCache(term, cache.opportunityCache, params, onGetCrmOpportunityByPrefix))
-                        return;
-
-                    window.Teamlab.getCrmOpportunitiesByPrefix(params, {
-                        filter: { prefix: term },
-                        success: onGetCrmOpportunityByPrefix
-                    });
-                }
-            }
-        });
-
-        html.find(input).data("cache", {
-            contactCache: {},
-            caseCache: {},
-            opportunityCache: {},
         });
     }
 
@@ -454,7 +270,8 @@ window.crmLinkPopup = (function($) {
 
         serviceManager.getLinkedCrmEntitiesInfo(getMessageId(), {}, {
             success: onGetLinkedCrmEntitiesInfo,
-            error: function(params, error) {
+            error: function (params, error) {
+                console.error(error);
                 window.LoadingBanner.hideLoading();
             }
         });
@@ -468,7 +285,8 @@ window.crmLinkPopup = (function($) {
                 serviceManager.linkChainToCrm(messageId, needAddContactIds, {},
                 {
                     success: onLinkChainToCrm,
-                    error: function(params, error) {
+                    error: function (params, error) {
+                        console.error(error);
                         window.LoadingBanner.hideLoading();
                         window.toastr.error(window.MailScriptResource.LinkFailurePopupText);
                     }
@@ -486,12 +304,13 @@ window.crmLinkPopup = (function($) {
                 serviceManager.unmarkChainAsCrmLinked(messageId, needDeleteContactIds, {},
                 {
                     success: onUnmarkChainAsCrmLinked,
-                    error: function(params, error) {
+                    error: function (params, error) {
+                        console.error(error);
                         window.LoadingBanner.hideLoading();
                     }
                 }, ASC.Resources.Master.Resource.LoadingProcessing);
 
-                if (needAddContactIds.length == 0 && selectedContactIds.length == needDeleteContactIds.length) {
+                if (needAddContactIds.length === 0 && selectedContactIds.length === needDeleteContactIds.length) {
                     $('.header-crm-link').hide();
                     messagePage.setHasLinked(false);
                 }
@@ -525,7 +344,7 @@ window.crmLinkPopup = (function($) {
             popup.hide();
         });
 
-        if (hasLinked == undefined || hasLinked == false) {
+        if (!hasLinked) {
             hideLoader(html);
         }
 

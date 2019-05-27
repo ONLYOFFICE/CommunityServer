@@ -107,5 +107,13 @@
         return result;
     }
 
-    return { enqueue, incoming, miss, getAgent };
+    function reload(numberRoom, agent) {
+        if (agent) {
+            voip.to(agent).emit('reload');
+        }else{
+            voip.to(numberRoom).emit('reload');
+        }
+    }
+
+    return { enqueue, incoming, miss, getAgent, reload };
 }

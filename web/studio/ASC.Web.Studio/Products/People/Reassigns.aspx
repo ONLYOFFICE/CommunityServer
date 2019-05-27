@@ -15,7 +15,9 @@
             <div class="headerPanelSmall header-base-small"><%= PeopleResource.RemovingListHdr %></div>
             <ul>
                 <li><%= PeopleResource.RemovingListItem1 %></li>
+                <% if (!CustomMode) { %>
                 <li><%= PeopleResource.RemovingListItem2 %></li>
+                <% } %>
                 <li><%= PeopleResource.RemovingListItem3 %></li>
                 <li><%= PeopleResource.RemovingListItem4 %></li>
             </ul>
@@ -52,10 +54,12 @@
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignDocumentsModule %></div>
                 <div class="progress-desc" data-step="25"></div>
             </div>
+            <% if (!CustomMode) { %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignCrmModule %></div>
                 <div class="progress-desc" data-step="50"></div>
             </div>
+            <% } %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignMailModule %></div>
                 <div class="progress-desc" data-step="75"></div>
@@ -69,7 +73,7 @@
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.RemovingAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.RemovingRestartButton %></a>
-            <a class="ok-btn button gray big display-none" href="/products/people"><%= Resource.OKButton %></a>
+            <a class="ok-btn button gray big display-none" href="/products/people/"><%= Resource.OKButton %></a>
         </div>
     </div>
 
@@ -85,7 +89,9 @@
             <ul>
                 <li><%= PeopleResource.ReassignsTransferedListItem1 %></li>
                 <li><%= PeopleResource.ReassignsTransferedListItem2 %></li>
+                <% if (!CustomMode) { %>
                 <li><%= PeopleResource.ReassignsTransferedListItem3 %></li>
+                <% } %>
             </ul>
         </div>
         <p><%= UserControlsCommonResource.NotBeUndone %></p>
@@ -97,6 +103,11 @@
             </a>
         </div>
         <% } %>
+        <div class="delete-profile-container">
+            <label>
+                <input type="checkbox" <%= DeleteProfile ? "checked" : "" %>/><%= PeopleResource.DeleteProfileAfterReassignment %>
+            </label>
+        </div>
         <div class="big-button-container">
             <a class="start-btn button blue big disable"><%= PeopleResource.ReassignButton %></a>
             <span class="splitter-buttons"></span>
@@ -121,16 +132,18 @@
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignProjectsModule %></div>
                 <div class="progress-desc" data-step="66"></div>
             </div>
+            <% if (!CustomMode) { %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignCrmModule %></div>
                 <div class="progress-desc" data-step="99"></div>
             </div>
+            <% } %>
         </div>
 
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.ReassignAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.ReassignRestartButton %></a>
-            <a class="ok-btn button gray big display-none" href="/products/people"><%= Resource.OKButton %></a>
+            <a class="ok-btn button gray big display-none" href="/products/people/"><%= Resource.OKButton %></a>
         </div>
     </div>
 

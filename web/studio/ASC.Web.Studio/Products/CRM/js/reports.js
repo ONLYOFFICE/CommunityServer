@@ -34,13 +34,6 @@ ASC.CRM.Reports = (function() {
 
     var timeoutId = null;
 
-    var progressStatus = {
-        Queued: 0,
-        Started: 1,
-        Done: 2,
-        Failed: 3
-    };
-
     function changeCurrencyRate() {
         var obj = jq(this);
         var rate = Number(obj.val());
@@ -53,7 +46,6 @@ ASC.CRM.Reports = (function() {
     }
 
     function addCurrencyRates() {
-
         var newCurrencyRates = [];
 
         jq("#currencyRatesDialog .currency-rate-item").each(function (index, item) {
@@ -155,7 +147,6 @@ ASC.CRM.Reports = (function() {
     }
 
     function checkReport(reportType) {
-
         displayLoading(true);
 
         var data = {
@@ -164,110 +155,25 @@ ASC.CRM.Reports = (function() {
             managers: window.SelectedUsers_Reports.IDs
         };
 
-        Teamlab.checkCrmReport({}, data,
+        Teamlab.checkCrmReport(data,
             {
                 success: function (params, response) {
                     if (response && response.hasData) {
                         if (response.missingRates && response.missingRates.length) {
-                            closeProgressDialod();
+                            ProgressDialog.close();
                             showCurrencyDialod(response.missingRates);
                         } else {
-                            generateReport(data);
+                            trackGoogleAnalytics(data.type);
+                            ProgressDialog.generate(data);
                         }
                     } else {
                         displayLoading(false);
                         toastr.warning(ASC.CRM.Resources.CRMReportResource.NoData);
                     }
-                },
-                error: generateReportErrorCallback
+                }
             });
     }
 
-    function generateReport(data) {
-
-        trackGoogleAnalitics(data.type);
-
-        Teamlab.generateCrmReport({}, data,
-            {
-                success: generateReportSuccessCallback,
-                error: generateReportErrorCallback
-            });
-    }
-
-    function getCrmReportStatus() {
-
-        displayLoading(true);
-
-        Teamlab.getCrmReportStatus({},
-            {
-                success: generateReportSuccessCallback,
-                error: generateReportErrorCallback
-            });
-    }
-
-    function terminateCrmReport() {
-
-        Teamlab.terminateCrmReport({},
-            {
-                success: function() {
-                    clearTimeout(timeoutId);
-                    displayLoading(false);
-                    closeProgressDialod();
-                },
-                error: generateReportErrorCallback
-            });
-    }
-
-    function generateReportSuccessCallback(params, response) {
-        if (!response || jq.isEmptyObject(response)) {
-            displayLoading(false);
-            return;
-        }
-
-        renderRow(response);
-
-        if (response.status == progressStatus.Queued) {
-            showProgressDialod();
-            changeHeaderText(ASC.CRM.Resources.CRMReportResource.ReportBuilding);
-            setRowProgress(response.id, response.percentage);
-            showRowStartedStatus(response.id);
-            timeoutId = setTimeout(getCrmReportStatus, 1000);
-            return;
-        }
-
-        if (response.status == progressStatus.Started) {
-            showProgressDialod();
-            changeHeaderText(ASC.CRM.Resources.CRMReportResource.ReportBuildingProgress.format(response.percentage));
-            setRowProgress(response.id, response.percentage);
-            showRowStartedStatus(response.id);
-            timeoutId = setTimeout(getCrmReportStatus, 1000);
-            return;
-        }
-
-        if (response.status == progressStatus.Failed) {
-            displayLoading(false);
-            showProgressDialod();
-            changeHeaderText(ASC.CRM.Resources.CRMReportResource.ReportBuilding);
-            setRowProgress(response.id, response.percentage);
-            showRowFailedStatus(response.id, response.errorText);
-            toastr.error(response.errorText);
-            return;
-        }
-
-        if (response.status == progressStatus.Done) {
-            displayLoading(false);
-            showProgressDialod();
-            changeHeaderText(ASC.CRM.Resources.CRMReportResource.ReportBuilding);
-            setRowProgress(response.id, response.percentage);
-            showRowDoneStatus(response.id, ASC.Files.Utility.GetFileWebEditorUrl(response.fileId));
-        }
-    }
-
-    function generateReportErrorCallback(params, errors) {
-        displayLoading(false);
-        toastr.error(errors[0]);
-        console.log(errors);
-    }
 
     function displayLoading(display) {
         if (display) {
@@ -277,7 +183,7 @@ ASC.CRM.Reports = (function() {
         }
     }
 
-    function trackGoogleAnalitics(reportType) {
+    function trackGoogleAnalytics(reportType) {
         var reportTypeName = "";
 
         for (var name in ASC.CRM.Data.ReportType) {
@@ -285,24 +191,25 @@ ASC.CRM.Reports = (function() {
                 reportTypeName = name;
         }
 
-        trackingGoogleAnalitics(ga_Categories.reports, ga_Actions.generateNew, reportTypeName);
+        trackingGoogleAnalytics(ga_Categories.reports, ga_Actions.generateNew, reportTypeName);
     }
 
     function setBindings(reportType, viewFiles) {
-
         jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
 
-        jq("#bottomLoaderPanel").draggable(
+        ProgressDialog.init(
             {
-                axis: "x",
-                handle: ".progress-dialog-header",
-                containment: "body"
-            }
-        );
+                header: ASC.CRM.Resources.CRMReportResource.ReportBuilding,
+                footer: ASC.CRM.Resources.CRMReportResource.ReportBuildingInfo.format("<a class='link underline' href='reports.aspx'>", "</a>"),
+                progress: ASC.CRM.Resources.CRMReportResource.ReportBuildingProgress
+            },
+            jq("#studioPageContent .mainPageContent .containerBodyBlock:first"),
+            {
+                terminate: Teamlab.terminateCrmReport,
+                status: Teamlab.getCrmReportStatus,
+                generate: Teamlab.generateCrmReport
+            });
 
-        jq("#reportProgressDialog .actions-container.close").click(terminateCrmReport);
-
-        jq("#reportProgressDialog").on("click", ".progress-error", showErrorText);
 
         if (viewFiles) {
             initAttachments();
@@ -318,7 +225,7 @@ ASC.CRM.Reports = (function() {
             checkReport(reportType);
         });
 
-        jq("#timePeriod_Reports").tlCombobox();
+        jq("#timePeriod_Reports").tlCombobox({ align: 'left' });
 
         jq("#timePeriod_Reports").prev().find(".combobox-options").css("max-height", "none");
 
@@ -336,122 +243,11 @@ ASC.CRM.Reports = (function() {
         jq("#selectedUsers_Reports").attr("style", "");
     }
 
-    function renderRow (data) {
-
-        function replaceSpecCharacter(str) {
-            var characterRegExp = new RegExp("[\t*\+:\"<>?|\\\\/]", "gim");
-            return (str || "").trim().replace(characterRegExp, "_");
-        }
-
-        if (jq("#" + data.id).length) return;
-
-        data.fileName = replaceSpecCharacter(data.fileName);
-        data.fileTypeCssClass = ASC.Files.Utility.getCssClassByFileTitle(data.fileName, true);
-
-        jq("#reportsTable tbody").append(jq.tmpl("reportProgressRowTmpl", data));
-        jq("#reportsTable").parent().scrollTo("#" + data.id);
-    }
-
-    function setRowProgress(id, percentage)
-    {
-        function setProgressValue(progressBar, value) {
-            value = value | 0;
-            progressBar = jq(progressBar);
-            if (!progressBar.is("progress")) {
-                progressBar = progressBar.find("progress");
-            }
-
-            var dt = 50;
-            var timer = progressBar.data("timer");
-            clearInterval(timer);
-
-            var curValue = progressBar.val();
-            if (!value || curValue > value) {
-                progressBar.val(value);
-            } else {
-                var nextProgressValue = function (dValue, maxValue) {
-                    var v = Math.min(maxValue, progressBar.val() + dValue);
-                    progressBar.val(v);
-                    if (v == maxValue) {
-                        clearInterval(timer);
-                    }
-                };
-
-                var dV = Math.max(1, (value - curValue) / dt);
-                timer = setInterval(function () {
-                    nextProgressValue(dV, value);
-                }, 1);
-                progressBar.data("timer", timer);
-            }
-
-            var prValue = progressBar.find(".asc-progress-value");
-
-            if (!value) {
-                prValue.css("width", value + "%");
-            } else {
-                prValue.animate({ "width": value + "%" });
-            }
-
-            progressBar.next().text(value + "%");
-        }
-
-        setProgressValue("#" + id + " progress", percentage);
-    }
-
-    function showRowStartedStatus (id) {
-        jq("#" + id)
-            .removeClass("done")
-            .removeClass("error")
-            .addClass("started");
-    }
-
-    function showRowFailedStatus(id, errorText) {
-        jq("#" + id)
-            .removeClass("started")
-            .removeClass("done")
-            .addClass("error")
-            .removeAttr("id")
-            .find(".popup_helper").text(errorText);
-    }
-
-    function showRowDoneStatus(id, url) {
-        jq("#" + id)
-            .removeClass("started")
-            .removeClass("error")
-            .addClass("done")
-            .removeAttr("id")
-            .find(".linkMedium").attr("href", url);
-    }
-
-    function showProgressDialod () {
-        jq("#reportProgressDialog").show();
-    }
-
-    function closeProgressDialod () {
-        jq("#reportProgressDialog").hide();
-        jq("#reportsTable tbody").empty();
-    }
-
-    function changeHeaderText (text) {
-        jq("#reportProgressDialogHeader").text(text);
-    };
-
-    function showErrorText () {
-        var rowIndex = jq(this).closest(".rp-row").index() + 1;
-
-        jq(this).helper({
-            BlockHelperID: "reportsTable tr:nth-child(" + rowIndex + ") .popup_helper",
-            position: "fixed"
-        });
-    }
 
     function init(reportType, viewFiles) {
-
         window.currencyRates = JSON.parse(window.currencyRates);
 
         setBindings(reportType, viewFiles);
-
-        getCrmReportStatus();
 
         jq(".reports-menu-container, .reports-content-container").removeClass("display-none");
 

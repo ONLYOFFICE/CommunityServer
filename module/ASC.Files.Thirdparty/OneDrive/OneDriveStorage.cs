@@ -52,7 +52,7 @@ namespace ASC.Files.Thirdparty.OneDrive
                 if (_token == null) throw new Exception("Cannot create OneDrive session with given token");
                 if (_token.IsExpired)
                 {
-                    _token = OAuth20TokenHelper.RefreshToken(OneDriveLoginProvider.OneDriveOauthTokenUrl, _token);
+                    _token = OAuth20TokenHelper.RefreshToken<OneDriveLoginProvider>(_token);
                     _onedriveClientCache = null;
                 }
                 return _token.AccessToken;
@@ -68,14 +68,7 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         public bool IsOpened { get; private set; }
 
-        public long MaxUploadFileSize { get; internal set; }
-
-        public long MaxChunkedUploadFileSize { get; internal set; }
-
-        public OneDriveStorage()
-        {
-            MaxUploadFileSize = MaxChunkedUploadFileSize = 10L*1024L*1024L*1024L;
-        }
+        public long MaxChunkedUploadFileSize = 10L*1024L*1024L*1024L;
 
         public void Open(OAuth20Token token)
         {
@@ -112,7 +105,19 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         public Item GetItem(string itemId)
         {
-            return GetItemRequest(itemId).Request().GetAsync().Result;
+            try
+            {
+                return GetItemRequest(itemId).Request().GetAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                var serviceException = (ServiceException)ex.InnerException;
+                if (serviceException != null && serviceException.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
         public List<Item> GetItems(string folderId, int limit = 500)
@@ -120,17 +125,22 @@ namespace ASC.Files.Thirdparty.OneDrive
             return new List<Item>(GetItemRequest(folderId).Children.Request().GetAsync().Result);
         }
 
-        public Stream DownloadStream(Item file)
+        public Stream DownloadStream(Item file, int offset = 0)
         {
             if (file == null || file.File == null) throw new ArgumentNullException("file");
 
-            return OnedriveClient
+            var fileStream = OnedriveClient
                 .Drive
                 .Items[file.Id]
                 .Content
                 .Request()
                 .GetAsync()
                 .Result;
+
+            if (fileStream != null && offset > 0)
+                fileStream.Seek(offset, SeekOrigin.Begin);
+
+            return fileStream;
         }
 
         public Item CreateFolder(string title, string parentId)
@@ -169,9 +179,9 @@ namespace ASC.Files.Thirdparty.OneDrive
                 .DeleteAsync();
         }
 
-        public Item MoveItem(string itemId, string toFolderId)
+        public Item MoveItem(string itemId, string newItemName, string toFolderId)
         {
-            var updateItem = new Item { ParentReference = new ItemReference { Id = toFolderId } };
+            var updateItem = new Item { ParentReference = new ItemReference { Id = toFolderId }, Name = newItemName };
 
             return OnedriveClient
                 .Drive
@@ -181,12 +191,12 @@ namespace ASC.Files.Thirdparty.OneDrive
                 .Result;
         }
 
-        public Item CopyItem(Item item, string toFolderId)
+        public Item CopyItem(string itemId, string newItemName, string toFolderId)
         {
             var copyMonitor = OnedriveClient
                 .Drive
-                .Items[item.Id]
-                .Copy(item.Name, new ItemReference { Id = toFolderId })
+                .Items[itemId]
+                .Copy(newItemName, new ItemReference { Id = toFolderId })
                 .Request()
                 .PostAsync()
                 .Result;

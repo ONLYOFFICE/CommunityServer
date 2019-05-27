@@ -66,20 +66,20 @@ namespace ASC.Xmpp.Core.protocol.extensions.featureneg
         /// <summary>
         ///   data form of type "form" which defines the available options for one or more features. Each feature is represented as an x-data "field", which MUST be of type "list-single".
         /// </summary>
-        public Data Data
+        public x.data.Data Data
         {
             get
             {
-                Element data = SelectSingleElement(typeof (Data));
+                Element data = SelectSingleElement(typeof (x.data.Data));
                 if (data != null)
-                    return data as Data;
+                    return data as x.data.Data;
                 else
                     return null;
             }
             set
             {
-                if (HasTag(typeof (Data)))
-                    RemoveTag(typeof (Data));
+                if (HasTag(typeof (x.data.Data)))
+                    RemoveTag(typeof (x.data.Data));
 
                 AddChild(value);
             }

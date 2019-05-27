@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Employee</RootNamespace>
     <AssemblyName>ASC.Api.Employee</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -61,14 +61,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.FederatedLogin.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.IPSecurity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.IPSecurity.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -83,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contact.cs" />
+    <Compile Include="ThumbnailsDataWrapper.cs" />
     <Compile Include="GroupWrapperSummary.cs" />
     <Compile Include="EmployeeApi.cs" />
     <Compile Include="EmployeeWraperFull.cs" />
@@ -119,6 +112,10 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\People\ASC.Web.People.csproj">
+      <Project>{7ea1e14f-fc71-48a7-9786-1fb0cd9ec1cd}</Project>
+      <Name>ASC.Web.People</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Data.Reassigns\ASC.Data.Reassigns.csproj">
       <Project>{104d045a-f9cc-4dd7-b04d-8da7543435dd}</Project>

@@ -24,14 +24,6 @@
 */
 
 
-/*
- * Popup Widgets
- *
- * Dmitry Sokolov
- * Ascensio System SIA.
- * 2011
- */
-
 (function($, window) {
 
 	function htmlEscape(s) {
@@ -173,7 +165,8 @@
 		},
 
 		_parsePageX: function(_pageX) {
-			var win = $(window);
+		    var win = $(window);
+		    var studioPageContent = $('#studioPageContent');
 			var pageX = (/^\s*(\d+|left|right|center)/i).exec(_pageX);
 			if (!pageX) {pageX = "center";}
 			var pX = parseInt(pageX[1], 10);
@@ -184,9 +177,10 @@
 					return 0;
 				} else if ("right" === pageX[1]) {
 					return win.width();
-				} else {
-					return Math.round((win.width() - this.element.outerWidth(true)) * 0.5);
-				}
+			    } else {
+			        var center = win.width() < studioPageContent.width() ? Math.round((studioPageContent.width() - this.element.outerWidth(true)) * 0.5) : Math.round((win.width() - this.element.outerWidth(true)) * 0.5);
+			        return center;
+			    }
 			}
 			return 0;
 		},
@@ -287,6 +281,14 @@
 			this.element.show();
 			this._visible = true;
 		},
+
+        hide: function() {
+            this.element.hide();
+        },
+
+        show: function() {
+            this.element.show();
+        },
 
 		close: function() {
 			if(this.element.is(":visible")) {

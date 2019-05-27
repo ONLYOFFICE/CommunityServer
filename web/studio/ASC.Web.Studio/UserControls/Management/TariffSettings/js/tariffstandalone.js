@@ -63,7 +63,7 @@ var TariffStandalone = new function () {
                     toastr.error(licenseResult);
                     licenseResult = "";
                 }
-                jq("#licenseKeyText").text(licenseResult);
+                jq("#licenseKeyText").html(licenseResult);
 
                 licenseKeyEdit();
             });

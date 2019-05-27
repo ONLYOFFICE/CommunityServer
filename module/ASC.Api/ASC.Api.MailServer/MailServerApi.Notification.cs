@@ -24,13 +24,10 @@
 */
 
 
-using System;
-using System.Security;
 using ASC.Api.Attributes;
-using ASC.Api.MailServer.DataContracts;
-using ASC.Api.MailServer.Extensions;
-using ASC.Mail.Server.Dal;
-using ASC.Mail.Server.Utils;
+using ASC.Mail.Data.Contracts;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.MailServer
 {
@@ -46,41 +43,10 @@ namespace ASC.Api.MailServer
         /// <short>Create notification address</short> 
         /// <category>Notifications</category>
         [Create(@"notification/address/add")]
-        public NotificationAddressData CreateNotificationAddress(string name, string password, int domain_id)
+        public ServerNotificationAddressData CreateNotificationAddress(string name, string password, int domain_id)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name", @"Invalid address username.");
-
-            if (string.IsNullOrEmpty(password))
-                throw new ArgumentNullException("password", @"Invalid password.");
-
-            if (name.Length > 64)
-                throw new ArgumentException(@"Local part of address exceed limitation of 64 characters.", "name");
-
-            if (!Parser.IsEmailLocalPartValid(name))
-                throw new ArgumentException(@"Incorrect address username.", "name");
-
-            if (!Parser.IsPasswordValid(password))
-                throw new ArgumentException(
-                    @"Incorrect password. The password's first character must be a letter," +
-                    @" it must contain at least 6 characters and no more than 15 characters " +
-                    @"and no characters other than letters, numbers and the underscore may be used",
-                    "password");
-
-            var localPart = name.ToLowerInvariant();
-
-            if (domain_id < 0)
-                throw new ArgumentException(@"Invalid domain id.", "domain_id");
-
-            var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
-
-            var notificationAddress = MailServer.CreateNotificationAddress(localPart, password, domain, MailServerFactory);
-
-            return notificationAddress.ToNotificationAddressData();
-
+            var notifyAddress = MailEngineFactory.ServerEngine.CreateNotificationAddress(name, password, domain_id);
+            return notifyAddress;
         }
 
         /// <summary>
@@ -91,10 +57,7 @@ namespace ASC.Api.MailServer
         [Delete(@"notification/address/remove")]
         public void RemoveNotificationAddress(string address)
         {
-            if (string.IsNullOrEmpty(address))
-                throw new ArgumentException(@"Invalid mailbox address.", "address");
-
-            MailServer.DeleteNotificationAddress(address);
+            MailEngineFactory.ServerEngine.RemoveNotificationAddress(address);
         }
     }
 }

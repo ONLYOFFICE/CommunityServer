@@ -26,21 +26,27 @@
 
 using System;
 using System.Configuration;
+using System.Linq;
 using Autofac;
 
 namespace ASC.Common.DependencyInjection
 {
     public class AutofacConfigLoader
     {
-        public static ContainerBuilder Load(string containerName)
+        public static ContainerBuilder Load(string containerName, string section = "autofac")
         {
             var container = new ContainerBuilder();
 
-            var autofacConfigurationSection = (AutofacConfigurationSection) ConfigurationManager.GetSection("autofac");
+            var autofacConfigurationSection = (AutofacConfigurationSection)ConfigurationManager.GetSection(section);
+
+            if (autofacConfigurationSection == null) return null;
 
             foreach (var component in autofacConfigurationSection.GetComponents(containerName))
             {
-                var builder = container.RegisterType(Type.GetType(component.Type)).AsSelf();
+                var componentType = Type.GetType(component.Type);
+                if (componentType == null) continue;
+
+                var builder = container.RegisterType(componentType).AsSelf();
 
                 if (!string.IsNullOrEmpty(component.Service))
                 {
@@ -49,15 +55,42 @@ namespace ASC.Common.DependencyInjection
 
                     if (!string.IsNullOrEmpty(component.Name))
                     {
-                        builder.Named(component.Name, serviceType);
+                        builder.Named(component.Name, serviceType)
+                            .Named(component.Name.ToLower(), serviceType);
                     }
+                }
+
+                if (!string.IsNullOrEmpty(component.Name))
+                {
+                    builder.Named(component.Name, componentType)
+                        .Named(component.Name.ToLower(), componentType);
                 }
 
                 if (component.Parameters != null && component.Parameters.Count > 0)
                 {
                     foreach (var parameter in component.Parameters)
                     {
-                        builder.WithParameter(new NamedParameter(parameter.Name, parameter.Value));
+                        if (!string.IsNullOrEmpty(parameter.Type))
+                        {
+                            var parameterType = Type.GetType(parameter.Type);
+                            var parameterName = parameter.Name;
+                            if (parameterType == null) continue;
+
+                            builder.WithParameter(
+                                (pi, ctx) => parameterType.IsSubclassOf(pi.ParameterType) && pi.Name == parameterName,
+                                (pi, ctx) => Activator.CreateInstance(parameterType));
+                        } else if (parameter.List != null && parameter.List.Any())
+                        {
+                            builder.WithParameter(new NamedParameter(parameter.Name, parameter.List.Select(r => r.Value).ToArray()));
+                        }
+                        else if (parameter.Dictionary != null && parameter.Dictionary.Any())
+                        {
+                            builder.WithParameter(new NamedParameter(parameter.Name, parameter.Dictionary.ToDictionary(r=> r.Key, r=> r.Value)));
+                        }
+                        else
+                        {
+                            builder.WithParameter(new NamedParameter(parameter.Name, parameter.Value));
+                        }
                     }
                 }
 

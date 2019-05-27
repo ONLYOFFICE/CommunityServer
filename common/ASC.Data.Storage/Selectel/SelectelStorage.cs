@@ -29,15 +29,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using SelectelSharp;
-using ASC.Data.Storage.Configuration;
 using System.IO;
-using ASC.Common.Web;
 using System.Web;
+using ASC.Common.Logging;
+using ASC.Data.Storage.Configuration;
+
+using SelectelSharp;
 using MimeMapping = ASC.Common.Web.MimeMapping;
-using log4net;
 
 #endregion
 
@@ -57,6 +56,18 @@ namespace ASC.Data.Storage.Selectel
         private bool _lowerCasing = true;
 
         private static readonly ILog _logger = LogManager.GetLogger("ASC.Data.Storage.Selectel.SelectelStorage");
+
+        public SelectelStorage(String tenant)
+        {
+            _tenant = tenant;
+            _modulename = string.Empty;
+            _dataList = null;
+
+            _domainsExpires = new Dictionary<string, TimeSpan> {{string.Empty, TimeSpan.Zero}};
+            _domainsAcl = new Dictionary<string, ACL>();
+            _moduleAcl = ACL.Auto;
+
+        }
 
         public SelectelStorage(String tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
@@ -78,11 +89,12 @@ namespace ASC.Data.Storage.Selectel
         {
             _authUser = props["authUser"];
             _authPwd = props["authPwd"];
-            _private_container = props["private_container"];
             _public_container = props["public_container"];
+            _private_container = !string.IsNullOrEmpty(props["private_container"]) ? props["private_container"] : _public_container;
+            
 
-            if (String.IsNullOrEmpty(_public_container))
-                throw new ArgumentException("_shared_container");
+            if (string.IsNullOrEmpty(_public_container))
+                throw new ArgumentException("_public_container");
 
             if (props.ContainsKey("lower"))
             {
@@ -98,12 +110,12 @@ namespace ASC.Data.Storage.Selectel
 
             _cname = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
                          ? new Uri(props["cname"], UriKind.Absolute)
-                         : new Uri(String.Format("{0}{1}/", client.StorageUrl, _public_container), UriKind.Absolute);
+                         : new Uri(client.StorageUrl, UriKind.Absolute);
 
             _cnameSSL = props.ContainsKey("cnamessl") &&
                              Uri.IsWellFormedUriString(props["cnamessl"], UriKind.Absolute)
                                  ? new Uri(props["cnamessl"], UriKind.Absolute)
-                                 : new Uri(String.Format("{0}{1}/", client.StorageUrl, _public_container), UriKind.Absolute);
+                                 : new Uri(client.StorageUrl, UriKind.Absolute);
 
             return this;
         }
@@ -128,13 +140,13 @@ namespace ASC.Data.Storage.Selectel
                 if (_subDir.Length == 1 && (_subDir[0] == '/' || _subDir[0] == '\\'))
                     result = path;
                 else
-                    result = String.Format("{0}/{1}", _subDir, path); // Ignory all, if _subDir is not null
+                    result = String.Format("{0}/{1}", _subDir.TrimEnd('/'), path); // Ignory all, if _subDir is not null
             }
             else//Key combined from module+domain+filename
-                result = string.Format("{0}/{1}/{2}/{3}",
+                result = string.Format("{0}/{1}{2}{3}",
                                                          _tenant,
-                                                         _modulename,
-                                                         domain,
+                                                         string.IsNullOrEmpty(_modulename) ? "" : _modulename + "/",
+                                                         string.IsNullOrEmpty(domain) ? "" : domain + "/",
                                                          path);
 
             result = result.Replace("//", "/").TrimStart('/');
@@ -148,8 +160,6 @@ namespace ASC.Data.Storage.Selectel
 
         public override Uri GetInternalUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
         {
-            var client = GetClient().Result;
-
             if (expire == TimeSpan.Zero || expire == TimeSpan.MinValue || expire == TimeSpan.MaxValue)
             {
                 expire = GetExpire(domain);
@@ -159,12 +169,13 @@ namespace ASC.Data.Storage.Selectel
                 return GetUriShared(domain, path);
             }
 
+            var client = GetClient().Result;
             return client.GetPreSignUriAsync(_private_container, MakePath(domain, path), expire).Result;
         }
 
         private Uri GetUriShared(string domain, string path)
         {
-            return new Uri(String.Format("{0}{1}", SecureHelper.IsSecure() ? _cnameSSL : _cname, MakePath(domain, path)));
+            return new Uri(String.Format("{0}{1}/{2}", SecureHelper.IsSecure() ? _cnameSSL : _cname, _public_container, MakePath(domain, path)));
         }
 
         public override System.IO.Stream GetReadStream(string domain, string path)

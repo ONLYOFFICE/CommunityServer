@@ -64,7 +64,7 @@ namespace MSBuild.Community.Tasks.IIS
 	/// <AppPoolController AppPoolName="MyAppPool" Action="Restart" />
 	/// ]]></code>
 	/// </example>
-    public class AppPoolController : WebBase
+	public class AppPoolController : WebBase
 	{
 		#region Fields
 
@@ -96,7 +96,7 @@ namespace MSBuild.Community.Tasks.IIS
 		/// Gets or sets the application pool action.
 		/// </summary>
 		/// <value>The application pool action.</value>
-        /// <enum cref="AppPoolControllerActions" />
+		/// <enum cref="AppPoolControllerActions" />
 		[Required]
 		public string Action
 		{
@@ -118,8 +118,8 @@ namespace MSBuild.Community.Tasks.IIS
 		/// <returns>
 		/// True if the task successfully executed; otherwise, false.
 		/// </returns>
-        public override bool Execute()
-        {
+		public override bool Execute()
+		{
 			mIISVersion = GetIISVersion();
 
 			if (ControlApplicationPool())
@@ -137,58 +137,97 @@ namespace MSBuild.Community.Tasks.IIS
 		private bool ControlApplicationPool()
 		{
 			bool bSuccess = false;
-
+			string scopePath;
+			string path;
 			try
 			{
-				VerifyIISRoot();
-
-				if (mIISVersion == IISVersion.Six)
+				switch (mIISVersion)
 				{
-					ConnectionOptions options = new ConnectionOptions();
-					if (Username != null && Password != null)
-					{
-						options.Username = Username;
-						options.Password = Password;
-					}
-					options.Authentication = AuthenticationLevel.PacketPrivacy;
-					ManagementScope scope = new ManagementScope(@"\\" + ServerName + "\\root\\MicrosoftIISv2", options);
-					scope.Connect();
-					ManagementPath path = new ManagementPath("IIsApplicationPool='W3SVC/AppPools/" + ApplicationPoolName + "'");
-					ManagementObject pool = new ManagementObject(scope, path, null);
-
-					if (Action == "Stop" || Action == "Restart")
-					{
-						Log.LogMessage(MessageImportance.Normal, "Stopping \"{0}\" on \"{1}\"...", ApplicationPoolName, ServerName);
-						pool.InvokeMethod("Stop", new object[0]);
-					}
-
-					if (Action == "Start" || Action == "Restart")
-					{
-						Log.LogMessage(MessageImportance.Normal, "Starting \"{0}\" on \"{1}\"...", ApplicationPoolName, ServerName);
-						pool.InvokeMethod("Start", new object[0]);
-					}
-
-					if (Action == "Recycle")
-					{
-						Log.LogMessage(MessageImportance.Normal, "Recycling \"{0}\" on \"{1}\"...", ApplicationPoolName, ServerName);
-						pool.InvokeMethod("Recycle", new object[0]);
-					}
-
-					bSuccess = true;
-					Log.LogMessage(MessageImportance.Normal, "{0} \"{1}\" on \"{2}\"", GetActionFinish(), ApplicationPoolName, ServerName);
+					case IISVersion.Six:
+						{
+							VerifyIISRoot();
+							scopePath = @"\\" + ServerName + "\\root\\MicrosoftIISv2";
+							path = @"IIsApplicationPool='W3SVC/AppPools/" + ApplicationPoolName + "'";
+							break;
+						}
+					case IISVersion.SevenFive:
+						{
+							scopePath = @"\\" + ServerName + "\\root\\webadministration";
+							path = "ApplicationPool.Name='" + ApplicationPoolName + "'";
+							break;
+						}
+					default:
+						Log.LogError("Application Pools are only available in IIS 6 and 7.5.");
+						return bSuccess;
 				}
-				else
-				{
-					Log.LogError("Application Pools are only available in IIS 6.");
-				}
+
+				ExecuteAppPoolAction(scopePath, path);
+
+				bSuccess = true;
+				Log.LogMessage(MessageImportance.Normal, "{0} \"{1}\" on \"{2}\"", GetActionFinish(), ApplicationPoolName, ServerName);
 			}
 			catch (Exception ex)
 			{
 				Log.LogErrorFromException(ex);
-				Log.LogError("Failed {0} application pool \"{1}\" on \"{1}\".", GetActionInProgress(), ApplicationPoolName, ServerName);
+				Log.LogError("Failed {0} application pool \"{1}\" on \"{2}\".", GetActionInProgress(), ApplicationPoolName, ServerName);
 			}
 
 			return bSuccess;
+		}
+
+		private void ExecuteAppPoolAction(string scopePath, string path)
+		{
+			ConnectionOptions options = new ConnectionOptions();
+			if (this.Username != null && this.Password != null)
+			{
+				options.Username = this.Username;
+				options.Password = this.Password;
+			}
+
+			options.Authentication = AuthenticationLevel.PacketPrivacy;
+			ManagementScope managementScope = new ManagementScope(scopePath, options);
+			managementScope.Connect();
+			ManagementPath managementPath = new ManagementPath(path);
+			ManagementObject managementObject = new ManagementObject(managementScope, managementPath, null);
+
+			var state = this.GetAppPoolState(managementObject);
+			if (this.Action == "Stop" || this.Action == "Restart")
+			{
+				if (state == IIS7ApplicationPoolState.Stopped || state == IIS7ApplicationPoolState.Stopping)
+				{
+					this.Log.LogMessage(MessageImportance.Normal, "Already stopped or stopping \"{0}\" on \"{1}\".", this.ApplicationPoolName, this.ServerName);
+				}
+				else
+				{
+					this.Log.LogMessage(MessageImportance.Normal, "Stopping \"{0}\" on \"{1}\"...", this.ApplicationPoolName, this.ServerName);
+					managementObject.InvokeMethod("Stop", new object[0]);
+				}
+			}
+
+			if (this.Action == "Start" || this.Action == "Restart")
+			{
+				if (state == IIS7ApplicationPoolState.Started || state == IIS7ApplicationPoolState.Starting)
+				{
+					this.Log.LogMessage(MessageImportance.Normal, "Already started or starting \"{0}\" on \"{1}\".", this.ApplicationPoolName, this.ServerName);
+				}
+				else
+				{
+					this.Log.LogMessage(MessageImportance.Normal, "Starting \"{0}\" on \"{1}\"...", this.ApplicationPoolName, this.ServerName);
+					managementObject.InvokeMethod("Start", new object[0]);
+				}
+			}
+
+			if (this.Action == "Recycle")
+			{
+				this.Log.LogMessage(MessageImportance.Normal, "Recycling \"{0}\" on \"{1}\"...", this.ApplicationPoolName, this.ServerName);
+				managementObject.InvokeMethod("Recycle", new object[0]);
+			}
+		}
+
+		private IIS7ApplicationPoolState GetAppPoolState(ManagementObject managementObject)
+		{
+			var state = (uint)managementObject.InvokeMethod("GetState", new object[0]);
+			return (IIS7ApplicationPoolState)Enum.ToObject(typeof(IIS7ApplicationPoolState), state);
 		}
 
 		private string GetActionFinish()

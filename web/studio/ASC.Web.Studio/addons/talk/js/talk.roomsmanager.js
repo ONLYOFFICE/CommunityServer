@@ -142,7 +142,7 @@ window.ASC.TMTalk.roomsManager = (function () {
     };
     var blurHistorySearch = function () {
     };
-    var clearSearch = function(room) {
+    var clearSearch = function (room) {
         var messages = null;
         if (ASC.TMTalk.dom.hasClass(room, 'room')) {
             var searchInput = ASC.TMTalk.dom.getElementsByClassName(room, 'search-value', 'input');
@@ -160,6 +160,11 @@ window.ASC.TMTalk.roomsManager = (function () {
             jQuery('div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel div.filtering-panel-tools').removeClass('show');
             jQuery('div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel div.filtering-container').removeClass('show_tools');
 
+            if (ASC.TMTalk.Config.fullText) {
+                var jid = ASC.TMTalk.roomsManager.getRoomData().id;
+                ASC.TMTalk.messagesManager.clearCurrentHistory(jid);
+                ASC.TMTalk.messagesManager.getHistory(jid);
+            }
         }
     };
     var find = null;
@@ -200,6 +205,10 @@ window.ASC.TMTalk.roomsManager = (function () {
                 if (ASC.TMTalk.dom.hasClass(room, 'room')) {
                     var searchstr = input.value;
                     if (searchstr) {
+                        if (ASC.TMTalk.Config.fullText) {
+                            ASC.TMTalk.connectionManager.searchMessage(jid, input.value);
+                            return;
+                        }
                         var nodes = null,
                             messagescontainer = null;
                         nodes = ASC.TMTalk.dom.getElementsByClassName(room, 'messages', 'div');
@@ -226,7 +235,11 @@ window.ASC.TMTalk.roomsManager = (function () {
                     }
                 }
             } else {
-                ASC.TMTalk.roomsManager.clearSearch(room);
+                if (ASC.TMTalk.Config.fullText) {
+                    ASC.TMTalk.messagesManager.updateHistory(jid, 0, 20, "");
+                } else {
+                    ASC.TMTalk.roomsManager.clearSearch(room);
+                }
             }
             filteringPanel.removeClass('input-text');
             

@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using ASC.MessagingSystem;
 using System.Linq;
-using log4net;
 
 namespace ASC.AuditTrail.Mappers
 {

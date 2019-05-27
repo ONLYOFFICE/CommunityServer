@@ -31,7 +31,10 @@ window.accountsModal = (function($) {
         onSuccessOperationCallback,
         progressBarIntervalId = null,
         GET_STATUS_TIMEOUT = 10000,
-        oauthMailboxId = -1;
+        oauthMailboxId = -1,
+        redTextColor = '#B40404',
+        greenTextColor = '#44BB00',
+        maxPwdLen = 30;
 
     var ids = {
         'email': 'email',
@@ -77,10 +80,9 @@ window.accountsModal = (function($) {
         if (isInit === false) {
             isInit = true;
 
-            serviceManager.bind(window.Teamlab.events.getMailMailbox, onGetBox);
-            serviceManager.bind(window.Teamlab.events.createMailMailboxSimple, onCreateAccount);
-            serviceManager.bind(window.Teamlab.events.createMailMailboxOAuth, onCreateAccount);
-            serviceManager.bind(window.Teamlab.events.createMailMailbox, onCreateAccount);
+            window.Teamlab.bind(window.Teamlab.events.createMailMailboxSimple, onCreateAccount);
+            window.Teamlab.bind(window.Teamlab.events.createMailMailboxOAuth, onCreateAccount);
+            window.Teamlab.bind(window.Teamlab.events.createMailMailbox, onCreateAccount);
 
             wndQuestion = $('#questionWnd');
             wndQuestion.find('.buttons .cancel').bind('click', function() {
@@ -160,8 +162,6 @@ window.accountsModal = (function($) {
             $('#manageWindow .cancelButton').click(function() {
                 hide(true);
             });
-
-            ckeditorConnector.load();
         }
     };
 
@@ -199,16 +199,15 @@ window.accountsModal = (function($) {
 
         serviceManager.setMailboxState(mailboxEmail, true, { email: accountEmail, enabled: true, onSuccessOperationCallback: onSuccessOperationCallback }, {
             error: function (e, errors) {
-                if (errors && errors.length && errors.length > 1) {
-                    if (errors[1].hresult == ASC.Mail.Constants.Errors.COR_E_AUTHENTICATION) {
-                        if (account && account.mailbox_id) {
-                            mailAlerts.showAlert({ type: ASC.Mail.Constants.Alerts.AuthConnectFailure, id_mailbox: account.mailbox_id, data: null, redirectToAccounts: false, activateOnSuccess: true });
-                            return;
-                        }
-                    }
-                }
+                console.error("activateAccountWithoutQuestion", errors);
 
-                administrationError.showErrorToastr("setMailboxState", errors);
+                mailAlerts.showAlert({
+                    type: ASC.Mail.Constants.Alerts.AuthConnectFailure,
+                    id_mailbox: account.mailbox_id,
+                    data: null,
+                    redirectToAccounts: false,
+                    activateOnSuccess: true
+                });
             }
         }, ASC.Resources.Master.Resource.LoadingProcessing);
 
@@ -294,8 +293,8 @@ window.accountsModal = (function($) {
             }
 
             turnOffAllRequiredError();
-            displayLoading(true);
-            disableButtons(true);
+            displayLoading($rootEl, true);
+            disablePopupControls($rootEl, true);
             
             window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_my_mailbox");
 
@@ -305,8 +304,8 @@ window.accountsModal = (function($) {
                 { email: mailboxName + "@" + currentDomain.name, name: Teamlab.profile.displayName, enabled: true, restrict: false, oauth: false },
                 {
                     success: function (params, mailbox) {
-                        displayLoading(false);
-                        disableButtons(false);
+                        displayLoading($rootEl, false);
+                        disablePopupControls($rootEl, false);
 
                         if (TMMail.pageIs('sysfolders') && accountsManager.getAccountList().length == 0) {
                             blankPages.showEmptyFolder();
@@ -355,8 +354,8 @@ window.accountsModal = (function($) {
                     },
                     error: function (ev, error) {
                         popup.error(administrationError.getErrorText("addMailbox", error));
-                        displayLoading(false);
-                        disableButtons(false);
+                        displayLoading($rootEl, false);
+                        disablePopupControls($rootEl, false);
                     }
                 });
 
@@ -365,32 +364,33 @@ window.accountsModal = (function($) {
 
         function turnOffAllRequiredError() {
             TMMail.setRequiredError('mail_server_add_mailbox', false);
-        }
-
-        function displayLoading(isVisible) {
-            var loader = $rootEl.find('.progressContainer .loader');
-            var toastr = $rootEl.find('.progressContainer .toast-popup-container');
-            if (loader) {
-                if (isVisible) {
-                    toastr.remove();
-                    loader.show();
-                } else {
-                    loader.hide();
-                }
-            }
-        }
-        
-        function disableButtons(disable) {
-            TMMail.disableButton($rootEl.find('.cancel'), disable);
-            TMMail.disableButton($rootEl.find('.save'), disable);
-            TMMail.disableButton($('#commonPopup .cancelButton'), disable);
-            popup.disableCancel(disable);
-            TMMail.disableInput($rootEl.find('.mailbox_name'), disable);
+            TMMail.setRequiredError('mail_server_add_mailbox', false);
         }
 
         function setFocusToInput() {
             $rootEl.find('.mailbox_name').focus();
+    }
+    }
+
+    function displayLoading(rootEl, isVisible) {
+        var loader = rootEl.find('.progressContainer .loader');
+        var toastr = rootEl.find('.progressContainer .toast-popup-container');
+        if (loader) {
+            if (isVisible) {
+                toastr.remove();
+                loader.show();
+            } else {
+                loader.hide();
+            }
         }
+    }
+
+    function disablePopupControls(rootEl, disable) {
+        TMMail.disableButton(rootEl.find('.cancel'), disable);
+        TMMail.disableButton(rootEl.find('.save'), disable);
+        TMMail.disableButton($('#commonPopup .cancelButton'), disable);
+        popup.disableCancel(disable);
+        TMMail.disableInput(rootEl.find('input'), disable);
     }
 
     function removeBox(account) {
@@ -402,18 +402,231 @@ window.accountsModal = (function($) {
     }
 
     function editBox(account, activateOnSuccess) {
-        serviceManager.getBox(account, { action: 'edit', activateOnSuccess: activateOnSuccess }, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+        serviceManager.getBox(account, { action: 'edit', activateOnSuccess: activateOnSuccess },
+        {
+            success: onGetBox
+        }, ASC.Resources.Master.Resource.LoadingProcessing);
     }
 
     function setDefaultAccount(account, setDefault) {
         serviceManager.setDefaultAccount(account, setDefault, ASC.Resources.Master.Resource.LoadingProcessing);
     }
 
+    function checkPassword() {
+        var cnt = $("#mail_server_change_mailbox_password_popup:visible");
+
+        if (!cnt || !cnt.length) return;
+
+        var $password = cnt.find("#passValue");
+
+        if (!$password || !$password.length) return;
+
+        var inputValues = $password.val(),
+            inputLength = inputValues.length,
+            progress = jq('.validationProgress'),
+            progressStep = ($password.width() + 41) / ASC.Mail.Constants.PASSWORD_SETTINGS.MinLength;
+
+        progress.width(inputLength * progressStep);
+
+        (passwordValidation(inputValues))
+               ? (progress.css('background', greenTextColor), TMMail.setRequiredError('mailboxPwd', false))
+               : progress.css('background', redTextColor);
+    };
+
+    function showOrHidePassword() {
+        var cnt = $("#mail_server_change_mailbox_password_popup:visible");
+
+        if (!cnt || !cnt.length) return;
+
+        var $passwordShow = cnt.find("#passwordShow"),
+            $password = cnt.find("#passValue"),
+            $passwordShowLabel = cnt.find("#passwordShowLabel");
+
+        ($passwordShow.prop('checked'))
+            ? ($password.prop('type', 'text'),
+                $passwordShowLabel.removeClass('hidePwd').addClass('showPwd'))
+            : ($password.prop('type', 'password'),
+                $passwordShowLabel.removeClass('showPwd').addClass('hidePwd'));
+    };
+
+    function copyToClipboard() {
+        var cnt = $("#mail_server_change_mailbox_password_popup:visible");
+
+        if (!cnt || !cnt.length) return;
+
+        var email = cnt.attr("data_id"),
+            password = cnt.find("#passValue").val(),
+            clip = jq('#clip').val('email: ' + email + '\npassword: ' + password);
+        clip.select();
+        document.execCommand('copy');
+        window.toastr.success(ASC.Mail.Resources.EmailAndPasswordCopiedToClipboard);
+    };
+
+    function passwordValidation(inputValues) {
+        var upper,
+            digits,
+            special;
+
+        (ASC.Mail.Constants.PASSWORD_SETTINGS.UpperCase)
+            ? upper = /[A-Z]/.test(inputValues)
+            : upper = true;
+
+        (ASC.Mail.Constants.PASSWORD_SETTINGS.Digits)
+            ? digits = /\d/.test(inputValues)
+            : digits = true;
+
+        (ASC.Mail.Constants.PASSWORD_SETTINGS.SpecSymbols)
+            ? special = /[!@#$%^&*]/.test(inputValues)
+            : special = true;
+
+        var onlyLatinLetters = !(/[^\x00-\x7F]+/.test(inputValues));
+        var noSpaces = !(/\s+/.test(inputValues));
+
+        checkPasswordInfoColor(inputValues, upper, digits, special, onlyLatinLetters, noSpaces);
+
+        return digits && upper && special && inputValues.length >= ASC.Mail.Constants.PASSWORD_SETTINGS.MinLength && onlyLatinLetters && noSpaces;
+    };
+
+    function checkPasswordInfoColor(inputValues, upper, digits, special, onlyLatinLetters, noSpaces) {
+        var cnt = $("#mail_server_change_mailbox_password_popup:visible");
+
+        if (!cnt || !cnt.length) return;
+
+        var $passUpper = cnt.find("#passUpper"),
+            $passDigits = cnt.find("#passDigits"),
+            $passSpecial = cnt.find("#passSpecial"),
+            $passMinLength = cnt.find("#passMinLength"),
+            $passLatinLetters = cnt.find("#passLatinLetters"),
+            $passNoSpaces = cnt.find("#passNoSpaces");
+
+        (upper)
+            ? greenText($passUpper)
+            : redText($passUpper);
+
+        (digits)
+            ? greenText($passDigits)
+            : redText($passDigits);
+
+        (special)
+            ? greenText($passSpecial)
+            : redText($passSpecial);
+
+        (inputValues.length >= ASC.Mail.Constants.PASSWORD_SETTINGS.MinLength)
+            ? greenText($passMinLength)
+            : redText($passMinLength);
+
+        (onlyLatinLetters)
+            ? greenText($passLatinLetters)
+            : redText($passLatinLetters);
+
+        (noSpaces)
+            ? greenText($passNoSpaces)
+            : redText($passNoSpaces);
+    };
+
+    function greenText(control) {
+        control.removeClass('red').addClass('green');
+    };
+
+    function redText(control) {
+        control.removeClass('green').addClass('red');
+    };
+
+    function changePassword(login, id) {
+        var html = $.tmpl('changeMailboxPasswordPopupTmpl',
+        { login: login });
+
+        $(html).find('.save').unbind('click').bind('click', function() {
+            doChangePassword.apply(this, [login, id]);
+        });
+
+        $(html).find('.cancel').unbind('click').bind('click', function () {
+            if ($(this).hasClass('disable')) {
+                return false;
+            }
+            popup.hide();
+            return false;
+        });
+
+        popup.hide();
+
+        popup.addPopup(MailAdministrationResource.ChangeMailboxPasswordPopupInfo, html, 350);
+
+        var cnt = $("#mail_server_change_mailbox_password_popup:visible");
+
+        if (!cnt || !cnt.length) return;
+
+        var $password = cnt.find("#passValue"),
+            $passwordInfo = cnt.find("#passwordInfo");
+
+        $password.on('input', checkPassword);
+        $password.on('focus', function () { $passwordInfo.show(); });
+        $password.on('blur', function () { $passwordInfo.hide(); });
+
+        cnt.find('#passwordShow').on('click', showOrHidePassword);
+
+        cnt.find('#passwordGen').unbind('click').bind('click', getRandomPwd);
+
+        cnt.find('#copyValues').unbind('click').bind('click', copyToClipboard);
+
+        PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_change_mailbox_password_popup:visible .save').trigger('click');";
+
+        $password.focus();
+    }
+
+    function doChangePassword(login, id) {
+        if ($(this).hasClass('disable')) {
+            return false;
+        }
+
+        window.LoadingBanner.hideLoading();
+
+        var cnt = $("#mail_server_change_mailbox_password_popup");
+
+        var pwd = cnt.find("#passValue").val();
+
+        var isValid = passwordValidation(pwd);
+
+        if (!isValid) {
+            cnt.find("#passValue").focus();
+            return false;
+        }
+
+        TMMail.setRequiredError('mailboxPwd', false);
+
+        displayLoading(cnt, true);
+        disablePopupControls(cnt, true);
+
+        window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "change_mailbox_password");
+
+        showLoader(window.MailScriptResource.MailboxCreation);
+
+        serviceManager.changeMailboxPassword(id, pwd,
+            null,
+            {
+                success: function () {
+                    displayLoading(cnt, false);
+                    disablePopupControls(cnt, false);
+
+                    hide();
+                    window.toastr.success(ASC.Mail.Resources.ChangePasswordSuccess);
+                },
+                error: function (ev, error) {
+                    popup.error(error[0]);
+                    displayLoading(cnt, false);
+                    disablePopupControls(cnt, false);
+                }
+            });
+
+        return false;
+    }
+
     function blockUi(width, message) {
         var defaultOptions = {
             css: {
                 top: '-100%'
-            }
+            },
+            bindEvents: false
         };
 
         StudioBlockUIManager.blockUI(message, width, null, null, null, defaultOptions);
@@ -442,7 +655,7 @@ window.accountsModal = (function($) {
         $('#manageWindow div.containerHeaderBlock:first').find('td:first').html(window.MailScriptResource.NewAccount);
 
         if ($(html).find('#oauth_frame_blocker').length) {
-            blockUi(540, $("#manageWindow"));
+            blockUi(523, $("#manageWindow"));
 
             $(".oauth-block").click(function () {
                 var url = $(this).attr("data-url");
@@ -487,14 +700,15 @@ window.accountsModal = (function($) {
     }
 
     function setupPasswordView() {
-        var containerId = $(this).closest('.requiredField').attr('id');
-        var isSmtp = containerId == 'mail_SMTPPasswordContainer';
-        var password = getVal(isSmtp ? ids.smtp_password : ids.password, true);
-        var passwordViewLink = $('.containerBodyBlock #' + containerId + ' .headerPanelSmall a.password-view');
+        var cnt = $(this).closest('.requiredField');
+        if (!cnt || !cnt.length) return;
+
+        var password = cnt.find("input.textEdit").val();
         if (password.length > 0) {
-            TMMail.setRequiredError(containerId, false);
+            TMMail.setRequiredError(cnt.attr('id'), false);
         }
-        passwordViewLink.toggleClass('off', password.length == 0);
+        var passwordViewLink = cnt.find("a.password-view");
+        passwordViewLink.toggleClass('off', password.length === 0);
     }
 
     function togglePassword() {
@@ -506,6 +720,85 @@ window.accountsModal = (function($) {
             passwordInput.attr('type', 'password');
             $(this).text(window.MailScriptResource.ShowPasswordLinkLabel);
         }
+    }
+
+    function getRandomPwd() {
+
+        TMMail.setRequiredError('mailboxPwd', false);
+
+        serviceManager.getRandomPassword(
+            null,
+            {
+                success: function (params, pwd) {
+                    var cnt = $("#mail_server_change_mailbox_password_popup");
+
+                    cnt.find("#passValue").attr('type', 'text').val(pwd);
+
+                    cnt.find("#passwordShowLabel").removeClass('hide').addClass('show');
+
+                    cnt.find("#passwordShow").prop('checked', true);
+
+                    checkPassword();
+                },
+                error: function (params, error) {
+                    popup.error(error[0]);
+                }
+            });
+    }
+
+    function viewMailboxSettings(account) {
+
+        window.Teamlab.getMailMailbox({},
+            account.email,
+            {
+                success: function (params, mailbox) {
+                    showConnectionSettings(mailbox);
+                },
+                error: function(ev, error) {
+                    window.toastr.error(error[0]);
+                }
+            });
+    }
+
+    function showConnectionSettings(mailbox, hideChangePasswordLink) {
+        var html = $.tmpl('mailboxSettingsPopupTmpl', mailbox);
+
+        $(html)
+            .find('.cancel')
+            .unbind('click')
+            .bind('click',
+                function () {
+                    if ($(this).hasClass('disable')) {
+                        return false;
+                    }
+                    popup.hide();
+                    return false;
+                });
+
+        popup.hide();
+
+        popup.addPopup(MailAdministrationResource.ViewMailboxConnectionSettingsPopupInfo, html, 350);
+
+        var cnt = $("#mail_server_mailbox_settings_popup:visible");
+
+        var changePasswordLink = cnt.find('#changePasswordLink');
+
+        if (!hideChangePasswordLink) {
+            changePasswordLink.show();
+
+            changePasswordLink.unbind('click')
+                .bind('click',
+                    function() {
+                        popup.hide();
+                        changePassword(mailbox.email, mailbox.id);
+                    });
+        } else {
+            changePasswordLink.hide();
+        }
+
+        PopupKeyUpActionProvider
+            .EnterAction =
+            "jq('#mail_server_change_mailbox_password_popup:visible .cancel').trigger('click');";
     }
 
     function onGetOAuthInfo(code, error) {
@@ -859,7 +1152,7 @@ window.accountsModal = (function($) {
 
     function createMailBoxSimple() {
         var email = getVal(ids.email),
-            password = getVal(ids.password, true);
+            password = getVal(ids.password);
 
         var emailCorrect = false;
         var passwordCorrect = false;
@@ -905,7 +1198,7 @@ window.accountsModal = (function($) {
             email: getVal(ids.email),
             name: getVal(ids.name),
             account: getVal(ids.account),
-            password: getVal(ids.password, true),
+            password: getVal(ids.password),
             server: getVal(ids.server),
             smtp_server: getVal(ids.smtp_server),
             smtp_port: getVal(ids.smtp_port),
@@ -1027,7 +1320,12 @@ window.accountsModal = (function($) {
                     settings.auth_type_in,
                     settings.auth_type_smtp,
                     data,
-                    { error: showErrorModal });
+                    {
+                        success: function() {
+                            window.toastr.success(window.MailActionCompleteResource.updateMailboxSuccess.format(settings.email));
+                        },
+                        error: showErrorModal
+                    });
             }
         }
     }
@@ -1264,15 +1562,14 @@ window.accountsModal = (function($) {
                 removePlugins: 'resize, magicline',
                 filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=mail',
                 height: 200,
-                startupFocus: true,
-                on: {
-                    instanceReady: function(instance) {
-                        instance.editor.setData(account.signature.html);
-                    }
-                }
+                startupFocus: true
             };
 
-            html.find('#ckMailSignatureEditor').ckeditor(config);
+            ckeditorConnector.load(function () {
+                var editor = html.find('#ckMailSignatureEditor').ckeditor(config).editor;
+                editor.setData(account.signature.html);
+            });
+
             html.find('.buttons .ok').unbind('click').bind('click', function () {
                 updateSignature(account);
                 return false;
@@ -1309,10 +1606,13 @@ window.accountsModal = (function($) {
         activateAccountWithoutQuestion: activateAccountWithoutQuestion,
         editBox: editBox,
         setDefaultAccount: setDefaultAccount,
+        changePassword: changePassword,
+        viewMailboxSettings: viewMailboxSettings,
         hide: hide,
         onError: onError,
         showInformationBox: informationBox,
         showSignatureBox: signatureBox,
         onGetOAuthInfo: onGetOAuthInfo,
+        showConnectionSettings: showConnectionSettings
     };
 })(jQuery);

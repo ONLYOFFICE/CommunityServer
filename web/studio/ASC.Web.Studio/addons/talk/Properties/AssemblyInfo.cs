@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ASC.Web.Core;
@@ -12,7 +12,7 @@ using ASC.Web.Talk.Addon;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Web.Talk")]
-[assembly: AssemblyCopyright("Copyright © 2018")]
+[assembly: AssemblyCopyright("(c) Ascensio System SIA. All rights reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

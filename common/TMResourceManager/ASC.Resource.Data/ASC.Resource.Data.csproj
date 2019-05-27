@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Resource.Data</RootNamespace>
     <AssemblyName>ASC.Resource.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -38,21 +38,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Web" />
     <Reference Include="DotNetZip">
-      <HintPath>..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -75,10 +70,6 @@
     <ProjectReference Include="..\..\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

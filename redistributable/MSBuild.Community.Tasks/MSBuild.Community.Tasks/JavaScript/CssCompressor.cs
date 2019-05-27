@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -46,6 +46,7 @@ namespace MSBuild.Community.Tasks.JavaScript
             RemoveComments();
             // trim whitespace from the start and end
             cssContent = cssContent.Trim();
+            return cssContent;
         }
 
         private void RemoveComments()

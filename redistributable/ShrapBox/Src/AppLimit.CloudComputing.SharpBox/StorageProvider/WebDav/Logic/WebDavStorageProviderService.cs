@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Common.Net;
 using AppLimit.CloudComputing.SharpBox.Common.Net.Web;
 using AppLimit.CloudComputing.SharpBox.Common.Net.Web.Dav;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
-using AppLimit.CloudComputing.SharpBox.Exceptions;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
 {
@@ -35,67 +36,64 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public override IStorageProviderSession CreateSession(ICloudStorageAccessToken token, ICloudStorageConfiguration configuration)
         {
             // cast the creds to the right type            
-            WebDavConfiguration config = configuration as WebDavConfiguration;
+            var config = configuration as WebDavConfiguration;
 
             // build service
-            DavService svc = new DavService();
+            var svc = new DavService();
 
             // check if url available                        
-            int status = (int) HttpStatusCode.OK;
-            WebException e = null;
+            int status;
+            WebException e;
             svc.PerformSimpleWebCall(config.ServiceLocator.ToString(), WebRequestMethodsEx.WebDAV.Options, (token as ICredentials).GetCredential(null, null), null, out status, out e);
-            if (status == (int) HttpStatusCode.Unauthorized)
+            if (status == (int)HttpStatusCode.Unauthorized)
                 throw new UnauthorizedAccessException();
-            else if (HttpUtilityEx.IsSuccessCode(status))
+            if (HttpUtilityEx.IsSuccessCode(status))
                 return new WebDavStorageProviderSession(token, config, this);
-            else
-                return null;
+            return null;
         }
 
         /// <summary>
         /// This method request information about a resource
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>        
+        /// <param name="name"></param>        
         /// <param name="parent"></param>
         /// <returns></returns>
-        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
             // build url
-            String uriString = GetResourceUrl(session, parent, null);
-            uriString = PathHelper.Combine(uriString, Name);
+            var uriString = GetResourceUrl(session, parent, null);
+            uriString = PathHelper.Combine(uriString, name);
 
             // get the data
-            List<BaseFileEntry> childs = null;
-            BaseFileEntry requestResource = RequestResourceFromWebDavShare(session, uriString, out childs);
+            List<BaseFileEntry> childs;
+            var requestResource = RequestResourceFromWebDavShare(session, uriString, out childs);
 
             // check errors
             if (requestResource == null)
                 return null;
 
             // rename the root
-            if (Name.Equals("/"))
+            if (name.Equals("/"))
                 requestResource.Name = "/";
 
             // init parent child relation
             if (parent != null)
             {
-                BaseDirectoryEntry parentDir = parent as BaseDirectoryEntry;
+                var parentDir = parent as BaseDirectoryEntry;
                 parentDir.AddChild(requestResource);
             }
 
             // check if we have to add childs
             if (!(requestResource is BaseDirectoryEntry))
                 return requestResource;
-            else
-            {
-                BaseDirectoryEntry requestedDir = requestResource as BaseDirectoryEntry;
 
-                // add the childs
-                foreach (BaseFileEntry child in childs)
-                {
-                    requestedDir.AddChild(child);
-                }
+            var requestedDir = requestResource as BaseDirectoryEntry;
+
+            // add the childs
+            foreach (var child in childs)
+            {
+                requestedDir.AddChild(child);
             }
 
             // go ahead
@@ -109,14 +107,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
                 return;
 
             // build url
-            String uriString = GetResourceUrl(session, resource, null);
+            var uriString = GetResourceUrl(session, resource, null);
 
             // get the data
-            List<BaseFileEntry> childs = null;
+            List<BaseFileEntry> childs;
             RequestResourceFromWebDavShare(session, uriString, out childs);
 
             // set the new childs collection
-            BaseDirectoryEntry dirEntry = resource as BaseDirectoryEntry;
+            var dirEntry = resource as BaseDirectoryEntry;
             dirEntry.ClearChilds();
 
             // add the new childs
@@ -129,42 +127,40 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         /// 
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>
+        /// <param name="name"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
             // get the credentials
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
 
             // build url
-            String uriString = GetResourceUrl(session, parent, null);
-            uriString = PathHelper.Combine(uriString, Name);
+            var uriString = GetResourceUrl(session, parent, null);
+            uriString = PathHelper.Combine(uriString, name);
 
-            Uri uri = new Uri(uriString);
+            var uri = new Uri(uriString);
 
             // build the DavService
-            DavService svc = new DavService();
+            var svc = new DavService();
 
             // create the webrequest            
             int errorCode;
             WebException e;
             svc.PerformSimpleWebCall(uri.ToString(), WebRequestMethodsEx.Http.MkCol, creds.GetCredential(null, null), null, out errorCode, out e);
-            if (errorCode != (int) HttpStatusCode.Created)
+            if (errorCode != (int)HttpStatusCode.Created)
                 return null;
-            else
+
+            var newDir = new BaseDirectoryEntry(name, 0, DateTime.Now, this, session);
+
+            // init parent child relation
+            if (parent != null)
             {
-                BaseDirectoryEntry newDir = new BaseDirectoryEntry(Name, 0, DateTime.Now, this, session);
-
-                // init parent child relation
-                if (parent != null)
-                {
-                    BaseDirectoryEntry parentDir = parent as BaseDirectoryEntry;
-                    parentDir.AddChild(newDir);
-                }
-
-                return newDir;
+                var parentDir = parent as BaseDirectoryEntry;
+                parentDir.AddChild(newDir);
             }
+
+            return newDir;
         }
 
         /// <summary>
@@ -178,7 +174,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
             var creds = session.SessionToken as ICredentials;
 
             // build url            
-            String uriString = this.GetResourceUrl(session, entry, null);
+            var uriString = GetResourceUrl(session, entry, null);
             var uri = new Uri(uriString);
 
             // create the service
@@ -212,7 +208,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public override bool MoveResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
             // build the targte url            
-            String uriStringTarget = GetResourceUrl(session, newParent, null);
+            var uriStringTarget = GetResourceUrl(session, newParent, null);
             uriStringTarget = PathHelper.Combine(uriStringTarget, fsentry.Name);
 
             if (!MoveResource(session, fsentry, uriStringTarget))
@@ -237,7 +233,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public override bool CopyResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
             // build the targte url            
-            String uriStringTarget = this.GetResourceUrl(session, newParent, null);
+            var uriStringTarget = GetResourceUrl(session, newParent, null);
             uriStringTarget = PathHelper.Combine(uriStringTarget, fsentry.Name);
 
             if (!CopyResource(session, fsentry, uriStringTarget))
@@ -246,7 +242,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
             var newParentObject = newParent as BaseDirectoryEntry;
             if (newParentObject != null)
             {
-                newParentObject.AddChild(fsentry as BaseFileEntry);   
+                newParentObject.AddChild(fsentry as BaseFileEntry);
             }
 
             return true;
@@ -262,21 +258,21 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public override bool RenameResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, string newName)
         {
             // build the targte url
-            String uriStringTarget = this.GetResourceUrl(session, fsentry.Parent, null);
+            var uriStringTarget = GetResourceUrl(session, fsentry.Parent, null);
             uriStringTarget = PathHelper.Combine(uriStringTarget, newName);
 
             if (MoveResource(session, fsentry, uriStringTarget))
             {
                 // rename the fsentry
-                BaseFileEntry fentry = fsentry as BaseFileEntry;
+                var fentry = fsentry as BaseFileEntry;
                 fentry.Name = newName;
 
                 // go ahead
                 return true;
             }
-            else
-                // go ahead
-                return false;
+
+            // go ahead
+            return false;
         }
 
         #endregion
@@ -284,24 +280,21 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public override Stream CreateDownloadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry)
         {
             // build the url 
-            string url = GetResourceUrl(session, fileSystemEntry, null);
+            var url = GetResourceUrl(session, fileSystemEntry, null);
 
             // get the session creds
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
 
             // Build the service
-            DavService svc = new DavService();
-
-            // create the webrequest
-            WebRequest request = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, creds.GetCredential(null, null), false, null);
+            var svc = new DavService();
 
             // create the response
-            WebResponse response = svc.GetWebResponse(request);
+            var response = CreateDownloadResponse(url, creds.GetCredential(null, null));
 
             // get the data 
-            Stream orgStream = svc.GetResponseStream(response);
+            var orgStream = svc.GetResponseStream(response);
 
-            BaseFileEntryDownloadStream dStream = new BaseFileEntryDownloadStream(orgStream, fileSystemEntry);
+            var dStream = new BaseFileEntryDownloadStream(orgStream, fileSystemEntry);
 
             // put the disposable on the stack
             dStream._DisposableObjects.Push(response);
@@ -310,25 +303,70 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
             return dStream;
         }
 
+        private WebResponse CreateDownloadResponse(string url, ICredentials creds)
+        {
+            // Build the service
+            var svc = new DavService();
+
+            // create the webrequest
+            var request = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, creds, false, null);
+
+            try
+            {
+                // create the response
+                var response = svc.GetWebResponse(request);
+                return response;
+            }
+            catch (WebException e)
+            {
+                if (e.Response is HttpWebResponse)
+                {
+                    var code = (e.Response as HttpWebResponse).StatusCode;
+                    if (code == HttpStatusCode.Moved)
+                    {
+                        // get the new uri
+                        var newUri = e.Response.Headers["Location"];
+
+                        // redo it
+                        return CreateDownloadResponse(newUri, creds);
+                    }
+
+                    NetworkCredential networkCredential;
+                    if (code == HttpStatusCode.Unauthorized && (networkCredential = creds as NetworkCredential) != null)
+                    {
+                        var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                        // get authentication method
+                        var authMethod = search.Match(e.Response.Headers["WWW-Authenticate"]).Value;
+                        var newCredentials = new CredentialCache { { new Uri((new Uri(url)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
+
+                        // redo it
+                        return CreateDownloadResponse(url, newCredentials);
+                    }
+                }
+
+                throw;
+            }
+        }
+
         public override Stream CreateUploadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long uploadSize)
         {
             // build the url 
-            string url = GetResourceUrl(session, fileSystemEntry, null);
+            var url = GetResourceUrl(session, fileSystemEntry, null);
 
             // get the session creds
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
 
             // Build the service
-            DavService svc = new DavService();
+            var svc = new DavService();
 
             // get the service config
-            WebDavConfiguration conf = (WebDavConfiguration) session.ServiceConfiguration;
+            var conf = (WebDavConfiguration)session.ServiceConfiguration;
 
             // build the webrequest                        
-            WebRequest networkRequest = svc.CreateWebRequestPUT(url, creds.GetCredential(null, null), conf.UploadDataStreambuffered);
+            var networkRequest = svc.CreateWebRequestPUT(url, creds.GetCredential(null, null), conf.UploadDataStreambuffered);
 
             // get the request stream
-            WebRequestStream requestStream = svc.GetRequestStream(networkRequest, uploadSize);
+            var requestStream = svc.GetRequestStream(networkRequest, uploadSize);
 
             // add disposal opp
             requestStream.PushPostDisposeOperation(CommitUploadStream, svc, networkRequest, fileSystemEntry, requestStream);
@@ -345,18 +383,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         public void CommitUploadStream(params object[] arg)
         {
             // convert the args
-            DavService svc = arg[0] as DavService;
-            HttpWebRequest uploadRequest = arg[1] as HttpWebRequest;
-            BaseFileEntry fileSystemEntry = arg[2] as BaseFileEntry;
+            var svc = arg[0] as DavService;
+            var uploadRequest = arg[1] as HttpWebRequest;
+            var fileSystemEntry = arg[2] as BaseFileEntry;
 
-#if !WINDOWS_PHONE && !MONODROID
-            WebRequestStream requestStream = arg[3] as WebRequestStream;
+            var requestStream = arg[3] as WebRequestStream;
 
             // check if all data was written into stream
             if (requestStream.WrittenBytes != uploadRequest.ContentLength)
                 // nothing todo request was aborted
                 return;
-#endif
 
             // perform the request
             int code;
@@ -365,22 +401,19 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
 
             // check the ret value
             if (!HttpUtilityEx.IsSuccessCode(code))
-                SharpBoxException.ThrowSharpBoxExceptionBasedOnHttpErrorCode(uploadRequest, (HttpStatusCode) code, e);
+                SharpBoxException.ThrowSharpBoxExceptionBasedOnHttpErrorCode(uploadRequest, (HttpStatusCode)code, e);
 
             // adjust the lengt
-#if !WINDOWS_PHONE && !MONODROID
             fileSystemEntry.Length = uploadRequest.ContentLength;
-#endif
         }
 
-        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream)
+        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream)
         {
-
         }
 
         #region Helper
 
-        private bool MoveResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, String newTargetUrl)
+        private static bool MoveResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, String newTargetUrl)
         {
             var config = session.ServiceConfiguration as WebDavConfiguration;
             var creds = session.SessionToken as ICredentials;
@@ -407,77 +440,107 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
 
             var errorCode = new DavService().PerformCopyWebRequest(uri.ToString(), uriTarget.ToString(), creds.GetCredential(null, null));
 
-            return errorCode == HttpStatusCode.Created || errorCode == HttpStatusCode.NoContent;
+            return errorCode == HttpStatusCode.Created || errorCode == HttpStatusCode.NoContent
+                   || errorCode == HttpStatusCode.Accepted && uriString.StartsWith(WebDavConfiguration.YaUrl);
         }
 
         private BaseFileEntry RequestResourceFromWebDavShare(IStorageProviderSession session, String resourceUrl, out List<BaseFileEntry> childs)
         {
             // get the credebtials
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
+            return RequestResourceFromWebDavShare(session, creds.GetCredential(null, null), resourceUrl, out childs);
+        }
 
+        private BaseFileEntry RequestResourceFromWebDavShare(IStorageProviderSession session, ICredentials creds, String resourceUrl, out List<BaseFileEntry> childs)
+        {
             // build the dav service
-            DavService svc = new DavService();
-
-            // the result
-            WebDavRequestResult RequestResult;
+            var svc = new DavService();
 
             try
             {
                 // create the web request
-                WebRequest request = svc.CreateWebRequestPROPFIND(resourceUrl, creds.GetCredential(null, null));
+                var request = svc.CreateWebRequestPROPFIND(resourceUrl, creds);
+
+                // the result
+                WebDavRequestResult requestResult;
 
                 // get the response
-                using (HttpWebResponse response = svc.GetWebResponse(request) as HttpWebResponse)
+                using (var response = svc.GetWebResponse(request) as HttpWebResponse)
                 {
                     if (response.StatusCode == HttpStatusCode.Moved)
                     {
                         // get the new uri
-                        String newUri = response.Headers["Location"];
+                        var newUri = response.Headers["Location"];
+                        (session.ServiceConfiguration as WebDavConfiguration).ServiceLocator = new Uri(newUri);
 
                         // close the response
                         response.Close();
 
                         // redo it
-                        return RequestResourceFromWebDavShare(session, newUri, out childs);
+                        return RequestResourceFromWebDavShare(session, creds, newUri, out childs);
                     }
-                    else
+
+                    // get the response stream
+                    using (var data = svc.GetResponseStream(response))
                     {
-                        // get the response stream
-                        using (Stream data = svc.GetResponseStream(response))
+                        if (data == null)
                         {
-                            if (data == null)
-                            {
-                                childs = null;
-                                return null;
-                            }
-
-                            // build the file entries
-                            RequestResult = WebDavRequestParser.CreateObjectsFromNetworkStream(data, resourceUrl, this, session, WebDavNameBaseFilterCallback);
-
-                            // close the stream
-                            data.Close();
+                            childs = null;
+                            return null;
                         }
 
-                        // close the response
-                        response.Close();
+                        // build the file entries
+                        requestResult = WebDavRequestParser.CreateObjectsFromNetworkStream(data, resourceUrl, this, session, WebDavNameBaseFilterCallback);
+
+                        // close the stream
+                        data.Close();
                     }
+
+                    // close the response
+                    response.Close();
                 }
 
                 // get the request fileentry and fill the childs
-                if (RequestResult.Self == null)
+                if (requestResult.Self == null)
                 {
                     childs = null;
                     return null;
                 }
 
                 // set the childs
-                childs = RequestResult.Childs;
+                childs = requestResult.Childs;
 
                 // go ahead
-                return RequestResult.Self;
+                return requestResult.Self;
             }
-            catch (WebException)
+            catch (WebException e)
             {
+                if (e.Response is HttpWebResponse)
+                {
+                    var code = (e.Response as HttpWebResponse).StatusCode;
+                    if (code == HttpStatusCode.Moved)
+                    {
+                        // get the new uri
+                        var newUri = e.Response.Headers["Location"];
+                        (session.ServiceConfiguration as WebDavConfiguration).ServiceLocator = new Uri(newUri);
+
+                        // redo it
+                        return RequestResourceFromWebDavShare(session, creds, newUri, out childs);
+                    }
+
+                    NetworkCredential networkCredential;
+                    if (code == HttpStatusCode.Unauthorized && (networkCredential = creds as NetworkCredential) != null)
+                    {
+                        var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                        // get authentication method
+                        var authMethod = search.Match(e.Response.Headers["WWW-Authenticate"]).Value;
+                        var newCredentials = new CredentialCache { { new Uri((new Uri(resourceUrl)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
+
+                        // redo it
+                        return RequestResourceFromWebDavShare(session, newCredentials, resourceUrl, out childs);
+                    }
+                }
+
                 childs = null;
                 return null;
             }
@@ -489,9 +552,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
             return OnNameBase(targetUrl, service, session, NameBase);
         }
 
-        protected virtual String OnNameBase(String targetUrl, IStorageProviderService service, IStorageProviderSession session, String NameBase)
+        protected virtual String OnNameBase(String targetUrl, IStorageProviderService service, IStorageProviderSession session, String nameBase)
         {
-            return NameBase;
+            return nameBase;
         }
 
         #endregion

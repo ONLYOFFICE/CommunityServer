@@ -24,7 +24,6 @@
 */
 
 
-using log4net;
 using log4net.Util;
 using System;
 using System.IO;
@@ -56,7 +55,7 @@ namespace ASC.Common.Logging
                 }
                 else
                 {
-                    var repo = LogManager.GetRepository();
+                    var repo = log4net.LogManager.GetRepository();
                     if (repo != null)
                     {
                         var realKey = Option;

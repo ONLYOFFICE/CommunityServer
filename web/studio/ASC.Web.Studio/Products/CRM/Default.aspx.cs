@@ -46,12 +46,15 @@ namespace ASC.Web.CRM
             get { return "~/products/crm/default.aspx"; }
         }
 
+        protected string HelpLink { get; set; }
+
         #endregion
 
         #region Events
 
         protected override void PageLoad()
         {
+            HelpLink = CommonLinkUtility.GetHelpLink();
             InitControls();
             ProductEntryPoint.ConfigurePortal();
         }

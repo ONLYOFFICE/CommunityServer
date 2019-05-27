@@ -343,7 +343,7 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
             int equalPos = pair.IndexOf("=");
             if (equalPos > 0)
             {
-                string key = pair.Substring(0, equalPos);
+                string key = pair.Substring(0, equalPos).Trim();
                 string data;
 
                 // is the value quoted?

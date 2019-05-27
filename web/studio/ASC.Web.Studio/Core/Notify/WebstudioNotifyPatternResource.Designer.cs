@@ -295,6 +295,15 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change backup codes.
+        /// </summary>
+        public static string ButtonChangeTfa {
+            get {
+                return ResourceManager.GetString("ButtonChangeTfa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure Right Now.
         /// </summary>
         public static string ButtonConfigureRightNow {
@@ -1238,11 +1247,12 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///A backup file containing data from your &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal has been created.
         ///
-        ///To learn more on the backup procedure please refer to our &quot;Data backup&quot;:&quot;http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx&quot; user guide.
+        ///To learn more on the backup procedure please refer to our &quot;Data backup&quot;:&quot;${__HelpLink}/tipstricks/data-backup-restore.aspx&quot; user guide.
         ///
         ///If you have any questions or need assistance please feel free to contact us at &quot;support.onlyoffice.com&quot;:&quot;http://support.onlyoffice.com&quot;
         ///
-        ///Best re [rest of string was truncated]&quot;;.
+        ///Best regards,
+        ///ONLYOFFICE™ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_backup_created {
             get {
@@ -1304,6 +1314,22 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_change_phone {
             get {
                 return ResourceManager.GetString("pattern_change_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1.Backup codes change request
+        ///
+        ///You have requested to change your backup codes used to enter the ${LetterLogoText} portal.
+        ///
+        ///Please follow the link below to change your backup codes:
+        ///
+        ///$GreenButton
+        ///.
+        /// </summary>
+        public static string pattern_change_tfa {
+            get {
+                return ResourceManager.GetString("pattern_change_tfa", resourceCulture);
             }
         }
         
@@ -1375,9 +1401,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///   
         ///Done. It&apos;s time to invite teammates to your web-office!
         ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
-        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on document [rest of string was truncated]&quot;;.
+        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The appli [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_admin_customize_portal {
             get {
@@ -1393,7 +1419,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;http://helpcenter.onlyoffice.com/ge [rest of string was truncated]&quot;;.
+        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_admin_invite_teammates {
             get {
@@ -1485,9 +1511,10 @@ namespace ASC.Web.Studio.Core.Notify {
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
-        ///Tru [rest of string was truncated]&quot;;.
+        ///Truly yours,
+        ///ONLYOFFIC [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_admin_user_crm_tips {
             get {
@@ -1602,7 +1629,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
         ///Truly yours,
         ///ONLYOFFICE Team
@@ -1658,9 +1685,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
-        ///Do you know that you&apos;re using the most powerful o [rest of string was truncated]&quot;;.
+        ///Do you know that you&apos;re using the most powerful online editors in the [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_user_organize_workplace {
             get {
@@ -1874,7 +1901,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
         ///
         ///Best regards,
         ///ONLYOFFICE Support Team
@@ -1961,7 +1988,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;http://helpcenter.onlyoffice.com/ge [rest of string was truncated]&quot;;.
+        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_hosted_admin_invite_teammates {
             get {
@@ -1978,9 +2005,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///   
         ///Done. It&apos;s time to invite teammates to your web-office!
         ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
-        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The [rest of string was truncated]&quot;;.
+        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_hosted_admin_welcome {
             get {
@@ -1995,7 +2022,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
         ///Truly yours,
         ///ONLYOFFICE Team
@@ -2033,7 +2060,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffi [rest of string was truncated]&quot;;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_hosted_user_activation {
             get {
@@ -2191,13 +2218,67 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///*Note*: this link is valid for 48 hours only. Please complete the operation within that period.
-        ///
-        /// [rest of string was truncated]&quot;;.
+        ///*Note*: this link is valid for 48 hours only. Please complete the operation within that period..
         /// </summary>
         public static string pattern_join {
             get {
                 return ResourceManager.GetString("pattern_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///      Dear $UserName,
+        ///
+        ///      Administrator has created a new &lt;b&gt;$Address&lt;/b&gt; mailbox for you at the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
+        ///
+        ///      Use the following settings for other email clients:
+        ///
+        ///      Login: &lt;b&gt;$Login&lt;/b&gt;
+        ///      Password: &quot;&lt;b&gt;set password&lt;/b&gt;&quot;:&quot;$MyStaffLink&quot;
+        ///
+        ///      Incoming Mail (IMAP): 
+        ///      Server: &lt;b&gt;$Server&lt;/b&gt;
+        ///      Port: &lt;b&gt;$ImapPort&lt;/b&gt;
+        ///      SSL/TLS: &lt;b&gt;$Encryption&lt;/b&gt;
+        ///
+        ///      Outgoing Mail (SMTP): 
+        ///      Server: &lt;b&gt;$Server&lt;/b&gt;
+        ///      Port: &lt;b&gt;$Smt [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_mailbox_created {
+            get {
+                return ResourceManager.GetString("pattern_mailbox_created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///      Dear $UserName,
+        ///
+        ///      The password for the &lt;b&gt;$Address&lt;/b&gt; mailbox has been changed.
+        ///
+        ///      If you received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+        ///    .
+        /// </summary>
+        public static string pattern_mailbox_password_changed {
+            get {
+                return ResourceManager.GetString("pattern_mailbox_password_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///      Dear $UserName,
+        ///
+        ///      Administrator has created a new &lt;b&gt;$Address&lt;/b&gt; mailbox for you at the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
+        ///
+        ///      If you received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+        ///    .
+        /// </summary>
+        public static string pattern_mailbox_without_settings_created {
+            get {
+                return ResourceManager.GetString("pattern_mailbox_without_settings_created", resourceCulture);
             }
         }
         
@@ -2824,7 +2905,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;http://helpcenter.onlyoffice.com/ge [rest of string was truncated]&quot;;.
+        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_invite_teammates {
             get {
@@ -3040,7 +3121,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot; o [rest of string was truncated]&quot;;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;: [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_user_crm_tips {
             get {
@@ -3056,7 +3137,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
         ///$GreenButton
         ///
-        ///Do you know that you&apos;re using the most powerful online editors in the wor [rest of string was truncated]&quot;;.
+        ///Want to know why ONLYOFFICE is better than MS Office Online, Google Docs  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_user_docs_tips {
             get {
@@ -3103,7 +3184,11 @@ namespace ASC.Web.Studio.Core.Notify {
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
         ///$GreenButton
         ///
-        ///Do you know that you&apos;re using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? &quot;Look here&quot;:&quot;https://www.onlyoffice.com/docu [rest of string was truncated]&quot;;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
+        ///
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http:// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_user_team_tips {
             get {
@@ -3120,9 +3205,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///   
         ///Done. It&apos;s time to invite teammates to your web-office!
         ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot;.
+        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
         ///
-        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on document [rest of string was truncated]&quot;;.
+        ///One more tip: all of your users can edit documents offline using &quot;ONLYOFFICE Desktop Editors&quot;:&quot;http://www.onl [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_welcome {
             get {
@@ -3154,11 +3239,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
+        ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
         ///
-        ///Truly yours,
-        ///ONLYOFFICE Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_guest_activation {
             get {
@@ -3192,7 +3275,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffi [rest of string was truncated]&quot;;.
+        ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can can [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_user_activation {
             get {
@@ -3210,8 +3293,10 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;https://helpcenter.onlyoffice.com&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
-        ///        /// [rest of string was truncated]&quot;;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
+        ///
+        ///Truly yours,
+        ///ONLYO [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_user_organize_workplace {
             get {
@@ -3364,6 +3449,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_change_phone {
             get {
                 return ResourceManager.GetString("subject_change_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Backup codes change request.
+        /// </summary>
+        public static string subject_change_tfa {
+            get {
+                return ResourceManager.GetString("subject_change_tfa", resourceCulture);
             }
         }
         
@@ -3814,6 +3908,24 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_join {
             get {
                 return ResourceManager.GetString("subject_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Mailbox creation.
+        /// </summary>
+        public static string subject_mailbox_created {
+            get {
+                return ResourceManager.GetString("subject_mailbox_created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Change of mailbox password.
+        /// </summary>
+        public static string subject_mailbox_password_changed {
+            get {
+                return ResourceManager.GetString("subject_mailbox_password_changed", resourceCulture);
             }
         }
         

@@ -30,7 +30,7 @@
             nonetrigger: true,
             hintDefaultDisable: true,
             sorters: [
-                        { id: 'by-name', dsc: params.sortorder }
+                        { id: params.sortby, dsc: params.sortorder }
                      ],
             filters: [
                     {

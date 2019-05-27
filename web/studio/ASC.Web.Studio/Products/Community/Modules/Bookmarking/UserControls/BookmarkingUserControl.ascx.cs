@@ -32,8 +32,8 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
-using AjaxPro;
+
+using ASC.Bookmarking;
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Pojo;
@@ -45,9 +45,11 @@ using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
 using ASC.Web.UserControls.Bookmarking.Resources;
 using ASC.Web.UserControls.Bookmarking.Util;
+using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
+
 using HtmlAgilityPack;
-using log4net;
-using ASC.Bookmarking;
+using AjaxPro;
+using ASC.Common.Logging;
 
 namespace ASC.Web.UserControls.Bookmarking
 {

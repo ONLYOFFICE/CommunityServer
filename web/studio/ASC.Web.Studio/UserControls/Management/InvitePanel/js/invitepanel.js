@@ -163,7 +163,6 @@ ASC.InvitePanel = (function () {
             link = encodeURIComponent(url),
             text = encodeURIComponent(jq.format(ASC.Resources.Master.Resource.ShareInviteLinkDscr, url));
 
-        linkPanel.find(".google").attr("href", ASC.Resources.Master.UrlShareGooglePlus.format(link));
         linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, "", "", ""));
         linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(text));
     };

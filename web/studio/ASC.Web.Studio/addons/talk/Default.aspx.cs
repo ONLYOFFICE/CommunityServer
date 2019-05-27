@@ -36,6 +36,8 @@ namespace ASC.Web.Talk
     {
         private TalkConfiguration cfg;
 
+        protected string HelpLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterStyle("~/addons/talk/css/default/talk.overview.css");
@@ -44,6 +46,8 @@ namespace ASC.Web.Talk
             Master.DisabledSidePanel = true;
 
             cfg = new TalkConfiguration();
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
 
         public string ServerAddress

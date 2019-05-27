@@ -28,8 +28,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Web;
-using ASC.Files.Core;
+using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
@@ -132,7 +134,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 return Web.Core.Files.DocumentService.DocbuilderRequest(
                     FilesLinkUtility.DocServiceDocbuilderUrl,
-                    requestKey,
+                    GenerateRevisionId(requestKey),
                     scriptUrl,
                     isAsync,
                     FileUtility.SignatureSecret,
@@ -176,27 +178,57 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static void CheckDocServiceUrl()
         {
-            var storeTemplate = Global.GetStoreTemplate();
-            if (!string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl))
+            if (!string.IsNullOrEmpty(FilesLinkUtility.DocServiceHealthcheckUrl))
             {
                 try
                 {
-                    const string toExtension = ".docx";
-                    var fileExtension = FileUtility.GetInternalExtension(toExtension);
-                    var path = FileConstant.NewDocPath + "default/new" + fileExtension;
-                    var uri = storeTemplate.GetUri("", path);
-                    var url = CommonLinkUtility.GetFullAbsolutePath(uri.ToString());
-
-                    var fileUri = ReplaceCommunityAdress(url, FilesLinkUtility.DocServicePortalUrl);
-
-                    var key = GenerateRevisionId(Guid.NewGuid().ToString());
-                    string tmp;
-                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, false, FileUtility.SignatureSecret, out tmp);
+                    if (!Web.Core.Files.DocumentService.HealthcheckRequest(FilesLinkUtility.DocServiceHealthcheckUrl))
+                    {
+                        throw new Exception("bad status");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Global.Logger.Error("DocService check error", ex);
-                    throw new Exception("Community server url: " + ex.Message);
+                    Global.Logger.Error("Healthcheck DocService check error", ex);
+                    throw new Exception("Healthcheck url: " + ex.Message);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl))
+            {
+                string convertedFileUri;
+                try
+                {
+                    const string fileExtension = ".docx";
+                    var toExtension = FileUtility.GetInternalExtension(fileExtension);
+                    var url = PathProvider.GetEmptyFileUrl(fileExtension);
+
+                    var fileUri = ReplaceCommunityAdress(url);
+
+                    var key = GenerateRevisionId(Guid.NewGuid().ToString());
+                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, false, FileUtility.SignatureSecret, out convertedFileUri);
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error("Converter DocService check error", ex);
+                    throw new Exception("Converter url: " + ex.Message);
+                }
+
+                try
+                {
+                    var request = (HttpWebRequest)WebRequest.Create(convertedFileUri);
+                    using (var response = (HttpWebResponse)request.GetResponse())
+                    {
+                        if (response.StatusCode != HttpStatusCode.OK)
+                        {
+                            throw new Exception("Converted url is not available");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error("Document DocService check error", ex);
+                    throw new Exception("Document server: " + ex.Message);
                 }
             }
 
@@ -210,7 +242,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
                 catch (Exception ex)
                 {
-                    Global.Logger.Error("DocService check error", ex);
+                    Global.Logger.Error("Command DocService check error", ex);
                     throw new Exception("Command url: " + ex.Message);
                 }
             }
@@ -219,9 +251,10 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 try
                 {
+                    var storeTemplate = Global.GetStoreTemplate();
                     var scriptUri = storeTemplate.GetUri("", "test.docbuilder");
                     var scriptUrl = CommonLinkUtility.GetFullAbsolutePath(scriptUri.ToString());
-                    scriptUrl = ReplaceCommunityAdress(scriptUrl, FilesLinkUtility.DocServicePortalUrl);
+                    scriptUrl = ReplaceCommunityAdress(scriptUrl);
 
                     Dictionary<string, string> urls;
                     Web.Core.Files.DocumentService.DocbuilderRequest(FilesLinkUtility.DocServiceDocbuilderUrl, null, scriptUrl, false, FileUtility.SignatureSecret, out urls);
@@ -236,14 +269,24 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static string ReplaceCommunityAdress(string url)
         {
-            return ReplaceCommunityAdress(url, FilesLinkUtility.DocServicePortalUrl);
-        }
+            var docServicePortalUrl = FilesLinkUtility.DocServicePortalUrl;
 
-        private static string ReplaceCommunityAdress(string url, string docServicePortalUrl)
-        {
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(docServicePortalUrl))
+            if (string.IsNullOrEmpty(url))
             {
                 return url;
+            }
+
+            if (string.IsNullOrEmpty(docServicePortalUrl))
+            {
+                Tenant tenant;
+                if (!TenantExtra.Saas
+                    || string.IsNullOrEmpty((tenant = CoreContext.TenantManager.GetCurrentTenant()).MappedDomain)
+                    || !url.StartsWith("https://" + tenant.MappedDomain))
+                {
+                    return url;
+                }
+
+                docServicePortalUrl = "https://" + tenant.GetTenantDomain(false);
             }
 
             var uri = new UriBuilder(url);

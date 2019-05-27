@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="mopera.net">
+    <domain>mopera.net</domain>
+    <displayName>mopera U</displayName>
+    <displayShortName>mopera U</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mail.mopera.net</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="imap">
+      <hostname>mail.mopera.net</hostname>
+      <port>143</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mail.mopera.net</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mail.mopera.net</hostname>
+      <port>110</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.mopera.net</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.mopera.net</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

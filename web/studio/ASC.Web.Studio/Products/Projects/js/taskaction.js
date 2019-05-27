@@ -85,6 +85,7 @@ ASC.Projects.TaskAction = (function () {
 
     var teamlab;
     var selectedPrjId;
+    var selectedUsers = [];
 
     var init = function () {
         if (isInit) {
@@ -176,9 +177,12 @@ ASC.Projects.TaskAction = (function () {
 
     function initEvents() {
         $taskPopup.on(clickEventName, '#fullFormUserList .user', function () {
-            jq(this).remove();
-            $taskResponsiblesSelector.advancedSelector("unselect", [jq(this).attr("data-value")]);
-            if (!$listTaskResponsibles.find(".user").length) {
+            var $self = jq(this);
+            var removedId = $self.attr("data-value");
+            $self.remove();
+            $taskResponsiblesSelector.advancedSelector("unselect", [removedId]);
+            selectedUsers = selectedUsers.filter(function (item) { return item.id !== removedId });
+            if (!selectedUsers.length) {
                 $listTaskResponsibles.hide();
             }
             showOrHideNotifyCheckbox();
@@ -285,8 +289,8 @@ ASC.Projects.TaskAction = (function () {
 
     function showOrHideNotifyCheckbox() {
         var notifyCheckBox = $taskPopup.find('.notify');
-        var usersCount = $listTaskResponsibles.find(".user").length;
-        if (!usersCount || usersCount == $listTaskResponsibles.find(".user[data-value=" + currentUserId + "]").length) {
+        var usersCount = selectedUsers.length;
+        if (!usersCount || (usersCount === 1 && selectedUsers[0].id === currentUserId)) {
             notifyCheckBox.hide();
             return;
         }
@@ -311,12 +315,8 @@ ASC.Projects.TaskAction = (function () {
             projectId: $taskProjectSelector.attr("data-id")
         };
 
-        var responsibles = $listTaskResponsibles.find(".user");
-        if (responsibles.length) {
-            data.responsibles = [];
-            responsibles.each(function () {
-                data.responsibles.push(jq(this).attr('data-value'));
-            });
+        if (selectedUsers.length) {
+            data.responsibles = selectedUsers.map(function (item) { return item.id;});
         }
         try {
             if ($taskDeadlineDate.val().length) {
@@ -452,13 +452,9 @@ ASC.Projects.TaskAction = (function () {
             inPopup: true,
             noresults: projectsJSResource.NoActiveParticipantsNote
         }).on("showList", function (event, items) {
-            $listTaskResponsibles.empty();
-            for (var i = 0, j = items.length; i < j; i++) {
-                var item = items[i];
-                if (!$listTaskResponsibles.find("div[data-value='" + item.id + "']").length) {
-                    $listTaskResponsibles.show().append('<div data-value="' + item.id + '" class="user">' + item.title + '</div>');
-                }
-            }
+            $listTaskResponsibles.empty().show();
+            selectedUsers = items;
+            $listTaskResponsibles.html(jq.tmpl("projects_taskActionUser", [selectedUsers]));
             showOrHideNotifyCheckbox();
             event.stopPropagation();
         });
@@ -471,7 +467,7 @@ ASC.Projects.TaskAction = (function () {
             $taskPopup.find('.requiredErrorText.project').hide();
             jq('#pm-milestoneBlock, #pm-respBlock').removeClass(displayNone);
 
-            $listTaskResponsibles.html('').hide();
+            resetResponsibles();
 
             getMilestones(selectedPrjId);
 
@@ -589,32 +585,29 @@ ASC.Projects.TaskAction = (function () {
         teamWithoutVisitors = common.excludeVisitors(team);
         teamWithoutVisitors = common.removeBlockedUsersFromTeam(teamWithoutVisitors);
 
-        $listTaskResponsibles.empty();
-        $taskResponsiblesSelector.advancedSelector("reset");
+        resetResponsibles();
         $taskResponsiblesSelector.advancedSelector("rewriteItemList", teamWithoutVisitors.map(
             function (item) {
-                return { id: item.id, title: item.displayName }
+                return { id: item.id, title: item.displayName };
             }), []);
 
         updateTaskResponsibleSelector();
     };
 
     function updateTaskResponsibleSelector() {
-        if (currentTask && currentTask.responsibles.length && teamWithoutVisitors) {
-            $listTaskResponsibles.empty();
-            jQuery.each(currentTask.responsibles, function () {
-                var self = this;
-                var elem = teamWithoutVisitors.find(function (item) { return item.id === self.id });
-                if (typeof elem != "undefined") {
-                    $listTaskResponsibles.show().append('<div data-value="' + elem.id + '" class="user">' + elem.displayName + '</div>');
-                }
-            });
-            $taskResponsiblesSelector.advancedSelector("select", currentTask.responsibles.map(function(item) { return item.id; }));
+        if (currentTask && currentTask.responsibles.length && currentTask.projectId === selectedPrjId && teamWithoutVisitors) {
+            $taskResponsiblesSelector.advancedSelector("select", currentTask.responsibles.map(function (item) { return item.id; }));
+            $taskResponsiblesSelector.trigger("showList", [currentTask.responsibles.map(function(item){ return {id: item.id, title: item.displayName}})]);
         }
         if (currentTask && !currentTask.responsibles.length && updateTaskFlag !== updateTaskFlagEnum.add) {
-            $listTaskResponsibles.empty();
+            resetResponsibles();
         }
         showOrHideNotifyCheckbox();
+    }
+
+    function resetResponsibles() {
+        $taskResponsiblesSelector.advancedSelector("reset");
+        $taskResponsiblesSelector.advancedSelector("selectBeforeShow", []);
     }
 
     function getEmptyTask () {

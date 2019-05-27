@@ -36,6 +36,8 @@ using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 using System.Collections.Generic;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Web.UserControls.Forum
 {
@@ -312,15 +314,10 @@ namespace ASC.Web.UserControls.Forum
 
             try
             {
-                List<int> removedPostIDs;
-                var attachmantOffsetPhysicalPaths = ForumDataProvider.RemoveTopic(TenantProvider.CurrentTenantID, topic.ID, out removedPostIDs);
-
+                RemoveDataHelper.RemoveTopic(topic);
                 resp.rs1 = "1";
                 resp.rs3 = Resources.ForumUCResource.SuccessfullyDeleteTopicMessage;
                 resp.rs4 = topic.ThreadID.ToString();
-                _forumManager.RemoveAttachments(attachmantOffsetPhysicalPaths.ToArray());
-
-                removedPostIDs.ForEach(idPost => CommonControlsConfigurer.FCKUploadsRemoveForItem(_forumManager.Settings.FileStoreModuleID, idPost.ToString()));
             }
             catch (Exception ex)
             {

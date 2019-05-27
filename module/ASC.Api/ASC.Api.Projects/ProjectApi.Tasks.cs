@@ -139,12 +139,13 @@ namespace ASC.Api.Projects
         ///<param name="lastId">Last task ID</param>
         ///<param name="myProjects">Tasks in My Projects</param>
         ///<param name="myMilestones">Tasks in My Milestones</param>
+        ///<param name="nomilestone">Tasks without Milestone</param>
         ///<param name="follow">Followed tasks</param>
         ///<returns>List of tasks</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"task/filter")]
         public IEnumerable<TaskWrapper> GetTaskByFilter(int projectid, bool myProjects, int? milestone,
-            bool myMilestones, int tag,
+            bool myMilestones, bool nomilestone,  int tag,
             TaskStatus? status, bool follow, Guid departament, Guid? participant, Guid creator,
             ApiDateTime deadlineStart, ApiDateTime deadlineStop, int lastId)
         {
@@ -152,7 +153,7 @@ namespace ASC.Api.Projects
             filter.DepartmentId = departament;
             filter.ParticipantId = participant;
             filter.UserId = creator;
-            filter.Milestone = milestone;
+            filter.Milestone = nomilestone ? 0: milestone;
             filter.FromDate = deadlineStart;
             filter.ToDate = deadlineStop;
             filter.TagId = tag;
@@ -228,7 +229,7 @@ namespace ASC.Api.Projects
 
             SetTotalCount(filterResult.FilterCount.TasksTotal);
 
-            return filterResult.FilterResult.Select(r => new SimpleTaskWrapper(r));
+            return filterResult.FilterResult.Select(r => new SimpleTaskWrapper(this, r));
         }
 
         ///<summary>
@@ -312,6 +313,42 @@ namespace ASC.Api.Projects
             var file = fileEngine.GetFile(fileid).NotFoundIfNull();
             taskEngine.DetachFile(task, fileid);
             MessageService.Send(Request, MessageAction.TaskDetachedFile, MessageTarget.Create(task.ID), task.Project.Title, task.Title, file.Title);
+
+            return TaskWrapperSelector(task);
+        }
+
+        ///<summary>
+        ///Detaches the selected file from the task with the ID specified in the request
+        ///</summary>
+        ///<short>
+        ///Detach file from task
+        ///</short>
+        ///<category>Files</category>
+        ///<param name="taskid">Task ID</param>
+        ///<param name="files">files</param>
+        ///<returns>Task</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        ///<visible>false</visible>
+        [Delete(@"task/{taskid:[0-9]+}/filesmany")]
+        public TaskWrapper DetachFileFromTask(int taskid, List<int> files)
+        {
+            var fileEngine = EngineFactory.FileEngine;
+            var taskEngine = EngineFactory.TaskEngine;
+
+            var task = taskEngine.GetByID(taskid).NotFoundIfNull();
+
+            ProjectSecurity.DemandReadFiles(task.Project);
+
+            var filesList = files.ToList();
+            var attachments = new List<Files.Core.File>();
+            foreach (var fileid in filesList)
+            {
+                var file = fileEngine.GetFile(fileid).NotFoundIfNull();
+                attachments.Add(file);
+                taskEngine.AttachFile(task, file.ID, true);
+            }
+
+            MessageService.Send(Request, MessageAction.TaskDetachedFile, MessageTarget.Create(task.ID), task.Project.Title, task.Title, attachments.Select(x => x.Title));
 
             return TaskWrapperSelector(task);
         }

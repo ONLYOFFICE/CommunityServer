@@ -23,101 +23,38 @@
  *
 */
 
-
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Core.Users;
-using ASC.Web.Core;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Core.SMS;
-using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.UserControls.Management;
-using ASC.Web.Studio.UserControls.Users.UserProfile;
-using ASC.Web.Studio.Utility;
-using Resources;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.Web.Core;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.TFA;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.UserControls.Users.UserProfile;
+using ASC.Web.Studio.Utility;
+using Resources;
+
+using LdapMapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields; 
+
 namespace ASC.Web.Studio.UserControls.Users
 {
     public partial class UserProfileControl : UserControl
     {
-        #region SavePhotoThumbnails
-
-        public class SavePhotoThumbnails : IThumbnailsData
+        protected class RoleUser
         {
-            #region User ID
-
-            private Guid userID;
-
-            public Guid UserID
-            {
-                get
-                {
-                    if (Guid.Empty.Equals(userID))
-                    {
-                        userID = SecurityContext.CurrentAccount.ID;
-                    }
-                    return userID;
-                }
-                set { userID = value; }
-            }
-
-            #endregion
-
-            public Bitmap MainImgBitmap
-            {
-                get { return UserPhotoManager.GetPhotoBitmap(UserID); }
-            }
-
-            public string MainImgUrl
-            {
-                get { return UserPhotoManager.GetPhotoAbsoluteWebPath(UserID); }
-            }
-
-            public List<ThumbnailItem> ThumbnailList
-            {
-                get
-                {
-                    var tmp = new List<ThumbnailItem>
-                        {
-                            new ThumbnailItem
-                                {
-                                    id = UserPhotoManager.BigFotoSize.ToString(),
-                                    size = UserPhotoManager.BigFotoSize,
-                                    imgUrl = UserPhotoManager.GetBigPhotoURL(UserID)
-                                },
-                            new ThumbnailItem
-                                {
-                                    id = UserPhotoManager.BigFotoSize.ToString(),
-                                    size = UserPhotoManager.MediumFotoSize,
-                                    imgUrl = UserPhotoManager.GetMediumPhotoURL(UserID)
-                                },
-                            new ThumbnailItem
-                                {
-                                    id = UserPhotoManager.BigFotoSize.ToString(),
-                                    size = UserPhotoManager.SmallFotoSize,
-                                    imgUrl = UserPhotoManager.GetSmallPhotoURL(UserID)
-                                }
-                        };
-                    return tmp;
-                }
-            }
-
-            public void Save(List<ThumbnailItem> bitmaps)
-            {
-                foreach (var item in bitmaps)
-                    UserPhotoManager.SaveThumbnail(UserID, item.bitmap, MainImgBitmap.RawFormat);
-            }
+            public string Class { get; set; }
+            public string Title { get; set; }
         }
-
-        #endregion
 
         public ProfileHelper UserProfileHelper { get; set; }
 
@@ -127,54 +64,25 @@ namespace ASC.Web.Studio.UserControls.Users
 
         protected bool ShowPrimaryMobile;
 
+        protected bool ShowTfaAppSettings { get; set; }
+
         protected string BirthDayText { get; set; }
 
         protected AllowedActions Actions { get; set; }
 
+        protected List<LdapMapping> LdapFields { get; set; }
+
         protected bool IsAdmin { get; set; }
+
         protected bool IsVisitor { get; set; }
 
         protected int HappyBirthday { get; set; }
 
-        protected class RoleUser
-        {
-            public string Class { get; set; }
-            public string Title { get; set; }
-        }
-
-        protected RoleUser Role
-        {
-            get
-            {
-                var userRole = new RoleUser();
-                if ((UserInfo.IsAdmin() || UserInfo.GetListAdminModules().Any()) && !UserInfo.IsOwner())
-                {
-                    userRole.Class = "admin";
-                    userRole.Title = Resource.Administrator;
-                }
-                if (UserInfo.IsVisitor())
-                {
-                    userRole.Class = "guest";
-                    userRole.Title = CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode();
-                }
-                if (UserInfo.IsOwner())
-                {
-                    userRole.Class = "owner";
-                    userRole.Title = Resource.Owner;
-                }
-                return userRole;
-            }
-        }
-
+        protected RoleUser Role { get; set; }
 
         public string MainImgUrl
         {
-            get { return UserPhotoManager.GetPhotoAbsoluteWebPath(UserInfo.ID); }
-        }
-
-        protected bool UserHasAvatar
-        {
-            get { return !MainImgUrl.Contains("default/images/"); }
+            get { return UserPhotoManager.GetMaxPhotoURL(UserInfo.ID); }
         }
 
         protected bool ShowUserLocation
@@ -187,10 +95,12 @@ namespace ASC.Web.Studio.UserControls.Users
             get { return WebConfigurationManager.AppSettings["web.affiliates.link"]; }
         }
 
-        protected bool isPersonal
+        protected bool IsPersonal
         {
             get { return CoreContext.Configuration.Personal; }
         }
+
+        protected List<GroupInfo> Groups { get; set; }
 
         public static string Location
         {
@@ -217,7 +127,11 @@ namespace ASC.Web.Studio.UserControls.Users
                 Response.Redirect(CommonLinkUtility.GetFullAbsolutePath("~/products/people/"), true);
             }
 
+            Role = GetRole();
+
             Actions = new AllowedActions(UserInfo);
+
+            LdapFields = ASC.ActiveDirectory.Base.Settings.LdapSettings.GetImportedFields;
 
             HappyBirthday = CheckHappyBirthday();
 
@@ -250,17 +164,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 userEmailChange.Controls.Add(control);
             }
 
-            if (!MobileDetector.IsMobile)
-            {
-                var thumbnailEditorControl = (ThumbnailEditor)LoadControl(ThumbnailEditor.Location);
-                thumbnailEditorControl.Title = Resource.TitleThumbnailPhoto;
-                thumbnailEditorControl.BehaviorID = "UserPhotoThumbnail";
-                thumbnailEditorControl.JcropMinSize = UserPhotoManager.SmallFotoSize;
-                thumbnailEditorControl.JcropAspectRatio = 1;
-                thumbnailEditorControl.SaveFunctionType = typeof(SavePhotoThumbnails);
-                _editControlsHolder.Controls.Add(thumbnailEditorControl);
-            }
-
             if (ShowSocialLogins && AccountLinkControl.IsNotEmpty)
             {
                 var accountLink = (AccountLinkControl)LoadControl(AccountLinkControl.Location);
@@ -275,19 +178,43 @@ namespace ASC.Web.Studio.UserControls.Users
             _phEmailControlsHolder.Controls.Add(emailControl);
 
             var photoControl = (LoadPhotoControl)LoadControl(LoadPhotoControl.Location);
+            photoControl.User = UserInfo;
             loadPhotoWindow.Controls.Add(photoControl);
 
-            if (UserInfo.IsMe())
+            if (UserInfo.IsMe() && SetupInfo.EnabledCultures.Count > 1)
             {
                 _phLanguage.Controls.Add(LoadControl(UserLanguage.Location));
             }
 
-            if (StudioSmsNotificationSettings.IsVisibleSettings && (Actions.AllowEdit && !String.IsNullOrEmpty(UserInfo.MobilePhone) || UserInfo.IsMe()))
+            if ((UserInfo.IsLDAP() && !String.IsNullOrEmpty(UserInfo.MobilePhone))
+                || !String.IsNullOrEmpty(UserInfo.MobilePhone)
+                || UserInfo.IsMe())
             {
                 ShowPrimaryMobile = true;
-                var changeMobile = (ChangeMobileNumber)LoadControl(ChangeMobileNumber.Location);
-                changeMobile.User = UserInfo;
-                ChangeMobileHolder.Controls.Add(changeMobile);
+                if (Actions.AllowEdit && (!UserInfo.IsLDAP() || UserInfo.IsLDAP() && !LdapFields.Contains(LdapMapping.MobilePhoneAttribute)))
+                {
+                    var changeMobile = (ChangeMobileNumber)LoadControl(ChangeMobileNumber.Location);
+                    changeMobile.User = UserInfo;
+                    ChangeMobileHolder.Controls.Add(changeMobile);
+                }
+            }
+
+            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable && TfaAppUserSettings.EnableForUser(UserInfo.ID) && (UserInfo.IsMe() || IsAdmin))
+            {
+                ShowTfaAppSettings = true;
+
+                if (UserInfo.IsMe() || IsAdmin)
+                {
+                    var resetApp = (ResetAppDialog)LoadControl(ResetAppDialog.Location);
+                    resetApp.User = UserInfo;
+                    _backupCodesPlaceholder.Controls.Add(resetApp);
+                }
+                if (UserInfo.IsMe())
+                {
+                    var showBackup = (ShowBackupCodesDialog)LoadControl(ShowBackupCodesDialog.Location);
+                    showBackup.User = UserInfo;
+                    _backupCodesPlaceholder.Controls.Add(showBackup);
+                }
             }
 
             if (UserInfo.BirthDate.HasValue)
@@ -314,15 +241,37 @@ namespace ASC.Web.Studio.UserControls.Users
 
             if (UserInfo.Status != EmployeeStatus.Terminated)
             {
-                var groups = CoreContext.UserManager.GetUserGroups(UserInfo.ID).ToList();
-                if (!groups.Any())
-                {
-                    DepartmentsRepeater.Visible = false;
-                }
-
-                DepartmentsRepeater.DataSource = groups;
-                DepartmentsRepeater.DataBind();
+                Groups = CoreContext.UserManager.GetUserGroups(UserInfo.ID).ToList();
             }
+        }
+
+        private RoleUser GetRole()
+        {
+            if (UserInfo.IsOwner())
+            {
+                return new RoleUser
+                {
+                    Class = "owner",
+                    Title = Resource.Owner
+                };
+            }
+            if (UserInfo.IsAdmin() || UserInfo.GetListAdminModules().Any())
+            {
+                return new RoleUser
+                    {
+                        Class = "admin",
+                        Title = Resource.Administrator
+                    };
+            }
+            if (UserInfo.IsVisitor())
+            {
+                return new RoleUser
+                    {
+                        Class = "guest",
+                        Title = CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode()
+                    };
+            }
+            return null;
         }
 
         private int CheckHappyBirthday()

@@ -26,17 +26,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using ASC.Common.Caching;
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Data.Backup.Extensions;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
 
@@ -47,16 +50,18 @@ namespace ASC.Data.Backup.Tasks
         private readonly ColumnMapper _columnMapper;
 
         public string BackupFilePath { get; private set; }
+        public string UpgradesPath { get; private set; }
         public bool UnblockPortalAfterCompleted { get; set; }
         public bool ReplaceDate { get; set; }
+        public bool Dump { get; set; }
 
-        public RestorePortalTask(ILog logger, string toConfigPath, string fromFilePath, ColumnMapper columnMapper = null)
-            : this(logger, -1, toConfigPath, fromFilePath, columnMapper)
+        public RestorePortalTask(ILog logger, string toConfigPath, string fromFilePath, ColumnMapper columnMapper = null, string upgradesPath = null)
+            : this(logger, -1, toConfigPath, fromFilePath, columnMapper, upgradesPath)
         {
 
         }
 
-        public RestorePortalTask(ILog logger, int tenantId, string toConfigPath, string fromFilePath, ColumnMapper columnMapper = null)
+        public RestorePortalTask(ILog logger, int tenantId, string toConfigPath, string fromFilePath, ColumnMapper columnMapper = null, string upgradesPath = null)
             : base(logger, tenantId, toConfigPath)
         {
             if (fromFilePath == null)
@@ -66,6 +71,7 @@ namespace ASC.Data.Backup.Tasks
                 throw new FileNotFoundException("file not found at given path");
 
             BackupFilePath = fromFilePath;
+            UpgradesPath = upgradesPath;
             _columnMapper = columnMapper ?? new ColumnMapper();
         }
 
@@ -73,24 +79,35 @@ namespace ASC.Data.Backup.Tasks
         {
             Logger.Debug("begin restore portal");
 
-            List<IModuleSpecifics> modulesToProcess = GetModulesToProcess().ToList();
-            SetStepsCount(ProcessStorage ? modulesToProcess.Count + 1 : modulesToProcess.Count);
-
             Logger.Debug("begin restore data");
 
             using (var dataReader = new ZipReadOperator(BackupFilePath))
             {
-                var dbFactory = new DbFactory(ConfigPath);
-                foreach (var module in modulesToProcess)
+                using (var entry = dataReader.GetEntry(KeyHelper.GetDumpKey()))
                 {
-                    var restoreTask = new RestoreDbModuleTask(Logger, module, dataReader, _columnMapper, dbFactory,
-                        ReplaceDate);
-                    restoreTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
-                    foreach (var tableName in IgnoredTables)
+                    Dump = entry != null;
+                }
+
+                var dbFactory = new DbFactory(ConfigPath);
+                if (Dump)
+                {
+                    RestoreFromDump(dataReader, dbFactory);
+                }
+                else
+                {
+                    var modulesToProcess = GetModulesToProcess().ToList();
+                    SetStepsCount(ProcessStorage ? modulesToProcess.Count + 1 : modulesToProcess.Count);
+
+                    foreach (var module in modulesToProcess)
                     {
-                        restoreTask.IgnoreTable(tableName);
+                        var restoreTask = new RestoreDbModuleTask(Logger, module, dataReader, _columnMapper, dbFactory, ReplaceDate, Dump);
+                        restoreTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
+                        foreach (var tableName in IgnoredTables)
+                        {
+                            restoreTask.IgnoreTable(tableName);
+                        }
+                        restoreTask.RunJob();
                     }
-                    restoreTask.RunJob();
                 }
 
                 Logger.Debug("end restore data");
@@ -118,10 +135,92 @@ namespace ASC.Data.Backup.Tasks
                 }
 
                 Logger.Debug("clear cache");
-                AscCache.Default.Remove(new Regex(".*"));
+                AscCache.ClearCache();
             }
 
             Logger.Debug("end restore portal");
+        }
+
+        private void RestoreFromDump(IDataReadOperator dataReader, DbFactory dbFactory)
+        {
+            var keyBase = KeyHelper.GetDatabaseSchema();
+            var keys = dataReader.Entries.Where(r => r.StartsWith(keyBase)).ToList();
+            var upgrades = new List<string>();
+
+            if (!string.IsNullOrEmpty(UpgradesPath) && Directory.Exists(UpgradesPath))
+            {
+                upgrades = Directory.GetFiles(UpgradesPath).ToList();
+            }
+
+            var stepscount = keys.Count*2 + upgrades.Count;
+
+            SetStepsCount(ProcessStorage ? stepscount + 1 : stepscount);
+
+            for (var i = 0; i < keys.Count; i += TasksLimit)
+            {
+                var tasks = new List<Task>(TasksLimit * 2);
+
+                for (var j = 0; j < TasksLimit && i+j < keys.Count; j++)
+                {
+                    var key1 = keys[i + j];
+                    tasks.Add(RestoreFromDumpFile(dataReader, key1).ContinueWith(r => RestoreFromDumpFile(dataReader, KeyHelper.GetDatabaseData(key1.Substring(keyBase.Length + 1)))));
+                }
+
+                Task.WaitAll(tasks.ToArray());
+            }
+
+            var comparer = new SqlComparer();
+            foreach (var u in upgrades.OrderBy(Path.GetFileName, comparer))
+            {
+                RunMysqlFile(dbFactory, u, true);
+                SetStepCompleted();
+            }
+        }
+
+        private async Task RestoreFromDumpFile(IDataReadOperator dataReader, string fileName)
+        {
+            Logger.DebugFormat("Restore from {0}", fileName);
+            using (var stream = dataReader.GetEntry(fileName))
+            {
+                await RunMysqlFile(stream);
+            }
+            SetStepCompleted();
+        }
+
+        private class SqlComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                if (x == y)
+                {
+                    return 0;
+                }
+
+                if (!string.IsNullOrEmpty(x))
+                {
+                    var splittedX = x.Split('.');
+                    if (splittedX.Length <= 2) return -1;
+                    if (splittedX[1] == "upgrade") return 1;
+
+                    if (splittedX[1].StartsWith("upgrade") && !string.IsNullOrEmpty(y))
+                    {
+                        var splittedY = y.Split('.');
+                        if (splittedY.Length <= 2) return 1;
+                        if (splittedY[1] == "upgrade") return -1;
+
+                        if (splittedY[1].StartsWith("upgrade"))
+                        {
+                            return string.Compare(x, y, StringComparison.Ordinal);
+                        }
+
+                        return -1;
+                    }
+
+                    return -1;
+                }
+
+                return string.Compare(x, y, StringComparison.Ordinal);
+            }
         }
 
         private void DoRestoreStorage(IDataReadOperator dataReader)
@@ -132,38 +231,45 @@ namespace ASC.Data.Backup.Tasks
             var groupsProcessed = 0;
             foreach (var group in fileGroups)
             {
-                var storage = StorageFactory.GetStorage(ConfigPath, _columnMapper.GetTenantMapping().ToString(), group.Key);
-                var quotaController = storage.QuotaController;
-                try
+                foreach (var file in group)
                 {
+                    var storage = StorageFactory.GetStorage(ConfigPath, Dump ? file.Tenant.ToString() : _columnMapper.GetTenantMapping().ToString(), group.Key);
+                    var quotaController = storage.QuotaController;
                     storage.SetQuotaController(null);
-                    foreach (var file in group)
+
+                    try
                     {
                         var adjustedPath = file.Path;
                         var module = ModuleProvider.GetByStorageModule(file.Module, file.Domain);
-                        if (module == null || module.TryAdjustFilePath(_columnMapper, ref adjustedPath))
+                        if (module == null || module.TryAdjustFilePath(Dump, _columnMapper, ref adjustedPath))
                         {
-                            using (var stream = dataReader.GetEntry(KeyHelper.GetFileZipKey(file)))
+                            var key = file.GetZipKey();
+                            if (Dump)
+                            {
+                                key = Path.Combine(KeyHelper.GetStorage(), key);
+                            }
+                            using (var stream = dataReader.GetEntry(key))
                             {
                                 try
                                 {
-                                    storage.Save(file.Domain, adjustedPath, module != null ? module.PrepareData(KeyHelper.GetFileZipKey(file), stream, _columnMapper) : stream);
+                                    storage.Save(file.Domain, adjustedPath, module != null ? module.PrepareData(key, stream, _columnMapper) : stream);
                                 }
                                 catch (Exception error)
                                 {
-                                    Logger.Warn("can't restore file ({0}:{1}): {2}", file.Module, file.Path, error);
+                                    Logger.WarnFormat("can't restore file ({0}:{1}): {2}", file.Module, file.Path, error);
                                 }
                             }
                         }
                     }
-                }
-                finally
-                {
-                    if (quotaController != null)
+                    finally
                     {
-                        storage.SetQuotaController(quotaController);
+                        if (quotaController != null)
+                        {
+                            storage.SetQuotaController(quotaController);
+                        }
                     }
                 }
+
                 SetCurrentStepProgress((int)(++groupsProcessed*100/(double)fileGroups.Count));
             }
 
@@ -174,7 +280,7 @@ namespace ASC.Data.Backup.Tasks
             Logger.Debug("end restore storage");
         }
 
-        private IEnumerable<BackupFileInfo> GetFilesToProcess(IDataReadOperator dataReader)
+        private static IEnumerable<BackupFileInfo> GetFilesToProcess(IDataReadOperator dataReader)
         {
             using (var stream = dataReader.GetEntry(KeyHelper.GetStorageRestoreInfoZipKey()))
             {
@@ -187,10 +293,6 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        protected override IEnumerable<BackupFileInfo> GetFilesToProcess()
-        {
-            throw new NotImplementedException();
-        }
 
         protected override bool IsStorageModuleAllowed(string storageModuleName)
         {

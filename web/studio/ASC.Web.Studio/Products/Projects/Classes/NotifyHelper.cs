@@ -26,9 +26,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
@@ -40,15 +42,24 @@ using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Projects.Engine;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Utility;
 using Autofac;
-using log4net;
 
 namespace ASC.Web.Projects.Classes
 {
     public class NotifyHelper
     {
+        private static ILog logger;
+
+        static NotifyHelper()
+        {
+            logger = LogManager.GetLogger("ASC.Web.Projects.Reports");
+        }
+
         public static void SendAutoReminderAboutTask(DateTime state)
         {
             try
@@ -98,20 +109,20 @@ namespace ASC.Web.Projects.Classes
                                     Thread.CurrentThread.CurrentCulture = user.GetCulture();
                                     Thread.CurrentThread.CurrentUICulture = user.GetCulture();
 
-                                    NotifyClient.Instance.SendReminderAboutTaskDeadline(new List<Guid> {responsible}, t);
+                                    NotifyClient.Instance.SendReminderAboutTaskDeadline(new List<Guid> { responsible }, t);
                                 }
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC.Projects.Tasks").Error("SendAutoReminderAboutTask", ex);
+                        logger.Error("SendAutoReminderAboutTask", ex);
                     }
                 }
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Projects.Tasks").Error("SendAutoReminderAboutTask", ex);
+                logger.Error("SendAutoReminderAboutTask", ex);
             }
         }
 
@@ -143,55 +154,25 @@ namespace ASC.Web.Projects.Classes
                     templates = daoFactory.ReportDao.GetAutoTemplates();
                 }
 
-                foreach (var t in templates)
+                foreach (var tGrouped in templates.GroupBy(r=> r.Tenant))
                 {
                     try
                     {
-                        var tenant = CoreContext.TenantManager.GetTenant(t.Tenant);
-                        if (tenant != null && tenant.Status == TenantStatus.Active && CoreContext.PaymentManager.GetTariff(tenant.TenantId).State < TariffState.NotPaid)
-                        {
-                            CoreContext.TenantManager.SetCurrentTenant(tenant);
-                            var cron = new CronExpression(t.Cron) { TimeZone = CoreContext.TenantManager.GetCurrentTenant().TimeZone };
-                            var date = cron.GetTimeAfter(now.AddTicks(-1));
-
-                            LogManager.GetLogger("ASC.Web.Projects.Reports").DebugFormat("Find auto report: {0} - {1}, now: {2}, date: {3}", t.Name, t.Cron, now, date);
-                            if (date == now)
-                            {
-                                var user = CoreContext.UserManager.GetUsers(t.CreateBy);
-                                if (user.ID != Constants.LostUser.ID && user.Status == EmployeeStatus.Active)
-                                {
-                                    SecurityContext.AuthenticateMe(user.ID);
-
-                                    Thread.CurrentThread.CurrentCulture = user.GetCulture();
-                                    Thread.CurrentThread.CurrentUICulture = user.GetCulture();
-
-                                    var result = Report.CreateNewReport(t.ReportType, t.Filter).BuildReport(ReportViewType.EMail, t.Id);
-                                    var message = new NoticeMessage(user, HttpUtility.HtmlDecode(t.Name), result, "html");
-                                    message.AddArgument(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
-                                    message.AddArgument(new TagValue(CommonTags.Priority, 1));
-                                    LogManager.GetLogger("ASC.Web.Projects.Reports").DebugFormat("Send auto report: {0} to {1}, tenant: {2}", t.Name, user, CoreContext.TenantManager.GetCurrentTenant());
-                                    WorkContext.NotifyContext.DispatchEngine.Dispatch(message, "email.sender");
-                                }
-                            }
-                        }
+                        SendByTenant(now, tGrouped);
                     }
-                    catch (System.Security.SecurityException se)
+                    catch (Exception e)
                     {
-                        LogManager.GetLogger("ASC.Web.Projects.Reports").Info("SendAutoReports", se);
+                        LogManager.GetLogger("ASC").Error("SendByTenant", e);
                     }
-                    catch (Exception ex)
-                    {
-                        LogManager.GetLogger("ASC.Web.Projects.Reports").ErrorFormat("TemplateId: {0}, Temaplate: {1}\r\n{2}", t.Id, t.Filter.ToXml(), ex);
-                    }
+
                 }
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web.Projects.Reports").Error("SendAutoReports", ex);
+                logger.Error("SendAutoReports", ex);
             }
         }
 
-                
         public static void SendMsgMilestoneDeadline(DateTime scheduleDate)
         {
             var date = DateTime.UtcNow.AddDays(2);
@@ -242,9 +223,98 @@ namespace ASC.Web.Projects.Classes
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC.Projects.Tasks").Error("SendMsgMilestoneDeadline, tenant: " + tenant.TenantDomain, ex);
+                        logger.Error("SendMsgMilestoneDeadline, tenant: " + tenant.TenantDomain, ex);
                     }
                 }
+            }
+        }
+
+        private static void SendByTenant(DateTime now, IGrouping<int, ReportTemplate> tGrouped)
+        {
+            var tenant = CoreContext.TenantManager.GetTenant(tGrouped.Key);
+            if (tenant == null || tenant.Status != TenantStatus.Active || CoreContext.PaymentManager.GetTariff(tenant.TenantId).State >= TariffState.NotPaid) return;
+
+            CoreContext.TenantManager.SetCurrentTenant(tenant);
+            DocbuilderReportsUtility.Terminate(ReportOrigin.ProjectsAuto);
+
+            var timeZone = CoreContext.TenantManager.GetCurrentTenant().TimeZone;
+
+            foreach (var t in tGrouped)
+            {
+                try
+                {
+                    SendReport(now, timeZone, t);
+                }
+                catch (System.Security.SecurityException se)
+                {
+                    logger.Error("SendAutoReports", se);
+                }
+                catch (Exception ex)
+                {
+                    logger.ErrorFormat("TemplateId: {0}, Temaplate: {1}\r\n{2}", t.Id, t.Filter.ToXml(), ex);
+                }
+            }
+        }
+
+        private static void SendReport(DateTime now, TimeZoneInfo timeZone, ReportTemplate t)
+        {
+            var cron = new CronExpression(t.Cron) { TimeZone = timeZone };
+            var date = cron.GetTimeAfter(now.AddTicks(-1));
+
+            LogManager.GetLogger("ASC.Web.Projects.Reports").DebugFormat("Find auto report: {0} - {1}, now: {2}, date: {3}", t.Name, t.Cron, now, date);
+            if (date != now) return;
+
+            var user = CoreContext.UserManager.GetUsers(t.CreateBy);
+            if (user.ID == Constants.LostUser.ID || user.Status != EmployeeStatus.Active) return;
+
+            SecurityContext.AuthenticateMe(user.ID);
+
+            Thread.CurrentThread.CurrentCulture = user.GetCulture();
+            Thread.CurrentThread.CurrentUICulture = user.GetCulture();
+
+            var message = new NoticeMessage(user, HttpUtility.HtmlDecode(t.Name), "", "html");
+            message.AddArgument(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
+            message.AddArgument(new TagValue(CommonTags.Priority, 1));
+
+            ReportState state;
+            var template = t;
+            var result = Report.TryCreateReportFromTemplate(t, (s, u) =>
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(s.Exception))
+                    {
+                        template.SaveDocbuilderReport(s, u);
+                    }
+                    SendWhenGenerated(s);
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e);
+                }
+            }, message, out state, true);
+
+            if (!result)
+            {
+                SendWhenGenerated(state);
+            }
+        }
+
+        private static void SendWhenGenerated(ReportState state)
+        {
+            try
+            {
+                var message = (NoticeMessage)state.Obj;
+
+                message.Body = !string.IsNullOrEmpty(state.Exception) ? state.Exception : string.Format(Resources.ReportResource.AutoGeneratedReportMail, message.Subject, CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(state.FileId)));
+
+                WorkContext.NotifyContext.DispatchEngine.Dispatch(message, "email.sender");
+
+                logger.DebugFormat("Send auto report: {0} to {1}, tenant: {2}", message.Subject, SecurityContext.CurrentAccount.ID, TenantProvider.CurrentTenantID);
+            }
+            catch (Exception e)
+            {
+                logger.Error("SendWhenGenerated", e);
             }
         }
     }

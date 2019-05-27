@@ -77,8 +77,8 @@ ASC.CRM.Voip.CallsView = (function ($) {
 
         function createFilterByContact(filter) {
             var o = document.createElement('div');
+            o.classList.add("default-value");
             o.innerHTML = [
-              '<div class="default-value">',
                 '<span class="title">',
                   filter.title,
                 '</span>',
@@ -86,7 +86,6 @@ ASC.CRM.Voip.CallsView = (function ($) {
                   '<span class="contact-selector"></span>',
                 '</span>',
                 '<span class="btn-delete">&times;</span>',
-              '</div>'
             ].join('');
             return o;
         }
@@ -94,8 +93,20 @@ ASC.CRM.Voip.CallsView = (function ($) {
         function customizeFilterByContact($container, $filteritem, filter) {
             var $headerContainer = jq('#' + headerContainerId);
             if ($headerContainer.parent().is("#" + hiddenContainerId)) {
-                $headerContainer.off(showList).on(showList, onSelectContact);
+                $headerContainer.off(showList).on(showList, function (event, item) {
+                    onSelectContact(event, item);
+                    $filteritem.removeClass("default-value");
+                });
+
                 $headerContainer.next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+
+                if (!filter.isset) {
+                    setTimeout(function () {
+                        if ($filteritem.hasClass("default-value")) {
+                            $headerContainer.click();
+                        }
+                    }, 0);
+                }
             }
         }
 
@@ -114,6 +125,7 @@ ASC.CRM.Voip.CallsView = (function ($) {
                 var $headerContainer = jq('#' + headerContainerId);
                 $headerContainer.find(".inner-text .value").text(params.displayName);
                 $headerContainer.contactadvancedSelector("select", [params.id]);
+                $filteritem.removeClass("default-value");
             }
         }
 
@@ -459,7 +471,7 @@ ASC.CRM.Voip.CallsView = (function ($) {
                 sorters: [
                     { id: 'date', title: jsresource.VoipCallDate, selected: sortByParam == 'date', sortOrder: sortByParam == 'date' ? sortOrderParam : 'descending', def: sortByParam == 'date' || !sortByParam },
                     { id: 'duration', title: jsresource.VoipCallDuration, selected: sortByParam == 'duration', sortOrder: sortByParam == 'duration' ? sortOrderParam : 'descending', def: sortByParam == 'duration' },
-                    { id: 'cost', title: jsresource.VoipCallCost, selected: sortByParam == 'cost', sortOrder: sortByParam == 'cost' ? sortOrderParam : 'descending', def: sortByParam == 'cost' }
+                    { id: 'price', title: jsresource.VoipCallCost, selected: sortByParam == 'price', sortOrder: sortByParam == 'price' ? sortOrderParam : 'descending', def: sortByParam == 'price' }
                 ]
             })
             .bind('setfilter', filterChangedHandler)
@@ -469,7 +481,7 @@ ASC.CRM.Voip.CallsView = (function ($) {
     function getFilterDays() {
         var now = new Date();
         now = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), 0, 0, 0);
-        now.setHours(now.getHours() + ASC.Resources.Master.CurrentTenantUtcHoursOffset);
+        now.setMinutes(ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset);
         now.setHours(0);
 
         var startWeek = new Date(now);

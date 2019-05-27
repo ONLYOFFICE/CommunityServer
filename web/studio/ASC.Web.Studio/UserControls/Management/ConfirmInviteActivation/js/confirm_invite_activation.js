@@ -46,7 +46,7 @@ jq(document).on("keyup",
 
         if (jq(this).is("#studio_confirm_pwd")) {
             //do postback
-            window.submitForm("confirmInvite", "");
+            jq("#buttonConfirmInvite").click();
             return;
         }
 
@@ -70,6 +70,9 @@ jq(document).on("click", "#buttonConfirmInvite", function () {
     jq("#registrationForm input").removeClass("with-error");
 
     for (var item in requireFields) {
+        
+        if (requireFields[item].is(":visible")) requireFields[item].val(requireFields[item].val().trim())
+
         if (requireFields[item].is(":visible") && !requireFields[item].val()) {
             requireFields[item].addClass("with-error");
             error++;
@@ -78,6 +81,18 @@ jq(document).on("click", "#buttonConfirmInvite", function () {
 
     if (requireFields.email.is(":visible") && !jq.isValidEmail(requireFields.email.val())) {
         requireFields.email.addClass("with-error");
+        error++;
+    }
+
+    var regexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
+
+    if (requireFields.firstname.is(":visible") && !regexp.test(requireFields.firstname.val())) {
+        requireFields.firstname.addClass("with-error");
+        error++;
+    }
+
+    if (requireFields.lastname.is(":visible") && !regexp.test(requireFields.lastname.val())) {
+        requireFields.lastname.addClass("with-error");
         error++;
     }
 

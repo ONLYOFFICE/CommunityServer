@@ -44,6 +44,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected string User;
         protected string Password;
 
+        protected string HelpLink;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
@@ -77,6 +79,8 @@ namespace ASC.Web.Studio.UserControls.Management
                         Password = connectionPart.Replace("Password=", "");
                 }
             }
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
     }
 }

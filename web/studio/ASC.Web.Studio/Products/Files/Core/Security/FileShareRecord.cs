@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 
 namespace ASC.Files.Core.Security
 {
@@ -43,6 +44,27 @@ namespace ASC.Files.Core.Security
         public FileShare Share { get; set; }
 
         public int Level { get; set; }
+
+
+        public class ShareComparer : IComparer<FileShare>
+        {
+            private static readonly int[] ShareOrder = new[]
+                {
+                    (int)FileShare.None,
+                    (int)FileShare.ReadWrite,
+                    (int)FileShare.Review,
+                    (int)FileShare.FillForms,
+                    (int)FileShare.Comment,
+                    (int)FileShare.Read,
+                    (int)FileShare.Restrict,
+                    (int)FileShare.Varies
+                };
+
+            public int Compare(FileShare x, FileShare y)
+            {
+                return Array.IndexOf(ShareOrder, (int)x).CompareTo(Array.IndexOf(ShareOrder, (int)y));
+            }
+        }
     }
 
     public class SmallShareRecord

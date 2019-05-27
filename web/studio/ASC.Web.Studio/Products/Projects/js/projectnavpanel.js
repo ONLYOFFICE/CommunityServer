@@ -260,6 +260,9 @@ ASC.Projects.projectNavPanel = (function() {
             if (typeof data === "number") {
                 text = jq.timeFormat(text);
             }
+            if (text === "") {
+                text = "00:00";
+            }
             text = text.split(":");
             return { hours: parseInt(text[0], 10), minutes: parseInt(text[1], 10) };
         }

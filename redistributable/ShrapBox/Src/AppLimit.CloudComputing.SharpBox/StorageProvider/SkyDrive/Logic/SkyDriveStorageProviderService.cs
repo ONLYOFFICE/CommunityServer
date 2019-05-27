@@ -48,24 +48,23 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
             return new SkyDriveStorageProviderSession(token, this, configuration);
         }
 
-        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, String nameOrID, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, String name, ICloudDirectoryEntry parent)
         {
             /* In this method name could be either requested resource name or it's ID.
              * In first case just refresh the parent and then search child with an appropriate.
              * In second case it does not matter if parent is null or not a parent because we use only resource ID. */
 
-            if (SkyDriveHelpers.HasResourceID(nameOrID) || nameOrID.Equals("/") && parent == null)
+            if (SkyDriveHelpers.HasResourceID(name) || name.Equals("/") && parent == null)
                 //If request by ID or root folder requested
             {
-                var id = SkyDriveHelpers.GetResourceID(nameOrID);
+                var id = SkyDriveHelpers.GetResourceID(name);
                 var uri = id != String.Empty
-                                 ? String.Format("{0}/{1}", SkyDriveConstants.BaseAccessUrl, id)
-                                 : SkyDriveConstants.RootAccessUrl;
+                              ? String.Format("{0}/{1}", SkyDriveConstants.BaseAccessUrl, id)
+                              : SkyDriveConstants.RootAccessUrl;
 
                 if (SkyDriveHelpers.IsFolderID(id))
                 {
                     var contents = new List<ICloudFileSystemEntry>();
-                    BaseDirectoryEntry entry = null;
 
                     /*var completeContent = new AutoResetEvent(false);
                     ThreadPool.QueueUserWorkItem(state =>
@@ -83,7 +82,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
 
                     WaitHandle.WaitAll(new WaitHandle[] {completeContent, completeEntry});*/
 
-                    entry = RequestResourseByUrl(session, uri) as BaseDirectoryEntry;
+                    var entry = RequestResourseByUrl(session, uri) as BaseDirectoryEntry;
                     contents.AddRange(RequestContentByUrl(session, uri + "/files"));
 
                     if (entry != null && contents.Any())
@@ -97,15 +96,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
             else
             {
                 String uri;
-                if (SkyDriveHelpers.HasParentID(nameOrID))
-                    uri = String.Format(SkyDriveConstants.FilesAccessUrlFormat, SkyDriveHelpers.GetParentID(nameOrID));
+                if (SkyDriveHelpers.HasParentID(name))
+                    uri = String.Format(SkyDriveConstants.FilesAccessUrlFormat, SkyDriveHelpers.GetParentID(name));
                 else if (parent != null)
                     uri = String.Format(SkyDriveConstants.FilesAccessUrlFormat, parent.GetPropertyValue(SkyDriveConstants.InnerIDKey));
                 else
                     uri = SkyDriveConstants.RootAccessUrl + "/files";
 
-                nameOrID = Path.GetFileName(nameOrID);
-                var entry = RequestContentByUrl(session, uri).FirstOrDefault(x => x.Name.Equals(nameOrID));
+                name = Path.GetFileName(name);
+                var entry = RequestContentByUrl(session, uri).FirstOrDefault(x => x.Name.Equals(name));
                 return entry;
             }
         }
@@ -131,7 +130,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
         {
             var uri = String.Format("{0}/{1}", SkyDriveConstants.BaseAccessUrl, entry.GetPropertyValue(SkyDriveConstants.InnerIDKey));
             var json = SkyDriveRequestHelper.PerformRequest(session, uri, "DELETE", null, true);
-            
+
             if (!SkyDriveJsonParser.ContainsError(json, false))
             {
                 var parent = entry.Parent as BaseDirectoryEntry;
@@ -156,11 +155,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
             var data = String.Format("{{name: \"{0}\"}}", name);
             var json = SkyDriveRequestHelper.PerformRequest(session, uri, "POST", data, false);
             var entry = SkyDriveJsonParser.ParseSingleEntry(session, json);
-            
+
             var parentBase = parent as BaseDirectoryEntry;
             if (parentBase != null && entry != null)
                 parentBase.AddChild(entry as BaseFileEntry);
-            
+
             return entry;
         }
 
@@ -172,7 +171,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
             var uri = String.Format("{0}/{1}", SkyDriveConstants.BaseAccessUrl, entry.GetPropertyValue(SkyDriveConstants.InnerIDKey));
             var data = String.Format("{{name: \"{0}\"}}", newName);
             var json = SkyDriveRequestHelper.PerformRequest(session, uri, "PUT", data, false);
-            
+
             if (!SkyDriveJsonParser.ContainsError(json, false))
             {
                 var entryBase = entry as BaseFileEntry;
@@ -260,27 +259,27 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
             return uploadStream;
         }
 
-        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry entry, nTransferDirection direction, Stream stream)
+        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry entry, nTransferDirection direction, Stream notDisposedStream)
         {
         }
 
         public override bool SupportsDirectRetrieve
         {
-            get { return true; } 
+            get { return true; }
         }
 
         public override void StoreToken(IStorageProviderSession session, Dictionary<String, String> tokendata, ICloudStorageAccessToken token)
         {
             if (token is OAuth20Token)
             {
-                tokendata.Add(SkyDriveConstants.SerializedDataKey, (token as OAuth20Token).ToJson());   
+                tokendata.Add(SkyDriveConstants.SerializedDataKey, (token as OAuth20Token).ToJson());
             }
         }
 
         public override ICloudStorageAccessToken LoadToken(Dictionary<String, String> tokendata)
         {
             var type = tokendata[CloudStorage.TokenCredentialType];
-            if (type.Equals(typeof(OAuth20Token).ToString()))
+            if (type.Equals(typeof (OAuth20Token).ToString()))
             {
                 var json = tokendata[SkyDriveConstants.SerializedDataKey];
                 return OAuth20Token.FromJson(json);
@@ -347,9 +346,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
         private static string GetSignedUploadUrl(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry)
         {
             var uri = String.Format("{0}/{1}/files/{2}",
-                                       SkyDriveConstants.BaseAccessUrl,
-                                       fileSystemEntry.Parent.GetPropertyValue(SkyDriveConstants.InnerIDKey),
-                                       fileSystemEntry.Name);
+                                    SkyDriveConstants.BaseAccessUrl,
+                                    fileSystemEntry.Parent.GetPropertyValue(SkyDriveConstants.InnerIDKey),
+                                    fileSystemEntry.Name);
 
             return SkyDriveRequestHelper.SignUri(session, uri);
         }

@@ -25,16 +25,18 @@
 
 
 using System;
+using System.Collections.Generic; 
 using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Web.Core.Users;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using System.Web;
 using Resources;
+
+using LdapMapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -46,12 +48,12 @@ namespace ASC.Web.Studio.UserControls.Users
         }
 
         public ProfileHelper ProfileHelper { get; set; }
+        protected List<LdapMapping> LdapFields { get; set; }
 
         protected AllowedActions Actions;
         protected string ProfileEditLink;
         protected string ReassignDataLink;
         protected bool MyStaff;
-        protected bool UserHasAvatar;
         protected bool HasActions;
         protected bool IsAdmin;
         protected string SubscribeBtnText;
@@ -60,7 +62,6 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             Actions = new AllowedActions(ProfileHelper.UserInfo);
             MyStaff = ProfileHelper.UserInfo.IsMe();
-            UserHasAvatar = !UserPhotoManager.GetPhotoAbsoluteWebPath(ProfileHelper.UserInfo.ID).Contains("default/images/");
             HasActions = Actions.AllowEdit || Actions.AllowAddOrDelete;
             IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             SubscribeBtnText =
@@ -79,6 +80,8 @@ namespace ASC.Web.Studio.UserControls.Users
                     : "profileaction.aspx?action=edit&user=" + HttpUtility.UrlEncode(ProfileHelper.UserInfo.UserName);
 
             ReassignDataLink = "reassigns.aspx?user=" + HttpUtility.UrlEncode(ProfileHelper.UserInfo.UserName);
+
+            LdapFields = ASC.ActiveDirectory.Base.Settings.LdapSettings.GetImportedFields;
 
             if (Request.Params["email_change"] == "success")
             {

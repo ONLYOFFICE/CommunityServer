@@ -24,16 +24,14 @@
 */
 
 
-#region Usings
-
 using System.Collections.Generic;
-
-#endregion
 
 namespace ASC.Projects.Core.DataInterfaces
 {
     public interface ITagDao
     {
+        KeyValuePair<int, string> Create(string data);
+
         Dictionary<int, string> GetTags();
 
         Dictionary<int, string> GetTags(string prefix);
@@ -47,5 +45,7 @@ namespace ASC.Projects.Core.DataInterfaces
         Dictionary<int, string> GetProjectTags(int projectId);
 
         void SetProjectTags(int projectId, string[] tags);
+
+        void SetProjectTags(int projectId, IEnumerable<int> tags);
     }
 }

@@ -100,7 +100,7 @@
 
 <div id="files_hintCategoriesPanel" class="hintDescriptionPanel">
     ${ASC.CRM.Resources.CRMTaskResource.TooltipCategories}
-    <a href="http://www.onlyoffice.com/help/tipstricks/tasks-categories.aspx" target="_blank">${ASC.CRM.Resources.CRMCommonResource.ButtonLearnMore}</a>
+    {{if ASC.Resources.Master.HelpLink}}<a href="${ASC.Resources.Master.HelpLink}/tipstricks/tasks-categories.aspx" target="_blank">${ASC.CRM.Resources.CRMCommonResource.ButtonLearnMore}</a>{{/if}}
 </div>
 </script>
 
@@ -216,7 +216,7 @@
             </a>
             <span class="splitter"></span>
 
-            <input id="taskDeadline" type="text" onkeypress="ASC.CRM.TaskActionView.keyPress(event);" class="pm-ntextbox textEditCalendar" />
+            <input id="taskDeadline" type="text" onkeypress="ASC.CRM.TaskActionView.keyPress(event);" class="pm-ntextbox textEditCalendar" autocomplete="off"/>
 
             <span class="splitter"></span>
             <span class="bold">${ASC.CRM.Resources.CRMTaskResource.Time}:</span>

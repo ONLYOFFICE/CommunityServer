@@ -24,13 +24,25 @@
 */
 
 
-ASC.Projects.Settings = (function() {
+jq(document).ready(function () {
+    var teamlab = Teamlab,
+        projects = ASC.Projects,
+        common = projects.Common,
+        masterResource = ASC.Resources.Master.Resource,
+        fileSelector = ASC.Files.FileSelector,
+        folder,
+        baseFolder = ASC.Files.Constants.FOLDER_ID_MY_FILES;
+
+    var $folderSelectorBox,
+        $box,
+        $button;
+
     function init() {
-        Teamlab.getPrjSettings({
+        teamlab.getPrjSettings({
             success: function (params, data) {
-                var modules = ASC.Projects.Resources.StartModules;
+                var modules = projects.Resources.StartModules;
                 var currentModule = modules.find(function (item) {
-                    return item.StartModuleType === ASC.Projects.Master.StartModuleType;
+                    return item.StartModuleType === data.startModuleType;
                 }) || modules[0];
 
                 data.startModuleTitle = currentModule.Title;
@@ -63,26 +75,81 @@ ASC.Projects.Settings = (function() {
                             $startModule.html(item.title).attr("title", item.title);
                             updateSettings({ startModule: item.id });
                         });
+
+                folder = data.folderId;
+
+                initFolderSelector();
             }
         });
-
     }
+
 
     function updateSettings(data) {
-        Teamlab.updatePrjSettings(data,
+        teamlab.updatePrjSettings(data,
         {
             success: function() {
-                ASC.Projects.Common.displayInfoPanel(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
+                common.displayInfoPanel(masterResource.ChangesSuccessfullyAppliedMsg);
             },
             error: function() {
-                ASC.Projects.Common.displayInfoPanel(ASC.Resources.Master.Resource.CommonJSErrorMsg, true);
+                common.displayInfoPanel(masterResource.CommonJSErrorMsg, true);
             }
         });
     }
 
-    return { init: init };
-})();
+    function initFolderSelector() {
+        $folderSelectorBox = jq(".folderSelectorBox");
+        $box = $folderSelectorBox.find("input");
+        $button = $folderSelectorBox.find(".button");
 
-jq(document).ready(function () {
-    ASC.Projects.Settings.init();
+        $button.on("click", showFolderPop);
+
+        jq('#fileSelectorTree > ul > li.tree-node:not([data-id=\'' + baseFolder + '\'])').remove();
+
+        fileSelector.onInit = function () {
+            fileSelector.toggleThirdParty(true);
+
+            fileSelector.onThirdPartyTreeCreated = function () {
+                $('*:not(.disabled) > .settings-block .thirdPartyStorageSelectorBox')
+                    .removeAttr('title')
+                    .removeClass('disabled')
+                    .find(':radio')
+                    .attr('disabled', false);
+            };
+            fileSelector.createThirdPartyTree();
+        };
+
+        fileSelector.onSubmit = function (folderId) {
+            displayFolderPath(folderId);
+            updateSettings({ folderId: folderId });
+        }
+
+        fileSelector.setTitle(masterResource.SelectFolder);
+
+        displayFolderPath();
+    }
+    
+    function displayFolderPath(folderId) {
+        if (typeof folderId != "undefined") {
+            folder = folderId;
+        }
+
+        teamlab.getFolderPath(folder,
+        {
+            success: function (params, data) {
+                var path = data.map(function (item) { return item.title; }),
+                    pathTitle = path.join(' > ');
+                $box.val(pathTitle);
+            }
+        });
+    }
+
+    function showFolderPop() {
+        if ($button.is('.disable')) {
+            return;
+        }
+
+        fileSelector.openDialog(folder, true, false);
+    }
+
+    init();
 });

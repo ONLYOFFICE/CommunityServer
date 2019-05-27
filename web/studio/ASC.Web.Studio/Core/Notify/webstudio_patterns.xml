@@ -157,6 +157,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_remove_user_data_completed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- remove_user_data_completed_custom_mode -->
+  <pattern id="remove_user_data_completed_custom_mode">
+    <subject resource="|subject_remove_user_data_completed_custom_mode|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_remove_user_data_completed_custom_mode|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
   <!-- remove_user_data_failed -->
   <pattern id="remove_user_data_failed">
     <subject resource="|subject_remove_user_data_failed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
@@ -197,6 +203,29 @@ $activity.Key
   <pattern id="change_phone">
     <subject resource="|subject_change_phone|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_phone|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_tfa -->
+  <pattern id="change_tfa">
+    <subject resource="|subject_change_tfa|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_tfa|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- mailserver mailbox created -->
+  <pattern id="mailbox_created">
+    <subject resource="|subject_mailbox_created|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_mailbox_created|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <pattern id="mailbox_without_settings_created">
+    <subject resource="|subject_mailbox_created|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_mailbox_without_settings_created|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- mailserver mailbox password changed -->
+  <pattern id="mailbox_password_changed">
+    <subject resource="|subject_mailbox_password_changed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_mailbox_password_changed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- migration_start -->
@@ -375,6 +404,16 @@ $activity.Key
   <pattern id="enterprise_whitelabel_user_welcome" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_user_welcome|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- enterprise whitelabel user welcome custom mode -->
+  <pattern id="enterprise_whitelabel_user_welcome_custom_mode" sender="email.sender">
+    <subject resource="|subject_enterprise_whitelabel_user_welcome|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_user_welcome_custom_mode|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="enterprise_whitelabel_user_welcome_custom_mode" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_user_welcome_custom_mode|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- hosted user welcome -->
@@ -598,7 +637,7 @@ $activity.Key
     <subject resource="|subject_enterprise_whitelabel_admin_payment_warning|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_admin_payment_warning|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
-
+ 
   <!-- saas user organize workplace -->
   <pattern id="saas_user_organize_workplace">
     <subject resource="|subject_saas_user_organize_workplace|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
@@ -775,5 +814,39 @@ $activity.Key
   <pattern id="personal_profile_delete">
     <subject resource="|subject_personal_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- personal custom mode after registaration  -->
+  <pattern id="personal_custom_mode_after_registration1">
+    <subject resource="|subject_personal_custom_mode_after_registration1|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_after_registration1|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="personal_custom_mode_after_registration7">
+    <subject resource="|subject_personal_custom_mode_after_registration7|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_after_registration7|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- personal custom mode confirmation -->
+  <pattern id="personal_custom_mode_confirmation">
+    <subject resource="|subject_personal_custom_mode_confirmation|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_confirmation|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- personal custom mode change password -->
+  <pattern id="personal_custom_mode_change_password">
+    <subject resource="|subject_personal_custom_mode_change_password|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_change_password|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- personal custom mode change email-->
+  <pattern id="personal_custom_mode_change_email">
+    <subject resource="|subject_personal_custom_mode_change_email|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_change_email|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- personal custom mode profile delete -->
+  <pattern id="personal_custom_mode_profile_delete">
+    <subject resource="|subject_personal_custom_mode_profile_delete|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_profile_delete|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 </patterns>

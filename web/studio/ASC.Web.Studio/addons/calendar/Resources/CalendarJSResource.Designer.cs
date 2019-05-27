@@ -133,6 +133,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List.
+        /// </summary>
+        public static string calendarButtonNewText_list {
+            get {
+                return ResourceManager.GetString("calendarButtonNewText_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todo.
+        /// </summary>
+        public static string calendarButtonNewText_todo {
+            get {
+                return ResourceManager.GetString("calendarButtonNewText_todo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day.
         /// </summary>
         public static string calendarButtonText_day {
@@ -219,6 +237,15 @@ namespace Resources {
         public static string calendarCategoriesDialog_editHeader {
             get {
                 return ResourceManager.GetString("calendarCategoriesDialog_editHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import events.
+        /// </summary>
+        public static string calendarCategoriesDialog_importHeader {
+            get {
+                return ResourceManager.GetString("calendarCategoriesDialog_importHeader", resourceCulture);
             }
         }
         
@@ -476,6 +503,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        public static string calendarEventEditor_eventButton {
+            get {
+                return ResourceManager.GetString("calendarEventEditor_eventButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From:.
         /// </summary>
         public static string calendarEventEditor_fromLabel {
@@ -647,6 +683,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sent invitations.
+        /// </summary>
+        public static string calendarEventEditor_sentInvitationsLabel {
+            get {
+                return ResourceManager.GetString("calendarEventEditor_sentInvitationsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users for sharing.
         /// </summary>
         public static string calendarEventEditor_sharedUsersLabel {
@@ -719,6 +764,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time:.
+        /// </summary>
+        public static string calendarEventEditor_timeLabel {
+            get {
+                return ResourceManager.GetString("calendarEventEditor_timeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todo.
+        /// </summary>
+        public static string calendarEventEditor_todoButton {
+            get {
+                return ResourceManager.GetString("calendarEventEditor_todoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To:.
         /// </summary>
         public static string calendarEventEditor_toLabel {
@@ -733,6 +796,42 @@ namespace Resources {
         public static string calendarEventEditor_unsubscribeButton {
             get {
                 return ResourceManager.GetString("calendarEventEditor_unsubscribeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By link.
+        /// </summary>
+        public static string calendarExportEvents_byLink {
+            get {
+                return ResourceManager.GetString("calendarExportEvents_byLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From file.
+        /// </summary>
+        public static string calendarExportEvents_fromFile {
+            get {
+                return ResourceManager.GetString("calendarExportEvents_fromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sync with calendar by link.
+        /// </summary>
+        public static string calendarExportEvents_syncByLink {
+            get {
+                return ResourceManager.GetString("calendarExportEvents_syncByLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import to.
+        /// </summary>
+        public static string calendarImportEvents_calendarLabel {
+            get {
+                return ResourceManager.GetString("calendarImportEvents_calendarLabel", resourceCulture);
             }
         }
         
@@ -769,6 +868,15 @@ namespace Resources {
         public static string calendarMoreEventsLabel {
             get {
                 return ResourceManager.GetString("calendarMoreEventsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New calendar.
+        /// </summary>
+        public static string calendarNewLabel {
+            get {
+                return ResourceManager.GetString("calendarNewLabel", resourceCulture);
             }
         }
         
@@ -868,6 +976,132 @@ namespace Resources {
         public static string calendarTodayLabel {
             get {
                 return ResourceManager.GetString("calendarTodayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string calendarTodoDeleteDialog_dialogButton_apply {
+            get {
+                return ResourceManager.GetString("calendarTodoDeleteDialog_dialogButton_apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string calendarTodoDeleteDialog_dialogButton_cancel {
+            get {
+                return ResourceManager.GetString("calendarTodoDeleteDialog_dialogButton_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete todo.
+        /// </summary>
+        public static string calendarTodoDeleteDialog_dialogHeader {
+            get {
+                return ResourceManager.GetString("calendarTodoDeleteDialog_dialogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The deleted todo cannot be restored. Are you sure you want to continue?.
+        /// </summary>
+        public static string calendarTodoDeleteDialog_dialogSingleBody {
+            get {
+                return ResourceManager.GetString("calendarTodoDeleteDialog_dialogSingleBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        public static string calendarTodoEditor_descriptionLabel {
+            get {
+                return ResourceManager.GetString("calendarTodoEditor_descriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        public static string calendarTodoEditor_dialogDateLabel {
+            get {
+                return ResourceManager.GetString("calendarTodoEditor_dialogDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create todo.
+        /// </summary>
+        public static string calendarTodoEditor_dialogHeader_add {
+            get {
+                return ResourceManager.GetString("calendarTodoEditor_dialogHeader_add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit todo.
+        /// </summary>
+        public static string calendarTodoEditor_dialogHeader_edit {
+            get {
+                return ResourceManager.GetString("calendarTodoEditor_dialogHeader_edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title:.
+        /// </summary>
+        public static string calendarTodoEditor_titleLabel {
+            get {
+                return ResourceManager.GetString("calendarTodoEditor_titleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New todo.
+        /// </summary>
+        public static string calendarTodoList_addTodoLabel {
+            get {
+                return ResourceManager.GetString("calendarTodoList_addTodoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new todo.
+        /// </summary>
+        public static string calendarTodoList_newTodoTitle {
+            get {
+                return ResourceManager.GetString("calendarTodoList_newTodoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No due date.
+        /// </summary>
+        public static string calendarTodoList_noDueDate {
+            get {
+                return ResourceManager.GetString("calendarTodoList_noDueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overdue.
+        /// </summary>
+        public static string calendarTodoList_Overdue {
+            get {
+                return ResourceManager.GetString("calendarTodoList_Overdue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To-do.
+        /// </summary>
+        public static string calendarTodoList_title {
+            get {
+                return ResourceManager.GetString("calendarTodoList_title", resourceCulture);
             }
         }
         
@@ -1106,6 +1340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The title cannot contain any of the following characters: {0}.
+        /// </summary>
+        public static string dialogErrorMassageSpecCharacter {
+            get {
+                return ResourceManager.GetString("dialogErrorMassageSpecCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All subsequent changes will be applied to your calendar only..
         /// </summary>
         public static string editorInfoText {
@@ -1160,6 +1403,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CalDAV.
+        /// </summary>
+        public static string icalStream_export_caldav {
+            get {
+                return ResourceManager.GetString("icalStream_export_caldav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string icalStream_export_copy_button {
+            get {
+                return ResourceManager.GetString("icalStream_export_copy_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To configure the export of events from this calendar to another calendar, copy the corresponding link and add it to the required calendar..
+        /// </summary>
+        public static string icalStream_export_description {
+            get {
+                return ResourceManager.GetString("icalStream_export_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export and Sync.
+        /// </summary>
+        public static string icalStream_export_header {
+            get {
+                return ResourceManager.GetString("icalStream_export_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection instructions in the.
+        /// </summary>
+        public static string icalStream_export_help {
+            get {
+                return ResourceManager.GetString("icalStream_export_help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help Center.
+        /// </summary>
+        public static string icalStream_export_help_center {
+            get {
+                return ResourceManager.GetString("icalStream_export_help_center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to iCal.
+        /// </summary>
+        public static string icalStream_export_ical {
+            get {
+                return ResourceManager.GetString("icalStream_export_ical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To configure the export of todos  to another calendar, copy the corresponding link and add it to the required calendar..
+        /// </summary>
+        public static string icalStream_export_todo_description {
+            get {
+                return ResourceManager.GetString("icalStream_export_todo_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try again.
+        /// </summary>
+        public static string icalStream_export_try_again_button {
+            get {
+                return ResourceManager.GetString("icalStream_export_try_again_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export events from ONLYOFFICE™ calendar.
         /// </summary>
         public static string icalStream_exportLink {
@@ -1196,11 +1520,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import events.
+        /// </summary>
+        public static string icalStream_importEventsLabel {
+            get {
+                return ResourceManager.GetString("icalStream_importEventsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import/Export.
         /// </summary>
         public static string icalStream_importExport {
             get {
                 return ResourceManager.GetString("icalStream_importExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select iCal file.
+        /// </summary>
+        public static string icalStream_importLinkNew {
+            get {
+                return ResourceManager.GetString("icalStream_importLinkNew", resourceCulture);
             }
         }
         
@@ -1241,11 +1583,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link preparation failed.
+        /// </summary>
+        public static string icalStream_preparing_error_message {
+            get {
+                return ResourceManager.GetString("icalStream_preparing_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preparing the link for export.
+        /// </summary>
+        public static string icalStream_preparing_message {
+            get {
+                return ResourceManager.GetString("icalStream_preparing_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to iCal feed link:.
         /// </summary>
         public static string icalStream_savedLinkLabel {
             get {
                 return ResourceManager.GetString("icalStream_savedLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide to-do marked as done on page load.
+        /// </summary>
+        public static string menuDeleteMarkedTodo {
+            get {
+                return ResourceManager.GetString("menuDeleteMarkedTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export and Sync.
+        /// </summary>
+        public static string menuSyncLinks {
+            get {
+                return ResourceManager.GetString("menuSyncLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show to-do in calendar.
+        /// </summary>
+        public static string menuTodoInCalendar {
+            get {
+                return ResourceManager.GetString("menuTodoInCalendar", resourceCulture);
             }
         }
         
@@ -1516,6 +1903,42 @@ namespace Resources {
         public static string replyLabelText {
             get {
                 return ResourceManager.GetString("replyLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string todoViewer_dialogButton_delete {
+            get {
+                return ResourceManager.GetString("todoViewer_dialogButton_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string todoViewer_dialogButton_edit {
+            get {
+                return ResourceManager.GetString("todoViewer_dialogButton_edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as not done.
+        /// </summary>
+        public static string todoViewer_dialogButton_mark_off {
+            get {
+                return ResourceManager.GetString("todoViewer_dialogButton_mark_off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as done.
+        /// </summary>
+        public static string todoViewer_dialogButton_mark_on {
+            get {
+                return ResourceManager.GetString("todoViewer_dialogButton_mark_on", resourceCulture);
             }
         }
     }

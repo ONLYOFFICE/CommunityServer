@@ -1,0 +1,26 @@
+﻿<script id="dealSelectorContainerTmpl" type="text/x-jquery-tmpl">
+    <div id="selector_${ObjName}">
+        <table class="contactSelector-inputContainer" width="100%" style="height: 18px;" cellspacing="0" cellpadding="1" >
+            <tbody>
+                <tr>
+                    <td class="borderBase" style="border-right: 0 none; width: 16px">
+                        <label class="searchButton"></label>
+                        <img class="loaderImg" src="${StudioManager.GetImage('loader_16.gif')}" style="display:none;"/>
+                    </td>
+                    <td class="borderBase" style="border-left: 0 none; border-right: 0 none;">
+                        <input class="textEdit" type="text" value="" placeholder="${Description}" autocomplete="off"/>
+                    </td>
+                    <td class="borderBase" style="border-left: 0 none; width: 16px">
+                        <label class="crossButton" style="display:none;"></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="borderBase noMatches">
+            <div>${ASC.CRM.Resources.CRMCommonResource.NoMatches}</div>
+            <div>
+                <a class="link blue dotline small plus">${ASC.CRM.Resources.CRMDealResource.AddNewDeal}</a>
+            </div>
+        </div>
+    </div>
+</script>

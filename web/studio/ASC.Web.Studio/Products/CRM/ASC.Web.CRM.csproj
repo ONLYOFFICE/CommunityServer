@@ -4,6 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -16,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.CRM</RootNamespace>
     <AssemblyName>ASC.Web.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -48,31 +49,23 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth">
-      <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\..\..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\MailKit.2.0.4\lib\net45\MailKit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -125,7 +118,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="DotNetZip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="Twilio">
       <SpecificVersion>False</SpecificVersion>
@@ -160,7 +153,6 @@
     <Compile Include="Classes\OrganisationLogoManager.cs" />
     <Compile Include="Classes\RegisterClientScriptHelper.cs" />
     <Compile Include="Classes\SignalRHelper.cs" />
-    <Compile Include="Classes\SocialMedia\FacebookApiHelper.cs" />
     <Compile Include="Classes\SocialMedia\TwitterApiHelper.cs" />
     <Compile Include="Classes\SubscriptionManager.cs" />
     <Compile Include="Classes\TwilioController.cs" />
@@ -331,7 +323,6 @@
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
@@ -359,10 +350,21 @@
     </Compile>
     <Compile Include="Core\Dao\ListItemHistoryDao.cs" />
     <Compile Include="Core\DIHelper.cs" />
+    <Compile Include="Core\Entities\Filter.cs" />
     <Compile Include="Core\Entities\ListItemHistory.cs" />
-    <Compile Include="Core\Enums\ReportTaskStatus.cs" />
+    <Compile Include="Core\Enums\ProgressStatus.cs" />
     <Compile Include="Core\Enums\ReportTimePeriodEnum.cs" />
     <Compile Include="Core\Enums\ReportTypeEnum.cs" />
+    <Compile Include="Core\Search\BundleSearch.cs" />
+    <Compile Include="Core\Search\CasesWrapper.cs" />
+    <Compile Include="Core\Search\ContactsWrapper.cs" />
+    <Compile Include="Core\Search\DealsWrapper.cs" />
+    <Compile Include="Core\Search\EmailWrapper.cs" />
+    <Compile Include="Core\Search\EventsWrapper.cs" />
+    <Compile Include="Core\Search\FieldsWrapper.cs" />
+    <Compile Include="Core\Search\InfoWrapper.cs" />
+    <Compile Include="Core\Search\InvoicesWrapper.cs" />
+    <Compile Include="Core\Search\TasksWrapper.cs" />
     <Compile Include="Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -488,7 +490,6 @@
     <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
     <Compile Include="Classes\Global.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaAccountNotFound.cs" />
-    <Compile Include="Classes\SocialMedia\SocialMediaConstants.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaImageDescription.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaUI.cs" />
     <Compile Include="Classes\CRMSettings.cs" />
@@ -797,6 +798,7 @@
     <Content Include="Templates\ContactInfoCardTemplate.html" />
     <Content Include="Templates\ContactSelectorTemplates.html" />
     <Content Include="Templates\ContactsTemplates.html" />
+    <Content Include="Templates\DealsSelectorTemplates.html" />
     <Content Include="Templates\DealsTemplates.html" />
     <Content Include="Templates\InvoicesTemplates.html" />
     <Content Include="Templates\SettingsTemplates.html" />
@@ -1046,9 +1048,9 @@
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
-      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
-      <Name>ASC.FullTextIndex</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
@@ -1127,7 +1129,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51843</DevelopmentServerPort>
+          <DevelopmentServerPort>54557</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
@@ -1141,5 +1143,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

@@ -1,0 +1,309 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2018
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+body.custom-mode {
+	background-color: transparent; 
+    #personalLogin {
+        margin-top: 33px;
+    }
+	.login_not-registered-cnt{
+		margin-bottom: 33px;
+		margin-top: 45px;
+	}
+	.try-welcome-top.studio-top-panel .studio-top-logo {
+		margin-left: 0;
+		margin-top: 14px;
+        .top-logo img{
+            max-height: 56px;
+        }
+	}
+	
+	.auth-form-with {
+
+		&.auth-form-create-doc{
+			.create-doc-picture{
+				height: 496px;
+				background-position: 65px 1px;
+				background-size: contain;
+			}
+		}
+		
+		&.auth-form-share-collaborate{
+			.share-collaborate-picture-carousel{
+				.scpc-item{
+					.collaborate2,.collaborate3,.collaborate4,.collaborate5{
+						background-position: 100% 50% !important;
+					}
+				}
+			}
+		}//auth-form-share-collaborate
+		
+		&.auth-form-access{
+			
+			background: #fff;
+	
+			.auth-form-access-container{
+				padding-bottom: 143px;
+			}
+			.auth-form-access-container{
+				.access-header{
+					margin-bottom:50px;
+				}
+				.access-text{
+					width: ~"calc(50% - 107px)";
+					float: left;
+					margin-left: 17px;
+					margin-right: 0;
+					padding-right: 90px;
+					padding-top: 25px;
+					background-repeat: no-repeat;
+				}
+			}
+		}//auth-form-access
+		
+	}
+}
+body.custom-mode.desktop{
+	#loginPopup{
+		display: block;
+		background-color: #fff;
+
+		.default-personal-popup_closer{
+			display: none;
+		}
+		.default-personal-popup_cnt{
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+	}
+
+	.register_form_closer,
+	.default-personal-popup_check,
+	.personal-footer,
+	.auth-form-with_form_w,
+	.auth-form-container{
+		display: none;
+	}
+
+    .auth-form-with_form_btn,
+    .auth-form-with_form_btn:active,
+    .auth-form-with_form_btn:visited,
+    .auth-form-with_form_btn:focus,
+    .popupContainerClass .middle-button-container .button.blue,
+    .popupContainerClass .middle-button-container .button.blue:active,
+    .popupContainerClass .middle-button-container .button.blue:visited,
+    .popupContainerClass .middle-button-container .button.blue:focus,
+    button.default-personal-popup_btn,
+    button.default-personal-popup_btn:active,
+    button.default-personal-popup_btn:visited,
+    button.default-personal-popup_btn:focus,
+    button.default-personal-popup_btn.disabled,
+    button.default-personal-popup_btn.disabled:active,
+    button.default-personal-popup_btn.disabled:hover,
+    button.default-personal-popup_btn.disabled:focus,
+    button.default-personal-popup_btn.disabled:visited {
+        background-color: #3A83DB;
+    }
+    .auth-form-with_form_btn:hover,
+	.popupContainerClass .middle-button-container .button.blue:hover,
+	button.default-personal-popup_btn:hover{
+		 background-color: #5293e2;
+	}
+    .auth-form-settings .auth-form-setting input[type="checkbox"]:checked + span,
+	.desktop-personal-popup_check input[type="checkbox"]:checked + span {
+        background-color: #3A83DB;
+        border-color: #3A83DB;
+    }
+	.toast-top-right {
+		right: ~"calc(50% - 195px)";
+	}
+
+    .desktop-personal-popup_check label label a, .default-personal-popup_check label label a,
+	#sendEmailSuccessPopup .default-personal-popup_cnt .default-personal-popup_text:not(.small-text),
+	.auth-form-settings .auth-form-setting label label a,
+	.login_forget-psw{
+		color: #3A83DB;
+	}
+	.auth-form-with_form_w{
+		top: 108px;
+		left: ~"calc(50% - 229px)";
+	}
+	.auth-form-with_form{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	.login_not-registered-cnt span:nth-child(1){
+		display: none;
+	}
+
+    .default-personal-popup_btn.disabled{
+        opacity: 0.5;
+        cursor: default;
+    }
+}
+
+
+@media screen and (max-width: 1040px){
+
+	body.custom-mode{
+		.try-welcome-top{
+			&.studio-top-panel{
+				.studio-top-logo{
+					margin-left: 110px;
+				}
+			} 
+		}
+        #studioPageContent .try-welcome-top #personalLogin {
+            margin-top: 20px;
+        }
+		
+		.auth-form-with{
+			&.auth-form-create-doc{
+				.create-carousel{
+						margin-top: 100px;
+				}
+				.slick-carousel .create-doc-picture{
+					height: 295px;
+					background-position: 65px 1px;
+				}
+			}//auth-form-create-doc
+			
+			&.auth-form-share-collaborate{
+				
+				.share-collaborate-picture-carousel{
+					
+					.scpc-item{   
+						.collaborate1,.collaborate2,.collaborate3,.collaborate4,.collaborate5,.collaborate6{
+							width: 310px;
+							height: 273px;
+							margin-left: 0;
+							margin-right: 0;
+							margin-top: 0;
+							background-position: 0px 60px !important;
+							background-size: contain;
+						}
+					} 	
+				} 
+				
+			}//auth-form-share-collaborate
+			
+			&.auth-form-access{
+				.auth-form-access-container{
+					.access-header{
+						margin-bottom:0;
+					}
+					.access-text{
+						padding-top: 15px;
+						margin-top: 30px;
+					}
+				}
+			}//auth-form-access
+		}
+	}
+}
+
+@media screen and (max-width: 767px){
+	
+    body.custom-mode.desktop{
+        .default-personal-popup_form-i{
+	        .default-personal-popup_label{
+		        left: 25px;
+                &.email{
+		            top: 96px;
+	            }
+	            &.password{
+		            top: 185px;
+	            }
+	        }
+        }
+    }
+	body.custom-mode{
+		#studioPageContent{
+			.try-welcome-top{
+				.studio-top-logo {
+					margin-left: 26px;
+				}
+			}
+		}
+        #studioPageContent .try-welcome-top .studio-top-logo .top-logo img{
+            height: initial;
+        }
+		.auth-form-head_w_background{
+			height: 568px;
+			background-position-x: ~"calc(100% + 800px)";
+		}
+        #studioPageContent .try-welcome-top #personalLogin {
+            margin-top: 34px;
+        }
+		.auth-form-with{
+			&.auth-form-create-doc{
+				.create-carousel{
+					margin-top: 140px;
+				}
+				.slick-carousel{
+					.create-doc-picture{
+						height: 187px;
+						background-position: 0 0;
+					}
+				}
+			}//auth-form-create-doc 
+			
+	
+			&.auth-form-share-collaborate{
+				
+				.share-collaborate-picture-carousel{ 
+					
+					ul{
+						left: 120px;
+					}
+					
+					.scpc-item{
+						.collaborate1,.collaborate2,.collaborate3,.collaborate4,.collaborate5,.collaborate6{
+							width: 293px;
+							height: 250px;
+							background-position: 0 0 !important;
+						}
+					} 
+				}
+				
+			}//auth-form-share-collaborate
+	
+			
+	
+			&.auth-form-access{
+				.auth-form-access-container{
+					padding-bottom:150px;
+					.access-text{
+						width: auto;
+						float: none;
+					}
+				}
+			}//auth-form-access
+		}
+	}
+}

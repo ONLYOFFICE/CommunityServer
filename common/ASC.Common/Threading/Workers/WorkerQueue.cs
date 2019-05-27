@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using log4net;
+using ASC.Common.Logging;
 
 
 namespace ASC.Common.Threading.Workers
@@ -138,13 +138,13 @@ namespace ASC.Common.Threading.Workers
                 stopEvent.Set();
                 waitEvent.Set();
 
-                log.DebugFormat("Stoping queue. Joining threads");
+                log.Debug("Stoping queue. Joining threads");
                 foreach (var workerThread in threads)
                 {
                     workerThread.Join();
                 }
                 threads.Clear();
-                log.DebugFormat("Queue stoped. Threads cleared");
+                log.Debug("Queue stoped. Threads cleared");
             }
         }
 
@@ -157,7 +157,7 @@ namespace ASC.Common.Threading.Workers
                 stopEvent.Set();
                 waitEvent.Set();
 
-                log.DebugFormat("Stoping queue. Terminating threads");
+                log.Debug("Stoping queue. Terminating threads");
                 foreach (var worker in threads.Where(t => t != Thread.CurrentThread))
                 {
                     worker.Abort();
@@ -165,11 +165,11 @@ namespace ASC.Common.Threading.Workers
                 if (threads.Contains(Thread.CurrentThread))
                 {
                     threads.Clear();
-                    log.DebugFormat("Terminate called from current worker thread. Terminating");
+                    log.Debug("Terminate called from current worker thread. Terminating");
                     Thread.CurrentThread.Abort();
                 }
                 threads.Clear();
-                log.DebugFormat("Queue stoped. Threads cleared");
+                log.Debug("Queue stoped. Threads cleared");
             }
         }
 
@@ -235,13 +235,13 @@ namespace ASC.Common.Threading.Workers
                 stopEvent.Reset();
                 waitEvent.Reset();
 
-                log.DebugFormat("Creating threads");
+                log.Debug("Creating threads");
                 for (var i = 0; i < workerCount; i++)
                 {
                     threads.Add(new Thread(DoWork) { IsBackground = backgroundThreads });
                 }
 
-                log.DebugFormat("Starting threads");
+                log.Debug("Starting threads");
                 foreach (var thread in threads)
                 {
                     thread.Start(stopAfterFinsih);

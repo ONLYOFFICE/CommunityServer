@@ -44,6 +44,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 using Tag = ASC.Bookmarking.Pojo.Tag;
 
 namespace ASC.Bookmarking.Business
@@ -170,6 +172,7 @@ namespace ASC.Bookmarking.Business
 			Dao.UpdateBookmark(userBookmark, tags);
 			var b = GetBookmarkByID(userBookmark.BookmarkID);
 			SubscribeOnBookmarkComments(b);
+            FactoryIndexer<BookmarksUserWrapper>.IndexAsync(BookmarksUserWrapper.Create(userBookmark, b));
 			return b;
 		}
 

@@ -38,8 +38,11 @@ using ASC.Web.Studio.Core.Users;
 using Newtonsoft.Json.Linq;
 using System.Web;
 using System.Text;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
+using ASC.ElasticSearch;
 using ASC.Web.CRM.Core;
+using ASC.Web.CRM.Core.Search;
 using Autofac;
 
 namespace ASC.Web.CRM.Controls.Cases
@@ -117,6 +120,7 @@ namespace ASC.Web.CRM.Controls.Cases
                         caseID = TargetCase.ID;
                         TargetCase.Title = Request["caseTitle"];
                         daoFactory.CasesDao.UpdateCases(TargetCase);
+                        FactoryIndexer<CasesWrapper>.UpdateAsync(TargetCase);
                         MessageService.Send(HttpContext.Current.Request, MessageAction.CaseUpdated, MessageTarget.Create(TargetCase.ID), TargetCase.Title);
                         SetPermission(TargetCase);
                     }
@@ -124,6 +128,7 @@ namespace ASC.Web.CRM.Controls.Cases
                     {
                         caseID = daoFactory.CasesDao.CreateCases(Request["caseTitle"]);
                         var newCase = daoFactory.CasesDao.GetByID(caseID);
+                        FactoryIndexer<CasesWrapper>.IndexAsync(newCase);
                         MessageService.Send(HttpContext.Current.Request, MessageAction.CaseCreated, MessageTarget.Create(newCase.ID), newCase.Title);
                         SetPermission(newCase);
                     }
@@ -173,7 +178,7 @@ namespace ASC.Web.CRM.Controls.Cases
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                LogManager.GetLogger("ASC.CRM").Error(ex);
                 var cookie = HttpContext.Current.Request.Cookies.Get(ErrorCookieKey);
                 if (cookie == null)
                 {

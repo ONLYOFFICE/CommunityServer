@@ -186,7 +186,7 @@
     }
 
     .baseLinkAction {
-        background: url(./images/btn-edit.png) no-repeat 0 0 transparent;
+        background: url('../../../../skins/default/Images/svg/people/pencilgray.svg') no-repeat 0 0 transparent;
         border: 0;
         display: inline-block;
         width: 16px;
@@ -197,7 +197,7 @@
         color: #FFF !important;
 
         &:hover {
-            background-position: bottom;
+            background: url('../../../../skins/default/Images/svg/people/pencilblue.svg') no-repeat 0 0 transparent;
         }
     }
 }
@@ -297,7 +297,8 @@ body.media-width-0-1200 {
                     background-position: -144px center;
                 }
 
-                &.skype .label {
+                &.skype .label,
+                &.extskype .label {
                     background-position: -120px center;
                 }
 
@@ -329,7 +330,8 @@ body.media-width-0-1200 {
                     background-position: -96px center;
                 }
 
-                &.phone .label {
+                &.phone .label,
+                &.extphone .label {
                     background-position: -48px center;
                 }
 
@@ -387,34 +389,55 @@ body.media-width-0-1200 {
             .borderRadius(3px);
             margin: 0;
         }
-
-        &.connected {
-            .label {
-                background-color: #4ca5d6;
-            }
-        }
-
         &.google {
             .label {
-                background-position: -96px 0;
+                background: url('../../../../skins/default/Images/svg/people/googlegray.svg') no-repeat 0 0 transparent;
+                background-size: 100%;
+            }
+            &.connected {
+                .label {
+                    background: url('../../../../skins/default/Images/svg/people/google.svg') no-repeat 0 0 transparent;
+                    background-size: 100%;
+                }
             }
         }
 
         &.twitter {
             .label {
-                background-position: -64px 0;
+                background: url('../../../../skins/default/Images/svg/people/twittergray.svg') no-repeat 0 0 transparent;
+                background-size: 100%;
+            }
+            &.connected {
+                .label {
+                    background: url('../../../../skins/default/Images/svg/people/twitter.svg') no-repeat 0 0 transparent;
+                    background-size: 100%;
+                }
             }
         }
 
         &.facebook {
             .label {
-                background-position: -32px 0;
+                background: url('../../../../skins/default/Images/svg/people/facebookgray.svg') no-repeat 0 0 transparent;
+                background-size: 100%;
+            }
+            &.connected {
+                .label {
+                    background: url('../../../../skins/default/Images/svg/people/facebook.svg') no-repeat 0 0 transparent;
+                    background-size: 100%;
+                }
             }
         }
 
         &.linkedin {
             .label {
-                background-position: -128px 0;
+                background: url('../../../../skins/default/Images/svg/people/linked_in_icongray.svg') no-repeat 0 0 transparent;
+                background-size: 100%;
+            }
+            &.connected {
+                .label {
+                    background: url('../../../../skins/default/Images/svg/people/linked_in_icon.svg') no-repeat 0 0 transparent;
+                    background-size: 100%;
+                }
             }
         }
     }
@@ -476,12 +499,13 @@ a {
 
     .profile-action-usericon {
         width: 200px;
+        height: 200px;
 
         img {
             border: none;
             display: block;
             margin: 0 auto;
-            max-height: 320px;
+            max-height: 200px;
             max-width: 200px;
         }
     }

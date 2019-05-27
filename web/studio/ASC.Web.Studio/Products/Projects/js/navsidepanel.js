@@ -463,6 +463,10 @@ ASC.Projects.navSidePanel = (function () {
             }
         }
 
+        if (Teamlab.profile.isVisitor && window.location.href.indexOf("tmdocs.aspx") > -1) {
+            $menuCreateNewButton.addClass(disableClass);
+        }
+
         if (!canCreateProject) {
             $createNewProject.hide();
             $createProjectTempl.hide();

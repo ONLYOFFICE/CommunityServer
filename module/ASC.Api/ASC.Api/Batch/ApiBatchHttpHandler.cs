@@ -83,7 +83,7 @@ namespace ASC.Api.Batch
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "batch process error");
+                    Log.Error("batch process error", e);
                     //Set status to error
                     SetError(context, e, HttpStatusCode.InternalServerError);
                     //Try respond again
@@ -129,8 +129,7 @@ namespace ASC.Api.Batch
                     var encoding = Encoding.GetEncoding(contentType.CharSet);
                     workerRequest.EntityBody = encoding.GetBytes(apiBatchRequest.Body);
                 }
-                var workContext = new HttpContext(workerRequest);
-
+                var workContext = new HttpContext(workerRequest) {Handler = this};
                 var newContext = new HttpContextWrapper(workContext);
                 
                 //Make a faked request

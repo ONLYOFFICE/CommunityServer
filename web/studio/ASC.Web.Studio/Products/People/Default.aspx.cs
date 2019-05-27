@@ -50,6 +50,8 @@ namespace ASC.Web.People
 
         protected bool DisplayPaymentsFirst { get; private set; }
 
+        protected string HelpLink { get; set; }
+
         public AllowedActions Actions;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -83,6 +85,8 @@ namespace ASC.Web.People
                 userPwdChange.Controls.Add(LoadControl(PwdTool.Location));
             }
             Title = HeaderStringHelper.GetPageTitle(PeopleResource.ProductName);
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
     }
 }

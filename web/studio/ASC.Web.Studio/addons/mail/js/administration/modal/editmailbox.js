@@ -68,7 +68,7 @@ window.editMailboxModal = (function($) {
                 );
         });
 
-        popup.addPopup(window.MailAdministrationResource.EditMailboxLabel, html, 392, null, null, { focusInput: false });
+        popup.addBig(window.MailAdministrationResource.EditMailboxLabel, html, null, null, { focusInput: false });
 
         PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_edit_mailbox:visible .addAlias').trigger('click');";
 

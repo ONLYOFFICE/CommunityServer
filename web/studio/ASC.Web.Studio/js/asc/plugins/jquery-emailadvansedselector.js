@@ -140,6 +140,8 @@
                 if (self.settings.onChangeCallback && fireCallback)
                     self.settings.onChangeCallback();
             }
+
+            self.input.focus();
         };
 
         this.drawItems = function(items, nextObj) {

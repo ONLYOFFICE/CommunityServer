@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Build.Utilities;
+using Microsoft.Build.Framework;
 
 
 
@@ -73,6 +74,26 @@ namespace MSBuild.Community.Tasks.NuGet
         protected override string ToolName
         {
             get { return "NuGet.exe"; }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log output.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log output.</returns>
+        protected override MessageImportance StandardOutputLoggingImportance
+        {
+            get { return MessageImportance.Normal; }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.</returns>
+        protected override MessageImportance StandardErrorLoggingImportance
+        {
+            get { return MessageImportance.High; }
         }
 
         /// <summary>

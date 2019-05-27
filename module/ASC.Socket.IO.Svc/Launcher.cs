@@ -27,15 +27,13 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ASC.Common.Logging;
 using ASC.Common.Module;
 using ASC.Core;
 using ASC.Core.Notify.Signalr;
-using log4net;
 using WebSocketSharp;
 
 namespace ASC.Socket.IO.Svc
@@ -50,6 +48,7 @@ namespace ASC.Socket.IO.Svc
         private static CancellationTokenSource cancellationTokenSource;
         private const int PingInterval = 10000;
         private static readonly ILog Logger = LogManager.GetLogger("ASC");
+        private static string LogDir;
 
         public void Start()
         {
@@ -85,15 +84,8 @@ namespace ASC.Socket.IO.Svc
                     startInfo.EnvironmentVariables.Add("portal.internal.url", "http://localhost");
                 }
 
-                var appender = LogManager.GetRepository().GetAppenders().Where(r => r.Name == "File")
-                    .Cast<log4net.Appender.RollingFileAppender>()
-                    .FirstOrDefault();
-                if (appender != null)
-                {
-                    startInfo.EnvironmentVariables.Add("logPath",
-                        Path.Combine(Path.GetDirectoryName(appender.File), "web.socketio.%DATE%.log"));
-                }
-
+                LogDir = Logger.LogDirectory;
+                startInfo.EnvironmentVariables.Add("logPath", Path.Combine(LogDir, "web.socketio.log"));
                 StartNode();
             }
             catch (Exception e)
@@ -113,7 +105,8 @@ namespace ASC.Socket.IO.Svc
             StopNode();
             proc = Process.Start(startInfo);
 
-            StartPing();
+            var task = new Task(StartPing, cancellationTokenSource.Token, TaskCreationOptions.LongRunning);
+            task.Start(TaskScheduler.Default);
         }
 
         private static void StopNode()
@@ -142,8 +135,64 @@ namespace ASC.Socket.IO.Svc
         {
             Thread.Sleep(PingInterval);
 
+            var error = false;
             webSocket = new WebSocket(string.Format("ws://127.0.0.1:{0}/socket.io/?EIO=3&transport=websocket", startInfo.EnvironmentVariables["port"]));
             webSocket.SetCookie(new WebSocketSharp.Net.Cookie("authorization", SignalrServiceClient.CreateAuthToken()));
+            webSocket.EmitOnPing = true;
+
+            webSocket.Log.Level = LogLevel.Trace;
+
+            webSocket.Log.Output = (logData, filePath) =>
+            {
+                if(logData.Message.Contains("SocketException"))
+                {
+                    error = true;
+                }
+
+                Logger.Debug(logData.Message);
+            };
+
+            webSocket.OnOpen += (sender, e) =>
+            {
+                Logger.Info("Open");
+                error = false;
+
+                Thread.Sleep(PingInterval);
+
+                Task.Run(() =>
+                {
+                    while (webSocket.Ping())
+                    {
+                        Logger.Debug("Ping " + webSocket.ReadyState);
+                        Thread.Sleep(PingInterval);
+                    }
+
+                    Logger.Debug("Reconnect" + webSocket.ReadyState);
+
+                }, cancellationTokenSource.Token);
+            };
+
+            webSocket.OnClose += (sender, e) =>
+            {
+                Logger.Info("Close");
+
+                if(cancellationTokenSource.IsCancellationRequested) return;
+
+                if (error)
+                {
+                    if (retries < maxretries)
+                    {
+                        StartNode();
+                        retries++;
+                    }
+                }
+                else
+                {
+                    webSocket.Connect();
+                }
+
+            };
+
             webSocket.OnMessage += (sender, e) =>
             {
                 if (e.Data.Contains("error"))
@@ -152,23 +201,13 @@ namespace ASC.Socket.IO.Svc
                     cancellationTokenSource.Cancel();
                 }
             };
-            webSocket.Connect();
 
-            Task.Run(() =>
+            webSocket.OnError += (sender, e) =>
             {
-                while (webSocket.Ping())
-                {
-                    Logger.Debug("Ping");
-                    Thread.Sleep(PingInterval);
-                }
+                Logger.Error("Error", e.Exception);
+            };
 
-                Logger.Debug("Reconnect");
-                if (retries < maxretries)
-                {
-                    StartNode();
-                    retries++;
-                }
-            }, cancellationTokenSource.Token);
+            webSocket.Connect();
         }
 
         private static void StopPing()

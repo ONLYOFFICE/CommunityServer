@@ -144,6 +144,9 @@
   <data name="ActivateAccountShure" xml:space="preserve">
     <value>Do you want to activate %1?</value>
   </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>Add condition</value>
+  </data>
   <data name="AddAccountBtnLabel" xml:space="preserve">
     <value>Add Account</value>
   </data>
@@ -510,12 +513,6 @@
   <data name="ErrorNoUserSelectedField" xml:space="preserve">
     <value>no user selected</value>
   </data>
-  <data name="ErrorOpenFolderDescription" xml:space="preserve">
-    <value>Try to reconnect the account or log in using the original service website.</value>
-  </data>
-  <data name="ErrorOpenFolderHeader" xml:space="preserve">
-    <value>The contents of the folder are not available.</value>
-  </data>
   <data name="ErrorOpenMessage" xml:space="preserve">
     <value>A problem has occurred while trying to open this message.</value>
   </data>
@@ -653,6 +650,12 @@
   </data>
   <data name="FromLabel" xml:space="preserve">
     <value>From</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="ToOrCcLabel" xml:space="preserve">
+    <value>To or Cc</value>
   </data>
   <data name="GoForDetailsText" xml:space="preserve">
     <value>Go to {0} to enable them.</value>
@@ -986,5 +989,233 @@
   </data>
   <data name="WithTags" xml:space="preserve">
     <value>With tags</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="MailFilters" xml:space="preserve">
+    <value>Message filtering</value>
+  </data>
+  <data name="EmptyUserFolderDescription" xml:space="preserve">
+    <value>This section allows you to manage the messages you move. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
+  </data>
+  <data name="EmptyUserFolderHeader" xml:space="preserve">
+    <value>No messages to be displayed in this folder</value>
+  </data>
+  <data name="DeleteUserFolderShure" xml:space="preserve">
+    <value>Do you want to delete the folder "{0}"?</value>
+  </data>
+  <data name="UserFolderSelectorLink" xml:space="preserve">
+    <value>Select the parent folder</value>
+  </data>
+  <data name="UserFolderSelectorLabel" xml:space="preserve">
+    <value>Parent folder:</value>
+  </data>
+  <data name="UserFolderNoSelected" xml:space="preserve">
+    <value>not selected</value>
+  </data>
+  <data name="UserFolderSelected" xml:space="preserve">
+    <value>Selected "{0}"</value>
+  </data>
+  <data name="UserFolderNotSelected" xml:space="preserve">
+    <value>Leave on the first level</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="EmptyScrUserFoldersHeader" xml:space="preserve">
+    <value>No folders created</value>
+  </data>
+  <data name="EmptyScrUserFoldersDescription" xml:space="preserve">
+    <value>You need first to create a folder and use it after that only</value>
+  </data>
+  <data name="InfoSelectCount" xml:space="preserve">
+    <value>Elements: {0}</value>
+  </data>
+  <data name="InfoSelectingDescribe" xml:space="preserve">
+    <value>{0}Drag the element(s) with the mouse to add to the folder</value>
+  </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>Create filter</value>
+  </data>
+  <data name="EmptyScrFiltersHeader" xml:space="preserve">
+    <value>No filters created</value>
+  </data>
+  <data name="EmptyScrFiltersDescription" xml:space="preserve">
+    <value>You need first to create a filter and use it after that only</value>
+  </data>
+  <data name="MatchesLabel" xml:space="preserve">
+    <value>matches</value>
+  </data>
+  <data name="NotMatchesLabel" xml:space="preserve">
+    <value>doesn't match</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>contains</value>
+  </data>
+  <data name="NotContainsLabel" xml:space="preserve">
+    <value>doesn't contains</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>If</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>Apply to</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>Apply to messages from</value>
+  </data>
+  <data name="ApplyToAllExcludingSpamLabel" xml:space="preserve">
+    <value>all messages excluding spam</value>
+  </data>
+  <data name="ApplyToAllLabel" xml:space="preserve">
+    <value>all messages including spam</value>
+  </data>
+  <data name="ApplyToSpamOnlyLabel" xml:space="preserve">
+    <value>spam only messages</value>
+  </data>
+  <data name="ApplyToWithAndWithoutAttachments" xml:space="preserve">
+    <value>with and without attachments</value>
+  </data>
+  <data name="ApplyToWithAttachments" xml:space="preserve">
+    <value>with attachments</value>
+  </data>
+  <data name="ApplyToWithoutAttachments" xml:space="preserve">
+    <value>without attachments</value>
+  </data>
+  <data name="FilterActionInfo" xml:space="preserve">
+    <value>Take the following action</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>Advanced options</value>
+  </data>
+  <data name="FilterActionDeleteLabel" xml:space="preserve">
+    <value>Delete forever</value>
+  </data>
+  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
+    <value>Move to trash</value>
+  </data>
+  <data name="FilterActionMarkAsReadLabel" xml:space="preserve">
+    <value>Mark as read</value>
+  </data>
+  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
+    <value>Mark important</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>Move to folder</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Add tag</value>
+  </data>
+  <data name="ApplyMultiConditionsAllLabel" xml:space="preserve">
+    <value>matches all of the conditions</value>
+  </data>
+  <data name="ApplyMultiConditionsAtLeastOneLabel" xml:space="preserve">
+    <value>matches at least one of the conditions</value>
+  </data>
+  <data name="FilterSelectFolderLabel" xml:space="preserve">
+    <value>select folder</value>
+  </data>
+  <data name="FilterSelectTagLabel" xml:space="preserve">
+    <value>select tag</value>
+  </data>
+  <data name="FilterApplyToAttachemnts" xml:space="preserve">
+    <value>Apply if attachments are</value>
+  </data>
+  <data name="FilterApplyToAttachemntsPresent" xml:space="preserve">
+    <value>present in the letter</value>
+  </data>
+  <data name="FilterApplyToAttachemntsNotPresent" xml:space="preserve">
+    <value>not present in the letter</value>
+  </data>
+  <data name="FilterEnterNameDescription" xml:space="preserve">
+    <value>You can also {0}enter a name{1} that will be displayed in the list of filters.</value>
+  </data>
+  <data name="FilterErrorEmptyCondition" xml:space="preserve">
+    <value>Empty value of condition</value>
+  </data>
+  <data name="FilterErrorEmptyMoveToFolderValue" xml:space="preserve">
+    <value>No folder selected</value>
+  </data>
+  <data name="FilterErrorEmptyTagValue" xml:space="preserve">
+    <value>No tag selected</value>
+  </data>
+  <data name="FilterErrorNoActionSelected" xml:space="preserve">
+    <value>No action selected</value>
+  </data>
+  <data name="FilterErrorNoApplyToFolderSelected" xml:space="preserve">
+    <value>No folder selected to apply filter</value>
+  </data>
+  <data name="FilterErrorNoApplyToMailboxSelected" xml:space="preserve">
+    <value>No mailbox selected to apply filter</value>
+  </data>
+  <data name="FilterName" xml:space="preserve">
+    <value>Filter name</value>
+  </data>
+  <data name="FilterIgnoreOther" xml:space="preserve">
+    <value>Ignore other filters</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>Apply to all mailboxes</value>
+  </data>
+  <data name="FilterErrorFolderRemoved" xml:space="preserve">
+    <value>The selected folder has been deleted</value>
+  </data>
+  <data name="FilterErrorTagRemoved" xml:space="preserve">
+    <value>The selected tag has been deleted</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>All the selected accounts have been deleted</value>
+  </data>
+  <data name="InfoCreateFolder" xml:space="preserve">
+    <value>New folder '{0}' is created</value>
+  </data>
+  <data name="InfoMoveFolder" xml:space="preserve">
+    <value>The folder '{0}' is moved into '{1}'</value>
+  </data>
+  <data name="InfoMoveFolderToRoot" xml:space="preserve">
+    <value>The folder '{0}' is moved into the root folder</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>The folder '{0}' is deleted</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>The folder '{0}' is renamed to '{1}'</value>
+  </data>
+  <data name="ErrorLostInternetConnection" xml:space="preserve">
+    <value>Lost internet connection</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>Mark as important</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>Mark as not important</value>
+  </data>
+  <data name="InfoSelectConversation" xml:space="preserve">
+    <value>conversation</value>
+  </data>
+  <data name="InfoSelectConversations" xml:space="preserve">
+    <value>conversations: {0}</value>
+  </data>
+  <data name="InfoSelectMessage" xml:space="preserve">
+    <value>message</value>
+  </data>
+  <data name="InfoSelectMessages" xml:space="preserve">
+    <value>messages: {0}</value>
+  </data>
+  <data name="InfoSelectMove" xml:space="preserve">
+    <value>Move {0}</value>
+  </data>
+  <data name="UserFolderNotFoundError" xml:space="preserve">
+    <value>The required folder was not found</value>
+  </data>
+  <data name="UserFilterNotFound" xml:space="preserve">
+    <value>The filter was not found</value>
   </data>
 </root>

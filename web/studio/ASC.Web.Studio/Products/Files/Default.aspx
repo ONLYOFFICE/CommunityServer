@@ -21,33 +21,6 @@
        };
     %>
     <meta name="apple-itunes-app" content="app-id=944896972, app-argument=<%= HttpUtility.HtmlEncode(uri) %>" />
-
-    <% if (Desktop)
-       { %>
-    <script type="text/javascript">
-        if (window.AscDesktopEditor) {
-            var regDesktop = function () {
-                try {
-                    var data = {
-                        displayName: Teamlab.profile.displayName,
-                        domain: new RegExp("^http(s)?:\/\/[^\/]+\/").exec(location)[0],
-                        email: Teamlab.profile.email,
-                    };
-
-                    window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));
-                } catch (e) {
-                    console.log(e);
-                }
-            };
-
-            if (window.addEventListener) {
-                window.addEventListener("load", regDesktop);
-            } else if (window.attachEvent) {
-                window.attachEvent("onload", regDesktop);
-            }
-        }
-    </script>
-    <% } %>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTSidePanel">
@@ -55,12 +28,12 @@
         <asp:PlaceHolder ID="CommonSideHolder" runat="server"></asp:PlaceHolder>
     </div>
 
-    <% if (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)
+    <% if (!Desktop && CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)
        { %>
     <a href="#more" class="morefeatures-link banner-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
     <% } %>
 
-    <% if (DisplayAppsBanner && (!CoreContext.Configuration.Personal || (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)))
+    <% if (!Desktop && DisplayAppsBanner && (!CoreContext.Configuration.Personal || (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)))
        { %>
     <a href="https://itunes.apple.com/app/onlyoffice-documents/id944896972?mt=8" target="_blank"
         class="mobile-app-banner banner-link gray-text"><%= string.Format(FilesUCResource.AppStore, "<br>", "<span>", "</span>") %></a>

@@ -24,7 +24,6 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -35,12 +34,13 @@ using System.ServiceModel;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using ASC.Common.Logging;
 
 namespace ASC.Core.Billing
 {
     public class BillingClient : ClientBase<IService>, IDisposable
     {
-        private readonly static ILog log = LogManager.GetLogger(typeof(TariffService));
+        private readonly static ILog log = LogManager.GetLogger("ASC");
         private readonly bool test;
 
 
@@ -132,6 +132,7 @@ namespace ASC.Core.Billing
                 .Concat(additionalParameters)
                 .ToArray();
 
+            //max 100 products
             var paymentUrls = ToXElement(Request("GetBatchPaymentSystemUrl", portalId, parameters))
                 .Elements()
                 .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
@@ -141,6 +142,7 @@ namespace ASC.Core.Billing
             {
                 try
                 {
+                    //max 100 products
                     upgradeUrls = ToXElement(Request("GetBatchPaymentSystemUpgradeUrl", portalId, parameters))
                         .Elements()
                         .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));

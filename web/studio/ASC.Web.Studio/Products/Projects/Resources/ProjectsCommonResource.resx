@@ -567,4 +567,7 @@
   <data name="HideEntitiesInPausedProjects" xml:space="preserve">
     <value>Hide Entities In Paused Projects</value>
   </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Report Folder</value>
+  </data>
 </root>

@@ -13,15 +13,6 @@ namespace ASC.Web.People.UserControls {
     public partial class SideNavigationPanel {
         
         /// <summary>
-        /// GroupRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater GroupRepeater;
-        
-        /// <summary>
         /// InviteUserHolder control.
         /// </summary>
         /// <remarks>

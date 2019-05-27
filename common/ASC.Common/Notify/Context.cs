@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Notify.Channels;
 using ASC.Notify.Engine;
 using ASC.Notify.Model;
@@ -131,7 +132,7 @@ namespace ASC.Notify
                     }
                     catch (Exception error)
                     {
-                        log4net.LogManager.GetLogger("ASC.Notify").ErrorFormat("Source: {0}, action: {1}, sender: {2}, error: {3}", source.ID, a.ID, s, error);
+                        LogManager.GetLogger("ASC.Notify").ErrorFormat("Source: {0}, action: {1}, sender: {2}, error: {3}", source.ID, a.ID, s, error);
                     }
                 }
             }

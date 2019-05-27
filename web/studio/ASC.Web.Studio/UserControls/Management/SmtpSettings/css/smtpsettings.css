@@ -80,6 +80,7 @@
 
 #smtpSettingsView .middle-button-container {
     margin-top: 23px;
+    width: 530px;
 }
 
 #settingsSwitch {

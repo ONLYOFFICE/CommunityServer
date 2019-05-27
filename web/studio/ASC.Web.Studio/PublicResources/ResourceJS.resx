@@ -516,14 +516,8 @@
   <data name="NeverShow" xml:space="preserve">
     <value>Never Show</value>
   </data>
-  <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
-  </data>
   <data name="OfflineStatus" xml:space="preserve">
     <value>Offline</value>
-  </data>
-  <data name="Online" xml:space="preserve">
-    <value>Online</value>
   </data>
   <data name="OnlineStatus" xml:space="preserve">
     <value>Online</value>
@@ -726,10 +720,58 @@
   <data name="CallMissed" xml:space="preserve">
     <value>Missed call</value>
   </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Подключить</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>Reset to Default</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>Настройки CDN</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>Настройки хранилища</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>Select an area for avatar</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>Path</value>
+  </data>
   <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
     <value>Subscribe to Tips&amp;Tricks</value>
   </data>
   <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
     <value>Unsubscribe from Tips&amp;Tricks</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>pending</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>Open Talk</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>Invalid first name</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>Invalid last name</value>
   </data>
 </root>

@@ -90,32 +90,32 @@
     /*---combobox status---*/
     #statusList li.dropdown-item {
         padding-left: 30px;
-        background-image: url('../images/projects_entity_statuses.png');
-        background-position: 2px center;
+        background-position: 8px 4px;
         background-repeat: no-repeat;
+        background-size: 16px 16px;
 
         &.open {
-            background-position: 10px -57px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/inbox.svg');
         }
 
         &.closed {
-            background-position: 10px -78px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/check_tick.svg');
         }
 
         &.paused {
-            background-position: 10px -95px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/pause.svg');
         }
 
         &.not-chargeable {
-            background-position: 10px 5px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/forbidden.svg');
         }
 
         &.not-billed {
-            background-position: 10px -16px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/circle-empty.svg');
         }
 
         &.billed {
-            background-position: 10px -37px;
+            background-image: url('../../../../../skins/default/Images/svg/projects/payment-small.svg');
         }
     }
 }
@@ -331,6 +331,12 @@ table.listContainer {
     display: block;
 }
 
+body.media-width-0-1200 {
+    #CommonListContainer {
+        padding-bottom: 48px;
+    }
+}
+
 /*-----pagination-----*/
 
 #tableForNavigation {
@@ -398,12 +404,12 @@ table.listContainer {
             max-width: 100%;
 
             span.private {
-                background: url("../images/small-icons.png") -1px -36px no-repeat;
-                height: 12px;
+                background: url('../../../../../skins/default/Images/svg/projects/lockorange.svg') no-repeat;
+                height: 16px;
                 left: 12px;
                 position: absolute;
                 top: 21px;
-                width: 12px;
+                width: 16px;
             }
 
             #subscribe {
@@ -429,12 +435,19 @@ table.listContainer {
     max-width: 1000px;
 }
 
-body.media-width-0-1575:not(.media-width-0-1350) #essenceTitle.truncated-text {
+
+body.media-width-0-1575 #essenceTitle.truncated-text {
     max-width: 1000px;
 }
+
+body.media-width-0-1500 #essenceTitle.truncated-text {
+    max-width: 900px;
+}
+
 body.media-width-0-1350 #essenceTitle.truncated-text {
     max-width: 800px;
 }
+
 body.media-width-0-1150 #essenceTitle.truncated-text {
     max-width: 600px;
 }
@@ -827,16 +840,16 @@ table.table-list {
                 .overdue,
                 .paused,
                 .closed {
-                    background: url('../images/projects_entity_statuses.png') no-repeat;
-                    background-position: 0 -60px;
+                    background: url('../../../../../skins/default/Images/svg/projects/inbox.svg') no-repeat;
+                    //background-position: 0 -60px;
                 }
 
                 .closed {
-                    background-position: 0 -80px;
+                    background: url('../../../../../skins/default/Images/svg/projects/check_tick.svg') no-repeat;
                 }
 
                 .paused {
-                    background-position: 0 -98px;
+                    background: url('../../../../../skins/default/Images/svg/projects/pause.svg') no-repeat;
                 }
             }
         }

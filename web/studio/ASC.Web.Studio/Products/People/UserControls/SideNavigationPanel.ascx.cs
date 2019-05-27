@@ -43,13 +43,11 @@ using System.Web;
 using System.Web.UI;
 
 
+
 namespace ASC.Web.People.UserControls
 {
     public partial class SideNavigationPanel : UserControl
     {
-        protected List<UserInfo> Profiles;
-        protected List<MyGroup> Groups;
-
         protected bool HasPendingProfiles;
         protected bool EnableAddUsers;
         protected bool CurrentUserFullAdmin;
@@ -64,9 +62,6 @@ namespace ASC.Web.People.UserControls
         {
             InitData();
 
-            GroupRepeater.DataSource = Groups;
-            GroupRepeater.DataBind();
-
             var help = (HelpCenter)LoadControl(HelpCenter.Location);
             help.IsSideBar = true;
             HelpHolder.Controls.Add(help);
@@ -77,13 +72,8 @@ namespace ASC.Web.People.UserControls
         }
 
         private void InitData()
-        {
-            Groups = CoreContext.UserManager.GetDepartments().Select(r => new MyGroup(r)).ToList();
-            Groups.Sort((group1, group2) => String.Compare(group1.Title, group2.Title, StringComparison.Ordinal));
-
-            Profiles = CoreContext.UserManager.GetUsers().ToList();
-
-            HasPendingProfiles = Profiles.FindAll(u => u.ActivationStatus == EmployeeActivationStatus.Pending).Count > 0;
+        {		
+            HasPendingProfiles = CoreContext.UserManager.GetUsers().Any(u => u.ActivationStatus == EmployeeActivationStatus.Pending);
             EnableAddUsers =  TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
             CurrentUserFullAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             CurrentUserAdmin = CurrentUserFullAdmin || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);

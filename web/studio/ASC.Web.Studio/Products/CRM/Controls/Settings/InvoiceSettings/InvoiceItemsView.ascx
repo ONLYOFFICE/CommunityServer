@@ -7,6 +7,7 @@
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
+<div class="header-base settingsHeader"><%= CRMCommonResource.ProductsAndServices %></div>
 
 <div id="invoiceItemsFilterContainer">
     <div id="invoiceItemsAdvansedFilter"></div>

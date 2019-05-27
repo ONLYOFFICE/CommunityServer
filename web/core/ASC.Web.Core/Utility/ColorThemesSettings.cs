@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Web;
@@ -39,7 +38,6 @@ namespace ASC.Web.Core.Utility
     {
         public const string ThemeFolderTemplate = "<theme_folder>";
         private const string DefaultName = "pure-orange";
-        private static readonly string DesktopSkin = ConfigurationManager.AppSettings["web.desktop.skin"];
 
 
         [DataMember(Name = "ColorThemeName")]
@@ -94,11 +92,6 @@ namespace ASC.Web.Core.Utility
 
         public static string GetColorThemesSettings()
         {
-            if (HttpContext.Current != null && HttpContext.Current.Request.DesktopApp())
-            {
-                return DesktopSkin ?? "bright-blue";
-            }
-
             var colorTheme = Load();
             var colorThemeName = colorTheme.ColorThemeName;
 

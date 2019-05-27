@@ -26,6 +26,7 @@
 
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Text;
 
 namespace ASC.Common.Data.AdoProxy
@@ -47,7 +48,7 @@ namespace ASC.Common.Data.AdoProxy
 
         }
 
-        public ExecutedEventArgs(string method, TimeSpan duration, IDbCommand command)
+        public ExecutedEventArgs(string method, TimeSpan duration, DbCommand command)
         {
             SqlMethod = method;
             Duration = duration;

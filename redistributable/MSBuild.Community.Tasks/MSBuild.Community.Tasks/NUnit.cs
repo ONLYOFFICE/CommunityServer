@@ -1,6 +1,6 @@
-#region Copyright © 2005 Paul Welter. All rights reserved.
+#region Copyright ï¿½ 2005 Paul Welter. All rights reserved.
 /*
-Copyright © 2005 Paul Welter. All rights reserved.
+Copyright ï¿½ 2005 Paul Welter. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
@@ -60,8 +60,8 @@ namespace MSBuild.Community.Tasks
         /// The default relative path of the NUnit installation.
         /// The value is <c>@"NUnit 2.4\bin"</c>.
         /// </summary>
-        public const string DEFAULT_NUNIT_DIRECTORY = @"NUnit 2.4\bin";
-        private const string InstallDirKey = @"HKEY_CURRENT_USER\Software\nunit.org\Nunit\2.4";
+        public const string DEFAULT_NUNIT_DIRECTORY = @"NUnit 2.6.3\bin";
+        private const string InstallDirKey = @"HKEY_CURRENT_USER\Software\nunit.org\Nunit\2.6.3";
 
         #endregion Constants
 
@@ -71,7 +71,6 @@ namespace MSBuild.Community.Tasks
         /// </summary>
         public NUnit()
         {
-
         }
 
         #endregion Constructor
@@ -162,6 +161,18 @@ namespace MSBuild.Community.Tasks
         }
 
 
+        private string _textOutputFile;
+
+        /// <summary>
+        /// The file to redirect standard output to.
+        /// </summary>
+        public string TextOutputFile
+        {
+            get { return _textOutputFile; }
+            set { _textOutputFile = value; }
+        }
+
+
         private string _workingDirectory;
 
         /// <summary>
@@ -238,6 +249,60 @@ namespace MSBuild.Community.Tasks
           set { _framework = value; }
         }
 
+        private bool _showLabels;
+
+        /// <summary>
+        /// Whether or not to show test labels in output
+        /// </summary>
+        public bool ShowLabels
+        {
+            get { return _showLabels; }
+            set { _showLabels = value; }
+        }
+
+        private string _process;
+
+        /// <summary>
+        /// The /process option controls how NUnit loads tests in processes. The following values are recognized.
+        /// Single - All the tests are run in the nunit-console process. This is the default.
+        /// Separate - A separate process is created to run the tests.
+        /// Multiple - A separate process is created for each test assembly, whether specified on the command line or listed in an NUnit project file.
+        /// Note: This option is not available using the .NET 1.1 build of nunit-console.
+        /// </summary>
+        public string Process
+        {
+            get { return _process; }
+            set { _process = value; }
+        }
+
+        private string _domain;
+
+        /// <summary>
+        /// The /domain option controls of the creation of AppDomains for running tests. The following values are recognized:
+        /// None - No domain is created - the tests are run in the primary domain. This normally requires copying the NUnit assemblies into the same directory as your tests.
+        /// Single - A test domain is created - this is how NUnit worked prior to version 2.4
+        /// Multiple - A separate test domain is created for each assembly
+        /// The default is to use multiple domains if multiple assemblies are listed on the command line. Otherwise a single domain is used.
+        /// </summary>
+        public string Domain
+        {
+            get { return _domain; }
+            set { _domain = value; }
+        }
+
+        private string _apartment;
+
+        /// <summary>
+        /// The /apartment option may be used to specify the ApartmentState (STA or MTA) of the test runner thread. Since the default is MTA, the option is only needed to force execution in the Single Threaded Apartment.
+        /// Note: If a given test must always run in a particular apartment, as is the case with many Gui tests, you should use an attribute on the test rather than specifying this option at the command line.
+        /// </summary>
+        public string Apartment
+        {
+            get { return _apartment; }
+            set { _apartment = value; }
+        }
+
+
         #endregion
 
         #region Task Overrides
@@ -250,32 +315,46 @@ namespace MSBuild.Community.Tasks
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder builder = new CommandLineBuilder();
-            builder.AppendSwitch("/nologo");
+
+            char c = Environment.OSVersion.Platform == PlatformID.Unix ? '-' : '/';
+
             if (DisableShadowCopy)
             {
-                builder.AppendSwitch("/noshadow");
+                builder.AppendSwitch(c+"noshadow");
             }
             if (_testInNewThread.HasValue && !_testInNewThread.Value)
             {
-                builder.AppendSwitch("/nothread");
+                builder.AppendSwitch(c+"nothread");
+            }
+            if (_showLabels)
+            {
+                builder.AppendSwitch(c+"labels");
             }
             builder.AppendFileNamesIfNotNull(_assemblies, " ");
 
-            builder.AppendSwitchIfNotNull("/config=", _projectConfiguration);
+            builder.AppendSwitchIfNotNull(c+"config=", _projectConfiguration);
 
-            builder.AppendSwitchIfNotNull("/fixture=", _fixture);
+            builder.AppendSwitchIfNotNull(c+"fixture=", _fixture);
 
-            builder.AppendSwitchIfNotNull("/include=", _includeCategory);
+            builder.AppendSwitchIfNotNull(c+"include=", _includeCategory);
 
-            builder.AppendSwitchIfNotNull("/exclude=", _excludeCategory);
+            builder.AppendSwitchIfNotNull(c+"exclude=", _excludeCategory);
 
-            builder.AppendSwitchIfNotNull("/transform=", _xsltTransformFile);
+            builder.AppendSwitchIfNotNull(c+"transform=", _xsltTransformFile);
 
-            builder.AppendSwitchIfNotNull("/xml=", _outputXmlFile);
+            builder.AppendSwitchIfNotNull(c+"xml=", _outputXmlFile);
 
-            builder.AppendSwitchIfNotNull("/err=", _errorOutputFile);
+            builder.AppendSwitchIfNotNull(c+"err=", _errorOutputFile);
 
-            builder.AppendSwitchIfNotNull("/framework=",_framework);
+            builder.AppendSwitchIfNotNull(c+"out=", _textOutputFile);
+
+            builder.AppendSwitchIfNotNull(c+"framework=",_framework);
+
+            builder.AppendSwitchIfNotNull(c+"process=",_process);
+
+            builder.AppendSwitchIfNotNull(c+"domain=",_domain);
+
+            builder.AppendSwitchIfNotNull(c+"apartment=",_apartment);
 
             return builder.ToString();
         }
@@ -336,10 +415,8 @@ namespace MSBuild.Community.Tasks
         {
             get
             {
-                if (_force32Bit)
-                    return @"nunit-console-x86.exe";
-                else
-                    return @"nunit-console.exe";
+                string toolName = @"nunit-console" + (_force32Bit ? "-x86" : "");
+                return ToolPathUtil.MakeToolName(toolName);
             }
         }
 

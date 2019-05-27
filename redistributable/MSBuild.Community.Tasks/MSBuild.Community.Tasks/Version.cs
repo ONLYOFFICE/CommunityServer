@@ -391,7 +391,7 @@ namespace MSBuild.Community.Tasks
             CalculateBuildNumber();
             CalculateRevisionNumber();
 
-            return WriteVersionToFile();
+            return FileWouldChange() ? WriteVersionToFile() : true;
         }
 
         #endregion Task Overrides
@@ -556,6 +556,17 @@ namespace MSBuild.Community.Tasks
                 return _revision + 1;
             }
             return 0;
+        }
+
+        private bool FileWouldChange()
+        {
+            return (VersionChanged() || String.IsNullOrEmpty(_versionFile) || !System.IO.File.Exists(_versionFile));
+        }
+
+        private bool VersionChanged()
+        {
+            System.Version _currentValues = new System.Version(_major, _minor, _build, _revision);
+            return _originalValues != _currentValues;
         }
         #endregion Private Methods
 

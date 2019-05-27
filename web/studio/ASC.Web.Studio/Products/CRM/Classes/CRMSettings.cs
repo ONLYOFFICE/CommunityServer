@@ -28,6 +28,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.CRM.Core;
 
@@ -51,6 +52,18 @@ namespace ASC.Web.CRM.Classes
             HostPassword = String.Empty;
             SenderDisplayName = String.Empty;
             SenderEmailAddress = String.Empty;
+        }
+
+        public SMTPServerSetting(ASC.Core.Configuration.SmtpSettings smtpSettings)
+        {
+            Host = smtpSettings.Host;
+            Port = smtpSettings.Port;
+            EnableSSL = smtpSettings.EnableSSL;
+            RequiredHostAuthentication = smtpSettings.EnableAuth;
+            HostLogin = smtpSettings.CredentialsUserName;
+            HostPassword = smtpSettings.CredentialsUserPassword;
+            SenderDisplayName = smtpSettings.SenderDisplayName;
+            SenderEmailAddress = smtpSettings.SenderAddress;
         }
 
         [DataMember]
@@ -138,8 +151,17 @@ namespace ASC.Web.CRM.Classes
         [DataMember(Name = "DefaultCurrency")]
         private string defaultCurrency;
 
-        [DataMember]
-        public SMTPServerSetting SMTPServerSetting { get; set; }
+        //[DataMember]
+        public SMTPServerSetting SMTPServerSetting
+        {
+            get
+            {
+                return new SMTPServerSetting(CoreContext.Configuration.SmtpSettings);
+            }
+        }
+
+        [DataMember(Name = "SMTPServerSetting")]
+        public SMTPServerSetting SMTPServerSettingOld { get; set; }
 
         [DataMember]
         public InvoiceSetting InvoiceSetting { get; set; }
@@ -184,6 +206,9 @@ namespace ASC.Web.CRM.Classes
         [DataMember(Name = "IsConfiguredPortal")]
         public bool IsConfiguredPortal { get; set; }
 
+        [DataMember(Name = "IsConfiguredSmtp")]
+        public bool IsConfiguredSmtp { get; set; }
+
         public override ISettings GetDefault()
         {
             var languageName = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
@@ -198,7 +223,6 @@ namespace ASC.Web.CRM.Classes
                             AddTagToContactGroupAuto = null,
                             WriteMailToHistoryAuto = false,
                             WebFormKey = Guid.Empty,
-                            SMTPServerSetting = new SMTPServerSetting(),
                             InvoiceSetting = InvoiceSetting.DefaultSettings
                         };
         }

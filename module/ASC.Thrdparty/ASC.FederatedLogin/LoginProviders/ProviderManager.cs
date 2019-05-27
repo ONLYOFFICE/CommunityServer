@@ -26,51 +26,34 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin.Profile;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
     public class ProviderManager
     {
-        private static readonly Dictionary<string, ILoginProvider> Providers =
-            new Dictionary<string, ILoginProvider>
-                {
-                    {
-                        ProviderConstants.Facebook,
-                        new FacebookLoginProvider()
-                    },
-                    {
-                        ProviderConstants.OpenId,
-                        new OpenIdLoginProvider()
-                    },
-                    {
-                        ProviderConstants.Twitter,
-                        new TwitterLoginProvider()
-                    },
-                    {
-                        ProviderConstants.LinkedIn,
-                        new LinkedInLoginProvider()
-                    },
-                    {
-                        ProviderConstants.Google,
-                        new GoogleLoginProvider()
-                    },
-                };
+        public static ILoginProvider GetLoginProvider(string providerType)
+        {
+            return providerType == ProviderConstants.OpenId
+                ? new OpenIdLoginProvider()
+                : ConsumerFactory.GetByName(providerType) as ILoginProvider;
+        }
 
         public static LoginProfile Process(string providerType, HttpContext context, IDictionary<string, string> @params)
         {
-            return Providers[providerType].ProcessAuthoriztion(context, @params);
+            return GetLoginProvider(providerType).ProcessAuthoriztion(context, @params);
         }
 
         public static LoginProfile GetLoginProfile(string providerType, string accessToken)
         {
-            if (!Providers.Keys.Contains(providerType)) throw new ArgumentException("Unknown provider type", "providerType");
+            var consumer = GetLoginProvider(providerType);
+            if (consumer == null) throw new ArgumentException("Unknown provider type", "providerType");
 
             try
             {
-                return Providers[providerType].GetLoginProfile(accessToken);
+                return consumer.GetLoginProfile(accessToken);
             }
             catch (Exception ex)
             {

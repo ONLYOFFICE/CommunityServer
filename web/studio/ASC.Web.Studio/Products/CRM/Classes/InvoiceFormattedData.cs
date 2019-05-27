@@ -114,11 +114,7 @@ namespace ASC.Web.CRM.Classes
                 {
                     var obj = JObject.Parse(invoiceSettings.CompanyAddress);
 
-                    var str = obj.Value<string>("country");
-                    if (!string.IsNullOrEmpty(str))
-                        list.Add(str);
-
-                    str = obj.Value<string>("state");
+                    var str = obj.Value<string>("street");
                     if (!string.IsNullOrEmpty(str))
                         list.Add(str);
 
@@ -126,11 +122,15 @@ namespace ASC.Web.CRM.Classes
                     if (!string.IsNullOrEmpty(str))
                         list.Add(str);
 
-                    str = obj.Value<string>("street");
+                    str = obj.Value<string>("state");
                     if (!string.IsNullOrEmpty(str))
                         list.Add(str);
 
                     str = obj.Value<string>("zip");
+                    if (!string.IsNullOrEmpty(str))
+                        list.Add(str);
+
+                    str = obj.Value<string>("country");
                     if (!string.IsNullOrEmpty(str))
                         list.Add(str);
 
@@ -204,11 +204,7 @@ namespace ASC.Web.CRM.Classes
 
                         var obj = JObject.Parse(billingAddress.Data);
 
-                        var str = obj.Value<string>("country");
-                        if (!string.IsNullOrEmpty(str))
-                            list.Add(str);
-
-                        str = obj.Value<string>("state");
+                        var str = obj.Value<string>("street");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
@@ -216,11 +212,15 @@ namespace ASC.Web.CRM.Classes
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
-                        str = obj.Value<string>("street");
+                        str = obj.Value<string>("state");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
                         str = obj.Value<string>("zip");
+                        if (!string.IsNullOrEmpty(str))
+                            list.Add(str);
+
+                        str = obj.Value<string>("country");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
@@ -387,11 +387,7 @@ namespace ASC.Web.CRM.Classes
 
                         var obj = JObject.Parse(deliveryAddress.Data);
 
-                        var str = obj.Value<string>("country");
-                        if (!string.IsNullOrEmpty(str))
-                            list.Add(str);
-
-                        str = obj.Value<string>("state");
+                        var str = obj.Value<string>("street");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
@@ -399,11 +395,15 @@ namespace ASC.Web.CRM.Classes
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
-                        str = obj.Value<string>("street");
+                        str = obj.Value<string>("state");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 
                         str = obj.Value<string>("zip");
+                        if (!string.IsNullOrEmpty(str))
+                            list.Add(str);
+
+                        str = obj.Value<string>("country");
                         if (!string.IsNullOrEmpty(str))
                             list.Add(str);
 

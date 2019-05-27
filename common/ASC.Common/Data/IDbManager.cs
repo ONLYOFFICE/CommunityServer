@@ -27,13 +27,15 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Threading.Tasks;
 using ASC.Common.Data.Sql;
 
 namespace ASC.Common.Data
 {
     public interface IDbManager : IDisposable
     {
-        IDbConnection Connection { get; }
+        DbConnection Connection { get; }
         string DatabaseId { get; }
         bool InTransaction { get; }
 
@@ -46,6 +48,8 @@ namespace ASC.Common.Data
         List<object[]> ExecuteList(string sql, params object[] parameters);
 
         List<object[]> ExecuteList(ISqlInstruction sql);
+
+        Task<List<object[]>> ExecuteListAsync(ISqlInstruction sql);
 
         List<T> ExecuteList<T>(ISqlInstruction sql, Converter<IDataRecord, T> converter);
 

@@ -75,7 +75,7 @@
 
         &.selected {
             background-color: @selected-row_bg;
-  
+
             .tagArrow {
                 background-position: right -40px;
                 background-repeat: no-repeat;
@@ -150,13 +150,23 @@
         }
 
         .attachment {
-            width: @row-height;
+            width: 40px;
             .a-mixin();
             .centered-childs();
 
             > a > [class^="icon-"], [class*=" icon-"] {
                 margin-top: floor((@row-height - @icon-height) / 2);
             }
+        }
+
+        .folder {
+            width: @row-height * 2;
+            text-align: left;
+            color: @muted-font-color;
+            word-wrap: break-all;
+            text-transform: capitalize;
+            padding-left: @base-distance;
+            .a-mixin();
         }
 
         .date,

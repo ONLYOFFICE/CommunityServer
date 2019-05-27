@@ -24,13 +24,6 @@
 */
 
 
-using ASC.Core;
-using ASC.Data.Storage.Configuration;
-using ASC.Data.Storage.DiscStorage;
-using ASC.Data.Storage.GoogleCloud;
-using ASC.Data.Storage.RackspaceCloud;
-using ASC.Data.Storage.S3;
-using ASC.Data.Storage.Selectel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -38,12 +31,24 @@ using System.IO;
 using System.Linq;
 using System.Web.Configuration;
 using System.Web.Hosting;
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.Data.Storage.Configuration;
+using ASC.Data.Storage.DiscStorage;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.Data.Storage
 {
     public static class StorageFactory
     {
         private const string DefaultTenantName = "default";
+        private static readonly ICacheNotify Cache;
+
+        static StorageFactory()
+        {
+            Cache = AscCache.Notify;
+            Cache.Subscribe<DataStoreCacheItem>((r, act) => DataStoreCache.Remove(r.TenantId, r.Module));
+        }
 
         public static IDataStore GetStorage(string tenant, string module)
         {
@@ -59,7 +64,15 @@ namespace ASC.Data.Storage
 
         public static IDataStore GetStorage(string configpath, string tenant, string module, IQuotaController controller)
         {
-            if (tenant == null) tenant = DefaultTenantName;
+            var tenantId = -2;
+            if (string.IsNullOrEmpty(tenant))
+            {
+                tenant = DefaultTenantName;
+            }
+            else
+            {
+                tenantId = Convert.ToInt32(tenant);
+            }
 
             //Make tennant path
             tenant = TennantPath.CreatePath(tenant);
@@ -72,59 +85,39 @@ namespace ASC.Data.Storage
                 {
                     throw new InvalidOperationException("config section not found");
                 }
-                store = GetStoreAndCache(tenant, module, section, controller);
+
+                var settings = StorageSettings.LoadForTenant(tenantId);
+
+                store = GetStoreAndCache(tenant, module, section, settings.DataStoreConsumer, controller);
             }
             return store;
         }
 
-        public static ICrossModuleTransferUtility GetCrossModuleTransferUtility(string srcConfigPath, int srcTenant, string srcModule, string destConfigPath, int destTenant, string destModule)
+        public static IDataStore GetStorageFromConsumer(string configpath, string tenant, string module, DataStoreConsumer consumer)
         {
-            var srcConfigSection = GetSection(srcConfigPath);
-            var descConfigSection = GetSection(destConfigPath);
+            if (tenant == null) tenant = DefaultTenantName;
 
-            var srcModuleConfig = srcConfigSection.Modules.GetModuleElement(srcModule);
-            var destModuleConfig = descConfigSection.Modules.GetModuleElement(destModule);
+            //Make tennant path
+            tenant = TennantPath.CreatePath(tenant);
 
-            var srcHandlerConfig = srcConfigSection.Handlers.GetHandler(srcModuleConfig.Type);
-            var destHandlerConfig = descConfigSection.Handlers.GetHandler(destModuleConfig.Type);
-
-            if (!string.Equals(srcModuleConfig.Type, destModuleConfig.Type, StringComparison.OrdinalIgnoreCase))
+            var section = GetSection(configpath);
+            if (section == null)
             {
-                throw new InvalidOperationException("Can't instance transfer utility for modules with different storage types");
-            }
-            if (string.Equals(srcModuleConfig.Type, "disc", StringComparison.OrdinalIgnoreCase))
-            {
-                return new DiscCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
+                throw new InvalidOperationException("config section not found");
             }
 
-            if (string.Equals(srcModuleConfig.Type, "s3", StringComparison.OrdinalIgnoreCase))
-            {
-                return new S3CrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
-            }
-
-            if (string.Equals(srcModuleConfig.Type, "google", StringComparison.OrdinalIgnoreCase))
-            {
-                return new GoogleCloudCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
-            }
-
-            if (string.Equals(srcModuleConfig.Type, "selectel", StringComparison.OrdinalIgnoreCase))
-            {
-                return new SelectelCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
-            }
-
-            if (string.Equals(srcModuleConfig.Type, "rackspace", StringComparison.OrdinalIgnoreCase))
-            {
-                return new RackspaceCloudCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
-            }
-
-            return null;
+            int tenantId;
+            int.TryParse(tenant, out tenantId);
+            return GetDataStore(tenant, module, section, consumer, new TennantQuotaController(tenantId));
         }
 
-
-        public static IEnumerable<string> GetModuleList(string configpath)
+        public static IEnumerable<string> GetModuleList(string configpath, bool exceptDisabledMigration = false)
         {
             var section = GetSection(configpath);
-            return section.Modules.Cast<ModuleConfigurationElement>().Where(x => x.Visible).Select(x => x.Name);
+            return section.Modules.Cast<ModuleConfigurationElement>()
+                .Where(x => x.Visible)
+                .Where(x=> !exceptDisabledMigration || !x.DisabledMigrate)
+                .Select(x => x.Name);
         }
 
         public static IEnumerable<string> GetDomainList(string configpath, string modulename)
@@ -198,10 +191,19 @@ namespace ASC.Data.Storage
             }
         }
 
-
-        private static IDataStore GetStoreAndCache(string tenant, string module, StorageConfigurationSection section, IQuotaController controller)
+        internal static void ClearCache()
         {
-            var store = GetDataStore(tenant, section, module, controller);
+            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString();
+            var path = TennantPath.CreatePath(tenantId);
+            foreach (var module in GetModuleList("", true))
+            {
+                Cache.Publish(DataStoreCacheItem.Create(path, module), CacheNotifyAction.Remove);
+            }
+        }
+
+        private static IDataStore GetStoreAndCache(string tenant, string module, StorageConfigurationSection section, DataStoreConsumer consumer, IQuotaController controller)
+        {
+            var store = GetDataStore(tenant, module, section, consumer, controller);
             if (store != null)
             {
                 DataStoreCache.Put(store, tenant, module);
@@ -209,7 +211,7 @@ namespace ASC.Data.Storage
             return store;
         }
 
-        private static IDataStore GetDataStore(string tenant, StorageConfigurationSection section, string module, IQuotaController controller)
+        private static IDataStore GetDataStore(string tenant, string module, StorageConfigurationSection section, DataStoreConsumer consumer, IQuotaController controller)
         {
             var moduleElement = section.Modules.GetModuleElement(module);
             if (moduleElement == null)
@@ -218,9 +220,26 @@ namespace ASC.Data.Storage
             }
 
             var handler = section.Handlers.GetHandler(moduleElement.Type);
-            return ((IDataStore)Activator.CreateInstance(handler.Type, tenant, handler, moduleElement))
-                .Configure(handler.GetProperties())
-                .SetQuotaController(moduleElement.Count ? controller : null /*don't count quota if specified on module*/ );
+            Type instanceType;
+            IDictionary<string, string> props;
+
+            if (CoreContext.Configuration.Standalone &&
+                !moduleElement.DisabledMigrate &&
+                consumer.IsSet)
+            {
+                instanceType = consumer.HandlerType;
+                props = consumer;
+            }
+            else
+            {
+                instanceType = handler.Type;
+                props = handler.GetProperties();
+            }
+
+            return ((IDataStore)Activator.CreateInstance(instanceType, tenant, handler, moduleElement))
+                .Configure(props)
+                .SetQuotaController(moduleElement.Count ? controller : null
+                /*don't count quota if specified on module*/);
         }
 
         private static StorageConfigurationSection GetSection(string configpath)

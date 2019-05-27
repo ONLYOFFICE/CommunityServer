@@ -26,8 +26,10 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Core.WhiteLabel
 {
@@ -77,17 +79,17 @@ namespace ASC.Web.Core.WhiteLabel
             get { return new Guid("{C3C5A846-01A3-476D-A962-1CFD78C04ADB}"); }
         }
 
+        private static CompanyWhiteLabelSettings _default;
+
         public override ISettings GetDefault()
         {
-            return new CompanyWhiteLabelSettings
-                {
-                    CompanyName = "Ascensio System SIA",
-                    Site = "http://www.onlyoffice.com",
-                    Email = "support@onlyoffice.com",
-                    Address = "Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021",
-                    Phone = "+371 660-16425",
-                    IsLicensor = true
-                };
+            if (_default != null) return _default;
+
+            var settings = CoreContext.Configuration.GetSetting("CompanyWhiteLabelSettings");
+
+            _default = string.IsNullOrEmpty(settings) ? new CompanyWhiteLabelSettings() : JsonConvert.DeserializeObject<CompanyWhiteLabelSettings>(settings);
+
+            return _default;
         }
 
         #endregion

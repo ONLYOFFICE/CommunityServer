@@ -40,11 +40,6 @@ namespace ASC.Files.Thirdparty.Box
         {
         }
 
-        public void Dispose()
-        {
-            BoxProviderInfo.Dispose();
-        }
-
         #region ITagDao Members
 
         public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)

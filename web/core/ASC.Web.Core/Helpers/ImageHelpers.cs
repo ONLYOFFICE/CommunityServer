@@ -235,6 +235,7 @@ namespace ASC.Web.Studio.Helpers
                 {
                     graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    graphic.SmoothingMode = SmoothingMode.HighQuality;
                     graphic.DrawImage(image, rect);
                 }
             }
@@ -327,6 +328,7 @@ namespace ASC.Web.Studio.Helpers
             {
                 graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graphic.SmoothingMode = SmoothingMode.HighQuality;
                 graphic.DrawImage(image, 0, 0, widthPreview, heightPreview);
             }
 

@@ -78,10 +78,10 @@
     display: none;
 }
 
-.file-selector-files .file-row .checkbox input[type=checkbox] {
+.file-selector-single .file-row .checkbox input[type=checkbox] {
     display: none;
 }
-.file-selector-files .file-row .checkbox input[type=radio] {
+.file-selector-single .file-row .checkbox input[type=radio] {
     display: inline;
 }
 

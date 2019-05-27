@@ -42,8 +42,6 @@ namespace ASC.Web.Studio.ThirdParty
             get { return CommonLinkUtility.ToAbsolute("~/thirdparty/google.aspx"); }
         }
 
-        private const string Source = "googledrive";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -61,20 +59,17 @@ namespace ASC.Web.Studio.ThirdParty
                 var code = Request["code"];
                 if (string.IsNullOrEmpty(code))
                 {
-                    OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                                   GoogleLoginProvider.GoogleOauthCodeUrl,
-                                                   GoogleLoginProvider.GoogleOAuth20ClientId,
-                                                   GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                   GoogleLoginProvider.GoogleScopeDrive,
-                                                   new Dictionary<string, string>
-                                                   {
-                                                       { "access_type", "offline" },
-                                                       { "approval_prompt", "force" }
-                                                   });
+                    OAuth20TokenHelper.RequestCode<GoogleLoginProvider>(HttpContext.Current,
+                                                                        GoogleLoginProvider.GoogleScopeDrive,
+                                                                        new Dictionary<string, string>
+                                                                            {
+                                                                                { "access_type", "offline" },
+                                                                                { "prompt", "consent" }
+                                                                            });
                 }
                 else
                 {
-                    Master.SubmitToken(code, Source);
+                    Master.SubmitCode(code);
                 }
             }
             catch (ThreadAbortException)
@@ -82,7 +77,7 @@ namespace ASC.Web.Studio.ThirdParty
             }
             catch (Exception ex)
             {
-                Master.SubmitError(ex.Message, Source);
+                Master.SubmitError(ex.Message);
             }
         }
     }

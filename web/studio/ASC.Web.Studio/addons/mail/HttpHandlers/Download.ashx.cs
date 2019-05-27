@@ -25,15 +25,22 @@
 
 
 using System;
+using System.Globalization;
 using System.Net;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Services;
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Mail.Aggregator;
+using ASC.Mail.Core;
+using ASC.Mail.Core.Dao.Expressions.Attachment;
+using ASC.Mail.Data.Storage;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
+using ASC.Web.Mail.Resources;
+using MimeMapping = ASC.Common.Web.MimeMapping;
 
 namespace ASC.Web.Mail.HttpHandlers
 {
@@ -44,41 +51,60 @@ namespace ASC.Web.Mail.HttpHandlers
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class DownloadHandler : IHttpHandler
     {
-        private int TenantId
+        private static int TenantId
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
 
-        private string Username
+        private static string Username
         {
             get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
 
         public void ProcessRequest(HttpContext context)
         {
+            var log = LogManager.GetLogger("ASC.Mail.DownloadHandler");
+
             try
             {
                 context.Response.ContentType = "application/octet-stream";
                 context.Response.Charset = Encoding.UTF8.WebName;
 
-                int id = Convert.ToInt32(context.Request.QueryString["attachid"]);
+                var id = Convert.ToInt32(context.Request.QueryString["attachid"]);
 
                 DownloadFile(id, context);
             }
-            catch (Exception)
+            catch (HttpException he)
             {
+                log.Error("Download handler failed", he);
+
+                context.Response.StatusCode = he.GetHttpCode();
+                context.Response.Write(he.Message != null ? HttpUtility.HtmlEncode(he.Message) : MailApiErrorsResource.ErrorInternalServer);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Download handler failed", ex);
+
+                context.Response.StatusCode = 404;
                 context.Response.Redirect("404.html");
             }
             finally
             {
-                context.Response.End();
+                try
+                {
+                    context.Response.Flush();
+                    context.Response.SuppressContent = true;
+                    context.ApplicationInstance.CompleteRequest();
+                }
+                catch (HttpException ex)
+                {
+                    LogManager.GetLogger("ASC").Error("ResponceContactPhotoUrl", ex);
+                }
             }
         }
 
-        private void DownloadFile(int attachmentId, HttpContext context)
+        private static void DownloadFile(int attachmentId, HttpContext context)
         {
-            var mailBoxManager = new MailBoxManager();
-
             var auth = context.Request[FilesLinkUtility.AuthKey];
 
             var openTempStream = false;
@@ -104,22 +130,67 @@ namespace ASC.Web.Mail.HttpHandlers
                     openTempStream = true;
                 }
             }
-
-            using (var file = openTempStream
-                                  ? mailBoxManager.GetAttachmentStream(attachmentId, TenantId)
-                                  : mailBoxManager.GetAttachmentStream(attachmentId, TenantId, Username))
+            else
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+            }
+
+            var engine = new EngineFactory(TenantId, Username);
+            var attachment = engine.AttachmentEngine.GetAttachment(
+                openTempStream
+                    ? (IAttachmentExp)new ConcreteTenantAttachmentExp(attachmentId, TenantId)
+                    : new ConcreteUserAttachmentExp(attachmentId, TenantId, Username));
+
+            long offset = 0;
+            long endOffset = -1;
+            long length = attachment.size;
+
+            if (context.Request.Headers["Range"] != null)
+            {
+                var range = context.Request.Headers["Range"].Split('=', '-');
+                offset = Convert.ToInt64(range[1]);
+
+                if (range.Count() > 2 && !string.IsNullOrEmpty(range[2]))
+                {
+                    endOffset = Convert.ToInt64(range[2]);
+                }
+                if (endOffset < 0 || endOffset >= attachment.size)
+                {
+                    endOffset = attachment.size - 1;
+                }
+
+                length = endOffset - offset + 1;
+
+                if (length <= 0) throw new HttpException("Wrong Range header");
+
+                context.Response.StatusCode = 206;
+                context.Response.AddHeader("Content-Range", String.Format(" bytes {0}-{1}/{2}", offset, endOffset, attachment.size));
+            }
+
+            using (var file = attachment.ToAttachmentStream((int)offset))
+            {
+                context.Response.AddHeader("Accept-Ranges", "bytes");
+                context.Response.AddHeader("Content-Length", length.ToString(CultureInfo.InvariantCulture));
                 context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(file.FileName));
-                file.FileStream.StreamCopyTo(context.Response.OutputStream);
+                context.Response.ContentType = MimeMapping.GetMimeMapping(file.FileName);
+
+                if (endOffset != attachment.size - 1)
+                {
+                    file.FileStream.StreamCopyTo(context.Response.OutputStream);
+                }
+                else
+                {
+                    file.FileStream.StreamCopyTo(context.Response.OutputStream, (int)length);
+                }
             }
         }
 
         public bool IsReusable
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 }

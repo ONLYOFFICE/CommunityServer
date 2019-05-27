@@ -33,6 +33,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using ASC.Common.Notify.Patterns;
+using ASC.Core;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
 using ASC.Web.Core.WhiteLabel;
@@ -93,7 +94,7 @@ namespace ASC.Notify.Textile
 
             string logoImg;
 
-            if (isPersonalTmpl)
+            if (isPersonalTmpl && !CoreContext.Configuration.CustomMode)
             {
                 logoImg = "https://static.onlyoffice.com/media/newsletters/images/mail_logo.png";
             }
@@ -131,7 +132,10 @@ namespace ASC.Notify.Textile
             var mailWhiteLabelTag = message.GetArgument("MailWhiteLabelSettings");
             var mailWhiteLabelSettings = mailWhiteLabelTag == null ? null : mailWhiteLabelTag.Value as MailWhiteLabelSettings;
 
-            message.Body = template.Replace("%CONTENT%", output.GetFormattedText())
+            var analyticsTag = message.GetArgument("Analytics");
+
+            message.Body = template.Replace("%ANALYTICS%", analyticsTag == null ? string.Empty : (string)analyticsTag.Value)
+                                   .Replace("%CONTENT%", output.GetFormattedText())
                                    .Replace("%LOGO%", logoImg)
                                    .Replace("%LOGOTEXT%", logoText)
                                    .Replace("%SITEURL%", mailWhiteLabelSettings == null ? MailWhiteLabelSettings.DefaultMailSiteUrl : mailWhiteLabelSettings.SiteUrl);
@@ -156,6 +160,10 @@ namespace ASC.Notify.Textile
                     case "personal":
                         footerSocialContent = NotifyTemplateResource.FooterSocial;
                         break;
+                    case "personalCustomMode":
+                        footerContent = string.Empty;
+                        footerSocialContent = string.Empty;
+                        break;
                     case "freecloud":
                         footerContent = NotifyTemplateResource.FooterFreeCloud;
                         footerSocialContent = NotifyTemplateResource.FooterSocial;
@@ -173,7 +181,7 @@ namespace ASC.Notify.Textile
 
             var text = "";
 
-            if (ConfigurationManager.AppSettings["core.base-domain"] != "localhost")
+            if (!CoreContext.Configuration.Standalone)
             {
                 var noUnsubscribeLink = message.GetArgument("noUnsubscribeLink");
                 if (noUnsubscribeLink == null || (string) noUnsubscribeLink.Value == "false")
@@ -182,15 +190,14 @@ namespace ASC.Notify.Textile
                     if (String.IsNullOrEmpty(isHosted) || isHosted == "false")
                     {
                         var mail = message.Recipient.Addresses.FirstOrDefault(r => r.Contains("@"));
-                        var domain = ConfigurationManager.AppSettings["web.teamlab-site"];
-                        var site = string.IsNullOrEmpty(domain) ? "http://www.onlyoffice.com" : domain;
-                        var link = site +
-                                   string.Format("/Unsubscribe.aspx?id={0}",
+                        var site = mailWhiteLabelSettings == null ? MailWhiteLabelSettings.DefaultMailSiteUrl : mailWhiteLabelSettings.SiteUrl;
+                        var format = CoreContext.Configuration.CustomMode ? "/unsubscribe/{0}" : "/Unsubscribe.aspx?id={0}";
+                        var link = site + string.Format(format,
                                                  HttpServerUtility.UrlTokenEncode(
                                                      Security.Cryptography.InstanceCrypto.Encrypt(
                                                          Encoding.UTF8.GetBytes(mail.ToLowerInvariant()))));
 
-                        text = string.Format(NotifyTemplateResource.TextForFooterWithUnsubscribe, link);
+                        text = string.Format(NotifyTemplateResource.TextForFooterWithUnsubscribeLink, site, link);
                     }
                 }
 

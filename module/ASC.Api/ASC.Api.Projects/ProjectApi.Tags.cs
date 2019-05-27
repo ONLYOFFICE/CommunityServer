@@ -24,18 +24,18 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Projects.Wrappers;
+using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
 
 namespace ASC.Api.Projects
 {
     public partial class ProjectApi
     {
-        #region tags
-
         ///<summary>
         ///Returns the list of all available project tags
         ///</summary>
@@ -48,6 +48,25 @@ namespace ASC.Api.Projects
         public IEnumerable<ObjectWrapperBase> GetAllTags()
         {
             return EngineFactory.TagEngine.GetTags().Select(x => new ObjectWrapperBase {Id = x.Key, Title = x.Value});
+        }
+
+        ///<summary>
+        ///Creates new tag
+        ///</summary>
+        ///<short>
+        ///Tag
+        ///</short>
+        ///<category>Tags</category>
+        ///<returns>Created tag</returns>
+        [Create(@"tag")]
+        public ObjectWrapperBase CreateNewTag(string data)
+        {
+            if (string.IsNullOrEmpty(data)) throw new ArgumentException("data");
+            ProjectSecurity.DemandCreate<Project>(null);
+
+            var result =  EngineFactory.TagEngine.Create(data);
+            
+            return new ObjectWrapperBase {Id = result.Key, Title = result.Value};
         }
 
         ///<summary>
@@ -83,7 +102,5 @@ namespace ASC.Api.Projects
                        ? EngineFactory.TagEngine.GetTags(tagName.Trim()).Select(r => r.Value).ToArray()
                        : new string[0];
         }
-
-        #endregion
     }
 }

@@ -213,7 +213,7 @@ namespace ASC.Web.Talk
             ValidSymbols = WebConfigurationManager.AppSettings["ValidSymbols"] ?? "äöüßña-žа-яё";
             HistoryLength = WebConfigurationManager.AppSettings["HistoryLength"] ?? "20";
             ResourcePriority = WebConfigurationManager.AppSettings["ResourcePriority"] ?? "60";
-            ClientInactivity = WebConfigurationManager.AppSettings["ClientInactivity"] ?? "90";
+            ClientInactivity = WebConfigurationManager.AppSettings["ClientInactivity"] ?? "30";
         }
 
 

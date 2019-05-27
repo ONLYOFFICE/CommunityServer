@@ -41,8 +41,6 @@ namespace ASC.Web.Studio.ThirdParty
             get { return CommonLinkUtility.ToAbsolute("~/thirdparty/onedrive.aspx"); }
         }
 
-        private const string Source = "onedrive";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -60,15 +58,11 @@ namespace ASC.Web.Studio.ThirdParty
                 var code = Request["code"];
                 if (string.IsNullOrEmpty(code))
                 {
-                    OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                                   OneDriveLoginProvider.OneDriveOauthCodeUrl,
-                                                   OneDriveLoginProvider.OneDriveOAuth20ClientId,
-                                                   OneDriveLoginProvider.OneDriveOAuth20RedirectUrl,
-                                                   OneDriveLoginProvider.OneDriveProfileScope);
+                    OAuth20TokenHelper.RequestCode<OneDriveLoginProvider>(HttpContext.Current, OneDriveLoginProvider.Instance.Scopes);
                 }
                 else
                 {
-                    Master.SubmitToken(code, Source);
+                    Master.SubmitCode(code);
                 }
             }
             catch (ThreadAbortException)
@@ -76,7 +70,7 @@ namespace ASC.Web.Studio.ThirdParty
             }
             catch (Exception ex)
             {
-                Master.SubmitError(ex.Message, Source);
+                Master.SubmitError(ex.Message);
             }
         }
     }

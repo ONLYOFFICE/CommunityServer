@@ -28,54 +28,20 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using ASC.Common.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core;
-using StackExchange.Redis.Extensions.Core.Configuration;
-
-namespace StackExchange.Redis.Extensions.Core.Configuration
-{
-    public class RedisCachingSectionHandlerExtension : RedisCachingSectionHandler
-    {
-        [ConfigurationProperty("enabled", DefaultValue = true)]
-        public bool Enabled
-        {
-            get
-            {
-                var obj = this["enabled"];
-                if (obj == null) return true;
-                bool result;
-                if (!bool.TryParse(obj.ToString(), out result))
-                {
-                    result = true;
-                }
-                return result;
-            }
-        }
-
-        public new static RedisCachingSectionHandlerExtension GetConfig()
-        {
-            return ConfigurationManager.GetSection("redisCacheClient") as RedisCachingSectionHandlerExtension;
-        }
-
-        public static bool IsEnabled()
-        {
-            var configuration = GetConfig();
-            if (configuration == null)
-                return false;
-
-            return configuration.Enabled;
-        }
-    }
-}
+using StackExchange.Redis.Extensions.Core.Extensions;
+using StackExchange.Redis.Extensions.LegacyConfiguration;
 
 namespace ASC.Common.Caching
 {
@@ -83,29 +49,24 @@ namespace ASC.Common.Caching
     {
         private readonly string CacheId = Guid.NewGuid().ToString();
         private readonly StackExchangeRedisCacheClient redis;
-        private readonly ConcurrentDictionary<Type, Action<object, CacheNotifyAction>> actions = new ConcurrentDictionary<Type, Action<object, CacheNotifyAction>>();
+        private readonly ConcurrentDictionary<Type, ConcurrentBag<Action<object, CacheNotifyAction>>> actions = new ConcurrentDictionary<Type, ConcurrentBag<Action<object, CacheNotifyAction>>>();
 
 
         public RedisCache()
         {
-            var configuration = RedisCachingSectionHandlerExtension.GetConfig();
+            var configuration = ConfigurationManager.GetSection("redisCacheClient") as RedisCachingSectionHandler;
             if (configuration == null)
                 throw new ConfigurationErrorsException("Unable to locate <redisCacheClient> section into your configuration file. Take a look https://github.com/imperugo/StackExchange.Redis.Extensions");
-            var configurationOptions = new ConfigurationOptions
+
+            var stringBuilder = new StringBuilder();
+            using (var stream = new StringWriter(stringBuilder))
             {
-                Ssl = configuration.Ssl,
-                AllowAdmin = configuration.AllowAdmin,
-                AbortOnConnectFail = configuration.AbortOnConnectFail,
-                ConnectTimeout = configuration.ConnectTimeout,
-                Password = configuration.Password
-            };
-
-            foreach (RedisHost redisHost in configuration.RedisHosts)
-                configurationOptions.EndPoints.Add(redisHost.Host, redisHost.CachePort);
-
-            var connectionMultiplexer = (IConnectionMultiplexer)ConnectionMultiplexer.Connect(configurationOptions);
-            connectionMultiplexer.PreserveAsyncOrder = false;
-            redis = new StackExchangeRedisCacheClient(connectionMultiplexer, new Serializer());
+                var opts = RedisCachingSectionHandler.GetConfig().ConfigurationOptions;
+                opts.SyncTimeout = 60000;
+                var connectionMultiplexer = (IConnectionMultiplexer)ConnectionMultiplexer.Connect(opts, stream);
+                redis = new StackExchangeRedisCacheClient(connectionMultiplexer, new Serializer());
+                LogManager.GetLogger("ASC").Debug(stringBuilder.ToString());
+            }
         }
 
 
@@ -143,14 +104,36 @@ namespace ASC.Common.Caching
         {
             var dic = redis.Database.HashGetAll(key);
             return dic
-                .Select(e => new { Key = (string)e.Name, Value = ((string)e.Value != null ? JsonConvert.DeserializeObject<T>((string)e.Value) : default(T)) })
+                .Select(e =>
+                    {
+                        var val = default(T);
+                        try
+                        {
+                            val = (string)e.Value != null ? JsonConvert.DeserializeObject<T>(e.Value) : default(T);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC").Error("RedisCache HashGetAll", ex);
+                        }
+
+                        return new { Key = (string)e.Name, Value = val };
+                    })
+                .Where(e => e.Value != null && !e.Value.Equals(default(T)))
                 .ToDictionary(e => e.Key, e => e.Value);
         }
 
         public T HashGet<T>(string key, string field)
         {
             var value = (string)redis.Database.HashGet(key, field);
-            return value != null ? JsonConvert.DeserializeObject<T>(value) : default(T);
+            try
+            {
+                return value != null ? JsonConvert.DeserializeObject<T>(value) : default(T);
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC").Error("RedisCache HashGet", ex);
+                return default(T);
+            }
         }
 
         public void HashSet<T>(string key, string field, T value)
@@ -169,11 +152,11 @@ namespace ASC.Common.Caching
         {
             redis.Publish("asc:channel:" + typeof(T).FullName, new RedisCachePubSubItem<T>() { CacheId = CacheId, Object = obj, Action = action });
 
-            Action<object, CacheNotifyAction> onchange;
+            ConcurrentBag<Action<object, CacheNotifyAction>> onchange;
             actions.TryGetValue(typeof(T), out onchange);
             if (onchange != null)
             {
-                onchange(obj, action);
+                onchange.ToArray().ForEach(r=> r(obj, action));
             }
         }
 
@@ -189,11 +172,18 @@ namespace ASC.Common.Caching
 
             if (onchange != null)
             {
-                actions[typeof(T)] = (o, a) => onchange((T)o, a);
+                Action<object, CacheNotifyAction> action = (o, a) => onchange((T)o, a);
+                actions.AddOrUpdate(typeof(T),
+                    new ConcurrentBag<Action<object, CacheNotifyAction>> { action },
+                    (type, bag) =>
+                    {
+                        bag.Add(action);
+                        return bag;
+                    });
             }
             else
             {
-                Action<object, CacheNotifyAction> removed;
+                ConcurrentBag<Action<object, CacheNotifyAction>> removed;
                 actions.TryRemove(typeof(T), out removed);
             }
         }
@@ -216,24 +206,48 @@ namespace ASC.Common.Caching
 
             public byte[] Serialize(object item)
             {
-                var s = JsonConvert.SerializeObject(item);
-                return enc.GetBytes(s);
+                try
+                {
+                    var s = JsonConvert.SerializeObject(item);
+                    return enc.GetBytes(s);
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger("ASC").Error("Redis Serialize", e);
+                    throw;
+                }
             }
 
             public object Deserialize(byte[] obj)
             {
-                var resolver = new ContractResolver();
-                var settings = new JsonSerializerSettings { ContractResolver = resolver };
-                var s = enc.GetString(obj);
-                return JsonConvert.DeserializeObject(s, typeof(object), settings);
+                try
+                {
+                    var resolver = new ContractResolver();
+                    var settings = new JsonSerializerSettings { ContractResolver = resolver };
+                    var s = enc.GetString(obj);
+                    return JsonConvert.DeserializeObject(s, typeof(object), settings);
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger("ASC").Error("Redis Deserialize", e);
+                    throw;
+                }
             }
 
             public T Deserialize<T>(byte[] obj)
             {
-                var resolver = new ContractResolver();
-                var settings = new JsonSerializerSettings { ContractResolver = resolver };
-                var s = enc.GetString(obj);
-                return JsonConvert.DeserializeObject<T>(s, settings);
+                try
+                {
+                    var resolver = new ContractResolver();
+                    var settings = new JsonSerializerSettings { ContractResolver = resolver };
+                    var s = enc.GetString(obj);
+                    return JsonConvert.DeserializeObject<T>(s, settings);
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger("ASC").Error("Redis Deserialize<T>", e);
+                    throw;
+                }
             }
 
             public async Task<byte[]> SerializeAsync(object item)

@@ -47,6 +47,10 @@
         <ul id="reportsTemplates">
         </ul>
         <%}%>
+        <% if (ReportsCount > 0)
+           { %>
+        <a class="reports-category generated <%= string.IsNullOrEmpty(repType) ? "active" : "" %>" href="reports.aspx" title="<%= ReportResource.GeneratedReports %>"><%= ReportResource.GeneratedReports %></a>
+        <% } %>
      </td>
 </asp:Content>
 

@@ -12,7 +12,6 @@ using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 {
-
     internal class DropBoxRequestParser
     {
         public static String RequestResourceByUrl(String url, IStorageProviderService service, IStorageProviderSession session, out int netErrorCode)
@@ -52,14 +51,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             }
 
             // build the webrequest to protected resource
-            var request = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, null, null, dropBoxSession.Context, (DropBoxToken) dropBoxSession.SessionToken, parameters);
+            var request = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, null, null, dropBoxSession.Context, (DropBoxToken)dropBoxSession.SessionToken, parameters);
 
             // get the error code
             WebException ex;
 
             // perform a simple webrequest 
-            using (Stream s = svc.PerformWebRequest(request, null, out netErrorCode, out ex, 
-                code => !string.IsNullOrEmpty(urlhash.Key) && !string.IsNullOrEmpty(urlhash.Value) && code == 304)/*to check code without downloading*/)
+            using (Stream s = svc.PerformWebRequest(request, null, out netErrorCode, out ex,
+                                                    code => !string.IsNullOrEmpty(urlhash.Key) && !string.IsNullOrEmpty(urlhash.Value) && code == 304) /*to check code without downloading*/)
             {
                 if (!string.IsNullOrEmpty(urlhash.Key) && !string.IsNullOrEmpty(urlhash.Value) && netErrorCode == 304)
                 {
@@ -168,7 +167,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 fileEntry.Id = DropBoxPath.Trim('/');
                 fileEntry.ParentID = DropBoxResourceIDHelpers.GetParentID(DropBoxPath);
             }
-            
+
 
             // set the hash property if possible
             var hashValue = jh.GetProperty("hash");

@@ -7,7 +7,11 @@
         </div>
         <div class="content-box">
             <div class="description">
-                <span class="menu-item-icon ${itemClass}" ></span>
+                <span class="menu-item-icon ${itemClass}" >
+                    <svg class="menu-item-svg">
+                        <use href="/skins/default/Images/svg/feed-icons.svg#feedIcons${itemClass}"></use>
+                    </svg>
+                </span>
                 <span class="product">${productText}.</span>
                 {{if location}}
                 <span class="location">${location}.</span>

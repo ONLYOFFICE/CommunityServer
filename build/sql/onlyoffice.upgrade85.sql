@@ -214,7 +214,11 @@ BEGIN
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_MoldovanLeu', 'MDL', 'lei', 'MD', 1, 0);
 
 	DELETE FROM webstudio_settings WHERE id = '9a925891-1f92-4ed7-b277-d6f649739f06' AND NOT EXISTS(SELECT id FROM core_user WHERE tenantid = tenant AND email = '');
-	TRUNCATE mail_folder;
+
+    IF EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'mail_folder') THEN
+		TRUNCATE mail_folder;
+	END IF;
+
 
 	ALTER TABLE `res_data`
 		DROP PRIMARY KEY,

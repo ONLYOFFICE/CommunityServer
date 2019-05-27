@@ -32,6 +32,7 @@ namespace ASC.Core.Tenants
         Suspended = 1,
         RemovePending = 2,
         Transfering = 3,
-        Restoring = 4
+        Restoring = 4,
+        Migrating = 5
     }
 }

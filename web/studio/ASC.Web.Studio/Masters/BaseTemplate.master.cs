@@ -31,6 +31,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
@@ -80,6 +81,10 @@ namespace ASC.Web.Studio.Masters
             TopStudioPanel = (TopStudioPanel)LoadControl(TopStudioPanel.Location);
             MetaKeywords.Content = Resource.MetaKeywords;
             MetaDescription.Content = Resource.MetaDescription.HtmlEncode();
+            MetaDescriptionOG.Content = Resource.MetaDescription.HtmlEncode();
+            MetaTitleOG.Content = (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode();
+            CanonicalURLOG.Content = HttpContext.Current.Request.Url.Scheme +"://"+ HttpContext.Current.Request.Url.Host;
+            MetaImageOG.Content = SetupInfo.MetaImageURL;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -130,7 +135,7 @@ namespace ASC.Web.Studio.Masters
                 BannerHolder.Controls.Add(LoadControl(Banner.Location));
             }
 
-            if (ThirdPartyBanner.Display)
+            if (ThirdPartyBanner.Display && !Request.DesktopApp())
             {
                 BannerHolder.Controls.Add(LoadControl(ThirdPartyBanner.Location));
             }
@@ -158,14 +163,21 @@ namespace ASC.Web.Studio.Masters
             {
                 if (SetupInfo.CustomScripts.Length != 0)
                 {
-                    GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
-                    if (!CoreContext.Configuration.Personal)
+                    if (CoreContext.Configuration.Personal)
                     {
-                        GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx"));
+                        if (TenantAnalyticsSettings.LoadForCurrentUser().Analytics)
+                        {
+                            GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
+                            GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptPersonal.ascx"));
+                        }
                     }
                     else
                     {
-                        GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptPersonal.ascx"));
+                        if (TenantAnalyticsSettings.Load().Analytics)
+                        {
+                            GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
+                            GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx"));
+                        }
                     }
                 }
             }
@@ -216,6 +228,7 @@ namespace ASC.Web.Studio.Masters
 
         #region Operations
 
+
         private void InitScripts()
         {
             AddStyles(r => r, "~/skins/<theme_folder>/main.less");
@@ -236,7 +249,7 @@ namespace ASC.Web.Studio.Masters
         {
             var paid = !TenantStatisticsProvider.IsNotPaid();
             var showPromotions = paid && PromotionsSettings.Load().Show;
-            var showTips = paid && TipsSettings.LoadForCurrentUser().Show;
+            var showTips = !Request.DesktopApp() && paid && TipsSettings.LoadForCurrentUser().Show;
 
             var script = new StringBuilder();
             script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
@@ -274,6 +287,7 @@ namespace ASC.Web.Studio.Masters
 
             return this;
         }
+
 
         #endregion
 

@@ -38,7 +38,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                 while (!String.IsNullOrEmpty(url))
                 {
                     var request = CreateWebRequest(session, url, "GET", parameters);
-                    using(var response = (HttpWebResponse)request.GetResponse())
+                    using (var response = (HttpWebResponse)request.GetResponse())
                     using (var rs = response.GetResponseStream())
                     using (var streamReader = new StreamReader(rs))
                     {
@@ -52,7 +52,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             }
             catch (WebException)
             {
-
             }
         }
 
@@ -69,7 +68,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             else
             {
                 url = String.Format(GoogleDocsConstants.GoogleDocsResourceUrlFormat, resource.Id.ReplaceFirst("_", "%3a"));
-                parameters = new Dictionary<string, string> {{"delete", "true"}};
+                parameters = new Dictionary<string, string> { { "delete", "true" } };
             }
 
             var request = CreateWebRequest(session, url, "DELETE", parameters);
@@ -125,29 +124,29 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                                                         gdToken);
         }
 
-        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
-            if (GoogleDocsResourceHelper.IsNoolOrRoot(parent) && GoogleDocsResourceHelper.IsRootName(Name))
+            if (GoogleDocsResourceHelper.IsNoolOrRoot(parent) && GoogleDocsResourceHelper.IsRootName(name))
             {
-                var root = new BaseDirectoryEntry("/", 0, DateTime.Now, session.Service, session) {Id = GoogleDocsConstants.RootFolderId};
+                var root = new BaseDirectoryEntry("/", 0, DateTime.Now, session.Service, session) { Id = GoogleDocsConstants.RootFolderId };
                 root.SetPropertyValue(GoogleDocsConstants.ResCreateMediaProperty, GoogleDocsConstants.RootResCreateMediaUrl);
                 RefreshDirectoryContent(session, root);
                 return root;
             }
 
-            if (Name.Equals("/"))
+            if (name.Equals("/"))
             {
                 RefreshDirectoryContent(session, parent as BaseDirectoryEntry);
             }
 
-            if (GoogleDocsResourceHelper.IsResorceId(Name))
+            if (GoogleDocsResourceHelper.IsResorceId(name))
             {
-                var url = String.Format(GoogleDocsConstants.GoogleDocsResourceUrlFormat, Name.ReplaceFirst("_", "%3a"));
+                var url = String.Format(GoogleDocsConstants.GoogleDocsResourceUrlFormat, name.ReplaceFirst("_", "%3a"));
                 var request = CreateWebRequest(session, url, "GET", null);
                 try
                 {
                     string xml;
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (var response = (HttpWebResponse)request.GetResponse())
                     using (var rs = response.GetResponseStream())
                     using (var streamReader = new StreamReader(rs))
                     {
@@ -155,7 +154,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                     }
                     var entry = GoogleDocsXmlParser.ParseEntriesXml(session, xml).FirstOrDefault();
 
-                    if(entry == null)
+                    if (entry == null)
                         throw new SharpBoxException(SharpBoxErrorCodes.ErrorFileNotFound);
 
                     if (parent != null)
@@ -218,23 +217,23 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             }
             catch (WebException)
             {
-                
+
             }
         }
 
-        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
-            if (String.IsNullOrEmpty(Name))
+            if (String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("Name cannot be empty");
             }
 
             var url = GoogleDocsResourceHelper.IsNoolOrRoot(parent)
-                ? GoogleDocsConstants.GoogleDocsFeedUrl
-                : String.Format(GoogleDocsConstants.GoogleDocsContentsUrlFormat, parent.Id.ReplaceFirst("_", "%3a"));
+                          ? GoogleDocsConstants.GoogleDocsFeedUrl
+                          : String.Format(GoogleDocsConstants.GoogleDocsContentsUrlFormat, parent.Id.ReplaceFirst("_", "%3a"));
 
             var request = CreateWebRequest(session, url, "POST", null);
-            GoogleDocsXmlParser.WriteAtom(request, GoogleDocsXmlParser.EntryElement(GoogleDocsXmlParser.CategoryElement(), GoogleDocsXmlParser.TitleElement(Name)));
+            GoogleDocsXmlParser.WriteAtom(request, GoogleDocsXmlParser.EntryElement(GoogleDocsXmlParser.CategoryElement(), GoogleDocsXmlParser.TitleElement(name)));
 
             try
             {
@@ -277,7 +276,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
             try
             {
-                var response = (HttpWebResponse) request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     //check if extension added
@@ -288,7 +287,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                 }
             }
             catch (WebException)
-            { 
+            {
             }
 
             return false;
@@ -316,7 +315,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             if (fsentry == null || newParent == null || GoogleDocsResourceHelper.IsNoolOrRoot(fsentry))
                 return false;
 
-            if(RemoveResource(session, fsentry, RemoveMode.FromParentCollection) && AddToCollection(session, fsentry, newParent))
+            if (RemoveResource(session, fsentry, RemoveMode.FromParentCollection) && AddToCollection(session, fsentry, newParent))
             {
                 if (fsentry.Parent != null)
                     (fsentry.Parent as BaseDirectoryEntry).RemoveChild(fsentry as BaseFileEntry);
@@ -397,7 +396,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             return tempBuffer;
         }
 
-        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream)
+        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream)
         {
         }
 
@@ -454,7 +453,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             {
                 ((BaseFileEntry)fileSystemEntry).Name = Path.GetFileNameWithoutExtension(fileSystemEntry.Name);
             }
-            
+
             GoogleDocsXmlParser.WriteAtom(request, GoogleDocsXmlParser.EntryElement(GoogleDocsXmlParser.TitleElement(fileSystemEntry.Name)));
             request.Headers.Add("X-Upload-Content-Type", Common.Net.MimeMapping.GetMimeMapping(fileSystemEntry.Name));
             request.Headers.Add("X-Upload-Content-Length", bytesToTransfer.ToString(CultureInfo.InvariantCulture));
@@ -473,13 +472,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
         {
             if (uploadSession.Status != ResumableUploadSessionStatus.Completed)
             {
-                ((ResumableUploadSession)uploadSession).Status = ResumableUploadSessionStatus.Aborted;   
+                ((ResumableUploadSession)uploadSession).Status = ResumableUploadSessionStatus.Aborted;
             }
         }
 
         public override void UploadChunk(IStorageProviderSession session, IResumableUploadSession uploadSession, Stream stream, long chunkLength)
         {
-            if (stream == null) 
+            if (stream == null)
                 throw new ArgumentNullException("stream");
 
             if (uploadSession.Status != ResumableUploadSessionStatus.Started)
@@ -497,7 +496,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             {
                 stream.CopyTo(requestStream);
             }
-
 
             HttpWebResponse response;
             try
@@ -590,7 +588,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
         public override ICloudStorageAccessToken LoadToken(Dictionary<string, string> tokendata)
         {
-            String type = tokendata[CloudStorage.TokenCredentialType];
+            var type = tokendata[CloudStorage.TokenCredentialType];
 
             if (type.Equals(typeof (GoogleDocsToken).ToString()))
             {
@@ -617,12 +615,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
         #region Helpers
 
-        private static WebRequest CreateWebRequest(IStorageProviderSession storageProviderSession, String url, String method, Dictionary<String, String> parameters)
-        {
-            return CreateWebRequest(storageProviderSession, url, method, parameters, false);
-        }
-
-        private static WebRequest CreateWebRequest(IStorageProviderSession storageProviderSession, String url, String method, Dictionary<String, String> parameters, bool oAuthParamsAsHeader)
+        private static WebRequest CreateWebRequest(IStorageProviderSession storageProviderSession, String url, String method, Dictionary<String, String> parameters, bool oAuthParamsAsHeader = false)
         {
             var session = storageProviderSession as GoogleDocsStorageProviderSession;
             var configuration = session.ServiceConfiguration as GoogleDocsConfiguration;

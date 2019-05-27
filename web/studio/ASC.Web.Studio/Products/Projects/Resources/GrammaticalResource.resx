@@ -132,4 +132,10 @@
   <data name="MonthNominative" xml:space="preserve">
     <value>month</value>
   </data>
+  <data name="ResponsibleNominativePlural" xml:space="preserve">
+    <value>Responsible users</value>
+  </data>
+  <data name="TaskGenitivePlural" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
 </root>

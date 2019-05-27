@@ -25,8 +25,8 @@
 
 
 using System;
+using System.Collections.Generic;
 using ASC.Core;
-using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Contracts;
 using ASC.Data.Backup.Service;
 using ASC.Data.Backup.Utils;
@@ -35,7 +35,12 @@ namespace ASC.Data.Backup.Storage
 {
     internal static class BackupStorageFactory
     {
-        public static IBackupStorage GetBackupStorage(BackupStorageType type, int tenantId)
+        public static IBackupStorage GetBackupStorage(BackupRecord record)
+        {
+            return GetBackupStorage(record.StorageType, record.TenantId, record.StorageParams);
+        }
+
+        public static IBackupStorage GetBackupStorage(BackupStorageType type, int tenantId, Dictionary<string, string> storageParams)
         {
             var config = BackupConfigurationSection.GetSection();
             var webConfigPath = PathHelper.ToRootedConfigPath(config.WebConfigs.CurrentPath);
@@ -46,11 +51,12 @@ namespace ASC.Data.Backup.Storage
                     return new DocumentsBackupStorage(tenantId, webConfigPath);
                 case BackupStorageType.DataStore:
                     return new DataStoreBackupStorage(tenantId, webConfigPath);
-                case BackupStorageType.CustomCloud:
-                    var s3Config = CoreContext.Configuration.GetSection<AmazonS3Settings>(tenantId);
-                    return new S3BackupStorage(s3Config.AccessKeyId, s3Config.SecretAccessKey, s3Config.Bucket, s3Config.Region);
                 case BackupStorageType.Local:
                     return new LocalBackupStorage();
+                case BackupStorageType.ThirdPartyConsumer:
+                    if (storageParams == null) return null;
+                    CoreContext.TenantManager.SetCurrentTenant(tenantId);
+                    return new ConsumerBackupStorage(storageParams);
                 default:
                     throw new InvalidOperationException("Unknown storage type.");
             }

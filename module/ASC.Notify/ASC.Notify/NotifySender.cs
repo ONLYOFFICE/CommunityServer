@@ -24,18 +24,19 @@
 */
 
 
-using ASC.Notify.Config;
-using ASC.Notify.Messages;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+
+using ASC.Notify.Config;
+using ASC.Notify.Messages;
+using ASC.Common.Logging;
 
 namespace ASC.Notify
 {
     class NotifySender
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(NotifySender));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private readonly DbWorker db = new DbWorker();
 

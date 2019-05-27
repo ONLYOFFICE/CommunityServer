@@ -28,18 +28,16 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Security;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.Novell;
+using ASC.Common.Logging;
 using ASC.Common.Security.Authorizing;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Security.Cryptography;
-using log4net;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.ActiveDirectory.ComplexOperations
@@ -52,6 +50,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
         public const string PROGRESS = "LDAPProgress";
         public const string RESULT = "LDAPResult";
         public const string ERROR = "LDAPError";
+        public const string WARNING = "LDAPWarning";
         public const string CERT_REQUEST = "LDAPCertRequest";
         public const string FINISHED = "LDAPFinished";
 
@@ -72,6 +71,8 @@ namespace ASC.ActiveDirectory.ComplexOperations
         protected string Status { get; set; }
 
         protected string Error { get; set; }
+
+        protected string Warning { get; set; }
 
         protected Tenant CurrentTenant { get; private set; }
 
@@ -97,6 +98,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
             Progress = 0;
             Status = "";
             Error = "";
+            Warning = "";
             Source = "";
 
             TaskInfo = new DistributedTask();
@@ -119,7 +121,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
                 Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(_culture);
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_culture);
 
-                Logger = LogManager.GetLogger(typeof(LdapOperation));
+                Logger = LogManager.GetLogger("ASC");
 
                 if (LDAPSettings == null)
                 {
@@ -242,6 +244,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
             TaskInfo.SetProperty(PROGRESS, Progress < 100 ? Progress : 100);
             TaskInfo.SetProperty(RESULT, Status);
             TaskInfo.SetProperty(ERROR, Error);
+            TaskInfo.SetProperty(WARNING, Warning);
             //TaskInfo.SetProperty(PROCESSED, successProcessed);
         }
 
@@ -394,7 +397,14 @@ namespace ASC.ActiveDirectory.ComplexOperations
             {
                 if (!string.IsNullOrEmpty(settings.Password))
                 {
-                    settings.PasswordBytes = InstanceCrypto.Encrypt(new UnicodeEncoding().GetBytes(settings.Password));
+                    settings.PasswordBytes = LdapHelper.GetPasswordBytes(settings.Password);
+
+                    if (settings.PasswordBytes == null)
+                    {
+                        Logger.Error("settings.PasswordBytes is null.");
+                        Error = Resource.LdapSettingsErrorCantGetLdapSettings;
+                        return;
+                    }
                 }
                 else
                 {

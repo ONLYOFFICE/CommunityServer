@@ -32,8 +32,8 @@ using System.Net;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
+using ASC.Common.Logging;
 using ASC.Core.Common.Notify.Jabber;
-using log4net;
 using Newtonsoft.Json;
 
 namespace ASC.Core.Notify.Signalr
@@ -55,7 +55,7 @@ namespace ASC.Core.Notify.Signalr
         static SignalrServiceClient()
         {
             Timeout = TimeSpan.FromSeconds(1);
-            Log = LogManager.GetLogger(typeof(SignalrServiceClient));
+            Log = LogManager.GetLogger("ASC");
             CoreMachineKey = ConfigurationManager.AppSettings["core.machinekey"];
             Url = ConfigurationManager.AppSettings["web.hub.internal"];
             EnableSignalr = !string.IsNullOrEmpty(Url);
@@ -242,6 +242,19 @@ namespace ASC.Core.Notify.Signalr
             try
             {
                 MakeRequest("miss", new { numberId, callId, agent });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
+        public void Reload(string numberId, string agentId = null)
+        {
+            try
+            {
+                var numberRoom = CoreContext.TenantManager.GetCurrentTenant().TenantId + numberId;
+                MakeRequest("reload", new { numberRoom, agentId });
             }
             catch (Exception error)
             {

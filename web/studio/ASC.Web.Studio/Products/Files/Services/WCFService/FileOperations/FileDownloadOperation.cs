@@ -102,9 +102,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
             if (files.ContainsKey(file.ID.ToString()))
             {
-                var convertToExt = string.Empty;
-                if (FileUtility.InternalExtension.Values.Contains(convertToExt))
-                    convertToExt = files[file.ID.ToString()];
+                var convertToExt = files[file.ID.ToString()];
 
                 if (!string.IsNullOrEmpty(convertToExt))
                 {
@@ -145,11 +143,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             var entriesPathId = new ItemNameValueCollection();
             foreach (var folderId in folderIds)
             {
+                CancellationToken.ThrowIfCancellationRequested();
+
                 var folder = FolderDao.GetFolder(folderId);
                 if (folder == null || !FilesSecurity.CanRead(folder)) continue;
                 var folderPath = path + folder.Title + "/";
 
-                var files = FileDao.GetFiles(folder.ID, null, FilterType.None, Guid.Empty, string.Empty);
+                var files = FileDao.GetFiles(folder.ID, null, FilterType.None, false, Guid.Empty, string.Empty, true);
                 files = FilesSecurity.FilterRead(files).ToList();
                 files.ForEach(file => entriesPathId.Add(ExecPathFromFile(file, folderPath)));
 
@@ -179,16 +179,16 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                 foreach (var path in entriesPathId.AllKeys)
                 {
-                    if (CancellationToken.IsCancellationRequested)
-                    {
-                        zip.Dispose();
-                        stream.Dispose();
-                        CancellationToken.ThrowIfCancellationRequested();
-                    }
-
                     var counter = 0;
                     foreach (var entryId in entriesPathId[path])
                     {
+                        if (CancellationToken.IsCancellationRequested)
+                        {
+                            zip.Dispose();
+                            stream.Dispose();
+                            CancellationToken.ThrowIfCancellationRequested();
+                        }
+
                         var newtitle = path;
 
                         File file = null;
@@ -239,40 +239,37 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                         if (!string.IsNullOrEmpty(entryId) && file != null)
                         {
-                            if (FileConverter.EnableConvert(file, convertToExt))
+                            try
                             {
-                                //Take from converter
-                                try
+                                if (FileConverter.EnableConvert(file, convertToExt))
                                 {
-                                    using (var readStream = !string.IsNullOrEmpty(convertToExt) ? FileConverter.Exec(file, convertToExt) : FileConverter.Exec(file))
+                                    //Take from converter
+                                    using (var readStream = FileConverter.Exec(file, convertToExt))
                                     {
-                                        if (readStream != null)
+                                        readStream.StreamCopyTo(zip);
+                                        if (!string.IsNullOrEmpty(convertToExt))
                                         {
-                                            readStream.StreamCopyTo(zip);
-                                            if (!string.IsNullOrEmpty(convertToExt))
-                                            {
-                                                FilesMessageService.Send(file, headers, MessageAction.FileDownloadedAs, file.Title, convertToExt);
-                                            }
-                                            else
-                                            {
-                                                FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
-                                            }
+                                            FilesMessageService.Send(file, headers, MessageAction.FileDownloadedAs, file.Title, convertToExt);
+                                        }
+                                        else
+                                        {
+                                            FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
                                         }
                                     }
                                 }
-                                catch (Exception ex)
+                                else
                                 {
-                                    Error = ex.Message;
-                                    Logger.Error(Error, ex);
+                                    using (var readStream = FileDao.GetFileStream(file))
+                                    {
+                                        readStream.StreamCopyTo(zip);
+                                        FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
+                                    }
                                 }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                using (var readStream = FileDao.GetFileStream(file))
-                                {
-                                    readStream.StreamCopyTo(zip);
-                                    FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
-                                }
+                                Error = ex.Message;
+                                Logger.Error(Error, ex);
                             }
                         }
                         counter++;
@@ -284,10 +281,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return stream;
         }
 
-        private static void ReplaceLongPath(ItemNameValueCollection entriesPathId)
+        private void ReplaceLongPath(ItemNameValueCollection entriesPathId)
         {
             foreach (var path in new List<string>(entriesPathId.AllKeys))
             {
+                CancellationToken.ThrowIfCancellationRequested();
+
                 if (200 >= path.Length || 0 >= path.IndexOf('/')) continue;
 
                 var ids = entriesPathId[path];

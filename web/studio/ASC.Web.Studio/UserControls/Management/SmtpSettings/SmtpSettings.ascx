@@ -11,7 +11,7 @@
             <input id="currentHost" type="hidden" value="<%= CurrentSmtpSettings.Host %>" />
             <input id="currentPort" type="hidden" value="<%= CurrentSmtpSettings.Port %>" />
             <input id="currentCredentialsUserName" type="hidden" value="<%= CurrentSmtpSettings.CredentialsUserName %>" />
-            <input id="currentCredentialsUserPassword" type="hidden" value="<%= CurrentSmtpSettings.CredentialsUserPassword %>" />
+            <input id="currentCredentialsUserPassword" type="hidden" value="" />
             <input id="currentSenderDisplayName" type="hidden" value="<%= CurrentSmtpSettings.SenderDisplayName %>" />
             <input id="currentSenderAddress" type="hidden" value="<%= CurrentSmtpSettings.SenderAddress %>" />
             <input id="currentEnableSsl" type="hidden" value="<%= CurrentSmtpSettings.EnableSSL %>" />
@@ -38,41 +38,41 @@
                 <div class="host requiredField">
                     <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                     <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostName %>:</div>
-                    <input type="text" class="smtp-settings-field textEdit" value="${ Host }" />
+                    <input type="text" class="smtp-settings-field textEdit" value="${ host }" />
                 </div>
                 <div class="port requiredField">
                     <div class="smtp-settings-title headerPanelSmall"><%= Resource.Port %>:</div>
-                    <input type="text" class="smtp-settings-field textEdit" value="${ Port }" />
+                    <input type="text" class="smtp-settings-field textEdit" value="${ port }" />
                 </div>
             </div>
             <div class="smtp-settings-item">
-                <input id="customSettingsAuthenticationRequired" type="checkbox" {{if EnableAuth }} checked="checked" {{/if}} />
+                <input id="customSettingsAuthenticationRequired" type="checkbox" {{if enableAuth }} checked="checked" {{/if}} />
                 <label for="customSettingsAuthenticationRequired"><%= Resource.Authentication %></label>
             </div>
             <div class="smtp-settings-item host-login requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostLogin %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ CredentialsUserName }" 
-                    {{if !EnableAuth }} disabled="disabled" {{/if}}/>
+                <input type="text" class="smtp-settings-field textEdit" value="${ credentialsUserName }" 
+                    {{if !enableAuth }} disabled="disabled" {{/if}}/>
             </div>
             <div class="smtp-settings-item host-password requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostPassword %>:</div>
                 <input style="display:none" type="password" name="fakepasswordremembered"/>
-                <input autocomplete="off" type="password" class="smtp-settings-field textEdit" value="${ CredentialsUserPassword }" 
-                    {{if !EnableAuth }} disabled="disabled"{{else}} placeholder="**********"{{/if}} />
+                <input autocomplete="off" type="password" class="smtp-settings-field textEdit" value="${ credentialsUserPassword }" 
+                    {{if !enableAuth }} disabled="disabled"{{else}} placeholder="**********"{{/if}} />
             </div>
             <div class="smtp-settings-item display-name">
                 <div class="smtp-settings-title"><%= Resource.SenderName %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ SenderDisplayName }" />
+                <input type="text" class="smtp-settings-field textEdit" value="${ senderDisplayName }" />
             </div>
             <div class="smtp-settings-item email-address requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.SenderEmailAddress %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ SenderAddress }" />
+                <input type="text" class="smtp-settings-field textEdit" value="${ senderAddress }" />
             </div>
             <div class="smtp-settings-item clearFix enable-ssl">
-                <input id="customSettingsEnableSsl" type="checkbox" {{if EnableSSL }} checked="checked" {{/if}} />
+                <input id="customSettingsEnableSsl" type="checkbox" {{if enableSSL }} checked="checked" {{/if}} />
                 <label for="customSettingsEnableSsl"><%= Resource.EnableSSL %></label>
             </div>
         </script>
@@ -108,10 +108,11 @@
         <div class="middle-button-container">
             <button id="saveSettingsBtn" class="button blue"><%= Resource.SaveButton %></button>
             <span class="splitter-buttons"></span>
-            <button id="saveDefaultCustomSettingsBtn" class="button gray<% if (CoreContext.Configuration.SmtpSettings.IsDefaultSettings)
+            <button id="saveDefaultCustomSettingsBtn" class="button gray<% if (CurrentSmtpSettings.IsDefaultSettings)
                                                                            { %> disable" disabled="disabled<% } %>"><%= Resource.DefaultSettings %></button>
             <span class="splitter-buttons"></span>
-            <button id="sendTestMailBtn" class="button gray"><%= Resource.SendTestMail %></button>
+            <button id="sendTestMailBtn" class="button gray <% if (CurrentSmtpSettings.IsDefaultSettings)
+                                                                           { %> disable" disabled="disabled<% } %>"><%= Resource.SendTestMail %></button>
         </div>
     </div>
     <div class="settings-help-block">

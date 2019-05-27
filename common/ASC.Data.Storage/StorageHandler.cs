@@ -128,7 +128,7 @@ namespace ASC.Data.Storage.DiscStorage
                 return;
             }
 
-            var headers = header.Length > 0 ? header.Split('&') : new string[] { };
+            var headers = header.Length > 0 ? header.Split('&').Select(HttpUtility.UrlDecode) : new string[] { };
 
             const int bigSize = 5*1024*1024;
             if (storage.IsSupportInternalUri && bigSize < storage.GetFileSize(_domain, path))

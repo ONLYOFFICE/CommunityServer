@@ -34,5 +34,10 @@ namespace ASC.FederatedLogin
         public const string OpenId = "openid";
         public const string Box = "box";
         public const string Google = "google";
+        public const string Blockchain = "blockchain";
+        public const string Yandex = "yandex";
+        public const string MailRu = "mailru";
+        public const string VK = "vk";
+        public const string GosUslugi = "gosuslugi";
     }
 }

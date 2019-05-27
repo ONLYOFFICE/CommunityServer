@@ -32,7 +32,6 @@
             padding: 0;
         }
         .buttons {
-            height: 40px;
             overflow: hidden;
         }
 
@@ -43,9 +42,9 @@
             border-radius: 3px;
             display: block;
             float: left;
-            margin-right: 10px;
-            width: 240px;
-            height: 37px;
+            margin-right: 20px;
+            width: 168px;
+            height: 58px;
             cursor: pointer;
         }
 
@@ -56,6 +55,7 @@
         .buttons div.yahoo {
             background: #ffffff url("image/yahoo.png") no-repeat center center;
         }
+
     </style>
 </head>
 <body>

@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Personal is a free online editing suite for text documents, spreadsheets and presentations with an individual cloud storage.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>edit word online, word editor online, word online free, word office online</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>Or sign in with</value>
+  </data>
+  <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
+    <value>Work in the browser or through the ONLYOFFICE desktop application</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Check your email for account confirmation.</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Convenient co-editing and reviewing</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Document collaboration</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100% compatible with MS Office formats</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Connection Instructions</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Create cloud</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Document Discussion</value>
+  </data>
+  <data name="DiscussionDocumentDescriptionCustomMode" xml:space="preserve">
+    <value>Use comments and chat to discuss working on a document without leaving the editor.</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Document Editor</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>It will help you easily create and edit text documents with formatting of any level of complexity.</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Enter your email address</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>Or sign in with</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Here you can change your portal address. Enter the part that will appear next to the onlyoffice.com/onlyoffice.eu portal address.{0}
+{1}Please note{2}: your old portal address will become available to new ONLYOFFICE users once you click the {1}Save{2} button.</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>To activate ONLYOFFICE Enterprise Edition you need to buy a license key.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Account Login</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Connect to cloud</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE always at hand</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>Not registered yet?</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE desktop</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Connect your ONLYOFFICE copy to the cloud to work on documents together without leaving the app.</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE online</value>
+  </data>
+  <data name="OfficeOnlineDescriptionCustomMode" xml:space="preserve">
+    <value>You only need a browser to work from anywhere. Reliable hosting will ensure the security of your data.</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Online Version</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Dear $UserName,
+
+Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}". Get started with it today!
+
+h3.Start working with Documents:
+
+# Create and edit text documents, spreadsheet and presentations.
+# Connect cloud storages you use to create a single workspace for all of your docs.
+# Share documents with your team members.
+# Explore different ways of working on docs together: two real-time co-editing modes, review, comments, chat.
+
+h3.Try additional ${LetterLogoText} tools:
+
+# Add your email account to "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/".
+# Create "Projects":"${__VirtualRootPath}/products/projects/" and manage your workflow by adding milestones and tasks.
+# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/".
+# Use "Community":"${__VirtualRootPath}/products/community/" to start your blogs, forums, add events, share bookmarks.
+# Organize your work schedule with the built-in "Calendar":"${__VirtualRootPath}/addons/calendar/".
+# Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with your teammates online.
+
+$GreenButton
+
+Truly yours,
+${LetterLogoText} Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.Welcome to ONLYOFFICE Personal
+
+You have just created your personal office in the cloud.
+
+h3.It's a virtual workspace where you can edit and store documents, work with them from anywhere providing access to your friends or colleagues.
+
+ONLYOFFICE is compatible with Microsoft Office™ document formats and guarantees no loss of formatting or quality of created objects. We promise to relieve you from formatting fidelity headache and give full professional editing toolset in your hands.
+
+h3.For a quick start, here's what you can do in ONLYOFFICE:
+
+- Upload files from your computer or create new;
+
+- Work with all popular file formats;
+
+- Edit autoshapes, charts, tables, equations and other objects;
+
+- Use various addons for extended editing features;
+
+- Easily access your Personal cloud via "Chrome extension":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US". 
+
+You can also edit documents offline with our free "desktop editors":"https://www.onlyoffice.com/download-desktop.aspx" or get a "mobile editing suite":"https://www.onlyoffice.com/mobile.aspx" for your iOS or Android device.
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>$PersonalHeaderStart Connect your favorite cloud storage to ONLYOFFICE $PersonalHeaderEnd
+
+It has been a week since you created your cloud office, so we believe it's time to unveil some beneficial features you might have missed.
+
+Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You'll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents in. Read details about connecting file storages to ONLYOFFICE "here":"${__HelpLink}/tipstricks/add-resource.aspx".
+
+You can also integrate ONLYOFFICE editors into Google Drive using our "connector app":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
+
+Need more of document management?
+
+h3.Try ONLYOFFICE for business "in the cloud":"https://www.onlyoffice.com/cloud-office.aspx" or "on your server":"https://www.onlyoffice.com/server-solutions.aspx" for free for 30 days and check out extended document management opportunities together with a business toolset:
+
+- Manage team documents in projects;
+
+- Integrate documents with CRM and Email;
+
+- Share files to groups of users;
+
+- Optimize your workflow with team communication tools.
+
+Interested? Learn more about "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_email" xml:space="preserve">
+    <value>You have requested to change your email address used to enter the ${LetterLogoText} portal.
+
+Please follow the link below to change your email address:
+
+$GreenButton
+
+*Note*: this link is valid for 7 days only. Please complete your email change process within that period.
+
+If you do not want to change your email or received this email by mistake, please ignore it.
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
+
+Please follow the link below to change your password:
+
+$GreenButton
+
+*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
+
+If you do not want to change your password or received this email by mistake, please ignore it.
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Hello,
+
+you've just registered an account at the ONLYOFFICE solution for personal use. Click "here":"$InviteLink" to confirm the registration and create a password.
+
+If you can't open the link, please copy the following "$InviteLink":"$InviteLink" and paste it into your browser address bar.
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>You have requested a termination of your account at personal.onlyoffice.com. Follow the link to complete the request (the link is active for a 7-day period): 
+
+$GreenButton
+
+*Note*: After the deletion, your account and all data associated with it will be erased permanently in accordance with our "Privacy statement":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0".
+
+Ignore this email if you do not want to proceed. 
+
+If you have any questions, please contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE presentation editor</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>It will provide you with all the tools to create impressive presentations and present any idea to the audience.</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>Create now</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>I want to subscribe to the ONLYOFFICE newsletter</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>I agree to ONLYOFFICE {0}Terms and conditions{1}</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>Remember</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>Turn on review mode to suggest edits to the document without changing it.</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Activation email sent to</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>Sign Up to the cloud</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE spreadsheet editor</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Provides professional work with spreadsheets, helps to conduct complex calculations and organize your data.</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>Welcome to ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Connect your favorite cloud storage to ONLYOFFICE</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_email" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Email change request</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>ONLYOFFICE Personal password assistance</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Please activate your email address</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE Personal account termination</value>
+  </data>
+  <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}.</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>Terms of Use</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>Thank you for registering</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Collaboration cloud</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>Personal online office</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>Change tracking</value>
+  </data>
+  <data name="TrackingChangesDescriptionCustomMode" xml:space="preserve">
+    <value>Turn on the display of the changes made. Different viewing modes will help check how the document will look like if you accept or reject these edits.</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>Two co-editing modes</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>In Quick mode, you see what your collaborator is typing, and he sees what you are typing. In Strict you edit parts of the document privately, and the changes are shown after saving.</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Start typing email address or contact name from your personal, CRM contacts or
+portal users or use any other email to invite people to your event.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Do the same as a user|Link Dropbox, Box and other accounts in the 'Common Documents' section|Set up access rights to the documents and folders in the 'Common Documents' section</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Create and edit own documents as well as the shared documents with the proper access rights|Give reading/editing access to other users to the documents and folders|Link Dropbox, Box and other accounts in the 'My documents' section</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Dear $UserName,
+
+The process of removing data from user "$FromUserName":"$FromUserLink" has been successfully completed.
+
+The deletion of personal data allowed to free:
+
+# Documents - $DocsSpace
+# Mail - $MailSpace
+# Talk - $TalkSpace
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. Remove user data is completed</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from connected authenticator application.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}</value>
+  </data>
+</root>

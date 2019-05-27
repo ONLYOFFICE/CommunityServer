@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
@@ -13,7 +12,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
 
         public static String GetResourceID(String nameOrID)
         {
-            if (String.IsNullOrEmpty(nameOrID)) 
+            if (String.IsNullOrEmpty(nameOrID))
                 return String.Empty;
 
             var index = nameOrID.LastIndexOf('/');
@@ -24,7 +23,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
             return SkyDriveConstants.ResourceIDRegex.IsMatch(nameOrID) ? nameOrID : String.Empty;
         }
 
-        public static bool HasParentID (String nameOrID)
+        public static bool HasParentID(String nameOrID)
         {
             return GetParentID(nameOrID) != String.Empty;
         }
@@ -50,7 +49,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
         public static void CopyProperties(ICloudFileSystemEntry src, ICloudFileSystemEntry dest)
         {
             if (!(dest is BaseFileEntry) || !(src is BaseFileEntry)) return;
-            
+
             var destBase = dest as BaseFileEntry;
             var srcBase = src as BaseFileEntry;
             destBase.Name = srcBase.Name;

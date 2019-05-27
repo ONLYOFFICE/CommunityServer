@@ -77,9 +77,56 @@ namespace ASC.Files.Thirdparty.SharePoint
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            return GetFiles(fileIds);
+            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
+
+            var files = GetFiles(fileIds).AsEnumerable();
+
+            //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
+            switch (filterType)
+            {
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return files.ToList();
         }
 
         public List<object> GetFiles(object parentId)
@@ -87,21 +134,23 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
             //Get only files
             var files = ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r));
+
             //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
             switch (filterType)
             {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
                 case FilterType.FoldersOnly:
                     return new List<File>();
                 case FilterType.DocumentsOnly:
@@ -118,6 +167,13 @@ namespace ASC.Files.Thirdparty.SharePoint
                     break;
                 case FilterType.ArchiveOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive).ToList();
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                    {
+                        FileType fileType;
+                        return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                    });
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
@@ -139,6 +195,9 @@ namespace ASC.Files.Thirdparty.SharePoint
                     files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.ModifiedOn) : files.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -160,10 +219,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             if (fileToDownload == null)
                 throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
 
-            var fileStream = ProviderInfo.GetFileStream(fileToDownload.ServerRelativeUrl);
-
-            if (fileStream != null && offset > 0)
-                fileStream.Seek(offset, SeekOrigin.Begin);
+            var fileStream = ProviderInfo.GetFileStream(fileToDownload.ServerRelativeUrl, (int) offset);
 
             return fileStream;
         }
@@ -184,15 +240,24 @@ namespace ASC.Files.Thirdparty.SharePoint
 
             if (file.ID != null)
             {
-                return ProviderInfo.ToFile(ProviderInfo.CreateFile((string) file.ID, fileStream));
+                var sharePointFile = ProviderInfo.CreateFile((string)file.ID, fileStream);
+
+                var resultFile = ProviderInfo.ToFile(sharePointFile);
+                if (!sharePointFile.Name.Equals(file.Title))
+                {
+                    var folder = ProviderInfo.GetFolderById(file.FolderID);
+                    file.Title = GetAvailableTitle(file.Title, folder, IsExist);
+
+                    var id = ProviderInfo.RenameFile(SharePointDaoSelector.ConvertId(resultFile.ID).ToString(), file.Title);
+                    return GetFile(SharePointDaoSelector.ConvertId(id));
+                }
+                return resultFile;
             }
 
             if (file.FolderID != null)
             {
                 var folder = ProviderInfo.GetFolderById(file.FolderID);
-
                 file.Title = GetAvailableTitle(file.Title, folder, IsExist);
-
                 return ProviderInfo.ToFile(ProviderInfo.CreateFile(folder.ServerRelativeUrl + "/" + file.Title, fileStream));
             }
 
@@ -295,12 +360,12 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             return null;
         }

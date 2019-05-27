@@ -24,19 +24,19 @@
 */
 
 
-using ASC.Core.Notify.Jabber;
-using ASC.Notify.Messages;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using ASC.Common.Logging;
+using ASC.Core.Notify.Jabber;
+using ASC.Notify.Messages;
 
 namespace ASC.Core.Notify.Senders
 {
     public class JabberSender : INotifySender
     {
         private JabberServiceClient service = new JabberServiceClient();
-        private static readonly ILog log = LogManager.GetLogger(typeof(JabberServiceClient));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         public void Init(IDictionary<string, string> properties)
         {

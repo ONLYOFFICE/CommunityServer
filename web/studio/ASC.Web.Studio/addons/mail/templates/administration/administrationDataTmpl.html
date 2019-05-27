@@ -16,7 +16,7 @@
                     <td>
                         {{if !domain.isSharedDomain}}
                             <p class="info">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxToNewDomainInfo}</p>
-                            <p class="info">${ASC.Mail.Resources.MailAdministrationResource.NewDomainAttention}{{if ASC.Resources.Master.Standalone }}&nbsp;{{html ASC.Mail.Resources.MailResource.DomainHelperExportFromMSExchange.format("<a class='link underline' href='http://helpcenter.onlyoffice.com/server/docker/enterprise/migrate-from-exchange.aspx' target='_blank'>", "</a>")}}{{/if}}</p>
+                            <p class="info">${ASC.Mail.Resources.MailAdministrationResource.NewDomainAttention}{{if ASC.Resources.Master.Standalone }}&nbsp;{{html ASC.Mail.Resources.MailResource.DomainHelperExportFromMSExchange.format("<a class='link underline' href='" + ASC.Resources.Master.HelpLink + "/server/docker/enterprise/migrate-from-exchange.aspx' target='_blank'>", "</a>")}}{{/if}}</p>
                         {{else}}
                             <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_1}</p>
                             <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_2}</p>

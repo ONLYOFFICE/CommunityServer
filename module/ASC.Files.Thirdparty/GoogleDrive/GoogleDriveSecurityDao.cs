@@ -38,11 +38,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
         }
 
-        public void Dispose()
-        {
-            GoogleDriveProviderInfo.Dispose();
-        }
-
         public void SetShare(FileShareRecord r)
         {
         }

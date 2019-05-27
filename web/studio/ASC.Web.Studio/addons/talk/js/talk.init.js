@@ -23,6 +23,10 @@
  *
 */
 
+window.onload = function () {
+    jq('meta[name=viewport]').remove();
+    jq('head').append('<meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.3, maximum-scale=1">');
+};
 
 jq(document).ready(function () {
     TMTalk.init();
@@ -47,6 +51,8 @@ jq(document).ready(function () {
     tmTalk.properties.item("maxUploadSize", config.maxUploadSize);
     tmTalk.properties.item("maxUploadSizeError", tmTalk.maxUploadSizeError);
     tmTalk.properties.item("sounds", config.sounds);
+    tmTalk.properties.item("soundsHtml", config.soundsHtml);
+
     tmTalk.properties.item("expressInstall", config.expressInstall);
     //hack for artifact css
     jq('#talkWrapper').removeClass('hide');
@@ -61,4 +67,68 @@ jq(document).ready(function () {
             } catch(e) {}
         }
     });
+    var isConnected = true;
+    var isTalkConnected = true;
+    var isNeedReload = true;
+    var countRetry = 0;
+    var talkDate = null;
+
+    var updateTalkDate = function () {
+        var now = new Date();
+
+        var yyyy = now.getFullYear().toString();
+        var mm = (now.getMonth() + 1).toString();
+        var dd = now.getDate().toString();
+        var nowStr = [
+            yyyy,
+            (mm[1] ? mm : "0" + mm[0]),
+            (dd[1] ? dd : "0" + dd[0])
+        ].join('-');
+
+        talkDate = talkDate != null ? talkDate : nowStr;
+       
+        if (talkDate != nowStr) {
+            talkDate = nowStr;
+            ASC.TMTalk.messagesManager.updateOpenRoomsHistory();
+        }
+    };
+
+    jQuery(window).click(function () {
+        setTimeout(function () {
+            ASC.TMTalk.connectionManager.conflict = false;
+            if (ASC.TMTalk.connectionManager.status().id == 0) {
+                ASC.TMTalk.connectionManager.terminate();
+                setTimeout(function() {
+                    ASC.TMTalk.connectionManager.status(1);
+                }, 1000);
+            }
+        }, 1000);
+    });
+
+    setInterval(function () {
+        if (!isConnected && navigator.onLine && !ASC.TMTalk.connectionManager.conflict && ASC.TMTalk.connectionManager.status().id == 0) {
+            isNeedReload = false;
+            setTimeout(function () {
+               ASC.TMTalk.connectionManager.terminate();
+               location.reload();
+            }, 10000);
+        } else if (ASC.TMTalk.connectionManager.connected() && jQuery('#talkStatusMenu').hasClass('processing')) {
+            if (isTalkConnected) {
+                isTalkConnected = false;
+               
+                setTimeout(function () {
+                    ASC.TMTalk.connectionManager.status(0);
+                    isTalkConnected = true;
+                }, 1000);
+            }
+        } else if (!ASC.TMTalk.connectionManager.conflict && navigator.onLine && ASC.TMTalk.connectionManager.status().id == 0 && !ASC.TMTalk.connectionManager.connected()) {
+            if (countRetry == 10 && isNeedReload) {
+                ASC.TMTalk.connectionManager.terminate();
+                location.reload();
+            }
+            countRetry++;
+        }
+        isConnected = navigator.onLine;
+        updateTalkDate();
+    }, 1000);
 });

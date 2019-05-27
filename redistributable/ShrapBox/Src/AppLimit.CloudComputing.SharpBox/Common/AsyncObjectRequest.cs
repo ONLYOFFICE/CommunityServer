@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common
 {
@@ -24,6 +23,6 @@ namespace AppLimit.CloudComputing.SharpBox.Common
         /// In case of error the cached execption which can 
         /// be handled in the EndRequest method
         /// </summary>
-        public Exception errorReason;   
+        public Exception errorReason;
     }
 }

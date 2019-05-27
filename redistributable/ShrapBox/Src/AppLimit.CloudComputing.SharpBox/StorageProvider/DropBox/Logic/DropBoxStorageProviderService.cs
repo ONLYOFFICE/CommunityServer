@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Web;
 using AppLimit.CloudComputing.SharpBox.Common.Extensions;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Common.Net;
@@ -13,10 +14,6 @@ using AppLimit.CloudComputing.SharpBox.Common.Net.Web;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
-
-#if !WINDOWS_PHONE && !MONODROID
-using System.Web;
-#endif
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 {
@@ -101,19 +98,19 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 };
         }
 
-        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string nameOrId, ICloudDirectoryEntry parent)
+        public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
-            var path = DropBoxResourceIDHelpers.GetResourcePath(parent, nameOrId);
+            var path = DropBoxResourceIDHelpers.GetResourcePath(parent, name);
             var uriString = GetResourceUrlInternal(session, path);
-          
+
             int code;
             var res = DropBoxRequestParser.RequestResourceByUrl(uriString, this, session, out code);
 
             if (res.Length == 0)
             {
-                if (code != (int) HttpStatusCode.OK)
+                if (code != (int)HttpStatusCode.OK)
                     throw new SharpBoxException(
-                        code == (int) HttpStatusCode.NotFound
+                        code == (int)HttpStatusCode.NotFound
                             ? SharpBoxErrorCodes.ErrorFileNotFound
                             : SharpBoxErrorCodes.ErrorCouldNotRetrieveDirectoryList,
                         new HttpException(Convert.ToInt32(code), "HTTP Error"));
@@ -131,9 +128,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             // check if it was a deleted file
             if (entry.IsDeleted)
                 return null;
-            
+
             // set the parent
-            if (parent != null && parent is BaseDirectoryEntry && parent.Id.Equals(entry.ParentID))
+            if (parent is BaseDirectoryEntry && parent.Id.Equals(entry.ParentID))
                 (parent as BaseDirectoryEntry).AddChild(entry);
 
             return entry;
@@ -142,7 +139,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
         public override void RefreshResource(IStorageProviderSession session, ICloudFileSystemEntry resource)
         {
             var path = GetResourceUrlInternal(session, DropBoxResourceIDHelpers.GetResourcePath(resource));
-         
+
             int code;
             var res = DropBoxRequestParser.RequestResourceByUrl(path, this, session, out code);
 
@@ -164,21 +161,21 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             var path = DropBoxResourceIDHelpers.GetResourcePath(parent, name);
 
             var parameters = new Dictionary<string, string>
-                                 {
-                                     {"path", path},
-                                     {"root", GetRootToken(session as DropBoxStorageProviderSession)}
-                                 };
+                {
+                    { "path", path },
+                    { "root", GetRootToken(session as DropBoxStorageProviderSession) }
+                };
 
             int code;
             var res = DropBoxRequestParser.RequestResourceByUrl(GetUrlString(DropBoxCreateFolder, session.ServiceConfiguration), parameters, this, session, out code);
             if (res.Length != 0)
             {
                 var entry = DropBoxRequestParser.CreateObjectsFromJsonString(res, this, session);
-                if (parent != null && parent is BaseDirectoryEntry && parent.Id.Equals(entry.ParentID))
+                if (parent is BaseDirectoryEntry && parent.Id.Equals(entry.ParentID))
                     (parent as BaseDirectoryEntry).AddChild(entry);
                 return entry;
             }
-            
+
             return null;
         }
 
@@ -187,10 +184,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             var resourcePath = DropBoxResourceIDHelpers.GetResourcePath(entry);
 
             var parameters = new Dictionary<string, string>
-                                 {
-                                     {"path", resourcePath},
-                                     {"root", GetRootToken(session as DropBoxStorageProviderSession)}
-                                 };
+                {
+                    { "path", resourcePath },
+                    { "root", GetRootToken(session as DropBoxStorageProviderSession) }
+                };
 
             try
             {
@@ -202,7 +199,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 {
                     parent.RemoveChildById(entry.Id);
                 }
-
             }
             catch (Exception)
             {
@@ -220,14 +216,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             if (MoveOrRenameItem(session as DropBoxStorageProviderSession, fsentry as BaseFileEntry, path))
             {
                 // set the new parent
-                if (fsentry.Parent != null && fsentry.Parent is BaseDirectoryEntry)
+                if (fsentry.Parent is BaseDirectoryEntry)
                     (fsentry.Parent as BaseDirectoryEntry).RemoveChildById(oldPath);
-                if (newParent != null && newParent is BaseDirectoryEntry)
+                if (newParent is BaseDirectoryEntry)
                     (newParent as BaseDirectoryEntry).AddChild(fsentry as BaseFileEntry);
 
                 return true;
             }
-            
+
             return false;
         }
 
@@ -290,17 +286,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
                 return new DropBoxToken(tokenKey, tokenSecret, bc);
             }
-            else if (type.Equals(typeof (DropBoxRequestToken).ToString()))
+            if (type.Equals(typeof (DropBoxRequestToken).ToString()))
             {
                 var tokenSecret = tokendata[TokenDropBoxAppSecret];
                 var tokenKey = tokendata[TokenDropBoxAppKey];
 
                 return new DropBoxRequestToken(new OAuthToken(tokenKey, tokenSecret));
             }
-            else
-            {
-                throw new InvalidCastException("Token type not supported through this provider");
-            }
+
+            throw new InvalidCastException("Token type not supported through this provider");
         }
 
         public override string GetResourceUrl(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, String additionalPath)
@@ -322,7 +316,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             var dropBoxSession = session as DropBoxStorageProviderSession;
 
             // create webrequst 
-            var requestProtected = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, null, null, dropBoxSession.Context, (DropBoxToken) dropBoxSession.SessionToken, null);
+            var requestProtected = svc.CreateWebRequest(url, WebRequestMethodsEx.Http.Get, null, null, dropBoxSession.Context, (DropBoxToken)dropBoxSession.SessionToken, null);
 
             // get the response
             var response = svc.GetWebResponse(requestProtected);
@@ -384,17 +378,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             // convert the args
             var svc = arg[0] as OAuthService;
             var uploadRequest = arg[1] as HttpWebRequest;
-            var uploadSize = (long) arg[2];
+            var uploadSize = (long)arg[2];
             var fileSystemEntry = arg[3] as BaseFileEntry;
 
-#if !WINDOWS_PHONE && !MONODROID
             var requestStream = arg[4] as WebRequestStream;
 
             // check if all data was written into stream
             if (requestStream.WrittenBytes != uploadRequest.ContentLength)
                 // nothing todo request was aborted
                 return;
-#endif
 
             // perform the request
             int code;
@@ -402,8 +394,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             svc.PerformWebRequest(uploadRequest, null, out code, out e);
 
             // check the ret value
-            if (code != (int) HttpStatusCode.OK)
-                SharpBoxException.ThrowSharpBoxExceptionBasedOnHttpErrorCode(uploadRequest, (HttpStatusCode) code, e);
+            if (code != (int)HttpStatusCode.OK)
+                SharpBoxException.ThrowSharpBoxExceptionBasedOnHttpErrorCode(uploadRequest, (HttpStatusCode)code, e);
 
             if (fileSystemEntry != null)
             {
@@ -419,7 +411,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             }
         }
 
-        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream)
+        public override void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream)
         {
         }
 
@@ -477,13 +469,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 {
                     json.ParseJsonMessage(streamReader.ReadToEnd());
                 }
-                
+
                 var uplSession = (ResumableUploadSession)uploadSession;
                 uplSession["UploadId"] = json.GetProperty("upload_id");
                 uplSession["Expired"] = json.GetDateTimeProperty("expired");
                 uplSession.BytesTransfered += chunkLength;
                 uplSession.Status = ResumableUploadSessionStatus.Started;
-                
+
                 if (uplSession.BytesToTransfer == uploadSession.BytesTransfered)
                 {
                     CommitUploadSession(session, uploadSession);
@@ -502,7 +494,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                                                               null,
                                                               ((DropBoxStorageProviderSession)session).Context,
                                                               (DropBoxToken)session.SessionToken,
-                                                              new Dictionary<string, string> {{"upload_id", uploadSession.GetItem<string>("UploadId")}});
+                                                              new Dictionary<string, string> { { "upload_id", uploadSession.GetItem<string>("UploadId") } });
 
                 int httpStatusCode;
                 WebException httpException;
@@ -534,7 +526,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
         {
             if (uploadSession.Status != ResumableUploadSessionStatus.Completed)
             {
-                ((ResumableUploadSession)uploadSession).Status = ResumableUploadSessionStatus.Aborted;   
+                ((ResumableUploadSession)uploadSession).Status = ResumableUploadSessionStatus.Aborted;
             }
         }
 
@@ -567,7 +559,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 // check if the exception an http error 403
                 if (ex.InnerException is HttpException)
                 {
-                    if ((((HttpException) ex.InnerException).GetHttpCode() == 403) || (((HttpException) ex.InnerException).GetHttpCode() == 401))
+                    if ((((HttpException)ex.InnerException).GetHttpCode() == 403) || (((HttpException)ex.InnerException).GetHttpCode() == 401))
                         throw new UnauthorizedAccessException();
                 }
 
@@ -638,11 +630,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
             // request the json object via oauth
             var parameters = new Dictionary<string, string>
-                                 {
-                                     {"from_path", resourcePath},
-                                     {"root", GetRootToken(session)},
-                                     {"to_path", toPath}
-                                 };
+                {
+                    { "from_path", resourcePath },
+                    { "root", GetRootToken(session) },
+                    { "to_path", toPath }
+                };
 
             try
             {
@@ -715,15 +707,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             if (urltemplate.Contains("{0}"))
             {
                 if (configuration == null || !(configuration is DropBoxConfiguration))
-                    return String.Format(urltemplate, ((int) DropBoxAPIVersion.Stable).ToString());
-                else
-                {
-                    var versionValue = (int) ((DropBoxConfiguration) configuration).APIVersion;
-                    return String.Format(urltemplate, versionValue.ToString());
-                }
+                    return String.Format(urltemplate, ((int)DropBoxAPIVersion.Stable).ToString());
+
+                var versionValue = (int)((DropBoxConfiguration)configuration).APIVersion;
+                return String.Format(urltemplate, versionValue.ToString());
             }
-            else
-                return urltemplate;
+
+            return urltemplate;
         }
 
         #endregion

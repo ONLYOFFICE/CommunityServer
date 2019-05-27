@@ -4,6 +4,7 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
 <%@ Import Namespace="ASC.Files.Core.Security" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -19,6 +20,8 @@
             <select>
                 <option value="<%= (int) FileShare.ReadWrite %>"><%= FilesUCResource.AceStatusEnum_ReadWrite %></option>
                 <option value="<%= (int) FileShare.Review %>"><%= FilesUCResource.AceStatusEnum_Review %></option>
+                <option value="<%= (int) FileShare.FillForms %>"><%= FilesUCResource.AceStatusEnum_FillForms %></option>
+                <option value="<%= (int) FileShare.Comment %>"><%= FilesUCResource.AceStatusEnum_Comment %></option>
                 <option value="<%= (int) FileShare.Read %>" selected="selected"><%= FilesUCResource.AceStatusEnum_Read %></option>
                 <option value="<%= (int) FileShare.Restrict %>"><%= FilesUCResource.AceStatusEnum_Restrict %></option>
             </select>
@@ -27,15 +30,24 @@
     </div>
     <div id="shareLinkPanel">
         <div class="sharelink-around borderBase">
-            <input type="text" id="shareLink" readonly="readonly" data-shorten="<%= BitlyLoginProvider.Enabled.ToString().ToLower() %>" />
-            <div id="shareLinkCopy" class="text-medium">
-                <span class="baseLinkAction"><%= FilesUCResource.ButtonCopyToClipboard %></span>
+            <input type="text" id="shareLink" readonly="readonly" />
+            <div id="shareLinkAction">
+                <% if (UrlShortener.Enabled)
+                   { %>
+                <span id="getShortenLink" class="baseLinkAction"><%= FilesUCResource.GetShorten %></span>
+                <% } %>
+                <span id="shareLinkCopy" class="baseLinkAction"><%= FilesUCResource.ButtonCopyToClipboard %></span>
             </div>
             <ul id="shareViaSocPanel">
+                <% if (!Request.DesktopApp())
+                   { %>
                 <li><a class="mail" title="<%= FilesUCResource.LinkViaMail %>"><span></span></a></li>
-                <li><a class="google" target="_blank" title="<%= FilesUCResource.ButtonViaGoogle %>"><span></span></a></li>
+                <% } %>
+                <% if (!CoreContext.Configuration.CustomMode)
+                   { %>
                 <li><a class="facebook" target="_blank" title="<%= FilesUCResource.ButtonViaFacebook %>"><span></span></a></li>
                 <li><a class="twitter" target="_blank" title="<%= FilesUCResource.ButtonViaTwitter %>"><span></span></a></li>
+                <% } %>
             </ul>
         </div>
         <div id="toggleEmbeddPanel">

@@ -52,44 +52,59 @@ ASC.CRM.myTaskContactFilter = {
 
     createFilterByContact: function (filter) {
         var o = document.createElement('div');
+        o.classList.add("default-value");
         o.innerHTML = [
-      '<div class="default-value">',
-        '<span class="title">',
-          filter.title,
-        '</span>',
-        '<span class="selector-wrapper">',
-          '<span class="contact-selector"></span>',
-        '</span>',
-        '<span class="btn-delete">&times;</span>',
-      '</div>'
+            '<span class="title">',
+              filter.title,
+            '</span>',
+            '<span class="selector-wrapper">',
+              '<span class="contact-selector"></span>',
+            '</span>',
+            '<span class="btn-delete">&times;</span>',
         ].join('');
         return o;
     },
 
     customizeFilterByContact: function ($container, $filteritem, filter) {
-        if (jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).parent().is("#" + ASC.CRM.myTaskContactFilter.hiddenContainerId)) {
-            jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId)
+        var $filterSwitcher = jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId);
+
+        if ($filterSwitcher.parent().is("#" + ASC.CRM.myTaskContactFilter.hiddenContainerId)) {
+            $filterSwitcher
                 .off("showList")
                 .on("showList", function (event, item) {
                     ASC.CRM.myTaskContactFilter.onSelectContact(event, item);
+                    $filteritem.removeClass("default-value");
                 });
-            jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+
+            $filterSwitcher.next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+
+            if (!filter.isset) {
+                setTimeout(function () {
+                    if ($filteritem.hasClass("default-value")) {
+                        $filterSwitcher.click();
+                    }
+                }, 0);
+            }
         }
     },
 
     destroyFilterByContact: function ($container, $filteritem, filter) {
-        if (!jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).parent().is("#" + ASC.CRM.myTaskContactFilter.hiddenContainerId)) {
-            jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId).off("showList");
-            jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
-            jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).next().andSelf().appendTo(jq('#' + ASC.CRM.myTaskContactFilter.hiddenContainerId));
-            jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId).contactadvancedSelector("reset");
+        var $filterSwitcher = jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId);
+
+        if (!$filterSwitcher.parent().is("#" + ASC.CRM.myTaskContactFilter.hiddenContainerId)) {
+            $filterSwitcher.off("showList");
+            $filterSwitcher.find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
+            $filterSwitcher.next().andSelf().appendTo(jq('#' + ASC.CRM.myTaskContactFilter.hiddenContainerId));
+            $filterSwitcher.contactadvancedSelector("reset");
         }
     },
 
     processFilter: function ($container, $filteritem, filtervalue, params) {
         if (params && params.id && isFinite(params.id)) {
-            jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId).find(".inner-text .value").text(params.displayName);
-            jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId).contactadvancedSelector("select", [params.id]);
+            var $filterSwitcher = jq('#' + ASC.CRM.myTaskContactFilter.headerContainerId);
+            $filterSwitcher.find(".inner-text .value").text(params.displayName);
+            $filterSwitcher.contactadvancedSelector("select", [params.id]);
+            $filteritem.removeClass("default-value");
         }
     }
 };
@@ -387,7 +402,7 @@ ASC.CRM.ListTaskView = new function() {
 
         var now = new Date(),
             todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0),
-            todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0),
+            todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0),
 
             nowString = Teamlab.serializeTimestamp(now),
             todayStartString = Teamlab.serializeTimestamp(todayStart),
@@ -402,7 +417,7 @@ ASC.CRM.ListTaskView = new function() {
                             '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                             '</a>'),
                 hintDefaultDisable: true,
-                maxfilters  : 3,
+                maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
                 store       : true,
@@ -766,7 +781,7 @@ ASC.CRM.ListTaskView = new function() {
             }
         },
 
-        init: function (exportErrorCookieKey, parentSelector) {
+        init: function (parentSelector) {
             if (jq(parentSelector).length == 0) return;
             ASC.CRM.Common.setDocumentTitle(ASC.CRM.Resources.CRMTaskResource.Tasks);
             jq(parentSelector).removeClass("display-none");
@@ -786,22 +801,6 @@ ASC.CRM.ListTaskView = new function() {
             ASC.CRM.ListTaskView.isTabActive = false;
             ASC.CRM.ListTaskView.Total = 0;
             ASC.CRM.ListTaskView.advansedFilter = null;
-
-            var exportErrorText = jq.cookies.get(exportErrorCookieKey);
-            if (exportErrorText != null && exportErrorText != "") {
-                jq.cookies.del(exportErrorCookieKey);
-                jq.tmpl("template-blockUIPanel", {
-                    id: "exportToCsvError",
-                    headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
-                    questionText: "",
-                    innerHtmlText: ['<div>', exportErrorText, '</div>'].join(''),
-                    CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
-                    progressText: ""
-                }).insertAfter("#taskFilterContainer");
-
-                PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#exportToCsvError", 500, 400, 0);
-            }
 
             _initEmptyScreen();
 
@@ -888,6 +887,8 @@ ASC.CRM.ListTaskView = new function() {
                 jq("#tasksAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'sort');
                 jq("#tasksAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, "search_text", "enter");
             });
+            
+            ASC.CRM.PartialExport.init(ASC.CRM.ListTaskView.advansedFilter, "task");
         },
 
         isFirstLoad: true,
@@ -978,7 +979,7 @@ ASC.CRM.ListTaskView = new function() {
                     case "fromToDate":
                         settings.fromDate = new Date(item.params.from);
                         settings.toDate = new Date(item.params.to);
-                        settings.toDate = new Date(settings.toDate.getFullYear(), settings.toDate.getMonth(), settings.toDate.getDate(), 23, 59, 0, 0);
+                        settings.toDate = new Date(settings.toDate.getFullYear(), settings.toDate.getMonth(), settings.toDate.getDate(), 23, 59, 59, 0);
                         break;
                     default:
                         if (item.hasOwnProperty("apiparamname") && item.params.hasOwnProperty("value") && item.params.value != null) {

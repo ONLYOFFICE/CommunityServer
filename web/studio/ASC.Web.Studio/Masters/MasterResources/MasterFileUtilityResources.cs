@@ -51,9 +51,13 @@ namespace ASC.Web.Studio.Masters.MasterResources
                     RegisterObject(new
                         {
                             FileUtility.ExtsImagePreviewed,
+                            FileUtility.ExtsMediaPreviewed,
                             FileUtility.ExtsWebPreviewed,
                             FileUtility.ExtsWebEdited,
+                            FileUtility.ExtsWebEncrypt,
                             FileUtility.ExtsWebReviewed,
+                            FileUtility.ExtsWebRestrictedEditing,
+                            FileUtility.ExtsWebCommented,
                             FileUtility.ExtsCoAuthoring,
                             FileUtility.ExtsMustConvert,
                             FileUtility.ExtsConvertible,
@@ -72,7 +76,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             FilesLinkUtility.FileWebViewerUrlString,
                             FilesLinkUtility.FileWebViewerExternalUrlString,
                             FilesLinkUtility.FileWebEditorUrlString,
-                            FilesLinkUtility.FileWebEditorExternalUrlString
+                            FilesLinkUtility.FileWebEditorExternalUrlString,
+                            FilesLinkUtility.FileRedirectPreviewUrlString
                         })
                 };
         }

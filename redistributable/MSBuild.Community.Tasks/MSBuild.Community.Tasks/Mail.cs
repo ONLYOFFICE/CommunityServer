@@ -28,8 +28,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Net.Mail;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
@@ -292,8 +290,7 @@ namespace MSBuild.Community.Tasks
             }
             finally
             {
-                if(message == null)
-                    message.Dispose();
+                message?.Dispose();
             }
             
             return true;

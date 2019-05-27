@@ -304,6 +304,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete profile when reassignment will be finished.
+        /// </summary>
+        public static string DeleteProfileAfterReassignment {
+            get {
+                return ResourceManager.GetString("DeleteProfileAfterReassignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete the users from portal.
         /// </summary>
         public static string DeleteUserProfiles {
@@ -457,6 +466,33 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Example values.
+        /// </summary>
+        public static string ExampleValues {
+            get {
+                return ResourceManager.GetString("ExampleValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fields in file.
+        /// </summary>
+        public static string FieldsInFile {
+            get {
+                return ResourceManager.GetString("FieldsInFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fields on the portal OnlyOffice.
+        /// </summary>
+        public static string FieldsOnPortal {
+            get {
+                return ResourceManager.GetString("FieldsOnPortal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
@@ -484,6 +520,114 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string ImportClear {
+            get {
+                return ResourceManager.GetString("ImportClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column.
+        /// </summary>
+        public static string ImportColumn {
+            get {
+                return ResourceManager.GetString("ImportColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Double quote.
+        /// </summary>
+        public static string ImportDelimiterDQ {
+            get {
+                return ResourceManager.GetString("ImportDelimiterDQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single quote.
+        /// </summary>
+        public static string ImportDelimiterSQ {
+            get {
+                return ResourceManager.GetString("ImportDelimiterSQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ASCII.
+        /// </summary>
+        public static string ImportEncodingASCII {
+            get {
+                return ResourceManager.GetString("ImportEncodingASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CP-866.
+        /// </summary>
+        public static string ImportEncodingCP866 {
+            get {
+                return ResourceManager.GetString("ImportEncodingCP866", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KOI8-R.
+        /// </summary>
+        public static string ImportEncodingKOI8R {
+            get {
+                return ResourceManager.GetString("ImportEncodingKOI8R", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UTF-8.
+        /// </summary>
+        public static string ImportEncodingUTF8 {
+            get {
+                return ResourceManager.GetString("ImportEncodingUTF8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows1251.
+        /// </summary>
+        public static string ImportEncodingWindows1251 {
+            get {
+                return ResourceManager.GetString("ImportEncodingWindows1251", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From File.
+        /// </summary>
+        public static string ImportFromFile {
+            get {
+                return ResourceManager.GetString("ImportFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google.
+        /// </summary>
+        public static string ImportFromGoogle {
+            get {
+                return ResourceManager.GetString("ImportFromGoogle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yahoo.
+        /// </summary>
+        public static string ImportFromYahoo {
+            get {
+                return ResourceManager.GetString("ImportFromYahoo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import People.
         /// </summary>
         public static string ImportPeople {
@@ -493,11 +637,101 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colon.
+        /// </summary>
+        public static string ImportSeparatorColon {
+            get {
+                return ResourceManager.GetString("ImportSeparatorColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma.
+        /// </summary>
+        public static string ImportSeparatorComma {
+            get {
+                return ResourceManager.GetString("ImportSeparatorComma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semicolon.
+        /// </summary>
+        public static string ImportSeparatorSemicolon {
+            get {
+                return ResourceManager.GetString("ImportSeparatorSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space.
+        /// </summary>
+        public static string ImportSeparatorSpace {
+            get {
+                return ResourceManager.GetString("ImportSeparatorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tab.
+        /// </summary>
+        public static string ImportSeparatorTab {
+            get {
+                return ResourceManager.GetString("ImportSeparatorTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import contacts.
+        /// </summary>
+        public static string ImportWizardFirstStep {
+            get {
+                return ResourceManager.GetString("ImportWizardFirstStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to portal.
+        /// </summary>
+        public static string ImportWizardFourthStep {
+            get {
+                return ResourceManager.GetString("ImportWizardFourthStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting up compliance.
+        /// </summary>
+        public static string ImportWizardSecondStep {
+            get {
+                return ResourceManager.GetString("ImportWizardSecondStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Contacts.
+        /// </summary>
+        public static string ImportWizardThirdStep {
+            get {
+                return ResourceManager.GetString("ImportWizardThirdStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invitation Link.
         /// </summary>
         public static string InviteLink {
             get {
                 return ResourceManager.GetString("InviteLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -579,6 +813,15 @@ namespace ASC.Web.People.Resources {
         public static string LblEdit {
             get {
                 return ResourceManager.GetString("LblEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import accounts.
+        /// </summary>
+        public static string LblImportAccounts {
+            get {
+                return ResourceManager.GetString("LblImportAccounts", resourceCulture);
             }
         }
         
@@ -718,11 +961,29 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Email.
+        /// </summary>
+        public static string MainEmail {
+            get {
+                return ResourceManager.GetString("MainEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
                 return ResourceManager.GetString("Members", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fields in the portal cannot have the same values!.
+        /// </summary>
+        public static string NoSameValuesOptions {
+            get {
+                return ResourceManager.GetString("NoSameValuesOptions", resourceCulture);
             }
         }
         
@@ -741,6 +1002,15 @@ namespace ASC.Web.People.Resources {
         public static string NotFoundTitle {
             get {
                 return ResourceManager.GetString("NotFoundTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not import.
+        /// </summary>
+        public static string NotImport {
+            get {
+                return ResourceManager.GetString("NotImport", resourceCulture);
             }
         }
         

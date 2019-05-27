@@ -22,15 +22,6 @@ namespace ASC.Web.Studio.UserControls.Users {
         protected global::System.Web.UI.WebControls.PlaceHolder _phEmailControlsHolder;
         
         /// <summary>
-        /// DepartmentsRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater DepartmentsRepeater;
-        
-        /// <summary>
         /// _phLanguage control.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace ASC.Web.Studio.UserControls.Users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ChangeMobileHolder;
+        
+        /// <summary>
+        /// _backupCodesPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder _backupCodesPlaceholder;
         
         /// <summary>
         /// _accountPlaceholder control.

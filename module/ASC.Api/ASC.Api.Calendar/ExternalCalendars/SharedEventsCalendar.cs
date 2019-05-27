@@ -33,20 +33,20 @@ using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.ExternalCalendars
 {
-    public class SharedEventsCalendar : BaseCalendar
+    public sealed class SharedEventsCalendar : BaseCalendar
     {
         public static string CalendarId { get { return "shared_events"; } }
 
         public SharedEventsCalendar()
         {
-            this.Id = CalendarId;
-            this.Context.HtmlBackgroundColor = "#0797ba";
-            this.Context.HtmlTextColor = "#000000";
-            this.Context.GetGroupMethod = delegate() { return Resources.CalendarApiResource.PersonalCalendarsGroup; };
-            this.Context.CanChangeTimeZone = true;
-            this.Context.CanChangeAlertType = true;
-            this.EventAlertType = EventAlertType.Hour;
-            this.SharingOptions.SharedForAll = true;
+            Id = CalendarId;
+            Context.HtmlBackgroundColor = "#0797ba";
+            Context.HtmlTextColor = "#000000";
+            Context.GetGroupMethod = () => Resources.CalendarApiResource.PersonalCalendarsGroup;
+            Context.CanChangeTimeZone = true;
+            Context.CanChangeAlertType = true;
+            EventAlertType = EventAlertType.Hour;
+            SharingOptions.SharedForAll = true;
         }
 
         public override List<IEvent> LoadEvents(Guid userId, DateTime utcStartDate, DateTime utcEndDate)
@@ -54,22 +54,27 @@ namespace ASC.Api.Calendar.ExternalCalendars
             using (var provider = new DataProvider())
             {
                 var events = provider.LoadSharedEvents(userId, CoreContext.TenantManager.GetCurrentTenant().TenantId, utcStartDate, utcEndDate);
-                events.ForEach(e => e.CalendarId = this.Id);
-                var ievents = new List<IEvent>(events.Select(e => (IEvent) e));
+                events.ForEach(e => e.CalendarId = Id);
+                var ievents = new List<IEvent>(events.Select(e => (IEvent)e));
                 return ievents;
             }
         }
 
+        private string _name;
         public override string Name
         {
-            get { return Resources.CalendarApiResource.SharedEventsCalendarName; }
+            get
+            {
+                return string.IsNullOrEmpty(_name) ? Resources.CalendarApiResource.SharedEventsCalendarName : _name;
+            }
+            set { _name = value; }
         }
 
         public override string Description
         {
             get { return Resources.CalendarApiResource.SharedEventsCalendarDescription; }
         }
-
+        
         public override Guid OwnerId
         {
             get
@@ -78,9 +83,14 @@ namespace ASC.Api.Calendar.ExternalCalendars
             }
         }
 
+        private TimeZoneInfo _timeZone;
         public override TimeZoneInfo TimeZone
         {
-            get { return CoreContext.TenantManager.GetCurrentTenant().TimeZone; }
+            get
+            {
+                return _timeZone ?? CoreContext.TenantManager.GetCurrentTenant().TimeZone;
+            }
+            set { _timeZone = value; }
         }
     }
 }

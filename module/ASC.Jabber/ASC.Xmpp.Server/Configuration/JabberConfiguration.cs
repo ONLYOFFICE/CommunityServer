@@ -31,7 +31,6 @@ using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.utils.Idn;
 using ASC.Xmpp.Server.Gateway;
 using ASC.Xmpp.Server.Services;
-using log4net.Config;
 
 namespace ASC.Xmpp.Server.Configuration
 {
@@ -62,8 +61,6 @@ namespace ASC.Xmpp.Server.Configuration
 
         public static void Configure(XmppServer server, string configFile)
         {
-            XmlConfigurator.Configure();
-
             var jabberSection = GetSection(configFile);
 
             ConfigureListeners(jabberSection, server);

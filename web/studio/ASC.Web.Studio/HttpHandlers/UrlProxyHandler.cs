@@ -29,14 +29,14 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Core;
-using log4net;
 
 namespace ASC.Web.Studio.HttpHandlers
 {
     public class UrlProxyHandler : IHttpHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(UrlProxyHandler));
+        private static readonly ILog Log = LogManager.GetLogger("ASC");
 
         public bool IsReusable
         {

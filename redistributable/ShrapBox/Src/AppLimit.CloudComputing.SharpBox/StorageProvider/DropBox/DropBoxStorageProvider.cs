@@ -18,10 +18,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
             var entry = GetFileSystemObject(path, parent);
 
             // get the download url
-            var url = DropBoxStorageProviderService.GetDownloadFileUrlInternal(this._Session, entry);
+            var url = DropBoxStorageProviderService.GetDownloadFileUrlInternal(Session, entry);
 
             // get the right session
-            var session = (DropBoxStorageProviderSession) _Session;
+            var session = (DropBoxStorageProviderSession)Session;
 
             // generate the oauth url
             var svc = new OAuthService();
@@ -33,7 +33,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
 
         public override string GetFileSystemObjectPath(ICloudFileSystemEntry fsObject)
         {
-            String path = DropBoxResourceIDHelpers.GetResourcePath(fsObject);
+            var path = DropBoxResourceIDHelpers.GetResourcePath(fsObject);
             return "/" + path;
         }
     }

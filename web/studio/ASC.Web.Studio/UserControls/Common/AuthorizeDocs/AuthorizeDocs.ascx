@@ -64,42 +64,14 @@
                    <!-- <span id="chromebookText"><%= String.Format(Resource.AuthDocsChromebook.HtmlEncode(), "<span class=\"chromebook\">", "</span>") %></span> -->
                 </p>
             </div>
+            <div class="default-personal-popup_btn open-form"><%=Resource.RegistryButtonStartEditing %></div>
             <!-- <div class="auth-form-with_sign-up">
                 <div class="auth-form-with_hint"><%= Resource.RegistryButton %></div>
                 <div class="auth-form-with_hint-add"><%= Resource.AuthDocsItsFree %></div>
                 <div class="auth-form-with_lines"></div>
             </div> -->
             <div class="auth-form-with_form_w_anchor"></div>
-            <div class="auth-form-with_form_w">
-                <div class="auth-form-with_form clearFix">
-                    <div id="confirmEmailError" class="auth-form-with_form_error"></div>
-                    <input id="confirmEmail" class="auth-form-with_field" type="text" placeholder="<%= Resource.AuthDocsEmailHint %>" />
-                    <a id="confirmEmailBtn" class="auth-form-with_form_btn disabled" ><%=Resource.RegistryButtonStartEditing %></a>
-                     <% if (SetupInfo.ThirdPartyAuthEnabled) {%>
-                    <span class="auth-form-with_form_or"><%= Resource.AuthDocsOr %></span>
-                    <span class="auth-form-with_btns_social auth-docs_btns_social">
-                        <asp:PlaceHolder runat="server" ID="HolderLoginWithThirdParty"></asp:PlaceHolder>
-                    </span> 
-                    <%} %>
-                    <div class="auth-form-settings">
-                        <div class="auth-form-setting">
-                            <label>
-                                <input type="checkbox" id="spam" name="spam" hidden><span></span>
-                                <label for="spam"><%=Resource.RegistrySettingSpam %></label>
-                            </label>
-                            
-                        </div>
-                        <div class="auth-form-setting">
-                            <label>
-                                <input type="checkbox" id="agree_to_terms" hidden><span></span>
-                                <label for="agree_to_terms"><%=String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
-                                                            "<a target=\"_blank\" href="+ CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) +">", "</a>",
-                                                            "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>")%></label>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div class="cloud-image"></div>
         </div>
         
@@ -273,6 +245,50 @@
         
     </div>
 </div>
+<!--Registration form-->
+<div class="auth-form-with_form_w">
+    <div class="auth-form-with_form clearFix">
+        <div class="register_form_closer">&times;</div>
+        <span class="auth-form-with_form_title"><%=Resource.CreatePersonalButton %></span>
+        <div id="confirmEmailError" class="auth-form-with_form_error"></div>
+        <input id="confirmEmail" class="auth-form-with_field_email" type="email" placeholder="<%= Resource.AuthDocsEmailHint %>" />
+                    
+        <div class="auth-form-settings">
+            <div class="auth-form-setting">
+                <label>
+                    <input type="checkbox" id="agree_to_terms" hidden><span></span>
+                    <label for="agree_to_terms"><%=String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
+                                                "<a target=\"_blank\" href="+ CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) +">", "</a>",
+                                                "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>")%></label>
+                </label>
+            </div>
+            <div class="auth-form-setting">
+                <label>
+                    <input type="checkbox" id="spam" name="spam" hidden checked="checked"><span></span>
+                    <label for="spam"><%=Resource.RegistrySettingSpam %></label>
+                </label>
+                            
+            </div>
+            <div class="auth-form-setting">
+                <label>
+                    <input type="checkbox" id="analytics" name="analytics" hidden checked="checked"><span></span>
+                    <label for="analytics"><%=Resource.RegistrySettingAnalytics %></label>
+                </label>
+                            
+            </div>
+        </div>
+
+        <a id="confirmEmailBtn" class="auth-form-with_form_btn disabled" ><%=Resource.RegistryButtonCreateNow %></a>
+            <% if (SetupInfo.ThirdPartyAuthEnabled) {%>
+        <span class="auth-form-with_form_or"><%= Resource.AuthDocsOr %></span>
+        <span class="auth-form-with_btns_social auth-docs_btns_social">
+            <asp:PlaceHolder runat="server" ID="HolderLoginWithThirdParty"></asp:PlaceHolder>
+        </span> 
+        <%} %>
+                    
+    </div>
+</div>
+<!-- ------ -->
 <div id="sendEmailSuccessPopup" class="default-personal-popup">
     <div class="default-personal-popup_cnt">
         <div class="default-personal-popup_closer">&times;</div>
@@ -301,6 +317,18 @@
         <div class="default-personal-popup_form-i">
             <label class="default-personal-popup_label password"><%= Resource.Password %></label>
             <input class="default-personal-popup_field password" id="pwd" name="pwd" maxlength="64"  type="password" />
+
+            <%if (Request.DesktopApp()){ %>
+                <span class="desktop-personal-popup_check">
+                    <label>
+                        <input type="checkbox" class="checkbox" id="desktop_agree_to_terms" hidden>
+                        <span class="checkbox-custom"></span>
+                        <label><%= String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
+                                                            "<a target=\"_blank\" href="+ CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) +">", "</a>",
+                                                            "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>") %></label>
+                    </label>
+                </span>
+            <% } %>
             <span class="default-personal-popup_check">
                 <label>
                     <input type="checkbox" class="checkbox" checked />
@@ -311,7 +339,7 @@
         </div>
 
         <div class="login_accept-btn-cnt">
-            <button class="default-personal-popup_btn" type="submit"><%= Resource.AuthDocsLogIn %></button>
+            <button class="default-personal-popup_btn disabled" type="submit"><%= Resource.AuthDocsLogIn %></button>
             <span class="login_forget-psw" onclick="PasswordTool.ShowPwdReminderDialog();"><%= Resource.AuthDocsForgotPswd %></span>
         </div>
         

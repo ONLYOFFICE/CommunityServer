@@ -44,14 +44,14 @@ ASC.Controls.ConfirmMobileManager = function () {
 
         jq("#sendPhoneButton").addClass("disable");
 
-        AjaxPro.MobileActivationController.SaveMobilePhone(mobilePhone, sendAuthCodeCallback);
+        AjaxPro.MobileActivationController.SaveMobilePhone(location.search.substring(1), mobilePhone, sendAuthCodeCallback);
     };
 
     var sendAuthCodeAgain = function () {
         jq("#errorMobileActivate").hide();
         jq("#getCodeAgainButton, #sendCodeButton").addClass("disable");
 
-        AjaxPro.MobileActivationController.SendSmsCodeAgain(sendAuthCodeCallback);
+        AjaxPro.MobileActivationController.SendSmsCodeAgain(location.search.substring(1), sendAuthCodeCallback);
     };
 
     var sendAuthCodeCallback = function (result) {
@@ -85,7 +85,7 @@ ASC.Controls.ConfirmMobileManager = function () {
 
         jq("#sendCodeButton").addClass("disable");
 
-        AjaxPro.MobileActivationController.ValidateSmsCode(code, function (result) {
+        AjaxPro.MobileActivationController.ValidateSmsCode(location.search.substring(1), code, function (result) {
             var res = result.value || result.error;
             if (typeof res.RefererURL != "undefined") {
                 location.href = res.RefererURL || "/";

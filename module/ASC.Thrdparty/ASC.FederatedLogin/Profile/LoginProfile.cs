@@ -26,12 +26,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Security.Permissions;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
-using System.Web.Script.Serialization;
 using ASC.FederatedLogin.Helpers;
 using ASC.Security.Cryptography;
 using System.Runtime.Serialization;
@@ -39,7 +41,9 @@ using System.Runtime.Serialization;
 namespace ASC.FederatedLogin.Profile
 {
     [Serializable]
-    public class LoginProfile : ISerializable
+    [DataContract(Name = "LoginProfile", Namespace = "")]
+    [DebuggerDisplay("{DisplayName} ({Id})")]
+    public class LoginProfile
     {
         private IDictionary<string, string> _fields = new Dictionary<string, string>();
 
@@ -135,12 +139,14 @@ namespace ASC.FederatedLogin.Profile
             internal set { SetField(WellKnownFields.Auth, value); }
         }
 
+        [DataMember(Name = "AuthorizationError")]
         public string AuthorizationError
         {
             get { return GetField(WellKnownFields.AuthError); }
             internal set { SetField(WellKnownFields.AuthError, value); }
         }
 
+        [DataMember(Name = "Provider")]
         public string Provider
         {
             get { return GetField(WellKnownFields.Provider); }
@@ -163,14 +169,18 @@ namespace ASC.FederatedLogin.Profile
             get { return HashHelper.MD5(UniqueId); }
         }
 
+        [DataMember(Name = "Hash")]
         public string Hash
         {
             get { return Common.Utils.Signature.Create(HashId); }
+            set { throw new NotImplementedException(); }
         }
 
+        [DataMember(Name = "Serialized")]
         public string Serialized
         {
             get { return Transport(); }
+            set { throw new NotImplementedException(); }
         }
 
         public string UserDisplayName
@@ -182,8 +192,8 @@ namespace ASC.FederatedLogin.Profile
                     return DisplayName;
                 }
                 var combinedName = string.Join(" ",
-                                   new[] { FirstName, MiddleName, LastName }.Where(
-                                       x => !string.IsNullOrEmpty(x)).ToArray());
+                                               new[] { FirstName, MiddleName, LastName }.Where(
+                                                   x => !string.IsNullOrEmpty(x)).ToArray());
                 if (string.IsNullOrEmpty(combinedName))
                 {
                     combinedName = Name;
@@ -210,9 +220,11 @@ namespace ASC.FederatedLogin.Profile
 
         public LoginProfile GetMinimalProfile()
         {
-            var profileNew = new LoginProfile();
-            profileNew.Provider = Provider;
-            profileNew.Id = Id;
+            var profileNew = new LoginProfile
+                {
+                    Provider = Provider,
+                    Id = Id
+                };
             return profileNew;
         }
 
@@ -267,12 +279,12 @@ namespace ASC.FederatedLogin.Profile
 
         public static LoginProfile GetProfile()
         {
-            return HttpContext.Current != null?GetProfile(HttpContext.Current.Request):new LoginProfile();
+            return HttpContext.Current != null ? GetProfile(HttpContext.Current.Request) : new LoginProfile();
         }
 
         internal static LoginProfile FromError(Exception e)
         {
-            var profile = new LoginProfile {AuthorizationError = e.Message};
+            var profile = new LoginProfile { AuthorizationError = e.Message };
             return profile;
         }
 
@@ -299,7 +311,7 @@ namespace ASC.FederatedLogin.Profile
                 query.AppendFormat("{0}={1}&", key,
                                    queryString[key]);
             }
-            var builder = new UriBuilder(uri) { Query = query.ToString() };
+            var builder = new UriBuilder(uri) { Query = query.ToString().TrimEnd('&') };
             return builder.Uri;
         }
 
@@ -354,12 +366,11 @@ namespace ASC.FederatedLogin.Profile
         internal void FromSerializedString(string serialized)
         {
             if (serialized == null) throw new ArgumentNullException("serialized");
-            _fields = serialized.Split(PairSeparator).ToDictionary((x) => x.Split(KeyValueSeparator)[0], (y) => y.Split(KeyValueSeparator)[1]);
+            _fields = serialized.Split(PairSeparator).ToDictionary(x => x.Split(KeyValueSeparator)[0], y => y.Split(KeyValueSeparator)[1]);
         }
 
         internal string Transport()
         {
-            
             return HttpServerUtility.UrlTokenEncode(InstanceCrypto.Encrypt(Encoding.UTF8.GetBytes(ToSerializedString())));
         }
 
@@ -368,18 +379,17 @@ namespace ASC.FederatedLogin.Profile
             var serialized = Encoding.UTF8.GetString(InstanceCrypto.Decrypt(HttpServerUtility.UrlTokenDecode(transportstring)));
             FromSerializedString(serialized);
         }
-      
+
 
         internal LoginProfile()
         {
-            
         }
 
         protected LoginProfile(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            var transformed = (string)info.GetValue(QueryParamName, typeof(string));
+            var transformed = (string)info.GetValue(QueryParamName, typeof (string));
             FromTransport(transformed);
         }
 
@@ -392,14 +402,19 @@ namespace ASC.FederatedLogin.Profile
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
-                throw new System.ArgumentNullException("info");
+                throw new ArgumentNullException("info");
             info.AddValue(QueryParamName, Transport());
         }
 
         public string ToJson()
         {
-            var serializer = new JavaScriptSerializer();
-            return serializer.Serialize(this);
+            using (var ms = new MemoryStream())
+            {
+                var serializer = new DataContractJsonSerializer(typeof (LoginProfile));
+                serializer.WriteObject(ms, this);
+                ms.Seek(0, SeekOrigin.Begin);
+                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+            }
         }
     }
 }

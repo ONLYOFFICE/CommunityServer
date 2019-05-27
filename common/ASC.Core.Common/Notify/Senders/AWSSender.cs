@@ -24,6 +24,12 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
@@ -31,13 +37,7 @@ using Amazon.SimpleEmail.Model;
 using ASC.Common.Utils;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
+using ASC.Common.Logging;
 
 namespace ASC.Core.Notify.Senders
 {
@@ -70,7 +70,20 @@ namespace ASC.Core.Notify.Senders
             {
                 try
                 {
-                    result = SendMessage(m);
+                    Log.DebugFormat("Tenant: {0}, To: {1}", m.Tenant, m.To);
+                    CoreContext.TenantManager.SetCurrentTenant(m.Tenant);
+                    if (!CoreContext.Configuration.SmtpSettings.IsDefaultSettings)
+                    {
+                        _useCoreSettings = true;
+                        result = base.Send(m);
+                        _useCoreSettings = false;
+                    }
+                    else
+                    {
+                        result = SendMessage(m);
+                    }
+
+                    Log.DebugFormat(result.ToString());
                 }
                 catch (Exception e)
                 {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="studenti.univr.it">
+    <domain>studenti.univr.it</domain>
+    <displayName>Università degli Studi di Verona</displayName>
+    <displayShortName>UniVR</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mail.studenti.univr.it</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.studenti.univr.it</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

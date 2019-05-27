@@ -24,17 +24,16 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using ASC.Common.Logging;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
 using CsvHelper;
-using CsvHelper.Configuration;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace ASC.AuditTrail
 {
@@ -42,7 +41,7 @@ namespace ASC.AuditTrail
     {
         private static readonly ILog Log = LogManager.GetLogger("ASC.Messaging");
 
-        public static string CreateCsvReport(IEnumerable<LoginEvent> events, string reportName)
+        public static string CreateCsvReport<TEvent>(IEnumerable<TEvent> events, string reportName) where TEvent : BaseEvent
         {
             try
             {
@@ -50,14 +49,11 @@ namespace ASC.AuditTrail
                 using (var writer = new StreamWriter(stream, Encoding.UTF8))
                 using (var csv = new CsvWriter(writer))
                 {
-                    csv.Configuration.RegisterClassMap<LoginEventMap>();
+                    csv.Configuration.RegisterClassMap(new BaseEventMap<TEvent>());
 
-                    csv.WriteHeader<LoginEvent>();
-                    foreach (var evt in events)
-                    {
-                        csv.WriteRecord(evt);
-                    }
-
+                    csv.WriteHeader<TEvent>();
+                    csv.NextRecord();
+                    csv.WriteRecords(events);
                     writer.Flush();
 
                     var file = FileUploader.Exec(Global.FolderMy.ToString(), reportName, stream.Length, stream, true);
@@ -73,73 +69,6 @@ namespace ASC.AuditTrail
             {
                 Log.Error("Error while generating login report: " + ex);
                 throw;
-            }
-        }
-
-        internal class LoginEventMap : CsvClassMap<LoginEvent>
-        {
-            public override void CreateMap()
-            {
-                Map(m => m.IP).Name(AuditReportResource.IpCol);
-                Map(m => m.Browser).Name(AuditReportResource.BrowserCol);
-                Map(m => m.Platform).Name(AuditReportResource.PlatformCol);
-                Map(m => m.Date).Name(AuditReportResource.DateCol);
-                Map(m => m.UserName).Name(AuditReportResource.UserCol);
-                Map(m => m.Page).Name(AuditReportResource.PageCol);
-                Map(m => m.ActionText).Name(AuditReportResource.ActionCol);
-            }
-        }
-
-        public static string CreateCsvReport(IEnumerable<AuditEvent> events, string reportName)
-        {
-            try
-            {
-                using (var stream = new MemoryStream())
-                using (var writer = new StreamWriter(stream))
-                using (var csv = new CsvWriter(writer))
-                {
-                    csv.Configuration.RegisterClassMap<AuditEventMap>();
-
-                    csv.WriteHeader<AuditEvent>();
-                    foreach (var evt in events)
-                    {
-                        csv.WriteRecord(evt);
-                    }
-
-                    writer.Flush();
-
-                    var file = FileUploader.Exec(Global.FolderMy.ToString(), reportName, stream.Length, stream, true);
-                    var fileUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl((int) file.ID));
-
-                    fileUrl += string.Format("&options={{\"delimiter\":{0},\"codePage\":{1}}}",
-                                             (int) FileUtility.CsvDelimiter.Comma,
-                                             Encoding.UTF8.CodePage);
-                    return fileUrl;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error while generating audit report: " + ex);
-                throw;
-            }
-        }
-
-        internal class AuditEventMap : CsvClassMap<AuditEvent>
-        {
-            public override void CreateMap()
-            {
-                Map(m => m.IP).Name(AuditReportResource.IpCol);
-                Map(m => m.Browser).Name(AuditReportResource.BrowserCol);
-                Map(m => m.Platform).Name(AuditReportResource.PlatformCol);
-                Map(m => m.Date).Name(AuditReportResource.DateCol);
-                Map(m => m.UserName).Name(AuditReportResource.UserCol);
-                Map(m => m.Page).Name(AuditReportResource.PageCol);
-                Map(m => m.ActionTypeText).Name(AuditReportResource.ActionTypeCol);
-                Map(m => m.ActionText).Name(AuditReportResource.ActionCol);
-                Map(m => m.Product).Name(AuditReportResource.ProductCol);
-                Map(m => m.Module).Name(AuditReportResource.ModuleCol);
-                Map(m => m.Action).Name(AuditReportResource.ActionIdCol);
-                Map(m => m.Target).Name(AuditReportResource.TargetIdCol);
             }
         }
     }

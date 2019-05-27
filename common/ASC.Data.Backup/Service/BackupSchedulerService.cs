@@ -26,18 +26,18 @@
 
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Storage;
 using System;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Logging;
 
 namespace ASC.Data.Backup.Service
 {
     internal class BackupSchedulerService
     {
         private readonly object schedulerLock = new object();
-        private readonly ILog log = LogFactory.Create("ASC.Backup.Scheduler");
+        private readonly ILog log = LogManager.GetLogger("ASC.Backup.Scheduler");
         private Timer schedulerTimer;
         private bool isStarted;
 
@@ -81,10 +81,10 @@ namespace ASC.Data.Backup.Service
             {
                 try
                 {
-                    log.Debug("started to schedule backups");
+                    log.DebugFormat("started to schedule backups");
                     var backupRepostory = BackupStorageFactory.GetBackupRepository();
                     var backupsToSchedule = backupRepostory.GetBackupSchedules().Where(schedule => schedule.IsToBeProcessed()).ToList();
-                    log.Debug("{0} backups are to schedule", backupsToSchedule.Count);
+                    log.DebugFormat("{0} backups are to schedule", backupsToSchedule.Count);
                     foreach (var schedule in backupsToSchedule)
                     {
                         if (!isStarted)
@@ -98,12 +98,12 @@ namespace ASC.Data.Backup.Service
                             {
                                 schedule.LastBackupTime = DateTime.UtcNow;
                                 backupRepostory.SaveBackupSchedule(schedule);
-                                log.Debug("Start scheduled backup: {0}, {1}, {2}, {3}", schedule.TenantId, schedule.BackupMail, schedule.StorageType, schedule.StorageBasePath);
-                                BackupWorker.StartScheduledBackup(schedule.TenantId, schedule.BackupMail, schedule.StorageType, schedule.StorageBasePath);
+                                log.DebugFormat("Start scheduled backup: {0}, {1}, {2}, {3}", schedule.TenantId, schedule.BackupMail, schedule.StorageType, schedule.StorageBasePath);
+                                BackupWorker.StartScheduledBackup(schedule);
                             }
                             else
                             {
-                                log.Debug("Skip portal {0} not paid", schedule.TenantId);
+                                log.DebugFormat("Skip portal {0} not paid", schedule.TenantId);
                             }
                         }
                         catch (Exception error)

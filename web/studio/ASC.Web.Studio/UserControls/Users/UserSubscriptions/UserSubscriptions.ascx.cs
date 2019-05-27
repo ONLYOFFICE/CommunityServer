@@ -26,9 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Web.Studio.Core;
 using AjaxPro;
 using ASC.Core;
 using ASC.Notify.Model;
@@ -309,7 +313,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToWhatsNew();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
             else
                 return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToWhatsNew();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
-
         }
 
         protected string RenderWhatsNewNotifyByCombobox()
@@ -370,24 +373,23 @@ namespace ASC.Web.Studio.UserControls.Users
 
         #endregion
 
-        #region tips&trics
+        #region tips&tricks
 
-        protected string RenderTipsAndTricsSubscriptionState()
+        protected string RenderTipsAndTricksSubscriptionState()
         {
-            return RenderTipsAndTricsSubscriptionState(StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID));
+            return RenderTipsAndTricksSubscriptionState(StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID));
         }
 
-        protected string RenderTipsAndTricsSubscriptionState(bool isSubscribe)
+        protected string RenderTipsAndTricksSubscriptionState(bool isSubscribe)
         {
             if (isSubscribe)
-                return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTrics();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
+                return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTricks();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
             else
-                return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTrics();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
-
+                return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTricks();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse SubscribeToTipsAndTrics()
+        public AjaxResponse SubscribeToTipsAndTricks()
         {
             var resp = new AjaxResponse { rs1 = "0" };
             try
@@ -395,7 +397,107 @@ namespace ASC.Web.Studio.UserControls.Users
                 var isSubscribe = StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID);
 
                 StudioNotifyService.Instance.SubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID, !isSubscribe);
-                resp.rs2 = RenderTipsAndTricsSubscriptionState(!isSubscribe);
+                resp.rs2 = RenderTipsAndTricksSubscriptionState(!isSubscribe);
+
+                resp.rs1 = "1";
+            }
+            catch (Exception e)
+            {
+                resp.rs2 = e.Message.HtmlEncode();
+            }
+
+            return resp;
+        }
+
+        #endregion
+
+        #region spam
+
+        protected bool IsVisibleSpamSubscription()
+        {
+            return TenantExtra.Saas && SetupInfo.IsVisibleSettings("SpamSubscription");
+        }
+        
+        private const string TeamlabSiteDbId = "teamlabsite";
+
+        private const string TemplateUnsubscribeTable = "template_unsubscribe";
+
+        private static IDbManager GetDb()
+        {
+            return DbManager.FromHttpContext(TeamlabSiteDbId);
+        }
+
+        private static void UnsubscribeFromSpam(string email)
+        {
+            using (var db = GetDb())
+            {
+                var query = new SqlInsert(TemplateUnsubscribeTable, true)
+                    .InColumnValue("email", email.ToLowerInvariant());
+
+                db.ExecuteScalar<int>(query);
+            }
+        }
+
+        private static void SubscribeToSpam(string email)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteScalar<int>(new SqlDelete(TemplateUnsubscribeTable).Where("email", email.ToLowerInvariant()));
+            }
+        }
+
+        private static bool IsSubscribedToSpam(string email)
+        {
+            using (var db = GetDb())
+            {
+                var query = new SqlQuery(TemplateUnsubscribeTable)
+                    .SelectCount()
+                    .Where("email", email);
+
+                return db.ExecuteScalar<int>(query) == 0;
+            }
+        }
+
+        protected string RenderSpamSubscriptionState()
+        {
+            var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            var isSubscribed = IsSubscribedToSpam(user.Email);
+
+            return RenderSpamSubscriptionState(isSubscribed);
+        }
+
+        protected string RenderSpamSubscriptionState(bool isSubscribed)
+        {
+            if (isSubscribed)
+                return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToSpam();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
+            else
+                return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToSpam();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
+        }
+
+        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
+        public AjaxResponse SubscribeToSpam()
+        {
+            var resp = new AjaxResponse { rs1 = "0" };
+            try
+            {
+                if (!IsVisibleSpamSubscription())
+                    throw new MissingMethodException();
+
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                var isSubscribed = IsSubscribedToSpam(user.Email);
+
+                if (isSubscribed)
+                {
+                    UnsubscribeFromSpam(user.Email);
+                }
+                else
+                {
+                    SubscribeToSpam(user.Email);
+                }
+
+                resp.rs2 = RenderTipsAndTricksSubscriptionState(!isSubscribed);
 
                 resp.rs1 = "1";
             }
@@ -422,7 +524,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToAdminNotify();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
             else
                 return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToAdminNotify();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
-
         }
 
         protected string RenderAdminNotifyNotifyByCombobox()

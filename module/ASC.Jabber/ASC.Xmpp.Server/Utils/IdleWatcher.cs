@@ -24,16 +24,16 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using ASC.Common.Logging;
 
 namespace ASC.Xmpp.Server.Utils
 {
     static class IdleWatcher
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(IdleWatcher));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private static readonly object locker = new object();
         private static readonly TimeSpan timerPeriod = TimeSpan.FromSeconds(1.984363);

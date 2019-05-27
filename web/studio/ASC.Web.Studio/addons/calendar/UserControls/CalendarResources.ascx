@@ -32,7 +32,9 @@ var g_fcOptions = {
 			month:        "<%=Resources.CalendarJSResource.calendarButtonText_month%>",
 			week:         "<%=Resources.CalendarJSResource.calendarButtonText_week%>",
 			day:          "<%=Resources.CalendarJSResource.calendarButtonText_day%>",
-			list:         "<%=Resources.CalendarJSResource.calendarButtonText_list%>"
+		    //list:         "<%=Resources.CalendarJSResource.calendarButtonText_list%>",
+		    list:         "<%=Resources.CalendarJSResource.calendarButtonNewText_list%>",
+		    todo:         "<%=Resources.CalendarJSResource.calendarButtonNewText_todo%>"
 		},
 
 		allDayText:          "<%=Resources.CalendarJSResource.calendarAllDayText%>",
@@ -43,6 +45,8 @@ var g_fcOptions = {
 		moreEventsLabel:     "<%=Resources.CalendarJSResource.calendarMoreEventsLabel%>",
 		addNewEventLabel:    "<%=Resources.CalendarJSResource.calendarAddNewEventLabel%>",
 		addNewLabel:         "<%=Resources.CalendarJSResource.calendarAddNewLabel%>",
+
+        newLabel:            "<%=Resources.CalendarJSResource.calendarNewLabel%>",
 
 		modes: {
 			calendarViewLabel: "<%=Resources.CalendarJSResource.calendarViewLabelText_calendar%>",
@@ -62,13 +66,17 @@ var g_fcOptions = {
 			title:                                  "<%=Resources.CalendarJSResource.calendarCategoriesList_calendarsHeader%>",
 			addNewCategoryLabel:                    "<%=Resources.CalendarJSResource.calendarCategoriesList_addNewCategoryLabel%>",
 			dialogHeader_add:                       "<%=Resources.CalendarJSResource.calendarCategoriesDialog_addHeader%>",
+			dialogHeader_import:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_importHeader%>",
 			dialogHeader_edit:                      "<%=Resources.CalendarJSResource.calendarCategoriesDialog_editHeader%>",
 			dialogColor_label:                      "<%=Resources.CalendarJSResource.calendarCategoriesDialog_colorLabel%>",
 			dialogTextColor_label:                  "<%=Resources.CalendarJSResource.calendarCategoriesDialog_textColorLabel%>",
 			dialogTimezoneLabel:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_timezoneLabel%>",
 			dialogButton_save:                      "<%=Resources.CalendarJSResource.calendarCategoriesDialog_saveButton%>",
 			dialogButton_cancel:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_cancelButton%>",
-			dialogButton_delete:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_deleteButton%>",
+            dialogButton_delete:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_deleteButton%>",
+
+            dialogErrorMassageSpecCharacter:        "<%=Resources.CalendarJSResource.dialogErrorMassageSpecCharacter%>",
+
 			// list of subscriptions
 			subscriptionsTitle:                     "<%=Resources.CalendarJSResource.calendarCategoriesList_subscriptionsHeader%>",
 			//
@@ -87,31 +95,75 @@ var g_fcOptions = {
 		},
 
 		todoList: {
-			title: 'ToDo List',
+		    title: "<%=Resources.CalendarJSResource.calendarTodoList_title%>",
 			hideLabel: 'Hide ToDo List',
 			showLabel: 'Show ToDo List',
-			addTodoLabel: 'New todo',
-			todoEditorUrl: './fullcalendar/tmpl/todo.editor.tmpl',
-			newTodoTitle: 'New ToDo item',
+			addTodoLabel: "<%=Resources.CalendarJSResource.calendarTodoList_addTodoLabel%>",
+			
+		    overdue:  "<%=Resources.CalendarJSResource.calendarTodoList_Overdue%>",
+		    noDueDate:  "<%=Resources.CalendarJSResource.calendarTodoList_noDueDate%>",
+
+            newTodoTitle: "<%=Resources.CalendarJSResource.calendarTodoList_newTodoTitle%>",
 			menu: {
 				hideColmpletedTodos: {hide: 'Hide completed items', show: 'Show completed items'},
 				deleteCompletedTodos: 'Delete completed items'
 			},
 			sortByCalendarLabel: 'Sort by calendar',
 			sortByPriorityLabel: 'Sort by priority',
-			sortAlphabeticallyLabel: 'Sort alphabetically'
+			sortAlphabeticallyLabel: 'Sort alphabetically',
+		    
+			menuTodoInCalendar: "<%=Resources.CalendarJSResource.menuTodoInCalendar%>",
+		    menuDeleteMarkedTodo: "<%=Resources.CalendarJSResource.menuDeleteMarkedTodo%>",
+		    menuSyncLinks: "<%=Resources.CalendarJSResource.menuSyncLinks%>",
 		},
+        deleteTodoDialog: {
+            dialogTemplate: "",
+            
+            dialogHeader: "<%=Resources.CalendarJSResource.calendarTodoDeleteDialog_dialogHeader%>",
+        
+            dialogSingleBody: "<%=Resources.CalendarJSResource.calendarTodoDeleteDialog_dialogSingleBody%>",
+            
+            dialogButton_apply: "<%=Resources.CalendarJSResource.calendarTodoDeleteDialog_dialogButton_apply%>",
+            dialogButton_cancel: "<%=Resources.CalendarJSResource.calendarTodoDeleteDialog_dialogButton_cancel%>",
+        },
 
-		eventEditor: {
+
+        todoEditor: {
+            dialogHeader_add:  "<%=Resources.CalendarJSResource.calendarTodoEditor_dialogHeader_add%>",
+            dialogHeader_edit: "<%=Resources.CalendarJSResource.calendarTodoEditor_dialogHeader_edit%>",
+
+            dialogDateLabel:  "<%=Resources.CalendarJSResource.calendarTodoEditor_dialogDateLabel%>",
+		    
+            titleLabel:  "<%=Resources.CalendarJSResource.calendarTodoEditor_titleLabel%>",
+            descriptionLabel:  "<%=Resources.CalendarJSResource.calendarTodoEditor_descriptionLabel%>",
+
+            dialogButton_save:  "<%=Resources.CalendarJSResource.calendarEventEditor_saveButton%>",
+            dialogButton_cancel:  "<%=Resources.CalendarJSResource.calendarEventEditor_cancelButton%>",
+            
+        },
+
+        todoViewer:{
+            dialogButton_mark_on: "<%=Resources.CalendarJSResource.todoViewer_dialogButton_mark_on%>",
+            dialogButton_mark_off: "<%=Resources.CalendarJSResource.todoViewer_dialogButton_mark_off%>",
+            dialogButton_edit: "<%=Resources.CalendarJSResource.todoViewer_dialogButton_edit%>",
+            dialogButton_delete: "<%=Resources.CalendarJSResource.todoViewer_dialogButton_delete%>"
+        },
+        
+        eventEditor: {
 			newEventTitle:               "<%=Resources.CalendarJSResource.calendar_newEventTitle%>",
 			// dialog
 			dialogHeader_add:            "<%=Resources.CalendarJSResource.calendarEventEditor_addHeader%>",
 			dialogSummaryLabel:          "<%=Resources.CalendarJSResource.calendarEventEditor_summaryLabel%>",
+
+            eventButton:                 "<%=Resources.CalendarJSResource.calendarEventEditor_eventButton%>",
+            todoButton:                  "<%=Resources.CalendarJSResource.calendarEventEditor_todoButton%>",
+
 			dialogLocationLabel:         "<%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%>",
 			dialogAttendeesLabel:        "<%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%>",
-		    dialogOwnerLabel:            "<%=Resources.CalendarJSResource.calendarEventEditor_ownerLabel%>",
-		    dialogOrganizerLabel:        "<%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%>",
+			dialogOwnerLabel:            "<%=Resources.CalendarJSResource.calendarEventEditor_ownerLabel%>",
+			dialogOrganizerLabel:        "<%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%>",
 			dialogAllDayLabel:           "<%=Resources.CalendarJSResource.calendarEventEditor_allDayLabel%>",
+			dialogSentInvitations:       "<%=Resources.CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>",
 			dialogAllDay_no:             "<%=Resources.CalendarJSResource.calendarEventEditor_notAllDayEvent%>",
 			dialogAllDay_yes:            "<%=Resources.CalendarJSResource.calendarEventEditor_allDayEvent%>",
 			dialogFromLabel:             "<%=Resources.CalendarJSResource.calendarEventEditor_fromLabel%>",
@@ -239,21 +291,34 @@ var g_fcOptions = {
         icalStream: {
             // dialog            
             newiCalTitle:                         "<%=Resources.CalendarJSResource.icalStream_newLabel%>",
-            
-            dialogHeader:                         "<%=Resources.CalendarJSResource.icalStream_header%>",
-            dialogDescription:                    "<%=Resources.CalendarJSResource.icalStream_description%>",
-            
+            importEventsTitle:                    "<%=Resources.CalendarJSResource.icalStream_importEventsLabel%>",
+
+            dialogHeader:                         "<%=Resources.CalendarJSResource.icalStream_export_header%>",
+            dialogTodoDescription:                "<%=Resources.CalendarJSResource.icalStream_export_todo_description%>",
+            dialogDescription:                    "<%=Resources.CalendarJSResource.icalStream_export_description%>",
+            dialogCaldavHelp:                     "<%=Resources.CalendarJSResource.icalStream_export_help%>",
+            dialogHelpCenter:                     "<%=Resources.CalendarJSResource.icalStream_export_help_center%>",
+            dialogPreparingMessage:               "<%=Resources.CalendarJSResource.icalStream_preparing_message%>",
+            dialogPreparingErrorMessage:          "<%=Resources.CalendarJSResource.icalStream_preparing_error_message%>",
+
+            dialogCopyButton:                    "<%=Resources.CalendarJSResource.icalStream_export_copy_button%>",
+            dialogTryAgainButton:                "<%=Resources.CalendarJSResource.icalStream_export_try_again_button%>",
+            dialogExportCalDav:                  "<%=Resources.CalendarJSResource.icalStream_export_caldav%>",
+            dialogExportIcal:                    "<%=Resources.CalendarJSResource.icalStream_export_ical%>",
+
             dialogImportExportLabel:              "<%=Resources.CalendarJSResource.icalStream_importExport%>",
             dialogStreamLink:                     "<%: Resources.CalendarJSResource.icalStream_exportLink%>",
             dialogImportLabel:                    "<%: Resources.CalendarJSResource.icalStream_importtLink%>",
-            
+            dialogImportLabelNew:                 "<%: Resources.CalendarJSResource.icalStream_importLinkNew%>",
+
             dialogButton_fileSelected:            "<%=Resources.CalendarJSResource.icalStream_fileSelected%>",
             dialogButton_fileNotSelected:         "<%=Resources.CalendarJSResource.icalStream_fileNotSelected%>",
             dialog_incorrectFormat:               "<%=Resources.CalendarJSResource.icalStream_incorrectFormat%>",
             
             dialogInputiCalLabel:                 "<%=Resources.CalendarJSResource.icalStream_inputLabel%>",
             dialogSavediCalLabel:                 "<%=Resources.CalendarJSResource.icalStream_savedLinkLabel%>",
-            
+
+            dialogExportLink:                     "<%=Resources.CalendarJSResource.icalStream_export_header%>",
             // buttons
             dialogButton_close:                   "<%=Resources.CalendarJSResource.icalStream_closeBtn%>",
             dialogButton_browse:                  "<%=Resources.CalendarJSResource.icalStream_browseBtn%>"

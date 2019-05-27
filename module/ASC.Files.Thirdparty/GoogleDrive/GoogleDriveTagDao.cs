@@ -40,11 +40,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
         }
 
-        public void Dispose()
-        {
-            GoogleDriveProviderInfo.Dispose();
-        }
-
         #region ITagDao Members
 
         public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)

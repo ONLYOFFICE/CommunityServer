@@ -118,8 +118,12 @@ jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Proj
             ${ASC.Projects.Resources.ProjectResource.Tags}
         </div>
         <div class="dottedHeaderContent">
-            <input id="projectTags" class="textEdit" maxlength="8000" value="${project.tags}" placeholder="${ASC.Projects.Resources.ProjectResource.EnterTheTags}"/>
-            <div id="tagsAutocompleteContainer"></div>
+            <span id="tags" class="link dotline">
+            ${ASC.Projects.Resources.ProjectResource.SelectTags}
+            </span>
+            <span id="tagsContainer">
+                ${project.tags}
+            </span>
         </div>
     </div>
     {{if !IsPrivateDisabled}}
@@ -206,7 +210,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Proj
                         {{/each}}
                     </select>
                 {{else}}
-                    <input class="textEditCalendar" id="dueDate" type="text" />
+                    <input class="textEditCalendar" id="dueDate" type="text" autocomplete="off" />
                 {{/if}}
                 <input id="newMilestoneTitle" type="text" placeholder="${ASC.Projects.Resources.ProjectTemplatesResource.AddMilestoneTitle}" maxlength="250" />
             </div>

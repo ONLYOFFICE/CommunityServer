@@ -1,12 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text;
-
-using AppLimit.CloudComputing.SharpBox.Common;
 using AppLimit.CloudComputing.SharpBox.SyncFramework;
-
-using AppLimit.CloudComputing.SharpBox.Exceptions;
 
 namespace AppLimit.CloudComputing.SharpBox
 {
@@ -61,19 +56,19 @@ namespace AppLimit.CloudComputing.SharpBox
         public Boolean SynchronizeFolder(DirectoryInfo srcFolder, ICloudDirectoryEntry tgtFolder, SyncFolderFlags flags)
         {
             // init ret value 
-            Boolean bRet = true;
+            var bRet = true;
 
             // init helper parameter
-            Boolean bRecursive = ((flags & SyncFolderFlags.Recursive) != 0);
+            var bRecursive = ((flags & SyncFolderFlags.Recursive) != 0);
 
             // init the differ
-            DirectoryDiff diff = new DirectoryDiff(srcFolder, tgtFolder);
+            var diff = new DirectoryDiff(srcFolder, tgtFolder);
 
             // build the diff results
-            List<DirectoryDiffResultItem> res = diff.Compare(bRecursive);
+            var res = diff.Compare(bRecursive);
 
             // process the diff result
-            foreach (DirectoryDiffResultItem item in res)
+            foreach (var item in res)
             {
                 switch (item.compareResult)
                 {
@@ -92,12 +87,12 @@ namespace AppLimit.CloudComputing.SharpBox
                             // 1. get the rel path 
                             String relPath;
                             if (item.remoteItem is ICloudDirectoryEntry)
-                                relPath = CloudStorage.GetFullCloudPath(tgtFolder, item.remoteItem, '\\');
+                                relPath = GetFullCloudPath(tgtFolder, item.remoteItem, '\\');
                             else
-                                relPath = CloudStorage.GetFullCloudPath(tgtFolder, item.remoteItem.Parent, '\\');
+                                relPath = GetFullCloudPath(tgtFolder, item.remoteItem.Parent, '\\');
 
                             // 2. ensure the directory exists
-                            String tgtPath = Path.Combine(srcFolder.FullName, relPath);
+                            var tgtPath = Path.Combine(srcFolder.FullName, relPath);
                             if (!Directory.Exists(tgtPath))
                                 Directory.CreateDirectory(tgtPath);
 
@@ -127,7 +122,7 @@ namespace AppLimit.CloudComputing.SharpBox
                             relPath = relPath.Replace(Path.DirectorySeparatorChar, '/');
 
                             // 3. ensure the directory exists
-                            ICloudDirectoryEntry realTarget = null;
+                            ICloudDirectoryEntry realTarget;
 
                             if (relPath.Length == 0)
                                 realTarget = tgtFolder;
@@ -181,10 +176,10 @@ namespace AppLimit.CloudComputing.SharpBox
                 return false;
 
             // build directory info for local folder
-            DirectoryInfo srcFolderInfo = new DirectoryInfo(srcFolder);
+            var srcFolderInfo = new DirectoryInfo(srcFolder);
 
             // build the target folder
-            ICloudDirectoryEntry tgtFolderEntry = GetFolder(tgtFolder);
+            var tgtFolderEntry = GetFolder(tgtFolder);
             if (tgtFolderEntry == null)
                 return false;
 
@@ -211,7 +206,7 @@ namespace AppLimit.CloudComputing.SharpBox
         public static String GetFullCloudPath(ICloudFileSystemEntry fsentry, char cDelimiter)
         {
             // create string builder
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             // add the object as self
             sb.Insert(0, fsentry.Name);
@@ -220,7 +215,7 @@ namespace AppLimit.CloudComputing.SharpBox
             sb.Insert(0, cDelimiter);
 
             // visit every parent
-            ICloudDirectoryEntry current = fsentry.Parent;
+            var current = fsentry.Parent;
             while (current != null)
             {
                 // add the item 
@@ -246,8 +241,8 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public static String GetFullCloudPath(ICloudDirectoryEntry start, ICloudFileSystemEntry fsentry, char cDelimiter)
         {
-            String strfsentry = GetFullCloudPath(fsentry, cDelimiter);
-            String strStart = GetFullCloudPath(start, cDelimiter);
+            var strfsentry = GetFullCloudPath(fsentry, cDelimiter);
+            var strStart = GetFullCloudPath(start, cDelimiter);
 
             return strfsentry.Remove(0, strStart.Length);
         }

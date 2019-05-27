@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
+using ASC.Common.Logging;
 using Autofac;
 
 namespace ASC.Api.Impl.Routing

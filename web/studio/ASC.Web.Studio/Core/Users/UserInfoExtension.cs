@@ -95,7 +95,7 @@ namespace ASC.Core.Users
 
         public static List<string> GetListAdminModules(this UserInfo ui)
         {
-            var products = WebItemManager.Instance.GetItemsAll<IProduct>();
+            var products = WebItemManager.Instance.GetItemsAll().Where(i => i is IProduct || i.ID == WebItemManager.MailProductID);
 
             return (from product in products where WebItemSecurity.IsProductAdministrator(product.ID, ui.ID) select product.ProductClassName).ToList();
         }

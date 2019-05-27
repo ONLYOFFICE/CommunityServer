@@ -25,14 +25,15 @@
 
 
 using ASC.Data.Backup.Tasks.Data;
-using ASC.Data.Backup.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using ASC.Common.Logging;
 using ASC.Data.Storage;
 
 namespace ASC.Data.Backup.Tasks.Modules
@@ -44,7 +45,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new TableInfo("mail_attachment", "tenant", "id"),
                 new TableInfo("mail_chain", "tenant") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_contacts", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
-                new TableInfo("mail_folder", "tenant") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_folder_counters", "tenant") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_mail", "tenant", "id")
                     {
                         UserIDColumns = new[] {"id_user"},
@@ -153,14 +154,14 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.GetSelectCommandConditionText(tenantId, table);
         }
 
-        public override bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath)
+        public override bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath)
         {
             //todo: hack: will be changed later
-            filePath = Regex.Replace(filePath, @"^[-\w]+(?=/)", match => columnMapper.GetUserMapping(match.Value));
+            filePath = Regex.Replace(filePath, @"^[-\w]+(?=/)", match => dump ? match.Value : columnMapper.GetUserMapping(match.Value));
             return !filePath.StartsWith("/");
         }
 
-        protected override bool TryPrepareRow(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
+        protected override bool TryPrepareRow(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
         {
             if (table.Name == "mail_mailbox")
             {
@@ -171,10 +172,10 @@ namespace ASC.Data.Backup.Tasks.Modules
                     return false;
                 }
             }
-            return base.TryPrepareRow(connection, columnMapper, table, row, out preparedRow);
+            return base.TryPrepareRow(dump, connection, columnMapper, table, row, out preparedRow);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
+        protected override bool TryPrepareValue(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
         {
             relations = relations.ToList();
             if (relations.All(x => x.ChildTable == "mail_chain" && x.ChildColumn == "tags"))
@@ -206,10 +207,10 @@ namespace ASC.Data.Backup.Tasks.Modules
                 return true;
             }
 
-            return base.TryPrepareValue(connection, columnMapper, table, columnName, relations, ref value);
+            return base.TryPrepareValue(dump, connection, columnMapper, table, columnName, relations, ref value);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
         {
             if (relation.ParentTable == "crm_tag" && relation.ChildColumn == "id_tag"
                 && (relation.ChildTable == "mail_tag_mail" || relation.ChildTable == "mail_tag_addresses"))
@@ -225,7 +226,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.TryPrepareValue(connection, columnMapper, relation, ref value);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             if (table.Name == "mail_mailbox" && (columnName == "smtp_password" || columnName == "pop3_password") && value != null)
             {
@@ -235,7 +236,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 }
                 catch (Exception err)
                 {
-                    Logging.LogFactory.Create().Error("Can not prepare value {0}: {1}", value, err);
+                    LogManager.GetLogger("ASC").ErrorFormat("Can not prepare value {0}: {1}", value, err);
                     value = null;
                 }
                 return true;
@@ -262,7 +263,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                     }
                     catch (Exception ex)
                     {
-                        Logging.LogFactory.Create().Error("Can not prepare data {0}: {1}", row[address] as string, ex);
+                        LogManager.GetLogger("ASC").ErrorFormat("Can not prepare data {0}: {1}", row[address] as string, ex);
                         data.Rows.Remove(row);
                         i--;
                     }

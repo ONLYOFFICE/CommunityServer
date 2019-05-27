@@ -33,13 +33,11 @@ using ASC.Api.Documents;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Api.Projects.Calendars;
-using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Calendars;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Core;
-using ASC.Web.Studio.Utility;
 using Autofac;
 
 namespace ASC.Api.Projects
@@ -188,7 +186,7 @@ namespace ASC.Api.Projects
         }
 
         [Update(@"settings")]
-        public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate, bool? hideEntitiesInPausedProjects, StartModuleType? startModule)
+        public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate, bool? hideEntitiesInPausedProjects, StartModuleType? startModule, object folderId)
         {
             if (everebodyCanCreate.HasValue || hideEntitiesInPausedProjects.HasValue)
             {
@@ -210,11 +208,20 @@ namespace ASC.Api.Projects
                 return settings;
             }
 
-            if (startModule.HasValue)
+            if (startModule.HasValue || folderId != null)
             {
                 if (!ProjectSecurity.IsProjectsEnabled(CurrentUserId)) ProjectSecurity.CreateSecurityException();
                 var settings = ProjectsCommonSettings.LoadForCurrentUser();
-                settings.StartModuleType = startModule.Value;
+                if (startModule.HasValue)
+                {
+                    settings.StartModuleType = startModule.Value;
+                }
+
+                if (folderId != null)
+                {
+                    settings.FolderId = folderId;
+                }
+
                 settings.SaveForCurrentUser();
                 return settings;
             }
@@ -225,7 +232,16 @@ namespace ASC.Api.Projects
         [Read(@"settings")]
         public ProjectsCommonSettings GetSettings()
         {
-            return ProjectsCommonSettings.Load();
+            var commonSettings = ProjectsCommonSettings.Load();
+            var userSettings = ProjectsCommonSettings.LoadForCurrentUser();
+
+            return new ProjectsCommonSettings
+            {
+                EverebodyCanCreate = commonSettings.EverebodyCanCreate,
+                HideEntitiesInPausedProjects = commonSettings.HideEntitiesInPausedProjects,
+                StartModuleType = userSettings.StartModuleType,
+                FolderId = userSettings.FolderId
+            };
         }
     }
 }

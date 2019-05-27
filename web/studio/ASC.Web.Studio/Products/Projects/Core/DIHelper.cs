@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Web;
 using ASC.Common.Data;
 using ASC.Common.DependencyInjection;
+using ASC.Common.Logging;
 using ASC.Common.Web;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
@@ -39,7 +40,6 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Core.Lifetime;
 using Autofac.Core.Resolving;
-using log4net;
 
 namespace ASC.Web.Projects.Core
 {
@@ -48,7 +48,6 @@ namespace ASC.Web.Projects.Core
         internal static IContainer Builder;
         private static bool isRegistered;
         private static readonly object Locker = new object();
-        private static readonly ILog Logger = LogManager.GetLogger("ASC");
 
         public static void Register()
         {
@@ -144,7 +143,7 @@ namespace ASC.Web.Projects.Core
                     }
                     catch (ObjectDisposedException e)
                     {
-                        Logger.Error("FromHttpContext ObjectDisposedException", e);
+                        LogManager.GetLogger("ASC").Error("FromHttpContext ObjectDisposedException", e);
                         scope = ToHttpContext();
                     }
                 }

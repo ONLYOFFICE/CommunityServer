@@ -24,10 +24,6 @@
 */
 
 
-using ASC.Xmpp.Core.utils.Xml;
-using ASC.Xmpp.Core.utils.Xml.Dom;
-using ASC.Xmpp.Server.Utils;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -39,12 +35,16 @@ using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
+using ASC.Common.Logging;
+using ASC.Xmpp.Core.utils.Xml;
+using ASC.Xmpp.Core.utils.Xml.Dom;
+using ASC.Xmpp.Server.Utils;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     class TcpXmppConnection : IXmppConnection
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TcpXmppConnection));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private readonly StreamParser streamParser;
         private readonly byte[] buffer;

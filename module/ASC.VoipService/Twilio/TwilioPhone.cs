@@ -52,7 +52,7 @@ namespace ASC.VoipService.Twilio
         {
             var number = to.Split('#');
 
-            var call = CallResource.Create(new CreateCallOptions(new PhoneNumber(number[0]), new PhoneNumber(Number))
+            var call = CallResource.Create(new CreateCallOptions(new PhoneNumber("+" + number[0].TrimStart('+')), new PhoneNumber("+" + Number.TrimStart('+')))
             {
                 SendDigits = number.Length > 1 ? number[1] + "#" : string.Empty,
                 Record = Settings.Caller.Record,

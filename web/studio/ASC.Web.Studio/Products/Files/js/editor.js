@@ -104,6 +104,7 @@ window.ASC.Files.Editor = (function () {
             eventsConfig.onInfo = ASC.Files.Editor.infoEditor;
             eventsConfig.onRequestRename = ASC.Files.Editor.rename;
             eventsConfig.onMetaChange = ASC.Files.Editor.metaChange;
+            eventsConfig.onRequestClose = ASC.Files.Editor.requestClose;
 
             if (ASC.Files.Constants.URL_MAIL_ACCOUNTS) {
                 eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
@@ -286,6 +287,16 @@ window.ASC.Files.Editor = (function () {
 
             document.title = ASC.Files.Editor.configurationParams.document.title + (docIsChanged ? " *" : "");
         }
+    };
+
+    var requestClose = function () {
+        if (!window.opener
+            && ASC.Files.Editor.configurationParams.editorConfig.customization.goback
+            && ASC.Files.Editor.configurationParams.editorConfig.customization.goback.url) {
+            location.href = ASC.Files.Editor.configurationParams.editorConfig.customization.goback.url;
+            return;
+        }
+        window.close();
     };
 
     var reloadPage = function () {
@@ -559,6 +570,7 @@ window.ASC.Files.Editor = (function () {
         infoEditor: infoEditor,
         rename: rename,
         metaChange: metaChange,
+        requestClose: requestClose,
 
         canShowHistory: canShowHistory,
     };
@@ -572,7 +584,7 @@ window.ASC.Files.Editor = (function () {
     ASC.Files.Editor.init();
     $(function () {
         if (typeof DocsAPI === "undefined") {
-            alert("ONLYOFFICE™ is not available. Please contact us at support@onlyoffice.com");
+            alert(ASC.Files.Constants.DocsAPIundefined);
             ASC.Files.Editor.errorEditor();
 
             return;
