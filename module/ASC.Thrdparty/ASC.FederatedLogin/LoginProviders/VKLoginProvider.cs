@@ -26,47 +26,76 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Web;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class VKLoginProvider : ILoginProvider
+    public class VKLoginProvider : BaseLoginProvider<VKLoginProvider>
     {
-        private const string VKProfileUrl = "https://api.vk.com/method/users.get";
-        private const string VKProfileScope = "";
-
-        private const string VKOauthUrl = "https://oauth.vk.com/";
-        public const string VKOauthCodeUrl = VKOauthUrl + "authorize";
-        public const string VKOauthTokenUrl = VKOauthUrl + "access_token";
-
-
-        public static string VKOAuth20ClientId
+        public override string CodeUrl
         {
-            get { return KeyStorage.Get("vkClientId"); }
+            get { return "https://oauth.vk.com/authorize"; }
         }
 
-        public static string VKOAuth20ClientSecret
+        public override string AccessTokenUrl
         {
-            get { return KeyStorage.Get("vkClientSecret"); }
+            get { return "https://oauth.vk.com/access_token"; }
         }
 
-        public static string VKOAuth20RedirectUrl
+        public override string ClientID
         {
-            get { return KeyStorage.Get("vkRedirectUrl"); }
+            get { return this["vkClientId"]; }
         }
 
-        public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
+        public override string ClientSecret
+        {
+            get { return this["vkClientSecret"]; }
+        }
+
+        public override string RedirectUri
+        {
+            get { return this["vkRedirectUrl"]; }
+        }
+
+        public override string Scopes
+        {
+            get { return (new[] { 4194304 }).Sum().ToString(); }
+        }
+
+        private const string VKProfileUrl = "https://api.vk.com/method/users.get?v=5.80";
+
+
+        public VKLoginProvider()
+        {
+        }
+
+        public VKLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
+        {
+        }
+
+
+        public override LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
         {
             try
             {
-                var token = Auth(context, VKProfileScope);
-                return RequestProfile(token);
+                var token = Auth(context, Scopes);
+
+                if (token == null)
+                {
+                    throw new Exception("Login failed");
+                }
+
+                var loginProfile = GetLoginProfile(token.AccessToken);
+
+                loginProfile.EMail = GetMail(token);
+
+                return loginProfile;
             }
             catch (ThreadAbortException)
             {
@@ -78,40 +107,18 @@ namespace ASC.FederatedLogin.LoginProviders
             }
         }
 
-        public static OAuth20Token Auth(HttpContext context, string scopes)
+        public override LoginProfile GetLoginProfile(string accessToken)
         {
-            var error = context.Request["error"];
-            if (!string.IsNullOrEmpty(error))
-            {
-                if (error == "access_denied")
-                {
-                    error = "Canceled at provider";
-                }
-                throw new Exception(error);
-            }
+            if (string.IsNullOrEmpty(accessToken))
+                throw new Exception("Login failed");
 
-            var code = context.Request["code"];
-            if (string.IsNullOrEmpty(code))
-            {
-                OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                               VKOauthCodeUrl,
-                                               VKOAuth20ClientId,
-                                               VKOAuth20RedirectUrl,
-                                               scopes);
-                return null;
-            }
-
-            var token = OAuth20TokenHelper.GetAccessToken(VKOauthTokenUrl,
-                                                          VKOAuth20ClientId,
-                                                          VKOAuth20ClientSecret,
-                                                          VKOAuth20RedirectUrl,
-                                                          code);
-            return token;
+            return RequestProfile(accessToken);
         }
 
-        private static LoginProfile RequestProfile(OAuth20Token token)
+        private static LoginProfile RequestProfile(string accessToken)
         {
-            var vkProfile = RequestHelper.PerformRequest(VKProfileUrl + "?access_token=" + token.AccessToken);
+            var fields = new[] { "sex" };
+            var vkProfile = RequestHelper.PerformRequest(VKProfileUrl + "&fields=" + HttpUtility.UrlEncode(string.Join(",", fields)) + "&access_token=" + accessToken);
             var loginProfile = ProfileFromVK(vkProfile);
 
             return loginProfile;
@@ -122,6 +129,9 @@ namespace ASC.FederatedLogin.LoginProviders
             var jProfile = JObject.Parse(strProfile);
             if (jProfile == null) throw new Exception("Failed to correctly process the response");
 
+            var error = jProfile.Value<JObject>("error");
+            if (error != null) throw new Exception(error.Value<string>("error_msg"));
+
             var profileJson = jProfile.Value<JArray>("response");
             if (profileJson == null) throw new Exception("Failed to correctly process the response");
 
@@ -130,11 +140,9 @@ namespace ASC.FederatedLogin.LoginProviders
 
             var profile = new LoginProfile
                 {
-                    //EMail = email,
-                    Id = vkProfiles[0].uid,
+                    Id = vkProfiles[0].id,
                     FirstName = vkProfiles[0].first_name,
                     LastName = vkProfiles[0].last_name,
-                    BirthDay = vkProfiles[0].bdate,
 
                     Provider = ProviderConstants.VK,
                 };
@@ -144,10 +152,20 @@ namespace ASC.FederatedLogin.LoginProviders
 
         private class VKProfile
         {
-            public string uid = null;
+            public string id = null;
             public string first_name = null;
             public string last_name = null;
-            public string bdate = null;
+        }
+
+        private static string GetMail(OAuth20Token token)
+        {
+            if (string.IsNullOrEmpty(token.OriginJson)) return null;
+            var parser = JObject.Parse(token.OriginJson);
+
+            return
+                parser == null
+                    ? null
+                    : parser.Value<string>("email");
         }
     }
 }

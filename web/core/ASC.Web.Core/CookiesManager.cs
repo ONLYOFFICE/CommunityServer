@@ -35,18 +35,21 @@ namespace ASC.Web.Core
 {
     public enum CookiesType
     {
-        AuthKey
+        AuthKey,
+        SocketIO
     }
 
     public class CookiesManager
     {
         private const string AuthCookiesName = "asc_auth_key";
+        private const string SocketIOCookiesName = "socketio.sid";
 
         private static string GetCookiesName(CookiesType type)
         {
             switch (type)
             {
                 case CookiesType.AuthKey: return AuthCookiesName;
+                case CookiesType.SocketIO: return SocketIOCookiesName;
             }
 
             return string.Empty;
@@ -100,8 +103,6 @@ namespace ASC.Web.Core
             if (HttpContext.Current != null)
             {
                 var cookieName = GetCookiesName(type);
-                if (HttpContext.Current.Response.Cookies.AllKeys.Contains(cookieName))
-                    return HttpContext.Current.Response.Cookies[cookieName].Value ?? "";
 
                 if (HttpContext.Current.Request.Cookies[cookieName] != null)
                     return HttpContext.Current.Request.Cookies[cookieName].Value ?? "";
@@ -124,8 +125,7 @@ namespace ASC.Web.Core
             if (!session)
             {
                 var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-                var settings = TenantCookieSettings.GetForTenant(tenant);
-                expires = settings.IsDefault() ? DateTime.Now.AddYears(1) : DateTime.Now.AddMinutes(settings.LifeTime);
+                expires = TenantCookieSettings.GetExpiresTime(tenant);
             }
 
             return expires;

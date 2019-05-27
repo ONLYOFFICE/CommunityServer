@@ -53,8 +53,8 @@ ASC.CRM.myInvoiceContactFilter = {
 
     createFilterByContact: function (filter) {
         var o = document.createElement('div');
+        o.classList.add("default-value");
         o.innerHTML = [
-          '<div class="default-value">',
             '<span class="title">',
               filter.title,
             '</span>',
@@ -62,35 +62,50 @@ ASC.CRM.myInvoiceContactFilter = {
               '<span class="contact-selector"></span>',
             '</span>',
             '<span class="btn-delete">&times;</span>',
-          '</div>'
         ].join('');
         return o;
     },
 
     customizeFilterByContact: function ($container, $filteritem, filter) {
-        if (jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).parent().is("#" + ASC.CRM.myInvoiceContactFilter.hiddenContainerId)) {
-            jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId)
+        var $filterSwitcher = jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId);
+
+        if ($filterSwitcher.parent().is("#" + ASC.CRM.myInvoiceContactFilter.hiddenContainerId)) {
+            $filterSwitcher
                 .off("showList")
                 .on("showList", function (event, item) {
                     ASC.CRM.myInvoiceContactFilter.onSelectContact(event, item);
+                    $filteritem.removeClass("default-value");
                 });
-            jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+
+            $filterSwitcher.next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+
+            if (!filter.isset) {
+                setTimeout(function () {
+                    if ($filteritem.hasClass("default-value")) {
+                        $filterSwitcher.click();
+                    }
+                }, 0);
+            }
         }
     },
 
     destroyFilterByContact: function ($container, $filteritem, filter) {
-        if (!jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).parent().is("#" + ASC.CRM.myInvoiceContactFilter.hiddenContainerId)) {
-            jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId).off("showList");
-            jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
-            jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).next().andSelf().appendTo(jq('#' + ASC.CRM.myInvoiceContactFilter.hiddenContainerId));
-            jq('#' + ASC.CRM.myInvoiceContactFilter.headerContainerId).contactadvancedSelector("reset");
+        var $filterSwitcher = jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId);
+
+        if (!$filterSwitcher.parent().is("#" + ASC.CRM.myInvoiceContactFilter.hiddenContainerId)) {
+            $filterSwitcher.off("showList");
+            $filterSwitcher.find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
+            $filterSwitcher.next().andSelf().appendTo(jq('#' + ASC.CRM.myInvoiceContactFilter.hiddenContainerId));
+            $filterSwitcher.contactadvancedSelector("reset");
         }
     },
 
     processFilter: function ($container, $filteritem, filtervalue, params) {
         if (params && params.id && isFinite(params.id)) {
-            jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId).find(".inner-text .value").text(params.displayName);
-            jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId).contactadvancedSelector("select", [params.id]);
+            var $filterSwitcher = jq("#" + ASC.CRM.myInvoiceContactFilter.headerContainerId);
+            $filterSwitcher.find(".inner-text .value").text(params.displayName);
+            $filterSwitcher.contactadvancedSelector("select", [params.id]);
+            $filteritem.removeClass("default-value");
         }
     }
 };
@@ -381,7 +396,7 @@ ASC.CRM.ListInvoiceView = (function () {
 
         invoiceItem.displaySum = ASC.CRM.Common.numberFormat(invoiceItem.cost,
                 {
-                    before: ASC.CRM.Common.getCurrencySymbol(invoiceItem.currency.symbol, invoiceItem.currency.abbreviation ),
+                    before: invoiceItem.currency.symbol,
                     after: " " + invoiceItem.currency.abbreviation,
                     thousands_sep: " ",
                     dec_point: ASC.CRM.Data.CurrencyDecimalSeparator,
@@ -1176,7 +1191,7 @@ ASC.CRM.ListInvoiceView = (function () {
             .advansedFilter({
                 anykey      : false,
                 hintDefaultDisable: true,
-                maxfilters  : 3,
+                maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
                 store       : true,
@@ -1694,6 +1709,12 @@ ASC.CRM.InvoiceActionView = (function () {
 
         jq("#invoiceLineTableContainer").on("change", ".quantity input, .price input, .discount input", function () {
             changeLine(this);
+        });
+
+        jq("#invoiceLineTableContainer").on("input", ".discount input", function () {
+            if (Number(this.value) > 100) {
+                this.value = "100";
+            }
         });
 
         jq.forceNumber({
@@ -3066,9 +3087,10 @@ ASC.CRM.InvoiceActionView = (function () {
                 invoiceTax2 = getInvoiceTax(getValueFromCustomInput(line.find(".tax2 .custom-input")).id),
 
                 subtotal = roundTo(quantity * price, 2),
-                discountValue = roundTo(subtotal * discount / 100, 2);
+                discountValue = roundTo(subtotal * discount / 100, 2),
+                amountText = (subtotal - discountValue).toFixed(2);
 
-            line.find(".amount").text((subtotal - discountValue).toFixed(2));
+            line.find(".amount").text(amountText).attr("title", amountText);
 
             var rate = 0;
             if (invoiceTax1) {
@@ -3094,7 +3116,8 @@ ASC.CRM.InvoiceActionView = (function () {
         data.taxValue = roundTo(data.taxValue, 2);
         data.total = roundTo(data.total, 2);
 
-        jq("#invoiceLineTableContainer .subtotal").text((data.subtotal - data.discountValue).toFixed(2));
+        var subtotalText = (data.subtotal - data.discountValue).toFixed(2);
+        jq("#invoiceLineTableContainer .subtotal").text(subtotalText).attr("title", subtotalText);
 
         var $taxesContainer = jq("<div></div>").addClass("tbl-taxes");
         jq.each(data.taxLines, function (index, item) {
@@ -3103,7 +3126,9 @@ ASC.CRM.InvoiceActionView = (function () {
         jq("#invoiceLineTableContainer .tbl-taxes").replaceWith($taxesContainer);
 
         jq("#invoiceLineTableContainer .currency").text(data.currency);
-        jq("#invoiceLineTableContainer .total").text(data.total.toFixed(2));
+
+        var totalText = data.total.toFixed(2);
+        jq("#invoiceLineTableContainer .total").text(totalText).attr("title", totalText);
 
         checkLinesCount();
 
@@ -3298,6 +3323,21 @@ ASC.CRM.InvoiceActionView = (function () {
         }
     };
 
+    var getValidDate = function(datepickerObj) {
+        var strValue = datepickerObj.val().trim();
+
+        if (!strValue) return null;
+
+        try {
+            jQuery.datepicker.parseDate(ASC.Resources.Master.DatepickerDatePattern, strValue);
+        } catch(e) {
+            console.error("Try parse " + strValue + " to " + ASC.Resources.Master.DatepickerDatePattern + " format.", e);
+            return null;
+        }
+
+        return datepickerObj.datepicker("getDate");
+    };
+
     var checkValidation = function () {
         removeAllRequiredErrorClasses();
 
@@ -3308,12 +3348,10 @@ ASC.CRM.InvoiceActionView = (function () {
             isValid = false;
         }
 
-        var issueDate = null;
-        if (jq("#invoiceIssueDate").val().trim() == "") {
+        var issueDate = getValidDate(jq("#invoiceIssueDate"));
+        if (!issueDate) {
             ShowRequiredError(jq("#invoiceIssueDate"));
             isValid = false;
-        } else {
-            issueDate = jq("#invoiceIssueDate").datepicker("getDate");
         }
 
         if (jq("#invoiceContactID").val() <= 0) {
@@ -3321,18 +3359,17 @@ ASC.CRM.InvoiceActionView = (function () {
             isValid = false;
         }
 
-        var dueDate = null;
-        if (jq("#invoiceDueDate").val().trim() == "") {
-            AddRequiredErrorText(jq("#invoiceDueDate"), ASC.CRM.Resources.CRMInvoiceResource.DueDateRequiredErrorMsg);
-            ShowRequiredError(jq("#invoiceDueDate"));
+        var $invoiceDueDate = jq("#invoiceDueDate");
+        var dueDate = getValidDate($invoiceDueDate);
+        if (!dueDate) {
+            AddRequiredErrorText($invoiceDueDate, ASC.CRM.Resources.CRMInvoiceResource.DueDateRequiredErrorMsg);
+            ShowRequiredError($invoiceDueDate);
             isValid = false;
-        } else {
-            dueDate = jq("#invoiceDueDate").datepicker("getDate");
         }
         
         if (issueDate && dueDate && issueDate > dueDate) {
-            AddRequiredErrorText(jq("#invoiceDueDate"), ASC.CRM.Resources.CRMInvoiceResource.DueDateInvalidErrorMsg);
-            ShowRequiredError(jq("#invoiceDueDate"));
+            AddRequiredErrorText($invoiceDueDate, ASC.CRM.Resources.CRMInvoiceResource.DueDateInvalidErrorMsg);
+            ShowRequiredError($invoiceDueDate);
             isValid = false;
         }
 

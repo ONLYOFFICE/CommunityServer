@@ -63,7 +63,7 @@
         });
 
         function updateMailUserActivity(request, userOnline = true) {
-            if(request.user.isVisitor) return;
+            if(!request.mailEnabled) return;
 
             setTimeout(function(){
                 if((!userOnline && typeof onlineUsers[tenantId][userId] != "undefined") || 
@@ -81,7 +81,7 @@
                     .get("feed/newfeedscount.json")
                     .get("portal/talk/unreadmessages.json");
 
-                if(request.user.isVisitor){
+                if(!request.mailEnabled){
                     [feedCount, messageCount] = yield apiRequestManager.batch(batchRequest,request);
                 }else{
                     [feedCount, messageCount, mailMessageFolders] = yield apiRequestManager.batch(batchRequest.get("mail/folders.json"), request);
@@ -101,7 +101,7 @@
         }
 
         function getMessageCount() {
-            if(request.user.isVisitor) return 0;
+            if(!request.mailEnabled) return new Promise((resolve) => { resolve(0)});
             return apiRequestManager.get("mail/folders.json", request).then(getInreadMessageCount);
         }
     });

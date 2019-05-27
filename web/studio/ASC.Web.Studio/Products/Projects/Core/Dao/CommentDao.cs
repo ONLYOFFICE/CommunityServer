@@ -28,27 +28,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
-using log4net;
 using Microsoft.Security.Application;
 
 namespace ASC.Projects.Data.DAO
 {
     internal class CommentDao : BaseDao, ICommentDao
     {
-        private readonly string[] columns = new[]
-            {
-                "id",
-                "target_uniq_id",
-                "content",
-                "inactive",
-                "create_by",
-                "create_on",
-                "parent_id",
-                "comment_id"
-            };
+        private static readonly string ColumnId = "id";
+        private static readonly string ColumnTargetUniqId = "target_uniq_id";
+        private static readonly string ColumnContent = "content";
+        private static readonly string ColumnInactive = "inactive";
+        private static readonly string ColumnCreateBy = "create_by";
+        private static readonly string ColumnCreateOn = "create_on";
+        private static readonly string ColumnParentId = "parent_id";
+        private static readonly string ColumnCommentId = "comment_id";
 
 
         public CommentDao(int tenantID)
@@ -62,7 +59,14 @@ namespace ASC.Projects.Data.DAO
             return Db
                 .ExecuteList(
                     Query("projects_comments")
-                        .Select(columns)
+                        .Select(ColumnId,
+                ColumnTargetUniqId,
+                ColumnContent,
+                ColumnInactive,
+                ColumnCreateBy,
+                ColumnCreateOn,
+                ColumnParentId,
+                ColumnCommentId)
                         .Where("target_uniq_id", target.UniqID))
                 .ConvertAll(ToComment)
                 .OrderBy(c => c.CreateOn)
@@ -71,7 +75,14 @@ namespace ASC.Projects.Data.DAO
 
         public Comment GetById(Guid id)
         {
-            return Db.ExecuteList(Query(CommentsTable).Select(columns).Where("id", id.ToString()))
+            return Db.ExecuteList(Query(CommentsTable).Select(ColumnId,
+                ColumnTargetUniqId,
+                ColumnContent,
+                ColumnInactive,
+                ColumnCreateBy,
+                ColumnCreateOn,
+                ColumnParentId,
+                ColumnCommentId).Where("id", id.ToString()))
                         .ConvertAll(ToComment)
                         .SingleOrDefault();
         }
@@ -98,7 +109,14 @@ namespace ASC.Projects.Data.DAO
         {
             return Db.ExecuteList(
                 Query(CommentsTable)
-                    .Select(columns)
+                    .Select(ColumnId,
+                ColumnTargetUniqId,
+                ColumnContent,
+                ColumnInactive,
+                ColumnCreateBy,
+                ColumnCreateOn,
+                ColumnParentId,
+                ColumnCommentId)
                     .Where(where)
                     .Where("inactive", false)
                     .OrderBy("create_on", false))
@@ -127,23 +145,22 @@ namespace ASC.Projects.Data.DAO
                 }
                 catch (Exception err)
                 {
-                    LogManager.GetLogger(GetType()).Error(err);
+                    LogManager.GetLogger("ASC").Error(err);
                 }
             }
 
             var insert = Insert(CommentsTable)
-                .InColumns(columns)
-                .Values(
-                    comment.OldGuidId,
-                    comment.TargetUniqID,
-                    comment.Content,
-                    comment.Inactive,
-                    comment.CreateBy.ToString(),
-                    TenantUtil.DateTimeToUtc(comment.CreateOn),
-                    comment.Parent.ToString(),
-                    comment.ID
-                    );
-            Db.ExecuteNonQuery(insert);
+                .InColumnValue(ColumnCommentId, comment.ID)
+                .InColumnValue(ColumnId, comment.OldGuidId)
+                .InColumnValue(ColumnTargetUniqId, comment.TargetUniqID)
+                .InColumnValue(ColumnContent, comment.Content)
+                .InColumnValue(ColumnInactive, comment.Inactive)
+                .InColumnValue(ColumnCreateBy, comment.CreateBy.ToString())
+                .InColumnValue(ColumnCreateOn, TenantUtil.DateTimeToUtc(comment.CreateOn))
+                .InColumnValue(ColumnParentId, comment.Parent.ToString())
+                .Identity(1, 0, true);
+
+            comment.ID = Db.ExecuteScalar<int>(insert);
             return comment;
         }
 
@@ -156,16 +173,16 @@ namespace ASC.Projects.Data.DAO
         private static Comment ToComment(object[] r)
         {
             return new Comment
-                {
-                    OldGuidId = ToGuid(r[0]),
-                    TargetUniqID = (string)r[1],
-                    Content = (string)r[2],
-                    Inactive = Convert.ToBoolean(r[3]),
-                    CreateBy = ToGuid(r[4]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
-                    Parent = ToGuid(r[6]),
-                    ID = Convert.ToInt32(r[7])
-                };
+            {
+                OldGuidId = ToGuid(r[0]),
+                TargetUniqID = (string)r[1],
+                Content = (string)r[2],
+                Inactive = Convert.ToBoolean(r[3]),
+                CreateBy = ToGuid(r[4]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                Parent = ToGuid(r[6]),
+                ID = Convert.ToInt32(r[7])
+            };
         }
     }
 }

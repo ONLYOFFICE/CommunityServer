@@ -95,9 +95,10 @@ namespace ASC.Files.Core
             set { base.Title = value; }
         }
 
+        [DataMember(EmitDefaultValue = true, Name = "content_length", IsRequired = true)]
         public long ContentLength { get; set; }
 
-        [DataMember(EmitDefaultValue = false, Name = "content_length", IsRequired = true)]
+        [DataMember(EmitDefaultValue = false, Name = "content_length_string", IsRequired = true)]
         public String ContentLengthString
         {
             get { return FileSizeComment.FilesSizeToString(ContentLength); }
@@ -120,6 +121,9 @@ namespace ASC.Files.Core
                         return FilterType.SpreadsheetsOnly;
                     case FileType.Archive:
                         return FilterType.ArchiveOnly;
+                    case FileType.Audio:
+                    case FileType.Video:
+                        return FilterType.MediaOnly;
                 }
 
                 return FilterType.None;
@@ -168,6 +172,9 @@ namespace ASC.Files.Core
                     _status ^= FileStatus.IsNew;
             }
         }
+
+        [DataMember(EmitDefaultValue = false, Name = "encrypted")]
+        public bool Encrypted { get; set; }
 
         public String DownloadUrl
         {

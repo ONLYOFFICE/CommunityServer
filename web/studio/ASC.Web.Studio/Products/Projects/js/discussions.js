@@ -50,7 +50,7 @@ ASC.Projects.Discussions = (function($) {
             self = this;
 
             function canCreateDiscussion(prj) {
-                return prj.canCreateMessage && prj.status === 0;
+                return prj.canCreateMessage;
             }
 
             self.showOrHideData = self.showOrHideData.bind(self, {
@@ -114,7 +114,32 @@ ASC.Projects.Discussions = (function($) {
         //$discussionsList.html(jq.tmpl("projects_discussionTemplate", templates));
         self.showOrHideData(discussions.map(getDiscussionTemplate), filterDiscCount);
         jq('.content-list p').filter(function () { return jq(this).html() === "&nbsp;"; }).remove();
+
+        if (jq.cookies.get("is_retina")) {
+            var discAuthors = discussions.map(function(item) {
+                return item.createdBy.id;
+            }).filter(function onlyUnique(value, index, self) { 
+                return self.indexOf(value) === index;
+            });
+
+            for (var i = 0; i < discAuthors.length; i++) {
+                teamlab.getUserPhoto({}, discAuthors[i],
+                    {
+                        success: onGetUserPhoto(discAuthors[i], discussions)
+                    });
+            }
+        }
     };
+
+    function onGetUserPhoto(author) {
+        return function (params, data) {
+            if (!data.max || data.max.indexOf("default") > -1) return;
+
+            $discussionsList.find('.avatar-list img[src*="' + author + '"]').each(function () {
+                $(this).attr("src", data.max);
+            });
+        }
+    }
 
     function getDiscussionTemplate(discussion) {
         var discussionId = discussion.id;
@@ -162,7 +187,7 @@ ASC.Projects.Discussions = (function($) {
 })(jQuery);
 
 ASC.Projects.DiscussionDetails = (function ($) {
-    var projectFolderId, projectName, $fileContainer, projectTeam, currentUserId, isCommentEdit = false,
+    var projectFolderId, $fileContainer, projectTeam, currentUserId, isCommentEdit = false,
         marginTopClass = "marginTop", itemDisplayListClass = ".items-display-list_i", grayClass = "gray",
         subscribedAttrClass = "subscribed", unsubscribedAttrClass = "unsubscribed";
 
@@ -332,25 +357,26 @@ ASC.Projects.DiscussionDetails = (function ($) {
 
         var participantIds = subscribers.map(function(item) {return item.id});
 
-        $manageParticipantsSelector.useradvancedSelector("select", participantIds);
-
         $manageParticipantsSelector.useradvancedSelector({
             showGroups: true,
-            itemsSelectedIds: participantIds
-
+            itemsSelectedIds: participantIds,
+            itemsDisabledIds: [teamlab.profile.id]
         }).on("additionalClickEvent", function () {
             jq(".project-title .menu-small").removeClass("active");
 
         }).on("showList", function (event, users) {
-            var participants = [];
             var participantsIds = [];
 
             for (var i = 0; i < users.length; i++) {
-                var userId = users[i].id,
-                    userName = users[i].title;
+                participantsIds.push(users[i].id);
+            }
 
-                participants.push({ id: userId, displayName: userName, descriptionFlag: true });
-                participantsIds.push(userId);
+            function findCurrentUserInSubscribers(item) {
+                return item.id === teamlab.profile.id;
+            }
+
+            if (subscribers.filter(findCurrentUserInSubscribers).length) {
+                participantsIds.push(teamlab.profile.id);
             }
 
             var data = {
@@ -366,6 +392,8 @@ ASC.Projects.DiscussionDetails = (function ($) {
                 after: hideLoading
             });
         });
+
+        $manageParticipantsSelector.useradvancedSelector("select", participantIds);
 
         $discussionParticipantsTable.on("mouseenter", itemDisplayListClass + "." + grayClass, function () {
             jq(this).helper({
@@ -387,13 +415,12 @@ ASC.Projects.DiscussionDetails = (function ($) {
 
         attachments = Attachments;
         projectFolderId = parseInt(discussion.project.projectFolder);
-        projectName = Encoder.htmlEncode(discussion.projectTitle);
 
         if (!discussion.canEditFiles) {
             attachments.banOnEditing();
         }
 
-        ProjectDocumentsPopup.init(projectFolderId, projectName);
+        ProjectDocumentsPopup.init(projectFolderId, attachments.isAddedFile, attachments.appendToListAttachFiles);
         attachments.isLoaded = false;
         attachments.init(entityType, function() { return discussion.id });
         attachments.setFolderId(projectFolderId);
@@ -407,7 +434,6 @@ ASC.Projects.DiscussionDetails = (function ($) {
         function addFileSuccess(file) {
             discussion.files.push(file);
             documentsTab.rewrite();
-            ProjectDocumentsPopup.reset();
         }
 
         attachments.bind("addFile", function (ev, file) {
@@ -430,7 +456,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         attachments.bind("deleteFile", function (ev, fileId) {
             teamlab.removePrjEntityFiles({}, discussion.id, entityType, fileId, { success: function() {
                 attachments.deleteFileFromLayout(fileId);
-                discussion.files = discussion.files.filter(function (item) { return item.id !== fileId });
+                discussion.files = discussion.files.filter(function (item) { return item.id != fileId; });
                 if (discussion.files.length === 0) {
                     $fileContainer.css(marginBottomClass, "0");
                 }
@@ -438,14 +464,6 @@ ASC.Projects.DiscussionDetails = (function ($) {
             }, error: onDiscussionError });
 
         });
-
-        bind(teamlab.events.getDocFolder,
-            function() {
-                var $filesLists = jq(".fileList li");
-                for (var i = 0, j = discussion.files.length; i < j; i++) {
-                    $filesLists.find("input#" + discussion.files[i].id).prop("checked", true);
-                }
-            });
     };
 
     function initCommentsControl() {
@@ -656,12 +674,15 @@ ASC.Projects.DiscussionDetails = (function ($) {
 })(jQuery);
 
 ASC.Projects.DiscussionAction = (function ($) {
-    var projectId, id, loadListTeamFlag = false,projectFolderId, projectName, currentUserId, privateFlag;
-    var newFilesToAttach = [], filesFromProject = [], projectTeam = [], discussionParticipants = [];
+    var projectId, id, loadListTeamFlag = false,projectFolderId, currentUserId, privateFlag, discussion;
+    var projectTeam = [], discussionParticipants = [], filesToAttach = [], filesToDeattach = [];
+
     var $fileContainer, $discussionParticipantsContainer, $manageParticipantsSelector, $discussionParticipants,
         $discussionPreviewContainer, $discussionTitleContainer, $discussionTitleContainerInput, $discussionPreviewButton,
         $discussionProjectSelect, $discussionProjectContainer, $discussionTextContainer;
+
     var common, attachments, teamlab, loadingBanner;
+    var resources = ASC.Projects.Resources;
     var action, entityType = "message";
     var itemsDisplayListClass = ".items-display-list_i", grayClass = "gray", requiredFieldErrorClass = 'requiredFieldError', 
         disableClass = "disable", disabledClass = "disabled", readonlyAttr = "readonly";
@@ -678,23 +699,34 @@ ASC.Projects.DiscussionAction = (function ($) {
         }
         loadingBanner = LoadingBanner;
 
-        $fileContainer = $("#discussionFilesContainer");
+        $fileContainer = $("#filesContainer");
         $discussionProjectSelect = $("#discussionProjectSelect");
         $discussionProjectContainer = $("#discussionProjectContainer");
-        $discussionPreviewButton = $("#discussionPreviewButton");
         $discussionParticipantsContainer = $("#discussionParticipantsContainer");
         $manageParticipantsSelector = $("#manageParticipantsSelector");
         $discussionParticipants = $("#discussionParticipants");
-        $discussionPreviewContainer = $("#discussionPreviewContainer");
         $discussionTitleContainer = $("#discussionTitleContainer");
         $discussionTextContainer = $("#discussionTextContainer");
         $discussionTitleContainerInput = $discussionTitleContainer.find('input');
 
-        if (id)
-            teamlab.getSubscribesToPrjDiscussion({}, id, { success: onGetPrjSubscribers });
-
-        if ($fileContainer.length)
-            initAttachmentsControl();
+        if (id) {
+            teamlab.getPrjDiscussion({},
+                id,
+                {
+                    success: onGetDiscussion,
+                    error: function(params, errors) {
+                        if (errors[0] === "Item not found") {
+                            ASC.Projects.Base.setElementNotFound();
+                        }
+                    }
+                });
+        } else {
+            initButtons();
+            if (projectId) {
+                projectFolderId = ASC.Projects.Master.projectFolder;
+                initAttachmentsControl();
+            }
+        }
 
         jq('[id$=discussionTitle]').focus();
 
@@ -733,18 +765,9 @@ ASC.Projects.DiscussionAction = (function ($) {
 
         var resetActionClass = ".reset-action";
         $discussionParticipantsContainer.on('click', itemsDisplayListClass + " " + resetActionClass, function () {
-            var userId = jq(this).closest('li').attr('guid');
-            if (userId !== currentUserId) {
-                jq(this).closest('li').remove();
-                $manageParticipantsSelector.useradvancedSelector("unselect", [userId]);
-            }
-        });
-
-        $discussionParticipantsContainer.find(itemsDisplayListClass).each(function () {
-            var userId = jq(this).attr('guid');
-            if (userId === currentUserId) {
-                jq(this).find(resetActionClass).remove();
-            }
+            var $li = jq(this).closest('li');
+            $li.remove();
+            $manageParticipantsSelector.useradvancedSelector("unselect", [$li.attr('guid')]);
         });
 
         jq('#hideDiscussionPreviewButton').click(function () {
@@ -757,24 +780,74 @@ ASC.Projects.DiscussionAction = (function ($) {
             }
         });
 
+        jq.switcherAction("#switcherParticipantsButton", $discussionParticipantsContainer);
+
+        $discussionParticipants.on("mouseenter", itemsDisplayListClass + "." + grayClass, function () {
+            jq(this).helper({
+                BlockHelperID: "hintSubscribersPrivateProject",
+                addLeft: 45,
+                addTop: 12
+            });
+        });
+        $discussionParticipants.on("mouseleave", itemsDisplayListClass + "." + grayClass, function () {
+            jq("#hintSubscribersPrivateProject").hide();
+        });
+        jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
+    };
+
+    function confirmBeforeUnloadCheck() {
+        return ($discussionProjectSelect.length && $discussionProjectSelect.attr("data-id").length) ||
+            jq("[id$=discussionTitle]").val().length ||
+            common.ckEditor.getData().length ||
+            discussionParticipants.length;
+    };
+
+    function onGetDiscussion(params, response) {
+        discussion = response;
+
+        onGetPrjSubscribers(null, discussion.subscribers);
+
+        projectFolderId = discussion.project.projectFolder;
+
+        initAttachmentsControl();
+
+        initButtons();
+    };
+
+    function onGetPrjSubscribers(params, subscribers) {
+        subscribers.forEach(function (item) { item.descriptionFlag = false; });
+        $manageParticipantsSelector.useradvancedSelector("select", subscribers.map(function (item) { return item.id; }));
+        showDiscussionParticipants(subscribers);
+    };
+
+    function initButtons() {
+        var data = {
+            action: discussion ? resources.CommonResource.SaveChanges : resources.MessageResource.AddDiscussion,
+            disable: discussion ? "" : "disable"
+        };
+
+        jq.tmpl("discussion_buttons", data).appendTo(jq(".mainPageContent"));
+
+        $discussionPreviewButton = $("#discussionPreviewButton");
+        $discussionPreviewContainer = $("#discussionPreviewContainer");
         $discussionPreviewButton.click(function () {
             if ($discussionPreviewButton.hasClass(disableClass)) return;
 
             var takeThis = this;
+            var profile = teamlab.profile;
 
             teamlab.getPrjDiscussionPreview({ takeThis: takeThis }, common.ckEditor.getData(),
                 {
                     before: function () { loader(true); },
                     after: function () { loader(false); },
                     success: function (params, response) {
-                        var $this = jq(params.takeThis),
-                            discussion =
+                        var discussion =
                                 {
                                     title: $discussionTitleContainerInput.val(),
-                                    authorName: $this.attr('authorName'),
-                                    authorTitle: $this.attr('authorTitle'),
-                                    authorPageUrl: $this.attr('authorPageUrl'),
-                                    authorAvatarUrl: $this.attr('authorAvatarUrl'),
+                                    authorName: profile.displayName,
+                                    authorTitle: profile.title,
+                                    authorPageUrl: profile.profileUrl,
+                                    authorAvatarUrl: profile.avatarBig,
                                     createOn: formatDate(new Date()),
                                     content: response
                                 };
@@ -789,13 +862,8 @@ ASC.Projects.DiscussionAction = (function ($) {
         var $discussionCancelButton = $('#discussionCancelButton');
         $discussionCancelButton.click(function () {
             if ($discussionCancelButton.hasClass(disableClass)) return;
-            var projectId = jq.getURLParam('prjID');
             window.onbeforeunload = null;
-            if (!!window.history) {
-                window.history.go(-1);
-            } else {
-                window.location.replace('messages.aspx?prjID=' + projectId);
-            }
+            document.location.replace(location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1));
         });
 
         var $discussionActionButton = $('#discussionActionButton');
@@ -833,61 +901,32 @@ ASC.Projects.DiscussionAction = (function ($) {
                 return;
             }
 
-            var discussion =
+            var newDiscussion =
                 {
                     projectid: projectid,
                     title: title,
                     content: content
                 };
 
-            var discussionId = $discussionActionButton.attr('discussionId');
-            if (discussionId != -1) {
-                discussion.messageid = discussionId;
+            if (discussion) {
+                newDiscussion.messageid = discussion.id;
             }
 
             var participants = [];
             $discussionParticipantsContainer.find(itemsDisplayListClass).each(function () {
                 participants.push(jq(this).attr('guid'));
             });
-            discussion.participants = participants.join();
+            newDiscussion.participants = participants.join();
 
             lockDiscussionActionPageElements();
-            if (discussionId == -1) {
-                addDiscussion(discussion);
+            if (newDiscussion.messageid) {
+                updateDiscussion(newDiscussion);
             }
             else {
-                updateDiscussion(discussion);
+                addDiscussion(newDiscussion);
             }
         });
-
-        jq.switcherAction("#switcherParticipantsButton", $discussionParticipantsContainer);
-        jq.switcherAction("#switcherFilesButton", $fileContainer);
-
-        $discussionParticipants.on("mouseenter", itemsDisplayListClass + "." + grayClass, function () {
-            jq(this).helper({
-                BlockHelperID: "hintSubscribersPrivateProject",
-                addLeft: 45,
-                addTop: 12
-            });
-        });
-        $discussionParticipants.on("mouseleave", itemsDisplayListClass + "." + grayClass, function () {
-            jq("#hintSubscribersPrivateProject").hide();
-        });
-        jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
-    };
-
-    function confirmBeforeUnloadCheck() {
-        return ($discussionProjectSelect.length && $discussionProjectSelect.attr("data-id").length) ||
-            jq("[id$=discussionTitle]").val().length ||
-            common.ckEditor.getData().length ||
-            discussionParticipants.length;
-    };
-
-    function onGetPrjSubscribers(params, subscribers) {
-        subscribers.forEach(function (item) { item.descriptionFlag = false; });
-        $manageParticipantsSelector.useradvancedSelector("select", subscribers.map(function (item) { return item.id; }));
-        showDiscussionParticipants(subscribers);
-    };
+    }
 
     function discussionProjectChange(item) {
         $discussionProjectContainer.removeClass(requiredFieldErrorClass);
@@ -923,7 +962,15 @@ ASC.Projects.DiscussionAction = (function ($) {
     };
 
     function onAddDiscussion(params, discussion) {
-        attachFiles(discussion);
+        attachFiles(discussion, false);
+    };
+
+    function updateDiscussion(discussion) {
+        teamlab.updatePrjDiscussion({}, discussion.messageid, discussion, { success: onUpdateDiscussion, error: onError });
+    };
+
+    function onUpdateDiscussion(params, discussion) {
+        attachFiles(discussion, true);
     };
 
     function onError() {
@@ -934,19 +981,6 @@ ASC.Projects.DiscussionAction = (function ($) {
         unlockDiscussionActionPageElements();
     };
 
-    function updateDiscussion(discussion) {
-        teamlab.updatePrjDiscussion({}, discussion.messageid, discussion, { success: onUpdateDiscussion, error: onError });
-    };
-
-    function onUpdateDiscussion(params, discussion) {
-        teamlab.fckeEditCommentComplete({},
-            { commentid: discussion.id.toString(), domain: 'discussion', html: discussion.text, isedit: true },
-            function () {
-                window.onbeforeunload = null;
-                window.location.replace('messages.aspx?prjID=' + discussion.projectId + '&id=' + discussion.id);
-            });
-    };
-    
     function lockDiscussionActionPageElements() {
         $discussionProjectSelect.attr(disabledClass, disabledClass).addClass(disabledClass);
         $discussionTitleContainerInput.attr(readonlyAttr, readonlyAttr).addClass(disabledClass);
@@ -991,40 +1025,89 @@ ASC.Projects.DiscussionAction = (function ($) {
     };
 
     function initAttachmentsControl() {
-        projectFolderId = parseInt($fileContainer.attr("data-projectfolderid"));
-        projectName = $fileContainer.attr("data-projectName").trim();
-        if (action === "edit")
-            loadAttachmentsForEditingDiscussion();
-    };
+        ProjectDocumentsPopup.init(projectFolderId, attachments.isAddedFile, attachments.appendToListAttachFiles);
 
-    function loadAttachmentsForEditingDiscussion() {
-        var discussionId = jq.getURLParam("id");
-        ProjectDocumentsPopup.init(projectFolderId, projectName);
-        attachments.setFolderId(projectFolderId);
-        attachments.loadFiles();
+        attachments.isLoaded = false;
+        attachments.init(entityType, function () { return discussion ? discussion.id : 0 });
+        attachments.setFolderId(projectFolderId, true);
+        attachments.loadFiles(discussion ? discussion.files : []);
 
         attachments.bind("addFile", function (ev, file) {
-            teamlab.addPrjEntityFiles(null, discussionId, entityType, [file.id], function () { });
+            if (discussion && discussion.files.find(function (item) { return item.id === file.id })) return;
+
+            filesToAttach.push(file);
         });
         attachments.bind("deleteFile", function (ev, fileId) {
-            teamlab.removePrjEntityFiles({}, discussionId, entityType, fileId, function () { });
+            filesToAttach = filesToAttach.filter(function (item) { return item.id !== fileId; });
+
+            if (discussion && discussion.files) {
+                discussion.files.find(function (item) {
+                    var finded = item.id === fileId;
+                    if (finded) {
+                        filesToDeattach.push(fileId);
+                    }
+                    return !finded;
+                });
+            }
             attachments.deleteFileFromLayout(fileId);
         });
+
+        var switcherId = "filesButton";
+
+        var fileContainerTitle = {
+            id: switcherId,
+            title: resources.CommonResource.DocsModuleTitle,
+            state: 0
+        };
+
+        jq.tmpl("projects_tabs", fileContainerTitle).insertBefore($fileContainer);
+        jq.switcherAction("#switcher" + switcherId, $fileContainer);
+
+        jq("#CommonListContainer, #descriptionTab, #filesContainer").show();
     };
 
-    function attachFiles(discussion) {
+    function attachFiles(discussion, isEdit) {
         var onComplete = function() {
             window.onbeforeunload = null;
             window.location.replace('messages.aspx?prjID=' + discussion.projectId + '&id=' + discussion.id);
         };
 
-        var filesIds = newFilesToAttach.concat(filesFromProject);
-        if (filesIds.length) {
-            teamlab.addPrjEntityFiles(null, discussion.id, entityType, filesIds, onComplete);
+        if (filesToDeattach.length || filesToAttach.length) {
+            var onCompleteObj = function(cb) {
+                return {
+                    success: cb,
+                    error: cb
+                };
+            }
+
+            var asyncMethods = [];
+
+            if (filesToAttach.length){
+                asyncMethods.push(function(cb) {
+                    teamlab.addPrjEntityFiles(null, discussion.id, entityType, filesToAttach.map(function(item) { return item.id; }), onCompleteObj(cb));
+                });
+            }
+
+            if (filesToDeattach.length) {
+                asyncMethods.push(function(cb) {
+                    teamlab.removePrjEntityFiles(null, discussion.id, entityType, filesToDeattach, onCompleteObj(cb));
+                });
+            }
+
+            asyncMethods.push(function(cb) {
+                teamlab.fckeEditCommentComplete({},
+                {
+                    commentid: discussion.id.toString(),
+                    domain: 'discussion',
+                    html: discussion.text,
+                    isedit: isEdit
+                },
+                onCompleteObj(cb));
+            });
+
+            async.parallel(asyncMethods,onComplete);
         } else {
-            teamlab.fckeEditCommentComplete({},
-            { commentid: discussion.id.toString(), domain: 'discussion', html: discussion.text, isedit: false },
-            onComplete);
+            teamlab.fckeEditCommentComplete({},{ commentid: discussion.id.toString(), domain: 'discussion', html: discussion.text, isedit: false }, onComplete);
         }
     };
 

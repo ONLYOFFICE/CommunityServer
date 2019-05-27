@@ -54,51 +54,63 @@ namespace ASC.Web.Projects.Classes
             this.project = project;
         }
 
-        public bool CanRead(FileEntry file, Guid userId)
+        public bool CanRead(FileEntry entry, Guid userId)
         {
-            return Can(file, userId, SecurityAction.Read);
+            return Can(entry, userId, SecurityAction.Read);
         }
 
-        public bool CanReview(FileEntry file, Guid userId)
+        public bool CanComment(FileEntry entry, Guid userId)
         {
-            return Can(file, userId, SecurityAction.Edit);
+            return Can(entry, userId, SecurityAction.Edit);
         }
 
-        public bool CanCreate(FileEntry file, Guid userId)
+        public bool CanFillForms(FileEntry entry, Guid userId)
         {
-            return Can(file, userId, SecurityAction.Create);
+            return Can(entry, userId, SecurityAction.Edit);
         }
 
-        public bool CanDelete(FileEntry file, Guid userId)
+        public bool CanReview(FileEntry entry, Guid userId)
         {
-            return Can(file, userId, SecurityAction.Delete);
+            return Can(entry, userId, SecurityAction.Edit);
         }
 
-        public bool CanEdit(FileEntry file, Guid userId)
+        public bool CanCreate(FileEntry entry, Guid userId)
         {
-            return Can(file, userId, SecurityAction.Edit);
+            return Can(entry, userId, SecurityAction.Create);
         }
 
-        private bool Can(FileEntry fileEntry, Guid userId, SecurityAction action)
+        public bool CanDelete(FileEntry entry, Guid userId)
         {
-            if (fileEntry == null || project == null) return false;
+            return Can(entry, userId, SecurityAction.Delete);
+        }
 
-            if (!ProjectSecurity.CanReadFiles(project, userId)) return false;
+        public bool CanEdit(FileEntry entry, Guid userId)
+        {
+            return Can(entry, userId, SecurityAction.Edit);
+        }
+
+        private bool Can(FileEntry entry, Guid userId, SecurityAction action)
+        {
+            if (entry == null || project == null) return false;
+
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
+                if (!projectSecurity.CanReadFiles(project, userId)) return false;
 
             if (project.Status == ProjectStatus.Closed
                 && action != SecurityAction.Read)
                 return false;
 
-            if (ProjectSecurity.IsAdministrator(userId)) return true;
+                if (projectSecurity.IsAdministrator(userId)) return true;
 
-            using (var scope = DIHelper.Resolve())
-            {
                 var projectEngine = scope.Resolve<EngineFactory>().ProjectEngine;
 
-                var folder = fileEntry as Folder;
-                if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId) return true;
+                var folder = entry as Folder;
+                if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId)
+                    return true;
 
-                var file = fileEntry as File;
+                var file = entry as File;
                 if (file != null && file.CreateBy == userId) return true;
 
                 switch (action)
@@ -108,17 +120,17 @@ namespace ASC.Web.Projects.Classes
                     case SecurityAction.Create:
                     case SecurityAction.Edit:
                         return projectEngine.IsInTeam(project.ID, userId) &&
-                               (!ProjectSecurity.IsVisitor(userId) ||
+                               (!projectSecurity.IsVisitor(userId) ||
                                 folder != null && folder.FolderType == FolderType.BUNCH);
                     case SecurityAction.Delete:
-                        return !ProjectSecurity.IsVisitor(userId) && project.Responsible == userId;
+                        return !projectSecurity.IsVisitor(userId) && project.Responsible == userId;
                     default:
                         return false;
                 }
             }
         }
 
-        public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)
+        public IEnumerable<Guid> WhoCanRead(FileEntry entry)
         {
             using (var scope = DIHelper.Resolve())
             {

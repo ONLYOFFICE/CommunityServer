@@ -24,6 +24,7 @@
 */
 
 
+using System.Threading;
 using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
@@ -89,12 +90,12 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
             using (var folderDao = selector.GetFolderDao(parentId))
             {
-                var result = folderDao.GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+                var result = folderDao.GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectGroup, subjectID, searchText, withSubfolders)
                         .Where(r => r != null).ToList();
 
                 if (!result.Any()) return new List<Folder>();
@@ -108,7 +109,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             var result = Enumerable.Empty<Folder>();
 
@@ -126,7 +127,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                     {
                                                         return folderDao
                                                             .GetFolders(matchedId.Select(selectorLocal.ConvertId).ToArray(),
-                                                                searchText, searchSubfolders, checkShare);
+                                                                filterType, subjectGroup, subjectID, searchText, searchSubfolders, checkShare);
                                                     }
                                                 })
                                                 .Where(r => r != null));
@@ -185,28 +186,28 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public object MoveFolder(object folderId, object toFolderId)
+        public object MoveFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var selector = GetSelector(folderId);
             if (IsCrossDao(folderId, toFolderId))
             {
-                var newFolder = PerformCrossDaoFolderCopy(folderId, toFolderId, true);
+                var newFolder = PerformCrossDaoFolderCopy(folderId, toFolderId, true, cancellationToken);
                 return newFolder != null ? newFolder.ID : null;
             }
             using (var folderDao = selector.GetFolderDao(folderId))
             {
-                return folderDao.MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
+                return folderDao.MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId), null);
             }
         }
 
-        public Folder CopyFolder(object folderId, object toFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var selector = GetSelector(folderId);
             using (var folderDao = selector.GetFolderDao(folderId))
             {
                 return IsCrossDao(folderId, toFolderId)
-                    ? PerformCrossDaoFolderCopy(folderId, toFolderId, false)
-                    : folderDao.CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
+                    ? PerformCrossDaoFolderCopy(folderId, toFolderId, false, cancellationToken)
+                    : folderDao.CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId), null);
             }
         }
 
@@ -329,19 +330,11 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        public IEnumerable<Folder> Search(string text, bool bunch)
         {
             using (var folderDao = TryGetFolderDao())
             {
-                return folderDao.Search(text, folderType);
-            }
-        }
-
-        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
-        {
-            using (var folderDao = TryGetFolderDao())
-            {
-                return folderDao.Search(text, folderType1, folderType2);
+                return folderDao.Search(text, bunch);
             }
         }
 

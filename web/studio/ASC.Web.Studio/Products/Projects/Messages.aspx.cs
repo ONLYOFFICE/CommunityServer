@@ -25,8 +25,6 @@
 
 
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
-
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Controls.Messages;
 using ASC.Web.Projects.Resources;

@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Text;
-
-#if SILVERLIGHT || MONODROID
-using System.Net;
-#else
 using System.Web;
-using System.Net;
-#endif
-
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net
@@ -33,11 +25,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
                 return "";
 
             // encode with url encoder
-#if SILVERLIGHT || MONODROID
-            String enc = HttpUtility.UrlEncode(text);
-#else
-            String enc = HttpUtility.UrlEncode(text, Encoding.UTF8);
-#endif
+            var enc = HttpUtility.UrlEncode(text, Encoding.UTF8);
 
             // fix the missing space
             enc = enc.Replace("+", "%20");
@@ -55,9 +43,9 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             enc = enc.Replace("%2f", "/");
 
             // uppercase the encoded stuff            
-            StringBuilder enc2 = new StringBuilder();
+            var enc2 = new StringBuilder();
 
-            for (int i = 0; i < enc.Length; i++)
+            for (var i = 0; i < enc.Length; i++)
             {
                 // copy char
                 enc2.Append(enc[i]);
@@ -65,7 +53,6 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
                 // upper stuff
                 if (enc[i] == '%')
                 {
-
                     enc2.Append(Char.ToUpper(enc[i + 1]));
                     enc2.Append(Char.ToUpper(enc[i + 2]));
 
@@ -83,20 +70,20 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
         /// <returns></returns>
         public static string PathDecodeUTF8(String text)
         {
-            String output = String.Empty;
+            var output = String.Empty;
 
             if (text.StartsWith("/"))
                 output = "/";
 
-            String[] elements = text.Split('/');
+            var elements = text.Split('/');
 
-            foreach (String s in elements)
+            foreach (var s in elements)
             {
                 if (s == String.Empty)
                     continue;
 
                 if (!output.EndsWith("/"))
-                    output += "/";                
+                    output += "/";
 
                 // do the normal stuff
                 output += HttpUtility.UrlDecode(s);
@@ -130,12 +117,6 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             return IsSuccessCode((HttpStatusCode)code);
         }
 
-#if WINDOWS_PHONE
-        public static String GenerateEncodedUriString(Uri uri)
-        {
-            return uri.ToString();
-        }
-#else
         /// <summary>
         /// This method generates a well encoded uri string
         /// </summary>
@@ -144,14 +125,14 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
         public static String GenerateEncodedUriString(Uri uri)
         {
             // save the trailing /
-            Boolean bTrailingSlash = uri.ToString().EndsWith("/");
+            var bTrailingSlash = uri.ToString().EndsWith("/");
 
             // first part of string
-            String uriString = uri.Scheme + "://" + uri.Host + ":" + uri.Port;
+            var uriString = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port;
 
-            for (int i = 0; i < uri.Segments.Length; i++)
+            for (var i = 0; i < uri.Segments.Length; i++)
             {
-                String partString = uri.Segments[i];
+                var partString = uri.Segments[i];
                 partString = partString.TrimEnd('/');
 
                 uriString = PathHelper.Combine(uriString, partString);
@@ -163,7 +144,6 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
             return uriString;
 
         }
-#endif
 
         /// <summary>
         /// Reduces the url to the root service url
@@ -172,7 +152,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net
         /// <returns></returns>
         public static Uri GetPathAndQueryLessUri(Uri uri)
         {
-            return new Uri(uri.Scheme + "://" + uri.DnsSafeHost + ":" + uri.Port.ToString());
+            return new Uri(uri.Scheme + Uri.SchemeDelimiter + uri.DnsSafeHost + ":" + uri.Port);
         }
     }
 }

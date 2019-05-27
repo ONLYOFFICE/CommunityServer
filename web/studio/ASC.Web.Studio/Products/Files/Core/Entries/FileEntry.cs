@@ -92,6 +92,24 @@ namespace ASC.Files.Core
         [DataMember(Name = "provider_key", EmitDefaultValue = false)]
         public string ProviderKey { get; set; }
 
+        [DataMember(Name = "folder_id")]
+        public object FolderIdDisplay
+        {
+            get
+            {
+                if (_folderIdDisplay != null) return _folderIdDisplay;
+
+                var folder = this as Folder;
+                if (folder != null) return folder.ParentFolderID;
+
+                var file = this as File;
+                if (file != null) return file.FolderID;
+
+                return null;
+            }
+            set { _folderIdDisplay = value; }
+        }
+
         public bool ProviderEntry
         {
             get { return !string.IsNullOrEmpty(ProviderKey); }
@@ -118,6 +136,7 @@ namespace ASC.Files.Core
 
         private string _modifiedByString;
         private string _createByString;
+        private object _folderIdDisplay;
 
         public override bool Equals(object obj)
         {

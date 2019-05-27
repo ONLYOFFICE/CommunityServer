@@ -24,11 +24,7 @@
 */
 
 
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Studio.Utility;
 using System;
-using System.Text;
 using System.Web;
 
 namespace ASC.Web.CRM.Controls.Settings
@@ -48,21 +44,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var settings = Global.TenantSettings.SMTPServerSetting;
-            Page.JsonPublisher(settings, "SMTPSettings");
-            RegisterScript();
-        }
-
-        private void RegisterScript()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendFormat(@"ASC.CRM.SettingsPage.initSMTPSettings('{0}');",
-                            String.Format(CRMSettingResource.pattern_TestMailSMTPMainBody,
-                                          ASC.Core.CoreContext.TenantManager.GetTenant(TenantProvider.CurrentTenantID).TenantDomain).HtmlEncode().ReplaceSingleQuote()
-                );
-
-            Page.RegisterInlineScript(sb.ToString());
+            Page.RegisterInlineScript("ASC.CRM.SettingsPage.initExportView();");
         }
 
         #endregion

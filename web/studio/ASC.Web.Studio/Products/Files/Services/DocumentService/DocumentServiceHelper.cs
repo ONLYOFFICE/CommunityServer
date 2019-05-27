@@ -85,10 +85,18 @@ namespace ASC.Web.Files.Services.DocumentService
             var rightToReview = rightToEdit;
             var reviewPossible = editPossible;
 
+            var rightToFillForms = rightToEdit;
+            var fillFormsPossible = editPossible;
+
+            var rightToComment = rightToEdit;
+            var commentPossible = editPossible;
+
             if (linkRight == FileShare.Restrict && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 rightToEdit = false;
                 rightToReview = false;
+                rightToFillForms = false;
+                rightToComment = false;
             }
 
             var fileSecurity = Global.GetFilesSecurity();
@@ -110,24 +118,43 @@ namespace ASC.Web.Files.Services.DocumentService
                 reviewPossible = false;
             }
 
-            if (linkRight == FileShare.Restrict
-                && !(editPossible || reviewPossible)
-                && !fileSecurity.CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+            rightToFillForms = rightToFillForms
+                            && (linkRight == FileShare.FillForms || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
+                                || fileSecurity.CanFillForms(file));
+            if (fillFormsPossible && !rightToFillForms)
+            {
+                fillFormsPossible = false;
+            }
 
+            rightToComment = rightToComment
+                            && (linkRight == FileShare.Comment || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
+                                || fileSecurity.CanComment(file));
+            if (commentPossible && !rightToComment)
+            {
+                commentPossible = false;
+            }
+
+            if (linkRight == FileShare.Restrict
+                && !(editPossible || reviewPossible || fillFormsPossible || commentPossible)
+                && !fileSecurity.CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
 
             if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
             if (file.ContentLength > SetupInfo.AvailableFileSize) throw new Exception(string.Format(FilesCommonResource.ErrorMassage_FileSizeEdit, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize)));
 
             string strError = null;
-            if ((editPossible || reviewPossible)
+            if ((editPossible || reviewPossible || fillFormsPossible || commentPossible)
                 && EntryManager.FileLockedForMe(file.ID))
             {
+                if (tryEdit)
+                {
                 strError = FilesCommonResource.ErrorMassage_LockedFile;
+                }
                 rightToRename = false;
-                rightToEdit = false;
-                editPossible = false;
-                reviewPossible = false;
+                rightToEdit = editPossible = false;
+                rightToReview = reviewPossible = false;
+                rightToFillForms = fillFormsPossible = false;
+                rightToComment = commentPossible = false;
             }
 
             if (editPossible
@@ -144,6 +171,18 @@ namespace ASC.Web.Files.Services.DocumentService
                 rightToReview = reviewPossible = false;
             }
 
+            if (fillFormsPossible &&
+                !FileUtility.CanWebRestrictedEditing(file.Title))
+            {
+                rightToFillForms = fillFormsPossible = false;
+            }
+
+            if (commentPossible &&
+                !FileUtility.CanWebComment(file.Title))
+            {
+                rightToComment = commentPossible = false;
+            }
+
             var rightChangeHistory = rightToEdit;
 
             if (FileTracker.IsEditing(file.ID))
@@ -151,7 +190,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 rightChangeHistory = false;
 
                 bool coauth;
-                if ((editPossible || reviewPossible)
+                if ((editPossible || reviewPossible || fillFormsPossible || commentPossible)
                     && tryCoauth
                     && (!(coauth = FileUtility.CanCoAuhtoring(file.Title)) || FileTracker.IsEditingAlone(file.ID)))
                 {
@@ -161,14 +200,14 @@ namespace ASC.Web.Files.Services.DocumentService
                         strError = string.Format(!coauth
                                                      ? FilesCommonResource.ErrorMassage_EditingCoauth
                                                      : FilesCommonResource.ErrorMassage_EditingMobile,
-                                                 Global.GetUserName(editingBy));
+                                                 Global.GetUserName(editingBy, true));
                     }
-                    rightToEdit = editPossible = reviewPossible = false;
+                    rightToEdit = editPossible = reviewPossible = fillFormsPossible = commentPossible = false;
                 }
             }
 
             var docKey = GetDocKey(file);
-            var modeWrite = (editPossible || reviewPossible) && tryEdit;
+            var modeWrite = (editPossible || reviewPossible || fillFormsPossible || commentPossible) && tryEdit;
 
             configuration = new Configuration(file)
                 {
@@ -180,6 +219,8 @@ namespace ASC.Web.Files.Services.DocumentService
                                     Edit = rightToEdit && lastVersion,
                                     Rename = rightToRename && lastVersion && !file.ProviderEntry,
                                     Review = rightToReview && lastVersion,
+                                    FillForms= rightToFillForms && lastVersion,
+                                    Comment = rightToComment && lastVersion,
                                     ChangeHistory = rightChangeHistory,
                                 }
                         },
@@ -189,6 +230,11 @@ namespace ASC.Web.Files.Services.DocumentService
                         },
                     ErrorMessage = strError,
                 };
+
+            if (!lastVersion)
+            {
+                configuration.Document.Title += string.Format(" ({0})", file.CreateOnString);
+            }
 
             return file;
         }
@@ -230,7 +276,9 @@ namespace ASC.Web.Files.Services.DocumentService
             var fileSecurity = Global.GetFilesSecurity();
             var sharedLink =
                 fileSecurity.CanEdit(file, FileConstant.ShareLinkId)
-                || fileSecurity.CanReview(file, FileConstant.ShareLinkId);
+                || fileSecurity.CanReview(file, FileConstant.ShareLinkId)
+                || fileSecurity.CanFillForms(file, FileConstant.ShareLinkId)
+                || fileSecurity.CanComment(file, FileConstant.ShareLinkId);
 
             var usersDrop = FileTracker.GetEditingBy(file.ID)
                                        .Where(uid =>
@@ -239,22 +287,23 @@ namespace ASC.Web.Files.Services.DocumentService
                                                {
                                                    return !sharedLink;
                                                }
-                                               return !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid);
-                                           }).ToList();
+                                               return !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid) && !fileSecurity.CanFillForms(file, uid) && !fileSecurity.CanComment(file, uid);
+                                           })
+                                       .Select(u => u.ToString()).ToArray();
 
             if (!usersDrop.Any()) return;
             var docKey = GetDocKey(file);
             DropUser(docKey, usersDrop, file.ID);
         }
 
-        public static bool DropUser(string docKeyForTrack, List<Guid> users, object fileId = null)
+        public static bool DropUser(string docKeyForTrack, string[] users, object fileId = null)
         {
-            return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Drop, docKeyForTrack, fileId, null, users.Select(u => u.ToString()).ToArray());
+            return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Drop, docKeyForTrack, fileId, null, users);
         }
 
         public static bool RenameFile(File file)
         {
-            if (!FileUtility.CanWebView(file.Title) && !FileUtility.CanWebEdit(file.Title) && !FileUtility.CanWebReview(file.Title)) return true;
+            if (!FileUtility.CanWebView(file.Title) && !FileUtility.CanWebEdit(file.Title) && !FileUtility.CanWebReview(file.Title) && !FileUtility.CanWebRestrictedEditing(file.Title) && !FileUtility.CanWebComment(file.Title)) return true;
             var docKeyForTrack = GetDocKey(file);
             var meta = new Web.Core.Files.DocumentService.MetaData { Title = file.Title };
             return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Meta, docKeyForTrack, file.ID, meta: meta);

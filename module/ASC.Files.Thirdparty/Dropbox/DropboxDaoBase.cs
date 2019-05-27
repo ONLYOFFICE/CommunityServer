@@ -59,6 +59,11 @@ namespace ASC.Files.Thirdparty.Dropbox
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
+        public void Dispose()
+        {
+            DropboxProviderInfo.Dispose();
+        }
+
         protected DbManager GetDb()
         {
             return new DbManager(FileConstant.DatabaseId);

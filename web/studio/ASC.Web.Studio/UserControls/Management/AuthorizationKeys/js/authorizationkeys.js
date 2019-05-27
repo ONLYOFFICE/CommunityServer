@@ -24,8 +24,11 @@
 */
 
 
-AuthorizationKeysManager = new function () {
-    this.Initialize = function () {
+if (typeof ASC === "undefined")
+    ASC = {};
+
+ASC.AuthorizationKeysManager = (function () {
+    function init() {
         jq("#authKeysContainer .on_off_button:not(.disable)").click(function () {
             var switcherBtn = jq(this);
             var itemName = switcherBtn.attr("id").replace("switcherBtn", "");
@@ -33,7 +36,7 @@ AuthorizationKeysManager = new function () {
                 var popupDialog = jq("#popupDialog" + itemName);
                 window.StudioBlockUIManager.blockUI(popupDialog, 600, 600, 0);
             } else {
-                AuthorizationKeysManager.Save(itemName, false);
+                save(itemName, false);
             }
         });
         
@@ -44,7 +47,7 @@ AuthorizationKeysManager = new function () {
         jq(".popupContainerClass .saveButton").click(function () {
             var saveButton = jq(this);
             var itemName = saveButton.attr("id").replace("saveBtn", "");
-            AuthorizationKeysManager.Save(itemName, true);
+            save(itemName, true);
         });
 
         jq(".popupContainerClass input.textEdit").keyup(function (key) {
@@ -74,32 +77,32 @@ AuthorizationKeysManager = new function () {
         });
     };
 
-    this.Save = function (itemName, enable) {
-        var authKeys = [];
+    function save(itemName, enable) {
+        var props = [];
 
         var keys = jq("#popupDialog" + itemName + " .auth-service-key");
         for (var i = 0; i < keys.length; i++) {
             //if (keys[i].value == "") return; //todo: need to create not required fields
-            authKeys.push({ Name: keys[i].id, Value: enable ? keys[i].value : "" });
+            props.push({ Name: keys[i].id, Value: enable ? keys[i].value : null });
         }
 
         jq("#popupDialog" + itemName).block();
 
-        window.AuthorizationKeys.SaveAuthKeys(authKeys, function (result) {
-            jq("#popupDialog" + itemName).unblock();
-            PopupKeyUpActionProvider.CloseDialog();
+        window.AuthorizationKeys.SaveAuthKeys(itemName, props,
+            function(result) {
+                jq("#popupDialog" + itemName).unblock();
+                PopupKeyUpActionProvider.CloseDialog();
 
-            if (result.error != null) {
-                toastr.error(result.error.Message);
-            } else {
-                if (result.value) {
-                    toastr.success(ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
-                    jq("#switcherBtn" + itemName).toggleClass("on off");
+                if (result.error != null) {
+                    toastr.error(result.error.Message);
+                } else {
+                    if (result.value) {
+                        toastr.success(ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
+                        jq("#switcherBtn" + itemName).toggleClass("on off");
+                    }
                 }
-            }
-        });
+            });
     };
-};
 
 function checkParams(saveBtn, keys) {
     
@@ -118,6 +121,11 @@ function checkParams(saveBtn, keys) {
     } 
 }
 
+    return {
+        init: init
+    };
+})();
+
 jq(function() {
-    AuthorizationKeysManager.Initialize();
+    ASC.AuthorizationKeysManager.init();
 });

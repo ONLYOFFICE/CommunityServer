@@ -169,7 +169,10 @@ namespace MSBuild.Community.Tasks.SourceServer
             if (SourceOnly)
             {
                 // the line will be the source file path
-                _sourceFiles.Add(singleLine);
+                if (!singleLine.StartsWith(PdbFile.ItemSpec))
+                {
+                    _sourceFiles.Add(singleLine);
+                }
             }
             else if (Extract)
             {
@@ -212,7 +215,7 @@ namespace MSBuild.Community.Tasks.SourceServer
         protected override bool HandleTaskExecutionErrors()
         {
             // skip error message on count only
-            if (CountOnly)
+            if (CountOnly || this.ExitCode == this.SourceCount)
                 return true;
 
             return base.HandleTaskExecutionErrors();

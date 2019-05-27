@@ -135,6 +135,16 @@ namespace MSBuild.Community.Tasks
         public bool CopyAttributes { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to copy assembly attributes from all merged assemblies
+        /// into the unified assembly even if duplicate assembly attributes would result.
+        /// </summary>
+        /// <remarks>
+        /// <para>Applicable only when <see cref="CopyAttributes"/> is <c>true</c></para>
+        /// <para>Corresponds to command line option "/allowMultiple".</para>
+        /// </remarks>
+        public bool AllowDuplicateAttributes { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether 
         /// to preserve any .pdb files
         /// that are found for the input assemblies
@@ -315,7 +325,7 @@ namespace MSBuild.Community.Tasks
         /// </summary>
         protected override string ToolName
         {
-            get { return @"ILMerge.exe"; }
+            get { return ToolPathUtil.MakeToolName("ILMerge"); }
         }
 
         /// <summary>
@@ -328,9 +338,13 @@ namespace MSBuild.Community.Tasks
         /// <returns>Returns [ProgramFiles]\Microsoft\ILMerge.exe.</returns>
         protected override string GenerateFullPathToTool()
         {
-            return Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                @"Microsoft\ILMerge\" + ToolName);
+            if (ToolPath != null) {
+                return Path.Combine(ToolPath, ToolName);
+            }
+            string toolPath = ToolPathUtil.FindInProgramFiles(this.ToolName, @"Microsoft\ILMerge") ??
+                              ToolPathUtil.FindInPath(this.ToolName);
+
+            return Path.Combine(toolPath, ToolName);
         }
 
         /// <summary>
@@ -357,7 +371,13 @@ namespace MSBuild.Community.Tasks
                 builder.AppendSwitch("/closed");
 
             if (CopyAttributes)
+            {
                 builder.AppendSwitch("/copyattrs");
+                if (AllowDuplicateAttributes)
+                {
+                    builder.AppendSwitch("/allowMultiple");
+                }
+            }
 
             if (!DebugInfo)
                 builder.AppendSwitch("/ndebug");

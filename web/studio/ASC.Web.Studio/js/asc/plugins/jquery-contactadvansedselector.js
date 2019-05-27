@@ -132,10 +132,11 @@
                             }
 
                             that.displayPartialList.call(that, params, data);
-                            for (var i = 0, ln = that.selectedItems.length; i < ln; i++) {
+                            var selectedItems = Object.keys(that.itemsSelectedIds);
+                            for (var i = 0, ln = selectedItems.length; i < ln; i++) {
                                 var $list = that.$itemsListSelector.find(".advanced-selector-list");
                                 data.forEach(function(el) {
-                                    if (el.id == $(that.selectedItems[i]).attr("data-id")) {
+                                    if (el.id == selectedItems[i]) {
                                         $list.find("li[data-id=" + el.id + "]").not(".selected").remove();
                                     }
                                 });
@@ -152,21 +153,33 @@
             function successCallback(params, data) {
                 if (that.options.withPhoneOnly) {
                     data = data.filter(function (el) {
-                        return el.commonData.some(
+                        return el.commonData && el.commonData.some(
                             function (elem) {
                                 return elem.infoType == 0;
-                            });
+                            }) || el.phone;
                     });
                 }
-                
+
+                if (that.selectedItems) {
+                    for (var i = 0; i < that.selectedItems.length; i++) {
+                        var si = that.selectedItems[i];
+                        if (!data.find(function (d) { return d.id == si.id; })) {
+                            data.push(si);
+                        }
+                    }
+                }
+
                 that.cache[""] = data;
 
                 that.rewriteObjectItem.call(that, data);
-                for (var i = 0, ln = that.selectedItems.length; i < ln; i++) {
+
+                var selectedItems = Object.keys(that.itemsSelectedIds);
+
+                for (var i = 0, ln = selectedItems.length; i < ln; i++) {
                     var $list = that.$itemsListSelector.find(".advanced-selector-list");
-                    $list.prepend(that.selectedItems[i]);
+                    //$list.prepend(that.selectedItems[i]);
                     data.forEach(function (el) {
-                        if (el.id == $(that.selectedItems[i]).attr("data-id")) {
+                        if (el.id == selectedItems[i]) {
                             $list.find("li[data-id=" + el.id + "]").not(".selected").remove();
                         }
                     });
@@ -263,6 +276,14 @@
             }
 
             function successCallback (params, data) {
+                if (that.options.withPhoneOnly) {
+                    data = data.filter(function (el) {
+                        return el.commonData && el.commonData.some(
+                            function (elem) {
+                                return elem.infoType == 0;
+                            }) || el.phone;
+                    });
+                }
 
                 if (params)
                     that.cache[params.__filter.prefix] = data;
@@ -276,8 +297,8 @@
                     that.displayPartialList.call(that, params, data);
 
                     var selectedItemsIds = [];
-                    that.selectedItems.forEach(function (item) {
-                        selectedItemsIds.push($(item).attr("data-id"));
+                    Object.keys(that.itemsSelectedIds).forEach(function (item) {
+                        selectedItemsIds.push(item);
                     });
                     
                     that.$itemsListSelector.find(".advanced-selector-list li").each(function () {

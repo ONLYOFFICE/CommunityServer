@@ -772,6 +772,33 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report building.
+        /// </summary>
+        public static string ReportBuilding {
+            get {
+                return ResourceManager.GetString("ReportBuilding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All generated reports you can always see, download, edit, or delete them in {0}Documents/My Documents{1}.
+        /// </summary>
+        public static string ReportBuildingInfo {
+            get {
+                return ResourceManager.GetString("ReportBuildingInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report building ({0}% complete).
+        /// </summary>
+        public static string ReportBuildingProgress {
+            get {
+                return ResourceManager.GetString("ReportBuildingProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Template could not be found.
         /// </summary>
         public static string ReportTmplNotFound {
@@ -849,6 +876,60 @@ namespace ASC.Web.Projects.Resources {
         public static string SuccessfullyAdded {
             get {
                 return ResourceManager.GetString("SuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new tag.
+        /// </summary>
+        public static string TagsSelectorAddText {
+            get {
+                return ResourceManager.GetString("TagsSelectorAddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No tags in this list.
+        /// </summary>
+        public static string TagsSelectorEmptyList {
+            get {
+                return ResourceManager.GetString("TagsSelectorEmptyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each tag must have a title.
+        /// </summary>
+        public static string TagsSelectorEmptyTitleError {
+            get {
+                return ResourceManager.GetString("TagsSelectorEmptyTitleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No tags in this group.
+        /// </summary>
+        public static string TagsSelectorNoItems {
+            get {
+                return ResourceManager.GetString("TagsSelectorNoItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No such tag.
+        /// </summary>
+        public static string TagsSelectorNoResult {
+            get {
+                return ResourceManager.GetString("TagsSelectorNoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string TagsSelectorTitle {
+            get {
+                return ResourceManager.GetString("TagsSelectorTitle", resourceCulture);
             }
         }
         

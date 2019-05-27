@@ -26,6 +26,7 @@
 
 using System;
 using ASC.Api.Calendar.BusinessObjects;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Notify;
@@ -37,7 +38,6 @@ using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Core.Calendars;
 using ASC.Web.Studio.Utility;
-using log4net;
 
 namespace ASC.Api.Calendar.Notification
 {
@@ -62,7 +62,6 @@ namespace ASC.Api.Calendar.Notification
                 {
                     if (!_isRegistered)
                     {
-                        var now = DateTime.UtcNow;
                         _notifyClient.RegisterSendMethod(NotifyAbouFutureEvent, "0 * * ? * *");
 
                         _isRegistered = true;
@@ -105,10 +104,10 @@ namespace ASC.Api.Calendar.Notification
 
                         if (!data.Event.AllDayLong)
                         {
-                            startDate = startDate.Add(data.TimeZone.BaseUtcOffset);
+                            startDate = startDate.Add(data.TimeZone.GetOffset());
                             endDate = (endDate == DateTime.MinValue
                                 ? DateTime.MinValue
-                                : endDate.Add(data.TimeZone.BaseUtcOffset));
+                                : endDate.Add(data.TimeZone.GetOffset()));
                         }
 
                         _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,

@@ -160,10 +160,9 @@
     function <%=this.ClientID%>_ShowPreview()
     {
         var value='';
-        <%if(!_mobileVer){%>
+
         var oEditor = <%=this.ClientID%>FCKInstance != null ? <%=this.ClientID%>FCKInstance : FCKeditorAPI.GetInstance('<%=Wiki_FCKEditor.ClientID%>');
-        <%}%>
-        
+
         AjaxPro.onLoading = function(b)
         {
             if(b){
@@ -173,13 +172,12 @@
                 LoadingBanner.hideLoaderBtn("#actionWikiPage");
             }
         };
-        
-        if (typeof(oEditor) != "undefined" && oEditor && oEditor != null) {
+
+        if (oEditor) {
             value = oEditor.GetHTML();
-        } else {
-            value = document.getElementsByName("<%=this.WikiFckClientId.Replace("_", "$").Replace("Wiki$FCKEditor", "Wiki_FCKEditor")%>")[0].value;
         }
-         <%=GetPageClassName()%>.ConvertWikiToHtml(pageName, value, appRelativeCurrentExecutionFilePath, imageHandlerUrl, <%=this.ClientID%>_ShowPreviewReady);
+
+        <%=GetPageClassName()%>.ConvertWikiToHtml(pageName, value, appRelativeCurrentExecutionFilePath, imageHandlerUrl, <%=this.ClientID%>_ShowPreviewReady);
     }
     
     function <%=this.ClientID%>_ShowPreviewReady(result)

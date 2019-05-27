@@ -31,11 +31,11 @@ using ASC.ActiveDirectory.Base.Settings;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
 using ASC.Web.Studio.Utility;
-using log4net;
 
 namespace ASC.Specific.CapabilitiesApi
 {
@@ -125,7 +125,7 @@ namespace ASC.Specific.CapabilitiesApi
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger(typeof(CapabilitiesEntryPoint)).Error(ex.Message);
+                LogManager.GetLogger("ASC").Error(ex.Message);
             }
 
             return CapabilitiesData.GetSample();

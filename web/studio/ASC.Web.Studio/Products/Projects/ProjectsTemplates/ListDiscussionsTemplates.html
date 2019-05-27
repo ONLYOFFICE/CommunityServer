@@ -107,12 +107,22 @@
 <script id="projects_tabs" type="text/x-jquery-tmpl">
     <div class="tabs-section" id="${id}">
         <span class="header-base">${title}{{if count}} (${count}){{/if}}</span>
-        <span id="switcher${id}" class="toggle-button">
-            {{if state}}
+        <span id="switcher${id}" class="toggle-button" data-switcher="${state}" data-showtext="${ASC.Projects.Resources.CommonResource.Show}" data-hidetext="${ASC.Projects.Resources.CommonResource.Hide}">
+            {{if state === 0}}
             ${ASC.Projects.Resources.CommonResource.Hide}
             {{else}}
             ${ASC.Projects.Resources.CommonResource.Show}
             {{/if}}
         </span>
+    </div>
+</script>
+
+<script id="discussion_buttons" type="text/x-jquery-tmpl">
+    <div id="discussionButtonsContainer" class="big-button-container">
+        <a id='discussionActionButton' class='button blue big'>${action}</a>
+        <span class="splitter-buttons"></span>
+        <a id='discussionPreviewButton' class='button blue big ${disable}'>${ASC.Projects.Resources.CommonResource.Preview}</a>
+        <span class="splitter-buttons"></span>
+        <a id='discussionCancelButton' class='button gray big'>${ASC.Projects.Resources.CommonResource.Cancel}</a>
     </div>
 </script>

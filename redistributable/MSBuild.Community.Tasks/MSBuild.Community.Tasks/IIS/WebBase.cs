@@ -51,6 +51,7 @@ namespace MSBuild.Community.Tasks.IIS
 		/// </summary>
 		protected enum IISVersion
 		{
+			NotSupported,
 			/// <summary>
 			/// IIS version 4.x
 			/// </summary>
@@ -62,7 +63,23 @@ namespace MSBuild.Community.Tasks.IIS
 			/// <summary>
 			/// IIS version 6.x
 			/// </summary>
-			Six
+			Six,
+			/// <summary>
+			/// IIS version 7.0
+			/// </summary>
+			Seven,
+			/// <summary>
+			/// IIS version 7.5
+			/// </summary>
+			SevenFive,
+			/// <summary>
+			/// IIS version 8.0
+			/// </summary>
+			Eight,
+			/// <summary>
+			/// IIS version 8.5
+			/// </summary>
+			EightFive
 		}
 
 		/// <summary>
@@ -94,27 +111,32 @@ namespace MSBuild.Community.Tasks.IIS
 		/// <summary>
 		/// Defines the current application pool state.
 		/// </summary>
-		protected enum ApplicationPoolState
+		protected enum IIS7ApplicationPoolState
 		{
 			/// <summary>
 			/// The application pool is starting.
 			/// </summary>
-			Starting = 1,
+			Starting = 0,
 
 			/// <summary>
 			/// The application pool has started.
 			/// </summary>
-			Started = 2,
+			Started = 1,
 
 			/// <summary>
 			/// The application pool is stopping.
 			/// </summary>
-			Stopping = 3,
+			Stopping = 2,
 
 			/// <summary>
 			/// The application pool has stopped.
 			/// </summary>
-			Stopped = 4
+			Stopped = 3,
+
+			/// <summary>
+			/// The application pool is in unknown state.
+			/// </summary>
+			Unknown = 4
 		}
 
 		#region Fields
@@ -312,6 +334,28 @@ namespace MSBuild.Community.Tasks.IIS
 					case 2:
 						// Windows Server 2003: IIS 6
 						iisVersion = IISVersion.Six;
+						break;
+				}
+			}
+			else if (osVersion.Major == 6)
+			{
+				switch (osVersion.Minor)
+				{
+					case 0:
+						// Windows Vista and Windows Server 2008
+						iisVersion = IISVersion.Seven;
+						break;
+					case 1:
+						// Windows 7 and Windows 2008 R2
+						iisVersion = IISVersion.SevenFive;
+						break;
+					case 2:
+						// Windows 8 and Windows Server 2012
+						iisVersion = IISVersion.Eight;
+						break;
+					case 3:
+						// Windows 8.1 and Windows Server 2012 R2
+						iisVersion = IISVersion.EightFive;
 						break;
 				}
 			}

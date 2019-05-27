@@ -1,1 +1,0 @@
-ALTER TABLE `mail_contacts`  DROP INDEX `id_user_name_address`,  ADD INDEX `id_user_name_address` (`id_user`, `address`),  DROP INDEX `last_modified`,  ADD INDEX `last_modified` (`tenant`, `last_modified`);ALTER TABLE `mail_contacts`  DROP INDEX `tenant`;

@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Security;
 using System.Web;
 using ASC.Api.Attributes;
@@ -41,13 +40,14 @@ using ASC.MessagingSystem;
 using ASC.Projects.Engine;
 using ASC.Specific;
 using ASC.Thrdparty;
-using ASC.Thrdparty.Facebook;
 using ASC.Thrdparty.Twitter;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Classes.SocialMedia;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.SocialMedia;
+using ASC.Web.Projects.Core;
+using Autofac;
 using Contact = ASC.CRM.Core.Entities.Contact;
 
 namespace ASC.Api.CRM
@@ -121,7 +121,11 @@ namespace ASC.Api.CRM
 
             var project = ProjectsDaoFactory.ProjectDao.GetById(projectid);
             if (project == null) throw new ItemNotFoundException();
-            if (!ProjectSecurity.CanLinkContact(project)) throw CRMSecurity.CreateSecurityException();
+
+            using (var scope = DIHelper.Resolve())
+            {
+                if (!scope.Resolve<ProjectSecurity>().CanLinkContact(project)) throw CRMSecurity.CreateSecurityException();
+            }
 
             DaoFactory.ContactDao.SetRelativeContactProject(new List<int> {contactid}, projectid);
 
@@ -154,7 +158,12 @@ namespace ASC.Api.CRM
 
             var project = ProjectsDaoFactory.ProjectDao.GetById(projectid);
             if (project == null) throw new ItemNotFoundException();
-            if (!ProjectSecurity.CanLinkContact(project)) throw CRMSecurity.CreateSecurityException();
+
+            using (var scope = DIHelper.Resolve())
+            {
+                if (!scope.Resolve<ProjectSecurity>().CanLinkContact(project))
+                    throw CRMSecurity.CreateSecurityException();
+            }
 
 
             var contacts = DaoFactory.ContactDao.GetContacts(contactIds.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
@@ -186,7 +195,11 @@ namespace ASC.Api.CRM
             if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
 
             var project = ProjectsDaoFactory.ProjectDao.GetById(projectid);
-            if (project == null || !ProjectSecurity.CanLinkContact(project)) throw new ItemNotFoundException();
+
+            using (var scope = DIHelper.Resolve())
+            {
+                if (project == null || !scope.Resolve<ProjectSecurity>().CanLinkContact(project)) throw new ItemNotFoundException();
+            }
 
             DaoFactory.ContactDao.RemoveRelativeContactProject(contactid, projectid);
 
@@ -1651,33 +1664,6 @@ namespace ASC.Api.CRM
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="searchText"></param>
-        /// <param name="isUser"></param>
-        /// <category>Contacts</category>
-        /// <returns></returns>
-        [Read(@"contact/facebookprofile")]
-        public List<FacebookUserInfo> FindFacebookProfiles(string searchText, bool isUser)
-        {
-            try
-            {
-                FacebookApiInfo apiInfo = FacebookApiHelper.GetFacebookApiInfoForCurrentUser();
-                if (apiInfo == null)
-                    throw new SocialMediaAccountNotFound(CRMSocialMediaResource.SocialMediaAccountNotFoundFacebook);
-
-                FacebookDataProvider facebookProvider = new FacebookDataProvider(apiInfo);
-
-
-                return facebookProvider.FindPages(searchText, isUser);
-            }
-            catch (Exception ex)
-            {
-                throw new SocialMediaUI(DaoFactory).ProcessError(ex, "ASC.Api.CRM.CRMApi.FindFacebookProfiles");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="contactId"></param>
         /// <param name="contactType"></param>
         /// <param name="uploadOnly"></param>
@@ -1735,14 +1721,12 @@ namespace ASC.Api.CRM
                 return new List<SocialMediaImageDescription>();
             }
             var twitter = new List<String>();
-            var facebook = new List<String>();
 
             foreach (var sn in socialNetworks) {
                 if (sn.InfoType == ContactInfoType.Twitter) twitter.Add(sn.Data);
-                if (sn.InfoType == ContactInfoType.Facebook) facebook.Add(sn.Data);
             }
 
-            return new SocialMediaUI(DaoFactory).GetContactSMImages(twitter, facebook);
+            return new SocialMediaUI(DaoFactory).GetContactSMImages(twitter);
         }
 
         /// <summary>
@@ -1758,7 +1742,7 @@ namespace ASC.Api.CRM
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
         public ContactPhotoManager.PhotoData UploadUserAvatarFromSocialNetwork(int contactId, SocialNetworks socialNetwork, string userIdentity, bool uploadOnly, string tmpDirName)
         {
-            if (socialNetwork != SocialNetworks.Twitter && socialNetwork != SocialNetworks.Facebook)
+            if (socialNetwork != SocialNetworks.Twitter)
                 throw new ArgumentException();
 
             if (contactId != 0)
@@ -1773,12 +1757,6 @@ namespace ASC.Api.CRM
             {
                 var provider = new TwitterDataProvider(TwitterApiHelper.GetTwitterApiInfoForCurrentUser());
                 var imageUrl = provider.GetUrlOfUserImage(userIdentity, TwitterDataProvider.ImageSize.Original);
-                return UploadAvatar(contactId, imageUrl, uploadOnly, tmpDirName);
-            }
-            if (socialNetwork == SocialNetworks.Facebook)
-            {
-                var provider = new FacebookDataProvider(FacebookApiHelper.GetFacebookApiInfoForCurrentUser());
-                var imageUrl = provider.GetUrlOfUserImage(userIdentity, FacebookDataProvider.ImageSize.Original);
                 return UploadAvatar(contactId, imageUrl, uploadOnly, tmpDirName);
             }
 

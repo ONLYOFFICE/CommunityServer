@@ -28,9 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using log4net;
 
 namespace ASC.ActiveDirectory.ComplexOperations.Data
 {

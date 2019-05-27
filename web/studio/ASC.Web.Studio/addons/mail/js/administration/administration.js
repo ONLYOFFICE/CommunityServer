@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -36,13 +36,13 @@ window.administrationManager = (function($) {
         if (isInit === false) {
             isInit = true;
 
-            serviceManager.bind(window.Teamlab.events.getMailServerFreeDns, onGetMailServerFreeDns);
-            serviceManager.bind(window.Teamlab.events.addMailDomain, onAddMailDomain);
-            serviceManager.bind(window.Teamlab.events.getMailServerFullInfo, onGetMailServerFullInfo);
-            serviceManager.bind(window.Teamlab.events.addMailbox, onAddMailbox);
-            serviceManager.bind(window.Teamlab.events.addMailGroup, onAddMailGroup);
-            serviceManager.bind(window.Teamlab.events.removeMailGroup, onRemoveMailGroup);
-            serviceManager.bind(window.Teamlab.events.removeMailDomain, onRemoveMailDomain);
+            window.Teamlab.bind(window.Teamlab.events.getMailServerFreeDns, onGetMailServerFreeDns);
+            window.Teamlab.bind(window.Teamlab.events.addMailDomain, onAddMailDomain);
+            window.Teamlab.bind(window.Teamlab.events.getMailServerFullInfo, onGetMailServerFullInfo);
+            window.Teamlab.bind(window.Teamlab.events.addMailbox, onAddMailbox);
+            window.Teamlab.bind(window.Teamlab.events.addMailGroup, onAddMailGroup);
+            window.Teamlab.bind(window.Teamlab.events.removeMailGroup, onRemoveMailGroup);
+            window.Teamlab.bind(window.Teamlab.events.removeMailDomain, onRemoveMailDomain);
             editMailboxModal.events.bind('onupdatemailbox', onUpdateMailbox);
             editMailGroupModal.events.bind('onupdategroup', onUpdateMailgroup);
 
@@ -51,7 +51,6 @@ window.administrationManager = (function($) {
     };
 
     function onGetMailServerFullInfo(params, serverFullInfo) {
-        messagePage.hide();
         mailBox.hidePages();
         mailBox.hideContentDivs();
         mailBox.hideLoadingMask();
@@ -110,6 +109,17 @@ window.administrationManager = (function($) {
     function onAddMailDomain(params, serverDomain) {
         domains.push(serverDomain);
         events.trigger('onadddomain', serverDomain);
+    }
+
+    function removeDomain(id) {
+        for (var i = 0; i < domains.length; i++) {
+            if (domains[i].id == id) {
+                var domain = domains[i];
+                domains.splice(i, 1);
+                events.trigger('onremovedomain', domain);
+                break;
+            }
+        }
     }
 
     function onAddMailbox(params, serverMailbox) {
@@ -391,6 +401,7 @@ window.administrationManager = (function($) {
         getMailgroupsByDomain: getMailgroupsByDomain,
 
         removeMailbox: removeMailbox,
+        removeDomain: removeDomain,
 
         events: events
     };

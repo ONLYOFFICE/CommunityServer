@@ -133,6 +133,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter a new password.
+        /// </summary>
+        public static string ChangeMailboxPasswordPopupInfo {
+            get {
+                return ResourceManager.GetString("ChangeMailboxPasswordPopupInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new mailbox.
         /// </summary>
         public static string CreateMailboxHeaderInfo {
@@ -529,6 +538,33 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send connection settings to:.
+        /// </summary>
+        public static string MailboxSendSettingsLabel {
+            get {
+                return ResourceManager.GetString("MailboxSendSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this mailbox user profile address.
+        /// </summary>
+        public static string MailboxSendSettingsProfileMailboxLabel {
+            get {
+                return ResourceManager.GetString("MailboxSendSettingsProfileMailboxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this mailbox address.
+        /// </summary>
+        public static string MailboxSendSettingsThisMailboxLabel {
+            get {
+                return ResourceManager.GetString("MailboxSendSettingsThisMailboxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mailbox user.
         /// </summary>
         public static string MailboxUserLabel {
@@ -696,6 +732,15 @@ namespace ASC.Web.Mail.Resources {
         public static string VerifyButton {
             get {
                 return ResourceManager.GetString("VerifyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection settings.
+        /// </summary>
+        public static string ViewMailboxConnectionSettingsPopupInfo {
+            get {
+                return ResourceManager.GetString("ViewMailboxConnectionSettingsPopupInfo", resourceCulture);
             }
         }
         

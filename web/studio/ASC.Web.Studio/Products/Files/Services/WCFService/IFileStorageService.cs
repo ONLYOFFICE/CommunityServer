@@ -49,11 +49,11 @@ namespace ASC.Web.Files.Services.WCFService
 
         Folder FolderRename(String folderId, String title);
 
-        DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, OrderBy orderBy, String subjectID, String searchText);
+        DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
 
-        object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, OrderBy orderBy, String subjectID, String searchText);
+        object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
 
-        ItemList<FileEntry> GetItems(ItemList<String> items, FilterType filter, String subjectID, String searchText);
+        ItemList<FileEntry> GetItems(ItemList<String> items, FilterType filter, bool subjectGroup, String subjectID, String searchText);
 
         ItemDictionary<String, String> MoveOrCopyFilesCheck(ItemList<String> items, String destFolderId);
 
@@ -83,7 +83,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<File> GetFileHistory(String fileId);
 
-        KeyValuePair<String, ItemList<File>> GetSiblingsFile(String fileId, FilterType filter, OrderBy orderBy, String subjectID, String searchText);
+        ItemList<File> GetSiblingsFile(String fileId, String folderId, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
 
         KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String doc, bool isFinish);
 
@@ -102,6 +102,8 @@ namespace ASC.Web.Files.Services.WCFService
         EditHistoryData GetEditDiffUrl(String fileId, int version, String doc = null);
 
         ItemList<EditHistory> RestoreVersion(String fileId, int version, String url, String doc = null);
+
+        Web.Core.Files.DocumentService.FileLink GetPresignedUri(String fileId);
 
         #endregion
 

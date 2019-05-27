@@ -37,11 +37,21 @@ window.tlGroups = (function($) {
 
     var onGroupsResponce = function(params, groupsParam) {
         groups = groupsParam;
+        initFlag = true;
         events.trigger('update');
     };
 
-    var update = function() {
-        serviceManager.getTLGroups({}, { success: onGroupsResponce });
+    var update = function () {
+        if (initFlag) {
+            events.trigger('update');
+        }
+
+        try {
+            onGroupsResponce(null, window.GroupManager.getAllGroups());
+        } catch (err) {
+            console.error(err);
+            serviceManager.getTLGroups({}, { success: onGroupsResponce });
+        }
     };
 
     var getGroups = function() {

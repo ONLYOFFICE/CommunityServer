@@ -11,14 +11,5 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile {
     
     
     public partial class LoadPhotoControl {
-        
-        /// <summary>
-        /// _ctrlLoadPhotoContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.Container _ctrlLoadPhotoContainer;
     }
 }

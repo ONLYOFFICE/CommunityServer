@@ -131,7 +131,10 @@ namespace ASC.Xmpp.Server.Services.Jabber
 
                     sender.SendTo(session, m);
                 }
-                offlineStore.RemoveAllOfflineMessages(session.Jid);
+                if (session.Jid.Resource != "TMTalk")
+                {
+                    offlineStore.RemoveAllOfflineMessages(session.Jid);
+                }
             }
         }
 

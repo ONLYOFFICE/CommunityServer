@@ -24,18 +24,19 @@
 */
 
 
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Module;
-using ASC.Core;
-using ASC.Xmpp.Core.utils;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Threading;
+
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Logging;
+using ASC.Common.Module;
+using ASC.Core;
+using ASC.Xmpp.Core.utils;
 
 namespace ASC.Xmpp.Host
 {

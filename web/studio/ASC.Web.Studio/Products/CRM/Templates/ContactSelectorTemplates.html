@@ -60,18 +60,16 @@
 
 <script id="contactSelectorNoMatchesTmpl" type="text/x-jquery-tmpl">
 <div id="noMatches_${ObjID}" class="borderBase noMatches">
-    <div style="padding: 5px;">${ASC.CRM.Resources.CRMCommonResource.NoMatches}</div>
-    
+    <div>${ASC.CRM.Resources.CRMCommonResource.NoMatches}</div>
     {{if ShowNewCompanyContent === true}}
-    <div style="padding:0 5px">
+    <div>
         <a class="link blue dotline small plus" onclick="window.${ObjName}.showNewCompany('${ObjID}');">
             ${ASC.CRM.Resources.CRMContactResource.AddNewCompany}
         </a>
     </div>
     {{/if}}
-    
     {{if ShowNewContactContent === true}}
-    <div style="padding:5px;">
+    <div>
         <a class="link blue dotline small plus" onclick="window.${ObjName}.showNewContact('${ObjID}');">
             ${ASC.CRM.Resources.CRMContactResource.AddNewContact}
         </a>
@@ -140,6 +138,7 @@
                     {{/if}}
                     {{if ShowNewContactContent === true}}
                         <input type="text" id="newContactFirstName_${ObjID}" class="textEdit" placeholder="${ASC.CRM.Resources.CRMContactResource.FirstName}" autocomplete="off" style="display:none;"/>
+                        <span class="splitter"></span>
                         <input type="text" id="newContactLastName_${ObjID}" class="textEdit" placeholder="${ASC.CRM.Resources.CRMContactResource.LastName}" autocomplete="off" style="display:none;"/>
                     {{/if}}
                     </span>

@@ -7,7 +7,7 @@
 
 <div class="clearFix">
     <div id="studio_domainSettings" class="settings-block">
-        <div class="header-base clearFix" id="mailDomainSettingsTitle">
+        <div class="header-base clearFix">
             <%= Resource.StudioDomainSettings %>
         </div>
         <div class="clearFix">

@@ -24,28 +24,43 @@
 */
 
 
-using ASC.Thrdparty.Configuration;
+using System.Collections.Generic;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class BoxLoginProvider
+    public class BoxLoginProvider : Consumer, IOAuthProvider
     {
-        public const string BoxOauthCodeUrl = "https://app.box.com/api/oauth2/authorize";
-        public const string BoxOauthTokenUrl = "https://app.box.com/api/oauth2/token";
-
-        public static string BoxOAuth20ClientId
+        public static BoxLoginProvider Instance
         {
-            get { return KeyStorage.Get("boxClientId"); }
+            get
+            {
+                return ConsumerFactory.Get<BoxLoginProvider>();
+            }
         }
 
-        public static string BoxOAuth20ClientSecret
+        public string Scopes { get { return ""; } }
+        public string CodeUrl { get { return "https://app.box.com/api/oauth2/authorize"; } }
+        public string AccessTokenUrl { get { return "https://app.box.com/api/oauth2/token"; } }
+        public string RedirectUri { get { return this["boxRedirectUrl"]; } }
+        public string ClientID { get { return this["boxClientId"]; } }
+        public string ClientSecret { get { return this["boxClientSecret"]; } }
+
+        public bool IsEnabled
         {
-            get { return KeyStorage.Get("boxClientSecret"); }
+            get
+            {
+                return !string.IsNullOrEmpty(ClientID) &&
+                       !string.IsNullOrEmpty(ClientSecret) &&
+                       !string.IsNullOrEmpty(RedirectUri);
+            }
         }
 
-        public static string BoxOAuth20RedirectUrl
+        public BoxLoginProvider() { }
+
+        public BoxLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
         {
-            get { return KeyStorage.Get("boxRedirectUrl"); }
         }
     }
 }

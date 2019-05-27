@@ -3,9 +3,12 @@
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyDirectory" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyFiles" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RemoveDuplicatesAssemblies" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RegexReplace" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CssCompress" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.FileUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlRead" />
   <UsingTask AssemblyFile="$(OutDir)\WebStudio\bin\ASC.Web.Core.BuildTask.dll" TaskName="ASC.Web.Core.BuildTask.GenerateBundle" />
   <UsingTask AssemblyFile="$(OutDir)\WebStudio\bin\ASC.Web.Core.BuildTask.dll" TaskName="ASC.Web.Core.BuildTask.GenerateHelpCenterHtml" />
   <PropertyGroup>
@@ -29,46 +32,51 @@
   <ItemGroup>
     <ServiceFiles Include="$(BinDir)ASC.*.dll" />
     <ServiceFiles Include="$(BinDir)ASC.Resource.Data.dll" />
-    <ServiceFiles Include="$(RootDir)build\config\sphinx-min.conf.in" />
     <ServiceFiles Include="$(RootDir)build\config\TeamLabSvc.exe.Config" />
     <ServiceFiles Include="$(RootDir)build\ManageServices.bat" />
     <ServiceFiles Include="$(RootDir)module\ASC.HealthCheck\ASC.HealthCheck\bin\$(Configuration)\ASC.HealthCheck.dll" />
-    <ServiceFiles Include="$(RootDir)module\ASC.Mail\ASC.Mail.Autoreply\bin\$(Configuration)\ASC.Mail.Autoreply.dll" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Mail.Autoreply\ASC.Mail.Autoreply\bin\$(Configuration)\ASC.Mail.Autoreply.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.Socket.IO.Svc\bin\$(Configuration)\ASC.Socket.IO.Svc.dll" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Thumbnails.Svc\bin\$(Configuration)\ASC.Thumbnails.Svc.dll" />
+    <ServiceFiles Include="$(RootDir)module\ASC.UrlShortener.Svc\bin\$(Configuration)\ASC.UrlShortener.Svc.dll" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Radicale\bin\$(Configuration)\ASC.Radicale.dll" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Radicale\radicale.config" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Radicale\radicale.log.config" />
     <ServiceFiles Include="$(RootDir)module\ASC.TeamLabSvc\ASC.TeamLabSvc\bin\$(Configuration)\TeamLabSvc.exe" />
     <ServiceFiles Include="$(RootDir)packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll" />
     <ServiceFiles Include="$(RootDir)packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AppLimit.CloudComputing.SharpBox.1.1.0.446\lib\net45\AppLimit.CloudComputing.SharpBox.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Autofac.4.6.0\lib\net45\Autofac.dll" />
-    <ServiceFiles Include="$(RootDir)packages\ARSoft.Tools.Net.2.2.7\lib\net45\ARSoft.Tools.Net.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AWSSDK.CloudFront.3.3.6.1\lib\net45\AWSSDK.CloudFront.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AWSSDK.Core.3.3.21.6\lib\net45\AWSSDK.Core.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AWSSDK.SimpleEmail.3.3.6.1\lib\net45\AWSSDK.SimpleEmail.dll" />
-    <ServiceFiles Include="$(RootDir)packages\BasecampRestAPI.1.0.0.1\lib\net45\BasecampRestAPI.dll" />
-    <ServiceFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Box.V2.3.3.0\lib\net45\Box.V2.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Ical.Net.2.3.5.1\lib\net46\Ical.Net.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Ical.Net.Collections.2.3.5.1\lib\net46\Ical.Net.Collections.dll" />
-    <ServiceFiles Include="$(RootDir)packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll" />
-    <ServiceFiles Include="$(RootDir)packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AppLimit.CloudComputing.SharpBox.1.1.0.450\lib\net45\AppLimit.CloudComputing.SharpBox.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Autofac.4.8.1\lib\net45\Autofac.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll" />
+    <ServiceFiles Include="$(RootDir)packages\ARSoft.Tools.Net.2.2.9\lib\net45\ARSoft.Tools.Net.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AWSSDK.CloudFront.3.3.10.10\lib\net45\AWSSDK.CloudFront.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AWSSDK.SimpleEmail.3.3.7.2\lib\net45\AWSSDK.SimpleEmail.dll" />
+    <ServiceFiles Include="$(RootDir)packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Box.V2.3.7.0\lib\net45\Box.V2.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll" />
+    <ServiceFiles Include="$(RootDir)packages\NodaTime.2.0.2\lib\net45\NodaTime.dll" />
     <ServiceFiles Include="$(RootDir)packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll" />
-    <ServiceFiles Include="$(RootDir)packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Dropbox.Api.4.6.0\lib\net45\Dropbox.Api.dll" />
+    <ServiceFiles Include="$(RootDir)packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Dropbox.Api.4.8.0\lib\net45\Dropbox.Api.dll" />
     <ServiceFiles Include="$(RootDir)packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20\FredCK.FCKeditorV2.dll" />
     <ServiceFiles Include="$(RootDir)packages\Flurl.Http.Signed.1.1.2\lib\net45\Flurl.Http.dll" />
     <ServiceFiles Include="$(RootDir)packages\Flurl.Signed.2.3.0\lib\netstandard1.4\Flurl.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.1.31.1\lib\net45\Google.Apis.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Auth.1.31.1\lib\net45\Google.Apis.Auth.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Core.1.31.1\lib\net45\Google.Apis.Core.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Drive.v3.1.31.1.1058\lib\net45\Google.Apis.Drive.v3.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Api.Gax.2.2.1\lib\net45\Google.Api.Gax.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Api.Gax.Rest.2.2.1\lib\net45\Google.Api.Gax.Rest.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Storage.v1.1.31.1.1035\lib\net45\Google.Apis.Storage.v1.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Cloud.Storage.V1.2.0.0\lib\net45\Google.Cloud.Storage.V1.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Elasticsearch.Net.6.5.0\lib\net461\Elasticsearch.Net.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.1.32.2\lib\net45\Google.Apis.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Auth.1.32.2\lib\net45\Google.Apis.Auth.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Core.1.32.2\lib\net45\Google.Apis.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Drive.v3.1.32.2.1194\lib\net45\Google.Apis.Drive.v3.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Api.Gax.2.3.0\lib\net45\Google.Api.Gax.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Api.Gax.Rest.2.3.0\lib\net45\Google.Api.Gax.Rest.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Storage.v1.1.32.2.1189\lib\net45\Google.Apis.Storage.v1.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Cloud.Storage.V1.2.1.0\lib\net45\Google.Cloud.Storage.V1.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll" />
     <ServiceFiles Include="$(RootDir)packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll" />
+    <ServiceFiles Include="$(RootDir)packages\JWT.1.3.4\lib\3.5\JWT.dll" />
     <ServiceFiles Include="$(RootDir)packages\log4net.2.0.8\lib\net45-full\log4net.dll" />
-    <ServiceFiles Include="$(RootDir)packages\MailKit.1.18.1.1\lib\net451\MailKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MailKit.2.0.4\lib\net45\MailKit.dll" />
     <ServiceFiles Include="$(RootDir)packages\Marvin.JsonPatch.Signed.0.9.0\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll" />
@@ -93,21 +101,33 @@
     <ServiceFiles Include="$(RootDir)packages\Microsoft.SharePoint.Client.dll.15.0.4420.1017\Microsoft.SharePoint.Client.Runtime.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll" />
-    <ServiceFiles Include="$(RootDir)packages\MimeKit.1.18.1\lib\net451\MimeKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MimeKit.2.0.4\lib\net45\MimeKit.dll" />
     <ServiceFiles Include="$(RootDir)packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll" />
-    <ServiceFiles Include="$(RootDir)packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
-    <ServiceFiles Include="$(RootDir)packages\NLog.2.1.0\lib\net45\NLog.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll" />
+    <ServiceFiles Include="$(RootDir)packages\NEST.6.5.0\lib\net461\Nest.dll" />
+    <ServiceFiles Include="$(RootDir)packages\NLog.4.5.8\lib\net45\NLog.dll" />
     <ServiceFiles Include="$(RootDir)packages\Novell.Directory.LDAP.2.3.8.1\lib\net462\Novell.Directory.LDAP.dll" />
-    <ServiceFiles Include="$(RootDir)packages\NUnit.3.6.1\lib\net45\nunit.framework.dll" />
+    <ServiceFiles Include="$(RootDir)packages\NUnit.3.11.0\lib\net45\nunit.framework.dll" />
     <ServiceFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
     <ServiceFiles Include="$(RootDir)packages\Owin.1.0\lib\net40\Owin.dll" />
     <ServiceFiles Include="$(RootDir)packages\openstack.net.1.7.7\lib\net45\openstacknet.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Pipelines.Sockets.Unofficial.1.0.9\lib\net472\Pipelines.Sockets.Unofficial.dll" />
     <ServiceFiles Include="$(RootDir)packages\RestSharp.106.1.0\lib\net452\RestSharp.dll" />
     <ServiceFiles Include="$(RootDir)packages\Rackspace.0.2.0\lib\net45\Rackspace.dll" />
-    <ServiceFiles Include="$(RootDir)packages\sharpcompress.0.11.6\lib\net40\SharpCompress.dll" />
-    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.1.2.3\lib\net45\StackExchange.Redis.dll" />
-    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.2.2.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\RedisSessionProvider.10.0.1\lib\net472\RedisSessionProvider.dll" />
+    <ServiceFiles Include="$(RootDir)packages\sharpcompress.0.22.0\lib\net45\SharpCompress.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.IO.Pipelines.4.5.3\lib\netstandard2.0\System.IO.Pipelines.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Memory.4.5.2\lib\netstandard1.1\System.Memory.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Threading.Channels.4.5.0\lib\netstandard2.0\System.Threading.Channels.dll " />
+    <ServiceFiles Include="$(RootDir)packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll" />
     <ServiceFiles Include="$(RootDir)packages\Textile.1.3.0.0\lib\net35\Textile.dll" />
     <ServiceFiles Include="$(RootDir)packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Common.dll" />
     <ServiceFiles Include="$(RootDir)packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Mvc.dll" />
@@ -116,65 +136,107 @@
     <ServiceFiles Include="$(RootDir)packages\UAParser.3.0.0\lib\netstandard1.3\UAParser.dll" />
     <ServiceFiles Include="$(RootDir)packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll" />
     <ServiceFiles Include="$(RootDir)packages\SelectelSharp.0.8.5\lib\net462\SelectelSharp.dll" />
+    <MailFiles Include="$(BinDir)ASC.ActiveDirectory.dll" />
     <MailFiles Include="$(BinDir)ASC.Api.dll" />
     <MailFiles Include="$(BinDir)ASC.Common.dll" />
     <MailFiles Include="$(BinDir)ASC.Core.Common.dll" />
     <MailFiles Include="$(BinDir)ASC.Data.Storage.dll" />
+    <MailFiles Include="$(BinDir)ASC.ElasticSearch.dll" />
     <MailFiles Include="$(BinDir)ASC.FederatedLogin.dll" />
     <MailFiles Include="$(BinDir)ASC.Feed.dll" />
-    <MailFiles Include="$(BinDir)ASC.FullTextIndex.dll" />
     <MailFiles Include="$(BinDir)ASC.IPSecurity.dll" />
     <MailFiles Include="$(BinDir)ASC.Mail*.dll" />
     <MailFiles Include="$(BinDir)ASC.MessagingSystem.dll" />
+    <MailFiles Include="$(BinDir)ASC.Resource.Data.dll" />
     <MailFiles Include="$(BinDir)ASC.Specific.dll" />
     <MailFiles Include="$(BinDir)ASC.Thrdparty.dll" />
     <MailFiles Include="$(BinDir)ASC.VoipService.dll" />
-    <MailFiles Include="$(BinDir)ASC.Web.Core.dll" />
     <MailFiles Include="$(BinDir)ASC.Web.CRM.dll" />
+    <MailFiles Include="$(BinDir)ASC.Web.Core.dll" />
     <MailFiles Include="$(BinDir)ASC.Web.Files.dll" />
     <MailFiles Include="$(BinDir)ASC.Web.Studio.dll" />
-    <MailFiles Include="$(BinDir)ASC.Resource.Data.dll" />
-    <MailFiles Include="$(RootDir)packages\AWSSDK.CloudFront.3.3.6.1\lib\net45\AWSSDK.CloudFront.dll" />
-    <MailFiles Include="$(RootDir)packages\AWSSDK.Core.3.3.21.6\lib\net45\AWSSDK.Core.dll" />
-    <MailFiles Include="$(RootDir)packages\AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.dll" />
-    <MailFiles Include="$(RootDir)packages\AWSSDK.SimpleEmail.3.3.6.1\lib\net45\AWSSDK.SimpleEmail.dll" />
-    <MailFiles Include="$(RootDir)packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll " />
-    <MailFiles Include="$(RootDir)packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll" />
-    <MailFiles Include="$(RootDir)packages\log4net.2.0.8\lib\net45-full\log4net.dll" />
-    <MailFiles Include="$(RootDir)packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll" />
-    <MailFiles Include="$(RootDir)packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
-    <MailFiles Include="$(RootDir)packages\NLog.2.1.0\lib\net45\NLog.dll" />
-    <MailFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
-    <MailFiles Include="$(RootDir)packages\UDE.CSharp.1.0.0\lib\Ude.dll" />
-    <MailFiles Include="$(RootDir)packages\Marvin.JsonPatch.Signed.0.9.0\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll" />
-    <MailFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
-    <MailFiles Include="$(RootDir)packages\openstack.net.1.7.7\lib\net45\openstacknet.dll" />
+    <MailFiles Include="$(RootDir)packages\ARSoft.Tools.Net.2.2.9\lib\net45\ARSoft.Tools.Net.dll" />
+    <MailFiles Include="$(RootDir)packages\AWSSDK.CloudFront.3.3.10.10\lib\net45\AWSSDK.CloudFront.dll" />
+    <MailFiles Include="$(RootDir)packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll" />
+    <MailFiles Include="$(RootDir)packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll" />
+    <MailFiles Include="$(RootDir)packages\AWSSDK.SecurityToken.3.3.4.22\lib\net45\AWSSDK.SecurityToken.dll" />
+    <MailFiles Include="$(RootDir)packages\AWSSDK.SimpleEmail.3.3.7.2\lib\net45\AWSSDK.SimpleEmail.dll" />
+    <MailFiles Include="$(RootDir)packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll" />
+    <MailFiles Include="$(RootDir)packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll" />
+    <MailFiles Include="$(RootDir)packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll" />
+    <MailFiles Include="$(RootDir)packages\Autofac.4.8.1\lib\net45\Autofac.dll" />
+    <MailFiles Include="$(RootDir)packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll" />
     <MailFiles Include="$(RootDir)packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll" />
-    <MailFiles Include="$(RootDir)packages\ARSoft.Tools.Net.2.2.7\lib\net45\ARSoft.Tools.Net.dll" />
-    <MailFiles Include="$(RootDir)packages\RestSharp.106.1.0\lib\net452\RestSharp.dll" />
-    <MailFiles Include="$(RootDir)packages\Rackspace.0.2.0\lib\net45\Rackspace.dll" />
-    <MailFiles Include="$(RootDir)packages\Ical.Net.2.3.5.1\lib\net46\Ical.Net.dll" />
-    <MailFiles Include="$(RootDir)packages\Ical.Net.Collections.2.3.5.1\lib\net46\Ical.Net.Collections.dll" />
-    <MailFiles Include="$(RootDir)packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll" />
-    <MailFiles Include="$(RootDir)packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll" />
-    <MailFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
-    <MailFiles Include="$(RootDir)packages\MimeKit.1.18.1\lib\net451\MimeKit.dll" />
-    <MailFiles Include="$(RootDir)packages\MailKit.1.18.1.1\lib\net451\MailKit.dll" />
-    <MailFiles Include="$(RootDir)packages\LiteDB.3.1.0\lib\net35\LiteDB.dll" />
-    <MailFiles Include="$(RootDir)packages\SelectelSharp.0.8.5\lib\net462\SelectelSharp.dll" />
+    <MailFiles Include="$(RootDir)packages\DocuSign.eSign.dll.2.1.8.1\lib\net462\DocuSign.eSign.dll" />
+    <MailFiles Include="$(RootDir)packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll" />
+    <MailFiles Include="$(RootDir)packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll" />
+    <MailFiles Include="$(RootDir)packages\Elasticsearch.Net.6.5.0\lib\net461\Elasticsearch.Net.dll" />
     <MailFiles Include="$(RootDir)packages\Flurl.Http.Signed.1.1.2\lib\net45\Flurl.Http.dll" />
     <MailFiles Include="$(RootDir)packages\Flurl.Signed.2.3.0\lib\netstandard1.4\Flurl.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Apis.1.31.1\lib\net45\Google.Apis.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Apis.Auth.1.31.1\lib\net45\Google.Apis.Auth.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Apis.Core.1.31.1\lib\net45\Google.Apis.Core.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Api.Gax.2.2.1\lib\net45\Google.Api.Gax.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Api.Gax.Rest.2.2.1\lib\net45\Google.Api.Gax.Rest.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Apis.Storage.v1.1.31.1.1035\lib\net45\Google.Apis.Storage.v1.dll" />
-    <MailFiles Include="$(RootDir)packages\Google.Cloud.Storage.V1.2.0.0\lib\net45\Google.Cloud.Storage.V1.dll" />
-    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.2.2.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
-    <MailAggregatorFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\bin\$(Configuration)\ASC.Mail.Aggregator.CollectionService.exe;$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.EmlDownloader\bin\$(Configuration)\ASC.Mail.EmlDownloader.exe" />
-    <MailWatchdogFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\bin\$(Configuration)\ASC.Mail.Watchdog.Service.exe" />
-    <MailDnsCheckerFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Server\DnsCheckerService\bin\$(Configuration)\ASC.MailServer.DnsChecker.Service.exe" />
+    <MailFiles Include="$(RootDir)packages\Google.Api.Gax.2.3.0\lib\net45\Google.Api.Gax.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Api.Gax.Rest.2.3.0\lib\net45\Google.Api.Gax.Rest.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Apis.1.32.2\lib\net45\Google.Apis.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Apis.Auth.1.32.2\lib\net45\Google.Apis.Auth.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Apis.Core.1.32.2\lib\net45\Google.Apis.Core.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Apis.Storage.v1.1.32.2.1189\lib\net45\Google.Apis.Storage.v1.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Cloud.Storage.V1.2.1.0\lib\net45\Google.Cloud.Storage.V1.dll" />
+    <MailFiles Include="$(RootDir)packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll" />
+    <MailFiles Include="$(RootDir)packages\GoogleAuthenticator.1.2.1\lib\net45\Google.Authenticator.dll" />
+    <MailFiles Include="$(RootDir)packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll" />
+    <MailFiles Include="$(RootDir)packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll" />
+    <MailFiles Include="$(RootDir)packages\JWT.1.3.4\lib\3.5\JWT.dll" />
+    <MailFiles Include="$(RootDir)packages\LiteDB.3.1.0\lib\net35\LiteDB.dll" />
+    <MailFiles Include="$(RootDir)packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll" />
+    <MailFiles Include="$(RootDir)packages\MailKit.2.0.4\lib\net45\MailKit.dll" />
+    <MailFiles Include="$(RootDir)packages\Marvin.JsonPatch.Signed.0.9.0\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.IdentityModel.Logging.1.1.5\lib\net451\Microsoft.IdentityModel.Logging.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.IdentityModel.Tokens.5.1.5\lib\net451\Microsoft.IdentityModel.Tokens.dll" />
+    <MailFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <MailFiles Include="$(RootDir)packages\MimeKit.2.0.4\lib\net45\MimeKit.dll" />
+    <MailFiles Include="$(RootDir)packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll" />
+    <MailFiles Include="$(RootDir)packages\NEST.6.5.0\lib\net461\Nest.dll" />
+    <MailFiles Include="$(RootDir)packages\NLog.4.5.8\lib\net45\NLog.dll" />
+    <MailFiles Include="$(RootDir)packages\NUnit.3.11.0\lib\net45\nunit.framework.dll" />
+    <MailFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
+    <MailFiles Include="$(RootDir)packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll" />
+    <MailFiles Include="$(RootDir)packages\NodaTime.2.0.2\lib\net45\NodaTime.dll" />
+    <MailFiles Include="$(RootDir)packages\Novell.Directory.LDAP.2.3.8.1\lib\net462\Novell.Directory.LDAP.dll" />
+    <MailFiles Include="$(RootDir)packages\Pipelines.Sockets.Unofficial.1.0.9\lib\net472\Pipelines.Sockets.Unofficial.dll" />
+    <MailFiles Include="$(RootDir)packages\Rackspace.0.2.0\lib\net45\Rackspace.dll" />
+    <MailFiles Include="$(RootDir)packages\RedisSessionProvider.10.0.1\lib\net472\RedisSessionProvider.dll" />
+    <MailFiles Include="$(RootDir)packages\RestSharp.106.1.0\lib\net452\RestSharp.dll" />
+    <MailFiles Include="$(RootDir)packages\SelectelSharp.0.8.5\lib\net462\SelectelSharp.dll" />
+    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll" />
+    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll" />
+    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll" />
+    <MailFiles Include="$(RootDir)packages\System.IO.Pipelines.4.5.3\lib\netstandard2.0\System.IO.Pipelines.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Memory.4.5.2\lib\netstandard1.1\System.Memory.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Threading.Channels.4.5.0\lib\netstandard2.0\System.Threading.Channels.dll " />
+    <MailFiles Include="$(RootDir)packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll" />
+    <MailFiles Include="$(RootDir)packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll" />
+    <MailFiles Include="$(RootDir)packages\Twilio.5.6.0\lib\net451\Twilio.dll" />
+    <MailFiles Include="$(RootDir)packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Common.dll" />
+    <MailFiles Include="$(RootDir)packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Mvc.dll" />
+    <MailFiles Include="$(RootDir)packages\UAParser.3.0.0\lib\netstandard1.3\UAParser.dll" />
+    <MailFiles Include="$(RootDir)packages\UDE.CSharp.1.0.0\lib\Ude.dll" />
+    <MailFiles Include="$(RootDir)packages\WebGrease.1.6.0\lib\WebGrease.dll" />
+    <MailFiles Include="$(RootDir)packages\dotless.1.5.2\lib\dotless.Core.dll" />
+    <MailFiles Include="$(RootDir)packages\libphonenumber-csharp.7.0.11\lib\PhoneNumbers.dll" />
+    <MailFiles Include="$(RootDir)packages\log4net.2.0.8\lib\net45-full\log4net.dll" />
+    <MailFiles Include="$(RootDir)packages\openstack.net.1.7.7\lib\net45\openstacknet.dll" />
+    <MailFiles Include="$(RootDir)packages\twitterizer.2.4.2.1\lib\net45\Twitterizer2.dll" />
+    <MailAggregatorFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\bin\*.dll;$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\bin\$(Configuration)\ASC.Mail.Aggregator.CollectionService.exe;$(RootDir)module\ASC.Mail\Services\ASC.Mail.EmlDownloader\bin\$(Configuration)\ASC.Mail.EmlDownloader.exe" />
+    <MailWatchdogFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\bin\*.dll;$(RootDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\bin\$(Configuration)\ASC.Mail.Watchdog.Service.exe" />
+    <MailCleanerFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\bin\*.dll;$(RootDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\bin\$(Configuration)\ASC.Mail.StorageCleaner.exe" />
   </ItemGroup>
   <ItemGroup>
     <ServiceToDeploy Include="TeamLabSvc" Condition=" '$(SplitServices)' != '1' " />
@@ -184,11 +246,20 @@
     <ServiceToDeploy Include="SocketIO" Condition=" '$(SplitServices)' == '1' ">
       <Launcher>ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc</Launcher>
     </ServiceToDeploy>
+    <ServiceToDeploy Include="Thumbnails" Condition=" '$(SplitServices)' == '1' ">
+      <Launcher>ASC.Thumbnails.Svc.Launcher, ASC.Thumbnails.Svc</Launcher>
+    </ServiceToDeploy>
+    <ServiceToDeploy Include="UrlShortener" Condition=" '$(SplitServices)' == '1' ">
+      <Launcher>ASC.UrlShortener.Svc.Launcher, ASC.UrlShortener.Svc</Launcher>
+    </ServiceToDeploy>
+    <ServiceToDeploy Include="Radicale" Condition=" '$(SplitServices)' == '1' ">
+      <Launcher>ASC.Radicale.Launcher, ASC.Radicale</Launcher>
+    </ServiceToDeploy>
     <ServiceToDeploy Include="Notify" Condition=" '$(SplitServices)' == '1' ">
       <Launcher>ASC.Notify.NotifyServiceLauncher, ASC.Notify</Launcher>
     </ServiceToDeploy>
     <ServiceToDeploy Include="Index" Condition=" '$(SplitServices)' == '1' ">
-      <Launcher>ASC.FullTextIndex.Service.FullTextIndexLauncher, ASC.FullTextIndex</Launcher>
+      <Launcher>ASC.ElasticSearch.Launcher, ASC.ElasticSearch</Launcher>
     </ServiceToDeploy>
     <ServiceToDeploy Include="Feed" Condition=" '$(SplitServices)' == '1' ">
       <Launcher>ASC.Feed.Aggregator.FeedAggregatorLauncher, ASC.Feed.Aggregator</Launcher>
@@ -202,6 +273,9 @@
     <ServiceToDeploy Include="HealthCheck" Condition=" '$(SplitServices)' == '1' ">
       <Launcher>ASC.HealthCheck.Infrastructure.HealthCheckLauncher, ASC.HealthCheck</Launcher>
     </ServiceToDeploy>
+    <ServiceToDeploy Include="Migrate" Condition=" '$(SplitServices)' == '1' ">
+      <Launcher>ASC.Data.Storage.Migration.Launcher, ASC.Data.Storage.Migration</Launcher>
+    </ServiceToDeploy>
   </ItemGroup>
   <ItemGroup>
     <CommunityDeleteList Include="SingleSignOnSettings\SingleSignOnSettings.ascx" />
@@ -211,6 +285,7 @@
     <CommunityDeleteList Include="Backup\Backup.ascx" />
     <CommunityDeleteList Include="AuditTrail\AuditTrail.ascx" />
     <CommunityDeleteList Include="LdapSettings\LdapSettings.ascx" />
+    <CommunityDeleteList Include="StorageSettings\StorageSettings.ascx" />
   </ItemGroup>
   <Target Name="Deploy">
     <Message Text="Deploy parameters:" />
@@ -225,32 +300,53 @@
     <CallTarget Targets="GenerateHelpCenterHtml" Condition=" '$(GenerateHelpCenterHtml)' == '1' " />
     <CopyDirectory Condition=" '$(Uploads)' == '1' AND Exists('$(RootDir)web\studio\ASC.Web.Upload\') " SourceFolder="$(RootDir)web\studio\ASC.Web.Upload\" DestinationFolder="$(OutDir)Uploads" ExcludeRegex="\\Data\\|\\obj\\|\\bin\\.*\.xml$|\\bin\\.*\.pdb$|\.sln$|\.cs$|\.csproj$|\.suo$|\.user$|\.mdb$|\.userprefs$" />
     <Copy SourceFiles="@(MailAggregatorFiles)" DestinationFiles="@(MailAggregatorFiles-&gt;'$(OutDir)Services\MailAggregator\%(Filename)%(Extension)')" />
-    <Copy SourceFiles="$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config" />
-    <Copy SourceFiles="$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\mail.agg.log4net.config" DestinationFiles="$(OutDir)Services\MailAggregator\mail.agg.log4net.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\mail.agg.nlog.config" DestinationFiles="$(OutDir)Services\MailAggregator\mail.agg.nlog.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config" />
     <Copy SourceFiles="@(MailWatchdogFiles)" DestinationFiles="@(MailWatchdogFiles-&gt;'$(OutDir)Services\MailWatchdog\%(Filename)%(Extension)')" />
-    <Copy SourceFiles="$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\App.config" DestinationFiles="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config" />
-    <Copy SourceFiles="@(MailDnsCheckerFiles)" DestinationFiles="@(MailDnsCheckerFiles-&gt;'$(OutDir)Services\MailDnsChecker\%(Filename)%(Extension)')" Condition=" '$(DeployTo)' != 'SERVER' And '$(DeployTo)' != 'UNIX.SERVER' " />
-    <Copy SourceFiles="$(RootDir)module\ASC.Mail.Server\DnsCheckerService\App.config" DestinationFiles="$(OutDir)Services\MailDnsChecker\ASC.MailServer.DnsChecker.Service.exe.config" Condition=" '$(DeployTo)' != 'SERVER' And '$(DeployTo)' != 'UNIX.SERVER' " />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\App.config" DestinationFiles="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\mail.dog.log4net.config" DestinationFiles="$(OutDir)Services\MailWatchdog\mail.dog.log4net.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\mail.dog.nlog.config" DestinationFiles="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config" />
+    <Copy SourceFiles="@(MailCleanerFiles)" DestinationFiles="@(MailCleanerFiles-&gt;'$(OutDir)Services\MailCleaner\%(Filename)%(Extension)')" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\App.config" DestinationFiles="$(OutDir)Services\MailCleaner\ASC.Mail.StorageCleaner.exe.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\mail.cln.log4net.config" DestinationFiles="$(OutDir)Services\MailCleaner\mail.cln.log4net.config" />
+    <Copy SourceFiles="$(RootDir)module\ASC.Mail\Services\ASC.Mail.StorageCleaner\mail.cln.nlog.config" DestinationFiles="$(OutDir)Services\MailCleaner\mail.cln.nlog.config" />
     <CallTarget Targets="ChangeConfigs" Condition=" Exists( '$(RootDir)build\config\private\' ) " />
-    <CreateItem Include="$(OutDir)WebStudio\web.appsettings.config;$(OutDir)WebStudio\web.connections.config;$(OutDir)WebStudio\web.storage.config;$(OutDir)WebStudio\web.autofac.config">
+    <CreateItem Include="$(OutDir)WebStudio\web.appsettings.config;$(OutDir)WebStudio\web.connections.config;$(OutDir)WebStudio\web.storage.config;$(OutDir)WebStudio\web.autofac.config;$(OutDir)WebStudio\web.consumers.config">
       <Output ItemName="WebConfigurationFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFiles="$(OutDir)Services\MailAggregator\web.storage.config" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.autofac.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.autofac.config" DestinationFolder="$(OutDir)Services\MailWatchdog\" />
+    <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
+    <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.autofac.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.autofac.config" DestinationFolder="$(OutDir)Services\%(ServiceToDeploy.Identity)\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\%(ServiceToDeploy.Identity)\" />
     <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="$(DeployTo)=='COM' Or $(DeployTo)=='EU.COM' Or $(DeployTo)=='SG.COM' Or $(DeployTo)=='INFO'" />
-    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition=" $(DeployTo)=='SERVER' Or $(DeployTo)=='UNIX.SERVER' Or $(DeployTo)=='AMI.SERVER' Or $(DeployTo)=='NCT' " />
+    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition=" $(DeployTo)=='SERVER' Or $(DeployTo)=='UNIX.SERVER' Or $(DeployTo)=='AMI.SERVER' " />
     <Delete Files="$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll" Condition=" Exists( '$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll' ) " />
+    <XmlUpdate XmlFileName="$(OutDir)Services\MailAggregator\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
+    <XmlUpdate XmlFileName="$(OutDir)Services\MailCleaner\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
   </Target>
   <Target Name="DeployService">
     <Message Text="Deploying service $(ServiceName)" />
     <Copy SourceFiles="@(ServiceFiles)" DestinationFiles="@(ServiceFiles-&gt;'$(OutDir)Services\$(ServiceName)\%(Filename)%(Extension)')" />
     <CopyDirectory Condition=" Exists('$(RootDir)module\ASC.Socket.IO\') " SourceFolder="$(RootDir)module\ASC.Socket.IO\" DestinationFolder="$(OutDir)Services\ASC.Socket.IO" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
-    <RegexReplace Expression="(.+)\." Input="$(DeployTo)">
+    <CopyDirectory Condition=" Exists('$(RootDir)module\ASC.Thumbnails\') " SourceFolder="$(RootDir)module\ASC.Thumbnails\" DestinationFolder="$(OutDir)Services\ASC.Thumbnails" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
+    <CopyDirectory Condition=" Exists('$(RootDir)module\ASC.UrlShortener\') " SourceFolder="$(RootDir)module\ASC.UrlShortener\" DestinationFolder="$(OutDir)Services\ASC.UrlShortener" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
+    <RegexReplace Expression=".+\." Input="$(DeployTo)">
       <Output PropertyName="Substitution" TaskParameter="Output" />
     </RegexReplace>
     <CreateItem Include="$(Substitution)" Condition=" $(Substitution) != $(DeployTo) ">
+      <Output ItemName="ConfigSubstitutionRoot" TaskParameter="Include" />
+    </CreateItem>
+    <RegexReplace Expression="^[^.]*\." Input="$(DeployTo)">
+      <Output PropertyName="SubstitutionNext" TaskParameter="Output" />
+    </RegexReplace>
+    <CreateItem Include="$(SubstitutionNext)" Condition="$(Substitution) != $(SubstitutionNext) ">
       <Output ItemName="ConfigSubstitutionRoot" TaskParameter="Include" />
     </CreateItem>
     <CreateItem Include="$(DeployTo)">
@@ -260,6 +356,32 @@
     <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/teamlab/services/add[not(@type='$(ServiceLauncher)')]" Delete="true" />
     <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/log4net/appender[@name='File']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName)" />
     <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/log4net/appender[@name='Sql']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName).SQL.log" />
+    <XmlUpdate Condition="'$(ServiceLauncher)' != '' AND '$(SplitServices)' == '1'" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/nlog/variable[@name='svcName']/@value" Value="$(ServiceName)" />
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_portal_url']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicalePortalUrl" />
+    </XmlRead>
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_filesystem_folder']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleFilesystemFolder" />
+    </XmlRead>
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_machine_key']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleMachineKey" />
+    </XmlRead>
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileWinINFO/n:property[@name='radicale_log_file_win_info']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleLogFileWinINFO" />
+    </XmlRead>
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileWinNotINFO/n:property[@name='radicale_log_file_win_notinfo']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleLogFileWinNotINFO" />
+    </XmlRead>
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileNotWin/n:property[@name='radicale_log_file_notwin']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleLogFileNotWin" />
+    </XmlRead>
+    <FileUpdate Condition="$(RadicalePortalUrl) != ''" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="portal_url =.+" ReplacementText="portal_url = $(RadicalePortalUrl)" />
+    <FileUpdate Condition="$(RadicaleFilesystemFolder) != '' And $(DeployTo) != 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="filesystem_folder =.+" ReplacementText="filesystem_folder = $(RootDir)$(RadicaleFilesystemFolder)" />
+    <FileUpdate Condition="$(RadicaleFilesystemFolder) != '' And $(DeployTo) == 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="filesystem_folder =.+" ReplacementText="filesystem_folder = $(RadicaleFilesystemFolder)" />
+    <FileUpdate Condition="$(OS) == 'Windows_NT' And $(DeployTo) == 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileWinINFO),'midnight', 1, 7)" />
+    <FileUpdate Condition="$(OS) == 'Windows_NT' And $(DeployTo) != 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileWinNotINFO),'midnight', 1, 7)" />
+    <FileUpdate Condition="$(OS) != 'Windows_NT'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileNotWin),'midnight', 1, 7)" />
+    <FileUpdate Condition="$(RadicaleMachineKey) != ''" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="machine_key =.+" ReplacementText="machine_key = $(RadicaleMachineKey)" />
   </Target>
   <Target Name="GenerateBundle">
     <Copy SourceFiles="ASC.Web.Core.BuildTask.dll" DestinationFiles="$(OutDir)\WebStudio\bin\ASC.Web.Core.BuildTask.dll" />
@@ -293,6 +415,7 @@
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\voip.phone.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\whitelabel.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\jquery-advansedfilter-theme.less" />
+      <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\jstree\**\*.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\icons.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\autocomplete.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\message.less" />
@@ -328,26 +451,53 @@
       <ConfigFiles Include="$(OutDir)WebStudio\web.appsettings.config">
         <SubstitutionsFile>..\config\private\Web.AppSettings.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)WebStudio\web.autofac.config">
+        <SubstitutionsFile>..\config\private\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
       <ConfigFiles Include="$(OutDir)WebStudio\web.consumers.config">
         <SubstitutionsFile>..\config\private\Web.Consumers.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)WebStudio\web.log4net.config">
         <SubstitutionsFile>..\config\private\Web.Log4net.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)WebStudio\web.nlog.config">
+        <SubstitutionsFile>..\config\private\Web.NLog.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
       <ConfigFiles Include="$(OutDir)WebStudio\web.storage.config">
         <SubstitutionsFile>..\config\private\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config">
-        <SubstitutionsFile>..\config\private\Mail.Aggregator.Substitutions.xml</SubstitutionsFile>
+        <SubstitutionsFile>..\config\private\Mail.Agg.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config">
-        <SubstitutionsFile>..\config\private\Mail.Aggregator.Substitutions.xml</SubstitutionsFile>
+        <SubstitutionsFile>..\config\private\Mail.Agg.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.log4net.config">
+        <SubstitutionsFile>..\config\private\Mail.Agg.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.nlog.config">
+        <SubstitutionsFile>..\config\private\Mail.Agg.NLog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config">
-        <SubstitutionsFile>..\config\private\Mail.Watchdog.Substitutions.xml</SubstitutionsFile>
+        <SubstitutionsFile>..\config\private\Mail.Dog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailDnsChecker\ASC.MailServer.DnsChecker.Service.exe.config" Condition=" '$(DeployTo)' != 'SERVER' And '$(DeployTo)' != 'UNIX.SERVER' ">
-        <SubstitutionsFile>..\config\private\Mail.DnsChecker.Substitutions.xml</SubstitutionsFile>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config">
+        <SubstitutionsFile>..\config\private\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.log4net.config">
+        <SubstitutionsFile>..\config\private\Mail.Dog.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config">
+        <SubstitutionsFile>..\config\private\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\ASC.Mail.StorageCleaner.exe.config">
+        <SubstitutionsFile>..\config\private\Mail.Cln.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.log4net.config">
+        <SubstitutionsFile>..\config\private\Mail.Cln.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.nlog.config">
+        <SubstitutionsFile>..\config\private\Mail.Cln.NLog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Remove="@(ConfigFiles)" Condition="!Exists('%(ConfigFiles.SubstitutionsFile)')" />
     </ItemGroup>
@@ -355,6 +505,10 @@
       <Output PropertyName="Substitution" TaskParameter="Output" />
     </RegexReplace>
     <XmlMassUpdate Condition="$(Substitution) != $(DeployTo)" ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(Substitution)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
+    <RegexReplace Expression="^[^.]*\." Input="$(DeployTo)">
+      <Output PropertyName="SubstitutionNext" TaskParameter="Output" />
+    </RegexReplace>
+    <XmlMassUpdate Condition="$(Substitution) != $(SubstitutionNext)" ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(SubstitutionNext)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
     <XmlMassUpdate ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(DeployTo)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
   </Target>
   <Target Name="CopyConfigsForBackup">

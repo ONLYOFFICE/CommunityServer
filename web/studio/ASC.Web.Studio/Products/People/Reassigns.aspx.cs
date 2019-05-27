@@ -47,12 +47,15 @@ namespace ASC.Web.People
 
         protected bool RemoveData { get; private set; }
 
+        protected bool DeleteProfile { get; private set; }
+
         protected bool IsAdmin()
         {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
-                WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
+            return WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
-        
+
+        protected bool CustomMode { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var username = Request["user"];
@@ -71,15 +74,19 @@ namespace ASC.Web.People
 
             RemoveData = string.Equals(Request["remove"], bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
 
+            DeleteProfile = string.Equals(Request["delete"], bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
+
             PageTitle = UserInfo.DisplayUserName(false) + " - " + (RemoveData ? PeopleResource.RemovingData : PeopleResource.ReassignmentData);
 
             Title = HeaderStringHelper.GetPageTitle(PageTitle);
 
             PageTitle = HttpUtility.HtmlEncode(PageTitle);
 
-            HelpLink = CommonLinkUtility.GetHelpLink().TrimEnd('/');
+            HelpLink = CommonLinkUtility.GetHelpLink();
 
             ProfileLink = CommonLinkUtility.GetUserProfile(UserInfo.ID);
+
+            CustomMode = CoreContext.Configuration.CustomMode;
 
             Page.RegisterInlineScript(string.Format("ASC.People.Reassigns.init(\"{0}\", {1});", UserInfo.ID, RemoveData.ToString().ToLowerInvariant()));
         }

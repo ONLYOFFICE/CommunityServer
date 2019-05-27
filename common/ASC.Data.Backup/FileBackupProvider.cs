@@ -29,8 +29,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using ASC.Common.Logging;
 using ASC.Data.Storage;
-using log4net;
 
 namespace ASC.Data.Backup
 {

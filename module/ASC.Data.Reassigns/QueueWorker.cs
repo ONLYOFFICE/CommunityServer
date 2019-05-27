@@ -56,7 +56,7 @@ namespace ASC.Data.Reassigns
                 Queue.Remove(item);
         }
 
-        public static ReassignProgressItem StartReassign(HttpContext context, int tenantId, Guid fromUserId, Guid toUserId, Guid currentUserId)
+        public static ReassignProgressItem StartReassign(HttpContext context, int tenantId, Guid fromUserId, Guid toUserId, Guid currentUserId, bool deleteProfile)
         {
             lock (Queue.SynchRoot)
             {
@@ -70,7 +70,7 @@ namespace ASC.Data.Reassigns
 
                 if (task == null)
                 {
-                    task = new ReassignProgressItem(context, tenantId, fromUserId, toUserId, currentUserId);
+                    task = new ReassignProgressItem(context, tenantId, fromUserId, toUserId, currentUserId, deleteProfile);
                     Queue.Add(task);
                 }
 
@@ -81,7 +81,7 @@ namespace ASC.Data.Reassigns
             }
         }
 
-        public static RemoveProgressItem StartRemove(HttpContext context, int tenantId, UserInfo user, Guid currentUserId)
+        public static RemoveProgressItem StartRemove(HttpContext context, int tenantId, UserInfo user, Guid currentUserId, bool notify)
         {
             lock (Queue.SynchRoot)
             {
@@ -95,7 +95,7 @@ namespace ASC.Data.Reassigns
 
                 if (task == null)
                 {
-                    task = new RemoveProgressItem(context, tenantId, user, currentUserId);
+                    task = new RemoveProgressItem(context, tenantId, user, currentUserId, notify);
                     Queue.Add(task);
                 }
 

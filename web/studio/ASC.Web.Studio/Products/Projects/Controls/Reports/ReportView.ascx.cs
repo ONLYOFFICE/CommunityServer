@@ -31,6 +31,7 @@ using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
+using Report = ASC.Web.Projects.Classes.Report;
 
 namespace ASC.Web.Projects.Controls.Reports
 {

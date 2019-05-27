@@ -42,6 +42,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using ASC.Core;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 
 namespace ASC.Data.Storage.S3
@@ -62,6 +63,19 @@ namespace ASC.Data.Storage.S3
         private bool _revalidateCloudFront;
         private string _distributionId = string.Empty;
         private String _subDir = String.Empty;
+
+        public S3Storage(string tenant)
+        {
+            _tenant = tenant;
+            _modulename = string.Empty;
+            _dataList = null;
+
+            //Make expires
+            _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
+
+            _domainsAcl = new Dictionary<string, S3CannedACL>();
+            _moduleAcl = S3CannedACL.PublicRead;
+        }
 
         public S3Storage(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
@@ -103,6 +117,8 @@ namespace ASC.Data.Storage.S3
             {
                 case ACL.Read:
                     return S3CannedACL.PublicRead;
+                case ACL.Private:
+                    return S3CannedACL.Private;
                 default:
                     return S3CannedACL.PublicRead;
             }
@@ -154,8 +170,10 @@ namespace ASC.Data.Storage.S3
                 }
                 pUrlRequest.ResponseHeaderOverrides = headersOverrides;
             }
-
-            return MakeUri(GetClient().GetPreSignedURL(pUrlRequest));
+            using (var client = GetClient())
+            {
+                return MakeUri(client.GetPreSignedURL(pUrlRequest));
+            }
         }
 
 
@@ -181,7 +199,10 @@ namespace ASC.Data.Storage.S3
 
             if (0 < offset) request.ByteRange = new ByteRange(offset, int.MaxValue);
 
-            return new ResponseStreamWrapper(GetClient().GetObject(request));
+            using (var client = GetClient())
+            {
+                return new ResponseStreamWrapper(client.GetObject(request));
+            }
         }
 
         protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
@@ -222,7 +243,6 @@ namespace ASC.Data.Storage.S3
                 {
                     BucketName = _bucket,
                     Key = MakePath(domain, path),
-                    CannedACL = acl == ACL.Auto ? GetDomainACL(domain) : GetS3Acl(acl),
                     ContentType = mime,
                     ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256,
                     InputStream = buffered,
@@ -230,10 +250,23 @@ namespace ASC.Data.Storage.S3
                     Headers =
                     {
                         CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds),
-                        Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays))
+                        ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays))
                     }
                 };
 
+                if (!WorkContext.IsMono) //  System.Net.Sockets.SocketException: Connection reset by peer
+                {
+                    switch (acl)
+                    {
+                        case ACL.Auto:
+                            request.CannedACL = GetDomainACL(domain);
+                            break;
+                        case ACL.Read:
+                        case ACL.Private:
+                            request.CannedACL = GetS3Acl(acl);
+                            break;
+                    }
+                }
 
                 if (!string.IsNullOrEmpty(contentDisposition))
                 {
@@ -480,8 +513,12 @@ namespace ASC.Data.Storage.S3
 
         public override void DeleteFiles(string domain, string path, string pattern, bool recursive)
         {
+            var makedPath = MakePath(domain, path) + '/';
             var objToDel = GetS3Objects(domain, path)
-                .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)));
+                .Where(x => 
+                    Wildcard.IsMatch(pattern, Path.GetFileName(x.Key))
+                    && (recursive || !x.Key.Remove(0, makedPath.Length).Contains('/'))
+                    );
 
             using (var client = GetClient())
             {
@@ -599,7 +636,7 @@ namespace ASC.Data.Storage.S3
         public override string[] ListDirectoriesRelative(string domain, string path, bool recursive)
         {
             return GetS3Objects(domain, path)
-                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length))
+                .Select(x => x.Key.Substring((MakePath(domain, path) + "/").Length))
                 .ToArray();
         }
 
@@ -620,7 +657,7 @@ namespace ASC.Data.Storage.S3
                     Headers =
                     {
                         CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
-                        Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
+                        ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
                         ContentDisposition = "attachment",
                     }
                 };
@@ -837,7 +874,7 @@ namespace ASC.Data.Storage.S3
         {
             return GetS3Objects(domain, path)
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
-                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length).TrimStart('/'))
+                .Select(x => x.Key.Substring((MakePath(domain, path) + "/").Length).TrimStart('/'))
                 .ToArray();
         }
 
@@ -985,11 +1022,13 @@ namespace ASC.Data.Storage.S3
                 return objects;
             }
         }
+
         private IEnumerable<S3Object> GetS3Objects(string domain, string path = "", bool recycle = false)
         {
-            var obj = GetS3ObjectsByPath(domain, MakePath(domain, path.TrimEnd('/') + '/')).ToList();
+            path = MakePath(domain, path) + '/';
+            var obj = GetS3ObjectsByPath(domain, path).ToList();
             if (string.IsNullOrEmpty(_recycleDir) || !recycle) return obj;
-            obj.AddRange(GetS3ObjectsByPath(domain, GetRecyclePath(MakePath(domain, path.TrimEnd('/') + '/'))));
+            obj.AddRange(GetS3ObjectsByPath(domain, GetRecyclePath(path)));
             return obj;
         }
 
@@ -1009,7 +1048,7 @@ namespace ASC.Data.Storage.S3
 
             _bucketRoot = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
                               ? new Uri(props["cname"], UriKind.Absolute)
-                              : new Uri(String.Format("http://{0}.s3.{1}.amazonaws.com", _bucket, _region), UriKind.Absolute);
+                              : new Uri(String.Format("http://s3.{1}.amazonaws.com/{0}/", _bucket, _region), UriKind.Absolute);
             _bucketSSlRoot = props.ContainsKey("cnamessl") &&
                              Uri.IsWellFormedUriString(props["cnamessl"], UriKind.Absolute)
                                  ? new Uri(props["cnamessl"], UriKind.Absolute)
@@ -1056,7 +1095,7 @@ namespace ASC.Data.Storage.S3
                                                          domain,
                                                          path);
 
-            result = result.Replace("//", "/").TrimStart('/');
+            result = result.Replace("//", "/").TrimStart('/').TrimEnd('/');
             if (_lowerCasing)
             {
                 result = result.ToLowerInvariant();

@@ -27,7 +27,7 @@
 #treeViewContainer {
     max-height: 570px;
     overflow: hidden;
-    padding: 0 0 0 4px;
+    padding: 0 0 2px 4px;
 }
 #treeViewContainer:hover {
     overflow-y: auto;
@@ -36,7 +36,7 @@
     max-height: 500px;
 }
 .page-menu .menu-list .menu-sub-list #treeViewContainer {
-    margin-left: 24px;
+    padding-left: 24px;
 }
 #treeViewPanelSelector {
     max-height: 520px;

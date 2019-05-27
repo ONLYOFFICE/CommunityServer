@@ -24,14 +24,6 @@
 */
 
 
-#region Import
-
-using ASC.Common.Web;
-using ASC.Data.Storage.Configuration;
-using ASC.Data.Storage.RackspaceCloud;
-using log4net;
-using net.openstack.Core.Domain;
-using net.openstack.Providers.Rackspace;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -40,11 +32,15 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Optimization;
 
-#endregion
+using ASC.Common.Web;
+using ASC.Common.Logging;
+using ASC.Data.Storage.Configuration;
+using ASC.Data.Storage.RackspaceCloud;
+using net.openstack.Core.Domain;
+using net.openstack.Providers.Rackspace;
 
 namespace ASC.Web.Core.Client.Bundling
 {

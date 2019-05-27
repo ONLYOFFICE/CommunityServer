@@ -772,7 +772,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All generated reports can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}.
+        ///   Looks up a localized string similar to All generated reports you can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}.
         /// </summary>
         public static string ReportBuildingInfo {
             get {

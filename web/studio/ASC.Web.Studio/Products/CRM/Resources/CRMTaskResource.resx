@@ -177,9 +177,6 @@
   <data name="EmptyContentTasksHeader" xml:space="preserve">
     <value>The task list is empty</value>
   </data>
-  <data name="ExportTaskListEmptyError" xml:space="preserve">
-    <value>No tasks to be exported for this filter</value>
-  </data>
   <data name="FindContactByName" xml:space="preserve">
     <value>Find a company or a person by name</value>
   </data>

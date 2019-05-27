@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Files.Core.Data;
 using ASC.Web.Files.Helpers;
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
@@ -137,7 +138,7 @@ namespace ASC.Files.Thirdparty
                 querySelect.Where("folder_type", (int)folderType);
 
             if (!string.IsNullOrEmpty(searchText))
-                querySelect.Where(Exp.Like("lower(customer_title)", searchText.ToLower().Trim()));
+                querySelect.Where(AbstractDao.BuildSearch("customer_title", searchText));
 
             try
             {
@@ -428,11 +429,7 @@ namespace ASC.Files.Thirdparty
 
                     var code = authData.Token;
 
-                    var token = OAuth20TokenHelper.GetAccessToken(GoogleLoginProvider.GoogleOauthTokenUrl,
-                                                                  GoogleLoginProvider.GoogleOAuth20ClientId,
-                                                                  GoogleLoginProvider.GoogleOAuth20ClientSecret,
-                                                                  GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                                  code);
+                    var token = OAuth20TokenHelper.GetAccessToken<GoogleLoginProvider>(code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
@@ -442,11 +439,7 @@ namespace ASC.Files.Thirdparty
 
                     code = authData.Token;
 
-                    token = OAuth20TokenHelper.GetAccessToken(BoxLoginProvider.BoxOauthTokenUrl,
-                                                              BoxLoginProvider.BoxOAuth20ClientId,
-                                                              BoxLoginProvider.BoxOAuth20ClientSecret,
-                                                              BoxLoginProvider.BoxOAuth20RedirectUrl,
-                                                              code);
+                    token = OAuth20TokenHelper.GetAccessToken<BoxLoginProvider>(code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
@@ -456,11 +449,7 @@ namespace ASC.Files.Thirdparty
 
                     code = authData.Token;
 
-                    token = OAuth20TokenHelper.GetAccessToken(DropboxLoginProvider.DropboxOauthTokenUrl,
-                                                              DropboxLoginProvider.DropboxOAuth20ClientId,
-                                                              DropboxLoginProvider.DropboxOAuth20ClientSecret,
-                                                              DropboxLoginProvider.DropboxOAuth20RedirectUrl,
-                                                              code);
+                    token = OAuth20TokenHelper.GetAccessToken<DropboxLoginProvider>(code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
@@ -484,11 +473,7 @@ namespace ASC.Files.Thirdparty
 
                     code = authData.Token;
 
-                    token = OAuth20TokenHelper.GetAccessToken(OneDriveLoginProvider.OneDriveOauthTokenUrl,
-                                                              OneDriveLoginProvider.OneDriveOAuth20ClientId,
-                                                              OneDriveLoginProvider.OneDriveOAuth20ClientSecret,
-                                                              OneDriveLoginProvider.OneDriveOAuth20RedirectUrl,
-                                                              code);
+                    token = OAuth20TokenHelper.GetAccessToken<OneDriveLoginProvider>(code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
@@ -498,11 +483,7 @@ namespace ASC.Files.Thirdparty
 
                     code = authData.Token;
 
-                    token = OAuth20TokenHelper.GetAccessToken(OneDriveLoginProvider.OneDriveOauthTokenUrl,
-                                                              OneDriveLoginProvider.OneDriveOAuth20ClientId,
-                                                              OneDriveLoginProvider.OneDriveOAuth20ClientSecret,
-                                                              OneDriveLoginProvider.OneDriveOAuth20RedirectUrl,
-                                                              code);
+                    token = OAuth20TokenHelper.GetAccessToken<OneDriveLoginProvider>(code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 

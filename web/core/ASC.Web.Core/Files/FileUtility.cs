@@ -41,6 +41,7 @@ namespace ASC.Web.Core.Files
 
         public static string GetFileExtension(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName)) return string.Empty;
             string extension = null;
             try
             {
@@ -102,6 +103,11 @@ namespace ASC.Web.Core.Files
             return ExtsImagePreviewed.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
         }
 
+        public static bool CanMediaView(string fileName)
+        {
+            return ExtsMediaPreviewed.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
+        }
+
         public static bool CanWebView(string fileName)
         {
             return ExtsWebPreviewed.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
@@ -117,9 +123,24 @@ namespace ASC.Web.Core.Files
             return ExtsWebReviewed.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
         }
 
+        public static bool CanWebRestrictedEditing(string fileName)
+        {
+            return ExtsWebRestrictedEditing.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
+        }
+
+        public static bool CanWebComment(string fileName)
+        {
+            return ExtsWebCommented.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
+        }
+
         public static bool CanCoAuhtoring(string fileName)
         {
             return ExtsCoAuthoring.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
+        }
+
+        public static bool CanIndex(string fileName)
+        {
+            return extsIndexing.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
         }
 
         #endregion
@@ -184,16 +205,25 @@ namespace ASC.Web.Core.Files
 
 
         private static readonly List<string> extsImagePreviewed = (WebConfigurationManager.AppSettings["files.viewed-images"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsMediaPreviewed = (WebConfigurationManager.AppSettings["files.viewed-media"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         private static readonly List<string> extsWebPreviewed = (WebConfigurationManager.AppSettings["files.docservice.viewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         private static readonly List<string> extsWebEdited = (WebConfigurationManager.AppSettings["files.docservice.edited-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebEncrypt = (WebConfigurationManager.AppSettings["files.docservice.encrypted-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         private static readonly List<string> extsWebReviewed = (WebConfigurationManager.AppSettings["files.docservice.reviewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebRestrictedEditing = (WebConfigurationManager.AppSettings["files.docservice.formfilling-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebCommented = (WebConfigurationManager.AppSettings["files.docservice.commented-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         private static readonly List<string> extsMustConvert = (WebConfigurationManager.AppSettings["files.docservice.convert-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         private static readonly List<string> extsCoAuthoring = (WebConfigurationManager.AppSettings["files.docservice.coauthor-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
+        private static readonly List<string> extsIndexing = (WebConfigurationManager.AppSettings["files.index.formats"] ?? "").Split(new[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
         public static List<string> ExtsImagePreviewed
         {
             get { return extsImagePreviewed; }
+        }
+
+        public static List<string> ExtsMediaPreviewed
+        {
+            get { return extsMediaPreviewed; }
         }
 
         public static List<string> ExtsWebPreviewed
@@ -206,9 +236,24 @@ namespace ASC.Web.Core.Files
             get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebEdited; }
         }
 
+        public static List<string> ExtsWebEncrypt
+        {
+            get { return extsWebEncrypt; }
+        }
+
         public static List<string> ExtsWebReviewed
         {
             get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebReviewed; }
+        }
+
+        public static List<string> ExtsWebRestrictedEditing
+        {
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebRestrictedEditing; }
+        }
+
+        public static List<string> ExtsWebCommented
+        {
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebCommented; }
         }
 
         public static List<string> ExtsMustConvert
@@ -232,13 +277,20 @@ namespace ASC.Web.Core.Files
 
         public static readonly List<string> ExtsVideo = new List<string>
             {
-                ".avi", ".mpg", ".mkv", ".mp4",
-                ".mov", ".3gp", ".vob", ".m2ts"
+                ".3gp", ".asf", ".avi", ".f4v",
+                ".fla", ".flv", ".m2ts", ".m4v",
+                ".mkv", ".mov", ".mp4", ".mpeg",
+                ".mpg", ".mts", ".ogv", ".svi",
+                ".vob", ".webm", ".wmv"
             };
 
         public static readonly List<string> ExtsAudio = new List<string>
             {
-                ".wav", ".mp3", ".wma", ".ogg"
+                ".aac", ".ac3", ".aiff", ".amr",
+                ".ape", ".cda", ".flac", ".m4a",
+                ".mid", ".mka", ".mp3", ".mpc",
+                ".oga", ".ogg", ".pcm", ".ra",
+                ".raw", ".wav", ".wma"
             };
 
         public static readonly List<string> ExtsImage = new List<string>
@@ -253,7 +305,7 @@ namespace ASC.Web.Core.Files
             {
                 ".xls", ".xlsx", ".xlsm",
                 ".xlt", ".xltx", ".xltm",
-                ".ods", ".fods", ".csv",
+                ".ods", ".fods", ".ots", ".csv",
                 ".xlst", ".xlsy", ".xlsb",
                 ".gsheet"
             };
@@ -263,7 +315,7 @@ namespace ASC.Web.Core.Files
                 ".pps", ".ppsx", ".ppsm",
                 ".ppt", ".pptx", ".pptm",
                 ".pot", ".potx", ".potm",
-                ".odp", ".fodp",
+                ".odp", ".fodp", ".otp",
                 ".pptt", ".ppty",
                 ".gslides"
             };
@@ -272,7 +324,7 @@ namespace ASC.Web.Core.Files
             {
                 ".doc", ".docx", ".docm",
                 ".dot", ".dotx", ".dotm",
-                ".odt", ".fodt", ".rtf", ".txt",
+                ".odt", ".fodt", ".ott", ".rtf", ".txt",
                 ".html", ".htm", ".mht",
                 ".pdf", ".djvu", ".fb2", ".epub", ".xps",
                 ".doct", ".docy",

@@ -41,7 +41,7 @@ window.ASC.Files.Folders = (function () {
     /* Methods*/
 
     var getFolderItems = function (isAppend, countAppend) {
-        var filterSettings = ASC.Files.Filter.getFilterSettings(ASC.Files.Folders.currentFolder.id);
+        var filterSettings = ASC.Files.Filter.getFilterSettings();
 
         ASC.Files.ServiceManager.getFolderItems(ASC.Files.ServiceManager.events.GetFolderItems,
             {
@@ -50,9 +50,12 @@ window.ASC.Files.Folders = (function () {
                 count: countAppend || ASC.Files.Constants.COUNT_ON_PAGE,
                 append: isAppend === true,
                 filter: filterSettings.filter,
-                subject: filterSettings.subject,
-                text: filterSettings.text,
-                orderBy: filterSettings.sorter
+                subjectGroup: filterSettings.subjectGroup,
+                subjectId: filterSettings.subject,
+                search: filterSettings.text,
+                orderBy: filterSettings.sorter,
+                withSubfolders: filterSettings.withSubfolders,
+                searchInContent: filterSettings.searchInContent
             }, { orderBy: filterSettings.sorter });
     };
 
@@ -63,14 +66,15 @@ window.ASC.Files.Folders = (function () {
             }).toArray()
         };
 
-        var filterSettings = ASC.Files.Filter.getFilterSettings(ASC.Files.Folders.currentFolder.id);
+        var filterSettings = ASC.Files.Filter.getFilterSettings();
 
         ASC.Files.ServiceManager.getItems(ASC.Files.ServiceManager.events.GetItems,
             {
                 parentFolderID: folderToId,
                 filter: filterSettings.filter,
-                subject: filterSettings.subject,
-                text: filterSettings.text,
+                subjectGroup: filterSettings.subjectGroup,
+                subjectId: filterSettings.subject,
+                search: filterSettings.text,
             },
             { stringList: data });
     };
@@ -90,6 +94,7 @@ window.ASC.Files.Folders = (function () {
             return;
         }
 
+        ASC.Files.Filter.clearFilter(true);
         ASC.Files.Anchor.navigationSet(folderId);
     };
 
@@ -102,7 +107,9 @@ window.ASC.Files.Folders = (function () {
 
         var fileId = fileData.id;
         var fileTitle = fileData.title || ASC.Files.UI.getEntryTitle("file", fileId);
-        version = version || fileData.version || 0;
+        if (forEdit != false) {
+            version = version || fileData.version || 0;
+        }
 
         if (ASC.Files.Utility.CanWebView(fileTitle)) {
             return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
@@ -111,11 +118,16 @@ window.ASC.Files.Folders = (function () {
         if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(fileTitle)) {
             var hash = ASC.Files.ImageViewer.getPreviewHash(fileId);
             ASC.Files.Anchor.move(hash);
-            return true;
+            return false;
         }
 
-        var url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
-        window.open(url, "_blank");
+        if (typeof ASC.Files.MediaPlayer != "undefined" && ASC.Files.MediaPlayer.canPlay(fileTitle)) {
+            hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
+            ASC.Files.Anchor.move(hash);
+            return false;
+        }
+
+        location.href = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
         return ASC.Files.Marker.removeNewIcon("file", fileId);
     };
 
@@ -143,7 +155,7 @@ window.ASC.Files.Folders = (function () {
         if (entryType === "file") {
             ASC.Files.Marker.removeNewIcon(entryType, entryId);
 
-            window.open(ASC.Files.Utility.GetFileDownloadUrl(entryId, version), "_blank");
+            location.href = ASC.Files.Utility.GetFileDownloadUrl(entryId, version);
             return;
         }
 
@@ -206,7 +218,7 @@ window.ASC.Files.Folders = (function () {
     };
 
     var createFolder = function () {
-        if (ASC.Files.ImageViewer && ASC.Files.ImageViewer.isView()) {
+        if (ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.isView) {
             return;
         }
 
@@ -274,7 +286,7 @@ window.ASC.Files.Folders = (function () {
             var newFolderSaveObj = jq(saveButton || this).closest(".file-row");
 
             var newName = ASC.Files.Common.replaceSpecCharacter(jq("#promptCreateFolder").val().trim());
-            if (newName == "" || newName == null) {
+            if (newName == "" || newName == null || ASC.Resources.Master.CustomMode && newName === "...") {
                 newName = ASC.Files.FilesJSResources.TitleNewFolder;
             }
 
@@ -292,7 +304,7 @@ window.ASC.Files.Folders = (function () {
         newFolderObj.append(getActionHtml());
         newFolderObj.find(".name-aplly").click(saveFolder);
 
-        jq("#promptCreateFolder").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptCreateFolder").bind("keydown", function (event) {
             if (jq("#promptCreateFolder").length == 0) {
                 return;
             }
@@ -314,7 +326,7 @@ window.ASC.Files.Folders = (function () {
     };
 
     var createNewDoc = function () {
-        if (ASC.Files.ImageViewer && ASC.Files.ImageViewer.isView()) {
+        if (ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.isView) {
             return;
         }
 
@@ -402,7 +414,7 @@ window.ASC.Files.Folders = (function () {
 
             var newName = ASC.Files.Common.replaceSpecCharacter(jq("#promptCreateFile").val().trim());
             var oldName = ASC.Files.UI.getObjectTitle(newFileSaveObj);
-            if (newName == "" || newName == null) {
+            if (newName == "" || newName == null || ASC.Resources.Master.CustomMode && newName === "...") {
                 newName = oldName;
             } else {
                 var curLenExt = ASC.Files.Utility.GetFileExtension(oldName).length;
@@ -441,7 +453,7 @@ window.ASC.Files.Folders = (function () {
         newFileObj.append(getActionHtml());
         newFileObj.find(".name-aplly").click(saveFile);
 
-        jq("#promptCreateFile").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptCreateFile").bind("keydown", function (event) {
             if (jq("#promptCreateFile").length == 0) {
                 return;
             }
@@ -455,6 +467,20 @@ window.ASC.Files.Folders = (function () {
                 case ASC.Files.Common.keyCode.esc:
                     ASC.Files.Folders.cancelEnter(e, this);
                     break;
+            }
+        });
+
+        jq("#promptCreateFile").bind("keypress", function (event) {
+            if (jq("#promptCreateFile").length == 0) {
+                return;
+            }
+
+            if (!e) {
+                var e = event;
+            }
+            var code = e.keyCode || e.which;
+
+            switch (code) {
                 case ASC.Files.Common.keyCode.enter:
                     saveFile(e, this);
                     break;
@@ -512,7 +538,7 @@ window.ASC.Files.Folders = (function () {
             var oldName = ASC.Files.UI.getObjectTitle(entryRenameObj);
 
             var newName = ASC.Files.Common.replaceSpecCharacter(jq("#promptRename").val().trim());
-            if (newName == "" || newName == null) {
+            if (newName == "" || newName == null || ASC.Resources.Master.CustomMode && newName === "...") {
                 return;
             }
 
@@ -548,7 +574,7 @@ window.ASC.Files.Folders = (function () {
 
         entryObj.removeClass("row-selected");
 
-        jq("#promptRename").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptRename").bind("keydown", function (event) {
             if (jq("#promptRename").length === 0) {
                 return;
             }
@@ -582,7 +608,7 @@ window.ASC.Files.Folders = (function () {
             fileObj = fileObj.closest(".file-row");
         }
 
-        if (ASC.Files.UI.lockedForMe(fileObj) && !ASC.Files.Constants.ADMIN) {
+        if (ASC.Files.UI.lockedForMe(fileObj) && !ASC.Files.Constants.ADMIN && ASC.Files.Folders.folderContainer != "my") {
             return;
         }
 
@@ -701,7 +727,7 @@ window.ASC.Files.Folders = (function () {
 
         commentObj.append(getActionHtml());
         commentObj.find(".name-aplly").click(saveComment);
-        jq("#promptVersionComment").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptVersionComment").bind("keydown", function (event) {
             if (jq("#promptVersionComment").length == 0) {
                 return;
             }
@@ -980,7 +1006,7 @@ window.ASC.Files.Folders = (function () {
         PopupKeyUpActionProvider.EnterAction = "jq(\"#removeConfirmBtn\").click();";
     };
 
-    var deleteItem = function (entryType, entryId) {
+    var deleteItem = function (entryType, entryId, successfulDeletion) {
         ASC.Files.Actions.hideAllActionPanels();
 
         var caption = ASC.Files.FilesJSResources.ConfirmRemoveList;
@@ -1058,7 +1084,10 @@ window.ASC.Files.Folders = (function () {
         checkRemoveItem();
         jq("#confirmRemoveList dd [type='checkbox']").change(checkRemoveItem);
 
-        var mustConfirm = jq("#cbxDeleteConfirm").prop("checked") == true;
+        var mustConfirm = jq(".files-content-panel").attr("data-deleteConfirm");
+        if (jq("#cbxDeleteConfirm").length) {
+            mustConfirm = jq("#cbxDeleteConfirm").prop("checked") == true;
+        }
         if (ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty()) {
             mustConfirm = true;
             jq("#confirmRemoveSharpBoxTextDescription").show();
@@ -1092,6 +1121,9 @@ window.ASC.Files.Folders = (function () {
 
             ASC.Files.UI.updateMainContentHeader();
             ASC.Files.ServiceManager.deleteItem(ASC.Files.ServiceManager.events.DeleteItem, { list: data.entry, doNow: true }, { stringList: data });
+            if (typeof successfulDeletion == "function") {
+                successfulDeletion();
+            }
         };
 
         if (mustConfirm) {
@@ -1219,7 +1251,7 @@ window.ASC.Files.Folders = (function () {
             e.stopPropagation();
 
             ASC.Files.Actions.hideAllActionPanels();
-            ASC.Files.UI.checkSelectAll(jq("#filesSelectAllCheck:not(.indeterminate)").prop("checked") == true);
+            ASC.Files.UI.checkSelectAll(jq("#filesSelectAllCheck").prop("checked") == true);
             jq(this).blur();
         });
 
@@ -1272,9 +1304,7 @@ window.ASC.Files.Folders = (function () {
 
             var fileData = ASC.Files.UI.getObjectData(this);
             if (fileData.id != 0) {
-                var fileObj = fileData.entryObject;
                 ASC.Files.Folders.clickOnFile(fileData);
-                fileObj.removeClass("isNewForWebEditor");
             }
             return false;
         });
@@ -1292,7 +1322,6 @@ window.ASC.Files.Folders = (function () {
                         ASC.Files.UI.checkEditingDefer();
 
                         ASC.Files.Actions.hideAllActionPanels();
-                        fileObj.removeClass("isNewForWebEditor");
                     }
                 }
             }
@@ -1322,7 +1351,7 @@ window.ASC.Files.Folders = (function () {
         jq("#filesMainContent").on("click", ".version-preview", function () {
             ASC.Files.Actions.hideAllActionPanels();
             var fileData = ASC.Files.UI.getObjectData(this);
-            var version = jq(this).closest(".version-row").attr("data-version");
+            var version = jq(this).closest(".version-row").attr("data-version") || 0;
             ASC.Files.Folders.clickOnFile(fileData, false, version);
             return false;
         });
@@ -1381,6 +1410,9 @@ window.ASC.Files.Folders = (function () {
                     .attr("data-id", item.id)
                     .find(".change-owner-selector").html(item.title);
                 jq("#buttonSaveChangeOwner").removeClass("disable");
+
+                jq("#ownerSelector").useradvancedSelector("reset");
+                jq("#ownerSelector").useradvancedSelector("disable", [item.id]);
             });
 
         jq(".update-if-exist").change(function () {

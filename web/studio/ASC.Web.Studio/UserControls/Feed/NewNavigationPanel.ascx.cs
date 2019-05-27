@@ -26,7 +26,6 @@
 
 using System;
 using System.Web.UI;
-using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.VideoGuides;
@@ -37,23 +36,18 @@ namespace ASC.Web.Studio.UserControls.Feed
 {
     public partial class NewNavigationPanel : UserControl
     {
-        private static Guid User
-        {
-            get { return SecurityContext.CurrentAccount.ID; }
-        }
-
         protected bool IsProductAvailable(string product)
         {
             switch (product)
             {
                 case "community":
-                    return WebItemSecurity.IsAvailableForUser(WebItemManager.CommunityProductID.ToString(), User);
+                    return WebItemSecurity.IsAvailableForMe(WebItemManager.CommunityProductID);
                 case "crm":
-                    return WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), User);
+                    return WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID);
                 case "projects":
-                    return WebItemSecurity.IsAvailableForUser(WebItemManager.ProjectsProductID.ToString(), User);
+                    return WebItemSecurity.IsAvailableForMe(WebItemManager.ProjectsProductID);
                 case "documents":
-                    return WebItemSecurity.IsAvailableForUser(WebItemManager.DocumentsProductID.ToString(), User);
+                    return WebItemSecurity.IsAvailableForMe(WebItemManager.DocumentsProductID);
                 default:
                     return false;
             }

@@ -102,7 +102,11 @@
             });
             dropdown.regHide(apData['hide']);
 
-            $this.addClass('active');
+            if ($this.hasClass('menuActionMore') && !$this.hasClass('unlockAction')) {
+                return;
+            } else {
+                $this.addClass('active');
+            }
 
             var html = $.tmpl("actionPanelTmpl", apData.options);
             var $html = $(html);

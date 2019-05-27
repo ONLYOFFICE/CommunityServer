@@ -28,9 +28,11 @@ using System;
 using System.IO;
 using System.Web;
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.Utils;
-using ASC.Mail.Aggregator.Dal;
+using ASC.Mail.Core.Engine;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Utils;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.Mail
 {
@@ -50,10 +52,10 @@ namespace ASC.Api.Mail
                 throw new ArgumentException(@"Invalid message id", "id_message");
 
             if (string.IsNullOrEmpty(id_folder))
-                id_folder = DocumentsDal.MY_DOCS_FOLDER_ID;
+                id_folder = DocumentsEngine.MY_DOCS_FOLDER_ID;
 
             var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
-            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username, scheme);
+            var documentsDal = new DocumentsEngine(TenantId, Username, scheme);
             var savedAttachmentsList = documentsDal.StoreAttachmentsToDocuments(id_message, id_folder);
 
             return savedAttachmentsList.Count;
@@ -67,17 +69,17 @@ namespace ASC.Api.Mail
         /// <returns>Id document in My Documents</returns>
         /// <category>Messages</category>
         [Update(@"messages/attachment/export")]
-        public int ExportAttachmentToDocuments(int id_attachment, string id_folder = null)
+        public object ExportAttachmentToDocuments(int id_attachment, string id_folder = null)
         {
             if (id_attachment < 1)
                 throw new ArgumentException(@"Invalid attachment id", "id_attachment");
 
             if (string.IsNullOrEmpty(id_folder))
-                id_folder = DocumentsDal.MY_DOCS_FOLDER_ID;
+                id_folder = DocumentsEngine.MY_DOCS_FOLDER_ID;
 
             var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
 
-            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username, scheme);
+            var documentsDal = new DocumentsEngine(TenantId, Username, scheme);
             var documentId = documentsDal.StoreAttachmentToDocuments(id_attachment, id_folder);
             return documentId;
         }
@@ -92,9 +94,10 @@ namespace ASC.Api.Mail
         /// <returns>MailAttachment</returns>
         /// <category>Messages</category>
         [Create(@"messages/attachment/add")]
-        public MailAttachment AddAttachment(int id_message, string name, Stream file, string content_type)
+        public MailAttachmentData AddAttachment(int id_message, string name, Stream file, string content_type)
         {
-            var attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, id_message, name, file, content_type);
+            var attachment = MailEngineFactory.AttachmentEngine
+                .AttachFileToDraft(TenantId, Username, id_message, name, file, file.Length, content_type);
 
             return attachment;
         }
@@ -107,7 +110,7 @@ namespace ASC.Api.Mail
         /// <returns>MailAttachment</returns>
         /// <category>Messages</category>
         [Create(@"messages/calendarbody/add")]
-        public MailAttachment AddCalendarBody(int id_message, string ical_body)
+        public MailAttachmentData AddCalendarBody(int id_message, string ical_body)
         {
             if (string.IsNullOrEmpty(ical_body))
                 throw new ArgumentException(@"Empty calendar body", "ical_body");
@@ -125,7 +128,10 @@ namespace ASC.Api.Mail
                     writer.Flush();
                     ms.Position = 0;
 
-                    var attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, id_message, calendar.Method.ToLowerInvariant() +  ".ics", ms, "text/calendar");
+                    var attachment = MailEngineFactory.AttachmentEngine
+                        .AttachFileToDraft(TenantId, Username, id_message, calendar.Method.ToLowerInvariant() + ".ics",
+                            ms, ms.Length, "text/calendar");
+
                     return attachment;
                 }
             }

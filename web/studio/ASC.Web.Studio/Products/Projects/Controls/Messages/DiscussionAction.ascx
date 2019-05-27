@@ -77,10 +77,6 @@
             </div>
         </div>    
     </div>
-
-    <div id="discussionButtonsContainer" class="big-button-container">
-        <%= GetDiscussionAction()%>
-    </div>
 </div>
 <div id="discussionPreviewContainer">
     <div class="middle-button-container">

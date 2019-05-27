@@ -622,7 +622,7 @@ namespace ASC.Web.Core.Calendars
             //hours
             var hours = new List<int>();
             if (ByHour != null)
-                hours.AddRange(hours);
+                hours.AddRange(ByHour);
             else
                 hours.Add(d.Hour);
 

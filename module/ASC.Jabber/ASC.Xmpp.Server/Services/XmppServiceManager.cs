@@ -24,11 +24,11 @@
 */
 
 
-using ASC.Xmpp.Core.protocol;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using ASC.Common.Logging;
+using ASC.Xmpp.Core.protocol;
 
 namespace ASC.Xmpp.Server.Services
 {
@@ -38,7 +38,7 @@ namespace ASC.Xmpp.Server.Services
 
         private readonly ConcurrentDictionary<Jid, IXmppService> services = new ConcurrentDictionary<Jid, IXmppService>();
 
-        private readonly static ILog log = LogManager.GetLogger(typeof(XmppServiceManager));
+        private readonly static ILog log = LogManager.GetLogger("ASC");
 
 
         public XmppServiceManager(IServiceProvider serviceProvider)

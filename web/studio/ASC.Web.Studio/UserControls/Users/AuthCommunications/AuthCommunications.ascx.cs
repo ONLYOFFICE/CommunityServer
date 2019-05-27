@@ -97,32 +97,28 @@ namespace ASC.Web.Studio.UserControls
             try
             {
                 if (!EnableAdmMess)
-                {
-                    throw new Exception("The method is turned off");
-                }
-                if (email == null || email.Trim().Length == 0)
-                {
-                    throw new ArgumentException("Email is empty.", "email");
-                }
-                if (message == null || message.Trim().Length == 0)
-                {
-                    throw new ArgumentException("Message is empty.", "message");
-                }
+                    throw new MethodAccessException("Method not available");
+
+                if (!email.TestEmailRegex())
+                    throw new Exception(Resource.ErrorNotCorrectEmail);
+
+                if (string.IsNullOrEmpty(message))
+                    throw new Exception(Resource.ErrorEmptyMessage);
 
                 var key = HttpContext.Current.Request.UserHostAddress + "adminmessages";
                 var count = Convert.ToInt32(HttpContext.Current.Cache[key]);
                 if (10 < count)
-                {
-                    throw new ArgumentOutOfRangeException("Messages count", "Rate limit exceeded.");
-                }
-                HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
+                    throw new Exception(Resource.ErrorRequestLimitExceeded);
+
+                HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                                                 TimeSpan.FromMinutes(2));
 
                 StudioNotifyService.Instance.SendMsgToAdminFromNotAuthUser(email, message);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.ContactAdminMailSent);
 
                 return new {Status = 1, Message = Resource.AdminMessageSent};
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new {Status = 0, Message = ex.Message.HtmlEncode()};
             }
@@ -130,119 +126,90 @@ namespace ASC.Web.Studio.UserControls
 
         [SecurityPassthrough]
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse SendJoinInviteMail(string email)
+        public object SendJoinInviteMail(string email)
         {
-            email = (email ?? "").Trim();
-            var resp = new AjaxResponse {rs1 = "0"};
-
             try
             {
-                if (String.IsNullOrEmpty(email))
-                {
-                    resp.rs2 = Resource.ErrorNotCorrectEmail;
-                    return resp;
-                }
+                if (!EnabledJoin)
+                    throw new MethodAccessException("Method not available");
 
                 if (!email.TestEmailRegex())
-                {
-                    resp.rs2 = Resource.ErrorNotCorrectEmail;
-                }
+                    throw new Exception(Resource.ErrorNotCorrectEmail);
 
                 var user = CoreContext.UserManager.GetUserByEmail(email);
                 if (!user.ID.Equals(ASC.Core.Users.Constants.LostUser.ID))
-                {
-                    resp.rs1 = "0";
-                    resp.rs2 = CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists").HtmlEncode();
-                    return resp;
-                }
+                    throw new Exception(CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists"));
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                if (tenant != null)
-                {
-                    var settings = IPRestrictionsSettings.Load();
-                    if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
-                    {
-                        resp.rs2 = Resource.ErrorAccessRestricted;
-                        return resp;
-                    }
-                }
+                var settings = IPRestrictionsSettings.Load();
 
+                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
+                    throw new Exception(Resource.ErrorAccessRestricted);
 
                 var trustedDomainSettings = StudioTrustedDomainSettings.Load();
                 var emplType = trustedDomainSettings.InviteUsersAsVisitors ? EmployeeType.Visitor : EmployeeType.User;
-                var enableInviteUsers = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
+                var enableInviteUsers = TenantStatisticsProvider.GetUsersCount() <
+                                        TenantExtra.GetTenantQuota().ActiveUsers;
 
                 if (!enableInviteUsers)
-                {
                     emplType = EmployeeType.Visitor;
-                }
 
                 switch (tenant.TrustedDomainsType)
                 {
                     case TenantTrustedDomainsType.Custom:
                         {
                             var address = new MailAddress(email);
-                            if (tenant.TrustedDomains.Any(d => address.Address.EndsWith("@" + d, StringComparison.InvariantCultureIgnoreCase)))
+                            if (
+                                tenant.TrustedDomains.Any(
+                                    d => address.Address.EndsWith("@" + d, StringComparison.InvariantCultureIgnoreCase)))
                             {
-                                StudioNotifyService.Instance.InviteUsers(email, "", true, emplType);
-                                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.SentInviteInstructions, email);
-                                resp.rs1 = "1";
-                                resp.rs2 = Resource.FinishInviteJoinEmailMessage;
-                                return resp;
+                                StudioNotifyService.Instance.InviteUsers(email, string.Empty, true, emplType);
+                                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
+                                                    MessageAction.SentInviteInstructions, email);
+                                return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};
                             }
-                            else {
-                                resp.rs2 = Resource.ErrorEmailDomainNotAllowed;
-                            }
+
+                            throw new Exception(Resource.ErrorEmailDomainNotAllowed);
                         }
-                        break;
                     case TenantTrustedDomainsType.All:
-                        StudioNotifyService.Instance.InviteUsers(email, "", true, emplType);
-                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.SentInviteInstructions, email);
-                        resp.rs1 = "1";
-                        resp.rs2 = Resource.FinishInviteJoinEmailMessage;
-                        return resp;
+                        {
+                            StudioNotifyService.Instance.InviteUsers(email, string.Empty, true, emplType);
+                            MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
+                                                MessageAction.SentInviteInstructions, email);
+                            return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};
+                        }
                     default:
-                        resp.rs2 = Resource.ErrorNotCorrectEmail;
-                        break;
+                        throw new Exception(Resource.ErrorNotCorrectEmail);
                 }
             }
-            catch(FormatException)
+            catch (FormatException)
             {
-                resp.rs2 = Resource.ErrorNotCorrectEmail;
+                return new {Status = 0, Message = Resource.ErrorNotCorrectEmail};
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                resp.rs2 = HttpUtility.HtmlEncode(e.Message);
+                return new {Status = 0, Message = e.Message.HtmlEncode()};
             }
-
-            return resp;
         }
 
         public static string RenderTrustedDominTitle()
         {
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
             switch (tenant.TrustedDomainsType)
             {
                 case TenantTrustedDomainsType.Custom:
                     {
-                        var domains = "<strong>";
-                        var i = 0;
-                        foreach (var d in tenant.TrustedDomains)
-                        {
-                            if (i != 0)
-                                domains += "</strong>, <strong>";
-
-                            domains += d;
-                            i++;
-                        }
-                        domains += "</strong>";
+                        var domains = "<strong>" +
+                                      string.Join("</strong>, <strong>", tenant.TrustedDomains) +
+                                      "</strong>";
                         return String.Format(Resource.TrustedDomainsInviteTitle.HtmlEncode(), domains);
                     }
                 case TenantTrustedDomainsType.All:
                     return Resource.SignInFromAnyDomainInviteTitle.HtmlEncode();
             }
 
-            return "";
+            return string.Empty;
         }
     }
 }

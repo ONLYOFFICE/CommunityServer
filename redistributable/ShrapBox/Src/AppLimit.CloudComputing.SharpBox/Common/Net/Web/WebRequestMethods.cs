@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-
-namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
-{    
+﻿namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
+{
     internal static class WebRequestMethodsEx
     {
         public static class WebDAV
-        {          
+        {
             /// <summary>
             /// MOVE Method.
             /// </summary>
@@ -18,15 +12,18 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             /// <summary>
             /// PROPFIND Method.
             /// </summary>
-            public const string PropFind = "PROPFIND";     
+            public const string PropFind = "PROPFIND";
+
             /// <summary>
             /// DELETE Method.
             /// </summary>
             public const string Delete = "DELETE";
+
             /// <summary>
             /// COPY Method.
             /// </summary>
             public const string Copy = "COPY";
+
             /// <summary>
             /// OPTIONS Method.
             /// </summary>
@@ -149,5 +146,5 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             public const string Put = "PUT";
         }
 
-    }        
+    }
 }

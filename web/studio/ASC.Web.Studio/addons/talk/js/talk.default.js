@@ -99,13 +99,14 @@ window.TMTalk = (function ($) {
     eventManager = new CustomEvent(customEvents);
 
   var init = function () {
+
     if (isInit === true) {
       return undefined;
     }
     isInit = true;
 
     // TODO
-    properties.focused = true;
+    //properties.focused = true;
     originalTitle = document.title;
     if (!window.name) {
       try {window.name = ASC.Controls.JabberClient.winName} catch (err) {}
@@ -175,6 +176,10 @@ window.TMTalk = (function ($) {
     ASC.TMTalk.indicator.bind(ASC.TMTalk.indicator.events.start, onStartIndicator);
     ASC.TMTalk.indicator.bind(ASC.TMTalk.indicator.events.show, onShowIndicator);
     ASC.TMTalk.indicator.bind(ASC.TMTalk.indicator.events.stop, onStopIndicator);
+      
+    if (document.getElementById('talkHtmlSoundsContainer') == null) {
+        ASC.TMTalk.sounds.initHtml();
+    }
   };
 
   var bind = function (eventName, handler, params) {
@@ -259,10 +264,37 @@ window.TMTalk = (function ($) {
     if (currentRoomData !== null && currentRoomData.type === 'chat') {
       ASC.TMTalk.notifications.hide(currentRoomData.id);
     }
+
   };
+    var openRoom = function(key, inBackground) {
+        setTimeout(function() {
+            ASC.TMTalk.contactsContainer.openRoom(key, inBackground);
+        }, 300);
+    };
+    var reopenOpenedRooms = function (openedRooms) {
+        for (key in openedRooms) {
+            if (ASC.TMTalk.contactsManager.getContact(key) != null) {
+                if (openedRooms[key].type == 'chat') {
+                    if (ASC.TMTalk.roomsManager.getRoomDataById(key) == null) {
+                        openRoom(key, openedRooms[key].inBackground);
+                    }
+                }
+            } else {
+                setTimeout(function () {
+                    reopenOpenedRooms(openedRooms);
+                }, 300);
+                break;
+            }
+        }
+    };
 
   var onClientConnected = function () {
-    $(document.body).addClass('connected');
+      $(document.body).addClass('connected');
+      var openedRooms = localStorageManager.getItem("openedRooms");
+
+      if (openedRooms != undefined) {
+          reopenOpenedRooms(openedRooms);
+      }
   };
 
   var onClientDisconnected = function () {
@@ -765,24 +797,25 @@ window.TMTalk = (function ($) {
     //$(document.body).addClass('focused');
 
     if (ASC.TMTalk.flashPlayer.isCorrect) {
-      var
-        o = document.createElement('div'),
-        soundsContainerId = 'talkSoundsContainer-' + Math.floor(Math.random() * 1000000);
+        var o = document.createElement('div'),
+            soundsContainerId = 'talkSoundsContainer-' + Math.floor(Math.random() * 1000000);
 
-      o.setAttribute('id', soundsContainerId);
-      document.body.appendChild(o);
-      swfobject.embedSWF(
-        ASC.TMTalk.properties.item('sounds') ? ASC.TMTalk.properties.item('sounds') : ASC.TMTalk.Config.sounds,
-        soundsContainerId,
-        1,
-        1,
-        '9.0.0',
-        ASC.TMTalk.properties.item('expressInstall'),
-        {apiInit : function (id) {ASC.TMTalk.sounds.init(id);}, apiId : soundsContainerId},
-        {allowScriptAccess : 'always', wmode : 'transparent'},
-        {styleclass : 'soundsContainer', wmode: 'transparent'}
-      );
-      ASC.TMTalk.sounds.init(soundsContainerId);
+        o.setAttribute('id', soundsContainerId);
+        document.body.appendChild(o);
+        swfobject.embedSWF(
+            ASC.TMTalk.properties.item('sounds') ? ASC.TMTalk.properties.item('sounds') : ASC.TMTalk.Config.sounds,
+            soundsContainerId,
+            1,
+            1,
+            '9.0.0',
+            ASC.TMTalk.properties.item('expressInstall'),
+            { apiInit: function(id) { ASC.TMTalk.sounds.init(id); }, apiId: soundsContainerId },
+            { allowScriptAccess: 'always', wmode: 'transparent' },
+            { styleclass: 'soundsContainer', wmode: 'transparent' }
+        );
+        ASC.TMTalk.sounds.init(soundsContainerId);
+    } else {
+        ASC.TMTalk.sounds.initHtml();
     }
 
     $('#talkWrapper').show();
@@ -819,7 +852,7 @@ window.TMTalk = (function ($) {
     var mainContainerHeight = windowHeight - mcHeightOffset;
     mainContainer.style.height = mainContainerHeight + 'px';
     //$mainContainer.height(windowHeight - mcHeightOffset);
-    contactsContainer.style.height = mainContainerHeight - contactToolbarContainer.offsetHeight - ccHeightOffset + 80 +'px';
+    contactsContainer.style.height = mainContainerHeight;
     //$contactsContainer.height($mainContainer.height() - $contactToolbarContainer.height() - ccHeightOffset);
 
     var
@@ -953,7 +986,7 @@ window.TMTalk = (function ($) {
 
         var
           containerHeight = windowHeight - mcHeightOffset,
-          contactsContainerHeight = containerHeight - contactToolbarContainer.offsetHeight - ccHeightOffset+40,
+          contactsContainerHeight = containerHeight,
           roomsContainerHeight = containerHeight - roomsContainer.offsetTop - ($roomsContainer.hasClass('history') ? 2 : meseditorContainer.offsetHeight + rcHeightOffset) + 
                                 ($roomsContainer.hasClass('multichat') ? 32 : 0);
 

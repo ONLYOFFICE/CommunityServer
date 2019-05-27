@@ -45,7 +45,8 @@ ASC.Projects.TasksManager = (function () {
         $taskListContainer = jq('.taskList'),
         $moveTaskPanel,
         $othersListPopup,
-        currentProject;
+        currentProject,
+        loadingBanner;
     
     var self, teamlab;
 
@@ -60,13 +61,14 @@ ASC.Projects.TasksManager = (function () {
         teamlab = Teamlab;
         currentUserId = teamlab.profile.id;
         currentProjectId = jq.getURLParam('prjID');
+        loadingBanner = LoadingBanner;
 
         if (isInit === false) {
             self = this;
             isInit = true;
 
             function canCreateTask(prj) {
-                return prj.canCreateTask && prj.status === 0;
+                return prj.canCreateTask;
             }
 
             var actions = [
@@ -209,7 +211,9 @@ ASC.Projects.TasksManager = (function () {
         });
 
         $taskListContainer.on(clickEventName, '.task .user', function (event) {
-            var taskid = jq(this).parent().attr(taskidAttr);
+            var $self = jq(this);
+            if ($self.find("span.not-action").length) return;
+            var taskid = $self.parent().attr(taskidAttr);
             var task = getFilteredTaskById(taskid);
             var userid = task.responsible ? task.responsible.id : null;
 
@@ -389,6 +393,12 @@ ASC.Projects.TasksManager = (function () {
     function closeMultipleTasks(taskids) {
         teamlab.updatePrjTasksStatus({ taskids: taskids, status: 2 },
         {
+            before: function () {
+                loadingBanner.displayLoading();
+            },
+            after: function () {
+                loadingBanner.hideLoading();
+            },
             success: function(params, data) {
                 for (var i = 0; i < data.length; i++) {
                     teamlab.call(teamlab.events.updatePrjTaskStatus, this, [{ disableMessage: true }, data[i]]);
@@ -407,9 +417,14 @@ ASC.Projects.TasksManager = (function () {
 
     function gaRemoveHandler(taskids) {
         self.showCommonPopup("tasksRemoveWarning", function () {
-            LoadingBanner.displayLoading();
             teamlab.removePrjTasks({ taskids: taskids },
             {
+                before: function () {
+                    loadingBanner.displayLoading();
+                },
+                after: function () {
+                    loadingBanner.hideLoading();
+                },
                 success: function (params, data) {
                     for (var i = 0; i < data.length; i++) {
                         teamlab.call(teamlab.events.removePrjTask, this, [{ disableMessage: true }, data[i]]);
@@ -468,6 +483,12 @@ ASC.Projects.TasksManager = (function () {
                     teamlab.updatePrjTasksMilestone(data, {
                         error: function() {
                             jq.unblockUI();
+                        },
+                        before: function() {
+                            loadingBanner.displayLoading();
+                        },
+                        after: function () {
+                            loadingBanner.hideLoading();
                         },
                         success: function (params, resp) {
                             for (var i = 0; i < resp.length; i++) {

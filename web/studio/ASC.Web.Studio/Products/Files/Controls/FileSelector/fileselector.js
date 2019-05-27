@@ -149,9 +149,12 @@ window.ASC.Files.FileSelector = (function () {
                 count: ASC.Files.Constants.COUNT_ON_PAGE,
                 append: isAppend === true,
                 filter: filterSettings.filter,
-                subject: filterSettings.subject,
-                text: filterSettings.text,
+                subjectGroup: false,
+                subjectId: filterSettings.subject,
+                search: filterSettings.text,
                 orderBy: filterSettings.sorter,
+                searchInContent: false,
+                withSubfolders: false,
                 currentFolderId: ASC.Files.Folders && ASC.Files.Folders.currentFolder ? ASC.Files.Folders.currentFolder.id : null,
                 expandTree: expandTree
             }, { orderBy: filterSettings.sorter });
@@ -213,7 +216,7 @@ window.ASC.Files.FileSelector = (function () {
             return;
         }
 
-        if (jsonData.length > 0) {
+        if (jsonData && jsonData.length > 0) {
             var stringXml = ASC.Files.Common.jsonToXml({ folderList: { entry: jsonData } });
 
             var htmlXml = ASC.Files.TemplateManager.translateFromString(stringXml);
@@ -229,6 +232,10 @@ window.ASC.Files.FileSelector = (function () {
 
     var onGetFolderItemsTree = function (xmlData, params, errorMessage) {
         ASC.Files.EventHandler.onGetFolderItems(xmlData, params, errorMessage);
+
+        if (typeof errorMessage != "undefined" || typeof xmlData == "undefined") {
+            return;
+        }
 
         if (params.expandTree) {
             ASC.Files.FileSelector.fileSelectorTree.expandFolder(params.currentFolderId, true, true);

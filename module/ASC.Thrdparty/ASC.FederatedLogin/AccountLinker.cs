@@ -24,6 +24,7 @@
 */
 
 
+using System.Linq;
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -70,6 +71,11 @@ namespace ASC.FederatedLogin
                     .Select("id").Where("uid", hashid).Where(!Exp.Eq("provider", string.Empty));
                 return db.ExecuteList(query).ConvertAll(x => (string)x[0]);
             }
+        }
+
+        public IEnumerable<LoginProfile> GetLinkedProfiles(string obj, string provider)
+        {
+            return GetLinkedProfiles(obj).Where(profile => profile.Provider.Equals(provider));
         }
 
         public IEnumerable<LoginProfile> GetLinkedProfiles(string obj)

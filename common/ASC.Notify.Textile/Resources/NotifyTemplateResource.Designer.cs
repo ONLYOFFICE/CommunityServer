@@ -113,10 +113,11 @@ namespace ASC.Notify.Textile.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;body style=&quot;margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;&quot;&gt;
+        ///%ANALYTICS%
         ///&lt;div style=&quot;background-color: #fff; width: 600px; margin: 0 auto; text-align: left;&quot;&gt;
         ///    &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; style=&quot;font-family: Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;&quot;&gt;
         ///      &lt;tbody&gt;
-        ///        &lt;tr borde [rest of string was truncated]&quot;;.
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HtmlMaster {
             get {
@@ -126,10 +127,11 @@ namespace ASC.Notify.Textile.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;body style=&quot;margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;&quot;&gt;
+        ///%ANALYTICS%
         ///&lt;div style=&quot;background-color: #fff; width: 600px; margin: 0 auto; text-align: left;&quot;&gt;
         ///    &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; style=&quot;font-family: Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;&quot;&gt;
         ///      &lt;tbody&gt;
-        ///        &lt;tr borde [rest of string was truncated]&quot;;.
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HtmlMasterPersonal {
             get {
@@ -148,13 +150,13 @@ namespace ASC.Notify.Textile.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to This email is generated automatically and you do not need to answer it.
-        ///&lt;br /&gt;You receive this email because you are a registered user of &lt;a href=&quot;http://www.onlyoffice.com/&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;onlyoffice.com&lt;/a&gt;
-        ///&lt;br /&gt;If you no longer wish to receive these emails, click on the following link: &lt;a href=&quot;{0}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;Unsubscribe&lt;/a&gt;
+        ///&lt;br /&gt;You receive this email because you are a registered user of &lt;a href=&quot;{0}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;{0}&lt;/a&gt;
+        ///&lt;br /&gt;If you no longer wish to receive these emails, click on the following link: &lt;a href=&quot;{1}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;Unsubscribe&lt;/a&gt;
         ///&lt;br /&gt;.
         /// </summary>
-        public static string TextForFooterWithUnsubscribe {
+        public static string TextForFooterWithUnsubscribeLink {
             get {
-                return ResourceManager.GetString("TextForFooterWithUnsubscribe", resourceCulture);
+                return ResourceManager.GetString("TextForFooterWithUnsubscribeLink", resourceCulture);
             }
         }
     }

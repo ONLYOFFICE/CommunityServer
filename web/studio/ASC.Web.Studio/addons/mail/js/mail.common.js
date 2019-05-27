@@ -35,7 +35,7 @@
 
     if (typeof LoadingBanner !== 'undefined') {
         LoadingBanner.displayMailLoading = function(msg) {
-            if (!$('.loader-page').length) {
+            if (!$('#firstLoader > .loader-page').length) {
                 LoadingBanner.strLoading = msg || ASC.Resources.Master.Resource.LoadingProcessing;
                 LoadingBanner.loaderCss = "mail-module";
                 LoadingBanner.displayLoading();
@@ -221,9 +221,9 @@
         };
     })();
 
-    // google analitics track
+    // google analytics track
     window.ASC.Mail.ga_track = function(category, action, label) {
-        trackingGoogleAnalitics(category, action, label);
+        trackingGoogleAnalytics(category, action, label);
     };
 
     // retrieves highlighted selected text

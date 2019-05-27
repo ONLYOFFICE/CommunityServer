@@ -32,6 +32,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
+using Newtonsoft.Json;
 
 namespace ASC.Data.Backup.Storage
 {
@@ -56,7 +57,8 @@ namespace ASC.Data.Backup.Storage
                 .InColumnValue("storage_base_path", backupRecord.StorageBasePath)
                 .InColumnValue("storage_path", backupRecord.StoragePath)
                 .InColumnValue("created_on", backupRecord.CreatedOn)
-                .InColumnValue("expires_on", backupRecord.ExpiresOn);
+                .InColumnValue("expires_on", backupRecord.ExpiresOn)
+                .InColumnValue("storage_params", JsonConvert.SerializeObject(backupRecord.StorageParams));
 
             using (var db = GetDbManager())
             {
@@ -67,7 +69,7 @@ namespace ASC.Data.Backup.Storage
         public BackupRecord GetBackupRecord(Guid id)
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
                 .Where("id", id);
 
             using (var db = GetDbManager())
@@ -79,7 +81,7 @@ namespace ASC.Data.Backup.Storage
         public List<BackupRecord> GetExpiredBackupRecords()
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
                 .Where(!Exp.Eq("expires_on", DateTime.MinValue) & Exp.Le("expires_on", DateTime.UtcNow));
 
             using (var db = GetDbManager())
@@ -91,7 +93,7 @@ namespace ASC.Data.Backup.Storage
         public List<BackupRecord> GetScheduledBackupRecords()
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
                 .Where(Exp.Eq("is_scheduled", true));
 
             using (var db = GetDbManager())
@@ -103,7 +105,7 @@ namespace ASC.Data.Backup.Storage
         public List<BackupRecord> GetBackupRecordsByTenantId(int tenantId)
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
                 .Where("tenant_id", tenantId);
 
             using (var db = GetDbManager())
@@ -133,7 +135,8 @@ namespace ASC.Data.Backup.Storage
                 .InColumnValue("backups_stored", schedule.NumberOfBackupsStored)
                 .InColumnValue("storage_type", (int)schedule.StorageType)
                 .InColumnValue("storage_base_path", schedule.StorageBasePath)
-                .InColumnValue("last_backup_time", schedule.LastBackupTime);
+                .InColumnValue("last_backup_time", schedule.LastBackupTime)
+                .InColumnValue("storage_params", JsonConvert.SerializeObject(schedule.StorageParams));
 
             using (var db = GetDbManager())
             {
@@ -155,7 +158,7 @@ namespace ASC.Data.Backup.Storage
         public List<Schedule> GetBackupSchedules()
         {
             var query = new SqlQuery("backup_schedule s")
-                .Select("s.tenant_id", "s.backup_mail", "s.cron", "s.backups_stored", "s.storage_type", "s.storage_base_path", "s.last_backup_time")
+                .Select("s.tenant_id", "s.backup_mail", "s.cron", "s.backups_stored", "s.storage_type", "s.storage_base_path", "s.last_backup_time", "s.storage_params")
                 .InnerJoin("tenants_tenants t", Exp.EqColumns("t.id", "s.tenant_id"))
                 .Where("t.status", (int)TenantStatus.Active);
 
@@ -168,7 +171,7 @@ namespace ASC.Data.Backup.Storage
         public Schedule GetBackupSchedule(int tenantId)
         {
             var query = new SqlQuery("backup_schedule")
-                .Select("tenant_id", "backup_mail", "cron", "backups_stored", "storage_type", "storage_base_path", "last_backup_time")
+                .Select("tenant_id", "backup_mail", "cron", "backups_stored", "storage_type", "storage_base_path", "last_backup_time", "storage_params")
                 .Where("tenant_id", tenantId);
 
             using (var db = GetDbManager())
@@ -189,7 +192,8 @@ namespace ASC.Data.Backup.Storage
                     StorageBasePath = Convert.ToString(row[5]),
                     StoragePath = Convert.ToString(row[6]),
                     CreatedOn = Convert.ToDateTime(row[7]),
-                    ExpiresOn = Convert.ToDateTime(row[8])
+                    ExpiresOn = Convert.ToDateTime(row[8]),
+                    StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[9]))
                 };
         }
 
@@ -202,7 +206,8 @@ namespace ASC.Data.Backup.Storage
                     NumberOfBackupsStored = Convert.ToInt32(row[3]),
                     StorageType = (BackupStorageType)Convert.ToInt32(row[4]),
                     StorageBasePath = Convert.ToString(row[5]),
-                    LastBackupTime = Convert.ToDateTime(row[6])
+                    LastBackupTime = Convert.ToDateTime(row[6]),
+                    StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[7]))
                 };
         }
 

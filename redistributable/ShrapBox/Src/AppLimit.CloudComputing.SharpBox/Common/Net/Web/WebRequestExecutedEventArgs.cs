@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 {
     /// <summary>
     /// This class contains the argument of the WebRequestExecuted event
     /// </summary>
-    public class WebRequestExecutedEventArgs : EventArgs    
-    {        
+    public class WebRequestExecutedEventArgs : EventArgs
+    {
         /// <summary>
         /// The web reponse
         /// </summary>
@@ -21,7 +18,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// The timespan of the webrequest
         /// </summary>
         public TimeSpan timeNeeded;
-        
+
         /// <summary>
         /// The result as data stream
         /// </summary>

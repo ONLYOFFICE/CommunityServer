@@ -297,8 +297,17 @@ namespace ASC.Projects.Core.Domain.Reports
             if (!string.IsNullOrEmpty(p)) filter.ToDate = DateTime.ParseExact(p, "yyyyMMdd", null);
 
             p = GetParameterFromUri(uri, "fu");
-            if (!string.IsNullOrEmpty(p)) filter.UserId = new Guid(p);
-
+            if (!string.IsNullOrEmpty(p))
+            {
+                if (GetParameterFromUri(uri, "reportType") == "6")
+                {
+                    filter.ParticipantId = new Guid(p);
+                }
+                else
+                {
+                    filter.UserId = new Guid(p);
+                }
+            }
             p = GetParameterFromUri(uri, "fd");
             if (!string.IsNullOrEmpty(p)) filter.DepartmentId = new Guid(p);
 
@@ -329,7 +338,7 @@ namespace ASC.Projects.Core.Domain.Reports
             return filter;
         }
 
-        private static string GetParameterFromUri(string uri, string paramName)
+        public static string GetParameterFromUri(string uri, string paramName)
         {
             foreach (var parameter in (uri ?? string.Empty).Split(new[] { '?', '&' }, StringSplitOptions.RemoveEmptyEntries))
             {

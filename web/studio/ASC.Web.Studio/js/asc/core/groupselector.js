@@ -134,8 +134,6 @@ ASC.Controls.GroupSelector = function(selectorID, mobileVersion, withGroupEveryo
         jq("#grpselector_groupList_" + this.ID).html(jq.tmpl("groupSelectorListTemplate", { Groups: this._groups }));
     };
 
-    if (typeof (ASC.Resources.Master.ApiResponses_Groups) === "undefined") return;
-
     if (this.MobileVersion === true) {
         this.Groups.push(ASC.Resources.Master.GroupSelector_MobileVersionGroup);
     }
@@ -146,12 +144,12 @@ ASC.Controls.GroupSelector = function(selectorID, mobileVersion, withGroupEveryo
         this.Groups.push(ASC.Resources.Master.GroupSelector_WithGroupAdmin);
     }
 
-    for (var i = 0, n = ASC.Resources.Master.ApiResponses_Groups.response.length; i < n; i++) {
-        this.Groups.push({
-            Id: ASC.Resources.Master.ApiResponses_Groups.response[i].id,
-            Name: ASC.Resources.Master.ApiResponses_Groups.response[i].name
-        });
-    }
+    Array.prototype.push.apply(this.Groups, window.GroupManager.getAllGroups().map(function(group) {
+        return {
+            Id: group.id,
+            Name: group.name
+        };
+    }));
 
     jq("#grpselector_filter_" + this.ID).on("keyup", function() { _groupSelector.SuggestGroups(); });
     jq("#grpselector_clearFilterBtn_" + this.ID).on("click", function() { _groupSelector.ClearFilter(); });

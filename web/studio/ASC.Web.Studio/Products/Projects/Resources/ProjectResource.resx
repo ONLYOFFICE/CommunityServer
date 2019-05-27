@@ -510,4 +510,7 @@
   <data name="ViewActiveTasks" xml:space="preserve">
     <value>View Open Tasks</value>
   </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>

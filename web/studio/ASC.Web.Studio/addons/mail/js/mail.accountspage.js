@@ -29,7 +29,7 @@ window.accountsPage = (function($) {
         $page,
         buttons = [];
 
-    var init = function() {
+    function init() {
         if (isInit === false) {
             isInit = true;
 
@@ -49,24 +49,26 @@ window.accountsPage = (function($) {
                 { selector: "#accountActionMenu .selectAttachmentsFolder", handler: selectAttachmentsFolder },
                 { selector: "#accountActionMenu .setMailAutoreply", handler: setMailAutoreply },
                 { selector: "#accountActionMenu .editAccount", handler: editAccount },
-                { selector: "#accountActionMenu .deleteAccount", handler: removeAccount }];
+                { selector: "#accountActionMenu .deleteAccount", handler: removeAccount },
+                { selector: "#accountActionMenu .changePassword", handler: changePassword },
+                { selector: "#accountActionMenu .viewAccountSettings", handler: viewMailboxSettings }];
 
             var additionalButtonHtml = $.tmpl('fileSelectorMailAdditionalButton');
             $('#fileSelectorAdditionalButton').replaceWith(additionalButtonHtml);
         }
-    };
+    }
 
-    var show = function() {
+    function show() {
         if (checkEmpty()) {
             $page.hide();
         } else {
             $page.show();
         }
-    };
+    }
 
-    var hide = function() {
+    function hide() {
         $page.hide();
-    };
+    }
 
     function clear() {
         var accountsRows = $page.find('.accounts_list');
@@ -76,7 +78,7 @@ window.accountsPage = (function($) {
         }
     }
 
-    var refreshAccount = function (accountName, isActivate) {
+    function refreshAccount(accountName, isActivate) {
         var account = accountsManager.getAccountByAddress(accountName);
         if (!account)
             return;
@@ -90,17 +92,23 @@ window.accountsPage = (function($) {
         else if (account.is_group)
             return;
 
-        var html = $.tmpl(tmplName, {
-                email: account.email,
-                enabled: isActivate,
-                autoreply: account.autoreply,
-                isDefault: account.is_default,
-                oAuthConnection: account.oauth,
-                isTeamlabMailbox: account.is_teamlab,
-                aliases: [],
-                mailboxId: account.mailbox_id
-            }, { showSetDefaultIcon: showSetDefaultIcon, now: new Date() }),
-            $html = $(html);
+        var showEnabledAutoreply = accountsManager.isAutoreplyEnabled(account);
+
+        var html = $.tmpl(tmplName,
+        {
+            email: account.email,
+            enabled: isActivate,
+            autoreply: account.autoreply,
+            isDefault: account.is_default,
+            oAuthConnection: account.oauth,
+            isTeamlabMailbox: account.is_teamlab,
+            aliases: [],
+            mailboxId: account.mailbox_id,
+            showEnabledAutoreply: showEnabledAutoreply
+        },
+        { showSetDefaultIcon: showSetDefaultIcon });
+
+        var $html = $(html);
 
         $html.actionMenu('accountActionMenu', buttons, pretreatment);
 
@@ -122,24 +130,35 @@ window.accountsPage = (function($) {
                 }
             });
         }
-    };
+    }
 
-    var addAccount = function (accountName, autoreply, enabled, oauth, isTeamlab) {
+    function addAccount(accountName, autoreply, enabled, oauth, isTeamlab) {
         accountName = accountName.toLowerCase();
         if (!isContain(accountName)) {
             var accountListLength = accountsManager.getAccountList().length,
                 showSetDefaultIcon = accountListLength > 1,
-                addSetDefaultIcon = accountListLength == 1,
-                html = $.tmpl('mailboxItemTmpl', {
-                        email: accountName,
-                        enabled: enabled,
-                        isDefault: false,
-                        oAuthConnection: oauth,
-                        isTeamlabMailbox: isTeamlab,
-                        autoreply: autoreply,
-                        aliases: []
-                }, { showSetDefaultIcon: showSetDefaultIcon, now: new Date() }),
-                $html = $(html);
+                addSetDefaultIcon = accountListLength === 1;
+
+            var account = {
+                email: accountName,
+                enabled: enabled,
+                isDefault: false,
+                oAuthConnection: oauth,
+                isTeamlabMailbox: isTeamlab,
+                autoreply: autoreply,
+                aliases: [],
+                showEnabledAutoreply: false
+            };
+
+            account.showEnabledAutoreply = accountsManager.isAutoreplyEnabled(account);
+
+            var html = $.tmpl('mailboxItemTmpl',
+                account,
+                {
+                    showSetDefaultIcon: showSetDefaultIcon
+                });
+
+            var $html = $(html);
 
             $html.actionMenu('accountActionMenu', buttons, pretreatment);
             $('#common_mailboxes').append($html);
@@ -159,14 +178,14 @@ window.accountsPage = (function($) {
         if (TMMail.pageIs('accounts') && !checkEmpty()) {
             $page.show();
         }
-    };
+    }
 
-    var deleteAccount = function(id) {
+    function deleteAccount(id) {
         $page.find('tr[data_id="' + id + '"]').remove();
         if (checkEmpty() && TMMail.pageIs('accounts')) {
             $page.hide();
         }
-        var removeSetDefaultIcon = accountsManager.getAccountList().length == 2;
+        var removeSetDefaultIcon = accountsManager.getAccountList().length === 2;
         if (removeSetDefaultIcon) {
             $('.accounts_list .item-row').each(function () {
                 var $this = $(this);
@@ -174,13 +193,13 @@ window.accountsPage = (function($) {
                 $this.find('.default_account_button_column').remove();
             });
         }
-    };
+    }
 
-    var activateAccount = function(accountName, isActivate) {
+    function activateAccount(accountName, isActivate) {
         refreshAccount(accountName, isActivate);
-    };
+    }
 
-    var pretreatment = function(id) {
+    function pretreatment(id) {
         if ($page.find('tr[data_id="' + id + '"]').hasClass('disabled')) {
             $("#accountActionMenu .activateAccount").show();
             $("#accountActionMenu .deactivateAccount").hide();
@@ -193,6 +212,14 @@ window.accountsPage = (function($) {
         if (account.is_teamlab) {
             $("#accountActionMenu .editAccount").hide();
 
+            if (!account.is_shared_domain && ASC.Resources.Master.Standalone) {
+                $("#accountActionMenu .changePassword").show();
+                $("#accountActionMenu .viewAccountSettings").show();
+            } else {
+                $("#accountActionMenu .changePassword").hide();
+                $("#accountActionMenu .viewAccountSettings").hide();
+            }
+
             if (!account.is_shared_domain && !Teamlab.profile.isAdmin) {
                 $("#accountActionMenu .deleteAccount").addClass('disable');
                 $("#accountActionMenu .deleteAccount").attr('title', MailScriptResource.ServerMailboxNotificationText);
@@ -201,23 +228,26 @@ window.accountsPage = (function($) {
                 $("#accountActionMenu .deleteAccount").removeAttr('title');
             }
         } else {
+            $("#accountActionMenu .changePassword").hide();
+            $("#accountActionMenu .viewAccountSettings").hide();
+
             $("#accountActionMenu .editAccount").show();
             $("#accountActionMenu .deleteAccount").removeClass('disable');
             $("#accountActionMenu .deactivateAccount").removeAttr('title');
             $("#accountActionMenu .editAccount").removeAttr('title');
             $("#accountActionMenu .deleteAccount").removeAttr('title');
         }
-    };
+    }
 
-    var activate = function(id) {
+    function activate(id) {
         accountsModal.activateAccount(id, true);
-    };
+    }
 
-    var deactivate = function(id) {
+    function deactivate(id) {
         accountsModal.activateAccount(id, false);
-    };
+    }
 
-    var selectAttachmentsFolder = function(email) {
+    function selectAttachmentsFolder(email) {
         var account = window.accountsManager.getAccountByAddress(email);
         ASC.Files.FileSelector.onSubmit = function(folderId) {
             serviceManager.setEMailInFolder(
@@ -237,9 +267,9 @@ window.accountsPage = (function($) {
             ASC.Files.FileSelector.openDialog(account.emailInFolder, true);
             $('#filesFolderUnlinkButton').show().toggleClass('disable', false);
         }
-    };
+    }
 
-    var unselectAttachmentsFolder = function(event) {
+    function unselectAttachmentsFolder(event) {
         if ($(this).hasClass('disable')) {
             return;
         }
@@ -250,9 +280,9 @@ window.accountsPage = (function($) {
             { id: account.mailbox_id, emailInFolder: null, resetFolder: true },
             { error: onErrorResetEMailInFolder },
             ASC.Resources.Master.Resource.LoadingProcessing);
-    };
+    }
 
-    var setMailAutoreply = function (event) {
+    function setMailAutoreply(event) {
         var account = accountsManager.getAccountByAddress(event),
             html = $.tmpl("mailAutoreplyTmpl", {
                 turnOn: account.autoreply.turnOn,
@@ -265,15 +295,13 @@ window.accountsPage = (function($) {
                 removePlugins: 'resize, magicline',
                 filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=mail',
                 height: 200,
-                startupFocus: true,
-                on: {
-                    instanceReady: function (instance) {
-                        instance.editor.setData(account.autoreply.html);
-                    }
-                }
+                startupFocus: true
             };
 
-        html.find('#ckMailAutoreplyEditor').ckeditor(config);
+        ckeditorConnector.load(function () {
+            var editor = html.find('#ckMailAutoreplyEditor').ckeditor(config).editor;
+            editor.setData(account.autoreply.html);
+        });
 
         popup.addBig(window.MailScriptResource.MailAutoreplyLabel, html, undefined, false, { bindEvents: false });
 
@@ -347,20 +375,22 @@ window.accountsPage = (function($) {
         });
         $autoreplyStartDate.datepicker({ minDate: 0 });
         $autoreplyDueDate.datepicker({ minDate: 0 });
-        
+
+        var fromDate, fromDateUtc;
+
         if ($.trim(account.autoreply.toDate) != '' && $.trim(account.autoreply.fromDate) != '') {
+            fromDate = new Date(account.autoreply.fromDate);
+            fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
             var toDate = new Date(account.autoreply.toDate),
-                toDateUtc = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate()),
-                fromDate = new Date(account.autoreply.fromDate),
-                fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
-            if (fromDateUtc.getYear() == 1 && fromDateUtc.getMonth() == 0 && fromDateUtc.getDate() == 1 &&
-                toDateUtc.getYear() == 1 && toDateUtc.getMonth() == 0 && toDateUtc.getDate() == 1) {
+                toDateUtc = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
+            if (fromDateUtc.getYear() === 1 && fromDateUtc.getMonth() === 0 && fromDateUtc.getDate() === 1 &&
+                toDateUtc.getYear() === 1 && toDateUtc.getMonth() === 0 && toDateUtc.getDate() === 1) {
                 toDateUtc = new Date();
                 toDateUtc.setDate(toDateUtc.getDate() + 7);
             }
             $autoreplyDueDate.datepicker('setDate', toDateUtc);
-            if ((fromDateUtc.getYear() != 1 || fromDateUtc.getMonth() != 0 || fromDateUtc.getDate() != 1) &&
-                toDateUtc.getYear() == 1 && toDateUtc.getMonth() == 0 && toDateUtc.getDate() == 1) {
+            if ((fromDateUtc.getYear() !== 1 || fromDateUtc.getMonth() !== 0 || fromDateUtc.getDate() !== 1) &&
+                toDateUtc.getYear() === 1 && toDateUtc.getMonth() === 0 && toDateUtc.getDate() === 1) {
                 $autoreplyDueDate.datepicker('setDate', '');
             }
         }
@@ -368,14 +398,14 @@ window.accountsPage = (function($) {
             $autoreplyDueDate.datepicker("option", "disabled", true);
         }
         if ($.trim(account.autoreply.fromDate) != '') {
-            var fromDate = new Date(account.autoreply.fromDate),
-                fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
-            if (fromDateUtc.getYear() == 1 && fromDateUtc.getMonth() == 0 && fromDateUtc.getDate() == 1) {
+            fromDate = new Date(account.autoreply.fromDate);
+            fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+            if (fromDateUtc.getYear() === 1 && fromDateUtc.getMonth() === 0 && fromDateUtc.getDate() === 1) {
                 fromDateUtc = new Date();
             }
             $autoreplyStartDate.datepicker('setDate', fromDateUtc);
         }
-    };
+    }
 
     function changeAutoreplyDueDate(toDateStr) {
         var $autoreplyStartDate = $('#autoreplyStartDate'),
@@ -448,20 +478,38 @@ window.accountsPage = (function($) {
         window.toastr.error(window.MailScriptResource.SetAccountEMailInFolderFailure);
     }
 
-    var editAccount = function(id) {
+    function editAccount(id) {
         accountsModal.editBox(id);
-    };
+    }
 
-    var removeAccount = function(id) {
+    function removeAccount(id) {
         accountsModal.removeBox(id);
-    };
+    }
 
-    var isContain = function(accountName) {
+    function changePassword(address) {
+        var account = accountsManager.getAccountByAddress(address);
+
+        if (!account)
+            return;
+
+        accountsModal.changePassword(account.email, account.mailbox_id);
+    }
+
+    function viewMailboxSettings(address) {
+        var account = accountsManager.getAccountByAddress(address);
+
+        if (!account)
+            return;
+
+        accountsModal.viewMailboxSettings(account);
+    }
+
+    function isContain(accountName) {
         var account = $page.find('tr[data_id="' + accountName + '"]');
         return (account.length > 0);
-    };
+    }
 
-    var checkEmpty = function() {
+    function checkEmpty() {
         if ($page.find('.accounts_list tr').length) {
             $page.find('.accounts_list').show();
             blankPages.hide();
@@ -470,7 +518,7 @@ window.accountsPage = (function($) {
             blankPages.showEmptyAccounts();
             return true;
         }
-    };
+    }
 
     function setDefaultButtonClickEvent() {
         var $this = $(this),
@@ -509,7 +557,7 @@ window.accountsPage = (function($) {
     }
 
     function setDefaultAccountIfItDoesNotExist() {
-        if ($('.default_account_icon').length == 0) {
+        if ($('.default_account_icon').length === 0) {
             var $defaultAccountIcon = $('.set_as_default_account_icon'),
                 email = undefined,
                 account = undefined;
@@ -537,14 +585,19 @@ window.accountsPage = (function($) {
         clear();
 
         for (index = 0, length = accounts.length; index < length; index++) {
+            var account = accounts[index];
+
             if (accounts[index].isGroup) {
-                groups.push(accounts[index]);
+                groups.push(account);
             } else if (accounts[index].isAlias) {
-                aliases.push(accounts[index]);
+                account.showEnabledAutoreply = accountsManager.isAutoreplyEnabled(account);
+                aliases.push(account);
             } else if (accounts[index].isTeamlabMailbox) {
-                serverMailboxes.push(accounts[index]);
+                account.showEnabledAutoreply = accountsManager.isAutoreplyEnabled(account);
+                serverMailboxes.push(account);
             } else {
-                commonMailboxes.push(accounts[index]);
+                account.showEnabledAutoreply = accountsManager.isAutoreplyEnabled(account);
+                commonMailboxes.push(account);
             }
         }
 

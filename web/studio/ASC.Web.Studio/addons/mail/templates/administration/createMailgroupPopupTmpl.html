@@ -14,8 +14,18 @@
                         <div id="mail_server_add_mailgroup" class="block-cnt-splitter requiredField">
                             <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
                             <div class="headerPanelSmall bold">${ASC.Mail.Resources.MailAdministrationResource.MailgroupAddressLabel}</div>
-                            <input type="text" class="mailgroup_name textEdit" maxlength="64" />
-                            <span>@${domain.name}</span>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="mailboxNameEdit">
+                                            <input type="text" class="mailgroupName textEdit" maxlength="64" autofocus/>
+                                        </td>
+                                        <td>
+                                            <span class="domainName" title="${domain.name}">@${domain.name}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </td>
                 </tr>
@@ -29,7 +39,7 @@
                             <div>
                                 <span id="mailboxAddressSelector" data-id="" class="link dotline plus">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</span>
                             </div>
-                            <div class="mailbox_table">
+                            <div class="mailbox_table webkit-scrollbar">
                                 <table></table>
                             </div>
                         </div>

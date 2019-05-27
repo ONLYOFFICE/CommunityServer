@@ -27,11 +27,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Threading.Tasks;
 using System.Web;
 using ASC.Common.Data.AdoProxy;
 using ASC.Common.Data.Sql;
+using ASC.Common.Logging;
 using ASC.Common.Web;
-using log4net;
 
 
 namespace ASC.Common.Data
@@ -42,13 +44,13 @@ namespace ASC.Common.Data
         private readonly ProxyContext proxyContext;
         private readonly bool shared;
 
-        private IDbCommand command;
+        private DbCommand command;
         private ISqlDialect dialect;
         private volatile bool disposed;
 
         private readonly int? commandTimeout;
 
-        private IDbCommand Command
+        private DbCommand Command
         {
             get
             {
@@ -78,7 +80,7 @@ namespace ASC.Common.Data
             get { return Command.Transaction != null; }
         }
 
-        public IDbConnection Connection
+        public DbConnection Connection
         {
             get { return Command.Connection; }
         }
@@ -142,15 +144,22 @@ namespace ASC.Common.Data
             return new DbManager(databaseId);
         }
 
-        private IDbConnection OpenConnection()
+        private DbConnection OpenConnection()
+        {
+            var connection = GetConnection();
+            connection.Open();
+            return connection;
+        }
+
+        private DbConnection GetConnection()
         {
             CheckDispose();
-            IDbConnection connection = null;
+            DbConnection connection = null;
             string key = null;
             if (shared && HttpContext.Current != null)
             {
                 key = string.Format("Connection {0}|{1}", GetDialect(), DbRegistry.GetConnectionString(DatabaseId));
-                connection = DisposableHttpContext.Current[key] as IDbConnection;
+                connection = DisposableHttpContext.Current[key] as DbConnection;
                 if (connection != null)
                 {
                     var state = ConnectionState.Closed;
@@ -169,7 +178,6 @@ namespace ASC.Common.Data
                         {
                             connection.ConnectionString = DbRegistry.GetConnectionString(DatabaseId).ConnectionString;
                         }
-                        connection.Open();
                         return connection;
                     }
                 }
@@ -179,7 +187,6 @@ namespace ASC.Common.Data
             {
                 connection = new DbConnectionProxy(connection, proxyContext);
             }
-            connection.Open();
             if (shared && HttpContext.Current != null) DisposableHttpContext.Current[key] = connection;
             return connection;
         }
@@ -217,9 +224,19 @@ namespace ASC.Common.Data
             return Command.ExecuteList(sql, parameters);
         }
 
+        public Task<List<object[]>> ExecuteListAsync(string sql, params object[] parameters)
+        {
+            return Command.ExecuteListAsync(sql, parameters);
+        }
+
         public List<object[]> ExecuteList(ISqlInstruction sql)
         {
             return Command.ExecuteList(sql, GetDialect());
+        }
+
+        public Task<List<object[]>> ExecuteListAsync(ISqlInstruction sql)
+        {
+            return Command.ExecuteListAsync(sql, GetDialect());
         }
 
         public List<T> ExecuteList<T>(ISqlInstruction sql, Converter<IDataRecord, T> converter)
@@ -240,6 +257,11 @@ namespace ASC.Common.Data
         public int ExecuteNonQuery(string sql, params object[] parameters)
         {
             return Command.ExecuteNonQuery(sql, parameters);
+        }
+
+        public Task<int> ExecuteNonQueryAsync(string sql, params object[] parameters)
+        {
+            return Command.ExecuteNonQueryAsync(sql, parameters);
         }
 
         public int ExecuteNonQuery(ISqlInstruction sql)
@@ -283,10 +305,11 @@ namespace ASC.Common.Data
 
         private void AdoProxyExecutedEventHandler(ExecutedEventArgs a)
         {
-            ThreadContext.Properties["duration"] = a.Duration.TotalMilliseconds;
-            ThreadContext.Properties["sql"] = RemoveWhiteSpaces(a.Sql);
-            ThreadContext.Properties["sqlParams"] = RemoveWhiteSpaces(a.SqlParameters);
-            logger.Debug(a.SqlMethod);
+            logger.DebugWithProps(a.SqlMethod,
+                new KeyValuePair<string, object>("duration", a.Duration.TotalMilliseconds),
+                new KeyValuePair<string, object>("sql", RemoveWhiteSpaces(a.Sql)),
+                new KeyValuePair<string, object>("sqlParams", RemoveWhiteSpaces(a.SqlParameters))
+                );
         }
 
         private string RemoveWhiteSpaces(string str)
@@ -314,7 +337,7 @@ namespace ASC.Common.Data
             }
         }
 
-        public IDbConnection Connection { get { return dbManager.Connection; } }
+        public DbConnection Connection { get { return dbManager.Connection; } }
         public string DatabaseId { get { return dbManager.DatabaseId; } }
         public bool InTransaction { get { return dbManager.InTransaction; } }
 
@@ -341,6 +364,11 @@ namespace ASC.Common.Data
         public List<object[]> ExecuteList(ISqlInstruction sql)
         {
             return dbManager.ExecuteList(sql);
+        }
+
+        public Task<List<object[]>> ExecuteListAsync(ISqlInstruction sql)
+        {
+            return dbManager.ExecuteListAsync(sql);
         }
 
         public List<T> ExecuteList<T>(ISqlInstruction sql, Converter<IDataRecord, T> converter)

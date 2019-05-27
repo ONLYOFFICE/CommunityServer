@@ -2,7 +2,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Logic
 {
     internal class SkyDriveStorageProvider : GenericStorageProvider
     {
-        public SkyDriveStorageProvider() 
+        public SkyDriveStorageProvider()
             : base(new CachedServiceWrapper(new SkyDriveStorageProviderService()))
         {
         }

@@ -68,8 +68,8 @@ namespace ASC.Api.Projects.Wrappers
             CommentsCount = commentsCount;
             IsSubscribed = isSubscribed;
             Project = project;
-            CanEditFiles = ProjectSecurity.CanEditFiles(task);
-            CanCreateComment = ProjectSecurity.CanCreateComment(task);
+            CanEditFiles = projectApiBase.ProjectSecurity.CanEditFiles(task);
+            CanCreateComment = projectApiBase.ProjectSecurity.CanCreateComment(task);
             TimeSpend = timeSpend;
             Comments = comments.ToList();
         }

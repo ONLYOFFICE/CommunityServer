@@ -1,8 +1,4 @@
 ﻿#if DEBUG
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AppLimit.CloudComputing.SharpBox.StorageProvider;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

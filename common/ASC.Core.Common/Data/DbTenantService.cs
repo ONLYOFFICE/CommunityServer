@@ -264,35 +264,6 @@ namespace ASC.Core.Data
             ExecNonQuery(i);
         }
 
-        public T LoadSettings<T>(int tenantId, Guid userId)
-        {
-            var settingsInstance = (ISettings) Activator.CreateInstance<T>();
-
-            var query = new SqlQuery("webstudio_settings")
-                .Select("data")
-                .Where("id", settingsInstance.ID)
-                .Where("tenantid", tenantId)
-                .Where("userid", userId);
-
-            var result = ExecScalar<object>(query);
-
-            if (result == null)
-                return (T) settingsInstance.GetDefault();
-
-            var data = result is string ? Encoding.UTF8.GetBytes((string) result) : (byte[]) result;
-
-            object settings;
-
-            using (var stream = new MemoryStream(data))
-            {
-                settings = data[0] == 0
-                               ? new BinaryFormatter().Deserialize(stream)
-                               : new DataContractJsonSerializer(typeof (T)).ReadObject(stream);
-            }
-
-            return (T) settings;
-        }
-
         private IEnumerable<Tenant> GetTenants(Exp where)
         {
             var q = TenantsQuery(where);

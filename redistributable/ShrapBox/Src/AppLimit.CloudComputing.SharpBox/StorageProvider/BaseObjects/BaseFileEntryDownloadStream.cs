@@ -84,7 +84,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             _baseStream.Dispose();
 
             // dispose my base calss
-            base.Dispose();
+            Dispose();
 
             // dispose other objects
             while (_DisposableObjects.Count > 0)

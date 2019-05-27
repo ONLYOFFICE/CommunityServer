@@ -51,7 +51,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// <param name="dir"></param>
         public static void ClearAllChilds(ICloudDirectoryEntry dir)
         {
-
             (dir as BaseDirectoryEntry).ClearChilds();
         }
 
@@ -140,7 +139,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// <param name="newLength"></param>
         public static void ModifyFileSystemEntryLength(ICloudFileSystemEntry fsentry, long newLength)
         {
-            var fs = (BaseFileEntry) fsentry;
+            var fs = (BaseFileEntry)fsentry;
             fs.Length = newLength;
         }
     }

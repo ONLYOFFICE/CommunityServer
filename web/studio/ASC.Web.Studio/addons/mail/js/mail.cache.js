@@ -323,19 +323,35 @@ window.mailCache = (function($) {
         }
     }
 
-    function setImportant(id, important) {
-        var content = get(id);
-        if (content) {
-            for (var i = 0, n = content.messages.length; i < n; i++) {
-                var m = content.messages[i];
-                if (m.important !== important) {
-                    m.important = important;
+    function setImportant(ids, important) {
+        if (!ids) return;
+
+        if (!(ids instanceof Array)) {
+            ids = [ids];
+        }
+
+        for (var i = 0, n = ids.length; i < n; i++) {
+            var id = ids[i];
+
+            var content = get(id);
+            if (content) {
+                for (var j = 0, m = content.messages.length; j < m; j++) {
+                    var msg = content.messages[j];
+                    if (msg.important !== important) {
+                        msg.important = important;
+                    }
                 }
             }
         }
     }
 
     function setRead(ids, isRead) {
+        if (!ids) return;
+
+        if (!(ids instanceof Array)) {
+            ids = [ids];
+        }
+
         for (var i = 0, n = ids.length; i < n; i++) {
             var id = ids[i];
             var item = getCacheItem(id);
@@ -388,7 +404,7 @@ window.mailCache = (function($) {
         }
     }
 
-    function setFolder(ids, folder) {
+    function setFolder(ids, folder, userFolderId) {
         for (var i = 0, n = ids.length; i < n; i++) {
             var id = ids[i];
             var content = get(id);
@@ -398,6 +414,11 @@ window.mailCache = (function($) {
                     var msg = content.messages[j];
                     if (msg.folder != folder) {
                         msg.folder = folder;
+                        needUpdate = true;
+                    }
+
+                    if (msg.userFolderId != userFolderId) {
+                        msg.userFolderId = userFolderId;
                         needUpdate = true;
                     }
                 }

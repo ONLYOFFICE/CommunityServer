@@ -47,7 +47,8 @@ window.TMMail = (function($) {
             sent: { id: 2, name: 'sent', displayName: ASC.Mail.Resources.MailResource.FolderNameSent },
             drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts },
             trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash },
-            spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam }
+            spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam },
+            userfolder: { id: 6, name: 'userfolder', displayName: '' }
         },
         actionTypes = {
             'move': 1,
@@ -59,13 +60,14 @@ window.TMMail = (function($) {
             'delete_filtered': 7
         },
         anchorRegExp = {
-            sysfolders: /^$|^(inbox|sent|drafts|trash|spam)\/?(.+)*/,
+            sysfolders: /^$|^(inbox|sent|drafts|trash|spam|userfolder)\/?(.+)*/,
 
             inbox: /^$|^inbox\/?(.+)*/,
             sent: /^sent\/?(.+)*/,
             drafts: /^drafts\/?(.+)*/,
             trash: /^trash\/?(.+)*/,
             spam: /^spam\/?(.+)*/,
+            userfolder: /^userfolder(?:=(\d+))?/,
 
             reply: /^reply\/(\d+)\/?$/,
             forward: /^forward\/(\d+)\/?$/,
@@ -73,6 +75,7 @@ window.TMMail = (function($) {
             composeto: /^composeto\/?(.+)*/,
             replyAll: /^replyAll\/(\d+)$/,
             writemessage: /^(compose|composeto|draftitem|forward|reply|replyAll)\/?(.+)*/,
+            composenewmessage: /^(compose|composeto|forward|reply|replyAll)\/?(.+)*/,
             viewmessage: /^(message|conversation)\/?(.+)*/,
 
             message: /^message\/(\d+)\/?$/,
@@ -85,10 +88,16 @@ window.TMMail = (function($) {
 
             draftitem: /^draftitem\/(\d+)\/?$/,
 
-            accounts: /^accounts\/?$/,
+            accounts: /^accounts\/?(.+)*/,
+
             tags: /^tags\/?$/,
+            foldersettings: /^foldersettings\/?$/,
+            filtersettings: /^filtersettings\/?$/,
             administration: /^administration\/?$/,
             commonSettings: /^common\/?$/,
+
+            createfilter: /^createfilter\/?$/,
+            editfilter: /^editfilter\/(\d+)\/?$/,
 
             teamlab: /^tlcontact\/?(.+)*/,
             crm: /^crmcontact\/?(.+)*/,
@@ -108,7 +117,9 @@ window.TMMail = (function($) {
             yandex: /@(yandex\.ru|yandex\.com|yandex\.ua|yandex\.com\.tr|yandex\.kz|yandex\.by|yandex\.net|ya\.ru|narod\.ru)/,
             rambler: /@(rambler\.ru|lenta\.ru|autorambler\.ru|myrambler\.ru|r0\.ru|ro\.ru)/,
             qip: /@(qip\.ru|5ballov\.ru|aeterna\.ru|fotoplenka\.ru|fromru\.com|front\.ru|hotbox\.ru|hotmail\.ru|krovatka\.su|land\.ru|mail15\.com|mail333\.com|memori\.ru|newmail\.ru|nightmail\.ru|nm\.ru|photofile\.ru|pisem\.net|pochta\.ru|pochtamt\.ru|pop3\.ru|rbcmail\.ru|smtp\.ru|ziza\.ru)/,
-        };
+        },
+        resizeUFhandle,
+        generator = new IDGenerator();
 
     function init() {
         if (isInit === true) {
@@ -133,9 +144,36 @@ window.TMMail = (function($) {
             return;
         }
 
-        var unread = $('#foldersContainer').children('[folderid=' + folderId + ']').attr('unread');
+        var title, unread;
 
-        var title = (unread == 0 || unread == undefined ? "" : ('(' + unread + ') ')) + getSysFolderDisplayNameById(folderId);
+        if (folderId !== TMMail.sysfolders.userfolder.id) {
+            unread = $('#foldersContainer').children('[folderid=' + folderId + ']').attr('unread');
+            title = (unread == 0 || unread == undefined ? "" : ('(' + unread + ') ')) +
+                getSysFolderDisplayNameById(folderId);
+        } else {
+
+            var node = userFoldersPanel.getSelected();
+
+            if (!node) {
+                setTimeout(function () { setPageHeaderFolderName(folderId); }, 100);
+                return;
+            }
+
+            unread = null;
+
+
+            if (node.li_attr) {
+
+                if (commonSettingsPage.isConversationsEnabled()) {
+                    unread = node.li_attr.unread_chains;
+                } else {
+                    unread = node.li_attr.unread_messages;
+                }
+
+            }
+
+            title = (!unread ? "" : ('(' + unread + ') ')) + node.text;
+        }
 
         setPageHeaderTitle(title);
     }
@@ -230,12 +268,31 @@ window.TMMail = (function($) {
 
     function isInvalidPage() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
-        return !(anchorRegExp.message.test(anchor) || anchorRegExp.accounts.test(anchor) || anchorRegExp.teamlab.test(anchor) ||
-            anchorRegExp.crm.test(anchor) || anchorRegExp.sysfolders.test(anchor) || anchorRegExp.writemessage.test(anchor) ||
-            anchorRegExp.tags.test(anchor) || anchorRegExp.conversation.test(anchor) || anchorRegExp.helpcenter.test(anchor) ||
-            anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
-            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) || anchorRegExp.commonSettings.test(anchor) ||
-            anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor) || anchorRegExp.personal_contact.test(anchor));
+        var invalid = !(anchorRegExp.message.test(anchor) ||
+            anchorRegExp.accounts.test(anchor) ||
+            anchorRegExp.teamlab.test(anchor) ||
+            anchorRegExp.crm.test(anchor) ||
+            anchorRegExp.sysfolders.test(anchor) ||
+            anchorRegExp.writemessage.test(anchor) ||
+            anchorRegExp.tags.test(anchor) ||
+            anchorRegExp.conversation.test(anchor) ||
+            anchorRegExp.helpcenter.test(anchor) ||
+            anchorRegExp.next_message.test(anchor) ||
+            anchorRegExp.prev_message.test(anchor) ||
+            anchorRegExp.next_conversation.test(anchor) ||
+            anchorRegExp.prev_conversation.test(anchor) ||
+            anchorRegExp.administration.test(anchor) ||
+            anchorRegExp.commonSettings.test(anchor) ||
+            anchorRegExp.messagePrint.test(anchor) ||
+            anchorRegExp.conversationPrint.test(anchor) ||
+            anchorRegExp.personal_contact.test(anchor) ||
+            anchorRegExp.userfolder.test(anchor) ||
+            anchorRegExp.foldersettings.test(anchor) ||
+            anchorRegExp.filtersettings.test(anchor) ||
+            anchorRegExp.createfilter.test(anchor) ||
+            anchorRegExp.editfilter.test(anchor));
+
+        return invalid;
     }
 
     function pageIs(pageType) {
@@ -321,6 +378,16 @@ window.TMMail = (function($) {
                     return true;
                 }
                 break;
+            case 'userfolder':
+                if (anchorRegExp.userfolder.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'composenewmessage':
+                if (anchorRegExp.composenewmessage.test(anchor)) {
+                    return true;
+                }
+                break;
             case 'writemessage':
                 if (anchorRegExp.writemessage.test(anchor)) {
                     return true;
@@ -333,6 +400,26 @@ window.TMMail = (function($) {
                 break;
             case 'tags':
                 if (anchorRegExp.tags.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'foldersettings':
+                if (anchorRegExp.foldersettings.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'filtersettings':
+                if (anchorRegExp.filtersettings.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'createfilter':
+                if (anchorRegExp.createfilter.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'editfilter':
+                if (anchorRegExp.editfilter.test(anchor)) {
                     return true;
                 }
                 break;
@@ -392,7 +479,6 @@ window.TMMail = (function($) {
         return defaultValue;
     }
 
-    // private
     function getSysFolderById(sysfolderId) {
         for (var sysfolderName in systemFolders) {
             var sysfolder = systemFolders[sysfolderName];
@@ -411,6 +497,18 @@ window.TMMail = (function($) {
         var sysfolderRes = anchorRegExp.sysfolders.exec(anchor);
         if (sysfolderRes != null) {
             return getSysFolderIdByName(sysfolderRes[1]);
+        }
+        return 0;
+    }
+
+    function extractUserFolderIdFromAnchor() {
+        var anchor = ASC.Controls.AnchorController.getAnchor();
+        if (anchor === "") {
+            return null;
+        }
+        var userFolderId = anchorRegExp.userfolder.exec(anchor);
+        if (userFolderId != null) {
+            return userFolderId[1];
         }
         return 0;
     }
@@ -576,9 +674,15 @@ window.TMMail = (function($) {
         return myArray[1];
     }
 
-    function showCompleteActionHint(actionType, isConversation, count, dstFolderId) {
-        var hintText;
-        var folderName = TMMail.getSysFolderDisplayNameById(dstFolderId, '');
+    function showCompleteActionHint(actionType, isConversation, count, dstFolderId, userFolderId) {
+        var hintText, folderName;
+
+        if (dstFolderId == TMMail.sysfolders.userfolder.id) {
+            folderName = TMMail.htmlEncode(userFoldersManager.get(userFolderId).name);
+        } else {
+            folderName = TMMail.getSysFolderDisplayNameById(dstFolderId, '');
+        }
+
         switch (actionType) {
             case TMMail.action_types.move:
                 hintText =
@@ -790,9 +894,21 @@ window.TMMail = (function($) {
         return "https://maps.google.com/maps?q={0}".format(location.split(/[,\s]/).join('+'));
     }
 
+    function getFileIconByExt(fileExt) {
+        var utility = ASC.Files.Utility,
+            split = utility.getCssClassByFileTitle(fileExt).split('_'),
+            iconSrc = '';
+
+        iconSrc = split[split.length - 1].toLowerCase();
+
+        return ASC.Mail.Master["file_" + iconSrc + "_21"] || ASC.Mail.Master.file_21;
+    }
+
     function resizeContent() {
-        if (!TMMail.pageIs("viewmessage"))
-            return;
+        if (TMMail.pageIs('sysfolders') || TMMail.pageIs('crmContact')) {
+            mailBox.changeTagStyle();
+        }
+        mailBox.resizeActionMenuWidth();
 
         var mainPageEl = jq(".mainPageLayout"),
             mainPageContentEl = mainPageEl.find(".mainPageContent"),
@@ -807,108 +923,100 @@ window.TMMail = (function($) {
 
         var newWidth = (mainPageWidth > mainPageMinWidth ? mainPageWidth : mainPageMinWidth) - sidePanelWidth - k + "px";
 
-        //console.log("Browser viewport: %sx%s", jq(window).width(), jq(window).height());
-        //console.log("HTML document: %sx%s", jq(document).width(), jq(document).height());
-        //console.log("windowWidth: %s, mainBlockWidth: %s, sidePanelWidth: %s, newWidth: %s ", windowWidth, mainBlockWidth, sidePanelWidth, newWidth);
+        jq(".body").css("max-width", newWidth);
 
-        jq(".body").each(
-            function () {
-                jq(this).css("max-width", newWidth);
+        resizeUserFolders();
+    }
+
+    function resizeUserFolders() {
+        if (resizeUFhandle)
+            clearTimeout(resizeUFhandle);
+
+        var resize = function() {
+            //console.log("resizeUserFolders()");
+            var sidePanelEl = jq("#studio_sidePanel");
+
+            if (!sidePanelEl) {
+                //console.log("resizeUserFolders() failed");
+                return;
             }
-        );
-    };
 
-    function getFileIconByExt(fileExt) {
-        var utility = ASC.Files.Utility,
-            fileExtensionLibrary = utility.FileExtensionLibrary,
-            iconSrc = "",
-            checkInArray = function (extsArray) {
-                return jq.inArray(fileExt, extsArray) !== -1;
-            };
+            var sidePanelWidth = parseInt(sidePanelEl.width());
 
-        if (checkInArray(fileExtensionLibrary.ArchiveExts))
-            iconSrc = "archive";
-        else if (checkInArray(fileExtensionLibrary.AviExts))
-            iconSrc = "avi";
-        else if (checkInArray(fileExtensionLibrary.CsvExts))
-            iconSrc = "csv";
-        else if (checkInArray(fileExtensionLibrary.DjvuExts))
-            iconSrc = "djvu";
-        else if (checkInArray(fileExtensionLibrary.DocExts))
-            iconSrc = "doc";
-        else if (checkInArray(fileExtensionLibrary.DocxExts))
-            iconSrc = "docx";
-        else if (checkInArray(fileExtensionLibrary.DoctExts))
-            iconSrc = "doct";
-        else if (checkInArray(fileExtensionLibrary.EbookExts))
-            iconSrc = "ebook";
-        else if (checkInArray(fileExtensionLibrary.FlvExts))
-            iconSrc = "flv";
-        else if (checkInArray(fileExtensionLibrary.HtmlExts))
-            iconSrc = "html";
-        else if (checkInArray(fileExtensionLibrary.IafExts))
-            iconSrc = "iaf";
-        else if (checkInArray(fileExtensionLibrary.ImgExts))
-            iconSrc = "image";
-        else if (checkInArray(fileExtensionLibrary.M2tsExts))
-            iconSrc = "m2ts";
-        else if (checkInArray(fileExtensionLibrary.MkvExts))
-            iconSrc = "mkv";
-        else if (checkInArray(fileExtensionLibrary.MovExts))
-            iconSrc = "mov";
-        else if (checkInArray(fileExtensionLibrary.Mp4Exts))
-            iconSrc = "mp4";
-        else if (checkInArray(fileExtensionLibrary.MpgExts))
-            iconSrc = "mpg";
-        else if (checkInArray(fileExtensionLibrary.OdpExts))
-            iconSrc = "odp";
-        else if (checkInArray(fileExtensionLibrary.OdtExts))
-            iconSrc = "odt";
-        else if (checkInArray(fileExtensionLibrary.OdsExts))
-            iconSrc = "ods";
-        else if (checkInArray(fileExtensionLibrary.PdfExts))
-            iconSrc = "pdf";
-        else if (checkInArray(fileExtensionLibrary.PpsExts))
-            iconSrc = "pps";
-        else if (checkInArray(fileExtensionLibrary.PpsxExts))
-            iconSrc = "ppsx";
-        else if (checkInArray(fileExtensionLibrary.PptExts))
-            iconSrc = "ppt";
-        else if (checkInArray(fileExtensionLibrary.PptxExts))
-            iconSrc = "pptx";
-        else if (checkInArray(fileExtensionLibrary.PpttExts))
-            iconSrc = "pptt";
-        else if (checkInArray(fileExtensionLibrary.RtfExts))
-            iconSrc = "rtf";
-        else if (checkInArray(fileExtensionLibrary.SoundExts))
-            iconSrc = "sound";
-        else if (checkInArray(fileExtensionLibrary.SvgExts))
-            iconSrc = "svg";
-        else if (checkInArray(fileExtensionLibrary.TxtExts))
-            iconSrc = "txt";
-        else if (checkInArray(fileExtensionLibrary.DvdExts))
-            iconSrc = "dvd";
-        else if (checkInArray(fileExtensionLibrary.XlsExts))
-            iconSrc = "xls";
-        else if (checkInArray(fileExtensionLibrary.XlsxExts))
-            iconSrc = "xlsx";
-        else if (checkInArray(fileExtensionLibrary.XlstExts))
-            iconSrc = "xlst";
-        else if (checkInArray(fileExtensionLibrary.XmlExts))
-            iconSrc = "xml";
-        else if (checkInArray(fileExtensionLibrary.XpsExts))
-            iconSrc = "xps";
-        else if (checkInArray(fileExtensionLibrary.GdocExts))
-            iconSrc = "gdoc";
-        else if (checkInArray(fileExtensionLibrary.GsheetExts))
-            iconSrc = "gsheet";
-        else if (checkInArray(fileExtensionLibrary.GslidesExts))
-            iconSrc = "gslides";
-        else if (checkInArray(fileExtensionLibrary.CalendarExts))
-            iconSrc = "cal";
+            var userFolders = sidePanelEl.find("#userFolderContainer .userFolders .jstree-node");
+            if (!userFolders.length) {
+                //console.log("resizeUserFolders() no folders");
+                return;
+            }
 
-        return ASC.Mail.Master["file_" + iconSrc + "_21"] || ASC.Mail.Master.file_21;
-    };
+            var i, n = userFolders.length;
+            for (i = 0; i < n; i++) {
+                var el = jq(userFolders[i]),
+                    level = +el.attr("aria-level"),
+                    counter = el.find("> .lattersCount"),
+                    k = (counter.length > 0 ? jq(counter[0]).width() : 0),
+                    newMaxWidth = sidePanelWidth - k - (24 * level);
+
+                el.find("> .jstree-anchor").css("max-width", newMaxWidth);
+                //console.log("id: #{0} level: {1} sidePanelWidth: {2} k: {3}  max-width: {4}".format(el.attr("id"), level, sidePanelWidth, k, newMaxWidth));
+            }
+        };
+
+        resizeUFhandle = setTimeout(resize, 25);
+        resize();
+    }
+
+    function iterationCopy(src) {
+        if (!src) return src;
+
+        var target = {};
+        for (var prop in src) {
+            if (src.hasOwnProperty(prop)) {
+                target[prop] = src[prop];
+            }
+        }
+        return target;
+    }
+
+    function hideAllActionPanels() {
+        $.each($('.actionPanel:visible'), function (index, value) {
+            var popup = $(value);
+            if (popup != undefined) {
+                popup.hide();
+            }
+        });
+    }
+
+    function IDGenerator() {
+
+        this.length = 8;
+        this.timestamp = +new Date;
+
+        var getRandomInt = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        this.generate = function () {
+            var ts = this.timestamp.toString();
+            var parts = ts.split("").reverse();
+            var id = "";
+
+            for (var i = 0; i < this.length; ++i) {
+                var index = getRandomInt(0, parts.length - 1);
+                id += parts[index];
+            }
+
+            return id;
+        }
+    }
+
+    function getRandomId() {
+        return generator.generate();
+    }
+
+    function scrollTop() {
+        window.scrollTo(0, 0);
+    }
 
     return {
         sysfolders: systemFolders,
@@ -929,11 +1037,13 @@ window.TMMail = (function($) {
         getErrorMessage: getErrorMessage,
         pageIs: pageIs,
 
+        getSysFolderById: getSysFolderById,
         getSysFolderNameById: getSysFolderNameById,
         getSysFolderIdByName: getSysFolderIdByName,
         getSysFolderDisplayNameById: getSysFolderDisplayNameById,
         extractFolderIdFromAnchor: extractFolderIdFromAnchor,
         extractConversationIdFromAnchor: extractConversationIdFromAnchor,
+        extractUserFolderIdFromAnchor: extractUserFolderIdFromAnchor,
 
         getFaqLink: getFaqLink,
         getSupportLink: getSupportLink,
@@ -970,6 +1080,7 @@ window.TMMail = (function($) {
         wordWrap: wordWrap,
         htmlEncode: htmlEncode,
         htmlDecode: htmlDecode,
+        copy: iterationCopy,
 
         checkAnchor: checkAnchor,
         disableButton: disableButton,
@@ -980,9 +1091,16 @@ window.TMMail = (function($) {
         isPopupVisible: isPopupVisible,
         getDateFormated: getDateFormated,
         getMapUrl: getMapUrl,
-        resizeContent: resizeContent,
         getAccountErrorFooter: getAccountErrorFooter,
         getFileIconByExt: getFileIconByExt,
-        getOAuthFaqLink: getOAuthFaqLink
+        getOAuthFaqLink: getOAuthFaqLink,
+
+        resizeContent: resizeContent,
+        resizeUserFolders: resizeUserFolders,
+
+        hideAllActionPanels: hideAllActionPanels,
+
+        getRandomId: getRandomId,
+        scrollTop: scrollTop
     };
 })(jQuery);

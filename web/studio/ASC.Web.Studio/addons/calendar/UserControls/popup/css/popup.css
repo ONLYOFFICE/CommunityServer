@@ -24,14 +24,6 @@
 */
 
 
-/* 
- * Popup Widgetes Styles
- *
- * Dmitry Sokolov
- * Ascensio System SIA.
- * 2011
- */
-
 .asc-popup {
 	position: absolute;
 	border: 1px solid #d3d3d3;
@@ -67,7 +59,7 @@
 	border: 1px solid #d1d1d1;
 	padding: 4px;
 	background-color: #fff;
-	z-index: 2000;
+	z-index: 1998;
 	 box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
      -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
@@ -96,6 +88,10 @@
 	cursor: pointer;
 	padding: 0 12px;
     line-height: 24px;
+    margin-bottom: 1px;
+}
+.asc-popupmenu .item.dropdown-item-seporator {
+    width: auto;
 }
 
 .asc-popupmenu .item:hover {
@@ -125,7 +121,7 @@
 }
 
 .asc-colorpicker td {
-	width: 15px;
+	max-width: 17px;
 	height: 15px;
 	padding: 3px 3px;
 	border: 1px solid transparent;
@@ -155,7 +151,7 @@
 }
 
 .asc-colorpicker .iwrapper > input {
-	width: 99%;
+	width: 60px;
 	margin: 0;
 	padding: 1px;
 	outline: none;

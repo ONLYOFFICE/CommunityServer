@@ -1,24 +1,29 @@
 ﻿<script id="projects_settings" type="text/x-jquery-tmpl">
     {{if ASC.Projects.Master.IsModuleAdmin}}
-        <span class="header-base">${ASC.Projects.Resources.CommonResource.CommonSettings}</span>
-        <br />
-        <br />
-        <input id="cbxEnableSettings" class="on-off-checkbox" {{if everebodyCanCreate}}checked="checked"{{/if}}  type="checkbox">
+    <span class="header-base">${ASC.Projects.Resources.CommonResource.CommonSettings}</span>
+    <div class="settings-box">
+        <input id="cbxEnableSettings" class="on-off-checkbox" {{if everebodyCanCreate}}checked="checked"{{/if}} type="checkbox">
         <label for="cbxEnableSettings">
             ${ASC.Projects.Resources.CommonResource.SettingsWhoCanCreateProject}
         </label>
-        <br />
-        <br />
-        <input id="cbxHideSettings" class="on-off-checkbox" {{if hideEntitiesInPausedProjects}} checked="checked"{{/if}}  type="checkbox">
+    </div>
+    <div class="settings-box">
+        <input id="cbxHideSettings" class="on-off-checkbox" {{if hideEntitiesInPausedProjects}} checked="checked"{{/if}} type="checkbox">
         <label for="cbxHideSettings">
             ${ASC.Projects.Resources.CommonResource.HideEntitiesInPausedProjects}
         </label>
-        <br />
-        <br />
+    </div>
     {{/if}}
-    <span class="header-base">${ASC.Projects.Resources.CommonResource.PersonalSettings}</span>
-    <br />
-    <br />
-    <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.StartPage}</div>
-    <span id="startModule" class="top-align link dotline">${startModuleTitle}</span>
+    <div {{if ASC.Projects.Master.IsModuleAdmin}} class="settings-box" {{/if}}>
+        <span class="header-base">${ASC.Projects.Resources.CommonResource.PersonalSettings}</span>
+        <div class="settings-box">
+            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.StartPage}</div>
+            <span id="startModule" class="top-align link dotline">${startModuleTitle}</span>
+        </div>
+        <div class="settings-box folderSelectorBox">
+            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.ReportFolder}</div>
+            <input type="text" class="folderSelector textEdit" readonly="readonly"/>
+            <div class="button gray middle">${ASC.Resources.Master.TemplateResource.Choose}</div>
+        </div>
+    </div>
 </script>

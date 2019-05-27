@@ -12,6 +12,7 @@
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Studio" %>
+<%@ Import Namespace="ASC.Data.Storage" %>
 
 
 <div class="page-menu">
@@ -50,11 +51,6 @@
             <% if (CRMSecurity.IsAdmin)
                { %>
             <li><a id="exportListToCSV" class="dropdown-item"><%= CRMCommonResource.ExportCurrentListToCsvFile %></a></li>
-
-            <% if (FileUtility.CanWebView(".csv") || FileUtility.CanWebEdit(".csv"))
-               { %>
-            <li><a id="openListInEditor" class="dropdown-item"><%= CRMCommonResource.OpenCurrentListInTheEditor %></a></li>
-            <% } %>
             <% } %>
         </ul>
     </div>
@@ -67,7 +63,8 @@
             <div class="category-wrapper">
                 <span class="expander"></span>
                 <a class="menu-item-label outer-text text-overflow" href=".#">
-                    <span class="menu-item-icon group"></span><span class="menu-item-label inner-text"><%= CRMContactResource.Contacts %></span>
+                    <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconsgroup"></use></svg></span>
+                    <span class="menu-item-label inner-text"><%= CRMContactResource.Contacts %></span>
                 </a>
                 <span id="feed-new-contacts-count" class="feed-new-count"></span>
             </div>
@@ -89,14 +86,16 @@
         <li id="nav-menu-tasks" class="menu-item none-sub-list<% if (CurrentPage == "tasks")
                                                                  { %> active<% } %>">
             <a class="menu-item-label outer-text text-overflow" href="tasks.aspx#">
-                <span class="menu-item-icon tasks"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.TaskModuleName %></span>
+                <span class="menu-item-icon tasks"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconstasks"></use></svg></span>
+                <span class="menu-item-label inner-text"><%= CRMCommonResource.TaskModuleName %></span>
             </a>
             <span id="feed-new-crmTasks-count" class="feed-new-count"></span>
         </li>
         <li id="nav-menu-deals" class="menu-item  none-sub-list<% if (CurrentPage == "deals")
                                                                   { %> active<% } %>">
             <a class="menu-item-label outer-text text-overflow" href="deals.aspx#">
-                <span class="menu-item-icon opportunities"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.DealModuleName %></span>
+                <span class="menu-item-icon opportunities"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconscase"></use></svg></span>
+                <span class="menu-item-label inner-text"><%= CRMCommonResource.DealModuleName %></span>
             </a>
             <span id="feed-new-deals-count" class="feed-new-count"></span>
         </li>
@@ -106,7 +105,8 @@
             <div class="category-wrapper">
                 <span class="expander"></span>
                 <a class="menu-item-label outer-text text-overflow" href="invoices.aspx">
-                    <span class="menu-item-icon documents"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.InvoiceModuleName %></span>
+                    <span class="menu-item-icon documents"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconsdocuments"></use></svg></span>
+                    <span class="menu-item-label inner-text"><%= CRMCommonResource.InvoiceModuleName %></span>
                 </a>
                 <span id="feed-new-invoices-count" class="feed-new-count"></span>
             </div>
@@ -137,7 +137,8 @@
         <li id="nav-menu-cases" class="menu-item  none-sub-list<% if (CurrentPage == "cases")
                                                                   { %> active<% } %>">
             <a class="menu-item-label outer-text text-overflow" href="cases.aspx#">
-                <span class="menu-item-icon cases"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.CasesModuleName %></span>
+                <span class="menu-item-icon cases"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconscalendar"></use></svg></span>
+                <span class="menu-item-label inner-text"><%= CRMCommonResource.CasesModuleName %></span>
             </a>
             <span id="feed-new-cases-count" class="feed-new-count"></span>
         </li>
@@ -146,7 +147,8 @@
             <li id="nav-menu-voip-calls" class="menu-item  none-sub-list<% if (CurrentPage == "calls")
                                                                             { %> active<% } %>">
                 <a class="menu-item-label outer-text text-overflow" href="calls.aspx">
-                    <span class="menu-item-icon calls"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
+                    <span class="menu-item-icon calls"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconscalls"></use></svg></span>
+                    <span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
                 </a>
                 <span id="feed-new-voip-calls-count" class="feed-new-count"></span>
             </li>
@@ -156,7 +158,8 @@
            { %>
         <li id="nav-menu-reports" class="menu-item  none-sub-list <% if (CurrentPage == "reports") { %> active <% } %>">
             <a class="menu-item-label outer-text text-overflow" href="reports.aspx">
-                <span class="menu-item-icon reports"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.ReportsModuleName %></span>
+                <span class="menu-item-icon reports"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/crm-icons.svg#crmIconsstatistic"></use></svg></span>
+                <span class="menu-item-label inner-text"><%= CRMCommonResource.ReportsModuleName %></span>
             </a>
         </li>
         <% } %> 
@@ -171,7 +174,8 @@
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow<% if (CurrentPage.IndexOf("settings_", StringComparison.Ordinal) == -1)
                                                                          { %> gray-text<% } %>" href="settings.aspx">
-                        <span class="menu-item-icon settings"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.SettingModuleName %></span>
+                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+                        <span class="menu-item-label inner-text"><%= CRMCommonResource.SettingModuleName %></span>
                     </a>
                 </div>
                 <ul class="menu-sub-list">
@@ -205,7 +209,7 @@
                             <li class="menu-sub-item<% if (CurrentPage == "settings_contact_type")
                                                        { %> active<% } %>">
                                 <a class="menu-item-label outer-text text-overflow" href="settings.aspx?type=contact_type">
-                                    <span class="menu-item-label inner-text"><%= CRMContactResource.ContactType %></span>
+                                    <span class="menu-item-label inner-text"><%= CRMSettingResource.ContactTypes %></span>
                                 </a>
                             </li>
                         </ul>

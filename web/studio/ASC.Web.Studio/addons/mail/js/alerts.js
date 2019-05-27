@@ -105,7 +105,7 @@ window.mailAlerts = (function($) {
     function getAlertPopup(alert) {
         var header,
             body,
-            data = $.parseJSON(alert.data),
+            data = alert.data && $.parseJSON(alert.data),
             content,
             buttons,
             account,

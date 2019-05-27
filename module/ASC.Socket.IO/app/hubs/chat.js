@@ -26,7 +26,7 @@
             .on('sendTyping', onSendTyping)
             .on('sendStateToTenant', onSendStateToTenant)
             .on('getRecentMessages', onGetRecentMessages)
-            .on('ping', onPing);
+            .on('chatPing', onPing);
 
         function onDisconnectUser(change, fn) {
             co(function *() {

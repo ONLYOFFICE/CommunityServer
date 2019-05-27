@@ -39,95 +39,74 @@ using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using Resources;
 using Newtonsoft.Json;
+using ASC.Web.Core.Utility;
+
+using LdapMapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
     public partial class UserProfileEditControl : UserControl
     {
-        #region Properies
-
-        public ProfileHelper ProfileHelper { get; private set; }
-
-        protected UserInfo UserInfo { get; set; }
-
-        protected bool IsVisitor
-        {
-            get
-            {
-                if (UserInfo.IsMe() && !IsPageEditProfileFlag)
-                {
-                    return Request["type"] == "guest";
-                }
-
-                return UserInfo.IsVisitor();
-            }
-        }
-
-        protected bool IsLDAP
-        {
-            get
-            {
-                return UserInfo.IsLDAP();
-            }
-        }
-
-        protected bool IsSSO
-        {
-            get
-            {
-                return UserInfo.IsSSO();
-            }
-        }
-
         protected class RoleUser
         {
             public string Class { get; set; }
             public string Title { get; set; }
         }
-        protected RoleUser Role
-        {
-            get
-            {
-                RoleUser userRole = new RoleUser();
-                if ((UserInfo.IsAdmin() || UserInfo.GetListAdminModules().Any()) && !UserInfo.IsOwner())
-                {
-                    userRole.Class = "admin";
-                    userRole.Title = Resource.Administrator;
-                }
-                if (UserInfo.IsVisitor())
-                {
-                    userRole.Class = "guest";
-                    userRole.Title = CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode();
-                }
-                if (UserInfo.IsOwner())
-                {
-                    userRole.Class = "owner";
-                    userRole.Title = Resource.Owner;
-                }
-                return userRole;
-            }
-        }
 
-        protected string Phone { get; set; }
-        protected string ProfileGender { get; set; }
-        protected List<MyContact> SocContacts { get; set; }
-        protected List<MyContact> OtherContacts { get; set; }
-        protected GroupInfo[] Departments { get; set; }
-        protected bool CanAddUser { get; set; }
-        protected bool CanEditType { get; private set; }
+        #region Protected Fields
 
-        protected bool IsPageEditProfileFlag { get; private set; }
+        protected bool IsPageEditProfileFlag;
+        protected bool CurrentUserIsPeopleAdmin;
+        protected bool CurrentUserIsMailAdmin;
+        protected bool IsPersonal;
+        protected string HelpLink;
+        protected List<LdapMapping> LdapFields;
 
-        protected bool IsAdmin()
-        {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
-                WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
-        }
+        protected UserInfo Profile;
 
-        protected bool isPersonal
-        {
-            get { return CoreContext.Configuration.Personal; }
-        }
+        protected bool ProfileIsMe;
+        protected bool ProfileIsOwner;
+        protected bool ProfileIsAdmin;
+        protected bool ProfileIsAnyModuleAdmin;
+        protected bool ProfileIsVisitor;
+        protected bool ProfileIsLdap;
+        protected bool ProfileIsSso;
+        protected string ProfilePath;
+
+        protected RoleUser ProfileRole;
+
+        protected string FirstName;
+        protected string LastName;
+        protected string Email;
+        protected string Phone;
+        protected string Position;
+        protected string Place;
+        protected string Login;
+        protected string Comment;
+        protected string ProfileGender;
+        protected string PhotoPath = UserPhotoManager.GetDefaultPhotoAbsoluteWebPath();
+        protected string WorkFromDate = TenantUtil.DateTimeNow().ToString(DateTimeExtension.DateFormatPattern);
+        protected string BirthDate;
+
+        protected GroupInfo[] Departments;
+        protected List<MyContact> SocContacts;
+        protected List<MyContact> OtherContacts;
+
+        protected string UserTypeSelectorClass;
+        protected string UserTypeSelectorGuestItemClass;
+        protected string UserTypeSelectorUserItemClass;
+
+        protected int UserPasswordMinLength;
+        protected bool UserPasswordUpperCase;
+        protected bool UserPasswordDigits;
+        protected bool UserPasswordSpecSymbols;
+
+        protected string PageTitle = Resource.CreateNewProfile;
+        protected string ButtonText = Resource.AddButton;
+
+        #endregion
+
+        #region Properies
 
         public static string Location
         {
@@ -141,140 +120,245 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected void Page_Load(object sender, EventArgs e)
         {
             IsPageEditProfileFlag = (Request["action"] == "edit");
+            CurrentUserIsPeopleAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
+            CurrentUserIsMailAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.MailProductID, SecurityContext.CurrentAccount.ID);
+            IsPersonal = CoreContext.Configuration.Personal;
+            HelpLink = CommonLinkUtility.GetHelpLink();
+            LdapFields = ActiveDirectory.Base.Settings.LdapSettings.GetImportedFields;
 
-            ProfileHelper = new ProfileHelper(Request["user"]);
-            UserInfo = ProfileHelper.UserInfo;
+            var profileHelper = new ProfileHelper(Request["user"]);
 
-            if (IsPageEditProfileFlag ? !UserInfo.IsMe() && (!IsAdmin() || UserInfo.IsOwner()) : !IsAdmin())
-            {
-                Response.Redirect("~/products/people/", true);
-            }
+            InitProfile(profileHelper);
 
-            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofileeditcontrol.js")
-                .RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
+            CheckPermission();
 
-            CanAddUser = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
+            RegisterBodyScript();
 
-            CanEditType = SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser) &&
-                          (!(UserInfo.IsAdmin() || IsModuleAdmin()) || !IsPageEditProfileFlag);
+            InitUserTypeSelector();
+
+            InitPasswordSettings();
 
             if (IsPageEditProfileFlag)
             {
-                Phone = UserInfo.MobilePhone.HtmlEncode();
-                ProfileGender = UserInfo.Sex.HasValue ? UserInfo.Sex.Value ? "1" : "0" : "-1";
-                Departments = CoreContext.UserManager.GetUserGroups(UserInfo.ID);
-                SocContacts = ProfileHelper.Contacts;
-                OtherContacts = new List<MyContact>();
-                OtherContacts.AddRange(ProfileHelper.Emails);
-                OtherContacts.AddRange(ProfileHelper.Messengers);
-                OtherContacts.AddRange(ProfileHelper.Phones);
-                var deps = Departments.ToList();
+                PageTitle = Profile.DisplayUserName(false) + " - " + Resource.EditUserDialogTitle;
+                ButtonText = Resource.SaveButton;
 
-                var script =
-                    String.Format(
-                        @"<script type='text/javascript'>
-                                    var departmentsList = {0};
-                                    var socContacts = {1};
-                                    var otherContacts = {2};
-                                    var userId= {3};
-                                  
-                </script>",
-                        JsonConvert.SerializeObject(deps.ConvertAll(item => new
-                            {
-                                id = item.ID,
-                                title = item.Name.HtmlEncode()
-                            })),
-                        JsonConvert.SerializeObject(SocContacts),
-                        JsonConvert.SerializeObject(OtherContacts),
-                        JsonConvert.SerializeObject(UserInfo.ID));
-                Page.ClientScript.RegisterStartupScript(GetType(), Guid.NewGuid().ToString(), script);
+                InitProfileFields(profileHelper);
+
+                RegisterStartupScript();
             }
 
             var photoControl = (LoadPhotoControl)LoadControl(LoadPhotoControl.Location);
+            photoControl.User = IsPageEditProfileFlag ? Profile : null;
             loadPhotoWindow.Controls.Add(photoControl);
 
-            Page.Title = HeaderStringHelper.GetPageTitle(GetTitle());
+            Page.Title = HeaderStringHelper.GetPageTitle(PageTitle);
         }
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
-        public bool IsModuleAdmin()
+        private void InitProfile(ProfileHelper profileHelper)
         {
-            return UserInfo.GetListAdminModules().Any();
+            Profile = profileHelper.UserInfo;
+
+            ProfileIsMe = Profile.IsMe();
+            ProfileIsOwner = Profile.IsOwner();
+            ProfileIsAdmin = Profile.IsAdmin();
+
+            ProfileIsAnyModuleAdmin = Profile.GetListAdminModules().Any();
+
+            ProfileIsVisitor = Profile.IsVisitor();
+            ProfileIsLdap = Profile.IsLDAP();
+            ProfileIsSso = Profile.IsSSO();
+
+            ProfilePath = CommonLinkUtility.GetUserProfile(Profile.ID);
+
+            ProfileRole = GetRole();
         }
 
-        public string GetTitle()
+        private RoleUser GetRole()
         {
-            return IsPageEditProfileFlag
-                       ? UserInfo.DisplayUserName(false) + " - " + Resource.EditUserDialogTitle
-                       : Resource.CreateNewProfile;
+            if (ProfileIsOwner)
+            {
+                return new RoleUser
+                {
+                    Class = "owner",
+                    Title = Resource.Owner
+                };
+            }
+            if (ProfileIsAdmin || ProfileIsAnyModuleAdmin)
+            {
+                return new RoleUser
+                {
+                    Class = "admin",
+                    Title = Resource.Administrator
+                };
+            }
+            if (ProfileIsVisitor)
+            {
+                return new RoleUser
+                {
+                    Class = "guest",
+                    Title = CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode()
+                };
+            }
+            return null;
         }
 
-        public string GetFirstName()
+        private void CheckPermission()
         {
-            return IsPageEditProfileFlag ? UserInfo.FirstName.HtmlEncode() : String.Empty;
+            if (IsPageEditProfileFlag)
+            {
+                if (CurrentUserIsPeopleAdmin)
+                {
+                    if (ProfileIsOwner && !ProfileIsMe)
+                        Response.Redirect("~/products/people/", true);
+                }
+                else
+                {
+                    if (!ProfileIsMe)
+                        Response.Redirect("~/products/people/", true);
+                }
+            }
+            else
+            {
+                if (!CurrentUserIsPeopleAdmin)
+                    Response.Redirect("~/products/people/", true);
+            }
         }
 
-        public string GetLastName()
+        private void RegisterBodyScript()
         {
-            return IsPageEditProfileFlag ? UserInfo.LastName.HtmlEncode() : String.Empty;
+            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/usercontrols/users/userprofile/js/userprofileeditcontrol.js")
+                .RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
         }
 
-        public string GetPosition()
+        private void InitUserTypeSelector()
         {
-            return IsPageEditProfileFlag ? UserInfo.Title.HtmlEncode() : String.Empty;
+            var canAddUser = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
+
+            var canEditType = SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser) &&
+                              (!(ProfileIsAdmin || ProfileIsAnyModuleAdmin) || !IsPageEditProfileFlag);
+
+            var isVisitorType = (ProfileIsMe && !IsPageEditProfileFlag) ? Request["type"] == "guest" : ProfileIsVisitor;
+
+            if (canAddUser)
+            {
+                if (isVisitorType && !canEditType)
+                {
+                    UserTypeSelectorClass = "disabled";
+                    UserTypeSelectorGuestItemClass = "active";
+                    UserTypeSelectorUserItemClass = "disabled";
+                }
+                else
+                {
+                    if (canEditType)
+                    {
+                        UserTypeSelectorClass = "";
+                        UserTypeSelectorGuestItemClass = isVisitorType ? "active" : "";
+                        UserTypeSelectorUserItemClass = isVisitorType ? "" : "active";
+                    }
+                    else
+                    {
+                        UserTypeSelectorClass = "disabled";
+                        UserTypeSelectorGuestItemClass = "disabled";
+                        UserTypeSelectorUserItemClass = "active";
+                    }
+                }
+            }
+            else
+            {
+                if (isVisitorType || !IsPageEditProfileFlag)
+                {
+                    UserTypeSelectorClass = canEditType ? "" : "disabled";
+                    UserTypeSelectorGuestItemClass = "active";
+                    UserTypeSelectorUserItemClass = "disabled";
+                }
+                else
+                {
+                    if (canEditType)
+                    {
+                        UserTypeSelectorClass = "";
+                        UserTypeSelectorGuestItemClass = isVisitorType ? "active" : "";
+                        UserTypeSelectorUserItemClass = isVisitorType ? "" : "active";
+                    }
+                    else
+                    {
+                        UserTypeSelectorClass = "disabled";
+                        UserTypeSelectorGuestItemClass = "disabled";
+                        UserTypeSelectorUserItemClass = "active";
+                    }
+                }
+            }
         }
 
-        public string GetLogin()
+        private void InitPasswordSettings()
         {
-            return IsPageEditProfileFlag ? UserInfo.UserName.HtmlEncode() : String.Empty;
+            var passwordSettings = PasswordSettings.Load();
+
+            UserPasswordMinLength = passwordSettings.MinLength;
+            UserPasswordDigits = passwordSettings.Digits;
+            UserPasswordSpecSymbols = passwordSettings.SpecSymbols;
+            UserPasswordUpperCase = passwordSettings.UpperCase;
         }
 
-        public string GetEmail()
+        private void InitProfileFields(ProfileHelper profileHelper)
         {
-            return IsPageEditProfileFlag ? UserInfo.Email.HtmlEncode() : String.Empty;
+            FirstName = Profile.FirstName.HtmlEncode();
+            LastName = Profile.LastName.HtmlEncode();
+            Email = Profile.Email.HtmlEncode();
+            Phone = Profile.MobilePhone.HtmlEncode();
+            Position = Profile.Title.HtmlEncode();
+            Place = Profile.Location.HtmlEncode();
+            Login = Profile.UserName.HtmlEncode();
+            Comment = Profile.Notes.HtmlEncode();
+            ProfileGender = Profile.Sex.HasValue ? Profile.Sex.Value ? "1" : "0" : "-1";
+            PhotoPath = UserPhotoManager.GetMaxPhotoURL(Profile.ID);
+            WorkFromDate = Profile.WorkFromDate.HasValue ? Profile.WorkFromDate.Value.ToShortDateString() : "";
+            BirthDate = Profile.BirthDate.HasValue ? Profile.BirthDate.Value.ToShortDateString() : "";
+            Departments = CoreContext.UserManager.GetUserGroups(Profile.ID);
+            
+            SocContacts = profileHelper.Contacts;
+
+            OtherContacts = new List<MyContact>();
+            OtherContacts.AddRange(profileHelper.Emails);
+            OtherContacts.AddRange(profileHelper.Messengers);
+            OtherContacts.AddRange(profileHelper.Phones);
         }
 
-        public string GetPlace()
+        private void RegisterStartupScript()
         {
-            return IsPageEditProfileFlag ? UserInfo.Location.HtmlEncode() : String.Empty;
+            var script =
+                    String.Format(
+                        @"<script type='text/javascript'>
+                                    var departmentsList = {0},
+                                        socContacts = {1},
+                                        otherContacts = {2},
+                                        userId = {3},
+                                        userSex = {4};
+                        </script>",
+                        JsonConvert.SerializeObject(Departments.Select(item => new
+                        {
+                            id = item.ID,
+                            title = item.Name.HtmlEncode()
+                        })),
+                        JsonConvert.SerializeObject(SocContacts),
+                        JsonConvert.SerializeObject(OtherContacts),
+                        JsonConvert.SerializeObject(Profile.ID),
+                        JsonConvert.SerializeObject(Profile.Sex));
+
+            Page.ClientScript.RegisterStartupScript(GetType(), Guid.NewGuid().ToString(), script);
         }
 
-        public string GetComment()
-        {
-            return IsPageEditProfileFlag ? UserInfo.Notes.HtmlEncode() : String.Empty;
-        }
+        #endregion
 
-        public string GetTextButton()
-        {
-            return IsPageEditProfileFlag ? Resource.SaveButton : Resource.AddButton;
-        }
+        #region Protected Methods
 
-        public string GetPhotoPath()
+        protected bool IsLdapField(LdapMapping field)
         {
-            return IsPageEditProfileFlag ? UserPhotoManager.GetPhotoAbsoluteWebPath(UserInfo.ID) : UserPhotoManager.GetDefaultPhotoAbsoluteWebPath();
-        }
-
-        public string GetWorkFromDate()
-        {
-            return IsPageEditProfileFlag
-                       ? UserInfo.WorkFromDate.HasValue ? UserInfo.WorkFromDate.Value.ToShortDateString() : String.Empty
-                       : TenantUtil.DateTimeNow().ToString(DateTimeExtension.DateFormatPattern);
-        }
-
-        public string GetBirthDate()
-        {
-            return IsPageEditProfileFlag
-                       ? UserInfo.BirthDate.HasValue ? UserInfo.BirthDate.Value.ToShortDateString() : String.Empty
-                       : String.Empty;
-        }
-
-
-        private static IEnumerable<GroupInfo> GetChildDepartments(GroupInfo dep)
-        {
-            return Enumerable.Empty<GroupInfo>();
+            return ProfileIsLdap && LdapFields.Contains(field);
         }
 
         #endregion

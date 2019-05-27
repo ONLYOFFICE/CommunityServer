@@ -26,6 +26,7 @@
 
 using System;
 using ASC.Common.Security;
+using ASC.Core;
 using ASC.Forum.Module;
 using ASC.Web.Community.Product;
 
@@ -44,6 +45,8 @@ namespace ASC.Forum
             ISecurityObject securityObject = null;
             if (e.TargetObject is ISecurityObject)
                 securityObject = (ISecurityObject)e.TargetObject;
+            var topic = e.TargetObject as Topic;
+            var isTopicAutor = topic != null && topic.PosterID == SecurityContext.CurrentAccount.ID;
 
             switch (e.Action)
             {
@@ -52,9 +55,7 @@ namespace ASC.Forum
                     break;
 
                 case ForumAction.PostCreate:
-                    
-                    Topic topic = (Topic)e.TargetObject;    
-                    if (CommunitySecurity.CheckPermissions(topic, Constants.PostCreateAction))
+                    if (topic == null || CommunitySecurity.CheckPermissions(topic, Constants.PostCreateAction))
                     {   
                         if(!topic.Closed)
                             _view.IsAccessible = true;
@@ -91,19 +92,19 @@ namespace ASC.Forum
                     break;
 
                 case ForumAction.TopicClose:
-                    _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.TopicCloseAction);
+                    _view.IsAccessible = isTopicAutor || CommunitySecurity.CheckPermissions(securityObject, Constants.TopicCloseAction);
                     break;
 
                 case ForumAction.TopicSticky:
-                    _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.TopicStickyAction);
+                    _view.IsAccessible = isTopicAutor || CommunitySecurity.CheckPermissions(securityObject, Constants.TopicStickyAction);
                     break;
 
                 case ForumAction.TopicEdit:
-                    _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.TopicEditAction);
+                    _view.IsAccessible = isTopicAutor || CommunitySecurity.CheckPermissions(securityObject, Constants.TopicEditAction);
                     break;
 
                 case ForumAction.TopicDelete:
-                    _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.TopicDeleteAction);
+                    _view.IsAccessible = isTopicAutor || CommunitySecurity.CheckPermissions(securityObject, Constants.TopicDeleteAction);
                     break;
 
                 case ForumAction.PollVote:

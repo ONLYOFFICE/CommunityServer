@@ -71,6 +71,7 @@ namespace ASC.Xmpp.Server.Streams
                 if (!storage.EnableLdapAuthentication || connection is BoshXmppConnection)
                 {
                     features.Mechanisms.AddChild(new Mechanism(MechanismType.DIGEST_MD5));
+                    features.Mechanisms.AddChild(new Mechanism(MechanismType.PLAIN));
                 }
                 else
                 {

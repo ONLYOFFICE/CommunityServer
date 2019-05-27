@@ -30,11 +30,15 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Services;
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common.DataStorage;
-using ASC.Mail.Aggregator.Common.Extension;
+using ASC.Mail;
+using ASC.Mail.Core;
+using ASC.Mail.Core.Dao.Expressions.Attachment;
+using ASC.Mail.Data.Storage;
+using ASC.Mail.Extensions;
 using ASC.Web.Core.Files;
+using ASC.Web.Mail.Resources;
 using Ionic.Zip;
 using Ionic.Zlib;
 
@@ -47,100 +51,120 @@ namespace ASC.Web.Mail.HttpHandlers
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class DownloadAllHandler : IHttpHandler
     {
-        private int TenantId
+        private static int TenantId
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
 
-        private string Username
+        private static string Username
         {
             get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
 
         public void ProcessRequest(HttpContext context)
         {
+            var log = LogManager.GetLogger("ASC.Mail.DownloadAllHandler");
+
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 if (!MailPage.IsTurnOnAttachmentsGroupOperations())
                     throw new Exception("Operation is turned off.");
 
                 context.Response.ContentType = "application/octet-stream";
                 context.Response.Charset = Encoding.UTF8.WebName;
 
-                int messageId = Convert.ToInt32(context.Request.QueryString["messageid"]);
+                var messageId = Convert.ToInt32(context.Request.QueryString["messageid"]);
 
                 DownloadAllZipped(messageId, context);
 
             }
-            catch (Exception)
+            catch (HttpException he)
             {
+                log.Error("DownloadAll handler failed", he);
+
+                context.Response.StatusCode = he.GetHttpCode();
+                context.Response.Write(he.Message != null ? HttpUtility.HtmlEncode(he.Message) : MailApiErrorsResource.ErrorInternalServer);
+            }
+            catch (Exception ex)
+            {
+                log.Error("DownloadAll handler failed", ex);
+
+                context.Response.StatusCode = 404;
                 context.Response.Redirect("404.html");
             }
             finally
             {
-                context.Response.End();
+                try
+                {
+                    context.Response.Flush();
+                    context.Response.SuppressContent = true;
+                    context.ApplicationInstance.CompleteRequest();
+                }
+                catch (HttpException ex)
+                {
+                    LogManager.GetLogger("ASC").Error("ResponceContactPhotoUrl", ex);
+                }
             }
         }
 
-        // ToDo : move constant to config
-        private const string ARCHIVE_NAME = "download.zip";
-
-        private void DownloadAllZipped(int messageId, HttpContext context)
+        private static void DownloadAllZipped(int messageId, HttpContext context)
         {
-            var mailBoxManager = new MailBoxManager();
+            var engine = new EngineFactory(TenantId, Username);
+            var attachments =
+                engine.AttachmentEngine.GetAttachments(new ConcreteMessageAttachmentsExp(messageId, TenantId, Username));
 
-            var attachments = mailBoxManager.GetMessageAttachments(TenantId, Username, messageId);
+            if (!attachments.Any())
+                return;
 
-            if (attachments.Any())
+            using (var zip = new ZipFile())
             {
-                using (var zip = new ZipFile())
+                zip.CompressionLevel = CompressionLevel.Level3;
+                zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                zip.AlternateEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.TextInfo.OEMCodePage);
+
+                foreach (var attachment in attachments)
                 {
-                    zip.CompressionLevel = CompressionLevel.Level3;
-                    zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                    zip.AlternateEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.TextInfo.OEMCodePage);
-
-                    foreach (var attachment in attachments)
+                    using (var file = attachment.ToAttachmentStream())
                     {
-                        using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                        var filename = file.FileName;
+
+                        if (zip.ContainsEntry(filename))
                         {
-                            var filename = file.FileName;
-
-                            if (zip.ContainsEntry(filename))
+                            var counter = 1;
+                            var tempName = filename;
+                            while (zip.ContainsEntry(tempName))
                             {
-                                var counter = 1;
-                                var tempName = filename;
-                                while (zip.ContainsEntry(tempName))
-                                {
-                                    tempName = filename;
-                                    var suffix = " (" + counter + ")";
-                                    tempName = 0 < tempName.IndexOf('.')
-                                                   ? tempName.Insert(tempName.LastIndexOf('.'), suffix)
-                                                   : tempName + suffix;
+                                tempName = filename;
+                                var suffix = " (" + counter + ")";
+                                tempName = 0 < tempName.IndexOf('.')
+                                    ? tempName.Insert(tempName.LastIndexOf('.'), suffix)
+                                    : tempName + suffix;
 
-                                    counter++;
-                                }
-                                filename = tempName;
+                                counter++;
                             }
-
-                            zip.AddEntry(filename, file.FileStream.ReadToEnd());
+                            filename = tempName;
                         }
+
+                        zip.AddEntry(filename, file.FileStream.ReadToEnd());
                     }
-
-                    context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(ARCHIVE_NAME));
-
-                    zip.Save(context.Response.OutputStream);
-
                 }
+
+                context.Response.AddHeader("Content-Disposition",
+                    ContentDispositionUtil.GetHeaderValue(Defines.ARCHIVE_NAME));
+
+                zip.Save(context.Response.OutputStream);
 
             }
         }
 
         public bool IsReusable
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
     }
 }

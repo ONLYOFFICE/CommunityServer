@@ -94,10 +94,10 @@ namespace ASC.Api.Projects.Wrappers
             RelatedProject = timeSpend.Task.Project.ID;
             RelatedTask = timeSpend.Task.ID;
             RelatedTaskTitle = timeSpend.Task.Title;
-            CanEdit = ProjectSecurity.CanEdit(timeSpend);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(timeSpend);
             PaymentStatus = timeSpend.PaymentStatus;
             StatusChanged = (ApiDateTime)timeSpend.StatusChangedOn;
-            CanEditPaymentStatus = ProjectSecurity.CanEditPaymentStatus(timeSpend);
+            CanEditPaymentStatus = projectApiBase.ProjectSecurity.CanEditPaymentStatus(timeSpend);
             Task = new TaskWrapper(projectApiBase, timeSpend.Task);
             CreateOn = (ApiDateTime)timeSpend.CreateOn;
 

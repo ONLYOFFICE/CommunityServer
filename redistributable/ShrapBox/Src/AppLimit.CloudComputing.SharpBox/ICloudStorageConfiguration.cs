@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System;
+﻿using System;
 
 namespace AppLimit.CloudComputing.SharpBox
 {

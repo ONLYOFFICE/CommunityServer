@@ -61,6 +61,11 @@ namespace ASC.Files.Thirdparty.OneDrive
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
+        public void Dispose()
+        {
+            OneDriveProviderInfo.Dispose();
+        }
+
         protected DbManager GetDb()
         {
             return new DbManager(FileConstant.DatabaseId);
@@ -184,6 +189,8 @@ namespace ASC.Files.Thirdparty.OneDrive
                 return ToErrorFolder(onedriveFolder as ErrorItem);
             }
 
+            if (onedriveFolder.Folder == null) return null;
+
             var isRoot = IsRoot(onedriveFolder);
 
             var folder = new Folder
@@ -269,6 +276,8 @@ namespace ASC.Files.Thirdparty.OneDrive
                 //Return error entry
                 return ToErrorFile(onedriveFile as ErrorItem);
             }
+
+            if (onedriveFile.File == null) return null;
 
             return new File
                 {

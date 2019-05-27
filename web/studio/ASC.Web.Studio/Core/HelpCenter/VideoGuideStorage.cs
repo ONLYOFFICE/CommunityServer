@@ -62,7 +62,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             ListItems = new List<VideoGuideItem>();
         }
 
-        public override void Init(string html, string helpLinkBlock, string url)
+        public override void Init(string html, string helpLinkBlock, string baseUrl)
         {
             if (string.IsNullOrEmpty(html)) return;
 
@@ -81,7 +81,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             {
                 var title = needTitle.SelectSingleNode(".//span[@class='link_to_video']").InnerText;
                 var id = needTitle.Attributes["id"].Value;
-                var link = helpLinkBlock + needTitle.Element("a").Attributes["href"].Value.Substring(1);
+                var link = string.Format("{0}/{1}", helpLinkBlock.TrimEnd('/'), needTitle.Element("a").Attributes["href"].Value.TrimStart('/'));
                 var status = needTitle.Attributes["data-status"].Value;
 
                 ListItems.Add(new VideoGuideItem { Title = title, Id = id, Link = link, Status = status });

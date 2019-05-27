@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace AppLimit.CloudComputing.SharpBox
 {
@@ -40,7 +39,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// The parent folder of the associated folder, can be null if it's 
         /// the root folder
         /// </summary>
-        ICloudDirectoryEntry Parent { get; set;  }
+        ICloudDirectoryEntry Parent { get; set; }
 
         /// <summary>
         /// This method return an implementation of an content data transfer interface

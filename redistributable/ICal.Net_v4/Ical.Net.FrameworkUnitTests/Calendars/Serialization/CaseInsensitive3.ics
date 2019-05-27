@@ -1,0 +1,18 @@
+BEGIN:vCalendar
+VERSION:2.0
+METHOD:PUBLISH
+BEGIN:vEvent
+DTSTART:20070604T204500Z
+DTEND:20070604T220000Z
+UID:1032340718
+DTSTAMP:20070526T030009Z
+DESCRIPTION:Thank you for your interest in Microsoft Events. We would like to remind you of the following event: MSDN Webcast: A Lap Around SilverLight (Level 300). \n\nPlease review the information below.\n\nEvent Code: 1032340718\nEvent Name: MSDN Webcast: A Lap Around SilverLight (Level 300)\nStart Date: 6/4/2007\nStart Time: 1:45 PM (GMT-08:00) Pacific Time (US & Canada)\nEnd Date: 6/4/2007\nEnd Time: 3:00 PM (GMT-08:00) Pacific Time (US & Canada)\n\nPlease click on the following link for more information regarding this Event https://msevents.microsoft.com/cui/r.aspx?r=1290603991&c=en-US&t=2. We look forward to seeing you at the Event!
+SUMMARY:Live Webcast - MSDN Webcast: A Lap Around SilverLight (Level 300)
+PRIORITY:3
+BEGIN:vAlarm
+TRIGGER:P0DT0H15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:vAlarm
+END:vEvent
+END:vCalendar

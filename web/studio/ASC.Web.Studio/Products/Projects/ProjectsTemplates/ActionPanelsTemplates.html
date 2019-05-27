@@ -339,13 +339,13 @@
     <div class="pm-fieldRight">
         <span class="requiredErrorText startDate-error" error="${ASC.Projects.Resources.CommonResource.TaskCompareDateError}" style="margin-right: 24px;">
         </span>
-        <input type="text" id="taskStartDate" class="textEditCalendar"/>
+        <input type="text" id="taskStartDate" class="textEditCalendar" autocomplete="off"/>
     </div>
     <div style="clear: both">
     </div>
     <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TasksResource.DeadLine}:</div>
     <div class="pm-fieldRight">
-        <input type="text" id="taskDeadline" class="textEditCalendar"/>
+        <input type="text" id="taskDeadline" class="textEditCalendar"  autocomplete="off"/>
         <span class="splitter"></span><span class="link dotline deadline_left" data-value="0">
             ${ASC.Projects.Resources.CommonResource.Today}
         </span><span class="splitter"></span><span class="link dotline deadline_left" data-value="3">
@@ -426,7 +426,7 @@
             ${ASC.Projects.Resources.MilestoneResource.MilestoneDeadline}:
         </div>
         <div id="milestoneDeadlineSelectorContainer">
-            <input type="text" id="milestoneDeadlineInputBox" class="textEditCalendar"/>
+            <input type="text" id="milestoneDeadlineInputBox" class="textEditCalendar" autocomplete="off"/>
             <span class="link dotline deadlineLeft" data-value="7">
                 ${ASC.Projects.Resources.MilestoneResource.DeadlineInWeek}
             </span>

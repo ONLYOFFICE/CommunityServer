@@ -31,6 +31,7 @@ using ASC.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using System.Web;
 using ASC.Core;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Controls.Users
@@ -111,6 +112,8 @@ namespace ASC.Web.Studio.Controls.Users
         {
             if (EmployeeInfo != null)
             {
+                var isRetina = TenantLogoManager.IsRetina(HttpContext.Current.Request);
+
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("<div {1} style=\"width: {0}px;overflow:hidden;\"><table cellpadding=\"0\" border=\"0\" cellspacing=\"0\" width=\"100%\" >", Width.Value,
                     EmployeeInfo.ActivationStatus == EmployeeActivationStatus.Pending ? "class=\"pending\"" : "");
@@ -118,7 +121,7 @@ namespace ASC.Web.Studio.Controls.Users
                 sb.Append("<tr valign='top'>");
                 sb.Append("<td align=\"left\" style=\"width:56px; padding-right:10px;\">");
                 sb.AppendFormat("<a class=\"borderBase\" {1} href=\"{0}\">", EmployeeUrl, "style=\"position:relative;  text-decoration:none; display:block; height:48px; width:48px;\"");
-                sb.Append("<img align=\"center\" alt=\"\" style='display:block;margin:0; position:relative;' border=0 src=\"" + EmployeeInfo.GetMediumPhotoURL() + "\"/>");
+                sb.Append("<img align=\"center\" alt=\"\" style='display:block;margin:0; position:relative;width:48px;' border=0 src=\"" + (isRetina ? EmployeeInfo.GetBigPhotoURL() : EmployeeInfo.GetMediumPhotoURL()) + "\"/>");
                 if (EmployeeInfo.ActivationStatus == EmployeeActivationStatus.Pending)
                 {
                     sb.Append("<div class=\"pendingInfo borderBase tintMedium\"><div>" + Resources.Resource.PendingTitle + "</div></div>");

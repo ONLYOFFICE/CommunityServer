@@ -26,17 +26,18 @@
 
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace ASC.Common.Data.AdoProxy
 {
-    class DbConnectionProxy : IDbConnection
+    class DbConnectionProxy : DbConnection
     {
-        private readonly IDbConnection connection;
+        private readonly DbConnection connection;
         private readonly ProxyContext context;
         private bool disposed;
 
         
-        public DbConnectionProxy(IDbConnection connection, ProxyContext ctx)
+        public DbConnectionProxy(DbConnection connection, ProxyContext ctx)
         {
             if (connection == null) throw new ArgumentNullException("connection");
             if (ctx == null) throw new ArgumentNullException("ctx");
@@ -45,16 +46,7 @@ namespace ASC.Common.Data.AdoProxy
             context = ctx;
         }
 
-
-        public IDbTransaction BeginTransaction(IsolationLevel il)
-        {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, String.Format("BeginTransaction({0})", il), dur)))
-            {
-                return new DbTransactionProxy(connection.BeginTransaction(il), context);
-            }
-        }
-
-        public IDbTransaction BeginTransaction()
+        protected override System.Data.Common.DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "BeginTransaction", dur)))
             {
@@ -62,38 +54,43 @@ namespace ASC.Common.Data.AdoProxy
             }
         }
 
-        public void ChangeDatabase(string databaseName)
+        public override void ChangeDatabase(string databaseName)
         {
             connection.ChangeDatabase(databaseName);
         }
 
-        public void Close()
+        public override void Close()
         {
             connection.Close();
         }
 
-        public string ConnectionString
+        public override string  ConnectionString
         {
             get { return connection.ConnectionString; }
             set { connection.ConnectionString = value; }
         }
 
-        public int ConnectionTimeout
+        public override int ConnectionTimeout
         {
             get { return connection.ConnectionTimeout; }
         }
 
-        public IDbCommand CreateCommand()
+        protected override DbCommand CreateDbCommand()
         {
             return new DbCommandProxy(connection.CreateCommand(), context);
         }
 
-        public string Database
+        public override string Database
         {
             get { return connection.Database; }
         }
 
-        public void Open()
+        public override string DataSource
+        {
+            get { return connection.DataSource; }
+        }
+
+        public override void Open()
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Open", dur)))
             {
@@ -101,19 +98,17 @@ namespace ASC.Common.Data.AdoProxy
             }
         }
 
-        public ConnectionState State
+        public override string ServerVersion
+        {
+            get { return connection.ServerVersion; }
+        }
+
+        public override ConnectionState State
         {
             get { return connection.State; }
         }
 
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!disposed)
             {

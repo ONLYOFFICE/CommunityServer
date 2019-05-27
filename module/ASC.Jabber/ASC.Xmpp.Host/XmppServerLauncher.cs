@@ -24,12 +24,12 @@
 */
 
 
+using System;
+using System.ServiceModel;
+using ASC.Common.Logging;
 using ASC.Common.Module;
 using ASC.Xmpp.Server;
 using ASC.Xmpp.Server.Configuration;
-using log4net;
-using System;
-using System.ServiceModel;
 
 namespace ASC.Xmpp.Host
 {
@@ -38,7 +38,7 @@ namespace ASC.Xmpp.Host
         private ServiceHost host;
         private XmppServer xmppServer;
         private XmppServerCleaner cleaner;
-        private static readonly ILog log = LogManager.GetLogger(typeof(XmppServerLauncher));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         public void Start()
         {

@@ -33,6 +33,7 @@ using System.Web.UI;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
@@ -128,7 +129,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js")
+            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js")
                 .RegisterStyle("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less");
 
             var uid = Guid.Empty;
@@ -163,7 +164,9 @@ namespace ASC.Web.Studio.UserControls.Management
                 if (usr.ID.Equals(ASC.Core.Users.Constants.LostUser.ID) || usr.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID))
                     usr = CoreContext.UserManager.GetUsers(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
 
-                _userAvatar = usr.GetMediumPhotoURL();
+                var photoData = UserPhotoManager.GetUserPhotoData(usr.ID, UserPhotoManager.MediumFotoSize);
+
+                _userAvatar = photoData == null ? usr.GetMediumPhotoURL() : "data:image/png;base64," + Convert.ToBase64String(photoData);
                 _userName = usr.DisplayUserName(true);
                 _userPost = (usr.Title ?? "").HtmlEncode();
             }
@@ -191,9 +194,6 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 if (user.IsActive)
                 {
-                    var cookiesKey = SecurityContext.AuthenticateMe(user.ID);
-                    CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
                     Response.Redirect(CommonLinkUtility.GetDefault());
                     return;
                 }
@@ -222,6 +222,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var firstName = GetFirstName();
             var lastName = GetLastName();
             var pwd = (Request["pwdInput"] ?? "").Trim();
+            var analytics = (Request["analytics"] ?? "").Trim() == "True"; 
             var mustChangePassword = false;
             LoginProfile thirdPartyProfile;
 
@@ -301,6 +302,12 @@ namespace ASC.Web.Studio.UserControls.Management
                         MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, MessageTarget.Create(newUser.ID), newUser.DisplayUserName(false));
                         
                         userID = newUser.ID;
+
+                        var settings = TenantAnalyticsSettings.LoadForCurrentUser();
+                        settings.Analytics = analytics;
+
+                        settings.SaveForCurrentUser();
+
                     }
 
                     if (Request["__EVENTTARGET"] == "thirdPartyLogin")
@@ -329,6 +336,9 @@ namespace ASC.Web.Studio.UserControls.Management
                 }
                 else if (_type == ConfirmType.Activation)
                 {
+                    if (!UserFormatter.IsValidUserName(firstName, lastName))
+                        throw new Exception(Resource.ErrorIncorrectUserName);
+
                     user.ActivationStatus = EmployeeActivationStatus.Activated;
                     user.FirstName = firstName;
                     user.LastName = lastName;
@@ -455,7 +465,7 @@ namespace ASC.Web.Studio.UserControls.Management
             if (CoreContext.Configuration.Personal)
             {
                 userInfo.ActivationStatus = EmployeeActivationStatus.Activated;
-                userInfo.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
+                userInfo.CultureName = CoreContext.Configuration.CustomMode ? "ru-RU" : Thread.CurrentThread.CurrentUICulture.Name;
             }
 
             return UserManagerWrapper.AddUser(userInfo, pwd, true, true, isVisitor, fromInviteLink);

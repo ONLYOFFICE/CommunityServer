@@ -31,8 +31,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Net;
+using System.Net.Sockets;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
 
@@ -46,6 +48,7 @@ namespace MSBuild.Community.Tasks
     /// <Computer>
     ///   <Output TaskParameter="Name" PropertyName="BuildMachineName" />
     ///   <Output TaskParameter="IPAddress" PropertyName="BuildMachineIPAddress" />
+    ///   <Output TaskParameter="IPAddressV4" PropertyName="BuildMachineIPAddressV4" />
     ///   <Output TaskParameter="OSPlatform" PropertyName="BuildMachineOSPlatform" />
     ///   <Output TaskParameter="OSVersion" PropertyName="BuildMachineOSVersion" />
     /// </Computer>
@@ -83,6 +86,16 @@ namespace MSBuild.Community.Tasks
             get { return _ipAddress; }
         }
 
+        private string _ipAddressV4 = "";
+        /// <summary>
+        /// Gets the IP v4 address of the build computer.
+        /// </summary>
+        [Output]
+        public string IPAddressV4
+        {
+            get { return _ipAddressV4; }
+        }
+
         private string _osPlatform = "";
         /// <summary>
         /// Gets the platform identifier of the build computer's operating system .
@@ -116,7 +129,11 @@ namespace MSBuild.Community.Tasks
             try
             {
                 _name = Dns.GetHostName();
-                _ipAddress = Dns.GetHostAddresses(_name)[0].ToString();
+                IPAddress[] ipAddresses = Dns.GetHostAddresses(_name);
+                IPAddress ipAddress = ipAddresses.FirstOrDefault();
+                _ipAddress = ipAddress != null ? ipAddress.ToString() : "";
+                IPAddress ipAddressV4 = ipAddresses.FirstOrDefault(a => a.AddressFamily == AddressFamily.InterNetwork);
+                _ipAddressV4 = ipAddressV4 != null ? ipAddressV4.ToString() : "";
                 _osPlatform = Environment.OSVersion.Platform.ToString();
                 _osVersion = Environment.OSVersion.Version.ToString(2);
 

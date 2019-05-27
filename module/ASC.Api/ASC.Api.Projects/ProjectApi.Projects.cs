@@ -45,6 +45,7 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
 using ASC.Web.Projects.Classes;
+using Newtonsoft.Json;
 using Comment = ASC.Projects.Core.Domain.Comment;
 using Task = ASC.Projects.Core.Domain.Task;
 
@@ -309,6 +310,18 @@ namespace ASC.Api.Projects
                 projectEngine.SaveOrUpdate(project, true);
             }
 
+            if (tasks.Any() || milestones.Any())
+            {
+                var order = JsonConvert.SerializeObject(
+                        new
+                        {
+                            tasks = tasks.Select(r => r.ID).ToArray(),
+                            milestones = milestones.Select(r => r.ID).ToArray()
+                        });
+
+                projectEngine.SetTaskOrder(project, order);
+            }
+
             MessageService.Send(Request, MessageAction.ProjectCreated, MessageTarget.Create(project.ID), project.Title);
 
             return new ProjectWrapperFull(this, project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
@@ -393,7 +406,10 @@ namespace ASC.Api.Projects
             }
 
             projectEngine.SaveOrUpdate(project, notify);
-            EngineFactory.TagEngine.SetProjectTags(project.ID, tags);
+            if (tags != null)
+            {
+                EngineFactory.TagEngine.SetProjectTags(project.ID, tags);
+            }
             projectEngine.UpdateTeam(project, participants, true);
 
             project.ParticipantCount = participants.Count();
@@ -523,6 +539,28 @@ namespace ASC.Api.Projects
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{id:[0-9]+}/tag")]
         public ProjectWrapperFull UpdateProjectTags(int id, string tags)
+        {
+            var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
+            ProjectSecurity.DemandEdit(project);
+
+            EngineFactory.TagEngine.SetProjectTags(id, tags);
+
+            return ProjectWrapperFullSelector(project, EngineFactory.FileEngine.GetRoot(id));
+        }
+
+        ///<summary>
+        ///Updates the tags for the project with the selected project ID with the tags specified in the request
+        ///</summary>
+        ///<short>
+        ///Update project tags
+        ///</short>
+        ///<category>Projects</category>
+        ///<param name="id">Project ID</param>
+        ///<param name="tags">Tags</param>
+        ///<returns>project</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Update(@"{id:[0-9]+}/tags")]
+        public ProjectWrapperFull UpdateProjectTags(int id, IEnumerable<int> tags)
         {
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
             ProjectSecurity.DemandEdit(project);
@@ -677,7 +715,27 @@ namespace ASC.Api.Projects
             if (!projectEngine.IsExists(projectid)) throw new ItemNotFoundException();
 
             return projectEngine.GetTeam(projectid)
-                                .Select(x => new ParticipantWrapper(x))
+                                .Select(x => new ParticipantWrapper(this, x))
+                                .OrderBy(r => r.DisplayName).ToList();
+        }
+
+        ///<summary>
+        ///Returns the list of all users participating in the project with the ID specified in the request
+        ///</summary>
+        ///<short>
+        ///Project team
+        ///</short>
+        ///<category>Team</category>
+        ///<param name="projectid">Project ID</param>
+        ///<returns>List of team members</returns>
+        [Read(@"{projectid:[0-9]+}/teamExcluded")]
+        public IEnumerable<ParticipantWrapper> GetProjectTeamExcluded(int projectid)
+        {
+            var projectEngine = EngineFactory.ProjectEngine;
+            if (!projectEngine.IsExists(projectid)) throw new ItemNotFoundException();
+
+            return projectEngine.GetProjectTeamExcluded(projectid)
+                                .Select(x => new ParticipantWrapper(this, x))
                                 .OrderBy(r => r.DisplayName).ToList();
         }
 
@@ -694,7 +752,7 @@ namespace ASC.Api.Projects
         public IEnumerable<ParticipantWrapper> GetProjectTeam(List<int> ids)
         {
             return EngineFactory.ProjectEngine.GetTeam(ids)
-                                .Select(x => new ParticipantWrapper(x))
+                                .Select(x => new ParticipantWrapper(this, x))
                                 .OrderBy(r => r.DisplayName).ToList();
         }
 
@@ -870,18 +928,10 @@ namespace ASC.Api.Projects
 
             var project = projectEngine.GetByID(projectid).NotFoundIfNull();
 
-            ProjectSecurity.DemandCreate<Task>(project);
 
             if (milestoneid > 0 && !EngineFactory.MilestoneEngine.IsExists(milestoneid))
             {
                 throw new ItemNotFoundException("Milestone not found");
-            }
-
-            var team = projectEngine.GetTeam(project.ID).Select(r=> r.ID).ToList();
-
-            if (responsibles.Any(responsible => !team.Contains(responsible)))
-            {
-                throw new ArgumentException(@"responsibles", "responsibles");
             }
 
             var task = new Task
@@ -1146,6 +1196,41 @@ namespace ASC.Api.Projects
 
             var file = EngineFactory.FileEngine.GetFile(fileid).NotFoundIfNull();
             return FileWrapperSelector(file);
+        }
+
+        ///<summary>
+        ///Detaches the selected file from the entity (project, milestone, task) with the type and ID specified
+        ///</summary>
+        ///<short>
+        ///Detach file from entity
+        ///</short>
+        ///<category>Files</category>
+        ///<param name="entityType">Entity type </param>
+        ///<param name="entityID">Entity ID</param>
+        ///<param name="files">files</param>
+        ///<returns>Detached file</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        ///<visible>false</visible>
+        [Delete(@"{entityID:[0-9]+}/entityfilesmany")]
+        public IEnumerable<FileWrapper> DetachFileFromEntity(EntityType entityType, int entityID, IEnumerable<int> files)
+        {
+            var fileEngine = EngineFactory.FileEngine;
+            var filesList = files.ToList();
+
+            switch (entityType)
+            {
+                case EntityType.Message:
+                    DetachFileFromMessage(entityID, filesList);
+                    break;
+
+                case EntityType.Task:
+                    DetachFileFromTask(entityID, filesList);
+                    break;
+            }
+
+            var listFiles = filesList.Select(r => fileEngine.GetFile(r).NotFoundIfNull()).ToList();
+
+            return listFiles.Select(FileWrapperSelector);
         }
 
         ///<summary>
@@ -1423,12 +1508,12 @@ namespace ASC.Api.Projects
 
         ///<visible>false</visible>
         [Read("maxlastmodified")]
-        public ApiDateTime GetProjectMaxLastModified()
+        public string GetProjectMaxLastModified()
         {
             var maxModified = EngineFactory.ProjectEngine.GetMaxLastModified();
             var maxTeamModified = EngineFactory.ProjectEngine.GetTeamMaxLastModified();
             var result = DateTime.Compare(maxModified, maxTeamModified) > 0 ? maxModified : maxTeamModified;
-            return new ApiDateTime(result);
+            return result + EngineFactory.ProjectEngine.Count().ToString();
         }
 
         ///<visible>false</visible>

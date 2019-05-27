@@ -24,105 +24,26 @@
 */
 
 
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common.Logging;
-using ASC.Mail.Server.Administration.Interfaces;
-using ASC.Mail.Server.Dal;
-using ASC.Mail.Server.MockAdministration;
-using ASC.Mail.Server.PostfixAdministration;
-using System;
-using System.Configuration;
+using ASC.Mail.Core;
 using SecurityContext = ASC.Core.SecurityContext;
-using ServerType = ASC.Mail.Server.Dal.ServerType;
 
 namespace ASC.Api.MailServer
 {
     public partial class MailServerApi : Interfaces.IApiEntryPoint
     {
-        private MailBoxManager _mailBoxManager;
-        private MailServerBase _mailServer;
-        private ServerDal _serverDal;
-        private IMailServerFactory _mailserverfactory;
-        private ILogger _log;
+        private EngineFactory _engineFactory;
 
-        private ILogger Logger
+        private EngineFactory MailEngineFactory
         {
             get
             {
-                return _log ?? (_log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api"));
-            }
-        }
-
-        private MailBoxManager MailBoxManager
-        {
-            get { return _mailBoxManager ?? (_mailBoxManager = new MailBoxManager(Logger)); }
-        }
-
-        private IMailServerFactory MailServerFactory
-        {
-            get
-            {
-                if (_mailserverfactory == null)
-                {
-                    var serverInfo = TenantServerDal.GetTenantServer();
-                    switch ((ServerType)serverInfo.type)
-                    {
-                        case ServerType.MockServer:
-                            _mailserverfactory = new MockFactory();
-                            break;
-                        case ServerType.Postfix:
-                            _mailserverfactory = new PostfixFactory();
-                            break;
-                        default:
-                            throw new ArgumentException("Server_type creation wasn't added. Server_type: " +
-                                                        (ServerType) serverInfo.type);
-                    }
-                }
-
-                return _mailserverfactory;
-            }
-        }
-
-        private MailServerBase MailServer
-        {
-            get
-            {
-                if (_mailServer == null)
-                {
-                    var serverData = TenantServerDal.GetTenantServer();
-
-                    var limits = new ServerLimits.Builder()
-                        .SetMailboxMaxCountPerUser(MailboxPerUserLimit)
-                        .Build();
-
-                    var dnsPresets = new DnsPresets.Builder()
-                        .SetMx(serverData.mx_record, MxRecordPriority)
-                        .SetSpfValue(SpfRecordValue)
-                        .SetDkimSelector(DkimSelector)
-                        .SetDomainCheckPrefix(DomainCheckPrefix)
-                        .Build();
-
-                    var setup = new ServerSetup
-                        .Builder(serverData.id, TenantId, UserId)
-                        .SetConnectionString(serverData.connection_string)
-                        .SetLogger(Logger)
-                        .SetServerLimits(limits)
-                        .SetDnsPresets(dnsPresets)
-                        .Build();
-
-                    _mailServer = MailServerFactory.CreateServer(setup);
-                }
-
-                return _mailServer;
-            }
-        }
-
-        private ServerDal TenantServerDal
-        {
-            get
-            {
-                return _serverDal ?? (_serverDal = new ServerDal(TenantId));
+                return _engineFactory ??
+                       (_engineFactory =
+                           new EngineFactory(
+                               CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                               SecurityContext.CurrentAccount.ID.ToString()));
             }
         }
 
@@ -134,76 +55,21 @@ namespace ASC.Api.MailServer
             get { return "mailserver"; }
         }
 
-        private int TenantId
+        private ILog _log;
+
+        private ILog Logger
         {
-            get
-            {
-                return CoreContext.TenantManager.GetCurrentTenant().TenantId;
-            }
+            get { return _log ?? (_log = LogManager.GetLogger("ASC.Api")); }
         }
 
-        private string UserId
+        private static int TenantId
         {
-            get 
-            { 
-                return SecurityContext.CurrentAccount.ID.ToString();
-            }
+            get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
 
-        private bool IsAdmin
+        private static string Username
         {
-            get
-            {
-                return CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Core.Users.Constants.GroupAdmin.ID);
-            }
-        }
-
-        private string SpfRecordValue
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.server.spf-record-value"] ?? "v=spf1 +mx ~all";
-            }
-        }
-
-        private int MxRecordPriority
-        {
-            get
-            {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server.mx-record-priority"] ?? "0");
-            }
-        }
-
-        private int MailboxPerUserLimit
-        {
-            get
-            {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server-mailbox-limit-per-user"] ?? "2");
-            }
-        }
-
-        private string DkimSelector
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.server-dkim-selector"] ?? "dkim";
-            }
-        }
-
-        private string DomainCheckPrefix
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.server-dns-check-prefix"] ?? "onlyoffice-domain";
-            }
-        }
-
-        private bool IsSignalRAvailable
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(ConfigurationManager.AppSettings["web.hub"]);
-            }
+            get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
     }
 }

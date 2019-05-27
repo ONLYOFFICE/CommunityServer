@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug46|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\net46</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release40|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net40\</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DefineConstants>TRACE,NET_4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\net40\Ical.Net.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release45|AnyCPU'">
+    <OutputPath>bin\Release\net45\</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\net45\Ical.Net.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46|AnyCPU'">
+    <OutputPath>bin\Release\net46\</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\net46\Ical.Net.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <ProjectGuid>{F88DB6D3-CB95-4707-9C88-B53403AADC61}</ProjectGuid>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <BuildPackage>true</BuildPackage>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Ical.Net</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NodaTime">
+      <HintPath>..\..\..\packages\NodaTime.2.0.2\lib\net45\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Calendar.cs" />
+    <Compile Include="CalendarCollection.cs" />
+    <Compile Include="CalendarComponents\Alarm.cs" />
+    <Compile Include="CalendarComponents\CalendarComponent.cs" />
+    <Compile Include="CalendarComponents\CalendarEvent.cs" />
+    <Compile Include="CalendarComponents\FreeBusy.cs" />
+    <Compile Include="CalendarComponents\IAlarmContainer.cs" />
+    <Compile Include="CalendarComponents\ICalendarComponent.cs" />
+    <Compile Include="CalendarComponents\IRecurrable.cs" />
+    <Compile Include="CalendarComponents\IRecurringComponent.cs" />
+    <Compile Include="CalendarComponents\IUniqueComponent.cs" />
+    <Compile Include="CalendarComponents\Journal.cs" />
+    <Compile Include="CalendarComponents\RecurringComponent.cs" />
+    <Compile Include="CalendarComponents\Todo.cs" />
+    <Compile Include="CalendarComponents\UniqueComponent.cs" />
+    <Compile Include="CalendarComponents\VTimeZone.cs" />
+    <Compile Include="CalendarObject.cs" />
+    <Compile Include="CalendarObjectBase.cs" />
+    <Compile Include="CalendarObjectExtensions.cs" />
+    <Compile Include="CalendarObjectList.cs" />
+    <Compile Include="CalendarParameter.cs" />
+    <Compile Include="CalendarProperty.cs" />
+    <Compile Include="CalendarPropertyList.cs" />
+    <Compile Include="Collections\GroupedList.cs" />
+    <Compile Include="Collections\GroupedListEnumerator.cs" />
+    <Compile Include="Collections\GroupedValueList.cs" />
+    <Compile Include="Collections\IGroupedCollection.cs" />
+    <Compile Include="Collections\IGroupedList.cs" />
+    <Compile Include="Collections\IGroupedObject.cs" />
+    <Compile Include="Collections\IMultiLinkedList.cs" />
+    <Compile Include="Collections\Interfaces\IValueObject.cs" />
+    <Compile Include="Collections\MultiLinkedList.cs" />
+    <Compile Include="Collections\ObjectEventArgs.cs" />
+    <Compile Include="Collections\Proxies\GroupedCollectionProxy.cs" />
+    <Compile Include="Collections\Proxies\GroupedValueListProxy.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DataTypes\AlarmOccurrence.cs" />
+    <Compile Include="DataTypes\Attachment.cs" />
+    <Compile Include="DataTypes\Attendee.cs" />
+    <Compile Include="DataTypes\CalDateTime.cs" />
+    <Compile Include="DataTypes\CalendarDataType.cs" />
+    <Compile Include="DataTypes\EncodableDataType.cs" />
+    <Compile Include="DataTypes\FreeBusyEntry.cs" />
+    <Compile Include="DataTypes\GeographicLocation.cs" />
+    <Compile Include="DataTypes\ICalendarDataType.cs" />
+    <Compile Include="DataTypes\ICalendarParameterCollectionContainer.cs" />
+    <Compile Include="DataTypes\IDateTime.cs" />
+    <Compile Include="DataTypes\IEncodableDataType.cs" />
+    <Compile Include="DataTypes\Occurrence.cs" />
+    <Compile Include="DataTypes\Organizer.cs" />
+    <Compile Include="DataTypes\Period.cs" />
+    <Compile Include="DataTypes\PeriodList.cs" />
+    <Compile Include="DataTypes\RecurrencePattern.cs" />
+    <Compile Include="DataTypes\RequestStatus.cs" />
+    <Compile Include="DataTypes\StatusCode.cs" />
+    <Compile Include="DataTypes\Trigger.cs" />
+    <Compile Include="DataTypes\UTCOffset.cs" />
+    <Compile Include="DataTypes\WeekDay.cs" />
+    <Compile Include="Evaluation\Evaluator.cs" />
+    <Compile Include="Evaluation\EventEvaluator.cs" />
+    <Compile Include="Evaluation\IEvaluator.cs" />
+    <Compile Include="Evaluation\PeriodListEvaluator.cs" />
+    <Compile Include="Evaluation\RecurrencePatternEvaluator.cs" />
+    <Compile Include="Evaluation\RecurrenceUtil.cs" />
+    <Compile Include="Evaluation\RecurringEvaluator.cs" />
+    <Compile Include="Evaluation\TimeZoneEvaluator.cs" />
+    <Compile Include="Evaluation\TimeZoneInfoEvaluator.cs" />
+    <Compile Include="Evaluation\TodoEvaluator.cs" />
+    <Compile Include="ICalendarObject.cs" />
+    <Compile Include="ICalendarObjectList.cs" />
+    <Compile Include="ICalendarProperty.cs" />
+    <Compile Include="ICalendarPropertyListContainer.cs" />
+    <Compile Include="ICopyable.cs" />
+    <Compile Include="IGetFreeBusy.cs" />
+    <Compile Include="IGetOccurrences.cs" />
+    <Compile Include="ILoadable.cs" />
+    <Compile Include="IMergeable.cs" />
+    <Compile Include="IParameterCollection.cs" />
+    <Compile Include="IServiceProvider.cs" />
+    <Compile Include="ParameterList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\CalendarObjectListProxy.cs" />
+    <Compile Include="Proxies\IUniqueComponentList.cs" />
+    <Compile Include="Proxies\ParameterCollectionProxy.cs" />
+    <Compile Include="Proxies\UniqueComponentListProxy.cs" />
+    <Compile Include="Serialization\CalendarComponentFactory.cs" />
+    <Compile Include="Serialization\CalendarSerializer.cs" />
+    <Compile Include="Serialization\ComponentSerializer.cs" />
+    <Compile Include="Serialization\DataMapSerializer.cs" />
+    <Compile Include="Serialization\DataTypeMapper.cs" />
+    <Compile Include="Serialization\DataTypeSerializerFactory.cs" />
+    <Compile Include="Serialization\DataTypes\AttachmentSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\AttendeeSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\DataTypeSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\DateTimeSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\EncodableDataTypeSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\EnumSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\FreeBusyEntrySerializer.cs" />
+    <Compile Include="Serialization\DataTypes\GeographicLocationSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\IntegerSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\OrganizerSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\PeriodListSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\PeriodSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\RecurrencePatternSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\RequestStatusSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\StatusCodeSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\StringSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\TimeSpanSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\TriggerSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\UriSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\UtcOffsetSerializer.cs" />
+    <Compile Include="Serialization\DataTypes\WeekDaySerializer.cs" />
+    <Compile Include="Serialization\EncodingProvider.cs" />
+    <Compile Include="Serialization\EncodingStack.cs" />
+    <Compile Include="Serialization\EventSerializer.cs" />
+    <Compile Include="Serialization\GenericListSerializer.cs" />
+    <Compile Include="Serialization\IEncodingProvider.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\ISerializerFactory.cs" />
+    <Compile Include="Serialization\IStringSerializer.cs" />
+    <Compile Include="Serialization\ParameterSerializer.cs" />
+    <Compile Include="Serialization\PropertySerializer.cs" />
+    <Compile Include="Serialization\SerializationContext.cs" />
+    <Compile Include="Serialization\SerializationUtil.cs" />
+    <Compile Include="Serialization\SerializerBase.cs" />
+    <Compile Include="Serialization\SerializerFactory.cs" />
+    <Compile Include="Serialization\SimpleDeserializer.cs" />
+    <Compile Include="ServiceProvider.cs" />
+    <Compile Include="Utility\CollectionHelpers.cs" />
+    <Compile Include="Utility\DateUtil.cs" />
+    <Compile Include="Utility\TextUtil.cs" />
+    <Compile Include="VTimeZoneInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(TrunkDir)\.nuget\NuGet.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <!-- Load up the information from the assembly -->
+    <GetAssemblyIdentity AssemblyFiles="$(OutputPath)$(AssemblyName).dll">
+      <Output TaskParameter="Assemblies" ItemName="OutputAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Message Text="Info: %(OutputAssemblyInfo.Version)" />
+  </Target>
+  <Target Name="Package">
+    <!-- Ensure the Package directory exists for this project -->
+    <RemoveDir Directories="NuGet" />
+    <MakeDir Directories="NuGet" />
+    <!-- Package the project -->
+    <Exec WorkingDirectory="$(BuildDir)" Command="NuGet.exe pack -IncludeReferencedProjects -Verbosity detailed -Symbols -OutputDir &quot;NuGet&quot; -Version %(OutputAssemblyInfo.Version) -Properties &quot;Configuration=$(Configuration)&quot;" />
+  </Target>
+</Project>

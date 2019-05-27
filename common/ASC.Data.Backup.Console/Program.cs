@@ -28,8 +28,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Tasks;
 using CommandLine;
 
@@ -83,7 +83,7 @@ namespace ASC.Data.Backup.Console
                 options.WebConfigPath = ToAbsolute(options.WebConfigPath);
                 options.BackupDirectory = ToAbsolute(options.BackupDirectory);
 
-                var log = LogFactory.Create();
+                var log = LogManager.GetLogger("ASC");
                 if (!Path.HasExtension(options.WebConfigPath))
                 {
                     options.WebConfigPath = Path.Combine(options.WebConfigPath, "web.config");
@@ -102,7 +102,7 @@ namespace ASC.Data.Backup.Console
                 {
                     var backupFileName = string.Format("{0}-{1:yyyyMMddHHmmss}.zip", tenant.TenantAlias, DateTime.UtcNow);
                     var backupFilePath = Path.Combine(options.BackupDirectory, backupFileName);
-                    var task = new BackupPortalTask(log, tenant.TenantId, options.WebConfigPath, backupFilePath);
+                    var task = new BackupPortalTask(log, tenant.TenantId, options.WebConfigPath, backupFilePath, 100);
                     task.RunJob();
                 }
             }

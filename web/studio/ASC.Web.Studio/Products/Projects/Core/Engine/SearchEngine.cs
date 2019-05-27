@@ -30,13 +30,15 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Files.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
 using ASC.Web.Projects.Classes;
-using log4net;
+using ASC.Web.Projects.Core;
+using Autofac;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -120,80 +122,89 @@ namespace ASC.Projects.Engine
     public class SearchEngine
     {
         public IDaoFactory DaoFactory { get; set; }
-        public CommentEngine CommentEngine { get; set; }
-        public TaskEngine TaskEngine { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
+
+        public EngineFactory EngineFactory { get; set; }
+        public CommentEngine CommentEngine { get { return EngineFactory.CommentEngine; } }
+        public TaskEngine TaskEngine { get { return EngineFactory.TaskEngine; } }
 
         private readonly List<SearchItem> searchItems;
 
-        public SearchEngine(EngineFactory factory)
+        public SearchEngine()
         {
             searchItems = new List<SearchItem>();
-            CommentEngine = factory.CommentEngine;
-            TaskEngine = factory.TaskEngine;
         }
 
         public IEnumerable<SearchItem> Search(string searchText, int projectId = 0)
         {
             var queryResult = DaoFactory.SearchDao.Search(searchText, projectId);
-
-            foreach (var r in queryResult)
+            using (var scope = DIHelper.Resolve())
             {
-                switch (r.EntityType)
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
+
+                foreach (var r in queryResult)
                 {
-                    case EntityType.Project:
-                        var project = (Project)r;
-                        if (ProjectSecurity.CanRead(project))
-                        {
-                            searchItems.Add(new SearchItem(project));
-                        }
-                        continue;
-                    case EntityType.Milestone:
-                        var milestone = (Milestone)r;
-                        if (ProjectSecurity.CanRead(milestone))
-                        {
-                            searchItems.Add(new SearchItem(milestone));
-                        }
-                        continue;
-                    case EntityType.Message:
-                        var message = (Message)r;
-                        if (ProjectSecurity.CanRead(message))
-                        {
-                            searchItems.Add(new SearchItem(message));
-                        }
-                        continue;
-                    case EntityType.Task:
-                        var task = (Task)r;
-                        if (ProjectSecurity.CanRead(task))
-                        {
-                            searchItems.Add(new SearchItem(task));
-                        }
-                        continue;
-                    case EntityType.Comment:
-                        var comment = (Comment) r;
-                        var entity = CommentEngine.GetEntityByTargetUniqId(comment);
-                        if (entity == null)continue;
+                    switch (r.EntityType)
+                    {
+                        case EntityType.Project:
+                            var project = (Project) r;
+                            if (projectSecurity.CanRead(project))
+                            {
+                                searchItems.Add(new SearchItem(project));
+                            }
+                            continue;
+                        case EntityType.Milestone:
+                            var milestone = (Milestone) r;
+                            if (projectSecurity.CanRead(milestone))
+                            {
+                                searchItems.Add(new SearchItem(milestone));
+                            }
+                            continue;
+                        case EntityType.Message:
+                            var message = (Message) r;
+                            if (projectSecurity.CanRead(message))
+                            {
+                                searchItems.Add(new SearchItem(message));
+                            }
+                            continue;
+                        case EntityType.Task:
+                            var task = (Task) r;
+                            if (projectSecurity.CanRead(task))
+                            {
+                                searchItems.Add(new SearchItem(task));
+                            }
+                            continue;
+                        case EntityType.Comment:
+                            var comment = (Comment) r;
+                            var entity = CommentEngine.GetEntityByTargetUniqId(comment);
+                            if (entity == null) continue;
 
-                        searchItems.Add(new SearchItem(comment.EntityType, comment.ID.ToString(CultureInfo.InvariantCulture), HtmlUtil.GetText(comment.Content), comment.CreateOn, new SearchItem(entity)));
-                        continue;
-                    case EntityType.SubTask:
-                        var subtask = (Subtask) r;
-                        var parentTask = TaskEngine.GetByID(subtask.Task);
-                        if(parentTask == null) continue;
+                            searchItems.Add(new SearchItem(comment.EntityType,
+                                comment.ID.ToString(CultureInfo.InvariantCulture), HtmlUtil.GetText(comment.Content),
+                                comment.CreateOn, new SearchItem(entity)));
+                            continue;
+                        case EntityType.SubTask:
+                            var subtask = (Subtask) r;
+                            var parentTask = TaskEngine.GetByID(subtask.Task);
+                            if (parentTask == null) continue;
 
-                        searchItems.Add(new SearchItem(subtask.EntityType, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title, subtask.CreateOn, new SearchItem(parentTask)));
-                        continue;
+                            searchItems.Add(new SearchItem(subtask.EntityType,
+                                subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title, subtask.CreateOn,
+                                new SearchItem(parentTask)));
+                            continue;
+                    }
                 }
             }
 
             try
             {
                 // search in files
-                var fileEntries = new List<Files.Core.FileEntry>();
+                var fileEntries = new List<FileEntry>();
                 using (var folderDao = FilesIntegration.GetFolderDao())
                 using (var fileDao = FilesIntegration.GetFileDao())
                 {
-                    fileEntries.AddRange(folderDao.Search(searchText, Files.Core.FolderType.BUNCH));
-                    fileEntries.AddRange(fileDao.Search(searchText, Files.Core.FolderType.BUNCH));
+                    fileEntries.AddRange(folderDao.Search(searchText, true));
+                    fileEntries.AddRange(fileDao.Search(searchText, true));
 
                     var projectIds = projectId != 0
                                          ? new List<int> {projectId}
@@ -218,7 +229,7 @@ namespace ASC.Projects.Engine
                         {
                             var itemId = f.FileEntryType == FileEntryType.File
                                              ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
-                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Files.Core.Folder) f, project.ID);
+                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Folder) f, project.ID);
                             searchItems.Add(new SearchItem(EntityType.File, itemId, f.Title, f.CreateOn, new SearchItem(project), itemPath: "{2}"));
                         }
                     }
@@ -226,7 +237,7 @@ namespace ASC.Projects.Engine
             }
             catch (Exception err)
             {
-                LogManager.GetLogger("ASC.Web").Error(err);
+                LogManager.GetLogger("ASC").Error(err);
             }
             return searchItems;
         }

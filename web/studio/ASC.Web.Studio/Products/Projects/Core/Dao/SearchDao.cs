@@ -27,31 +27,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
-using ASC.FullTextIndex;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Data.DAO
 {
     class SearchDao : BaseDao, ISearchDao
     {
-        public IProjectDao ProjectDao { get; set; }
-        public IMilestoneDao MilestoneDao { get; set; }
-        public ITaskDao TaskDao { get; set; }
-        public IMessageDao MessageDao { get; set; }
-        public ICommentDao CommentDao { get; set; }
-        public ISubtaskDao SubtaskDao { get; set; }
+        public IDaoFactory DaoFactory { get; set; }
 
-        public SearchDao(int tenant, IDaoFactory factory)
-            : base(tenant)
+        public IProjectDao ProjectDao { get { return DaoFactory.ProjectDao; } }
+        public IMilestoneDao MilestoneDao { get { return DaoFactory.MilestoneDao; } }
+        public ITaskDao TaskDao { get { return DaoFactory.TaskDao; } }
+        public IMessageDao MessageDao { get { return DaoFactory.MessageDao; } }
+        public ICommentDao CommentDao { get { return DaoFactory.CommentDao; } }
+        public ISubtaskDao SubtaskDao { get { return DaoFactory.SubtaskDao; } }
+
+        public SearchDao(int tenant) : base(tenant)
         {
-            ProjectDao = factory.ProjectDao;
-            MilestoneDao = factory.MilestoneDao;
-            TaskDao = factory.TaskDao;
-            MessageDao = factory.MessageDao;
-            CommentDao = factory.CommentDao;
-            SubtaskDao = factory.SubtaskDao;
         }
 
         public IEnumerable<DomainObject<int>> Search(String text, int projectId)
@@ -70,9 +67,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp projWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsModule))
+            List<int> projIds;
+            if (FactoryIndexer<ProjectsWrapper>.TrySelectIds(s => s.MatchAll(text), out projIds))
             {
-                var projIds = FullTextSearch.Search(FullTextSearch.ProjectsModule.Match(text));
                 projWhere = Exp.In("id", projIds);
             }
             else
@@ -87,9 +84,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp mileWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMilestonesModule))
+            List<int> mileIds;
+            if (FactoryIndexer<MilestonesWrapper>.TrySelectIds(s => s.MatchAll(text), out mileIds))
             {
-                var mileIds = FullTextSearch.Search(FullTextSearch.ProjectsMilestonesModule.Match(text));
                 mileWhere = Exp.In("t.id", mileIds);
             }
             else
@@ -104,10 +101,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp taskWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsTasksModule))
+            List<int> taskIds;
+            if (FactoryIndexer<TasksWrapper>.TrySelectIds(s => s.MatchAll(text), out taskIds))
             {
-                var taskIds = FullTextSearch.Search(FullTextSearch.ProjectsTasksModule.Match(text));
-
                 taskWhere = Exp.In("t.id", taskIds);
             }
             else
@@ -122,10 +118,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp messWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMessagesModule))
+            List<int> messIds;
+            if (FactoryIndexer<DiscussionsWrapper>.TrySelectIds(s => s.MatchAll(text), out messIds))
             {
-                var messIds = FullTextSearch.Search(FullTextSearch.ProjectsMessagesModule.Match(text));
-
                 messWhere = Exp.In("t.id", messIds);
             }
             else
@@ -140,10 +135,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp commentsWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsCommentsModule))
+            List<int> commentIds;
+            if (FactoryIndexer<CommentsWrapper>.TrySelectIds(s => s.MatchAll(text).Where(r=> r.InActive, false), out commentIds))
             {
-                var commentIds = FullTextSearch.Search(FullTextSearch.ProjectsCommentsModule.Match(text));
-
                 commentsWhere = Exp.In("comment_id", commentIds);
             }
             else
@@ -158,10 +152,9 @@ namespace ASC.Projects.Data.DAO
         {
             Exp subtasksWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsSubtasksModule))
+            List<int> subtaskIds;
+            if (FactoryIndexer<SubtasksWrapper>.TrySelectIds(s => s.MatchAll(text), out subtaskIds))
             {
-                var subtaskIds = FullTextSearch.Search(FullTextSearch.ProjectsSubtasksModule.Match(text));
-
                 subtasksWhere = Exp.In("id", subtaskIds);
             }
             else

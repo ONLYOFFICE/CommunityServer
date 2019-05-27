@@ -31,8 +31,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using ASC.Common.Logging;
 using ASC.Core.Common.Settings;
-using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
@@ -144,7 +144,7 @@ namespace ASC.Web.Core.WhiteLabel
             }
             catch (Exception e)
             {
-                log4net.LogManager.GetLogger("ASC").Error(e);
+                LogManager.GetLogger("ASC").Error(e);
             }
 
             Save(tenantId, true);
@@ -162,7 +162,7 @@ namespace ASC.Web.Core.WhiteLabel
                 }
                 catch (Exception e)
                 {
-                    log4net.LogManager.GetLogger("ASC").Error(e);
+                    LogManager.GetLogger("ASC").Error(e);
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace ASC.Web.Core.WhiteLabel
                 }
                 catch (Exception e)
                 {
-                    log4net.LogManager.GetLogger("ASC").Error(e);
+                    LogManager.GetLogger("ASC").Error(e);
                 }
             }
             #endregion
@@ -235,7 +235,7 @@ namespace ASC.Web.Core.WhiteLabel
                         }
                         catch (Exception ex)
                         {
-                            log4net.LogManager.GetLogger("ASC").Error(ex);
+                            LogManager.GetLogger("ASC").Error(ex);
                         }
                     }
                     else
@@ -376,7 +376,7 @@ namespace ASC.Web.Core.WhiteLabel
             switch (type)
             {
                 case WhiteLabelLogoTypeEnum.LightSmall:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small.png");
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small_general.svg") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small.svg");
                 case WhiteLabelLogoTypeEnum.Dark:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/dark_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/dark.png");
                 case WhiteLabelLogoTypeEnum.DocsEditor:

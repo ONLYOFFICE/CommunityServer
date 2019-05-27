@@ -136,6 +136,7 @@ window.ASC.Files.Tree = (function () {
             }
         }
 
+        ASC.Files.Filter.clearFilter(true);
         ASC.Files.Anchor.navigationSet(folderId);
         return;
     };

@@ -60,7 +60,6 @@ ASC.CRM.NavSidePanel = (function() {
 
         if ((checkNeedExportCsvBtns(currentPage) || jq.inArray(currentPage, pagesForHistory) != -1) && entityID == 0 && action == null) {
             jq("#exportListToCSV").on("click", ASC.CRM.Common.exportCurrentListToCsv);
-            jq("#openListInEditor").on("click", ASC.CRM.Common.openExportFile);
         } else {
             ASC.CRM.Common.hideExportButtons();
         }
@@ -161,7 +160,7 @@ ASC.CRM.NavSidePanel = (function() {
 
         if (currentPage == "tasks.aspx") {
             jq("#nav-menu-tasks").addClass("active currentCategory");
-            ASC.CRM.ListTaskView.init("export_tasks_error", ".main-list-tasks");
+            ASC.CRM.ListTaskView.init(".main-list-tasks");
         }
 
         if (currentPage == "deals.aspx") {

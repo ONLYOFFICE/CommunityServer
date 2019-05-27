@@ -26,8 +26,8 @@
 
 using System;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
@@ -37,9 +37,10 @@ using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
-using log4net;
+
 using Resources;
 using Constants = ASC.Core.Users.Constants;
 
@@ -135,6 +136,8 @@ namespace ASC.Web.Studio
 
                 case ConfirmType.PhoneActivation:
                 case ConfirmType.PhoneAuth:
+                case ConfirmType.TfaActivation:
+                case ConfirmType.TfaAuth:
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type, key, authInterval);
                     break;
 
@@ -142,8 +145,9 @@ namespace ASC.Web.Studio
                     {
                         var first = Request["first"] ?? "";
                         var module = Request["module"] ?? "";
+                        var smsConfirm = Request["sms"] ?? "";
 
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module, key, authInterval);
+                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module + smsConfirm, key, authInterval);
 
                         if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
                         {
@@ -164,7 +168,7 @@ namespace ASC.Web.Studio
                                     return false;
                                 }
 
-                                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+                                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable && smsConfirm.ToLower() != "true")
                                 {
                                     Response.Redirect(SmsConfirmUrl(user), true);
                                 }
@@ -308,6 +312,13 @@ namespace ASC.Web.Studio
                     confirmMobileActivation.User = CoreContext.UserManager.GetUserByEmail(_email);
                     _confirmHolder.Controls.Add(confirmMobileActivation);
                     break;
+                case ConfirmType.TfaActivation:
+                case ConfirmType.TfaAuth:
+                    var confirmTfaActivation = (TfaActivation)LoadControl(TfaActivation.Location);
+                    confirmTfaActivation.Activation = _type == ConfirmType.TfaActivation;
+                    confirmTfaActivation.User = CoreContext.UserManager.GetUserByEmail(_email);
+                    _confirmHolder.Controls.Add(confirmTfaActivation);
+                    break;
             }
         }
 
@@ -403,6 +414,16 @@ namespace ASC.Web.Studio
                     ? ConfirmType.PhoneActivation
                     : ConfirmType.PhoneAuth;
 
+            return CommonLinkUtility.GetConfirmationUrl(user.Email, confirmType);
+        }
+
+        public static string TfaConfirmUrl(UserInfo user)
+        {
+            if (user == null)
+                return string.Empty;
+            var confirmType = TfaAppUserSettings.EnableForUser(user.ID)
+                ? ConfirmType.TfaAuth
+                : ConfirmType.TfaActivation;
             return CommonLinkUtility.GetConfirmationUrl(user.Email, confirmType);
         }
 

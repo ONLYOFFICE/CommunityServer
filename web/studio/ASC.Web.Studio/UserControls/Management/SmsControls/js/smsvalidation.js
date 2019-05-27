@@ -40,21 +40,34 @@ window.ASC.Controls.SmsValidationSettings = (function () {
             };
 
             var smsEnable = jq("#chk2FactorAuthEnable").is(":checked");
+            var tfaAppEnable = jq("#chk2FactorAppAuthEnable").is(":checked");
 
-            Teamlab.smsValidationSettings(smsEnable, {
+            var callback = {
                 success: function () {
                     LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
                 },
                 error: function (params, error) {
                     LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", error[0], "error");
                 }
-            });
+            };
+
+            if (smsEnable) {
+                Teamlab.tfaAppAuthSettings("sms", callback);
+            } else if (tfaAppEnable) {
+                Teamlab.tfaAppAuthSettings("app", callback);
+            } else {
+                Teamlab.tfaAppAuthSettings("none", callback);
+            }
         }
     };
 })();
 
 (function () {
     jq(function () {
-        jq("#chk2FactorAuthSave:not(.disable)").on("click", ASC.Controls.SmsValidationSettings.SaveSmsValidationSettings);
+        jq("#studio_smsValidationSettings").on("click", "#chk2FactorAuthSave:not(.disable)", ASC.Controls.SmsValidationSettings.SaveSmsValidationSettings);
+
+        jq("input[name=\"chk2FactorAuth\"]").change(function () {
+            jq("#chk2FactorAuthSave").removeClass("disable");
+        });
     });
 })();

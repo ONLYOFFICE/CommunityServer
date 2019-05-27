@@ -29,10 +29,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ASC.ActiveDirectory.Base.Data;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility;
-using log4net;
 using Monocert = Mono.Security.X509;
 using Syscert = System.Security.Cryptography.X509Certificates;
 

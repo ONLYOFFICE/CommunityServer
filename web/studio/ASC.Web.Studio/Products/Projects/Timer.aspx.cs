@@ -83,17 +83,22 @@ namespace ASC.Web.Projects
             if (!WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, SecurityContext.CurrentAccount.ID))
                 participantId = Participant.ID;
 
-            UserProjects = EngineFactory.ProjectEngine.GetOpenProjectsWithTasks(participantId);
+            UserProjects = EngineFactory.ProjectEngine.GetByFilter(new TaskFilter
+            {
+                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open},
+                SortBy = "title",
+                SortOrder = true
+            }).Where(r=> r.TaskCountTotal > 0).ToList();
 
             if (UserProjects.Any() && (Project == null || !UserProjects.Contains(Project)))
                 Project = UserProjects.First();
 
-            var tasks = EngineFactory.TaskEngine.GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty);
+            var tasks = EngineFactory.TaskEngine.GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty).Where(r=> ProjectSecurity.CanCreateTimeSpend(r)).ToList();
 
             OpenUserTasks = tasks.Where(r => r.Status == TaskStatus.Open).OrderBy(r => r.Title);
             ClosedUserTasks = tasks.Where(r => r.Status == TaskStatus.Closed).OrderBy(r => r.Title);
 
-            Users = EngineFactory.ProjectEngine.GetTeam(Project.ID).OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo)).Where(r => r.UserInfo.IsVisitor() != true).ToList();
+            Users = EngineFactory.ProjectEngine.GetProjectTeamExcluded(Project.ID).OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo)).Where(r => !r.UserInfo.IsVisitor()).ToList();
 
             if (!string.IsNullOrEmpty(Request.QueryString["taskId"]))
             {

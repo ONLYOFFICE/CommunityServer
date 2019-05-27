@@ -26,6 +26,7 @@
 
 using System.Collections.Generic;
 using System.Web;
+using ASC.Core.Users;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Utility.Skins;
 
@@ -44,7 +45,8 @@ namespace ASC.Web.People.Masters.ClientScripts
             {
                 RegisterObject(new
                 {
-                    emptyScreenPeopleFilter = WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")
+                    emptyScreenPeopleFilter = WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png"),
+                    userDisplayFormat = (int) UserFormatter.GetUserDisplayDefaultOrder()
                 })
             };
         }

@@ -136,9 +136,11 @@ namespace ASC.Web.Projects.Masters
                     .AddSource(ResolveUrl, new ClientTemplateResources())
                     .AddSource(ResolveUrl,
                         "~/js/asc/plugins/jquery-projectadvansedselector.js",
+                        "~/js/asc/plugins/progressdialog.js",
                         "~/js/third-party/autosize.js",
                         "~/js/uploader/ajaxupload.js")
                     .AddSource(PathProvider.GetFileStaticRelativePath,
+                        "jquery-tagsadvansedselector.js",
                         "jq_projects_extensions.js",
                         "helper.js",
                         "common.js",
@@ -159,8 +161,7 @@ namespace ASC.Web.Projects.Masters
                         "timetracking.js",
                         "apitimetraking.js",
                         "ganttchart_min.js",
-                        "ganttchartpage.js",
-                        "settings.js");
+                        "ganttchartpage.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()

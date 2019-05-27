@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Web.Core.Client.Bundling;
@@ -55,7 +56,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
             }
             catch (Exception e)
             {
-                log4net.LogManager.GetLogger("ASC").Error(e);
+                LogManager.GetLogger("ASC").Error(e);
             }
 
             return result;

@@ -50,7 +50,7 @@
         {{/if}}
         <td class="icon-list">
             <a class="ava" href="${user.link}">
-                <img src="${user.avatarSmall}" title="${user.displayName}"/>
+                <img src="{{if $data.isRetina}}${user.avatar}{{else}}${user.avatarSmall}{{/if}}" title="${user.displayName}"/>
 
                 {{if (user.isVisitor)}}<span class="role collaborator" title="${ASC.Resources.Master.Guest}"></span>{{/if}}
                 {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="${ASC.Resources.Master.TemplateResource.Administrator}"></span>{{/if}}
@@ -89,9 +89,9 @@
         </div>
     </td>
     <td class="group">
-        {{if user.groups.length === 1 && user.group != null}}
-        <a class="link dotted text-overflow" title="${user.group.name}" href="#group=${user.group.id}">
-            ${user.group.name}
+        {{if user.groups.length === 1}}
+        <a class="link dotted text-overflow" title="${user.groups[0].name}" href="#group=${user.groups[0].id}">
+            ${user.groups[0].name}
         </a>
         {{else user.groups.length > 1}}
             <span id="peopleGroupsSwitcher_${user.id}" class="withHoverArrowDown">
@@ -193,4 +193,118 @@
     {{if errorMessage}}
     <div class="red-text">${ASC.People.Resources.PeopleResource.ReassignStatusError}:&nbsp;${errorMessage}</div>
     {{/if}}
+</script>
+
+<script id="groupListTemplate" type="text/x-jquery-tmpl">
+    {{each(i, group) groups}}
+    <li class="menu-sub-item" data-id="${group.id}">
+        <a class="menu-item-label outer-text text-overflow" title="${group.name}" href="/products/people/#sortorder=ascending&status=active&group=${group.id}">${group.name}</a>
+    </li>
+    {{/each}}
+</script>
+
+<script id="userRecord" type="text/x-jquery-tmpl">
+    <tr id="hoverItem" class="userItem clearFix">
+        <td class="check">
+            <input class="check" type="checkbox"/>
+        </td>
+        <td class="name">
+            <div class="clearFix">
+                <div class="firstname">
+                    <input type="text" class="studioEditableInput firstName last" value="${FirstName}" maxlength="64" />
+                </div>
+                <div class="lastname">
+                    <input type="text" class="studioEditableInput lastName last" value="${LastName}" maxlength="64" />
+                </div>
+            </div>
+        </td>
+        <td class="email">
+            <input type="text" class="studioEditableInput email last" value="${Email}" maxlength="64" />
+        </td>
+        <td class="remove {{if jq.browser.mobile === true}}mob{{/if}}">
+            <div></div>
+        </td>
+    </tr>
+</script>
+
+<script id="userWizard" type="text/x-jquery-tmpl">
+    <tr class="userItem clearFix">
+        <td class="fileHeader">
+            <div class="clearFix">
+                <div class="headerContainer">
+                    {{tmpl 'headItems'}}
+                </div>
+                <div class="userContainer">
+                    {{tmpl 'userItems'}}
+                </div>
+            </div>
+        </td>
+        <td class="optionsContainer">
+            {{each headItem}}
+            {{tmpl($value, {cols: columns}) 'selectContainer'}}
+            {{/each}}
+        </td>
+    </tr>
+</script>
+
+<script id="headItems" type="text/x-jquery-tmpl">
+    {{each headItem}}
+    <input type="text" class="studioEditableInputWizard example" value="${$value}" maxlength="64" readonly="readonly"/><br/>
+    {{/each}}
+</script>
+
+<script id="userItems" type="text/x-jquery-tmpl">
+    {{each userItem}}
+    <input type="text" class="studioEditableInputWizard example" value="${$value}" maxlength="64" readonly="readonly"/><br/>
+    {{/each}}
+</script>
+
+<script id="selectContainer" type="text/x-jquery-tmpl">
+    {{if $item.cols === $data }}
+    <select class="optionMenu" data-prev="${$data}">
+    {{else}}
+    <select class="optionMenu" data-prev="emptyOption">
+    {{/if}}
+        <option value="emptyOption">${ASC.People.Resources.PeopleResource.NotImport}</option>
+        {{each $item.cols}}
+        {{if $value.Value === $data }}
+        <option value="${$value.Key}" selected>${$value.Value}</option>
+        {{else}}
+        <option value="${$value.Key}">${$value.Value}</option>
+        {{/if}}
+        {{/each}}
+    </select>
+</script>
+
+<script id="wizardStepsTmpl" type="text/x-jquery-tmpl">
+    <div id="${id}" class="wizard"><span class="importStepName">${name}</span><span class="importCounter"></span></div>
+</script>
+
+<script id="compliancetTableHeader" type="text/x-jquery-tmpl">
+    <tr>
+        <td  class="innerTab first">
+            ${ASC.People.Resources.PeopleResource.FieldsInFile}
+        </td>
+        <td  class="innerTab">
+            ${ASC.People.Resources.PeopleResource.ExampleValues}
+            <span class="newRandomUser"></span>
+        </td>
+        <td  class="innerTab last">    
+            ${ASC.People.Resources.PeopleResource.FieldsOnPortal}
+        </td>
+    </tr>
+</script>
+
+<script id="selectionTableHeader" type="text/x-jquery-tmpl">
+    <tr>
+        <td  class="selectionInnerTab first">
+            ${ASC.People.Resources.PeopleResource.FirstName}
+        </td>
+        <td  class="selectionInnerTab">
+            ${ASC.People.Resources.PeopleResource.LastName}
+        </td>
+        <td  class="selectionInnerTab last">    
+            ${ASC.People.Resources.PeopleResource.Email}
+        </td>
+    </tr>
 </script>

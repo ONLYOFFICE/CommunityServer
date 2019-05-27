@@ -30,6 +30,7 @@ using System.Globalization;
 using System.Web;
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.ElasticSearch;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
@@ -80,7 +81,14 @@ namespace ASC.Web.Talk.ClientScript
                         fileTransportType = config.FileTransportType ?? string.Empty,
                         maxUploadSize = SetupInfo.MaxImageUploadSize,
                         sounds =  WebPath.GetPath("/addons/talk/swf/sounds.swf"),
-                        expressInstall =  WebPath.GetPath("/addons/talk/swf/expressinstall.swf")
+                        soundsHtml = new List<string>() { 
+                            WebPath.GetPath("/addons/talk/swf/startupsound.mp3"),
+                            WebPath.GetPath("/addons/talk/swf/incmsgsound.mp3"),
+                            WebPath.GetPath("/addons/talk/swf/letupsound.mp3"), 
+                            WebPath.GetPath("/addons/talk/swf/sndmsgsound.mp3"),
+                            WebPath.GetPath("/addons/talk/swf/statussound.mp3")
+                        },
+                        fullText = FactoryIndexer<JabberWrapper>.CanSearchByContent()
                     }
                 })
             };
@@ -88,7 +96,7 @@ namespace ASC.Web.Talk.ClientScript
 
         protected override string GetCacheHash()
         {
-            return ClientSettings.ResetCacheKey + SecurityContext.CurrentAccount.ID +
+            return ClientSettings.ResetCacheKey + SecurityContext.CurrentAccount.ID + FactoryIndexer<JabberWrapper>.CanSearchByContent() +
                    (SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal
                         ? (CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
                            CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture))

@@ -80,7 +80,7 @@ namespace ASC.Core.Common.Settings
             return SettingsManagerInstance.LoadSettings<T>(tenantId);
         }
 
-        public bool Save()
+        public virtual bool Save()
         {
             return SettingsManagerInstance.SaveSettings(this, TenantID);
         }
@@ -103,6 +103,11 @@ namespace ASC.Core.Common.Settings
         public bool SaveForTenant(int tenantId)
         {
             return SettingsManagerInstance.SaveSettings(this, tenantId);
+        }
+
+        public void ClearCache()
+        {
+            SettingsManagerInstance.ClearCache<T>();
         }
 
         public abstract Guid ID { get; }

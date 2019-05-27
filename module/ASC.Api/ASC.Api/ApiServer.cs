@@ -33,8 +33,7 @@ using System.Web.Routing;
 
 using ASC.Api.Batch;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
-
+using ASC.Common.Logging;
 using Autofac;
 
 namespace ASC.Api

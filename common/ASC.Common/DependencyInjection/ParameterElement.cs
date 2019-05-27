@@ -33,6 +33,7 @@ namespace ASC.Common.DependencyInjection
     {
         private const string NameAttributeName = "name";
         private const string ValueAttributeName = "value";
+        private const string TypeAttributeName = "type";
         private const string ListElementName = "list";
         private const string DictionaryElementName = "dictionary";
         internal const string Key = "name";
@@ -52,6 +53,15 @@ namespace ASC.Common.DependencyInjection
             get
             {
                 return (string)this[ValueAttributeName];
+            }
+        }
+
+        [ConfigurationProperty(TypeAttributeName, IsRequired = false)]
+        public string Type
+        {
+            get
+            {
+                return (string)this[TypeAttributeName];
             }
         }
 

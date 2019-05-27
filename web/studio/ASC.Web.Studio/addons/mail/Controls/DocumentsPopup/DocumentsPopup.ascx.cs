@@ -27,18 +27,21 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Files.Controls;
-using ASC.Web.Studio.Controls.Common;
+using ASC.Files.Core;
+using ASC.Web.Files;
+using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using Resources;
 
 namespace ASC.Web.Mail.Controls
 {
     public partial class DocumentsPopup : UserControl
     {
-        public static string Location { get { return "~/addons/mail/controls/documentspopup/DocumentsPopup.ascx"; } }
-        
-        public string LoaderImgSrc { get { return WebImageSupplier.GetAbsoluteWebPath("loader_32.gif"); } }
+        public static string Location
+        {
+            get { return "~/addons/mail/controls/documentspopup/DocumentsPopup.ascx"; }
+        }
+
+        protected string FrameUrl;
 
         private void InitScripts()
         {
@@ -48,23 +51,12 @@ namespace ASC.Web.Mail.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            FrameUrl = FileChoice.GetUrl(filterType: FilterType.FilesOnly, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
+
+            loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
+
             _documentUploader.Options.IsPopup = true;
             InitScripts();
-            
-            var emptyParticipantScreenControl = new EmptyScreenControl
-            {
-                ImgSrc = VirtualPathUtility.ToAbsolute("~/addons/mail/controls/documentspopup/css/images/project-documents.png"),
-                Header = "",
-                HeaderDescribe = UserControlsCommonResource.EmptyDocsHeaderDescription,
-                Describe = ""
-            };
-
-            _phEmptyDocView.Controls.Add(emptyParticipantScreenControl);
-
-            var tree = (Tree)LoadControl(Tree.Location);
-            tree.ID = "documentSelectorTree";
-            tree.WithoutTrash = true;
-            TreeHolder.Controls.Add(tree);
         }
     }
 }

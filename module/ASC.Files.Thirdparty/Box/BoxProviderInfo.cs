@@ -67,6 +67,20 @@ namespace ASC.Files.Thirdparty.Box
             }
         }
 
+        internal bool StorageOpened
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__BOX_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    return wrapper != null && wrapper.Storage.IsOpened;
+                }
+                return false;
+            }
+        }
+
         public int ID { get; set; }
 
         public Guid Owner { get; private set; }
@@ -120,7 +134,8 @@ namespace ASC.Files.Thirdparty.Box
 
         public void Dispose()
         {
-            Storage.Close();
+            if (StorageOpened)
+                Storage.Close();
         }
 
         public bool CheckAccess()
@@ -169,7 +184,7 @@ namespace ASC.Files.Thirdparty.Box
             if (_token == null) throw new UnauthorizedAccessException("Cannot create Box session with given token");
             if (_token.IsExpired)
             {
-                _token = OAuth20TokenHelper.RefreshToken(BoxLoginProvider.BoxOauthTokenUrl, _token);
+                _token = OAuth20TokenHelper.RefreshToken<BoxLoginProvider>(_token);
 
                 using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
                 {
@@ -241,7 +256,8 @@ namespace ASC.Files.Thirdparty.Box
             if (folder == null)
             {
                 folder = Storage.GetFolder(boxFolderId);
-                CacheFolder.Insert("boxd-" + ID + "-" + boxFolderId, folder, DateTime.UtcNow.Add(CacheExpiration));
+                if (folder != null)
+                    CacheFolder.Insert("boxd-" + ID + "-" + boxFolderId, folder, DateTime.UtcNow.Add(CacheExpiration));
             }
             return folder;
         }
@@ -252,7 +268,8 @@ namespace ASC.Files.Thirdparty.Box
             if (file == null)
             {
                 file = Storage.GetFile(boxFileId);
-                CacheFile.Insert("boxf-" + ID + "-" + boxFileId, file, DateTime.UtcNow.Add(CacheExpiration));
+                if (file != null)
+                    CacheFile.Insert("boxf-" + ID + "-" + boxFileId, file, DateTime.UtcNow.Add(CacheExpiration));
             }
             return file;
         }

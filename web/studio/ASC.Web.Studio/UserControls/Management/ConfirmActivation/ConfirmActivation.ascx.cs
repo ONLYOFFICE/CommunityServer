@@ -86,6 +86,8 @@ namespace ASC.Web.Studio.UserControls.Management
                     User = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                     User.Email = email;
                     CoreContext.UserManager.SaveUserInfo(User);
+                    MessageService.Send(Request, MessageAction.UserUpdatedEmail);
+
                     ActivateMail(User);
                     const string successParam = "email_change=success";
                     if(User.IsVisitor())

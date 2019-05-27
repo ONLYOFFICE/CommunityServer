@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="internode.on.net">
+    <domain>internode.on.net</domain>
+    <displayName>Internode</displayName>
+    <displayShortName>Internode</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mail.internode.on.net</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mail.internode.on.net</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.internode.on.net</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </outgoingServer>
+    <documentation url="http://www.internode.on.net/support/guides/email/secure_email/">
+      <descr lang="en">Secure settings, generic</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Login</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <script type="text/javascript" language="javascript">
+            function snd () {
+                try {
+                    var search = location.search;
+                    search = search.substring(search.indexOf("?") == 0 ? 1 : 0);
+
+                    var params = {};
+                    search.replace(/(?:^|&)([^&=]*)=?([^&]*)/g,
+                        function ($0, $1, $2) {
+                            if ($1) {
+                                params[$1] = $2;
+                            }
+                        });
+
+                    var redirectUrl = params.state;
+
+                    if (redirectUrl) {
+                        location.href = decodeURIComponent(redirectUrl) + (decodeURIComponent(redirectUrl).indexOf("?") > -1 ? "&" : "?") + search;
+                        return;
+                    }
+                } catch (err) {
+                    alert(err);
+                }
+                window.close();
+            }
+
+            window.onload = snd;
+        </script>
+    </form>
+</body>
+</html>

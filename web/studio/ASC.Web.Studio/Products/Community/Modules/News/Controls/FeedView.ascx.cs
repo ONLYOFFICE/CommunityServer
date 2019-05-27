@@ -156,7 +156,7 @@ namespace ASC.Web.Community.News.Controls
                         CommonControlsConfigurer.FCKUploadsRemoveForItem("news_comments", comment.Id.ToString());
                     }
 
-                    storage.RemoveFeed(feedId);
+                    storage.RemoveFeed(feed);
                     CommonControlsConfigurer.FCKUploadsRemoveForItem("news", id);
 
                     resp.rs1 = id;

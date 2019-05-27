@@ -24,9 +24,14 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Notify;
@@ -37,12 +42,10 @@ using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Birthdays.Resources;
+using ASC.Web.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace ASC.Web.Community.Birthdays
 {
@@ -133,12 +136,24 @@ namespace ASC.Web.Community.Birthdays
                     }
 
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
+
+                    if (!WebItemSecurity.GetSecurityInfo(WebItemManager.CommunityProductID.ToString()).Enabled ||
+                        !WebItemSecurity.GetSecurityInfo(WebItemManager.BirthdaysProductID.ToString()).Enabled)
+                    {
+                        continue;
+                    }
+
                     var users = CoreContext.UserManager.GetUsers(EmployeeStatus.Active, EmployeeType.User);
                     var birthdays = users.Where(u => u.BirthDate.HasValue && u.BirthDate.Value.Month == scheduleDate.Month && u.BirthDate.Value.Day == scheduleDate.Day);
                     var subscriptionProvider = NotifySource.GetSubscriptionProvider();
 
                     foreach (var user in users)
                     {
+                        if (WebItemManager.Instance[WebItemManager.CommunityProductID].IsDisabled(user.ID))
+                        {
+                            continue;
+                        }
+                        
                         var allSubscription = subscriptionProvider.IsSubscribed(Event_BirthdayReminder, user, null);
                         foreach (var birthday in birthdays)
                         {
@@ -163,7 +178,7 @@ namespace ASC.Web.Community.Birthdays
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger(typeof(BirthdaysNotifyClient)).Error(ex);
+                LogManager.GetLogger("ASC").Error(ex);
             }
         }
 

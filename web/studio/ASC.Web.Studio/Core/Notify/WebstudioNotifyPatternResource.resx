@@ -392,7 +392,7 @@ Dear $OwnerName,
 
 A backup file containing data from your "${__VirtualRootPath}":"${__VirtualRootPath}" portal has been created.
 
-To learn more on the backup procedure please refer to our "Data backup":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" user guide.
+To learn more on the backup procedure please refer to our "Data backup":"${__HelpLink}/tipstricks/data-backup-restore.aspx" user guide.
 
 If you have any questions or need assistance please feel free to contact us at "support.onlyoffice.com":"http://support.onlyoffice.com"
 
@@ -413,13 +413,7 @@ $GreenButton
 
 You might need your old email address to access the portal when you follow the link. If you do not remember the old email address, please contact your portal administrator.
 
-If you do not want to change your email or received this email by mistake, please ignore it or contact your portal administrator to find out the details.
-
-If you have any questions or need assistance please feel free to contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
-
-Best regards,
-ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+If you do not want to change your email or received this email by mistake, please ignore it or contact your portal administrator to find out the details.</value>
   </data>
   <data name="pattern_change_password" xml:space="preserve">
     <value>h1.Password change request for the "${__VirtualRootPath}":"${__VirtualRootPath}" portal
@@ -432,13 +426,7 @@ $GreenButton
 
 *Note*: this link is valid for 7 days only. Please complete the password change process within that period.
 
-If you do not want to change your password or received this email by mistake, please ignore it or contact your "${__VirtualRootPath}":"${__VirtualRootPath}" portal administrator to find out the details.
-
-If you have any questions or need assistance please feel free to contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
-
-Best regards,
-ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+If you do not want to change your password or received this email by mistake, please ignore it or contact your "${__VirtualRootPath}":"${__VirtualRootPath}" portal administrator to find out the details.</value>
   </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Mobile phone change request
@@ -450,6 +438,16 @@ Please follow the link below to change your mobile phone:
 $GreenButton
 
 If you do not want to change your mobile phone or received this email by mistake, please ignore it or contact your portal administrator to find out the details.</value>
+  </data>
+  <data name="pattern_change_tfa" xml:space="preserve">
+    <value>h1.Backup codes change request
+
+You have requested to change your backup codes used to enter the ${LetterLogoText} portal.
+
+Please follow the link below to change your backup codes:
+
+$GreenButton
+</value>
   </data>
   <data name="pattern_confirm_owner_change" xml:space="preserve">
     <value>h1.Change of "${__VirtualRootPath}":"${__VirtualRootPath}" portal owner
@@ -518,13 +516,50 @@ To accept the invitation please enter your name and password following this link
 
 $GreenButton
 
-*Note*: this link is valid for 48 hours only. Please complete the operation within that period.
+*Note*: this link is valid for 48 hours only. Please complete the operation within that period.</value>
+  </data>
+  <data name="pattern_mailbox_created" xml:space="preserve">
+    <value>
+      Dear $UserName,
 
-If you have any questions or need assistance please feel free to contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+      Administrator has created a new &lt;b&gt;$Address&lt;/b&gt; mailbox for you at the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
 
-Best regards,
-ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+      Use the following settings for other email clients:
+
+      Login: &lt;b&gt;$Login&lt;/b&gt;
+      Password: "&lt;b&gt;set password&lt;/b&gt;":"$MyStaffLink"
+
+      Incoming Mail (IMAP): 
+      Server: &lt;b&gt;$Server&lt;/b&gt;
+      Port: &lt;b&gt;$ImapPort&lt;/b&gt;
+      SSL/TLS: &lt;b&gt;$Encryption&lt;/b&gt;
+
+      Outgoing Mail (SMTP): 
+      Server: &lt;b&gt;$Server&lt;/b&gt;
+      Port: &lt;b&gt;$SmtpPort&lt;/b&gt;
+      SSL/TLS: &lt;b&gt;$Encryption&lt;/b&gt;
+      Requires Authentication: &lt;b&gt;Yes&lt;/b&gt;
+
+      If you received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+    </value>
+  </data>
+  <data name="pattern_mailbox_without_settings_created" xml:space="preserve">
+    <value>
+      Dear $UserName,
+
+      Administrator has created a new &lt;b&gt;$Address&lt;/b&gt; mailbox for you at the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
+
+      If you received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+    </value>
+  </data>
+  <data name="pattern_mailbox_password_changed" xml:space="preserve">
+    <value>
+      Dear $UserName,
+
+      The password for the &lt;b&gt;$Address&lt;/b&gt; mailbox has been changed.
+
+      If you received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+    </value>
   </data>
   <data name="pattern_migration_error" xml:space="preserve">
     <value>h1.Another region portal migration error
@@ -831,6 +866,15 @@ ONLYOFFICE Team</value>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Mobile phone change request</value>
   </data>
+  <data name="subject_change_tfa" xml:space="preserve">
+    <value>${LetterLogoText}. Backup codes change request</value>
+  </data>
+  <data name="subject_mailbox_created" xml:space="preserve">
+    <value>${LetterLogoText}. Mailbox creation</value>
+  </data>
+  <data name="subject_mailbox_password_changed" xml:space="preserve">
+    <value>${LetterLogoText}. Change of mailbox password</value>
+  </data>
   <data name="subject_confirm_owner_change" xml:space="preserve">
     <value>${LetterLogoText}. Change of portal owner</value>
   </data>
@@ -908,7 +952,7 @@ Please, complete your email activation within a week as the link is valid for 7 
 
 Note: we do not send out confidential information (like your password) in emails for safety reasons. You may change your email or password in your "personal profile page":"$MyStaffLink".
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -928,9 +972,9 @@ Please, complete your email activation within a week as the link is valid for 7 
 
 Note: we do not send out confidential information (like your password) in emails for safety reasons. You may change your email or password in your "personal profile page":"$MyStaffLink".
 
-To send notifications, we use the SMTP settings of our default mail server. To change them, please follow the instructions "here":"http://helpcenter.onlyoffice.com/server/windows/community/smtp-settings.aspx".
+To send notifications, we use the SMTP settings of our default mail server. To change them, please follow the instructions "here":"${__HelpLink}/server/windows/community/smtp-settings.aspx".
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -964,7 +1008,7 @@ Please, complete your email activation within a week as the link is valid for 7 
 
 Note: we do not send out confidential information (like your password) in emails for safety reasons. You may change your email or password in your "personal profile page":"$MyStaffLink".
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1012,7 +1056,7 @@ The rest of the tools are available in Control Panel, where you can also change 
 
 $GreenButton
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1064,11 +1108,9 @@ $GreenButton
    
 Done. It's time to invite teammates to your web-office!
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
-Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free and can be connected to your ONLYOFFICE portal. "Download now":"http://www.onlyoffice.com/desktop.aspx"
-
-Let your team also use ONLYOFFICE Documents app to manage and edit docs on iOS devices "Get it on App Store":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972".
+One more tip: all of your users can edit documents offline using "ONLYOFFICE Desktop Editors":"http://www.onlyoffice.com/desktop.aspx" or work on them on-the-go with ONYOFFICE Documents app for "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" or "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents". It is free!
 
 Truly yours,
 ONLYOFFICE Team
@@ -1095,7 +1137,7 @@ $GreenButton
    
 Done. It's time to invite teammates to your web-office!
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free and can be connected to your ONLYOFFICE portal. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
@@ -1130,7 +1172,7 @@ You can accept the invitation by following the link below, it is only valid for 
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1163,7 +1205,7 @@ Do you know that you're using the most powerful online editors in the world? Wan
 
 An additional tip: use free ONLYOFFICE Desktop Editors to work on documents, spreadsheets and presentations offline. Connect the application to your portal to get access to documents stored there. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1232,7 +1274,7 @@ h3.Get started with your portal
 # Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with your team members online.
 # Add your email account to "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/".
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or our "Forum":"http://cloud.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or our "Forum":"http://cloud.onlyoffice.com".
 
 Best regards,
 ONLYOFFICE Support Team
@@ -1247,7 +1289,7 @@ You can accept the invitation by following the link below, it is only valid for 
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1271,7 +1313,7 @@ h3.Get started with your portal:
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or our "Forum":"http://cloud.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or our "Forum":"http://cloud.onlyoffice.com".
 
 An additional tip: use free ONLYOFFICE Desktop Editors to work on documents, spreadsheets and presentations offline. Connect the application to your portal to get access to documents stored in the cloud and collaborate. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
@@ -1321,7 +1363,9 @@ You can accept the invitation by following the link below, it is only valid for 
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
+
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1345,11 +1389,11 @@ h3.Get started with your portal:
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
-An additional tip: use free ONLYOFFICE Desktop Editors to work on documents offline. Connect the application to your portal to get access to documents stored in the cloud and collaborate. "Download now":"http://www.onlyoffice.com/desktop.aspx"
+One more tip: edit documents offline using "ONLYOFFICE Desktop Editors":"http://www.onlyoffice.com/desktop.aspx" or work on them on-the-go with ONYOFFICE Documents app for "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" or "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents". It is free!
 
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
 
 Truly yours,
 ONLYOFFICE Team
@@ -1398,7 +1442,7 @@ You have been invited as a guest user to the portal at "${__VirtualRootPath}":"$
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1419,7 +1463,7 @@ h3.Get started with your portal:
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
@@ -1464,7 +1508,7 @@ You have been invited as a guest user to the portal at "${__VirtualRootPath}":"$
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Best regards,
 ONLYOFFICE Support Team
@@ -1483,7 +1527,7 @@ h3.Get started with your portal:
 # Organize your schedule with the built-in "Calendar":"${__VirtualRootPath}/addons/calendar/".
 # Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with other portal users online.
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org/".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org/".
 
 Best regards,
 ONLYOFFICE™ Support Team
@@ -1496,7 +1540,7 @@ You have been invited as a guest user to the portal at "${__VirtualRootPath}":"$
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1517,7 +1561,7 @@ h3.Get started with your portal:
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Just a tip: use free ONLYOFFICE Desktop Editors, if you need to edit documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
@@ -1560,7 +1604,9 @@ You have been invited as a guest user to the portal at "${__VirtualRootPath}":"$
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
+
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1581,11 +1627,11 @@ h3.Get started with your portal:
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+One more tip: edit documents offline using "ONLYOFFICE Desktop Editors":"http://www.onlyoffice.com/desktop.aspx" or work on them on-the-go with ONYOFFICE Documents app for "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" or "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents". It is free!
 
-Just a tip: use free ONLYOFFICE Desktop Editors, if you need to edit documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
+We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
 
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1635,14 +1681,14 @@ The easiest way to do that is to distribute the invitation link using the *Invit
 
 $GreenButton
 
-If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"http://helpcenter.onlyoffice.com/gettingstarted/people.aspx#AddingUsers_block"
+If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"${__HelpLink}/gettingstarted/people.aspx#AddingUsers_block"
 
 Or add users all at once from:
-    "your Yahoo or Google account":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-web.aspx",
-    "your mail client address book":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-mail-client.aspx",
-    "a CSV file":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-csv.aspx". 
+    "your Yahoo or Google account":"${__HelpLink}/administratorguides/import-contacts-from-web.aspx",
+    "your mail client address book":"${__HelpLink}/administratorguides/import-contacts-from-mail-client.aspx",
+    "a CSV file":"${__HelpLink}/administratorguides/import-contacts-from-csv.aspx". 
 
-Once added, manage their access rights. For more information about ARM, visit our "Help Center":"https://helpcenter.onlyoffice.com".
+Once added, manage their access rights. For more information about ARM, visit our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1660,7 +1706,7 @@ $GreenButton
    
 Done. It's time to invite teammates to your web-office!
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free and can be connected to your ONLYOFFICE portal. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
@@ -1678,15 +1724,15 @@ The easiest way to do that is to distribute the invitation link using the *Invit
 
 $GreenButton
 
-If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"http://helpcenter.onlyoffice.com/gettingstarted/people.aspx#AddingUsers_block"
+If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"${__HelpLink}/gettingstarted/people.aspx#AddingUsers_block"
 
 Or add users all at once from:
-    "your LDAP database":"http://helpcenter.onlyoffice.com/server/windows/community/ldap-settings.aspx",
-    "your Yahoo or Google account":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-web.aspx",
-    "your mail client address book":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-mail-client.aspx",
-    "a CSV file":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-csv.aspx". 
+    "your LDAP database":"${__HelpLink}/server/windows/community/ldap-settings.aspx",
+    "your Yahoo or Google account":"${__HelpLink}/administratorguides/import-contacts-from-web.aspx",
+    "your mail client address book":"${__HelpLink}/administratorguides/import-contacts-from-mail-client.aspx",
+    "a CSV file":"${__HelpLink}/administratorguides/import-contacts-from-csv.aspx". 
 
-Once added, manage their access rights. For more information about ARM, visit our "Help Center":"https://helpcenter.onlyoffice.com".
+Once added, manage their access rights. For more information about ARM, visit our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1715,7 +1761,7 @@ $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $Tabl
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
@@ -1745,7 +1791,7 @@ $GreenButton
 
 Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx" 
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1834,7 +1880,7 @@ Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1847,8 +1893,8 @@ Make use of these 5 tips and tricks to get organized and improve your email expe
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
 
-Still not yet configured the mail server using your own domain name? - Follow the instructions "here":"https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block".
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+Still not yet configured the mail server using your own domain name? - Follow the instructions "here":"${__HelpLink}/gettingstarted/mail.aspx#MailServer_block".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1861,7 +1907,7 @@ $GreenButton
 
 Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx" 
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1981,16 +2027,16 @@ The easiest way to do that is to distribute the invitation link using the *Invit
 
 $GreenButton
 
-If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"http://helpcenter.onlyoffice.com/gettingstarted/people.aspx#AddingUsers_block"
+If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. "Learn more &gt;&gt;":"${__HelpLink}/gettingstarted/people.aspx#AddingUsers_block"
 
 Or add users all at once from:
-    "your Yahoo or Google account":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-web.aspx",
-    "your mail client address book":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-mail-client.aspx",
-    "a CSV file":"http://helpcenter.onlyoffice.com/administratorguides/import-contacts-from-csv.aspx". 
+    "your Yahoo or Google account":"${__HelpLink}/administratorguides/import-contacts-from-web.aspx",
+    "your mail client address book":"${__HelpLink}/administratorguides/import-contacts-from-mail-client.aspx",
+    "a CSV file":"${__HelpLink}/administratorguides/import-contacts-from-csv.aspx". 
 
-Finally, you can allow your teammates self-registration configuring the *Trusted Mail Domain* settings. "Learn more &gt;&gt;":"http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#TrustedDomain"
+Finally, you can allow your teammates self-registration configuring the *Trusted Mail Domain* settings. "Learn more &gt;&gt;":"${__HelpLink}/gettingstarted/configuration.aspx#TrustedDomain"
 
-Once added, manage their access rights. For more information about ARM, visit our "Help Center":"https://helpcenter.onlyoffice.com".
+Once added, manage their access rights. For more information about ARM, visit our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2006,7 +2052,7 @@ Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2020,9 +2066,9 @@ In almost every business we are to deal with documents every day - contracts, re
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
 $GreenButton
 
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2035,8 +2081,8 @@ Make use of these 5 tips and tricks to get organized and improve your email expe
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
 
-Still not yet configured the mail server using your own domain name? - Follow the instructions "here":"https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block".
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+Still not yet configured the mail server using your own domain name? - Follow the instructions "here":"${__HelpLink}/gettingstarted/mail.aspx#MailServer_block".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2047,9 +2093,7 @@ ONLYOFFICE Team
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
 
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
-
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2078,7 +2122,7 @@ $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $Tabl
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2130,10 +2174,6 @@ If you're not going to increase it considerably, we can recommend you a $$Price/
 Please, check all the available options and choose the most suitable rate for your business.
 
 $GreenButton
-
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
-
-$BlueButton
 
 Truly yours,
 ONLYOFFICE Team
@@ -2294,9 +2334,7 @@ To get a quick start all you do is sign up via your Facebook or Google account. 
 
 $GreenButton
 
-Moreover, you can use our free ONLYOFFICE Desktop Editors - an office suite for working on documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
-
-You can also use ONLYOFFICE Documents app to manage and edit docs on iOS devices Get it on "App Store":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"
+One more tip: all of your users can edit documents offline using "ONLYOFFICE Desktop Editors":"http://www.onlyoffice.com/desktop.aspx" or work on them on-the-go with ONYOFFICE Documents app for "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" or "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents". It is free!
 
 Truly yours,
 ONLYOFFICE Team
@@ -2410,7 +2448,7 @@ Have a look at the "comparison with different online office suites":"https://www
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2435,7 +2473,7 @@ Note: we do not send out confidential information (like your password) in emails
 
 To send notifications, we use the SMTP settings of our default mail server. To change them, please follow the instructions here.
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2450,7 +2488,7 @@ $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $Tabl
 
 Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+If you need help with your portal, we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2473,7 +2511,7 @@ Got interested? Start free 30-day trial of the ONLYOFFICE Enterprise Edition:
 
 $GreenButton
 
-For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+For more information we invite you to browse our "Help Center":"${__HelpLink}".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2664,7 +2702,7 @@ ONLYOFFICE team</value>
 
 It has been a week since you created your cloud office, so we believe it's time to unveil some beneficial features you might have missed.
 
-Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You'll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents in. Read details about connecting file storages to ONLYOFFICE "here":"http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx".
+Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You'll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents in. Read details about connecting file storages to ONLYOFFICE "here":"${__HelpLink}/tipstricks/add-resource.aspx".
 
 You can also integrate ONLYOFFICE editors into Google Drive using our "connector app":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
 
@@ -2768,6 +2806,9 @@ ONLYOFFICE team</value>
   <data name="ButtonChangePhone" xml:space="preserve">
     <value>Change mobile phone number</value>
   </data>
+  <data name="ButtonChangeTfa" xml:space="preserve">
+    <value>Change backup codes</value>
+  </data>
   <data name="ButtonRemoveProfile" xml:space="preserve">
     <value>Remove profile</value>
   </data>
@@ -2820,8 +2861,6 @@ If you're not going to increase it considerably, we can recommend you a $$Price/
 Please, check all the available options and choose the most suitable rate for your business.
 
 $GreenButton
-
-Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 Truly yours,
 ONLYOFFICE Team

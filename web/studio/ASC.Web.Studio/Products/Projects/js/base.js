@@ -77,6 +77,7 @@ ASC.Projects.PageNavigator = (function () {
                     });
         }
 
+        $rowCounter.advancedSelector("reset");
         if (settings.small) {
             $rowCounter.advancedSelector("undisable", smallList);
             $rowCounter.advancedSelector("disable", bigList);
@@ -235,7 +236,9 @@ ASC.Projects.Base = (function () {
         timeTrackingResource,
         messageResource,
         templatesResource,
-        popup;
+        popup,
+        selfGetFunc;
+
     var descriptionPanel = ASC.Projects.DescriptionPanel;
     var eventBinder = ASC.Projects.EventBinder;
 
@@ -427,18 +430,22 @@ ASC.Projects.Base = (function () {
                 $groupeMenu.hide();
             }
 
+            selfGetFunc({}, {
+                filter: {Count: 0, StartIndex: 0},
+                success: function (params) {
             var emptyScreen;
-            if (filter.baseFilter) {
+                    if (filter.baseFilter || !params.__total) {
                 filter.hide();
                 emptyScreen = settings.baseEmptyScreen;
             } else {
+                        filter.show();
                 emptyScreen = jq.extend(
                 {
                     img: "filter",
                     button: {
                         title: ASC.Projects.Resources.ProjectsFilterResource.ClearFilter,
                         clear: true,
-                        canCreate: function() { return true; }
+                                canCreate: function () { return true; }
                     }
                 }, settings.filterEmptyScreen);
             }
@@ -447,6 +454,10 @@ ASC.Projects.Base = (function () {
             jq("#emptyScrCtrlPrj .addFirstElement").off(clickEvent).on(clickEvent, emptyScreen.button.onclick);
 
             hideLoader();
+                }
+            });
+
+
             return;
         }
 
@@ -459,11 +470,12 @@ ASC.Projects.Base = (function () {
         hideLoader();
     };
 
+    
     function getData(getFunc, success) {
         showLoader();
         this.currentFilter.Count = pageNavigator.entryCountOnPage;
         this.currentFilter.StartIndex = pageNavigator.entryCountOnPage * pageNavigator.currentPage;
-
+        selfGetFunc = getFunc;
         getFunc({}, {
             filter: this.currentFilter,
             success: function () {
@@ -485,7 +497,7 @@ ASC.Projects.Base = (function () {
             $container = $commonListContainer;
         }
 
-        $container.on(clickEvent, entityMenuClass, function () {
+        $container.off(clickEvent, entityMenuClass).on(clickEvent, entityMenuClass, function () {
             if ($actionPanel) {
                 jq(entityMenuClass).removeClass(activeClass);
                 $actionPanel.remove();
@@ -518,7 +530,7 @@ ASC.Projects.Base = (function () {
             return showActionsPanel.call(this);
         });
 
-        $container.on('contextmenu', withEntityMenuClass, function (event) {
+        $container.off('contextmenu', withEntityMenuClass).on('contextmenu', withEntityMenuClass, function (event) {
             getSelectedActionCombobox(event.target).find(entityMenuClass).click();
             if (!$actionPanel) return true;
 

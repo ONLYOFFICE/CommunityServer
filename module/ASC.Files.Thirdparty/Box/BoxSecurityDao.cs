@@ -38,11 +38,6 @@ namespace ASC.Files.Thirdparty.Box
         {
         }
 
-        public void Dispose()
-        {
-            BoxProviderInfo.Dispose();
-        }
-
         public void SetShare(FileShareRecord r)
         {
         }

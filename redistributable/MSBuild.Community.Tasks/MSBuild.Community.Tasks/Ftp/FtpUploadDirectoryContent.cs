@@ -46,6 +46,7 @@ namespace MSBuild.Community.Tasks.Ftp
     {
         private String _localDirectory;
         private String _remoteDirectory;
+        private String _filesTransferType;
         private bool _recursive;
 
         /// <summary>
@@ -77,6 +78,22 @@ namespace MSBuild.Community.Tasks.Ftp
             set
             {
                 _remoteDirectory = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of files to be transferred. Accepts either 'BINARY' or 'ASCII' value.
+        /// </summary>
+        /// <value>Files transfer type.</value>
+        public string FilesTransferType
+        {
+            get
+            {
+                return _filesTransferType;
+            }
+            set
+            {
+                _filesTransferType = value;
             }
         }
 
@@ -121,12 +138,27 @@ namespace MSBuild.Community.Tasks.Ftp
                 try
                 {
                     Login();
-                    Log.LogMessage( MessageImportance.Low, "Login succeed." );
+                    Log.LogMessage(MessageImportance.Low, "Login succeed.");
                 }
-                catch(Exception caught)
+                catch (Exception caught)
                 {
-                    Log.LogErrorFromException( caught, false );
-                    Log.LogError( "Couldn't login." );
+                    Log.LogErrorFromException(caught, false);
+                    Log.LogError("Couldn't login.");
+                    return false;
+                }
+
+                try
+                {
+                    if (!String.IsNullOrEmpty(FilesTransferType))
+                    {
+                        SetFileTransferType(FilesTransferType);
+                        Log.LogMessage(MessageImportance.Low, String.Format("File transfer mode set to '{0}'.",FilesTransferType));
+                    }
+                }
+                catch (Exception caught)
+                {
+                    Log.LogErrorFromException(caught, false);
+                    Log.LogError("Couldn't set file transfer mode.");
                     return false;
                 }
 

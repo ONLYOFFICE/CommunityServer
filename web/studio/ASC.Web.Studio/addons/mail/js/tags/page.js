@@ -29,7 +29,7 @@ window.tagsPage = (function($) {
         page,
         buttons = [];
 
-    var init = function() {
+    function init() {
         if (isInit === false) {
             isInit = true;
 
@@ -39,18 +39,18 @@ window.tagsPage = (function($) {
                 tagsModal.showCreate();
             });
 
-            tagsManager.events.bind('refresh', onRefreshTags);
-            tagsManager.events.bind('delete', onDeleteTag);
-            tagsManager.events.bind('create', onCreateTag);
-            tagsManager.events.bind('update', onUpdateTag);
+            tagsManager.bind(tagsManager.events.OnRefresh, onRefreshTags);
+            tagsManager.bind(tagsManager.events.OnDelete, onDeleteTag);
+            tagsManager.bind(tagsManager.events.OnCreate, onCreateTag);
+            tagsManager.bind(tagsManager.events.OnUpdate, onUpdateTag);
 
             buttons = [
                 { selector: "#tagActionMenu .editAccount", handler: editTag },
                 { selector: "#tagActionMenu .deleteAccount", handler: deleteTag }];
         }
-    };
+    }
 
-    var show = function() {
+    function show() {
         page.find('.tag_list').remove();
 
         var html = $.tmpl('tagsTmpl', { tags: tagsManager.getAllTags() }, { htmlEncode: TMMail.htmlEncode });
@@ -65,38 +65,38 @@ window.tagsPage = (function($) {
         } else {
             page.hide();
         }
-    };
+    }
 
-    var updateTagsAddresses = function() {
+    function updateTagsAddresses() {
         page.find('.row').each(function(index, value) {
             var $value = $(value);
             var id = $value.attr('data_id');
             var tag = tagsManager.getTag(id);
             $value.find('.addresses').hidePanel({ 'items': tag.addresses, 'item_to_html': addressToHtml });
         });
-    };
+    }
 
-    var hide = function() {
+    function hide() {
         page.hide();
-    };
+    }
 
-    var addressToHtml = function (address, separator) {
+    function addressToHtml(address, separator) {
         var html = $.tmpl("addressTagTmpl", { address: address, separator: separator }, { htmlEncode: TMMail.htmlEncode });
         return html;
-    };
+    }
 
-    var onRefreshTags = function(e, tags) {
+    function onRefreshTags(e, tags) {
         page.find('.row[data_id]').remove();
         $.each(tags, function(index, value) { onCreateTag(undefined, value); });
-    };
+    }
 
-    var onCreateTag = function(e, tag) {
+    function onCreateTag(e, tag) {
         addTag(tag);
         page.find('.tag_list').show();
         page.find('.emptyScrCtrl').hide();
-    };
+    }
 
-    var addTag = function(tag) {
+    function addTag(tag) {
         var html = $.tmpl('tagItemTmpl', tag, { htmlEncode: TMMail.htmlEncode });
 
         var $html = $(html);
@@ -107,13 +107,13 @@ window.tagsPage = (function($) {
             });
             // get last mail tag in list
             var rows = page.find('.row');
-            if (0 == rows.length) {
+            if (0 === rows.length) {
                 page.find('.tag_list').append($html);
             } else if (0 > parseInt($(rows[0]).attr('data_id'))) {
                 page.find('.tag_list').prepend($html);
             } else {
                 rows.each(function(index, value) {
-                    if (rows.length == index + 1 || 0 > parseInt($(rows[index + 1]).attr('data_id'))) {
+                    if (rows.length === index + 1 || 0 > parseInt($(rows[index + 1]).attr('data_id'))) {
                         $(value).after($html);
                         return false;
                     }
@@ -130,34 +130,34 @@ window.tagsPage = (function($) {
                 page.show();
             }
         }
-    };
+    }
 
-    var onDeleteTag = function(e, id) {
+    function onDeleteTag(e, id) {
         page.find('.row[data_id="' + id + '"]').remove();
         if (TMMail.pageIs('tags')) {
             if (checkEmptyShowBlankPage()) {
                 page.hide();
             }
         }
-    };
+    }
 
-    var onUpdateTag = function(e, tag) {
+    function onUpdateTag(e, tag) {
         var tagDiv = page.find('.row[data_id="' + tag.id + '"]');
         tagDiv.find('span.tag').removeClass().addClass('tag tagArrow tag' + tag.style).html(TMMail.htmlEncode(tag.name));
         tagDiv.find('.addresses').hidePanel({ 'items': tag.addresses, 'item_to_html': addressToHtml });
-    };
+    }
 
-    var editTag = function(id) {
+    function editTag(id) {
         var tag = tagsManager.getTag(id);
         tagsModal.showEdit(tag);
-    };
+    }
 
-    var deleteTag = function(id) {
+    function deleteTag(id) {
         var tag = tagsManager.getTag(id);
         tagsModal.showDelete(tag);
-    };
+    }
 
-    var checkEmptyShowBlankPage = function() {
+    function checkEmptyShowBlankPage() {
         if (page.find('.tag_item').length) {
             page.find('.tag_list').show();
             blankPages.hide();
@@ -167,7 +167,7 @@ window.tagsPage = (function($) {
             blankPages.showEmptyTags();
             return true;
         }
-    };
+    }
 
     return {
         init: init,

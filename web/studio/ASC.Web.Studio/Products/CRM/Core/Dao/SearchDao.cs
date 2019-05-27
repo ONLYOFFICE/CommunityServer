@@ -24,20 +24,22 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
-using ASC.FullTextIndex;
+using ASC.ElasticSearch;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ASC.Web.CRM.Core.Search;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -72,38 +74,45 @@ namespace ASC.CRM.Core.Dao
 
             if (keywords.Length == 0) return new List<SearchResultItem>().ToArray();
 
-            var caseModules = GetFullTextSearchModule(EntityType.Case, searchText);
-            var contactModules = GetFullTextSearchModule(EntityType.Contact, searchText);
-            var opportunityModules = GetFullTextSearchModule(EntityType.Opportunity, searchText);
-            var taskModules = GetFullTextSearchModule(EntityType.Task, searchText);
-            var invoicesModules = GetFullTextSearchModule(EntityType.Invoice, searchText);
-
-            _fullTextSearchEnable = FullTextSearch.SupportModule(caseModules)
-                                    && FullTextSearch.SupportModule(contactModules)
-                                    && FullTextSearch.SupportModule(opportunityModules)
-                                    && FullTextSearch.SupportModule(taskModules)
-                                    && FullTextSearch.SupportModule(invoicesModules);
+            _fullTextSearchEnable = BundleSearch.Support(EntityType.Case)
+                                    && BundleSearch.Support(EntityType.Contact)
+                                    && BundleSearch.Support(EntityType.Opportunity)
+                                    && BundleSearch.Support(EntityType.Task)
+                                    && BundleSearch.Support(EntityType.Invoice);
                             
             if (_fullTextSearchEnable)
             {
-                _findedIDs = new Dictionary<EntityType, IEnumerable<int>>
-                    {
-                        {
-                            EntityType.Case, FullTextSearch.Search(caseModules)
-                        },
-                        {
-                            EntityType.Contact, FullTextSearch.Search(contactModules)
-                        },
-                        {
-                            EntityType.Opportunity, FullTextSearch.Search(opportunityModules)
-                        },
-                        {
-                            EntityType.Task, FullTextSearch.Search(taskModules)
-                        },
-                        {
-                            EntityType.Invoice, FullTextSearch.Search(invoicesModules)
-                        }
-                    };
+                _findedIDs = new Dictionary<EntityType, IEnumerable<int>>();
+
+                List<int> casesId;
+                if (BundleSearch.TrySelectCase(searchText, out casesId))
+                {
+                    _findedIDs.Add(EntityType.Case, casesId);
+                }
+
+                List<int> contactsId;
+                if (BundleSearch.TrySelectContact(searchText, out contactsId))
+                {
+                    _findedIDs.Add(EntityType.Contact, contactsId);
+                }
+
+                List<int> dealsId;
+                if (BundleSearch.TrySelectOpportunity(searchText, out dealsId))
+                {
+                    _findedIDs.Add(EntityType.Opportunity, dealsId);
+                }
+
+                List<int> tasksId;
+                if (FactoryIndexer<TasksWrapper>.TrySelectIds(r => r.MatchAll(searchText), out tasksId))
+                {
+                    _findedIDs.Add(EntityType.Task, tasksId);
+                }
+
+                List<int> invoicesId;
+                if (FactoryIndexer<InvoicesWrapper>.TrySelectIds(r => r.MatchAll(searchText), out invoicesId))
+                {
+                    _findedIDs.Add(EntityType.Invoice, invoicesId);
+                }
             }
             else
             {
@@ -173,43 +182,6 @@ namespace ASC.CRM.Core.Dao
             return new Dictionary<EntityType, IEnumerable<int>> { { EntityType.Contact, sqlResult } };
         }
 
-        public static ModuleInfo[] GetFullTextSearchModule(EntityType entityType, string text, params string[] columns)
-        {
-            switch (entityType)
-            {
-                case EntityType.Case:
-                    return new[]
-                        {
-                            FullTextSearch.CRMCasesModule.Match(text, columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 7).Select("entity_id").Match(text, columns),
-                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 7).Where("entity_id!=" + 0).Select("entity_id").Match(text, columns)
-                        };
-                 case EntityType.Company:
-                 case EntityType.Contact:
-                 case EntityType.Person:
-                    return new[]
-                        {
-                            FullTextSearch.CRMContactsModule.Match(text, columns), 
-                            FullTextSearch.CRMContactsInfoModule.Select("contact_id").Match(text, columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type in (0,4,5)").Select("entity_id").Match(text, columns), 
-                            FullTextSearch.CRMEventsModule.Where("contact_id>" + 0).Select("contact_id").Match(text, columns)
-                        };
-                 case EntityType.Opportunity:
-                    return new[]
-                        {
-                            FullTextSearch.CRMDealsModule.Match(text, columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 1).Select("entity_id").Match(text, columns),
-                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 1).Where("entity_id!=" + 0).Select("entity_id").Match(text, columns)
-                        };
-                 case EntityType.Invoice: return new[] { FullTextSearch.CRMInvoicesModule.Match(text, columns) };
-                 case EntityType.RelationshipEvent: return new[] { FullTextSearch.CRMEventsModule.Match(text, columns) };
-                 case EntityType.Task: return new[] { FullTextSearch.CRMTasksModule.Match(text, columns) };
-            }
-
-            throw new NotSupportedException();
-
-        }
-
         private String ToColumn(EntityType entityType)
         {
             return String.Format("{0} as container_type", (int)entityType);
@@ -223,7 +195,7 @@ namespace ASC.CRM.Core.Dao
             if (_findedIDs.ContainsKey(entityType))
                 where = Exp.In("id", _findedIDs[entityType].ToArray());
 
-            if (FullTextSearch.SupportModule(GetFullTextSearchModule(entityType, ""))) return where;
+            if (BundleSearch.Support(entityType)) return where;
 
             Exp byField;
 
@@ -281,7 +253,7 @@ namespace ASC.CRM.Core.Dao
 
         private bool IncludeToSearch(EntityType entityType)
         {
-            return !FullTextSearch.SupportModule(GetFullTextSearchModule(entityType, "")) || _findedIDs.ContainsKey(entityType);
+            return !BundleSearch.Support(entityType)  || _findedIDs.ContainsKey(entityType);
         }
 
         private SqlQuery GetSearchQuery(String[] keywords)

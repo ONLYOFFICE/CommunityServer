@@ -56,6 +56,18 @@ namespace ASC.Core
 
         internal static SubscriptionManager SubscriptionManager { get; private set; }
 
+        private static bool QuotaCacheEnabled
+        {
+            get
+            {
+                if (ConfigurationManager.AppSettings["core.enable-quota-cache"] == null)
+                    return true;
+
+                bool enabled;
+
+                return !bool.TryParse(ConfigurationManager.AppSettings["core.enable-quota-cache"], out enabled) || enabled;
+            }
+        }
 
         private static void ConfigureCoreContextByDefault()
         {
@@ -68,7 +80,7 @@ namespace ASC.Core
             var tenantService = new CachedTenantService(new DbTenantService(cs));
             var userService = new CachedUserService(new DbUserService(cs));
             var azService = new CachedAzService(new DbAzService(cs));
-            var quotaService = new CachedQuotaService(new DbQuotaService(cs));
+            var quotaService = QuotaCacheEnabled ? (IQuotaService) new CachedQuotaService(new DbQuotaService(cs)) : new DbQuotaService(cs);
             var subService = new CachedSubscriptionService(new DbSubscriptionService(cs));
             var tariffService = new TariffService(cs, quotaService, tenantService);
 

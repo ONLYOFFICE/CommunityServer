@@ -46,6 +46,7 @@ using ASC.Web.Studio.Utility;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using ASC.Web.CRM.Resources;
+using ASC.Common.Logging;
 
 #endregion
 
@@ -95,7 +96,17 @@ namespace ASC.Web.CRM.HttpHandlers
 
             context.Response.Clear();
             context.Response.Write(photoUrl);
-            context.Response.End();
+
+            try
+            {
+                context.Response.Flush();
+                context.Response.SuppressContent = true;
+                context.ApplicationInstance.CompleteRequest();
+            }
+            catch (HttpException ex)
+            {
+                LogManager.GetLogger("ASC").Error("ResponceContactPhotoUrl", ex);
+            }
         }
 
         private void ResponceMailMessageContent(HttpContext context)
@@ -114,7 +125,16 @@ namespace ASC.Web.CRM.HttpHandlers
 
             context.Response.Clear();
             context.Response.Write(messageContent);
-            context.Response.End();
+            try
+            {
+                context.Response.Flush();
+                context.Response.SuppressContent = true;
+                context.ApplicationInstance.CompleteRequest();
+            }
+            catch (HttpException ex)
+            {
+                LogManager.GetLogger("ASC").Error("ResponceMailMessageContent", ex);
+            }
         }
 
 

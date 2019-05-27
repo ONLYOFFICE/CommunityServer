@@ -25,8 +25,8 @@
 
 
 using System;
+using ASC.Common.Logging;
 using ASC.Core.Notify;
-using log4net;
 
 namespace ASC.Data.Backup
 {

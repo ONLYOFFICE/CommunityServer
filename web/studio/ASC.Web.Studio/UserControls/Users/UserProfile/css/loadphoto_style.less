@@ -24,22 +24,55 @@
 */
 
 
-#divLoadPhotoWindow {
-    display: none;
-} 
-#divLoadPhotoFromPC {
-    margin-top: -20px;
+#userPhotoDialog {
+    .containerHeaderBlock table {
+        width: 100%;
+    }
 
-    .describe-text {
-        margin-bottom: 20px;
+    .empty-block {
+        text-align: center;
+        height: 166px;
+        padding-top: 84px;
+        background: #FCFCFC;
+        border: 1px solid #bfbfbf;
+
+        .header-base {
+            margin-bottom: 32px;
+        }
     }
-    #changeLogo {
-        margin-left: 0; 
-        margin-right: 10px;
-        outline: none;
+
+    .preview-block {
+        img {
+            display: block;
+            text-align: center;
+            max-height: 400px;
+            max-width: 400px;
+            image-orientation: from-image;
+        }
+
+        .preview-buttons-container {
+            margin-top: 16px;
+
+            .delete-btn {
+                float: right;
+            }
+        }
+
+        .preview-image-container {
+            position: relative;
+            
+            .empty-selection {
+                color: white;
+                background-color: rgba(0,0,0,0.7);
+                position: absolute;
+                padding: 8px 16px;
+                border-radius: 4px;
+            }
+        }
     }
-    .default-image {
-        border: 1px solid #BFBFBF;
-        cursor: pointer;
+
+    .thumbnail-preview-img {
+        overflow: hidden;
+        display: inline-block;
     }
 }

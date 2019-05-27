@@ -33,33 +33,18 @@
     </div>
 </div>
 <div id="dealsTab" class="display-none">
-    <table id="dealsInContactPanel">
-        <tr>
-            <td class="selectDeal">
-                <% if (!MobileVer) %>
-                <% { %>
-                <div class="menuAction">
-                    <span><%= CRMJSResource.LinkWithDeal %></span>
-                    <div class="down_arrow"></div>
-                </div>
-                <% } else { %>
-                <select></select>
-                <% } %>
-            </td>
-
-            <td class="createNewDeal">
-                <div class="menuAction unlockAction">
-                    <%= CRMDealResource.CreateDeal %>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <div id="dealList" class="clearFix" style="min-height: 200px;margin-top: 11px;">
+    <div id="dealsInContactPanel">
+        <div class="bold" style="margin-bottom:5px;"><%= CRMDealResource.LinkDealsFromExisting %>:</div>
+    </div>
+    <div id="dealList" class="clearFix" style="min-height: 200px;">
     </div>
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
         <%=CRMDealResource.TooltipStages%>
-        <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
+        <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+        <a href="<%= HelpLink + "/tipstricks/opportunity-stages.aspx" %>" target="_blank">
+            <%=CRMCommonResource.ButtonLearnMore%>
+        </a>
+        <% } %>
     </div>
 </div>
 <div id="invoicesTab" class="display-none">
@@ -172,10 +157,6 @@
 
 <% if (!MobileVer) %>
 <% { %>
-<div id="dealSelectorContainer" class="studio-action-panel display-none">
-    <ul class="dropdown-content"></ul>
-</div>
-
 <div id="projectSelectorContainer" class="studio-action-panel display-none">
     <ul class="dropdown-content"></ul>
 </div>

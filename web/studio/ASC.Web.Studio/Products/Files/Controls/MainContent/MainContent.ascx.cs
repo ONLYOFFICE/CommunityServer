@@ -31,8 +31,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-
-using ASC.Web.Core.Files;
+using ASC.Web.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
@@ -51,11 +50,18 @@ namespace ASC.Web.Files.Controls
 
         public String TitlePage { get; set; }
 
+        public bool NoMediaViewers { get; set; }
+
+        protected bool ProductMailAvailable;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             InitControls();
 
             InitScripts();
+
+            var mail = WebItemManager.Instance[WebItemManager.MailProductID];
+            ProductMailAvailable = mail != null && !mail.IsDisabled();
         }
 
         private void InitControls()
@@ -72,8 +78,10 @@ namespace ASC.Web.Files.Controls
 
             ControlPlaceHolder.Controls.Add(LoadControl(TariffLimitExceed.Location));
 
-            if (FileUtility.ExtsImagePreviewed.Count != 0)
-                ControlPlaceHolder.Controls.Add(LoadControl(FileViewer.Location));
+            if (!NoMediaViewers)
+            {
+                ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
+            }
 
             UploaderPlaceHolder.Controls.Add(LoadControl(ChunkUploadDialog.Location));
         }
@@ -81,7 +89,7 @@ namespace ASC.Web.Files.Controls
         private void InitScripts()
         {
             string tasksStatuses;
-            
+
             if (!GetTasksStatuses(out tasksStatuses))
                 return;
 
@@ -101,7 +109,7 @@ namespace ASC.Web.Files.Controls
             {
                 tasks = Global.FileStorageService.GetTasksStatuses();
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 Global.Logger.Error(err);
                 return false;
@@ -110,11 +118,11 @@ namespace ASC.Web.Files.Controls
 
             using (var ms = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof(ItemList<FileOperationResult>));
+                var serializer = new DataContractJsonSerializer(typeof (ItemList<FileOperationResult>));
                 serializer.WriteObject(ms, tasks);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                taskStatuses= Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+                taskStatuses = Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
                 return true;
             }
         }

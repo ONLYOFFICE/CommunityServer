@@ -29,6 +29,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.IO;
+using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -41,13 +42,18 @@ namespace MSBuild.Community.Tasks.SourceServer
     /// </summary>
     public abstract class SourceIndexBase : Task
     {
-        #region Properties
         /// <remarks />
         protected int Successful = 0;
+
         /// <remarks />
         protected int Failed = 0;
+
         /// <remarks />
         protected int Skipped = 0;
+
+        private string sourceServerSdkPath;
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the symbol files to have to source index added.
@@ -57,17 +63,31 @@ namespace MSBuild.Community.Tasks.SourceServer
         public ITaskItem[] SymbolFiles { get; set; }
 
         /// <summary>
+        /// Default install locations for the debugger tools if installed with the windows sdk (which I think is now the only option?).
+        /// </summary>
+        private static readonly string[] CandidateSdkPath =
+        {
+            @"C:\program Files (x86)\Windows Kits\8.1\Debuggers\x64\srcsrv",
+            @"C:\program Files (x86)\Windows Kits\8.0\Debuggers\x64\srcsrv"
+        };
+
+        /// <summary>
         /// Gets or sets the source server SDK path.
         /// </summary>
         /// <value>The source server SDK path.</value>
-        public string SourceServerSdkPath { get; set; }
+        public string SourceServerSdkPath
+        {
+            get
+            {
+                if (sourceServerSdkPath == null)
+                {
+                    sourceServerSdkPath = CandidateSdkPath.FirstOrDefault(Directory.Exists);
+                }
 
-        /// <summary>
-        /// Gets or sets the name of the source server.
-        /// </summary>
-        /// <value>The name of the source server.</value>
-        [Required]
-        public string SourceServerName { get; set; }
+                return sourceServerSdkPath;
+            }
+            set { sourceServerSdkPath = value; }
+        }
 
         /// <summary>
         /// Gets or sets the source command format. The SRCSRVCMD environment variable.
@@ -89,6 +109,23 @@ namespace MSBuild.Community.Tasks.SourceServer
         /// See srcsrv.doc for full documentation on SRCSRVTRG.
         /// </remarks>
         public string SourceTargetFormat { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fail on no source information found flag.
+        /// </summary>
+        /// <value><code>true</code> if finding no source information in a pdb should be treated as an error;
+        /// otherwise <code>false</code>.</value>
+        /// <remarks>
+        /// Assemblies that only contain classes with auto properties, enums or constants may not contain
+        /// any source information in the pdb.
+        /// </remarks>
+        public bool FailOnNoSourceInformationFound { get; set; }
+
+        /// <summary>
+        /// Gets the no source information found in 
+        /// </summary>
+        public bool NoSourceInformationInPdb { get; private set; }
+
         #endregion
 
         /// <summary>
@@ -159,9 +196,18 @@ namespace MSBuild.Community.Tasks.SourceServer
             }
             finally
             {
-                File.Delete(indexFile);
+                if (!KeepTempFileForDebugging)
+                    File.Delete(indexFile);
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to keep temporary source index file created during index for debugging purposes.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> to keep the temporary file; otherwise, <c>false</c>.
+        /// </value>
+        public bool KeepTempFileForDebugging { get; set; }
 
         /// <summary>
         /// Creates an instance of <see cref="SymbolFile"/> from the symbol file task item and add the source file list to it.
@@ -181,6 +227,7 @@ namespace MSBuild.Community.Tasks.SourceServer
             srcTool.PdbFile = item;
 
             // step 1: check if source already indexed
+            this.NoSourceInformationInPdb = false;
             srcTool.CountOnly = true;
             srcTool.Execute();
             if (srcTool.SourceCount > 0)
@@ -195,8 +242,22 @@ namespace MSBuild.Community.Tasks.SourceServer
             srcTool.SourceOnly = true;
             if (!srcTool.Execute())
             {
-                Log.LogError("Error getting source files from '{0}'.", symbolFile.File.Name);
-                Failed++;
+                if (srcTool.SourceFiles != null && srcTool.SourceFiles.Length > 0 &&
+                    srcTool.SourceFiles[0].StartsWith("No source information in pdb for"))
+                {
+                    this.NoSourceInformationInPdb = true;
+                }
+
+                if (this.FailOnNoSourceInformationFound)
+                {
+                    Log.LogError("Error getting source files from '{0}'.{1}", symbolFile.File.Name, srcTool.SourceFiles != null && srcTool.SourceFiles.Length > 0 ? srcTool.SourceFiles[0] : string.Empty);                
+                    Failed++;
+                }
+                else
+                {
+                    Log.LogWarning("'{0}' has no source information inside the pdb. Check your pdb settings or perhaps your assembly doesn't have any real lines of code in it?", symbolFile.File.Name, srcTool.SourceFiles != null && srcTool.SourceFiles.Length > 0 ? srcTool.SourceFiles[0] : string.Empty);                
+                    Skipped++;
+                }
                 return null;
             }
 

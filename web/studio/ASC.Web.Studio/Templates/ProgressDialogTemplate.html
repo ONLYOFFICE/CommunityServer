@@ -1,0 +1,55 @@
+﻿<script id="progressDialogTmpl" type="text/x-jquery-tmpl">
+    <div id="bottomLoaderPanel" class="progress-dialog-container">
+        <div id="progressDialog" class="progress-dialog">
+            <div class="progress-dialog-header">
+                <a class="actions-container close" title="${ASC.Resources.Master.Resource.CancelButton}">&times;</a>
+                <span id="progressDialogHeader">${header}</span>
+            </div>
+            <div class="progress-dialog-body">
+                <div class="pd-body-container">
+                    <table id="progressDialogBodyTable" class="tableBase" cellspacing="0" cellpadding="5">
+                        <colgroup>
+                            <col class="pd-column-icon" />
+                            <col />
+                            <col class="pd-column-progress" />
+                            <col class="pd-column-action" />
+                        </colgroup>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div>{{html footer}}</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="progressDialogRowTmpl" type="text/x-jquery-tmpl">
+    <tr id="${id}" class="pd-row started">
+        <td class="borderBase">
+            <div class="${fileTypeCssClass}"></div>
+        </td>
+        <td class="borderBase">
+            <div class="pd-cell-title" >
+                <span title="${fileName}">${fileName}</span>
+            </div>
+        </td>
+        <td class="borderBase">
+            <div class="pd-cell-progress">
+                <progress max="100" value="0" >
+                    <div class="asc-progress-wrapper">
+                        <div class="asc-progress-value"></div>
+                    </div>
+                </progress>
+                <div class="progress-label">0%</div>
+                <span class="progress-complete gray-text">${ASC.Resources.Master.Resource.Complete}</span>
+                <span class="progress-error red-text expl">${ASC.Resources.Master.Resource.Error}</span>
+                <div class="popup_helper"></div>
+            </div>
+        </td>
+        <td class="borderBase">
+            <div class="pd-cell-action">
+                <a class="linkMedium gray-text" href="#" target="_blank">${ASC.Resources.Master.Resource.Open}</a>
+            </div>
+        </td>
+    </tr>
+</script>

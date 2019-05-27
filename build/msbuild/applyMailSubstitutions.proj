@@ -35,12 +35,30 @@
 
   <Target Name="ChangeConfigs">
     <ItemGroup>
-
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>    
       <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.consumers.config" >
         <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Consumers.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.storage.config" >
         <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.consumers.config" >
         <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Consumers.Config.Substitutions.xml</SubstitutionsFile>
@@ -48,22 +66,46 @@
       <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.storage.config" >
         <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
-      
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config">
-        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Aggregator.Substitutions.xml</SubstitutionsFile>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\mail.agg.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\mail.agg.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.NLog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\ASC.Mail.Aggregator.CollectionService.exe.config">
-        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.AggregatorSrv.Substitutions.xml</SubstitutionsFile>
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
-      
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config">
-        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Aggregator.Substitutions.xml</SubstitutionsFile>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\ASC.Mail.EmlDownloader.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config">
-        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Watchdog.Substitutions.xml</SubstitutionsFile>
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailDnsChecker\ASC.MailServer.DnsChecker.Service.exe.config" Condition=" '$(DeployTo)' != 'SERVER' And '$(DeployTo)' != 'UNIX.SERVER' ">
-        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.DnsChecker.Substitutions.xml</SubstitutionsFile>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\web.storage.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\ASC.Mail.StorageCleaner.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.NLog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
 
       <ConfigFiles Remove="@(ConfigFiles)" Condition="!Exists('%(ConfigFiles.SubstitutionsFile)')"/>

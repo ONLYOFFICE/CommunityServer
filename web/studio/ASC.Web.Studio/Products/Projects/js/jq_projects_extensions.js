@@ -30,6 +30,38 @@ if (!String.prototype.trim) {
     };
 }
 
+if (!Object.assign) {
+    Object.defineProperty(Object, 'assign', {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (target, firstSource) {
+            'use strict';
+            if (target === undefined || target === null) {
+                throw new TypeError('Cannot convert first argument to object');
+            }
+
+            var to = Object(target);
+            for (var i = 1; i < arguments.length; i++) {
+                var nextSource = arguments[i];
+                if (nextSource === undefined || nextSource === null) {
+                    continue;
+                }
+
+                var keysArray = Object.keys(Object(nextSource));
+                for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                    var nextKey = keysArray[nextIndex];
+                    var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+                    if (desc !== undefined && desc.enumerable) {
+                        to[nextKey] = nextSource[nextKey];
+                    }
+                }
+            }
+            return to;
+        }
+    });
+}
+
 /*******************************************************************************
 JQuery Extension
 *******************************************************************************/
@@ -79,9 +111,20 @@ jQuery.extend({
         }
         return text;
     },
-    timeFormat: function(hours) { // convert time to format h:mm
-        var h = Math.floor(parseFloat(hours));
-        var m = Math.round((parseFloat(hours) - h) * 60);
+    timeFormat: function (hours) { // convert time to format h:mm
+        var parsed = parseFloat(hours);
+        var h = Math.floor(parsed);
+        var m = Math.floor((parsed - h) * 60);
+        var s = Math.round(((parsed  - h) * 60 - m) * 60);
+        if (s < 10) {
+            s = '0' + s;
+        } else {
+            if (s == 60) {
+                s = "00";
+                m = m + 1;
+            }
+        }
+
         if (m < 10) {
             m = '0' + m;
         } else {
@@ -90,7 +133,7 @@ jQuery.extend({
                 h = h + 1;
             }
         }
-        return h + ':' + m;
+        return h + ':' + m + ':' + s;
     }
 });
 
@@ -108,28 +151,7 @@ jQuery.fn.swap = function(b) {
     stack[0] = a2;
     return this.pushStack(stack);
 };
-if (!Array.prototype.find) {
-    Array.prototype.find = function (predicate) {
-        if (this == null) {
-            throw new TypeError('Array.prototype.find called on null or undefined');
-        }
-        if (typeof predicate !== 'function') {
-            throw new TypeError('predicate must be a function');
-        }
-        var list = Object(this);
-        var length = list.length >>> 0;
-        var thisArg = arguments[1];
-        var value;
 
-        for (var i = 0; i < length; i++) {
-            value = list[i];
-            if (predicate.call(thisArg, value, i, list)) {
-                return value;
-            }
-        }
-        return undefined;
-    };
-}
 if (!String.prototype.contains) {
     String.prototype.contains = function () {
         return String.prototype.indexOf.apply(this, arguments) !== -1;

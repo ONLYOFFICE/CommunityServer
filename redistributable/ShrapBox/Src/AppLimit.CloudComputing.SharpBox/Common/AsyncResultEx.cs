@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common
 {
@@ -13,20 +12,16 @@ namespace AppLimit.CloudComputing.SharpBox.Common
         /// ctor of AsyncResultEx which handles
         /// the used state object
         /// </summary>
-        /// <param name="AsyncState"></param>
-        public AsyncResultEx(Object AsyncState)
+        /// <param name="asyncState"></param>
+        public AsyncResultEx(Object asyncState)
         {
-            this.AsyncState = AsyncState;
+            AsyncState = asyncState;
         }
 
         /// <summary>
         /// This properties allows read access to the state object
         /// </summary>
-        public object AsyncState
-        {
-            get;
-            private set;
-        }
+        public object AsyncState { get; private set; }
 
         /// <summary>
         /// The wait handle, which is not needed in SharpBox

@@ -69,7 +69,7 @@ namespace ASC.Web.Files.Configuration
             var security = Global.GetFilesSecurity();
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                return fileDao.Search(text, FolderType.USER | FolderType.COMMON).Where(security.CanRead);
+                return fileDao.Search(text).Where(security.CanRead);
             }
         }
 
@@ -79,7 +79,7 @@ namespace ASC.Web.Files.Configuration
             IEnumerable<Folder> result;
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
-                result = folderDao.Search(text, FolderType.USER, FolderType.COMMON).Where(security.CanRead);
+                result = folderDao.Search(text).Where(security.CanRead);
 
                 if (ThirdpartyConfiguration.SupportInclusion
                     && (Global.IsAdministrator || FilesSettings.EnableThirdParty))

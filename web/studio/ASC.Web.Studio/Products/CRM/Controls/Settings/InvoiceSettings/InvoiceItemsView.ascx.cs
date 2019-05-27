@@ -24,23 +24,8 @@
 */
 
 
-#region Import
-
 using System;
-using System.Text;
 using System.Web;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.CRM.Classes;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Resources;
-using Newtonsoft.Json.Linq;
-using ASC.CRM.Core.Entities;
-using System.Collections.Generic;
-using ASC.CRM.Core.Dao;
-
-#endregion
-
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -53,163 +38,14 @@ namespace ASC.Web.CRM.Controls.Settings
             get { return PathProvider.GetFileStaticRelativePath("Settings/InvoiceSettings/InvoiceItemsView.ascx"); }
         }
 
-        private const string ExportErrorCookieKey = "export_invoice_items_error";
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Page.RegisterClientScript(typeof(Masters.ClientScripts.ListInvoiceViewData));
-
-            if (UrlParameters.Action != "export")
-            {
-                RegisterScript();
-            }
-            else // export to csv
-            {
-                var invoiceItems = GetInvoiceItemsByFilter(DaoFactory);
-
-                if (invoiceItems.Count != 0)
-                {
-                    if (UrlParameters.View != "editor")
-                    {
-                        Response.Clear();
-                        Response.ContentType = "text/csv; charset=utf-8";
-                        Response.ContentEncoding = Encoding.UTF8;
-                        Response.Charset = Encoding.UTF8.WebName;
-
-                        var fileName = "products_services.csv";
-
-                        Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName));
-                        Response.Write(ExportToCSV.ExportInvoiceItemsToCSV(invoiceItems, false));
-                        Response.End();
-                    }
-                    else
-                    {
-                        var fileUrl = ExportToCSV.ExportInvoiceItemsToCSV(invoiceItems, true);
-                        Response.Redirect(fileUrl);
-                    }
-                }
-                else
-                {
-                    var cookie = HttpContext.Current.Request.Cookies.Get(ExportErrorCookieKey);
-                    if (cookie == null)
-                    {
-                        cookie = new HttpCookie(ExportErrorCookieKey);
-                        cookie.Value = CRMSettingResource.ExportInvoiceItemsEmptyError;
-                        HttpContext.Current.Response.Cookies.Add(cookie);
-                    }
-                    Response.Redirect(PathProvider.StartURL() + "settings.aspx?type=invoice_items");
-                }
-            }
+            Page.RegisterInlineScript(@"ASC.CRM.InvoiceItemsView.init();");
         }
-
-        #endregion
-
-        #region Methods
-
-        private void RegisterScript()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendFormat(@"ASC.CRM.InvoiceItemsView.init('{0}');",
-                ExportErrorCookieKey
-            );
-
-            Page.RegisterInlineScript(sb.ToString());
-        }
-
-        private class FilterObject
-        {
-            public string SortBy { get; set; }
-            public string SortOrder { get; set; }
-            public string FilterValue { get; set; }
-
-            public bool? InventoryStock { get; set; }
-           
-            public FilterObject()
-            {
-                InventoryStock = null;
-            }
-        };
-
-        private FilterObject GetFilterObjectFromCookie()
-        {
-            var result = new FilterObject();
-
-            var cookieKey = GetCookieKeyForFilterForExport();
-
-            var cookie = Request.Cookies[System.Web.HttpUtility.UrlEncode(cookieKey)];
-
-            if (cookie != null && !String.IsNullOrEmpty(cookie.Value))
-            {
-                var anchor = cookie.Value;
-                try
-                {
-                    var cookieJson = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(anchor)));
-
-                    var jsonArray = cookieJson.Split(';');
-
-                    foreach (var filterItem in jsonArray)
-                    {
-                        var filterObj = JObject.Parse(filterItem);
-
-                        var filterParam = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
-
-                        switch (filterObj.Value<string>("id"))
-                        {
-                            case "sorter":
-                                result.SortBy = filterParam.Value<string>("id");
-                                result.SortOrder = filterParam.Value<string>("sortOrder");
-                                break;
-                            case "text":
-                                result.FilterValue = filterParam.Value<string>("value");
-                                break;
-
-                            case "withInventoryStock":
-                            case "withoutInventoryStock":
-                                result.InventoryStock = filterParam.Value<bool>("value");
-                                break;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    result.SortBy = "name";
-                    result.SortOrder = "ascending";
-                }
-            }
-            else
-            {
-                result.SortBy = "name";
-                result.SortOrder = "ascending";
-            }
-
-            return result;
-        }
-
-        protected List<InvoiceItem> GetInvoiceItemsByFilter(DaoFactory daoFactory)
-        {
-            var filterObj = GetFilterObjectFromCookie();
-
-            InvoiceItemSortedByType sortBy;
-            if (!Web.CRM.Classes.EnumExtension.TryParse(filterObj.SortBy, true, out sortBy))
-            {
-                sortBy = InvoiceItemSortedByType.Name;
-            }
-
-            var isAsc = !String.IsNullOrEmpty(filterObj.SortOrder) && filterObj.SortOrder != "descending";
-
-            return daoFactory.InvoiceItemDao.GetInvoiceItems(
-                                                           filterObj.FilterValue,
-                                                           0,
-                                                           filterObj.InventoryStock,
-                                                           0, 0,
-                                                           new OrderBy(sortBy, isAsc));
-        }
-
 
         #endregion
 

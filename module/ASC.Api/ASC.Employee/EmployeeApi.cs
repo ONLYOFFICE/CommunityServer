@@ -33,9 +33,10 @@ using System.Net.Mail;
 using System.Security;
 using System.Web;
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Api.Impl;
+using ASC.Common.Logging;
+using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -46,11 +47,11 @@ using ASC.MessagingSystem;
 using ASC.Specific;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
+using ASC.Web.People.Core.Import;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -61,6 +62,16 @@ namespace ASC.Api.Employee
     ///</summary>
     public class EmployeeApi : Interfaces.IApiEntryPoint
     {
+        private static readonly ProgressQueue progressQueue = new ProgressQueue(1, TimeSpan.FromMinutes(5), true);
+
+        private static Dictionary<string, string> GetHttpHeaders(HttpRequest httpRequest)
+        {
+            if (httpRequest == null) return null;
+
+            var di = (from object k in httpRequest.Headers.Keys select k.ToString()).ToDictionary(key => key, key => httpRequest.Headers[key]);
+            return di;
+        }
+
         private readonly ApiContext _context;
 
         public string Name
@@ -108,7 +119,7 @@ namespace ASC.Api.Employee
         [Read("status/{status}")]
         public IEnumerable<EmployeeWraperFull> GetByStatus(EmployeeStatus status)
         {
-            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available");
             var query = CoreContext.UserManager.GetUsers(status).AsEnumerable();
             if ("group".Equals(_context.FilterBy, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_context.FilterValue))
             {
@@ -117,7 +128,7 @@ namespace ASC.Api.Employee
                 query = query.Where(x => CoreContext.UserManager.IsUserInGroup(x.ID, groupId));
                 _context.SetDataFiltered();
             }
-            return query.Select(x => new EmployeeWraperFull(x)).ToSmartList();
+            return query.Select(x => new EmployeeWraperFull(x));
         }
 
         ///<summary>
@@ -131,11 +142,21 @@ namespace ASC.Api.Employee
         [Read("{username}")]
         public EmployeeWraperFull GetById(string username)
         {
-            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available");
             var user = CoreContext.UserManager.GetUserByUserName(username);
             if (user.ID == Core.Users.Constants.LostUser.ID)
             {
-                user = CoreContext.UserManager.GetUsers(new Guid(username));
+                Guid userId;
+                if (Guid.TryParse(username, out userId))
+                {
+                    user = CoreContext.UserManager.GetUsers(userId);
+                }
+                else
+                {
+                    LogManager.GetLogger("ASC.Api").Error(
+                        string.Format("Account {0} сould not get user by name {1}",
+                                        SecurityContext.CurrentAccount.ID, username));
+                }
             }
 
             if (user.ID == Core.Users.Constants.LostUser.ID)
@@ -158,7 +179,7 @@ namespace ASC.Api.Employee
         public EmployeeWraperFull GetByEmail(string email)
         {
             if (CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOwner())
-                throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+                throw new MethodAccessException("Method not available");
             var user = CoreContext.UserManager.GetUserByEmail(email);
             if (user.ID == Core.Users.Constants.LostUser.ID)
             {
@@ -178,7 +199,7 @@ namespace ASC.Api.Employee
         [Read("@search/{query}")]
         public IEnumerable<EmployeeWraperFull> GetSearch(string query)
         {
-            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available");
             try
             {
                 var groupId = Guid.Empty;
@@ -188,13 +209,11 @@ namespace ASC.Api.Employee
                 }
 
                 return CoreContext.UserManager.Search(query, EmployeeStatus.Active, groupId)
-                                  .Select(x => new EmployeeWraperFull(x))
-                                  .AsEnumerable()
-                                  .ToSmartList();
+                                  .Select(x => new EmployeeWraperFull(x));
             }
             catch (Exception error)
             {
-                LogManager.GetLogger("ASC.Web").Error(error);
+                LogManager.GetLogger("ASC.Api").Error(error);
             }
             return null;
         }
@@ -225,7 +244,7 @@ namespace ASC.Api.Employee
         [Read("status/{status}/search")]
         public IEnumerable<EmployeeWraperFull> GetAdvanced(EmployeeStatus status, string query)
         {
-            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available");
             try
             {
                 var list = CoreContext.UserManager.GetUsers(status).AsEnumerable();
@@ -241,16 +260,67 @@ namespace ASC.Api.Employee
                 list = list.Where(x => x.FirstName != null && x.FirstName.IndexOf(query, StringComparison.OrdinalIgnoreCase) > -1 || (x.LastName != null && x.LastName.IndexOf(query, StringComparison.OrdinalIgnoreCase) != -1) ||
                                        (x.UserName != null && x.UserName.IndexOf(query, StringComparison.OrdinalIgnoreCase) != -1) || (x.Email != null && x.Email.IndexOf(query, StringComparison.OrdinalIgnoreCase) != -1) || (x.Contacts != null && x.Contacts.Any(y => y.IndexOf(query, StringComparison.OrdinalIgnoreCase) != -1)));
 
-                var usr = list.Select(x => new EmployeeWraperFull(x)).AsEnumerable();
-
-                return usr.ToSmartList();
+                return list.Select(x => new EmployeeWraperFull(x));
             }
             catch (Exception error)
             {
-                LogManager.GetLogger("ASC.Web").Error(error);
+                LogManager.GetLogger("ASC.Api").Error(error);
             }
             return null;
         }
+
+        /// <summary>
+        /// Adds a new portal user from import with the first and last name, email address
+        /// </summary>
+        /// <short>
+        /// Add new import user
+        /// </short>
+        /// <param name="userList">The list of users to add</param>
+        /// <param name="importUsersAsCollaborators" optional="true">Add users as guests (bool type: false|true)</param>
+        /// <returns>Newly created users</returns>
+        [Create("import/save")]
+        public void SaveUsers(string userList, bool importUsersAsCollaborators)
+        {
+            lock (progressQueue.SynchRoot)
+            {
+                var task = progressQueue.GetItems().OfType<ImportUsersTask>().FirstOrDefault(t => (int)t.Id == TenantProvider.CurrentTenantID);
+                if (task != null && task.IsCompleted)
+                {
+                    progressQueue.Remove(task);
+                    task = null;
+                }
+                if (task == null)
+                {
+                    progressQueue.Add(new ImportUsersTask(userList, importUsersAsCollaborators, GetHttpHeaders(HttpContext.Current.Request))
+                    {
+                        Id = TenantProvider.CurrentTenantID,
+                        UserId = SecurityContext.CurrentAccount.ID,
+                        Percentage = 0
+                    });
+                }
+            }
+        }
+
+        [Read("import/status")]
+        public object GetStatus()
+        {
+            lock (progressQueue.SynchRoot)
+            {
+                var task = progressQueue.GetItems().OfType<ImportUsersTask>().FirstOrDefault(t => (int)t.Id == TenantProvider.CurrentTenantID);
+                if (task == null) return null;
+
+                return new
+                {
+                    Completed = task.IsCompleted,
+                    Percents = (int)task.Percentage,
+                    UserCounter = task.GetUserCounter,
+                    Status = (int)task.Status,
+                    Error = (string)task.Error,
+                    task.Data
+                };
+            }
+        }
+
 
         /// <summary>
         ///    Returns the list of users matching the filter with the parameters specified in the request
@@ -267,9 +337,38 @@ namespace ASC.Api.Employee
         ///    User list
         /// </returns>
         [Read("filter")]
-        public IEnumerable<EmployeeWraperFull> GetByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
+        public IEnumerable<EmployeeWraperFull> GetFullByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
         {
-            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
+            var users = GetByFilter(employeeStatus, groupId, activationStatus, employeeType, isAdministrator);
+
+            return users.Select(u => new EmployeeWraperFull(u, _context));
+        }
+
+        /// <summary>
+        ///    Returns the list of users matching the filter with the parameters specified in the request
+        /// </summary>
+        /// <short>
+        ///    User search by extended filter
+        /// </short>
+        /// <param optional="true" name="employeeStatus">User status</param>
+        /// <param optional="true" name="groupId">Group ID</param>
+        /// <param optional="true" name="activationStatus">Activation status</param>
+        /// <param optional="true" name="employeeType">User type</param>
+        ///  <param optional="true" name="isAdministrator">Administrator(bool type)</param>
+        /// <returns>
+        ///    User list
+        /// </returns>
+        [Read("simple/filter")]
+        public IEnumerable<EmployeeWraper> GetSimpleByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
+        {
+            var users = GetByFilter(employeeStatus, groupId, activationStatus, employeeType, isAdministrator);
+
+            return users.Select(u => new EmployeeWraper(u));
+        }
+
+        private IEnumerable<UserInfo> GetByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
+        {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available");
             var isAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
                           WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
             var status = isAdmin ? EmployeeStatus.All : EmployeeStatus.Default;
@@ -323,13 +422,25 @@ namespace ASC.Api.Employee
 
             _context.TotalCount = users.Count();
 
-            users = _context.SortDescending ? users.OrderByDescending(r => r.DisplayUserName()) : users.OrderBy(r => r.DisplayUserName());
+            switch (_context.SortBy)
+            {
+                case "firstname":
+                    users = _context.SortDescending ? users.OrderByDescending(r => r, UserInfoComparer.FirstName) : users.OrderBy(r => r, UserInfoComparer.FirstName);
+                    break;
+                case "lastname":
+                    users = _context.SortDescending ? users.OrderByDescending(r => r, UserInfoComparer.LastName) : users.OrderBy(r => r, UserInfoComparer.LastName);
+                    break;
+                default:
+                    users = _context.SortDescending ? users.OrderByDescending(r => r, UserInfoComparer.Default) : users.OrderBy(r => r, UserInfoComparer.Default);
+                    break;
+            }
+
             users = users.Skip((int)_context.StartIndex).Take((int)_context.Count - 1);
 
             _context.SetDataSorted();
             _context.SetDataPaginated();
 
-            return users.Select(x => new EmployeeWraperFull(x, _context)).ToSmartList();
+            return users;
         }
 
         /// <summary>
@@ -351,12 +462,18 @@ namespace ASC.Api.Employee
         /// <param name="comment" optional="true">Comment for user</param>
         /// <param name="contacts">List of contacts</param>
         /// <param name="files">Avatar photo url</param>
+        /// <param name="password" optional="true">User Password</param>
         /// <returns>Newly created user</returns>
         [Create("")]
-        public EmployeeWraperFull AddMember(bool isVisitor, string email, string firstname, string lastname, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, string comment, IEnumerable<Contact> contacts, string files)
+        public EmployeeWraperFull AddMember(bool isVisitor, string email, string firstname, string lastname, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, string comment, IEnumerable<Contact> contacts, string files, string password)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
-            var password = UserManagerWrapper.GeneratePassword();
+
+            if (String.IsNullOrEmpty(password))
+                password = UserManagerWrapper.GeneratePassword();
+
+            password = password.Trim();
+
             var user = new UserInfo();
 
             //Validate email
@@ -539,7 +656,13 @@ namespace ASC.Api.Employee
             }
 
             SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
-            
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
+
             if (!files.StartsWith("http://") && !files.StartsWith("https://"))
             {
                 files = _context.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Scheme | UriPartial.Authority) + "/" + files.TrimStart('/');
@@ -594,7 +717,7 @@ namespace ASC.Api.Employee
 
             var isLdap = user.IsLDAP();
             var isSso = user.IsSSO();
-            var isAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Core.Users.Constants.GroupAdmin.ID);
+            var isAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
 
             if (!isLdap && !isSso)
             {
@@ -602,13 +725,16 @@ namespace ASC.Api.Employee
 
                 user.FirstName = firstname ?? user.FirstName;
                 user.LastName = lastname ?? user.LastName;
+                user.Location = location ?? user.Location;
 
-                user.Title = title ?? user.Title;
                 if (isAdmin)
                 {
-                    user.Location = location ?? user.Location;
+                    user.Title = title ?? user.Title;
                 }
             }
+
+            if (!UserFormatter.IsValidUserName(user.FirstName, user.LastName))
+                throw new Exception(Resource.ErrorIncorrectUserName);
 
             user.Notes = comment ?? user.Notes;
             user.Sex = ("male".Equals(sex, StringComparison.OrdinalIgnoreCase)
@@ -704,7 +830,7 @@ namespace ASC.Api.Employee
 
             UserPhotoManager.RemovePhoto(user.ID);
             CoreContext.UserManager.DeleteUser(user.ID);
-            QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
+            QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID, false);
 
             MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), userName);
 
@@ -779,6 +905,25 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
+        /// Get user photoes
+        /// </summary>
+        /// <short>
+        /// Get user photoes
+        /// </short>
+        /// <param name="userid">User ID</param>
+        /// <returns></returns>
+        [Read("{userid}/photo")]
+        public ThumbnailsDataWrapper GetMemberPhoto(string userid)
+        {
+            var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
+                throw new SecurityException();
+
+            return new ThumbnailsDataWrapper(user.ID);
+        }
+        
+        /// <summary>
         /// Updates the specified user photo with the pathname
         /// </summary>
         /// <short>
@@ -788,7 +933,7 @@ namespace ASC.Api.Employee
         /// <param name="files">Avatar photo url</param>
         /// <returns></returns>
         [Update("{userid}/photo")]
-        public EmployeeWraperFull UpdateMemberPhoto(string userid, string files)
+        public ThumbnailsDataWrapper UpdateMemberPhoto(string userid, string files)
         {
             var user = GetUserInfo(userid);
 
@@ -803,7 +948,7 @@ namespace ASC.Api.Employee
             CoreContext.UserManager.SaveUserInfo(user);
             MessageService.Send(Request, MessageAction.UserAddedAvatar, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
-            return new EmployeeWraperFull(user);
+            return new ThumbnailsDataWrapper(user.ID);
         }
 
         /// <summary>
@@ -815,7 +960,7 @@ namespace ASC.Api.Employee
         /// <param name="userid">User ID</param>
         /// <returns></returns>
         [Delete("{userid}/photo")]
-        public EmployeeWraperFull DeleteMemberPhoto(string userid)
+        public ThumbnailsDataWrapper DeleteMemberPhoto(string userid)
         {
             var user = GetUserInfo(userid);
 
@@ -829,7 +974,52 @@ namespace ASC.Api.Employee
             CoreContext.UserManager.SaveUserInfo(user);
             MessageService.Send(Request, MessageAction.UserDeletedAvatar, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
-            return new EmployeeWraperFull(user);
+            return new ThumbnailsDataWrapper(user.ID);
+        }
+
+        /// <summary>
+        /// Create photo thumbnails by coordinates of original image
+        /// </summary>
+        /// <short>
+        /// Create user photo thumbnails
+        /// </short>
+        /// <param name="userid">User ID</param>
+        /// <param name="tmpFile">Path to the temporary file</param>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns></returns>
+        [Create("{userid}/photo/thumbnails")]
+        public ThumbnailsDataWrapper CreateMemberPhotoThumbnails(string userid, string tmpFile, int x, int y, int width, int height)
+        {
+            var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
+                throw new SecurityException();
+
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
+
+            if (!string.IsNullOrEmpty(tmpFile))
+            {
+                var fileName = Path.GetFileName(tmpFile);
+                var data = UserPhotoManager.GetTempPhotoData(fileName);
+
+                var settings = new UserPhotoThumbnailSettings(x, y, width, height);
+                settings.SaveForUser(user.ID);
+
+                UserPhotoManager.SaveOrUpdatePhoto(user.ID, data);
+                UserPhotoManager.RemoveTempPhoto(fileName);
+            }
+            else
+            {
+                UserPhotoThumbnailManager.SaveThumbnails(x, y, width, height, user.ID);
+            }
+
+            CoreContext.UserManager.SaveUserInfo(user);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedAvatarThumbnails, MessageTarget.Create(user.ID), user.DisplayUserName(false));
+
+            return new ThumbnailsDataWrapper(user.ID);
         }
 
         /// <summary>
@@ -980,7 +1170,7 @@ namespace ASC.Api.Employee
 
             MessageService.Send(Request, MessageAction.UsersUpdatedType, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
-            return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
+            return users.Select(user => new EmployeeWraperFull(user));
         }
 
         /// <summary>
@@ -1027,7 +1217,7 @@ namespace ASC.Api.Employee
 
             MessageService.Send(Request, MessageAction.UsersUpdatedStatus, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
-            return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
+            return users.Select(user => new EmployeeWraperFull(user));
         }
 
         /// <summary>
@@ -1069,7 +1259,7 @@ namespace ASC.Api.Employee
 
             MessageService.Send(Request, MessageAction.UsersSentActivationInstructions, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
-            return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
+            return users.Select(user => new EmployeeWraperFull(user));
         }
 
         /// <summary>
@@ -1099,12 +1289,12 @@ namespace ASC.Api.Employee
 
                 UserPhotoManager.RemovePhoto(user.ID);
                 CoreContext.UserManager.DeleteUser(user.ID);
-                QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
+                QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID, false);
             }
 
             MessageService.Send(Request, MessageAction.UsersDeleted, MessageTarget.Create(users.Select(x => x.ID)), userNames);
 
-            return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
+            return users.Select(user => new EmployeeWraperFull(user));
         }
 
 
@@ -1233,10 +1423,11 @@ namespace ASC.Api.Employee
         /// </summary>
         /// <param name="fromUserId">From User ID</param>
         /// <param name="toUserId">To User ID</param>
+        /// <param name="deleteProfile">Delete profile when reassignment will be finished</param>
         /// <category>Reassign user data</category>
         /// <returns>Reassign Progress</returns>
         [Create(@"reassign/start")]
-        public ReassignProgressItem StartReassign(Guid fromUserId, Guid toUserId)
+        public ReassignProgressItem StartReassign(Guid fromUserId, Guid toUserId, bool deleteProfile)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
 
@@ -1256,7 +1447,7 @@ namespace ASC.Api.Employee
             if (toUser.IsVisitor() || toUser.Status == EmployeeStatus.Terminated)
                 throw new ArgumentException("Can not reassign data to user with id = " + toUserId);
 
-            return QueueWorker.StartReassign(HttpContext.Current, TenantProvider.CurrentTenantID, fromUserId, toUserId, SecurityContext.CurrentAccount.ID);
+            return QueueWorker.StartReassign(HttpContext.Current, TenantProvider.CurrentTenantID, fromUserId, toUserId, SecurityContext.CurrentAccount.ID, deleteProfile);
         }
 
         private void CheckReassignProccess(IEnumerable<Guid> userIds)
@@ -1323,7 +1514,7 @@ namespace ASC.Api.Employee
             if (user.IsOwner() || user.IsMe() || user.Status != EmployeeStatus.Terminated)
                 throw new ArgumentException("Can not delete user with id = " + userId);
 
-            return QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
+            return QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID, true);
         }
 
         #endregion

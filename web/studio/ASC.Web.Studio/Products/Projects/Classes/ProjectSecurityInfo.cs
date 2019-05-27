@@ -24,14 +24,18 @@
 */
 
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Web.Projects.Classes
 {
     [DataContract(Name = "project_security", Namespace = "")]
-    public class ProjectSecurityInfo : CommonSecurityInfo
+    public class ProjectSecurityInfo
     {
         [DataMember]
         public bool CanCreateMilestone { get; set; }
@@ -87,22 +91,52 @@ namespace ASC.Web.Projects.Classes
         [DataMember]
         public bool CanCreateProject { get; set; }
 
+        [DataMember]
+        public bool CanCreateTask { get; set; }
+
+        [DataMember]
+        public bool CanCreateMilestone { get; set; }
+
+        [DataMember]
+        public bool CanCreateMessage { get; set; }
+
+        [DataMember]
+        public bool CanCreateTimeSpend { get; set; }
+
         public CommonSecurityInfo()
         {
-            CanCreateProject = ProjectSecurity.CanCreate<Project>(null);
+            var filter = new TaskFilter
+            {
+                SortBy = "title",
+                SortOrder = true,
+                ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
+            };
+
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
+                var engineFactory = scope.Resolve<EngineFactory>();
+                var projects = engineFactory.ProjectEngine.GetByFilter(filter).ToList();
+
+                CanCreateProject = projectSecurity.CanCreate<Project>(null);
+                CanCreateTask = projects.Any(projectSecurity.CanCreate<Task>);
+                CanCreateMilestone = projects.Any(projectSecurity.CanCreate<Milestone>);
+                CanCreateMessage = projects.Any(projectSecurity.CanCreate<Message>);
+                CanCreateTimeSpend = projects.Any(projectSecurity.CanCreate<TimeSpend>);
+            }
         }
     }
 
     public class TaskSecurityInfo
     {
-            public bool CanEdit{ get; set; }
+        public bool CanEdit{ get; set; }
 
-            public bool CanCreateSubtask{ get; set; }
+        public bool CanCreateSubtask { get; set; }
 
-            public bool CanCreateTimeSpend{ get; set; }
+        public bool CanCreateTimeSpend { get; set; }
 
-            public bool CanDelete{ get; set; }
+        public bool CanDelete { get; set; }
 
-            public bool CanReadFiles{ get; set; }
+        public bool CanReadFiles{ get; set; }
     }
 }

@@ -13,6 +13,42 @@ namespace ASC.Web.Studio.Masters {
     public partial class BaseTemplate {
         
         /// <summary>
+        /// MetaImageOG control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlMeta MetaImageOG;
+        
+        /// <summary>
+        /// MetaTitleOG control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlMeta MetaTitleOG;
+        
+        /// <summary>
+        /// MetaDescriptionOG control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlMeta MetaDescriptionOG;
+        
+        /// <summary>
+        /// CanonicalURLOG control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlMeta CanonicalURLOG;
+        
+        /// <summary>
         /// MetaKeywords control.
         /// </summary>
         /// <remarks>

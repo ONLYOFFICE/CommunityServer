@@ -1,0 +1,15 @@
+{
+    "port": 9800,
+    "savePath": "./thumbnails/",
+    "fileExt": ".png",
+    "noThumb": "./thumbnails/noimg.jpg",
+    "queue": 1,
+    "webshotOptions": {
+        "windowSize": {
+            "width": 384,
+            "height": 288
+          },
+          "timeout": 5000,
+          "zoomFactor": 0.3
+    }
+}

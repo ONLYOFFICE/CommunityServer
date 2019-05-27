@@ -29,12 +29,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ASC.Api.Attributes;
-using ASC.Api.Mail.DataContracts;
-using ASC.Api.Mail.Extensions;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.DbSchema;
-using ASC.Mail.Aggregator.Filter;
+using ASC.Mail;
+using ASC.Mail.Core.Dao.Expressions.Contact;
+using ASC.Mail.Core.Entities;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Enums;
+using ASC.Mail.Extensions;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.Mail
 {
@@ -54,8 +56,12 @@ namespace ASC.Api.Mail
             if (string.IsNullOrEmpty(term))
                 throw new ArgumentException(@"term parameter empty.", "term");
 
-            var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
-            return MailBoxManager.SearchEmails(TenantId, Username, term, MailAutocompleteMaxCountPerSystem, scheme, MailAutocompleteTimeout);
+            var scheme = HttpContext.Current == null
+                ? Uri.UriSchemeHttp
+                : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+
+            return MailEngineFactory.ContactEngine.SearchEmails(TenantId, Username, term, MailAutocompleteMaxCountPerSystem,
+                scheme, MailAutocompleteTimeout);
         }
 
         /// <summary>
@@ -70,37 +76,31 @@ namespace ASC.Api.Mail
         /// <short>Gets filtered contacts</short> 
         /// <category>Contacts</category>
         [Read(@"contacts")]
-        public IEnumerable<MailContactData> GetContacts(string search, int? contactType, int? pageSize, int fromIndex, string sortorder)
+        public IEnumerable<MailContactData> GetContacts(string search, int? contactType, int? pageSize, int fromIndex,
+            string sortorder)
         {
-            var filter = new MailContactsFilter
-            {
-                SearchFilter = search,
-                Type = contactType,
-                StartIndex = fromIndex,
-                Count = pageSize.GetValueOrDefault(25),
-                SortOrder = sortorder
-            };
+            var exp = string.IsNullOrEmpty(search) && !contactType.HasValue
+                ? new SimpleFilterContactsExp(TenantId, Username, sortorder == Defines.ASCENDING, fromIndex, pageSize)
+                : new FullFilterContactsExp(TenantId, Username, search, contactType,
+                    orderAsc: sortorder == Defines.ASCENDING,
+                    startIndex: fromIndex, limit: pageSize);
 
-            var contacts = MailBoxManager.GetMailContacts(
-                TenantId,
-                Username,
-                filter);
+            var contacts = MailEngineFactory.ContactEngine.GetContactCards(exp);
 
             int totalCount;
 
             if (contacts.Any() && contacts.Count() < pageSize)
             {
-                totalCount = fromIndex + contacts.Count();
+                totalCount = fromIndex + contacts.Count;
             }
             else
             {
-                totalCount = MailBoxManager.GetMailContactsCount(TenantId,
-                Username,
-                filter);
+                totalCount = MailEngineFactory.ContactEngine.GetContactCardsCount(exp);
             }
+
             _context.SetTotalCount(totalCount);
 
-            return contacts.ToContactData();
+            return contacts.ToMailContactDataList();
         }
 
         /// <summary>
@@ -115,9 +115,11 @@ namespace ASC.Api.Mail
         [Read(@"contacts/bycontactinfo")]
         public IEnumerable<MailContactData> GetContactsByContactInfo(ContactInfoType infoType, String data, bool? isPrimary)
         {
-            var contacts = MailBoxManager.GetContactsByContactInfo(TenantId, Username, infoType, data, isPrimary);
+            var exp = new FullFilterContactsExp(TenantId, Username, data, infoType: infoType, isPrimary: isPrimary);
 
-            return contacts.ToContactData();
+            var contacts = MailEngineFactory.ContactEngine.GetContactCards(exp);
+
+            return contacts.ToMailContactDataList();
         }
 
         /// <summary>
@@ -136,9 +138,12 @@ namespace ASC.Api.Mail
             if (!emails.Any())
                 throw new ArgumentException(@"Invalid list of emails.", "emails");
 
-            var contact = MailBoxManager.SaveMailContact(TenantId, Username, name, description, emails, phoneNumbers, ContactType.Personal);
+            var contactCard = new ContactCard(0, TenantId, Username, name, description, ContactType.Personal, emails,
+                phoneNumbers);
 
-            return contact.ToContactData();
+            var newContact = MailEngineFactory.ContactEngine.SaveContactCard(contactCard);
+
+            return newContact.ToMailContactData();
         }
 
         /// <summary>
@@ -149,12 +154,12 @@ namespace ASC.Api.Mail
         /// <short>Remove mail contact </short> 
         /// <category>Contacts</category>
         [Update(@"contacts/remove")]
-        public IEnumerable<int> RemoveContact(List<int> ids)
+        public IEnumerable<int> RemoveContacts(List<int> ids)
         {
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
-            MailBoxManager.DeleteMailContacts(TenantId, Username, ids);
+            MailEngineFactory.ContactEngine.RemoveContacts(ids);
 
             return ids;
         }
@@ -179,9 +184,11 @@ namespace ASC.Api.Mail
             if (!emails.Any())
                 throw new ArgumentException(@"Invalid list of emails.", "emails");
 
-            var contact = MailBoxManager.UpdateMailContact(TenantId, Username, id, name, description, emails, phoneNumbers, ContactType.Personal);
+            var contactCard = new ContactCard(id, TenantId, Username, name, description, ContactType.Personal, emails, phoneNumbers);
 
-            return contact.ToContactData();
+            var contact = MailEngineFactory.ContactEngine.UpdateContactCard(contactCard);
+
+            return contact.ToMailContactData();
         }
 
         /// <summary>
@@ -193,12 +200,12 @@ namespace ASC.Api.Mail
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Read(@"crm/linked/entities")]
-        public IEnumerable<CrmContactEntity> GetLinkedCrmEntitiesInfo(int message_id)
+        public IEnumerable<CrmContactData> GetLinkedCrmEntitiesInfo(int message_id)
         {
             if(message_id < 0)
                 throw new ArgumentException(@"meesage_id must be positive integer", "message_id");
 
-            return MailBoxManager.GetLinkedCrmEntitiesId(message_id, TenantId, Username);
+            return MailEngineFactory.CrmLinkEngine.GetLinkedCrmEntitiesId(message_id);
         }
     }
 }

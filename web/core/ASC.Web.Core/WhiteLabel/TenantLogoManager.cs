@@ -31,7 +31,6 @@ using System.Web;
 using System.Web.Configuration;
 using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.WhiteLabel
@@ -39,7 +38,11 @@ namespace ASC.Web.Core.WhiteLabel
     public class TenantLogoManager
     {
         private static readonly ICache Cache = AscCache.Default;
-        private const string CacheKey = "letterlogodata";
+
+        private static string CacheKey
+        {
+            get { return "letterlogodata" + TenantProvider.CurrentTenantID; }
+        }
 
         public static bool WhiteLabelEnabled
         {
@@ -113,7 +116,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
+                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.LoadForDefaultTenant();
 
                 return tenantWhiteLabelSettings.LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
             }

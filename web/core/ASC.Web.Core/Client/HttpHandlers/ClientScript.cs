@@ -33,6 +33,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 
 using ASC.Core;
@@ -54,8 +55,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
         protected abstract IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context);
 
-
-        public void GetData(HttpContext context, StringBuilder builder)
+        public async Task GetDataAsync(HttpContext context, StringBuilder builder)
         {
             var store = GetClientVariables(context);
             if (store == null) return;
@@ -83,7 +83,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
                 if (templateSet != null)
                 {
                     builder.Append(Environment.NewLine);
-                    templateSet.GetClientTemplates(builder);
+                    await templateSet.GetClientTemplatesAsync(builder);
                     continue;
                 }
 
@@ -114,16 +114,9 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
         protected IEnumerable<KeyValuePair<string, object>> RegisterClientTemplatesPath(HttpContext context, params string[] virtualPath)
         {
-            var htmlBuilder = new StringBuilder();
-            foreach (var path in virtualPath)
-            {
-                var data = File.ReadAllText(context.Server.MapPath(path));
-                htmlBuilder.Append(data);
-            }
-
             return new List<KeyValuePair<string, object>>(1)
             {
-                new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(htmlBuilder.ToString()))
+                new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(virtualPath.Select(path => context.Server.MapPath(path)).ToArray()))
             };
         }
 
@@ -149,18 +142,31 @@ namespace ASC.Web.Core.Client.HttpHandlers
             }
         }
 
+        public static async Task GetTemplateDataAsync(string[] paths, StringBuilder builder)
+        {
+            var dataBuilder = new StringBuilder();
+            foreach (var path in paths)
+            {
+                using (var reader = File.OpenText(path))
+                {
+                    dataBuilder.Append(await reader.ReadToEndAsync());
+                }
+            }
+            GetTemplateData(dataBuilder.ToString(), builder);
+        }
+
         class ClientTemplateSet
         {
-            private readonly string input;
+            private readonly string[] paths;
 
-            public ClientTemplateSet(string input)
+            public ClientTemplateSet(params string[] paths)
             {
-                this.input = input;
+                this.paths = paths;
             }
 
-            public void GetClientTemplates(StringBuilder builder)
+            public async Task GetClientTemplatesAsync(StringBuilder builder)
             {
-                GetTemplateData(input, builder);
+                await GetTemplateDataAsync(paths, builder);
             }
         }
 

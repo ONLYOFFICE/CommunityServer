@@ -38,11 +38,13 @@ namespace ASC.Web.CRM
 {
     public partial class Deals : BasePage
     {
+        protected string HelpLink { get; set; }
+        
         protected override void PageLoad()
         {
             int dealID;
 
-            
+            HelpLink = CommonLinkUtility.GetHelpLink();
 
             if (int.TryParse(Request["id"], out dealID))
             {

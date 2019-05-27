@@ -29,15 +29,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-
+using ASC.Common.Logging;
 using ASC.Core.Notify.Signalr;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Session;
 using ASC.Xmpp.Server.Streams;
 
-using log4net;
-using log4net.Core;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
 
 namespace ASC.Xmpp.Server.Gateway
@@ -74,7 +72,7 @@ namespace ASC.Xmpp.Server.Gateway
             var connection = GetXmppConnection(to.ConnectionId);
             if (connection != null)
             {
-                _log.Logger.Log(GetType(), Level.Trace, string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, node.ToString(Formatting.Indented)), null);
+                _log.Trace(string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, node.ToString(Formatting.Indented)));
                 connection.Send(node, Encoding.UTF8);
             }
         }
@@ -87,7 +85,7 @@ namespace ASC.Xmpp.Server.Gateway
             var connection = GetXmppConnection(to.ConnectionId);
             if (connection != null)
             {
-                _log.Logger.Log(GetType(), Level.Trace, string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, text), null);
+                _log.Trace(string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, text));
                 connection.Send(text, Encoding.UTF8);
             }
         }

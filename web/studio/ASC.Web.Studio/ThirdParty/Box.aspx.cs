@@ -41,11 +41,8 @@ namespace ASC.Web.Studio.ThirdParty
             get { return CommonLinkUtility.ToAbsolute("~/thirdparty/box.aspx"); }
         }
 
-        private const string Source = "box";
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            var code = Request["code"];
             try
             {
                 var error = Request["error"];
@@ -58,16 +55,14 @@ namespace ASC.Web.Studio.ThirdParty
                     throw new Exception(error);
                 }
 
+                var code = Request["code"];
                 if (string.IsNullOrEmpty(code))
                 {
-                    OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                                   BoxLoginProvider.BoxOauthCodeUrl,
-                                                   BoxLoginProvider.BoxOAuth20ClientId,
-                                                   BoxLoginProvider.BoxOAuth20RedirectUrl);
+                    OAuth20TokenHelper.RequestCode<BoxLoginProvider>(HttpContext.Current);
                 }
                 else
                 {
-                    Master.SubmitToken(code, Source);
+                    Master.SubmitCode(code);
                 }
             }
             catch (ThreadAbortException)
@@ -75,7 +70,7 @@ namespace ASC.Web.Studio.ThirdParty
             }
             catch (Exception ex)
             {
-                Master.SubmitError(ex.Message, Source);
+                Master.SubmitError(ex.Message);
             }
         }
     }

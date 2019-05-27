@@ -24,7 +24,6 @@
 */
 
 
-using System.Web;
 using System.Web.UI;
 using ASC.CRM.Core.Dao;
 
@@ -40,15 +39,6 @@ namespace ASC.Web.CRM
         public DaoFactory DaoFactory
         {
             get { return Page.DaoFactory; }
-        }
-
-        protected string GetCookieKeyForFilterForExport()
-        {
-            return Request.GetUrlRewriter().AbsoluteUri
-                          .Replace("&view=editor", "")
-                          .Replace("action=export", "")
-                          .TrimEnd('?')
-                          .TrimEnd('&');
         }
     }
 }

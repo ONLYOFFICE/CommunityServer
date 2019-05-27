@@ -28,18 +28,18 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.Files.Core;
-using ASC.FullTextIndex;
 using ASC.Web.Files.Api;
+using ASC.Web.CRM.Core.Search;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
-using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -171,6 +171,7 @@ namespace ASC.CRM.Core.Dao
             var result = CreateCasesInDb(title);
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
+
             return result;
         }
 
@@ -284,6 +285,7 @@ namespace ASC.CRM.Core.Dao
                     }
                 }
             }
+            //todo: remove indexes
         }
 
         public List<Cases> GetAllCases()
@@ -382,16 +384,15 @@ namespace ASC.CRM.Core.Dao
 
                 if (keywords.Length > 0)
                 {
-                    var modules = SearchDao.GetFullTextSearchModule(EntityType.Case, searchText);
-
-                    if (FullTextSearch.SupportModule(modules))
+                    if (!BundleSearch.TrySelectCase(searchText, out ids))
                     {
-                        ids = FullTextSearch.Search(modules);
-
-                        if (ids.Count == 0) return null;
-                    }
-                    else
                         conditions.Add(BuildLike(new[] {"title"}, keywords));
+                    }
+                    else if(!ids.Any())
+                    {
+                        return null;
+
+                    }
                 }
             }
 

@@ -158,7 +158,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
 
         window.onbeforeunload = null;
         AjaxPro.timeoutPeriod = 1800000;
-        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, analytics, function (result) {
+        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val() || jq('#studio_lng').data('default'), promocode, analytics, function (result) {
 
             if (parentCallback != null)
                 parentCallback(result.value);

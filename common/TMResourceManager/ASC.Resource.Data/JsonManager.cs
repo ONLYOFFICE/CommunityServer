@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using ASC.Common.Logging;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using TMResourceData.Model;
@@ -64,7 +65,7 @@ namespace TMResourceData
                     }
                     catch (Exception e)
                     {
-                        log4net.LogManager.GetLogger("ASC").ErrorFormat("parse xml " + fileName, e);
+                        LogManager.GetLogger("ASC").ErrorFormat("parse xml " + fileName, e);
                     }
                 }
             }

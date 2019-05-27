@@ -76,10 +76,11 @@ namespace ASC.Web.Studio.Masters.MasterResources
             var disabledUsers = disabledUserInfoList.Select(PrepareUserInfo);
 
             var groups = groupInfoList.Select(x => new
-                {
-                    id = x.ID,
-                    name = x.Name
-                }).ToList();
+            {
+                id = x.ID,
+                name = x.Name,
+                manager = CoreContext.UserManager.GetDepartmentManager(x.ID)
+            });
 
             var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
             var hubToken = Signature.Create(string.Join(",", currentTenant.TenantId, SecurityContext.CurrentAccount.ID, currentTenant.TenantAlias));
@@ -144,12 +145,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 avatarSmall = UserPhotoManager.GetSmallPhotoURL(userInfo.ID),
                 avatarBig = UserPhotoManager.GetBigPhotoURL(userInfo.ID),
                 profileUrl = CommonLinkUtility.ToAbsolute(CommonLinkUtility.GetUserProfile(userInfo.ID.ToString(), false)),
-                groups = CoreContext.UserManager.GetUserGroups(userInfo.ID).Select(x => new
-                {
-                    id = x.ID,
-                    name = x.Name,
-                    manager = CoreContext.UserManager.GetUsers(CoreContext.UserManager.GetDepartmentManager(x.ID)).UserName
-                }).ToList(),
+                groups = CoreContext.UserManager.GetUserGroupsId(userInfo.ID),
                 isPending = userInfo.ActivationStatus == EmployeeActivationStatus.Pending,
                 isActivated = userInfo.ActivationStatus == EmployeeActivationStatus.Activated,
                 isVisitor = userInfo.IsVisitor(),

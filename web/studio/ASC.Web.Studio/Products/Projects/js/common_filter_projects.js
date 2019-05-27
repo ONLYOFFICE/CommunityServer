@@ -75,6 +75,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
 
         milestoneFilter = "milestone",
         mymilestonesFilter = "mymilestones",
+        nomilestonesFilter = "nomilestones",
 
         statusFilter = "status",
         openFilter = "open",
@@ -164,7 +165,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         responsibleForMilestoneFilter, meProjectManagerFilter, projectManagerFilter, meAuthorFilter, authorFilter,
         userFilter, meTasksResponsibleFilter, tasksResponsibleFilter, meTasksCreatorFilter, tasksCreatorFilter,
         meTasksFilter, userTasksFilter, noresponsibleFilter, groupFilter, followedFilter, tagFilter, textFilter, projectFilter,
-        myprojectsFilter, milestoneFilter, mymilestonesFilter, statusFilter, openFilter, closedFilter, archivedFilter, pausedFilter, paymentStatusFilter, notChargeableFilter, notBilledFilter, billedFilter, overdueFilter, todayFilter, upcomingFilter,
+        myprojectsFilter, milestoneFilter, nomilestonesFilter, mymilestonesFilter, statusFilter, openFilter, closedFilter, archivedFilter, pausedFilter, paymentStatusFilter, notChargeableFilter, notBilledFilter, billedFilter, overdueFilter, todayFilter, upcomingFilter,
         recentFilter, deadlineStartFilter, deadlineStopFilter, createdStartFilter, createdStopFilter, periodStartFilter, periodStopFilter, entityFilter, projectEntityFilter, milestoneEntityFilter, discussionEntityFilter, teamEntityFilter, taskEntityFilter, subtaskEntityFilter,
         timeEntityFilter, commentEntityFilter, sortByFilter, sortOrderFilter
     ];
@@ -415,6 +416,10 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     data.departament = id;
                     anchor = changeParamValue(anchor, groupFilter, data.departament);
                     break;
+                case nomilestonesFilter:
+                    data.nomilestone = trueString;
+                    anchor = changeParamValue(anchor, nomilestonesFilter, trueString);
+                    break;
                 case mymilestonesFilter:
                     data.mymilestones = trueString;
                     anchor = changeParamValue(anchor, mymilestonesFilter, trueString);
@@ -554,13 +559,12 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             });
         }
 
-        var result = [{ 'value': 0, 'title': ASC.Projects.Resources.ProjectsJSResource.NoMilestone }];
-
-        for (var i = 0, n = milestones.length; i < n; i++) {
-            result.push({ 'value': milestones[i].id, 'title': jq.format("[{0}] {1}", milestones[i].displayDateDeadline, milestones[i].title) });
-        }
-
-        return result;
+        return milestones.map(function(item) {
+            return {
+                'value': item.id,
+                'title': jq.format("[{0}] {1}", item.displayDateDeadline, item.title)
+            };
+        });
     };
 
     var getTagsForFilter = function () {
@@ -1105,6 +1109,15 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             null,
             projectsFilterResource.ByMilestone,
             "mymilestones",
+            milestoneFilter);
+
+        pushFilterItem(visible, filters,
+            typeFlag,
+            nomilestonesFilter,
+            ASC.Projects.Resources.ProjectsJSResource.NoMilestone,
+            null,
+            projectsFilterResource.ByMilestone,
+            "nomilestone",
             milestoneFilter);
 
         pushFilterItem(visible, filters,

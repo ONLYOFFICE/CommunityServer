@@ -31,14 +31,13 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using MSBuild.Community.Tasks.Properties;
-
-
 
 namespace MSBuild.Community.Tasks
 {
@@ -77,6 +76,9 @@ namespace MSBuild.Community.Tasks
         public Zip()
         {
             ZipLevel = 6;
+            ParallelCompression = true;
+            CodecBufferSize = 0;
+            BufferSize = 0;
         }
 
         #endregion Constructor
@@ -96,6 +98,18 @@ namespace MSBuild.Community.Tasks
         /// <value>The zip level.</value>
         /// <remarks>0 - store only to 9 - means best compression</remarks>
         public int ZipLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to use ZIP64 extensions.
+        /// </summary>
+        /// <value><c>true</c> to use ZIP64 extensions when necessary; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// When ZIP64 is specified, then ZIP64 extension is used when necessary.
+        /// For example, when a single entry exceeds 0xFFFFFFFF in size, or when the archive 
+        /// as a whole exceeds 0xFFFFFFFF in size, or when there are more than 65535 entries 
+        /// in an archive.
+        /// </remarks>
+        public bool Zip64 { get; set; }
 
         /// <summary>
         /// Gets or sets the files to zip.
@@ -145,6 +159,54 @@ namespace MSBuild.Community.Tasks
         /// </remarks>
         public string Encryption { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether parallel compression is used
+        /// </summary>
+        /// <value>Whether or not the files will be compressed in parallel.</value>
+        /// <remarks>
+        /// This is true by default
+        /// </remarks>
+        public bool ParallelCompression { get; set; }
+
+        /// <summary>
+        /// Gets or sets Size of the work buffer to use for the ZLIB codec
+        /// during compression.
+        /// </summary>
+        /// <value>Decimal value of the size of the buffer.</value>
+        /// <remarks>
+        /// Not set if value is 0
+        /// </remarks>
+        [DefaultValue(0)]
+        public int CodecBufferSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets Size of the IO buffer used while saving.
+        /// </summary>
+        /// <value>Decimal value of the size of the buffer.</value>
+        /// <remarks>
+        /// Not set if value is 0
+        /// </remarks>
+        [DefaultValue(0)]
+        public int BufferSize { get; set; }
+
+        /// <summary>
+        /// 'Add' statement won't be logged with MinimalLogging enabled.
+        /// The default value for MinimalLogging is false.
+        /// </summary>
+        [Obsolete("Obsolete, Use Quiet instead.")]
+        public bool MinimalLogging
+        {
+            get { return Quiet; }
+            set { Quiet = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to output less information. Defaults to <c>false</c>.
+        /// </summary>
+        /// <value><c>false</c> to output a message for every file added to a zip; otherwise, <c>true</c>.</value>
+        [DefaultValue(false)]
+        public bool Quiet { get; set; }
+
         #endregion Input Parameters
 
         #region Task Overrides
@@ -176,6 +238,11 @@ namespace MSBuild.Community.Tasks
 
                 using (var zip = new ZipFile())
                 {
+                    if (!ParallelCompression)
+                    {
+                        zip.ParallelDeflateThreshold = -1;
+                    }
+
                     zip.AlternateEncoding = System.Text.Encoding.Unicode;
                     zip.AlternateEncodingUsage = ZipOption.AsNecessary;
 
@@ -183,6 +250,8 @@ namespace MSBuild.Community.Tasks
                     ZipLevel = System.Math.Max(0, ZipLevel);
                     ZipLevel = System.Math.Min(9, ZipLevel);
                     zip.CompressionLevel = (CompressionLevel)ZipLevel;
+
+                    zip.UseZip64WhenSaving = Zip64 ? Zip64Option.AsNecessary: Zip64Option.Never;
 
                     if (!string.IsNullOrEmpty(Password))
                         zip.Password = Password;
@@ -199,16 +268,22 @@ namespace MSBuild.Community.Tasks
                     if (!string.IsNullOrEmpty(Comment))
                         zip.Comment = Comment;
 
+                    if (CodecBufferSize>0)
+                        zip.CodecBufferSize = CodecBufferSize;
+
+                    if (BufferSize>0)
+                        zip.BufferSize = BufferSize;
+
                     foreach (ITaskItem fileItem in Files)
                     {
-                        string name = fileItem.ItemSpec;
+                        string name = Path.GetFullPath(fileItem.ItemSpec);
                         string directoryPathInArchive;
 
                         // clean up name
                         if (Flatten)
                             directoryPathInArchive = string.Empty;
                         else if (!string.IsNullOrEmpty(WorkingDirectory))
-                            directoryPathInArchive = GetPath(name, WorkingDirectory);
+                            directoryPathInArchive = GetPath(name, Path.GetFullPath(WorkingDirectory));
                         else
                             directoryPathInArchive = null;
 
@@ -218,7 +293,8 @@ namespace MSBuild.Community.Tasks
                             if (Directory.Exists(name))
                             {
                                 var directoryEntry = zip.AddDirectory(name, directoryPathInArchive);
-                                Log.LogMessage(Resources.ZipAdded, directoryEntry.FileName);
+                                if (!Quiet)
+                                    Log.LogMessage(Resources.ZipAdded, directoryEntry.FileName);
 
                                 continue;
                             }
@@ -233,7 +309,8 @@ namespace MSBuild.Community.Tasks
                             directoryPathInArchive = Path.GetDirectoryName(directoryPathInArchive);
 
                         var entry = zip.AddFile(name, directoryPathInArchive);
-                        Log.LogMessage(Resources.ZipAdded, entry.FileName);
+                        if (!Quiet)
+                            Log.LogMessage(Resources.ZipAdded, entry.FileName);
                     }
 
                     zip.Save(ZipFileName);

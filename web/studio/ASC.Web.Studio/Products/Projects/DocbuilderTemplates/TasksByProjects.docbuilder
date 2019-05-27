@@ -1,0 +1,88 @@
+﻿for (var i = 0; i < reportData.length; i++)
+{
+	writeText(reportData[i][0][0], {
+		size: headerFontSize,
+		bold: true
+	});
+	for(var j = 0; j < 4; j++)
+		writeText(reportColumns[j] + ": " + reportData[i][0][j+1], {
+			size: smallFontSize,
+			color: grayFontColor,
+			setWrap: true
+		});
+	currentRow++;
+	
+	var tasks = reportData[i][1];
+	var milestones = [];
+	var woMils = false;
+	
+	for (var j = 0; j < tasks.length; j++) {
+		if (tasks[j][1] == "")
+		{
+			woMils = true;
+			continue;
+		}
+		var found = false;
+		for (var k = 0; k < milestones.length; k++)
+			if (tasks[j][1] == milestones[k]) {
+				found = true;
+				break;
+			}
+		
+		if (!found)
+			milestones.push(tasks[j][1]);
+	}
+	
+	if (woMils)
+	{
+		writeRow([4, 5, 6, 7], reportColumns, [2], {
+			darkGrayBorderColor,
+		}, {
+			size: smallFontSize,
+			color: grayFontColor,
+			setWrap: true
+		});
+		
+		for (var j = 0; j < tasks.length; j++) {
+			if (tasks[j][1] != "") continue;
+			writeRow([0, 2, 3, 4], tasks[j], [2], {
+				color: lightGrayBorderColor
+			}, {
+				color: tasks[j][4] == reportColumns[8] ? blackFontColor : grayFontColor,
+				size: smallFontSize,
+				setWrap: true
+			}, true);
+		}
+		currentRow += 2;
+	}
+	
+	if (milestones.length > 0)
+		for (var j = 0; j < milestones.length; j++)
+		{
+			writeText(milestones[j], {
+				size: chartHeaderFontSize,
+				bold: true
+			});
+			
+			writeRow([4, 5, 6, 7], reportColumns, [2], {
+				darkGrayBorderColor,
+			}, {
+				size: smallFontSize,
+				color: grayFontColor,
+				setWrap: true
+			});
+		
+			for (var k = 0; k < tasks.length; k++)
+			{
+				if (tasks[k][1] != milestones[j]) continue;
+				writeRow([0, 2, 3, 4], tasks[k], [2], {
+					color: lightGrayBorderColor
+				}, {
+					color: tasks[j][4] == reportColumns[8] ? blackFontColor : grayFontColor,
+					size: smallFontSize,
+					setWrap: true
+				}, true);
+			}
+			currentRow++;
+		}
+}

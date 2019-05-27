@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Mail</RootNamespace>
     <AssemblyName>ASC.Api.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -56,21 +56,9 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="antlr.runtime">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll</HintPath>
-    </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Core.Common.dll</HintPath>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\Bin\ASC.Api.dll</HintPath>
     </Reference>
     <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -92,56 +80,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth">
-      <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Ical.Net">
+    <Reference Include="Ical.Net, Version=4.0.6.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.3.5.1\lib\net46\Ical.Net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Ical.Net.Collections">
+    <Reference Include="NodaTime, Version=2.0.2.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.5.1\lib\net46\Ical.Net.Collections.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MimeKit">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NodaTime">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.2.0.2\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailApi.Filters.cs" />
     <Compile Include="MailApi.MailService.cs" />
-    <Compile Include="DataContracts\MailAccountData.cs" />
-    <Compile Include="DataContracts\MailBoxAccountSettings.cs" />
-    <Compile Include="DataContracts\MailContactData.cs" />
-    <Compile Include="DataContracts\MailFolderData.cs" />
-    <Compile Include="DataContracts\MailTagData.cs" />
-    <Compile Include="Extensions\DataContractsExtensions.cs" />
     <Compile Include="MailApi.Settings.cs" />
     <Compile Include="MailApi.Attachments.cs" />
     <Compile Include="MailApi.Autoreply.cs">
@@ -152,18 +109,6 @@
     <Compile Include="MailApi.Signature.cs" />
     <Compile Include="MailApi.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\MailApiResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailApiResource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\MailApiResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MailApiResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MailApi.Accounts.cs" />
@@ -188,21 +133,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj">
+      <Project>{1ef9c7d8-f92e-48b3-9a86-78e431abc306}</Project>
+      <Name>ASC.Web.Mail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
-      <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
-      <Name>ASC.Mail.Aggregator.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
-      <Project>{ED5E23B1-61A4-4527-A4EB-AE7E3853D2AF}</Project>
-      <Name>ASC.Mail.Aggregator.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
+    <ProjectReference Include="..\..\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
-      <Name>ASC.Mail.Aggregator</Name>
+      <Name>ASC.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>

@@ -65,7 +65,7 @@ namespace ASC.Web.Studio.UserControls.Statistics
             return GetQuotaRows(TenantProvider.CurrentTenantID).Where(r => new Guid(r.Tag).Equals(moduleId)).Sum(r => r.Counter);
         }
 
-        private static IEnumerable<TenantQuotaRow> GetQuotaRows(int tenant)
+        public static IEnumerable<TenantQuotaRow> GetQuotaRows(int tenant)
         {
             return CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(tenant))
                 .Where(r => !string.IsNullOrEmpty(r.Tag) && new Guid(r.Tag) != Guid.Empty);

@@ -229,9 +229,13 @@ namespace ASC.Web.Community.Controls
                     CurrentPage = "wikifiles";
                 }
                 var page = Request["page"];
-                if (!string.IsNullOrEmpty(page) && page.StartsWith("Category:"))
+                if (!string.IsNullOrEmpty(page))
                 {
-                    CurrentPage = "wikicategories";
+                    if(page.StartsWith("Category:"))
+                        CurrentPage = "wikicategories";
+
+                    if (page == UserControls.Wiki.Resources.WikiUCResource.HelpPageCaption)
+                        CurrentPage = "wikihelp";
                 }
             }
             else if (currentPath.IndexOf("modules/birthdays", StringComparison.Ordinal) > 0)

@@ -31,12 +31,11 @@ using System.Globalization;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
+using ASC.Common.Logging;
 using ASC.Common.Threading;
 using ASC.Core;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common.Logging;
-using ASC.Mail.Aggregator.ComplexOperations.Base;
-using ASC.Web.Studio.Core;
+using ASC.Mail.Core;
+using ASC.Mail.Core.Engine.Operations.Base;
 
 namespace ASC.Api.Mail
 {
@@ -44,8 +43,9 @@ namespace ASC.Api.Mail
     {
         private readonly ApiContext _context;
 
-        private MailBoxManager _mailBoxManager;
-        private ILogger _log;
+        private EngineFactory _engineFactory;
+
+        private ILog _log;
 
         public const int DEFAULT_PAGE_SIZE = 25;
 
@@ -57,52 +57,44 @@ namespace ASC.Api.Mail
             get { return "mail"; }
         }
 
-        private MailBoxManager MailBoxManager
+        private EngineFactory MailEngineFactory
         {
-            get { return _mailBoxManager ?? (_mailBoxManager = new MailBoxManager(Logger)); }
+            get { return _engineFactory ?? (_engineFactory = new EngineFactory(TenantId, Username)); }
         }
 
-        private ILogger Logger
+        private ILog Logger
         {
-            get { return _log ?? (_log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api")); }
+            get { return _log ?? (_log = LogManager.GetLogger("ASC.Api")); }
         }
 
-        private int TenantId
+        private static int TenantId
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
 
-        private string Username
+        private static string Username
         {
             get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
 
-        private CultureInfo CurrentCulture
+        private static CultureInfo CurrentCulture
         {
             get
             {
                 var u = CoreContext.UserManager.GetUsers(new Guid(Username));
 
-                var culture = !string.IsNullOrEmpty(u.CultureName) ? u.GetCulture() : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
+                var culture = !string.IsNullOrEmpty(u.CultureName)
+                    ? u.GetCulture()
+                    : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
 
                 return culture;
             }
         }
 
-        private bool IsSignalRAvailable
-        {
-            get { return !string.IsNullOrEmpty(ConfigurationManager.AppSettings["web.hub"]); }
-        }
-
-        private string MailDaemonEmail
-        {
-            get { return ConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com"; }
-        }
-
         /// <summary>
         /// Limit result per Contact System
         /// </summary>
-        private int MailAutocompleteMaxCountPerSystem
+        private static int MailAutocompleteMaxCountPerSystem
         {
             get
             {
@@ -118,7 +110,7 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Timeout in milliseconds
         /// </summary>
-        private int MailAutocompleteTimeout
+        private static int MailAutocompleteTimeout
         {
             get
             {
@@ -128,50 +120,6 @@ namespace ASC.Api.Mail
 
                 int.TryParse(ConfigurationManager.AppSettings["mail.autocomplete-timeout"], out count);
                 return count;
-            }
-        }
-
-        /// <summary>
-        /// Need any mail's body http links change to proxy handler
-        /// </summary>
-        private bool NeedProxyHttp
-        {
-            get { return SetupInfo.IsVisibleSettings("ProxyHttpContent"); }
-        }
-
-        /// <summary>
-        /// Permit errors of SSL certificates
-        /// </summary>
-        private bool SslCertificatesErrorPermit
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.certificate-permit"] != null &&
-                       Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
-            }
-        }
-
-        /// <summary>
-        /// Protocol log path (if not empty then enabled)
-        /// </summary>
-        private string ProtocolLogPath
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.protocol-log-path"] ?? "";
-            }
-        }
-
-        /// <summary>
-        /// Test mailbox connection tcp timeout (10 sec is default)
-        /// </summary>
-        private int TcpTimeout
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["mail.tcp-timeout"] != null
-                    ? Convert.ToInt32(ConfigurationManager.AppSettings["mail.tcp-timeout"])
-                    : 10000;
             }
         }
 
@@ -194,7 +142,7 @@ namespace ASC.Api.Mail
         [Read("operations")]
         public List<MailOperationStatus> GetMailOperations()
         {
-            var list = MailBoxManager.GetMailOperations(TranslateMailOperationStatus);
+            var list = MailEngineFactory.OperationEngine.GetMailOperations(TranslateMailOperationStatus);
             return list;
         }
 
@@ -209,7 +157,7 @@ namespace ASC.Api.Mail
         [Read("operations/{operationId}")]
         public MailOperationStatus GetMailOperation(string operationId)
         {
-            return MailBoxManager.GetMailOperationStatus(operationId, TranslateMailOperationStatus);
+            return MailEngineFactory.OperationEngine.GetMailOperationStatus(operationId, TranslateMailOperationStatus);
         }
 
         /// <summary>
@@ -262,7 +210,34 @@ namespace ASC.Api.Mail
                             return "Calculate total conversations";
                         case MailOperationRecalculateMailboxProgress.UpdateFoldersCounters:
                             return "Update folders counters";
+                        case MailOperationRecalculateMailboxProgress.CountUnreadUserFolderMessages:
+                            return "Calculate unread messages in user folders";
+                        case MailOperationRecalculateMailboxProgress.CountTotalUserFolderMessages:
+                            return "Calculate total messages in user folders";
+                        case MailOperationRecalculateMailboxProgress.CountUreadUserFolderConversation:
+                            return "Calculate unread conversations in user folders";
+                        case MailOperationRecalculateMailboxProgress.CountTotalUserFolderConversation:
+                            return "Calculate total conversations in user folders";
+                        case MailOperationRecalculateMailboxProgress.UpdateUserFoldersCounters:
+                            return "Update user folders counters";
                         case MailOperationRecalculateMailboxProgress.Finished:
+                            return "Finished";
+                        default:
+                            return status;
+                    }
+                }
+                case MailOperationType.RemoveUserFolder:
+                {
+                    var progress = op.GetProperty<MailOperationRemoveUserFolderProgress>(MailOperation.PROGRESS);
+                    switch (progress)
+                    {
+                        case MailOperationRemoveUserFolderProgress.Init:
+                            return "Setup tenant and user";
+                        case MailOperationRemoveUserFolderProgress.MoveMailsToTrash:
+                            return "Move mails into Trash folder";
+                        case MailOperationRemoveUserFolderProgress.DeleteFolders:
+                            return "Delete folder";
+                        case MailOperationRemoveUserFolderProgress.Finished:
                             return "Finished";
                         default:
                             return status;

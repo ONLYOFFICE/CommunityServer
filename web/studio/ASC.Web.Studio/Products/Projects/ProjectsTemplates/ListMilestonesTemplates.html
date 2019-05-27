@@ -44,7 +44,7 @@
     </td>
     <td class="responsible">
         <div>
-            <span {{if responsibleId=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}} class="not-action"{{/if}} title="${ASC.Projects.Resources.ProjectResource.TitleMilestoneResponsibleUser}">${responsible}</span>
+            <span {{if responsibleId=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3' || (isTerminated && !Teamlab.profile.isAdmin)}} class="not-action"{{/if}} title="${ASC.Projects.Resources.ProjectResource.TitleMilestoneResponsibleUser}">${responsible}</span>
         </div>
     </td>
     <td class="actions">

@@ -31,23 +31,44 @@ namespace ASC.Data.Storage
 {
     static class DataStoreCache
     {
-        private readonly static ICache cache = AscCache.Memory;
+        private static readonly ICache Cache = AscCache.Memory;
         
  
         public static void Put(IDataStore store, string tenantId, string module)
         {
-            cache.Insert(MakeCacheKey(tenantId, module), store, DateTime.MaxValue);
+            Cache.Insert(DataStoreCacheItem.Create(tenantId, module).MakeCacheKey(), store, DateTime.MaxValue);
         }
 
         public static IDataStore Get(string tenantId, string module)
         {
-            return cache.Get<IDataStore>(MakeCacheKey(tenantId, module));
+            return Cache.Get<IDataStore>(DataStoreCacheItem.Create(tenantId, module).MakeCacheKey());
+        }
+
+        public static void Remove(string tenantId, string module)
+        {
+            Cache.Remove(DataStoreCacheItem.Create(tenantId, module).MakeCacheKey());
         }
         
-        
-        private static string MakeCacheKey(string tennantId, string module)
+
+    }
+
+    public class DataStoreCacheItem
+    {
+        public string TenantId { get; set; }
+        public string Module { get; set; }
+
+        public static DataStoreCacheItem Create(string tenantId, string module)
         {
-            return string.Format("{0}:\\{1}", tennantId, module);
+            return new DataStoreCacheItem
+            {
+                TenantId = tenantId,
+                Module = module
+            };
+        }
+
+        internal string MakeCacheKey()
+        {
+            return string.Format("{0}:\\{1}", TenantId, Module);
         }
     }
 }

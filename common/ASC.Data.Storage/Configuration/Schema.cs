@@ -54,6 +54,7 @@ namespace ASC.Data.Storage.Configuration
         public const string EXPIRES = "expires";
         public const string DOMAINS = "domain";
         public const string PUBLIC = "public";
+        public const string DISABLEDMIGRATE = "disableMigrate";
 
     }
 }

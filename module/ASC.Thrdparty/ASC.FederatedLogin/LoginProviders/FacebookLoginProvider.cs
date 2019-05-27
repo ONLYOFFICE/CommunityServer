@@ -26,94 +26,32 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Web;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class FacebookLoginProvider : ILoginProvider
+    public class FacebookLoginProvider : BaseLoginProvider<FacebookLoginProvider>
     {
         private const string FacebookProfileUrl = "https://graph.facebook.com/v2.7/me?fields=email,id,birthday,link,first_name,last_name,gender,timezone,locale";
-        private const string FacebookProfileScope = "email,public_profile";
 
-        public const string FacebookOauthCodeUrl = "https://www.facebook.com/v2.7/dialog/oauth/";
-        public const string FacebookOauthTokenUrl = "https://graph.facebook.com/v2.7/oauth/access_token";
+        public override string AccessTokenUrl { get { return "https://graph.facebook.com/v2.7/oauth/access_token"; } }
+        public override string RedirectUri { get { return this["facebookRedirectUrl"]; } }
+        public override string ClientID { get { return this["facebookClientId"]; } }
+        public override string ClientSecret { get { return this["facebookClientSecret"]; } }
+        public override string CodeUrl { get { return "https://www.facebook.com/v2.7/dialog/oauth/"; } }
+        public override string Scopes { get { return "email,public_profile"; } }
 
+        public FacebookLoginProvider() { }
+        public FacebookLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) {}
 
-        public static string FacebookOAuth20ClientId
-        {
-            get { return KeyStorage.Get("facebookClientId"); }
-        }
-
-        public static string FacebookOAuth20ClientSecret
-        {
-            get { return KeyStorage.Get("facebookClientSecret"); }
-        }
-
-        public static string FacebookOAuth20RedirectUrl
-        {
-            get { return KeyStorage.Get("facebookRedirectUrl"); }
-        }
-
-        public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
-        {
-            try
-            {
-                var token = Auth(context, FacebookProfileScope);
-
-                return GetLoginProfile(token == null ? null : token.AccessToken);
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                return LoginProfile.FromError(ex);
-            }
-        }
-
-        public LoginProfile GetLoginProfile(string accessToken)
+        public override LoginProfile GetLoginProfile(string accessToken)
         {
             if (string.IsNullOrEmpty(accessToken))
                 throw new Exception("Login failed");
 
             return RequestProfile(accessToken);
-        }
-
-        public static OAuth20Token Auth(HttpContext context, string scopes)
-        {
-            var error = context.Request["error"];
-            if (!string.IsNullOrEmpty(error))
-            {
-                if (error == "access_denied")
-                {
-                    error = "Canceled at provider";
-                }
-                throw new Exception(error);
-            }
-
-            var code = context.Request["code"];
-            if (string.IsNullOrEmpty(code))
-            {
-                OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                               FacebookOauthCodeUrl,
-                                               FacebookOAuth20ClientId,
-                                               FacebookOAuth20RedirectUrl,
-                                               scopes);
-                return null;
-            }
-
-            var token = OAuth20TokenHelper.GetAccessToken(FacebookOauthTokenUrl,
-                                                          FacebookOAuth20ClientId,
-                                                          FacebookOAuth20ClientSecret,
-                                                          FacebookOAuth20RedirectUrl,
-                                                          code);
-            return token;
         }
 
         private static LoginProfile RequestProfile(string accessToken)

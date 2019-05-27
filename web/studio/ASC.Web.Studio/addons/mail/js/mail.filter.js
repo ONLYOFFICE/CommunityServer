@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -38,6 +38,7 @@ window.MailFilter = (function($) {
         periodTo,
         withinPeriod,
         folder,
+        userFolder,
         search,
         sort,
         sortOrder,
@@ -70,6 +71,7 @@ window.MailFilter = (function($) {
             fromMessage = undefined;
             prevFlag = false;
             withCalendar = false;
+            userFolder = null;
 
             reset();
         }
@@ -77,6 +79,7 @@ window.MailFilter = (function($) {
 
     var reset = function() {
         resetFolder();
+        resetUserFolder();
         resetSearch();
         resetTags();
         resetFrom();
@@ -229,6 +232,19 @@ window.MailFilter = (function($) {
         return folder;
     };
 
+    /*user folder*/
+    var setUserFolder = function (userFolderId) {
+        userFolder = userFolderId;
+    };
+
+    var resetUserFolder = function () {
+        userFolder = null;
+    };
+
+    var getUserFolder = function () {
+        return userFolder;
+    };
+
     /* from date*/
     var setFromDate = function(newFromDate) {
         fromDate = newFromDate;
@@ -354,8 +370,18 @@ window.MailFilter = (function($) {
             withCalendarParam = TMMail.getParamsValue(params, /(calendar\/)/);
         }
 
-        var itemId = TMMail.getSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
-        setFolder(itemId);
+        if (!TMMail.pageIs('userfolder')) {
+            var itemId = TMMail.getSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
+            setFolder(itemId);
+        } else {
+            var userFolderId = TMMail.extractUserFolderIdFromAnchor();
+            if (userFolderId) {
+                setFolder(TMMail.sysfolders.userfolder.id);
+                setUserFolder(userFolderId);
+            } else {
+                setFolder(TMMail.sysfolders.inbox.id);
+            }
+        }
 
         if (toParam) {
             setTo(decodeURIComponent(toParam));
@@ -528,7 +554,19 @@ window.MailFilter = (function($) {
         }
 
         if (f.period.to > 0) {
-            res += 'period=' + f.period.from + ',' + f.period.to + '/';
+            var pFrom = window.moment(f.period.from)
+                .utcOffset(ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset)
+                .startOf('day')
+                .valueOf();
+
+            var pTo = window.moment(f.period.to)
+                .utcOffset(ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset)
+                .startOf('day')
+                .add(23, 'hours')
+                .add(59, 'minutes')
+                .valueOf();
+
+            res += 'period=' + pFrom + ',' + pTo + '/';
         } else if ('' != f.period_within) {
             res += 'within=' + encodeURIComponent(f.period_within) + '/';
         }
@@ -596,7 +634,13 @@ window.MailFilter = (function($) {
 
     function toData() {
         var res = {};
+
+        if (getUserFolder()) {
+            res.user_folder_id = getUserFolder();
+        }
+
         res.folder = folder;
+
         if (!commonSettingsPage.isConversationsEnabled())
             res.page = page;
         res.page_size = pageSize;
@@ -613,34 +657,43 @@ window.MailFilter = (function($) {
             res.period_from = periodFrom;
             res.period_to = periodTo;
         }
-        if (getPeriodWithin() != '') {
+        if (getPeriodWithin()) {
             var within = getPeriodWithin();
-            var now = new Date(),
-                today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0),
-                yesterday = new Date(new Date(today).setDate(now.getDate() - 1)),
-                lastweek = new Date(new Date(today).setDate(today.getDate() - 7));
+            var now = moment.utc().utcOffset(ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset),
+                today = now.clone().startOf('day');
 
-            if ('today' == within) {
-                res.period_from = today.getTime();
-                res.period_to = today.getTime();
-            } else if ('yesterday' == within) {
-                res.period_from = yesterday.getTime();
-                res.period_to = yesterday.getTime();
-            } else if ('lastweek') {
-                res.period_from = lastweek.getTime();
-                res.period_to = today.getTime();
-            } else {
-                setPeriodWithin('');
+            switch (within) {
+            case "today":
+                res.period_from = today.valueOf();
+                res.period_to = today.clone().add(23, 'hours').add(59, 'minutes').valueOf();
+                break;
+            case "yesterday":
+                var yesterday = today.clone().add(-1, 'days');
+                res.period_from = yesterday.valueOf();
+                res.period_to = yesterday.clone().add(23, 'hours').add(59, 'minutes').valueOf();
+                break;
+            case "lastweek":
+                var lastweek = today.clone().add(-7, 'days');
+                res.period_from = lastweek.valueOf();
+                res.period_to = today.clone().add(23, 'hours').add(59, 'minutes').valueOf();
+                break;
+            default:
+                setPeriodWithin("");
+                break;
             }
         }
 
         if (getFrom()) {
-            res.find_address = from;
+            res.from_address = from;
         }
         if (getTo()) {
             var account = accountsManager.getAccountByAddress(to);
             if (account) {
                 res.mailbox_id = account.mailbox_id;
+
+                if (account.is_alias || account.is_group) {
+                    res.to_address = to;
+                }
             }
         }
 
@@ -699,6 +752,7 @@ window.MailFilter = (function($) {
         setWithCalendar: setWithCalendar,
 
         getFolder: getFolder,
+        getUserFolder: getUserFolder,
 
         setSearch: setSearch,
         getSearch: getSearch,
@@ -721,6 +775,7 @@ window.MailFilter = (function($) {
         getPageSize: getPageSize,
 
         setFolder: setFolder,
+        setUserFolder: setUserFolder,
 
         setFromDate: setFromDate,
         getFromDate: getFromDate,

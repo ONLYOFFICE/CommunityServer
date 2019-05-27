@@ -515,15 +515,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your Facebook account name. For example, teamlabdotcom.
-        /// </summary>
-        public static string ContactFacebookDescription {
-            get {
-                return ResourceManager.GetString("ContactFacebookDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contact manager.
         /// </summary>
         public static string ContactManager {

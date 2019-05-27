@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Portal</RootNamespace>
     <AssemblyName>ASC.Api.Portal</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -56,16 +56,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -100,9 +91,9 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
-      <Name>ASC.MessagingSystem</Name>
+    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>

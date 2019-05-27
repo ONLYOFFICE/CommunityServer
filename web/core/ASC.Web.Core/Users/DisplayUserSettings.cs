@@ -53,22 +53,12 @@ namespace ASC.Web.Core.Users
                 };
         }
 
-        public static string GetFullUserName(Guid userID)
-        {
-            return GetFullUserName(CoreContext.UserManager.GetUsers(userID));
-        }
-
-        public static string GetFullUserName(Guid userID, bool withHtmlEncode)
+        public static string GetFullUserName(Guid userID, bool withHtmlEncode = true)
         {
             return GetFullUserName(CoreContext.UserManager.GetUsers(userID), withHtmlEncode);
         }
 
-        public static string GetFullUserName(UserInfo userInfo)
-        {
-            return GetFullUserName(userInfo, DisplayUserNameFormat.Default, true);
-        }
-
-        public static string GetFullUserName(UserInfo userInfo, bool withHtmlEncode)
+        public static string GetFullUserName(UserInfo userInfo, bool withHtmlEncode = true)
         {
             return GetFullUserName(userInfo, DisplayUserNameFormat.Default, withHtmlEncode);
         }

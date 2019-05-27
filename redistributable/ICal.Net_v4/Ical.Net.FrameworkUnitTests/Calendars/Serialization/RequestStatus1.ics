@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+BEGIN:VEVENT
+REQUEST-STATUS:2.0;Success
+REQUEST-STATUS:3.1;Invalid property value;DTSTART:96-Apr-01
+REQUEST-STATUS:2.8; Success\, repeating event ignored. Scheduled 
+ as a single event.;RRULE:FREQ=WEEKLY\;INTERVAL=2
+REQUEST-STATUS:4.1;Event conflict. Date/time is busy.
+END:VEVENT
+END:VCALENDAR

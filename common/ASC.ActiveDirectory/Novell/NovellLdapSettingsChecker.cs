@@ -32,6 +32,7 @@ using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.Novell.Exceptions;
+using Novell.Directory.Ldap.Rfc2251;
 
 namespace ASC.ActiveDirectory.Novell
 {
@@ -112,6 +113,15 @@ namespace ASC.ActiveDirectory.Novell
                     return LdapSettingsStatus.WrongGroupDn;
                 }
 
+                try
+                {
+                    new RfcFilter(Settings.GroupFilter);
+                }
+                catch
+                {
+                    return LdapSettingsStatus.IncorrectGroupLDAPFilter;
+                }
+
                 if (!LdapImporter.TryLoadLDAPGroups())
                 {
                     if (!LdapImporter.AllSkipedDomainGroups.Any())
@@ -129,6 +139,15 @@ namespace ASC.ActiveDirectory.Novell
 
                 if (!LdapImporter.AllDomainGroups.Any())
                     return LdapSettingsStatus.GroupsNotFound;
+            }
+
+            try
+            {
+                new RfcFilter(Settings.UserFilter);
+            }
+            catch
+            {
+                return LdapSettingsStatus.IncorrectLDAPFilter;
             }
 
             if (!LdapImporter.TryLoadLDAPUsers())

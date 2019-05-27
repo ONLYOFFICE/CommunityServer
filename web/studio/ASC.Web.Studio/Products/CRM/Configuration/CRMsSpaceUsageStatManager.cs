@@ -57,7 +57,7 @@ namespace ASC.Web.CRM.Configuration
                     .Select(r => new UsageSpaceStatItem
                         {
 
-                            Name = Resources.CRMCommonResource.ProductName,
+                            Name = Resources.CRMCommonResource.WholeCRMModule,
                             SpaceUsage = Convert.ToInt64(r[1]),
                             Url = VirtualPathUtility.ToAbsolute(PathProvider.StartURL())
                         })

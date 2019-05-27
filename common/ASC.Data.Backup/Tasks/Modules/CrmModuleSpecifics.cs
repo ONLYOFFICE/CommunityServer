@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ASC.Data.Backup.Tasks.Data;
@@ -124,14 +125,17 @@ namespace ASC.Data.Backup.Tasks.Modules
             get { return _tableRelations; }
         }
 
-        public override bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath)
+        public override bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath)
         {
             var pathMatch = Regex.Match(filePath, @"^photos/\d+/\d+/\d+/contact_(?'contactId'\d+)(?'sizeExtension'_\d+_\d+\.\w+)$", RegexOptions.Compiled);
             if (pathMatch.Success)
             {
                 var contactId = columnMapper.GetMapping("crm_contact", "id", pathMatch.Groups["contactId"].Value);
                 if (contactId == null)
-                    return false;
+                {
+                    if(!dump) return false;
+                    contactId = pathMatch.Groups["contactId"].Value;
+                }
 
                 var s = contactId.ToString().PadLeft(6, '0');
                 filePath = string.Format("photos/{0}/{1}/{2}/contact_{3}{4}", s.Substring(0, 2), s.Substring(2, 2), s.Substring(4), contactId, pathMatch.Groups["sizeExtension"].Value);
@@ -220,22 +224,28 @@ namespace ASC.Data.Backup.Tasks.Modules
             return base.GetSelectCommandConditionText(tenantId, table);
         }
 
-        public override bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath)
+        public override bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath)
         {
             var match = Regex.Match(filePath, @"(?<=folder_\d+/message_)\d+(?=\.html)"); //todo:
             if (match.Success)
             {
                 var mappedMessageId = Convert.ToString(columnMapper.GetMapping("mail_mail", "id", match.Value));
+
+                if(dump && string.IsNullOrEmpty(mappedMessageId))
+                {
+                    mappedMessageId = match.Value;
+                }
+
                 if (!string.IsNullOrEmpty(mappedMessageId))
                 {
                     filePath = string.Format("folder_{0}/message_{1}.html", (Convert.ToInt32(mappedMessageId) / 1000 + 1) * 1000, mappedMessageId);
                 }
                 return true;
             }
-            return base.TryAdjustFilePath(columnMapper, ref filePath);
+            return base.TryAdjustFilePath(dump, columnMapper, ref filePath);
         }
 
-        protected override bool TryPrepareValue(System.Data.IDbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
         {
             if (relation.ChildTable == "crm_relationship_event" && relation.ChildColumn == "content")
             {
@@ -327,7 +337,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             }
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             if (value == null) return false;
 

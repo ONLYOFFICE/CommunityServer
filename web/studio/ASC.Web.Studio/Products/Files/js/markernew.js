@@ -169,7 +169,7 @@ window.ASC.Files.Marker = (function () {
 
         //track event
 
-        trackingGoogleAnalitics("documents", "shownews", "folder");
+        trackingGoogleAnalytics("documents", "shownews", "folder");
 
         var targetSize = {
             top: target.offset().top,
@@ -248,9 +248,19 @@ window.ASC.Files.Marker = (function () {
             });
 
             var targetSize = params.targetSize;
-            jq("#filesNewsPanel").css(
-                {
-                    "top": targetSize.top + targetSize.height,
+            var filesNewsPanel = jq("#filesNewsPanel");
+            var margin = 8;
+            var startY = targetSize.top + targetSize.height + margin;
+            var correctionY = 0;
+            var panelHeight = filesNewsPanel.outerHeight();
+            if (document.body.clientHeight - (startY - pageYOffset + panelHeight) < 0) {
+                startY = targetSize.top - margin;
+                correctionY = panelHeight;
+            }
+
+            filesNewsPanel
+                .css({
+                    "top": startY - correctionY,
                     "left": targetSize.left
                 })
                 .toggle()
@@ -290,7 +300,7 @@ window.ASC.Files.Marker = (function () {
             return false;
         });
 
-        jq("#mainMarkRead").click(function () {
+        jq("#studioPageContent").on("click", "#buttonMarkRead, #mainMarkRead.unlockAction", function () {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Marker.markAsRead();
         });
@@ -309,9 +319,61 @@ window.ASC.Files.Marker = (function () {
         });
 
         jq("#filesNewsList").on("click", ".file-row:not(.folder-row):not(.error-entry) .entry-title .name a, .file-row:not(.folder-row):not(.error-entry) .thumb-file", function () {
-            //ASC.Files.Actions.hideAllActionPanels();
             var fileData = ASC.Files.UI.getObjectData(this);
-            var updated = ASC.Files.Folders.clickOnFile(fileData);
+            var updated = true;
+
+            if (ASC.Files.MediaPlayer && (ASC.Files.MediaPlayer.canPlay(fileData.title) || ASC.Files.Utility.CanImageView(fileData.title))) {
+                ASC.Files.Actions.hideAllActionPanels();
+
+                var newFiles = jq("#filesNewsList .file-row:not(.folder-row):not(.error-entry) .ft_Image, #filesNewsList .file-row:not(.folder-row):not(.error-entry) .ft_Video");
+
+                var mediaFiles = [];
+                var pos;
+                for (var i = 0; i < newFiles.length; i++) {
+                    var fData = ASC.Files.UI.getObjectData(newFiles[i]);
+
+                    if (ASC.Files.MediaPlayer.canPlay(fData.title) || ASC.Files.Utility.CanImageView(fData.title)) {
+                        mediaFiles.push(fData);
+                        if (fileData.id === fData.id) {
+                            pos = mediaFiles.length - 1;
+                        }
+                    }
+                }
+
+                ASC.Files.MediaPlayer.init(-1, {
+                    playlist: mediaFiles,
+                    playlistPos: pos,
+                    onCloseAction: function (folderId) {
+                        if (!ASC.Files.Common.isCorrectId(ASC.Files.Folders.currentFolder.id)) {
+                            ASC.Files.Anchor.navigationSet(folderId, false);
+                            return;
+                        }
+
+                        ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, true);
+                    },
+                    onMediaChangedAction: function (fileId) {
+                        ASC.Files.Marker.removeNewIcon("file", fileId);
+
+                        var hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
+                        ASC.Files.Anchor.move(hash, true);
+                    },
+                    downloadAction: ASC.Files.Utility.GetFileDownloadUrl,
+                    canDelete: function (fileId) {
+                        var entryObj = ASC.Files.UI.getEntryObject("file", fileId);
+                        if (!ASC.Files.UI.accessDelete(entryObj)
+                            || ASC.Files.UI.editingFile(entryObj)
+                            || ASC.Files.UI.lockedForMe(entryObj)) {
+                            return false;
+                        }
+                        return true;
+                    },
+                    deleteAction: function (fileId, successfulDeletion) {
+                        ASC.Files.Folders.deleteItem("file", fileId, successfulDeletion);
+                    }
+                });
+            } else {
+                updated = ASC.Files.Folders.clickOnFile(fileData);
+            }
 
             if (!updated) {
                 var newFolderId = jq("#filesNewsPanel").attr("data-id");

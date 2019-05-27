@@ -26,86 +26,62 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Web;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Configuration;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class YandexLoginProvider : ILoginProvider
+    public class YandexLoginProvider : BaseLoginProvider<YandexLoginProvider>
     {
+        public override string CodeUrl
+        {
+            get { return "https://oauth.yandex.ru/authorize"; }
+        }
+
+        public override string AccessTokenUrl
+        {
+            get { return "https://oauth.yandex.ru/token"; }
+        }
+
+        public override string ClientID
+        {
+            get { return this["yandexClientId"]; }
+        }
+
+        public override string ClientSecret
+        {
+            get { return this["yandexClientSecret"]; }
+        }
+
+        public override string RedirectUri
+        {
+            get { return this["yandexRedirectUrl"]; }
+        }
+
         private const string YandexProfileUrl = "https://login.yandex.ru/info";
 
-        private const string YandexOauthUrl = "https://oauth.yandex.ru/";
-        public const string YandexOauthCodeUrl = YandexOauthUrl + "authorize";
-        public const string YandexOauthTokenUrl = YandexOauthUrl + "token";
 
-
-        public static string YandexOAuth20ClientId
+        public YandexLoginProvider()
         {
-            get { return KeyStorage.Get("yandexClientId"); }
         }
 
-        public static string YandexOAuth20ClientSecret
+        public YandexLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
         {
-            get { return KeyStorage.Get("yandexClientSecret"); }
         }
 
-        public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
+        public override LoginProfile GetLoginProfile(string accessToken)
         {
-            try
-            {
-                var token = Auth(context);
-                return RequestProfile(token);
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                return LoginProfile.FromError(ex);
-            }
+            if (string.IsNullOrEmpty(accessToken))
+                throw new Exception("Login failed");
+
+            return RequestProfile(accessToken);
         }
 
-        public static OAuth20Token Auth(HttpContext context)
+        private static LoginProfile RequestProfile(string accessToken)
         {
-            var error = context.Request["error"];
-            if (!string.IsNullOrEmpty(error))
-            {
-                if (error == "access_denied")
-                {
-                    error = "Canceled at provider";
-                }
-                throw new Exception(error);
-            }
-
-            var code = context.Request["code"];
-            if (string.IsNullOrEmpty(code))
-            {
-                OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                               YandexOauthCodeUrl,
-                                               YandexOAuth20ClientId,
-                                               "",
-                                               "");
-                return null;
-            }
-
-            var token = OAuth20TokenHelper.GetAccessToken(YandexOauthTokenUrl,
-                                                          YandexOAuth20ClientId,
-                                                          YandexOAuth20ClientSecret,
-                                                          "",
-                                                          code);
-            return token;
-        }
-
-        private static LoginProfile RequestProfile(OAuth20Token token)
-        {
-            var yandexProfile = RequestHelper.PerformRequest(YandexProfileUrl + "?format=json&oauth_token=" + token.AccessToken);
+            var yandexProfile = RequestHelper.PerformRequest(YandexProfileUrl + "?format=json&oauth_token=" + accessToken);
             var loginProfile = ProfileFromYandex(yandexProfile);
 
             return loginProfile;

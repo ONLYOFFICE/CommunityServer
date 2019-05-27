@@ -26,12 +26,11 @@
 
 using System;
 using System.Text.RegularExpressions;
-using System.Web;
+using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Security.Cryptography;
-using ASC.Common.Caching;
 using ASC.Web.Files.Core;
 using Autofac;
 
@@ -102,6 +101,7 @@ namespace ASC.Files.Core.Data
                 .Select(checkShared ? GetSharedQuery(FileEntryType.File) : new SqlQuery().Select("1"))
                 .Select("converted_type")
                 .Select("f.comment")
+                .Select("f.encrypted")
                 .Where(where);
         }
 
@@ -213,6 +213,11 @@ namespace ASC.Files.Core.Data
         protected object MappingID(object id)
         {
             return MappingID(id, false);
+        }
+
+        public static Exp BuildSearch(string column, string text, SqlLike like = SqlLike.AnyWhere)
+        {
+            return Exp.Like(string.Format("lower({0})", column), text.ToLower().Trim().Replace("%", "\\%").Replace("_", "\\_"), like);
         }
     }
 }

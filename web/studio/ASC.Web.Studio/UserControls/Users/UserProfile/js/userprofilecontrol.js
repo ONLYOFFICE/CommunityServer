@@ -24,64 +24,10 @@
 */
 
 
-if (!window.userProfileControl) {
-  window.userProfileControl = {
-    openContact : function (name) {
-      var tcExist = false;
-      try {
-        tcExist = !!ASC.Controls.JabberClient;
-      } catch (err) {
-        tcExist = false;
-      }
-      if (tcExist === true) {
-        try {ASC.Controls.JabberClient.open(name)} catch (err) {}
-      }
-    }
-  };
-}
-
 jq(function () {
-    var tcExist = false;
-    try {
-        tcExist = !!ASC.Controls.JabberClient;
-    } catch (err) {
-        tcExist = false;
-    }
-    if (tcExist === true) {
-        jq('div.userProfileCard:first ul.info:first li.contact span')
-          .addClass('link')
-          .click(function () {
-              var username = jq(this).parents('li.contact:first').attr('data-username');
-              if (!username) {
-                  var
-                    search = location.search,
-                    arr = null,
-                    ind = 0,
-                    b = null;
-                  if (search.charAt(0) === '?') {
-                      search = search.substring(1);
-                  }
-                  arr = search.split('&');
-                  ind = arr.length;
-                  while (ind--) {
-                      b = arr[ind].split('=');
-                      if (b[0].toLowerCase() !== 'user') {
-                          continue;
-                      }
-                      username = b[1];
-
-                      break;
-                  }
-              }
-              if (typeof username === 'string') {
-                  userProfileControl.openContact(username);
-              }
-          });
-    }
+    
     initActionMenu();
     initTenantQuota();
-
-    initPhotoUploader();
     initBorderPhoto();
 
     jq("#userProfilePhoto img").on("load", function () {
@@ -90,14 +36,10 @@ jq(function () {
     });
 
     jq("#loadPhotoImage").on("click", function () {
-        var curPhotoSrc = jq("#userProfilePhoto").find("img").attr("src");
-        ASC.Controls.LoadPhotoImage.showPhotoDialog(curPhotoSrc);
+        ASC.Controls.LoadPhotoImage.showDialog();
     });
 
-    jq("#divLoadPhotoWindow .default-image").on("click", function () {
-        var userId = jq("#studio_userProfileCardInfo").attr("data-id");
-        ASC.Controls.LoadPhotoImage.setDefaultPhoto(userId);
-    });
+    
 
 
     jq("#joinToAffilliate:not(.disable)").on("click", function () {
@@ -123,6 +65,7 @@ jq(function () {
     }
 
     jq.switcherAction("#switcherAccountLinks", ".account-links");
+    jq.switcherAction("#switcherLoginSettings", "#loginSettingsContainer")
     jq.switcherAction("#switcherCommentButton", "#commentContainer");
     jq.switcherAction("#switcherContactsPhoneButton", "#contactsPhoneContainer");
     jq.switcherAction("#switcherContactsSocialButton", "#contactsSocialContainer");
@@ -184,7 +127,7 @@ function initActionMenu() {
             ASC.EmailOperationManager.sendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
         }
         if (jq(parent).hasClass("edit-photo")) {
-            window.UserPhotoThumbnail.ShowDialog();
+            window.ASC.Controls.LoadPhotoImage.showDialog();
         }
         if (jq(parent).hasClass("delete-user")) {
             jq("#actionMenu").hide();
@@ -280,21 +223,6 @@ var initTenantQuota = function () {
     });
 };
 
-function initPhotoUploader() {
-    var userId = jq("#studio_userProfileCardInfo").attr("data-id");
-    new AjaxUpload('changeLogo', {
-        action: "ajaxupload.ashx?type=ASC.Web.People.UserPhotoUploader,ASC.Web.People&autosave=true&userId=" + userId,
-        autoSubmit: true,
-        onChange: function(file, extension) {
-            return true;
-        },
-        onComplete: ChangeUserPhoto,
-        parentDialog: jq("#divLoadPhotoWindow"),
-        isInPopup: true,
-        name: "changeLogo"
-    });
-};
-
 function initBorderPhoto() {
     var $block = jq("#userProfilePhoto"),
         $img = $block.children("img"),
@@ -316,30 +244,6 @@ function setStatusPosition() {
         if (jq(status[i]).attr("data-visible") !== "hidden") {
             jq(status[i]).show();
         }
-    }
-}
-
-function ChangeUserPhoto (file, response) {
-    jq('.profile-action-usericon').unblock();
-    var result = JSON.parse(response);
-    if (result.Success) {
-
-        jq("#userProfilePhotoDscr").show();
-        jq('#userProfilePhotoError').html('');
-        jq('#userProfilePhoto').find("img").attr("src", result.Data.main + "?_=" + new Date().getTime());
-        PopupKeyUpActionProvider.CloseDialog();
-        UserPhotoThumbnail.ShowDialog();
-        UserPhotoThumbnail.updateMainPhoto(result.Data.main,
-            [
-                result.Data.big,
-                result.Data.medium,
-                result.Data.small
-            ]);
-
-        jq(".edit-photo").removeClass("display-none");
-    } else {
-        jq("#userProfilePhotoDscr").hide();
-        jq('#userProfilePhotoError').html(result.Message);
     }
 }
 

@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Linq;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Studio.Masters.MasterResources;
 
@@ -68,6 +67,7 @@ namespace ASC.Web.Studio.Masters
                         "~/js/asc/core/clipboard.js",
                         "~/js/third-party/email-addresses.js",
                         "~/js/third-party/punycode.js",
+                        "~/js/third-party/purify.min.js",
                         "~/js/asc/core/asc.mailreader.js",
                         "~/usercontrols/common/videoguides/js/videoguides.js",
                         "~/js/asc/core/asc.feedreader.js",

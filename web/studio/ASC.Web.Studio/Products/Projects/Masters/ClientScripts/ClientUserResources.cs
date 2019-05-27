@@ -60,6 +60,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             using (var scope = DIHelper.Resolve())
             {
                 var engineFactory = scope.Resolve<EngineFactory>();
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
                 var projects = engineFactory.ProjectEngine.GetByFilter(filter)
                     .Select(pr => new
                     {
@@ -69,17 +70,17 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                         //created = (ApiDateTime) pr.CreateOn,
                         security = new
                         {
-                            canCreateMilestone = ProjectSecurity.CanCreate<Milestone>(pr),
-                            canCreateMessage = ProjectSecurity.CanCreate<Message>(pr),
-                            canCreateTask = ProjectSecurity.CanCreate<Task>(pr),
-                            canCreateTimeSpend = ProjectSecurity.CanCreate<TimeSpend>(pr),
-                            canEditTeam = ProjectSecurity.CanEditTeam(pr),
-                            canReadFiles = ProjectSecurity.CanReadFiles(pr),
-                            canReadMilestones = ProjectSecurity.CanRead<Milestone>(pr),
-                            canReadMessages = ProjectSecurity.CanRead<Message>(pr),
-                            canReadTasks = ProjectSecurity.CanRead<Task>(pr),
-                            isInTeam = ProjectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
-                            canLinkContact = ProjectSecurity.CanLinkContact(pr)
+                            canCreateMilestone = projectSecurity.CanCreate<Milestone>(pr),
+                            canCreateMessage = projectSecurity.CanCreate<Message>(pr),
+                            canCreateTask = projectSecurity.CanCreate<Task>(pr),
+                            canCreateTimeSpend = projectSecurity.CanCreate<TimeSpend>(pr),
+                            canEditTeam = projectSecurity.CanEditTeam(pr),
+                            canReadFiles = projectSecurity.CanReadFiles(pr),
+                            canReadMilestones = projectSecurity.CanRead<Milestone>(pr),
+                            canReadMessages = projectSecurity.CanRead<Message>(pr),
+                            canReadTasks = projectSecurity.CanRead<Task>(pr),
+                            isInTeam = projectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
+                            canLinkContact = projectSecurity.CanLinkContact(pr)
                         },
                         isPrivate = pr.Private,
                         status = pr.Status,
@@ -192,8 +193,10 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     {
                         id = r.UserInfo.ID,
                         displayName = DisplayUserSettings.GetFullUserName(r.UserInfo.ID),
+                        email = r.UserInfo.Email,
                         userName = r.UserInfo.UserName,
                         avatarSmall = UserPhotoManager.GetSmallPhotoURL(r.UserInfo.ID),
+                        avatar = UserPhotoManager.GetBigPhotoURL(r.UserInfo.ID),
                         status = r.UserInfo.Status,
                         groups = CoreContext.UserManager.GetUserGroups(r.UserInfo.ID).Select(x => new
                         {
@@ -221,7 +224,8 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     RegisterObject(
                         new
                         {
-                            Team = new {response = team}
+                            Team = new {response = team},
+                            projectFolder = engineFactory.FileEngine.GetRoot(Convert.ToInt32(currentProject))
                         })
                 };
             }
@@ -259,25 +263,34 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               CanCreateProject = ProjectSecurity.CanCreate<Project>(null),
-                               IsModuleAdmin = ProjectSecurity.CurrentUserAdministrator,
-                               StartModule.GetInstance(ProjectsCommonSettings.LoadForCurrentUser().StartModuleType).StartModuleType
-                           })
-                   };
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            CanCreateProject = projectSecurity.CanCreate<Project>(null),
+                            IsModuleAdmin = projectSecurity.CurrentUserAdministrator,
+                            ProjectsCommonSettings.LoadForCurrentUser().StartModuleType
+                        })
+                };
+            }
         }
 
         protected override string GetCacheHash()
         {
-            return SecurityContext.CurrentAccount.ID.ToString() +
-                   CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
-                   CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
-                   ProjectSecurity.CanCreate<Project>(null) +
-                   ProjectsCommonSettings.LoadForCurrentUser().StartModuleType;
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurity>();
+
+                return SecurityContext.CurrentAccount.ID.ToString() +
+                       CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
+                       CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
+                       projectSecurity.CanCreate<Project>(null) +
+                       ProjectsCommonSettings.LoadForCurrentUser().StartModuleType;
+            }
         }
     }
 }

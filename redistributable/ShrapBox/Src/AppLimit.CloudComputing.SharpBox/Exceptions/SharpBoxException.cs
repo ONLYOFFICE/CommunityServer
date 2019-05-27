@@ -65,12 +65,11 @@ namespace AppLimit.CloudComputing.SharpBox.Exceptions
         private static String GetErrorMessage(SharpBoxErrorCodes errorCode)
         {
             // get the key
-            String key = errorCode.ToString();
+            var key = errorCode.ToString();
 
             // Load the value of string value for Client
             try
             {
-
                 return ErrorMessages.ResourceManager.GetString(key);
             }
             catch (Exception)
@@ -83,8 +82,8 @@ namespace AppLimit.CloudComputing.SharpBox.Exceptions
         {
             if (Convert.ToInt32(code) == 507)
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorInsufficientDiskSpace, e, uploadRequest, null);
-            else
-                throw new SharpBoxException(SharpBoxErrorCodes.ErrorCreateOperationFailed, e, uploadRequest, null);
+
+            throw new SharpBoxException(SharpBoxErrorCodes.ErrorCreateOperationFailed, e, uploadRequest, null);
         }
 
         internal static void ThrowSharpBoxExceptionBasedOnHttpErrorCode(HttpWebRequest uploadRequest, HttpStatusCode code, WebException e)

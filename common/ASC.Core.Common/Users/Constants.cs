@@ -26,7 +26,6 @@
 
 using System;
 using System.Configuration;
-using ASC.Common.Security.Authorizing;
 using Action = ASC.Common.Security.Authorizing.Action;
 using AuthConst = ASC.Common.Security.Authorizing.Constants;
 
@@ -34,6 +33,20 @@ namespace ASC.Core.Users
 {
     public sealed class Constants
     {
+        public static int MaxEveryoneCount
+        {
+            get
+            {
+                int count;
+                if (!int.TryParse(ConfigurationManager.AppSettings["core.users"], out count))
+                {
+                    count = 10000;
+                }
+                return count;
+            }
+        }
+
+
         #region system group and category groups
 
         public static readonly Guid SysGroupCategoryId = new Guid("{7717039D-FBE9-45ad-81C1-68A1AA10CE1F}");

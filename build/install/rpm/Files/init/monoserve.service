@@ -4,9 +4,9 @@ After=network.target syslog.target mysqld.service
 
 [Service]
 PermissionsStartOnly=true
-ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g nginx -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyoffice.socket'
-ExecStart=/usr/bin/hyperfastcgi4 /config=/etc/hyperfastcgi/onlyoffice /logfile=/var/log/onlyoffice/onlyoffice.log
-Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_GC_PARAMS=nursery-size=64m MONO_OPTIONS=--server
+ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g {{NGINX_USER}} -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyoffice.socket'
+ExecStart=/usr/bin/hyperfastcgi4 /config=/etc/hyperfastcgi/onlyoffice /logfile=/var/log/onlyoffice/onlyoffice.log /loglevels=All
+Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_GC_PARAMS=nursery-size=64m MONO_LOG_LEVEL=info MONO_THREADS_SUSPEND=preemptive
 
 User=onlyoffice
 Group=onlyoffice

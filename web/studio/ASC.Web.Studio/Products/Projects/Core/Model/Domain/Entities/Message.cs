@@ -25,6 +25,8 @@
 
 
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -40,7 +42,10 @@ namespace ASC.Projects.Core.Domain
 
         public override bool CanEdit()
         {
-            return ProjectSecurity.CanEdit(this);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurity>().CanEdit(this);
+            }
         }
     }
 

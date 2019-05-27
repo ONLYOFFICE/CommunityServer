@@ -24,7 +24,7 @@
 */
 
 
-window.ASC.Files.TreePrototype = function (root, rootId) {
+window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
     var getTreeNode = function (folderId) {
         if (folderId == treeNodeRootId) {
             return treeNodeRoot;
@@ -44,7 +44,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         return treeNode.parents(".jstree .tree-node");
     };
 
-    var renderTreeView = function (treeNode, htmlData) {
+    var renderTreeView = function (treeNode, htmlData, expandNode) {
         if ((treeNode.find("ul").html() || "").trim() != "") {
             resetNode(treeNode);
         }
@@ -61,7 +61,9 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         }
 
         treeNode.find(".jstree-load-node").removeClass("jstree-load-node");
-        treeNode.addClass("jstree-open").removeClass("jstree-closed");
+        if (expandNode !== false) {
+            treeNode.addClass("jstree-open").removeClass("jstree-closed");
+        }
     };
 
     var resetNode = function (treeNode) {
@@ -99,10 +101,10 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
     };
 
     var select = function (treeNode, checkSelected) {
-        treeNodeRoot.find("a.selected").removeClass("selected");
+        treeNodeRoot.find(".node-selected").removeClass("node-selected");
         treeNodeRoot.find(".parent-selected").removeClass("parent-selected");
 
-        treeNode.children("a").addClass("selected");
+        treeNode.addClass("node-selected");
         treeNode.parents(".jstree .jstree-closed").addClass("jstree-open").removeClass("jstree-closed");
         treeNode.parents(".jstree .tree-node").addClass("parent-selected");
 
@@ -127,7 +129,11 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
 
         ASC.Files.ServiceManager.getTreeSubFolders(
             ASC.Files.ServiceManager.events.GetTreeSubFolders,
-            { folderId: folderId, ajaxsync: (ajaxsync === true) });
+            {
+                treeNodeRoot: treeNodeRoot,
+                folderId: folderId,
+                ajaxsync: (ajaxsync === true)
+            });
     };
 
     var openPath = function (folderId) {
@@ -158,7 +164,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
             treeNode = treeNodeRoot;
         }
 
-        renderTreeView(treeNode, htmlData);
+        renderTreeView(treeNode, htmlData, treeNodeRoot == params.treeNodeRoot);
     };
 
     var onGetTreePath = function (jsonData, params, errorMessage) {
@@ -209,7 +215,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
     };
 
     this.rollUp = function () {
-        treeNodeRoot.find("a.selected").removeClass("selected");
+        treeNodeRoot.removeClass("node-selected");
         treeNodeRoot.find(".parent-selected").removeClass("parent-selected");
         treeNodeRoot.find(".jstree-open").addClass("jstree-closed").removeClass("jstree-open");
 
@@ -249,9 +255,19 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         return getFolderId(treeNodeRoot.find(".tree-node:visible:first"));
     };
 
+    this.displayAsRoot = function (folderId) {
+        var treeNode = getTreeNode(folderId);
+
+        jq(".jstree-root-as").removeClass("jstree-root-as");
+        treeNode.parents(".tree-node").addClass("jstree-root-parent").addBack().addClass("jstree-root-as");
+
+        jq(".jstree-root-out").removeClass("jstree-root-out");
+        treeNode.parent().children(".tree-node:not([data-id=\"" + (folderId + "").replace(/\\/g, "\\\\").replace(/\"/g, "\\\"") + "\"])").addClass("jstree-root-out");
+    };
+
 
     var tree = this;
-    var treeNodeRoot = jq(root);
+    var treeNodeRoot = jq(rootSelector);
     var treeNodeRootId = rootId;
 
     treeNodeRoot.on("click", ".jstree-expander", expand);

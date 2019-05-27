@@ -76,7 +76,6 @@ namespace ASC.Web.Community
                 var dashboardEmptyScreen = (CommunityDashboardEmptyScreen)Page.LoadControl(CommunityDashboardEmptyScreen.Location);
                 dashboardEmptyScreen.ProductStartUrl = GetStartUrl();
                 emptyModuleCommunity.Controls.Add(dashboardEmptyScreen);
-                ImportUsers.Controls.Add(new ImportUsersWebControl());
                 return;
             }
 

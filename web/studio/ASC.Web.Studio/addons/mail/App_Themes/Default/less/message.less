@@ -652,7 +652,7 @@
             }
 
             .pencil {
-                background-position: 0 -19px;
+                background: url('../../../../../skins/default/Images/svg/mail/pencilblue.svg');
                 cursor: pointer;
             }
 
@@ -665,4 +665,28 @@
             }
         }
     }
+}
+
+.newMessageWrap {
+    .importance {
+        cursor: pointer;
+    }
+
+    .requestReceipt {
+        cursor: pointer;
+
+        .requestReceipt-svg {
+            fill: #cecece;
+        }
+
+            .requestReceipt-svg:hover {
+                fill: #83888d;
+            }
+    }
+
+        .requestReceipt.on {
+            .requestReceipt-svg {
+                fill: #cc3300;
+            }
+        }
 }

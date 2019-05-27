@@ -5,15 +5,17 @@
 
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<div class="settingsHeaderWithViewSwitcher clearFix">
+<div class="header-base settingsHeader"><%= CRMSettingResource.CustomFields %></div>
+
+<div id="CustomFieldsTabs"></div>
+
+<div class="clearFix settingsNewItemBlock">
     <a id="createNewField" class="gray button display-none">
-        <span class="plus"><%= CRMSettingResource.CreateNewFieldListButton%></span>
+        <span class="plus"><%= CRMSettingResource.CreateNewFieldListButton %></span>
     </a>
-    <div id="CustomFieldsTabs"></div>
 </div>
 
-<ul id="customFieldList" class="clearFix ui-sortable">
-</ul>
+<ul id="customFieldList" class="clearFix ui-sortable"></ul>
 
 <div id="customFieldActionMenu" class="studio-action-panel" fieldid="">
     <ul class="dropdown-content">

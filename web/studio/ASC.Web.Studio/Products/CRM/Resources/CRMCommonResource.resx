@@ -780,9 +780,6 @@
   <data name="MailSender_InvalidEmail" xml:space="preserve">
     <value>Invalid email address: {0}</value>
   </data>
-  <data name="MailSender_MailboxBusyException" xml:space="preserve">
-    <value>Delivery failed - will retry in {0} seconds.</value>
-  </data>
   <data name="MailSubject" xml:space="preserve">
     <value>Email subject</value>
   </data>
@@ -839,9 +836,6 @@
   </data>
   <data name="OnTop" xml:space="preserve">
     <value>On top</value>
-  </data>
-  <data name="OpenCurrentListInTheEditor" xml:space="preserve">
-    <value>Open current list in DocEditor</value>
   </data>
   <data name="OrganisationProfile" xml:space="preserve">
     <value>Organization Profile</value>
@@ -1104,5 +1098,23 @@
   </data>
   <data name="Currency_PacificFranc" xml:space="preserve">
     <value>Pacific franc</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Export data</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>Export data ({0}% complete)</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Delivery failed - will retry in {0} seconds.</value>
+  </data>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>All exported files you can always see, download, edit, or delete them in {0}Documents/My Documents{1}</value>
+  </data>
+  <data name="WholeCRMModule" xml:space="preserve">
+    <value>Whole CRM module</value>
+  </data>
+  <data name="Currency_SerbianDinar" xml:space="preserve">
+    <value>Serbian Dinar</value>
   </data>
 </root>

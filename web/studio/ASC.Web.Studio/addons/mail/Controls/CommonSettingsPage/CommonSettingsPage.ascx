@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommonSettingsPage.ascx.cs" Inherits="ASC.Web.Mail.Controls.CommonSettingsPage" %>
-<%@ Import Namespace="ASC.Mail.Aggregator.Common" %>
+<%@ Import Namespace="ASC.Mail.Data.Contracts" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
 
 <div id="mailCommonSettings" class="hidden page_content">
@@ -19,14 +19,14 @@
     </label>
     <br />
     <br />
-    <input type="checkbox" id="cbxCacheUnreadMessages" class="on-off-checkbox" <%= MailCommonSettings.CacheUnreadMessages ? "checked='checked'" : "" %> />
+    <!--<input type="checkbox" id="cbxCacheUnreadMessages" class="on-off-checkbox" <%= MailCommonSettings.CacheUnreadMessages ? "checked='checked'" : "" %> />
     <label for="cbxCacheUnreadMessages">
             <%= MailResource.CacheUnreadMessagesSettingsLabel %>
             <br />
             <span class="text-medium-describe"><%= MailResource.CacheUnreadMessagesSettingsHelperBlock %></span>
     </label>
     <br />
-    <br />
+    <br />-->
     <input type="checkbox" id="cbxGoNextAfterMove" class="on-off-checkbox" <%= MailCommonSettings.GoNextAfterMove ? "checked='checked'" : "" %> />
     <label for="cbxGoNextAfterMove">
             <%= MailResource.GoNextAfterMoveSettingsLabel %>

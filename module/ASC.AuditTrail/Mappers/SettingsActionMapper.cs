@@ -90,6 +90,33 @@ namespace ASC.AuditTrail.Mappers
                             }
                     },
                     {
+                        MessageAction.TwoFactorAuthenticationDisabled, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "TwoFactorAuthenticationSettingsDisabled",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "GeneralModule"
+                            }
+                    },
+                                        {
+                        MessageAction.TwoFactorAuthenticationEnabledBySms, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "TwoFactorAuthenticationSettingsEnabledBySms",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "GeneralModule"
+                            }
+                    },
+                                        {
+                        MessageAction.TwoFactorAuthenticationEnabledByTfaApp, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "TwoFactorAuthenticationSettingsEnabledByTfaApp",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "GeneralModule"
+                            }
+                    },
+                    {
                         MessageAction.AdministratorMessageSettingsUpdated, new MessageMaps
                             {
                                 ActionTypeTextResourceName = "UpdateActionType",

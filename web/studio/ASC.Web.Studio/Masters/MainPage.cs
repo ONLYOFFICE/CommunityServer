@@ -26,11 +26,13 @@
 
 using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
 using AjaxPro;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Geolocation;
@@ -39,11 +41,10 @@ using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Statistic;
+using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using log4net;
-using System.Globalization;
 
 namespace ASC.Web.Studio
 {
@@ -89,13 +90,18 @@ namespace ASC.Web.Studio
                 {
                     var refererURL = GetRefererUrl();
                     Session["refererURL"] = refererURL;
-                    Response.Redirect("~/auth.aspx", true);
+                    var authUrl = "~/auth.aspx";
+                    if (Request.DesktopApp())
+                    {
+                        authUrl += "?desktop=" + Request["desktop"];
+                    }
+                    Response.Redirect(authUrl, true);
                 }
             }
 
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid())
+            if (!MayNotPaid && (TenantStatisticsProvider.IsNotPaid() || TenantExtra.UpdatedWithoutLicense))
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
                 {
@@ -108,16 +114,20 @@ namespace ASC.Web.Studio
                 }
             }
 
-            if (SecurityContext.IsAuthenticated
-                && StudioSmsNotificationSettings.IsVisibleSettings
-                && StudioSmsNotificationSettings.Enable
-                && !MayPhoneNotActivate)
+            if (!MayPhoneNotActivate
+                && SecurityContext.IsAuthenticated
+                && !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID))
             {
-                if (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID)
-                    && (string.IsNullOrEmpty(user.MobilePhone)
-                        || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))
+                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable
+                    && (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))
                 {
                     Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.PhoneActivation), true);
+                }
+
+                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable
+                    && !TfaAppUserSettings.EnableForUser(user.ID))
+                {
+                    Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.TfaActivation), true);
                 }
             }
 
@@ -261,7 +271,7 @@ namespace ASC.Web.Studio
             }
         }
 
-        private void OutsideAuth()
+        private static void OutsideAuth()
         {
             var cookie = SecurityContext.AuthenticateMe(Constants.OutsideUser.ID);
             if (HttpContext.Current != null)

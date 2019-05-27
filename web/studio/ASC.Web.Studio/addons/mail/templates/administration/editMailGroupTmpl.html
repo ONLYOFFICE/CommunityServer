@@ -19,7 +19,7 @@
                             <div>
                                 <span id="add_mailbox" class="link dotline plus">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</span>
                             </div>
-                            <div class="mailbox_table">
+                            <div class="mailbox_table webkit-scrollbar">
                                 <table>
                                     {{tmpl(mailboxes) "addedMailboxTableRowTmpl"}}
                                 </table>
@@ -38,8 +38,10 @@
 
 <script id="addedMailboxTableRowTmpl" type="text/x-jquery-tmpl">
     <tr class='mailbox_row' mailbox_id="${id}">
-        <td>
+        <td class="mailbox_address_column">
             <span class="mailbox_address">${address.email}</span>
+        </td>
+        <td class="delete_entity_column">
             <div class="delete_entity"></div>
         </td>
     </tr>

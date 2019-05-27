@@ -45,14 +45,6 @@ if (typeof window.serviceManager === 'undefined') {
             }
         }
 
-        function bind(event, handler) {
-            return window.Teamlab.bind(event, handler);
-        }
-
-        function unbind() {
-            return window.Teamlab.unbind.apply(this, arguments);
-        }
-
         function hideCallback() {
             window.LoadingBanner.hideLoading();
         }
@@ -87,15 +79,41 @@ if (typeof window.serviceManager === 'undefined') {
         }
 
         function checkNew(params, options) {
-            if (options)
-                window.Teamlab.getMailFolders(params, options);
-            else
-                window.Teamlab.getMailFolders();
+            params = params || {};
+            params.forced = params.forced || MailFilter.getFolder() == TMMail.sysfolders.userfolder.id;
+
+            window.Teamlab.getMailFolders(params, options);
 
             if (commonSettingsPage.isConversationsEnabled())
-                window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+                window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(),
+                {
+                    error: function (p, errors) {
+                        console.error("getMailFilteredConversations()", errors);
+
+                        if (errors[0] === "Folder not found") {
+                            if (MailFilter.getFolder() !== TMMail.sysfolders.inbox.id) {
+                                window.toastr.error(MailScriptResource.UserFolderNotFoundError);
+                                TMMail.moveToInbox();
+                            }
+                            userFoldersManager.reloadTree(0);
+                        }
+                    }
+                });
             else
-                window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+                window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(),
+                {
+                    error: function (p, errors) {
+                        console.error("getMailFilteredMessages()", errors);
+
+                        if (errors[0] === "Folder not found") {
+                            if (MailFilter.getFolder() !== TMMail.sysfolders.inbox.id) {
+                                window.toastr.error(MailScriptResource.UserFolderNotFoundError);
+                                TMMail.moveToInbox();
+                            }
+                            userFoldersManager.reloadTree(0);
+                        }
+                    }
+                });
         }
 
         var updateFolders = wrapper(2, function (params, options) {
@@ -191,11 +209,11 @@ if (typeof window.serviceManager === 'undefined') {
         });
 
         var getMailFilteredConversations = wrapper(2, function(params, options) {
-            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), options || {});
         });
 
         var getMailFilteredMessages = wrapper(2, function (params, options) {
-            window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+            window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), options || {});
         });
 
         var getMessage = wrapper(4, function (id, loadImages, params, options) {
@@ -281,12 +299,12 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.markMailConversations(params, ids, status, options);
         });
 
-        var moveMailMessages = wrapper(4, function(ids, toFolder, params, options) {
-            window.Teamlab.moveMailMessages(params, ids, toFolder, options);
+        var moveMailMessages = wrapper(5, function (ids, toFolder, userFolderId, params, options) {
+            window.Teamlab.moveMailMessages(params, ids, toFolder, userFolderId, options);
         });
 
-        var moveMailConversations = wrapper(4, function(ids, toFolder, params, options) {
-            window.Teamlab.moveMailConversations(params, ids, toFolder, options);
+        var moveMailConversations = wrapper(5, function (ids, toFolder, userFolderId, params, options) {
+            window.Teamlab.moveMailConversations(params, ids, toFolder, userFolderId, options);
         });
 
         var restoreMailMessages = wrapper(3, function (ids, params, options) {
@@ -450,14 +468,21 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.removeMailDomain(params, idDomain, options);
         });
 
-        var addMailbox = wrapper(6, function(name, localPart, domainId, userId, params, options) {
-            window.Teamlab.addMailbox(params, name, localPart, domainId, userId, options);
+        var addMailbox = wrapper(8, function (name, localPart, domainId, userId, notifyCurrent, notifyProfile, params, options) {
+            window.Teamlab.addMailbox(params, name, localPart, domainId, userId, notifyCurrent, notifyProfile, options);
         });
 
         var addMyMailbox = wrapper(3, function (mailboxName, params, options) {
             window.Teamlab.addMyMailbox(params, mailboxName, options);
         });
 
+        var changeMailboxPassword = wrapper(4, function (mailboxId, password, params, options) {
+            window.Teamlab.changeMailboxPassword(params, mailboxId, password, options);
+        });
+
+        var getRandomPassword = wrapper(2, function (params, options) {
+            window.Teamlab.getRandomPassword(params, options);
+        });
         var getMailboxes = wrapper(2, function(params, options) {
             window.Teamlab.getMailboxes(params, options);
         });
@@ -532,8 +557,6 @@ if (typeof window.serviceManager === 'undefined') {
 
         return {
             init: init,
-            bind: bind,
-            unbind: unbind,
 
             getAccounts: getAccounts,
             createBox: createBox,
@@ -613,6 +636,8 @@ if (typeof window.serviceManager === 'undefined') {
             removeMailDomain: removeMailDomain,
             addMailbox: addMailbox,
             addMyMailbox: addMyMailbox,
+            changeMailboxPassword: changeMailboxPassword,
+            getRandomPassword: getRandomPassword,
             getMailboxes: getMailboxes,
             removeMailbox: removeMailbox,
             addMailBoxAlias: addMailBoxAlias,

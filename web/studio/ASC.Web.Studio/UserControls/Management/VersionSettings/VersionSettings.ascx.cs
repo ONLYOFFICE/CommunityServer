@@ -26,13 +26,12 @@
 
 using System;
 using System.Linq;
-using System.Threading;
+using System.Web;
 using System.Web.UI;
-using ASC.Web.Studio.Utility;
 using AjaxPro;
 using ASC.Core;
 using ASC.Web.Studio.Core;
-using System.Web;
+using ASC.Web.Studio.Utility;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management.VersionSettings
@@ -69,7 +68,6 @@ namespace ASC.Web.Studio.UserControls.Management.VersionSettings
                 try
                 {
                     CoreContext.TenantManager.SetTenantVersion(tenant, tenantVersion);
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
                 }
                 catch (ArgumentException e)
                 {
@@ -80,7 +78,6 @@ namespace ASC.Web.Studio.UserControls.Management.VersionSettings
             catch (Exception e)
             {
                 return new { Status = 0, e.Message };
-
             }
         }
 

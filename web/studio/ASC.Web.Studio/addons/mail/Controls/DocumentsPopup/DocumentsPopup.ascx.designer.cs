@@ -22,21 +22,12 @@ namespace ASC.Web.Mail.Controls {
         protected global::ASC.Web.Studio.Controls.Common.Container _documentUploader;
         
         /// <summary>
-        /// TreeHolder control.
+        /// loaderHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder TreeHolder;
-        
-        /// <summary>
-        /// _phEmptyDocView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _phEmptyDocView;
+        protected global::System.Web.UI.WebControls.PlaceHolder loaderHolder;
     }
 }

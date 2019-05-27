@@ -32,6 +32,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.CRM.Core;
+using ASC.Web.Core.Users;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Projects.Core.Engine;
 using ASC.Web.Studio.Core.Notify;
@@ -49,6 +50,7 @@ namespace ASC.Data.Reassigns
         private readonly Guid _fromUserId;
         private readonly Guid _toUserId;
         private readonly Guid _currentUserId;
+        private readonly bool _deleteProfile;
 
         private readonly IFileStorageService _docService;
         private readonly ProjectsReassign _projectsReassign;
@@ -61,7 +63,7 @@ namespace ASC.Data.Reassigns
         public Guid FromUser { get { return _fromUserId; } }
         public Guid ToUser { get { return _toUserId; } }
 
-        public ReassignProgressItem(HttpContext context, int tenantId, Guid fromUserId, Guid toUserId, Guid currentUserId)
+        public ReassignProgressItem(HttpContext context, int tenantId, Guid fromUserId, Guid toUserId, Guid currentUserId, bool deleteProfile)
         {
             _context = context;
             _httpHeaders = QueueWorker.GetHttpHeaders(context.Request);
@@ -70,6 +72,7 @@ namespace ASC.Data.Reassigns
             _fromUserId = fromUserId;
             _toUserId = toUserId;
             _currentUserId = currentUserId;
+            _deleteProfile = deleteProfile;
 
             _docService = Web.Files.Classes.Global.FileStorageService;
             _projectsReassign = new ProjectsReassign();
@@ -105,22 +108,30 @@ namespace ASC.Data.Reassigns
                 Percentage = 66;
                 _projectsReassign.Reassign(_fromUserId, _toUserId);
 
-                logger.Info("reassignment of data from crm");
-
-                Percentage = 99;
-                using (var scope = DIHelper.Resolve(_tenantId))
+                if (!CoreContext.Configuration.CustomMode)
                 {
-                    var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
-                    crmDaoFactory.ContactDao.ReassignContactsResponsible(_fromUserId, _toUserId);
-                    crmDaoFactory.DealDao.ReassignDealsResponsible(_fromUserId, _toUserId);
-                    crmDaoFactory.TaskDao.ReassignTasksResponsible(_fromUserId, _toUserId);
-                    crmDaoFactory.CasesDao.ReassignCasesResponsible(_fromUserId, _toUserId);
+                    logger.Info("reassignment of data from crm");
+
+                    Percentage = 99;
+                    using (var scope = DIHelper.Resolve(_tenantId))
+                    {
+                        var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
+                        crmDaoFactory.ContactDao.ReassignContactsResponsible(_fromUserId, _toUserId);
+                        crmDaoFactory.DealDao.ReassignDealsResponsible(_fromUserId, _toUserId);
+                        crmDaoFactory.TaskDao.ReassignTasksResponsible(_fromUserId, _toUserId);
+                        crmDaoFactory.CasesDao.ReassignCasesResponsible(_fromUserId, _toUserId);
+                    }
                 }
 
                 SendSuccessNotify();
 
                 Percentage = 100;
                 Status = ProgressStatus.Done;
+
+                if (_deleteProfile)
+                {
+                    DeleteUserProfile();
+                }
             }
             catch (Exception ex)
             {
@@ -152,15 +163,11 @@ namespace ASC.Data.Reassigns
             var toUserName = toUser.DisplayUserName(false);
 
             if (_httpHeaders != null)
-            {
-                MessageService.Send(_httpHeaders, MessageAction.UserDataReassigns,
+                MessageService.Send(_httpHeaders, MessageAction.UserDataReassigns, MessageTarget.Create(_fromUserId),
                                     new[] {fromUserName, toUserName});
-            }
             else
-            {
-                MessageService.Send(_context.Request, MessageAction.UserDataReassigns, fromUserName,
-                                    toUserName);
-            }
+                MessageService.Send(_context.Request, MessageAction.UserDataReassigns, MessageTarget.Create(_fromUserId),
+                                    fromUserName, toUserName);
         }
 
         private void SendErrorNotify(string errorMessage)
@@ -169,6 +176,23 @@ namespace ASC.Data.Reassigns
             var toUser = CoreContext.UserManager.GetUsers(_toUserId);
 
             StudioNotifyService.Instance.SendMsgReassignsFailed(_currentUserId, fromUser, toUser, errorMessage);
+        }
+
+        private void DeleteUserProfile()
+        {
+            var user = CoreContext.UserManager.GetUsers(_fromUserId);
+            var userName = user.DisplayUserName(false);
+
+            UserPhotoManager.RemovePhoto(user.ID);
+            CoreContext.UserManager.DeleteUser(user.ID);
+            QueueWorker.StartRemove(_context, _tenantId, user, _currentUserId, false);
+
+            if (_httpHeaders != null)
+                MessageService.Send(_httpHeaders, MessageAction.UserDeleted, MessageTarget.Create(_fromUserId),
+                                    new[] {userName});
+            else
+                MessageService.Send(_context.Request, MessageAction.UserDeleted, MessageTarget.Create(_fromUserId),
+                                    userName);
         }
     }
 }

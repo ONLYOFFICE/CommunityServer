@@ -79,7 +79,12 @@
         $helper = $combobox.find('input:first'),
         $option = null,
         value = $this.val();
-        if (value == null && typeof this.value != "undefined"){
+
+      if (!value && !this.value){
+            return;
+        }
+
+      if (value == null && typeof this.value != "undefined"){
             value = this.value;
         }
       var
@@ -477,6 +482,15 @@
       //  };
       //})($(select), $(combobox), bindComboboxEvents), 500);
       $select.addClass('tl-combobox');
+
+      if (params && params.hasOwnProperty('align')) {
+          if (params.align == 'left') {
+              $select.parents('span.tl-combobox:first').addClass('left-align');
+          } else {
+              $select.parents('span.tl-combobox:first').removeClass('left-align');
+          }
+      }
+
       //wasupdated = true;
     }
 

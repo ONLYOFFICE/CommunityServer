@@ -184,6 +184,7 @@ tr.alter, tr.alter td
 .wikiDiff ol
 {
 	width:98%;
+	word-break: break-all;
 }
 
 

@@ -25,11 +25,12 @@
 
 
 using System;
+using ASC.Common.Logging;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.ThirdPartyApp;
-using log4net;
+
 namespace ASC.Web.Files.Helpers
 {
     public class WordpressToken

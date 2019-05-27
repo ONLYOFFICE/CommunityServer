@@ -23,44 +23,69 @@
  *
 */
 
+@border-color: #D1D1D1;
+@active-color: #999999;
+@default-color: #EBEBEB;
 
 .profile-photo-block {
     border: 1px solid #BFBFBF;
     border-radius: 3px;
     -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;   
+    -webkit-border-radius: 3px;
     float: left;
-    margin-top:10px;
-    margin-right: 17px;    
-    width:200px;
-     
+    margin-top: 10px;
+    margin-right: 17px;
+    width: 200px;
+
     .profile-user-photo {
-        position:relative;
-        
-        .profile-action-usericon img {
-            border: none;
-            display: block;
-            margin:0 auto;
-            max-height: 320px;
-            max-width: 200px;
-         }
-         .action-block {
+        position: relative;
+        width: 200px;
+
+        .profile-action-usericon {
+            width: 200px;
+            height: 200px;
+
+            img {
+                border: none;
+                display: block;
+                margin: 0 auto;
+                max-height: 200px;
+                max-width: 200px;
+            }
+
+            &.preview {
+                overflow: hidden;
+
+                img {
+                    margin: 0;
+                    max-height: none;
+                    max-width: none;
+                }
+            }
+        }
+
+        .action-block {
             border-top: 1px solid #BFBFBF;
             cursor: pointer;
-            padding: 8px 0 ;
+            padding: 8px 0;
             text-align: center;
-            vertical-align:middle;
+            vertical-align: middle;
             width: 200px;
 
             div {
-                color:#000;
-                display:inline-block;
-                font-weight:bold;
-                margin-top:6px;
-                vertical-align:middle;
+                color: #000;
+                display: inline-block;
+                font-weight: bold;
+                margin-top: 6px;
+                vertical-align: middle;
             }
         }
-    }    
+    }
+
+    &.small-window {
+        float: none;
+        margin-bottom: 24px;
+    }
 }
 
 .profile-action-userdata 
@@ -80,7 +105,8 @@
             }
         .userdata-value {
             padding-left: 20px;
-            width: 420px;
+            padding-bottom: 10px;
+            width: 275px;
             
             .nochange {
                 cursor: default;
@@ -89,7 +115,11 @@
             .textEdit {
                 height: 16px;
                 padding: 3px 9px;
-                width: 420px;
+                width: 275px;
+
+                &.portalEmail{
+                    width: 140px;
+                }
             }
             .textEditCalendar {
                 margin-right: 5px;
@@ -133,9 +163,6 @@ body.media-width-0-1200 {
         .userdata-field {
             .userdata-value {
                 width: 292px;
-                .textEdit {                    
-                    width: 292px;
-                }
             }
         }
     }
@@ -292,4 +319,215 @@ body.media-width-0-1200 {
     &:first-child {
         margin-top: 5px;
     }
+}
+
+#AnswerForEmail {
+    p {
+        padding-top: 8px;
+
+        &:first-of-type {
+            padding-top: 0;
+        }
+    }
+}
+
+.moduleInfo {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+        padding: 8px 0;
+    }
+
+    .tableHead {
+        border-bottom: 1px solid #83888d;
+    }
+
+    .moduleName {
+        width: 40%;
+    }
+
+    .userType {
+        width: 30%;
+    }
+
+    .access {
+        width: 16px;
+        margin-right: 8px;
+        display: inline-block;
+        background-color: #83888D;
+
+        &.full {
+            -webkit-mask-image: url(images/edit.svg);
+            mask-image: url(images/edit.svg);
+        }
+
+        &.read {
+            -webkit-mask-image: url(images/text-bubble.svg);
+            mask-image: url(images/text-bubble.svg);
+        }
+
+        &.write {
+            -webkit-mask-image: url(images/read-only.svg);
+            mask-image: url(images/read-only.svg);
+        }
+
+        &.check {
+            -webkit-mask-image: url(images/check_tick.svg);
+            mask-image: url(images/check_tick.svg);
+        }
+    }
+}
+
+.text-alignment {
+    padding-top: 4px;
+}
+
+#inputUserEmail,
+#inputPortalEmail,
+.validationField {
+    position: relative;
+
+    .emailInfo,
+    .validationText {
+        display: none;
+        position: absolute;
+        width: 300px;
+        top: 4px;
+        left: 306px;
+        color: #B40404;
+    }
+}
+
+#generatedPassword {
+    height: 44px;
+}
+
+.validationBlock {
+    display: none;
+    position: relative;
+    height: 44px;
+
+    #clip {
+        position: absolute;
+        left: -1000px;
+    }
+
+    #copyValues {
+        border-bottom: 1px dotted black;
+        cursor: pointer;
+
+        &.disabled {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: #aaa;
+        }
+    }
+
+    #password {
+        position: relative;
+        width: 139px;
+        padding-right: 30px;
+    }
+
+    #bubleBlock {
+        position: absolute;
+        left: 214px;
+        top: -4px;
+
+        #passwordInfo {
+            width: 180px;
+            padding: 8px 12px 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+            position: relative;
+            background: white;
+
+            :before,
+            :after {
+                content: '';
+                position: absolute;
+                background: white;
+                left: -5px;
+                top: 12px;
+                width: 10px;
+                height: 10px;
+                box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+                z-index: -1;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+
+            :before {
+                z-index: 1;
+                box-shadow: none;
+            }
+
+            .infoItem {
+                color: #A9ADB0;
+                padding-left: 6px;
+
+                &.red {
+                    color: #B40404;
+                }
+
+                &.green {
+                    color: #44BB00;
+                }
+            }
+        }
+    }
+
+    .validationProgress {
+        position: absolute;
+        width: 0px;
+        max-width: 180px;
+        height: 2px;
+        top: 23px;
+    }
+
+    .infoPanel {
+        display: none;
+        background: white;
+        width: 178px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    }
+
+    .infoChecking {
+        margin-left: 4px;
+        display: inline-block;
+
+        &#passwordGen {
+            width: 16px;
+            background-color: #83888D;
+            -webkit-mask-image: url(images/rotate.svg);
+            mask-image: url(images/rotate.svg);
+        }
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    #passwordShowLabel {
+        position: absolute;
+        top: 4px;
+        left: 156px;
+        width: 16px;
+        background-color: #83888D;
+
+        &.show {
+            -webkit-mask-image: url(images/access-deny.svg);
+            mask-image: url(images/access-deny.svg);
+        }
+
+        &.hide {
+            -webkit-mask-image: url(images/read-only.svg);
+            mask-image: url(images/read-only.svg);
+        }
+    }
+
+        #passwordShowLabel::before {
+            content: "\00a0";
+        }
 }

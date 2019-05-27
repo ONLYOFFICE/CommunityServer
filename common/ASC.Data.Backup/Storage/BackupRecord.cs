@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using ASC.Core.Common.Contracts;
 
 namespace ASC.Data.Backup.Storage
@@ -48,5 +49,7 @@ namespace ASC.Data.Backup.Storage
         public DateTime CreatedOn { get; set; }
 
         public DateTime ExpiresOn { get; set; }
+
+        public Dictionary<string, string> StorageParams { get; set; }
     }
 }

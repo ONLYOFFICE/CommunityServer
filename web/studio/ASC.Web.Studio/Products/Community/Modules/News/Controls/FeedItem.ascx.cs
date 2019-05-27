@@ -118,7 +118,8 @@ namespace ASC.Web.Community.News.Controls
                 CommunitySecurity.DemandPermissions(NewsConst.Action_Edit);
 
 				var storage = FeedStorageFactory.Create();
-				storage.RemoveFeed(Convert.ToInt64(id, CultureInfo.CurrentCulture));
+                var feed = storage.GetFeed(Convert.ToInt64(id, CultureInfo.CurrentCulture));
+                storage.RemoveFeed(feed);
 
                 CommonControlsConfigurer.FCKUploadsRemoveForItem("news", id);
 

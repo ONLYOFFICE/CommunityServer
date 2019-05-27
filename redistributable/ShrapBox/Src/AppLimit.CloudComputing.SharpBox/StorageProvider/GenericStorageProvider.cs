@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
-using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
-using System.IO;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider
@@ -15,18 +13,18 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
     /// base for all managed storage provider. All platform specific logic has to be implemented 
     /// in the storage provider service interface
     /// </summary>
-    public class GenericStorageProvider : ICloudStorageProvider, ICloudStorageProviderInternal
+    public class GenericStorageProvider : ICloudStorageProviderInternal
     {
         /// <summary>
         /// A specific implementation of a storage service interface which contains
         /// all provider specific logic
         /// </summary>
-        protected IStorageProviderService _Service;
+        protected IStorageProviderService Service;
 
         /// <summary>
         /// A provider specific implementation of a session
         /// </summary>
-        protected IStorageProviderSession _Session;
+        protected IStorageProviderSession Session;
 
         /// <summary>
         /// The constructure need a specific service implementation
@@ -34,7 +32,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <param name="service"></param>
         public GenericStorageProvider(IStorageProviderService service)
         {
-            _Service = service;
+            Service = service;
         }
 
         #region ICloudStorageProvider Members        
@@ -49,18 +47,18 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         public ICloudStorageAccessToken Open(ICloudStorageConfiguration configuration, ICloudStorageAccessToken token)
         {
             // Verify the compatibility of the credentials
-            if (!_Service.VerifyAccessTokenType(token))
+            if (!Service.VerifyAccessTokenType(token))
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorInvalidCredentialsOrConfiguration);
 
             // create a new session
-            _Session = _Service.CreateSession(token, configuration);
+            Session = Service.CreateSession(token, configuration);
 
             // check the session
-            if (_Session == null)
+            if (Session == null)
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorInvalidCredentialsOrConfiguration);
 
             // return the accesstoken token
-            return _Session.SessionToken;
+            return Session.SessionToken;
         }
 
         /// <summary>
@@ -69,10 +67,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         public void Close()
         {
             // close the session
-            _Service.CloseSession(_Session);
+            Service.CloseSession(Session);
 
             // remove reference
-            _Session = null;
+            Session = null;
         }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public ICloudDirectoryEntry GetRoot()
         {
-            return _Service.RequestResource(_Session, "/", null) as ICloudDirectoryEntry;
+            return Service.RequestResource(Session, "/", null) as ICloudDirectoryEntry;
         }
 
         /// <summary>
@@ -96,11 +94,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
             /*
              * This section generates for every higher object the object tree
              */
-            PathHelper ph = new PathHelper(path);
-            String[] elements = ph.GetPathElements();
+            var ph = new PathHelper(path);
+            var elements = ph.GetPathElements();
 
             // create the virtual root
-            ICloudDirectoryEntry current = parent ?? GetRoot();
+            var current = parent ?? GetRoot();
 
             // build the root
 
@@ -108,16 +106,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
             if (path.Equals("/"))
                 return current;
 
-            if (_Service.SupportsDirectRetrieve)
+            if (Service.SupportsDirectRetrieve)
             {
                 //Request directly
-                return _Service.RequestResource(_Session, path.TrimStart('/'), current);
+                return Service.RequestResource(Session, path.TrimStart('/'), current);
             }
 
             // create the path tree
-            for (int i = 0; i <= elements.Length - 1; i++)
+            for (var i = 0; i <= elements.Length - 1; i++)
             {
-                String elem = elements[i];
+                var elem = elements[i];
 
                 if (i == elements.Length - 1)
                 {
@@ -132,7 +130,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
                 {
                     // if not found, create a virtual one
                     if (e.ErrorCode == SharpBoxErrorCodes.ErrorFileNotFound)
-                        current = GenericStorageProviderFactory.CreateDirectoryEntry(_Session, elem, current);
+                        current = GenericStorageProviderFactory.CreateDirectoryEntry(Session, elem, current);
                     else
                         throw;
                 }
@@ -165,7 +163,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
             if (child != null)
                 return child as ICloudDirectoryEntry;
 
-            return _Service.CreateResource(_Session, name, parent) as ICloudDirectoryEntry;
+            return Service.CreateResource(Session, name, parent) as ICloudDirectoryEntry;
         }
 
         /// <summary>
@@ -175,7 +173,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public bool DeleteFileSystemEntry(ICloudFileSystemEntry fsentry)
         {
-            return _Service.DeleteResource(_Session, fsentry);
+            return Service.DeleteResource(Session, fsentry);
         }
 
         /// <summary>
@@ -187,7 +185,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public bool MoveFileSystemEntry(ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
-            return _Service.MoveResource(_Session, fsentry, newParent);
+            return Service.MoveResource(Session, fsentry, newParent);
         }
 
         /// <summary>
@@ -199,7 +197,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public bool CopyFileSystemEntry(ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
-            return _Service.CopyResource(_Session, fsentry, newParent);
+            return Service.CopyResource(Session, fsentry, newParent);
         }
 
         /// <summary>
@@ -211,13 +209,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         public bool RenameFileSystemEntry(ICloudFileSystemEntry fsentry, string newName)
         {
             // save the old name
-            String renamedId = fsentry.Id;
+            var renamedId = fsentry.Id;
 
             // rename the resource
-            if (_Service.RenameResource(_Session, fsentry, newName))
+            if (Service.RenameResource(Session, fsentry, newName))
             {
                 // get the parent
-                BaseDirectoryEntry p = fsentry.Parent as BaseDirectoryEntry;
+                var p = fsentry.Parent as BaseDirectoryEntry;
 
                 // remove the old childname
                 p.RemoveChildById(renamedId);
@@ -228,8 +226,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
                 // go ahead
                 return true;
             }
-            else
-                return false;
+            return false;
         }
 
         /// <summary>
@@ -245,7 +242,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
                 parent = GetRoot();
 
             // build the file entry
-            var newEntry = GenericStorageProviderFactory.CreateFileSystemEntry(_Session, name, parent);
+            var newEntry = GenericStorageProviderFactory.CreateFileSystemEntry(Session, name, parent);
             return newEntry;
         }
 
@@ -258,7 +255,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public virtual Uri GetFileSystemObjectUrl(string path, ICloudDirectoryEntry parent)
         {
-            String url = _Service.GetResourceUrl(_Session, parent, path);
+            var url = Service.GetResourceUrl(Session, parent, path);
             return new Uri(url);
         }
 
@@ -282,7 +279,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <param name="token"></param>
         public void StoreToken(Dictionary<String, String> tokendata, ICloudStorageAccessToken token)
         {
-            _Service.StoreToken(_Session, tokendata, token);
+            Service.StoreToken(Session, tokendata, token);
         }
 
         /// <summary>
@@ -292,7 +289,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// <returns></returns>
         public ICloudStorageAccessToken LoadToken(Dictionary<String, String> tokendata)
         {
-            return _Service.LoadToken(tokendata);
+            return Service.LoadToken(tokendata);
         }
 
         /// <summary>
@@ -300,10 +297,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// </summary>
         public ICloudStorageAccessToken CurrentAccessToken
         {
-            get { return _Session == null ? null : _Session.SessionToken; }
+            get { return Session == null ? null : Session.SessionToken; }
         }
 
         #endregion
     }
-
 }

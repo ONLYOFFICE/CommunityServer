@@ -29,6 +29,7 @@ using ASC.Data.Backup.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 
 namespace ASC.Data.Backup.Tasks.Modules
@@ -209,26 +210,26 @@ namespace ASC.Data.Backup.Tasks.Modules
             get { return _tableRelations; }
         }
 
-        public override bool TryAdjustFilePath(ColumnMapper columnMapper, ref string filePath)
+        public override bool TryAdjustFilePath(bool dump, ColumnMapper columnMapper, ref string filePath)
         {
-            filePath = PreparePath(columnMapper, "/", filePath);
+            filePath = PreparePath(dump, columnMapper, "/", filePath);
             return filePath != null;
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
+        protected override bool TryPrepareValue(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, IEnumerable<RelationInfo> relations, ref object value)
         {
             relations = relations.ToList();
 
             if (relations.All(x => x.ChildTable == "forum_attachment" && x.ChildColumn == "path"))
             {
-                value = PreparePath(columnMapper, "\\", Convert.ToString(value));
+                value = PreparePath(dump, columnMapper, "\\", Convert.ToString(value));
                 return value != null;
             }
 
-            return base.TryPrepareValue(connection, columnMapper, table, columnName, relations, ref value);
+            return base.TryPrepareValue(dump, connection, columnMapper, table, columnName, relations, ref value);
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             var column = columnName.ToLowerInvariant();
             if (table.Name == "forum_post" && column == "text" ||
@@ -260,7 +261,7 @@ namespace ASC.Data.Backup.Tasks.Modules
         }
 
 
-        private static string PreparePath(ColumnMapper columnMapper, string partsSeparator, string path)
+        private static string PreparePath(bool dump, ColumnMapper columnMapper, string partsSeparator, string path)
         {
             string[] parts = path.Split(new[] { partsSeparator }, StringSplitOptions.None);
 
@@ -269,11 +270,17 @@ namespace ASC.Data.Backup.Tasks.Modules
 
             var categoryId = columnMapper.GetMapping("forum_category", "id", parts[0]);
             if (categoryId == null)
-                return null;
+            {
+                if(!dump) return null;
+                categoryId = parts[0];
+            }
 
             var threadId = columnMapper.GetMapping("forum_thread", "id", parts[1]);
             if (threadId == null)
-                return null;
+            {
+                if (!dump) return null;
+                threadId = parts[1];
+            }
 
             parts[0] = categoryId.ToString();
             parts[1] = threadId.ToString();

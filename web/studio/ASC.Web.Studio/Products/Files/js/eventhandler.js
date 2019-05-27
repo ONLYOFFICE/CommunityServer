@@ -100,11 +100,31 @@ window.ASC.Files.EventHandler = (function () {
 
         if (!params.append) {
             jq("#filesMainContent").empty();
+            jq(document).scrollTop(0);
         }
 
         var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
 
         insertFolderItems(htmlXML);
+
+        var filterSettings;
+        if (htmlXML !== "" && ASC.Files.Filter && (filterSettings = ASC.Files.Filter.getFilterSettings()).isSet) {
+            if (!jq("#filesBreadCrumbs").is(":visible")) {
+                jq("#filesBreadCrumbs").show();
+                jq(".to-parent-folder").hide();
+            }
+            jq("#filesBreadCrumbs").addClass("with-search-crumbs");
+            jq("#searchBreadCrumbs")
+                .attr("data-id", ASC.Files.Folders.currentFolder.id)
+                .attr("href", ASC.Files.UI.getEntryLink("folder", ASC.Files.Folders.currentFolder.id))
+                .attr("title", ASC.Files.Folders.currentFolder.title)
+                .text(ASC.Files.Folders.currentFolder.title);
+
+            jq("#searchBreadCrumbsSub").toggle(filterSettings.withSubfolders
+                && (!ASC.Files.ThirdParty || !ASC.Files.ThirdParty.isThirdParty()));
+        } else {
+            jq("#filesBreadCrumbs").removeClass("with-search-crumbs");
+        }
 
         jq(ASC.Files.UI.lastSelectedEntry).each(function () {
             var entryObj = ASC.Files.UI.getEntryObject(this.entryType, this.entryId);
@@ -331,7 +351,7 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.Tree.updateTreePath();
         }
 
-        ASC.Files.UI.checkButtonBack(".to-parent-folder", ".folder-row-toparent");
+        ASC.Files.UI.checkButtonBack(".to-parent-folder", "#filesBreadCrumbs");
 
         return true;
     };
@@ -379,7 +399,9 @@ window.ASC.Files.EventHandler = (function () {
         var winEditor = params.winEditor;
         if (typeof errorMessage != "undefined") {
             fileNewObj.remove();
-            winEditor.close();
+            if (winEditor) {
+                winEditor.close();
+            }
             if (jq("#filesMainContent .file-row").length == 0) {
                 ASC.Files.EmptyScreen.displayEmptyScreen();
             }
@@ -437,7 +459,7 @@ window.ASC.Files.EventHandler = (function () {
 
         //track event
 
-        trackingGoogleAnalitics("documents", "create", "folder");
+        trackingGoogleAnalytics("documents", "create", "folder");
     };
 
     var onRenameFolder = function (xmlData, params, errorMessage) {
@@ -591,19 +613,18 @@ window.ASC.Files.EventHandler = (function () {
         var canEdit = true;
         if (!ASC.Files.UI.accessEdit(fileData, fileObj)
             || ASC.Files.UI.editingFile(fileObj)
-            || ASC.Files.UI.lockedForMe(fileObj)) {
+            || ASC.Files.UI.lockedForMe(fileObj)
+            || Teamlab.profile.isVisitor) {
             jq(".version-comment-edit").remove();
+            jq(".version-operation.version-restore").empty();
+            jq(".version-complete, .version-continue").remove();
+            jq(".version-num span").addClass("display-num");
             canEdit = false;
         } else {
             jq("#contentVersions").addClass("version-edit");
         }
 
-        if (!canEdit
-            || Teamlab.profile.isVisitor === true) {
-            jq(".version-operation.version-restore").empty();
-            jq(".version-complete, .version-continue").remove();
-            jq(".version-num span").addClass("display-num");
-        }
+        jq("#contentVersions").addClass("version-highlight");
 
         if (ASC.Files.Utility.CanWebView(fileData.title)) {
             jq(".not-preview").removeClass("not-preview");
@@ -710,7 +731,7 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.ServiceManager.moveItems(ASC.Files.ServiceManager.events.MoveItems,
                 {
                     folderToId: params.folderToId,
-                    resolve: 0,
+                    resolve: ASC.Files.Constants.ConflictResolveType.Duplicate,
                     isCopyOperation: params.isCopyOperation,
                     doNow: true
                 },

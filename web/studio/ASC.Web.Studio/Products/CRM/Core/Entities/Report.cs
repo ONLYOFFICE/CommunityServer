@@ -105,17 +105,4 @@ namespace ASC.CRM.Core.Entities
         public int Count { get; set; }
         public int WithDeals { get; set; }
     }
-
-    public class ReportTaskState
-    {
-        public string Id { get; set; }
-        public ReportTaskStatus Status { get; set; }
-        public ReportType ReportType { get; set; }
-        public int Percentage { get; set; }
-        public bool IsCompleted { get; set; }
-        public string ErrorText { get; set; }
-        public string BuilderKey { get; set; }
-        public string FileName { get; set; }
-        public int FileId { get; set; }
-    }
 }

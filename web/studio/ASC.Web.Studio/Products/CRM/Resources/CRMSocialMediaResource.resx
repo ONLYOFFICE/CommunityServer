@@ -144,12 +144,6 @@
   <data name="SearchText" xml:space="preserve">
     <value>Enter a text to search</value>
   </data>
-  <data name="ErrorFacebookAPILimit" xml:space="preserve">
-    <value>Maximal allowed number of requests to Facebook is exceeded. Try again later.</value>
-  </data>
-  <data name="ErrorFacebookOAuth" xml:space="preserve">
-    <value>An error occurred during access to Facebook.</value>
-  </data>
   <data name="ErrorInternalServer" xml:space="preserve">
     <value>Internal error</value>
   </data>
@@ -170,9 +164,6 @@
   </data>
   <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
     <value>Unknown Twitter account</value>
-  </data>
-  <data name="SocialMediaAccountNotFoundFacebook" xml:space="preserve">
-    <value>Facebook account is not connected</value>
   </data>
   <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
     <value>Twitter account is not connected</value>

@@ -44,7 +44,7 @@ namespace ASC.Web.Mail.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var autoreplyDaysInterval = Convert.ToInt32(ConfigurationManager.AppSettings["mail.autoreply-days-interval"] ?? "4");
+            var autoreplyDaysInterval = Convert.ToInt32(ConfigurationManager.AppSettings["mail.autoreply-days-interval"] ?? "1");
 
             return new List<KeyValuePair<string, object>>(6)
             {
@@ -59,7 +59,17 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     ErrorOpenMessageHelp = string.Format(MailScriptResource.ErrorOpenMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
                     ErrorParseMessageHelp = string.Format(MailScriptResource.ErrorParseMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
                     FilesCannotBeAttachedAsLinks = string.Format(MailResource.FilesCannotBeAttachedAsLinks_Body, "<br/>"),
-                    Autoreply = string.Format(MailResource.AutoreplyInformationText, string.Format(GrammaticalHelper.ChooseNumeralCase(autoreplyDaysInterval, Resource.DrnAgoDaysI, Resource.DrnAgoDaysR1, Resource.DrnAgoDaysRm), autoreplyDaysInterval))
+                    Autoreply = string.Format(MailResource.AutoreplyInformationText, string.Format(GrammaticalHelper.ChooseNumeralCase(autoreplyDaysInterval, Resource.DrnAgoDaysI, Resource.DrnAgoDaysR1, Resource.DrnAgoDaysRm), autoreplyDaysInterval)),
+                    Resource.ErrorPasswordMessage,
+                    Resource.ErrorPasswordLength,
+                    Resource.ErrorPasswordNoDigits,
+                    Resource.ErrorPasswordNoUpperCase,
+                    Resource.ErrorPasswordNoSpecialSymbols,
+                    Resource.CopyEmailAndPassword,
+                    Resource.EmailAndPasswordCopiedToClipboard,
+                    Resource.ChangePasswordSuccess,
+                    Resource.ErrorPasswordOnlyLatinLetters,
+                    Resource.ErrorPasswordNoSpaces
                 })
             };
         }

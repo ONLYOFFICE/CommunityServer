@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for onlyoffice
+# postrm script for {{package_sysname}}
 #
 # see: dh_installdeb(1)
 
@@ -25,21 +25,21 @@ fi
 case "$1" in
 	purge)
 		# purge logs
-		if [ -d /var/log/onlyoffice ]; then
-			rm -rf /var/log/onlyoffice
+		if [ -d /var/log/{{package_sysname}} ]; then
+			rm -rf /var/log/{{package_sysname}}
 		fi
 
-		db_input high onlyoffice-communityserver/remove-db || true
+		db_input high {{package_sysname}}-communityserver/remove-db || true
 		db_go
-		db_get onlyoffice-communityserver/remove-db
+		db_get {{package_sysname}}-communityserver/remove-db
 		if [ "$RET" = "true" ]; then
-			db_get onlyoffice-communityserver/db-host
+			db_get {{package_sysname}}-communityserver/db-host
 			DB_HOST="$RET"
-			db_get onlyoffice-communityserver/db-user
+			db_get {{package_sysname}}-communityserver/db-user
 			DB_USER="$RET"
-			db_get onlyoffice-communityserver/db-pwd
+			db_get {{package_sysname}}-communityserver/db-pwd
 			DB_PWD="$RET"
-			db_get onlyoffice-communityserver/db-name
+			db_get {{package_sysname}}-communityserver/db-name
 			DB_NAME="$RET"
 
 			MYSQL="mysql -h$DB_HOST -u$DB_USER"
@@ -47,7 +47,7 @@ case "$1" in
 				MYSQL="$MYSQL -p$DB_PWD"
 			fi
 
-			$MYSQL -e "DROP DATABASE IF EXISTS $DB_NAME;" &>/dev/null || { echo "WARNING: can't delete ONLYOFFICE database" >&2; }
+			$MYSQL -e "DROP DATABASE IF EXISTS $DB_NAME;" &>/dev/null || { echo "WARNING: can't delete {{package_sysname}} database" >&2; }
 		fi
 	;;
 

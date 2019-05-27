@@ -54,6 +54,13 @@ namespace ASC.Core.Configuration
 
         public bool IsDefaultSettings { get; internal set; }
 
+        public static SmtpSettings Empty = new SmtpSettings();
+
+        private SmtpSettings()
+        {
+            
+        }
+
         public SmtpSettings(string host, string senderAddress)
             : this(host, senderAddress, DefaultSenderDisplayName)
         {
@@ -121,7 +128,7 @@ namespace ASC.Core.Configuration
         {
             if (string.IsNullOrEmpty(value))
             {
-                return null;
+                return Empty;
             }
 
             var props = value.Split(new[] { '#' }, StringSplitOptions.None);

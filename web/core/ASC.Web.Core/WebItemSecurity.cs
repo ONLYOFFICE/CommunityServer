@@ -63,8 +63,14 @@ namespace ASC.Web.Core
             }
         }
 
-        public static bool IsAvailableForUser(string id, Guid @for)
+        public static bool IsAvailableForMe(Guid id)
         {
+            return IsAvailableForUser(id, SecurityContext.CurrentAccount.ID);
+        }
+
+        public static bool IsAvailableForUser(Guid itemId, Guid @for)
+        {
+            var id = itemId.ToString();
             var result = false;
 
             var key = GetCacheKey();
@@ -117,7 +123,7 @@ namespace ASC.Web.Core
                     else if (webitem is IModule)
                     {
                         result = SecurityContext.PermissionResolver.Check(CoreContext.Authentication.GetAccountByID(@for), securityObj, null, Read) &&
-                            IsAvailableForUser(WebItemManager.Instance.GetParentItemID(webitem.ID).ToString(), @for);
+                            IsAvailableForUser(WebItemManager.Instance.GetParentItemID(webitem.ID), @for);
                     }
                     else
                     {
@@ -219,7 +225,7 @@ namespace ASC.Web.Core
             {
                 if (CoreContext.UserManager.IsUserInGroup(userid, ASC.Core.Users.Constants.GroupVisitor.ID))
                 {
-                    throw new System.Security.SecurityException("Collaborator can not be an administrator");
+                    throw new SecurityException("Collaborator can not be an administrator");
                 }
 
                 if (productid == WebItemManager.PeopleProductID)
@@ -236,7 +242,10 @@ namespace ASC.Web.Core
             {
                 if (productid == ASC.Core.Users.Constants.GroupAdmin.ID)
                 {
-                    foreach (var id in WebItemManager.Instance.GetItemsAll().OfType<IProduct>().Select(p => p.ID))
+                    var groups = new List<Guid> { WebItemManager.MailProductID };
+                    groups.AddRange(WebItemManager.Instance.GetItemsAll().OfType<IProduct>().Select(p => p.ID));
+
+                    foreach (var id in groups)
                     {
                         CoreContext.UserManager.RemoveUserFromGroup(userid, id);
                     }
@@ -258,14 +267,8 @@ namespace ASC.Web.Core
 
         public static bool IsProductAdministrator(Guid productid, Guid userid)
         {
-            if (CoreContext.UserManager.IsUserInGroup(userid, ASC.Core.Users.Constants.GroupAdmin.ID))
-            {
-                return true;
-            }
-            else
-            {
-                return CoreContext.UserManager.IsUserInGroup(userid, productid);
-            }
+            return CoreContext.UserManager.IsUserInGroup(userid, ASC.Core.Users.Constants.GroupAdmin.ID) ||
+                   CoreContext.UserManager.IsUserInGroup(userid, productid);
         }
 
         public static IEnumerable<UserInfo> GetProductAdministrators(Guid productid)
@@ -275,6 +278,7 @@ namespace ASC.Web.Core
             {
                 groups.Add(ASC.Core.Users.Constants.GroupAdmin.ID);
                 groups.AddRange(WebItemManager.Instance.GetItemsAll().OfType<IProduct>().Select(p => p.ID));
+                groups.Add(WebItemManager.MailProductID);
             }
             else
             {

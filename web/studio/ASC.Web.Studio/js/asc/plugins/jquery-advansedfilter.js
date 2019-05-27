@@ -109,6 +109,9 @@
 
         for (var i = 0, n = filtervalues ? filtervalues.length : 0; i < n; i++) {
             filtervalue = filtervalues[i];
+            
+            if (!filtervalue.params) continue;
+
             switch (filtervalue.type) {
                 case 'sorter':
                     filtervaluehash = {
@@ -239,6 +242,11 @@
 
     function getContainerHash($container) {
         return getFiltersHash($container.data('filtervalues') || []);
+    }
+
+    function getStorageHash($container) {
+        var key = getkey();
+        return localStorageManager.getItem(key) || $.cookies.get(key) || getContainerHash($container);
     }
 
     function getContainerFilters($container) {
@@ -403,7 +411,7 @@
 
         colcount = opts && typeof opts === 'object' && opts.hasOwnProperty('colcount') && isFinite(+opts.colcount) ? +opts.colcount : colcount;
         for (itemgroupsInd = 0, itemgroupsLen = itemgroups.length; itemgroupsInd < itemgroupsLen; itemgroupsInd++) {
-            if (type === 'filter' && colcount > 1) {
+            if (type === 'filter' && colcount >= 1) {
                 if (itemgroupsInd < colcount) {
                     html.push('<li class="item-group-col"><ul class="group-items">');
                     for (var i = itemgroupsInd; i < itemgroupsLen; i += colcount) {
@@ -417,7 +425,7 @@
                         html = html.concat([
                           '<li',
                             ' class="item-group ' + type + '-group',
-                              itemgroups[i].title ? '' : ' none-title',
+                              //itemgroups[i].title ? '' : ' none-title',
                             '"',
                           '>',
                             '<span class="title" title="' + title + '">',
@@ -458,7 +466,7 @@
                   '<li',
                     ' class="item-group ' + type + '-group',
                       //itemgroupsInd === 0 ? ' first-group' : '',
-                      itemgroups[itemgroupsInd].title ? '' : ' none-title',
+                      type === 'sorter' && !itemgroups[itemgroupsInd].title ? ' none-title' : '',
                     '"',
                   '>',
                     '<span class="title" title="' + title + '">',
@@ -560,7 +568,7 @@
 
         o = $container.find('ul.filter-list:first').removeClass('multi-column').empty()[0] || null;
         if (o) {
-            if (opts.colcount > 1) {
+            if (opts.colcount >= 1) {
                 o.className += ' multi-column multi-column-' + opts.colcount;
             }
             o.innerHTML = createAdvansedFilterGroup(opts, groups, 'filter');
@@ -871,6 +879,15 @@
                             }
                         })($container, $filteritem, filtervalue, onUserFilterGroupSelectValue)
                     );
+
+                if (!filtervalue.isset && !filtervalue.bydefault) {
+                    setTimeout(function() {
+                        if ($filteritem.hasClass("default-value")) {
+                            $filteritem.find(".selector-wrapper").click();
+                        }
+                    }, 0);
+                }
+
             } catch (err) { }
         }
     }
@@ -923,6 +940,15 @@
                             }
                         })($container, $filteritem, filtervalue, onUserFilterPersonSelectValue)
                     );
+
+                if (!filtervalue.isset && !filtervalue.bydefault) {
+                    setTimeout(function() {
+                        if ($filteritem.hasClass("default-value")) {
+                            $filteritem.find(".selector-wrapper").click();
+                        }
+                    }, 0);
+                }
+
             } catch (err) { }
         }
     }
@@ -1056,6 +1082,9 @@
                 }
                 value = values;
             }
+
+            $filteritem.removeClass('default-value');
+
             setFilterItem($container, $filteritem, filtervalue, { value: value, title: $target.find('option[value="' + ("" + value).replace(/\"/g, '\\"') + '"]:first').text() }, nonetrigger);
         }
     }
@@ -1099,6 +1128,14 @@
                   callback(this, $container, $filteritem, filtervalue);
               }
           })($container, $filteritem, filtervalue, onUserFilterComboboxSelectValue));
+
+        if (!filtervalue.isset && value === null) {
+            setTimeout(function () {
+                if ($filteritem.hasClass("default-value")) {
+                    $filteritem.find(".selector-wrapper .combobox-selector .combobox-title").click();
+                }
+            }, 0);
+        }
 
         // d'ohhh
         return !value ? null : { value: value, title: $select.find('option[value="' + ("" + value).replace(/\"/g, '\\"') + '"]:first').text() };
@@ -1596,7 +1633,7 @@
                 $advansedfilterlist.width('auto')
                 var $advansedfilterlistcolsInd = $advansedfilterlistcols.length;
                 while ($advansedfilterlistcolsInd--) {
-                    colwidth = $advansedfilterlistcols[$advansedfilterlistcolsInd].offsetWidth;
+                    colwidth = getClientWidth($advansedfilterlistcols[$advansedfilterlistcolsInd]);
                     $advansedfilterlistcols[$advansedfilterlistcolsInd].style.width = colwidth + 'px';
                     colswidth += colwidth;
                 }
@@ -1615,6 +1652,11 @@
         $button.css('left', offsetLeft + 'px');
         $container.find('div.advansed-filter-list:first').css('left', offsetLeft + 'px');
         $input[0].style.marginLeft = $button[0].offsetWidth + offsetLeft + 'px';
+    }
+
+    function getClientWidth(elem) {
+        var rect = elem.getBoundingClientRect();
+        return Math.ceil(rect.width);
     }
 
     function resizeControlContainer($container, $filteritem, $control) {
@@ -1729,13 +1771,11 @@
         jQuery('div.advansed-filter').find('span.advansed-filter-dateselector-date').removeClass('showed-datepicker').find('span.advansed-filter-datepicker-container').hide();
     }
 
-    function onKeyUp(evt) {
-        if (this.value === '') {
-            this.parentNode.className = this.parentNode.className.replace(' has-value', '');
+    function onKeyUp() {
+        if (this.value) {
+            this.parentNode.classList.add('has-value');
         } else {
-            if (this.parentNode.className.indexOf(' has-value') === -1) {
-                this.parentNode.className = this.parentNode.className + ' has-value';
-            }
+            this.parentNode.classList.remove('has-value');
         }
     }
 
@@ -1933,51 +1973,83 @@
     }
 
     function onFilterInputKeyup(evt) {
+        if (!checkKeyCode(evt.keyCode)) {
+            return;
+        }
+
         var
-          $this = evt && typeof evt === 'object' ? jQuery(evt.target) : filterInputKeyupObject ? jQuery(filterInputKeyupObject) : jQuery(),
+          $this = jQuery(this),
           value = $this.val(),
           $container = $this.parents('div.advansed-filter:first'),
           filtervalues = $container.data('filtervalues'),
-          filtervaluesInd = 0;
+          filtervaluesInd;
 
         if (!filtervalues || filtervalues.length === 0) {
-            return undefined;
+            return;
         }
 
         filtervaluesInd = filtervalues.length;
+
         while (filtervaluesInd--) {
             if (filtervalues[filtervaluesInd].id === 'text') {
                 break;
             }
         }
 
-        if (filtervaluesInd !== -1) {
-            wasUpdated = true;
-            //wasUpdated = filtervalues[filtervaluesInd].params && value == filtervalues[filtervaluesInd].params.value ? false : wasUpdated;
-            wasUpdated = !filtervalues[filtervaluesInd].params && value == '' ? false : wasUpdated;
-            if (wasUpdated) {
-                if (typeof value === 'string' && value.length > 0) {
-                    setFilterItem($container, null, filtervalues[filtervaluesInd], { value: value });
-                } else {
-                    unsetFilterItem($container, null, filtervalues[filtervaluesInd]);
-                }
-            }
+        if (filtervaluesInd === -1 || (!filtervalues[filtervaluesInd].params && !value)) {
+            return;
+        }
+
+        if (value) {
+            setFilterItem($container, null, filtervalues[filtervaluesInd], { value: value });
+        } else {
+            unsetFilterItem($container, null, filtervalues[filtervaluesInd]);
         }
     }
 
     function onFilterInputKeyupHelper(evt) {
         clearTimeout(filterInputKeyupHandler);
-        if (filterInputKeyupTimeout > 0) {
-            filterInputKeyupObject = evt.target;
-            filterInputKeyupHandler = setTimeout(onFilterInputKeyup, filterInputKeyupTimeout);
-        }
+
+        filterInputKeyupHandler = setTimeout(function() {
+            onFilterInputKeyup.call(evt.target, evt);
+        }, filterInputKeyupTimeout);
     }
 
     function onFilterInputEnter(evt) {
         switch (evt.keyCode) {
             case 13:
-                return onFilterInputKeyup(evt);
+                onFilterInputKeyup.call(evt.target, evt);
         }
+    }
+
+    function checkKeyCode(keyCode) {
+        var excluded = [
+            9, //tab,
+            16, //shift
+            17, //ctrl	
+            18, //alt
+            19, //pause/break
+            20, //caps lock
+            27, //escape
+            33, //page up
+            34, //page down
+            35, //end
+            36, //home
+            37, //left arrow
+            38, //up arrow
+            39, //right arrow
+            40, //down arrow
+            44, //print
+            45, //insert
+            91, //left window key
+            92, //right window key
+            93, //select key
+            112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, //f1-f12
+            144, //num lock
+            145 //scroll lock
+        ];
+
+        return !excluded.includes(keyCode);
     }
 
     function onStartFilter(evt) {
@@ -2136,6 +2208,7 @@
         wasCallTrigger = false;
 
         changeSorter = false;
+        var selItem = sortervalues.find(function(item) { return item.selected });
         for (var i = 0, n = sortervalues.length; i < n; i++) {
             sortervalue = sortervalues[i];
             if (sortervalue.visible === true) {
@@ -2161,7 +2234,7 @@
                     break;
                 }
             }
-            if (sortervalue.def === true) {
+            if (!selItem && sortervalue.def === true) {
                 setUserSorter($container, sortervalue.id, { dsc: sortervalue.dsc === true || sortervalue.sortOrder === 'descending' }, true);
                 //break;
             }
@@ -2515,6 +2588,8 @@
                     return undefined;
                 case 'filters':
                     return getContainerFilters($container);
+                case 'hash':
+                    return getStorageHash($container);
                 case 'storage':
                     return getLocalStorageFilters();
                 case 'resize':

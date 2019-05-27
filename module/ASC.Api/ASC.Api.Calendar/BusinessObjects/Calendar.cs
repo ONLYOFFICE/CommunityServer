@@ -47,6 +47,10 @@ namespace ASC.Api.Calendar.BusinessObjects
         {
             return (calendar is BusinessObjects.Calendar && !String.IsNullOrEmpty((calendar as BusinessObjects.Calendar).iCalUrl));
         }
+        public static bool IsExistTodo(this BaseCalendar calendar)
+        {
+            return (calendar is BusinessObjects.Calendar && (calendar as BusinessObjects.Calendar).IsTodo != 0);
+        }
 
         public static BaseCalendar GetUserCalendar(this BaseCalendar calendar, UserViewSettings userViewSettings)
         {
@@ -93,6 +97,31 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             return result;
         }
+        public static List<TodoWrapper> GetTodoWrappers(this BaseCalendar calendar, Guid userId, ApiDateTime startDate, ApiDateTime endDate)
+        {
+            var result = new List<TodoWrapper>();
+            if (calendar != null)
+            {
+                using (var provider = new DataProvider())
+                {
+                    var cal = provider.GetCalendarById(Convert.ToInt32(calendar.Id));
+                    if (cal != null)
+                    {
+                        var todos = provider.LoadTodos(Convert.ToInt32(calendar.Id), userId, cal.TenantId, startDate,endDate)
+                                .Cast<ITodo>()
+                                .ToList();
+                        foreach (var t in todos)
+                        {
+                            var wrapper = new TodoWrapper(t, userId, calendar.TimeZone);
+                            var listWrapper = wrapper.GetList();
+                            result.AddRange(listWrapper);
+                        }
+                        return result;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
 
@@ -100,7 +129,8 @@ namespace ASC.Api.Calendar.BusinessObjects
     public class Calendar : BaseCalendar,  ISecurityObject
     {
         public static string DefaultTextColor { get { return "#000000";} }
-        public static string DefaultBackgroundColor { get { return "#9bb845";} }
+        public static string DefaultBackgroundColor { get { return "#9bb845"; } }
+        public static string DefaultTodoBackgroundColor { get { return "#ffb45e"; } }
 
         public Calendar()
         {
@@ -114,6 +144,10 @@ namespace ASC.Api.Calendar.BusinessObjects
         public List<UserViewSettings> ViewSettings { get; set; }
 
         public string iCalUrl { get; set; }
+
+        public string calDavGuid { get; set; }
+
+        public int IsTodo { get; set; }
 
         #region ISecurityObjectId Members
 

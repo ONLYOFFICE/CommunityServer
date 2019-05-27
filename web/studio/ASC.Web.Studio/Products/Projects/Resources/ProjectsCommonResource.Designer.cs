@@ -952,6 +952,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report Folder.
+        /// </summary>
+        public static string ReportFolder {
+            get {
+                return ResourceManager.GetString("ReportFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate general and detailed reports.
         /// </summary>
         public static string ReportsModuleFirstLine {

@@ -24,9 +24,8 @@
 */
 
 
-using ASC.Thrdparty.Configuration;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Thrdparty.Twitter;
-using ASC.Web.CRM.SocialMedia;
 
 namespace ASC.Web.CRM.Classes.SocialMedia
 {
@@ -36,8 +35,8 @@ namespace ASC.Web.CRM.Classes.SocialMedia
         {
             TwitterApiInfo apiInfo = new TwitterApiInfo
             {
-                ConsumerKey = KeyStorage.Get(SocialMediaConstants.ConfigKeyTwitterConsumerKey),
-                ConsumerSecret = KeyStorage.Get(SocialMediaConstants.ConfigKeyTwitterConsumerSecretKey)
+                ConsumerKey = TwitterLoginProvider.TwitterKey,
+                ConsumerSecret = TwitterLoginProvider.TwitterSecret
             };
 
             SetDefaultTokens(apiInfo);
@@ -47,8 +46,8 @@ namespace ASC.Web.CRM.Classes.SocialMedia
 
         private static void SetDefaultTokens(TwitterApiInfo apiInfo)
         {
-            apiInfo.AccessToken = KeyStorage.Get(SocialMediaConstants.ConfigKeyTwitterDefaultAccessToken);
-            apiInfo.AccessTokenSecret = KeyStorage.Get(SocialMediaConstants.ConfigKeyTwitterDefaultAccessTokenSecret);
+            apiInfo.AccessToken = TwitterLoginProvider.TwitterDefaultAccessToken;
+            apiInfo.AccessTokenSecret = TwitterLoginProvider.TwitterAccessTokenSecret;
         }
     }
 }

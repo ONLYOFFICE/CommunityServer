@@ -67,14 +67,17 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         //CurrentTenantId = tenant.TenantId,
                         CurrentTenantCreatedDate = tenant.CreatedDateTime,
                         CurrentTenantVersion = tenant.Version,
-                        CurrentTenantUtcOffset = tenant.TimeZone,
-                        CurrentTenantUtcHoursOffset = tenant.TimeZone.BaseUtcOffset.Hours,
-                        CurrentTenantUtcMinutesOffset = tenant.TimeZone.BaseUtcOffset.Minutes,
-                        TimezoneDisplayName = tenant.TimeZone.DisplayName,
-                        TimezoneOffsetMinutes = tenant.TimeZone.GetUtcOffset(DateTime.UtcNow).TotalMinutes,
+                        CurrentTenantTimeZone = new
+                            {
+                                Id = tenant.TimeZone.Id,
+                                DisplayName = Common.Utils.TimeZoneConverter.GetTimeZoneName(tenant.TimeZone),
+                                BaseUtcOffset = tenant.TimeZone.GetOffset(true).TotalMinutes,
+                                UtcOffset = tenant.TimeZone.GetOffset().TotalMinutes
+                            },
                         TenantIsPremium = curQuota.Trial ? "No" : "Yes",
                         TenantTariff = curQuota.Id,
                         EmailRegExpr = @"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$",
+                        UserNameRegExpr = UserFormatter.UserNameRegex,
                         GroupSelector_MobileVersionGroup = new { Id = -1, Name = UserControlsCommonResource.LblSelect.HtmlEncode().ReplaceSingleQuote() },
                         GroupSelector_WithGroupEveryone = new { Id = Constants.GroupEveryone.ID, Name = UserControlsCommonResource.Everyone.HtmlEncode().ReplaceSingleQuote() },
                         GroupSelector_WithGroupAdmin = new { Id = Constants.GroupAdmin.ID, Name = UserControlsCommonResource.Admin.HtmlEncode().ReplaceSingleQuote() },
@@ -84,7 +87,6 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         MaxImageFCKWidth = ConfigurationManager.AppSettings["MaxImageFCKWidth"] ?? "620",
                         UserPhotoHandlerUrl = VirtualPathUtility.ToAbsolute("~/UserPhoto.ashx"),
                         ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(),
-                        UrlShareGooglePlus = SetupInfo.ShareGooglePlusUrl,
                         UrlShareTwitter = SetupInfo.ShareTwitterUrl,
                         UrlShareFacebook = SetupInfo.ShareFacebookUrl,
                         LogoDarkUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)),
@@ -95,6 +97,11 @@ namespace ASC.Web.Studio.Masters.MasterResources
             if (CoreContext.Configuration.Personal)
             {
                 result.Add(RegisterObject(new { CoreContext.Configuration.Personal }));
+            }
+
+            if (CoreContext.Configuration.CustomMode)
+            {
+                result.Add(RegisterObject(new { CoreContext.Configuration.CustomMode }));
             }
 
             if (CoreContext.Configuration.Standalone)

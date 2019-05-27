@@ -25,14 +25,16 @@
 
 
 using System;
+using System.Globalization;
+using System.Security;
 using System.Security.Authentication;
-using System.Threading;
 using System.Web;
 using System.Web.UI;
 using ASC.ActiveDirectory;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Common.Caching;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -43,12 +45,14 @@ using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Resources;
+using SecurityContext = ASC.Core.SecurityContext;
 using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
+
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -110,10 +114,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected string SsoLabel
         {
-            get
-            {
-                return EnableSso ? SsoSettingsV2.Load().SpLoginLabel : SsoSettingsV2.SSO_SP_LOGIN_LABEL;
-            }
+            get { return EnableSso ? SsoSettingsV2.Load().SpLoginLabel : SsoSettingsV2.SSO_SP_LOGIN_LABEL; }
         }
 
         protected bool IsSaml
@@ -167,7 +168,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (SetupInfo.ThirdPartyAuthEnabled && AccountLinkControl.IsNotEmpty)
             {
-                var accountLink = (AccountLinkControl) LoadControl(AccountLinkControl.Location);
+                var accountLink = (AccountLinkControl)LoadControl(AccountLinkControl.Location);
                 accountLink.Visible = true;
                 accountLink.ClientCallback = "authCallback";
                 accountLink.SettingsView = false;
@@ -205,7 +206,8 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 if (!AuthProcess(thirdPartyProfile, withAccountLink)) return;
 
-                var refererURL = (string) Session["refererURL"];
+                CookiesManager.ClearCookies(CookiesType.SocketIO);
+                var refererURL = (string)Session["refererURL"];
                 if (string.IsNullOrEmpty(refererURL))
                 {
                     Response.Redirect(CommonLinkUtility.GetDefault(), true);
@@ -222,7 +224,8 @@ namespace ASC.Web.Studio.UserControls.Common
         private bool AuthProcess(LoginProfile thirdPartyProfile, bool withAccountLink)
         {
             var authMethod = AuthMethod.Login;
-            var smsLoginUrl = string.Empty;
+            var tfaLoginUrl = string.Empty;
+            var loginCounter = 0;
             try
             {
                 if (thirdPartyProfile != null)
@@ -271,15 +274,12 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 if (string.IsNullOrEmpty(HashId))
                 {
-                    int counter;
-
-                    int.TryParse(cache.Get<String>("loginsec/" + Login), out counter);
-
-                    if (++counter%5 == 0)
+                    int.TryParse(cache.Get<String>("loginsec/" + Login), out loginCounter);
+                    if (++loginCounter > 5)
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(10));
+                        throw new BruteForceCredentialException();
                     }
-                    cache.Insert("loginsec/" + Login, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    cache.Insert("loginsec/" + Login, loginCounter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
                 var userInfo = GetUser(out authMethod);
@@ -300,7 +300,12 @@ namespace ASC.Web.Studio.UserControls.Common
                 if (StudioSmsNotificationSettings.IsVisibleSettings
                     && StudioSmsNotificationSettings.Enable)
                 {
-                    smsLoginUrl = Studio.Confirm.SmsConfirmUrl(userInfo);
+                    tfaLoginUrl = Studio.Confirm.SmsConfirmUrl(userInfo);
+                }
+                else if (TfaAppAuthSettings.IsVisibleSettings
+                         && TfaAppAuthSettings.Enable)
+                {
+                    tfaLoginUrl = Studio.Confirm.TfaConfirmUrl(userInfo);
                 }
                 else
                 {
@@ -315,11 +320,14 @@ namespace ASC.Web.Studio.UserControls.Common
                         );
                 }
             }
-            catch (InvalidCredentialException)
+            catch (InvalidCredentialException ex)
             {
                 Auth.ProcessLogout();
+                var isBruteForce = (ex is BruteForceCredentialException);
 
-                ErrorMessage = authMethod == AuthMethod.ThirdParty ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
+                ErrorMessage = isBruteForce
+                                   ? Resource.LoginWithBruteForce
+                                   : authMethod == AuthMethod.ThirdParty ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
 
                 var loginName = !string.IsNullOrWhiteSpace(Login)
                                     ? Login
@@ -327,16 +335,18 @@ namespace ASC.Web.Studio.UserControls.Common
                                           ? HashId
                                           : AuditResource.EmailNotSpecified;
 
-                var messageAction = authMethod == AuthMethod.ThirdParty
-                                        ? MessageAction.LoginFailSocialAccountNotFound
-                                        : MessageAction.LoginFailInvalidCombination;
+                var messageAction = isBruteForce
+                                        ? MessageAction.LoginFailBruteForce
+                                        : authMethod == AuthMethod.ThirdParty
+                                              ? MessageAction.LoginFailSocialAccountNotFound
+                                              : MessageAction.LoginFailInvalidCombination;
 
                 MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
 
                 if (authMethod == AuthMethod.ThirdParty && thirdPartyProfile != null) Response.Redirect("~/auth.aspx?m=" + HttpUtility.UrlEncode(_errorMessage), true);
                 return false;
             }
-            catch (System.Security.SecurityException)
+            catch (SecurityException)
             {
                 Auth.ProcessLogout();
                 ErrorMessage = Resource.ErrorDisabledProfile;
@@ -358,9 +368,14 @@ namespace ASC.Web.Studio.UserControls.Common
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(smsLoginUrl))
+            if (loginCounter > 0)
             {
-                Response.Redirect(smsLoginUrl, true);
+                cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+            }
+
+            if (!string.IsNullOrEmpty(tfaLoginUrl))
+            {
+                Response.Redirect(tfaLoginUrl, true);
             }
             return true;
         }
@@ -408,6 +423,18 @@ namespace ASC.Web.Studio.UserControls.Common
 
             Login = confirmedEmail;
             LoginMessage = String.Format("<div class=\"confirmBox\">{0} {1}</div>", Resource.MessageEmailConfirmed, Resource.MessageAuthorize);
+        }
+
+
+        public class BruteForceCredentialException : InvalidCredentialException
+        {
+            public BruteForceCredentialException()
+            {
+            }
+
+            public BruteForceCredentialException(string message) : base(message)
+            {
+            }
         }
     }
 }

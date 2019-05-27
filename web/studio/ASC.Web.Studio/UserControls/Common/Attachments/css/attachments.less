@@ -62,8 +62,7 @@
 }
 
 a#uploadFirstFile:after,
-a#createFirstDocument:after,
-a#attachProjDocuments:after{
+a#createFirstDocument:after {
     background-color: transparent;
     background-position: 0 0;
     background-repeat: no-repeat;
@@ -82,9 +81,6 @@ a#attachProjDocuments:after{
 }
 #emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a#createFirstDocument:after {
     background-image: url("imagescss/new_file.png");
-}
-#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a#attachProjDocuments:after {
-    background-image: url("imagescss/attach.png");
 }
 /*------info panel-----*/
 .infoPanelAttachFile {
@@ -270,7 +266,7 @@ span.version {
             height: 16px;
 
             &[id^="editDoc_"] {
-                background: url("imagescss/pencil.png") no-repeat 0 0 transparent;
+                background: url('../../../../skins/default/Images/svg/documents/pencilgray.svg');
             }
 
             &.deleteDoc,

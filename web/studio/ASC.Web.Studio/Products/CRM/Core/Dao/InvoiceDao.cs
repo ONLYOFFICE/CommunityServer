@@ -30,15 +30,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
-using ASC.FullTextIndex;
+using ASC.ElasticSearch;
 using ASC.Web.CRM.Classes;
-using ASC.Web.Studio.Utility;
+using ASC.Web.CRM.Core.Search;
 using Newtonsoft.Json;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -464,7 +462,11 @@ namespace ASC.CRM.Core.Dao
         {
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
-            return SaveOrUpdateInvoiceInDb(invoice);
+            var result =  SaveOrUpdateInvoiceInDb(invoice);
+
+            FactoryIndexer<InvoicesWrapper>.IndexAsync(invoice);
+
+            return result;
         }
 
         private int SaveOrUpdateInvoiceInDb(Invoice invoice)
@@ -709,6 +711,7 @@ namespace ASC.CRM.Core.Dao
 
                 tx.Commit();
             }
+            invoices.ForEach(invoice =>  FactoryIndexer<InvoicesWrapper>.DeleteAsync(invoice));
         }
 
         #endregion
@@ -841,13 +844,17 @@ namespace ASC.CRM.Core.Dao
                    .ToArray();
 
                 if (keywords.Length > 0)
-                    if (FullTextSearch.SupportModule(FullTextSearch.CRMInvoicesModule))
+                {
+                    List<int> invoicesIds;
+                    if (!FactoryIndexer<InvoicesWrapper>.TrySelectIds(s => s.MatchAll(searchText), out invoicesIds))
                     {
-                        var ids = FullTextSearch.Search(FullTextSearch.CRMInvoicesModule.Match(searchText));
-                        conditions.Add(Exp.In(tblAliasPrefix + "id", ids));
+                        conditions.Add(BuildLike(new[] {tblAliasPrefix + "number", tblAliasPrefix + "description"}, keywords));
                     }
                     else
-                    conditions.Add(BuildLike(new[] { tblAliasPrefix + "number", tblAliasPrefix + "description" }, keywords));
+                    {
+                        conditions.Add(Exp.In(tblAliasPrefix + "id", invoicesIds));
+                    }
+                }
             }
 
             if (exceptIDs.Count > 0)

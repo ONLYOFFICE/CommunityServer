@@ -33,17 +33,18 @@ using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.Configuration;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.CRM.Core;
@@ -154,10 +155,13 @@ namespace ASC.Web.CRM.Classes
 
         public void RunJob()
         {
-            using (var smtpClient = GetSmtpClient())
+            SmtpClient smtpClient = null;
+            try
             {
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
                 SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(_currUser));
+
+                smtpClient = GetSmtpClient();
 
                 using (var scope = DIHelper.Resolve())
                 {
@@ -272,27 +276,7 @@ namespace ASC.Web.CRM.Classes
                             {
                                 _log.Error(Error, ex);
 
-                                if (ex.ErrorCode == SmtpErrorCode.RecipientNotAccepted)
-                                {
-                                    if (ex.StatusCode == SmtpStatusCode.MailboxBusy ||
-                                        ex.StatusCode == SmtpStatusCode.MailboxUnavailable)
-                                    {
-                                        Error = string.Format(CRMCommonResource.MailSender_MailboxBusyException, 5);
-
-                                        Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                                        smtpClient.Send(mimeMessage);
-
-                                        success = true;
-                                    }
-                                    else
-                                    {
-                                        Error +=
-                                            string.Format(CRMCommonResource.MailSender_FailedDeliverException,
-                                                ex.Mailbox.Address) + "<br/>";
-                                    }
-                                }
-
+                                Error += string.Format(CRMCommonResource.MailSender_FailedDeliverException, recipientEmail) + "<br/>";
                             }
 
                             if (success)
@@ -364,6 +348,18 @@ namespace ASC.Web.CRM.Classes
                         EstimatedTime = TimeSpan.Zero.ToString(),
                         DeliveryCount = deliveryCount
                     };
+                }
+            }
+            catch (SocketException e)
+            {
+                Error = e.Message;
+                _log.Error(Error);
+            }
+            finally
+            {
+                if (smtpClient != null)
+                {
+                    smtpClient.Dispose();
                 }
                 Complete();
             }

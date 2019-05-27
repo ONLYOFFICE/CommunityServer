@@ -48,24 +48,11 @@ PasswordSettingsManager = new function () {
                 var value = jq("#slider").slider("value");
                 jq("#count").html(value);
             };
-            var calcMin = function () {
-                var min = 0;
-
-                min += jq("#chkUpperCase").is(":checked") ? 1 : 0;
-                min += jq("#chkDigits").is(":checked") ? 1 : 0;
-                min += jq("#chkSpecSymbols").is(":checked") ? 1 : 0;
-                min = Math.max(1, min);
-                var value = jq("#slider").slider("value");
-
-                jq('#slider').slider({min: min});
-                if (value < min) {
-                    jq('#slider').slider("value", min);
-                }
-            };
 
             jq("#slider").slider({
                 range: "max",
                 max: (jq("#slider").attr("data-max") | 0) || 30,
+                min: 1,
                 value: jsonObj.MinLength,
                 change: onSlide,
                 slide: onSlide,
@@ -75,9 +62,6 @@ PasswordSettingsManager = new function () {
             jq("#chkDigits").prop("checked", jsonObj.Digits);
             jq("#chkSpecSymbols").prop("checked", jsonObj.SpecSymbols);
 
-            jq("#chkUpperCase, #chkDigits, #chkSpecSymbols").change(calcMin);
-            
-            calcMin();
             onSlide();
         });
     };

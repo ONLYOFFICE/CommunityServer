@@ -27,6 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 using ASC.Core.Common.Settings;
+using ASC.Files.Core;
 
 namespace ASC.Web.Files.Classes
 {
@@ -49,6 +50,12 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "ConvertNotify")]
         public bool ConvertNotifySetting { get; set; }
 
+        [DataMember(Name = "SortedBy")]
+        public SortedByType DefaultSortedBySetting { get; set; }
+
+        [DataMember(Name = "SortedAsc")]
+        public bool DefaultSortedAscSetting { get; set; }
+
         public override ISettings GetDefault()
         {
             return new FilesSettings
@@ -58,6 +65,8 @@ namespace ASC.Web.Files.Classes
                     StoreOriginalFilesSetting = true,
                     UpdateIfExistSetting = false,
                     ConvertNotifySetting = true,
+                    DefaultSortedBySetting = SortedByType.DateAndTime,
+                    DefaultSortedAscSetting = false
                 };
         }
 
@@ -79,10 +88,7 @@ namespace ASC.Web.Files.Classes
 
         public static bool EnableThirdParty
         {
-            set
-            {
-                new FilesSettings { EnableThirdpartySetting = value }.Save();
-            }
+            set { new FilesSettings { EnableThirdpartySetting = value }.Save(); }
             get { return Load().EnableThirdpartySetting; }
         }
 
@@ -117,6 +123,22 @@ namespace ASC.Web.Files.Classes
                 setting.SaveForCurrentUser();
             }
             get { return LoadForCurrentUser().ConvertNotifySetting; }
+        }
+
+        public static OrderBy DefaultOrder
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.DefaultSortedBySetting = value.SortedBy;
+                setting.DefaultSortedAscSetting = value.IsAsc;
+                setting.SaveForCurrentUser();
+            }
+            get
+            {
+                var setting = LoadForCurrentUser();
+                return new OrderBy(setting.DefaultSortedBySetting, setting.DefaultSortedAscSetting);
+            }
         }
     }
 }

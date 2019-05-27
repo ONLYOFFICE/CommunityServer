@@ -78,6 +78,9 @@ namespace ASC.Web.Studio.Core.Users
         {
             if (userInfo == null) throw new ArgumentNullException("userInfo");
 
+            if (!UserFormatter.IsValidUserName(userInfo.FirstName, userInfo.LastName))
+                throw new Exception(Resource.ErrorIncorrectUserName);
+
             CheckPasswordPolicy(password);
 
             if (!CheckUniqueEmail(userInfo.ID, userInfo.Email))
@@ -151,7 +154,7 @@ namespace ASC.Web.Studio.Core.Users
 
         public static void CheckPasswordPolicy(string password)
         {
-            if (String.IsNullOrEmpty(password))
+            if (String.IsNullOrWhiteSpace(password))
                 throw new Exception(Resource.ErrorPasswordEmpty);
 
             var passwordSettingsObj = PasswordSettings.Load();
@@ -198,7 +201,7 @@ namespace ASC.Web.Studio.Core.Users
             return userInfo;
         }
 
-        private const string Noise = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk@%&;";
+        private const string Noise = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk_-()=";
 
         public static string GeneratePassword()
         {

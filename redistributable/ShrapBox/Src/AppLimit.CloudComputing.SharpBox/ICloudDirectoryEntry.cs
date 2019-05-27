@@ -32,7 +32,7 @@ namespace AppLimit.CloudComputing.SharpBox
     /// folders in the cloud storage 
     /// </summary>
     public interface ICloudDirectoryEntry : ICloudFileSystemEntry, IEnumerable<ICloudFileSystemEntry>
-    {        
+    {
         /// <summary>
         /// This method allows to get a directory entry with a specific folder 
         /// id.
@@ -56,18 +56,18 @@ namespace AppLimit.CloudComputing.SharpBox
         /// </summary>
         /// <param name="idx">The index of the targeted folder</param>
         /// <returns>Reference to the file or folder</returns>
-		ICloudFileSystemEntry GetChild(int idx);
-        
+        ICloudFileSystemEntry GetChild(int idx);
+
         /// <summary>
         /// This property allows to access to the number of 
         /// child items
         /// </summary>
-		int Count { get; }
+        int Count { get; }
 
         /// <summary>
         /// This property contains the information about the children state. Query this property
         /// will not perform any network operations
         /// </summary>
         nChildState HasChildrens { get; }
-	}
+    }
 }

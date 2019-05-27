@@ -58,7 +58,7 @@ namespace ASC.Web.Studio
             var productID = !string.IsNullOrEmpty(Request["productID"]) ? new Guid(Request["productID"]) : Guid.Empty;
             var moduleID = !string.IsNullOrEmpty(Request["moduleID"]) ? new Guid(Request["moduleID"]) : Guid.Empty;
 
-            SearchText = Request["search"] ?? "";
+            SearchText = (Request["search"] ?? "").Trim();
 
             var searchResultsData = new List<SearchResult>();
             if (!string.IsNullOrEmpty(SearchText))

@@ -13,7 +13,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         /// <param name="credentials"></param>
         /// <returns></returns>
         public bool FtpCreateDirectory(String uri, ICredentials credentials)
-        {           
+        {
             return PerformSimpleFtpMethod(uri, WebRequestMethodsEx.Ftp.MakeDirectory, credentials);
         }
 
@@ -24,7 +24,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         /// <param name="credentials"></param>
         /// <returns></returns>
         public bool FtpDeleteEmptyDirectory(String uri, ICredentials credentials)
-        {                   
+        {
             return PerformSimpleFtpMethod(uri, WebRequestMethodsEx.Ftp.RemoveDirectory, credentials);
         }
 
@@ -35,7 +35,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         /// <param name="credentials"></param>
         /// <returns></returns>
         public bool FtpDeleteFile(String uri, ICredentials credentials)
-        {            
+        {
             return PerformSimpleFtpMethod(uri, WebRequestMethodsEx.Ftp.DeleteFile, credentials);
         }
 
@@ -43,10 +43,10 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         {
             // create a webrequest 
             var renameRequest = (FtpWebRequest)CreateWebRequest(uri, WebRequestMethodsEx.Ftp.Rename, credentials, false, null);
-                        
+
             // set the target 
             renameRequest.RenameTo = newNameFullPath;
-            
+
             // perform the operation
             try
             {
@@ -65,8 +65,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         protected override WebRequest CreateBasicWebRequest(Uri uri, bool bAllowStreamBuffering)
         {
             //create request
-            var result = (FtpWebRequest)FtpWebRequest.Create(uri);
-            
+            var result = (FtpWebRequest)WebRequest.Create(uri);
+
             //Do not keep alive (stateless mode)
             result.KeepAlive = false;
 

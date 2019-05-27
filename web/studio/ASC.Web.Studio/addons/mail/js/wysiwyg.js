@@ -36,28 +36,32 @@ window.wysiwygEditor = (function ($) {
         bookmarks;
 
     function initHandlers() {
-        isEditorReady = true;
+        if (!editorInstance ||
+            !editorInstance.hasOwnProperty("document")) {
+            return;
+        }
+
         if (needCkFocus) {
             setFocus();
             needCkFocus = false;
         }
 
-        if (bodyOnload) {
-            setBody(bodyOnload);
-        }
-
         var body = editorInstance.document.getBody().$;
-        var button = $(body).find(".tl-controll-blockquote")[0];
+        var $body = $(body);
+
+        var button = $body.find(".tl-controll-blockquote")[0];
         if (button) {
-            $(button).unbind("click").bind("click", function () {
+            var $button = $(button);
+            $button.unbind("click").bind("click", function () {
                 showQuote(this);
             });
-            $(button).bind("contextmenu", function (event) {
+
+            $button.unbind("contextmenu").bind("contextmenu", function (event) {
                 event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
             });
         }
 
-        $(body).on("click touchstart", ".delete-btn", function () {
+        $body.off("click touchstart", ".delete-btn").on("click touchstart", ".delete-btn", function () {
             var $filelink = $(this).closest(".mailmessage-filelink");
             var $beforelink = $filelink.prev("p");
 
@@ -69,11 +73,11 @@ window.wysiwygEditor = (function ($) {
             eventsHandler.trigger(supportedCustomEvents.OnChange);
         });
 
-        $(body).on("click", ".mailmessage-filelink-link", function () {
+        $body.off("click", "a").on("click", "a", function () {
             window.open($(this).attr("href"));
         });
 
-        $(body).find(".mailmessage-filelink-link .file-name").dotdotdot({ wrap: "letter", height: 18 });
+        $body.find(".mailmessage-filelink-link .file-name").dotdotdot({ wrap: "letter", height: 18 });
     }
 
     function init() {
@@ -86,7 +90,6 @@ window.wysiwygEditor = (function ($) {
             tabIndex: 5,
             resize_dir: "vertical",
             on: {
-                instanceReady: initHandlers,
                 change: onTextChange,
                 beforeSetMode: function () {
                     if (editorInstance.mode !== "source") {
@@ -103,20 +106,26 @@ window.wysiwygEditor = (function ($) {
                             editorInstance.focus();
                             selection.selectBookmarks(bookmarks);
                         }
-
-                        initHandlers();
                     }
+
+                    initHandlers();
                 }
             }
         };
 
         ckeditorConnector.load(function () {
             editorInstance = $("#ckMailEditor").ckeditor(config).editor;
+
+            isEditorReady = true;
+
+            if (bodyOnload) {
+                setBody(bodyOnload);
+            }
         });
     }
 
     function showQuote(control) {
-        $(control).next("blockquote").show();
+        $(control).parents().find("blockquote").first().show();
         $(control).remove();
     }
 
@@ -193,14 +202,21 @@ window.wysiwygEditor = (function ($) {
                 return;
             }
 
+            editorInstance
+                .once("dataReady",
+                    function() {
+                        if (signatureOnload) {
+                            insertSignature(signatureOnload);
+                            signatureOnload = undefined;
+                        }
+
+                        initHandlers();
+
+                        setFocus();
+                    });
+
             editorInstance.setData(body);
             bodyOnload = undefined;
-
-            if (signatureOnload) {
-                insertSignature(signatureOnload);
-                signatureOnload = undefined;
-            }
-
         }
     }
 
@@ -216,39 +232,45 @@ window.wysiwygEditor = (function ($) {
     }
 
     function insertSignature(signature) {
-        if (signature == undefined || signature.html == undefined) {
+        if (!signature ||
+            !signature.hasOwnProperty("html") ||
+            !signature.isActive ||
+            !editorInstance ||
+            !editorInstance.hasOwnProperty("document")) {
             return;
         }
-        if (editorInstance && signature.isActive) {
-            var editorBody = $(editorInstance.document.getBody().$);
 
-            var foundSignatures = editorBody.find('> div.tlmail_signature[mailbox_id="' + signature.mailboxId + '"]');
+        var editorBody = $(editorInstance.document.getBody().$);
 
-            if (foundSignatures.length === 0) {
-                var htmlSignature = $.tmpl("composeSignatureTmpl", signature);
-                htmlSignature.data("signature", signature);
-                var blockquote = editorBody.find("> .reply-text");
-                if (blockquote.length === 0) {
-                    blockquote = editorBody.find("> .forward-text");
-                }
+        var foundSignatures = editorBody.find('> div.tlmail_signature[mailbox_id="' + signature.mailboxId + '"]');
 
-                if (blockquote.length === 0) {
-                    editorBody.append(newCkParagraph);
-                    editorBody.append(htmlSignature);
-                } else {
-                    $(newCkParagraph).insertBefore(blockquote.first());
-                    htmlSignature.insertBefore(blockquote.first());
-                    $(newCkParagraph).insertBefore(blockquote.first());
-                }
+        if (foundSignatures.length === 0) {
+            var htmlSignature = $.tmpl("composeSignatureTmpl", signature);
+            htmlSignature.data("signature", signature);
+            var blockquote = editorBody.find("> .reply-text");
+            if (blockquote.length === 0) {
+                blockquote = editorBody.find("> .forward-text");
+            }
+
+            if (blockquote.length === 0) {
+                editorBody.append(newCkParagraph);
+                editorBody.append(htmlSignature);
+            } else {
+                $(newCkParagraph).insertBefore(blockquote.first());
+                htmlSignature.insertBefore(blockquote.first());
+                $(newCkParagraph).insertBefore(blockquote.first());
             }
         }
     }
 
     function updateSignature(signature) {
-        if (signature == undefined || signature.html == undefined) {
+        if (!signature ||
+            !signature.hasOwnProperty("html") ||
+            !editorInstance ||
+            !editorInstance.hasOwnProperty("document")) {
             return;
         }
-        if (editorInstance) {
+        if (editorInstance && editorInstance.document) {
             var editorBody = $(editorInstance.document.getBody().$);
             var signatureContainer = editorBody.find("> div.tlmail_signature").last();
             if (signatureContainer.length > 0) {
@@ -268,6 +290,11 @@ window.wysiwygEditor = (function ($) {
     }
 
     function deleteSignature() {
+        if (!editorInstance ||
+            !editorInstance.hasOwnProperty("document")) {
+            return;
+        }
+
         var editorBody = $(editorInstance.document.getBody().$);
         var signatureContainer = editorBody.find("> div.tlmail_signature").last();
         if (signatureContainer.length > 0) {
@@ -294,8 +321,12 @@ window.wysiwygEditor = (function ($) {
     }
 
     function insertFileLinks(files) {
-        if (files.length === 0)
+        if (!files ||
+            !files.length ||
+            !editorInstance ||
+            !editorInstance.hasOwnProperty("document")) {
             return;
+        }
 
         var templates = $.tmpl("messageFileLink", files);
 

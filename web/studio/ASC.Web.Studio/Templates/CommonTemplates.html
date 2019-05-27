@@ -106,22 +106,30 @@
                     {{/if}}
                 </a>
             {{else}}
-                {{if type == "editedFile" || type == "viewedFile"}}
-                    <a href="${docEditUrl}" class="${exttype}" title="${title}" target="_blank">
+                {{if type=="media"}}
+                    <a href="${viewUrl}" class="mediafile ${exttype}" title="${title}">
                         <div class="attachmentsTitle">${title}</div>
                         {{if versionGroup > 1}}
                             <span class="version">${ASC.Resources.Master.UserControlsCommonResource.Version}${versionGroup}</span>
                         {{/if}}
                     </a>
                 {{else}}
-                    <a href="${viewUrl}" class="${exttype} noEdit" title="${title}" target="_blank">
-                        <div class="attachmentsTitle">${title}</div>
-                        {{if versionGroup > 1}}
-                            <span class="version">${ASC.Resources.Master.UserControlsCommonResource.Version}${versionGroup}</span>
-                        {{/if}}
-                    </a>
+                    {{if type == "editedFile" || type == "viewedFile"}}
+                        <a href="${docEditUrl}" class="${exttype}" title="${title}" target="_blank">
+                            <div class="attachmentsTitle">${title}</div>
+                            {{if versionGroup > 1}}
+                                <span class="version">${ASC.Resources.Master.UserControlsCommonResource.Version}${versionGroup}</span>
+                            {{/if}}
+                        </a>
+                    {{else}}
+                        <a href="${viewUrl}" class="${exttype} noEdit" title="${title}" target="_blank">
+                            <div class="attachmentsTitle">${title}</div>
+                            {{if versionGroup > 1}}
+                                <span class="version">${ASC.Resources.Master.UserControlsCommonResource.Version}${versionGroup}</span>
+                            {{/if}}
+                        </a>
+                    {{/if}}
                 {{/if}}
-            
             {{/if}}
         </td>
     
@@ -167,107 +175,127 @@
 
 <script id="template-mailCalendar" type="text/x-jquery-tmpl">
     <div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;">
-      <table cellspacing="0" cellpadding="0" style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;">
-        <tbody>
-          <tr border="0" cellspacing="0" cellpadding="0">
-            <td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;">
-              <div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;">
-                <a href="http://www.onlyoffice.com/"
-                style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;"
-                target="_blank">
-                  <img style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;"
-                  src="${ASC.Resources.Master.LogoDarkUrl}" />
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr border="0" cellspacing="0" cellpadding="0">
-            <td colspan="3" style="margin: 0; padding: 15px 30px 15px; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;">
-              <div style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; margin: 0; padding: 0; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;">
-                <div style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; padding: 5px 0 10px 0; width: 540px; overflow: hidden; word-wrap: break-word;">
-                    <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse; height: 132px; width:100%;">
-                      <tr>
-                        <td colspan="3" style="padding-bottom: 16px;">
-                            <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; padding-bottom: 8px;">${action}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 24px;">${summary}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td width="66" height="66" align="left" valign="top" style="width: 66px; height: 66px;">
-                            <img style="border: 0px none; width: 66px; height: 66px; margin: 0; padding: 0;" src="${StudioManager.GetImage('event_66.png')}" />
-                        </td>
-                        <td style="padding-left: 16px;">
-                            <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhenLabel}:</td>
-                                        <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
-                                            ${dateEvent}
-                                        </td>
-                                    </tr>
-                                    {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null }}
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarRecurrenceLabel}:</td>
-                                        <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
-                                            ${rruleText}
-                                        </td>
-                                    </tr>
-                                     {{/if}}
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhereLabel}:</td>
-                                        <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; " {{if typeof(location) != 'undefined' &&  location != ''&& location != null }}title="${location}"{{/if}}>
-                                            {{if typeof(location) != 'undefined' && location != '' && location != null }}
-                                                ${location}
-                                                {{if typeof(mapUrl) != 'undefined' && mapUrl != '' && mapUrl != null }}
-                                                    &nbsp;<a href="${mapUrl}" target="_blank" style="color: #333333;">(${ASC.Resources.Master.TemplateResource.MailIcsCalendarMapLabel})</a>
-                                                {{/if}}
-                                            {{else}}
-                                            ${ASC.Resources.Master.TemplateResource.MailIcsCalendarNoLocationLabel}
+        <table cellspacing="0" cellpadding="0" style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;">
+            <tbody>
+            <tr border="0" cellspacing="0" cellpadding="0">
+                <td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;">
+                    <div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;">
+                        <a href="http://www.onlyoffice.com/"
+                           style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;"
+                           target="_blank">
+                            <img style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;"
+                                 src="${ASC.Resources.Master.LogoDarkUrl}"/>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <tr border="0" cellspacing="0" cellpadding="0">
+                <td colspan="3" style="margin: 0; padding: 15px 30px 15px; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;">
+                    <div style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; margin: 0; padding: 0; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;">
+                        <div style="font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333; padding: 5px 0 10px 0; width: 540px; overflow: hidden; word-wrap: break-word;">
+                            <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse; height: 132px; width: 100%;">
+                                <tr>
+                                    <td colspan="3" style="padding-bottom: 16px;">
+                                        <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse;">
+                                            <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; padding-bottom: 8px;">${action}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 24px;">${summary}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="66" height="66" align="left" valign="top" style="width: 66px; height: 66px;">
+                                        <img style="border: 0px none; width: 66px; height: 66px; margin: 0; padding: 0;" src="${StudioManager.GetImage('event_66.png')}"/>
+                                    </td>
+                                    <td style="padding-left: 16px;">
+                                        <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse;">
+                                            <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhenLabel}:</td>
+                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
+                                                    ${dateEvent}
+                                                </td>
+                                            </tr>
+                                            {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null }}
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarRecurrenceLabel}:</td>
+                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
+                                                    ${rruleText}
+                                                </td>
+                                            </tr>
                                             {{/if}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhoLabel}:</td>
-                                        <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
-                                            {{if orgEmail !== '' }}
-                                                <a title="${orgEmail}" name="${orgName}" href="${mailToHref}" style="color: #333333;">
-                                                    {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null }}
-                                                        ${orgName}
-                                                    {{else}}
-                                                        ${orgEmail}
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhereLabel}:</td>
+                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" {{if typeof(location) !='undefined' && location !=''&& location !=null }}title="${location}"{{/if}}>
+                                                    {{if typeof(location) != 'undefined' && location != '' && location != null }}
+                                                    ${location}
+                                                    {{if typeof(mapUrl) != 'undefined' && mapUrl != '' && mapUrl != null }}
+                                                    &nbsp;<a href="${mapUrl}" target="_blank" style="color: #333333;">(${ASC.Resources.Master.TemplateResource.MailIcsCalendarMapLabel})</a>
                                                     {{/if}}
-                                                </a>
-                                            {{else}}
-                                                ${orgName}
-                                            {{/if}}&nbsp;(${ASC.Resources.Master.TemplateResource.MailIcsCalendarOrganizerLabel})
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                                    {{else}}
+                                                    ${ASC.Resources.Master.TemplateResource.MailIcsCalendarNoLocationLabel}
+                                                    {{/if}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhoLabel}:</td>
+                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
+                                                    {{if orgEmail !== '' }}
+                                                    <a title="${orgEmail}" name="${orgName}" href="${mailToHref}" style="color: #333333;">
+                                                        {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null }}
+                                                        ${orgName}
+                                                        {{else}}
+                                                        ${orgEmail}
+                                                        {{/if}}
+                                                    </a>
+                                                    {{else}}
+                                                    ${orgName}
+                                                    {{/if}}&nbsp;(${ASC.Resources.Master.TemplateResource.MailIcsCalendarOrganizerLabel})
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
                             </table>
-                        </td>
-                      </tr>
-                    </table>
-                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr border="0" cellspacing="0" cellpadding="0">
-            <td colspan="5" style="width: 600px; vertical-align: top; margin: 0; padding: 20px 30px 15px;">
-              <p style="color: #7b7b7b; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; margin: 0; padding: 0; text-align: center; width: 540px;">
-                  ${ASC.Resources.Master.TemplateResource.MailAutoGeneratedText}
-              <br />
-              ${ASC.Resources.Master.TemplateResource.AllRightsReservedText}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr border="0" cellspacing="0" cellpadding="0">
+                <td colspan="5" style="width: 600px; vertical-align: top; margin: 0; padding: 20px 30px 15px;">
+                    <p style="color: #7b7b7b; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; margin: 0; padding: 0; text-align: center; width: 540px;">
+                        ${ASC.Resources.Master.TemplateResource.MailAutoGeneratedText}
+                        <br/>
+                        ${ASC.Resources.Master.TemplateResource.AllRightsReservedText}
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</script>
+
+<script id="consumerSettingsTmpl" type="text/x-jquery-tmpl">
+    <select class="textEdit">
+        {{each storages}}
+        <option value="${id}">${title}</option>
+        {{/each}}
+    </select>
+    {{each storages}}
+    <div data-id="${id}" class="display-none">
+        {{each properties}}
+        {{if !isSet}}
+        <input class='textBox disabled' placeholder='${title}' data-id='${name}' type='text' disabled>
+        {{else}}
+        <input class='textBox' placeholder='${title}' data-id='${name}' type='text'>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{/each}}
 </script>

@@ -44,6 +44,47 @@
         return a;
     };
 
+    Array.prototype.chunkArray = function (chunkSize) {
+        var res = [];
+
+        for (var index = 0; index < this.length; index += chunkSize) {
+            var chunk = this.slice(index, index + chunkSize);
+            res.push(chunk);
+        }
+
+        return res;
+    };
+
+    function mapItems(item) {
+        var id = item.getAttribute("data-id");
+        return {
+            item: jq(item),
+            id: id
+        };
+    }
+
+    function getList(filter, $selector) {
+        $selector = $selector || this.$itemsListSelector;
+
+        return Array.from($selector.find("li" + (filter || ""))).map(mapItems);
+    }
+
+    function actionWithListItem(itemsIds, action, filter) {
+        var lis = Array.from(this.$itemsListSelector.find("li" + (filter || "")));
+        var newList = {};
+
+        for (var j = 0; j < lis.length; j++) {
+            var newObj = mapItems(lis[j]);
+            newList[newObj.id] = newObj;
+        }
+
+        for (var j = 0, len = itemsIds.length; j < len; j++) {
+            var $item = newList[itemsIds[j]];
+            if ($item && $item.item.length) {
+                action($item.item);
+            }
+        }
+    }
 
     function setEvents() {
         var that = this,
@@ -57,26 +98,26 @@
                     if (that.options.groupsChoose.length) {
                         that.rewriteObjectGroup.call(that, that.options.groupsChoose);
                     } else if ("initAdvSelectorGroupsData" in that) {
-                        that.initAdvSelectorGroupsData.call(that)
+                        that.initAdvSelectorGroupsData.call(that);
                     }
                 }
             }
         }
-        $elem.on('click', $.proxy(showSelectorContainer, that));
+        $elem.on('click', showSelectorContainer.bind(that));
         if (opts.canadd) {
-            that.$advancedSelector.find(".advanced-selector-add-new-link").on('click', $.proxy(showAddItemBlock, that));
+            that.$advancedSelector.find(".advanced-selector-add-new-link").on('click', showAddItemBlock.bind(that));
         }
-        $(document.body).on('keyup', $.proxy(listItemsNavigation, that));
-        that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select input").on('click', $.proxy(selectedAll, that));
-        that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select").on('click', $.proxy(showAllGroups, that));
+        $(document.body).on('keyup', listItemsNavigation.bind(that));
+        that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select div").on('click', selectedAll.bind(that));
+        that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select").on('click', showAllGroups.bind(that));
 
-        that.$advancedSelector.find(".advanced-selector-search-field").on('keyup', $.proxy(onSearchInputKeyup, that));
-        that.$advancedSelector.find(".advanced-selector-search-btn").on('click', $.proxy(that.options.isTempLoad? that.onSearchItemsTempLoad : that.onSearchItems, that));
-        that.$advancedSelector.find(".advanced-selector-reset-btn").on('click', $.proxy(onSearchReset, that));
+        that.$advancedSelector.find(".advanced-selector-search-field").on('keyup', onSearchInputKeyup.bind(that));
+        that.$advancedSelector.find(".advanced-selector-search-btn").on('click', that.options.isTempLoad? that.onSearchItemsTempLoad.bind(that) : that.onSearchItems.bind(that));
+        that.$advancedSelector.find(".advanced-selector-reset-btn").on('click', onSearchReset.bind(that));
 
-        that.$advancedSelector.on("click", opts.onechosen ? ".advanced-selector-list-items li" : ".advanced-selector-btn-action", $.proxy(onClickSaveSelectedItems, that));
-        that.$advancedSelector.on("click", ".advanced-selector-list-block .advanced-selector-btn-cancel", $.proxy(onClickCancelSelector, that));
-        $(document.body).on('click', $.proxy(onBodyClick, that));
+        that.$advancedSelector.on("click", opts.onechosen ? ".advanced-selector-list-items li" : ".advanced-selector-btn-action", onClickSaveSelectedItems.bind(that));
+        that.$advancedSelector.on("click", ".advanced-selector-list-block .advanced-selector-btn-cancel", onClickCancelSelector.bind(that));
+        $(document.body).on('click', onBodyClick.bind(that));
 
 
         jq(window).bind("resizeWinTimerWithMaxDelay", function (event) {
@@ -191,6 +232,8 @@
             $reset.hide();
             if (that.options.isTempLoad) {
                 that.initAdvSelectorDataTempLoad.call(that);
+            } else {
+                $search.trigger("click");
             }
             if (!that.options.showGroups) allSelect.show();
         }
@@ -227,6 +270,8 @@
 
         if (that.options.isTempLoad) {
             that.initAdvSelectorDataTempLoad.call(that);
+        } else {
+            that.options.isTempLoad ? that.onSearchItemsTempLoad.call(that) : that.onSearchItems.call(that);
         }
     }
 
@@ -255,7 +300,7 @@
                 if (that.options.groupsChoose.length) {
                     that.rewriteObjectGroup.call(that, that.options.groupsChoose);
                 } else if ("initAdvSelectorGroupsData" in that) {
-                    that.initAdvSelectorGroupsData.call(that)
+                    that.initAdvSelectorGroupsData.call(that);
                 }
             }
         }
@@ -274,14 +319,14 @@
             elemPosLeft = elemPos.left,
             elemPosTop = elemPos.top + $elem.outerHeight() + 4, // 4 - the top padding
             $w = $(window),
-            windowWidth = $(window).width(),
+            windowWidth = $w.width(),
             scrHeight = $w.height(),
             topPadding = $w.scrollTop(),
             leftPadding = $w.scrollLeft(),
             $addPanel = that.$advancedSelector.find(".advanced-selector-add-new-block");
 
         var selectorOuterWidth = that.$advancedSelector.widthCounted + parseInt(that.$advancedSelector.css("border-left-width"), 10) + parseInt(that.$advancedSelector.css("border-right-width"), 10);
-        var selectorOuterHeight = that.$advancedSelector.outerHeight();//TODO: optimize
+        var selectorOuterHeight = that.$advancedSelector.heightCounted + parseInt(that.$advancedSelector.css("border-top-width"), 10) + parseInt(that.$advancedSelector.css("border-bottom-width"), 10);
 
         if (($elem.offset().left + selectorOuterWidth - ($addPanel.length && !$addPanel.hasClass("right-position") ? $addPanel.outerWidth() : 0)) > (leftPadding + windowWidth)) {
             elemPosLeft = Math.max(0, elemPosLeft + that.$element.outerWidth() - selectorOuterWidth);
@@ -291,7 +336,7 @@
             elemPosLeft -= that.widthAddBlock;
         }
 
-        if (elemPosTop + selectorOuterHeight > scrHeight + topPadding) {
+        if (!jq.browser.mobile && elemPosTop + selectorOuterHeight > scrHeight + topPadding) {
             elemPosTop = elemPos.top - selectorOuterHeight;
         }
 
@@ -326,77 +371,69 @@
         var that = this;
 
         that.$advancedSelector.find(".advanced-selector-list-items li").removeClass("selected selected-before");
-        that.$advancedSelector.find(".advanced-selector-list li input, .advanced-selector-all-select input").prop("checked", false).prop("indeterminate", false);
+        that.$advancedSelector.find(".advanced-selector-all-select div").removeClass("checked").removeClass("indeterminate");
+
+        var lis = getList.call(that);
+
+        for (var i = 0, ln = lis.length; i < ln; i++) {
+            lis[i].item[0].getElementsByTagName("div")[0].classList.remove("checked");
+        }
 
         if (that.options.showGroups) {
             that.$advancedSelector.find(".advanced-selector-list-groups li").removeClass("selected");
+            that.$advancedSelector.find(".advanced-selector-list-groups div").removeClass("checked").removeClass("indeterminate");
         }
-        
+        that.itemsSelectedIds = that.options.itemsSelectedIds;
         onSearchReset.call(that);
-        onCheckItemsById.call(that, that.options.itemsSelectedIds);
+        onCheckItemsById.call(that,  Object.keys(that.options.itemsSelectedIds));
     }
 
 
     function checkAlreadySelectedItemsIds(selectedItemsIds) {
         var that = this;
-        for (var i = 0, len = selectedItemsIds.length; i < len; i++) {
-            var checkedItem = that.$itemsListSelector.find("ul li[data-id=" + selectedItemsIds[i] + "]").filter(":not(.disabled)");
-            if ($(checkedItem).length) {
-                checkedItem.addClass("selected-before");
-            }
-        }
+
+        actionWithListItem.call(that, selectedItemsIds, function(item) { item.addClass("selected-before"); },  ":not(.disabled)");
+
         onCheckItemsById.call(that, selectedItemsIds);
     }
 
     function pushItemsForGroup() {
-        var that = this,
-            itemGroups = [];
-        for (var i = 0, n = that.items.length; i < n; i++) {
-            itemGroups = that.items[i].groups || [];
-            for (var k = 0, l = itemGroups.length; k < l; k++) {
-                for (var j = 0, m = that.groups.length; j < m; j++) {
-                    if (itemGroups[k].id == that.groups[j].id) {
-                        that.groups[j].items.push(that.items[i].id);
-                    }
+        var that = this;
+        var itemIds = {};
+        for (var i = 0, j = that.items.length; i < j; i++) {
+            itemIds[that.items[i].id] = undefined;
+        }
+
+        for (var i = 0, n = that.groups.length; i < n; i++) {
+            var groupItems = window.GroupManager.getGroupItems(that.groups[i].id);
+            that.groups[i].items = [];
+
+            for (var k = 0, j = groupItems.length; k < j; k++) {
+                var gi = groupItems[k];
+                if (itemIds.hasOwnProperty(gi)) {
+                    that.groups[i].items.push(gi);
                 }
             }
         }
     }
 
     function getItemsForGroup(groupId) {
-        var that = this,
-            itemIDs = [];
+        var that = this;
         for (var i = 0, n = that.groups.length; i < n; i++) {
             if (groupId == that.groups[i].id) {
-                itemIDs = that.groups[i].items;
-                break;
+                return that.groups[i].items;
             }
         }
-        return itemIDs;
-    }
-
-    function getGroupsForItem(itemId) {
-        var that = this,
-            groupList = [],
-            groupIDs = [];
-        for (var i = 0, n = that.items.length; i < n; i++) {
-            if (itemId == that.items[i].id) {
-                groupList = (that.items[i].hasOwnProperty("groups")) ? that.items[i].groups : [];
-                for (var j = 0, m = groupList.length; j < m; j++) {
-                    groupIDs.push(groupList[j].id);
-                }
-            }
-        }
-        return groupIDs;
+        return [];
     }
 
     function getItemById(id, itemList) {
         for (var i = 0, len = itemList.length; i < len; i++) {
             if (id == itemList[i].id) {
                 return itemList[i];
-                break;
             }
         }
+        return null;
     }
 
     function onMatchGroupInAddItemBlock(tagGroup) {
@@ -446,8 +483,8 @@
     function setEventsAddItemBlock() {
         var that = this,
             addItemBlock = that.$advancedSelector.find(".advanced-selector-add-new-block");
-        addItemBlock.find(".advanced-selector-btn-cancel").on('click', $.proxy(hideAddItemBlock, that));
-        addItemBlock.find(".advanced-selector-btn-add").on('click', $.proxy(createNewItem, that));
+        addItemBlock.find(".advanced-selector-btn-cancel").on('click', hideAddItemBlock.bind(that));
+        addItemBlock.find(".advanced-selector-btn-add").on('click', createNewItem.bind(that));
 
         $(document).keyup(function (event) {
             if (!addItemBlock.is(":visible"))
@@ -487,7 +524,7 @@
         // TODO select by ID and third status for group
         if (groupId) {
             var $chosenGroup = this.$groupsListSelector.find(".advanced-selector-list li[data-id=" + groupId + "]");
-            $chosenGroup.find("input").prop("indeterminate", true).prop("checked", false);
+            $chosenGroup.find("div").addClass("indeterminate").removeClass("checked");
             if ($chosenGroup.length && !$chosenGroup.hasClass("chosen")) {
                 $chosenGroup.find("label").trigger("click");
             }
@@ -497,53 +534,80 @@
     function selectedAll(event) {
         var that = this,
             $this = $(event.target).closest(".advanced-selector-all-select"),
-            allCheckBox = $this.find("input[type=checkbox]"),
-            $itemList = $this.siblings("[class^=advanced-selector-list]").find("li:not(.disabled) input[type=checkbox]"),
-            flag = !allCheckBox.is(":checked"),
-            itemsList;
+            allCheckBox = $this.find("div"),
+            flag = allCheckBox.hasClass("checked");
 
-            if (that.options.onechosen) {
-                $this.trigger("click");
-                return;
-            }
-            if (!$(event.target).is("input")) {
-                flag = allCheckBox.is(":checked");
-            }
-            allCheckBox.prop("checked", !flag).prop("indeterminate", false);
-            $itemList.prop("checked", !flag).prop("indeterminate", false);
+        if (that.options.onechosen) {
+            $this.trigger("click");
+            return;
+        }
 
+        if (!$(event.target).is("div")) {
+            flag = allCheckBox.hasClass("checked");
+        }
+
+        allCheckBox.removeClass("indeterminate");
+        that.itemsSelectedIds = {};
+
+        var items = that.items;
+
+        for (var i = 0, j = items.length; i < j; i++) {
+            var id = items[i].id;
+            if (that.options.itemsDisabledIds.find(function (item) { return item === id })) continue;
             if (!flag) {
-                $itemList.closest("li").addClass("selected").removeClass("chosen");
+                that.itemsSelectedIds[id] = undefined;
             } else {
-                $itemList.closest("li").removeClass("selected");
+                delete that.itemsSelectedIds[id];
             }
-            $this.toggleClass("chosen", !flag);
+        }
 
-            itemsList = that.$itemsListSelector.find("li:not(.disabled)");
-            that.$advancedSelector.find(".advanced-selector-no-items").hide();
-            itemsList.show();
-            if (that.options.showGroups && that.$groupsListSelector.length) {
-                !flag ? itemsList.addClass("selected") : itemsList.removeClass("selected");
-                itemsList.find("input[type=checkbox]").prop('checked', !flag);
+        fullRedraw.call(that, items);
+
+        var lis = getList.call(that, null, that.$groupsListSelector);
+
+        for (var i = 0, j = lis.length; i < j; i++) {
+            var lisI = lis[i].item[0];
+            var lisIdiv = lisI.getElementsByTagName("div")[0];
+            lisIdiv.classList.remove("indeterminate");
+            if (flag) {
+                lisI.classList.remove("selected");
+                lisIdiv.classList.remove("checked");
+            } else {
+                lisI.classList.remove("chosen");
+                lisI.classList.add("selected");
+                lisI.getElementsByTagName("div")[0].classList.add("checked");
             }
-            onSearchReset.call(that);
-            that.selectedItems = flag ? [] : itemsList.filter(".selected");
-            countSelectedItems.call(that,itemsList);
+        }
+
+        if (!flag) {
+            allCheckBox.addClass("checked");
+        } else {
+            allCheckBox.removeClass("checked");
+        }
+
+        $this.toggleClass("chosen", !flag);
+
+        that.$advancedSelector.find(".advanced-selector-no-items").hide();
+        onSearchReset.call(that);
+        countSelectedItems.call(that, that.$itemsListSelector.find("li:not(.disabled)"));
+        event.stopPropagation();
     }
 
     function showAllGroups(event) {
         var that = this,
             $this = $(event.target).closest(".advanced-selector-all-select"),
-            itemList = that.$itemsListSelector.find("li:not(.disabled)");
+            $checkBox = $(event.target).closest("div");
 
-        if (!that.options.showGroups) {
+        if (!that.options.showGroups && !event.target.isEqualNode($checkBox[0])) {
             selectedAll.call(that, event);
             return;
         }
 
         if (!$this.hasClass("chosen")) {
             that.$advancedSelector.find(".advanced-selector-no-items").hide();
-            itemList.show();
+
+            fullRedraw.call(that, that.items);
+
             if (that.$groupsListSelector) {
                 that.$groupsListSelector.find("li").removeClass("chosen");
             }
@@ -553,12 +617,9 @@
     }
 
     function countSelectedItems($itemList) {
-        $itemList = $itemList.filter(":not(.disabled)");
-        var selectedCount = $itemList.find("input[type=checkbox]:checked").length,
+        var selectedCount = Object.keys(this.itemsSelectedIds).length,
             $countBox = $itemList.parents(".advanced-selector-block").find(".advanced-selector-selected-count");
-        if (this.options.isTempLoad) {
-            selectedCount = this.selectedItems.length;
-        }
+
         if (selectedCount > 0) {
             $countBox.text(selectedCount + " " + ASC.Resources.Master.Resource.SelectorSelectedItems).show();
         } else {
@@ -567,6 +628,8 @@
     }
 
     function arrayContainsAnotherArray(needle, haystack) {
+        if (needle.length > haystack.length) return false;
+
         for (var i = 0; i < needle.length; i++) {
             if (haystack.indexOf(needle[i]) === -1)
                 return false;
@@ -574,56 +637,100 @@
         return true;
     }
 
-    function onCheckItem(event) {
+    function onCheckItem(event, groupClicked) {
         var that = this,
-            $this = $(event.target).closest("li"),
-            $checkBox = $this.find("input[type=checkbox]"),
-            flag = $checkBox.is(":checked") ? true : false;
+            $target,
+            $this,
+            $checkBox,
+            flag,
+            id;
+
+        if (groupClicked) {
+            $target = event.item;
+            $this = $target;
+            $checkBox = $target[0].getElementsByTagName("div");
+            id = event.id;
+        } else {
+            $target = $(event.target);
+            $this = $(event.target).closest("li");
+            $checkBox = $this[0].getElementsByTagName("div");
+            id = $this[0].getAttribute("data-id");
+        }
+
+        flag = $checkBox[0] && $checkBox[0].classList.contains("checked");
 
         if ($this.hasClass("disabled")) { return; }
 
         if (that.options.onechosen) {
             that.$itemsListSelector.find("li.selected").removeClass("selected");
             $this.addClass("selected");
-            that.selectedItems = [];
-            that.selectedItems.push($this[0]);
+            that.itemsSelectedIds = {};
+            that.itemsSelectedIds[id] = undefined;
         } else {
-            if ($(event.target).is($this.find("input"))) {
-                flag = $checkBox.is(":checked") ? false : true;
-            }
-            $checkBox.prop("checked", !flag);
             if (flag) {
-                that.selectedItems.splice($.inArray($this[0], that.selectedItems), 1);
-                $this.removeClass("selected");
+                $checkBox[0].classList.remove("checked");
+                delete that.itemsSelectedIds[id];
+                $this[0].classList.remove("selected");
             }
             else {
-                $this.addClass("selected");
-                that.selectedItems.push($this[0]);
+                $checkBox[0].classList.add("checked");
+                $this[0].classList.add("selected");
+                that.itemsSelectedIds[id] = undefined;
             }
+            if (!groupClicked) {
+                onCheckSelectedAll.call(that, that.$itemsListSelector);
+                countSelectedItems.call(that, that.$itemsListSelector);
+            }
+        }
 
+        if (!flag) {
+            that.itemsSelectedIds[id] = undefined;
+        } else {
+            delete that.itemsSelectedIds[id];
+        }
+        if (!groupClicked) {
+            if (that.$groupsListSelector && that.$groupsListSelector.length) {
+                onSelectGroupsByItem.call(that, [id], !flag);
+            }
+        }
+        return id;
+    }
+
+    function onCheckItems(items) {
+        var ids = [];
+        for (var i = 0, j = items.length; i < j; i++) {
+            ids.push(onCheckItem.call(this, items[i], true));
+        }
+
+        var that = this;
+
+        if (!that.options.onechosen) {
             onCheckSelectedAll.call(that, that.$itemsListSelector);
             countSelectedItems.call(that, that.$itemsListSelector);
         }
+
         if (that.$groupsListSelector && that.$groupsListSelector.length) {
-            onSelectGroupsByItem.call(that, [$this.attr("data-id")], !flag);
+            onSelectGroupsByItem.call(that, ids, true);
         }
     }
 
     function onCheckItemsById(itemsIds) {
         var that = this,
-            $itemsList = that.$itemsListSelector.find("li:not(.disabled)"),
             checkedItems = [],
             checkedGroups = [],
             checkedItemsIds = [];
 
-        for (var i = 0, ln = itemsIds.length; i < ln; i++) {
-            var checkedItem = $itemsList.filter("[data-id =" + itemsIds[i] + "]");
-            if ($(checkedItem).length && !checkedItem.find("input").is(":checked")) {
-                checkedItem.addClass("selected");
-                checkedItem.find("input").prop("checked", true);
-                that.selectedItems.push(checkedItem);
-            }
-        }
+        actionWithListItem.call(that,
+            itemsIds,
+            function (item) {
+                item[0].classList.add("selected");
+                var div = item[0].getElementsByTagName("div")[0];
+                if (div && !div.classList.contains("checked")) {
+                    div.classList.add("checked");
+                    //that.itemsSelectedIds[id] = undefined;
+                }
+            },
+            ":not(.disabled)");
 
         if (that.$groupsListSelector && that.$groupsListSelector.length) {
             checkedItems = $.grep(that.items, function (el) {
@@ -642,12 +749,24 @@
                 var checkedGroup = that.$groupsListSelector.find("li[data-id=" + checkedGroups[j].id + "]"),
                     itemsForCheckedGroup = getItemsForGroup.call(that, checkedGroups[j].id);
 
-                itemsForCheckedGroup = $.grep(itemsForCheckedGroup, function (elem) {
-                    return $.inArray(elem, that.options.itemsDisabledIds) == -1;
-                })
+                itemsForCheckedGroup = $.grep(itemsForCheckedGroup,
+                    function(elem) {
+                        return $.inArray(elem, that.options.itemsDisabledIds) == -1;
+                    });
+
                 if ($(checkedGroup).length) {
                     var isCheck = arrayContainsAnotherArray(itemsForCheckedGroup, checkedItemsIds) ? true : false;
-                    checkedGroup.find("input").prop("indeterminate", !isCheck).prop("checked", isCheck);
+
+                    var div = checkedGroup.find("div")[0];
+                    if (div) {
+                        if (isCheck) {
+                            div.classList.add("checked");
+                            div.classList.remove("indeterminate");
+                        } else {
+                            div.classList.add("indeterminate");
+                            div.classList.remove("checked");
+                        }
+                    }
                 }
             }
         }
@@ -656,71 +775,111 @@
         countSelectedItems.call(that, that.$itemsListSelector);
     }
 
-    function onCheckSelectedAll(itemList) {
-        var selectedCount = itemList.find("li:not(.disabled) input[type=checkbox]:checked").length,
+    function onCheckSelectedAll() {
+        var selectedCount = Object.keys(this.itemsSelectedIds).length,
                 allSelect = this.$advancedSelector.find(".advanced-selector-all-select"),
                 isAllCheck,
                 isAllDeterm;
 
-            if (selectedCount == 0) {
-                isAllCheck = false;
+        if (selectedCount === 0) {
+            isAllCheck = false;
+            isAllDeterm = false;
+        } else {
+            isAllDeterm = true;
+            if (selectedCount === (this.items.length - this.options.itemsDisabledIds.length)) {
+                isAllCheck = true;
                 isAllDeterm = false;
-            } else {
-                isAllDeterm = true;
-                if (selectedCount == itemList.find("li:not(.disabled)").length) {
-                    isAllCheck = true;
-                    isAllDeterm = false;
-                }
             }
+        }
 
-            allSelect.find("input").prop("checked", isAllCheck).prop("indeterminate", isAllDeterm);
+        if (isAllCheck) {
+            allSelect.find("div").addClass("checked");
+        } else {
+            allSelect.find("div").removeClass("checked");
+        }
+
+        if (isAllDeterm) {
+            allSelect.find("div").addClass("indeterminate");
+        } else {
+            allSelect.find("div").removeClass("indeterminate");
+        }
+
+        if (!isAllCheck && !isAllDeterm) {
+            allSelect.removeClass("chosen");
+        }
     }
 
     // select groups in which there are the selected item
 
     function onSelectGroupsByItem(itemIds, check) {
         var that = this,
-            itemSelectedGroups = [],
-            itemsSelected = that.$itemsListSelector.find("li.selected"),
-            itemsSelectedIds = [],
+            itemSelectedGroups = {},
             groupSelectedItems,
             groupCurrent;
 
         for (var k = 0, ln = itemIds.length; k < ln; k++) {
-            itemSelectedGroups = itemSelectedGroups.concat(getGroupsForItem.call(that, itemIds[k])).unique();
+            var user = UserManager.getUser(itemIds[k]);
+            if (!user || !user.groups) continue;
+
+            for (var l = 0; l < user.groups.length; l++) {
+                itemSelectedGroups[user.groups[l]] = undefined;
+            }
         }
 
-        for (var j = 0, n = itemsSelected.length; j < n; j++) {
-            itemsSelectedIds.push($(itemsSelected[j]).attr("data-id"));
+        function findGroupById(itemSelectedGroup) {
+            return function(item) { return item.id === itemSelectedGroup };
         }
-        for (var i = 0, length = itemSelectedGroups.length; i < length; i++) {
-            groupCurrent = that.$groupsListSelector.find("li[data-id=" + itemSelectedGroups[i] + "]").find("input[type=checkbox]");
-            groupSelectedItems = getItemsForGroup.call(that, itemSelectedGroups[i]);
+
+        var groups = Array.from(that.$groupsListSelector.find("li")).map(mapItems);
+
+        for (var itemSelectedGroup in itemSelectedGroups) {
+            if (!itemSelectedGroups.hasOwnProperty(itemSelectedGroup)) continue;
+
+            groupCurrent = groups.find(findGroupById(itemSelectedGroup));
+            
+            if(!groupCurrent) continue;
+
+            groupCurrent = groupCurrent.item.find("div");
+
+            groupSelectedItems = getItemsForGroup.call(that, itemSelectedGroup);
             groupSelectedItems = $.grep(groupSelectedItems, function (el) {
                 return $.inArray(el, that.options.itemsDisabledIds) == -1;
             });
 
             if (check) {
-                if (arrayContainsAnotherArray(groupSelectedItems, itemsSelectedIds)) {
-                    groupCurrent.prop("indeterminate", false).prop("checked", true);
+                if (selectedAllForGroup.call(that, groupSelectedItems)) {
+                    groupCurrent.removeClass("indeterminate").addClass("checked");
                     groupCurrent.closest("li").not(".selected").addClass("selected");
                 } else {
-                    groupCurrent.prop("indeterminate", true);
+                    groupCurrent.addClass("indeterminate");
                 }
             } else {
-                if (!arrayContainsAnotherArray(groupSelectedItems, itemsSelectedIds)) {
-                    var isContainInGroup = itemsSelectedIds.some(
+                if (!selectedAllForGroup.call(that, groupSelectedItems)) {
+                    var isContainInGroup = Object.keys(that.itemsSelectedIds).some(
                         function(elem){
                             return $.inArray(elem, groupSelectedItems) !== -1;
                     });
-                    groupCurrent.prop("checked", false).prop("indeterminate", false);
+                    groupCurrent.removeClass("checked").removeClass("indeterminate");
                     groupCurrent.closest("li").removeClass("selected");
                     if (isContainInGroup) {
-                        groupCurrent.prop("indeterminate", true);
+                        groupCurrent.addClass("indeterminate");
                     }
                 }
             }
         }
+    }
+
+    function selectedAllForGroup(arrayToSearch) {
+        if (!arrayToSearch.length) return false;
+        for (var i = 0, j = arrayToSearch.length; i < j; i++) {
+            var arrayToSearchI = arrayToSearch[i];
+            if (this.options.itemsDisabledIds.hasOwnProperty(arrayToSearchI)) continue;
+
+            if (!this.itemsSelectedIds.hasOwnProperty(arrayToSearchI)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //select all items from group
@@ -729,12 +888,10 @@
         var that = this,
             $this = $(event.target),
             $curGroup = $this.closest("li"),
-            flag = $this.is(":checked") ? false : true,
-            groupSelectedItems = [],
-            groupsSelected,
-            itemGroup,
-            itemSelectedGroups = [],
-            isSelect;
+            flag = $this[0].classList.contains("checked"),
+            groupSelectedItems = [];
+
+        onChooseGroup.call(this, event);
 
         if (that.options.onechosen) {
             $curGroup.trigger("click");
@@ -748,23 +905,49 @@
         } else {
             $curGroup.removeClass("selected");
         }
-        
-        $this.prop("indeterminate", false).prop("checked", !flag);
-        groupsSelected = that.$groupsListSelector.find("li.selected");
-        that.$itemsListSelector.find("li").hide();
 
-        groupSelectedItems = getItemsForGroup.call(that, $curGroup.attr("data-id"));
-        for (var i = 0, ln = groupSelectedItems.length; i < ln; i++){
-            var el = groupSelectedItems[i],
-                itEl = that.$itemsListSelector.find("li[data-id=" + el + "]").filter(":not(.disabled)");
-            flag ? itEl.removeClass("selected") : itEl.addClass("selected");
-            flag ? that.selectedItems.splice(that.selectedItems.indexOf(itEl)) : that.selectedItems.push(itEl);
-            itEl.find("input").prop("checked", !flag);
-            itEl.show();
+        $this.removeClass("indeterminate");
+
+        if (flag) {
+            $this.removeClass("checked");
+        } else {
+            $this.addClass("checked");
+        }
+
+        var currgroupId = $curGroup.attr("data-id");
+        groupSelectedItems = getItemsForGroup.call(that, currgroupId);
+
+        function findGroup(item) {
+            return item === currgroupId;
+        }
+
+        var lis = getList.call(that, ":not(.disabled)");
+
+        for (var i = 0, ln = lis.length; i < ln; i++) {
+            var lisI = lis[i];
+            var user = UserManager.getUser(lisI.id);
+            if (!user || !user.groups || !user.groups.some(findGroup)) continue;
+            if (that.options.itemsDisabledIds.hasOwnProperty(lisI.id)) continue;
+
+            var itEl = lisI.item;
+            if (flag) {
+                delete that.itemsSelectedIds[lisI.id];
+            } else {
+                that.itemsSelectedIds[lisI.id] = undefined;
+            }
+
+            flag ? itEl[0].classList.remove("selected") : itEl[0].classList.add("selected");
+            if (flag) {
+                itEl[0].getElementsByTagName("div")[0].classList.remove("checked");
+            } else {
+                itEl[0].getElementsByTagName("div")[0].classList.add("checked");
+            }
         };
+
         onSelectGroupsByItem.call(that, groupSelectedItems, !flag, that.$advancedSelector);
         onCheckSelectedAll.call(that, that.$itemsListSelector);
         countSelectedItems.call(that, that.$itemsListSelector);
+        event.stopPropagation();
     }
 
 
@@ -773,83 +956,69 @@
     function onChooseGroup(event) {
         var that = this,
             $groupChosen = $(event.target).closest("li"),
-            $this = $groupChosen.find("label"),
             groupId = $groupChosen.attr("data-id"),
             groupsList = that.$groupsListSelector.find("li"),
-            itemsList = that.$itemsListSelector.find("li:not(.disabled)"),
             allGroups = that.$groupsListSelector.siblings(".advanced-selector-all-select"),
             noItems = that.$advancedSelector.find(".advanced-selector-no-items"),
-            noResults = that.$advancedSelector.find(".advanced-selector-no-results"),
-            itemsGroupList,
-            $item;
+            noResults = that.$advancedSelector.find(".advanced-selector-no-results");
 
         allGroups.removeClass("chosen");
         groupsList.removeClass("chosen");
         $groupChosen.addClass("chosen");
-        itemsGroupList = findItemsByGroup(that.items, groupId);
-        itemsList.hide();
+
         noItems.hide();
         noResults.hide();
 
-        if (itemsGroupList.length == 0) {
-            noItems.show();
+        function findGroup(item) {
+            return item === groupId;
         }
 
-        for (var j = 0, m = itemsGroupList.length; j < m; j++) {
-            that.$itemsListSelector.find("li[data-id='" + itemsGroupList[j] + "']").show();
-        }
+        var items = that.items.filter(function (item) {
+            var user = UserManager.getUser(item.id);
+            return user && user.groups && user.groups.some(findGroup);
+        });
 
-        if (that.$itemsListSelector.is(":visible") && !itemsList.filter(":visible").length) {
+        fullRedraw.call(that, items);
+
+        if (items.length === 0) {
             noItems.show();
         }
 
         onMatchGroupInAddItemBlock.call(that, that.nameSimpleSelectorGroup);
     }
 
-    function findItemsByGroup(Items, groupId) {
-        var itemsGroup = [],
-            itemGroups,
-            itemId;
-        for (var i = 0, length = Items.length; i < length; i++) {
-            itemGroups = Items[i].groups;
-            itemId = Items[i].id;
-            if (itemGroups && itemGroups.length) {
-                for (var j = 0, m = itemGroups.length; j < m; j++) {
-                    if (!(itemId in itemsGroup) && itemGroups[j].id == groupId) {
-                        itemsGroup.push(itemId);
-                    }
-                }
-            }
-        }
-        return itemsGroup; // list of Item IDs
-    }
-
     function onClickSaveSelectedItems(event) {
         var that = this,
             $this = $(event.target),
-            selectedItemsList = that.options.isTempLoad? that.selectedItems : that.$itemsListSelector.find("li.selected"),
+            selectedItemsList = that.itemsSelectedIds,
             selectedItems = [],
             result;
-        for (var i = 0, len = selectedItemsList.length; i < len; i++) {
-            selectedItems.push(getItemById($(selectedItemsList[i]).attr("data-id"), that.items));
+
+        that.options.itemsSelectedIds = Object.extend({}, that.itemsSelectedIds);
+        for (var sil in selectedItemsList) {
+            if (selectedItemsList.hasOwnProperty(sil)) {
+                selectedItems.push(getItemById(sil, that.items));
+            }
         }
 
-        
         if (that.options.onechosen && $this.hasClass("selected-before")) {
             $this.removeClass("selected-before");
             hideSelectorContainer.call(that);
             return;
         }
+        that.selectedItems = selectedItems;
         hideSelectorContainer.call(that);
         result = that.options.onechosen ? selectedItems : [selectedItems];
         that.$element.trigger("showList", result);
+        delete that.selectedItems;
     }
 
     function initGroupEvents() {
         var that = this;
         that.$groupsListSelector
-            .on('click', 'ul li input', $.proxy(onCheckGroup, that))
-            .on('click', 'ul li', $.proxy(onChooseGroup, that));
+            .off('click')
+            .on('click', 'ul li div', onCheckGroup.bind(that))
+            .on('click', 'ul li', onChooseGroup.bind(that));
     }
 
     // Methods for group selector 
@@ -868,10 +1037,10 @@
                 $listValue.show();
             }
         });
-        $selector.find("li").on("click", $.proxy(onSelectSimpleSelector, that));
+        $selector.find("li").on("click", onSelectSimpleSelector.bind(that));
         that.$advancedSelector.on('click', onClickContainerSimpleSelector);
         $reset.on("click", onResetSimpleSelector);
-        $(document.body).on('keyup', $.proxy(listSimpleItemsNavigation, that));
+        $(document.body).on('keyup', listSimpleItemsNavigation.bind(that));
 
         function onClickContainerSimpleSelector(evt) {
             var $target = evt && typeof evt === 'object' ? jQuery(evt.target) : null;
@@ -946,10 +1115,124 @@
         }
     };
 
+    var redraw = function (itemsDisplay) {
+        var that = this;
+
+        if (that.options.showme) {
+            var user = {};
+
+            for (var i = 0, length = itemsDisplay.length; i < length; i++) {
+                if (itemsDisplay[i].id == Teamlab.profile.id) {
+                    user = itemsDisplay[i];
+                    user.title = ASC.Resources.Master.Resource.MeLabel;
+                    itemsDisplay.splice(i, 1);
+                    itemsDisplay.unshift(user);
+                    break;
+                }
+            }
+        }
+
+        var fragment = document.createDocumentFragment();
+
+        var li1 = document.createElement("li");
+        var div1 = document.createElement("div");
+        var label1 = document.createElement("label");
+        var multiplyChosen = !that.options.onechosen;
+
+        for (var i = 0; i < itemsDisplay.length; i++) {
+            var item = itemsDisplay[i];
+            var title = typeof item.title === "string" ? Encoder.htmlDecode(item.title) : item.title;
+            var li = li1.cloneNode(false);
+            var className = "";
+            li.title = title;
+
+            var dataId = document.createAttribute("data-id");
+            dataId.value = item.id;
+            li.setAttributeNode(dataId);
+
+            //data-id, data-cnt
+            if (item.status) {
+                li.title += jq.format(" ({0})", item.status);
+                if (item.status === ASC.Resources.Master.Resource.UserPending) {
+                    className += " pending";
+                }
+            }
+            if (item.type) {
+                className += " " + item.type;
+            }
+
+            if (that.itemsSelectedIds.hasOwnProperty(item.id)) {
+                className += " selected";
+            }
+
+            if (that.options.itemsDisabledIds.indexOf(item.id) > -1) {
+                className += " disabled";
+            }
+
+            if (className) {
+                li.className = className;
+            }
+
+            if (multiplyChosen) {
+                var input = div1.cloneNode(false);
+                if (that.itemsSelectedIds.hasOwnProperty(item.id)) {
+                    input.className = "checked";
+                }
+                li.appendChild(input);
+
+                var label = label1.cloneNode(false);
+                label.innerText = title;
+                li.appendChild(label);
+            } else {
+                li.innerText = title;
+            }
+
+            fragment.appendChild(li);
+        }
+
+        return fragment;
+    };
+
+    var fullRedraw = function (items) {
+        var that = this;
+
+        var height;
+        if ((!that.options.canadd && that.options.showGroups) || that.options.isTempLoad) {
+            height = 177;//height for the items container without the creation of the new item
+        }
+
+        if (that.options.onechosen) {
+            height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate;
+        }
+
+        if (!that.options.onechosen && that.options.canadd && !that.options.showGroups) {
+            height = 131;
+        }
+
+        if (that.options.height) {
+            height = that.options.height;
+        }
+
+        var list = that.$itemsListSelector.find(".advanced-selector-list")[0];
+        list.style.display = "none";
+
+        var ul = document.createElement("ul");
+        ul.className = "advanced-selector-list";
+        ul.appendChild(redraw.call(that, items));
+
+        if (height) {
+            that.$itemsListSelector.height(height);
+            ul.style.height = height + "px";
+        }
+
+        list.replaceWith(ul);
+
+        list.style.display = "";
+    };
+
     var advancedSelector = function (element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.advancedSelector.defaults, options);
-
         this.init();
     };
 
@@ -966,9 +1249,18 @@
             that.items = [];
             that.groups = [];
             that.nameSimpleSelectorGroup = "";
-            that.selectedItems = [];
             that.cache = {};
+            that.itemsSelectedIds = {};
 
+            if (Array.isArray(that.options.itemsSelectedIds)) {
+                var itemsSelectedIds = that.options.itemsSelectedIds.concat([]);
+                that.options.itemsSelectedIds = {};
+
+                for (var i = 0, j = itemsSelectedIds.length; i < j; i++) {
+                    that.options.itemsSelectedIds[itemsSelectedIds[i]] = undefined;
+                    that.itemsSelectedIds[itemsSelectedIds[i]] = undefined;
+                }
+            }
             var advancedSelectorWidthAppender = 5;
 
 
@@ -1006,12 +1298,16 @@
                 if (that.options.width) {
                     var listWidthPadding = $listBlock.innerWidth() - $listBlock.width();
 
-                    that.$advancedSelector.widthCounted = ((that.options.showGroups ? that.widthSelector : that.widthSelector + advancedSelectorWidthAppender) - listWidthPadding);
+                    var widthCounted = ((that.options.showGroups ? that.widthSelector : that.widthSelector + advancedSelectorWidthAppender) - listWidthPadding);
 
                     that.$advancedSelector.find(".advanced-selector-block-list").css({
-                        width: that.$advancedSelector.widthCounted + "px"
+                        width: widthCounted + "px"
                     });
                 }
+            }
+
+            if (!that.options.height) {
+                that.$advancedSelector.heightCounted = that.$advancedSelector.outerHeight();
             }
 
             setEvents.call(that);
@@ -1098,21 +1394,23 @@
             if (!that.options.onechosen) {
                 that.$advancedSelector.find(".advanced-selector-all-select").show();
             }
+            if (that.options.showSearch) {
+                that.$advancedSelector.find(".advanced-selector-search").show();
+            }
             if (that.options.showGroups) {
                 showNewListItemsAfterCreateItem.call(that, ID);
             }
             that.$element.trigger("afterCreate", newObj);
             hideAddItemBlock.call(that);
         },
-        
+
         disableDefaultItemsIds: function (disabledItemsIds) {
             var that = this;
-            for (var i = 0, len = disabledItemsIds.length; i < len; i++) {
-                var disabledItem = that.$itemsListSelector.find("ul li[data-id=" + disabledItemsIds[i] + "]");
-                if ($(disabledItem).length) {
-                    disabledItem.addClass("disabled");
-                }
-            }
+
+            actionWithListItem.call(that, disabledItemsIds,
+                function (item) {
+                    item.addClass("disabled");
+                });
         },
 
         onSearchItems: function () {
@@ -1125,15 +1423,24 @@
 
             var $searchFld = that.$advancedSelector.find(".advanced-selector-search-field"),
                 searchQuery = ($searchFld.length !== 0) ? $.trim($searchFld.val()) : "",
-                itemList = that.$itemsListSelector.find("li:not(.disabled)"),
-                foundItemsList = itemList.filter(':icontains("' + searchQuery + '")'),
                 $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
 
-            itemList.hide();
-            if (foundItemsList.length) {
-                $noResult.hide();
-                foundItemsList.show();
-            } else {
+            $noResult.hide();
+
+            searchQuery = searchQuery.toLowerCase();
+
+            var items = that.items;
+
+            if (searchQuery) {
+                items = items
+                    .filter(function (item) {
+                        return item.title.toLowerCase().indexOf(searchQuery) > -1;
+                    });
+            }
+
+            fullRedraw.call(that, items);
+
+            if (searchQuery && !items.length) {
                 $noResult.show();
             }
         },
@@ -1170,7 +1477,7 @@
 
 
                 if (data[i].hasOwnProperty("isPending")) {
-                    newObj.status = data[i].isPending ? "pending" : "";
+                    newObj.status = data[i].isPending || data[i].isActivated === false ? ASC.Resources.Master.Resource.UserPending : "";
                 }
                 if (data[i].hasOwnProperty("groups") || data[i].hasOwnProperty("projectId")) {
                     newObj.groups = data[i].groups || [{ id: data[i].projectId.toString() }];
@@ -1213,70 +1520,42 @@
         },
 
         showItemsListAdvSelector: function () {
-            var that = this,
-                itemsDisplay = that.items;
+            var that = this;
 
-            if (that.options.showme) {
-                var user = {};
+            fullRedraw.call(that, that.items);
 
-                for (var i = 0, length = itemsDisplay.length; i < length; i++) {
-                    if (itemsDisplay[i].id == Teamlab.profile.id) {
-                        user = itemsDisplay[i];
-                        user.title = ASC.Resources.Master.Resource.MeLabel;
-                        itemsDisplay.splice(i, 1);
-                        itemsDisplay.unshift(user);
-                    }
-                }
-            }
-
-            var $items = $.tmpl(that.options.templates.itemList, { Items: itemsDisplay, isJustList: that.options.onechosen }),
-                height;
-
-            if ((!that.options.canadd && that.options.showGroups) || that.options.isTempLoad) {
-                height = 177;//height for the items container without the creation of the new item
-            }
-
-            if (that.options.onechosen) {
-                height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate;
-            }
-
-            if (!that.options.onechosen && that.options.canadd && !that.options.showGroups) {
-                height = 131;
-            }
-
-            if (that.options.height) {
-                height = that.options.height;
-            }
-
-            if (height) {
-                that.$itemsListSelector.height(height);
-                that.$itemsListSelector.find(".advanced-selector-list").height(height);
-            }
-
-            that.$itemsListSelector.find(".advanced-selector-list").html($items);
-            that.$itemsListSelector.find("ul").off('click').on('click', 'li', $.proxy(onCheckItem, that));
-            that.disableDefaultItemsIds.call(that, that.options.itemsDisabledIds);
+            that.$itemsListSelector.off('click').on('click', 'li', onCheckItem.bind(that));
 
             if (!that.$itemsListSelector.find("li:not(.disabled)").length ) {
                 that.$advancedSelector.find(".advanced-selector-empty-list").show();
+                that.$advancedSelector.find(".advanced-selector-search").hide();
                 that.$advancedSelector.find(".advanced-selector-all-select").hide();
             } else {
                 that.$advancedSelector.find(".advanced-selector-empty-list").hide();
+                if (that.options.showSearch) {
+                    that.$advancedSelector.find(".advanced-selector-search").show();
+                }
                 that.$advancedSelector.find(".advanced-selector-all-select").show();
             }
 
             if (that.options.showGroups) {
                 initGroupEvents.call(that);
             } else {
-                checkAlreadySelectedItemsIds.call(that, that.options.itemsSelectedIds);
+                checkAlreadySelectedItemsIds.call(that, Object.keys(that.options.itemsSelectedIds));
             }
             setFocusOnSearch.call(that);
         },
 
         showGroupsListAdvSelector: function () {
-            var that = this,
-                $groups = $.tmpl(that.options.templates.groupList, { Items: that.groups, isJustList: that.options.onechosen });
+            var that = this;
+
             if (that.groups.length) {
+                var $groups = [];
+
+                that.groups.chunkArray(1000).forEach(function (chunck) {
+                    $groups.push($.tmpl(that.options.templates.groupList, { Items: chunck, isJustList: that.options.onechosen }));
+                });
+
                 that.$groupsListSelector.find(".advanced-selector-list").html($groups);
             } else {
                 that.$groupsListSelector.find(".advanced-selector-no-groups").show();
@@ -1287,7 +1566,7 @@
                 that.$groupsListSelector.find(".advanced-selector-list").height(height);
             }
             pushItemsForGroup.call(that);
-            checkAlreadySelectedItemsIds.call(that, that.options.itemsSelectedIds);
+            checkAlreadySelectedItemsIds.call(that, Object.keys(that.itemsSelectedIds));
         },
         showLoaderListAdvSelector: function (listname) {
             var that= this,
@@ -1319,42 +1598,65 @@
             if (!flag) {
                 list.removeClass("disabled");
             }
-            that.$advancedSelector.find(".advanced-selector-list li input, .advanced-selector-all-select input").prop("checked", false).prop("indeterminate", false);
+            that.$advancedSelector.find(".advanced-selector-list li div, .advanced-selector-all-select div").removeClass("checked").removeClass("indeterminate");
 
             if (that.options.showGroups) {
                 that.$advancedSelector.find(".advanced-selector-list-groups li").removeClass("selected");
+                that.$advancedSelector.find(".advanced-selector-list-groups div").removeClass("checked").removeClass("indeterminate");
             }
-            that.selectedItems = [];
-            that.options.itemsSelectedIds = [];
+            that.itemsSelectedIds = {};
+            that.options.itemsSelectedIds = {};
             onSearchReset.call(that);
             countSelectedItems.call(that, that.$itemsListSelector);
         },
         select: function (selectedItemsIds) {
             var that = this;
-            that.options.itemsSelectedIds = that.options.itemsSelectedIds.concat(selectedItemsIds).unique();
 
-            for (var j = 0, len = selectedItemsIds.length; j < len; j++) {
-                var selectItem = that.$itemsListSelector.find("ul li[data-id=" + selectedItemsIds[j] + "]");
-                if ($(selectItem).length && !selectItem.find("input").is(":checked")) {
-                    selectItem.trigger("click");
+            var itemsSelectedIds = that.options.itemsSelectedIds;
+            for (var i = 0, j = selectedItemsIds.length; i < j; i++) {
+                itemsSelectedIds[selectedItemsIds[i]] = undefined;
+            }
+
+            var lis = getList.call(that);
+
+            if (lis.length) {
+                var filtered = [];
+
+                for (var i = 0, j = lis.length; i < j; i++) {
+                    var lisI = lis[i];
+                    if (that.itemsSelectedIds.hasOwnProperty(lisI.id)) continue;
+                    if (that.options.itemsDisabledIds.hasOwnProperty(lisI.id)) continue;
+                    if (itemsSelectedIds.hasOwnProperty(lisI.id)) {
+                        filtered.push(lisI);
+                    }
+                }
+
+                onCheckItems.call(this, filtered);
+
+                if (that.options.onechosen) {
+                    for (var i = 0, j = filtered.length; i < j; i++) {
+                        onClickSaveSelectedItems.call(that, { target: filtered[i].item });
+                    }
                 }
             }
         },
         unselect: function (itemsIds) {
             var that = this;
-            that.options.itemsSelectedIds = $.grep(that.options.itemsSelectedIds, function (n, i) {
-                return $.inArray(n, itemsIds) == -1;
-            });
 
-            for (var j = 0, len = itemsIds.length; j < len; j++) {
-                var unselectItem = that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]");
-                if (that.options.onechosen) {
-                    unselectItem.removeClass("selected");
-                }
-                if ($(unselectItem).length && unselectItem.find("input").is(":checked")) {
-                    unselectItem.trigger("click");
-                }
+            var itemsSelectedIds = that.options.itemsSelectedIds;
+            for (var i = 0, j = itemsIds.length; i < j; i++) {
+                delete itemsSelectedIds[itemsIds[i]];
             }
+
+            actionWithListItem.call(that, itemsIds, function(item) {
+                if (that.options.onechosen) {
+                    item.removeClass("selected");
+                }
+                var div = item[0].getElementsByTagName("div");
+                if (div && div.length && div[0].classList.contains("checked")) {
+                    item.trigger("click");
+                }
+            });
         },
 
         disable: function (itemsIds) {
@@ -1362,12 +1664,9 @@
             that.unselect.call(that, itemsIds);
             that.options.itemsDisabledIds = that.options.itemsDisabledIds.concat(itemsIds).unique();
 
-            for (var j = 0, len = itemsIds.length; j < len; j++) {
-                var disabledItem = that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]");
-                if ($(disabledItem).length) {
-                    that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]").addClass("disabled").hide();
-                }
-            }
+            actionWithListItem.call(that, itemsIds, function (item) {
+                item.addClass("disabled").hide();
+            });
         },
 
         undisable: function (itemsIds) {
@@ -1377,12 +1676,9 @@
                 return $.inArray(n, itemsIds) == -1;
             });
 
-            for (var j = 0, len = itemsIds.length; j < len; j++) {
-                var undisabledItem = that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]");
-                if ($(undisabledItem).length) {
-                    that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]").removeClass("disabled").show();
-                }
-            }
+            actionWithListItem.call(that, itemsIds, function (item) {
+                item.removeClass("disabled").show();
+            });
         },
 
         add: function (item) {
@@ -1410,7 +1706,12 @@
                 that.select.call(that, dataIdsSelected);
             } else {
                 that.options.itemsChoose = data;
-                that.options.itemsSelectedIds = dataIdsSelected;
+                that.itemsSelectedIds = {};
+                that.options.itemsSelectedIds = {};
+                for (var i = 0; i < dataIdsSelected.length; i++) {
+                    that.itemsSelectedIds[dataIdsSelected[i]] = undefined;
+                    that.options.itemsSelectedIds[dataIdsSelected[i]] = undefined;
+                }
             }
         },
         selectBeforeShow: function (item) {

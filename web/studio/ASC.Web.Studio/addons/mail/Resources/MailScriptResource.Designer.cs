@@ -178,6 +178,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add condition.
+        /// </summary>
+        public static string AddFilterConditionBtnLabel {
+            get {
+                return ResourceManager.GetString("AddFilterConditionBtnLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mail Server.
         /// </summary>
         public static string AdministrationLabel {
@@ -210,6 +219,105 @@ namespace ASC.Web.Mail.Resources {
         public static string AllLabel {
             get {
                 return ResourceManager.GetString("AllLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string AndLabel {
+            get {
+                return ResourceManager.GetString("AndLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to matches all of the conditions.
+        /// </summary>
+        public static string ApplyMultiConditionsAllLabel {
+            get {
+                return ResourceManager.GetString("ApplyMultiConditionsAllLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to matches at least one of the conditions.
+        /// </summary>
+        public static string ApplyMultiConditionsAtLeastOneLabel {
+            get {
+                return ResourceManager.GetString("ApplyMultiConditionsAtLeastOneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all messages excluding spam.
+        /// </summary>
+        public static string ApplyToAllExcludingSpamLabel {
+            get {
+                return ResourceManager.GetString("ApplyToAllExcludingSpamLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all messages including spam.
+        /// </summary>
+        public static string ApplyToAllLabel {
+            get {
+                return ResourceManager.GetString("ApplyToAllLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply to.
+        /// </summary>
+        public static string ApplyToLabel {
+            get {
+                return ResourceManager.GetString("ApplyToLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply to messages from.
+        /// </summary>
+        public static string ApplyToMessagesFromLabel {
+            get {
+                return ResourceManager.GetString("ApplyToMessagesFromLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to spam only messages.
+        /// </summary>
+        public static string ApplyToSpamOnlyLabel {
+            get {
+                return ResourceManager.GetString("ApplyToSpamOnlyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to with and without attachments.
+        /// </summary>
+        public static string ApplyToWithAndWithoutAttachments {
+            get {
+                return ResourceManager.GetString("ApplyToWithAndWithoutAttachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to with attachments.
+        /// </summary>
+        public static string ApplyToWithAttachments {
+            get {
+                return ResourceManager.GetString("ApplyToWithAttachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to without attachments.
+        /// </summary>
+        public static string ApplyToWithoutAttachments {
+            get {
+                return ResourceManager.GetString("ApplyToWithoutAttachments", resourceCulture);
             }
         }
         
@@ -556,6 +664,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cc.
+        /// </summary>
+        public static string CcLabel {
+            get {
+                return ResourceManager.GetString("CcLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change account settings.
         /// </summary>
         public static string ChangeAccountSettingsBtn {
@@ -597,6 +714,15 @@ namespace ASC.Web.Mail.Resources {
         public static string CommonSettingsLabel {
             get {
                 return ResourceManager.GetString("CommonSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to contains.
+        /// </summary>
+        public static string ContainsLabel {
+            get {
+                return ResourceManager.GetString("ContainsLabel", resourceCulture);
             }
         }
         
@@ -804,6 +930,15 @@ namespace ASC.Web.Mail.Resources {
         public static string DeleteTagShure {
             get {
                 return ResourceManager.GetString("DeleteTagShure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete the folder &quot;{0}&quot;?.
+        /// </summary>
+        public static string DeleteUserFolderShure {
+            get {
+                return ResourceManager.GetString("DeleteUserFolderShure", resourceCulture);
             }
         }
         
@@ -1042,6 +1177,33 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create filter.
+        /// </summary>
+        public static string EmptyScrFiltersButton {
+            get {
+                return ResourceManager.GetString("EmptyScrFiltersButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need first to create a filter and use it after that only.
+        /// </summary>
+        public static string EmptyScrFiltersDescription {
+            get {
+                return ResourceManager.GetString("EmptyScrFiltersDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No filters created.
+        /// </summary>
+        public static string EmptyScrFiltersHeader {
+            get {
+                return ResourceManager.GetString("EmptyScrFiltersHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet..
         /// </summary>
         public static string EmptyScrMailContactsDescription {
@@ -1074,6 +1236,33 @@ namespace ASC.Web.Mail.Resources {
         public static string EmptyScrTagsHeader {
             get {
                 return ResourceManager.GetString("EmptyScrTagsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create folder.
+        /// </summary>
+        public static string EmptyScrUserFoldersButton {
+            get {
+                return ResourceManager.GetString("EmptyScrUserFoldersButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need first to create a folder and use it after that only.
+        /// </summary>
+        public static string EmptyScrUserFoldersDescription {
+            get {
+                return ResourceManager.GetString("EmptyScrUserFoldersDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No folders created.
+        /// </summary>
+        public static string EmptyScrUserFoldersHeader {
+            get {
+                return ResourceManager.GetString("EmptyScrUserFoldersHeader", resourceCulture);
             }
         }
         
@@ -1141,6 +1330,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This section allows you to manage the messages you move. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones..
+        /// </summary>
+        public static string EmptyUserFolderDescription {
+            get {
+                return ResourceManager.GetString("EmptyUserFolderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No messages to be displayed in this folder.
+        /// </summary>
+        public static string EmptyUserFolderHeader {
+            get {
+                return ResourceManager.GetString("EmptyUserFolderHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mail autoreply is enabled.
         /// </summary>
         public static string EnabledAutoreplyNotification {
@@ -1204,6 +1411,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lost internet connection.
+        /// </summary>
+        public static string ErrorLostInternetConnection {
+            get {
+                return ResourceManager.GetString("ErrorLostInternetConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to no mailbox selected.
         /// </summary>
         public static string ErrorNoMailboxSelectedField {
@@ -1236,24 +1452,6 @@ namespace ASC.Web.Mail.Resources {
         public static string ErrorNoUserSelectedField {
             get {
                 return ResourceManager.GetString("ErrorNoUserSelectedField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try to reconnect the account or log in using the original service website..
-        /// </summary>
-        public static string ErrorOpenFolderDescription {
-            get {
-                return ResourceManager.GetString("ErrorOpenFolderDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The contents of the folder are not available..
-        /// </summary>
-        public static string ErrorOpenFolderHeader {
-            get {
-                return ResourceManager.GetString("ErrorOpenFolderHeader", resourceCulture);
             }
         }
         
@@ -1393,11 +1591,119 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete forever.
+        /// </summary>
+        public static string FilterActionDeleteLabel {
+            get {
+                return ResourceManager.GetString("FilterActionDeleteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take the following action.
+        /// </summary>
+        public static string FilterActionInfo {
+            get {
+                return ResourceManager.GetString("FilterActionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark important.
+        /// </summary>
+        public static string FilterActionMarkAsImportantLabel {
+            get {
+                return ResourceManager.GetString("FilterActionMarkAsImportantLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as read.
+        /// </summary>
+        public static string FilterActionMarkAsReadLabel {
+            get {
+                return ResourceManager.GetString("FilterActionMarkAsReadLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add tag.
+        /// </summary>
+        public static string FilterActionMarkWithTagLabel {
+            get {
+                return ResourceManager.GetString("FilterActionMarkWithTagLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to folder.
+        /// </summary>
+        public static string FilterActionMoveToLabel {
+            get {
+                return ResourceManager.GetString("FilterActionMoveToLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to trash.
+        /// </summary>
+        public static string FilterActionMoveToTarshLabel {
+            get {
+                return ResourceManager.GetString("FilterActionMoveToTarshLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced options.
+        /// </summary>
+        public static string FilterAdvancedInfo {
+            get {
+                return ResourceManager.GetString("FilterAdvancedInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string FilterAnotherGroup {
             get {
                 return ResourceManager.GetString("FilterAnotherGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply to all mailboxes.
+        /// </summary>
+        public static string FilterApplyToAllMailboxes {
+            get {
+                return ResourceManager.GetString("FilterApplyToAllMailboxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply if attachments are.
+        /// </summary>
+        public static string FilterApplyToAttachemnts {
+            get {
+                return ResourceManager.GetString("FilterApplyToAttachemnts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to not present in the letter.
+        /// </summary>
+        public static string FilterApplyToAttachemntsNotPresent {
+            get {
+                return ResourceManager.GetString("FilterApplyToAttachemntsNotPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to present in the letter.
+        /// </summary>
+        public static string FilterApplyToAttachemntsPresent {
+            get {
+                return ResourceManager.GetString("FilterApplyToAttachemntsPresent", resourceCulture);
             }
         }
         
@@ -1474,6 +1780,96 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can also {0}enter a name{1} that will be displayed in the list of filters..
+        /// </summary>
+        public static string FilterEnterNameDescription {
+            get {
+                return ResourceManager.GetString("FilterEnterNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All the selected accounts have been deleted.
+        /// </summary>
+        public static string FilterErrorAllAccountsRemoved {
+            get {
+                return ResourceManager.GetString("FilterErrorAllAccountsRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty value of condition.
+        /// </summary>
+        public static string FilterErrorEmptyCondition {
+            get {
+                return ResourceManager.GetString("FilterErrorEmptyCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No folder selected.
+        /// </summary>
+        public static string FilterErrorEmptyMoveToFolderValue {
+            get {
+                return ResourceManager.GetString("FilterErrorEmptyMoveToFolderValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No tag selected.
+        /// </summary>
+        public static string FilterErrorEmptyTagValue {
+            get {
+                return ResourceManager.GetString("FilterErrorEmptyTagValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected folder has been deleted.
+        /// </summary>
+        public static string FilterErrorFolderRemoved {
+            get {
+                return ResourceManager.GetString("FilterErrorFolderRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No action selected.
+        /// </summary>
+        public static string FilterErrorNoActionSelected {
+            get {
+                return ResourceManager.GetString("FilterErrorNoActionSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No folder selected to apply filter.
+        /// </summary>
+        public static string FilterErrorNoApplyToFolderSelected {
+            get {
+                return ResourceManager.GetString("FilterErrorNoApplyToFolderSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No mailbox selected to apply filter.
+        /// </summary>
+        public static string FilterErrorNoApplyToMailboxSelected {
+            get {
+                return ResourceManager.GetString("FilterErrorNoApplyToMailboxSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected tag has been deleted.
+        /// </summary>
+        public static string FilterErrorTagRemoved {
+            get {
+                return ResourceManager.GetString("FilterErrorTagRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequently contacted.
         /// </summary>
         public static string FilterFrequentlyContacted {
@@ -1492,11 +1888,29 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignore other filters.
+        /// </summary>
+        public static string FilterIgnoreOther {
+            get {
+                return ResourceManager.GetString("FilterIgnoreOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Important.
         /// </summary>
         public static string FilterImportant {
             get {
                 return ResourceManager.GetString("FilterImportant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter name.
+        /// </summary>
+        public static string FilterName {
+            get {
+                return ResourceManager.GetString("FilterName", resourceCulture);
             }
         }
         
@@ -1569,6 +1983,24 @@ namespace ASC.Web.Mail.Resources {
         public static string FilterRead {
             get {
                 return ResourceManager.GetString("FilterRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select folder.
+        /// </summary>
+        public static string FilterSelectFolderLabel {
+            get {
+                return ResourceManager.GetString("FilterSelectFolderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select tag.
+        /// </summary>
+        public static string FilterSelectTagLabel {
+            get {
+                return ResourceManager.GetString("FilterSelectTagLabel", resourceCulture);
             }
         }
         
@@ -1762,6 +2194,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If.
+        /// </summary>
+        public static string IfLabel {
+            get {
+                return ResourceManager.GetString("IfLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The account is successfully connected..
         /// </summary>
         public static string ImportAccountHeader {
@@ -1812,6 +2253,114 @@ namespace ASC.Web.Mail.Resources {
         public static string ImportProblemText {
             get {
                 return ResourceManager.GetString("ImportProblemText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New folder &apos;{0}&apos; is created.
+        /// </summary>
+        public static string InfoCreateFolder {
+            get {
+                return ResourceManager.GetString("InfoCreateFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is moved into &apos;{1}&apos;.
+        /// </summary>
+        public static string InfoMoveFolder {
+            get {
+                return ResourceManager.GetString("InfoMoveFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is moved into the root folder.
+        /// </summary>
+        public static string InfoMoveFolderToRoot {
+            get {
+                return ResourceManager.GetString("InfoMoveFolderToRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is deleted.
+        /// </summary>
+        public static string InfoRemoveFolder {
+            get {
+                return ResourceManager.GetString("InfoRemoveFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is renamed to &apos;{1}&apos;.
+        /// </summary>
+        public static string InfoRenameFolder {
+            get {
+                return ResourceManager.GetString("InfoRenameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to conversation.
+        /// </summary>
+        public static string InfoSelectConversation {
+            get {
+                return ResourceManager.GetString("InfoSelectConversation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to conversations: {0}.
+        /// </summary>
+        public static string InfoSelectConversations {
+            get {
+                return ResourceManager.GetString("InfoSelectConversations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elements: {0}.
+        /// </summary>
+        public static string InfoSelectCount {
+            get {
+                return ResourceManager.GetString("InfoSelectCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Drag the element(s) with the mouse to add to the folder.
+        /// </summary>
+        public static string InfoSelectingDescribe {
+            get {
+                return ResourceManager.GetString("InfoSelectingDescribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to message.
+        /// </summary>
+        public static string InfoSelectMessage {
+            get {
+                return ResourceManager.GetString("InfoSelectMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to messages: {0}.
+        /// </summary>
+        public static string InfoSelectMessages {
+            get {
+                return ResourceManager.GetString("InfoSelectMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move {0}.
+        /// </summary>
+        public static string InfoSelectMove {
+            get {
+                return ResourceManager.GetString("InfoSelectMove", resourceCulture);
             }
         }
         
@@ -1933,6 +2482,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message filtering.
+        /// </summary>
+        public static string MailFilters {
+            get {
+                return ResourceManager.GetString("MailFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage accounts.
         /// </summary>
         public static string ManageAccountsLabel {
@@ -1965,6 +2523,33 @@ namespace ASC.Web.Mail.Resources {
         public static string MarkAllSendersLabel {
             get {
                 return ResourceManager.GetString("MarkAllSendersLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as important.
+        /// </summary>
+        public static string MarkImportantLabel {
+            get {
+                return ResourceManager.GetString("MarkImportantLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as not important.
+        /// </summary>
+        public static string MarkNotImportantLabel {
+            get {
+                return ResourceManager.GetString("MarkNotImportantLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to matches.
+        /// </summary>
+        public static string MatchesLabel {
+            get {
+                return ResourceManager.GetString("MatchesLabel", resourceCulture);
             }
         }
         
@@ -2113,11 +2698,29 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to doesn&apos;t contains.
+        /// </summary>
+        public static string NotContainsLabel {
+            get {
+                return ResourceManager.GetString("NotContainsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not important.
         /// </summary>
         public static string NotImportantLabel {
             get {
                 return ResourceManager.GetString("NotImportantLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to doesn&apos;t match.
+        /// </summary>
+        public static string NotMatchesLabel {
+            get {
+                return ResourceManager.GetString("NotMatchesLabel", resourceCulture);
             }
         }
         
@@ -2145,6 +2748,15 @@ namespace ASC.Web.Mail.Resources {
         public static string OkBtnLabel {
             get {
                 return ResourceManager.GetString("OkBtnLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to or.
+        /// </summary>
+        public static string OrLabel {
+            get {
+                return ResourceManager.GetString("OrLabel", resourceCulture);
             }
         }
         
@@ -2590,6 +3202,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To or Cc.
+        /// </summary>
+        public static string ToOrCcLabel {
+            get {
+                return ResourceManager.GetString("ToOrCcLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total contacts:.
         /// </summary>
         public static string TotalContacts {
@@ -2622,6 +3243,78 @@ namespace ASC.Web.Mail.Resources {
         public static string UnreadLabel {
             get {
                 return ResourceManager.GetString("UnreadLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The filter was not found.
+        /// </summary>
+        public static string UserFilterNotFound {
+            get {
+                return ResourceManager.GetString("UserFilterNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to not selected.
+        /// </summary>
+        public static string UserFolderNoSelected {
+            get {
+                return ResourceManager.GetString("UserFolderNoSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The required folder was not found.
+        /// </summary>
+        public static string UserFolderNotFoundError {
+            get {
+                return ResourceManager.GetString("UserFolderNotFoundError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave on the first level.
+        /// </summary>
+        public static string UserFolderNotSelected {
+            get {
+                return ResourceManager.GetString("UserFolderNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folders.
+        /// </summary>
+        public static string UserFolders {
+            get {
+                return ResourceManager.GetString("UserFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected &quot;{0}&quot;.
+        /// </summary>
+        public static string UserFolderSelected {
+            get {
+                return ResourceManager.GetString("UserFolderSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent folder:.
+        /// </summary>
+        public static string UserFolderSelectorLabel {
+            get {
+                return ResourceManager.GetString("UserFolderSelectorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the parent folder.
+        /// </summary>
+        public static string UserFolderSelectorLink {
+            get {
+                return ResourceManager.GetString("UserFolderSelectorLink", resourceCulture);
             }
         }
         

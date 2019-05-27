@@ -49,6 +49,8 @@ namespace ASC.CRM.Core.Dao
     public class ReportDao : AbstractDao
     {
         const string TimeFormat = "[h]:mm:ss;@";
+        const string ShortDateFormat = "M/d/yyyy";
+
         private DaoFactory DaoFactory {get; set; }
 
         #region Constructor
@@ -611,7 +613,7 @@ namespace ASC.CRM.Core.Dao
 
             foreach (var key in res.First().Value.Keys)
             {
-                head.Add(new { format = pattern, value = key.ToShortDateString() });
+                head.Add(new { format = pattern, value = key.ToString(ShortDateFormat, CultureInfo.InvariantCulture) });
             }
 
             return new
@@ -696,7 +698,7 @@ namespace ASC.CRM.Core.Dao
 
             foreach (var key in res.First().Value.Keys)
             {
-                head.Add(new { format = "MMM-yy", value = key.ToShortDateString() });
+                head.Add(new { format = "MMM-yy", value = key.ToString(ShortDateFormat, CultureInfo.InvariantCulture) });
             }
 
             return new
@@ -869,7 +871,7 @@ namespace ASC.CRM.Core.Dao
             {
                 var bodyItem = new List<object>
                     {
-                        new {format = pattern, value = resItem.Key.ToShortDateString()},
+                        new {format = pattern, value = resItem.Key.ToString(ShortDateFormat, CultureInfo.InvariantCulture)},
                         new {format = "0.00", value = resItem.Value.Item1.ToString(CultureInfo.InvariantCulture)},
                         new {format = "0.00", value = resItem.Value.Item2.ToString(CultureInfo.InvariantCulture)}
                     };
@@ -938,7 +940,7 @@ namespace ASC.CRM.Core.Dao
             {
                 var bodyItem = new List<object>
                     {
-                        new {format = "MMM-yy", value = resItem.Key.ToShortDateString()},
+                        new {format = "MMM-yy", value = resItem.Key.ToString(ShortDateFormat, CultureInfo.InvariantCulture)},
                         new {format = "0.00", value = resItem.Value.Item1.ToString(CultureInfo.InvariantCulture)},
                         new {format = "0.00", value = resItem.Value.Item2.ToString(CultureInfo.InvariantCulture)}
                     };

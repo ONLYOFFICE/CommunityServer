@@ -89,7 +89,7 @@
               </div>
             </td>
             <td class="version-size">
-              <xsl:value-of select="content_length" />
+              <xsl:value-of select="content_length_string" />
             </td>
             <td class="version-operation version-restore">
               <span>

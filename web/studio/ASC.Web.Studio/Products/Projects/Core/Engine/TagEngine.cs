@@ -34,6 +34,11 @@ namespace ASC.Projects.Engine
     {
         public IDaoFactory DaoFactory { get; set; }
 
+        public KeyValuePair<int, string> Create(string data)
+        {
+            return DaoFactory.TagDao.Create(data);
+        }
+
         public Dictionary<int, string> GetTags()
         {
             return DaoFactory.TagDao.GetTags();
@@ -67,6 +72,11 @@ namespace ASC.Projects.Engine
         public void SetProjectTags(int projectId, string tags)
         {
             DaoFactory.TagDao.SetProjectTags(projectId, FromString(tags));
+        }
+
+        public void SetProjectTags(int projectId, IEnumerable<int> tags)
+        {
+            DaoFactory.TagDao.SetProjectTags(projectId, tags);
         }
 
         private string[] FromString(string tags)

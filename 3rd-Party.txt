@@ -1,4 +1,4 @@
-ONLYOFFICE Community Server uses code from the following 3rd party projects.
+ï»¿ONLYOFFICE Community Server uses code from the following 3rd party projects.
 
 agsXMPP - XMPP client
 License:        GPL-2.0 License
@@ -40,10 +40,6 @@ AWSSDK - Amazon Web Services SDK for .NET. (http://aws.amazon.com/sdkfornet/)
 License:        Apache 2.0 license
 License File:   AWSSDK.license
 
-BaseCampRestAPI - C# API to access the REST based BaseCamp services http://basecamprestapi.codeplex.com
-License:        LGPL
-License File:   BasecampRestAPI.license 
-
 BouncyCastle - Generation and parsing of key files. 
 License:        AS-IS
 License File:   BouncyCastle.license 
@@ -52,6 +48,10 @@ Box.V2 - A client implementation of the Box v2 REST API. API documentation can b
 License:        Apache 2.0 license
 License File:   Box.V2.license 
 
+bluebird.js - Bluebird is a fully featured promise library with focus on innovative features and performance. (https://github.com/petkaantonov/bluebird)
+License:        The MIT License (MIT)
+License File:   bluebird.license
+
 CommandLineParser - The Command Line Parser Library offers to CLR applications a clean and concise API for manipulating command line arguments and related tasks. (https://github.com/gsscoder/commandline)
 License:        The MIT License (MIT)
 License File:   CommandLineParser.license
@@ -59,10 +59,6 @@ License File:   CommandLineParser.license
 CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects.
 License:        Microsoft Public License (Ms-PL)
 License File:   CsvHelper.license
-
-Devart.Data.MySql - Connector/Net is a fully-managed ADO.NET driver for MySQL. (http://www.devart.com/dotconnect/mysql/download.html)
-License:        dotConnect for MySQL License Agreement
-License File:   Devart.Data.MySql.license
 
 DocuSign.eSign - The DocuSign NuGet Package makes integrating DocuSign into your apps and websites a super fast and painless process.
 License:        The MIT License (MIT)
@@ -92,16 +88,12 @@ EntityFramework - Entity Framework is Microsoft's recommended data access techno
 License:        MICROSOFT SOFTWARE SUPPLEMENTAL LICENSE TERMS, MICROSOFT SOFTWARE LICENSE TERMS
 License File:   EntityFramework5.license, EntityFramework6.license
 
-Facebook - The Facebook C# SDK helps .Net developers build web, desktop, phone and Windows 8 Metro style applications that integrate with Facebook. http://csharpsdk.org/
-License:        Apache 2.0 license
-License File:   Facebook.license
-
 FluentAssertions - A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit test.
 License:        Apache 2.0 license
 License File:   FluentAssertions.license
 
-FredCK.FCKeditorV2 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor)
-License:        LGPL v3
+FredCK.FCKeditor V4 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor)
+License:        GNU General Public License Version 2 or later, GNU Lesser General Public License Version 2.1 or later, Mozilla Public License Version 1.1 or later
 License File:   FCKeditor.license
 
 Google.Apis - The Google APIs Client Library is a runtime client for working with Google services.
@@ -123,10 +115,6 @@ License File:   Ical.Net.license
 ICSharpCode.SharpZipLib - is a Zip, GZip, Tar and BZip2 library written entirely in C# for the .NET platform
 License:        The MIT License (MIT)
 License File:   ICSharpCode.SharpZipLib.license
-
-Iesi.Collections - The System.Collections namespace in the .NET Framework provides a number of collection types that are extremely useful for manipulating data in memory. 
-License:        Unknown
-License File:   Iesi.Collections.license
 
 jQuery - jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. (http://jquery.com/)
 License:        The MIT License
@@ -159,10 +147,6 @@ License File:   LumiSoftMailServer.license
 MailKit - MailKit is an Open Source cross-platform .NET mail-client library that is based on MimeKit and optimized for mobile devices.
 License:        The MIT License
 License File:   MailKit.license
-
-MailSystem.NET - MailSystem is a suite of .NET components that provide users with an extensive set of email tools. MailSystem provides full support for SMTP, POP3, IMAP4, NNTP, MIME, S/MIME, OpenPGP, DNS, vCard, vCalendar, Anti-Spam (Bayesian , RBL, DomainKeys), Queueing, Mail Merge and WhoIs (http://mailsystem.codeplex.com/)
-License:        LGPL v3
-License File:   MailSystem.license
 
 Microsoft.AspNet.Cors - This package contains the core components to enable Cross-Origin Resource Sharing (CORS) in ASP.NET.
 License:        MICROSOFT SOFTWARE LICENSE TERMS
@@ -200,7 +184,7 @@ Microsoft.Bcl - This packages enables projects targeting down-level platforms to
 License:        MICROSOFT SOFTWARE LICENSE TERMS
 License File:   Microsoft.Bcl.license, Microsoft.Bcl.Async.license, Microsoft.Bcl.Build.license
 
-Microsoft.Contracts - Code Contracts are static library methods used from any .NET program to specify the code’s behavior. Runtime checking and static checking tools are both provided for taking advantage of contracts.
+Microsoft.Contracts - Code Contracts are static library methods used from any .NET program to specify the codeâ€™s behavior. Runtime checking and static checking tools are both provided for taking advantage of contracts.
 License:        MIT
 License File:   Microsoft.Contracts.license
 
@@ -209,7 +193,7 @@ License:        MICROSOFT SOFTWARE LICENSE TERMS
 License File:   Microsoft.Data.Edm.license
 
 Microsoft.Data.OData - Classes to serialize, deserialize and validate OData payloads
-License:        MICROSOFT SOFTWARE LICENSE TERMS
+License:        MIT
 License File:   Microsoft.Data.OData.license
 
 Microsoft.Net.Http - This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages.
@@ -226,7 +210,7 @@ License File:   Microsoft.Practices.ServiceLocation.license, Microsoft.Practices
 
 Microsoft.ServiceModel.Web - WCF REST Starter Kit (It's officially deprecated)
 License:        unknown
-License File:   MMicrosoft.ServiceModel.Web.license 
+License File:   Microsoft.ServiceModel.Web.license 
 
 Microsoft.SharePoint.Client - This easy-to-use, redistributable package of the Microsoft Silverlight and Microsoft .NET managed client object models in Microsoft SharePoint 2013 enables developers to reference the client object model.? The package includes a comprehensive collection of client-side object model (CSOM) DLLs.
 License:        unknown
@@ -236,9 +220,13 @@ Microsoft.Threading.Tasks - Provides types that simplify the work of writing con
 License:        MICROSOFT SOFTWARE LICENSE TERMS
 License File:   Microsoft.Threading.Tasks.license, Microsoft.Threading.Tasks.Extensions.license
 
-Microsoft.VisualStudio.QualityTools - The Microsoft.VisualStudio.QualityTools.UnitTestFramework that you already have by installing VS 2012, but wrapped up in a nice nuget package.
+Microsoft.VisualStudio.QualityTools.UnitTestFramework - Visual Studio Unit Test Framework
 License:        unknown
-License File:   Microsoft.VisualStudio.QualityTools.UnitTestFramework.license, Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.license
+License File:   Microsoft.VisualStudio.QualityTools.UnitTestFramework.license
+
+Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight - Silverlight Unit Testing Framework
+License:        MS-PL License
+License File:   Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.license
 
 Microsoft.Web.Administration - The Microsoft.Web.Administration namespace contains classes that a developer can use to administer IIS Manager.
 License:        MICROSOFT SOFTWARE LICENSE TERMS
@@ -277,7 +265,7 @@ License:        MIT
 License File:   Mono.Security.license
 
 MySql.Data - ADO.Net driver for MySQL
-License:        GPL 2
+License:        GPL 2.0. The Universal FOSS Exception, Version 1.0. https://oss.oracle.com/licenses/universal-foss-exception/
 License File:   MySql.Data.license
 
 Newtonsoft.Json - Newtonsoft.Json is a popular high-performance JSON framework for .NET
@@ -292,7 +280,7 @@ NodaTime - Noda Time is a date and time API acting as an alternative to the buil
 License:        Apache 2.0 license
 License File:   NodaTime.license
 
-Novell.Directory.LDAP - LDAP Libraries for C# enables you to write applications that access, manage, and update information stored in Novell eDirectory™ or other LDAP-aware directories.
+Novell.Directory.LDAP - LDAP Libraries for C# enables you to write applications that access, manage, and update information stored in Novell eDirectoryâ„¢ or other LDAP-aware directories.
 License:        MIT
 License File:   Novell.Directory.LDAP.license
 
@@ -415,6 +403,10 @@ jquery.cookies.js - Javascript Cookie Library with jQuery bindings and JSON supp
 License:        MIT
 License File:   jquery.cookies.license
 
+jquery.fileupload.js - File Upload widget with multiple file selection, drag&drop support, progress bars, validation and preview images, audio and video for jQuery. (https://blueimp.github.io/jQuery-File-Upload/)
+License:        MIT
+License File:   jQuery.FileUpload.license
+
 jquery.json.js - jQuery JSON plugin (https://github.com/Krinkle/jquery-json)
 License:        MIT
 License File:   jquery.json.license
@@ -449,7 +441,7 @@ License:        MIT
 SWFUpload - SWFUpload  is a JavaScript Library that wraps the Flash Player's upload function. It brings your uploads to the next level with Multiple File Selection, Upload Progress and Client-side File Size Checking. (https://code.google.com/p/swfupload/)
 License:        MIT
 
-Modernizr - Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user’s browser. (http://modernizr.com/)
+Modernizr - Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the userâ€™s browser. (http://modernizr.com/)
 License:        MIT
 
 bootstrap - Sleek, intuitive, and powerful front-end framework for faster and easier web development. (http://getbootstrap.com)
@@ -466,7 +458,7 @@ License:        MIT
 jScrollPane - jScrollPane is a cross-browser jQuery plugin by Kelvin Luck which converts a browser's default scrollbars
 License:        GPL 2, MIT
 
-Jcrop - Jcrop is the quick and easy way to add image cropping functionality to your web application. (http://deepliquid.com/content/Jcrop.html)
+jquery.jcrop.js - Jcrop is the quick and easy way to add image cropping functionality to your web application (https://github.com/tapmodo/Jcrop)
 License:        MIT
 License File:   Jcrop.license
 
@@ -531,3 +523,159 @@ License File:   rrule.license
 setImmediate.js - A cross-browser implementation of the new setImmediate API. (https://github.com/YuzuJS/setImmediate)
 License:        MIT
 License File:   setImmediate.license
+
+jPlayer - is the completely free and open source (MIT) media library written in JavaScript. (https://github.com/jplayer/jPlayer)
+License:        MIT
+License File:   jPlayer.license
+
+Elasticsearch.Net - Exposes all the elasticsearch API endpoints but leaves you in control of building the request and response bodies. Comes with built in cluster failover/connection pooling support. (https://github.com/elastic/elasticsearch-net)
+License:        Apache 2.0 license
+License File:   Elasticsearch.Net.license
+
+NEST - Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net. (https://github.com/elastic/elasticsearch-net)
+License:        Apache 2.0 license
+License File:   NEST.license 
+
+Flurl - This is the Flurl package, repackaged with strongly named assemblies. (https://github.com/carolynvs/Flurl.Signed)
+License:        MIT License
+License File:   Flurl.license
+
+Marvin.JsonPatch.Signed - JSON Patch (RFC 6902) support for .NET to easily allow and apply partial REST-ful service (through Web API) updates from any client. (https://github.com/carolynvs/JsonPatch.Signed)
+License:        MIT License
+License File:   Marvin.JsonPatch.Signed.license
+
+openstack.net - An OpenStack SDK for Microsoft .NET (https://github.com/openstacknetsdk/openstack.net)
+License:        MIT License, Open Source Licenses, AS IS
+License File:   openstack.net.license
+
+Rackspace - Automating all things Rackspace (https://rackspace.github.io/rackspace-net-sdk)
+License:        Apache 2.0 license
+License File:   Rackspace.license
+
+AutoMapper - A convention-based object-object mapper. AutoMapper uses a fluent configuration API to define an object-object mapping strategy. AutoMapper uses a convention-based matching algorithm to match up source to destination values. Currently, AutoMapper is designed for model projection scenarios to flatten complex object models to DTOs and other simple objects, whose design is better suited for serialization, communication, messaging, or simply an anti-corruption layer between the domain and application layer. (http://automapper.org/)
+License:        MIT License
+License File:   AutoMapper.license
+
+Google.Protobuf - C# runtime library for Protocol Buffers - Google's data interchange format. (https://github.com/google/protobuf)
+License:        AS IS
+License File:   Google.Protobuf.license
+
+GoogleAuthenticator - Google Authenticator Two-Factor Authentication Library (http://github.com/brandonpotter/GoogleAuthenticator)
+License:        Apache 2.0 license
+License File:   GoogleAuthenticator.license
+
+Radicale - A simple CalDAV (calendar) and CardDAV (contact) server. (https://radicale.org/)
+License:        GNU General Public License v3.0
+License File:   Radicale.license
+
+Google.Api.Gax - Support classes for Google API client libraries. (https://github.com/googleapis/gax-dotnet)
+License:        BSD License
+License File:   Google.Api.Gax.license
+
+Google.Cloud.Storage.V1 - Recommended Google client library to access the Google Cloud Storage API. It wraps the Google.Apis.Storage.v1 client library, making common operations simpler in client code. Google Cloud Storage stores and retrieves potentially large, immutable data objects. (https://github.com/GoogleCloudPlatform/google-cloud-dotnet)
+License:        Apache 2.0 license
+License File:   Google.Cloud.Storage.V1.license
+
+tiff.js - tiff.js is a port of the LibTIFF by compiling the LibTIFF C code with Emscripten. (https://github.com/seikichi/tiff.js)
+License:        AS IS
+License File:   tiff.license
+
+jstree.js - jsTree is jquery plugin, that provides interactive trees. (https://www.jstree.com/)
+License:        MIT License
+License File:   jstree.license
+
+co - Generator based control flow goodness for nodejs and the browser, using promises, letting you write non-blocking code in a nice-ish way. (https://www.npmjs.com/package/co)
+License:        MIT License
+License File:   co.license
+
+cookie-parser - Parse Cookie header and populate req.cookies with an object keyed by the cookie names. (https://www.npmjs.com/package/cookie-parser)
+License:        MIT License
+License File:   cookie-parser.license
+
+express - Fast, unopinionated, minimalist web framework for node. (https://www.npmjs.com/package/express)
+License:        MIT License
+License File:   express.license
+
+filenamify-url - Convert a URL to a valid filename (https://www.npmjs.com/package/filenamify-url)
+License:        MIT License
+License File:   filenamify-url.license
+
+moment - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://www.npmjs.com/package/moment)
+License:        MIT License
+License File:   moment.license
+
+nconf - Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging. (https://www.npmjs.com/package/nconf)
+License:        MIT License
+License File:   nconf.license
+
+node-webshot - Customize from https://github.com/brenden/node-webshot/ Webshot provides a simple API for taking webpage screenshots. (https://www.npmjs.com/package/node-webshot)
+License:        MIT License
+License File:   node-webshot.license
+
+request - Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default. (https://www.npmjs.com/package/request)
+License:        Apache-2.0
+License File:   request.license
+
+winston - A logger for just about everything. (https://www.npmjs.com/package/winston)
+License:        MIT License
+License File:   winston.license
+
+winston-daily-rotate-file - A transport for winston which logs to a rotating file. (https://www.npmjs.com/package/winston-daily-rotate-file)
+License:        MIT License
+License File:   winston-daily-rotate-file.license
+
+xregexp - XRegExp provides augmented (and extensible) JavaScript regular expressions
+License:        MIT License
+License File:   xregexp.license
+
+connect-redis - connect-redis is a Redis session store backed by node_redis, and is insanely fast :) (https://www.npmjs.com/package/connect-redis)
+License:        MIT License
+License File:   connect-redis
+
+body-parser - Node.js body parsing middleware. (https://www.npmjs.com/package/body-parser)
+License:        MIT License
+License File:   body-parser.license
+
+debug - A tiny JavaScript debugging utility modelled after Node.js core's debugging technique. (https://www.npmjs.com/package/debug)
+License:        MIT License
+License File:   debug.license
+
+express-session - This is a Node.js module available through the npm registry. (https://www.npmjs.com/package/express-session)
+License:        MIT License
+License File:   express-session.license
+
+express-socket.io-session - Share a cookie-based express-session middleware with socket.io. (https://www.npmjs.com/package/express-socket.io-session)
+License:        MIT License
+License File:   express-socket.io-session.license
+
+memorystore - A session store implementation for Express using lru-cache. (https://www.npmjs.com/package/memorystore)
+License:        MIT License
+License File:   memorystore.license
+
+morgan - HTTP request logger middleware for node.js (https://www.npmjs.com/package/morgan)
+License:        MIT License
+License File:   morgan.license
+
+redis - This is a complete and feature rich Redis client for node.js (https://www.npmjs.com/package/redis)
+License:        MIT License
+License File:   redis.license
+
+socket.io - Socket.IO enables real-time bidirectional event-based communication (https://www.npmjs.com/package/socket.io)
+License:        MIT License
+License File:   socket.io.license
+
+mysql - A pure node.js JavaScript Client implementing the MySql protocol. (https://www.npmjs.com/package/mysql)
+License:        MIT License
+License File:   mysql.license
+
+svg4everybody.js - Use external SVG spritemaps in any browser (https://github.com/jonathantneal/svg4everybody)
+License:        CC0 1.0 Universal License
+License File:   svg4everybody.license
+
+ONLYOFFICE Sample Audio.mp3 - Deep and confident corporate track. Perfect for all kind of medias (https://audiojungle.net/item/motivate/18201911?s_rank=60)
+License:        Music Broadcast & Film License
+License File:   ONLYOFFICE Sample Audio.license
+
+DOMPurify - a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. (https://github.com/cure53/DOMPurify)
+License:        Apache License Version 2.0 or Mozilla Public License Version 2.0
+License File:   DOMPurify.license

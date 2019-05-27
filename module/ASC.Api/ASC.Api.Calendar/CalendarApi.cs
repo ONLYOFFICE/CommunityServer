@@ -26,11 +26,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Calendar.BusinessObjects;
@@ -43,24 +49,30 @@ using ASC.Api.Interfaces;
 using ASC.Api.Interfaces.ResponseTypes;
 using ASC.Api.Routing;
 using ASC.Common.Caching;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Logging;
 using ASC.Common.Security;
 using ASC.Common.Utils;
 using ASC.Core;
+using ASC.Security.Cryptography;
 using ASC.Specific;
 using ASC.Web.Core.Calendars;
-using System.Configuration;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using Ical.Net.CalendarComponents;
+using Ical.Net.DataTypes;
 using Newtonsoft.Json.Linq;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Calendar
 {
     public class iCalApiContentResponse : IApiContentResponce
     {
-        private System.IO.Stream _stream;
+        private Stream _stream;
         private string _fileName;
 
-        public iCalApiContentResponse(System.IO.Stream stream, string fileName)
+        public iCalApiContentResponse(Stream stream, string fileName)
         {
             _stream = stream;
             _fileName = fileName;
@@ -68,12 +80,12 @@ namespace ASC.Api.Calendar
 
         #region IApiContentResponce Members
 
-        public System.Text.Encoding ContentEncoding
+        public Encoding ContentEncoding
         {
-            get { return System.Text.Encoding.UTF8; }
+            get { return Encoding.UTF8; }
         }
 
-        public System.IO.Stream ContentStream
+        public Stream ContentStream
         {
             get { return _stream; }
         }
@@ -85,7 +97,7 @@ namespace ASC.Api.Calendar
 
         public System.Net.Mime.ContentDisposition ContentDisposition
         {
-            get { return new System.Net.Mime.ContentDisposition() { Inline = true, FileName = _fileName }; }
+            get { return new System.Net.Mime.ContentDisposition { Inline = true, FileName = _fileName }; }
         }
 
         #endregion
@@ -138,8 +150,10 @@ namespace ASC.Api.Calendar
 
         #endregion
 
-        private ApiContext _context;
-        private int _monthCount = 3;
+        private readonly ApiContext _context;
+        private const int _monthCount = 3;
+        protected DataProvider _dataProvider;
+        private static readonly ILog Logger = LogManager.GetLogger("ASC.Calendar");
 
         /// <summary>
         /// Constructor
@@ -167,8 +181,6 @@ namespace ASC.Api.Calendar
         {
         }
 
-        protected DataProvider _dataProvider;
-
         #region Calendars & Subscriptions
 
         /// <summary>
@@ -189,16 +201,15 @@ namespace ASC.Api.Calendar
             //internal
             var calendars = _dataProvider.LoadCalendarsForUser(SecurityContext.CurrentAccount.ID, out newCalendarsCount);
 
-            TimeZoneInfo userTimeZone = CoreContext.TenantManager.GetCurrentTenant().TimeZone;
-            result.AddRange(calendars.ConvertAll<CalendarWrapper>(c => new CalendarWrapper(c)));
+            result.AddRange(calendars.ConvertAll(c => new CalendarWrapper(c)));
 
             if (!IsPersonal)
             {
                 //external
                 var extCalendars = CalendarManager.Instance.GetCalendarsForUser(SecurityContext.CurrentAccount.ID);
-                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll<string>(c => c.Id));
+                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll(c => c.Id));
 
-                var extCalendarsWrappers = extCalendars.ConvertAll<CalendarWrapper>(c =>
+                var extCalendarsWrappers = extCalendars.ConvertAll(c =>
                                         new CalendarWrapper(c, viewSettings.Find(o => o.CalendarId.Equals(c.Id, StringComparison.InvariantCultureIgnoreCase))))
                                         .FindAll(c => c.IsAcceptedSubscription);
 
@@ -211,7 +222,7 @@ namespace ASC.Api.Calendar
                     result.ForEach(c =>
                     {
                         c.Events = c.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
-                        c.Events.RemoveAll(e => sharedEvents.Events.Exists(s_ev => string.Equals(s_ev.Id, e.Id, StringComparison.InvariantCultureIgnoreCase)));
+                        c.Events.RemoveAll(e => sharedEvents.Events.Exists(sEv => string.Equals(sEv.Id, e.Id, StringComparison.InvariantCultureIgnoreCase)));
                     });
                 else
                     result.ForEach(c => c.Events = c.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate));
@@ -268,9 +279,9 @@ namespace ASC.Api.Calendar
             if (!IsPersonal)
             {
                 var extCalendars = CalendarManager.Instance.GetCalendarsForUser(SecurityContext.CurrentAccount.ID);
-                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll<string>(c => c.Id));
+                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll(c => c.Id));
 
-                var extCalendarsWrappers = extCalendars.ConvertAll<CalendarWrapper>(c =>
+                var extCalendarsWrappers = extCalendars.ConvertAll(c =>
                                         new CalendarWrapper(c, viewSettings.Find(o => o.CalendarId.Equals(c.Id, StringComparison.InvariantCultureIgnoreCase))))
                                         .FindAll(c => c.IsAcceptedSubscription);
 
@@ -281,10 +292,15 @@ namespace ASC.Api.Calendar
                     result.ForEach(c =>
                     {
                         c.Events = c.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
-                        c.Events.RemoveAll(e => sharedEvents.Events.Exists(s_ev => string.Equals(s_ev.Id, e.Id, StringComparison.InvariantCultureIgnoreCase)));
+                        c.Todos = c.UserCalendar.GetTodoWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
+                        c.Events.RemoveAll(e => sharedEvents.Events.Exists(sEv => string.Equals(sEv.Id, e.Id, StringComparison.InvariantCultureIgnoreCase)));
                     });
                 else
-                    result.ForEach(c => c.Events = c.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate));
+                    result.ForEach(c =>
+                    {
+                        c.Events = c.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
+                        c.Todos = c.UserCalendar.GetTodoWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
+                    });
 
                 result.AddRange(extCalendarsWrappers);
             }
@@ -313,7 +329,7 @@ namespace ASC.Api.Calendar
             {
                 //create first calendar
                 var firstCal = _dataProvider.CreateCalendar(SecurityContext.CurrentAccount.ID,
-                        Resources.CalendarApiResource.DefaultCalendarName, "", BusinessObjects.Calendar.DefaultTextColor, BusinessObjects.Calendar.DefaultBackgroundColor, userTimeZone, EventAlertType.FifteenMinutes, null, new List<SharingOptions.PublicItem>(), new List<UserViewSettings>());
+                        Resources.CalendarApiResource.DefaultCalendarName, "", BusinessObjects.Calendar.DefaultTextColor, BusinessObjects.Calendar.DefaultBackgroundColor, userTimeZone, EventAlertType.FifteenMinutes, null, new List<SharingOptions.PublicItem>(), new List<UserViewSettings>(), Guid.Empty);
 
                 result.Add(new CalendarWrapper(firstCal));
             }
@@ -337,16 +353,16 @@ namespace ASC.Api.Calendar
             {
 
                 var calendars = _dataProvider.LoadSubscriptionsForUser(SecurityContext.CurrentAccount.ID);
-                result.AddRange(calendars.FindAll(c => !c.OwnerId.Equals(SecurityContext.CurrentAccount.ID)).ConvertAll<SubscriptionWrapper>(c => new SubscriptionWrapper(c)));
+                result.AddRange(calendars.FindAll(c => !c.OwnerId.Equals(SecurityContext.CurrentAccount.ID)).ConvertAll(c => new SubscriptionWrapper(c)));
 
                 var iCalStreams = _dataProvider.LoadiCalStreamsForUser(SecurityContext.CurrentAccount.ID);
-                result.AddRange(iCalStreams.ConvertAll<SubscriptionWrapper>(c => new SubscriptionWrapper(c)));
+                result.AddRange(iCalStreams.ConvertAll(c => new SubscriptionWrapper(c)));
 
 
                 var extCalendars = CalendarManager.Instance.GetCalendarsForUser(SecurityContext.CurrentAccount.ID);
-                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll<string>(c => c.Id));
+                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, extCalendars.ConvertAll(c => c.Id));
 
-                result.AddRange(extCalendars.ConvertAll<SubscriptionWrapper>(c =>
+                result.AddRange(extCalendars.ConvertAll(c =>
                                         new SubscriptionWrapper(c, viewSettings.Find(o => o.CalendarId.Equals(c.Id, StringComparison.InvariantCultureIgnoreCase)))));
 
 
@@ -354,7 +370,7 @@ namespace ASC.Api.Calendar
             else
             {
                 var iCalStreams = _dataProvider.LoadiCalStreamsForUser(SecurityContext.CurrentAccount.ID);
-                result.AddRange(iCalStreams.ConvertAll<SubscriptionWrapper>(c => new SubscriptionWrapper(c)));
+                result.AddRange(iCalStreams.ConvertAll(c => new SubscriptionWrapper(c)));
             }
 
             return result;
@@ -385,8 +401,8 @@ namespace ASC.Api.Calendar
                 var settings = viewSettings.Find(vs => vs.CalendarId.Equals(s.id, StringComparison.InvariantCultureIgnoreCase));
                 if (settings == null)
                 {
-                    settings = new UserViewSettings()
-                    {
+                    settings = new UserViewSettings
+                        {
                         CalendarId = s.id,
                         UserId = SecurityContext.CurrentAccount.ID
                     };
@@ -415,15 +431,13 @@ namespace ASC.Api.Calendar
                 var cal = _dataProvider.GetCalendarById(calId);
                 return (cal != null ? new CalendarWrapper(cal) : null);
             }
-            else
+
+            //external                
+            var extCalendar = CalendarManager.Instance.GetCalendarForUser(SecurityContext.CurrentAccount.ID, calendarId);
+            if (extCalendar != null)
             {
-                //external                
-                var extCalendar = CalendarManager.Instance.GetCalendarForUser(SecurityContext.CurrentAccount.ID, calendarId);
-                if (extCalendar != null)
-                {
-                    var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, new List<string> { calendarId });
-                    return new CalendarWrapper(extCalendar, viewSettings.FirstOrDefault());
-                }
+                var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, new List<string> { calendarId });
+                return new CalendarWrapper(extCalendar, viewSettings.FirstOrDefault());
             }
 
             return null;
@@ -434,13 +448,13 @@ namespace ASC.Api.Calendar
             public string actionId { get; set; }
             public Guid itemId
             {
-                get { return base.Id; }
-                set { base.Id = value; }
+                get { return Id; }
+                set { Id = value; }
             }
             public bool isGroup
             {
-                get { return base.IsGroup; }
-                set { base.IsGroup = value; }
+                get { return IsGroup; }
+                set { IsGroup = value; }
             }
         }
 
@@ -457,9 +471,11 @@ namespace ASC.Api.Calendar
         /// <param name="timeZone">Calendar time zone</param>
         /// <param name="alertType">Event alert type, in case alert type is set by default</param>
         /// <param name="sharingOptions">Calendar sharing options with other users</param>
+        /// <param name="iCalUrl">iCal url</param>
+        /// <param name="isTodo">Calendar for todo list</param>
         /// <returns>Created calendar</returns>
         [Create("")]
-        public CalendarWrapper CreateCalendar(string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, List<SharingParam> sharingOptions)
+        public CalendarWrapper CreateCalendar(string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, List<SharingParam> sharingOptions, string iCalUrl, int isTodo = 0)
         {
             var sharingOptionsList = sharingOptions ?? new List<SharingParam>();
             var timeZoneInfo = TimeZoneConverter.GetTimeZone(timeZone);
@@ -472,25 +488,125 @@ namespace ASC.Api.Calendar
             textColor = (textColor ?? "").Trim();
             backgroundColor = (backgroundColor ?? "").Trim();
 
+            Guid calDavGuid = Guid.NewGuid();
+            var myUri = HttpContext.Current.Request.GetUrlRewriter();
+            var currentUserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + "@" + myUri.Host;
+            var _email = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email;
+            string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
+
+            var caldavTask = new Task(() => CreateCalDavCalendar(name, description, backgroundColor, calDavGuid, myUri, currentUserName, _email, currentAccountPaswd));
+            caldavTask.Start();
+
             var cal = _dataProvider.CreateCalendar(
                         SecurityContext.CurrentAccount.ID, name, description, textColor, backgroundColor, timeZoneInfo, alertType, null,
                         sharingOptionsList.Select(o => o as SharingOptions.PublicItem).ToList(),
-                        new List<UserViewSettings>());
+                        new List<UserViewSettings>(), calDavGuid, isTodo);
 
-            if (cal != null)
+            if (cal == null) throw new Exception("calendar is null");
+
+            foreach (var opt in sharingOptionsList)
+                if (String.Equals(opt.actionId, AccessOption.FullAccessOption.Id, StringComparison.InvariantCultureIgnoreCase))
+                    CoreContext.AuthorizationManager.AddAce(new AzRecord(opt.Id, CalendarAccessRights.FullAccessAction.ID, Common.Security.Authorizing.AceType.Allow, cal));
+
+            //notify
+            CalendarNotifyClient.NotifyAboutSharingCalendar(cal);
+
+            //iCalUrl
+            if (!string.IsNullOrEmpty(iCalUrl))
             {
-                foreach (var opt in sharingOptionsList)
-                    if (String.Equals(opt.actionId, AccessOption.FullAccessOption.Id, StringComparison.InvariantCultureIgnoreCase))
-                        CoreContext.AuthorizationManager.AddAce(new AzRecord(opt.Id, CalendarAccessRights.FullAccessAction.ID, ASC.Common.Security.Authorizing.AceType.Allow, cal));
+                try
+                {
+                    var req = (HttpWebRequest)WebRequest.Create(iCalUrl);
+                    using (var resp = req.GetResponse())
+                    using (var stream = resp.GetResponseStream())
+                    {
+                        var ms = new MemoryStream();
+                        stream.StreamCopyTo(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
 
-                //notify
-                CalendarNotifyClient.NotifyAboutSharingCalendar(cal);
+                        using (var tempReader = new StreamReader(ms))
+                        {
 
-                return new CalendarWrapper(cal);
+                            var cals = DDayICalParser.DeserializeCalendar(tempReader);
+                            ImportEvents(Convert.ToInt32(cal.Id), cals);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Info(String.Format("Error import events to new calendar by ical url: {0}", ex.Message));
+                }
+                
             }
-            return null;
+
+            return new CalendarWrapper(cal);
+        }
+        private string HexFromRGB(int r, int g, int b)
+        {
+            return String.Format("#{0:X2}{1:X2}{2:X2}", r, g, b);
         }
 
+        private string CreateCalDavCalendar(string name, string description, string backgroundColor, Guid calDavGuid, Uri myUri, string currentUserName, string email, string currentAccountPaswd)
+        {
+            name = (name ?? "").Trim();
+            name = Regex.Replace(name, @"[<>@&]", "something");
+            if (String.IsNullOrEmpty(name))
+                throw new Exception(Resources.CalendarApiResource.ErrorEmptyName);
+
+            description = (description ?? "").Trim();
+            description = Regex.Replace(description, @"[<>@&]", "something");
+            backgroundColor = (backgroundColor ?? "").Trim();
+
+            var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
+
+            Logger.Info("RADICALE REWRITE URL: " + myUri);
+
+            
+            string[] numbers = Regex.Split(backgroundColor, @"\D+");
+            var color = numbers.Length > 4 ? HexFromRGB(int.Parse(numbers[1]), int.Parse(numbers[2]), int.Parse(numbers[3])) : "#000000";
+
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
+                      "<mkcol xmlns=\"DAV:\" xmlns:C=\"urn:ietf:params:xml:ns:caldav\" xmlns:CR=\"urn:ietf:params:xml:ns:carddav\" xmlns:I=\"http://apple.com/ns/ical/\" xmlns:INF=\"http://inf-it.com/ns/ab/\">" +
+                      "<set><prop>" +
+                      "<resourcetype><collection /><C:calendar /></resourcetype>" +
+                      "<C:supported-calendar-component-set><C:comp name=\"VEVENT\" /><C:comp name=\"VJOURNAL\" /><C:comp name=\"VTODO\" />" +
+                      "</C:supported-calendar-component-set><displayname>" + name + "</displayname>" +
+                      "<I:calendar-color>" + color + "</I:calendar-color>" +
+                      "<C:calendar-description>" + description + "</C:calendar-description></prop></set></mkcol>";
+
+            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + currentAccountPaswd + "@");
+
+            var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + calDavGuid;
+
+            try
+            {
+                var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(email.ToLower() + ":" + currentAccountPaswd));
+                var webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
+                webRequest.Method = "MKCOL";
+                webRequest.ContentType = "text/plain;charset=UTF-8";
+                webRequest.Headers.Add("Authorization", "Basic " + encoded);
+
+                var encoding = new UTF8Encoding();
+                byte[] bytes = encoding.GetBytes(data);
+                webRequest.ContentLength = bytes.Length;
+                using (Stream writeStream = webRequest.GetRequestStream())
+                {
+                    writeStream.Write(bytes, 0, bytes.Length);
+                }
+
+                using (var webResponse = webRequest.GetResponse())
+                using (var reader = new StreamReader(webResponse.GetResponseStream()))
+                {
+                    reader.ReadToEnd();
+                    return calDavServerUrl + "/" + currentUserName + "/" + calDavGuid;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                return "";
+            }
+        }
         /// <summary>
         /// Updates the selected calendar with the parameters (name, description, color, etc.) specified in the request for the current user and access rights for other users
         /// </summary>
@@ -506,12 +622,41 @@ namespace ASC.Api.Calendar
         /// <param name="alertType">Event alert type, in case alert type is set by default</param>
         /// <param name="hideEvents">Display type: show or hide events in calendar</param>
         /// <param name="sharingOptions">Calendar sharing options with other users</param>
+        /// <param name="iCalUrl">iCal url</param>
         /// <returns>Updated calendar</returns>
         [Update("{calendarId}")]
-        public CalendarWrapper UpdateCalendar(string calendarId, string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, bool hideEvents, List<SharingParam> sharingOptions)
+        public CalendarWrapper UpdateCalendar(string calendarId, string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, bool hideEvents, List<SharingParam> sharingOptions, string iCalUrl = "")
         {
             TimeZoneInfo timeZoneInfo = TimeZoneConverter.GetTimeZone(timeZone);
             int calId;
+            if (!string.IsNullOrEmpty(iCalUrl))
+            {
+                try
+                {
+                    var req = (HttpWebRequest)WebRequest.Create(iCalUrl);
+                    using (var resp = req.GetResponse())
+                    using (var stream = resp.GetResponseStream())
+                    {
+                        var ms = new MemoryStream();
+                        stream.StreamCopyTo(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
+
+                        using (var tempReader = new StreamReader(ms))
+                        {
+
+                            var cals = DDayICalParser.DeserializeCalendar(tempReader);
+                            ImportEvents(Convert.ToInt32(calendarId), cals);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Info(String.Format("Error import events to calendar by ical url: {0}", ex.Message));
+                }
+                
+            }
+            
+
             if (int.TryParse(calendarId, out calId))
             {
                 var oldCal = _dataProvider.GetCalendarById(calId);
@@ -534,8 +679,8 @@ namespace ASC.Api.Calendar
                     var usrOpt = userOptions.Find(o => o.UserId.Equals(SecurityContext.CurrentAccount.ID));
                     if (usrOpt == null)
                     {
-                        userOptions.Add(new UserViewSettings()
-                        {
+                        userOptions.Add(new UserViewSettings
+                            {
                             Name = name,
                             TextColor = textColor,
                             BackgroundColor = backgroundColor,
@@ -574,7 +719,7 @@ namespace ASC.Api.Calendar
 
                         foreach (var opt in sharingOptionsList)
                             if (String.Equals(opt.actionId, AccessOption.FullAccessOption.Id, StringComparison.InvariantCultureIgnoreCase))
-                                CoreContext.AuthorizationManager.AddAce(new AzRecord(opt.Id, CalendarAccessRights.FullAccessAction.ID, ASC.Common.Security.Authorizing.AceType.Allow, cal));
+                                CoreContext.AuthorizationManager.AddAce(new AzRecord(opt.Id, CalendarAccessRights.FullAccessAction.ID, Common.Security.Authorizing.AceType.Allow, cal));
 
                         //notify
                         CalendarNotifyClient.NotifyAboutSharingCalendar(cal, oldCal);
@@ -611,8 +756,8 @@ namespace ASC.Api.Calendar
             if (String.IsNullOrEmpty(name))
                 throw new Exception(Resources.CalendarApiResource.ErrorEmptyName);
 
-            var settings = new UserViewSettings()
-            {
+            var settings = new UserViewSettings
+                {
                 BackgroundColor = backgroundColor,
                 CalendarId = calendarId,
                 IsHideEvents = hideEvents,
@@ -663,11 +808,517 @@ namespace ASC.Api.Calendar
         [Read("{calendarId}/icalurl")]
         public string GetCalendariCalUrl(string calendarId)
         {
-            var sig = Signature.Create<Guid>(SecurityContext.CurrentAccount.ID);
+            var sig = Signature.Create(SecurityContext.CurrentAccount.ID);
             var path = UrlPath.ResolveUrl(() => new CalendarApi().GetCalendariCalStream(calendarId, sig));
             return new Uri(_context.RequestContext.HttpContext.Request.GetUrlRewriter(), VirtualPathUtility.ToAbsolute("~/" + path)).ToString();
         }
+        /// <summary>
+        /// Returns the link for the CalDav associated with the calendar with the ID specified in the request
+        /// </summary>
+        /// <short>
+        /// Get CalDav link
+        /// </short>
+        /// <param name="calendarId">Calendar ID</param>
+        /// <returns>CalDav link</returns>
+        [Read("{calendarId}/caldavurl")]
+        public string GetCalendarCalDavUrl(string calendarId)
+        {   
 
+            var myUri = HttpContext.Current.Request.GetUrlRewriter();
+
+            var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
+            var caldavHost = myUri.Host;
+
+            var userId = SecurityContext.CurrentAccount.ID;
+            var userName = CoreContext.UserManager.GetUsers(userId).Email.ToLower();
+
+            string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(userName).ID);
+
+            var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + currentAccountPaswd));
+            var curCaldavUserName = userName + "@" + caldavHost;
+
+
+            if (calendarId == "todo_calendar")
+            {
+                var todoCalendars = _dataProvider.LoadTodoCalendarsForUser(SecurityContext.CurrentAccount.ID);
+                var userTimeZone = CoreContext.TenantManager.GetCurrentTenant().TimeZone;
+                var todoCal = new CalendarWrapper(new BusinessObjects.Calendar());
+
+                if (todoCalendars.Count == 0)
+                {
+                    todoCal = CreateCalendar("Todo_calendar", "", BusinessObjects.Calendar.DefaultTextColor, BusinessObjects.Calendar.DefaultTodoBackgroundColor, userTimeZone.ToString(), EventAlertType.FifteenMinutes, null, null, 1);
+
+                    if (todoCal != null)
+                    {
+                        using (var db = new DbManager("calendar"))
+                        {
+                            using (var tr = db.BeginTransaction())
+                            {
+                                try
+                                {
+                                    var dataCaldavGuid =
+                                         db.ExecuteList(new SqlQuery("calendar_calendars")
+                                           .Select("caldav_guid")
+                                           .Where("id", todoCal.Id))
+                                           .Select(r => r[0])
+                                           .ToArray();
+                                    var caldavGuid = dataCaldavGuid[0] != null
+                                             ? Guid.Parse(dataCaldavGuid[0].ToString())
+                                             : Guid.Empty;
+
+                                    return new Uri(new Uri(calDavServerUrl), "/caldav/" + curCaldavUserName + "/" + caldavGuid).ToString();
+                                }
+                                catch (Exception exception)
+                                {
+                                    Logger.Error("ERROR: " + exception.Message);
+                                    return "";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+                else
+                {
+                    return new Uri(new Uri(calDavServerUrl), "/caldav/" + curCaldavUserName + "/" + todoCalendars[0].calDavGuid).ToString();
+                }
+            }
+            var cal = _dataProvider.GetCalendarById(Convert.ToInt32(calendarId));
+            var ownerId = cal.OwnerId;
+
+            CoreContext.TenantManager.SetCurrentTenant(cal.TenantId);
+            SecurityContext.AuthenticateMe(ownerId);
+
+            var currentUserName = CoreContext.UserManager.GetUsers(ownerId).Email.ToLower();
+            var email = CoreContext.UserManager.GetUsers(ownerId).Email;
+
+            if (cal.calDavGuid == "")
+            {
+                try
+                {
+                    var guid = Guid.NewGuid();
+                    cal = _dataProvider.UpdateCalendarGuid(Int32.Parse(calendarId), guid);
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error("ERROR. Update calendar guid: " + exception.Message);
+                }
+            }
+            var calUrl = new Uri(new Uri(calDavServerUrl), "/caldav/" + curCaldavUserName + "/" + (cal.calDavGuid == "" ? Guid.Empty : Guid.Parse(cal.calDavGuid))).ToString();
+
+            Logger.Info("RADICALE REWRITE URL: " + myUri);
+
+            var webRequest = (HttpWebRequest)WebRequest.Create(calUrl);
+            webRequest.Method = "GET";
+            webRequest.ContentType = "text/calendar; charset=utf-8";
+            webRequest.Headers.Add("Authorization", "Basic " + encoded);
+            try
+            {
+                using (var webResponse = webRequest.GetResponse())
+                using (var reader = new StreamReader(webResponse.GetResponseStream()))
+                {
+                    string ics = reader.ReadToEnd();
+                    if (!string.IsNullOrEmpty(ics))
+                    {
+                        return calUrl;
+                    }
+                    return SyncCaldavCalendar(calendarId, cal.Name, cal.Description, cal.Context.HtmlBackgroundColor, Guid.Parse(cal.calDavGuid), myUri, currentUserName, email, currentAccountPaswd);
+                }
+            }
+            catch (WebException exception)
+            {
+                if (exception.Status == WebExceptionStatus.ProtocolError && exception.Response != null)
+                {
+                    var resp = (HttpWebResponse)exception.Response;
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return SyncCaldavCalendar(calendarId, cal.Name, cal.Description, cal.Context.HtmlBackgroundColor, Guid.Parse(cal.calDavGuid), myUri, curCaldavUserName, email, currentAccountPaswd);
+                    }
+                }
+                Logger.Info("ERROR. Get calendar CalDav url: " + exception.Message);
+                return "";
+            }
+            
+        }
+
+        private string SyncCaldavCalendar(string calendarId, string name, string description, string backgroundColor, Guid calDavGuid, Uri myUri, string curCaldavUserName, string email, string currentAccountPaswd)
+        {
+            var calendarUrl = CreateCalDavCalendar(name, description, backgroundColor, calDavGuid, myUri, curCaldavUserName, email, currentAccountPaswd);
+
+            BaseCalendar icalendar;
+            int calId;
+
+            var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, new List<string> { calendarId });
+
+            if (int.TryParse(calendarId, out calId))
+            {
+                icalendar = _dataProvider.GetCalendarById(calId);
+                if (icalendar != null)
+                {
+                    icalendar = icalendar.GetUserCalendar(viewSettings.FirstOrDefault());
+                }
+            }
+            else
+            {
+                //external
+                icalendar = CalendarManager.Instance.GetCalendarForUser(SecurityContext.CurrentAccount.ID, calendarId);
+                if (icalendar != null)
+                {
+                    icalendar = icalendar.GetUserCalendar(viewSettings.FirstOrDefault());
+                }
+            }
+
+            if (icalendar == null) return "";
+
+            var calendarIcs = GetCalendariCalString(icalendar.Id, true);
+
+            var caldavTask = new Task(() => CreateCaldavEvents(calDavGuid.ToString(), myUri, email, currentAccountPaswd, icalendar, calendarIcs));
+            caldavTask.Start();
+
+            return calendarUrl;
+        }
+
+        private void CreateCaldavEvents(string calDavGuid, Uri myUri, string currentUserEmail, string currentAccountPaswd, BaseCalendar icalendar, string calendarIcs)
+        {
+            var parseCalendar = DDayICalParser.DeserializeCalendar(calendarIcs);
+            var calendar = parseCalendar.FirstOrDefault();
+
+            var calendarId = icalendar.Id;
+            var ddayCalendar = new Ical.Net.Calendar();
+            try
+            {
+                if (calendar != null)
+                {
+                    var events = calendar.Events;
+                    foreach (var evt in events)
+                    {
+                        var uid = evt.Uid;
+                        string[] split = uid.Split(new Char[] {'@'});
+                        ddayCalendar = DDayICalParser.ConvertCalendar(icalendar);
+                        ddayCalendar.Events.Clear();
+                        ddayCalendar.Events.Add(evt);
+
+                        var ics = DDayICalParser.SerializeCalendar(ddayCalendar);
+
+                        updateCaldavEvent(ics, split[0], calendarId, true, calDavGuid, myUri, currentUserEmail,
+                                          currentAccountPaswd, DateTime.Now, ddayCalendar.TimeZones[0],
+                                          icalendar.TimeZone);
+                    }
+
+                    var todos = icalendar.GetTodoWrappers(SecurityContext.CurrentAccount.ID, new ApiDateTime(DateTime.MinValue, icalendar.TimeZone), new ApiDateTime(DateTime.MaxValue, icalendar.TimeZone));
+                    foreach (var td in todos)
+                    {
+                        ddayCalendar = DDayICalParser.ConvertCalendar(icalendar);
+                        ddayCalendar.Todos.Clear();
+
+                        var todo = new Ical.Net.CalendarComponents.Todo
+                        {
+                            Summary = td.Name,
+                            Description = td.Description,
+                            Start = td.Start != DateTime.MinValue ? new CalDateTime(td.Start) : null,
+                            Completed = td.Completed != DateTime.MinValue ? new CalDateTime(td.Completed) : null,
+                        };
+
+                        ddayCalendar.Todos.Add(todo);
+
+                        var ics = DDayICalParser.SerializeCalendar(ddayCalendar);
+                        var uid = td.Uid;
+                        string[] split = uid.Split(new Char[] { '@' });
+                        updateCaldavEvent(ics, split[0], calendarId, true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, DateTime.Now, ddayCalendar.TimeZones[0], icalendar.TimeZone);
+                    }
+                }
+                
+            }
+            catch (Exception exception)
+            {
+                Logger.Error("ERROR. Create caldav events: " + exception.Message);
+            }
+            
+        }
+
+        /// <summary>
+        /// Run caldav event update function
+        /// </summary>
+        /// <short>
+        /// Update CalDav Event
+        /// </short>
+        /// <param name="change">changes of event</param>
+        /// <param name="key"></param>
+        /// <visible>false</visible>
+        [Read("change_to_storage", false)] //NOTE: this method doesn't requires auth!!!
+        public void ChangeOfCalendarStorage(string change, string key)
+        {
+            var authInterval = TimeSpan.FromHours(1);
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(change + ConfirmType.Auth, key, authInterval);
+            if (checkKeyResult != EmailValidationKeyProvider.ValidationResult.Ok) throw new SecurityException("Access Denied.");
+
+            var urlRewriter = HttpContext.Current.Request.GetUrlRewriter();
+            var caldavUser = change.Split('/')[0];
+            var portalName = caldavUser.Split('@')[2];
+
+            if (change != null && portalName != null)
+            {
+                var calDavUrl = new Uri(urlRewriter.Scheme + "://" + portalName);
+                var caldavTask = new Task(() => UpdateCalDavEvent(change, calDavUrl));
+                caldavTask.Start();
+            }
+        }
+
+        /// <summary>
+        /// Run caldav event delete function
+        /// </summary>
+        /// <short>
+        /// Delete CalDav Event
+        /// </short>
+        /// <param name="eventInfo">event info</param>
+        /// <param name="key"></param>
+        /// <visible>false</visible>
+        [Read("caldav_delete_event", false)] //NOTE: this method doesn't requires auth!!!
+        public void CaldavDeleteEvent(string eventInfo, string key)
+        {
+            var authInterval = TimeSpan.FromHours(1);
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(eventInfo + ConfirmType.Auth, key, authInterval);
+            if (checkKeyResult != EmailValidationKeyProvider.ValidationResult.Ok) throw new SecurityException("Access Denied.");
+
+            if (eventInfo != null)
+            {
+                Task.Run(() => DeleteCalDavEvent(eventInfo));
+            }
+        }
+
+        private void DeleteCalDavEvent(string eventInfo)
+        {
+            Thread.Sleep(1000);
+            using (_dataProvider = new DataProvider())
+            {
+                var caldavGuid = eventInfo.Split('/')[1];
+                var calEvent = eventInfo.Split('/')[2];
+                var eventGuid = calEvent.Split('.')[0];
+
+                var calendar = _dataProvider.GetCalendarIdByCaldavGuid(caldavGuid);
+
+                var calendarId = Convert.ToInt32(calendar[0][0]);
+                var ownerId = Guid.Parse(calendar[0][1].ToString());
+
+                CoreContext.TenantManager.SetCurrentTenant(Convert.ToInt32(calendar[0][2]));
+                SecurityContext.AuthenticateMe(ownerId);
+
+                var existEvent = _dataProvider.GetEventIdByUid(eventGuid + "%", calendarId);
+                if (existEvent != null)
+                {
+                    RemoveEvent(Convert.ToInt32(existEvent.Id), null, EventRemoveType.AllSeries, true);
+                }
+                else
+                {
+                    var existTodo = _dataProvider.GetTodoByUid(eventGuid + "%");
+                    RemoveTodo(Convert.ToInt32(existTodo.Id), true);
+                }
+                
+            }
+        }
+
+        private void UpdateCalDavEvent(string change, Uri calDavUrl)
+        {
+            try
+            {
+                using (_dataProvider = new DataProvider())
+                {
+                
+                    var serverCalDavUrl = new Uri(calDavUrl.Scheme + "://" + calDavUrl.Host + "/caldav");
+
+                    var eventURl = serverCalDavUrl + "/" + change;
+
+                    var caldavGuid = change.Split('/')[1];
+                    var calEvent = change.Split('/')[2];
+                    var eventGuid = calEvent.Split('.')[0];
+                    var calendar = _dataProvider.GetCalendarIdByCaldavGuid(caldavGuid);
+
+                    var calendarId = Convert.ToInt32(calendar[0][0]);
+                    var ownerId = Guid.Parse(calendar[0][1].ToString());
+
+                    CoreContext.TenantManager.SetCurrentTenant(Convert.ToInt32(calendar[0][2]));
+                    SecurityContext.AuthenticateMe(ownerId);
+
+                    //var currentUserName = CoreContext.UserManager.GetUsers(ownerId).UserName.ToLower() + "@" + CoreContext.TenantManager.GetCurrentTenant().TenantDomain;
+                    var currentUserName = CoreContext.UserManager.GetUsers(ownerId).Email.ToLower();
+                    var _email = CoreContext.UserManager.GetUsers(ownerId).Email;
+
+                    string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
+                
+                    var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(currentUserName + ":" + currentAccountPaswd));
+                
+                        var webRequest = (HttpWebRequest)WebRequest.Create(eventURl);
+                        webRequest.Method = "GET";
+                        webRequest.ContentType = "text/calendar; charset=utf-8";
+                        webRequest.Headers.Add("Authorization", "Basic " + encoded);
+
+                        Logger.Info(String.Format("UpdateCalDavEvent eventURl: {0}, Authorization: {1}", eventURl, encoded));
+
+                        using (var webResponse = webRequest.GetResponse())
+                        using (var reader = new StreamReader(webResponse.GetResponseStream()))
+                        {
+                            string ics = reader.ReadToEnd();
+                            Logger.Info(String.Format("UpdateCalDavEvent: {0}", ics));
+                            var existEvent = _dataProvider.GetEventIdByUid(eventGuid + "%", calendarId); // new function
+                            var existCalendar = _dataProvider.GetCalendarById(calendarId);
+
+                            var calendars = DDayICalParser.DeserializeCalendar(ics);
+                            var _calendar = calendars.FirstOrDefault();
+                            var eventObj = _calendar.Events.FirstOrDefault();
+                            if (eventObj != null)
+                            {
+                                var name = eventObj.Summary;
+                                var description = eventObj.Description ?? " ";
+
+                                var alarm = eventObj.Alarms.FirstOrDefault();
+                                var alertType = EventAlertType.Default;
+                                if (alarm != null)
+                                {
+                                    if (alarm.Trigger.Duration != null)
+                                    {
+                                        var alarmMinutes = alarm.Trigger.Duration.Value.Minutes;
+                                        var alarmHours = alarm.Trigger.Duration.Value.Hours;
+                                        var alarmDays = alarm.Trigger.Duration.Value.Days;
+                                        switch (alarmMinutes)
+                                        {
+                                            case -5:
+                                                alertType = EventAlertType.FiveMinutes;
+                                                break;
+                                            case -15:
+                                                alertType = EventAlertType.FifteenMinutes;
+                                                break;
+                                            case -30:
+                                                alertType = EventAlertType.HalfHour;
+                                                break;
+                                        }
+                                        switch (alarmHours)
+                                        {
+                                            case -1:
+                                                alertType = EventAlertType.Hour;
+                                                break;
+                                            case -2:
+                                                alertType = EventAlertType.TwoHours;
+                                                break;
+                                        }
+                                        if (alarmDays == -1)
+                                            alertType = EventAlertType.Day;
+                                    }
+                                }
+
+                                var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
+                                var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
+
+                                if (existEvent != null && existCalendar != null && !eventObj.IsAllDay)
+                                {
+                                    var offset = existCalendar.TimeZone.GetUtcOffset(existEvent.UtcUpdateDate);
+                                    if (!eventObj.End.IsUtc && !eventObj.Start.IsUtc)
+                                    {
+                                        utcStartDate = eventObj.Start.Subtract(offset).Value;
+                                        utcEndDate = eventObj.End.Subtract(offset).Value;
+                                    }
+                                    else
+                                    {
+                                        var createOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.Created.Value);
+                                        var startOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.Start.Value);
+                                        var endOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.End.Value);
+
+                                        if (createOffset != startOffset)
+                                        {
+                                            var _utcStartDate = eventObj.Start.Subtract(createOffset).Add(startOffset).Value;
+                                            utcStartDate = _utcStartDate;
+                                        }
+                                        if (createOffset != endOffset)
+                                        {
+                                            var _utcEndDate = eventObj.End.Subtract(createOffset).Add(endOffset).Value;
+                                            utcEndDate = _utcEndDate;
+                                        }
+                                    }
+                                    
+                                }
+
+
+                                bool isAllDayLong = eventObj.IsAllDay;
+
+                                var rrule = RecurrenceRule.Parse(GetRRuleString(eventObj));
+                                var status = DDayICalParser.ConvertEventStatus(eventObj.Status);
+
+                                if (existEvent != null)
+                                {
+                                    var eventId = int.Parse(existEvent.Id);
+
+                                    var cal = new Ical.Net.Calendar();
+
+                                    var permissions = PublicItemCollection.GetForEvent(existEvent);
+                                    var sharingOptions = permissions.Items
+                                        .Where(x => x.SharingOption.Id != AccessOption.OwnerOption.Id)
+                                        .Select(x => new SharingParam
+                                        {
+                                            Id = x.Id,
+                                            actionId = x.SharingOption.Id,
+                                            isGroup = x.IsGroup
+                                        }).ToList();
+
+                                    var newEvnt = DDayICalParser.CreateEvent(name, description, utcStartDate, utcEndDate,
+                                                                            rrule.ToString(), isAllDayLong, status);
+
+                                    newEvnt.ExceptionDates = eventObj.ExceptionDates;
+                                    newEvnt.Created = new CalDateTime(DateTime.SpecifyKind(eventObj.Created != null ? eventObj.Created.Value : DateTime.Now  , DateTimeKind.Utc), TimeZoneInfo.Utc.Id);
+
+                                    cal.Events.Add(newEvnt);
+                                    UpdateEvent(eventId, calendarId.ToString(), DDayICalParser.SerializeCalendar(cal), alertType,
+                                                sharingOptions, true, ownerId.ToString());
+                                }
+                                else
+                                {
+                                    AddEvent(calendarId, ics, alertType, null, eventGuid);
+                                }
+                            }
+                            var todoObj = _calendar.Todos.FirstOrDefault();
+                            if (todoObj != null)
+                            {
+                                var todoName = todoObj.Summary;
+                                var todoDescription = todoObj.Description ?? " ";
+                                var todoUtcStartDate = todoObj.Start != null ? DDayICalParser.ToUtc(todoObj.Start) : DateTime.MinValue;
+                                var todoCompleted = todoObj.Completed != null ? DDayICalParser.ToUtc(todoObj.Completed) : DateTime.MinValue;
+
+                                var existTodo = _dataProvider.GetTodoIdByUid(eventGuid + "%", calendarId);
+
+                                if (existTodo != null)
+                                {
+                                    var todoId = int.Parse(existTodo.Id);
+
+
+                                    UpdateTodo(
+                                       calendarId,
+                                       todoObj.Summary,
+                                       todoObj.Description,
+                                       todoUtcStartDate,
+                                       existTodo.Uid,
+                                       todoCompleted);
+                                }
+                                else
+                                {
+                                    CreateTodo( calendarId,
+                                                todoObj.Summary,
+                                                todoObj.Description,
+                                                todoUtcStartDate,
+                                                eventGuid,
+                                                todoCompleted);
+                                }
+                            }
+
+                        }
+                
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+        }
         /// <summary>
         /// Returns the feed for the iCal associated with the calendar by its ID and signagure specified in the request
         /// </summary>
@@ -681,7 +1332,7 @@ namespace ASC.Api.Calendar
         {
             iCalApiContentResponse resp = null;
             var userId = Signature.Read<Guid>(signature);
-            if (CoreContext.UserManager.GetUsers(userId).ID != ASC.Core.Users.Constants.LostUser.ID)
+            if (CoreContext.UserManager.GetUsers(userId).ID != Core.Users.Constants.LostUser.ID)
             {
                 var currentUserId = Guid.Empty;
                 if (SecurityContext.IsAuthenticated)
@@ -708,15 +1359,15 @@ namespace ASC.Api.Calendar
             return resp;
         }
 
-        private string GetCalendariCalString(string calendarId)
+        private string GetCalendariCalString(string calendarId, bool ignoreCache = false)
         {
-            log4net.LogManager.GetLogger("ASC.Calendar").Debug("GetCalendariCalString calendarId = " + calendarId);
+            Logger.Debug("GetCalendariCalString calendarId = " + calendarId);
 
             try
             {
                 var result = ExportDataCache.Get(calendarId);
 
-                if (!string.IsNullOrEmpty(result))
+                if (!string.IsNullOrEmpty(result) && !ignoreCache)
                     return result;
 
                 var stopWatch = new Stopwatch();
@@ -771,18 +1422,83 @@ namespace ASC.Api.Calendar
                     if (int.TryParse(e.Id, out evtId))
                         evtHistory = eventsHystory.FirstOrDefault(x => x.EventId == evtId);
 
+                    var offset = icalendar.TimeZone.GetUtcOffset(e.UtcUpdateDate);
+
                     if (evtHistory != null)
                     {
                         var mergedCalendar = evtHistory.GetMerged();
                         if (mergedCalendar == null || mergedCalendar.Events == null || !mergedCalendar.Events.Any())
                             continue;
-                        ddayCalendar.Events.Add(mergedCalendar.Events.First());
+
+                        var mergedEvent = mergedCalendar.Events.First();
+
+                        mergedEvent.ExceptionDates.Clear();
+                        
+                        foreach (var exDate in e.RecurrenceRule.ExDates)
+                        {
+                            var periodList = new PeriodList {new CalDateTime(exDate.Date)};
+
+                            if (exDate.isDateTime)
+                            {
+                                periodList.Parameters.Add("TZID", ddayCalendar.TimeZones[0].TzId);
+                            }
+                            else
+                            {
+                                periodList.Parameters.Add("VALUE", "DATE");
+                            }
+                            mergedEvent.ExceptionDates.Add(periodList);
+                        }
+
+                        if (!mergedEvent.IsAllDay && mergedEvent.DtStart.IsUtc)
+                        {
+                            var _DtStart = mergedEvent.DtStart.Add(offset).Value;
+                            var _DtEnd = mergedEvent.DtEnd.Add(offset).Value;
+
+                            mergedEvent.DtStart = new CalDateTime(_DtStart, ddayCalendar.TimeZones[0].TzId);
+                            mergedEvent.DtEnd = new CalDateTime(_DtEnd, ddayCalendar.TimeZones[0].TzId);
+                            
+                        }
+                        var alarm = mergedEvent.Alarms.FirstOrDefault();
+                        if (alarm != null)
+                        {
+                            if (alarm.Trigger == null)
+                            {
+                                mergedEvent.Alarms.Clear();
+                            }
+                        }
+                        else
+                        {
+                            mergedEvent.Alarms.Clear();
+                        }
+                        ddayCalendar.Events.Add(mergedEvent);
                     }
                     else
                     {
                         var convertedEvent = DDayICalParser.ConvertEvent(e as BaseEvent);
                         if (string.IsNullOrEmpty(convertedEvent.Uid))
                             convertedEvent.Uid = DataProvider.GetEventUid(e.Uid, e.Id);
+
+                        if (!convertedEvent.IsAllDay)
+                        {
+                            var _DtStart = convertedEvent.DtStart.Add(offset).Value;
+                            var _DtEnd = convertedEvent.DtEnd.Add(offset).Value;
+
+                            convertedEvent.DtStart = new CalDateTime(_DtStart, ddayCalendar.TimeZones[0].TzId);
+                            convertedEvent.DtEnd = new CalDateTime(_DtEnd, ddayCalendar.TimeZones[0].TzId);
+                        }
+                        var alarm = convertedEvent.Alarms.FirstOrDefault();
+                        if (alarm != null)
+                        {
+                            if (alarm.Trigger == null)
+                            {
+                                convertedEvent.Alarms.Clear();
+                            }
+                        }
+                        else
+                        {
+                            convertedEvent.Alarms.Clear();
+                        }
+                        
                         ddayCalendar.Events.Add(convertedEvent);
                     }
                 }
@@ -799,13 +1515,13 @@ namespace ASC.Api.Calendar
                                                 timeSpan.Seconds,
                                                 timeSpan.Milliseconds/10);
 
-                log4net.LogManager.GetLogger("ASC.Calendar").Debug(elapsedTime);
+                Logger.Debug(elapsedTime);
 
                 return result;
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Logger.Error(ex);
                 return null;
             }
         }
@@ -819,9 +1535,9 @@ namespace ASC.Api.Calendar
         /// <param name="files">iCal formatted files with the events to be imported</param>
         /// <returns>Returns the number of imported events</returns>
         [Create("import")]
-        public int ImportEvents(IEnumerable<System.Web.HttpPostedFileBase> files)
+        public int ImportEvents(IEnumerable<HttpPostedFileBase> files)
         {
-            var calendar = LoadInternalCalendars().First(x => !x.IsSubscription);
+            var calendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
             int calendarId;
 
             if (int.TryParse(calendar.Id, out calendarId))
@@ -840,7 +1556,7 @@ namespace ASC.Api.Calendar
         /// <param name="files">iCal formatted files with the events to be imported</param>
         /// <returns>Returns the number of imported events</returns>
         [Create("{calendarId}/import")]
-        public int ImportEvents(int calendarId, IEnumerable<System.Web.HttpPostedFileBase> files)
+        public int ImportEvents(int calendarId, IEnumerable<HttpPostedFileBase> files)
         {
             var counter = 0;
             
@@ -878,7 +1594,7 @@ namespace ASC.Api.Calendar
                 return ImportEvents(calendarId, cals);
             }
 
-            var calendar = LoadInternalCalendars().First(x => !x.IsSubscription);
+            var calendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
 
             if (int.TryParse(calendar.Id, out calendarId))
                 return ImportEvents(calendarId, iCalString);
@@ -887,7 +1603,7 @@ namespace ASC.Api.Calendar
         }
 
 
-        private int ImportEvents(int calendarId, Ical.Net.Interfaces.IICalendarCollection cals)
+        private int ImportEvents(int calendarId, IEnumerable<Ical.Net.Calendar> cals)
         {
             var counter = 0;
 
@@ -912,11 +1628,11 @@ namespace ASC.Api.Calendar
                 {
                     if (eventObj == null) continue;
 
-                    var tmpCalendar = calendar.Copy<Ical.Net.Interfaces.ICalendar>();
+                    var tmpCalendar = calendar.Copy<Ical.Net.Calendar>();
                     tmpCalendar.Events.Clear();
                     tmpCalendar.Events.Add(eventObj);
 
-                    var rrule = string.Empty;
+                    string rrule;
                     var ics = DDayICalParser.SerializeCalendar(tmpCalendar);
 
                     var eventHistory = _dataProvider.GetEventHistory(eventObj.Uid);
@@ -928,8 +1644,57 @@ namespace ASC.Api.Calendar
                         var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
                         var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
 
+                        var existCalendar = _dataProvider.GetCalendarById(calendarId);
+                        if (!eventObj.IsAllDay && eventObj.Created != null && !eventObj.Start.IsUtc)
+                        {
+                            var offset = existCalendar.TimeZone.GetUtcOffset(eventObj.Created.Value);
+
+                            var _utcStartDate = eventObj.Start.Subtract(offset).Value;
+                            var _utcEndDate = eventObj.End.Subtract(offset).Value;
+
+                            utcStartDate = _utcStartDate;
+                            utcEndDate = _utcEndDate;
+                        }
+                        else if (!eventObj.IsAllDay && eventObj.Created != null)
+                        {
+                            var createOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.Created.Value);
+                            var startOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.Start.Value);
+                            var endOffset = existCalendar.TimeZone.GetUtcOffset(eventObj.End.Value);
+
+                            if (createOffset != startOffset)
+                            {
+                                var _utcStartDate = eventObj.Start.Subtract(createOffset).Add(startOffset).Value;
+                                utcStartDate = _utcStartDate;
+                            }
+                            if (createOffset != endOffset)
+                            {
+                                var _utcEndDate = eventObj.End.Subtract(createOffset).Add(endOffset).Value;
+                                utcEndDate = _utcEndDate;
+                            }
+                        }
+
                         if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
+
+                        try
+                        {
+                            var uid = eventObj.Uid;
+                            string[] split = uid.Split(new Char[] { '@' });
+
+                            var calDavGuid = existCalendar != null ? existCalendar.calDavGuid : "";
+                            var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                            var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                            string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                            var updateCaldavThread = new Thread(() => updateCaldavEvent(ics, split[0], calendarId.ToString(), true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, DateTime.Now, tmpCalendar.TimeZones[0], existCalendar.TimeZone));
+                            updateCaldavThread.Start();
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error(e.Message);
+                        }
+                        
+                        //updateEvent(ics, split[0], calendarId.ToString(), true, DateTime.Now, tmpCalendar.TimeZones[0], existCalendar.TimeZone);
 
                         var result = CreateEvent(calendarId,
                                                  eventObj.Summary,
@@ -941,7 +1706,7 @@ namespace ASC.Api.Calendar
                                                  eventObj.IsAllDay,
                                                  null,
                                                  eventObj.Uid,
-                                                 calendar.Method == Ical.Net.CalendarMethods.Cancel ? EventStatus.Cancelled : (EventStatus)eventObj.Status);
+                                                 calendar.Method == Ical.Net.CalendarMethods.Cancel ? EventStatus.Cancelled : DDayICalParser.ConvertEventStatus(eventObj.Status), eventObj.Created != null ? eventObj.Created.Value : DateTime.Now);
 
                         var eventId = result != null && result.Any() ? Int32.Parse(result.First().Id) : 0;
 
@@ -969,6 +1734,18 @@ namespace ASC.Api.Calendar
                         var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : DDayICalParser.ToUtc(mergedEvent.Start);
                         var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : DDayICalParser.ToUtc(mergedEvent.End);
 
+                        var existCalendar = _dataProvider.GetCalendarById(calendarId);
+                        if (!eventObj.IsAllDay && eventObj.Created != null && !eventObj.Start.IsUtc)
+                        {
+                            var offset = existCalendar.TimeZone.GetUtcOffset(eventObj.Created.Value);
+
+                            var _utcStartDate = eventObj.Start.Subtract(offset).Value;
+                            var _utcEndDate = eventObj.End.Subtract(offset).Value;
+
+                            utcStartDate = _utcStartDate;
+                            utcEndDate = _utcEndDate;
+                        }
+
                         if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
 
@@ -983,6 +1760,26 @@ namespace ASC.Api.Calendar
                                 isGroup = x.IsGroup
                             }).ToList();
 
+                        try
+                        {
+                            var uid = eventObj.Uid;
+                            string[] split = uid.Split(new Char[] { '@' });
+
+                            var calDavGuid = existCalendar != null ? existCalendar.calDavGuid : "";
+                            var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                            var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                            string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                            var updateCaldavThread = new Thread(() => updateCaldavEvent(ics, split[0], calendarId.ToString(), true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, DateTime.Now, tmpCalendar.TimeZones[0], existCalendar.TimeZone));
+                            updateCaldavThread.Start();
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error(e.Message);
+                        }
+
+                        //updateEvent(ics, split[0], calendarId.ToString(), true, DateTime.Now, tmpCalendar.TimeZones[0], existCalendar.TimeZone);
+
                         CreateEvent(eventHistory.CalendarId,
                                     mergedEvent.Summary,
                                     mergedEvent.Description,
@@ -993,7 +1790,7 @@ namespace ASC.Api.Calendar
                                     mergedEvent.IsAllDay,
                                     sharingOptions,
                                     mergedEvent.Uid,
-                                    (EventStatus)mergedEvent.Status);
+                                    DDayICalParser.ConvertEventStatus(mergedEvent.Status), eventObj.Created != null ?  eventObj.Created.Value : DateTime.Now);
 
                         counter++;
                     }
@@ -1029,7 +1826,7 @@ namespace ASC.Api.Calendar
 
             var calendar = _dataProvider.CreateCalendar(
                         SecurityContext.CurrentAccount.ID, name, cal.Description ?? "", textColor, backgroundColor,
-                        cal.TimeZone, cal.EventAlertType, iCalUrl, null, new List<UserViewSettings>());
+                        cal.TimeZone, cal.EventAlertType, iCalUrl, null, new List<UserViewSettings>(), Guid.Empty);
 
             if (calendar != null)
             {
@@ -1062,7 +1859,7 @@ namespace ASC.Api.Calendar
         [Create("event")]
         public List<EventWrapper> AddEvent(string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
-            var calendar = LoadInternalCalendars().First(x => !x.IsSubscription);
+            var calendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
             int calendarId;
 
             if (int.TryParse(calendar.Id, out calendarId))
@@ -1099,7 +1896,7 @@ namespace ASC.Api.Calendar
             return AddEvent(calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
         }
 
-        private List<EventWrapper> CreateEvent(int calendarId, string name, string description, DateTime utcStartDate, DateTime utcEndDate, RecurrenceRule rrule, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, string uid, EventStatus status)
+        private List<EventWrapper> CreateEvent(int calendarId, string name, string description, DateTime utcStartDate, DateTime utcEndDate, RecurrenceRule rrule, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, string uid, EventStatus status, DateTime createDate)
         {
             var sharingOptionsList = sharingOptions ?? new List<SharingParam>();
 
@@ -1122,7 +1919,8 @@ namespace ASC.Api.Calendar
                                        alertType,
                                        isAllDayLong,
                                        sharingOptions,
-                                       status);
+                                       status,
+                                       createDate);
                 }
             }
 
@@ -1139,7 +1937,8 @@ namespace ASC.Api.Calendar
                                                 isAllDayLong,
                                                 sharingOptionsList.Select(o => o as SharingOptions.PublicItem).ToList(),
                                                 uid,
-                                                status);
+                                                status,
+                                                createDate);
 
             if (evt != null)
             {
@@ -1184,22 +1983,25 @@ namespace ASC.Api.Calendar
         }
 
 
-        private List<EventWrapper> UpdateEvent(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
+        private List<EventWrapper> UpdateEvent(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status, DateTime createDate, bool fromCalDavServer = false, string ownerId = "")
         {
             var sharingOptionsList = sharingOptions ?? new List<SharingParam>();
 
             var oldEvent = _dataProvider.GetEventById(eventId);
-
+            var ownerGuid = fromCalDavServer ? Guid.Parse(ownerId) : Guid.Empty; //get userGuid in the case of a request from the server
             if (oldEvent == null)
                 throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
 
             var cal = _dataProvider.GetCalendarById(Int32.Parse(oldEvent.CalendarId));
 
-            if (!oldEvent.OwnerId.Equals(SecurityContext.CurrentAccount.ID) &&
-                !CheckPermissions(oldEvent, CalendarAccessRights.FullAccessAction, true) &&
-                !CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
-                throw new System.Security.SecurityException(Resources.CalendarApiResource.ErrorAccessDenied);
+            if (!fromCalDavServer)
+            {
+                if (!oldEvent.OwnerId.Equals(SecurityContext.CurrentAccount.ID) &&
+                    !CheckPermissions(oldEvent, CalendarAccessRights.FullAccessAction, true) &&
+                    !CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
+                    throw new System.Security.SecurityException(Resources.CalendarApiResource.ErrorAccessDenied);
 
+            }
             name = (name ?? "").Trim();
             description = (description ?? "").Trim();
 
@@ -1210,15 +2012,15 @@ namespace ASC.Api.Calendar
             if (!int.TryParse(calendarId, out calId))
             {
                 calId = int.Parse(oldEvent.CalendarId);
-                timeZone = _dataProvider.GetTimeZoneForSharedEventsCalendar(SecurityContext.CurrentAccount.ID);
+                timeZone = fromCalDavServer ? _dataProvider.GetTimeZoneForSharedEventsCalendar(ownerGuid) : _dataProvider.GetTimeZoneForSharedEventsCalendar(SecurityContext.CurrentAccount.ID);
             }
             else
-                timeZone = _dataProvider.GetTimeZoneForCalendar(SecurityContext.CurrentAccount.ID, calId);
+                timeZone = fromCalDavServer ? _dataProvider.GetTimeZoneForCalendar(ownerGuid, calId) : _dataProvider.GetTimeZoneForCalendar(SecurityContext.CurrentAccount.ID, calId);
 
             var rrule = RecurrenceRule.Parse(repeatType);
             var evt = _dataProvider.UpdateEvent(eventId, calId,
                                                 oldEvent.OwnerId, name, description, startDate.UtcTime, endDate.UtcTime, rrule, alertType, isAllDayLong,
-                                                sharingOptionsList.Select(o => o as SharingOptions.PublicItem).ToList(), status);
+                                                sharingOptionsList.Select(o => o as SharingOptions.PublicItem).ToList(), status, createDate);
 
             if (evt != null)
             {
@@ -1233,12 +2035,270 @@ namespace ASC.Api.Calendar
                 CalendarNotifyClient.NotifyAboutSharingEvent(evt, oldEvent);
 
                 evt.CalendarId = calendarId;
-                return new EventWrapper(evt, SecurityContext.CurrentAccount.ID, timeZone).GetList(startDate.UtcTime, startDate.UtcTime.AddMonths(_monthCount));
+                return fromCalDavServer ? new EventWrapper(evt, ownerGuid, timeZone).GetList(startDate.UtcTime, startDate.UtcTime.AddMonths(_monthCount)) : new EventWrapper(evt, SecurityContext.CurrentAccount.ID, timeZone).GetList(startDate.UtcTime, startDate.UtcTime.AddMonths(_monthCount));
             }
             return null;
         }
 
 
+
+        /// <summary>
+        /// Creates the new task in the selected calendar with the parameters specified in the request
+        /// </summary>
+        /// <short>
+        /// Create new event
+        /// </short>
+        /// <param name="ics">Task in iCal format</param>
+        /// <param name="todoUid">Task uid</param>
+        /// <returns>Todo</returns>
+        [Create("icstodo")]
+        public List<TodoWrapper> AddTodo(string ics, string todoUid = null)
+        {
+
+            var old_ics = ics;
+
+            var todoCalendars = _dataProvider.LoadTodoCalendarsForUser(SecurityContext.CurrentAccount.ID);
+            var userTimeZone = CoreContext.TenantManager.GetCurrentTenant().TimeZone;
+
+            var todoCal = new CalendarWrapper(new BusinessObjects.Calendar());
+
+            if (todoCalendars.Count == 0)
+            {
+                 todoCal = CreateCalendar("Todo_calendar", "",BusinessObjects.Calendar.DefaultTextColor,BusinessObjects.Calendar.DefaultTodoBackgroundColor, userTimeZone.ToString() , EventAlertType.FifteenMinutes,null, null, 1);
+            }
+
+            var calendarId = Convert.ToInt32(todoCalendars.Count == 0 ? todoCal.Id : todoCalendars.FirstOrDefault().Id); 
+
+            if (calendarId <= 0)
+            {
+                var defaultCalendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
+                if (!int.TryParse(defaultCalendar.Id, out calendarId))
+                    throw new Exception(string.Format("Can't parse {0} to int", defaultCalendar.Id));
+            }
+            var calendars = DDayICalParser.DeserializeCalendar(ics);
+
+            if (calendars == null) return null;
+
+            var calendar = calendars.FirstOrDefault();
+
+            if (calendar == null || calendar.Todos == null) return null;
+
+            var todoObj = calendar.Todos.FirstOrDefault();
+
+            if (todoObj == null) return null;
+
+            var calendarObj = todoCalendars.Count == 0 ? _dataProvider.GetCalendarById(Convert.ToInt32(todoCal.Id)) : todoCalendars.FirstOrDefault();
+            var calendarObjViewSettings = calendarObj != null && calendarObj.ViewSettings != null ? calendarObj.ViewSettings.FirstOrDefault() : null;
+
+            var targetCalendar = DDayICalParser.ConvertCalendar(calendarObj != null ? calendarObj.GetUserCalendar(calendarObjViewSettings) : null);
+
+            if (targetCalendar == null) return null;
+
+            var utcStartDate = todoObj.Start != null ? DDayICalParser.ToUtc(todoObj.Start) : DateTime.MinValue;
+
+            todoUid = todoUid == null ? null : string.Format("{0}@onlyoffice.com", todoUid);
+
+           
+            var result = CreateTodo(calendarId,
+                                    todoObj.Summary,
+                                    todoObj.Description,
+                                    utcStartDate,
+                                    DataProvider.GetEventUid(todoUid),
+                                    DateTime.MinValue);
+
+            if (result == null || !result.Any()) return null;
+
+            var todo = result.First();
+
+            todoObj.Uid = todo.Uid;
+
+            targetCalendar.Method = Ical.Net.CalendarMethods.Request;
+            targetCalendar.Todos.Clear();
+            targetCalendar.Todos.Add(todoObj);
+
+            try
+            {
+                var uid = todo.Uid;
+                string[] split = uid.Split(new Char[] { '@' });
+
+                var calDavGuid = calendarObj != null ? calendarObj.calDavGuid : "";
+                var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                var updateCaldavThread = new Thread(() => updateCaldavEvent(old_ics, split[0], calendarId.ToString(), true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd));
+                updateCaldavThread.Start();
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.Message);
+            }
+           
+
+            return result;
+            
+        }
+
+        [Update("icstodo")]
+        public List<TodoWrapper> UpdateTodo(string calendarId, string ics, string todoId, bool fromCalDavServer = false)
+        {
+            var todo = _dataProvider.GetTodoById(Convert.ToInt32(todoId));
+            if (todo == null)
+                throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
+            var old_ics = ics;
+
+            var cal = _dataProvider.GetCalendarById(Int32.Parse(todo.CalendarId));
+            if (!fromCalDavServer)
+            {
+                if (!todo.OwnerId.Equals(SecurityContext.CurrentAccount.ID) &&
+                    !CheckPermissions(todo, CalendarAccessRights.FullAccessAction, true) &&
+                    !CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
+                    throw new System.Security.SecurityException(Resources.CalendarApiResource.ErrorAccessDenied);
+            }
+            int calId;
+
+            if (!int.TryParse(calendarId, out calId))
+            {
+                calId = int.Parse(todo.CalendarId);
+            }
+
+            var calendars = DDayICalParser.DeserializeCalendar(ics);
+
+            if (calendars == null) return null;
+
+            var calendar = calendars.FirstOrDefault();
+
+            if (calendar == null || calendar.Events == null) return null;
+
+            var todoObj = calendar.Todos.FirstOrDefault();
+
+            if (todoObj == null) return null;
+
+            var calendarObj = _dataProvider.GetCalendarById(calId);
+            var calendarObjViewSettings = calendarObj != null && calendarObj.ViewSettings != null ? calendarObj.ViewSettings.FirstOrDefault() : null;
+            var targetCalendar = DDayICalParser.ConvertCalendar(calendarObj != null ? calendarObj.GetUserCalendar(calendarObjViewSettings) : null);
+
+
+            if (targetCalendar == null) return null;
+
+
+            todoObj.Uid = todo.Uid;
+
+            if (!fromCalDavServer)
+            {
+                try
+                {
+                    var uid = todo.Uid;
+                    string[] split = uid.Split(new Char[] { '@' });
+
+                    var calDavGuid = calendarObj != null ? calendarObj.calDavGuid : "";
+                    var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                    var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                    string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                    var updateCaldavThread = new Thread(() => updateCaldavEvent(old_ics, split[0], calendarId, true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd));
+                    updateCaldavThread.Start();
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e.Message);
+                }
+               
+            }
+
+            var completed = todoObj.Completed == null ? DateTime.MinValue : DDayICalParser.ToUtc(todoObj.Completed);
+            var utcStartDate = todoObj.DtStart != null ? DDayICalParser.ToUtc(todoObj.DtStart) : DateTime.MinValue;
+
+            var result = UpdateTodo(
+                                   int.Parse(calendarId),
+                                   todoObj.Summary,
+                                   todoObj.Description,
+                                   utcStartDate,
+                                   todoObj.Uid,
+                                   completed);
+            
+            return result;
+
+        }
+
+        /// <summary>
+        /// Deletes task
+        /// </summary>
+        /// <short>
+        /// Delete task
+        /// </short>
+        /// <param name="todoId">Task ID</param>
+        /// <param name="fromCaldavServer">Bool flag says that request from caldav server</param>
+        [Delete("todos/{todoId}")]
+        public void RemoveTodo(int todoId, bool fromCaldavServer = false)
+        {
+            var todo = _dataProvider.GetTodoById(todoId);
+
+            var uid = todo.Uid;
+            string[] split = uid.Split(new Char[] { '@' });
+
+            if (!fromCaldavServer) deleteEvent(split[0], todo.CalendarId);
+            _dataProvider.RemoveTodo(todoId);
+
+        }
+        private List<TodoWrapper> UpdateTodo(int calendarId, string name, string description, DateTime utcStartDate, string uid, DateTime completed)
+        {
+            name = (name ?? "").Trim();
+            description = (description ?? "").Trim();
+
+            if (!string.IsNullOrEmpty(uid))
+            {
+                var existTodo = _dataProvider.GetTodoByUid(uid);
+                CheckPermissions(_dataProvider.GetCalendarById(calendarId), CalendarAccessRights.FullAccessAction);
+                
+                var todo = _dataProvider.UpdateTodo(existTodo.Id, calendarId, SecurityContext.CurrentAccount.ID, name, description, utcStartDate, uid, completed);
+
+                if (todo != null)
+                {
+
+                    var todoResult = new TodoWrapper(todo, SecurityContext.CurrentAccount.ID,
+                                            _dataProvider.GetTimeZoneForCalendar(SecurityContext.CurrentAccount.ID, calendarId))
+                                            .GetList();
+                    return todoResult;
+                }
+            }
+            return null;
+        }
+        private List<TodoWrapper> CreateTodo(int calendarId, string name, string description, DateTime utcStartDate, string uid, DateTime completed)
+        {
+            name = (name ?? "").Trim();
+            description = (description ?? "").Trim();
+
+            if (!string.IsNullOrEmpty(uid))
+            {
+                var existTodo = _dataProvider.GetTodoByUid(uid);
+
+                if (existTodo != null)
+                {
+                    return null;
+                }
+            }
+
+            CheckPermissions(_dataProvider.GetCalendarById(calendarId), CalendarAccessRights.FullAccessAction);
+
+            var todo = _dataProvider.CreateTodo(calendarId,
+                                                SecurityContext.CurrentAccount.ID,
+                                                name,
+                                                description,
+                                                utcStartDate,
+                                                uid,
+                                                completed);
+
+            if (todo != null)
+            {
+
+                var todoResult =  new TodoWrapper(todo, SecurityContext.CurrentAccount.ID,
+                                        _dataProvider.GetTimeZoneForCalendar(SecurityContext.CurrentAccount.ID, calendarId))
+                                        .GetList();
+                return todoResult;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Creates the new event in the selected calendar with the parameters specified in the request
@@ -1250,13 +2310,15 @@ namespace ASC.Api.Calendar
         /// <param name="ics">Event in iCal format</param>
         /// <param name="alertType">Event notification type</param>
         /// <param name="sharingOptions">Event sharing access parameters</param>
+        /// <param name="eventUid">Event uid</param>
         /// <returns>Event</returns>
         [Create("icsevent")]
-        public List<EventWrapper> AddEvent(int calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions)
+        public List<EventWrapper> AddEvent(int calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions, string eventUid = null)
         {
+            var old_ics = ics;
             if (calendarId <= 0)
             {
-                var defaultCalendar = LoadInternalCalendars().First(x => !x.IsSubscription);
+                var defaultCalendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
                 if (!int.TryParse(defaultCalendar.Id, out calendarId))
                     throw new Exception(string.Format("Can't parse {0} to int", defaultCalendar.Id));
             }
@@ -1287,6 +2349,8 @@ namespace ASC.Api.Calendar
             if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
 
+            eventUid = eventUid == null ? null : string.Format("{0}@onlyoffice.com", eventUid);
+
             var result = CreateEvent(calendarId,
                                      eventObj.Summary,
                                      eventObj.Description,
@@ -1296,8 +2360,9 @@ namespace ASC.Api.Calendar
                                      alertType,
                                      eventObj.IsAllDay,
                                      sharingOptions,
-                                     DataProvider.GetEventUid(null),
-                                     EventStatus.Confirmed);
+                                     DataProvider.GetEventUid(eventUid),
+                                     EventStatus.Confirmed,
+                                     eventObj.Created != null ? eventObj.Created.Value : DateTime.Now);
 
             if (result == null || !result.Any()) return null;
             
@@ -1312,6 +2377,25 @@ namespace ASC.Api.Calendar
             targetCalendar.Events.Add(eventObj);
 
             ics = DDayICalParser.SerializeCalendar(targetCalendar);
+
+            try
+            {
+                var uid = evt.Uid;
+                string[] split = uid.Split(new Char[] { '@' });
+
+                var calDavGuid = calendarObj != null ? calendarObj.calDavGuid : "";
+                var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                var updateCaldavThread = new Thread(() => updateCaldavEvent(old_ics, split[0], calendarId.ToString(), true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, DateTime.Now, targetCalendar.TimeZones[0], calendarObj.TimeZone));
+                updateCaldavThread.Start();
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.Message);
+            }
+            
 
             _dataProvider.AddEventHistory(calendarId, evt.Uid, int.Parse(evt.Id), ics);
 
@@ -1329,22 +2413,25 @@ namespace ASC.Api.Calendar
         /// <param name="ics">Event in iCal format</param>
         /// <param name="alertType">Event notification type</param>
         /// <param name="sharingOptions">Event sharing access parameters</param>
+        /// <param name="fromCalDavServer">bool flag says that request from caldav server</param>
+        /// <param name="ownerId">Event owner id</param>
         /// <returns>Updated event</returns>
         [Update("icsevent")]
-        public List<EventWrapper> UpdateEvent(int eventId, string calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions)
+        public List<EventWrapper> UpdateEvent(int eventId, string calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions, bool fromCalDavServer = false, string ownerId = "")
         {
             var evt = _dataProvider.GetEventById(eventId);
-
+            var old_ics = ics;
             if (evt == null)
                 throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
 
             var cal = _dataProvider.GetCalendarById(Int32.Parse(evt.CalendarId));
-
-            if (!evt.OwnerId.Equals(SecurityContext.CurrentAccount.ID) &&
-                !CheckPermissions(evt, CalendarAccessRights.FullAccessAction, true) &&
-                !CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
-                throw new System.Security.SecurityException(Resources.CalendarApiResource.ErrorAccessDenied);
-
+            if (!fromCalDavServer)
+            {
+                if (!evt.OwnerId.Equals(SecurityContext.CurrentAccount.ID) &&
+                    !CheckPermissions(evt, CalendarAccessRights.FullAccessAction, true) &&
+                    !CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
+                    throw new System.Security.SecurityException(Resources.CalendarApiResource.ErrorAccessDenied);
+            }
             int calId;
 
             if (!int.TryParse(calendarId, out calId))
@@ -1368,11 +2455,13 @@ namespace ASC.Api.Calendar
             if (evtHistory != null)
             {
                 var maxSequence = evtHistory.History.Select(x => x.Events.First()).Max(x => x.Sequence);
-
-                if (evt.OwnerId == SecurityContext.CurrentAccount.ID && !CheckIsOrganizer(evtHistory))
-                    sequence = maxSequence;
-                else
-                    sequence = maxSequence + 1;
+                if (!fromCalDavServer)
+                {
+                    if (evt.OwnerId == SecurityContext.CurrentAccount.ID && !CheckIsOrganizer(evtHistory))
+                        sequence = maxSequence;
+                    else
+                        sequence = maxSequence + 1;
+                }
             }
 
             var calendars = DDayICalParser.DeserializeCalendar(ics);
@@ -1395,7 +2484,7 @@ namespace ASC.Api.Calendar
 
             eventObj.Uid = evt.Uid;
             eventObj.Sequence = sequence;
-            eventObj.ExceptionDates.Clear();
+            //eventObj.ExceptionDates.Clear();
 
             targetCalendar.Method = Ical.Net.CalendarMethods.Request;
             targetCalendar.Events.Clear();
@@ -1415,12 +2504,37 @@ namespace ASC.Api.Calendar
 
             var rrule = GetRRuleString(mergedEvent);
 
-            var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : DDayICalParser.ToUtc(mergedEvent.Start);
-            var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : DDayICalParser.ToUtc(mergedEvent.End);
+            var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
+            var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
 
+
+            var createDate = mergedEvent.Created != null ? mergedEvent.Created.Value : DateTime.Now;
             if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
 
+            if (!fromCalDavServer)
+            {
+                try
+                {
+                    var uid = evt.Uid;
+                    string[] split = uid.Split(new Char[] { '@' });
+
+                    var calDavGuid = calendarObj != null ? calendarObj.calDavGuid : "";
+                    var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                    var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                    string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                    var updateCaldavThread = new Thread(() => updateCaldavEvent(old_ics, split[0], calendarId, true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, createDate, targetCalendar.TimeZones[0], calendarObj.TimeZone));
+                    updateCaldavThread.Start();
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e.Message);
+                }
+                
+                
+            }
+            
             return UpdateEvent(calendarId,
                                eventId,
                                mergedEvent.Summary,
@@ -1431,10 +2545,237 @@ namespace ASC.Api.Calendar
                                alertType,
                                mergedEvent.IsAllDay,
                                sharingOptions,
-                               (EventStatus) mergedEvent.Status);
+                               DDayICalParser.ConvertEventStatus(mergedEvent.Status),createDate,
+                               fromCalDavServer, ownerId);
         }
 
+        private static void updateCaldavEvent(
+                            string ics, 
+                            string uid, 
+                            string calendarId, 
+                            bool sendToRadicale, 
+                            string guid, 
+                            Uri myUri, 
+                            string userEmail, 
+                            string currentAccountPaswd, 
+                            DateTime updateDate = default(DateTime), 
+                            Ical.Net.CalendarComponents.VTimeZone calendarVTimeZone = null, 
+                            TimeZoneInfo calendarTimeZone = null,
+                            bool isDelete = false
+            )
+        {
+            if (sendToRadicale)
+            {
+                try
+                {
+                    var caldavGuid = guid != null
+                                                 ? Guid.Parse(guid)
+                                                 : Guid.Empty;
+                    if (caldavGuid != Guid.Empty)
+                    {
 
+                        var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
+                        var caldavHost = myUri.Host;
+
+                        Logger.Info("RADICALE REWRITE URL: " + myUri);
+
+                        var currentUserName = userEmail.ToLower() + "@" + caldavHost;
+                        var _email = userEmail;
+
+                        var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(userEmail.ToLower() + ":" + currentAccountPaswd));
+
+                        int indexOfChar = ics.IndexOf("BEGIN:VTIMEZONE");
+                        int indexOfCharEND = ics.IndexOf("END:VTIMEZONE");
+
+                        if (indexOfChar != -1)
+                        {
+                            ics = ics.Remove(indexOfChar, indexOfCharEND + 14 - indexOfChar);
+                            if (ics.IndexOf("BEGIN:VTIMEZONE") > -1) updateCaldavEvent(ics, uid, calendarId, true, guid, myUri, userEmail, currentAccountPaswd);
+                        }
+
+                        var requestUrl = calDavServerUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + caldavGuid +
+                                            "/" + uid + ".ics";
+                        if (calendarTimeZone != null && calendarVTimeZone != null)
+                        {
+                            var icsCalendars = DDayICalParser.DeserializeCalendar(ics);
+                            var icsCalendar = icsCalendars == null ? null : icsCalendars.FirstOrDefault();
+                            var icsEvents = icsCalendar == null ? null : icsCalendar.Events;
+                            var icsEvent = icsEvents == null ? null : icsEvents.FirstOrDefault();
+                            if (icsEvent != null && !icsEvent.IsAllDay)
+                            {
+                                var offset = updateDate != DateTime.MinValue ? calendarTimeZone.GetUtcOffset(updateDate) : calendarTimeZone.GetUtcOffset(icsEvent.DtStart.Value);
+
+                                if (icsEvent.DtStart.TzId != calendarVTimeZone.TzId)
+                                {
+                                    var _DtStart = icsEvent.DtStart.Add(offset).Value;
+                                    icsEvent.DtStart = new CalDateTime(_DtStart, calendarVTimeZone.TzId);
+
+                                }
+                                if (icsEvent.DtEnd.TzId != calendarVTimeZone.TzId)
+                                {
+                                    var _DtEnd = icsEvent.DtEnd.Add(offset).Value;
+                                    icsEvent.DtEnd = new CalDateTime(_DtEnd, calendarVTimeZone.TzId);
+                                }
+
+                                foreach (var periodList in icsEvent.ExceptionDates)
+                                {
+                                    periodList.Parameters.Add("TZID", calendarVTimeZone.TzId);
+                                }
+                                
+                            }
+                            if (icsEvent != null)
+                            {
+                                if (!isDelete)
+                                {
+                                    icsEvent.ExceptionDates.Clear();
+                                }
+                                icsEvent.Uid = null;
+                            }
+                           
+                            ics = DDayICalParser.SerializeCalendar(icsCalendar);
+                        }
+
+
+                        try
+                        {
+                            var webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
+                            webRequest.Method = "PUT";
+                            webRequest.ContentType = "text/calendar; charset=utf-8";
+                            webRequest.Headers.Add("Authorization", "Basic " + encoded);
+                            var encoding = new UTF8Encoding();
+                            byte[] bytes = encoding.GetBytes(ics);
+                            webRequest.ContentLength = bytes.Length;
+                            using (var writeStream = webRequest.GetRequestStream())
+                            {
+                                writeStream.Write(bytes, 0, bytes.Length);
+                            }
+
+                            using (var webResponse = webRequest.GetResponse())
+                            using (var reader = new StreamReader(webResponse.GetResponseStream())) { }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Error(ex);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            }
+                
+            
+        }
+        private static void updateEvent(string ics, string uid, string calendarId, bool sendToRadicale, DateTime updateDate = default(DateTime), Ical.Net.CalendarComponents.VTimeZone calendarVTimeZone = null, TimeZoneInfo calendarTimeZone = null)
+        {
+            using (var db = new DbManager("calendar"))
+            {
+                using (var tr = db.BeginTransaction())
+                {
+                    if (sendToRadicale)
+                    {
+                        try
+                        {
+                            var dataCaldavGuid =
+                                db.ExecuteList(new SqlQuery("calendar_calendars")
+                                  .Select("caldav_guid")
+                                  .Where("id", calendarId))
+                                  .Select(r => r[0])
+                                  .ToArray();
+                            var caldavGuid = dataCaldavGuid[0] != null
+                                                 ? Guid.Parse(dataCaldavGuid[0].ToString())
+                                                 : Guid.Empty;
+
+                            if (caldavGuid != Guid.Empty)
+                            {
+
+                                var myUri = HttpContext.Current.Request.GetUrlRewriter();
+
+                                var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
+                                var caldavHost = myUri.Host;
+
+                                Logger.Info("RADICALE REWRITE URL: " + myUri);
+
+                                var currentUserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + "@" + caldavHost;
+                                var _email = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email;
+
+                                string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
+
+                                var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + ":" + currentAccountPaswd));
+                                
+                                int indexOfChar = ics.IndexOf("BEGIN:VTIMEZONE");
+                                int indexOfCharEND = ics.IndexOf("END:VTIMEZONE");
+                                
+                                if (indexOfChar != -1)
+                                {
+                                    ics = ics.Remove(indexOfChar, indexOfCharEND + 14 - indexOfChar);
+                                    if (ics.IndexOf("BEGIN:VTIMEZONE") > -1) updateEvent(ics, uid, calendarId, true);
+                                }
+
+                                var requestUrl = calDavServerUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + caldavGuid +
+                                                 "/" + uid + ".ics";
+                                if (calendarTimeZone != null && calendarVTimeZone != null)
+                                {
+                                    var icsCalendars = DDayICalParser.DeserializeCalendar(ics);
+                                    var icsCalendar = icsCalendars == null ? null : icsCalendars.FirstOrDefault();
+                                    var icsEvents = icsCalendar == null ? null : icsCalendar.Events;
+                                    var icsEvent = icsEvents == null ? null : icsEvents.FirstOrDefault();
+                                    if (icsEvent != null && !icsEvent.IsAllDay)
+                                    {
+                                        var offset = updateDate != DateTime.MinValue ? calendarTimeZone.GetUtcOffset(updateDate) : calendarTimeZone.GetUtcOffset(icsEvent.DtStart.Value);
+
+                                        if (icsEvent.DtStart.TzId != calendarVTimeZone.TzId)
+                                        {
+                                            var _DtStart = icsEvent.DtStart.Add(offset).Value;
+                                            icsEvent.DtStart = new CalDateTime(_DtStart, calendarVTimeZone.TzId);
+                                            
+                                        }
+                                        if (icsEvent.DtEnd.TzId != calendarVTimeZone.TzId)
+                                        {
+                                            var _DtEnd = icsEvent.DtEnd.Add(offset).Value;
+                                            icsEvent.DtEnd = new CalDateTime(_DtEnd, calendarVTimeZone.TzId);
+                                        }
+
+                                        icsEvent.Uid = null;
+
+                                        ics = DDayICalParser.SerializeCalendar(icsCalendar);
+                                    }
+                                }
+                                
+
+                                try
+                                {
+                                    var webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
+                                    webRequest.Method = "PUT";
+                                    webRequest.ContentType = "text/calendar; charset=utf-8";
+                                    webRequest.Headers.Add("Authorization", "Basic " + encoded);
+                                    var encoding = new UTF8Encoding();
+                                    byte[] bytes = encoding.GetBytes(ics);
+                                    webRequest.ContentLength = bytes.Length;
+                                    using (var writeStream = webRequest.GetRequestStream())
+                                    {
+                                        writeStream.Write(bytes, 0, bytes.Length);
+                                    }
+
+                                    using (var webResponse = webRequest.GetResponse())
+                                    using (var reader = new StreamReader(webResponse.GetResponseStream())){}
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.Error(ex);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Error(ex);
+                        }
+                    }
+                }
+            }
+
+        }
 
         public enum EventRemoveType
         {
@@ -1465,19 +2806,29 @@ namespace ASC.Api.Calendar
         /// <param name="eventId">Event ID</param>
         /// <param name="date">Date to be deleted from the recurrent event</param>
         /// <param name="type">Recurrent event deletion type</param>
+        /// <param name="fromCaldavServer">Bool flag says that request from caldav server</param>
         /// <returns>Updated event series collection</returns>
         [Delete("events/{eventId}/custom")]
-        public List<EventWrapper> RemoveEvent(int eventId, ApiDateTime date, EventRemoveType type)
+        public List<EventWrapper> RemoveEvent(int eventId, ApiDateTime date, EventRemoveType type, bool fromCaldavServer = false)
         {
             var events = new List<EventWrapper>();
             var evt = _dataProvider.GetEventById(eventId);
+
+            if (evt == null)
+                throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
+
             var cal = _dataProvider.GetCalendarById(Convert.ToInt32(evt.CalendarId));
+
+            var uid = evt.Uid;
+            string[] split = uid.Split(new Char[] { '@' });
+            
 
             if (evt.OwnerId.Equals(SecurityContext.CurrentAccount.ID) || CheckPermissions(evt, CalendarAccessRights.FullAccessAction, true) || CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
             {
                 if (type == EventRemoveType.AllSeries || evt.RecurrenceRule.Freq == Frequency.Never)
                 {
                     _dataProvider.RemoveEvent(eventId);
+                    if (!fromCaldavServer) deleteEvent(split[0], evt.CalendarId);
                     return events;
                 }
 
@@ -1512,7 +2863,53 @@ namespace ASC.Api.Calendar
 
                 evt = _dataProvider.UpdateEvent(int.Parse(evt.Id), int.Parse(evt.CalendarId), evt.OwnerId, evt.Name, evt.Description,
                                               evt.UtcStartDate, evt.UtcEndDate, evt.RecurrenceRule, evt.AlertType, evt.AllDayLong,
-                                              evt.SharingOptions.PublicItems, evt.Status);
+                                              evt.SharingOptions.PublicItems, evt.Status, DateTime.Now);
+                if (!fromCaldavServer)
+                {
+                    try
+                    {
+                        var calDavGuid = cal != null ? cal.calDavGuid : "";
+                        var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                        var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
+                        string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(SecurityContext.CurrentAccount.ID);
+
+                        var calendarObj = _dataProvider.GetCalendarById(Convert.ToInt32(cal.Id));
+                        var calendarObjViewSettings = calendarObj != null && calendarObj.ViewSettings != null ? calendarObj.ViewSettings.FirstOrDefault() : null;
+                        var targetCalendar = DDayICalParser.ConvertCalendar(calendarObj != null ? calendarObj.GetUserCalendar(calendarObjViewSettings) : null);
+
+                        targetCalendar.Events.Clear();
+
+                        var convertedEvent = DDayICalParser.ConvertEvent(evt as BaseEvent);
+                        convertedEvent.ExceptionDates.Clear();
+
+                        foreach (var exDate in evt.RecurrenceRule.ExDates)
+                        {
+                            var periodList = new PeriodList { new CalDateTime(exDate.Date) };
+
+                            if (exDate.isDateTime)
+                            {
+                                periodList.Parameters.Add("TZID", targetCalendar.TimeZones[0].TzId);
+                            }
+                            else
+                            {
+                                periodList.Parameters.Add("VALUE", "DATE");
+                            }
+                            convertedEvent.ExceptionDates.Add(periodList);
+                        }
+                        targetCalendar.Events.Add(convertedEvent);
+                        var ics = DDayICalParser.SerializeCalendar(targetCalendar);
+
+                        var updateCaldavThread = new Thread(() => updateCaldavEvent(ics, split[0], cal.Id, true, calDavGuid, myUri, currentUserEmail, currentAccountPaswd, DateTime.Now, targetCalendar.TimeZones[0], cal.TimeZone, true));
+                        updateCaldavThread.Start();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(e.Message);
+                    }
+
+
+                }
+
 
                 if (type != EventRemoveType.AllSeries)
                 {
@@ -1566,6 +2963,58 @@ namespace ASC.Api.Calendar
             return events;
         }
 
+        private static void deleteEvent(string uid, string calendarId)
+        {
+            using (var db = new DbManager("calendar"))
+            {
+                using (var tr = db.BeginTransaction())
+                {
+                    try
+                    {
+                        var dataCaldavGuid = db.ExecuteList(new SqlQuery("calendar_calendars")
+                            .Select("caldav_guid")
+                            .Where("id", calendarId))
+                            .Select(r => r[0])
+                            .ToArray();
+                        var caldavGuid = dataCaldavGuid[0] != null ? Guid.Parse(dataCaldavGuid[0].ToString()) : Guid.Empty;
+
+                        if (caldavGuid != Guid.Empty)
+                        {
+                            var myUri = HttpContext.Current.Request.GetUrlRewriter();
+
+                            var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
+                            var caldavHost = myUri.Host;
+
+                            Logger.Info("RADICALE REWRITE URL: " + myUri);
+
+                            var currentUserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + "@" + caldavHost;
+                            var _email = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email;
+                            string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
+                            var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + ":" + currentAccountPaswd));
+                            var requestUrl = calDavServerUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + caldavGuid + "/" + uid + ".ics";
+
+                            try
+                            {
+                                var webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
+                                webRequest.Method = "DELETE";
+                                webRequest.Headers.Add("Authorization", "Basic " + encoded);
+                                using (var webResponse = webRequest.GetResponse())
+                                using (var reader = new StreamReader(webResponse.GetResponseStream())){}
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Error(ex);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+                }
+            }
+
+        }
         /// <summary>
         /// Unsubscribes the current user from the event with the ID specified in the request
         /// </summary>
@@ -1709,7 +3158,7 @@ namespace ASC.Api.Calendar
 
             return canNotify;
         }
-        private string GetRRuleString(Ical.Net.Interfaces.Components.IEvent evt)
+        private string GetRRuleString(Ical.Net.CalendarComponents.CalendarEvent evt)
         {
             var rrule = string.Empty;
 
@@ -1754,6 +3203,19 @@ namespace ASC.Api.Calendar
                                 {
                                     rrule += date;
                                 }
+                            }
+                        }
+                        //for yyyyMMdd/P1D date. Bug in the ical.net
+                        else if (date.ToLowerInvariant().IndexOf("/p") >= 0)
+                        {
+                            try
+                            {
+                                rrule += date.Split('/')[0];
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Error(String.Format("Error: {0}, Date string: {1}", ex, date));
+                                rrule += date;
                             }
                         }
                         else

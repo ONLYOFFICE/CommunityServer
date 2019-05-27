@@ -30,8 +30,8 @@ using System.Linq;
 using System.Web;
 using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
 using ASC.Api.Utils;
+using ASC.Common.Logging;
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -67,7 +67,7 @@ namespace ASC.Api.Impl
             {
                 var context = apicontext.RequestContext;
 
-                Log.Debug("Method to call={0}", methodToCall);
+                Log.DebugFormat("Method to call={0}", methodToCall);
 
                 //try convert params
                 var callArg = ArgumentBuilder.BuildCallingArguments(context, methodToCall);
@@ -78,7 +78,7 @@ namespace ASC.Api.Impl
                             apiParamInspector.InspectParams(current));
                 }
 
-                Log.Debug("Arguments count: {0}", callArg == null ? "empty" : callArg.Count().ToString());
+                Log.DebugFormat("Arguments count: {0}", callArg == null ? "empty" : callArg.Count().ToString());
 
 
                 try

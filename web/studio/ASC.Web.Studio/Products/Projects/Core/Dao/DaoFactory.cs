@@ -48,7 +48,7 @@ namespace ASC.Projects.Data
         {
             get
             {
-                return participantDao ?? (participantDao = Container.Resolve<IParticipantDao>(Tenant, DIHelper.GetParameter(ProjectDao)));
+                return participantDao ?? (participantDao = Container.Resolve<IParticipantDao>(Tenant));
             }
         }
 
@@ -56,7 +56,7 @@ namespace ASC.Projects.Data
         public IMilestoneDao MilestoneDao { get { return milestoneDao ??(milestoneDao = Container.Resolve<IMilestoneDao>(Tenant)); } }
 
         private ITaskDao taskDao;
-        public ITaskDao TaskDao { get { return taskDao ?? (taskDao = Container.Resolve<ITaskDao>(Tenant, DIHelper.GetParameter(this))); } }
+        public ITaskDao TaskDao { get { return taskDao ?? (taskDao = Container.Resolve<ITaskDao>(Tenant)); } }
 
         private ISubtaskDao subtaskDao;
         public ISubtaskDao SubtaskDao { get { return subtaskDao ?? (subtaskDao = Container.Resolve<ISubtaskDao>(Tenant)); } }
@@ -77,7 +77,7 @@ namespace ASC.Projects.Data
         public IReportDao ReportDao { get { return reportDao ?? (reportDao = Container.Resolve<IReportDao>(Tenant)); } }
 
         private ISearchDao searchDao;
-        public ISearchDao SearchDao { get { return searchDao ?? (searchDao = Container.Resolve<ISearchDao>(Tenant, DIHelper.GetParameter(this))); } }
+        public ISearchDao SearchDao { get { return searchDao ?? (searchDao = Container.Resolve<ISearchDao>(Tenant)); } }
 
         private ITagDao tagDao;
         public ITagDao TagDao { get { return tagDao ?? (tagDao = Container.Resolve<ITagDao>(Tenant)); } }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="freenet.de">
+    <domain>freenet.de</domain>
+    <displayName>Freenet Mail</displayName>
+    <displayShortName>Freenet</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mx.freenet.de</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <authentication>password-encrypted</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <incomingServer type="imap">
+      <hostname>mx.freenet.de</hostname>
+      <port>143</port>
+      <socketType>STARTTLS</socketType>
+      <authentication>password-encrypted</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mx.freenet.de</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mx.freenet.de</hostname>
+      <port>110</port>
+      <socketType>STARTTLS</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mx.freenet.de</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <authentication>password-encrypted</authentication>
+      <username>%EMAILADDRESS%</username>
+    </outgoingServer>
+    <outgoingServer type="smtp">
+      <hostname>mx.freenet.de</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <authentication>password-encrypted</authentication>
+      <username>%EMAILADDRESS%</username>
+    </outgoingServer>
+    <documentation url="http://kundenservice.freenet.de/hilfe/email/programme/config/index.html">
+      <descr lang="en">Generic settings page</descr>
+    </documentation>
+    <documentation url="http://kundenservice.freenet.de/hilfe/email/programme/config/thunderbird/imap-thunderbird/imap/index.html">
+      <descr lang="en">TB 2.0 IMAP settings</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

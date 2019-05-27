@@ -101,7 +101,7 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
                     SsoSessionId = SessionId,
                     Location = Location,
                     Title = Title,
-                    ActivationStatus = EmployeeActivationStatus.Activated,
+                    ActivationStatus = EmployeeActivationStatus.NotActivated,
                     WorkFromDate = TenantUtil.DateTimeNow()
                 };
 

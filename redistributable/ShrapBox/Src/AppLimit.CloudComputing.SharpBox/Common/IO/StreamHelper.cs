@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.IO
@@ -24,7 +21,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
         /// <summary>
         /// Parameters are invalid
         /// </summary>
-        InvalidParameter            
+        InvalidParameter
     }
 
     internal class StreamHelperResult
@@ -49,31 +46,30 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
         /// <summary>
         /// Amount of bytes transfered between this and the last event
         /// </summary>
-        public long ReadBytesCurrentOperation { get; set; }        
-                
+        public long ReadBytesCurrentOperation { get; set; }
+
         /// <summary>
         /// The transfer rate in KBits per Second related to bytes totally transfered (ReadBytesTotal)
         /// </summary>
-        public long TransferRateTotal{ get; set; } 
+        public long TransferRateTotal { get; set; }
 
         /// <summary>
         /// The transfer rate in KBits per Second related to the last 500ms 
         /// </summary>
-        public long TransferRateCurrent { get; internal set; }        
+        public long TransferRateCurrent { get; internal set; }
 
         /// <summary>
         /// Overall progress in percent
         /// </summary>
         public int PercentageProgress
         {
-            get 
+            get
             {
                 if (TotalLength == -1)
                     return -1;
-                else if (TotalLength == 0)
+                if (TotalLength == 0)
                     return 100;
-                else
-                    return (int)((100 * ReadBytesTotal) / TotalLength);
+                return (int)((100*ReadBytesTotal)/TotalLength);
             }
         }
     }
@@ -82,7 +78,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
 
     internal class StreamHelper
     {
-        private static int _BufferSize = 4096;
+        private const int BufferSize = 4096;
 
         public static StreamHelperResult CopyStreamData(Object sender, Stream src, Stream trg, StreamHelperProgressCallback status, params Object[] data)
         {
@@ -93,28 +89,28 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
         {
             // validate parameter
             if (src == null || trg == null)
-                return new StreamHelperResult() { ResultCode = StreamHelperResultCodes.InvalidParameter };
+                return new StreamHelperResult { ResultCode = StreamHelperResultCodes.InvalidParameter };
 
             if (src.CanRead == false || trg.CanWrite == false)
-                return new StreamHelperResult() { ResultCode = StreamHelperResultCodes.InvalidParameter };
+                return new StreamHelperResult { ResultCode = StreamHelperResultCodes.InvalidParameter };
 
             // build the buffer as configured
-            byte[] buffer = new byte[_BufferSize];
+            var buffer = new byte[BufferSize];
 
             // set the real buffer size
-            int RealBufferSize = _BufferSize;
+            var RealBufferSize = BufferSize;
 
             // build the event for the status callback
-            StreamHelperProgressEvent e = new StreamHelperProgressEvent();
+            var e = new StreamHelperProgressEvent();
 
             // copy the stream data
-            int readBytes = 0;
-            int readBytesTotal = 0;
-            int readBytes500msFrame = 0;
+            int readBytes;
+            var readBytesTotal = 0;
+            var readBytes500msFrame = 0;
 
-            DateTime dtStart = DateTime.Now;
-            DateTime dt500MsWatch = DateTime.Now;
-            TimeSpan ts500MsWatch = new TimeSpan();
+            var dtStart = DateTime.Now;
+            var dt500MsWatch = DateTime.Now;
+            var ts500MsWatch = new TimeSpan();
 
             // set the total length if possible
             try
@@ -147,33 +143,33 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
 
                 // Write the bytes
                 trg.Write(buffer, 0, readBytes);
-                
+
                 // notify state
                 if (status != null)
                 {
                     // upadte the event                    
                     e.ReadBytesTotal = readBytesTotal;
-                    e.ReadBytesCurrentOperation = readBytes;                    
-                    
+                    e.ReadBytesCurrentOperation = readBytes;
+
                     // call the callback
-                    StreamHelperResultCodes action = status(sender, e, data);                        
+                    var action = status(sender, e, data);
 
                     // result
                     if (action == StreamHelperResultCodes.Aborted)
-                        return new StreamHelperResult() { ResultCode = StreamHelperResultCodes.Aborted, TransferedBytes = readBytesTotal };
-                }          
-      
+                        return new StreamHelperResult { ResultCode = StreamHelperResultCodes.Aborted, TransferedBytes = readBytesTotal };
+                }
+
                 // stop measurement
-                DateTime dtLocalStop = DateTime.Now;
-                
+                var dtLocalStop = DateTime.Now;
+
                 // set the 500 ms span 
                 ts500MsWatch = dtLocalStop - dt500MsWatch;
 
                 // check if we achieved 500 ms
                 if (ts500MsWatch.TotalMilliseconds >= 500)
-                {                    
+                {
                     // update the current transfer rate                    
-                    e.TransferRateCurrent = readBytes500msFrame / Convert.ToInt64(ts500MsWatch.TotalMilliseconds);
+                    e.TransferRateCurrent = readBytes500msFrame/Convert.ToInt64(ts500MsWatch.TotalMilliseconds);
                     // bits per millisecond == kbits per second
                     e.TransferRateCurrent *= 8;
 
@@ -184,19 +180,19 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
                     ts500MsWatch = new TimeSpan();
 
                     // reset the start timer
-                    dt500MsWatch = DateTime.Now;                   
+                    dt500MsWatch = DateTime.Now;
                 }
 
                 // recalc the overall transfer rate
-                TimeSpan consumedTimeAllOver = dtLocalStop - dtStart;
+                var consumedTimeAllOver = dtLocalStop - dtStart;
 
                 if (Convert.ToInt64(consumedTimeAllOver.TotalMilliseconds) > 0)
                 {
                     // bytes per millisecond
-                    e.TransferRateTotal = readBytesTotal / Convert.ToInt64(consumedTimeAllOver.TotalMilliseconds);
+                    e.TransferRateTotal = readBytesTotal/Convert.ToInt64(consumedTimeAllOver.TotalMilliseconds);
 
                     // bits per millisecond == kbits per second
-                    e.TransferRateTotal *= 8;                    
+                    e.TransferRateTotal *= 8;
                 }
                 else
                     e.TransferRateTotal = -1;
@@ -217,16 +213,16 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
                 // check if we have 
             } while (readBytes > 0);
 
-            return new StreamHelperResult() { ResultCode = StreamHelperResultCodes.OK, TransferedBytes = readBytesTotal };
+            return new StreamHelperResult { ResultCode = StreamHelperResultCodes.OK, TransferedBytes = readBytesTotal };
         }
 
         public static MemoryStream ToStream(String data)
         {
             // create the memory stream
-            MemoryStream mStream = new MemoryStream();
+            var mStream = new MemoryStream();
 
             // write the data into
-            StreamWriter sw = new StreamWriter(mStream);
+            var sw = new StreamWriter(mStream);
             sw.Write(data);
             sw.Flush();
 
@@ -238,22 +234,22 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
         }
 
         public static TimeSpan CalculateOperationTransferTime(StreamHelperProgressEvent e)
-        {            
+        {
             // calc transfertime            
             if (e.TransferRateTotal != -1 && e.TransferRateTotal > 0)
             {
-                long bytesPerSecond = (e.TransferRateTotal / 8) * 1000;
+                var bytesPerSecond = (e.TransferRateTotal/8)*1000;
 
                 if (bytesPerSecond > 0)
                 {
-                    long neededSeconds = (e.TotalLength - e.ReadBytesTotal) / bytesPerSecond;
-                    return new TimeSpan(neededSeconds * TimeSpan.TicksPerSecond);
+                    var neededSeconds = (e.TotalLength - e.ReadBytesTotal)/bytesPerSecond;
+                    return new TimeSpan(neededSeconds*TimeSpan.TicksPerSecond);
                 }
-                else
-                    return new TimeSpan(long.MaxValue);
+
+                return new TimeSpan(long.MaxValue);
             }
-            else
-                return new TimeSpan(long.MaxValue);                       
+
+            return new TimeSpan(long.MaxValue);
         }
     }
 }

@@ -24,9 +24,12 @@
 */
 
 
+using System;
+using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Mail.Data.Contracts;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.Mail
 {
@@ -38,9 +41,16 @@ namespace ASC.Api.Mail
         /// <param name="mailbox_id"></param>
         /// <returns>Signature object</returns>
         [Read(@"signature/{mailbox_id:[0-9]+}")]
-        public MailSignature GetSignature(int mailbox_id)
+        public MailSignatureData GetSignature(int mailbox_id)
         {
-            return MailBoxManager.GetMailboxSignature(mailbox_id, Username, TenantId);
+            var accounts = GetAccounts(Username);
+
+            var account = accounts.FirstOrDefault(a => a.MailboxId == mailbox_id);
+
+            if (account == null)
+                throw new ArgumentException("Mailbox not found");
+
+            return account.Signature;
         }
 
         /// <summary>
@@ -50,17 +60,16 @@ namespace ASC.Api.Mail
         /// <param name="html">New signature value.</param>
         /// <param name="is_active">New signature status.</param>
         [Create(@"signature/update/{mailbox_id:[0-9]+}")]
-        public MailSignature UpdateSignature(int mailbox_id, string html, bool is_active)
+        public MailSignatureData UpdateSignature(int mailbox_id, string html, bool is_active)
         {
-            if (!string.IsNullOrEmpty(html))
-            {
-                var imagesReplacer = new StorageManager(TenantId, Username);
-                html = imagesReplacer.ChangeEditorImagesLinks(html, mailbox_id);
-            }
+            var accounts = GetAccounts(Username);
 
-            MailBoxManager.CachedAccounts.Clear(Username);
+            var account = accounts.FirstOrDefault(a => a.MailboxId == mailbox_id);
 
-            return MailBoxManager.UpdateOrCreateMailboxSignature(mailbox_id, Username, TenantId, html, is_active);
+            if (account == null)
+                throw new ArgumentException("Mailbox not found");
+
+            return MailEngineFactory.SignatureEngine.SaveSignature(mailbox_id, html, is_active);
         }
     }
 }

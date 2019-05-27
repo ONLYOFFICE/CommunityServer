@@ -1,1 +1,0 @@
-update mail_tag mt set mt.addresses = (SELECT CAST(group_concat(mta.address SEPARATOR ';') AS CHAR) from mail_tag_addresses as mta WHERE mta.id_tag = mt.id);

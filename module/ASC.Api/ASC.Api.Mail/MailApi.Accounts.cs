@@ -28,25 +28,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Security.Authentication;
 using System.Threading;
 using ASC.Api.Attributes;
-using ASC.Api.Exceptions;
-using ASC.Api.Mail.DataContracts;
-using ASC.Api.Mail.Extensions;
-using ASC.Api.Mail.Resources;
 using ASC.Core;
-using ASC.Core.Common.Settings;
-using ASC.FederatedLogin.Helpers;
-using ASC.FederatedLogin.LoginProviders;
-using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.Authorization;
-using ASC.Mail.Aggregator.Common.Utils;
-using ASC.Mail.Aggregator.ComplexOperations.Base;
-using ASC.Mail.Aggregator.Core.Clients;
-using EncryptionType = ASC.Mail.Aggregator.Common.EncryptionType;
-using SaslMechanism = ASC.Mail.Aggregator.Common.SaslMechanism;
+using ASC.Mail;
+using ASC.Mail.Authorization;
+using ASC.Mail.Clients;
+using ASC.Mail.Core.Dao.Expressions.Mailbox;
+using ASC.Mail.Core.Engine.Operations.Base;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Enums;
+using ASC.Mail.Exceptions;
+using ASC.Mail.Extensions;
+using ASC.Web.Mail.Resources;
+using EncryptionType = ASC.Mail.Enums.EncryptionType;
+using SaslMechanism = ASC.Mail.Enums.SaslMechanism;
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.Mail
 {
@@ -62,14 +59,59 @@ namespace ASC.Api.Mail
         [Read(@"accounts")]
         public IEnumerable<MailAccountData> GetAccounts(string username = "")
         {
-            var userId = string.IsNullOrEmpty(username) ? Username : username;
-            var accounts = MailBoxManager.CachedAccounts.Get(userId);
-            if (accounts == null)
+            var accounts = MailEngineFactory.AccountEngine.GetAccountInfoList();
+            return accounts.ToAccountData();
+        }
+
+        /// <summary>
+        ///    Returns the information about the account.
+        /// </summary>
+        /// <param name="email">Account email address</param>
+        /// <returns>Account with specified email</returns>
+        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't found by email.</exception>
+        /// <short>Get account by email</short> 
+        /// <category>Accounts</category>
+        [Read(@"accounts/single")]
+        public MailBoxData GetAccount(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                throw new ArgumentException(@"Email empty", "email");
+
+            var mailbox =
+                MailEngineFactory.MailboxEngine.GetMailboxData(new СoncreteUserMailboxExp(new MailAddress(email), TenantId,
+                    Username));
+
+            if (mailbox == null)
+                throw new NullReferenceException(string.Format("Account wasn't found by email: {0}", email));
+
+            if (mailbox.IsTeamlab)
             {
-                accounts = MailBoxManager.GetAccountInfo(TenantId, userId);
-                MailBoxManager.CachedAccounts.Set(userId, accounts);
+                if(!CoreContext.Configuration.Standalone)
+                    throw new ArgumentException("Access to this account restricted");
+
+                string mxHost = null;
+
+                try
+                {
+                    mxHost = MailEngineFactory.ServerEngine.GetMailServerMxDomain();
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorFormat("GetMailServerMxDomain() failed. Exception: {0}", ex.ToString());
+                }
+
+                if (!string.IsNullOrEmpty(mxHost))
+                {
+                    mailbox.Server = mxHost;
+                    mailbox.SmtpServer = mxHost;
+                }
             }
-            return accounts.ToAddressData();
+
+            mailbox.Password = "";
+            mailbox.SmtpPassword = "";
+
+            return mailbox;
         }
 
         /// <summary>
@@ -92,90 +134,33 @@ namespace ASC.Api.Mail
             Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
             string errorText = null;
-            MailBox mbox = null;
-
-            var domain = email.Substring(email.IndexOf('@') + 1);
-
-            var mailboxSettings = MailBoxManager.GetMailBoxSettings(domain);
-
-            if (mailboxSettings == null)
-            {
-                errorText = GetFormattedTextError(new ItemNotFoundException("Unknown mail provider settings."));
-            }
-            else
-            {
-                try
-                {
-
-                    var testMailboxes = mailboxSettings.ToMailboxList(email, password, TenantId, Username);
-
-                    var results = new List<LoginResult>();
-
-                    foreach (var mb in testMailboxes)
-                    {
-                        LoginResult loginResult;
-
-                        using (var client = new MailClient(mb, CancellationToken.None, TcpTimeout, SslCertificatesErrorPermit, log: _log))
-                        {
-                            loginResult = client.TestLogin();
-                        }
-
-                        results.Add(loginResult);
-
-                        if (loginResult.IngoingSuccess && loginResult.OutgoingSuccess)
-                        {
-                            mbox = mb;
-                            break;
-                        }
-                    }
-
-                    if (mbox == null)
-                    {
-                        var i = 0;
-
-                        foreach (var loginResult in results)
-                        {
-                            errorText += string.Format("#{0}:<br>", ++i);
-
-                            if (!loginResult.IngoingSuccess)
-                            {
-                                errorText += GetFormattedTextError(loginResult.IngoingException,
-                                    loginResult.Imap ? MailServerType.Imap : MailServerType.Pop3, false) + "<br>";
-                                    // exImap is ImapConnectionTimeoutException
-                            }
-
-                            if (!loginResult.OutgoingSuccess)
-                            {
-                                errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false) + "<br>";
-                                // exSmtp is SmtpConnectionTimeoutException);
-                            }
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    errorText = GetFormattedTextError(ex);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(errorText))
-                throw new Exception(errorText);
 
             try
             {
-                MailBoxManager.SaveMailBox(mbox);
-                MailBoxManager.CachedAccounts.Clear(Username);
+                List<LoginResult> loginResults;
+                var account = MailEngineFactory.AccountEngine.CreateAccountSimple(email, password, out loginResults);
 
-                if (IsSignalRAvailable)
-                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+                if (account != null)
+                    return account.ToAccountData().FirstOrDefault();
 
-                var account = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
-                    MailBox.AuthProblemType.NoProblems, new MailSignature(mbox.MailBoxId, TenantId, "", false),
-                    new MailAutoreply(mbox.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
-                        DateTime.MinValue, String.Empty, String.Empty), false, mbox.EMailInFolder, false, false);
+                var i = 0;
 
-                return account.ToAddressData().FirstOrDefault();
+                foreach (var loginResult in loginResults)
+                {
+                    errorText += string.Format("#{0}:<br>", ++i);
+
+                    if (!loginResult.IngoingSuccess)
+                    {
+                        errorText += GetFormattedTextError(loginResult.IngoingException,
+                            loginResult.Imap ? ServerType.Imap : ServerType.Pop3, false) + "<br>";
+                    }
+
+                    if (!loginResult.OutgoingSuccess)
+                    {
+                        errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false) +
+                                     "<br>";
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -185,126 +170,6 @@ namespace ASC.Api.Mail
             }
 
             throw new Exception(errorText);
-        }
-
-        /// <summary>
-        ///    Creates Mail account with OAuth authentication. Only Google OAuth supported.
-        /// </summary>
-        /// <param name="code">Oauth code</param>
-        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
-        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
-        /// <returns>Created account</returns>
-        /// <short>Create OAuth account</short> 
-        /// <category>Accounts</category>
-        [Create(@"accounts/oauth")]
-        public MailAccountData CreateAccountOAuth(string code, byte type)
-        {
-            if (string.IsNullOrEmpty(code)) throw new ArgumentException(@"Empty oauth code", "code");
-
-            var oAuthToken = OAuth20TokenHelper.GetAccessToken(GoogleLoginProvider.GoogleOauthTokenUrl,
-                                                          GoogleLoginProvider.GoogleOAuth20ClientId,
-                                                          GoogleLoginProvider.GoogleOAuth20ClientSecret,
-                                                          GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                          code);
-
-            if (oAuthToken == null) throw new Exception(@"Empty oauth token");
-
-            var loginProfile = new GoogleLoginProvider().GetLoginProfile(oAuthToken.AccessToken);
-            var email = loginProfile.EMail;
-
-            if (string.IsNullOrEmpty(email)) throw new Exception(@"Empty email");
-
-            var beginDate = DateTime.UtcNow.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta));
-
-            var mboxImap = MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", (AuthorizationServiceType) type, true, false);
-            mboxImap.OAuthToken = oAuthToken.ToJson();
-            mboxImap.BeginDate = beginDate; // Apply restrict for download
-
-            try
-            {
-                MailBoxManager.SaveMailBox(mboxImap, (AuthorizationServiceType)type);
-                MailBoxManager.CachedAccounts.Clear(Username);
-
-                if (IsSignalRAvailable)
-                    MailBoxManager.UpdateUserActivity(TenantId, Username);
-
-                var account = new AccountInfo(mboxImap.MailBoxId, mboxImap.EMailView, mboxImap.Name, mboxImap.Enabled, mboxImap.QuotaError,
-                                               MailBox.AuthProblemType.NoProblems, new MailSignature(mboxImap.MailBoxId, TenantId, "", false),
-                                               new MailAutoreply(mboxImap.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
-                                                   DateTime.MinValue, String.Empty, String.Empty), true, mboxImap.EMailInFolder, false, false);
-
-                return account.ToAddressData().FirstOrDefault();
-            }
-            catch (Exception imapException)
-            {
-                throw new Exception(GetFormattedTextError(imapException, MailServerType.ImapOAuth, imapException is ImapConnectionTimeoutException));
-            }
-        }
-
-        /// <summary>
-        ///    Update Mail account with OAuth authentication. Only Google OAuth supported.
-        /// </summary>
-        /// <param name="code">Oauth code</param>
-        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
-        /// <param name="mailboxId">Mailbox ID to update</param>
-        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
-        /// <returns>Updated OAuth account</returns>
-        /// <short>Update OAuth account</short> 
-        /// <category>Accounts</category>
-        [Update(@"accounts/oauth")]
-        public MailAccountData UpdateAccountOAuth(string code, byte type, int mailboxId)
-        {
-            if (string.IsNullOrEmpty(code))
-                throw new ArgumentException(@"Empty oauth code", "code");
-
-            var oAuthToken = OAuth20TokenHelper.GetAccessToken(GoogleLoginProvider.GoogleOauthTokenUrl,
-                                                          GoogleLoginProvider.GoogleOAuth20ClientId,
-                                                          GoogleLoginProvider.GoogleOAuth20ClientSecret,
-                                                          GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                          code);
-
-            if (oAuthToken == null)
-                throw new Exception(@"Empty oauth token");
-
-            var loginProfile = new GoogleLoginProvider().GetLoginProfile(oAuthToken.AccessToken);
-            var email = loginProfile.EMail;
-
-            if (string.IsNullOrEmpty(email))
-                throw new Exception(@"Empty email");
-
-            try
-            {
-                var mbox = MailBoxManager.GetMailBox(mailboxId);
-
-                if (null == mbox)
-                    throw new ArgumentException("Mailbox with specified email doesn't exist.");
-
-                if (mbox.IsTeamlab || !mbox.IsOAuth)
-                    throw new ArgumentException("Mailbox with specified email can't be updated");
-
-                if(!mbox.EMail.Address.Equals(email, StringComparison.InvariantCultureIgnoreCase))
-                    throw new ArgumentException("Mailbox with specified email can't be updated");
-
-                mbox.OAuthToken = oAuthToken.ToJson();
-                mbox.AccessTokenRefreshed = true;
-
-                MailBoxManager.SaveMailBox(mbox, (AuthorizationServiceType)type);
-                MailBoxManager.CachedAccounts.Clear(Username);
-
-                if (IsSignalRAvailable)
-                    MailBoxManager.UpdateUserActivity(TenantId, Username);
-
-                var accountInfo = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
-                                               MailBox.AuthProblemType.NoProblems, new MailSignature(mbox.MailBoxId, TenantId, "", false),
-                                               new MailAutoreply(mbox.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
-                                                   DateTime.MinValue, String.Empty, String.Empty), false, mbox.EMailInFolder, false, false);
-
-                return accountInfo.ToAddressData().FirstOrDefault();
-            }
-            catch (Exception imapException)
-            {
-                throw new Exception(GetFormattedTextError(imapException, MailServerType.ImapOAuth, imapException is ImapConnectionTimeoutException));
-            }
         }
 
         /// <summary>
@@ -351,69 +216,57 @@ namespace ASC.Api.Mail
             SaslMechanism auth_type_smtp)
         {
             string errorText = null;
-            var mbox = new MailBox
-                {
-                    Name = name,
-                    EMail = new MailAddress(email),
-                    Account = account,
-                    Password = password,
-                    Port = port,
-                    Server = server,
-                    SmtpAccount = smtp_account,
-                    SmtpPassword = smtp_password,
-                    SmtpPort = smtp_port,
-                    SmtpServer = smtp_server,
-                    Imap = imap,
-                    TenantId = TenantId,
-                    UserId = Username,
-                    BeginDate = restrict ? 
-                        DateTime.Now.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta)) : 
-                        new DateTime(MailBox.DefaultMailBeginTimestamp),
-                    Encryption = incoming_encryption_type,
-                    SmtpEncryption = outcoming_encryption_type,
-                    Authentication = auth_type_in,
-                    SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None
-        };
-
-            LoginResult loginResult;
-
-            using (var client = new MailClient(mbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
+            var mbox = new MailBoxData
             {
-                loginResult = client.TestLogin();
-            }
-
-            if (!loginResult.IngoingSuccess)
-            {
-                errorText = GetFormattedTextError(loginResult.IngoingException,
-                    mbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
-            }
-
-            if (!loginResult.OutgoingSuccess)
-            {
-                if (!string.IsNullOrEmpty(errorText))
-                    errorText += "\r\n";
-
-                errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
-                    // exSmtp is SmtpConnectionTimeoutException);
-            }
-
-            if (!string.IsNullOrEmpty(errorText))
-                throw new Exception(errorText);
+                Name = name,
+                EMail = new MailAddress(email),
+                Account = account,
+                Password = password,
+                Port = port,
+                Server = server,
+                SmtpAccount = smtp_account,
+                SmtpPassword = smtp_password,
+                SmtpPort = smtp_port,
+                SmtpServer = smtp_server,
+                Imap = imap,
+                TenantId = TenantId,
+                UserId = Username,
+                BeginDate = restrict
+                    ? DateTime.Now.Subtract(new TimeSpan(MailBoxData.DefaultMailLimitedTimeDelta))
+                    : new DateTime(MailBoxData.DefaultMailBeginTimestamp),
+                Encryption = incoming_encryption_type,
+                SmtpEncryption = outcoming_encryption_type,
+                Authentication = auth_type_in,
+                SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None,
+                Enabled = true
+            };
 
             try
             {
-                MailBoxManager.SaveMailBox(mbox);
-                MailBoxManager.CachedAccounts.Clear(Username);
+                LoginResult loginResult;
 
-                if (IsSignalRAvailable)
-                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+                var accountInfo = MailEngineFactory.AccountEngine.CreateAccount(mbox, out loginResult);
 
-                var accountInfo = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
-                                               MailBox.AuthProblemType.NoProblems, new MailSignature(mbox.MailBoxId, TenantId, "", false),
-                                               new MailAutoreply(mbox.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
-                                                   DateTime.MinValue, String.Empty, String.Empty), false, mbox.EMailInFolder, false, false);
+                if (accountInfo != null)
+                {
+                    return accountInfo.ToAccountData().FirstOrDefault();
+                }
 
-                return accountInfo.ToAddressData().FirstOrDefault();
+                if (!loginResult.IngoingSuccess)
+                {
+                    errorText = GetFormattedTextError(loginResult.IngoingException,
+                        mbox.Imap ? ServerType.Imap : ServerType.Pop3, false);
+                    // exImap is ImapConnectionTimeoutException
+                }
+
+                if (!loginResult.OutgoingSuccess)
+                {
+                    if (!string.IsNullOrEmpty(errorText))
+                        errorText += "\r\n";
+
+                    errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
+                    // exSmtp is SmtpConnectionTimeoutException);
+                }
             }
             catch (Exception ex)
             {
@@ -421,8 +274,68 @@ namespace ASC.Api.Mail
                 errorText = GetFormattedTextError(ex, MailApiResource.AttachmentsUnknownError);
             }
 
-            throw new Exception(errorText);
+            throw new Exception(errorText ?? MailApiResource.AttachmentsUnknownError);
 
+        }
+
+        /// <summary>
+        ///    Creates Mail account with OAuth authentication. Only Google OAuth supported.
+        /// </summary>
+        /// <param name="code">Oauth code</param>
+        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
+        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
+        /// <returns>Created account</returns>
+        /// <short>Create OAuth account</short> 
+        /// <category>Accounts</category>
+        [Create(@"accounts/oauth")]
+        public MailAccountData CreateAccountOAuth(string code, byte type)
+        {
+            if (string.IsNullOrEmpty(code))
+                throw new ArgumentException(@"Empty oauth code", "code");
+
+            try
+            {
+                var account = MailEngineFactory.AccountEngine.CreateAccountOAuth(code, type);
+                return account.ToAccountData().FirstOrDefault();
+            }
+            catch (Exception imapException)
+            {
+                throw new Exception(GetFormattedTextError(imapException, ServerType.ImapOAuth,
+                    imapException is ImapConnectionTimeoutException));
+            }
+        }
+
+        /// <summary>
+        ///    Update Mail account with OAuth authentication. Only Google OAuth supported.
+        /// </summary>
+        /// <param name="code">Oauth code</param>
+        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
+        /// <param name="mailboxId">Mailbox ID to update</param>
+        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
+        /// <returns>Updated OAuth account</returns>
+        /// <short>Update OAuth account</short> 
+        /// <category>Accounts</category>
+        [Update(@"accounts/oauth")]
+        public MailAccountData UpdateAccountOAuth(string code, byte type, int mailboxId)
+        {
+            string errorText = null;
+
+            try
+            {
+                var accountInfo = MailEngineFactory.AccountEngine.UpdateAccountOAuth(mailboxId, code, type);
+
+                if (accountInfo != null)
+                {
+                    return accountInfo.ToAccountData().FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: change AttachmentsUnknownError to common unknown error text
+                errorText = GetFormattedTextError(ex, MailApiResource.AttachmentsUnknownError);
+            }
+
+            throw new Exception(errorText ?? MailApiResource.AttachmentsUnknownError);
         }
 
         /// <summary>
@@ -469,87 +382,64 @@ namespace ASC.Api.Mail
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException();
 
-            var mbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
-
-            if (null == mbox)
-                throw new ArgumentException("Mailbox with specified email doesn't exist.");
-
-            if (mbox.IsTeamlab)
-                throw new ArgumentException("Mailbox with specified email can't be updated");
-
-            if (string.IsNullOrEmpty(password))
-                password = mbox.Password;
-            if (string.IsNullOrEmpty(smtp_password))
-                smtp_password = mbox.SmtpPassword;
-
             string errorText = null;
-
-            mbox.Account = account;
-            mbox.Name = name;
-            mbox.Password = password;
-            mbox.SmtpAccount = smtp_account;
-            mbox.SmtpPassword = smtp_password;
-            mbox.Port = port;
-            mbox.Server = server;
-            mbox.SmtpPort = smtp_port;
-            mbox.SmtpServer = smtp_server;
-
-            mbox.BeginDate = restrict
-                ? DateTime.Now.Subtract(new TimeSpan(mbox.MailLimitedTimeDelta))
-                : mbox.MailBeginTimestamp;
-            mbox.Encryption = incoming_encryption_type;
-            mbox.SmtpEncryption = outcoming_encryption_type;
-            mbox.Authentication = auth_type_in;
-            mbox.SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None;
+            var mbox = new MailBoxData
+            {
+                Name = name,
+                EMail = new MailAddress(email),
+                Account = account,
+                Password = password,
+                Port = port,
+                Server = server,
+                SmtpAccount = smtp_account,
+                SmtpPassword = smtp_password,
+                SmtpPort = smtp_port,
+                SmtpServer = smtp_server,
+                TenantId = TenantId,
+                UserId = Username,
+                BeginDate = restrict
+                    ? DateTime.Now.Subtract(new TimeSpan(MailBoxData.DefaultMailLimitedTimeDelta))
+                    : new DateTime(MailBoxData.DefaultMailBeginTimestamp),
+                Encryption = incoming_encryption_type,
+                SmtpEncryption = outcoming_encryption_type,
+                Authentication = auth_type_in,
+                SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None
+            };
 
             try
             {
-                if (string.IsNullOrEmpty(mbox.OAuthToken))
+                LoginResult loginResult;
+
+                var accountInfo = MailEngineFactory.AccountEngine.UpdateAccount(mbox, out loginResult);
+
+                if (accountInfo != null)
                 {
-                    LoginResult loginResult;
-
-                    using (var client = new MailClient(mbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
-                    {
-                        loginResult = client.TestLogin();
-                    }
-
-                    if (!loginResult.IngoingSuccess)
-                    {
-                        errorText = GetFormattedTextError(loginResult.IngoingException,
-                            mbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
-                    }
-
-                    if (!loginResult.OutgoingSuccess)
-                    {
-                        if (!string.IsNullOrEmpty(errorText))
-                            errorText += "\r\n";
-
-                        errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
-                        // exSmtp is SmtpConnectionTimeoutException);
-                    }
-
-                    if (!string.IsNullOrEmpty(errorText))
-                        throw new Exception(errorText);
+                    return accountInfo.ToAccountData().FirstOrDefault();
                 }
 
-                if (!MailBoxManager.SaveMailBox(mbox))
-                    throw new Exception("Failed to_addresses update account");
+                if (!loginResult.IngoingSuccess)
+                {
+                    errorText = GetFormattedTextError(loginResult.IngoingException,
+                        mbox.Imap ? ServerType.Imap : ServerType.Pop3, false);
+                    // exImap is ImapConnectionTimeoutException
+                }
 
-                MailBoxManager.CachedAccounts.Clear(Username);
+                if (!loginResult.OutgoingSuccess)
+                {
+                    if (!string.IsNullOrEmpty(errorText))
+                        errorText += "\r\n";
 
-                var accountInfo = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
-                                               MailBox.AuthProblemType.NoProblems, new MailSignature(mbox.MailBoxId, TenantId, "", false),
-                                               new MailAutoreply(mbox.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
-                                                   DateTime.MinValue, String.Empty, String.Empty), false, mbox.EMailInFolder, false, false);
-
-                return accountInfo.ToAddressData().FirstOrDefault();
+                    errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
+                    // exSmtp is SmtpConnectionTimeoutException);
+                }
             }
             catch (Exception ex)
             {
-                errorText = GetFormattedTextError(ex);
+                //TODO: change AttachmentsUnknownError to common unknown error text
+                errorText = GetFormattedTextError(ex, MailApiResource.AttachmentsUnknownError);
             }
 
-            throw new Exception(errorText);
+            throw new Exception(errorText ?? MailApiResource.AttachmentsUnknownError);
         }
 
         /// <summary>
@@ -567,14 +457,17 @@ namespace ASC.Api.Mail
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException(@"Email empty", "email");
 
-            var mailbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
+            var mailbox =
+                MailEngineFactory.MailboxEngine.GetMailboxData(new СoncreteUserMailboxExp(new MailAddress(email), TenantId,
+                    Username));
+
             if (mailbox == null)
-                throw new NullReferenceException(string.Format("Account wasn't founded by email: {0}", email));
+                throw new NullReferenceException(string.Format("Account wasn't found by email: {0}", email));
 
             if (mailbox.IsTeamlab)
                 throw new ArgumentException("Mailbox with specified email can't be deleted");
 
-            return MailBoxManager.RemoveMailbox(mailbox, TranslateMailOperationStatus);
+            return MailEngineFactory.OperationEngine.RemoveMailbox(mailbox, TranslateMailOperationStatus);
         }
 
         /// <summary>
@@ -593,27 +486,18 @@ namespace ASC.Api.Mail
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentNullException("email");
 
-            var mailbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
-            if (mailbox == null)
-                throw new NullReferenceException(String.Format("Account wasn't founded by email: {0}", email));
+            string errorText = null;
+            LoginResult loginResult;
 
-            if (state)
+            var mailboxId = MailEngineFactory.AccountEngine.SetAccountEnable(new MailAddress(email), state, out loginResult);
+
+            if (loginResult != null)
             {
-                // Check account connection setting on activation
-
-                string errorText = null;
-
-                LoginResult loginResult;
-
-                using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
-                {
-                    loginResult = client.TestLogin();
-                }
-
                 if (!loginResult.IngoingSuccess)
                 {
                     errorText = GetFormattedTextError(loginResult.IngoingException,
-                        mailbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
+                        loginResult.Imap ? ServerType.Imap : ServerType.Pop3, false); 
+                    // exImap is ImapConnectionTimeoutException
                 }
 
                 if (!loginResult.OutgoingSuccess)
@@ -621,20 +505,18 @@ namespace ASC.Api.Mail
                     if (!string.IsNullOrEmpty(errorText))
                         errorText += "\r\n";
 
-                    errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
+                    errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
                     // exSmtp is SmtpConnectionTimeoutException);
                 }
 
                 if (!string.IsNullOrEmpty(errorText))
-                    throw new AuthenticationException(errorText);
-
+                    throw new Exception(errorText);
             }
 
-            if (!MailBoxManager.EnableMaibox(mailbox, state))
+            if (mailboxId < 0)
                 throw new Exception("EnableMaibox failed.");
 
-            MailBoxManager.CachedAccounts.Clear(Username);
-            return mailbox.MailBoxId;
+            return mailboxId;
         }
 
         /// <summary>
@@ -654,63 +536,33 @@ namespace ASC.Api.Mail
                 throw new ArgumentNullException("email");
 
             email = email.ToLowerInvariant();
+
             if (isDefault)
             {
-                var accounts = MailBoxManager.GetAccountInfo(TenantId, Username);
-                bool emailExist = false;
-                
-                for (int i = 0; i < accounts.Count; i++)
+                var accounts = MailEngineFactory.AccountEngine.GetAccountInfoList();
+
+                var emailExist = false;
+
+                foreach (var account in accounts)
                 {
-                    if (accounts[i].Email == email)
+                    if (account.Email == email)
                     {
                         emailExist = true;
                         break;
                     }
-                    for (int j = 0; j < accounts[i].Aliases.Count; j++)
+                    if (account.Aliases.Any(address => address.Email == email))
                     {
-                        if (accounts[i].Aliases[j].Email == email)
-                        {
-                            emailExist = true;
-                            break;
-                        }
+                        emailExist = true;
                     }
                 }
+
                 if (!emailExist)
-                    throw new ArgumentException(String.Format("Account wasn't founded by email: {0}", email));
+                    throw new ArgumentException("Account not found");
             }
 
-            new MailBoxAccountSettings { DefaultEmail = isDefault ? email : String.Empty }.SaveForCurrentUser();
+            new MailBoxAccountSettings {DefaultEmail = isDefault ? email : string.Empty}.SaveForCurrentUser();
 
             return email;
-        }
-
-        /// <summary>
-        ///    Returns the information about the account.
-        /// </summary>
-        /// <param name="email">Account email address</param>
-        /// <returns>Account with specified email</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
-        /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't founded by email.</exception>
-        /// <short>Get account by email</short> 
-        /// <category>Accounts</category>
-        [Read(@"accounts/single")]
-        public MailBox GetAccount(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-                throw new ArgumentException(@"Email empty", "email");
-
-            var mailbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
-
-            if (mailbox == null)
-                throw new NullReferenceException(String.Format("Account wasn't founded by email: {0}", email));
-
-            if (mailbox.IsTeamlab)
-                throw new ArgumentException("Access to this account restricted");
-
-            mailbox.Password = "";
-            mailbox.SmtpPassword = "";
-
-            return mailbox;
         }
 
         /// <summary>
@@ -727,24 +579,28 @@ namespace ASC.Api.Mail
         /// <short>Get default account settings</short> 
         /// <category>Accounts</category>
         [Read(@"accounts/setups")]
-        public MailBox GetAccountsDefaults(string email, string action)
+        public MailBoxData GetAccountDefaults(string email, string action)
         {
-            if (action == "get_imap_pop_settings")
+            switch (action)
             {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, true, true) ??
-                       MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, false, false);
-            }
-            if (action == "get_imap_server" || action == "get_imap_server_full")
-            {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, true, false);
-            }
-            
-            if (action == "get_pop_server" || action == "get_pop_server_full")
-            {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, false, false);
+                case Defines.GET_IMAP_POP_SETTINGS:
+                    return
+                        MailEngineFactory.MailboxEngine.GetDefaultMailboxData(email, "",
+                            AuthorizationServiceType.None, true, true) ??
+                        MailEngineFactory.MailboxEngine.GetDefaultMailboxData(email, "",
+                            AuthorizationServiceType.None, false, false);
+                case Defines.GET_IMAP_SERVER:
+                case Defines.GET_IMAP_SERVER_FULL:
+                    return MailEngineFactory.MailboxEngine.GetDefaultMailboxData(email, "",
+                        AuthorizationServiceType.None, true, false);
+                case Defines.GET_POP_SERVER:
+                case Defines.GET_POP_SERVER_FULL:
+                    return MailEngineFactory.MailboxEngine.GetDefaultMailboxData(email, "",
+                        AuthorizationServiceType.None, false, false);
             }
 
-            return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, null, false);
+            return MailEngineFactory.MailboxEngine.GetDefaultMailboxData(email, "",
+                AuthorizationServiceType.None, null, false);
         }
 
         /// <summary>
@@ -760,32 +616,42 @@ namespace ASC.Api.Mail
         [Update(@"accounts/emailinfolder")]
         public void SetAccountEMailInFolder(int mailbox_id, string email_in_folder)
         {
-            if (null == email_in_folder)
-                throw new ArgumentNullException("email_in_folder");
+            if (mailbox_id < 0)
+                throw new ArgumentNullException("mailbox_id");
 
-            MailBoxManager.SetMailboxEmailInFolder(TenantId, Username, mailbox_id, email_in_folder);
-            MailBoxManager.CachedAccounts.Clear(Username);
+            MailEngineFactory.AccountEngine.SetAccountEmailInFolder(mailbox_id, email_in_folder);
         }
 
-        private static string GetFormattedTextError(Exception ex, MailServerType mailServerType, bool timeoutFlag = true)
+        /// <summary>
+        /// UpdateUserActivity
+        /// </summary>
+        /// <param name="userOnline"></param>
+        /// <category>Accounts</category>
+        [Update(@"accounts/updateuseractivity")]
+        public void UpdateUserActivity(bool userOnline)
+        {
+            MailEngineFactory.AccountEngine.SetAccountsActivity(userOnline);
+        }
+
+        private static string GetFormattedTextError(Exception ex, ServerType mailServerType, bool timeoutFlag = true)
         {
             var headerText = string.Empty;
             var errorExplain = string.Empty;
 
             switch (mailServerType)
             {
-                case MailServerType.Imap:
-                case MailServerType.ImapOAuth:
+                case ServerType.Imap:
+                case ServerType.ImapOAuth:
                     headerText = MailApiResource.ImapResponse;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.ImapConnectionTimeoutError;
                     break;
-                case MailServerType.Pop3:
+                case ServerType.Pop3:
                     headerText = MailApiResource.Pop3Response;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.Pop3ConnectionTimeoutError;
                     break;
-                case MailServerType.Smtp:
+                case ServerType.Smtp:
                     headerText = MailApiResource.SmtRresponse;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.SmtpConnectionTimeoutError;
@@ -812,17 +678,6 @@ namespace ASC.Api.Mail
                           errorExplain);
 
             return errorText;
-        }
-
-        /// <summary>
-        /// UpdateUserActivity
-        /// </summary>
-        /// <param name="userOnline"></param>
-        /// <category>Accounts</category>
-        [Update(@"accounts/updateuseractivity")]
-        public void UpdateUserActivity(bool userOnline)
-        {
-            MailBoxManager.UpdateUserActivity(TenantId, Username, userOnline);
         }
     }
 }

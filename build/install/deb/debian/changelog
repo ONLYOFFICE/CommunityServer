@@ -1,5 +1,5 @@
-onlyoffice-communityserver (8.8.1) stable; urgency=low
+{{package_sysname}}-communityserver ({{package_header_tag_version}}) stable; urgency=low
 
-  * We have updated ONLYOFFICE Community Server to ver. 8.8.1
+  * -
 
- -- ONLYOFFICE (Online documents editor) <support@onlyoffice.com>  Fri, 17 Apr 2015 16:07:13 +0000
+ -- {{package_header_tag_packager}}  Fri, 17 Apr 2015 16:07:13 +0000

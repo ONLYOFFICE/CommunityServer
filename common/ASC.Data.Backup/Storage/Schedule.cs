@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
@@ -41,6 +42,7 @@ namespace ASC.Data.Backup.Storage
         public BackupStorageType StorageType { get; set; }
         public string StorageBasePath { get; set; }
         public DateTime LastBackupTime { get; internal set; }
+        public Dictionary<string, string> StorageParams { get; internal set; }
 
         public Schedule(int tenantId)
         {

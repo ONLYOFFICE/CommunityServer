@@ -189,14 +189,14 @@
         </div>
         <div class="tbl-row tbl-subtotal-row clearFix">
             <div class="tbl-cell total-label">${ASC.CRM.Resources.CRMInvoiceResource.Subtotal}:</div>
-            <div class="tbl-cell total-value subtotal">${(subtotal - discountValue).toFixed(2)}</div>
+            <div class="tbl-cell total-value subtotal" title="${(subtotal - discountValue).toFixed(2)}">${(subtotal - discountValue).toFixed(2)}</div>
         </div>
         <div class="tbl-taxes">
             {{tmpl(taxLines) "invoiceTaxLineTmpl"}}
         </div>
         <div class="tbl-row tbl-total-row clearFix">
             <div class="tbl-cell total-label">${ASC.CRM.Resources.CRMInvoiceResource.Total}&nbsp;(<span class="currency">${currency}</span>):</div>
-            <div class="tbl-cell total-value total">${total.toFixed(2)}</div>
+            <div class="tbl-cell total-value total" title="${total.toFixed(2)}">${total.toFixed(2)}</div>
         </div>
     </div>
     <div id="selectItemDialog" class="studio-action-panel selector">
@@ -292,7 +292,7 @@
                     <input type="hidden" value="${invoiceTax2 ? invoiceTax2.id : 0}" name="iLineTax2_${id}_"/>
                 </div>
             </div>
-            <div class="tbl-cell amount">
+            <div class="tbl-cell amount" title="${(subtotal - discountValue).toFixed(2)}">
                 ${(subtotal - discountValue).toFixed(2)}
             </div>
         </div>
@@ -311,7 +311,7 @@
 <script id="invoiceTaxLineTmpl" type="text/x-jquery-tmpl">
     <div class="tbl-row tbl-subtotal-row clearFix">
         <div class="tbl-cell total-label"><span class="taxLineName" title="${name}">${name}</span>&nbsp;<span class="taxLineRate">(${rate}%):</span></div>
-        <div class="tbl-cell total-value tax-value">${value.toFixed(2)}</div>
+        <div class="tbl-cell total-value tax-value" title="${value.toFixed(2)}">${value.toFixed(2)}</div>
     </div>
 </script>
 

@@ -18,6 +18,8 @@ var darkGrayBorderColor = Api.CreateColorFromRGB(127, 127, 127);
 
 var reportData = ${reportData};
 
+reportData.resource.sheetName = reportData.resource.sheetName.slice(0, 31);
+
 var oWorksheet = Api.GetActiveSheet();
 
 function toColumnName(num) {

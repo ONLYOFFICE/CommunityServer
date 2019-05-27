@@ -39,7 +39,8 @@ window.popup = (function($) {
         var defaultOptions = {
             css: {
                 top: '-100%'
-            }
+            },
+            bindEvents: false
         };
 
         var options = $.extend(true, defaultOptions, blockuiOpts);

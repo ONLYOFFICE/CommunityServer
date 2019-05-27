@@ -99,6 +99,9 @@ namespace ASC.Api.Community
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("Can't create feed with empty title", "title");
 
+            if (type != FeedType.News && type != FeedType.Order && type != FeedType.Advert && type != FeedType.Poll)
+                throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", type));
+
             var feed = new Feed
                            {
                                Caption = title,
@@ -113,7 +116,6 @@ namespace ASC.Api.Community
             return new EventWrapperFull(feed);
         }
 
-
         ///<summary>
         ///Updates the selected event changing the event title, content or/and event type specified
         ///</summary>
@@ -123,7 +125,7 @@ namespace ASC.Api.Community
         /// <param name="feedid">Feed ID</param>
         /// <param name="title">Title</param>
         /// <param name="content">Content</param>
-        /// <param name="type">Type</param>
+        /// <param name="type">Type. One of  (News|Order|Advert|Poll)</param>
         ///<returns>List of events</returns>
         ///<category>Events</category>
         [Update("event/{feedid}")]
@@ -133,6 +135,12 @@ namespace ASC.Api.Community
 
             CommunitySecurity.DemandPermissions(feed, NewsConst.Action_Edit);
 
+            if (string.IsNullOrWhiteSpace(title))
+                throw new ArgumentException("Can't update feed with empty title", "title");
+
+            if (type != FeedType.News && type != FeedType.Order && type != FeedType.Advert && type != FeedType.Poll)
+                throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", type));
+
             feed.Caption = title;
             feed.Text = content;
             feed.Creator = SecurityContext.CurrentAccount.ID.ToString();
@@ -141,6 +149,34 @@ namespace ASC.Api.Community
             
             return new EventWrapperFull(feed);
         }
+
+        ///<summary>
+        ///Deletes the selected event
+        ///</summary>
+        ///<short>Delete event</short>
+        ///<param name="feedid">Feed ID</param>
+        ///<returns>Nothing</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        ///<category>Events</category>
+        [Delete("event/{feedid}")]
+        public EventWrapperFull DeleteEvent(int feedid)
+        {
+            var feed = FeedStorage.GetFeed(feedid).NotFoundIfNull();
+
+            CommunitySecurity.DemandPermissions(feed, NewsConst.Action_Edit);
+
+            foreach (var comment in FeedStorage.GetFeedComments(feedid))
+            {
+                CommonControlsConfigurer.FCKUploadsRemoveForItem("news_comments", comment.Id.ToString(CultureInfo.InvariantCulture));
+            }
+
+            FeedStorage.RemoveFeed(feed);
+
+            CommonControlsConfigurer.FCKUploadsRemoveForItem("news", feedid.ToString(CultureInfo.InvariantCulture));
+
+            return null;
+        }
+
         ///<summary>
         ///Returns the list of all events for the current user with the event titles, date of creation and update, event text and author
         ///</summary>

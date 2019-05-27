@@ -1,0 +1,923 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2018
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+@color-active: #2da7db;
+@color-passive: #94D0E9;
+@color-default: #ddd;
+@color-condition: #333;
+
+.frame {
+    float: left;
+    width: 380px;
+    height: 60px;
+    position: relative;
+    z-index: 1000;
+    border: 0;
+    margin-bottom: 8px;
+}
+
+.framePad {
+    width: 768px;
+}
+
+/*User importer classes*/
+.studioEditableInput,
+.studioEditableInputWizard,
+.studioEditableInput:hover,
+.studioEditableInputWizard:hover,
+.studioEditableInput:focus,
+.studioEditableInputWizard:focus {
+    background: none;
+    margin: 3px 0 4px 1px;
+    padding: 3px 0 3px 3px;
+
+    &.last {
+        margin-left: 0px;
+    }
+}
+
+.studioEditableInput,
+.studioEditableInputWizard {
+    border: 1px solid transparent;
+
+    &:hover {
+        border: 1px solid @color-default;
+    }
+
+    &:focus {
+        border: 1px solid @color-passive;
+    }
+
+    &.example {
+        &:hover,
+        &:focus {
+            border: 1px solid transparent;
+        }
+    }
+}
+
+.optionsContainer {
+    padding: 0px;
+    vertical-align: top;
+
+    .optionMenu {
+        margin-bottom: 4px;
+    }
+}
+
+.optionMenu {
+    width: 198px;
+    height: 25px;
+    border: 1px solid @color-default;
+    padding: 3px 0px;
+    margin: 3px 0;
+}
+
+.tableHeader {
+    border-bottom: 1px solid @color-default;
+    padding: 0px;
+    height: 40px;
+    border-spacing: 0px;
+
+    .innerTab {
+        width: 200px;
+
+        &.first {
+            padding-left: 10px;
+        }
+
+        &.last {
+            padding-left: 2px;
+        }
+
+        .newRandomUser {
+            vertical-align: middle;
+            margin-left: 3px;
+            padding-left: 16px;
+            background-image: url(../images/refresh.png);
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+    }
+
+    .selectionInnerTab {
+        width: 200px;
+
+        &.first {
+            padding-left: 39px;
+        }
+
+        &.last {
+            padding-left: 2px;
+        }
+    }
+}
+
+#importUsers {
+    #panel {
+        width: 550px;
+
+        .selectSource {
+            margin: 15px 0 20px;
+            font-size: 18px;
+        }
+    }
+
+    #upload {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        text-align: center;
+        margin-left: -50px;
+        display: none;
+        z-index: 1005;
+    }
+
+    .desc {
+        margin: 50px 7px -17px;
+
+        &.holder {
+            margin-left: 130px;
+            margin-top: -15px;
+            width: 470px;
+        }
+
+        .emailDomen {
+            margin-right: 16px;
+        }
+
+        #emailDomen {
+            float: left;
+        }
+
+        .password {
+            margin-top: -2px;
+            height: 19px;
+        }
+
+        input {
+            float: left;
+            margin: 2px 5px 0 3px;
+        }
+    }
+
+    .smallDesc {
+        margin: 10px 0 10px 0;
+        font-size: 11px;
+    }
+
+    .starStyle {
+        color: #cc3300;
+    }
+
+    .middle-button-container {
+        margin-top: 56px;
+
+        .inviteLabel {
+            float: right;
+            text-align: right;
+
+            > div {
+                float: left;
+            }
+
+            .inputBox input {
+                width: 220px;
+            }
+
+            .invite-text {
+                margin-top: 2px;
+            }
+
+            .HelpCenterSwitcher {
+                margin: 2px 3px;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+#wizard_users {
+    width: 760px;
+    height: 298px;
+    padding: 2px 0 0 2px;
+    background-color: #ffffff;
+    display: none;
+
+    .restr {
+        display: block;
+        height: 260px;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: visible;
+    }
+
+    .textEditMain,
+    .textEditDefault,
+    .incorrectBox {
+        position: relative;
+        border-width: 1px 0;
+        z-index:1;
+
+        &.first,
+        &.last {
+            border-width: 1px;
+        }
+
+        &:focus:not(.first):not(.last) {
+            z-index: 2;
+            margin: 0 -1px;
+            border-width: 1px;
+        }
+    }
+
+    .incorrectBox {
+        border-color: #cc3300;
+
+        &:not(.first):not(.last) {
+            z-index: 2;
+            margin: 0 -1px;
+            border-width: 1px;
+        }
+    }
+
+    .textEditMain {
+        color: #333333;
+    }
+
+    .textEditDefault {
+        color: #9f9f9f;
+    }
+
+    input[type="text"] {
+        width: 195px;
+        height: 17px;
+    }
+
+    input:hover {
+        background-color: #ffffff;
+    }
+
+    .mob {
+        input[type="text"] {
+            width: 180px;
+        }
+
+        #userList {
+            input[type="text"] {
+                width: 180px;
+                height: 16px;
+            }
+
+            .userItem {
+                .check input {
+                    margin-right: 8px;
+                }
+
+                .name {
+                    width: 410px;
+                }
+            }
+        }
+    }
+
+    #userList {
+        border-spacing: 0px;
+        margin-top: 10px;
+        max-height: 250px;
+        display: block;
+
+        .userItem {
+            .logo {
+                background: url(../images/profile.gif) center left no-repeat;
+                width: 15px;
+                padding: 0 15px 0 0;
+            }
+
+            .name,
+            .fileHeader {
+                padding: 0 0 0 3px;
+                width: 409px;
+
+                .firstname,
+                .lastname,
+                .headerContainer,
+                .userContainer {
+                    float: left;
+                    vertical-align: top;
+                    padding-left: 2px;
+                }
+            }
+
+            .incorrectValue {
+                border-color: #cc3300;
+            }
+
+            td.remove {
+                width: 18px;
+                padding-left: 12px;
+            }
+
+            td.email {
+                width: 192px;
+                margin-right: 3px;
+                padding-left: 0px;
+            }
+
+            .check input {
+                margin-right: 3px;
+            }
+
+            .name td.firstname,
+            .name td.lastname {
+                width: 190px;
+                margin-right: 14px;
+                padding-right: 0px;
+            }
+        }
+
+        tr.remove {
+            display: none;
+        }
+
+        td {
+            padding: 0 4px;
+            height: 25px;
+        }
+
+        tr {
+            margin-bottom: -2px;
+            padding: 0;
+            height: 33px;
+
+            &.error1 td.removeError,
+            &.error2 td.removeError,
+            &.error3 td.removeError {
+                width: 18px;
+                padding-left: 12px;
+
+                div {
+                    width: 12px;
+                    height: 12px;
+                    background: url(../images/remove_red.png) center left no-repeat;
+                    cursor: pointer;
+                }
+            }
+
+            td.removeError div {
+                display: none;
+            }
+
+            td.mob div {
+                display: block;
+            }
+
+            &.userItem {
+                &#hoverItem {
+                    &:hover {
+                        background-color: #EDEDED;
+                    }
+                }
+
+                td.remove div {
+                    width: 12px;
+                    height: 12px;
+                    background: url(../images/trash_fu.png) center left no-repeat;
+                    cursor: pointer;
+                    display: none;
+                }
+
+                td.mob div {
+                    display: block;
+                }
+            }
+
+            &:hover td.removeError div {
+                display: block;
+            }
+        }
+
+        .error1,
+        .error2,
+        .error3,
+        .error1 .name .firstname input,
+        .error2 .name .lastname input,
+        .error3 .email input {
+            color: #cc3300;
+        }
+    }
+
+    &:not(.disable) #userList tr.userItem:hover td.remove div {
+        display: block;
+    }
+
+    .checkall {
+        float: left;
+        text-align: left;
+        margin: 15px 4px 0 0;
+        padding: 0;
+        border: 1px solid #d7d7d7;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #ebebeb;
+
+        input[type="checkbox"] {
+            margin: 3px;
+        }
+    }
+
+    .nameBox, .lastnameBox, .emailBox {
+        float: left;
+    }
+
+    #addUserBlock {
+        border: none;
+        margin-left: 34px;
+
+        input {
+            width: 196px;
+            height: 21px;
+            padding: 0 3px;
+        }
+
+        .btn {
+            float: left;
+            margin-top: 0px;
+
+            .btnBox {
+                margin-top: 16px;
+
+                #saveSettingsBtn {
+                    background: #ffffff url('../images/up.png') no-repeat center;
+                    width: 23px;
+                    height: 35px;
+                    transform: rotate(-90deg);
+                    margin-top: -6px;
+                    margin-left: 6px;
+                    border-width: 0 1px 1px 1px;
+                    border-radius: 0 0 3px 3px;
+                }
+            }
+
+            a {
+                width: 60px;
+            }
+        }
+
+        .mobBtn {
+            margin-top: 16px;
+            display: inline-block;
+        }
+
+        .error {
+            text-align: right;
+            font-weight: normal;
+            color: #cc3300;
+            visibility: hidden;
+            font-size: 10px;
+            height: 19px;
+            vertical-align: bottom;
+            line-height: 19px;
+            margin-bottom: -3px;
+        }
+    }
+
+    .addUserBlock {
+        margin: 10px 0 0 0;
+
+        .btn {
+            float: left;
+        }
+
+        .info {
+            float: right;
+        }
+    }
+}
+
+.importUsers div.file {
+    background: #ffffff url('../images/manually.png') no-repeat 20px 16px;
+    width: 108px;
+    height: 58px;
+    vertical-align: middle;
+    padding: 0 0 0 60px;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    position: relative;
+    float: left;
+    border: 1px solid #d7d7d7;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 10px;
+        vertical-align: middle;
+        font-size: 18px;
+        color: black;
+        text-decoration: none;
+    }
+
+    &.outlookCsv {
+        background: #ffffff url("../images/outlook.png") no-repeat center center;
+    }
+
+    .innerBox {
+        border: none;
+        height: 0;
+        margin-right: 7px;
+        margin-top: 9px;
+        width: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #333;
+    }
+
+    .fileSelector {
+        right: 0;
+        top: 42px;
+        width: 214px;
+
+        ul li.hover a {
+            background-color: #e9e9e9;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+    }
+}
+
+.importAreaBlock {
+    width: 760px;
+    opacity: 1;
+}
+
+#importAreaBlock {
+    #importUsers {
+        margin-left: 0px;
+    }
+
+    #okWin .popupContainerClass {
+        height: 150px;
+    }
+
+    .blockUpload {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #D7D7D7;
+        opacity: 0.5;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+    }
+
+    .okcss {
+        display: none;
+        left: 50%;
+        min-height: 180px;
+        margin-left: -150px;
+        opacity: 1;
+        position: absolute;
+        top: 40%;
+        width: 300px;
+        z-index: 1005;
+    }
+}
+
+.messagePopup {
+    height: 150px;
+    border: solid 1px #575757;
+    border-top: 0;
+    background-color: white;
+}
+
+.fistable {
+    background: url('../images/icon_add_users.png') 15% center no-repeat;
+    height: 240px !important;
+    padding: 0 15% 0 20%;
+}
+
+.okImportUsers {
+    padding-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+#importUserLimitPanel {
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 140px;
+    height: auto;
+    left: 160px;
+    width: 480px;
+    display: none;
+    z-index: 1050;
+}
+
+#inviteLinkPanel {
+    position: relative;
+    width: 220px;
+}
+
+#inviteLinkCopy {
+    float: right;
+    margin-top: -20px;
+}
+
+#import-users-progress {
+    display: none;
+    margin-bottom: 10px;
+    margin-top: -20px;
+}
+
+.wizardBorder(@color, @backgroundColor) {
+    color: @color;
+    border-bottom: 3px solid @backgroundColor;
+}
+
+.wizard {
+    position: relative;
+    display: inline-block;
+    height: 23px;
+    width: 170px;
+    float: left;
+    margin-left: 1px;
+    .wizardBorder(@color-default, @color-default);
+
+    &.active {
+        .wizardBorder(@color-condition, @color-active);
+
+        &:last-child {
+            .wizardBorder(@color-condition, transparent);
+            background-image: repeating-linear-gradient( -45deg, @color-passive, @color-passive 5px, @color-active 5px, @color-active 10px );
+            background-repeat: no-repeat;
+            background-position: 0 23px;
+            background-size: 1000px 3px;
+            animation: anim 1s infinite steps(10,end);
+
+            @keyframes anim {
+                100% {
+                    background-position: -100px 23px;
+                }
+            }
+        }
+    }
+
+    &.passive {
+        .wizardBorder(@color-condition, @color-passive);
+    }
+}
+
+.wizard-import {
+    padding-bottom: 10px;
+    height: 20px;
+}
+
+.source-text {
+    font-size: 14px;
+    padding: 20px 0px 0px;
+    display: none;
+}
+
+.filetemp {
+    background: white url('../images/from_file.png') no-repeat 20px center;
+    height: 100%;
+    vertical-align: middle;
+    padding: 7px 0 0 60px;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    position: relative;
+    float: left;
+}
+
+.import-from-file {
+    width: 548px;
+    text-decoration: none;
+    position: relative;
+    float: left;
+    border: 1px solid #d7d7d7;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding-top: 16px;
+
+    p {
+        padding: 40px 10px 20px 20px;
+        margin: 0;
+    }
+}
+
+.import-header {
+    padding-bottom: 10px;
+    color: #333333;
+    font-size: 24px;
+    max-width: 900px;
+    overflow: hidden;
+    line-height: 30px;
+}
+
+#file-option {
+    display: none;
+    padding-bottom: 5px;
+    margin-top: 10px;
+
+    .import-file {
+        float: left;
+    }
+
+    .file-name {
+        float: left;
+        font-size: 18px;
+    }
+
+    #file-name {
+        font-weight: 800;
+    }
+
+    #importFrom {
+        margin-left: 10px;
+        margin-top: 5px;
+        float: left;
+    }
+
+    #source, #separator, #delimiter {
+        float: left;
+        margin: 5px 25px 0px 0px;
+    }
+
+    .file-name-select {
+        display: table;
+        margin-bottom: 6px;
+    }
+}
+
+.dArrow {
+    position: relative;
+}
+
+    .dArrow::after {
+        border-color: #666666 transparent transparent;
+        border-style: solid solid outset;
+        border-width: 4px 4px 0;
+        content: "";
+        height: 0;
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        width: 0;
+    }
+
+select {
+    font: inherit;
+    color: inherit;
+    line-height: inherit;
+    text-transform: inherit;
+    text-shadow: inherit;
+    border: none;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.chekCustomHeader {
+    margin-top: -5px;
+    text-align: left;
+
+    input, label {
+        margin-left: 0;
+        vertical-align: middle;
+    }
+}
+
+#deleteUserBlock {
+    margin-top: 14px;
+
+    .checkAll {
+        float: left;
+        overflow: hidden;
+        padding-left: 4px;
+        width: 25px;
+        background-color: #ebebeb;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #c4c4c4;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        margin-right: 4px;
+
+        input {
+            margin: 3px 3px 3px 4px;
+        }
+    }
+
+    #deleteUserButton {
+        vertical-align: middle;
+        background: url(../images/trash_fu.png) 6px center no-repeat;
+        color: #999999;
+        cursor: default;
+        overflow: hidden;
+        text-align: center;
+        background-color: #f7f7f7;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #ebebeb;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+
+        &.activeGroupInput {
+            background-color: #ebebeb;
+            border-color: #c4c4c4;
+            cursor: pointer;
+            color: #666666;
+        }
+    }
+}
+
+
+
+.swgIcons {
+    padding-left: 18px;
+    background-repeat: no-repeat;
+
+    &.outlook {
+        background-image: url(../images/outlook.svg);
+    }
+
+    &.google {
+        background-image: url(../images/google-no-background.svg);
+    }
+
+    &.thunderbird {
+        background-image: url(../images/thunderbird.svg);
+    }
+}
+
+.importErrorBox {
+    display: none;
+    position: absolute;
+    z-index: 10;
+
+    .errorBubble {
+        color: #cc3300;
+        padding: 8px 12px 10px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        position: relative;
+        background: white;
+    }
+
+        .errorBubble:after,
+        .errorBubble:before {
+            content: '';
+            position: absolute;
+            background: white;
+            left: 12px;
+            top: -5px;
+            width: 10px;
+            height: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            z-index: -1;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        .errorBubble:before {
+            z-index: 11;
+            box-shadow: none;
+        }
+}

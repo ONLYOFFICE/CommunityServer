@@ -25,13 +25,14 @@
 
 
 using System;
-using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using ASC.Core.Tenants;
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Data.Backup.Extensions;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
 
@@ -66,7 +67,7 @@ namespace ASC.Data.Backup.Tasks
 
         public override void RunJob()
         {
-            Logger.Debug("begin transfer {0}", TenantId);
+            Logger.DebugFormat("begin transfer {0}", TenantId);
             var fromDbFactory = new DbFactory(ConfigPath);
             var toDbFactory = new DbFactory(ToConfigPath);
             string tenantAlias = GetTenantAlias(fromDbFactory);
@@ -133,41 +134,40 @@ namespace ASC.Data.Backup.Tasks
                 {
                     File.Delete(backupFilePath);
                 }
-                Logger.Debug("end transfer {0}", TenantId);
+                Logger.DebugFormat("end transfer {0}", TenantId);
             }
         }
 
         private void DoTransferStorage(ColumnMapper columnMapper)
         {
             Logger.Debug("begin transfer storage");
-            var fileGroups = GetFilesToProcess().GroupBy(file => file.Module).ToList();
+            var fileGroups = GetFilesToProcess(TenantId).GroupBy(file => file.Module).ToList();
             int groupsProcessed = 0;
             foreach (var group in fileGroups)
             {
-                ICrossModuleTransferUtility transferUtility =
-                    StorageFactory.GetCrossModuleTransferUtility(
-                        ConfigPath, TenantId, group.Key,
-                        ToConfigPath, columnMapper.GetTenantMapping(), group.Key);
+                var baseStorage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), group.Key);
+                var destStorage = StorageFactory.GetStorage(ToConfigPath, columnMapper.GetTenantMapping().ToString(), group.Key);
+                var utility = new CrossModuleTransferUtility(baseStorage, destStorage);
 
                 foreach (BackupFileInfo file in group)
                 {
                     string adjustedPath = file.Path;
 
                     IModuleSpecifics module = ModuleProvider.GetByStorageModule(file.Module, file.Domain);
-                    if (module == null || module.TryAdjustFilePath(columnMapper, ref adjustedPath))
+                    if (module == null || module.TryAdjustFilePath(false, columnMapper, ref adjustedPath))
                     {
                         try
                         {
-                            transferUtility.CopyFile(file.Domain, file.Path, file.Domain, adjustedPath);
+                            utility.CopyFile(file.Domain, file.Path, file.Domain, adjustedPath);
                         }
                         catch (Exception error)
                         {
-                            Logger.Warn("Can't copy file ({0}:{1}): {2}", file.Module, file.Path, error);
+                            Logger.WarnFormat("Can't copy file ({0}:{1}): {2}", file.Module, file.Path, error);
                         }
                     }
                     else
                     {
-                        Logger.Warn("Can't adjust file path \"{0}\".", file.Path);
+                        Logger.WarnFormat("Can't adjust file path \"{0}\".", file.Path);
                     }
                 }
                 SetCurrentStepProgress((int)(++groupsProcessed * 100 / (double)fileGroups.Count));
@@ -221,7 +221,7 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        private static string GetUniqAlias(IDbConnection connection, string alias)
+        private static string GetUniqAlias(DbConnection connection, string alias)
         {
             return alias + connection.CreateCommand("select count(*) from tenants_tenants where alias like '" + alias + "%'")
                                      .WithTimeout(120)

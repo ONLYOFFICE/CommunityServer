@@ -24,10 +24,6 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Core;
-using ASC.Web.Core.Client.HttpHandlers;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,9 +32,15 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+using ASC.Common.Caching;
+using ASC.Common.Logging;
+using ASC.Core;
+using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -82,21 +84,22 @@ namespace ASC.Web.Core.Client.Bundling
             }
             var filenameHash = GetHash(filename) + "_" + CultureInfo.CurrentCulture.Name.ToLowerInvariant();
 
-            var scripts = Cache.Get<List<string>>(filenameHash);
+            var scripts = Cache.Get<List<string>>(filenameHash.ToLowerInvariant());
             if (scripts == null)
             {
-
                 scripts = includes.Select(type => type.GetType().AssemblyQualifiedName).ToList();
-                Cache.Insert(filenameHash, scripts, DateTime.MaxValue);
+                Cache.Insert(filenameHash.ToLowerInvariant(), scripts, DateTime.MaxValue);
             }
 
             return string.Format("~{0}{1}.js?ver={2}", BundleHelper.CLIENT_SCRIPT_VPATH, filenameHash, GetContentHash(filenameHash));
         }
 
-        public string GetContent(string uri)
+        public async Task<string> GetContentAsync(HttpContext context)
         {
             var log = LogManager.GetLogger("ASC.Web.Bundle");
             CultureInfo oldCulture = null;
+            var uri = context.Request.Url.AbsolutePath;
+
             try
             {
                 if (0 < uri.IndexOf('_'))
@@ -121,10 +124,7 @@ namespace ASC.Web.Core.Client.Bundling
             try
             {
                 var fileName = Path.GetFileNameWithoutExtension(uri.Split('.').FirstOrDefault() ?? uri);
-                foreach (var script in GetClientScriptListFromCache(fileName))
-                {
-                    script.GetData(HttpContext.Current, content);
-                }
+                await Task.WhenAll(GetClientScriptListFromCache(fileName).Select(script => script.GetDataAsync(context, content)));
 
             }
             catch (Exception e)
@@ -149,7 +149,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             includes = GetClientScriptListFromCache(fileName);
 
-            if (includes.All(r => r is ClientScriptLocalization) || includes.All(r => r is ClientScriptTemplate))
+            if (includes.Any() && (includes.All(r => r is ClientScriptLocalization) || includes.All(r => r is ClientScriptTemplate)))
             {
                 version = includes.First().GetCacheHash();
             }
@@ -184,7 +184,7 @@ namespace ASC.Web.Core.Client.Bundling
         {
             if (!includes.Any())
             {
-                var fromCache = Cache.Get<List<string>>(fileName);
+                var fromCache = Cache.Get<List<string>>(fileName.ToLowerInvariant());
 
                 if (fromCache != null)
                 {

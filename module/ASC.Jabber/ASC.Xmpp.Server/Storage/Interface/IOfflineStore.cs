@@ -38,8 +38,9 @@ namespace ASC.Xmpp.Server.Storage.Interface
 
 		void SaveOfflineMessages(params Message[] messages);
 
-		void RemoveAllOfflineMessages(Jid jid);
+		void RemoveAllOfflineMessages(Jid jid, Jid jidFrom);
 
+        void RemoveAllOfflineMessages(Jid jid);
 
 		List<Presence> GetOfflinePresences(Jid jid);
 

@@ -332,7 +332,13 @@ jq(document).ready(function() {
 })
 
 function updateThumbnailAsync() {
-	setTimeout(function() { updateThumbnailSrc(); }, 100);
+    //setTimeout(function() { updateThumbnailSrc(); }, 100);
+    setTimeout(function () {
+        jq(".bookmarkingThumbnail").each(function() {
+            var th = jq(this);
+            th.attr("src", th.attr("data-url"));
+        });
+    }, 100);
 }
 
 function emptyUrlAlert(showFlag) {

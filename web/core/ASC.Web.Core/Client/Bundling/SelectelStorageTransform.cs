@@ -24,12 +24,6 @@
 */
 
 
-#region Import
-
-using ASC.Data.Storage.Configuration;
-using ASC.Data.Storage.Selectel;
-using SelectelSharp;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -38,12 +32,13 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Optimization;
+using ASC.Common.Logging;
+using ASC.Data.Storage.Configuration;
+using ASC.Data.Storage.Selectel;
+using SelectelSharp;
 using MimeMapping = ASC.Common.Web.MimeMapping;
-
-#endregion
 
 namespace ASC.Web.Core.Client.Bundling
 {

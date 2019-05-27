@@ -1,0 +1,13 @@
+﻿writeRow([0, 1, 2], reportColumns, [1, 2], {
+	color: darkGrayBorderColor
+}, {
+	size: smallFontSize,
+	color: grayFontColor
+});
+
+for (var i = 0; i < reportData.length; i++)
+	writeRow([0, 1, 2], reportData[i], [1, 2], {
+		color: lightGrayBorderColor
+	}, {
+		size: smallFontSize
+	}, true);

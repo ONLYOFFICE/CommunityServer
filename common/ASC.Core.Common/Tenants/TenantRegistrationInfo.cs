@@ -64,6 +64,8 @@ namespace ASC.Core.Tenants
 
         public bool Calls { get; set; }
 
+        public bool Analytics { get; set; }
+
 
         public TenantRegistrationInfo()
         {

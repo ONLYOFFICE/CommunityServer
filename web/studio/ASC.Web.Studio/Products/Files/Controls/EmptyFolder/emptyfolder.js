@@ -63,17 +63,21 @@ window.ASC.Files.EmptyScreen = (function () {
             ASC.Files.Mouse.finishSelecting();
         }
 
-        jq("#filesMainContent, #switchViewFolder, #mainContentHeader, #pageNavigatorHolder, .folder-row-toparent").hide();
+        jq("#filesMainContent, #switchViewFolder, #mainContentHeader, #pageNavigatorHolder, #filesBreadCrumbs").hide();
         jq("#emptyContainer > div").hide();
 
-        if (!ASC.Files.Filter || ASC.Files.Filter.getFilterSettings().filter == 0 && ASC.Files.Filter.getFilterSettings().text == "") {
+        if (!ASC.Files.Filter || !ASC.Files.Filter.getFilterSettings().isSet) {
             jq(".files-filter").hide();
 
             jq("#emptyContainer .empty-folder-create").toggle(ASC.Files.UI.accessEdit());
 
-            jq("#emptyContainer_" + ASC.Files.Folders.folderContainer).show();
+            if (!ASC.Files.Tree || ASC.Files.Tree.pathParts.length > 1) {
+                jq("#emptyContainer_subfolder").show();
 
-            ASC.Files.UI.checkButtonBack(".empty-folder-toparent");
+                ASC.Files.UI.checkButtonBack(".empty-folder-toparent");
+            } else {
+                jq("#emptyContainer_" + ASC.Files.Folders.folderContainer).show();
+            }
         } else {
             jq("#emptyContainer_filter").show();
         }
@@ -94,7 +98,7 @@ window.ASC.Files.EmptyScreen = (function () {
 
         jq("#emptyContainer").hide();
 
-        ASC.Files.UI.checkButtonBack(".to-parent-folder", ".folder-row-toparent");
+        ASC.Files.UI.checkButtonBack(".to-parent-folder", "#filesBreadCrumbs");
 
         jq(".files-filter").show();
         if (ASC.Files.Filter) {

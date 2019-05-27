@@ -24,24 +24,24 @@
 */
 
 
-using ASC.Api.Interfaces;
-using ASC.Api.Logging;
-using ASC.Api.Utils;
-using ASC.Core;
-using ASC.Web.Core;
 using System;
 using System.Web;
+using ASC.Api.Interfaces;
+using ASC.Api.Utils;
+using ASC.Core;
+using ASC.Common.Logging;
+using ASC.Web.Core;
 
 
 namespace ASC.Specific
 {
     public class AscCookieAuthorization : IApiAuthorization
     {
-        private readonly ILog _log;
+        private readonly ILog log;
 
         public AscCookieAuthorization(ILog log)
         {
-            _log = log;
+            this.log = log;
         }
 
         public bool Authorize(HttpContextBase context)
@@ -56,16 +56,16 @@ namespace ASC.Specific
 
                         if (!SecurityContext.AuthenticateMe(cookie))
                         {
-                            _log.Warn("ASC cookie auth failed with cookie={0}", cookie);
+                            log.WarnFormat("ASC cookie auth failed with cookie={0}", cookie);
                         }
                         return SecurityContext.IsAuthenticated;
 
                     }
-                    _log.Debug("no ASC cookie");
+                    log.Debug("no ASC cookie");
                 }
                 catch (Exception e)
                 {
-                    _log.Error(e, "ASC cookie auth error");
+                    log.Error("ASC cookie auth error", e);
                 }
             }
             return SecurityContext.IsAuthenticated;

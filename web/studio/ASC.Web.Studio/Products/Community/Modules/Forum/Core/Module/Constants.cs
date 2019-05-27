@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using ASC.Common.Security.Authorizing;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
@@ -140,5 +141,10 @@ namespace ASC.Forum.Module
         public static string TagDate = "Date";
 
         public static string TagUserURL = "UserURL";
+
+        public static IEnumerable<Guid> Aces = new[]
+        {
+            TopicEditAction.ID, TopicCloseAction.ID, TopicDeleteAction.ID, TopicStickyAction.ID
+        };
     }
 }

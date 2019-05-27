@@ -8,6 +8,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
     public sealed class CachedDictionary<T> : CachedDictionaryBase<T>
     {
         private readonly TimeSpan _absoluteExpirationPeriod;
+
         private DateTime AbsoluteExpiration
         {
             get
@@ -17,6 +18,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
                 return DateTime.Now + _absoluteExpirationPeriod;
             }
         }
+
         private TimeSpan SlidingExpiration { get; set; }
 
         public CachedDictionary(string baseKey, TimeSpan absoluteExpirationPeriod, TimeSpan slidingExpiration, Func<T, bool> cacheCodition)
@@ -46,7 +48,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 #endif
             HttpRuntime.Cache.Remove(rootKey);
             HttpRuntime.Cache.Insert(rootKey, DateTime.UtcNow.Ticks, null, System.Web.Caching.Cache.NoAbsoluteExpiration, System.Web.Caching.Cache.NoSlidingExpiration,
-                                     CacheItemPriority.NotRemovable,(key,value,reason)=> Debug.Print("gloabl root key: {0} removed. reason: {1}", key, reason));
+                                     CacheItemPriority.NotRemovable, (key, value, reason) => Debug.Print("gloabl root key: {0} removed. reason: {1}", key, reason));
         }
 
         public override void Reset(string rootKey, string key)
@@ -61,39 +63,38 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 
         public override void Add(string rootkey, string key, T newValue)
         {
-            var builtrootkey = BuildKey(string.Empty, string.IsNullOrEmpty(rootkey)?"root":rootkey);
+            var builtrootkey = BuildKey(string.Empty, string.IsNullOrEmpty(rootkey) ? "root" : rootkey);
             if (HttpRuntime.Cache[builtrootkey] == null)
             {
 #if (DEBUG)
-                Debug.Print("added root key {0}",builtrootkey);
+                Debug.Print("added root key {0}", builtrootkey);
 #endif
                 //Insert root if no present
                 HttpRuntime.Cache.Remove(builtrootkey);
-                HttpRuntime.Cache.Insert(builtrootkey,DateTime.UtcNow.Ticks, null, AbsoluteExpiration, SlidingExpiration,
+                HttpRuntime.Cache.Insert(builtrootkey, DateTime.UtcNow.Ticks, null, AbsoluteExpiration, SlidingExpiration,
                                          CacheItemPriority.NotRemovable, (removedkey, value, reason) => Debug.Print("root key: {0} removed. reason: {1}", removedkey, reason));
             }
-            CacheItemRemovedCallback removeCallBack = null;
-#if (DEBUG)
-            removeCallBack = ItemRemoved;
-#endif
+
+            CacheItemRemovedCallback removeCallBack = ItemRemoved;
+
             if (newValue != null)
             {
-                string buildKey = BuildKey(key, rootkey);
+                var buildKey = BuildKey(key, rootkey);
                 HttpRuntime.Cache.Remove(buildKey);
                 HttpRuntime.Cache.Insert(BuildKey(key, rootkey), newValue,
-                                         new CacheDependency(null, new[] {_baseKey, builtrootkey}),
+                                         new CacheDependency(null, new[] { _baseKey, builtrootkey }),
                                          AbsoluteExpiration, SlidingExpiration,
                                          CacheItemPriority.Normal, removeCallBack);
             }
             else
             {
-                HttpRuntime.Cache.Remove(BuildKey(key, rootkey));//Remove if null
+                HttpRuntime.Cache.Remove(BuildKey(key, rootkey)); //Remove if null
             }
         }
 
         private static void ItemRemoved(string key, object value, CacheItemRemovedReason reason)
         {
-            Debug.Print("key: {0} removed. reason: {1}",key,reason);
+            Debug.Print("key: {0} removed. reason: {1}", key, reason);
         }
     }
 }

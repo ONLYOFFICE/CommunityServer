@@ -144,7 +144,7 @@ window.ASC.Files.ThirdParty = (function () {
                 jq("#thirdPartyConnectionUrl").closest(".thirdparty-editor-row").show();
             }
         } else {
-            jq("#thirdPartyAccount").attr("data-provider", thirdParty.key).closest(".thirdparty-editor-row").show();
+            jq("#thirdPartyAccount").attr("data-provider", thirdParty.key).attr("data-providerId", thirdParty.id).closest(".thirdparty-editor-row").show();
         }
 
         for (var classItem in ASC.Files.ThirdParty.thirdPartyList) {
@@ -229,7 +229,7 @@ window.ASC.Files.ThirdParty = (function () {
         if (!thirdParty) {
             return false;
         }
-        var accountPanel = jq("#account_" + thirdParty.key + "_0");
+        var accountPanel = jq("#account_" + thirdParty.key);
         if (accountPanel.length > 0) {
             jq(accountPanel).find("input:visible:first").focus();
             jq(accountPanel).yellowFade();
@@ -242,34 +242,36 @@ window.ASC.Files.ThirdParty = (function () {
             OAuthCallback = function (token) {
                 addNewThirdParty(thirdParty, token);
             };
-            OAuthPopup(thirdParty.getTokenUrl);
+            OAuthPopup(thirdParty.getTokenUrl, thirdParty.key);
         }
         return false;
     };
 
     var editTokenThirdPartyAccount = function (thirdParty) {
-        if (!thirdParty || typeof thirdParty.provider_id == "undefined") {
-            return false;
-        }
-
         OAuthCallback = function (token) {
-            var accountPanel = jq("#account_" + thirdParty.key + "_" + thirdParty.provider_id);
+            var accountPanel = jq("#account_" + thirdParty.provider_id);
             accountPanel.find(".account-hidden-token").val(token);
         };
-        OAuthPopup(thirdParty.getTokenUrl);
+        OAuthPopup(thirdParty.getTokenUrl, null, thirdParty.provider_id);
 
         return false;
     };
 
-    var changeTokenThirdPartyAccount = function (thirdParty) {
-        if (!thirdParty || !jq("#thirdPartyEditor").is(":visible")) {
+    var changeTokenThirdPartyAccount = function () {
+        if (!jq("#thirdPartyEditor").is(":visible")) {
+            return false;
+        }
+
+        var thirdPartyKey = jq("#thirdPartyAccount").attr("data-provider");
+        var thirdParty = ASC.Files.ThirdParty.thirdPartyList[thirdPartyKey];
+        if (!thirdParty) {
             return false;
         }
 
         OAuthCallback = function (token) {
             jq("#thirdPartyAccount").attr("data-token", token);
         };
-        OAuthPopup(thirdParty.getTokenUrl);
+        OAuthPopup(thirdParty.getTokenUrl, null, jq("#thirdPartyAccount").attr("data-providerId"));
 
         return false;
     };
@@ -283,7 +285,7 @@ window.ASC.Files.ThirdParty = (function () {
             isNew: true,
             link: thirdParty.link,
             max_name_length: ASC.Files.Constants.MAX_NAME_LENGTH,
-            provider_id: 0,
+            provider_id: thirdParty.key,
             provider_key: thirdParty.key,
             provider_title: thirdParty.providerTitle,
             getTokenUrl: thirdParty.getTokenUrl
@@ -306,7 +308,7 @@ window.ASC.Files.ThirdParty = (function () {
         jq("#emptyThirdPartyContainer").hide();
         jq("#thirdPartyAccountContainer").show();
 
-        var accountPanel = jq("#account_" + thirdParty.key + "_" + data.provider_id);
+        var accountPanel = jq("#account_" + data.provider_id);
 
         if (data.isNew) {
             ASC.Files.UI.checkCharacter(jq(accountPanel).find(".account-input-folder"));
@@ -328,7 +330,7 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var editThirdPartyAccount = function (obj) {
-        var accountPanel = jq(obj).parents(".account-row");
+        var accountPanel = jq(obj).is(".account-row") ? jq(obj) : jq(obj).parents(".account-row");
 
         ASC.Files.UI.checkCharacter(jq(accountPanel).find(".account-input-folder"));
         var customerTitle = jq(accountPanel).find(".account-hidden-customer-title").val().trim();
@@ -351,13 +353,13 @@ window.ASC.Files.ThirdParty = (function () {
     var cancelThirdPartyAccount = function (obj) {
         var account = jq(obj).parents(".account-row");
         var providerId = parseInt(jq(account).find(".account-hidden-provider-id").val());
-        if (providerId == 0) {
+        if (!providerId) {
             jq(account).remove();
             if (jq("#thirdPartyAccountList .account-row").length == 0) {
                 jq("#thirdPartyAccountContainer").hide();
                 jq("#emptyThirdPartyContainer").show();
             }
-            return false;
+            return;
         }
         jq(account).find(".account-settings-container").hide();
     };
@@ -373,9 +375,9 @@ window.ASC.Files.ThirdParty = (function () {
 
     var saveThirdPartyAccount = function (obj) {
         var account = jq(obj).parents(".account-row");
-        var providerId;
+        var providerId = null;
         var providerIdTmp = parseInt(jq(account).find(".account-hidden-provider-id").val());
-        if (providerIdTmp != 0) {
+        if (providerIdTmp) {
             providerId = providerIdTmp;
         }
         var providerKey = jq(account).find(".account-hidden-provider-key").val().trim();
@@ -572,9 +574,9 @@ window.ASC.Files.ThirdParty = (function () {
 
         jq("#thirdpartyToDocuSignSend").unbind("click").click(sendDocuSign);
 
-        jq("#thirdpartyToDocuSign").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#thirdpartyToDocuSign").bind("keydown", function (event) {
             if (!jq("#thirdpartyToDocuSign").is(":visible")) {
-                return;
+                return true;
             }
 
             if (!e) {
@@ -593,6 +595,7 @@ window.ASC.Files.ThirdParty = (function () {
                     sendDocuSign();
                     break;
             }
+            return true;
         });
 
         removeDocuSignMessage();
@@ -640,6 +643,10 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var docuSignFolderSelect = function (folderId) {
+
+        docuSignFolderSelector.rollUp();
+        docuSignFolderSelector.setCurrent(folderId);
+
         var folderData = docuSignFolderSelector.getFolderData(folderId);
 
         if (ASC.Files.UI.accessEdit(folderData)) {
@@ -669,6 +676,38 @@ window.ASC.Files.ThirdParty = (function () {
         }
 
         docuSignFolderSelector.resetFolder(folderId);
+    };
+
+    var processAnchor = function () {
+        var providerKey;
+        var providerId;
+        var code;
+
+        var segm = location.hash.substr(1).split("&");
+        jq(segm).each(function (i, item) {
+            var param = item.split("=");
+            if (param[0] == "providerKey") {
+                providerKey = param[1];
+            } else if (param[0] == "providerId") {
+                providerId = param[1];
+            } else if (param[0] == "code") {
+                code = param[1];
+            }
+        });
+
+        if (providerKey) {
+            var thirdParty = ASC.Files.ThirdParty.thirdPartyList[providerKey];
+            if (!thirdParty) {
+                return;
+            }
+            addNewThirdParty(thirdParty, code);
+            return;
+        }
+
+        if (providerId) {
+            editThirdPartyAccount("#account_" + providerId);
+            jq("#thirdPartyAccount").attr("data-token", code);
+        }
     };
 
     //request
@@ -744,7 +783,7 @@ window.ASC.Files.ThirdParty = (function () {
         if (jsonData.length > 0 || docuSign) {
             var data =
                 jq(jsonData).map(function (i, item) {
-                    var thirdparty =ASC.Files.ThirdParty.thirdPartyList[item.provider_key]
+                    var thirdparty = ASC.Files.ThirdParty.thirdPartyList[item.provider_key];
                     return {
                         canCorporate: (ASC.Files.Constants.ADMIN && !ASC.Resources.Master.Personal),
                         canEdit: true,
@@ -771,7 +810,7 @@ window.ASC.Files.ThirdParty = (function () {
                     isNew: false,
                     link: ASC.Files.ThirdParty.thirdPartyList.DocuSign.link,
                     max_name_length: ASC.Files.Constants.MAX_NAME_LENGTH,
-                    provider_id: 0,
+                    provider_id: ASC.Files.ThirdParty.thirdPartyList.DocuSign.key,
                     provider_key: ASC.Files.ThirdParty.thirdPartyList.DocuSign.key,
                     provider_title: ASC.Files.ThirdParty.thirdPartyList.DocuSign.providerTitle,
                 });
@@ -804,10 +843,22 @@ window.ASC.Files.ThirdParty = (function () {
 
                 var panel = (typeof params.folderId != "undefined" ?
                     jq("#" + params.folderId) :
-                    jq("#account_" + params.providerKey + "_" + (params.providerId || 0)));
+                    jq("#account_" + (params.providerId || params.providerKey)));
 
                 panel.find("input").removeAttr("disabled");
                 panel.find("a.button.account-save-link").removeClass("disable");
+
+                var jqThis = panel.find(".account-input-url");
+                if (!jqThis.is(":visible")) {
+                    jqThis = panel.find(".account-input-login");
+                    if (!jqThis.is(":visible")) {
+                        jqThis = panel.find(".account-input-pass");
+                        if (!jqThis.is(":visible")) {
+                            jqThis = panel.find(".account-input-folder");
+                        }
+                    }
+                }
+                jqThis.focus();
             } else {
                 infoBlock.show().find("div").text(errorMessage);
                 jq("#thirdPartyPanel input").removeAttr("disabled");
@@ -843,7 +894,7 @@ window.ASC.Files.ThirdParty = (function () {
 
             var xmlData = ASC.Files.Common.jsonToXml({ third_partyList: { entry: data } });
             var htmlXml = ASC.Files.TemplateManager.translateFromString(xmlData);
-            var accountPanel = jq("#account_" + params.providerKey + "_" + params.providerId);
+            var accountPanel = jq("#account_" + params.providerId);
 
             if (accountPanel.length) {
                 jq(accountPanel).replaceWith(htmlXml);
@@ -898,6 +949,7 @@ window.ASC.Files.ThirdParty = (function () {
                     params.corporate ? ASC.Files.FilesJSResources.CorporateFiles : ASC.Files.FilesJSResources.MyFiles));
 
         if (!params.providerId) {
+            ASC.Files.Filter.clearFilter(true);
             ASC.Files.Anchor.navigationSet(jsonData.id);
         }
     };
@@ -922,7 +974,7 @@ window.ASC.Files.ThirdParty = (function () {
             ASC.Files.ThirdParty.docuSignAttached(false);
         }
 
-        var accountPanel = jq("#account_" + providerKey + "_" + providerId);
+        var accountPanel = jq("#account_" + providerId);
         if (accountPanel.length > 0) {
             jq(accountPanel).remove();
             if (jq("#thirdPartyAccountList .account-row").length == 0) {
@@ -991,6 +1043,7 @@ window.ASC.Files.ThirdParty = (function () {
         showSettingThirdParty: showSettingThirdParty,
         changeAccessToThirdpartySettings: changeAccessToThirdpartySettings,
         showThirdPartyNewAccount: showThirdPartyNewAccount,
+        processAnchor: processAnchor,
 
         showThirdPartyActionsPanel: showThirdPartyActionsPanel,
 
@@ -1022,36 +1075,36 @@ window.ASC.Files.ThirdParty = (function () {
             if (!thirdParty) {
                 return true;
             }
+
             if (jq("#thirdPartyEditor").is(":visible")) {
-                eventAfter = function () {
-                    return ASC.Files.ThirdParty.changeTokenThirdPartyAccount(thirdParty);
-                };
-            } else {
-                PopupKeyUpActionProvider.CloseDialog();
-
-                var account = jq(this).closest(".account-row");
-                if (account.length) {
-                    thirdParty.provider_id = parseInt(jq(account).find(".account-hidden-provider-id").val());
-
-                    var eventAfter = function () {
-                        return ASC.Files.ThirdParty.editTokenThirdPartyAccount(thirdParty);
-                    };
-                } else {
-                    eventAfter = function () {
-                        return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
-                    };
-                }
-
-                if (jq("#settingThirdPartyPanel:visible").length == 0) {
-                    if (!thirdParty.getTokenUrl) {
-                        ASC.Files.Folders.eventAfter = eventAfter;
-                    } else {
-                        eventAfter();
-                    }
-                    ASC.Files.Anchor.move("setting=thirdparty");
-                    return false;
-                }
+                ASC.Files.ThirdParty.changeTokenThirdPartyAccount();
+                return false;
             }
+
+            PopupKeyUpActionProvider.CloseDialog();
+
+            var account = jq(this).closest(".account-row");
+            if (account.length) {
+                thirdParty.provider_id = jq(account).find(".account-hidden-provider-id").val();
+
+                ASC.Files.ThirdParty.editTokenThirdPartyAccount(thirdParty);
+                return false;
+            }
+
+            var eventAfter = function () {
+                return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
+            };
+
+            if (jq("#settingThirdPartyPanel:visible").length == 0) {
+                if (!thirdParty.getTokenUrl) {
+                    ASC.Files.Folders.eventAfter = eventAfter;
+                } else {
+                    eventAfter();
+                }
+                ASC.Files.Anchor.move("setting=thirdparty");
+                return false;
+            }
+
             eventAfter();
             return false;
         };
@@ -1099,23 +1152,36 @@ window.ASC.Files.ThirdParty = (function () {
             e = jq.fixEvent(e);
             var code = e.keyCode || e.which;
 
+            var accountRow = jq(this).closest(".account-row");
+            var jqThis = jq(this);
             if (code == ASC.Files.Common.keyCode.enter) {
-                var accountRow = jq(this).closest(".account-row");
-                if (jq(this).is(".account-input-url")) {
-                    if (accountRow.find(".account-input-login").is(":visible")) {
-                        accountRow.find(".account-input-login").focus();
-                    } else {
-                        accountRow.find(".account-input-pass").focus();
-                    }
-                } else if (jq(this).is(".account-input-login")) {
-                    accountRow.find(".account-input-pass").focus();
-                } else if (jq(this).is(".account-input-pass")) {
-                    accountRow.find(".account-input-folder").focus();
-                } else {
-                    accountRow.find(".account-save-link").click();
+                if (!jqThis.val().trim().length) {
+                    return;
                 }
+                if (jqThis.is(".account-input-url")) {
+                    if (accountRow.find(".account-input-login").is(":visible")) {
+                        jqThis = accountRow.find(".account-input-login").focus();
+                    } else {
+                        jqThis = accountRow.find(".account-input-pass").focus();
+                    }
+                }
+                if (!jqThis.val().trim().length) {
+                    return;
+                }
+                if (jqThis.is(".account-input-login")) {
+                    jqThis = accountRow.find(".account-input-pass").focus();
+                }
+                if (!jqThis.val().trim().length) {
+                    return;
+                }
+                if (jqThis.is(".account-input-pass")) {
+                    jqThis = accountRow.find(".account-input-folder").focus();
+                }
+                if (!jqThis.val().trim().length) {
+                    return;
+                }
+                accountRow.find(".account-save-link").click();
             } else if (code == ASC.Files.Common.keyCode.esc) {
-                accountRow = jq(this).closest(".account-row");
                 accountRow.find(".account-cancel-link").click();
             }
         });

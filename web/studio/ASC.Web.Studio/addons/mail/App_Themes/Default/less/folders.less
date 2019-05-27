@@ -1,0 +1,266 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2018
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+#foldersContainer {
+
+    li { 
+        a { 
+            width: 100%; 
+            height: 100%;
+            margin-left: 10px;
+        }
+    }
+}
+
+#userFoldersManage {
+    display: inline-block;
+    width: 100%;
+    margin-left: 18px;
+
+    .link.gray.plus {
+        padding-left: 3px;
+    }
+
+    .menu-item-icon.settings {
+        margin-right: 24px;
+        margin-top: 0px;
+        visibility: hidden;
+    }
+
+    .link.plus:after,
+    .link:active.plus:after,
+    .link:hover.plus:after,
+    .link:visited.plus:after {
+        content: "+";
+        font-size: 20px;
+        font-weight: 100;
+        left: -16px;
+        margin-top: -10px;
+    }
+}
+
+@media (hover) {
+  // properties
+    #userFoldersManage:hover {
+        .menu-item-icon.settings {
+            visibility: visible;
+        }
+    }
+}
+
+#selectUserFolderDropdown {
+    position: absolute;
+    z-index: 700;
+    padding: 4px;
+
+    .existsUserFolders {
+        max-height: 200px;
+        max-width: 400px;
+        position: relative;
+        overflow: auto !important;
+
+        .noSelected {
+            padding-left: 27px !important;
+        }
+
+            .noSelected + .jstree-children {
+                margin-left: -24px;
+            }
+
+        .jstree-icon {
+            cursor: default;
+        }
+
+            .jstree-icon.jstree-themeicon.menu-item-icon {
+                margin: 4px 0 0 4px;
+                background: url(/skins/default/imagescss/icons_nav_panel.png) no-repeat 0 0;
+                float: left;
+            }
+
+                .jstree-icon.jstree-themeicon.menu-item-icon.menu-item-icon.inbox {
+                    background-position: 0 -624px;
+                }
+
+                .jstree-icon.jstree-themeicon.menu-item-icon.menu-item-icon.sent {
+                    background-position: 0 -650px;
+                }
+
+                .jstree-icon.jstree-themeicon.menu-item-icon.menu-item-icon.drafts {
+                    background-position: 0 -676px;
+                }
+
+                .jstree-icon.jstree-themeicon.menu-item-icon.menu-item-icon.trash {
+                    background-position: 0 -572px;
+                }
+
+                .jstree-icon.jstree-themeicon.menu-item-icon.menu-item-icon.spam {
+                    background-position: 0 -598px;
+                }
+    }
+
+    .jstree-anchor {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 150px;
+    }
+
+    .moveToMenu {
+        padding: 8px 0 8px 4px;
+    }
+}
+
+#userFolderContainer,
+#userFolderTree,
+#selectUserFolderDropdown {
+
+    @import "../../../../../skins/default/jstree/themes/default/style.less";
+
+    .jstree-initial-node.jstree-loading {
+        padding-left: 24px;
+    }
+
+    &:focus,
+    .userFolders:focus {
+        outline: none;
+    }
+
+    .jstree {
+        background-color: transparent;
+        overflow: initial;
+        padding: 0;
+
+        a {
+            padding: 0;
+            font-size: 14px;
+        }
+    }
+
+    .jstree-wholerow-hovered + .jstree-icon + a.jstree-anchor {
+        text-decoration: underline;
+    }
+
+    #v_root,
+    #v_dp_root {
+        > .jstree-icon.jstree-ocl {
+            display: none;
+        }
+
+        > .jstree-anchor {
+            padding-left: 24px;
+
+            > .jstree-icon.jstree-themeicon {
+                display: none;
+            }
+        }
+    }
+}
+
+    #userFolderContainer:hover {
+        overflow-y: auto;
+    }
+
+#userFolderContainer {
+    max-height: 440px;
+    overflow: hidden;
+    margin-left: -10px;
+    margin-bottom: 6px;
+
+    .jstree-anchor {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 150px;
+    }
+
+    .userFolders {
+        margin-top: 3px;
+
+        .jstree-container-ul {
+            margin-bottom: 3px;
+
+            li:first-child {
+                margin-top: 1px;
+            }
+
+            .jstree-loading {
+                margin: 0px !important;
+            }
+        }
+
+        .jstree-container-ul:empty {
+                margin-bottom: 0;
+            }
+
+        .new-label-menu {
+            margin-right: 0;
+            padding: 1px 4px;
+        }
+
+        .jstree-wholerow-hovered + .lattersCount + .jstree-icon + a.jstree-anchor {
+            text-decoration: underline;
+        }
+    }
+}
+
+#userFolderWnd {
+    .save {
+
+        .required-hint {
+            position: absolute;
+            right: 16px;
+            max-width: 44%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            top: -19px;
+        }
+
+        #mail_userFolderName {
+            margin-bottom: 10px;
+            display: inline-block;
+            width: 290px;
+        }
+
+        .mail-foldersLink {
+            margin-top: 8px;
+            margin-left: 4px;
+            vertical-align: text-bottom;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 290px;
+            display: inline-block;
+        }
+    }
+
+    .del {
+        .questionText {
+            word-break: break-all;
+        }
+    }
+}

@@ -26,8 +26,8 @@
 
 using System;
 using System.Configuration;
+using ASC.Common.Logging;
 using ASC.Notify.Messages;
-using log4net;
 
 namespace ASC.Notify.Engine
 {

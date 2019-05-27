@@ -35,19 +35,16 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
-using ASC.Thrdparty.Configuration;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
-using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
-using ASC.Web.CRM.SocialMedia;
 using ASC.Web.Studio.Core;
-using Autofac;
 using Newtonsoft.Json;
 
 #endregion
@@ -56,17 +53,13 @@ namespace ASC.Web.CRM.Classes
 {
     public static class RegisterClientScriptHelper
     {
-        private static bool IsFacebookSearchEnabled
-        {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get(SocialMediaConstants.ConfigKeyFacebookDefaultAccessToken)); }
-        }
-
         private static bool IsTwitterSearchEnabled
         {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get("twitterKey")) 
-                && !string.IsNullOrEmpty(KeyStorage.Get("twitterSecret"))
-                && !string.IsNullOrEmpty(KeyStorage.Get("twitterAccessToken_Default"))
-                && !string.IsNullOrEmpty(KeyStorage.Get("twitterAccessTokenSecret_Default"));
+            get
+            {
+                return TwitterLoginProvider.Instance.IsEnabled
+                && !string.IsNullOrEmpty(TwitterLoginProvider.TwitterDefaultAccessToken)
+                && !string.IsNullOrEmpty(TwitterLoginProvider.TwitterAccessTokenSecret);
             }
         }
 
@@ -211,7 +204,7 @@ namespace ASC.Web.CRM.Classes
                 var company = daoFactory.ContactDao.GetByID(((Person)targetContact).CompanyID);
                 if (company == null)
                 {
-                    log4net.LogManager.GetLogger("ASC.CRM").ErrorFormat("Can't find parent company (CompanyID = {0}) for person with ID = {1}", ((Person)targetContact).CompanyID, targetContact.ID);
+                    LogManager.GetLogger("ASC.CRM").ErrorFormat("Can't find parent company (CompanyID = {0}) for person with ID = {1}", ((Person)targetContact).CompanyID, targetContact.ID);
                 }
                 else
                 {
@@ -246,9 +239,8 @@ namespace ASC.Web.CRM.Classes
                                 var contactAvailableTypes = {4};
                                 var presetCompanyForPersonJson = '{5}';
                                 var presetPersonsForCompanyJson = '{6}';
-                                var facebokSearchEnabled = {7};
-                                var twitterSearchEnabled = {8};
-                                var contactActionCurrencies = {9};",
+                                var twitterSearchEnabled = {7};
+                                var contactActionCurrencies = {8};",
                               json,
                               JsonConvert.SerializeObject(networks),
                               JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
@@ -261,7 +253,6 @@ namespace ASC.Web.CRM.Classes
                                     })),
                               presetCompanyForPersonJson,
                               presetPersonsForCompanyJson,
-                              IsFacebookSearchEnabled.ToString().ToLower(),
                               IsTwitterSearchEnabled.ToString().ToLower(),
                               JsonConvert.SerializeObject(CurrencyProvider.GetAll())
                               );

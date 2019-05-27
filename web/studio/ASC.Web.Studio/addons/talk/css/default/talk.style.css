@@ -50,6 +50,9 @@ margin:0;
 padding:0;
 }
 
+#fileupload {
+    display: none;
+}
 table {
 border-collapse:collapse;
 }
@@ -1023,16 +1026,16 @@ height:83vh;
 }
 
 div#talkStartSplash {
-display:none;
-background:#FFF url(imagescss/bg-bdbdbd.png) 0 0 repeat-x;
-border:1px solid #BDBDBD;
-height:100%;
-overflow:hidden;
-position:relative;
-z-index:3;
--moz-user-select:none;
-border-right:none;
-border-width:0 1px 1px;
+    display:none;
+    background:#FFF url(imagescss/bg-bdbdbd.png) 0 0 repeat-x;
+    border:1px solid #BDBDBD;
+    height:100%;
+    overflow:hidden;
+    position:relative;
+    z-index:3;
+    -moz-user-select:none;
+    border-right:none;
+    border-width:0 1px 1px;
 }
 
 div#talkStartSplash div.background {
@@ -1049,21 +1052,21 @@ background-color:#4A8CAC;
 }
 
 div#talkStartSplash div.container {
-background:url(imagescss/blank.gif);
-width:420px;
-height:200px;
-position:absolute;
-left:50%;
-top:50%;
-z-index:1;
-text-align:right;
-font:600 16px Arial,Tahoma,sans-serif;
-color:#095A7F;
-text-transform:uppercase;
-cursor:default;
--moz-user-select:none;
-margin:-100px 0 0 -240px;
-padding:0 60px 0 0;
+    background:url(imagescss/blank.gif);
+    width:420px;
+    height:200px;
+    position:absolute;
+    left:50%;
+    top:20%;
+    z-index:1;
+    text-align:right;
+    font:600 16px Arial,Tahoma,sans-serif;
+    color:#095A7F;
+    text-transform:uppercase;
+    cursor:default;
+    -moz-user-select:none;
+    margin:-100px 0 0 -240px;
+    padding:0 60px 0 0;
 }
 
 div#talkStartSplash div.container div.label {
@@ -1596,6 +1599,7 @@ div#talkRoomsContainer ul.rooms li.room div.sub-panel div.splash-contactlist spa
     display:inline-block;
     position:relative;
     z-index:1;
+    white-space: initial;
     -moz-user-select:none;
 }
 
@@ -2478,9 +2482,9 @@ div#talkSidebarContainer {
 }
 
 div#talkContactToolbarContainer {
-position:relative;
-z-index:1;
-height:29px;
+    position:relative;
+    z-index:4;
+    height:29px;
 }
 
 div#talkContactToolbarContainer div.toolbar {
@@ -2535,16 +2539,21 @@ background-position:-130px -22px;
 
 div#talkContactToolbarContainer div.toolbar div.button-container.settings {
     background-position:0 0;
-    background:url(imagescss/settings.png);
+    background:url(imagescss/svg/settings.svg);
     background-repeat:no-repeat;
     height:32px;
-    width: 69px;
+    width: 56px;
     position: relative;
     overflow: initial;
+    background-position: 8px 50%;
+
+}
+div#talkSidebarContainer.enable-filter div#talkContactToolbarContainer div.toolbar div.button-container.settings {
+    display: none;
 }
 
 div#button-settings.button-talk.settings {
-background:url(imagescss/settings.png);
+background:url(imagescss/settings.svg);
 background-repeat:no-repeat;
 }
 
@@ -2614,13 +2623,13 @@ div#talkContactToolbarContainer div#talkFilterContainer {
     background: #fff;
     float:left;
     margin-top: 4px;
-    width:80%;
+    width: calc(100% - 65px);
 }
 
 div#talkContactToolbarContainer div#talkFilterContainer div.helper input {
     display:block;
     border:0;
-    width:95%;
+    width: calc(100% - 65px);
     height:17px;
     outline:none;
     margin:0;
@@ -2675,7 +2684,7 @@ div#talkContactsContainer {
     font-size:12px;
     left: -1px;
     width: calc(100% + 1px);
-
+    height: 100%;
     border-bottom-color:#FFF;
     top: 2px;
 }
@@ -2689,6 +2698,8 @@ div#talkContactsContainer ul.grouplist {
     -moz-user-select:none;
     margin:0;
     padding:0 8px;
+    width: calc(100% - 16px);
+
 }
 div#talkContactsContainer ul.grouplist::-webkit-scrollbar-track {
     background-color: transparent;
@@ -2762,26 +2773,26 @@ div#talkContactsContainer ul.grouplist li.group.open div.head div.expander:befor
 }
 
 div#talkContactsContainer ul.grouplist li.group div.head div.size {
-width:35px;
-height:100%;
-position:absolute;
-right:0;
-top:0;
-z-index:0;
-text-align:right;
-color:#999;
-cursor:default;
-padding:0 5px 0 0;
+    width:35px;
+    height:100%;
+    position:absolute;
+    right:0;
+    top:0;
+    z-index:0;
+    text-align:right;
+    color:#999;
+    cursor:default;
+    padding:0 5px 0 0;
 }
 
 div#talkContactsContainer ul.grouplist li.group ul.contactlist {
-display:none;
-background:transparent;
-border:0;
-height:auto!important;
-overflow-x:hidden;
-overflow-y:hidden;
-margin:0 0 0 22px;
+    display:none;
+    background:transparent;
+    border:0;
+    height:auto!important;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    margin:0 0 0 22px;
 }
 
 
@@ -2793,6 +2804,7 @@ margin-left:0;
 div#talkContactsContainer ul.contactlist,div#talkTabContainer div.navigation div.popupContainerClass.hiddenTabs ul.contactlist {
     list-style:none;
     height:100%;
+    width:100%;
     overflow-x:hidden;
     overflow-y:auto;
     position:relative;
@@ -2806,13 +2818,13 @@ overflow-y:hidden;
 }
 
 body.engn-ios div#talkContactsContainer > ul.contactlist,body.engn-android div#talkContactsContainer > ul.contactlist {
-width:100%;
-height:auto;
-overflow-x:auto;
-overflow-y:auto;
-position:absolute;
-left:0;
-top:0;
+    width:100%;
+    height:auto;
+    overflow-x:auto;
+    overflow-y:auto;
+    position:absolute;
+    left:0;
+    top:0;
 }
 div#talkContactsContainer ul.contactlist li.contact.master.new-message div.title,
 div#talkContactsContainer ul.contactlist li.contact div.title, 
@@ -2885,7 +2897,7 @@ background-color:#EFFF79;
 }
 
 div#talkStatusContainer {
-    border-top:1px solid #BDBDBD;
+    border-top:none;
     line-height:40px;
     z-index:3;
     cursor:default;
@@ -2913,7 +2925,7 @@ div#talkStatusMenu {
     width:130px;
     height:35px;
     line-height:22px;
-    float:left;
+    margin: 0 auto;
     position:relative;
     cursor:pointer;
     z-index:3;
@@ -3083,6 +3095,33 @@ background-position:-96px center;
 background:url(imagescss/status_away.png) 0 center no-repeat;
 }
 
+div#talkStatusMenu div#talkConnectionStatus {
+    display: none;
+}
+div#talkStatusMenu div#talkConnectionStatus div.icon {
+    width:24px;
+    height:100%;
+    position:absolute;
+    left:3px;
+    top:0;
+    z-index:0;
+    background:url(imagescss/bg-smallloader.gif) center center no-repeat;
+}
+div#talkStatusMenu div#talkConnectionStatus div.title {
+    height: 100%;
+    padding-left: 30px;
+    position: relative;
+    z-index: 1;
+    color: #333;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 37px;
+}
+div#talkStatusMenu.processing div#talkConnectionStatus {
+    display: block;
+}
 div#talkStatusMenu.processing div#talkCurrentStatus.online div.state,
 div#talkStatusMenu.processing div#talkCurrentStatus.offline div.state,
 div#talkStatusMenu.processing div#talkCurrentStatus.xa div.state,
@@ -3140,15 +3179,16 @@ div#button-conteiner.settings.button-talk.create-conference {
 
 div#talkContactToolbarContainer div.toolbar div.button-container div.button-talk.create-conference {
     float: right;
-    width:32px;
+    width:28px;
     height:32px;
     left:199px;
     bottom:12px;
-    background:url(imagescss/groupchat.png);
-    background-position-y: -1px; 
+    background:url(imagescss/svg/group.svg);
     background-repeat:no-repeat;
     cursor: default;
     opacity: .4;
+    background-size: 16px;
+    background-position: 4px 50%;
 }
 
 div#talkStatusContainer div#talkContactToolbarContainer div.toolbar {
@@ -3157,7 +3197,7 @@ height:32px;
 }
 
 div#talkContactToolbarContainer div.toolbar div.button-container.settings div.button-talk.create-conference {
-width:32px;
+width:28px;
 height:32px;
 }
 
@@ -3215,10 +3255,22 @@ div#talkMainContainer div#talkContentContainer div#talkStartSplash div.container
 }
 
 div#talkMainContainer div#talkContentContainer div#talkStartSplash div.container div.label {
-    text-align:center;
-    font: 300 18px Arial,Tahoma,sans-serif;
-    color: #9FA3A7;
+    text-align: center;
+    color: rgba(48, 48, 50, 1);
+    font-size: 19px;
+    font-family: Arial,Tahoma,sans-serif;
     background: #ecf7ff;
+    font-weight: 100;
+    padding: 21px 0 0;
+}
+div#talkMainContainer div#talkContentContainer div#talkStartSplash div.container div.chat_image {
+    width: 305px;
+    height: 305px;
+    margin: 0 auto;
+    margin-top: 63px;
+    border: 1px solid #ecf7ff;
+    border-radius: 50%;
+    background: url(imagescss/chat_background.png) no-repeat 52% 100%;
 }
 
 div#talkMainContainer div#talkContentContainer div#talkStartSplash {
@@ -3401,7 +3453,9 @@ div.contact-dragable.xa div.state,div.tab-dragable.xa div.state,div#talkRoomsCon
 background-position:-96px center;
 background:url(imagescss/status_away.png) no-repeat center;
 }
-
+div#talkContentContainer:not(.disabled) div#talkStartSplash {
+    display: none!important;
+}
 div.tab-dragable div.background,
 div.custom-select.open div.helper ul.options,
 div#talkDialogsContainer.create-room,
@@ -3417,7 +3471,6 @@ div#talkTabContainer div.info-block.information div.container span.information,
 div#talkTabContainer div.info-block.hint div.container span.hint,
 div#talkTabContainer.has-hidden div.navigation div.button-container.move-to-left div.button-talk,
 div#talkTabContainer.has-repressed div.navigation div.button-container.move-to-right div.button-talk,
-div#talkContentContainer.disabled div#talkStartSplash,
 div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel.found div.button-container.search-prev-message div.button-talk,
 div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel.found div.button-container.search-next-message div.button-talk,
 div#talkRoomsContainer ul.rooms li.room.conference div.filtering-panel.found div.button-container.search-prev-message div.button-talk,
@@ -3906,8 +3959,11 @@ div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body a,div#ta
 vertical-align:bottom;
 }
 
-div#talkRoomsContainer ul.rooms li.room div.messages.loading,div#talkRoomsContainer ul.rooms li.room div.history.loading,div#talkContactsContainer.processing {
-background:#FFF url(imagescss/bg-largeloader.gif) center center no-repeat;
+div#talkRoomsContainer ul.rooms li.room div.messages.loading,div#talkRoomsContainer ul.rooms li.room div.history.loading {
+    background:#FFF url(imagescss/bg-largeloader.gif) center center no-repeat;
+}
+div#talkContactsContainer.processing {
+    height: calc(100% - 80px)!important;
 }
 
 div#talkRoomsContainer.chat.history ul.rooms li.room div.sub-panel,div#talkRoomsContainer.chat.history ul.rooms li.room div.messages {
@@ -4062,13 +4118,13 @@ div#talkContactsContainer ul.contactlist li.contact.mailing div.state {
 }
 
 div#talkContactsContainer ul.contactlist li.contact div.toolbar div.button-talk.send-invite,div#talkContactsContainer ul.contactlist li.contact div.toolbar div.button-talk.add-to-mailing {
-display:none;
-background-position:-312px center;
+    display:none;
+    background-position:-316px center;
 }
 
 div#talkSidebarContainer.grouplist div#talkContactToolbarContainer div.toolbar div.button-container.toggle-group.my,div#talkSidebarContainer.contactlist div#talkContactToolbarContainer div.toolbar div.button-container.toggle-group.my {
 background-position:0 0;
-background:url(imagescss/groupchat.png);
+background:url(imagescss/svg/group.svg);
 background-repeat:no-repeat;
 }
 
@@ -4161,6 +4217,9 @@ position: relative;
 top: 4px;
 /*right: -55px;*/
 }
+div.chatOrSpam .tl-combobox {
+    max-width: initial;
+}
 div.cha {
     display: inline-block;
     width: 137px;
@@ -4237,14 +4296,14 @@ text-align: center;
 }
 div.toolbar div.button-container.settings div#pop {
     position: absolute;
-    left: -170px!important;
+    left: 0;
     border: 1px solid rgb(189, 189, 189);
     border-radius: 3px;
     padding: 10px;
     background-color: white;
     font-size: 12px;
     width: 222px;
-    bottom: 45px;
+    bottom: -177px;
     top: unset!important;
     display:none;
 }
@@ -4252,7 +4311,7 @@ div.toolbar div.button-container.settings div#pop .delete-files-link {
 display:none;
 }
 div.toolbar div.button-container.settings div#pop.has-files {
-top: -222px!important;
+    bottom: -214px!important;
 }
 div.toolbar div.button-container.settings div#pop.has-files .delete-files-link {
 display:block;

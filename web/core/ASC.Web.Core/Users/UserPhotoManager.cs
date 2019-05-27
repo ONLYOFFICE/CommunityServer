@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ASC.Common.Caching;
+using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
 using ASC.Data.Storage;
@@ -49,15 +50,17 @@ namespace ASC.Web.Core.Users
         private readonly long _maxFileSize;
         private readonly Size _size;
         private readonly IDataStore _dataStore;
+        private readonly UserPhotoThumbnailSettings _settings;
 
 
-        public ResizeWorkerItem(Guid userId, byte[] data, long maxFileSize, Size size, IDataStore dataStore)
+        public ResizeWorkerItem(Guid userId, byte[] data, long maxFileSize, Size size, IDataStore dataStore, UserPhotoThumbnailSettings settings)
         {
             _userId = userId;
             _data = data;
             _maxFileSize = maxFileSize;
             _size = size;
             _dataStore = dataStore;
+            _settings = settings;
         }
 
         public Size Size
@@ -83,6 +86,11 @@ namespace ASC.Web.Core.Users
         public Guid UserId
         {
             get { return _userId; }
+        }
+
+        public UserPhotoThumbnailSettings Settings
+        {
+            get { return _settings; }
         }
 
         public override bool Equals(object obj)
@@ -166,9 +174,21 @@ namespace ASC.Web.Core.Users
             }
         }
 
+
         public static string GetDefaultPhotoAbsoluteWebPath()
         {
             return WebImageSupplier.GetAbsoluteWebPath(_defaultAvatar);
+        }
+
+
+        public static string GetRetinaPhotoURL(Guid userID)
+        {
+            return GetSizedPhotoAbsoluteWebPath(userID, RetinaFotoSize);
+        }
+
+        public static string GetMaxPhotoURL(Guid userID)
+        {
+            return GetSizedPhotoAbsoluteWebPath(userID, MaxFotoSize);
         }
 
         public static string GetBigPhotoURL(Guid userID)
@@ -186,10 +206,12 @@ namespace ASC.Web.Core.Users
             return GetSizedPhotoAbsoluteWebPath(userID, SmallFotoSize);
         }
 
+
         public static string GetSizedPhotoUrl(Guid userId, int width, int height)
         {
             return GetSizedPhotoAbsoluteWebPath(userId, new Size(width, height));
         }
+
 
         public static string GetDefaultSmallPhotoURL()
         {
@@ -201,12 +223,36 @@ namespace ASC.Web.Core.Users
             return GetDefaultPhotoAbsoluteWebPath(MediumFotoSize);
         }
 
+        public static string GetDefaultBigPhotoURL()
+        {
+            return GetDefaultPhotoAbsoluteWebPath(BigFotoSize);
+        }
+
+        public static string GetDefaultMaxPhotoURL()
+        {
+            return GetDefaultPhotoAbsoluteWebPath(MaxFotoSize);
+        }
+
+        public static string GetDefaultRetinaPhotoURL()
+        {
+            return GetDefaultPhotoAbsoluteWebPath(RetinaFotoSize);
+        }
 
 
+
+        public static Size OriginalFotoSize
+        {
+            get { return new Size(1280, 1280); }
+        }
+
+        public static Size RetinaFotoSize
+        {
+            get { return new Size(360, 360); }
+        }
 
         public static Size MaxFotoSize
         {
-            get { return new Size(200, 300); }
+            get { return new Size(200, 200); }
         }
 
         public static Size BigFotoSize
@@ -224,6 +270,7 @@ namespace ASC.Web.Core.Users
             get { return new Size(32, 32); }
         }
 
+        private static string _defaultRetinaAvatar = "default_user_photo_size_360-360.png";
         private static string _defaultAvatar = "default_user_photo_size_200-200.png";
         private static string _defaultSmallAvatar = "default_user_photo_size_32-32.png";
         private static string _defaultMediumAvatar = "default_user_photo_size_48-48.png";
@@ -231,6 +278,13 @@ namespace ASC.Web.Core.Users
         private static string _tempDomainName = "temp";
 
 
+        public static bool UserHasAvatar(Guid userID)
+        {
+            var path = GetPhotoAbsoluteWebPath(userID);
+            var fileName = Path.GetFileName(path);
+            return fileName != _defaultAvatar;
+        }
+        
         public static string GetPhotoAbsoluteWebPath(Guid userID)
         {
             var path = SearchInCache(userID, Size.Empty);
@@ -306,6 +360,8 @@ namespace ASC.Web.Core.Users
 
         private static string GetDefaultPhotoAbsoluteWebPath(Size size)
         {
+            if (size == RetinaFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultRetinaAvatar);
+            if (size == MaxFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultAvatar);
             if (size == BigFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultBigAvatar);
             if (size == SmallFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultSmallAvatar);
             if (size == MediumFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultMediumAvatar);
@@ -394,7 +450,7 @@ namespace ASC.Web.Core.Users
                     }
                     catch (Exception err)
                     {
-                        log4net.LogManager.GetLogger("ASC.Web.Photo").Error(err);
+                        LogManager.GetLogger("ASC.Web.Photo").Error(err);
                     }
                 }
             }
@@ -416,10 +472,16 @@ namespace ASC.Web.Core.Users
             }
         }
 
+        public static void ResetThumbnailSettings(Guid userId)
+        {
+            var thumbSettings = new UserPhotoThumbnailSettings().GetDefault() as UserPhotoThumbnailSettings;
+            thumbSettings.SaveForUser(userId);
+        }
+
         public static string SaveOrUpdatePhoto(Guid userID, byte[] data)
         {
             string fileName;
-            return SaveOrUpdatePhoto(userID, data, -1, MaxFotoSize, true, out fileName);
+            return SaveOrUpdatePhoto(userID, data, -1, OriginalFotoSize, true, out fileName);
         }
 
         public static void RemovePhoto(Guid idUser)
@@ -441,6 +503,7 @@ namespace ASC.Web.Core.Users
             if (saveInCoreContext)
             {
                 CoreContext.UserManager.SaveUserPhoto(userID, data);
+                SetUserPhotoThumbnailSettings(userID, width, height);
                 ClearCache(userID);
             }
 
@@ -457,15 +520,36 @@ namespace ASC.Web.Core.Users
                 SizePhoto(userID, data, -1, SmallFotoSize, true);
                 SizePhoto(userID, data, -1, MediumFotoSize, true);
                 SizePhoto(userID, data, -1, BigFotoSize, true);
+                SizePhoto(userID, data, -1, MaxFotoSize, true);
+                SizePhoto(userID, data, -1, RetinaFotoSize, true);
             }
             return photoUrl;
         }
 
+        private static void SetUserPhotoThumbnailSettings(Guid userId, int width, int height)
+        {
+            var settings = UserPhotoThumbnailSettings.LoadForUser(userId);
+
+            if (!settings.IsDefault) return;
+
+            var max = Math.Max(Math.Max(width, height), SmallFotoSize.Width);
+            var min = Math.Max(Math.Min(width, height), SmallFotoSize.Width);
+
+            var pos = (max - min) / 2;
+
+            settings = new UserPhotoThumbnailSettings(
+                width >= height ? new Point(pos, 0) : new Point(0, pos),
+                new Size(min, min));
+
+            settings.SaveForUser(userId);
+        }
 
         private static byte[] TryParseImage(byte[] data, long maxFileSize, Size maxsize, out ImageFormat imgFormat, out int width, out int height)
         {
             if (data == null || data.Length <= 0) throw new UnknownImageFormatException();
             if (maxFileSize != -1 && data.Length > maxFileSize) throw new ImageSizeLimitException();
+
+            data = ImageHelper.RotateImageByExifOrientationData(data);
 
             try
             {
@@ -516,6 +600,7 @@ namespace ASC.Web.Core.Users
                         {
                             gTemp.InterpolationMode = InterpolationMode.HighQualityBicubic;
                             gTemp.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                            gTemp.SmoothingMode = SmoothingMode.HighQuality;
                             gTemp.DrawImage(img, 0, 0, width, height);
 
                             data = CommonPhotoManager.SaveToBytes(b);
@@ -547,7 +632,8 @@ namespace ASC.Web.Core.Users
             if (data == null || data.Length <= 0) throw new UnknownImageFormatException();
             if (maxFileSize != -1 && data.Length > maxFileSize) throw new ImageWeightLimitException();
 
-            var resizeTask = new ResizeWorkerItem(userID, data, maxFileSize, size, GetDataStore());
+            var resizeTask = new ResizeWorkerItem(userID, data, maxFileSize, size, GetDataStore(), UserPhotoThumbnailSettings.LoadForUser(userID));
+
             if (now)
             {
                 //Resize synchronously
@@ -581,7 +667,9 @@ namespace ASC.Web.Core.Users
                     var imgFormat = img.RawFormat;
                     if (item.Size != img.Size)
                     {
-                        using (var img2 = CommonPhotoManager.DoThumbnail(img, item.Size, true, true, true))
+                        using (var img2 = item.Settings.IsDefault ? 
+                            CommonPhotoManager.DoThumbnail(img, item.Size, true, true, true) :
+                            UserPhotoThumbnailManager.GetBitmap(img, item.Size, item.Settings))
                         {
                             data = CommonPhotoManager.SaveToBytes(img2);
                         }
@@ -619,7 +707,8 @@ namespace ASC.Web.Core.Users
             int width;
             int height;
             data = TryParseImage(data, maxFileSize, new Size(maxWidth, maxHeight), out imgFormat, out width, out height);
-            string fileName = Guid.NewGuid().ToString() + "." + CommonPhotoManager.GetImgFormatName(imgFormat);
+
+            var fileName = Guid.NewGuid() + "." + CommonPhotoManager.GetImgFormatName(imgFormat);
 
             var store = GetDataStore();
             using (var stream = new MemoryStream(data))
@@ -729,6 +818,35 @@ namespace ASC.Web.Core.Users
             return photoUrl;
         }
 
+        public static byte[] GetUserPhotoData(Guid userId, Size size)
+        {
+            try
+            {
+                var pattern = string.Format("{0}_size_{1}-{2}.*", userId, size.Width, size.Height);
+
+                var fileName = GetDataStore().ListFilesRelative("", "", pattern, false).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(fileName)) return null;
+
+                using (var s = GetDataStore().GetReadStream("", fileName))
+                {
+                    var data = new MemoryStream();
+                    var buffer = new Byte[1024*10];
+                    while (true)
+                    {
+                        var count = s.Read(buffer, 0, buffer.Length);
+                        if (count == 0) break;
+                        data.Write(buffer, 0, count);
+                    }
+                    return data.ToArray();
+                }
+            }
+            catch (Exception err)
+            {
+                LogManager.GetLogger("ASC.Web.Photo").Error(err);
+                return null;
+            }
+        }
 
         private static IDataStore GetDataStore()
         {
@@ -754,5 +872,115 @@ namespace ASC.Web.Core.Users
     {
         public ImageSizeLimitException() : base("image size is too large") { }
     }
+
     #endregion
+
+
+    /// <summary>
+    /// Helper class for manipulating images.
+    /// </summary>
+    public static class ImageHelper
+    {
+        /// <summary>
+        /// Rotate the given image byte array according to Exif Orientation data
+        /// </summary>
+        /// <param name="data">source image byte array</param>
+        /// <param name="updateExifData">set it to TRUE to update image Exif data after rotation (default is TRUE)</param>
+        /// <returns>The rotated image byte array. If no rotation occurred, source data will be returned.</returns>
+        public static byte[] RotateImageByExifOrientationData(byte[] data, bool updateExifData = true)
+        {
+            try
+            {
+                using (var stream = new MemoryStream(data))
+                using (var img = new Bitmap(stream))
+                {
+                    var fType = RotateImageByExifOrientationData(img, updateExifData);
+                    if (fType != RotateFlipType.RotateNoneFlipNone)
+                    {
+                        var converter = new ImageConverter();
+                        data = (byte[])converter.ConvertTo(img, typeof(byte[]));
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                LogManager.GetLogger("ASC.Web.Photo").Error(err); 
+            }
+
+            return data;
+        }
+        
+        /// <summary>
+        /// Rotate the given image file according to Exif Orientation data
+        /// </summary>
+        /// <param name="sourceFilePath">path of source file</param>
+        /// <param name="targetFilePath">path of target file</param>
+        /// <param name="targetFormat">target format</param>
+        /// <param name="updateExifData">set it to TRUE to update image Exif data after rotation (default is TRUE)</param>
+        /// <returns>The RotateFlipType value corresponding to the applied rotation. If no rotation occurred, RotateFlipType.RotateNoneFlipNone will be returned.</returns>
+        public static RotateFlipType RotateImageByExifOrientationData(string sourceFilePath, string targetFilePath, ImageFormat targetFormat, bool updateExifData = true)
+        {
+            // Rotate the image according to EXIF data
+            var bmp = new Bitmap(sourceFilePath);
+            var fType = RotateImageByExifOrientationData(bmp, updateExifData);
+            if (fType != RotateFlipType.RotateNoneFlipNone)
+            {
+                bmp.Save(targetFilePath, targetFormat);
+            }
+            return fType;
+        }
+
+        /// <summary>
+        /// Rotate the given bitmap according to Exif Orientation data
+        /// </summary>
+        /// <param name="img">source image</param>
+        /// <param name="updateExifData">set it to TRUE to update image Exif data after rotation (default is TRUE)</param>
+        /// <returns>The RotateFlipType value corresponding to the applied rotation. If no rotation occurred, RotateFlipType.RotateNoneFlipNone will be returned.</returns>
+        public static RotateFlipType RotateImageByExifOrientationData(Image img, bool updateExifData = true)
+        {
+            const int orientationId = 0x0112;
+            var fType = RotateFlipType.RotateNoneFlipNone;
+            if (img.PropertyIdList.Contains(orientationId))
+            {
+                var pItem = img.GetPropertyItem(orientationId);
+                fType = GetRotateFlipTypeByExifOrientationData(pItem.Value[0]);
+                if (fType != RotateFlipType.RotateNoneFlipNone)
+                {
+                    img.RotateFlip(fType);
+                    if (updateExifData) img.RemovePropertyItem(orientationId); // Remove Exif orientation tag
+                }
+            }
+            return fType;
+        }
+
+        /// <summary>
+        /// Return the proper System.Drawing.RotateFlipType according to given orientation EXIF metadata
+        /// </summary>
+        /// <param name="orientation">Exif "Orientation"</param>
+        /// <returns>the corresponding System.Drawing.RotateFlipType enum value</returns>
+        public static RotateFlipType GetRotateFlipTypeByExifOrientationData(int orientation)
+        {
+            switch (orientation)
+            {
+                case 1:
+                    return RotateFlipType.RotateNoneFlipNone;
+                case 2:
+                    return RotateFlipType.RotateNoneFlipX;
+                case 3:
+                    return RotateFlipType.Rotate180FlipNone;
+                case 4:
+                    return RotateFlipType.Rotate180FlipX;
+                case 5:
+                    return RotateFlipType.Rotate90FlipX;
+                case 6:
+                    return RotateFlipType.Rotate90FlipNone;
+                case 7:
+                    return RotateFlipType.Rotate270FlipX;
+                case 8:
+                    return RotateFlipType.Rotate270FlipNone;
+                default:
+                    return RotateFlipType.RotateNoneFlipNone;
+            }
+        }
+    }
 }

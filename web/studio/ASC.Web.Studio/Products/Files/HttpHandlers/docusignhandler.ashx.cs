@@ -28,6 +28,7 @@ using System;
 using System.Net;
 using System.Web;
 using System.Xml;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
@@ -35,7 +36,6 @@ using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Studio.UserControls.Statistics;
-using log4net;
 
 namespace ASC.Web.Files.HttpHandlers
 {

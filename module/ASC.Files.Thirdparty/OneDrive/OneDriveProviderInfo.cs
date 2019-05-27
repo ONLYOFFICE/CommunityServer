@@ -66,6 +66,20 @@ namespace ASC.Files.Thirdparty.OneDrive
             }
         }
 
+        internal bool StorageOpened
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__ONEDRIVE_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    return wrapper != null && wrapper.Storage.IsOpened;
+                }
+                return false;
+            }
+        }
+
         public int ID { get; set; }
 
         public Guid Owner { get; private set; }
@@ -107,7 +121,8 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         public void Dispose()
         {
-            Storage.Close();
+            if (StorageOpened)
+                Storage.Close();
         }
 
         public bool CheckAccess()
@@ -156,7 +171,7 @@ namespace ASC.Files.Thirdparty.OneDrive
             if (_token == null) throw new UnauthorizedAccessException("Cannot create GoogleDrive session with given token");
             if (_token.IsExpired)
             {
-                _token = OAuth20TokenHelper.RefreshToken(OneDriveLoginProvider.OneDriveOauthTokenUrl, _token);
+                _token = OAuth20TokenHelper.RefreshToken<OneDriveLoginProvider>(_token);
 
                 using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
                 {
@@ -214,7 +229,8 @@ namespace ASC.Files.Thirdparty.OneDrive
             if (file == null)
             {
                 file = Storage.GetItem(itemId);
-                CacheItem.Insert("onedrive-" + ID + "-" + itemId, file, DateTime.UtcNow.Add(CacheExpiration));
+                if (file != null)
+                    CacheItem.Insert("onedrive-" + ID + "-" + itemId, file, DateTime.UtcNow.Add(CacheExpiration));
             }
             return file;
         }

@@ -125,7 +125,8 @@ ASC.People.Reassigns = (function () {
             if (removeData) {
                 Teamlab.startRemove({}, fromUserId, options);
             } else {
-                Teamlab.startReassign({}, fromUserId, toUserId, options);
+                var deleteProfile = jq(".delete-profile-container input[type=checkbox]").is(":checked");
+                Teamlab.startReassign({}, fromUserId, toUserId, deleteProfile, options);
             }
         });
 

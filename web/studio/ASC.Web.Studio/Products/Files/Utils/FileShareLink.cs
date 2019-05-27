@@ -38,15 +38,18 @@ namespace ASC.Web.Files.Utils
 {
     public static class FileShareLink
     {
-        public static string GetLink(File file)
+        public static string GetLink(File file, bool withHash = true)
         {
-            var url = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
+            var url = file.DownloadUrl;
 
-            if (FileUtility.CanImageView(file.Title))
-                url = file.DownloadUrl;
+            if (FileUtility.CanWebView(file.Title))
+                url = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
 
-            var linkParams = CreateKey(file.ID.ToString());
-            url += "&" + FilesLinkUtility.DocShareKey + "=" + HttpUtility.UrlEncode(linkParams);
+            if (withHash)
+            {
+                var linkParams = CreateKey(file.ID.ToString());
+                url += "&" + FilesLinkUtility.DocShareKey + "=" + HttpUtility.UrlEncode(linkParams);
+            }
 
             return CommonLinkUtility.GetFullAbsolutePath(url);
         }
@@ -64,7 +67,8 @@ namespace ASC.Web.Files.Utils
         public static bool Check(string doc, bool checkRead, IFileDao fileDao, out File file)
         {
             var fileShare = Check(doc, fileDao, out file);
-            return (!checkRead && (fileShare == FileShare.ReadWrite || fileShare == FileShare.Review)) || (checkRead && fileShare != FileShare.Restrict);
+            return (!checkRead && (fileShare == FileShare.ReadWrite || fileShare == FileShare.Review || fileShare == FileShare.FillForms || fileShare == FileShare.Comment))
+                || (checkRead && fileShare != FileShare.Restrict);
         }
 
         public static FileShare Check(string doc, IFileDao fileDao, out File file)
@@ -78,6 +82,8 @@ namespace ASC.Web.Files.Utils
             var filesSecurity = Global.GetFilesSecurity();
             if (filesSecurity.CanEdit(file, FileConstant.ShareLinkId)) return FileShare.ReadWrite;
             if (filesSecurity.CanReview(file, FileConstant.ShareLinkId)) return FileShare.Review;
+            if (filesSecurity.CanFillForms(file, FileConstant.ShareLinkId)) return FileShare.FillForms;
+            if (filesSecurity.CanComment(file, FileConstant.ShareLinkId)) return FileShare.Comment;
             if (filesSecurity.CanRead(file, FileConstant.ShareLinkId)) return FileShare.Read;
             return FileShare.Restrict;
         }

@@ -25,6 +25,7 @@
 
 
 using ASC.Common.Caching;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,7 @@ namespace ASC.Core.Caching
             {
                 var tenants = GetTenantStore();
                 tenants.Remove(t.TenantId);
+                tenants.Clear();
             });
             cacheNotify.Subscribe<TenantSetting>((s, a) =>
             {
@@ -170,18 +172,6 @@ namespace ASC.Core.Caching
             cacheNotify.Publish(new TenantSetting { Key = cacheKey }, CacheNotifyAction.Any);
         }
 
-        public T LoadSettings<T>(int tenantId, Guid userId)
-        {
-            var cacheKey = string.Format("webstudio_settings/{0}/{1}", tenantId, userId);
-            var data = cache.Get<object>(cacheKey);
-            if (data == null)
-            {
-                data = service.LoadSettings<T>(tenantId, userId);
-                cache.Insert(cacheKey, data, DateTime.UtcNow + SettingsExpiration);
-            }
-            return (T) data;
-        }
-
         private TenantStore GetTenantStore()
         {
             var store = cache.Get<TenantStore>(KEY);
@@ -260,6 +250,16 @@ namespace ASC.Core.Caching
                             byDomain.Remove(t.MappedDomain);
                         }
                     }
+                }
+            }
+
+            internal void Clear()
+            {
+                if(!CoreContext.Configuration.Standalone) return;
+                lock (locker)
+                {
+                    byId.Clear();
+                    byDomain.Clear();
                 }
             }
         }

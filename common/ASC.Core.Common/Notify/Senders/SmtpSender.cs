@@ -24,15 +24,15 @@
 */
 
 
-using ASC.Common.Utils;
-using ASC.Notify.Messages;
-using ASC.Notify.Patterns;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
+using ASC.Common.Logging;
+using ASC.Common.Utils;
+using ASC.Notify.Messages;
+using ASC.Notify.Patterns;
 using MailKit;
 using MailKit.Security;
 using MimeKit;
@@ -56,7 +56,7 @@ namespace ASC.Core.Notify.Senders
         private int _port;
         private bool _ssl;
         private ICredentials _credentials;
-        private bool _useCoreSettings;
+        protected bool _useCoreSettings;
         const int NETWORK_TIMEOUT = 30000; 
 
         public SmtpSender()
@@ -291,7 +291,7 @@ namespace ASC.Core.Notify.Senders
                 return new MimePart("image", extension.TrimStart('.'))
                 {
                     ContentId = attachment.ContentId,
-                    ContentObject = new ContentObject(new MemoryStream(attachment.Content)),
+                    Content = new MimeContent(new MemoryStream(attachment.Content)),
                     ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
                     ContentTransferEncoding = ContentEncoding.Base64,
                     FileName = attachment.FileName

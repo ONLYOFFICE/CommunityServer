@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TariffLimitExceed.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TariffLimitExceed" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -28,9 +29,9 @@
                 <span class="splitter-buttons"></span>
                 <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
                     <%= Resource.CancelButton %></a>
-                <% if (IsFreeTariff) { %>
+                <% if (IsFreeTariff && !string.IsNullOrEmpty(HelpLink)) { %>
                 <span class="splitter-buttons"></span>
-                <a class="link underline" href="http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals" target="_blank">
+                <a class="link underline" href="<%= HelpLink + "/gettingstarted/configuration.aspx#PublicPortals" %>" target="_blank">
                     <%= UserControlsCommonResource.ReadAboutNonProfitUsage %>
                 </a>
                 <% } %>
@@ -107,9 +108,11 @@
                 <%= UserControlsCommonResource.PersonalStorageLimitExceededBody %>
             </div>
             <div class="middle-button-container">
-                <a class="blue button medium" target="_blank" href="https://support.onlyoffice.com"><%= UserControlsCommonResource.ContactSupportBtn%></a>
+                <% if (!CoreContext.Configuration.CustomMode) { %>
+                <a class="blue button medium" target="_blank" href="<%= MailWhiteLabelSettings.SupportUrl %>"><%= UserControlsCommonResource.ContactSupportBtn%></a>
                 <span class="splitter-buttons"></span>
-                <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CancelButton%></a>
+                <% } %>
+                <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= CoreContext.Configuration.CustomMode ? Resource.OKButton : Resource.CancelButton %></a>
             </div>
         </Body>
     </sc:Container>

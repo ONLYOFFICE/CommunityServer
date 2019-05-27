@@ -83,7 +83,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         bool IsInTeam(int projectId, Guid participantId);
 
-        List<Participant> GetTeam(Project project);
+        List<Participant> GetTeam(Project project, bool withExluded = false);
 
         List<Participant> GetTeam(IEnumerable<Project> projects);
 

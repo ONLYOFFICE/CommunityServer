@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<clientConfig version="1.1">
+    <emailProvider id="ipax.at">
+      <domain>ipax.at</domain>
+      <displayName>IPAX Internet Services</displayName>
+      <displayShortName>IPAX</displayShortName>
+      <incomingServer type="imap">
+         <hostname>mail.ipax.at</hostname>
+         <port>993</port>
+         <socketType>SSL</socketType>
+         <username>%EMAILADDRESS%</username>
+         <authentication>password-cleartext</authentication>
+      </incomingServer>
+
+      <outgoingServer type="smtp">
+         <hostname>mail.ipax.at</hostname>
+         <port>465</port>
+         <socketType>SSL</socketType>
+         <username>%EMAILADDRESS%</username>
+         <authentication>password-cleartext</authentication>
+      </outgoingServer>
+
+      <instruction url="http://help.ipax.at/Thunderbird3/">
+         <descr lang="en">Configure Thunderbird 3 for IMAP</descr>
+         <descr lang="de">Thunderbird 3 mit IMAP konfigurieren</descr>
+      </instruction>
+    </emailProvider>
+</clientConfig>

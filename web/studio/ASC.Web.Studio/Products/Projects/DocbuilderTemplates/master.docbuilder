@@ -1,0 +1,141 @@
+builder.CreateFile("xlsx");
+
+var mainHeaderFontSize = 20;
+var headerFontSize = 14;
+var chartHeaderFontSize = 12;
+var smallFontSize = 10;
+var legendFontSize = 9;
+
+var blackFontColor = Api.CreateColorFromRGB(63, 63, 63);
+var grayFontColor = Api.CreateColorFromRGB(127, 127, 127);
+var redFontColor = Api.CreateColorFromRGB(192, 0, 0);
+
+var lightGrayBgColor = Api.CreateColorFromRGB(242, 242, 242);
+var darkGrayBgColor = Api.CreateColorFromRGB(216, 216, 216);
+
+var lightGrayBorderColor = Api.CreateColorFromRGB(216, 216, 216);
+var darkGrayBorderColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var reportData = ${reportData};
+var reportFilter = ${reportFilter};
+var reportInfo = JSON.parse("${reportInfo}");
+var reportColumns = ${reportColumn};
+
+var oWs = Api.GetActiveSheet();
+
+var startRow = 2;
+var startColumn = "B";
+var currentRow = startRow;
+var currentColumn = startColumn;
+
+var defaultText = {
+	size: smallFontSize
+};
+
+function nextChar(c, increment = 1) {
+	return String.fromCharCode(c.charCodeAt(0) + increment);
+};
+
+function customizeWorksheet() {
+	Api.SetThemeColors("Origin");
+
+	oWs.SetName(reportInfo.Title.slice(0, 31));
+	oWs.SetDisplayGridlines(false);
+	oWs.SetColumnWidth(0, 7);
+	oWs.SetColumnWidth(1, 43);
+
+	for (var i = 2; i < 35; i++) {
+		oWs.SetColumnWidth(i, 14);
+	}
+
+	writeMeta();
+};
+
+function writeMeta() {
+	let range = oWs.GetRange("E1:G1");
+	range.SetFontColor(grayFontColor);
+	range.SetFontSize(smallFontSize);
+
+	range = oWs.GetRange("E1");
+	range.SetBold(true);
+	range.SetAlignHorizontal("right");
+	range.SetValue(reportInfo.CreatedText);
+
+	range = oWs.GetRange("F1");
+	range.SetAlignHorizontal("left");
+	range.SetNumberFormat(reportInfo.DateFormat);
+	range.SetValue(reportInfo.CreatedAt);
+
+	range = oWs.GetRange("G1");
+	range.SetAlignHorizontal("left");
+	range.SetValue(reportInfo.CreatedBy);
+	
+	writeText(reportInfo.Title, {
+		size: mainHeaderFontSize,
+		bold: true
+	});
+
+	for (var i = 0; i < reportFilter.length; i++)
+		writeText(reportFilter[i], {
+			size: smallFontSize,
+			color: grayFontColor
+		});
+
+	currentRow += 3;
+};
+
+function writeText(value, textStyle = defaultText, newLine = true) {
+	let range = oWs.GetRange(currentColumn + currentRow);
+	
+	range.SetFontSize(textStyle.size);
+	range.SetAlignVertical("center");
+	if (textStyle.bold) range.SetBold(textStyle.bold);
+	if (textStyle.color) range.SetFontColor(textStyle.color);
+	if (textStyle.setWrap) range.SetWrap(textStyle.setWrap);
+	
+	if (value != undefined)
+		range.SetValue(value.toString());
+	
+	if (newLine)
+		currentRow++;
+	else
+		currentColumn = nextChar(currentColumn);
+};
+
+function writeRow(indexes, data, alignRight, borderStyle, textStyle = defaultText, firstBold = false) {
+	if (borderStyle)
+	{
+		let range = oWs.GetRange(currentColumn + currentRow + ":" + nextChar(currentColumn, indexes.length - 1) + currentRow);
+		range.SetBorders(borderStyle.pos ? borderStyle.pos : "Bottom",
+			borderStyle.style ? borderStyle.style : "Thin",
+			borderStyle.color ? borderStyle.color : lightGrayBorderColor);
+	}
+	
+	if (alignRight)
+	{
+		for (var i = 0; i < alignRight.length; i++) {
+			let range = oWs.GetRange(nextChar(currentColumn, alignRight[i]) + currentRow);
+			range.SetAlignHorizontal("right");
+		}
+	}
+	
+	if (firstBold) {
+		let range = oWs.GetRange(currentColumn + currentRow)
+		range.SetBold(true);
+		range.SetAlignHorizontal("left");
+	}
+	
+	for (var i = 0; i < indexes.length; i++) {
+		writeText(data[indexes[i]], textStyle, false);
+	}
+	
+	currentRow++;
+	currentColumn = startColumn;
+};
+
+customizeWorksheet();
+
+${templateBody}
+
+builder.SaveFile("xlsx", "${outputFilePath}");
+builder.CloseFile();

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -36,7 +36,6 @@ using ASC.CRM.Core;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Core;
 using ASC.Web.Studio.Core.Users;
-using Newtonsoft.Json.Linq;
 using System.Web;
 using Newtonsoft.Json;
 

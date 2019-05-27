@@ -761,7 +761,7 @@ ASC.CRM.ListCasesView = (function() {
             .advansedFilter({
                 anykey      : false,
                 hintDefaultDisable: true,
-                maxfilters  : 3,
+                maxfilters  : -1,
                 maxlength   : "100",
                 store       : true,
                 inhash      : true,
@@ -950,6 +950,8 @@ ASC.CRM.ListCasesView = (function() {
                 jq("#casesAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.cases, ga_Actions.filterClick, "sort");
                 jq("#casesAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.cases, ga_Actions.filterClick, "search_text", "enter");
             });
+            
+            ASC.CRM.PartialExport.init(ASC.CRM.ListCasesView.advansedFilter, "case");
         },
 
         setFilter: function(evt, $container, filter, params, selectedfilters) { _changeFilter(); },

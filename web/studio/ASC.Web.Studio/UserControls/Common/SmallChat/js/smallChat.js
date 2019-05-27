@@ -102,6 +102,9 @@ var SmallChat = (function() {
         }
 
         socket
+            .on('disconnect', function () {
+                closeChat();
+            })
             .on('disconnected', function () {
                 connectionStop();
                 hideChat();
@@ -298,7 +301,7 @@ var SmallChat = (function() {
                     }
                 }
             })
-        .on('sendOfflineMessage',
+        .on('sendOfflineMessages',
             function(userNames) {
                 offlineBuffer = userNames;
                 if (currentAccount && sessionStorageManager.getItem("WasConnected")) {
@@ -483,7 +486,7 @@ var SmallChat = (function() {
         }
         pingTimerId = setInterval(function () {
             if (sessionStorageManager.getItem("WasConnected")) {
-                socket.emit('ping', getUserNumberByState(sessionStorageManager.getItem("CurrentStatus")));
+                socket.emit('chatPing', getUserNumberByState(sessionStorageManager.getItem("CurrentStatus")));
             } else {
                 clearInterval(pingTimerId);
                 pingTimerId = null;
@@ -1136,6 +1139,7 @@ var SmallChat = (function() {
             connectionStop();
             hideChat();
         }
+        setSmallChatPosition();
     }
 
     function openContacts() {
@@ -1180,6 +1184,8 @@ var SmallChat = (function() {
                     hideChat();
                 }
             }, 100);
+        } else {
+            jabberTalkWindow.focus();
         }
     }
 
@@ -2226,7 +2232,7 @@ var SmallChat = (function() {
             $smallChatCheckbox.removeClass("small_chat_checkbox_disabled");
             localStorageManager.setItem(item, true);
         }
-        $this.closest("#smallChatOptionsPopupID").css("display", "none");
+        //$this.closest("#smallChatOptionsPopupID").css("display", "none");
     }
 
     function minimizeAllWindowsIfLoseFocus(event, target) {
@@ -2250,7 +2256,25 @@ var SmallChat = (function() {
         return false;
     };
 
+    function setSmallChatPosition() {
+        var smallChatMainWindow = jq(".small_chat_main_window");
+        var smallChatOptionsPopup = jq("#smallChatOptionsPopupID");
+        if (!smallChatMainWindow.hasClass('small_chat_main_window_full')) {
+            smallChatMainWindow.css("margin-left", (-1) * jq(document).scrollLeft());
+            smallChatOptionsPopup.css("margin-left", (-1) * jq(document).scrollLeft());
+        } else {
+            smallChatOptionsPopup.css("margin-left", 0);
+            smallChatMainWindow.css("margin-left", 0);
+        }
+    }
+
     function init() {
+        
+        setSmallChatPosition();
+        jq(window).scroll(function (event) {
+            setSmallChatPosition();
+        });
+
         var $chat = jq(".small_chat_main_window"),
             $mainPageContent = jq(".mainPageContent"),
             $body = jq("body"),
@@ -2470,9 +2494,10 @@ var SmallChat = (function() {
             jq.dropdownToggle({
                 switcherSelector: ".small_chat_option_icon",
                 dropdownID: "smallChatOptionsPopupID",
-                addTop: -155,
+                addTop: -160,
                 addLeft: 20,
                 position: "fixed"
+               
             });
 
             jq(".small_chat_en_dis_sounds").click(function () {

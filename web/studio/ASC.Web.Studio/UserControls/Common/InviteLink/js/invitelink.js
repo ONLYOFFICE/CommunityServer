@@ -29,7 +29,7 @@ jq(document).ready(function () {
         var inviteLinkShow = true;
 
         if (Teamlab.profile.isPortalOwner === true) {
-            var users = ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
+            var users = window.UserManager.getAllUsers(true);
             for (var i = 0, n = users.length; i < n; i++) {
                 if (users[i].isActivated === true && users[i].isOwner === false) {
                     inviteLinkShow = false;

@@ -46,7 +46,6 @@ namespace ASC.Common.Data
         static DbRegistry()
         {
             dialects["MySql.Data.MySqlClient.MySqlClientFactory"] = new MySQLDialect();
-            dialects["Devart.Data.MySql.MySqlProviderFactory"] = new MySQLDialect();
             dialects["System.Data.SQLite.SQLiteFactory"] = new SQLiteDialect();
         }
 
@@ -116,7 +115,7 @@ namespace ASC.Common.Data
             }
         }
 
-        public static IDbConnection CreateDbConnection(string databaseId)
+        public static DbConnection CreateDbConnection(string databaseId)
         {
             Configure();
 

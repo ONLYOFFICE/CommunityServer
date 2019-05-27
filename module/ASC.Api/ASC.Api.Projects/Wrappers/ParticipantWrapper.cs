@@ -52,14 +52,15 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool IsAdministrator { get; set; }
 
-        public ParticipantWrapper(Participant participant) : base(participant.UserInfo)
+        public ParticipantWrapper(ProjectApiBase projectApiBase, Participant participant)
+            : base(participant.UserInfo)
         {
             CanReadFiles = participant.CanReadFiles;
             CanReadMilestones = participant.CanReadMilestones;
             CanReadMessages = participant.CanReadMessages;
             CanReadTasks = participant.CanReadTasks;
             CanReadContacts = participant.CanReadContacts;
-            IsAdministrator = ProjectSecurity.IsAdministrator(participant.ID);
+            IsAdministrator = projectApiBase.ProjectSecurity.IsAdministrator(participant.ID);
         }
     }
 }

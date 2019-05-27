@@ -33,17 +33,22 @@ namespace ASC.Common.Threading
 {
     public class DistributedTask : ISerializable
     {
+        [JsonProperty]
         private readonly Dictionary<string, string> props = new Dictionary<string, string>();
 
 
         internal Action<DistributedTask> Publication { get; set; }
 
+        [JsonProperty]
         public string InstanseId { get; internal set; }
 
+        [JsonProperty]
         public string Id { get; private set; }
 
+        [JsonProperty]
         public DistributedTaskStatus Status { get; internal set; }
 
+        [JsonProperty]
         public AggregateException Exception { get; internal set; }
 
 

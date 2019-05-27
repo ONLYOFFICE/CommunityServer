@@ -24,7 +24,6 @@
 */
 
 
-using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Util;
@@ -49,7 +48,7 @@ namespace ASC.Common.Logging
 
             var value = 30;
 
-            var repo = LogManager.GetRepository();
+            var repo = log4net.LogManager.GetRepository();
 
             if (repo != null && repo.Properties.GetKeys().Contains(key))
             {
@@ -80,7 +79,9 @@ namespace ASC.Common.Logging
 
                 var files = directory.GetFiles();
 
-                foreach (var file in files.Where(file => (DateTime.UtcNow.Date - file.CreationTimeUtc.Date).Days > GetCleanPeriod()))
+                var cleanPeriod = GetCleanPeriod();
+
+                foreach (var file in files.Where(file => (DateTime.UtcNow.Date - file.CreationTimeUtc.Date).Days > cleanPeriod))
                 {
                     file.Delete();
                 }

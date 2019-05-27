@@ -27,67 +27,65 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin.Helpers;
-using ASC.Thrdparty.Configuration;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class DocuSignLoginProvider
+    public class DocuSignLoginProvider : Consumer, IOAuthProvider
     {
-        public static string DocuSignHost
+        public static DocuSignLoginProvider Instance
         {
-            get { return "https://" + KeyStorage.Get("docuSignHost"); }
+            get { return ConsumerFactory.Get<DocuSignLoginProvider>(); }
         }
 
-        public static string DocuSignOauthCodeUrl
-        {
-            get { return DocuSignHost + "/oauth/auth"; }
-        }
+        public string Scopes { get { return "signature"; } }
+        public string CodeUrl { get { return DocuSignHost + "/oauth/auth"; } }
+        public string AccessTokenUrl { get { return DocuSignHost + "/oauth/token"; } }
+        public string RedirectUri { get { return this["docuSignRedirectUrl"]; } }
+        public string ClientID { get { return this["docuSignClientId"]; } }
+        public string ClientSecret { get { return this["docuSignClientSecret"]; } }
+        public string DocuSignHost { get { return "https://" + this["docuSignHost"]; } }
 
-        public static string DocuSignOauthTokenUrl
-        {
-            get { return DocuSignHost + "/oauth/token"; }
-        }
-
-        public const string DocuSignScope = "signature";
-
-        public static string DocuSignOAuth20ClientId
-        {
-            get { return KeyStorage.Get("docuSignClientId"); }
-        }
-
-        public static string DocuSignOAuth20ClientSecret
-        {
-            get { return KeyStorage.Get("docuSignClientSecret"); }
-        }
-
-        public static string DocuSignOAuth20RedirectUrl
-        {
-            get { return KeyStorage.Get("docuSignRedirectUrl"); }
-        }
-
-
-        private static string AuthHeader
+        public bool IsEnabled
         {
             get
             {
-                var codeAuth = string.Format("{0}:{1}", DocuSignOAuth20ClientId, DocuSignOAuth20ClientSecret);
+                return !string.IsNullOrEmpty(ClientID) &&
+                       !string.IsNullOrEmpty(ClientSecret) &&
+                       !string.IsNullOrEmpty(RedirectUri);
+            }
+        }
+
+        public DocuSignLoginProvider() { }
+
+        public DocuSignLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
+        {
+        }
+
+
+        private string AuthHeader
+        {
+            get
+            {
+                var codeAuth = string.Format("{0}:{1}", ClientID, ClientSecret);
                 var codeAuthBytes = Encoding.UTF8.GetBytes(codeAuth);
                 var codeAuthBase64 = Convert.ToBase64String(codeAuthBytes);
                 return "Basic " + codeAuthBase64;
             }
         }
 
-        public static OAuth20Token GetAccessToken(string authCode)
+        public OAuth20Token GetAccessToken(string authCode)
         {
             if (string.IsNullOrEmpty(authCode)) throw new ArgumentNullException("authCode");
-            if (string.IsNullOrEmpty(DocuSignOAuth20ClientId)) throw new ArgumentException("clientID");
-            if (string.IsNullOrEmpty(DocuSignOAuth20ClientSecret)) throw new ArgumentException("clientSecret");
+            if (string.IsNullOrEmpty(ClientID)) throw new ArgumentException("clientID");
+            if (string.IsNullOrEmpty(ClientSecret)) throw new ArgumentException("clientSecret");
 
             var data = string.Format("grant_type=authorization_code&code={0}", authCode);
             var headers = new Dictionary<string, string> {{"Authorization", AuthHeader}};
 
-            var json = RequestHelper.PerformRequest(DocuSignOauthTokenUrl, "application/x-www-form-urlencoded", "POST", data, headers);
+            var json = RequestHelper.PerformRequest(AccessTokenUrl, "application/x-www-form-urlencoded", "POST", data, headers);
             if (json == null) throw new Exception("Can not get token");
 
             if (!json.StartsWith("{"))
@@ -98,30 +96,29 @@ namespace ASC.FederatedLogin.LoginProviders
             var token = OAuth20Token.FromJson(json);
             if (token == null) return null;
 
-            token.ClientID = DocuSignOAuth20ClientId;
-            token.ClientSecret = DocuSignOAuth20ClientSecret;
-            token.RedirectUri = DocuSignOAuth20RedirectUrl;
+            token.ClientID = ClientID;
+            token.ClientSecret = ClientSecret;
+            token.RedirectUri = RedirectUri;
             return token;
         }
 
-        public static OAuth20Token RefreshToken(string refreshToken)
+        public OAuth20Token RefreshToken(string refreshToken)
         {
-            if (string.IsNullOrEmpty(refreshToken) || string.IsNullOrEmpty(DocuSignOAuth20ClientId) || string.IsNullOrEmpty(DocuSignOAuth20ClientSecret))
+            if (string.IsNullOrEmpty(refreshToken) || string.IsNullOrEmpty(ClientID) || string.IsNullOrEmpty(ClientSecret))
                 throw new ArgumentException("Can not refresh given token");
 
             var data = string.Format("grant_type=refresh_token&refresh_token={0}", refreshToken);
             var headers = new Dictionary<string, string> {{"Authorization", AuthHeader}};
 
-            var json = RequestHelper.PerformRequest(DocuSignOauthTokenUrl, "application/x-www-form-urlencoded", "POST", data, headers);
+            var json = RequestHelper.PerformRequest(AccessTokenUrl, "application/x-www-form-urlencoded", "POST", data, headers);
             if (json == null) throw new Exception("Can not get token");
 
             var refreshed = OAuth20Token.FromJson(json);
-            refreshed.ClientID = DocuSignOAuth20ClientId;
-            refreshed.ClientSecret = DocuSignOAuth20ClientSecret;
-            refreshed.RedirectUri = DocuSignOAuth20RedirectUrl;
+            refreshed.ClientID = ClientID;
+            refreshed.ClientSecret = ClientSecret;
+            refreshed.RedirectUri = RedirectUri;
             refreshed.RefreshToken = refreshed.RefreshToken ?? refreshToken;
             return refreshed;
         }
-
     }
 }

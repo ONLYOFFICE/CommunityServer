@@ -35,7 +35,7 @@
 
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
         ${ASC.CRM.Resources.CRMDealResource.TooltipStages}
-        <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank">${ASC.CRM.Resources.CRMCommonResource.ButtonLearnMore}</a>
+        {{if ASC.Resources.Master.HelpLink}}<a href="${ASC.Resources.Master.HelpLink}/tipstricks/opportunity-stages.aspx" target="_blank">${ASC.CRM.Resources.CRMCommonResource.ButtonLearnMore}</a>{{/if}}
     </div>
 
     <div id="hiddenBlockForContactSelector" style="display:none;">

@@ -24,6 +24,10 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -33,10 +37,6 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files.Utils
@@ -72,7 +72,7 @@ namespace ASC.Web.Files.Utils
                 .GroupBy(r => r.Subject)
                 .Select(g => g.OrderBy(r => r.Level)
                               .ThenBy(r => r.Level)
-                              .ThenByDescending(r => r.Share).FirstOrDefault());
+                              .ThenByDescending(r => r.Share, new FileShareRecord.ShareComparer()).FirstOrDefault());
 
             foreach (var r in records)
             {
@@ -119,7 +119,9 @@ namespace ASC.Web.Files.Utils
                 result.Add(w);
             }
 
-            if (entry.FileEntryType == FileEntryType.File && result.All(w => w.SubjectId != FileConstant.ShareLinkId))
+            if (entry.FileEntryType == FileEntryType.File && result.All(w => w.SubjectId != FileConstant.ShareLinkId)
+                && entry.FileEntryType == FileEntryType.File
+                && !((File)entry).Encrypted)
             {
                 var w = new AceWrapper
                     {
@@ -191,12 +193,9 @@ namespace ASC.Web.Files.Utils
 
             var fileSecurity = Global.GetFilesSecurity();
 
-            var defaultShare = entry.RootFolderType == FolderType.COMMON
-                                   ? fileSecurity.DefaultCommonShare
-                                   : fileSecurity.DefaultMyShare;
-
             var entryType = entry.FileEntryType;
             var recipients = new Dictionary<Guid, FileShare>();
+            var usersWithoutRight = new List<Guid>();
             var changed = false;
 
             foreach (var w in aceWrappers.OrderByDescending(ace => ace.SubjectGroup))
@@ -208,15 +207,7 @@ namespace ASC.Web.Files.Utils
                     || ownerId == w.SubjectId)
                     continue;
 
-                var ace = fileSecurity.GetShares(entry)
-                                      .Where(r => subjects.Contains(r.Subject))
-                                      .OrderBy(r => subjects.IndexOf(r.Subject))
-                                      .ThenBy(r => r.Level)
-                                      .ThenByDescending(r => r.Share)
-                                      .FirstOrDefault();
-
-                var parentShare = ace != null && !(ace.Subject == w.SubjectId && ace.Share == w.Share) ? ace.Share : defaultShare;
-                var share = parentShare == w.Share ? FileShare.None : w.Share;
+                var share = w.Share;
 
                 if (w.SubjectId == FileConstant.ShareLinkId)
                 {
@@ -248,13 +239,21 @@ namespace ASC.Web.Files.Utils
                 var addRecipient = share == FileShare.Read
                                    || share == FileShare.ReadWrite
                                    || share == FileShare.Review
+                                   || share == FileShare.FillForms
+                                   || share == FileShare.Comment
                                    || share == FileShare.None && entry.RootFolderType == FolderType.COMMON;
+                var removeNew = share == FileShare.None && entry.RootFolderType == FolderType.USER
+                                || share == FileShare.Restrict;
                 listUsersId.ForEach(id =>
                                         {
                                             recipients.Remove(id);
                                             if (addRecipient)
                                             {
                                                 recipients.Add(id, share);
+                                            }
+                                            else if (removeNew)
+                                            {
+                                                usersWithoutRight.Add(id);
                                             }
                                         });
             }
@@ -279,6 +278,9 @@ namespace ASC.Web.Files.Utils
                     NotifyClient.SendShareNotice(entry, recipients, message);
                 }
             }
+
+            usersWithoutRight.ForEach(userId => FileMarker.RemoveMarkAsNew(entry, userId));
+
             return changed;
         }
 

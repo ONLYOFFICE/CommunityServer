@@ -27,6 +27,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
@@ -85,7 +86,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 ((Confirm)Page).ErrorMessage = err.Message.HtmlEncode();
                 _messageHolder.Visible = true;
                 _confirmContentHolder.Visible = false;
-                log4net.LogManager.GetLogger("ASC.Web").Error(err);
+                LogManager.GetLogger("ASC.Web").Error(err);
             }
         }
     }

@@ -56,6 +56,9 @@ namespace MSBuild.Community.Tasks.Subversion
         private StringBuilder _outputBuffer = new StringBuilder();
         private StringBuilder _errorBuffer = new StringBuilder();
 
+        private static readonly string _sanitizedPasswordArgument = string.Format(_switchValueFormat, "password", "***");
+        private string _passwordArgument;
+
         #endregion Fields
 
         #region Input Parameters
@@ -105,6 +108,18 @@ namespace MSBuild.Community.Tasks.Subversion
         {
             get { return _password; }
             set { _password = value; }
+        }
+
+        private bool _sanitizePassword;
+
+        /// <summary>
+        /// Allows to sanitize password string from svn command log output.
+        /// </summary>
+        /// <value>The sanitize.</value>
+        public bool SanitizePassword 
+        {
+            get { return _sanitizePassword; }
+            set { _sanitizePassword = value; }
         }
 
         private bool _verbose;
@@ -465,50 +480,17 @@ namespace MSBuild.Community.Tasks.Subversion
         /// <returns></returns>
         public static string FindToolPath(string toolName)
         {
-            string toolPath = null;
-            // 1) check registry
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + toolName, false);
-            if (key != null)
-            {
-                string possiblePath = key.GetValue(null) as string;
-                if (SafeFileExists(possiblePath))
-                    toolPath = Path.GetDirectoryName(possiblePath);
-            }
-            // 2) search the path
-            if (toolPath == null)
-            {
-                string pathEnvironmentVariable = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
-                string[] paths = pathEnvironmentVariable.Split(new[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string path in paths)
-                {
-                    string fullPathToClient = Path.Combine(path, toolName);
-                    if (SafeFileExists(fullPathToClient))
-                    {
-                        toolPath = path;
-                        break;
-                    }
-                }
-            }
-
-            // try some typical locations
-            string[] commonSVNLocations = {
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Subversion\bin"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"CollabNet Subversion Server"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"CollabNet Subversion"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"CollabNet Subversion Client"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"VisualSVN\bin"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"VisualSVN Server\bin"),
-                                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"SlikSvn\bin")
-                                          };
-            foreach (string path in commonSVNLocations)
-            {
-                string fullPathToClient = Path.Combine(path, toolName);
-                if (SafeFileExists(fullPathToClient))
-                {
-                    toolPath = path;
-                    break;
-                }
-            }
+            string toolPath =
+                ToolPathUtil.FindInRegistry(toolName) ??
+                ToolPathUtil.FindInPath(toolName) ??
+                ToolPathUtil.FindInProgramFiles(toolName,
+                    @"Subversion\bin",
+                    @"CollabNet Subversion Server",
+                    @"CollabNet Subversion",
+                    @"CollabNet Subversion Client",
+                    @"VisualSVN\bin",
+                    @"VisualSVN Server\bin",
+                    @"SlikSvn\bin");
 
             if (toolPath == null)
             {
@@ -518,20 +500,19 @@ namespace MSBuild.Community.Tasks.Subversion
             return toolPath;
         }
 
-        private static bool SafeFileExists(string file)
-        {
-            try { return File.Exists(file); }
-            catch { } // eat exception
-
-            return false;
-        }
-
         /// <summary>
         /// Logs the starting point of the run to all registered loggers.
         /// </summary>
         /// <param name="message">A descriptive message to provide loggers, usually the command line and switches.</param>
         protected override void LogToolCommand(string message)
         {
+            if (SanitizePassword && !string.IsNullOrEmpty(message)) {
+                if (_passwordArgument == null) {
+                    _passwordArgument = string.Format(_switchValueFormat, "password", _password);
+                }
+
+                message = message.Replace(_passwordArgument, _sanitizedPasswordArgument);
+            }
             Log.LogCommandLine(MessageImportance.Low, message);
         }
 
@@ -546,13 +527,23 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         /// <summary>
+        /// Gets the <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.</returns>
+        protected override MessageImportance StandardErrorLoggingImportance
+        {
+            get { return MessageImportance.High; }
+        }
+
+        /// <summary>
         /// Gets the name of the executable file to run.
         /// </summary>
         /// <value></value>
         /// <returns>The name of the executable file to run.</returns>
         protected override string ToolName
         {
-            get { return "svn.exe"; }
+            get { return ToolPathUtil.MakeToolName("svn"); }
         }
 
         #endregion Task Overrides

@@ -86,7 +86,17 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagToUserLink = "ToUserLink";
         public static string TagMessage = "Message";
 
+        public static string TagAnalytics = "Analytics";
+
         public static string Coupon = "Coupon";
+
+        public static string Address = "Address";
+        public static string Login = "Login";
+        public static string Server = "Server";
+        public static string Encryption = "Encryption";
+        public static string ImapPort = "ImapPort";
+        public static string SmtpPort = "SmtpPort";
+
 
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
         public static INotifyAction ActionPeriodicNotify = new NotifyAction("periodic_notify", "periodic notifications");
@@ -114,6 +124,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionReassignsCompleted = new NotifyAction("reassigns_completed", "reassigns_completed");
         public static INotifyAction ActionReassignsFailed = new NotifyAction("reassigns_failed", "reassigns_failed");
         public static INotifyAction ActionRemoveUserDataCompleted = new NotifyAction("remove_user_data_completed", "remove_user_data_completed");
+        public static INotifyAction ActionRemoveUserDataCompletedCustomMode = new NotifyAction("remove_user_data_completed_custom_mode");
         public static INotifyAction ActionRemoveUserDataFailed = new NotifyAction("remove_user_data_failed", "remove_user_data_failed");
         public static INotifyAction ActionDnsChange = new NotifyAction("dns_change", "dns_change");
 
@@ -122,11 +133,16 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionEmailChange = new NotifyAction("change_email", "change_email");
         public static INotifyAction ActionPasswordChange = new NotifyAction("change_password", "change_password");
         public static INotifyAction ActionPhoneChange = new NotifyAction("change_phone", "change_phone");
+        public static INotifyAction ActionTfaChange = new NotifyAction("change_tfa", "change_tfa");
         public static INotifyAction ActionMigrationPortalStart = new NotifyAction("migration_start", "migration start");
         public static INotifyAction ActionMigrationPortalSuccess = new NotifyAction("migration_success", "migration success");
         public static INotifyAction ActionMigrationPortalError = new NotifyAction("migration_error", "migration error");
         public static INotifyAction ActionMigrationPortalServerFailure = new NotifyAction("migration_server_failure", "migration_server_failure");
         public static INotifyAction ActionPortalRename = new NotifyAction("portal_rename", "portal_rename");
+
+        public static INotifyAction ActionMailboxCreated = new NotifyAction("mailbox_created");
+        public static INotifyAction ActionMailboxWithoutSettingsCreated = new NotifyAction("mailbox_without_settings_created");
+        public static INotifyAction ActionMailboxPasswordChanged = new NotifyAction("mailbox_password_changed");
 
         public static INotifyAction ActionPortalDeleteSuccessFreeCloud = new NotifyAction("portal_delete_success_freecloud", "portal_delete_success_freecloud");
 
@@ -154,6 +170,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionSaasUserWellcome = new NotifyAction("saas_user_welcome");
         public static INotifyAction ActionEnterpriseUserWellcome = new NotifyAction("enterprise_user_welcome");
         public static INotifyAction ActionEnterpriseWhitelabelUserWellcome = new NotifyAction("enterprise_whitelabel_user_welcome");
+        public static INotifyAction ActionEnterpriseWhitelabelUserWellcomeCustomMode = new NotifyAction("enterprise_whitelabel_user_welcome_custom_mode");
         public static INotifyAction ActionHostedUserWellcome = new NotifyAction("hosted_user_welcome");
         public static INotifyAction ActionHostedWhitelabelUserWellcome = new NotifyAction("hosted_whitelabel_user_welcome");
         public static INotifyAction ActionFreeCloudUserWellcome = new NotifyAction("freecloud_user_welcome");
@@ -218,7 +235,6 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionOpensourceAdminSecurityTips = new NotifyAction("opensource_admin_security_tips");
         public static INotifyAction ActionOpensourceAdminDocsTips = new NotifyAction("opensource_admin_docs_tips");
 
-
         public static INotifyAction ActionPersonalActivate = new NotifyAction("personal_activate");
         public static INotifyAction ActionPersonalAfterRegistration1 = new NotifyAction("personal_after_registration1");
         public static INotifyAction ActionPersonalAfterRegistration7 = new NotifyAction("personal_after_registration7");
@@ -229,6 +245,13 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPersonalPasswordChange = new NotifyAction("personal_change_password");
         public static INotifyAction ActionPersonalEmailChange = new NotifyAction("personal_change_email");
         public static INotifyAction ActionPersonalProfileDelete = new NotifyAction("personal_profile_delete");
+
+        public static INotifyAction ActionPersonalCustomModeAfterRegistration1 = new NotifyAction("personal_custom_mode_after_registration1");
+        public static INotifyAction ActionPersonalCustomModeAfterRegistration7 = new NotifyAction("personal_custom_mode_after_registration7");
+        public static INotifyAction ActionPersonalCustomModeConfirmation = new NotifyAction("personal_custom_mode_confirmation");
+        public static INotifyAction ActionPersonalCustomModePasswordChange = new NotifyAction("personal_custom_mode_change_password");
+        public static INotifyAction ActionPersonalCustomModeEmailChange = new NotifyAction("personal_custom_mode_change_email");
+        public static INotifyAction ActionPersonalCustomModeProfileDelete = new NotifyAction("personal_custom_mode_profile_delete");
 
         public static ITagValue UnsubscribeLink
         {
@@ -245,10 +268,12 @@ namespace ASC.Web.Studio.Core.Notify
             get { return new TagValue("PersonalHeaderEnd", "</td></tr></tbody></table>"); }
         }
         
-        public static ITagValue TagBlueButton(string btnText, string btnUrl)
+        public static ITagValue TagBlueButton(Func<string> btnTextFunc, string btnUrl)
         {
             Func<string> action = () =>
             {
+                var btnText = btnTextFunc != null ? btnTextFunc() ?? string.Empty : string.Empty;
+
                 return 
                     string.Format(@"<table style=""height: 48px; width: 540px; border-collapse: collapse; empty-cells: show; vertical-align: middle; text-align: center; margin: 30px auto; padding: 0;""><tbody><tr cellpadding=""0"" cellspacing=""0"" border=""0"">{2}<td style=""height: 48px; width: 380px; margin:0; padding:0; background-color: #66b76d; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;""><a style=""{3}"" target=""_blank"" href=""{0}"">{1}</a></td>{2}</tr></tbody></table>",
                         btnUrl,
@@ -259,10 +284,12 @@ namespace ASC.Web.Studio.Core.Notify
             return new TagActionValue("BlueButton", action);
         }
 
-        public static ITagValue TagGreenButton(string btnText, string btnUrl)
+        public static ITagValue TagGreenButton(Func<string> btnTextFunc, string btnUrl)
         {
             Func<string> action = () =>
             {
+                var btnText = btnTextFunc != null ? btnTextFunc() ?? string.Empty : string.Empty;
+
                 return
                     string.Format(@"<table style=""height: 48px; width: 540px; border-collapse: collapse; empty-cells: show; vertical-align: middle; text-align: center; margin: 30px auto; padding: 0;""><tbody><tr cellpadding=""0"" cellspacing=""0"" border=""0"">{2}<td style=""height: 48px; width: 380px; margin:0; padding:0; background-color: #66b76d; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;""><a style=""{3}"" target=""_blank"" href=""{0}"">{1}</a></td>{2}</tr></tbody></table>",
                         btnUrl,
@@ -285,19 +312,23 @@ namespace ASC.Web.Studio.Core.Notify
 
         public static ITagValue TagTableItem(
             int number,
-            string linkText,
+            Func<string> linkTextFunc,
             string linkUrl,
             string imgSrc,
-            string comment,
-            string bottomlinkText,
+            Func<string> commentFunc,
+            Func<string> bottomlinkTextFunc,
             string bottomlinkUrl)
         {
             Func<string> action = () =>
             {
+                var linkText = linkTextFunc != null ? linkTextFunc() ?? string.Empty : string.Empty;
+                var comment = commentFunc != null ? commentFunc() ?? string.Empty : string.Empty;
+                var bottomlinkText = bottomlinkTextFunc != null ? bottomlinkTextFunc() ?? string.Empty : string.Empty;
+
                 var imgHtml = string.Format(
                     "<img style=\"border: 0; padding: 0 15px 0 5px; width: auto; height: auto;\" alt=\"{1}\" src=\"{0}\"/>",
                             imgSrc ?? string.Empty,
-                            linkText ?? string.Empty);
+                            linkText);
 
                 var linkHtml = string.Empty;
 
@@ -318,7 +349,7 @@ namespace ASC.Web.Studio.Core.Notify
                         : string.Format(
                     "<br/><a target=\"_blank\" style=\"color: #0078bd; font-family: Arial; font-size: 14px;\" href=\"{0}\">{1}</a>",
                             bottomlinkUrl,
-                            bottomlinkText ?? string.Empty);
+                            bottomlinkText);
 
                 var html =
                     "<tr>" +
@@ -329,7 +360,7 @@ namespace ASC.Web.Studio.Core.Notify
                                     string.IsNullOrEmpty(comment) ? "middle" : "top",
                                     string.IsNullOrEmpty(comment) ? "5px 0" : "5px 0 10px 0") +
                             linkHtml +
-                            (comment ?? string.Empty) +
+                            comment +
                             underCommentLinkHtml +
                         "</td>" +
                     "</tr>";
@@ -397,5 +428,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static string IsPersonal = "IsPersonal";
 
         public static string MasterTemplate = "MasterTemplate";
+
+        public static readonly string HelpLink = "__HelpLink";
     }
 }

@@ -45,6 +45,7 @@ namespace ASC.Core
         private readonly IQuotaService quotaService;
         private readonly ITariffService tariffService;
         private readonly TenantManager clientTenantManager;
+        private readonly DbSettingsManager settingsManager;
 
         public string Region
         {
@@ -71,6 +72,7 @@ namespace ASC.Core
             quotaService = new DbQuotaService(connectionString);
             tariffService = new TariffService(connectionString, quotaService, tenantService);
             clientTenantManager = new TenantManager(tenantService, quotaService, tariffService);
+            settingsManager = new DbSettingsManager(connectionString);
             Region = region ?? string.Empty;
             DbId = connectionString.Name;
         }
@@ -120,6 +122,8 @@ namespace ASC.Core
             if (string.IsNullOrEmpty(ri.Email)) throw new Exception("Account email can not be empty");
             if (ri.FirstName == null) throw new Exception("Account firstname can not be empty");
             if (ri.LastName == null) throw new Exception("Account lastname can not be empty");
+            if (!UserFormatter.IsValidUserName(ri.FirstName, ri.LastName)) throw new Exception("Incorrect firstname or lastname");
+
             if (string.IsNullOrEmpty(ri.Password)) ri.Password = Crypto.GeneratePassword(6);
 
             // create tenant
@@ -139,7 +143,7 @@ namespace ASC.Core
             tenant = tenantService.SaveTenant(tenant);
 
             // create user
-            var user = new UserInfo()
+            var user = new UserInfo
             {
                 UserName = ri.Email.Substring(0, ri.Email.IndexOf('@')),
                 LastName = ri.LastName,
@@ -156,6 +160,8 @@ namespace ASC.Core
             // save tenant owner
             tenant.OwnerId = user.ID;
             tenant = tenantService.SaveTenant(tenant);
+
+            settingsManager.SaveSettings(new TenantAnalyticsSettings { Analytics = ri.Analytics }, tenant.TenantId);
         }
 
         public Tenant SaveTenant(Tenant tenant)
@@ -185,9 +191,9 @@ namespace ASC.Core
 
         private string CreateAuthenticationCookie(int tenantId, Guid userId, string login, string passwordhash)
         {
-            var tenantSettings =  tenantService.LoadSettings<TenantCookieSettings>(tenantId, Guid.Empty);
+            var tenantSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, Guid.Empty);
             var expires = tenantSettings.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(tenantSettings.LifeTime);
-            var userSettings = tenantService.LoadSettings<TenantCookieSettings>(tenantId, userId);
+            var userSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, userId);
             return CookieStorage.EncryptCookie(tenantId, userId, login, passwordhash, tenantSettings.Index, expires, userSettings.Index);
         }
 

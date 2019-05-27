@@ -5,20 +5,18 @@
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<p style="margin-bottom: 10px;"><%= DescriptionText %></p>
-<p style="margin-bottom: 20px;"><%= DescriptionTextEditDelete%></p>
+<div class="header-base settingsHeader"><%= HeaderText %></div>
+<p class="settingsFirstDescription"><%= DescriptionText %></p>
+<p class="settingsSecondDescription"><%= DescriptionTextEditDelete%></p>
 
-<div class="clearFix" style="margin-bottom: 8px;">
+<div class="clearFix settingsNewItemBlock">
     <a id="createNewItem" class="gray button">
         <span class="plus"><%= AddListButtonText%></span>
     </a>
     <% if (CurrentTypeValue == ListType.ContactStatus) { %>
-    <div style="float:right;">
-        <input type="checkbox" style="float: left;" id="cbx_ChangeContactStatusWithoutAsking"
-            <% if (ASC.Web.CRM.Classes.Global.TenantSettings.ChangeContactStatusGroupAuto != null) { %>checked="checked"<% } %> />
-        <label style="float:left; padding: 2px 0 0 4px;" for="cbx_ChangeContactStatusWithoutAsking">
-            <%= CRMSettingResource.ChangeContactStatusWithoutAskingSettingsLabel %>
-        </label>
+    <div class="settingsConfirmDialogBlock">
+        <input type="checkbox" id="cbx_ChangeContactStatusWithoutAsking" <% if (ASC.Web.CRM.Classes.Global.TenantSettings.ChangeContactStatusGroupAuto != null) { %>checked="checked"<% } %> />
+        <label for="cbx_ChangeContactStatusWithoutAsking"><%= CRMSettingResource.ChangeContactStatusWithoutAskingSettingsLabel %></label>
     </div>
     <% } %>
 </div>

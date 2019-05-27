@@ -38,6 +38,11 @@ jq(function () {
                     .unbind('click');
     }
 
+    jq('.auth-form-with_form_btn')
+        .click(function () {
+            return false;
+        });
+
     function bindConfirmEmailBtm() {
 
         jq('.account-links a').removeClass('disabled');
@@ -48,6 +53,7 @@ jq(function () {
                 var $email = jq("#confirmEmail"),
                     email = $email.val().trim(),
                     spam = jq("#spam").prop("checked"),
+                    analytics = jq("#analytics").prop("checked"),
                     $error = jq("#confirmEmailError"),
                     errorText = "",
                     isError = false;
@@ -72,7 +78,8 @@ jq(function () {
                     "email": email,
                     "lang": jq(".personal-languages_select").attr("data-lang"),
                     "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
-                    "spam": spam
+                    "spam": spam,
+                    "analytics": analytics
                 };
 
                 var onError = function (error) {
@@ -88,6 +95,7 @@ jq(function () {
                         }
                         $error.empty();
                         jq("#activationEmail").html(email);
+                        jq(".auth-form-with_form_w").hide();
                         jq("#sendEmailSuccessPopup").show();
                     },
                     error: function (params, errors) {
@@ -103,8 +111,9 @@ jq(function () {
                 enableScroll();
                 jq('#login').blur();
                 jq("#loginPopup").hide();
-                jq("#confirmEmail").focus();
                 hideAccountLinks();
+                jq(".auth-form-with_form_w").show();
+                jq("#confirmEmail").focus();
             });
         });
 
@@ -112,13 +121,29 @@ jq(function () {
         if (ua.indexOf("CrOS") != -1) {
             jq("#chromebookText").show();
         }
+        
+        jq('.create-link').on("click", function () {
+            jq('html, body').animate({ scrollTop: 0 }, 300);
+            jq(".auth-form-with_form_w").show();
+            jq("#confirmEmail").focus();
+        });
         // close popup window
         jq(".default-personal-popup_closer").on("click", function () {
             hideAccountLinks();
             jq(this).parents(".default-personal-popup").fadeOut(200, function() {
                 enableScroll();
             });
-            
+            if ((jq('body').hasClass('desktop'))) {
+                jq("#personalLogin a").click();
+            }
+            jq('.auth-form-with_form_btn')
+                .click(function () {
+                    return false;
+                });
+        });
+        // close register form
+        jq(".register_form_closer").on("click", function () {
+            jq(this).parents(".auth-form-with_form_w").fadeOut(200, function () {});
         });
         // close cookie mess
         jq(".cookieMess_closer").on("click", function () {
@@ -168,6 +193,16 @@ jq(function () {
                 hideAccountLinks();
             }
         });
+        jq("#desktop_agree_to_terms").change(function () {
+            var btn = jq('.auth-form-with_form_btn');
+            if (this.checked) {
+                btn.removeClass('disabled').unbind('click');
+            } else {
+                btn.addClass('disabled').click(function() {
+                    return false;
+                });
+            }
+        });
         
         jq(document).keyup(function (event) {
             var code;
@@ -180,7 +215,8 @@ jq(function () {
                 code = e.which;
             }
 
-            if (code == 27) {
+
+            if (code == 27 && !jq('body').hasClass('desktop')) {
                 jq(".default-personal-popup").fadeOut(200, function () {
                     enableScroll();
                     hideAccountLinks();
@@ -206,15 +242,25 @@ jq(function () {
         }
         // Login
         jq("#personalLogin a").on("click", function () {
+            jq(".auth-form-with_form_w").fadeOut(200, function () { });
             showAccountLinks();
+            jq('.auth-form-with_form_btn').removeClass('disabled').unbind('click');
             jq("#loginPopup").show();
             jq('#login').focus();
             disableScroll();
         });
+        // open form
+        jq(".open-form").on("click", function () {
+            jq(".auth-form-with_form_w").show();
+            jq("#confirmEmail").focus();
+            //disableScroll();
+        });
 
         var loginMessage = jq(".login-message[value!='']").val();
         if (loginMessage && loginMessage.length) {
+            jq('.auth-form-with_form_btn').removeClass('disabled').unbind('click');
             jq("#loginPopup").show();
+            showAccountLinks();
             disableScroll();
             var type = jq(".login-message[value!='']").attr("data-type");
             if (type | 0) {
@@ -230,6 +276,9 @@ jq(function () {
                 PasswordTool.ShowPwdReminderDialog();
             }
         } catch (e) {
+        }
+        if (jq('body').hasClass('desktop')) {
+            showAccountLinks();
         }
     }
 
@@ -290,7 +339,7 @@ jq(function () {
             fixed = false,
             anchor = node.find('.auth-form-with_form_w_anchor'),
             content = node.find('.auth-form-with_form_w');
-        var onScroll = function (e) {
+       /* var onScroll = function (e) {
             var docTop = doc.scrollTop(),
                 anchorTop = anchor.offset().top;
 
@@ -309,7 +358,7 @@ jq(function () {
             }
         };
 
-        jq(window).on('scroll', onScroll);
+        jq(window).on('scroll', onScroll);*/
     };
 
     
@@ -361,7 +410,7 @@ jq(function () {
         centerMode: true,
         asNavFor: '.create-carousel'
     });
-    
+
     bindEvents();
     getReviewList();
     

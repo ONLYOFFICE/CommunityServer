@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="kabelmail.de">
+    <domain>kabelmail.de</domain>
+    <displayName>Kabel Deutschland</displayName>
+    <displayShortName>Kabel D</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>pop3.kabelmail.de</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.kabelmail.de</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.kabelmail.de</hostname>
+      <port>25</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <documentation url="http://www.kabeldeutschland.de/portal/faq/article/id/191"/>
+    <!-- presse tel:+49-361-5502300 -->
+  </emailProvider>
+</clientConfig>

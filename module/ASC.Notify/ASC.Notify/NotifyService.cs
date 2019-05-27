@@ -24,18 +24,18 @@
 */
 
 
+using System;
+using System.Reflection;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Notify.Messages;
 using ASC.Web.Core.WhiteLabel;
-using log4net;
-using System;
-using System.Reflection;
 
 namespace ASC.Notify
 {
     class NotifyService : INotifyService
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(NotifyService));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         private readonly DbWorker db = new DbWorker();
 

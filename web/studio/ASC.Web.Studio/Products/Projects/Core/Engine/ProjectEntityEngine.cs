@@ -43,6 +43,8 @@ namespace ASC.Projects.Engine
         public IRecipientProvider RecipientProvider { get; set; }
         public INotifyAction NotifyAction { get; set; }
         public FileEngine FileEngine { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
+
         public bool DisableNotifications { get; set; }
 
         public ProjectEntityEngine(INotifyAction notifyAction, bool disableNotifications)

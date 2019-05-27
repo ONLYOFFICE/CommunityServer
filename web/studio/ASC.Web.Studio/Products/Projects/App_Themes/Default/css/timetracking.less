@@ -139,7 +139,6 @@
         text-align: center;
 
         span {
-            background: url('../images/projects_entity_statuses.png') no-repeat;
             display: inline-block;
             margin: 3px 0 0 2px;
             width: 16px;
@@ -149,15 +148,18 @@
         }
 
         .not-chargeable {
-            background-position: 0 2px;
+            background: url('../../../../../skins/default/Images/svg/projects/forbidden.svg') no-repeat;
+            background-position-x: -1px;
         }
 
         .not-billed {
-            background-position: 0 -19px;
+            background: url('../../../../../skins/default/Images/svg/projects/circle-empty.svg') no-repeat;
+            background-position-x: -1px;
         }
 
         .billed {
-            background-position: 0 -40px;
+            background: url('../../../../../skins/default/Images/svg/projects/payment-small.svg') no-repeat;
+            background-position-x: -1px;
         }
 
         &.noEdit {

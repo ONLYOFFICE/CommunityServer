@@ -25,10 +25,11 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using SharpCompress.Common;
-using SharpCompress.Reader;
-using SharpCompress.Writer;
+using SharpCompress.Readers;
+using SharpCompress.Writers;
 
 namespace ASC.Data.Backup
 {
@@ -59,15 +60,16 @@ namespace ASC.Data.Backup
     public class ZipReadOperator : IDataReadOperator
     {
         private readonly string tmpdir;
-
+        public List<string> Entries { get; private set; }
 
         public ZipReadOperator(string targetFile)
         {
             tmpdir = Path.Combine(Path.GetDirectoryName(targetFile), Path.GetFileNameWithoutExtension(targetFile).Replace('>', '_').Replace(':', '_').Replace('?', '_'));
+            Entries = new List<string>();
 
             using (var stream = File.OpenRead(targetFile))
             {
-                var reader = ReaderFactory.Open(stream, Options.LookForHeader | Options.KeepStreamsOpen);
+                var reader = ReaderFactory.Open(stream, new ReaderOptions { LookForHeader = true, LeaveStreamOpen = true });
                 while (reader.MoveToNextEntry())
                 {
                     if (reader.Entry.IsDirectory) continue;
@@ -99,12 +101,13 @@ namespace ASC.Data.Backup
                     {
                         try
                         {
-                            reader.WriteEntryToDirectory(tmpdir, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                            reader.WriteEntryToDirectory(tmpdir, new ExtractionOptions { ExtractFullPath = true, Overwrite = true });
                         }
                         catch (ArgumentException)
                         {
                         }
                     }
+                    Entries.Add(reader.Entry.Key);
                 }
             }
         }
@@ -112,7 +115,7 @@ namespace ASC.Data.Backup
         public Stream GetEntry(string key)
         {
             var filePath = Path.Combine(tmpdir, key);
-            return File.Exists(filePath) ? File.Open(filePath, FileMode.Open,FileAccess.ReadWrite,FileShare.Read) : null;
+            return File.Exists(filePath) ? File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read) : null;
         }
 
         public void Dispose()

@@ -81,10 +81,10 @@ namespace ASC.Api.Projects.Wrappers
                 }
             }
 
-            CanEdit = ProjectSecurity.CanEdit(message);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(message);
             CommentsCount = message.CommentsCount;
             Status = (int)message.Status;
-            CanCreateComment = ProjectSecurity.CanCreateComment(message);
+            CanCreateComment = projectApiBase.ProjectSecurity.CanCreateComment(message);
         }
 
 

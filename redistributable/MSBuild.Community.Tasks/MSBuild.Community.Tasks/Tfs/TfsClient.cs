@@ -30,6 +30,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
@@ -43,8 +45,7 @@ namespace MSBuild.Community.Tasks.Tfs
     /// A task for Team Foundation Server version control.
     /// </summary>
     public class TfsClient : ToolTask
-    {
-
+    {        
         /// <summary>
         /// Gets or sets the Team Foundation Server command.
         /// </summary>
@@ -76,13 +77,6 @@ namespace MSBuild.Community.Tasks.Tfs
         ///   <c>true</c> if overwrite; otherwise, <c>false</c>.
         /// </value>
         public bool Overwrite { get; set; }
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="TfsClient"/> is override.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if override; otherwise, <c>false</c>.
-        /// </value>
-        public bool Override { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="TfsClient"/> is force.
         /// </summary>
@@ -165,6 +159,10 @@ namespace MSBuild.Community.Tasks.Tfs
         /// Gets or sets the collection.
         /// </summary>
         public string Collection { get; set; }
+        /// <summary>
+        /// Gets or sets a the override reason.
+        /// </summary>
+        public string Override { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user.
@@ -191,22 +189,63 @@ namespace MSBuild.Community.Tasks.Tfs
         /// </summary>
         public string ShelveSetOwner { get; set; }
 
+        /// <summary>
+        /// Gets the output resulting from executing this command.
+        /// </summary>
+        public StringBuilder Output { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the working directory used when executing this tool.
+        /// </summary>
+        public string WorkingDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the changeset.
         /// </summary>
         [Output]
         public string Changeset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the changeset version passed in the version spec parameter
+        /// </summary>
+        /// <value>
+        /// The changeset version.
+        /// </value>
+        /// <example>
+        /// /v:C{ChangesetVersion}
+        /// </example>
+        public string ChangesetVersion { get; set; }
+
         /// <summary>
         /// Gets or sets the server path.
         /// </summary>
         [Output]
         public string ServerPath { get; set; }
-        
+
+        private static readonly string[] candidatePaths =
+        {
+            @"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE",
+            @"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE",
+            @"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE",
+            @"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE"
+        };
+
+        private const int MaxCommandlineLength = 32000;        
 
         private string FindToolPath(string toolName)
         {
-            return string.Empty;
+            return candidatePaths.FirstOrDefault(Directory.Exists);
+        }
+
+        /// <inheritdoc />
+        protected override string GetWorkingDirectory()
+        {
+            if (!string.IsNullOrEmpty(this.WorkingDirectory))
+            {
+                this.Log.LogMessage("Setting working directory to {0}.", this.WorkingDirectory);
+            }
+
+            return this.WorkingDirectory;
         }
 
         /// <summary>
@@ -235,13 +274,13 @@ namespace MSBuild.Community.Tasks.Tfs
             builder.AppendSwitchIfNotNull("/notes:", Notes);
             builder.AppendSwitchIfNotNull("/format:", Format);
             builder.AppendSwitchIfNotNull("/collection:", Collection);
+            builder.AppendSwitchIfNotNull("/v:C", ChangesetVersion);
+            builder.AppendSwitchIfNotNull("/override:", Override);
 
             if (Recursive)
                 builder.AppendSwitch("/recursive");
             if (All)
                 builder.AppendSwitch("/all");
-            if (Override)
-                builder.AppendSwitch("/override");
             if (Overwrite)
                 builder.AppendSwitch("/overwrite");
             if (Force)
@@ -267,7 +306,7 @@ namespace MSBuild.Community.Tasks.Tfs
 
                 builder.AppendSwitch(login);
             }
-            
+
             if (!string.IsNullOrEmpty(WorkspaceName))
             {
                 string workspace = "/workspace:" + WorkspaceName;
@@ -321,6 +360,16 @@ namespace MSBuild.Community.Tasks.Tfs
         }
 
         /// <summary>
+        /// Gets the <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The <see cref="T:Microsoft.Build.Framework.MessageImportance"></see> with which to log errors.</returns>
+        protected override MessageImportance StandardErrorLoggingImportance
+        {
+            get { return MessageImportance.High; }
+        }
+
+        /// <summary>
         /// Gets the name of the executable file to run.
         /// </summary>
         /// <returns>
@@ -336,14 +385,14 @@ namespace MSBuild.Community.Tasks.Tfs
         /// </summary>
         /// <returns>
         /// A string value containing the command line arguments to pass directly to the executable file.
-        /// </returns>
+        /// </returns>        
         protected override string GenerateCommandLineCommands()
         {
-            var commandLine = new CommandLineBuilder();
-            GenerateCommand(commandLine);
-            GenerateArguments(commandLine);
+                var commandLine = new CommandLineBuilder();
+                GenerateCommand(commandLine);
+                GenerateArguments(commandLine);
 
-            return commandLine.ToString();
+                return commandLine.ToString();                       
         }
 
         /// <summary>
@@ -353,27 +402,119 @@ namespace MSBuild.Community.Tasks.Tfs
         /// <param name="messageImportance">A value of <see cref="T:Microsoft.Build.Framework.MessageImportance"/> that indicates the importance level with which to log the message.</param>
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
         {
-          bool isError = messageImportance == StandardErrorLoggingImportance;
+            bool isError = messageImportance == StandardErrorLoggingImportance;
 
-          if (isError)
-            base.LogEventsFromTextOutput(singleLine, messageImportance);
+            if (isError)
+                base.LogEventsFromTextOutput(singleLine, messageImportance);
 
-          Match m = Regex.Match(singleLine, @"(?<Name>[\w ]+)\s*\:(?<Value>[^\r\n]+)");
-          if (!m.Success)
-            return;
+            if (string.IsNullOrEmpty(singleLine))
+                return;
 
-          string name = m.Groups["Name"].Value.Trim();
-          string value = m.Groups["Value"].Value.Trim();
+            ParseOutput(singleLine);
+        }
 
-          switch (name)
-          {
-            case "Changeset":
-              Changeset = value;
-              break;
-            case "Server path":
-              ServerPath = value;
-              break;
-          }
+        /// <inheritdoc />
+        public override bool Execute()
+        {
+            this.Output = new StringBuilder();
+            if (BatchRequired.GetValueOrDefault())
+            {
+                return ExecuteBatchMode();
+            }
+
+            return base.Execute();
+        }
+
+        private bool ExecuteBatchMode()
+        {
+            var originalFiles = (ITaskItem[]) this.Files.Clone();
+            var executeSuccess = true;
+
+            int index = 0;
+
+            while (executeSuccess && index < originalFiles.Length)
+            {
+                var batchFiles = new List<ITaskItem>();
+                
+                this.GetNextBatch(index, originalFiles, batchFiles);
+                index = index + batchFiles.Count;
+
+                this.Files = batchFiles.ToArray();
+                executeSuccess = base.Execute();                
+            }
+
+            return executeSuccess;
+        }
+
+        private void GetNextBatch(int indexOffSet, ITaskItem[] originalFiles, List<ITaskItem> batchFiles)
+        {
+            const int offSet = 1000; // for other switches            
+            int arrayLength = 0 + offSet;
+            var buildBatch = true;                
+            while (buildBatch)
+            {
+                if (indexOffSet >= originalFiles.Length)
+                {
+                    buildBatch = false;
+                    continue;
+                }
+
+                var fileLength = originalFiles[indexOffSet].ItemSpec.Length + 1; // + 1 for the space
+                if (fileLength + arrayLength > MaxCommandlineLength)
+                {
+                    buildBatch = false;
+                    continue;
+                }
+
+                batchFiles.Add(originalFiles[indexOffSet]);
+                indexOffSet = indexOffSet + 1;
+                arrayLength = arrayLength + fileLength;
+            }
+        }
+
+        private bool? batchRequired;
+        /// <summary>
+        /// Gets a value determining if this command must be processed in batch mode, due
+        /// to the length of the commandline arguments.
+        /// </summary>
+        public bool? BatchRequired
+        {
+            get
+            {
+                if (batchRequired == null)
+                {
+                    if (GenerateCommandLineCommands().Length > MaxCommandlineLength)
+                    {
+                        batchRequired = true;
+                    }
+
+                }
+
+                return batchRequired;
+            }
+            private set { batchRequired = value; }
+        }
+
+
+        private void ParseOutput(string singleLine)
+        {
+            this.Output.AppendLine(singleLine);
+            Match m = Regex.Match(singleLine, @"(?<Name>[\w ]+)\s*\:(?<Value>[^\r\n]+)");
+            if (!m.Success)
+                return;
+
+            string name = m.Groups["Name"].Value.Trim();
+            string value = m.Groups["Value"].Value.Trim();
+
+            switch (name)
+            {
+                case "Changeset":
+                    Changeset = value;
+                    break;
+                case "Server path":
+                    ServerPath = value;
+                    break;
+            }
         }
 
         /// <summary>

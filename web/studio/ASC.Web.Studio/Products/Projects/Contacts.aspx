@@ -2,7 +2,7 @@
 <%@ Assembly Name="ASC.Data.Storage" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Page Title="" Language="C#" MasterPageFile="Masters/BasicTemplate.Master"
+<%@ Page Language="C#" MasterPageFile="Masters/BasicTemplate.Master"
     AutoEventWireup="true" CodeBehind="Contacts.aspx.cs" Inherits="ASC.Web.Projects.Contacts" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ MasterType TypeName="ASC.Web.Projects.Masters.BasicTemplate" %>

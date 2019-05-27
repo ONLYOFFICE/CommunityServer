@@ -31,6 +31,7 @@ using System.Security.Authentication;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.Common.Security;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
@@ -40,13 +41,12 @@ using ASC.Core.Security.Authorizing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;
-using log4net;
 
 namespace ASC.Core
 {
     public static class SecurityContext
     {
-        private readonly static ILog log = LogManager.GetLogger("ASC.Core");
+        private static readonly ILog log = LogManager.GetLogger("ASC.Core");
 
 
         public static IAccount CurrentAccount

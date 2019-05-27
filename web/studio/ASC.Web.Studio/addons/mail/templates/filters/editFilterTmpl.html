@@ -1,0 +1,184 @@
+﻿<script id="editFilterTmpl" type="text/x-jquery-tmpl">
+    <div id="editFilterPage">
+        <div class="simpleWrapper">
+            <div class="contentMenuWrapper">
+                <ul class="clearFix contentMenu contentMenuDisplayAll">
+                    <li class="menuAction blue btnSaveFilter unlockAction">
+                        {{if id == 0}}
+                        <span title="${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}</span>
+                        {{else}}
+                        <span title="${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}">${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}</span>
+                        {{/if}}
+                    </li>
+                    <li class="menuAction btnCheckFilter unlockAction">
+                        <span title="${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}</span>
+                    </li>
+                    <li class="menuAction btnApplyFilter unlockAction">
+                        <span title="${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}">${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}</span>
+                    </li>
+                    <li class="menuAction btnDeleteFilter unlockAction">
+                        <span title="${ASC.Mail.Resources.MailResource.DeleteFilterBtn}">${ASC.Mail.Resources.MailResource.DeleteFilterBtn}</span>
+                    </li>
+                    <li class="menu-action-on-close pull-right">
+                        <a class="on-close-link" onclick="javascript:window.editFilterPage.close();">×</a>
+                    </li>
+                    <li class="menu-action-on-top">
+                        <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">${ASC.Mail.Resources.MailResource.OnTopLabel}
+                        </a>
+                    </li>
+                </ul>
+                <div class="header-menu-spacer" style="display: block;">&nbsp;</div>
+            </div>
+
+            <!-- Conditions block -->
+            <div id="conditionsContainer" class="field-with-actions">
+                {{tmpl(conditions) "filterConditionTmpl"}}
+                <a class="add-new-field link dotline plus">${ASC.Mail.Resources.MailScriptResource.AddFilterConditionBtnLabel}</a>
+                <!-- ApplyMulti Conditions block -->
+                <div id="applyMultiConditionsContainer" {{if options.matchMultiConditions== 0}}style="display: none;"{{/if}}>
+                    <select>
+                        <option {{if options.matchMultiConditions== 1}}selected{{/if}} value="1">${ASC.Mail.Resources.MailScriptResource.ApplyMultiConditionsAllLabel}</option>
+                        <option {{if options.matchMultiConditions== 2}}selected{{/if}} value="2">${ASC.Mail.Resources.MailScriptResource.ApplyMultiConditionsAtLeastOneLabel}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Actions block -->
+            <div id="actionsContainer" class="field-with-actions">
+                <span class="startText bold">${ASC.Mail.Resources.MailScriptResource.FilterActionInfo}</span>
+                <ul class="menu-list">
+                    <li>
+                        <label for="filterActionDelete" class="checkbox">
+                            <input type="checkbox" id="filterActionDelete" {{if acts.deleteAction.checked}}checked{{/if}}/>
+                            <span>${ASC.Mail.Resources.MailScriptResource.FilterActionDeleteLabel}</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label for="filterActionMoveTo" class="checkbox {{if acts.deleteAction.checked}}disable{{/if}}">
+                            <input type="checkbox" id="filterActionMoveTo" {{if acts.moveToAction.checked}}checked{{/if}} {{if acts.deleteAction.checked}}class="disable" disabled="disabled"{{/if}}/>
+                            <span>${ASC.Mail.Resources.MailScriptResource.FilterActionMoveToLabel}</span>
+                        </label>
+                        <a id="selectMoveToFolderFilter" class="filterSelector link dotline arrow-down {{if acts.deleteAction.checked}}disable{{/if}}{{if acts.moveToAction.checked && acts.moveToAction.type == null}}error{{/if}}" {{if acts.moveToAction.checked}}{{if acts.moveToAction.type !=null}}selectedtype="${acts.moveToAction.type}"{{/if}} {{if acts.moveToAction.id !=null }}selectedid="${acts.moveToAction.id}"{{/if}}{{/if}}>{{if acts.moveToAction.checked && acts.moveToAction.name}}${acts.moveToAction.name}{{else}}${ASC.Mail.Resources.MailScriptResource.FilterSelectFolderLabel}{{/if}}</a>
+                    </li>
+                    <li>
+                        <label for="filterActionMarkWithTag" class="checkbox {{if acts.deleteAction.checked}}disable{{/if}}">
+                            <input type="checkbox" id="filterActionMarkWithTag" {{if acts.tagAsAction.checked}}checked{{/if}} {{if acts.deleteAction.checked}}class="disable" disabled="disabled"{{/if}}/>
+                            <span>${ASC.Mail.Resources.MailScriptResource.FilterActionMarkWithTagLabel}</span>
+                        </label>
+                        <a id="selectAddTagFilter" class="filterSelector link dotline arrow-down {{if acts.deleteAction.checked}}disable{{/if}}{{if acts.tagAsAction.checked && acts.tagAsAction.id == null}}error{{/if}}" {{if acts.tagAsAction.checked}}{{if acts.tagAsAction.id != null}}selectedid="${acts.tagAsAction.id}"{{/if}}{{/if}}>{{if acts.tagAsAction.checked && acts.tagAsAction.name}}${acts.tagAsAction.name}{{else}}${ASC.Mail.Resources.MailScriptResource.FilterSelectTagLabel}{{/if}}</a>
+                    </li>
+                    <li>
+                        <label for="filterActionMarkAsImportant" class="checkbox {{if acts.deleteAction.checked}}disable{{/if}}">
+                            <input type="checkbox" id="filterActionMarkAsImportant" {{if acts.markAsImportantAction.checked}}checked{{/if}} {{if acts.deleteAction.checked}}class="disable" disabled="disabled"{{/if}}/>
+                            <span>${ASC.Mail.Resources.MailScriptResource.FilterActionMarkAsImportantLabel}</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label for="filterActionMarkAsRead" class="checkbox {{if acts.deleteAction.checked}}disable{{/if}}">
+                            <input type="checkbox" id="filterActionMarkAsRead" {{if acts.markAsReadAction.checked}}checked{{/if}} {{if acts.deleteAction.checked}}class="disable" disabled="disabled"{{/if}}/>
+                            <span>${ASC.Mail.Resources.MailScriptResource.FilterActionMarkAsReadLabel}</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- Advanced options -->
+            <div id="advancedContainer" class="field-with-actions">
+                <span class="startText bold">${ASC.Mail.Resources.MailScriptResource.FilterAdvancedInfo}</span>
+                <div>
+                    <span id="applyToFolderLabel">${ASC.Mail.Resources.MailScriptResource.ApplyToMessagesFromLabel}:</span>
+                    <ul class="menu-list applyToFolders">
+                        <li>
+                            <label for="filterFolderInbox" class="checkbox">
+                                <input type="checkbox" id="filterFolderInbox" {{if options.applyTo.flds.inbox}}checked{{/if}} data_id="1"/>
+                                <span>${ASC.Mail.Resources.MailResource.FolderNameInbox}</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="filterFolderSent" class="checkbox">
+                                <input type="checkbox" id="filterFolderSent" {{if options.applyTo.flds.sent}}checked{{/if}} data_id="2"/>
+                                <span>${ASC.Mail.Resources.MailResource.FolderNameSent}</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="filterFolderSpam" class="checkbox">
+                                <input type="checkbox" id="filterFolderSpam" {{if options.applyTo.flds.spam}}checked{{/if}} data_id="5"/>
+                                <span>${ASC.Mail.Resources.MailResource.FolderNameSpam}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div id="filterApplyToMailiboxesContainer">
+                    <label for="filterApplyToMailiboxes" class="checkbox">
+                        <input type="checkbox" id="filterApplyToMailiboxes" {{if options.applyTo.allMailboxes }}checked{{/if}}/>
+                        <span>${ASC.Mail.Resources.MailScriptResource.FilterApplyToAllMailboxes}</span>
+                    </label>
+                    <ul class="menu-list applyToMailboxes" {{if options.applyTo.allMailboxes}}style="display:none;"{{/if}}>
+                        {{each(i, mb) options.applyTo.mbxs}}
+                        <li>
+                            <label for="filterMailbox${mb.id}" class="checkbox">
+                                <input type="checkbox" id="filterMailbox${mb.id}" {{if mb.checked}}checked{{/if}} data_id="${mb.id}"/>
+                                <span>${mb.address}</span>
+                            </label>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="filterApplyToAttachmentsCnt">
+                    <label for="filterApplyToAttachments" class="checkbox">
+                        <input type="checkbox" id="filterApplyToAttachments" {{if options.applyTo.withAttachments !=0 }}checked{{/if}}/>
+                        <span>${ASC.Mail.Resources.MailScriptResource.FilterApplyToAttachemnts}</span>
+                    </label>
+                    <select class="applyToAttachments" style="vertical-align: middle;">
+                        <option {{if options.applyTo.withAttachments== 1}}selected{{/if}} value="1">${ASC.Mail.Resources.MailScriptResource.FilterApplyToAttachemntsPresent}</option>
+                        <option {{if options.applyTo.withAttachments== 2}}selected{{/if}} value="2">${ASC.Mail.Resources.MailScriptResource.FilterApplyToAttachemntsNotPresent}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filterIgnoreOther" class="checkbox">
+                        <input type="checkbox" id="filterIgnoreOther" {{if options.ignoreOther }}checked{{/if}}/>
+                        <span>${ASC.Mail.Resources.MailScriptResource.FilterIgnoreOther}</span>
+                    </label>
+                </div>
+            </div>
+            <!-- Filter name -->
+            <div id="filterNameContainer" class="field-with-actions">
+                <span class="enterlinkText" {{if name }}style="display: none;"{{/if}}>{{html ASC.Mail.Resources.MailScriptResource.FilterEnterNameDescription.format("<a class='filterName link dotline'>", "</a>") }}</span>
+                <div class="field-condition" {{if !name }}style="display: none;"{{/if}}>
+                    <span class="startText">${ASC.Mail.Resources.MailScriptResource.FilterName}</span>
+                    <span class="span-field"><input type="text" class="textEdit filterNameInput" value="${name}" autocomplete="off" maxlength="64" /></span>
+                    <span class="span-field"><a class="clear-field icon-link trash"></a></span>
+                </div>
+            </div>
+            <h2 id="checkFilterResultsTitle" style="display: none;">${ASC.Mail.Resources.MailResource.FilterFilteredMessagesTitle}</h2>
+            <div id="checkFilterResults" style="display: none;"></div>
+            <a id="checkFilterResultsMoreBtn" style="display: none;" class="button gray">${ASC.Mail.Resources.MailResource.ShowMore}</a>
+        </div>
+    </div>
+</script>
+
+<script id="filterConditionTmpl" type="text/x-jquery-tmpl">
+    <div class="field-condition">
+        <span class="startText">${ASC.Mail.Resources.MailScriptResource.IfLabel}</span>
+        <span>
+            <select class="key">
+                <option {{if key == 0}}selected{{/if}} value="0">${ASC.Mail.Resources.MailScriptResource.FromLabel}</option>
+                <option {{if key == 1}}selected{{/if}} value="1">${ASC.Mail.Resources.MailScriptResource.ToOrCcLabel}</option>
+                <option {{if key == 2}}selected{{/if}} value="2">${ASC.Mail.Resources.MailScriptResource.ToLabel}</option>
+                <option {{if key == 3}}selected{{/if}} value="3">${ASC.Mail.Resources.MailScriptResource.CcLabel}</option>
+                <option {{if key == 4}}selected{{/if}} value="4">${ASC.Mail.Resources.MailScriptResource.SubjectLabel}</option>
+            </select>
+        </span>
+
+        <span>
+            <select class="operation">
+                <option {{if operation == 0}}selected{{/if}} value="0">${ASC.Mail.Resources.MailScriptResource.MatchesLabel}</option>
+                <option {{if operation == 1}}selected{{/if}} value="1">${ASC.Mail.Resources.MailScriptResource.NotMatchesLabel}</option>
+                <option {{if operation == 2}}selected{{/if}} value="2">${ASC.Mail.Resources.MailScriptResource.ContainsLabel}</option>
+                <option {{if operation == 3}}selected{{/if}} value="3">${ASC.Mail.Resources.MailScriptResource.NotContainsLabel}</option>
+            </select>
+        </span>
+
+        <span class="span-field"><input id="${id}" type="text" class="textEdit conditionInput" value="${value}" autocomplete="off" maxlength="200" /></span>
+        <span class="span-field"><a class="delete-field icon-link trash"></a></span>
+    </div>
+</script>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="biglobe.ne.jp">
+    <!-- about 1400 domains, all with bgmgate1.biglobe.ne.jp as MX -->
+    <domain>biglobe.ne.jp</domain>
+    <displayName>Biglobe</displayName>
+    <displayShortName>Biglobe</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mail.biglobe.ne.jp</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.biglobe.ne.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

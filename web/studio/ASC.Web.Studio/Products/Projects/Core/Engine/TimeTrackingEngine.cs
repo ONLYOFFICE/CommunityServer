@@ -36,6 +36,7 @@ namespace ASC.Projects.Engine
     public class TimeTrackingEngine
     {
         public IDaoFactory DaoFactory { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
 
         public List<TimeSpend> GetByFilter(TaskFilter filter)
         {

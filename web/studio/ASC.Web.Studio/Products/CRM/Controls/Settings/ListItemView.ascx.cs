@@ -59,6 +59,7 @@ namespace ASC.Web.CRM.Controls.Settings
         public string DescriptionText { get; set; }
         public string DescriptionTextEditDelete { get; set; }
 
+        public string HeaderText { get; set; }
 
         #endregion
 

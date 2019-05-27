@@ -28,7 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using ASC.Common.Data.Sql;
 
@@ -46,7 +48,7 @@ namespace ASC.Common.Data
         public string DatabaseId { get; private set; }
         public bool InTransaction { get { return localDb.InTransaction; } }
 
-        public IDbConnection Connection
+        public DbConnection Connection
         {
             get { return localDb.Connection; }
         }
@@ -106,6 +108,12 @@ namespace ASC.Common.Data
         public List<object[]> ExecuteList(ISqlInstruction sql)
         {
             return databases.SelectMany(db => db.ExecuteList(sql)).ToList();
+        }
+
+        public Task<List<object[]>> ExecuteListAsync(ISqlInstruction sql)
+        {
+            throw new NotImplementedException(); //TODO: implement
+
         }
 
         public List<object[]> ExecuteListWithRegion(ISqlInstruction sql)

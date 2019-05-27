@@ -24,55 +24,23 @@
 */
 
 
-using ASC.Common.Caching;
+using System;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
+using ASC.Web.Core.Sms;
+using ASC.Web.Studio.UserControls.Common;
+using ASC.Web.Studio.Utility;
 using Resources;
-using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace ASC.Web.Studio.Core.SMS
 {
     public static class SmsManager
     {
-        private static readonly ICache CodeCache = AscCache.Memory;
-
-        public static string GetPhoneValueDigits(string mobilePhone)
-        {
-            var reg = new Regex(@"[^\d]");
-            mobilePhone = reg.Replace(mobilePhone ?? "", String.Empty).Trim();
-            return mobilePhone.Substring(0, Math.Min(64, mobilePhone.Length));
-        }
-
-        public static string BuildPhoneNoise(string mobilePhone)
-        {
-            if (String.IsNullOrEmpty(mobilePhone))
-                return String.Empty;
-
-            mobilePhone = GetPhoneValueDigits(mobilePhone);
-
-            const int startLen = 4;
-            const int endLen = 4;
-            if (mobilePhone.Length < startLen + endLen)
-                return mobilePhone;
-
-            var sb = new StringBuilder();
-            sb.Append("+");
-            sb.Append(mobilePhone.Substring(0, startLen));
-            for (var i = startLen; i < mobilePhone.Length - endLen; i++)
-            {
-                sb.Append("*");
-            }
-            sb.Append(mobilePhone.Substring(mobilePhone.Length - endLen));
-            return sb.ToString();
-        }
-
         public static string SaveMobilePhone(UserInfo user, string mobilePhone)
         {
-            mobilePhone = GetPhoneValueDigits(mobilePhone);
+            mobilePhone = SmsSender.GetPhoneValueDigits(mobilePhone);
 
             if (user == null || Equals(user, Constants.LostUser)) throw new Exception(Resource.ErrorUserNotFound);
             if (string.IsNullOrEmpty(mobilePhone)) throw new Exception(Resource.ActivateMobilePhoneEmptyPhoneNumber);
@@ -108,12 +76,19 @@ namespace ASC.Web.Studio.Core.SMS
         public static void PutAuthCode(UserInfo user, bool again)
         {
             if (user == null || Equals(user, Constants.LostUser)) throw new Exception(Resource.ErrorUserNotFound);
-            var mobilePhone = GetPhoneValueDigits(user.MobilePhone);
+
+            if (!StudioSmsNotificationSettings.IsVisibleSettings || !StudioSmsNotificationSettings.Enable) throw new MethodAccessException();
+
+            var mobilePhone = SmsSender.GetPhoneValueDigits(user.MobilePhone);
 
             if (SmsKeyStorage.ExistsKey(mobilePhone) && !again) return;
 
-            var key = SmsKeyStorage.GenerateKey(mobilePhone);
-            SmsSender.SendSMS(mobilePhone, string.Format(Resource.SmsAuthenticationMessageToUser, key));
+            string key;
+            if (!SmsKeyStorage.GenerateKey(mobilePhone, out key)) throw new Exception(Resource.SmsTooMuchError);
+            if (SmsSender.SendSMS(mobilePhone, string.Format(Resource.SmsAuthenticationMessageToUser, key)))
+            {
+                CoreContext.TenantManager.SetTenantQuotaRow(new TenantQuotaRow { Tenant = TenantProvider.CurrentTenantID, Path = "/sms", Counter = 1 }, true);
+            }
         }
 
         public static void ValidateSmsCode(UserInfo user, string code)
@@ -126,22 +101,19 @@ namespace ASC.Web.Studio.Core.SMS
 
             if (user == null || Equals(user, Constants.LostUser)) throw new Exception(Resource.ErrorUserNotFound);
 
-            code = (code ?? "").Trim();
-
-            if (string.IsNullOrEmpty(code)) throw new Exception(Resource.ActivateMobilePhoneEmptyCode);
-
-            int counter;
-
-            int.TryParse(CodeCache.Get<String>("loginsec/" + user.ID), out counter);
-
-            if (++counter % 5 == 0)
+            var valid = SmsKeyStorage.ValidateKey(user.MobilePhone, code);
+            switch (valid)
             {
-                Thread.Sleep(TimeSpan.FromSeconds(10));
+                case SmsKeyStorage.Result.Empty:
+                    throw new Exception(Resource.ActivateMobilePhoneEmptyCode);
+                case SmsKeyStorage.Result.TooMuch:
+                    throw new Authorize.BruteForceCredentialException(Resource.SmsTooMuchError);
+                case SmsKeyStorage.Result.Timeout:
+                    throw new TimeoutException(Resource.SmsAuthenticationTimeout);
+                case SmsKeyStorage.Result.Invalide:
+                    throw new ArgumentException(Resource.SmsAuthenticationMessageError);
             }
-            CodeCache.Insert("loginsec/" + user.ID, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
-
-            if (!SmsKeyStorage.ValidateKey(user.MobilePhone, code))
-                throw new ArgumentException(Resource.SmsAuthenticationMessageError);
+            if (valid != SmsKeyStorage.Result.Ok) throw new Exception("Error: " + valid);
 
             if (!SecurityContext.IsAuthenticated)
             {

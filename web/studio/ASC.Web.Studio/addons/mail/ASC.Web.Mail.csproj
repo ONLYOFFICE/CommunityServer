@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Mail</RootNamespace>
     <AssemblyName>ASC.Web.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -48,13 +48,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Core.Common.dll</HintPath>
+      <HintPath>..\..\bin\ASC.Api.dll</HintPath>
     </Reference>
     <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,12 +68,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\ASC.Web.Files.dll</HintPath>
     </Reference>
-    <Reference Include="FredCK.FCKeditorV2">
-      <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -90,7 +82,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="DotNetZip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +93,9 @@
     <Content Include="App_Themes\Default\Images\blank_sprite.png" />
     <Content Include="App_Themes\Default\Images\dns_sprite.png" />
     <Content Include="App_Themes\Default\Images\icon_group.png" />
+    <Content Include="App_Themes\Default\Images\jstree_icons.png" />
     <Content Include="App_Themes\Default\Images\Loader\loader32.gif" />
+    <Content Include="App_Themes\Default\Images\Loader\loader_12.gif" />
     <Content Include="App_Themes\Default\Images\Loader\loader_16.gif" />
     <Content Include="App_Themes\Default\Images\Loader\loader_16_dark.gif" />
     <Content Include="App_Themes\Default\Images\mail.png" />
@@ -110,7 +104,7 @@
     <Content Include="App_Themes\Default\Images\ms-exchange.png" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
     <Content Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx" />
-    <Content Include="Controls\DocumentsPopup\css\images\can-public-share.png" />
+    <Content Include="Controls\FiltersPage\Filters.ascx" />
     <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
     <Content Include="Controls\AdministrationPage\AdministrationPage.ascx" />
@@ -123,9 +117,20 @@
     <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
     <Content Include="Controls\DocumentsPopup\js\documentsPopup.js" />
     <Content Include="Controls\DocumentsPopup\css\documentsPopup.less" />
-    <Content Include="Controls\DocumentsPopup\css\images\project-documents.png" />
+    <Content Include="Controls\UserFoldersPage\UserFoldersPage.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="js\autocomplete\crmAutocomplete.js" />
     <Content Include="js\commonsettings\page.js" />
+    <Content Include="js\filters\filter.js" />
+    <Content Include="js\filters\edit.js" />
+    <Content Include="js\filters\manager.js" />
+    <Content Include="js\filters\modal.js" />
+    <Content Include="js\filters\page.js" />
+    <Content Include="js\userfolders\dropdown.js" />
+    <Content Include="js\userfolders\manager.js" />
+    <Content Include="js\userfolders\modal.js" />
+    <Content Include="js\userfolders\page.js" />
+    <Content Include="js\userfolders\panel.js" />
     <Content Include="OAuth.aspx" />
     <Content Include="js\accountsPanel.js" />
     <Content Include="js\actionMenu.js" />
@@ -156,7 +161,7 @@
     <Content Include="js\contacts\filter\tlFilter.js" />
     <Content Include="js\contacts\tlGroups.js" />
     <Content Include="js\contacts\types.js" />
-    <Content Include="js\emailAutocomplete.js" />
+    <Content Include="js\autocomplete\emailAutocomplete.js" />
     <Content Include="js\fromsenderfilter.js" />
     <Content Include="js\helpcenter\page.js" />
     <Content Include="js\helpcenter\panel.js" />
@@ -201,6 +206,8 @@
     <Content Include="templates\addFirstAccountTmpl.html" />
     <Content Include="templates\administration\addQuestionBoxTmpl.html" />
     <Content Include="templates\administration\administrationDataTmpl.html" />
+    <Content Include="templates\administration\changeMailboxPasswordPopupTmpl.html" />
+    <Content Include="templates\administration\mailboxSettingsPopupTmpl.html" />
     <Content Include="templates\administration\createDomainWizardTmpl.html" />
     <Content Include="templates\administration\createMailboxPopupTmpl.html" />
     <Content Include="templates\administration\createMailgroupPopupTmpl.html" />
@@ -219,6 +226,8 @@
     <Content Include="templates\docAttachmentsTmpl.html" />
     <Content Include="templates\editMessageTmpl.html" />
     <Content Include="templates\emptyScrTmpl.html" />
+    <Content Include="templates\filters\filtersTmpl.html" />
+    <Content Include="templates\filters\editFilterTmpl.html" />
     <Content Include="templates\foldersTmpl.html" />
     <Content Include="templates\mailAutoreplyTmpl.html" />
     <Content Include="templates\messagePrintTmpl.html" />
@@ -266,6 +275,13 @@
     <Compile Include="Controls\ContactsPage\ContactsPage.ascx.designer.cs">
       <DependentUpon>ContactsPage.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FiltersPage\Filters.ascx.cs">
+      <DependentUpon>Filters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FiltersPage\Filters.ascx.designer.cs">
+      <DependentUpon>Filters.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
       <DependentUpon>DocumentsPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -294,12 +310,22 @@
     <Compile Include="Controls\TagsPage\TagsPage.ascx.designer.cs">
       <DependentUpon>TagsPage.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserFoldersPage\UserFoldersPage.ascx.cs">
+      <DependentUpon>UserFoldersPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\UserFoldersPage\UserFoldersPage.ascx.designer.cs">
+      <DependentUpon>UserFoldersPage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\ComposeDraft.ashx.cs">
+      <DependentUpon>ComposeDraft.ashx</DependentUpon>
     </Compile>
     <Compile Include="OAuth.aspx.cs">
       <DependentUpon>OAuth.aspx</DependentUpon>
@@ -343,6 +369,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\MailApiResource.Designer.cs">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\MailAttachmentsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -373,6 +404,12 @@
     <EmbeddedResource Include="Resources\MailApiErrorsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiErrorsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailApiResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailAttachmentsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -399,12 +436,13 @@
     <Content Include="App_Themes\Default\less\accountpopup.less" />
     <Content Include="App_Themes\Default\less\administration.less" />
     <None Include="App_Themes\Default\less\attachments.less" />
-    <None Include="App_Themes\Default\less\autocomplete.less" />
     <None Include="App_Themes\Default\less\common.less" />
     <Content Include="App_Themes\Default\less\contacts.less" />
     <Content Include="App_Themes\Default\less\crm_integration.less" />
     <Content Include="App_Themes\Default\less\print.less" />
     <Content Include="App_Themes\Default\less\calendar.less" />
+    <Content Include="App_Themes\Default\less\folders.less" />
+    <Content Include="App_Themes\Default\less\filters.less" />
     <None Include="App_Themes\Default\less\icons.less" />
     <None Include="App_Themes\Default\less\mail.less" />
     <None Include="App_Themes\Default\less\message.less" />
@@ -418,19 +456,21 @@
     <Content Include="HttpHandlers\EditDocument.ashx" />
     <Content Include="HttpHandlers\Download.ashx" />
     <Content Include="HttpHandlers\ContactPhoto.ashx" />
+    <Content Include="js\userfolders\plugins\jstree.counters.plugin.js" />
+    <Content Include="HttpHandlers\ComposeDraft.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Mail\ASC.Api.Mail.csproj">
-      <Project>{5eec68a0-657c-45f3-8079-ebdb5cb9597a}</Project>
-      <Name>ASC.Api.Mail</Name>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
-      <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
-      <Name>ASC.Mail.Aggregator.Common</Name>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
-      <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
-      <Name>ASC.Mail.Aggregator</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
@@ -460,5 +500,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

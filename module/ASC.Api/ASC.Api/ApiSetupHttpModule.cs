@@ -26,7 +26,7 @@
 
 using System;
 using System.Web;
-using log4net;
+using ASC.Common.Logging;
 
 namespace ASC.Api
 {
@@ -55,7 +55,7 @@ namespace ASC.Api
                             {
                                 err = err.InnerException;
                             }
-                            LogManager.GetLogger(GetType()).Error(err);
+                            LogManager.GetLogger("ASC").Error(err);
                         }
                     }
                 }

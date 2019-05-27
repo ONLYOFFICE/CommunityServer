@@ -24,10 +24,6 @@
 */
 
 
-using ASC.Common.Module;
-using ASC.TeamLabSvc.Configuration;
-using log4net;
-using log4net.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,13 +31,22 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
+using ASC.Common.Logging;
+using ASC.Common.Module;
+using ASC.TeamLabSvc.Configuration;
 
 namespace ASC.TeamLabSvc
 {
     sealed class Program : ServiceBase
     {
-        private static readonly ILog log = LogManager.GetLogger("ASC.TeamLabSvc");
-        private static List<IServiceController> services = new List<IServiceController>();
+        private static readonly ILog log;
+        private static List<IServiceController> services;
+
+        static Program()
+        {
+            log = LogManager.GetLogger("ASC.TeamLabSvc");
+            services = new List<IServiceController>();
+        }
 
         private static void Main(string[] args)
         {
@@ -51,7 +56,6 @@ namespace ASC.TeamLabSvc
                 Debugger.Launch();
             }
 #endif
-            XmlConfigurator.Configure();
 
             var program = new Program();
             if (Environment.UserInteractive || args.Contains("--console") || args.Contains("-c"))

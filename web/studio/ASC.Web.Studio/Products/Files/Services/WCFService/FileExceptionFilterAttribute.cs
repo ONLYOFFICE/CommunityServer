@@ -24,14 +24,14 @@
 */
 
 
-using ASC.Web.Files.Resources;
-using log4net;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Web.Http.Filters;
+using ASC.Common.Logging;
+using ASC.Web.Files.Resources;
 
 namespace ASC.Web.Files.Services.WCFService
 {

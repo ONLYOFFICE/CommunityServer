@@ -30,10 +30,11 @@ using System.Linq;
 
 using ASC.Core;
 using ASC.Core.Tenants;
-
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
 {
@@ -169,6 +170,8 @@ namespace ASC.Projects.Engine
             {
                 Subscribe(task, sender);
             }
+
+            FactoryIndexer<SubtasksWrapper>.IndexAsync(subtask);
 
             return subtask;
         }

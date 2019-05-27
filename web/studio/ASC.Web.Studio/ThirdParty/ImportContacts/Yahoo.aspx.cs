@@ -46,14 +46,14 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
 
         public static bool Enable
         {
-            get { return !(string.IsNullOrEmpty(YahooLoginProvider.YahooOAuth20ClientId) || string.IsNullOrEmpty(YahooLoginProvider.YahooOAuth20ClientSecret) || string.IsNullOrEmpty(YahooLoginProvider.YahooOAuth20RedirectUrl)); }
+            get { return YahooLoginProvider.Instance.IsEnabled; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                var token = YahooLoginProvider.Auth(HttpContext.Current, YahooLoginProvider.YahooScopeContacts);
+                var token = YahooLoginProvider.Instance.Auth(HttpContext.Current);
 
                 var userGuid = RequestUserGuid(token.AccessToken);
 
@@ -79,23 +79,29 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
             const string xmlns = "http://social.yahooapis.com/v1/schema.rng";
 
             var contactsDocument = XDocument.Parse(responseString);
-            var contacts = from entry in contactsDocument.Root.Elements(XName.Get("contact", xmlns))
-                           select
-                               new
-                               {
-                                   Name = from field in entry.Elements(XName.Get("fields", xmlns))
-                                          where field.Element(XName.Get("type", xmlns)).Value == "name"
-                                          select field.Element(XName.Get("value", xmlns)).Element(XName.Get("givenName", xmlns)).Value,
-                                   LastName = from field in entry.Elements(XName.Get("fields", xmlns))
-                                              where field.Element(XName.Get("type", xmlns)).Value == "name"
-                                              select field.Element(XName.Get("value", xmlns)).Element(XName.Get("familyName", xmlns)).Value,
-                                   Email = from field in entry.Elements(XName.Get("fields", xmlns))
-                                           where field.Element(XName.Get("type", xmlns)).Value == "email"
-                                           select field.Element(XName.Get("value", xmlns)).Value,
-                               };
+            var contacts = contactsDocument.Root.Elements(XName.Get("contact", xmlns))
+                .Select(entry => new
+                {
+                    Name = entry.Elements(XName.Get("fields", xmlns))
+                        .Where(field => field.Element(XName.Get("type", xmlns)).Value == "name")
+                        .Select(field => field.Element(XName.Get("value", xmlns)).Element(XName.Get("givenName", xmlns)).Value).FirstOrDefault(),
+                    LastName = entry.Elements(XName.Get("fields", xmlns))
+                        .Where(field => field.Element(XName.Get("type", xmlns)).Value == "name")
+                        .Select(field => field.Element(XName.Get("value", xmlns)).Element(XName.Get("familyName", xmlns)).Value).FirstOrDefault(),
+                    Email = entry.Elements(XName.Get("fields", xmlns))
+                        .Where(field => field.Element(XName.Get("type", xmlns)).Value == "email")
+                        .Select(field => field.Element(XName.Get("value", xmlns)).Value).FirstOrDefault(),
+                }).ToList();
             foreach (var contact in contacts)
             {
-                Master.AddContactInfo(contact.Name.FirstOrDefault(), contact.LastName.FirstOrDefault(), contact.Email);
+                if (String.IsNullOrEmpty(contact.Email))
+                {
+                    Master.AddContactInfo(contact.Name, contact.LastName, "");
+                }
+                else
+                {
+                    Master.AddContactInfo(contact.Name, contact.LastName, contact.Email);
+                }
             }
         }
 

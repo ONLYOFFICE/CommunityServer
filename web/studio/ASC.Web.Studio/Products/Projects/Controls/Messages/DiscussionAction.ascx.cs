@@ -25,13 +25,8 @@
 
 
 using System;
-using System.Text;
 using System.Web;
-using ASC.Core;
-using ASC.Core.Users;
-
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Web.Projects.Resources;
 
 
@@ -41,7 +36,6 @@ namespace ASC.Web.Projects.Controls.Messages
     {       
         public Project Project { get { return Page.Project; } }
         public Message Discussion { get; set; }
-        public UserInfo Author { get; set; }
         public string Text { get; set; }
         public int ProjectFolderId { get; set; }
 
@@ -50,7 +44,6 @@ namespace ASC.Web.Projects.Controls.Messages
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             Text = "";
-            Author = CoreContext.UserManager.GetUsers(Page.Participant.ID);
 
             if (Discussion != null)
             {
@@ -62,29 +55,6 @@ namespace ASC.Web.Projects.Controls.Messages
         protected string GetPageTitle()
         {
             return Discussion == null ? MessageResource.CreateDiscussion : MessageResource.EditMessage;
-        }
-
-        protected string GetDiscussionAction()
-        {
-            var innerHTML = new StringBuilder();
-            var discussionId = Discussion == null ? -1 : Discussion.ID;
-            var action = Discussion == null ? MessageResource.AddDiscussion : ProjectsCommonResource.SaveChanges;
-
-            innerHTML.AppendFormat("<a id='discussionActionButton' class='button blue big' discussionId='{0}'>{1}</a>", 
-                                    discussionId, action);
-            innerHTML.AppendFormat(" <span class=\"splitter-buttons\"></span>");
-            innerHTML.AppendFormat("<a id='discussionPreviewButton' class='button blue big {5}' authorName='{0}' authorAvatarUrl='{1}' authorTitle='{2}' authorPageUrl='{3}'>{4}</a>",
-                Author.DisplayUserName(), Author.GetBigPhotoURL(), Author.Title.HtmlEncode(), Author.GetUserProfilePageURL(), ProjectsCommonResource.Preview, string.IsNullOrEmpty(Text) ? "disable" : "");
-            innerHTML.AppendFormat(" <span class=\"splitter-buttons\"></span>");
-            innerHTML.AppendFormat("<a id='discussionCancelButton' class='button gray big'>{0}</a>",
-                                   ProjectsCommonResource.Cancel);
-
-            return innerHTML.ToString();
-        }
-
-        protected bool CanReadDiscussion(Guid id)
-        {
-            return ProjectSecurity.CanRead(Discussion, id);
         }
     }
 }

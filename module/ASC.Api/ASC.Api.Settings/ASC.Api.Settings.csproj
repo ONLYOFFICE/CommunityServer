@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Settings</RootNamespace>
     <AssemblyName>ASC.Api.Settings</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -65,13 +65,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
+    <Reference Include="MailKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -82,18 +85,26 @@
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildVersion.cs" />
+    <Compile Include="StatisticsWrapper.cs" />
+    <Compile Include="Smtp\SmtpOperation.cs" />
+    <Compile Include="Smtp\SmtpOperationStatus.cs" />
+    <Compile Include="Smtp\SmtpSettingsWrapper.cs" />
+    <Compile Include="SmtpSettingsApi.cs" />
     <Compile Include="SsoSettingsV2Api.cs" />
     <Compile Include="LdapSettingsApi.cs" />
     <Compile Include="SecurityWrapper.cs" />
-    <Compile Include="QuotaUsage.cs" />
-    <Compile Include="QuotaWrapper.cs" />
     <Compile Include="SettingsApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsWrapper.cs" />
+    <Compile Include="StorageWrapper.cs" />
     <Compile Include="TenantVersionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +148,9 @@
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj">
-      <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>
-      <Name>MailServerDal</Name>
+    <ProjectReference Include="..\..\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
@@ -152,6 +163,10 @@
     <ProjectReference Include="..\ASC.Employee\ASC.Api.Employee.csproj">
       <Project>{32adbd01-6262-48d7-a69b-0515b03db90e}</Project>
       <Name>ASC.Api.Employee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
+      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
+      <Name>ASC.Specific</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

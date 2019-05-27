@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -240,7 +241,7 @@ namespace ASC.Web.CRM.Classes
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC").ErrorFormat("SaveAdditionalInfo {0}, {1}", ex, ex.StackTrace);
+                LogManager.GetLogger("ASC").ErrorFormat("SaveAdditionalInfo {0}, {1}", ex, ex.StackTrace);
             }
         }
 

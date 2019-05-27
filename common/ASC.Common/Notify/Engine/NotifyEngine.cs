@@ -28,14 +28,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Logging;
 using ASC.Common.Notify.Patterns;
 using ASC.Notify.Channels;
 using ASC.Notify.Cron;
 using ASC.Notify.Messages;
-using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-using log4net;
 
 namespace ASC.Notify.Engine
 {
@@ -172,9 +171,14 @@ namespace ASC.Notify.Engine
                     }
 
                     var wait = min != DateTime.MaxValue ? min - DateTime.UtcNow : defaultSleep;
+
                     if (wait < defaultSleep)
                     {
                         wait = defaultSleep;
+                    }
+                    else if (wait.Ticks > Int32.MaxValue)
+                    {
+                        wait = TimeSpan.FromTicks(Int32.MaxValue);
                     }
                     methodsEvent.WaitOne(wait, false);
                 }

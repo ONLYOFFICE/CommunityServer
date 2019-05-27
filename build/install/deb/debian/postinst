@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for onlyoffice
+# postinst script for {{package_sysname}}
 #
 # see: dh_installdeb(1)
 
@@ -19,9 +19,11 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-DIR="/var/www/onlyoffice"
-LOG_DIR="/var/log/onlyoffice"
+DIR="/var/www/{{package_sysname}}"
+LOG_DIR="/var/log/{{package_sysname}}"
+APP_DATA_DIR="${DIR}/Data"
 OLD_VERSION="$2"
+NGINX_ROOT_DIR="/etc/nginx"
 
 DB_HOST=""
 DB_USER=""
@@ -29,16 +31,17 @@ DB_PWD=""
 DB_NAME=""
 
 install_db(){
-	db_get onlyoffice-communityserver/db-host || true
+	db_get {{package_sysname}}-communityserver/db-host || true
 	DB_HOST="$RET"
-	db_get onlyoffice-communityserver/db-user || true
+	db_get {{package_sysname}}-communityserver/db-user || true
 	DB_USER="$RET"
-	db_get onlyoffice-communityserver/db-pwd || true
+	db_get {{package_sysname}}-communityserver/db-pwd || true
 	DB_PWD="$RET"
-	db_get onlyoffice-communityserver/db-name || true
+	db_get {{package_sysname}}-communityserver/db-name || true
 	DB_NAME="$RET"
 
 	MYSQL="mysql -h$DB_HOST -u$DB_USER"
+	
 	if [ -n "$DB_PWD" ]; then
 		MYSQL="$MYSQL -p$DB_PWD"
 	fi
@@ -98,51 +101,47 @@ install_db(){
                         sed "s/LimitMEMLOCK.*/LimitMEMLOCK = infinity/" -i ${CNF_SERVICE_PATH} || true # ignore errors
                 fi
 
-                systemctl daemon-reload
+                systemctl daemon-reload || true
             
 	    fi
 	fi
 
 	$MYSQL -e ";" >/dev/null 2>&1 || ( service mysql start >/dev/null 2>&1 && $MYSQL -e ";" >/dev/null )
-
-        if [ "${DB_USER}" = "root" ] && [ ! "$(mysql -V | grep ' 5.5.')" ]; then
-       	   # allow MySql.Data.dll connect via mysql_native_password with root and empty password
-           $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password' WHERE user='${DB_USER}' and host='localhost'; ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PWD}';"
+		
+    if [ "${DB_USER}" = "root" ]; then
+       # allow MySql.Data.dll connect via mysql_native_password with root and empty password
+	   $MYSQL -D "mysql" -e "ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PWD}'" >/dev/null 2>&1 \
+	   || $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password', Password = PASSWORD('${DB_PWD}') WHERE user='${DB_USER}' and host='localhost';"
 	fi
 
 	service mysql restart
 
-	# hack for Debian 9 (mariadb)
-	if [ -n "${DB_PWD}" ] && [ "${DB_USER}" = "root" ] && mysql -e ";" >/dev/null 2>&1; then
-
-mysql <<EOF
-UPDATE mysql.user SET Password=PASSWORD("${DB_PWD}") WHERE User="${DB_USER}";
-FLUSH PRIVILEGES;
-EOF
-	fi
-
-	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
+	$MYSQL -e 'CREATE DATABASE IF NOT EXISTS `'$DB_NAME'` CHARACTER SET utf8 COLLATE `utf8_general_ci`;'
 
 	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
 
 	if [ "${DB_TABLES_COUNT}" -eq "0" ]; then
 	
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
-
+		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.data.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.resources.sql
+	else
+		for i in $(ls $DIR/Sql/{{package_sysname}}.upgrade*); do
+				$MYSQL "$DB_NAME" < ${i};
+		done	
 	fi
 	
-	for i in $(ls $DIR/Sql/onlyoffice.upgrade*); do
-	        $MYSQL "$DB_NAME" < ${i};
-	done
-
+	
+	if [ ! -f /proc/net/if_inet6 ]; then
+        sed '/listen\s*\[::\]:80/d' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-common-ssl.conf.template
+        sed '/listen\s*\[::\]:443/d' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-common-ssl.conf.template
+	fi
 	
 }
 
 apply_connection_string(){
-	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "onlyoffice" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
-		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
+		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 	fi
 }
 
@@ -207,52 +206,130 @@ upgrade_storage(){
 
 case "$1" in
 	configure)
-		adduser --quiet --home $DIR --system --group onlyoffice
-		usermod -aG onlyoffice,www-data onlyoffice
+	
+	
+		if ! cat /etc/passwd | grep -q "{{package_sysname}}:"; then
+			adduser --quiet --home $DIR --system --group {{package_sysname}}
+		fi
+
+		usermod -aG {{package_sysname}},www-data {{package_sysname}}
 
 		install_db
 		apply_connection_string
 
 		mkdir -p /etc/mono/registry/LocalMachine
 		mkdir -p /usr/share/.mono/keypairs
-		mkdir -p $LOG_DIR
+		mkdir -p "$LOG_DIR"
 		mkdir -p "$DIR/Data"
 		mkdir -p "$DIR/DocumentServerData"
-		mkdir -p /var/cache/nginx/onlyoffice
-		mkdir -p /var/run/onlyoffice
+		mkdir -p /var/cache/nginx/{{package_sysname}}
+		mkdir -p /var/run/{{package_sysname}}
 
 		# needed for signalr service
                 mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 
 		upgrade_storage
 
-		chown onlyoffice:onlyoffice -R $DIR
-		chown onlyoffice:onlyoffice -R $LOG_DIR
-		chown www-data:www-data -R /var/cache/nginx/onlyoffice
-		chown onlyoffice:www-data -R /var/run/onlyoffice
-		chmod g+s+w /var/run/onlyoffice
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR
+		chown {{package_sysname}}:{{package_sysname}} -R $LOG_DIR
+		chown www-data:www-data -R /var/cache/nginx/{{package_sysname}}
+		chown {{package_sysname}}:www-data -R /var/run/{{package_sysname}}
+		chmod g+s+w /var/run/{{package_sysname}}
 
-		# configure ngninx for onlyoffice
+		# configure ngninx for {{package_sysname}}
 		rm -f /etc/nginx/sites-enabled/default
-		rm -f /etc/nginx/sites-enabled/onlyoffice-apisystem
+		rm -f /etc/nginx/sites-enabled/{{package_sysname}}-apisystem
 
 		# disable apparmor mysql. need for best perfomance mysql
 		if which apparmor_parser && [ ! -f /etc/apparmor.d/disable/usr.sbin.mysqld ]; then
 			ln -sf /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
-			apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+			apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld || true
 		fi
 
-		if [ -d /etc/apport/blacklist.d ] && [ ! -f /etc/apport/blacklist.d/onlyoffice ]; then
-cat > /etc/apport/blacklist.d/onlyoffice <<END
+		if [ -d /etc/apport/blacklist.d ] && [ ! -f /etc/apport/blacklist.d/{{package_sysname}} ]; then
+cat > /etc/apport/blacklist.d/{{package_sysname}} <<END
 /usr/lib/hyperfastcgi/4.0/HyperFastCgi.exe
 /usr/lib/mono/4.5/mono-service.exe
 END
 			service apport restart
 
 		fi
+		
+		python3 -m pip install --upgrade pip
+		python3 -m pip install --upgrade requests
+		python3 -m pip install --upgrade radicale
+		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
+		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
+
+        #configure elasticsearch
+        service elasticsearch stop
+	
+       	if ! /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
+			/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment
+		fi
+        
+		mkdir -p "$LOG_DIR/Index"
+       	mkdir -p "$APP_DATA_DIR/Index"
+       	chown -R elasticsearch:elasticsearch "$APP_DATA_DIR/Index"
+       	chown -R elasticsearch:elasticsearch "$LOG_DIR/Index"
+
+		sed "/path\.data/s!path\.data.*!path\.data: ${APP_DATA_DIR}/Index/!" -i /etc/elasticsearch/elasticsearch.yml
+		sed "/path\.logs/s!path\.logs.*!path\.logs: ${LOG_DIR}/Index/!" -i /etc/elasticsearch/elasticsearch.yml
+
+		if ! grep -q "http.max_content_length" /etc/elasticsearch/elasticsearch.yml; then
+			echo "http.max_content_length: 2g" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/http.max_content_length.*/http.max_content_length: 2g/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+	
+		if ! grep -q "indices.fielddata.cache.size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "indices.fielddata.cache.size: 30%" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/indices.fielddata.cache.size.*/indices.fielddata.cache.size: 30%/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+		
+		if ! grep -q "indices.memory.index_buffer_size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "indices.memory.index_buffer_size: 30%" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/indices.memory.index_buffer_size.*/indices.memory.index_buffer_size: 30%/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+		
+		if ! grep -q "thread_pool.index.queue_size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "thread_pool.index.queue_size: 250" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/thread_pool.index.queue_size.*/thread_pool.index.queue_size: 250/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+		
+		if ! grep -q "thread_pool.write.queue_size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "thread_pool.write.queue_size: 250" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/thread_pool.write.queue_size.*/thread_pool.write.queue_size: 250/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+			
+	    CORE_COUNT=$(expr $(cat /proc/cpuinfo | grep processor | wc -l) / 2)
+
+		if [ "$CORE_COUNT" -eq "0" ]; then
+			CORE_COUNT=1;
+		fi
+		
+		if ! grep -q "thread_pool.index.size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "thread_pool.index.size: $CORE_COUNT" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/thread_pool.index.size.*/thread_pool.index.size: $CORE_COUNT/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+	
+		if ! grep -q "thread_pool.write.size" /etc/elasticsearch/elasticsearch.yml; then
+			echo "thread_pool.write.size: $CORE_COUNT" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/thread_pool.write.size.*/thread_pool.write.size: $CORE_COUNT/" /etc/elasticsearch/elasticsearch.yml 
+		fi
+		
+        service elasticsearch start
+	
 
 		sed -i '1d' /etc/logrotate.d/nginx
-                sed '1 i\/var/log/nginx/*.log /var/log/onlyoffice/nginx.*.log {' -i /etc/logrotate.d/nginx
+		sed '1 i\/var/log/nginx/*.log /var/log/{{package_sysname}}/nginx.*.log {' -i /etc/logrotate.d/nginx
+
 
 		NGINX_ROOT_DIR="/etc/nginx";
 		DOCUMENT_SERVER_PROTOCOL="http";
@@ -262,53 +339,53 @@ END
 		DOCUMENT_SERVER_JWT_ENABLED=${DOCUMENT_SERVER_JWT_ENABLED:-false};
 		DOCUMENT_SERVER_JWT_SECRET=${DOCUMENT_SERVER_JWT_SECRET:-""};
 		DOCUMENT_SERVER_JWT_HEADER=${DOCUMENT_SERVER_JWT_HEADER:-""};
-		LICENSE_FILE_PATH="/var/www/onlyoffice/Data/license.lic";
-		ONLYOFFICE_ROOT_DIR="$DIR/WebStudio";
+		LICENSE_FILE_PATH="/var/www/{{package_sysname}}/Data/license.lic";
+		APP_ROOT_DIR="$DIR/WebStudio";
 		CONTROL_PANEL_PORT_80_TCP_ADDR="localhost:8082";
-		ONLYOFFICE_SERVICES_DIR="$DIR/Services";
+		APP_SERVICES_DIR="$DIR/Services";
 		SERVICE_SSO_AUTH_HOST_ADDR="localhost";
 		SERVER_HOST="localhost";
 
-		db_get onlyoffice-communityserver/ds-jwt-enabled || true
+		db_get {{package_sysname}}-communityserver/ds-jwt-enabled || true
 
 		DOCUMENT_SERVER_JWT_ENABLED="$RET";
 
-		db_get onlyoffice-communityserver/ds-jwt-secret || true
+		db_get {{package_sysname}}-communityserver/ds-jwt-secret || true
 	
 		DOCUMENT_SERVER_JWT_SECRET="$RET";
 
-		db_get onlyoffice-communityserver/ds-jwt-secret-header || true
+		db_get {{package_sysname}}-communityserver/ds-jwt-secret-header || true
 		
 		DOCUMENT_SERVER_JWT_HEADER="$RET";
 
 		# setup enterprise
 
 		# setup document server
-		if dpkg -l | grep -q "onlyoffice-documentserver"; then
-    			cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
-    			sed 's,{{DOCUMENT_SERVER_HOST_ADDR}},'"${DOCUMENT_SERVER_PROTOCOL}:\/\/${DOCUMENT_SERVER_HOST}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
+		if dpkg -l | grep -q "{{package_sysname}}-documentserver"; then
+    			cp ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-documentserver.conf.template ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-documentserver.conf;
+    			sed 's,{{DOCUMENT_SERVER_HOST_ADDR}},'"${DOCUMENT_SERVER_PROTOCOL}:\/\/${DOCUMENT_SERVER_HOST}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-documentserver.conf;
 
     			# change web.appsettings link to editor
-    			sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
-    			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
     			
-    			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
     
-	    		sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+	    		sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
 
 				if [ "${DOCUMENT_SERVER_JWT_ENABLED}" = "true" ]; then
-	    			sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
-	    			sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+	    			sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
+	    			sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
 				fi
 		fi
 
 		# setup controlpanel
-		if dpkg -l | grep -q "onlyoffice-controlpanel"; then
-        		cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
-			sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
-			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
-			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config;
-			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
+		if dpkg -l | grep -q "{{package_sysname}}-controlpanel"; then
+        		cp ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
+			sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
+			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
+			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
+			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
 		fi
 
 		# end

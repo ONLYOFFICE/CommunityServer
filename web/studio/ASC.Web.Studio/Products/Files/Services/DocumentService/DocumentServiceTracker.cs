@@ -40,6 +40,7 @@ using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
+using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.NotifyService;
@@ -76,9 +77,11 @@ namespace ASC.Web.Files.Services.DocumentService
             public string Key;
             public MailMergeData MailMerge;
             public TrackerStatus Status;
+            public string Token;
             public string Url;
             public List<string> Users;
             public string UserData;
+            public bool Encrypted;
 
             [DebuggerDisplay("{Type} - {UserId}")]
             public class Action
@@ -161,33 +164,48 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             var users = FileTracker.GetEditingBy(fileId);
-            var usersDrop = new List<Guid>();
+            var usersDrop = new List<string>();
 
-            foreach (var user in fileData.Users)
+            File file;
+            using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                Guid userId;
-                if (!Guid.TryParse(user, out userId))
-                {
-                    Global.Logger.Error("DocService userId is not Guid: " + user);
-                    continue;
-                }
-                users.Remove(userId);
+                file = fileDao.GetFile(fileId);
+            }
 
-                try
+            var docKey = DocumentServiceHelper.GetDocKey(file);
+            if (!fileData.Key.Equals(docKey))
+            {
+                Global.Logger.InfoFormat("DocService editing file {0} ({1}) with key {2} for {3}", fileId, docKey, fileData.Key, string.Join(", ", fileData.Users));
+                usersDrop = fileData.Users;
+            }
+            else
+            {
+                foreach (var user in fileData.Users)
                 {
-                    var doc = FileShareLink.CreateKey(fileId);
-                    EntryManager.TrackEditing(fileId, userId, userId, doc);
-                }
-                catch (Exception e)
-                {
-                    Global.Logger.DebugFormat("Drop command: fileId '{0}' docKey '{1}' for user {2} : {3}", fileId, fileData.Key, user, e.Message);
-                    usersDrop.Add(userId);
+                    Guid userId;
+                    if (!Guid.TryParse(user, out userId))
+                    {
+                        Global.Logger.Error("DocService userId is not Guid: " + user);
+                        continue;
+                    }
+                    users.Remove(userId);
+
+                    try
+                    {
+                        var doc = FileShareLink.CreateKey(fileId);
+                        EntryManager.TrackEditing(fileId, userId, userId, doc);
+                    }
+                    catch (Exception e)
+                    {
+                        Global.Logger.DebugFormat("Drop command: fileId '{0}' docKey '{1}' for user {2} : {3}", fileId, fileData.Key, user, e.Message);
+                        usersDrop.Add(userId.ToString());
+                    }
                 }
             }
 
             if (usersDrop.Any())
             {
-                if (!DocumentServiceHelper.DropUser(fileData.Key, usersDrop, fileId))
+                if (!DocumentServiceHelper.DropUser(fileData.Key, usersDrop.ToArray(), fileId))
                 {
                     Global.Logger.Error("DocService drop failed for users " + string.Join(",", usersDrop));
                 }
@@ -212,6 +230,21 @@ namespace ASC.Web.Files.Services.DocumentService
                 userId = FileTracker.GetEditingBy(fileId).FirstOrDefault();
             }
 
+            File file;
+            using (var fileDao = Global.DaoFactory.GetFileDao())
+            {
+                file = fileDao.GetFile(fileId);
+            }
+
+            var docKey = DocumentServiceHelper.GetDocKey(file);
+            if (!fileData.Key.Equals(docKey))
+            {
+                Global.Logger.ErrorFormat("DocService saving file {0} ({1}) with key {2}", fileId, docKey, fileData.Key);
+
+                StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
+                return "0";
+            }
+
             try
             {
                 SecurityContext.AuthenticateMe(userId);
@@ -225,10 +258,8 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
             }
 
-            File file = null;
+            file = null;
             var saved = false;
-
-            FileTracker.Remove(fileId);
 
             if (string.IsNullOrEmpty(fileData.Url))
             {
@@ -242,6 +273,9 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         fileDao.UpdateComment(file.ID, file.Version, string.Join("; ", comments));
                     }
+
+                    file = null;
+                    Global.Logger.ErrorFormat("DocService save error. Empty url. File id: '{0}'. UserId: {1}. DocKey '{2}'", fileId, userId, fileData.Key);
                 }
                 catch (Exception ex)
                 {
@@ -250,9 +284,14 @@ namespace ASC.Web.Files.Services.DocumentService
             }
             else
             {
+                if (fileData.Encrypted)
+                {
+                    comments.Add(FilesCommonResource.CommentEditEncrypt);
+                }
+
                 try
                 {
-                    file = EntryManager.SaveEditing(fileId, null, DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), null, string.Empty, string.Join("; ", comments), false);
+                    file = EntryManager.SaveEditing(fileId, null, DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), null, string.Empty, string.Join("; ", comments), false, fileData.Encrypted);
                     saved = fileData.Status == TrackerStatus.MustSave;
                 }
                 catch (Exception ex)
@@ -262,6 +301,8 @@ namespace ASC.Web.Files.Services.DocumentService
                     StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
                 }
             }
+
+            FileTracker.Remove(fileId);
 
             if (file != null)
             {
@@ -274,9 +315,14 @@ namespace ASC.Web.Files.Services.DocumentService
 
             Global.SocketManager.FilesChangeEditors(fileId, true);
 
-            return saved
-                       ? "0" //error:0 - saved
-                       : "1"; //error:1 - some error
+            return string.Format("{{\"error\":{0}{1}}}",
+                                 saved
+                                     ? "0" //error:0 - saved
+                                     : "1", //error:1 - some error
+                                 saved && file != null && file.Encrypted
+                                     ? string.Format(",\"addresses\":[{0}]", string.Join(",", BlockchainAddress.GetAddress(file.ID.ToString())))
+                                     : string.Empty
+                );
         }
 
         private static string ProcessMailMerge(string fileId, TrackerData fileData)
@@ -392,9 +438,11 @@ namespace ASC.Web.Files.Services.DocumentService
                 NotifyClient.SendMailMergeEnd(userId, fileData.MailMerge.RecordCount, errorCount);
             }
 
-            return sended
-                       ? "0" //error:0 - sended
-                       : "1"; //error:1 - some error
+            return string.Format("{{\"error\":{0}}}",
+                                 sended
+                                     ? "0" //error:0 - sended
+                                     : "1" //error:1 - some error
+                );
         }
 
 
@@ -417,8 +465,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
                 }
 
-                using (var response = req.GetResponse())
-                using (var fileStream = new ResponseStream(response))
+                using (var fileStream = new ResponseStream(req.GetResponse()))
                 {
                     store.Save(FileConstant.StorageDomainTmp, path, fileStream);
                 }

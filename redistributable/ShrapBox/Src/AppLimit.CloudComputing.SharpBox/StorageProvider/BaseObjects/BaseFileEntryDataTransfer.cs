@@ -45,7 +45,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             {
                 if (!CanTransfer(direction, _fsEntry.Length))
                     throw new SharpBoxException(SharpBoxErrorCodes.ErrorLimitExceeded);
-                
+
                 _service.DownloadResourceContent(_session, _fsEntry, targetDataStream, progressCallback, progressContext);
             }
         }
@@ -53,10 +53,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
         public void TransferAsyncProgress(Stream targetDataStream, nTransferDirection direction, FileOperationProgressChanged progressCallback, object progressContext)
         {
             var ctx = new BaseFileEntryDataTransferAsyncContext
-                          {
-                              ProgressCallback = progressCallback,
-                              ProgressContext = progressContext
-                          };
+                {
+                    ProgressCallback = progressCallback,
+                    ProgressContext = progressContext
+                };
 
             Transfer(targetDataStream, direction, FileOperationProgressChangedAsyncHandler, ctx);
         }
@@ -90,7 +90,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             _service.UploadChunk(_session, transferSession, data, dataLength);
         }
 
-#if !WINDOWS_PHONE
         void ICloudFileDataTransfer.Serialize(System.Runtime.Serialization.IFormatter dataFormatter, object objectGraph)
         {
             using (var cache = new MemoryStream())
@@ -120,31 +119,30 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
                 return dataFormatter.Deserialize(cache);
             }
         }
-#endif
 
         #endregion
 
         #region Internal callbacks
 
-        private void FileOperationProgressChangedAsyncHandler(object sender, FileDataTransferEventArgs e)
+        private static void FileOperationProgressChangedAsyncHandler(object sender, FileDataTransferEventArgs e)
         {
             var ctx = e.CustomnContext as BaseFileEntryDataTransferAsyncContext;
 
             // define the thread
-            ThreadPool.QueueUserWorkItem((object state) =>
-                                             {
-                                                 // change the transferevent args
-                                                 var eAsync = e.Clone() as FileDataTransferEventArgs;
-                                                 ctx.ProgressCallback(sender, eAsync);
-                                             });
+            ThreadPool.QueueUserWorkItem(state =>
+                {
+                    // change the transferevent args
+                    var eAsync = e.Clone() as FileDataTransferEventArgs;
+                    ctx.ProgressCallback(sender, eAsync);
+                });
         }
 
         #endregion
 
-        private bool CanTransfer(nTransferDirection direction, long bytes, bool useChunks)
+        private bool CanTransfer(nTransferDirection direction, long bytes, bool useChunks = false)
         {
             var currentLimitss = _service.GetLimits(_session);
-            
+
             long limit;
             if (direction == nTransferDirection.nDownload)
             {
@@ -160,11 +158,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             }
 
             return limit == -1 || limit >= bytes;
-        }
-
-        private bool CanTransfer(nTransferDirection direction, long bytes)
-        {
-            return CanTransfer(direction, bytes, false);
         }
     }
 }

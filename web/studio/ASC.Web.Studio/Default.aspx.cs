@@ -32,7 +32,6 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
-using ASC.Web.Core.Mail;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -82,7 +81,7 @@ namespace ASC.Web.Studio
                     if (p.ID.Equals(defaultPageSettings.DefaultProductID))
                     {
                         var productInfo = WebItemSecurity.GetSecurityInfo(p.ID.ToString());
-                        if (productInfo.Enabled && WebItemSecurity.IsAvailableForUser(p.ID.ToString(), CurrentUser.ID))
+                        if (productInfo.Enabled && WebItemSecurity.IsAvailableForMe(p.ID))
                         {
                             var url = p.StartURL;
                             if (Request.DesktopApp())
@@ -200,20 +199,6 @@ namespace ASC.Web.Studio
                 default:
                     return Guid.Empty;
             }
-        }
-
-        protected string GetProductLabel(IWebItem product)
-        {
-            if (product.ID == WebItemManager.CRMProductID)
-                return Resource.ProductCRMAndVoIP;
-
-            if (product.ID == WebItemManager.MailProductID &&
-                SetupInfo.IsVisibleSettings("AdministrationPage") &&
-                CurrentUser.IsAdmin() &&
-                (!CoreContext.Configuration.Standalone || MailServiceHelper.IsMailServerAvailable()))
-                return Resource.AdministrationLabel;
-
-            return HttpUtility.HtmlEncode(product.Name);
         }
     }
 }

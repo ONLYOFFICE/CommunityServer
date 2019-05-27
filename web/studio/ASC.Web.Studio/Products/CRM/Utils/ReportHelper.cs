@@ -27,140 +27,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Web;
-using ASC.Common.Caching;
-using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
 using ASC.Core.Tenants;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Files.Services.DocumentService;
-using ASC.Web.Studio.Utility;
 using Autofac;
-using log4net;
 using Newtonsoft.Json;
 
 namespace ASC.Web.CRM.Classes
 {
     public class ReportHelper
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ReportHelper));
-
-        private const string TmpFileName = "tmp.xlsx";
-
-        private static Timer _timer;
-
-        private static readonly ICache Cache = AscCache.Default;
-
-        private static readonly object Locker = new object();
-
-        private static readonly IDictionary<string, ReportTaskState> Queue = new Dictionary<string, ReportTaskState>();
-
-        private static string GetCacheKey()
-        {
-            return String.Format("{0}_{1}", TenantProvider.CurrentTenantID, SecurityContext.CurrentAccount.ID);
-        }
-
-        private static void ParseCacheKey(string key, out int tenantId, out Guid userId)
-        {
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("key");
-
-            tenantId = 0;
-            userId = Guid.Empty;
-
-            var parts = key.Split('_');
-
-            if (parts.Length < 2)
-                throw new ArgumentException("key");
-
-            int.TryParse(parts[0], out tenantId);
-
-            Guid.TryParse(parts[1], out userId);
-        }
-
-        private static ReportTaskState GetCacheValue()
-        {
-            return Cache.Get<ReportTaskState>(GetCacheKey());
-        }
-
-        private static void SetCacheValue(ReportTaskState value)
-        {
-            Cache.Insert(value.Id, value, TimeSpan.FromMinutes(5));
-        }
-
-        private static void ClearCacheValue(string key)
-        {
-            Cache.Remove(key);
-        }
-
-        private static void InsertItem(ReportTaskState value)
-        {
-            lock (Locker)
-            {
-                if (Queue.ContainsKey(value.Id))
-                    return;
-
-                Queue.Add(value.Id, value);
-
-                RunTimer(0);
-            }
-        }
-
-        private static void RunTimer(int dueTime)
-        {
-            if (_timer == null)
-                _timer = new Timer(TimerCallback, null, dueTime, Timeout.Infinite);
-            else
-                _timer.Change(dueTime, Timeout.Infinite);
-        }
-
-        private static void TimerCallback(object obj)
-        {
-            lock (Locker)
-            {
-                var keys = Queue.Keys.ToList();
-
-                foreach (var key in keys)
-                {
-                    try
-                    {
-                        Dictionary<string, string> urls;
-                        var builderKey = DocumentServiceConnector.DocbuilderRequest(Queue[key].BuilderKey, null, true, out urls);
-
-                        if (builderKey == null)
-                            throw new Exception(CRMReportResource.ErrorNullDocbuilderResponse);
-
-                        Queue[key].BuilderKey = builderKey;
-                        SetCacheValue(Queue[key]);
-
-                        if (urls != null && urls.ContainsKey(TmpFileName))
-                        {
-                            SaveReportFile(Queue[key], urls[TmpFileName]);
-                            Queue.Remove(key);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Queue[key].IsCompleted = true;
-                        Queue[key].Percentage = 100;
-                        Queue[key].Status = ReportTaskStatus.Failed;
-                        Queue[key].ErrorText = ex.Message;
-                        SetCacheValue(Queue[key]);
-                        Queue.Remove(key);
-                    }
-                }
-
-                if (Queue.Any())
-                    RunTimer(1000);
-            }
-        }
-
         private static string GetFileName(ReportType reportType)
         {
             string reportName;
@@ -290,7 +170,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        private static string GetReportScript(object data, ReportType type)
+        private static string GetReportScript(object data, ReportType type, string fileName)
         {
             var script =
                 FileHelper.ReadTextFromEmbeddedResource(string.Format("ASC.Web.CRM.ReportTemplates.{0}.docbuilder", type));
@@ -298,43 +178,12 @@ namespace ASC.Web.CRM.Classes
             if (string.IsNullOrEmpty(script))
                 throw new Exception(CRMReportResource.BuildErrorEmptyDocbuilderTemplate);
 
-            return script.Replace("${outputFilePath}", TmpFileName)
+            return script.Replace("${outputFilePath}", fileName)
                          .Replace("${reportData}", JsonConvert.SerializeObject(data));
         }
 
-        public static ReportTaskState GetCurrentState()
+        private static void SaveReportFile(ReportState state, string url)
         {
-            var state = GetCacheValue();
-
-            if (state != null && (state.IsCompleted || !string.IsNullOrEmpty(state.ErrorText)))
-                ClearCacheValue(state.Id);
-
-            return state;
-        }
-
-        public static void Terminate()
-        {
-            lock (Locker)
-            {
-                var key = GetCacheKey();
-
-                if (Queue.ContainsKey(key))
-                    Queue.Remove(key);
-
-                ClearCacheValue(key);
-            }
-        }
-
-        private static void SaveReportFile(ReportTaskState state, string url)
-        {
-            int tenantId;
-            Guid userId;
-
-            ParseCacheKey(state.Id, out tenantId, out userId);
-
-            CoreContext.TenantManager.SetCurrentTenant(tenantId);
-            SecurityContext.AuthenticateMe(userId);
-
             using (var scope = DIHelper.Resolve())
             {
                 var daoFactory = scope.Resolve<DaoFactory>();
@@ -351,167 +200,29 @@ namespace ASC.Web.CRM.Classes
 
                     var file = daoFactory.FileDao.SaveFile(document, stream);
 
-                    daoFactory.ReportDao.SaveFile((int)file.ID, (int)state.ReportType);
-
-                    state.Percentage = 100;
-                    state.IsCompleted = true;
-                    state.Status = ReportTaskStatus.Done;
+                    daoFactory.ReportDao.SaveFile((int)file.ID, state.ReportType);
                     state.FileId = (int)file.ID;
-
-                    SetCacheValue(state);
                 }
             }
         }
 
-        private static void GenareteReport(ReportTaskState state, ReportType reportType, ReportTimePeriod timePeriod,
-                                           Guid[] managers)
+        public static ReportState RunGenareteReport(ReportType reportType, ReportTimePeriod timePeriod, Guid[] managers)
         {
-            state.Status = ReportTaskStatus.Started;
-            state.Percentage = 10;
-            SetCacheValue(state);
-
             var reportData = GetReportData(reportType, timePeriod, managers);
+            if (reportData == null)
+                throw new Exception(CRMReportResource.ErrorNullReportData);
 
-            if (reportData != null)
-            {
-                state.Percentage = 50;
-            }
-            else
-            {
-                state.Percentage = 100;
-                state.IsCompleted = true;
-                state.ErrorText = CRMReportResource.ErrorNullReportData;
-                state.Status = ReportTaskStatus.Failed;
-            }
+            var tmpFileName = DocbuilderReportsUtility.TmpFileName;
 
-            SetCacheValue(state);
+            var script = GetReportScript(reportData, reportType, tmpFileName);
+            if (string.IsNullOrEmpty(script))
+                throw new Exception(CRMReportResource.ErrorNullReportScript);
 
-            if (state.Status == ReportTaskStatus.Failed) return;
+            var state = new ReportState(GetFileName(reportType), tmpFileName,  script, (int)reportType, ReportOrigin.CRM, SaveReportFile, null);
 
-            var script = GetReportScript(reportData, reportType);
-
-            if (!string.IsNullOrEmpty(script))
-            {
-                state.Percentage = 60;
-            }
-            else
-            {
-                state.Percentage = 100;
-                state.IsCompleted = true;
-                state.ErrorText = CRMReportResource.ErrorNullReportScript;
-                state.Status = ReportTaskStatus.Failed;
-            }
-
-            SetCacheValue(state);
-
-            if (state.Status == ReportTaskStatus.Failed) return;
-
-            try
-            {
-                Dictionary<string, string> urls;
-                state.BuilderKey = DocumentServiceConnector.DocbuilderRequest(null, script, true, out urls);
-
-                state.Percentage = 80;
-            }
-            catch (Exception ex)
-            {
-                state.Percentage = 100;
-                state.IsCompleted = true;
-                state.ErrorText = ex.Message;
-                state.Status = ReportTaskStatus.Failed;
-            }
-
-            SetCacheValue(state);
-
-            if (state.Status == ReportTaskStatus.Failed) return;
-
-            InsertItem(state);
-        }
-
-        private static void StartGenareteReport(object parameter)
-        {
-            try
-            {
-                var obj = (ReportTaskParameters)parameter;
-
-                if (HttpContext.Current == null && !WorkContext.IsMono)
-                {
-                    HttpContext.Current = new HttpContext(
-                        new HttpRequest("hack", obj.Url, string.Empty),
-                        new HttpResponse(new StringWriter()));
-                }
-
-                CoreContext.TenantManager.SetCurrentTenant(obj.TenantId);
-                SecurityContext.AuthenticateMe(obj.CurrentUser);
-
-                var user = CoreContext.UserManager.GetUsers(obj.CurrentUser);
-
-                if (user != null && !string.IsNullOrEmpty(user.CultureName))
-                {
-                    var culture = user.GetCulture();
-                    Thread.CurrentThread.CurrentCulture = culture;
-                    Thread.CurrentThread.CurrentUICulture = culture;
-                }
-
-                GenareteReport(obj.TaskState, obj.ReportType, obj.TimePeriod, obj.Managers);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-
-                var state = GetCacheValue();
-
-                state.Percentage = 100;
-                state.IsCompleted = true;
-                state.Status = ReportTaskStatus.Failed;
-                state.ErrorText = ex.Message;
-
-                SetCacheValue(state);
-            }
-        }
-
-        public static ReportTaskState RunGenareteReport(ReportType reportType, ReportTimePeriod timePeriod,
-                                                        Guid[] managers)
-        {
-            var state = new ReportTaskState
-                {
-                    Id = GetCacheKey(),
-                    Status = ReportTaskStatus.Queued,
-                    ReportType = reportType,
-                    Percentage = 0,
-                    IsCompleted = false,
-                    ErrorText = null,
-                    FileName = GetFileName(reportType),
-                    FileId = 0
-                };
-
-            SetCacheValue(state);
-
-            var th = new Thread(StartGenareteReport);
-
-            th.Start(new ReportTaskParameters
-                {
-                    TaskState = state,
-                    TenantId = TenantProvider.CurrentTenantID,
-                    CurrentUser = SecurityContext.CurrentAccount.ID,
-                    ReportType = reportType,
-                    TimePeriod = timePeriod,
-                    Managers = managers,
-                    Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
-                });
+            DocbuilderReportsUtility.Enqueue(state);
 
             return state;
-        }
-
-        private class ReportTaskParameters
-        {
-            public ReportTaskState TaskState { get; set; }
-            public int TenantId { get; set; }
-            public Guid CurrentUser { get; set; }
-            public ReportType ReportType { get; set; }
-            public ReportTimePeriod TimePeriod { get; set; }
-            public Guid[] Managers { get; set; }
-            public string Url { get; set; }
         }
     }
 }

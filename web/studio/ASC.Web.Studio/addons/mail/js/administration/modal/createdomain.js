@@ -27,7 +27,7 @@
 window.createDomainModal = (function($) {
     var requireDnsInfo;
     var firstStep = 1;
-    var lastStep = 5;
+    var lastStep = ASC.Resources.Master.Standalone ? 4 : 5;
     var domainName = '';
     var domainOwnershipIsProved = false;
 
@@ -42,8 +42,10 @@ window.createDomainModal = (function($) {
         var html = $.tmpl('createDomainWizardTmpl',
         {
             step: step,
+            total: lastStep,
             require_dns_info: requireDnsInfo,
-            domain_name: domainName
+            domain_name: domainName,
+            tplName: 'domainWizardStep' + (ASC.Resources.Master.Standalone && step !== firstStep ? step + 1 : step)
         });
 
         $(html).find('.next').unbind('click').bind('click', function() {
@@ -53,7 +55,7 @@ window.createDomainModal = (function($) {
 
             if (step == firstStep) {
                 checkDomainExistance();
-            } else if (step == firstStep + 1) {
+            } else if (step == firstStep + 1 && !ASC.Resources.Master.Standalone) {
                 checkDomainOwnership();
             } else if (step == lastStep) {
                 addDomain();
@@ -105,7 +107,8 @@ window.createDomainModal = (function($) {
             }
         });
 
-        PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_create_domain_wizard:visible .next').trigger('click');";
+        PopupKeyUpActionProvider.ClearActions();
+        PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_create_domain_wizard:visible .next').click();";
     }
 
     function checkDomainExistance() {

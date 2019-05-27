@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.CRM</RootNamespace>
     <AssemblyName>ASC.Api.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -57,10 +57,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -142,10 +142,6 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
       <Name>ASC.Web.CRM</Name>
@@ -157,6 +153,10 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
       <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
       <Name>ASC.Web.Projects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
+      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
+      <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>

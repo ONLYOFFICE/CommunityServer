@@ -7,7 +7,7 @@
   <xsl:template match="third_partyList">
     <xsl:for-each select="entry">
       <div class="borderBase account-row">
-        <xsl:attribute name="id">account_<xsl:value-of select="provider_key"/>_<xsl:value-of select="provider_id"/></xsl:attribute>
+        <xsl:attribute name="id">account_<xsl:value-of select="provider_id"/></xsl:attribute>
         <div class="account-header-container">
           <xsl:if test="isNew = 'false'">
             <div class="menu-small">

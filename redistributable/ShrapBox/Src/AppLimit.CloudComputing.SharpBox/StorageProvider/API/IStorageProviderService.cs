@@ -40,10 +40,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// Requests all resource information via webcall
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>
+        /// <param name="name"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent);
+        ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent);
 
         /// <summary>
         /// This method refreshes the metadata of an resource
@@ -56,10 +56,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// Creates or updates a resource via webcall 
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>
+        /// <param name="name"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent);
+        ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent);
 
         /// <summary>
         /// Removes a specific resource from the web location
@@ -85,8 +85,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// <param name="fsentry"></param>
         /// <param name="newParent"></param>
         /// <returns></returns>
-        Boolean CopyResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry,
-                             ICloudDirectoryEntry newParent);
+        Boolean CopyResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent);
 
         /// <summary>
         /// Renames a give resource
@@ -143,9 +142,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         /// </summary>
         /// <param name="session"></param>
         /// <param name="fileSystemEntry"></param>
-        /// <param name="Direction"></param>
-        /// <param name="NotDisposedStream"></param>
-        void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream);
+        /// <param name="direction"></param>
+        /// <param name="notDisposedStream"></param>
+        void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream);
 
         /// <summary>
         /// This interface implements the upload code
@@ -167,8 +166,6 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.API
         Stream CreateUploadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long uploadSize);
 
         bool SupportsDirectRetrieve { get; }
-
-
 
         bool SupportsChunking { get; }
 

@@ -59,16 +59,13 @@ namespace ASC.Web.Mail
                 var code = Request["code"];
                 if (string.IsNullOrEmpty(code))
                 {
-                    OAuth20TokenHelper.RequestCode(HttpContext.Current,
-                                                   GoogleLoginProvider.GoogleOauthCodeUrl,
-                                                   GoogleLoginProvider.GoogleOAuth20ClientId,
-                                                   GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                   string.Concat(GoogleLoginProvider.GoogleScopeMail, " ", GoogleLoginProvider.GoogleScopeProfile),
-                                                   new Dictionary<string, string>
-                                                   {
-                                                       { "access_type", "offline" },
-                                                       { "approval_prompt", "force" }
-                                                   });
+                    OAuth20TokenHelper.RequestCode<GoogleLoginProvider>(HttpContext.Current,
+                                                                        string.Concat(GoogleLoginProvider.GoogleScopeMail, " ", GoogleLoginProvider.Instance.Scopes),
+                                                                        new Dictionary<string, string>
+                                                                            {
+                                                                                { "access_type", "offline" },
+                                                                                { "prompt", "consent" }
+                                                                            });
                 }
                 else
                 {

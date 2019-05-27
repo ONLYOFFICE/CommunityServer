@@ -43,7 +43,7 @@ namespace ASC.Web.Core.Mail
     {
         public const string ConnectionStringFormat = "Server={0};Database={1};User ID={2};Password={3};Pooling=True;Character Set=utf8";
         public const string MailServiceDbId = "mailservice";
-        public const string DefaultDatabase = "onlyoffice_mailserver";
+        public static readonly string DefaultDatabase = GetDefaultDatabase();
         public const string DefaultUser = "mail_admin";
         public const string DefaultPassword = "Isadmin123";
         public const string DefaultProtocol = "http";
@@ -53,6 +53,11 @@ namespace ASC.Web.Core.Mail
         private static readonly ICache Cache = AscCache.Default;
         private const string CacheKey = "mailserverinfo";
 
+        private static string GetDefaultDatabase()
+        {
+            var value = ConfigurationManager.AppSettings["mail.database-name"];
+            return string.IsNullOrEmpty(value) ? "onlyoffice_mailserver" : value;
+        }
 
         private static DbManager GetDb()
         {

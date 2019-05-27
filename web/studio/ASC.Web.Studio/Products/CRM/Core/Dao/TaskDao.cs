@@ -28,16 +28,18 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
-using ASC.FullTextIndex;
-using System.Text.RegularExpressions;
-using log4net;
+
+using ASC.ElasticSearch;
+using ASC.Web.CRM.Core.Search;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -299,19 +301,19 @@ namespace ASC.CRM.Core.Dao
 
                 if (keywords.Length > 0)
                 {
-                    var modules = SearchDao.GetFullTextSearchModule(EntityType.Task, searchText);
-                    if (FullTextSearch.SupportModule(modules))
+                    List<int> tasksIds;
+                    if (!FactoryIndexer<TasksWrapper>.TrySelectIds(s => s.MatchAll(searchText), out tasksIds))
                     {
-                        var taskIDs = FullTextSearch.Search(modules);
-
-                        if (taskIDs.Any())
-                            sqlQuery.Where(Exp.In(taskTableAlias + ".id", taskIDs));
+                        sqlQuery.Where(BuildLike(new[] {taskTableAlias + ".title", taskTableAlias + ".description"}, keywords));
+                    }
+                    else
+                    {
+                        if (tasksIds.Any())
+                            sqlQuery.Where(Exp.In(taskTableAlias + ".id", tasksIds));
                         else
                             return new List<Task>();
                     }
-                    else
-                        sqlQuery.Where(BuildLike(new[] {taskTableAlias + ".title", taskTableAlias + ".description"},
-                                                 keywords));
+
                 }
             }
 
@@ -836,6 +838,7 @@ namespace ASC.CRM.Core.Dao
                                 .Where(Exp.Eq("id", newTask.ID)));
             }
 
+            FactoryIndexer<TasksWrapper>.IndexAsync(newTask);
             return newTask;
         }
 
@@ -851,7 +854,7 @@ namespace ASC.CRM.Core.Dao
                 newTask.CategoryID == 0)
                 throw new ArgumentException();
 
-             return Db.ExecuteScalar<int>(
+             var result = Db.ExecuteScalar<int>(
                                Insert("crm_task")
                               .InColumnValue("id", 0)
                               .InColumnValue("title", newTask.Title)
@@ -869,6 +872,11 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
                               .InColumnValue("alert_value", (int)newTask.AlertValue)
                               .Identity(1, 0, true));
+
+            newTask.ID = result;
+            FactoryIndexer<TasksWrapper>.IndexAsync(newTask);
+
+            return result;
         }
 
         public virtual int[] SaveTaskList(List<Task> items)
@@ -900,6 +908,7 @@ namespace ASC.CRM.Core.Dao
             Db.ExecuteNonQuery(Delete("crm_task").Where("id", taskID));
 
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
+            FactoryIndexer<TasksWrapper>.DeleteAsync(task);
         }
 
         public List<Task> CreateByTemplate(List<TaskTemplate> templateItems, EntityType entityType, int entityID)

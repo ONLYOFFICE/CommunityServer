@@ -28,6 +28,7 @@ using System;
 using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Core.Common.Settings;
+using ASC.Web.Core.Sms;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.SMS
@@ -66,13 +67,11 @@ namespace ASC.Web.Studio.Core.SMS
             get
             {
                 var quota = TenantExtra.GetTenantQuota();
-                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>()
-                       && (CoreContext.Configuration.Standalone
-                           || ((!quota.Trial
-                                || SetupInfo.SmsTrial)
-                               && !quota.NonProfit
-                               && !quota.Free
-                               && !quota.Open));
+                return CoreContext.Configuration.Standalone
+                       || ((!quota.Trial || SetupInfo.SmsTrial)
+                           && !quota.NonProfit
+                           && !quota.Free
+                           && !quota.Open);
             }
         }
     }

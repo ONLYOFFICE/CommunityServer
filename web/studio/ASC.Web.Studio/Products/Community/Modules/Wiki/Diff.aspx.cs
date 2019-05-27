@@ -67,6 +67,8 @@ namespace ASC.Web.Community.Wiki
             {
                 FindDiff();
             }
+
+            cmdCancel.Text = WikiResource.cmdCancel;
         }
 
         private void FindDiff()
@@ -144,6 +146,11 @@ namespace ASC.Web.Community.Wiki
                 sb.Append(" class=\"" + typ + "\"");
             }
             sb.AppendFormat(@">{0}</span>", Server.HtmlEncode(aText).Replace("\r", "").Replace(" ", "&nbsp;"));
+        }
+
+        protected void cmdCancel_Click(object sender, EventArgs e)
+        {
+            Response.RedirectLC(ActionHelper.GetViewPagePath(this.ResolveUrlLC("PageHistoryList.aspx"), PageNameUtil.Decode(WikiPage)), this);
         }
     }
 }

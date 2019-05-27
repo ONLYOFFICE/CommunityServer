@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -26,10 +26,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Feed.Data;
 using ASC.Web.Core;
 
 namespace ASC.Feed.Aggregator.Modules
@@ -106,7 +108,20 @@ namespace ASC.Feed.Aggregator.Modules
 
         public virtual bool VisibleFor(Feed feed, object data, Guid userId)
         {
-            return WebItemSecurity.IsAvailableForUser(ProductID.ToString(), userId);
+            return WebItemSecurity.IsAvailableForUser(ProductID, userId);
+        }
+
+        public virtual void VisibleFor(List<Tuple<FeedRow, object>> feed, Guid userId)
+        {
+            if (!WebItemSecurity.IsAvailableForUser(ProductID, userId)) return;
+
+            foreach (var tuple in feed)
+            {
+                if (VisibleFor(tuple.Item1.Feed, tuple.Item2, userId))
+                {
+                    tuple.Item1.Users.Add(userId);
+                }
+            }
         }
 
 

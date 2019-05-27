@@ -1,28 +1,14 @@
-﻿<script id="docAttachTmpl" type="text/x-jquery-tmpl">
-    {{if type=='folder'}}
-        <li title='${title}' onclick='DocumentsPopup.openFolder("${id}");' id='${id}'>
-            <span class='ftFolder_21 folder'>${title}</span>
-        </li>
-    {{else}}
-            <li title='${title} (${size_string})' onclick='DocumentsPopup.selectFile("${id}");'>
-                <input type='checkbox' onclick='DocumentsPopup.selectFile("${id}");' version='${version}' access='${access}' id='${id}' size='${size}'/>
-                <label class="${exttype}"><a href="${webUrl}" class="link" target="_blank">${title}</a></label>
-                <span {{if access == ASC.Files.Constants.AceStatusEnum.None || access == ASC.Files.Constants.AceStatusEnum.ReadWrite}}class="share-allow" title="${ASC.Mail.Resources.MailResource.PublicShareAllowTitle}"{{else}}class="share-deny"  title="${ASC.Mail.Resources.MailResource.PublicShareDenyTitle}"{{/if}}></span>
-            </li>
-    {{/if}}
-</script>
-
-<script id="messageFileLink" type="text/x-jquery-tmpl">
+﻿<script id="messageFileLink" type="text/x-jquery-tmpl">
     <div dir="ltr">
         <div contenteditable="false" data-fileid="${id}" class="mailmessage-filelink" style="width: 350px; height: 27px; max-height: 27px; 
             background-color: #f2f2f2; color: #333; font-family: arial; font-style:normal; font-weight: normal; font-size: 12px; cursor: default; margin-bottom: 10px;">
-            <a href="${webUrl}" title="${fileName + ext}" target="_blank" data-fileid="${id}" class="mailmessage-filelink-link" style="display: inline-block; 
+            <a href="${fileUrl}" title="${fileName + ext}" target="_blank" data-fileid="${id}" class="mailmessage-filelink-link" style="display: inline-block; 
                 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-decoration: none; border: none; width: 310px; 
                 cursor: pointer; height: 25px; color: #333;">
                 <img style="vertical-align: bottom; border: none; cursor: pointer; margin: 3px 0 0 3px; width: 21px; height: 21px; display: inline-block; float: left;" src="${TMMail.getFileIconByExt(ext)}" />
                 <span style="display: inline-block; margin: 7px 0 0 3px;">
                     <span style="max-width: 260px; text-decoration:none; display:inline-block;" class="file-name">${fileName}</span>
-                    <span style="text-decoration:none; color:#a2a2a2; margin-left:-3px; display:inline-block;">${ext}</span>
+                    <span style="text-decoration:none; color:#a2a2a2; display:inline-block;">${ext}</span>
                 </span>
             </a>
             <div class="delete-btn"></div>
@@ -55,18 +41,13 @@
         <div class="header">${ASC.Mail.Resources.MailResource.SharingSettingForFileLinks_Header}</div>
         
         <div class="radiobox-switcher">
-            <label for="shareReadFileLinks" class="radiobox">
-                <input id="shareReadFileLinks" name="shareFileLinksAccessSelector" type="radio" checked="checked" value="${ASC.Files.Constants.AceStatusEnum.Read}" />
-                ${ASC.Mail.Resources.MailResource.ReadOnly}
-            </label>
-            <label for="shareReadWriteFileLinks" class="radiobox">
-                <input id="shareReadWriteFileLinks" name="shareFileLinksAccessSelector" type="radio" value="${ASC.Files.Constants.AceStatusEnum.ReadWrite}" />
-                ${ASC.Mail.Resources.MailResource.FullAccess}
-            </label>
-            <label for="shareReviewFileLinks" class="radiobox">
-                <input id="shareReviewFileLinks" name="shareFileLinksAccessSelector" type="radio" value="${ASC.Files.Constants.AceStatusEnum.Review}" />
-                ${ASC.Mail.Resources.MailResource.Review}
-            </label>
+            <select id="shareFileLinksAccessSelector">
+                <option value="${ASC.Files.Constants.AceStatusEnum.ReadWrite}">${ASC.Mail.Resources.MailResource.FullAccess}</option>
+                <option value="${ASC.Files.Constants.AceStatusEnum.Review}">${ASC.Mail.Resources.MailResource.Review}</option>
+                <option value="${ASC.Files.Constants.AceStatusEnum.FillForms}">${ASC.Mail.Resources.MailResource.FillForms}</option>
+                <option value="${ASC.Files.Constants.AceStatusEnum.Comment}">${ASC.Mail.Resources.MailResource.Comment}</option>
+                <option value="${ASC.Files.Constants.AceStatusEnum.Read}" selected >${ASC.Mail.Resources.MailResource.ReadOnly}</option>
+            </select>
         </div>
 
         <div class="description">${ASC.Mail.Resources.MailResource.SharingSettingForFileLinks_Body}</div>

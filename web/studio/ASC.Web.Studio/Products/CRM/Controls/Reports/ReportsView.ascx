@@ -49,30 +49,5 @@
 
     <% } %>
 
-    <div id="bottomLoaderPanel" class="progress-dialog-container">
-        <div id="reportProgressDialog" class="progress-dialog">
-            <div class="progress-dialog-header">
-                <a class="actions-container close" title="<%= CRMCommonResource.Cancel %>">&times;</a>
-                <span id="reportProgressDialogHeader"><%= CRMReportResource.ReportBuilding %></span>
-            </div>
-            <div class="progress-dialog-body">
-                <div class="reports-container">
-                    <table id="reportsTable" class="tableBase" cellspacing="0" cellpadding="5">
-                        <colgroup>
-                            <col class="rp-width-icon" />
-                            <col />
-                            <col class="rp-width-progress" />
-                            <col class="rp-width-action" />
-                        </colgroup>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div>
-                    <%= string.Format(CRMReportResource.ReportBuildingInfo, "<a class='link underline' href='reports.aspx'>", "</a>")  %>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 

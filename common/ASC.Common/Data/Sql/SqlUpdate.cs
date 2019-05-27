@@ -35,6 +35,7 @@ namespace ASC.Common.Data.Sql
     public class SqlUpdate : ISqlInstruction
     {
         private readonly List<string> expressions = new List<string>();
+        private readonly List<JoinInfo> joins = new List<JoinInfo>();
         private readonly Dictionary<string, object> sets = new Dictionary<string, object>();
         private readonly SqlIdentifier table;
         private Exp where = Exp.Empty;
@@ -49,7 +50,26 @@ namespace ASC.Common.Data.Sql
         public string ToString(ISqlDialect dialect)
         {
             var sql = new StringBuilder();
-            sql.AppendFormat("update {0} set ", table.ToString(dialect));
+
+            if (0 < joins.Count)
+            {
+                sql.AppendFormat("update {0}", table.ToString(dialect));
+
+                foreach (var join in joins)
+                {
+                    if (@join.JoinType == SqlJoin.Inner) sql.Append(" inner join ");
+                    if (@join.JoinType == SqlJoin.LeftOuter) sql.Append(" left outer join ");
+                    if (@join.JoinType == SqlJoin.RightOuter) sql.Append(" right outer join ");
+                    sql.AppendFormat("{0} on {1}", @join.With.ToString(dialect), @join.On.ToString(dialect));
+                }
+
+                sql.Append(" set ");
+            }
+            else
+            {
+                sql.AppendFormat("update {0} set ", table.ToString(dialect));
+            }
+
             foreach (var set in sets)
             {
                 sql.AppendFormat("{0} = {1}, ", set.Key, set.Value is ISqlInstruction ? ((ISqlInstruction)set.Value).ToString(dialect) : "?");
@@ -63,6 +83,12 @@ namespace ASC.Common.Data.Sql
         public object[] GetParameters()
         {
             var parameters = new List<object>();
+            foreach (var join in joins)
+            {
+                parameters.AddRange(@join.With.GetParameters());
+                parameters.AddRange(@join.On.GetParameters());
+            }
+
             foreach (object parameter in sets.Values)
             {
                 if (parameter is ISqlInstruction)
@@ -79,6 +105,27 @@ namespace ASC.Common.Data.Sql
         }
 
         #endregion
+
+        private SqlUpdate Join(SqlJoin join, ISqlInstruction instruction, Exp on)
+        {
+            joins.Add(new JoinInfo(join, instruction, on));
+            return this;
+        }
+
+        public SqlUpdate InnerJoin(string tableName, Exp on)
+        {
+            return Join(SqlJoin.Inner, new SqlIdentifier(tableName), on);
+        }
+
+        public SqlUpdate LeftOuterJoin(string tableName, Exp on)
+        {
+            return Join(SqlJoin.LeftOuter, new SqlIdentifier(tableName), on);
+        }
+
+        public SqlUpdate RightOuterJoin(string tableName, Exp on)
+        {
+            return Join(SqlJoin.RightOuter, new SqlIdentifier(tableName), on);
+        }
 
         public SqlUpdate Set(string expression)
         {
@@ -106,6 +153,27 @@ namespace ASC.Common.Data.Sql
         public override string ToString()
         {
             return ToString(SqlDialect.Default);
+        }
+
+        private class JoinInfo
+        {
+            public SqlJoin JoinType { get; private set; }
+            public Exp On { get; private set; }
+            public ISqlInstruction With { get; private set; }
+
+            public JoinInfo(SqlJoin joinType, ISqlInstruction with, Exp on)
+            {
+                With = with;
+                JoinType = joinType;
+                On = on;
+            }
+        }
+
+        private enum SqlJoin
+        {
+            LeftOuter,
+            RightOuter,
+            Inner
         }
     }
 }

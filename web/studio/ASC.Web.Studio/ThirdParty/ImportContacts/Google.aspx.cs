@@ -47,14 +47,14 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
 
         public static bool Enable
         {
-            get { return !(string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId) || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientSecret) || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20RedirectUrl)); }
+            get { return GoogleLoginProvider.Instance.IsEnabled; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                var token = GoogleLoginProvider.Auth(HttpContext.Current, GoogleLoginProvider.GoogleScopeContacts);
+                var token = GoogleLoginProvider.Instance.Auth(HttpContext.Current);
 
                 ImportContacts(token);
                 Master.SubmitContacts();
@@ -74,14 +74,15 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
             var doc = RequestContacts(token);
 
             //selecting from xdocument
-            var contacts = from e in doc.Root.Elements("{http://www.w3.org/2005/Atom}entry")
-                           select new
-                               {
-                                   Name = e.Element("{http://www.w3.org/2005/Atom}title").Value,
-                                   Email = from a in e.Elements("{http://schemas.google.com/g/2005}email")
-                                           where a.Attribute("address") != null
-                                           select a.Attribute("address").Value
-                               };
+            var contacts = doc.Root.Elements("{http://www.w3.org/2005/Atom}entry")
+                .Select(e => new
+                {
+                    Name = e.Element("{http://www.w3.org/2005/Atom}title").Value,
+                    Email = e.Elements("{http://schemas.google.com/g/2005}email")
+                        .Where(a => a.Attribute("address") != null)
+                        .Select(a => a.Attribute("address").Value)
+                        .FirstOrDefault()
+                }).ToList();
             foreach (var contact in contacts)
             {
                 Master.AddContactInfo(contact.Name, contact.Email);

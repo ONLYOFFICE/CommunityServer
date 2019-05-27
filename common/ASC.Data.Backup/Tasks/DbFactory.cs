@@ -31,6 +31,7 @@ using System.Data.Common;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using ASC.Data.Backup.Utils;
+using MySql.Data.MySqlClient;
 
 namespace ASC.Data.Backup.Tasks
 {
@@ -44,7 +45,7 @@ namespace ASC.Data.Backup.Tasks
         private ConnectionStringSettings connectionStringSettings;
         private DbProviderFactory dbProviderFactory;
 
-        private ConnectionStringSettings ConnectionStringSettings
+        internal ConnectionStringSettings ConnectionStringSettings
         {
             get
             {
@@ -88,7 +89,7 @@ namespace ASC.Data.Backup.Tasks
             this.connectionStringName = connectionStringName;
         }
 
-        public IDbConnection OpenConnection()
+        public DbConnection OpenConnection()
         {
             var connection = DbProviderFactory.CreateConnection();
             if (connection != null)
@@ -101,10 +102,15 @@ namespace ASC.Data.Backup.Tasks
 
         public IDbDataAdapter CreateDataAdapter()
         {
-            return DbProviderFactory.CreateDataAdapter();
+            var result = DbProviderFactory.CreateDataAdapter();
+            if (result == null && DbProviderFactory is MySqlClientFactory)
+            {
+                result = new MySqlDataAdapter();
+            }
+            return result;
         }
 
-        public IDbCommand CreateLastInsertIdCommand()
+        public DbCommand CreateLastInsertIdCommand()
         {
             var command = DbProviderFactory.CreateCommand();
             if (command != null)
@@ -115,7 +121,7 @@ namespace ASC.Data.Backup.Tasks
             return command;
         }
 
-        public IDbCommand CreateShowColumnsCommand(string tableName)
+        public DbCommand CreateShowColumnsCommand(string tableName)
         {
             var command = DbProviderFactory.CreateCommand();
             if (command != null)

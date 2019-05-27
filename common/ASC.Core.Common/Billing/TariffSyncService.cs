@@ -24,21 +24,21 @@
 */
 
 
-using ASC.Common.Module;
-using ASC.Core.Data;
-using ASC.Core.Tenants;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Logging;
+using ASC.Common.Module;
+using ASC.Core.Data;
+using ASC.Core.Tenants;
 
 namespace ASC.Core.Billing
 {
     class TariffSyncService : ITariffSyncService, IServiceController
     {
-        private readonly static ILog log = LogManager.GetLogger(typeof(TariffSyncService));
+        private readonly static ILog log = LogManager.GetLogger("ASC");
         private readonly TariffSyncServiceSection config;
         private readonly IDictionary<int, IEnumerable<TenantQuota>> quotaServices = new Dictionary<int, IEnumerable<TenantQuota>>();
         private Timer timer;

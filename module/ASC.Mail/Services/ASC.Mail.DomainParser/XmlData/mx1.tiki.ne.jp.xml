@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig>
+  <emailProvider id="mx1.tiki.ne.jp">
+    <domain>mx1.tiki.ne.jp</domain>
+    <domain>mx2.et.tiki.ne.jp</domain>
+    <domain>mx2.tiki.ne.jp</domain>
+    <domain>mx2.wt.tiki.ne.jp</domain>
+    <domain>mx3.et.tiki.ne.jp</domain>
+    <domain>mx3.tiki.ne.jp</domain>
+    <domain>mx4.et.tiki.ne.jp</domain>
+    <domain>mx4.tiki.ne.jp</domain>
+    <domain>mx5.et.tiki.ne.jp</domain>
+    <domain>mx5.tiki.ne.jp</domain>
+    <domain>mx6.et.tiki.ne.jp</domain>
+    <domain>mx6.tiki.ne.jp</domain>
+    <domain>mx7.tiki.ne.jp</domain>
+    <domain>mx8.tiki.ne.jp</domain>
+    <domain>mx9.tiki.ne.jp</domain>
+    <domain>mx21.tiki.ne.jp</domain>
+    <domain>mx22.tiki.ne.jp</domain>
+    <domain>mx31.tiki.ne.jp</domain>
+    <domain>mx32.tiki.ne.jp</domain>
+    <domain>mx35.tiki.ne.jp</domain>
+    <domain>mx36.tiki.ne.jp</domain>
+    <domain>mx41.tiki.ne.jp</domain>
+    <domain>mx51.et.tiki.ne.jp</domain>
+    <domain>mx51.tiki.ne.jp</domain>
+    <domain>mx52.tiki.ne.jp</domain>
+    <domain>mx61.tiki.ne.jp</domain>
+    <domain>mx71.tiki.ne.jp</domain>
+    <domain>mx81.tiki.ne.jp</domain>
+    <domain>mx82.tiki.ne.jp</domain>
+    <domain>mx91.tiki.ne.jp</domain>
+    <domain>ma100.tiki.ne.jp</domain>
+    <displayName>TikiTikiインターネット</displayName>
+    <displayShortName>TikiTiki</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>%EMAILDOMAIN%</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>plain</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp-auth.tiki.ne.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>plain</authentication>
+      <addThisServer>true</addThisServer>
+      <useGlobalPreferredServer>false</useGlobalPreferredServer>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

@@ -38,7 +38,10 @@ namespace ASC.Data.Backup.Storage
                 throw new FileNotFoundException("Directory not found.");
             }
             var storagePath = Path.Combine(storageBasePath, Path.GetFileName(localPath));
-            File.Copy(localPath, storagePath, true);
+            if (localPath != storagePath)
+            {
+                File.Copy(localPath, storagePath, true);
+            }
             return storagePath;
         }
 

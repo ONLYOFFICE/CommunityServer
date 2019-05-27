@@ -6,31 +6,6 @@
 <%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
-
-<div class="header-base settingsHeader" style="margin-top:5px;"><%= CRMSettingResource.SMTPSettings%></div>
-<div id="smtpSettingsContent">
-    <p><%: CRMSettingResource.SMTPSettingsDescription%></p>
-    <div class="clearFix">
-        <div id="SMTPSettingsPannel" class="float-left">
-        </div>
-        <div class="settings-help-block">
-            <p><%= String.Format(CRMSettingResource.SMTPSettingsHelp.HtmlEncode(), "<br/><br/>")%></p>
-            <!--<a href="<%= CommonLinkUtility.GetHelpLink(true) + "administratorguides/mass-mailing.aspx" %>" target="_blank">
-                <%=CRMSettingResource.LearnMore%>
-            </a>-->
-        </div>
-    </div>
-    <div class="middle-button-container">
-        <a href="javascript:void(0);" onclick="ASC.CRM.SettingsPage.saveSMTPSettings();" class="button blue middle">
-            <%=CRMCommonResource.Save%>
-        </a>
-        <span class="splitter-buttons"></span>
-        <a id="showSendTestMailPanelBtn" href="javascript:void(0);" onclick="ASC.CRM.SettingsPage.showSendTestMailPanel();" class="button gray middle disable">
-            <%=CRMSettingResource.SendTestMail%>
-        </a>
-    </div>
-</div>
 
 <div class="header-base settingsHeader"><%= CRMSettingResource.ExportData %></div>
 <div id="exportDataContent">

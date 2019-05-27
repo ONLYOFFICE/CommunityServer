@@ -237,10 +237,16 @@ namespace ASC.Blogs.Core.Data
                 }
 
                 var queryi = Insert("blogs_posts")
-                           .InColumns("id", "title", "content", "created_by", "created_when", "blog_id", "post_id")
-                           .Values(post.ID.ToString(), post.Title, post.Content, post.UserID.ToString(), TenantUtil.DateTimeToUtc(post.Datetime), post.BlogId, post.AutoIncrementID);
+                    .InColumnValue("post_id", post.AutoIncrementID)
+                    .InColumnValue("id", post.ID.ToString())
+                    .InColumnValue("title", post.Title)
+                    .InColumnValue("content", post.Content)
+                    .InColumnValue("created_by", post.UserID.ToString())
+                    .InColumnValue("created_when", TenantUtil.DateTimeToUtc(post.Datetime))
+                    .InColumnValue("blog_id", post.BlogId)
+                    .Identity(1, 0, true);
 
-                Db.ExecuteNonQuery(queryi);
+                post.AutoIncrementID = Db.ExecuteScalar<int>(queryi);
 
                 tx.Commit();
             }

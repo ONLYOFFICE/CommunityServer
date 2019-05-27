@@ -29,9 +29,8 @@ using System.Collections.Generic;
 using System.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-
+using ASC.Common.Logging;
 using ASC.Xmpp.Server.Handler;
-using log4net;
 
 namespace ASC.Xmpp.Server.Storage
 {
@@ -56,7 +55,7 @@ namespace ASC.Xmpp.Server.Storage
 
     public class DbPushStore : DbStoreBase
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(XmppHandlerManager));
+        private static readonly ILog log = LogManager.GetLogger("ASC");
 
         protected override SqlCreate[] GetCreateSchemaScript()
         {

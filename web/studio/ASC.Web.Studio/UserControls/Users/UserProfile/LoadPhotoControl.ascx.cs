@@ -25,26 +25,72 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using ASC.Core.Users;
+using ASC.Web.Core.Users;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
     public partial class LoadPhotoControl : UserControl
     {
+        public UserInfo User { get; set; }
+
+        protected bool HasAvatar { get; set; }
+        protected string MainImgUrl { get; set; }
+        protected UserPhotoThumbnailSettings ThumbnailSettings { get; set; }
+
+        protected bool IsLdap { get; set; }
+
         public static string Location
         {
             get { return "~/UserControls/Users/UserProfile/LoadPhotoControl.ascx"; }
         }
 
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            var defuaultPhoto = UserPhotoManager.GetDefaultPhotoAbsoluteWebPath();
+
+            if (User == null)
+            {
+                MainImgUrl = defuaultPhoto;
+                ThumbnailSettings = UserPhotoThumbnailSettings.LoadForDefaultTenant();
+            }
+            else
+            {
+                IsLdap = User.IsLDAP();
+                HasAvatar = User.HasAvatar();
+                MainImgUrl = UserPhotoManager.GetPhotoAbsoluteWebPath(User.ID);
+                ThumbnailSettings = UserPhotoThumbnailSettings.LoadForUser(User.ID);
+            }
+
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less",
+                               "~/usercontrols/users/userprofile/css/jquery.jcrop.less")
+                .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                                    "~/usercontrols/users/userprofile/js/loadphoto.js",
+                                     "~/usercontrols/users/userprofile/js/jquery.jcrop.js");
+
+            var script =
+                string.Format(
+                    "window.ASC.Controls.LoadPhotoImage.init('{0}',[{1},{2}],{{point:{{x:{3},y:{4}}},size:{{width:{5},height:{6}}}}},'{7}', '{8}');",
+                    User == null ? "" : User.ID.ToString(),
+                    UserPhotoManager.SmallFotoSize.Width,
+                    UserPhotoManager.SmallFotoSize.Height,
+                    ThumbnailSettings.Point.X,
+                    ThumbnailSettings.Point.Y,
+                    ThumbnailSettings.Size.Width,
+                    ThumbnailSettings.Size.Height,
+                    HasAvatar ? MainImgUrl : "",
+                    defuaultPhoto);
+
+            Page.RegisterInlineScript(script);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less")
-                .RegisterBodyScripts("~/usercontrols/users/userprofile/js/loadphoto.js");
-            _ctrlLoadPhotoContainer.Options.IsPopup = true;
         }
     }
 }

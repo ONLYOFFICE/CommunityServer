@@ -45,6 +45,18 @@ namespace ASC.Projects.Data.DAO
             return Db.ExecuteScalar<string>(Query(TagsTable).Select("title").Where("id", id));
         }
 
+        public KeyValuePair<int, string> Create(string data)
+        {
+            var tagId = Db.ExecuteScalar<int>(
+                Insert(TagsTable)
+                    .InColumnValue("id", 0)
+                    .InColumnValue("title", data)
+                    .InColumnValue("last_modified_by", DateTime.UtcNow)
+                    .Identity(1, 0, true));
+
+            return new KeyValuePair<int, string>(tagId, data);
+        }
+
         public Dictionary<int, string> GetTags()
         {
             return Db.ExecuteList(GetTagQuery()).ToDictionary(r => Convert.ToInt32(r[0]), n => n[1].ToString());
@@ -126,6 +138,39 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public void SetProjectTags(int projectId, IEnumerable<int> tags)
+        {
+            using (var tx = Db.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
+                var tagsToDelete = Db.ExecuteList(
+                new SqlQuery(ProjectTagTable).Select("tag_id").Where("project_id", projectId),
+                r => (int)r[0]);
+
+                Db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
+
+                foreach (var tag in tagsToDelete.Except(tags))
+                {
+                    if (Db.ExecuteScalar<int>(new SqlQuery(ProjectTagTable).Select("project_id").Where("tag_id", tag)) == 0)
+                    {
+                        Db.ExecuteNonQuery(Delete(TagsTable).Where("id", tag));
+                    }
+                }
+
+                if (tags.Any())
+                {
+                    var insert = new SqlInsert(ProjectTagTable, true).InColumns("project_id", "tag_id");
+
+                    foreach (var t in tags)
+                    {
+                        insert.Values(projectId, t);
+                    }
+
+                    Db.ExecuteNonQuery(insert);
+                }
+
+                tx.Commit();
+            }
+        }
 
         private SqlQuery GetTagQuery()
         {

@@ -38,11 +38,6 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
         }
 
-        public void Dispose()
-        {
-            DropboxProviderInfo.Dispose();
-        }
-
         public void SetShare(FileShareRecord r)
         {
         }

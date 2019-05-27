@@ -9,7 +9,7 @@
             <td style="width: 96px; vertical-align: top">
 			<%--Thumbnail--%>
 				<a href="<%=URL %>" title="<%=UserBookmarkName %>" target="_blank" style="color: White; border: solid 0px White;">
-					<img src="<%=GetThumbnailUrl()%>" alt="<%=URL %>" class="bookmarkingThumbnail" title="<%=UserBookmarkName %>"
+					<img src="app_Themes/default/images/noimageavailable.jpg" data-url="<%= GetThumbnailUrl() %>" alt="<%=URL %>" class="bookmarkingThumbnail" title="<%=UserBookmarkName %>"
 						width="96" height="72" id='<%=System.Guid.NewGuid().ToString()%>'/>
 				</a>
 			</td>

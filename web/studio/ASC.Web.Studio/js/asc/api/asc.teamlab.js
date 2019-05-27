@@ -134,6 +134,20 @@ window.Teamlab = (function () {
         setMailCacheUnreadMessagesFlag: 'setmailcacheunreadmessagesflag',
         setMailEnableGoNextAfterMove: 'setmailenablegonextaftermove',
         getMailOperationStatus: 'getmailoperationstatus',
+        getMailUserFolders: 'ongetmailuserfolders',
+        createMailFolder: 'oncreatemailfolder',
+        updateMailFolder: 'onupdatemailfolder',
+        removeMailFolder: 'onremovemailfolder',
+        changeMailboxPassword: 'changemailboxpassword',
+        getRandomPassword: 'getRandomPassword',
+        isMailServerAddressExists: 'ismailserveraddressexists',
+        isMailServerAddressValid: 'ismailserveraddressvalid',
+        getMailFilters: 'ongetmailfilters',
+        createMailFilter: 'oncreatemailfilter',
+        updateMailFilter: "onupdatemailfilter",
+        deleteMailFilter: 'ondeletemailfilter',
+        checkMailFilter: 'oncheckmailfilter',
+        applyMailFilter: 'applymailfilter',
 
         getTalkUnreadMessages: 'gettalkunreadmessages',
 
@@ -326,6 +340,28 @@ window.Teamlab = (function () {
         );
     };
 
+    var setBlockchainData = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'blockchain/data.json',
+            data,
+            options
+        );
+    };
+
+    var getBlockchainAccess = function (params, fileId, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'blockchain/access/' + fileId + '.json',
+            null,
+            options
+        );
+    };
+
     var addProfile = function (params, data, options) {
         addRequest(
             null,
@@ -333,6 +369,30 @@ window.Teamlab = (function () {
             ADD,
             'people.json',
             data,
+            options
+        );
+        return true;
+    };
+
+    var addImportUser = function (data, options) {
+        addRequest(
+            null,
+            null,
+            ADD,
+            'people/import/save.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getImportStatus = function (options) {
+        addRequest(
+            null,
+            null,
+            GET,
+            'people/import/status.json',
+            null,
             options
         );
         return true;
@@ -384,6 +444,17 @@ window.Teamlab = (function () {
             params,
             GET,
             'people/filter.json',
+            null,
+            options
+        );
+    };
+
+    var getSimpleProfilesByFilter = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'people/simple/filter.json',
             null,
             options
         );
@@ -477,6 +548,18 @@ window.Teamlab = (function () {
             options
         );
     };
+    
+    var getUserPhoto = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'people/' + id + '/photo.json',
+            null,
+            options
+        );
+    };
+
     var updateUserPhoto = function (params, id, data, options) {
         return addRequest(
             null,
@@ -488,12 +571,23 @@ window.Teamlab = (function () {
         );
     };
 
-    var removeUserPhoto = function (params, id, data, options) {
+    var removeUserPhoto = function (params, id, options) {
         return addRequest(
             null,
             params,
             REMOVE,
             'people/' + id + '/photo.json',
+            null,
+            options
+        );
+    };
+    
+    var createUserPhotoThumbnails = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'people/' + id + '/photo/thumbnails.json',
             data,
             options
         );
@@ -564,7 +658,6 @@ window.Teamlab = (function () {
             options
         );
     };
-
 
     /* </people> */
 
@@ -1254,6 +1347,17 @@ window.Teamlab = (function () {
         );
     };
 
+    var getProjectTeamExcluded = function (ids, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'project/' + ids + '/teamExcluded.json',
+            { projectid: ids },
+            options
+        );
+    };
+
     var updatePrjTeam = function (params, id, data, options) {
         return addRequest(
             customEvents.updatePrjTeam,
@@ -1322,16 +1426,12 @@ window.Teamlab = (function () {
             options.filter.entityType = type;
         }
 
-        if (data && typeof data === 'object' && !data.hasOwnProperty('entityType')) {
-            data.entityType = type;
-        }
-
         addRequest(
             null,
             params,
             REMOVE,
-            'project/' + id + '/entityfiles.json',
-            typeof data === 'number' || typeof data === 'string' ? { entityType: type, fileid: data } : data,
+            'project/' + id + '/entityfiles' + (isArray(data) ? 'many' : '') + '.json',
+            isArray(data) ? { files: data } :  { entityType: type, fileid: data },
             options
         );
         return true;
@@ -1651,6 +1751,19 @@ window.Teamlab = (function () {
         );
         return true;
     };
+
+    var updatePrjProjectTags = function (id, data, options) {
+        addRequest(
+            null,
+            null,
+            UPDATE,
+            'project/' + id + '/tags.json',
+            data,
+            options
+        );
+        return true;
+    };
+
 
     var removePrjProject = function (params, id, options) {
         addRequest(
@@ -2121,6 +2234,18 @@ window.Teamlab = (function () {
         return true;
     };
 
+    var updatePortalAnalytics = function (params, enable, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/portalanalytics.json',
+            { enable: enable },
+            options
+        );
+        return true;
+    };
+
 
     var addPrjProjectTeamPerson = function (params, id, data, options) {
         addRequest(
@@ -2454,6 +2579,62 @@ window.Teamlab = (function () {
             options
         );
     };
+
+    var generateProjectsReport = function (data, options) {
+        addRequest(
+            null,
+            null,
+            ADD,
+            'project/report/create.json',
+            data,
+            options
+        );
+    };
+
+    var terminateProjectsReport = function (options) {
+        addRequest(
+            null,
+            null,
+            GET,
+            'project/report/terminate.json',
+            null,
+            options
+        );
+    };
+
+    var getProjectsReportStatus = function (options) {
+        addRequest(
+            null,
+            null,
+            GET,
+            'project/report/status.json',
+            null,
+            options
+        );
+    };
+
+    var getProjectsReports = function (options) {
+        addRequest(
+            null,
+            null,
+            GET,
+            'project/report/files.json',
+            null,
+            options
+        );
+    };
+
+    var removeProjectsReport = function (id, options) {
+        return addRequest(
+            null,
+            null,
+            REMOVE,
+            'project/report/files/' + id + '.json',
+            null,
+            options
+        );
+    };
+
     // upload files
     var uploadFilesToPrjEntity = function (params, entityId, data, options) {
         return helper.uploader(
@@ -2464,6 +2645,18 @@ window.Teamlab = (function () {
             data,
             options
         );
+    };
+
+    var addPrjTag = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/tag.json',
+            data,
+            options
+        );
+        return true;
     };
 
     /* </projects> */
@@ -2598,17 +2791,6 @@ window.Teamlab = (function () {
             null,
             GET,
             'files/fileops.json',
-            null,
-            options
-        );
-    };
-
-    var getPresignedUri = function (id, options) {
-        return addRequest(
-            null,
-            null,
-            GET,
-            'files/file/' + id + '/presigned.json',
             null,
             options
         );
@@ -3961,13 +4143,13 @@ window.Teamlab = (function () {
         );
     };
 
-    var updateOrganisationSettingsAddresses = function (params, addresses, options) {
+    var updateOrganisationSettingsAddresses = function (params, data, options) {
         addRequest(
             null,
             params,
             UPDATE,
             'crm/settings/organisation/address.json',
-            { companyAddress: addresses },
+            data,
             options
         );
     };
@@ -4001,28 +4183,6 @@ window.Teamlab = (function () {
             UPDATE,
             'crm/settings/webformkey/change.json',
             null,
-            options
-        );
-    };
-
-    var updateCRMSMTPSettings = function (params, data, options) {
-        addRequest(
-            null,
-            params,
-            UPDATE,
-            'crm/settings/smtp.json',
-            data,
-            options
-        );
-    };
-
-    var sendSMTPTestMail = function (params, data, options) {
-        addRequest(
-            null,
-            params,
-            ADD,
-            'crm/settings/testmail.json',
-            data,
             options
         );
     };
@@ -4753,17 +4913,6 @@ window.Teamlab = (function () {
         );
     };
 
-    var getCrmContactFacebookProfiles = function (params, searchText, isUser, options) {
-        return addRequest(
-            null,
-            params,
-            GET,
-            'crm/contact/facebookprofile.json',
-            { searchText: searchText, isUser: isUser },
-            options
-        );
-    };
-
     var removeCrmContactAvatar = function (params, contactid, data, options) {
         return addRequest(
             null,
@@ -4874,6 +5023,40 @@ window.Teamlab = (function () {
             ADD,
             'crm/export/start.json',
             null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmPartialExportStatus = function (options) {
+        addRequest(
+            null,
+            null,
+            GET,
+            'crm/export/partial/status.json',
+            null,
+            options
+        );
+    };
+
+    var cancelCrmCancelPartialExport = function (options) {
+        addRequest(
+            null,
+            null,
+            UPDATE,
+            'crm/export/partial/cancel.json',
+            null,
+            options
+        );
+    };
+
+    var startCrmPartialExport = function (data, options) {
+        addRequest(
+            null,
+            null,
+            ADD,
+            'crm/export/partial/' + data.entityType + '/start.json',
+            data,
             options
         );
         return true;
@@ -5217,10 +5400,10 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var getCrmReportStatus = function (params, options) {
+    var getCrmReportStatus = function (options) {
         addRequest(
             null,
-            params,
+            null,
             GET,
             'crm/report/status.json',
             null,
@@ -5228,10 +5411,10 @@ window.Teamlab = (function () {
         );
     };
 
-    var terminateCrmReport = function (params, options) {
+    var terminateCrmReport = function (options) {
         addRequest(
             null,
-            params,
+            null,
             GET,
             'crm/report/terminate.json',
             null,
@@ -5239,10 +5422,10 @@ window.Teamlab = (function () {
         );
     };
 
-    var checkCrmReport = function (params, data, options) {
+    var checkCrmReport = function (data, options) {
         addRequest(
             null,
-            params,
+            null,
             ADD,
             'crm/report/check.json',
             data,
@@ -5250,10 +5433,10 @@ window.Teamlab = (function () {
         );
     };
 
-    var generateCrmReport = function (params, data, options) {
+    var generateCrmReport = function (data, options) {
         addRequest(
             null,
-            params,
+            null,
             ADD,
             'crm/report/generate.json',
             data,
@@ -5442,13 +5625,13 @@ window.Teamlab = (function () {
         );
     };
 
-    var moveMailMessages = function (params, ids, folder, options) {
+    var moveMailMessages = function (params, ids, folder, userFolderId, options) {
         return addRequest(
             customEvents.moveMailMessages,
             params,
             UPDATE,
             'mail/messages/move.json',
-            { ids: ids, folder: folder },
+            { ids: ids, folder: folder, userFolderId: userFolderId },
             options
         );
     };
@@ -5857,13 +6040,13 @@ window.Teamlab = (function () {
         );
     };
 
-    var moveMailConversations = function (params, ids, folder, options) {
+    var moveMailConversations = function (params, ids, folder, userFolderId, options) {
         return addRequest(
             customEvents.moveMailConversations,
             params,
             UPDATE,
             'mail/conversations/move.json',
-            { ids: ids, folder: folder },
+            { ids: ids, folder: folder, userFolderId: userFolderId },
             options
         );
     };
@@ -6159,13 +6342,20 @@ window.Teamlab = (function () {
         );
     };
 
-    var addMailbox = function (params, name, local_part, domain_id, user_id, options) {
+    var addMailbox = function (params, name, local_part, domain_id, user_id, notifyCurrent, notifyProfile, options) {
         return addRequest(
             customEvents.addMailbox,
             params,
             ADD,
             'mailserver/mailboxes/add.json',
-            { name: name, local_part: local_part, domain_id: domain_id, user_id: user_id },
+            {
+                name: name,
+                local_part: local_part,
+                domain_id: domain_id,
+                user_id: user_id,
+                notifyCurrent: notifyCurrent,
+                notifyProfile: notifyProfile
+            },
             options
         );
     };
@@ -6181,6 +6371,27 @@ window.Teamlab = (function () {
         );
     };
 
+    var changeMailboxPassword = function (params, mailboxId, password, options) {
+        return addRequest(
+            customEvents.changeMailboxPassword,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/changepwd.json',
+            { mailbox_id: mailboxId, password: password },
+            options
+        );
+    };
+
+    var getRandomPassword = function (params, options) {
+        return addRequest(
+            customEvents.getRandomPassword,
+            params,
+            GET,
+            'portal/randompwd.json',
+            null,
+            options
+        );
+    };
     var getMailboxes = function (params, options) {
         return addRequest(
             customEvents.getMailboxes,
@@ -6458,6 +6669,146 @@ window.Teamlab = (function () {
         );
     };
 
+    var createMailFolder = function (params, name, parentId, options) {
+        return addRequest(
+            customEvents.createMailFolder,
+            params,
+            ADD,
+            'mail/userfolders.json',
+            { name: name, parentId: parentId },
+            options
+        );
+    };
+
+    var updateMailFolder = function (params, id, name, parentId, options) {
+        return addRequest(
+            customEvents.updateMailFolder,
+            params,
+            UPDATE,
+            'mail/userfolders/' + id + '.json',
+            { name: name, parentId: parentId },
+            options
+        );
+    };
+
+    var removeMailFolder = function (params, id, options) {
+        return addRequest(
+            customEvents.removeMailFolder,
+            params,
+            REMOVE,
+            'mail/userfolders/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getMailUserFolders = function (params, parentId, ids, options) {
+        var data = {};
+
+        if (parentId)
+            data.parentId = parentId;
+
+        if (ids) {
+            data.ids = ids;
+        }
+
+        return addRequest(
+            customEvents.getMailUserFolders,
+            params,
+            GET,
+            'mail/userfolders.json',
+            data,
+            options
+        );
+    };
+
+    var isMailServerAddressExists = function (params, local_part, domain_id, options) {
+        return addRequest(
+            customEvents.isMailServerAddressExists,
+            null,
+            GET,
+            'mailserver/mailboxes/alias/exists.json',
+            { local_part: local_part, domain_id: domain_id },
+            options
+        );
+    };
+
+    var isMailServerAddressValid = function (params, local_part, domain_id, options) {
+        return addRequest(
+            customEvents.isMailServerAddressValid,
+            null,
+            GET,
+            'mailserver/mailboxes/alias/valid.json',
+            { local_part: local_part, domain_id: domain_id },
+            options
+        );
+    };
+
+    var getMailFilters = function (params, options) {
+            return addRequest(
+                customEvents.getMailFilters,
+                params,
+                GET,
+                'mail/filters.json',
+                {},
+                options
+            );
+    };
+
+    var createMailFilter = function (params, filter, options) {
+        return addRequest(
+            customEvents.createMailFilter,
+            params,
+            ADD,
+            'mail/filters.json',
+            { filter: filter },
+            options
+        );
+    };
+
+    var updateMailFilter = function (params, filter, options) {
+        return addRequest(
+            customEvents.updateMailFilter,
+            params,
+            UPDATE,
+            'mail/filters.json',
+            { filter: filter },
+            options
+        );
+    };
+
+    var deleteMailFilter = function (params, id, options) {
+        return addRequest(
+            customEvents.deleteMailFilter,
+            params,
+            REMOVE,
+            'mail/filters/' + id +'.json',
+            null,
+            options
+        );
+    };
+
+    var checkMailFilter = function (params, filter, page, pageSize, options) {
+        return addRequest(
+            customEvents.checkMailFilter,
+            params,
+            GET,
+            'mail/filters/check.json',
+            { filter: filter, page: page, pageSize: pageSize },
+            options
+        );
+    };
+
+    var applyMailFilter = function (params, id, options) {
+        return addRequest(
+            customEvents.applyMailFilter,
+            params,
+            GET,
+            'mail/filters/' + id + '/apply.json',
+            null,
+            options
+        );
+    };
     /* </mail> */
 
     /* <settings> */
@@ -6468,6 +6819,28 @@ window.Teamlab = (function () {
             GET,
             'settings/security.json',
             typeof data === 'number' || typeof data === 'string' ? { ids: [data] } : data,
+            options
+        );
+    };
+
+    var getEnabledModules = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/security/modules.json',
+            null,
+            options
+        );
+    };
+
+    var getPortalPasswordSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/security/password.json',
+            null,
             options
         );
     };
@@ -6592,13 +6965,46 @@ window.Teamlab = (function () {
         );
     };
 
-    var smsValidationSettings = function (enable, options) {
+    var tfaAppAuthSettings = function (type, options) {
         return addRequest(
             null,
             null,
             UPDATE,
-            'settings/sms.json',
-            { enable: enable },
+            'settings/tfaapp.json',
+            { type: type },
+            options
+        );
+    };
+
+    var tfaappcodes = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'settings/tfaappcodes.json',
+            null,
+            options
+        );
+    };
+
+    var tfaAppRequestNewCodes = function (options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/tfaappnewcodes.json',
+            null,
+            options
+        );
+    };
+
+    var tfaAppNewApp = function (id, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/tfaappnewapp.json',
+            {id: id},
             options
         );
     };
@@ -6648,6 +7054,48 @@ window.Teamlab = (function () {
 
     };
 
+    var savePortalSmtpSettings = function (params, settings, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'settings/smtp.json',
+            { smtpSettings: settings },
+            options
+        );
+    };
+
+    var resetPortalSmtpSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'settings/smtp.json',
+            null,
+            options
+        );
+    };
+    var testPortalSmtpSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/smtp/test.json',
+            null,
+            options
+        );
+    };
+    var getTestPortalSmtpSettingsResult = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/smtp/test/status.json',
+            null,
+            options
+        );
+    };
+
     // LDAP
 
     var saveLdapSettings = function (params, settings, options) {
@@ -6669,6 +7117,30 @@ window.Teamlab = (function () {
             GET,
             'settings/ldap.json',
             null,
+            options
+        );
+        return true;
+    };
+
+    var getLdapCronSettings = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/ldap/cron.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var setLdapCronSettings = function (params, cron, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'settings/ldap/cron.json',
+            cron,
             options
         );
         return true;
@@ -6717,6 +7189,128 @@ window.Teamlab = (function () {
             UPDATE,
             'settings/emailactivation.json',
             data,
+            options
+        );
+    };
+
+    var getSpaceUsageStatistics = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/statistics/spaceusage/" + id + ".json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getVisitStatistics = function (params, from, to, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/statistics/visit.json",
+            {
+                fromDate: from,
+                toDate: to
+            },
+            options
+        );
+        return true;
+    };
+
+    var getAllStorages = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/storage.json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getAllCdnStorages = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/storage/cdn.json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var updateStorage = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            "settings/storage.json",
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCdnStorage = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            "settings/storage/cdn.json",
+            data,
+            options
+        );
+        return true;
+    };
+
+    var resetToDefaultCdn = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "settings/storage/cdn.json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var resetToDefaultStorage = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "settings/storage.json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var resetCdnToDefaultStorage = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "settings/storage.json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getStorageProgress = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            "settings/storage/progress.json",
+            null,
             options
         );
     };
@@ -6963,13 +7557,14 @@ window.Teamlab = (function () {
 
     //#region Bar
 
-    var getBarPromotions = function (params, options) {
+    var getBarPromotions = function (params, isDesktop, options) {
         return addRequest(
             null,
             params,
             GET,
             'portal/bar/promotions.json',
             {
+                desktop: Boolean(isDesktop),
                 domain: window.location.hostname,
                 page: window.location.pathname + window.location.search
             },
@@ -6988,13 +7583,14 @@ window.Teamlab = (function () {
         );
     };
 
-    var getBarTips = function (params, options) {
+    var getBarTips = function (params, isDesktop, options) {
         return addRequest(
             null,
             params,
             GET,
             'portal/bar/tips.json',
             {
+                desktop: Boolean(isDesktop),
                 page: window.location.pathname + window.location.search + window.location.hash,
                 productAdmin: ASC.Resources.Master.IsProductAdmin
             },
@@ -7026,6 +7622,130 @@ window.Teamlab = (function () {
 
     //#endregion
 
+    //#region backup
+
+    var startbackup = function(params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "portal/startbackup.json",
+            data,
+            options
+        );
+        return true;
+    }
+
+    var getBackupProgress = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "portal/getbackupprogress.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var getBackupSchedule = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "portal/getbackupschedule.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var createBackupSchedule = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "portal/createbackupschedule.json",
+            data,
+            options
+        );
+        return true;
+    }
+
+    var deleteBackupSchedule = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "portal/deletebackupschedule.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var deleteBackupHistory = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "portal/deletebackupschedule.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var getBackupHistory = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "portal/getbackuphistory.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var deleteBackup = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            "portal/deletebackup/" + id + ".json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    var startRestore = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "portal/startrestore.json",
+            data,
+            options
+        );
+        return true;
+    }
+
+    var getBackupStorages = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/storage/backup.json",
+            null,
+            options
+        );
+        return true;
+    }
+
+    //#endregion
+
     //#region Reassign user data
 
     var getReassignProgress = function (params, userId, options) {
@@ -7052,13 +7772,13 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var startReassign = function (params, fromUserId, toUserId, options) {
+    var startReassign = function (params, fromUserId, toUserId, deleteProfile, options) {
         addRequest(
             null,
             params,
             ADD,
             "people/reassign/start.json",
-            { fromUserId: fromUserId, toUserId: toUserId },
+            { fromUserId: fromUserId, toUserId: toUserId, deleteProfile: deleteProfile },
             options
         );
         return true;
@@ -7142,10 +7862,14 @@ window.Teamlab = (function () {
         thirdPartyLinkAccount: thirdPartyLinkAccount,
         thirdPartyUnLinkAccount: thirdPartyUnLinkAccount,
 
+        setBlockchainData: setBlockchainData,
+        getBlockchainAccess: getBlockchainAccess,
+
         addProfile: addProfile,
         getProfile: getProfile,
         getProfiles: getProfiles,
         getProfilesByFilter: getProfilesByFilter,
+        getSimpleProfilesByFilter: getSimpleProfilesByFilter,
         addGroup: addGroup,
         updateGroup: updateGroup,
         getGroup: getGroup,
@@ -7154,8 +7878,10 @@ window.Teamlab = (function () {
         updateProfile: updateProfile,
         updateUserType: updateUserType,
         updateUserStatus: updateUserStatus,
+        getUserPhoto: getUserPhoto,
         updateUserPhoto: updateUserPhoto,
         removeUserPhoto: removeUserPhoto,
+        createUserPhotoThumbnails: createUserPhotoThumbnails,
         sendInvite: sendInvite,
         removeUser: removeUser,
         removeUsers: removeUsers,
@@ -7207,12 +7933,12 @@ window.Teamlab = (function () {
         getWikiCommentPreview: getWikiCommentPreview,
         getBlogCommentPreview: getBlogCommentPreview,
         getNewsCommentPreview: getNewsCommentPreview,
-        getBookmarksCommentPreview:getBookmarksCommentPreview,
+        getBookmarksCommentPreview: getBookmarksCommentPreview,
 
         removePrjComment: removePrjComment,
-        removeWikiComment:removeWikiComment,
+        removeWikiComment: removeWikiComment,
         removeBlogComment: removeBlogComment,
-        removeNewsComment:removeNewsComment,
+        removeNewsComment: removeNewsComment,
         removeBookmarksComment: removeBookmarksComment,
 
         addPrjComment: addPrjComment,
@@ -7232,6 +7958,7 @@ window.Teamlab = (function () {
         fckeEditCommentComplete: fckeEditCommentComplete,
         getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
+        updatePortalAnalytics: updatePortalAnalytics,
 
         updatePrjSettings: updatePrjSettings,
         getPrjSettings: getPrjSettings,
@@ -7272,6 +7999,7 @@ window.Teamlab = (function () {
         addPrjProject: addPrjProject,
         updatePrjProject: updatePrjProject,
         updatePrjProjectStatus: updatePrjProjectStatus,
+        updatePrjProjectTags: updatePrjProjectTags,
         removePrjProject: removePrjProject,
         followingPrjProject: followingPrjProject,
         getPrjProject: getPrjProject,
@@ -7294,6 +8022,7 @@ window.Teamlab = (function () {
         addProjectForCrmContact: addProjectForCrmContact,
         removeProjectFromCrmContact: removeProjectFromCrmContact,
         getPrjTeam: getPrjTeam,
+        getProjectTeamExcluded: getProjectTeamExcluded,
         updatePrjTeam: updatePrjTeam,
         addPrjProjectTeamPerson: addPrjProjectTeamPerson,
         removePrjProjectTeamPerson: removePrjProjectTeamPerson,
@@ -7323,6 +8052,14 @@ window.Teamlab = (function () {
         updatePrjReportTemplate: updatePrjReportTemplate,
         deletePrjReportTemplate: deletePrjReportTemplate,
 
+        generateProjectsReport: generateProjectsReport,
+        getProjectsReportStatus: getProjectsReportStatus,
+        terminateProjectsReport: terminateProjectsReport,
+        getProjectsReports: getProjectsReports,
+        removeProjectsReport: removeProjectsReport,
+
+        addPrjTag: addPrjTag,
+
         createDocUploadFile: createDocUploadFile,
         addDocFile: addDocFile,
         removeDocFile: removeDocFile,
@@ -7335,7 +8072,6 @@ window.Teamlab = (function () {
         generateSharedLink: generateSharedLink,
         copyBatchItems: copyBatchItems,
         getOperationStatuses: getOperationStatuses,
-        getPresignedUri: getPresignedUri,
         saveDocServiceUrl: saveDocServiceUrl,
 
         createCrmUploadFile: createCrmUploadFile,
@@ -7437,8 +8173,6 @@ window.Teamlab = (function () {
         updateOrganisationSettingsLogo: updateOrganisationSettingsLogo,
         getOrganisationSettingsLogo: getOrganisationSettingsLogo,
         updateWebToLeadFormKey: updateWebToLeadFormKey,
-        updateCRMSMTPSettings: updateCRMSMTPSettings,
-        sendSMTPTestMail: sendSMTPTestMail,
         sendSMTPMailToContacts: sendSMTPMailToContacts,
         getPreviewSMTPMailToContacts: getPreviewSMTPMailToContacts,
         getStatusSMTPMailToContacts: getStatusSMTPMailToContacts,
@@ -7499,7 +8233,6 @@ window.Teamlab = (function () {
         removeCrmCurrencyRate: removeCrmCurrencyRate,
         getCrmContactTweets: getCrmContactTweets,
         getCrmContactTwitterProfiles: getCrmContactTwitterProfiles,
-        getCrmContactFacebookProfiles: getCrmContactFacebookProfiles,
         removeCrmContactAvatar: removeCrmContactAvatar,
         updateCrmContactAvatar: updateCrmContactAvatar,
         getCrmContactSocialMediaAvatar: getCrmContactSocialMediaAvatar,
@@ -7510,6 +8243,10 @@ window.Teamlab = (function () {
         getStatusExportToCSV: getStatusExportToCSV,
         cancelExportToCSV: cancelExportToCSV,
         startCrmExportToCSV: startCrmExportToCSV,
+
+        getCrmPartialExportStatus: getCrmPartialExportStatus,
+        cancelCrmCancelPartialExport: cancelCrmCancelPartialExport,
+        startCrmPartialExport: startCrmPartialExport,
 
         addCrmEntityTaskTemplateContainer: addCrmEntityTaskTemplateContainer,
         updateCrmEntityTaskTemplateContainer: updateCrmEntityTaskTemplateContainer,
@@ -7633,6 +8370,8 @@ window.Teamlab = (function () {
         removeMailDomain: removeMailDomain,
         addMailbox: addMailbox,
         addMyMailbox: addMyMailbox,
+        changeMailboxPassword: changeMailboxPassword,
+        getRandomPassword: getRandomPassword,
         getMailboxes: getMailboxes,
         removeMailbox: removeMailbox,
         addMailBoxAlias: addMailBoxAlias,
@@ -7658,13 +8397,35 @@ window.Teamlab = (function () {
         saveMailServerInfo: saveMailServerInfo,
         getMailOperationStatus: getMailOperationStatus,
 
+        getMailUserFolders: getMailUserFolders,
+        createMailFolder: createMailFolder,
+        updateMailFolder: updateMailFolder,
+        removeMailFolder: removeMailFolder,
+
+        isMailServerAddressExists: isMailServerAddressExists,
+        isMailServerAddressValid: isMailServerAddressValid,
+
+        getMailFilters: getMailFilters,
+        createMailFilter: createMailFilter,
+        updateMailFilter: updateMailFilter,
+        deleteMailFilter: deleteMailFilter,
+        checkMailFilter: checkMailFilter,
+        applyMailFilter: applyMailFilter,
+
         getWebItemSecurityInfo: getWebItemSecurityInfo,
+        getEnabledModules: getEnabledModules,
+        getPortalPasswordSettings: getPortalPasswordSettings,
         setWebItemSecurity: setWebItemSecurity,
         setAccessToWebItems: setAccessToWebItems,
         setProductAdministrator: setProductAdministrator,
         isProductAdministrator: isProductAdministrator,
         getPortalSettings: getPortalSettings,
         getPortalLogo: getPortalLogo,
+
+        savePortalSmtpSettings: savePortalSmtpSettings,
+        resetPortalSmtpSettings: resetPortalSmtpSettings,
+        testPortalSmtpSettings: testPortalSmtpSettings,
+        getTestPortalSmtpSettingsResult: getTestPortalSmtpSettingsResult,
 
         getAuditEvents: getAuditEvents,
         getLoginEvents: getLoginEvents,
@@ -7679,7 +8440,12 @@ window.Teamlab = (function () {
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
         updateTipsSubscription: updateTipsSubscription,
-        smsValidationSettings: smsValidationSettings,
+
+        tfaAppAuthSettings: tfaAppAuthSettings,
+        tfaappcodes: tfaappcodes,
+        tfaAppRequestNewCodes: tfaAppRequestNewCodes,
+        tfaAppNewApp: tfaAppNewApp,
+
         closeWelcomePopup: closeWelcomePopup,
         setColorTheme: setColorTheme,
         setTimaAndLanguage: setTimaAndLanguage,
@@ -7705,10 +8471,23 @@ window.Teamlab = (function () {
 
         saveLdapSettings: saveLdapSettings,
         getLdapSettings: getLdapSettings,
+        getLdapCronSettings: getLdapCronSettings,
+        setLdapCronSettings: setLdapCronSettings,
         getLdapDefaultSettings: getLdapDefaultSettings,
         getLdapStatus: getLdapStatus,
         syncLdap: syncLdap,
         updateEmailActivationSettings: updateEmailActivationSettings,
+
+        getSpaceUsageStatistics: getSpaceUsageStatistics,
+        getVisitStatistics: getVisitStatistics,
+
+        getAllStorages: getAllStorages,
+        getAllCdnStorages: getAllCdnStorages,
+        updateStorage: updateStorage,
+        updateCdnStorage: updateCdnStorage,
+        resetToDefaultCdn: resetToDefaultCdn,
+        resetToDefaultStorage: resetToDefaultStorage,
+        getStorageProgress: getStorageProgress,
 
         getBarPromotions: getBarPromotions,
         markBarPromotion: markBarPromotion,
@@ -7716,12 +8495,27 @@ window.Teamlab = (function () {
         markBarTip: markBarTip,
         deleteBarTips: deleteBarTips,
 
+        startbackup: startbackup,
+        getBackupProgress: getBackupProgress,
+        getBackupSchedule: getBackupSchedule,
+        getBackupStorages: getBackupStorages,
+        createBackupSchedule: createBackupSchedule,
+        deleteBackupSchedule: deleteBackupSchedule,
+        deleteBackupHistory: deleteBackupHistory,
+        getBackupHistory: getBackupHistory,
+        deleteBackup: deleteBackup,
+        startRestore: startRestore,
+
         getReassignProgress: getReassignProgress,
         terminateReassign: terminateReassign,
         startReassign: startReassign,
 
         getRemoveProgress: getRemoveProgress,
         terminateRemove: terminateRemove,
-        startRemove: startRemove
-    };
+        startRemove: startRemove,
+
+        addImportUser: addImportUser,
+        getImportStatus: getImportStatus
+
+};
 })();

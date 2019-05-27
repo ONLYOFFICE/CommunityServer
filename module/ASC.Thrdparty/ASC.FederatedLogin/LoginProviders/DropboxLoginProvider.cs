@@ -24,28 +24,40 @@
 */
 
 
-using ASC.Thrdparty.Configuration;
+using System.Collections.Generic;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class DropboxLoginProvider
+    public class DropboxLoginProvider: Consumer, IOAuthProvider
     {
-        public const string DropboxOauthCodeUrl = "https://www.dropbox.com/oauth2/authorize";
-        public const string DropboxOauthTokenUrl = "https://api.dropboxapi.com/oauth2/token";
-
-        public static string DropboxOAuth20ClientId
+        public static DropboxLoginProvider Instance
         {
-            get { return KeyStorage.Get("dropboxClientId"); }
+            get { return ConsumerFactory.Get<DropboxLoginProvider>(); }
         }
 
-        public static string DropboxOAuth20ClientSecret
+        public string Scopes { get { return ""; } }
+        public string CodeUrl { get { return "https://www.dropbox.com/oauth2/authorize"; } }
+        public string AccessTokenUrl { get { return "https://api.dropboxapi.com/oauth2/token"; } }
+        public string RedirectUri { get { return this["dropboxRedirectUrl"]; } }
+        public string ClientID { get { return this["dropboxClientId"]; } }
+        public string ClientSecret { get { return this["dropboxClientSecret"]; } }
+
+        public bool IsEnabled
         {
-            get { return KeyStorage.Get("dropboxClientSecret"); }
+            get
+            {
+                return !string.IsNullOrEmpty(ClientID) &&
+                       !string.IsNullOrEmpty(ClientSecret) &&
+                       !string.IsNullOrEmpty(RedirectUri);
+            }
         }
 
-        public static string DropboxOAuth20RedirectUrl
+        public DropboxLoginProvider() { }
+
+        public DropboxLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
         {
-            get { return KeyStorage.Get("dropboxRedirectUrl"); }
         }
     }
 }

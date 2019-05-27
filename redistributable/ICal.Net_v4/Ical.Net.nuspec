@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Ical.Net</id>
+        <version>4.0.6</version>
+        <title>Ical.Net</title>
+        <authors>Rian Stockbower, Douglas Day</authors>
+        <owners>Rian Stockbower</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>An iCalendar (RFC 5545) control library for .NET.</description>
+        <projectUrl>https://github.com/rianjs/ical.net</projectUrl>
+        <licenseUrl>https://github.com/rianjs/ical.net/blob/master/license.md</licenseUrl>
+        <releaseNotes>https://github.com/rianjs/ical.net/blob/master/release-notes.md</releaseNotes>
+        <iconUrl>https://github.com/rianjs/ical.net/raw/master/nuget_logo_150px.png</iconUrl>
+        <tags>iCal Calendar icalendar ics outlook events rfc-5545 rfc-2445 dday</tags>
+    </metadata>
+    <files>
+        <!-- .NET 4.6 -->
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.dll" target="lib\net46\Ical.Net.dll" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.xml" target="lib\net46\Ical.Net.xml" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.pdb" target="lib\net46\Ical.Net.pdb" />
+    </files>
+</package>

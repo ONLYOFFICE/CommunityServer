@@ -538,10 +538,7 @@ namespace ASC.Web.Community.Forum
 
             try
             {
-                List<int> removedPostIDs;
-                ForumDataProvider.RemoveThreadCategory(TenantProvider.CurrentTenantID, category.ID, out removedPostIDs);
-                ForumManager.Instance.RemoveAttachments(category);
-                removedPostIDs.ForEach(idPost => CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.FileStoreModuleID, idPost.ToString()));
+                RemoveDataHelper.RemoveThreadCategory(category);
                 resp.rs1 = "1";
             }
             catch (Exception ex)
@@ -673,16 +670,8 @@ namespace ASC.Web.Community.Forum
 
             try
             {
-                List<int> removedPostIDs;
-                ForumDataProvider.RemoveThread(TenantProvider.CurrentTenantID, thread.ID, out removedPostIDs);
-
-                ForumManager.Instance.RemoveAttachments(thread);
-
-                removedPostIDs.ForEach(idPost => CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.FileStoreModuleID, idPost.ToString()));
-
-
+                RemoveDataHelper.RemoveThread(thread);
                 resp.rs1 = "1";
-
             }
             catch (Exception ex)
             {

@@ -63,10 +63,17 @@ namespace ASC.Xmpp.Core.protocol.x.tm.history
             get { return GetAttributeInt("startindex"); }
             set { SetAttribute("startindex", value); }
         }
+
         public int Count
         {
             get { return GetAttributeInt("count"); }
             set { SetAttribute("count", value); }
+        }
+
+        public string Text
+        {
+            get { return GetAttribute("text"); }
+            set { SetAttribute("text", value); }
         }
     }
 }

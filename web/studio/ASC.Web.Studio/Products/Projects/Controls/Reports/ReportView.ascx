@@ -11,9 +11,9 @@
 </div>
 
 <div class="middle-button-container">
-    <a id="generateReport" class="button blue middle"><%=ReportResource.GenerateReport%></a>
+    <a id="generateReport" class="button blue middle" href="javascript:void(0)"><%=ReportResource.GenerateReport%></a>
     <span class="splitter-buttons"></span>
-    <a id="createTemplate" class="button gray middle"><%= ReportResource.CrteateTemplate%></a>
+    <a id="createTemplate" class="button gray middle" href="javascript:void(0)"><%= ReportResource.CrteateTemplate%></a>
 </div>
 
 <div id="reportTemplatePopup" class="display-none">

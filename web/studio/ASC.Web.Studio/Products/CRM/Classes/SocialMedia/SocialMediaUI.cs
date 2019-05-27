@@ -28,23 +28,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Thrdparty;
-using ASC.Thrdparty.Facebook;
 using ASC.Thrdparty.Twitter;
-using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Classes.SocialMedia;
 using ASC.Web.CRM.Resources;
-using log4net;
+
 
 namespace ASC.Web.CRM.SocialMedia
 {
     public class SocialMediaUI
     {
-        private ILog _logger = LogManager.GetLogger(typeof(SocialMediaUI));
+        private ILog _logger = LogManager.GetLogger("ASC");
         private DaoFactory DaoFactory { get; set; }
 
         public SocialMediaUI(DaoFactory factory)
@@ -62,10 +61,8 @@ namespace ASC.Web.CRM.SocialMedia
             var socialNetworks = DaoFactory.ContactInfoDao.GetList(contact.ID, null, null, null);
 
             var twitterAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Twitter).Select(sn => sn.Data.Trim()).ToList();
-            var facebookAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Facebook).Select(sn => sn.Data.Trim()).ToList();
 
             Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetTwitterImageDescriptionList = GetTwitterImageDescriptionList;
-            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
 
             // Parallelizing
 
@@ -76,23 +73,18 @@ namespace ASC.Web.CRM.SocialMedia
             var arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitterAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
 
-            var arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebookAccounts, currentTenant, null, null);
-            waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
-
             WaitHandle.WaitAll(waitHandles.ToArray());
 
             images.AddRange(dlgGetTwitterImageDescriptionList.EndInvoke(arGetAvatarsFromTwitter));
-            images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
 
             return images;
         }
 
-        public List<SocialMediaImageDescription> GetContactSMImages(List<String> twitter, List<String> facebook)
+        public List<SocialMediaImageDescription> GetContactSMImages(List<String> twitter)
         {
             var images = new List<SocialMediaImageDescription>();
 
             Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetTwitterImageDescriptionList = GetTwitterImageDescriptionList;
-            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
 
             // Parallelizing
 
@@ -103,13 +95,9 @@ namespace ASC.Web.CRM.SocialMedia
             var arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitter, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
 
-            var arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebook, currentTenant, null, null);
-            waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
-
             WaitHandle.WaitAll(waitHandles.ToArray());
 
             images.AddRange(dlgGetTwitterImageDescriptionList.EndInvoke(arGetAvatarsFromTwitter));
-            images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
 
             return images;
         }
@@ -146,39 +134,6 @@ namespace ASC.Web.CRM.SocialMedia
             return images;
         }
 
-        private List<SocialMediaImageDescription> GetFacebookImageDescriptionList(List<String> facebookAccounts, Tenant tenant)
-        {
-            var images = new List<SocialMediaImageDescription>();
-
-            if (facebookAccounts.Count == 0)
-                return images;
-
-            try
-            {
-                CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                var provider = new FacebookDataProvider(FacebookApiHelper.GetFacebookApiInfoForCurrentUser());
-
-                facebookAccounts = facebookAccounts.Distinct().ToList();
-                images.AddRange(from facebookAccount in facebookAccounts
-                                let imageUrl = provider.GetUrlOfUserImage(facebookAccount, FacebookDataProvider.ImageSize.Small)
-                                where imageUrl != null
-                                select new SocialMediaImageDescription
-                                    {
-                                        Identity = facebookAccount,
-                                        ImageUrl = imageUrl,
-                                        SocialNetwork = SocialNetworks.Facebook
-                                    });
-
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-            }
-
-            return images;
-        }
-
         public Exception ProcessError(Exception exception, string methodName)
         {
             if (exception is ConnectionFailureException)
@@ -192,12 +147,6 @@ namespace ASC.Web.CRM.SocialMedia
 
             if (exception is UnauthorizedException)
                 return new Exception(CRMSocialMediaResource.ErrorTwitterUnauthorized);
-
-            if (exception is OAuthException)
-                return new Exception(CRMSocialMediaResource.ErrorFacebookOAuth);
-
-            if (exception is APILimitException)
-                return new Exception(CRMSocialMediaResource.ErrorFacebookAPILimit);
 
             if (exception is SocialMediaException)
                 return new Exception(CRMSocialMediaResource.ErrorInternalServer);

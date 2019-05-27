@@ -26,43 +26,55 @@
 
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ASC.Feed.Data
 {
     public class FeedRow
     {
-        public string Id { get; set; }
+        public Aggregator.Feed Feed { get; private set; }
 
-        public bool ClearRightsBeforeInsert { get; set; }
+        public string Id { get { return Feed.Id; } }
+
+        public bool ClearRightsBeforeInsert { get { return Feed.Variate; } }
 
         public int Tenant { get; set; }
 
         public string ProductId { get; set; }
 
-        public string ModuleId { get; set; }
+        public string ModuleId { get { return Feed.Module; } }
 
-        public Guid AuthorId { get; set; }
-        
-        public Guid ModifiedById { get; set; }
+        public Guid AuthorId { get { return Feed.AuthorId; } }
 
-        public DateTime CreatedDate { get; set; }
+        public Guid ModifiedById { get { return Feed.ModifiedBy; } }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime CreatedDate { get { return Feed.CreatedDate; } }
 
-        public string GroupId { get; set; }
+        public DateTime ModifiedDate { get { return Feed.ModifiedDate; } }
 
-        public string Json { get; set; }
+        public string GroupId { get { return Feed.GroupId; } }
 
-        public string Keywords { get; set; }
+        public string Json {
+            get
+            {
+                return JsonConvert.SerializeObject(Feed, new JsonSerializerSettings
+                {
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                });
+            }
+        }
+
+        public string Keywords { get { return Feed.Keywords; } }
 
         public DateTime AggregatedDate { get; set; }
 
         public IList<Guid> Users { get; set; }
 
 
-        public FeedRow()
+        public FeedRow(Aggregator.Feed feed)
         {
             Users = new List<Guid>();
+            Feed = feed;
         }
     }
 }

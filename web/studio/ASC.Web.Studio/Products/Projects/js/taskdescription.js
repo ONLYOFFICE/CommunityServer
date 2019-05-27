@@ -40,8 +40,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         editedLink = null,
         reloadedTaskListFlag = false,
         overInvalidLinkHint = false,
-        projectFolderId,
-        projectName;
+        projectFolderId;
 
     var
         overViewTab,
@@ -147,7 +146,6 @@ ASC.Projects.TaskDescriptionPage = (function() {
 
     function initAttachmentsControl() {
         projectFolderId = currentTask.project.projectFolder;
-        projectName = Encoder.htmlEncode(currentTask.projectTitle);
 
         var entityType = "task";
         attachments = Attachments;
@@ -156,7 +154,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
             attachments.banOnEditing();
         }
 
-        ProjectDocumentsPopup.init(projectFolderId, projectName);
+        ProjectDocumentsPopup.init(projectFolderId, attachments.isAddedFile, attachments.appendToListAttachFiles);
         attachments.isLoaded = false;
         attachments.init(entityType, function() { return currentTask.id });
         attachments.setFolderId(projectFolderId);
@@ -165,7 +163,6 @@ ASC.Projects.TaskDescriptionPage = (function() {
         function addFileSuccess(file) {
             currentTask.files.push(file);
             documentsTab.rewrite();
-            ProjectDocumentsPopup.reset();
         }
 
         attachments.bind("addFile", function (ev, file) {
@@ -183,7 +180,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         attachments.bind("deleteFile", function (ev, fileId) {
             teamlab.removePrjEntityFiles({}, taskId, entityType, fileId, {
                 success: function () {
-                currentTask.files = currentTask.files.filter(function (item) { return item.id !== fileId });
+                currentTask.files = currentTask.files.filter(function (item) { return item.id != fileId; });
                 attachments.deleteFileFromLayout(fileId);
                 documentsTab.rewrite();
             }});
@@ -194,14 +191,6 @@ ASC.Projects.TaskDescriptionPage = (function() {
                 $filesContainer.show();
             }
         });
-
-        bind(teamlab.events.getDocFolder,
-            function () {
-                var $filesLists = jq(".fileList li");
-                for (var i = 0, j = currentTask.files.length; i < j; i++) {
-                    $filesLists.find("input#" + currentTask.files[i].id).prop("checked", true);
-                }
-            });
     };
 
     function hideRemovedComments(comments) {

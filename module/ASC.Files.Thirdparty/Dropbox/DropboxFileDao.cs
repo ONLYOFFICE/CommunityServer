@@ -45,11 +45,6 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
         }
 
-        public void Dispose()
-        {
-            DropboxProviderInfo.Dispose();
-        }
-
         public void InvalidateCache(object fileId)
         {
             var dropboxFilePath = MakeDropboxPath(fileId);
@@ -90,31 +85,22 @@ namespace ASC.Files.Thirdparty.Dropbox
             return fileIds.Select(GetDropboxFile).Select(ToFile).ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            return GetFiles(fileIds);
-        }
+            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<object> GetFiles(object parentId)
-        {
-            return GetDropboxItems(parentId, false).Select(entry => (object)MakeId(entry)).ToList();
-        }
+            var files = GetFiles(fileIds).AsEnumerable();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
-        {
-            if (filterType == FilterType.FoldersOnly) return new List<File>();
-
-            //Get only files
-            var files = GetDropboxItems(parentId, false).Select(item => ToFile(item.AsFile));
             //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
             switch (filterType)
             {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
                 case FilterType.FoldersOnly:
                     return new List<File>();
                 case FilterType.DocumentsOnly:
@@ -131,6 +117,71 @@ namespace ASC.Files.Thirdparty.Dropbox
                     break;
                 case FilterType.ArchiveOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return files.ToList();
+        }
+
+        public List<object> GetFiles(object parentId)
+        {
+            return GetDropboxItems(parentId, false).Select(entry => (object)MakeId(entry)).ToList();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        {
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
+
+            //Get only files
+            var files = GetDropboxItems(parentId, false).Select(item => ToFile(item.AsFile));
+
+            //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
+            switch (filterType)
+            {
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
@@ -152,6 +203,9 @@ namespace ASC.Files.Thirdparty.Dropbox
                     files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.ModifiedOn) : files.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -176,15 +230,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             if (dropboxFile == null) throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
             if (dropboxFile is ErrorFile) throw new Exception(((ErrorFile)dropboxFile).Error);
 
-            var fileStream = DropboxProviderInfo.Storage.DownloadStream(MakeDropboxPath(dropboxFile));
-            if (fileStream != null)
-            {
-                if (fileStream.CanSeek)
-                    file.ContentLength = fileStream.Length; // hack for google drive
-
-                if (fileStream.CanSeek && offset > 0)
-                    fileStream.Seek(offset, SeekOrigin.Begin);
-            }
+            var fileStream = DropboxProviderInfo.Storage.DownloadStream(MakeDropboxPath(dropboxFile), (int)offset);
 
             return fileStream;
         }
@@ -208,7 +254,14 @@ namespace ASC.Files.Thirdparty.Dropbox
 
             if (file.ID != null)
             {
-                newDropboxFile = DropboxProviderInfo.Storage.SaveStream(MakeDropboxPath(file.ID), fileStream);
+                var filePath = MakeDropboxPath(file.ID);
+                newDropboxFile = DropboxProviderInfo.Storage.SaveStream(filePath, fileStream);
+                if (!newDropboxFile.Name.Equals(file.Title))
+                {
+                    var parentFolderPath = GetParentFolderPath(newDropboxFile);
+                    file.Title = GetAvailableTitle(file.Title, parentFolderPath, IsExist);
+                    newDropboxFile = DropboxProviderInfo.Storage.MoveFile(filePath, parentFolderPath, file.Title);
+                }
             }
             else if (file.FolderID != null)
             {
@@ -452,12 +505,12 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             return null;
         }

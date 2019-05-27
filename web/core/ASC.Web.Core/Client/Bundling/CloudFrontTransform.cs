@@ -24,12 +24,6 @@
 */
 
 
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
-using Amazon.S3.Util;
-using ASC.Data.Storage.Configuration;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -40,6 +34,13 @@ using System.Text;
 using System.Threading;
 using System.Web.Configuration;
 using System.Web.Optimization;
+
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Util;
+using ASC.Common.Logging;
+using ASC.Data.Storage.Configuration;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -209,7 +210,7 @@ namespace ASC.Web.Core.Client.Bundling
 
                                     var cache = TimeSpan.FromDays(365);
                                     request.Headers.CacheControl = string.Format("public, maxage={0}", (int)cache.TotalSeconds);
-                                    request.Headers.Expires = DateTime.UtcNow.Add(cache);
+                                    request.Headers.ExpiresUtc = DateTime.UtcNow.Add(cache);
                                     request.Headers["x-amz-meta-etag"] = checksum;
 
                                     s3.PutObject(request);

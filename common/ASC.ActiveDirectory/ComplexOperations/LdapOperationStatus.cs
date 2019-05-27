@@ -45,6 +45,9 @@ namespace ASC.ActiveDirectory.ComplexOperations
         public string Error { get; set; }
 
         [DataMember]
+        public string Warning { get; set; }
+
+        [DataMember]
         public int Percents { get; set; }
 
         [DataMember]

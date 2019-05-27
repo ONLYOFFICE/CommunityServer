@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.Xml.Linq;
 using ASC.Data.Backup.Extensions;
 
@@ -34,24 +35,33 @@ namespace ASC.Data.Backup.Tasks
         public string Domain { get; set; }
         public string Module { get; set; }
         public string Path { get; set; }
+        public int Tenant { get; set; }
 
         public BackupFileInfo()
         {
         }
 
-        public BackupFileInfo(string domain, string module, string path)
+        public BackupFileInfo(string domain, string module, string path, int tenant = -1)
         {
             Domain = domain;
             Module = module;
             Path = path;
+            Tenant = tenant;
         }
 
         public XElement ToXElement()
         {
-            return new XElement("file",
+            var xElement =  new XElement("file",
                                 new XElement("domain", Domain),
                                 new XElement("module", Module),
                                 new XElement("path", Path));
+
+            if (Tenant != -1)
+            {
+                xElement.Add(new XElement("tenant", Tenant));
+            }
+
+            return xElement;
         }
 
         public static BackupFileInfo FromXElement(XElement el)
@@ -60,7 +70,8 @@ namespace ASC.Data.Backup.Tasks
                 {
                     Domain = el.Element("domain").ValueOrDefault(),
                     Module = el.Element("module").ValueOrDefault(),
-                    Path = el.Element("path").ValueOrDefault()
+                    Path = el.Element("path").ValueOrDefault(),
+                    Tenant = Convert.ToInt32(el.Element("tenant").ValueOrDefault() ?? "-1")
                 };
         }
     }

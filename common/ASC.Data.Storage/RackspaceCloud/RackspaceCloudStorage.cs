@@ -24,26 +24,19 @@
 */
 
 
-#region Import
-
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+
+using ASC.Data.Storage.Configuration;
+using ASC.Common.Logging;
 
 using net.openstack.Core.Domain;
-using ASC.Data.Storage.Configuration;
-using System.IO;
-using MimeMapping = ASC.Common.Web.MimeMapping;
-using System.Web;
-using System.Globalization;
-using log4net;
 using net.openstack.Providers.Rackspace;
-using ASC.Core.Tenants;
 
-#endregion
-
+using MimeMapping = ASC.Common.Web.MimeMapping;
 
 namespace ASC.Data.Storage.RackspaceCloud
 {
@@ -64,6 +57,18 @@ namespace ASC.Data.Storage.RackspaceCloud
 
         private static readonly ILog _logger = LogManager.GetLogger("ASC.Data.Storage.Rackspace.RackspaceCloudStorage");
         
+        public RackspaceCloudStorage(string tenant)
+        {
+             
+            _tenant = tenant;
+            _modulename = string.Empty;
+            _dataList = null;
+
+            _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
+            _domainsAcl = new Dictionary<string, ACL>();
+            _moduleAcl = ACL.Auto;
+        }
+
         public RackspaceCloudStorage(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
              
@@ -715,8 +720,6 @@ namespace ASC.Data.Storage.RackspaceCloud
 
         public override Uri FinalizeChunkedUpload(string domain, string path, string filePath, Dictionary<int, string> eTags)
         {
-            var stream = new FileStream(filePath, FileMode.Open);
-
             var client = GetClient();
 
             client.CreateObjectFromFile(_private_container, filePath, MakePath(domain, path));

@@ -29,183 +29,6 @@
     display: none;
 }
 
-/*-header---*/
-#popupDocumentUploader .popupContainerBreadCrumbs {
-    padding: 10px 10px;
-    border-bottom: 1px solid #ccc;
-    color: #666668;
-}
-
-#popupDocumentUploader .popupContainerBreadCrumbs a 
-{
-    color: #666668;
-}
-
-#popupDocumentUploader .popupContainerBreadCrumbs a.root,
-#popupDocumentUploader .popupContainerBreadCrumbs a.root:hover
-{
-    text-decoration: none;
-}
-
-#popupDocumentUploader .popupContainerBreadCrumbs a.current {
-    font-weight: bold;
-    text-decoration: none;
-    cursor: default;
-}
-
-#popupDocumentUploader .mainContainerClass .infoPanel {
-    display: none;
-}
-
-#popupDocumentUploader .mainContainerClass {
-    border-color:#444;
-}
-
-/*-body---*/
-p.containerCheckAll {
-    padding-left: 10px;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 7px;
-}
-
-p.containerCheckAll #checkAll, p.containerCheckAll label {
-    margin-right: 8px;
-    display: inline;
-}
-
-p.containerCheckAll a {
-    color: #333333;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-#popupDocumentUploader .fileContainer {
-    height: 410px;
-    overflow: hidden;
-    position: relative;
-    border:none;
-}
-#popupDocumentUploader .fileContainer .loader {
-    width: 50px;
-    display: block;
-    margin: auto;
-    padding-top:177px;
-}
-
-#popupDocumentUploader .fileContainer ul.fileList
-{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-#popupDocumentUploader  .fileContainer ul.fileList li {
-    display: block;
-    padding: 2px 8px;
-    cursor: pointer;
-    border-bottom: 1px solid #d1d1d1;
-}
-
-#popupDocumentUploader  .fileContainer ul.fileList li[id] {
-    padding: 3px 8px;
-}
-
-#popupDocumentUploader  .fileContainer ul.fileList li:hover 
-{
-    background-color:#f2f2f2;
-
-    .link {
-        text-decoration: underline;
-    }
-}
-
-#popupDocumentUploader  .fileContainer ul.fileList li input {
-    display: inline-block;
-    margin-top: 5px;
-    margin-right: 10px;
-    cursor: pointer
-}
-
-/*----empty list Files---*/
-#emptyFileList .noContentBlock.emptyScrCtrl {
-    width: auto;
-}
-
-/*---file type----*/
-.fileContainer ul.fileList li span.folder {
-    display: block;
-    background-position: 1px -39px;
-    padding-left: 30px;
-    margin-left: 25px;
-    padding-top: 4px;
-    width: auto;
-    white-space: nowrap;
-}
-
-.fileContainer ul.fileList li label {
-    display: inline-block;
-    padding-top: 4px;
-    padding-left: 25px;
-    width: auto;
-    max-width: 254px;
-    overflow: hidden;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: top;
-}
-
-.fileContainer .fileList {
-    .share-allow,
-    .share-deny {
-        display: inline-block;
-        vertical-align: sub;
-        height: 16px;
-        width: 16px;
-        margin-left: 8px;
-    }
-
-    .share-allow {
-        background: url(images/can-public-share.png) no-repeat scroll -16px 0 transparent;
-    }
-
-    .share-deny {
-        background: url(images/can-public-share.png) no-repeat scroll 0 0 transparent;
-    }
-}
-
-#filesViewContainer
-{
-    width: 370px;
-    max-height: 410px;
-    overflow: hidden;
-    padding: 0;
-    margin-left:10px;
-}
-
-#filesViewContainer:hover {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-#documentSelectorTree 
-{
-    width: 210px;
-    max-height: 410px;
-    overflow: hidden;
-    padding: 0;
-    margin-right: 10px;
-}
-
-#documentSelectorTree:hover {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
 #filesCannotBeAttachedAsLinksBox {
     .warning-box {
         width: 100px;
@@ -242,8 +65,17 @@ p.containerCheckAll a {
     }
 }
 
-#errorOpenFolder {
-    .body-error {
-        width: 340px;
-    }
+#attachFrame {
+    margin-left: -24px;
+    width: 976px;
+}
+
+#fileChoiceFrame {
+    min-width: 100%;
+    width: 976px;
+    *width: 100%;
+}
+
+#popupDocumentUploader .loader-page {
+    margin-left: -60px;
 }

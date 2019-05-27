@@ -24,183 +24,37 @@
 */
 
 
-window.DocumentsPopup = (function($) {
+window.DocumentsPopup = (function ($) {
     var isInit = false,
         el,
-        elFiles,
-        elButtons,
-        elEmpty,
-        elError,
-        elLoader,
+        attachFilesAsLinks,
         $attachFilesAsLinksSelector,
-        elDocumentSelectorTree,
-        lastId = -1,
-        supportedCustomEvents = { SelectFiles: "on_documents_selected" },
-        eventsHandler = jq({}),
-        documentSelectorTree,
-        folderFiles = [],
-        isShareableFolder = false,
-        showTypes = {
-            loader: 0,
-            files: 1,
-            error: 2,
-            empty: 3
-        };
-
-    function toggleButtons(hide, all) {
-        if (hide) {
-            elButtons.find("#attach_btn").toggleClass("disable", true);
-            if (all) {
-                elButtons.find("#cancel_btn").toggleClass("disable", true);
-            }
-        } else {
-            elButtons.find("#attach_btn").removeClass("disable");
-            if (all) {
-                elButtons.find("#cancel_btn").removeClass("disable");
-            }
-        }
-    }
-
-    function showContent(type) {
-        elFiles.hide();
-        elLoader.hide();
-        elEmpty.hide();
-        elError.hide();
-        toggleButtons(true, false);
-
-        switch (type) {
-        case showTypes.loader:
-            elLoader.show();
-            break;
-        case showTypes.files:
-            elFiles.show();
-            break;
-        case showTypes.error:
-            elError.show();
-            break;
-        case showTypes.empty:
-        default:
-            elEmpty.show();
-            break;
-        }
-    }
-
-    function testCheckboxesState() {
-        var files = elFiles.find("li input:checked");
-        var hasSelected = false;
-        for (var i = 0; i < files.length; i++) {
-            if (jq(files[i]).is(':checked')) {
-                hasSelected = true;
-                break;
-            }
-        }
-        toggleButtons(!hasSelected, false);
-    }
-
-    function onGetFolderFiles(params, folderInfo) {
-        var content = new Array();
-        var folders = folderInfo.folders;
-        var i;
-        for (i = 0; i < folders.length; i++) {
-            var folderName = folders[i].title;
-            var folId = folders[i].id;
-            var folder = { title: folderName, exttype: "", id: folId, type: "folder" };
-            content.push(folder);
-        }
-        
-        folderFiles = folderInfo.files;
-        isShareableFolder = folderInfo.isShareable === undefined ? folderInfo.current.isShareable : folderInfo.isShareable;
-
-        for (i = 0; i < folderFiles.length; i++) {
-            var fileName = folderFiles[i].title;
-
-            var file = {
-                title: fileName,
-                access: folderFiles[i].access,
-                exttype: ASC.Files.Utility.getCssClassByFileTitle(fileName, true),
-                version: folderFiles[i].version,
-                id: folderFiles[i].id,
-                type: "file",
-                ViewUrl: folderFiles[i].viewUrl,
-                webUrl: folderFiles[i].webUrl,
-                size_string: folderFiles[i].contentLength,
-                size: folderFiles[i].pureContentLength,
-                original: folderFiles[i]
-            };
-            content.push(file);
-        }
-
-        elFiles.empty();
-        if (content.length === 0) {
-            showContent(showTypes.empty);
-            return;
-        }
-
-        jq.tmpl("docAttachTmpl", content).appendTo(elFiles);
-        
-        showContent(showTypes.files);
-
-        toggleButtons(false, true);
-        toggleButtons(true, false);
-
-        elFiles.find("li input:checked").change(testCheckboxesState);
-    }
-
-    function onError(params, errors) {
-        if (errors.length > 1 && errors[1].hresult) {
-            if (errors[1].hresult === ASC.Mail.Constants.Errors.COR_E_UNAUTHORIZED_ACCESS) {
-                var html = $.tmpl('filesFolderOpenErrorTmpl');
-                elError.html(html);
-                showContent(showTypes.error);
-                return;
-            }
-        }
-
-        window.toastr.error(errors[0]);
-        showContent(showTypes.empty);
-    }
-
-    function getListFolderFiles(id) {
-        if (id == undefined || id === '') {
-            return;
-        }
-
-        lastId = id;
-        showContent(showTypes.loader);
-        Teamlab.getDocFolder({}, id, { success: onGetFolderFiles, error: onError, max_request_attempts: 1 });
-    }
+        loader,
+        supportedCustomEvents = {SelectFiles: "on_documents_selected"},
+        eventsHandler = jq({});
 
     function initElements() {
         el = jq("#popupDocumentUploader");
-        elFiles = el.find(".fileList");
-        elButtons = el.find(".buttonContainer");
-        elEmpty = el.find("#emptyFileList");
-        elError = el.find("#errorOpenFolder");
-        elLoader = el.find(".loader");
+        attachFilesAsLinks = el.find("#attachFilesAsLinks");
         $attachFilesAsLinksSelector = el.find("#attachFilesAsLinksSelector");
-        documentSelectorTree = new ASC.Files.TreePrototype("#documentSelectorTree");
-        documentSelectorTree.clickOnFolder = getListFolderFiles;
-        elDocumentSelectorTree = jq("#documentSelectorTree");
-        var treeNodes = elDocumentSelectorTree.find(".tree-node");
-        if (treeNodes.length > 0) {
-            lastId = jq(treeNodes[0]).attr('data-id');
-        }
+        loader = el.find(".loader-page");
+
+        var frameUrl = jq("#attachFrame").data("frame");
+        jq("<iframe/>",
+            {
+                "frameborder": 0,
+                "height": "535px",
+                "id": "fileChoiceFrame",
+                "scrolling": "no",
+                "src": frameUrl,
+                "onload": "javascript:DocumentsPopup.hideLoader();return false;"
+            })
+            .appendTo("#attachFrame");
     }
 
-    function attachSelectedFiles() {
+    function attachSelectedFiles (selectedFiles, folderShareable) {
         try {
-            toggleButtons(true, true);
-
             var listfiles = [];
-
-            var fileIds = jq.map(elFiles.find("li input:checked"), function(el) {
-                var id = jq(el).attr('id');
-                return $.isNumeric(id) ? parseInt(id) : id;
-            });
-            
-            var selectedFiles = jq.grep(folderFiles, function(f) {
-                return jq.inArray(f.id, fileIds) !== -1;
-            });
 
             for (var i = 0; i < selectedFiles.length; i++) {
                 var file = selectedFiles[i];
@@ -220,10 +74,11 @@ window.DocumentsPopup = (function($) {
                     }
                 }
 
-                var downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(file.id);
-                var viewUrl = ASC.Files.Utility.GetFileDownloadUrl(file.id);
-                var docViewUrl = ASC.Files.Utility.GetFileWebViewerUrl(file.id);
-                var editUrl = ASC.Files.Utility.GetFileWebEditorUrl(file.id);
+                //from FileShareLink.GetLink
+                var fileUrl = ASC.Files.Utility.GetFileDownloadUrl(file.id);
+                if (ASC.Files.Utility.CanWebView(file.title)) {
+                    fileUrl = ASC.Files.Utility.GetFileWebViewerUrl(file.id);
+                }
 
                 var fileTmpl = {
                     title: file.title,
@@ -232,13 +87,12 @@ window.DocumentsPopup = (function($) {
                     exttype: ASC.Files.Utility.getCssClassByFileTitle(file.title),
                     id: file.id,
                     version: file.version,
-                    ViewUrl: viewUrl,
-                    downloadUrl: downloadUrl,
-                    editUrl: editUrl,
-                    docViewUrl: docViewUrl,
-                    webUrl: file.webUrl,
-                    size: file.pureContentLength,
-                    inShareableFolder: isShareableFolder
+                    fileUrl: fileUrl,
+                    size: file.content_length,
+                    shareable: !!folderShareable
+                        && (!file.encrypted
+                            && (file.access == ASC.Files.Constants.AceStatusEnum.None
+                                || file.access == ASC.Files.Constants.AceStatusEnum.ReadWrite))
                 };
 
                 listfiles.push(fileTmpl);
@@ -246,135 +100,76 @@ window.DocumentsPopup = (function($) {
 
             PopupKeyUpActionProvider.EnableEsc = true;
 
-            eventsHandler.trigger(supportedCustomEvents.SelectFiles, { data: listfiles, asLinks: $attachFilesAsLinksSelector.is(':checked') });
+            eventsHandler.trigger(supportedCustomEvents.SelectFiles, {data: listfiles, asLinks: $attachFilesAsLinksSelector.is(':checked')});
 
             jq.unblockUI();
         } catch (e) {
             console.error(e);
-            toggleButtons(false, true);
         }
     }
 
-    function bindEvents() {
-        elButtons.find("#attach_btn").unbind('click').bind('click', function () {
-            if (!jq(this).hasClass('disable')) {
-                attachSelectedFiles();
-            }
-            return false;
-        });
-
-        elButtons.find("#cancel_btn").unbind('click').bind('click', function () {
-            if (!jq(this).hasClass('disable')) {
-                DocumentsPopup.EnableEsc = true;
-                jq.unblockUI();
-            }
-            return false;
-        });
-
-        elFiles.find("input").unbind('click').bind('click', function () {
-            if (!jq(this).is(":checked")) {
-                jq("#checkAll").prop("checked", false);
-                return;
-            }
-            var checkedAll = true;
-            elFiles.find("input").each(function () {
-                if (!jq(this).is(":checked")) {
-                    checkedAll = false;
+    function bindEvents () {
+        window.addEventListener("message",
+            function (message) {
+                try {
+                    var data = jq.parseJSON(message.data);
+                } catch (e) {
+                    console.error(e);
                     return;
                 }
-            });
-            if (checkedAll) {
-                el.find("#checkAll").prop("checked", true);
-            }
-        });
+
+                if (!data.files) {
+                    PopupKeyUpActionProvider.EnableEsc = true;
+                    jq.unblockUI();
+                    return;
+                }
+
+                attachSelectedFiles(data.files, data.folderShareable);
+            },
+            false);
     }
 
-    function init() {
+    function init () {
         if (!isInit) {
             isInit = true;
 
             initElements();
             bindEvents();
-
-            toggleButtons(true, false);
         }
     }
 
-    function selectFile(id) {
-        var checkbox = elFiles.find('input[id="' + id + '"]');
-        if (checkbox.prop("checked")) {
-            checkbox.prop("checked", false);
-            checkbox.removeAttr("checked");
-        } else {
-            checkbox.prop("checked", true);
-        }
-
-        testCheckboxesState();
-    }
-
-    function openFolder(id) {
-        getListFolderFiles(id);
-        documentSelectorTree.rollUp();
-        documentSelectorTree.setCurrent(id);
-    }
-
-    function showPortalDocUploader() {
+    function showPortalDocUploader () {
         if (!isInit) {
             init();
         }
 
-        documentSelectorTree.rollUp();
-        documentSelectorTree.setCurrent(lastId);
-        getListFolderFiles(lastId);
-
-        elFiles.find("li input").removeAttr("checked");
-
-        var margintop = jq(window).scrollTop() - 135;
-        margintop = margintop + 'px';
-
-        toggleButtons(true, false);
-
         PopupKeyUpActionProvider.EnableEsc = false;
-        jq.blockUI({
-            message: el,
+
+        var defaultOptions = {
             css: {
-                left: '50%',
-                top: '25%',
-                opacity: '1',
-                border: 'none',
-                padding: '0px',
-                width: '650px',
-
-                cursor: 'default',
-                textAlign: 'left',
-                position: 'absolute',
-                'margin-left': '-300px',
-                'margin-top': margintop,
-                'background-color': 'White'
+                marginLeft: '-500px',
+                marginTop: '-323px'
             },
+            bindEvents: false
+        }
 
-            overlayCSS: {
-                backgroundColor: '#AAA',
-                cursor: 'default',
-                opacity: '0.3'
-            },
-            focusInput: false,
-            baseZ: 666,
+        StudioBlockUIManager.blockUI(el, 1000, 646, null, null, defaultOptions);
 
-            fadeIn: 0,
-            fadeOut: 0,
-
-            onBlock: function() {
-            }
-        });
+        loader.show();
+        attachFilesAsLinks.css("visibility", "hidden");
     }
 
-    function bind(eventName, fn) {
+    function bind (eventName, fn) {
         eventsHandler.bind(eventName, fn);
     }
 
-    function unbind(eventName) {
+    function unbind (eventName) {
         eventsHandler.unbind(eventName);
+    }
+
+    function hideLoader () {
+        attachFilesAsLinks.css("visibility", "visible");
+        loader.hide();
     }
 
     return {
@@ -382,10 +177,7 @@ window.DocumentsPopup = (function($) {
         bind: bind,
         unbind: unbind,
         events: supportedCustomEvents,
-        onGetFolderFiles: onGetFolderFiles,
         showPortalDocUploader: showPortalDocUploader,
-        openFolder: openFolder,
-        attachSelectedFiles: attachSelectedFiles,
-        selectFile: selectFile
+        hideLoader: hideLoader
     };
 })(jQuery);

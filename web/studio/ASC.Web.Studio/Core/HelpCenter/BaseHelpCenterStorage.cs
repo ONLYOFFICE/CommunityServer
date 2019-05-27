@@ -38,10 +38,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using ASC.Common.Caching;
+using ASC.Common.Logging;
 using ASC.Common.Threading;
-using ASC.Common.Threading.Workers;
 using ASC.Web.Core.Client;
-using log4net;
 
 namespace ASC.Web.Studio.Core.HelpCenter
 {
@@ -82,6 +81,18 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 Tasks.QueueTask(request.SendRequest, request.GetDistributedTask());
             }
         }
+
+        public static void Complete(string url)
+        {
+            lock (LockObj)
+            {
+                var task = Tasks.GetTasks().FirstOrDefault(r => r.GetProperty<string>("Url") == url);
+                if (task != null)
+                {
+                    Tasks.RemoveTask(task.Id);
+                }
+            }
+        }
     }
 
     public class BaseHelpCenterStorage<T> where T : BaseHelpCenterData, new()
@@ -92,8 +103,16 @@ namespace ASC.Web.Studio.Core.HelpCenter
         private string FilePath { get; set; }
         private string CacheKey { get; set; }
 
-        private static readonly ICache cache = AscCache.Memory;
-        private static readonly TimeSpan expirationTimeout = TimeSpan.FromDays(1);
+        private static readonly ICache cache;
+        private static readonly TimeSpan expirationTimeout;
+        private static readonly ILog Log;
+
+        static BaseHelpCenterStorage()
+        {
+            cache = AscCache.Memory;
+            expirationTimeout = TimeSpan.FromDays(1);
+            Log = LogManager.GetLogger("ASC.Web.HelpCenter");
+        }
 
         public BaseHelpCenterStorage(string basePath, string fileName, string cacheKey)
         {
@@ -101,9 +120,8 @@ namespace ASC.Web.Studio.Core.HelpCenter
             CacheKey = cacheKey;
         }
 
-        public T GetData(string baseUrl, string page, string helpLinkBlock)
+        public T GetData(string baseUrl, string url, string helpLinkBlock)
         {
-            var url = baseUrl + page;
             var helpCenterData = GetFromCacheOrFile(url);
             if (helpCenterData != null) return helpCenterData;
 
@@ -113,7 +131,11 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 Url = url,
                 BaseUrl = baseUrl,
                 HelpLinkBlock = helpLinkBlock,
-                Starter = (r, html) => InitAndCacheData(r, html, helpCenterData)
+                Starter = (r, html) =>
+                {
+                    InitAndCacheData(r, html, helpCenterData);
+                    HelpDownloader.Complete(url);
+                }
             };
 
             HelpDownloader.Make(request);
@@ -121,9 +143,8 @@ namespace ASC.Web.Studio.Core.HelpCenter
             return null;
         }
 
-        public async Task<T> GetDataAsync(string baseUrl, string page, string helpLinkBlock, string resetCacheKey)
+        public async Task<T> GetDataAsync(string baseUrl, string url, string helpLinkBlock, string resetCacheKey)
         {
-            var url = baseUrl + page;
             var helpCenterData = GetFromCacheOrFile(url);
 
             if (helpCenterData == null)
@@ -158,7 +179,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC.Web.HelpCenter").Error("Error GetVideoGuide", e);
+                Log.Error("Error GetVideoGuide", e);
             }
 
             if (data == null)
@@ -226,7 +247,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC.Web.HelpCenter").Error("Error UpdateVideoGuide", e);
+                Log.Error("Error UpdateVideoGuide", e);
             }
         }
 
@@ -268,9 +289,14 @@ namespace ASC.Web.Studio.Core.HelpCenter
         public string BaseUrl { get; set; }
         public Action<HelpCenterRequest, string> Starter { get; set; }
         private static bool stopRequesting;
-        private static readonly ILog Log = LogManager.GetLogger("ASC.Web.HelpCenter");
+        private static readonly ILog Log;
 
         protected DistributedTask TaskInfo { get; private set; }
+
+        static HelpCenterRequest()
+        {
+            Log = LogManager.GetLogger("ASC.Web.HelpCenter");
+        }
 
         public HelpCenterRequest()
         {

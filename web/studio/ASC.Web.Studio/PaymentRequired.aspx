@@ -1,5 +1,7 @@
 ﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="PaymentRequired.aspx.cs" Inherits="ASC.Web.Studio.PaymentRequired" %>
 
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="Resources" %>
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
@@ -18,7 +20,7 @@
                     <td rowspan="5">
                         <div class="license-item">
                             <div class="license-item-modules"><%= UserControlsCommonResource.LicenseModules.HtmlEncode() %></div>
-                            <%= string.Format(UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
+                            <%= string.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseModulesListCustomMode : UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
                         </div>
                     </td>
                 </tr>

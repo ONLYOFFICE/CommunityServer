@@ -27,8 +27,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
-using ASC.Common.Utils;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -36,32 +37,58 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Helpers;
-using ASC.Web.Core.Users;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
+
 using Autofac;
+using Newtonsoft.Json;
+
 
 namespace ASC.Web.Projects.Classes
 {
     public class Report
     {
-        #region private
+        private static string GetDocbuilderMasterTemplate { get; set; }
+
+        static Report()
+        {
+            GetDocbuilderMasterTemplate = GetDocbuilderTemplate("master", -1);
+        }
 
         private ExtendedReportType ExtendedReportType { get; set; }
 
         public TaskFilter Filter { get; set; }
+
+        public ReportType ReportType
+        {
+            get { return ExtendedReportType.ReportType; }
+        }
+
+        public ReportInfo ReportInfo
+        {
+            get { return ExtendedReportType.ReportInfo; }
+        }
+
+        public string FileName
+        {
+            get
+            {
+                var date = TenantUtil.DateTimeNow();
+                return string.Format("{0} ({1} {2}).xlsx",
+                               ExtendedReportType.ReportFileName.Replace(' ', '_'),
+                               date.ToShortDateString(),
+                               date.ToShortTimeString());
+            }
+        }
 
         private Report(ExtendedReportType reportType, TaskFilter filter)
         {
             ExtendedReportType = reportType;
             Filter = filter;
         }
-
-        #endregion
-
-        #region public
 
         public static Report CreateNewReport(ReportType reportType, TaskFilter filter)
         {
@@ -111,14 +138,81 @@ namespace ASC.Web.Projects.Classes
             throw new Exception("There is not report Type");
         }
 
-        public string BuildReport(ReportViewType viewType, int templateID)
+        public static bool TryCreateReport(string query, out ReportState state)
         {
-            //prepare filter
+            var p = ReportFilterSerializer.GetParameterFromUri(query, "reportType");
+            if (string.IsNullOrEmpty(p))
+                throw new Exception(ReportResource.ErrorParse);
+
+            ReportType reportType;
+            if (!Enum.TryParse(p, out reportType))
+                throw new Exception(ReportResource.ErrorParse);
+
+            var filter = ReportFilterSerializer.FromUri(query);
+
+            var template = new ReportTemplate(reportType) { Id = -1, Filter = filter, CreateBy = SecurityContext.CurrentAccount.ID };
+
+            return TryCreateReportFromTemplate(template, template.SaveDocbuilderReport, null, out state);
+        }
+
+        public static bool TryCreateReportFromTemplate(ReportTemplate template, Action<ReportState, string> callback, object obj, out ReportState state, bool auto = false)
+        {
+            var report = CreateNewReport(template.ReportType, template.Filter);
+            template.Name = report.FileName;
+
+            var data = report.GetDocbuilderData(template.Id);
+
+            var dataJson = JsonConvert.SerializeObject(data);
+            var columnsJson = JsonConvert.SerializeObject(report.ExtendedReportType.ColumnsName);
+            var filterJson = JsonConvert.SerializeObject(template.Filter);
+
+            var userCulture = CoreContext.UserManager.GetUsers(template.CreateBy).GetCulture();
+            var reportInfoJson = JsonConvert.SerializeObject(new Dictionary<string, object>
+            {
+                { "Title", report.ReportInfo.Title },
+                { "CreatedText", ReportResource.ReportCreated },
+                { "CreatedAt", TenantUtil.DateTimeNow().ToString("M/d/yyyy", CultureInfo.InvariantCulture) },
+                { "CreatedBy", ProjectsFilterResource.By + " " + CoreContext.UserManager.GetUsers(template.CreateBy).DisplayUserName(false) },
+                { "DateFormat", userCulture.DateTimeFormat.ShortDatePattern }
+            });
+
+            var tmpFileName = DocbuilderReportsUtility.TmpFileName;
+
+            var script = GetDocbuilderMasterTemplate
+                .Replace("${outputFilePath}", tmpFileName)
+                .Replace("${reportData}", dataJson)
+                .Replace("${reportColumn}", columnsJson)
+                .Replace("${reportFilter}", filterJson)
+                .Replace("${reportInfo}", reportInfoJson.Replace("\"", "\\\""))
+                .Replace("${templateBody}", GetDocbuilderTemplate(report.ReportType.ToString(), report.Filter.ViewType));
+
+            state = new ReportState(report.FileName, tmpFileName, script, (int)template.ReportType, auto ? ReportOrigin.ProjectsAuto : ReportOrigin.Projects, callback, obj);
+
+            if (data.Count == 0)
+            {
+                state.Exception = ReportResource.ErrorEmptyData;
+                state.Status = ReportStatus.Failed;
+                return false;
+            }
+            
+            DocbuilderReportsUtility.Enqueue(state);
+
+            return true;
+        }
+
+        private List<object[]> GetDocbuilderData(int templateID)
+        {
+            PrepareFilter(templateID);
+            return ExtendedReportType.BuildDocbuilderReport(Filter).ToList();
+        }
+
+        private void PrepareFilter(int templateID)
+        {
             if (templateID != 0 && !Filter.FromDate.Equals(DateTime.MinValue))
             {
                 var interval = Filter.ToDate.DayOfYear - Filter.FromDate.DayOfYear;
 
-                switch (ExtendedReportType.GetReportType())
+                switch (ExtendedReportType.ReportType)
                 {
                     case ReportType.TasksByUsers:
                     case ReportType.TasksByProjects:
@@ -135,75 +229,40 @@ namespace ASC.Web.Projects.Classes
                         break;
                 }
             }
-
-            //exec
-
-            var data = ExtendedReportType.BuildReport(Filter).ToList();
-
-            return !data.Any()
-                       ? CreateNewReport(ReportType.EmptyReport, Filter).Transform(new List<object[]>(), viewType, templateID)
-                       : this.Transform(data.ToList(), viewType, templateID);
         }
 
-
-        public ReportType ReportType
+        private static string GetDocbuilderTemplate(string fileName, int v)
         {
-            get { return ExtendedReportType.GetReportType(); }
-        }
-
-        public List<string> GetColumns(ReportViewType viewType, int templateID)
-        {
-            var parameters = new List<string>();
-
-            if (viewType == ReportViewType.EMail)
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(string.Format("ASC.Web.Projects.DocbuilderTemplates.{0}_{1}.docbuilder", fileName, v)) ??
+                assembly.GetManifestResourceStream(string.Format("ASC.Web.Projects.DocbuilderTemplates.{0}.docbuilder", fileName)))
             {
-                parameters.Add(CommonLinkUtility.GetFullAbsolutePath(string.Format("~/products/projects/reports.aspx?reportType={0}&tmplId={1}", (int)ReportType, templateID)));
-                parameters.Add(ReportResource.ChangeSettings);
-            }
-            else
-            {
-                parameters = viewType == ReportViewType.Csv ? ExtendedReportType.GetCsvColumnsName().ToList() : ReportInfo.Columns.ToList();
-
-                if (ReportType == ReportType.TimeSpend)
+                if (stream != null)
                 {
-                    parameters.Add(Filter.PaymentStatuses.Count != 0 ? ((int)Filter.PaymentStatuses[0]).ToString(CultureInfo.InvariantCulture) : "-1");
+                    using (var sr = new StreamReader(stream))
+                    {
+                        return sr.ReadToEnd();
+                    }
                 }
             }
-
-            return parameters;
+            throw new Exception(ReportResource.ErrorCreatingScript);
         }
-
-        public ReportInfo ReportInfo
-        {
-            get { return ExtendedReportType.GetReportInfo(); }
-        }
-
-        public string FileName
-        {
-            get { return ExtendedReportType.GetReportFileName().Replace(' ', '_'); }
-        }
-
-        #endregion
     }
 
 
+    #region Reports
+
     public abstract class ExtendedReportType
     {
-        #region publicMethods
+        public ReportType ReportType {get; private set; }
+        
+        public abstract string[] ColumnsName { get; }
 
-        public abstract ReportType GetReportType();
+        public abstract ReportInfo ReportInfo { get; }
 
-        public abstract IEnumerable<object[]> BuildReport(TaskFilter filter);
+        public abstract string ReportFileName { get; }
 
-        public abstract string[] GetCsvColumnsName();
-
-        public abstract ReportInfo GetReportInfo();
-
-        public abstract string GetReportFileName();
-
-        #endregion
-
-        #region ProtectedMethods
+        public abstract IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter);
 
         protected string VirtualRoot
         {
@@ -215,95 +274,10 @@ namespace ASC.Web.Projects.Classes
             get { return CommonLinkUtility.ServerRootPath + VirtualRoot; }
         }
 
-        protected static IEnumerable<object[]> AddUserInfo(IEnumerable<object[]> rows, int userIdIndex, Guid? groupId = null)
+        protected ExtendedReportType(ReportType reportType)
         {
-            var result = new List<object[]>();
-            foreach (var row in rows)
-            {
-                if (row[userIdIndex] == null) continue;
-
-                var users = row[userIdIndex].ToString().Split(',').Select(r => string.IsNullOrEmpty(r) ? Guid.Empty : new Guid(r));
-                foreach (var userID in users)
-                {
-                    var list = new List<object>(row);
-                    if (userID != Guid.Empty)
-                    {
-                        var user = CoreContext.UserManager.GetUsers(userID);
-                        if (user.ID != Constants.LostUser.ID && user.Status != EmployeeStatus.Terminated && 
-                            (!groupId.HasValue || groupId.Value.Equals(Guid.Empty) || CoreContext.UserManager.IsUserInGroup(user.ID, groupId.Value)))
-                        {
-                            list.Add(user.DisplayUserName(false));
-                            list.Add(user.GetUserProfilePageURL());
-                            list[userIdIndex] = userID;
-                            result.Add(list.ToArray());
-                        }
-                    }
-                    else
-                    {
-                        list.Add(TaskResource.WithoutResponsible);
-                        list.Add(string.Empty);
-                        result.Add(list.ToArray());
-                    }
-                }
-            }
-
-            return result;
+            ReportType = reportType;
         }
-
-        protected static IEnumerable<object[]> AddStatusCssClass(IEnumerable<object[]> rows)
-        {
-            var result = new List<object[]>();
-            foreach (var row in rows)
-            {
-                var list = new List<object>(row);
-                if ((int)row[5] != -1)
-                {
-                    var milestoneStatus = (MilestoneStatus)row[5];
-                    var milestoneCssClass = string.Empty;
-                    if (milestoneStatus == MilestoneStatus.Open)
-                    {
-                        DateTime milestoneDeadline;
-                        if (DateTime.TryParse((string)row[4], out milestoneDeadline))
-                        {
-                            if (milestoneDeadline < TenantUtil.DateTimeNow())
-                                milestoneCssClass = "red-text";
-                        }
-                    }
-
-                    list[5] = ResourceEnumConverter.ConvertToString(milestoneStatus);
-                    list.Add(milestoneStatus);
-                    list.Add(milestoneCssClass);
-                }
-                else
-                {
-                    row[5] = null;
-                    list.Add(string.Empty);
-                    list.Add(string.Empty);
-                }
-
-                var taskStatus = (TaskStatus)row[9];
-                var taskCssClass = string.Empty;
-
-                if (taskStatus == TaskStatus.Open)
-                {
-                    DateTime taskDeadline;
-                    if (DateTime.TryParse((string)row[10], out taskDeadline))
-                    {
-                        if (taskDeadline < TenantUtil.DateTimeNow())
-                            taskCssClass = "red-text";
-                    }
-                }
-
-                list[9] = ResourceEnumConverter.ConvertToString(taskStatus);
-                list.Add(taskStatus);
-                list.Add(taskCssClass);
-
-                result.Add(list.ToArray());
-            }
-            return result;
-        }
-
-        #endregion
     }
 
     #region Milestones Reports
@@ -324,12 +298,12 @@ namespace ASC.Web.Projects.Classes
             }
         }
 
-        public override ReportType GetReportType()
+        public MilestonesReport(ReportType reportType)
+            : base(reportType)
         {
-            throw new NotImplementedException();
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             using (var scope = DIHelper.Resolve())
             {
@@ -338,83 +312,124 @@ namespace ASC.Web.Projects.Classes
                     .OrderBy(r => r.Project.Title)
                     .Select(r => new object[]
                     {
-                        r.Project.ID, r.Project.Title, r.ID, r.Title, r.DeadLine.ToString("d"),
-                        LocalizedEnumConverter.ConvertToString(r.Status)
+                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false), 
+                        r.Title, CoreContext.UserManager.GetUsers(r.Responsible).DisplayUserName(false), r.DeadLine.ToString("d"),
+                        (int)((DateTime.Now - r.DeadLine).TotalDays)
                     });
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnProjectjTitle,
-                ReportResource.CsvColumnMilestoneTitle,
-                ReportResource.CsvColumnMilestoneDeadline};
+            get
+            {
+                return new[]
+                {
+                    MilestoneResource.Milestone,
+                    MilestoneResource.Responsible,
+                    MilestoneResource.MilestoneDeadline,
+                    MilestoneResource.Overdue + ", " + MilestoneResource.Days
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            throw new NotImplementedException();
+            get { throw new NotImplementedException(); }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportLateMilestones_Title", CultureInfo.InvariantCulture);
+            get
+            {
+                return ReportResource.ReportLateMilestones_Title;
+            }
         }
     }
 
     class MilestonesExpiredReport : MilestonesReport
     {
-        public override ReportType GetReportType()
+        public MilestonesExpiredReport() : base(ReportType.MilestonesExpired)
         {
-            return ReportType.MilestonesExpired;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             filter.ToDate = TenantUtil.DateTimeNow();
             filter.MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open };
 
-            return base.BuildReport(filter);
+            return base.BuildDocbuilderReport(filter);
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(String.Format(ReportResource.ReportLateMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                                    ReportResource.ReportLateMilestones_Title,
-                                    MileColumns);
+            get
+            {
+                return new ReportInfo(
+                        String.Format(ReportResource.ReportLateMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                        ReportResource.ReportLateMilestones_Title,
+                        MileColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportLateMilestones_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportLateMilestones_Title; }
         }
     }
 
     class MilestonesNearestReport : MilestonesReport
     {
-        public override ReportType GetReportType()
+        public MilestonesNearestReport() : base(ReportType.MilestonesNearest)
         {
-            return ReportType.MilestonesNearest;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             filter.MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open };
 
-            return base.BuildReport(filter);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<EngineFactory>().MilestoneEngine
+                    .GetByFilter(filter)
+                    .OrderBy(r => r.Project.Title)
+                    .Where(r => ((r.DeadLine - DateTime.Now).TotalDays) > 0)
+                    .Select(r => new object[]
+                    {
+                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false), 
+                        r.Title, CoreContext.UserManager.GetUsers(r.Responsible).DisplayUserName(false), r.DeadLine.ToString("d"),
+                        (int)((r.DeadLine - DateTime.Now).TotalDays)
+                    });
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override string[] ColumnsName
         {
-            return new ReportInfo(String.Format(ReportResource.ReportUpcomingMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                                    ReportResource.ReportUpcomingMilestones_Title,
-                                    MileColumns);
+            get
+            {
+                return new[]
+                {
+                    MilestoneResource.Milestone,
+                    MilestoneResource.Responsible,
+                    MilestoneResource.MilestoneDeadline,
+                    MilestoneResource.Next + ", " + MilestoneResource.Days
+                };
+            }
         }
 
-        public override string GetReportFileName()
+        public override ReportInfo ReportInfo
         {
-            return ReportResource.ResourceManager.GetString("ReportUpcomingMilestones_Title", CultureInfo.InvariantCulture);
+            get
+            {
+                return new ReportInfo(String.Format(ReportResource.ReportUpcomingMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                        ReportResource.ReportUpcomingMilestones_Title,
+                        MileColumns);
+            }
+        }
+
+        public override string ReportFileName
+        {
+            get { return ReportResource.ReportUpcomingMilestones_Title; }
         }
     }
 
@@ -434,7 +449,7 @@ namespace ASC.Web.Projects.Classes
                                ProjectResource.ProjectLeader,
                                ProjectsCommonResource.Status,
                                GrammaticalResource.MilestoneGenitivePlural,
-                               TaskResource.Tasks,
+                               GrammaticalResource.TaskGenitivePlural,
                                ReportResource.Participiants,
                                ReportResource.ClickToSortByThisColumn,
                                CommonLinkUtility.ServerRootPath,
@@ -443,12 +458,17 @@ namespace ASC.Web.Projects.Classes
             }
         }
 
-        public override ReportType GetReportType()
+        public ProjectsListReport() : base(ReportType.ProjectsList)
         {
-            return ReportType.ProjectsList;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public ProjectsListReport(ReportType reportType)
+            : base(reportType)
+        {
+        }
+
+
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             filter.SortBy = "title";
             filter.SortOrder = true;
@@ -459,92 +479,104 @@ namespace ASC.Web.Projects.Classes
                     .GetByFilter(filter)
                     .Select(r => new object[]
                     {
-                        r.ID, r.Title, r.Responsible,
+                        r.Title, CoreContext.UserManager.GetUsers(r.Responsible).DisplayUserName(false),
                         LocalizedEnumConverter.ConvertToString(r.Status),
                         r.MilestoneCount, r.TaskCount, r.ParticipantCount
                     });
 
-                result = AddUserInfo(result, 2);
-                result = result.OrderBy(r => (string) r[1]);
+                result = result.OrderBy(r => (string)r[1]);
 
                 return result;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnProjectjTitle,
-                ProjectResource.ProjectLeader,
-                ProjectsCommonResource.Status,
-                GrammaticalResource.MilestoneGenitivePlural,
-                TaskResource.Tasks,
-                ReportResource.Participiants };
+            get
+            {
+                return new[]
+                {
+                    ProjectsCommonResource.Title,
+                    ProjectResource.ProjectLeader,
+                    ProjectsCommonResource.Status,
+                    GrammaticalResource.MilestoneGenitivePlural,
+                    GrammaticalResource.TaskGenitivePlural,
+                    ReportResource.Participiants,
+                    LocalizedEnumConverter.ConvertToString(ProjectStatus.Open)
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportProjectList_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportProjectList_Title,
-                ProjColumns);
+            get
+            {
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportProjectList_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportProjectList_Title,
+                    ProjColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportProjectList_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportProjectList_Title; }
         }
     }
 
     class ProjectsWithoutActiveMilestonesReport : ProjectsListReport
     {
-        public override ReportType GetReportType()
+        public ProjectsWithoutActiveMilestonesReport()
+            : base(ReportType.ProjectsWithoutActiveMilestones)
         {
-            return ReportType.ProjectsWithoutActiveMilestones;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
-            return base.BuildReport(filter).Where(r => (int)r[4] == 0);
+            return base.BuildDocbuilderReport(filter).Where(r => (int)r[3] == 0);
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportProjectsWithoutActiveMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportProjectsWithoutActiveMilestones_Title,
-                ProjColumns);
+            get
+            {
+                return new ReportInfo(String.Format(ReportResource.ReportProjectsWithoutActiveMilestones_Description, "<ul>", "</ul>","<li>", "</li>"),
+                    ReportResource.ReportProjectsWithoutActiveMilestones_Title,
+                    ProjColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportProjectsWithoutActiveMilestones_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportProjectsWithoutActiveMilestones_Title; }
         }
     }
 
     class ProjectsWithoutActiveTasksReport : ProjectsListReport
     {
-        public override ReportType GetReportType()
+        public ProjectsWithoutActiveTasksReport() : base(ReportType.ProjectsWithoutActiveTasks)
         {
-            return ReportType.ProjectsWithoutActiveTasks;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
-            return base.BuildReport(filter).Where(r => (int)r[5] == 0);
+            return base.BuildDocbuilderReport(filter).Where(r => (int)r[4] == 0);
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportProjectsWithoutActiveTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportProjectsWithoutActiveTasks_Title,
-                ProjColumns);
+            get
+            {
+                return new ReportInfo(String.Format(ReportResource.ReportProjectsWithoutActiveTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportProjectsWithoutActiveTasks_Title,
+                    ProjColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportProjectsWithoutActiveTasks_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportProjectsWithoutActiveTasks_Title; }
         }
     }
 
@@ -554,6 +586,10 @@ namespace ASC.Web.Projects.Classes
 
     class TasksReport : ExtendedReportType
     {
+        public TasksReport(ReportType reportType) : base(reportType)
+        {
+        }
+
         protected string[] TaskColumns
         {
             get
@@ -575,12 +611,7 @@ namespace ASC.Web.Projects.Classes
             }
         }
 
-        public override ReportType GetReportType()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             if (!filter.UserId.Equals(Guid.Empty))
             {
@@ -614,112 +645,184 @@ namespace ASC.Web.Projects.Classes
                 if (!filter.NoResponsible)
                     tasks = tasks.Where(r => r.Responsibles.Any()).ToList();
 
-                var result = tasks.Select(r => new object[]
-                {
-                    r.Project.ID, r.Project.Title,
-                    r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
-                    r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
-                    r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d") : null,
-                    r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
-                    r.ID, r.Title,
-                    GetResponsible(r, filter.ParticipantId),
-                    r.Status,
-                    !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "",
-                    HtmlUtil.GetText(r.Description, 500)
-                });
+                var projects = tasks.Select(r => r.Project).Distinct();
+                var result = new List<object[]>();
 
-                result = AddUserInfo(result, 8, filter.DepartmentId);
-                result = AddStatusCssClass(result);
+                foreach (var proj in projects)
+                    result.Add(new object[] { 
+                        new object[] { proj.Title, LocalizedEnumConverter.ConvertToString(proj.Status), 
+                            CoreContext.UserManager.GetUsers(proj.Responsible).DisplayUserName(false), proj.CreateOn.ToString("d"), proj.Description },
+                        tasks.Where(r => r.Project.ID == proj.ID).Select(r => new object[]
+                        {
+                            r.Title,
+                            r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
+                            string.Join(", ", r.Responsibles.Select(x => CoreContext.UserManager.GetUsers(x).DisplayUserName(false))),
+                            r.Deadline.Equals(DateTime.MinValue) ? ( r.MilestoneDesc == null ? "" : r.MilestoneDesc.DeadLine.ToString("d") ) : r.Deadline.ToString("d"),
+                            LocalizedEnumConverter.ConvertToString(r.Status)
+                        })
+                    });
 
                 return result;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnProjectjTitle,
-                ReportResource.CsvColumnMilestoneTitle,
-                ReportResource.CsvColumnMilestoneDeadline, 
-                ReportResource.CsvColumnMilestoneStatus,
-                ReportResource.CsvColumnTaskTitle,
-                ReportResource.CsvColumnTaskDueDate,
-                ReportResource.CsvColumnTaskStatus,
-                ReportResource.CsvColumnUserName,
-                TaskResource.UnsortedTask};
+            get
+            {
+                return new[]
+                {
+                    ProjectsCommonResource.Status,
+                    ProjectResource.ProjectLeader,
+                    TaskResource.CreatingDate,
+                    ProjectsCommonResource.Description,
+
+                    TaskResource.Task,
+                    GrammaticalResource.ResponsibleNominativePlural,
+                    MilestoneResource.MilestoneDeadline,
+                    ProjectsCommonResource.Status,
+                    LocalizedEnumConverter.ConvertToString(TaskStatus.Open)
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            throw new NotImplementedException();
+            get { throw new NotImplementedException(); }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            throw new NotImplementedException();
-        }
-
-        private string GetResponsible(Task task, Guid? userID)
-        {
-            if (GetReportType() == ReportType.TasksByUsers && userID.HasValue && !userID.Equals(Guid.Empty))
-                task.Responsibles.RemoveAll(r => !r.Equals(userID));
-
-            return task.Responsibles.Any()
-                                ? task.Responsibles.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)
-                                : "";
+            get { throw new NotImplementedException(); }
         }
     }
 
     class TasksByProjectsReport : TasksReport
     {
-        public override ReportType GetReportType()
+        public TasksByProjectsReport() : base(ReportType.TasksByProjects)
         {
-            return ReportType.TasksByProjects;
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportTaskList_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportTaskList_Title,
-                TaskColumns);
+            get
+            {
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportTaskList_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportTaskList_Title,
+                    TaskColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportTaskList_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportTaskList_Title; }
         }
     }
 
     class TasksByUsersReport : TasksReport
     {
-        public override ReportType GetReportType()
+        public TasksByUsersReport() : base(ReportType.TasksByUsers)
         {
-            return ReportType.TasksByUsers;
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportUserTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportUserTasks_Title,
-                TaskColumns);
+            get
+            {
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportUserTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportUserTasks_Title,
+                    TaskColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
-            return ReportResource.ResourceManager.GetString("ReportUserTasks_Title", CultureInfo.InvariantCulture);
+            if (!filter.UserId.Equals(Guid.Empty))
+            {
+                filter.ParticipantId = filter.UserId;
+                filter.UserId = Guid.Empty;
+            }
+
+            var createdFrom = filter.FromDate;
+            var createdTo = filter.ToDate;
+
+            filter.FromDate = DateTime.MinValue;
+            filter.ToDate = DateTime.MinValue;
+
+            filter.SortBy = "deadline";
+            filter.SortOrder = true;
+
+            using (var scope = DIHelper.Resolve())
+            {
+                var tasks = scope.Resolve<EngineFactory>().TaskEngine.GetByFilter(filter)
+                        .FilterResult.OrderBy(r => r.Project.Title)
+                        .ToList();
+
+                filter.FromDate = createdFrom;
+                filter.ToDate = createdTo;
+
+                if (!filter.FromDate.Equals(DateTime.MinValue) && !filter.ToDate.Equals(DateTime.MinValue))
+                    tasks =
+                        tasks.Where(r => r.CreateOn.Date >= filter.FromDate && r.CreateOn.Date <= filter.ToDate)
+                            .ToList();
+
+                var result = new List<object[]>();
+
+                var users = tasks.SelectMany(r => r.Responsibles).Distinct();
+                foreach (var user in users)
+                {
+                    var userTasks = tasks.Where(r => r.Responsibles.Contains(user));
+                    var userProj = userTasks.Select(r => r.Project);
+                    var projData = new List<object[]>();
+                    foreach (var pr in userProj)
+                    {
+                        var prTasks = userTasks.Where(r => r.Project == pr);
+                        projData.Add(new object[] { pr.Title, CoreContext.UserManager.GetUsers(pr.Responsible).DisplayUserName(false),
+                        prTasks.Select(r => new object[] { r.Title,
+                            r.Deadline.Equals(DateTime.MinValue) ? ( r.MilestoneDesc == null ? "" : r.MilestoneDesc.DeadLine.ToString("d") ) : r.Deadline.ToString("d"),
+                            LocalizedEnumConverter.ConvertToString(r.Status), 
+                            LocalizedEnumConverter.ConvertToString(r.Priority), r.StartDate.Equals(DateTime.MinValue) ? "" : r.StartDate.ToString("d") })});
+                    }
+
+                    result.Add(new object[] { CoreContext.UserManager.GetUsers(user).DisplayUserName(false), projData });
+                }
+
+                return result;
+            }
+        }
+
+        public override string[] ColumnsName
+        {
+            get
+            {
+                return new[]
+                {
+                    ProjectResource.ProjectLeader,
+                    TaskResource.Task,
+                    MilestoneResource.MilestoneDeadline,
+                    ProjectsCommonResource.Status,
+                    TaskResource.Priority,
+                    TaskResource.TaskStartDate,
+                    LocalizedEnumConverter.ConvertToString(TaskStatus.Open)
+                };
+            }
+        }
+
+        public override string ReportFileName
+        {
+            get { return ReportResource.ReportUserTasks_Title; }
         }
     }
 
     class TasksExpiredReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public TasksExpiredReport() : base(ReportType.TasksExpired)
         {
-            return ReportType.TasksExpired;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             filter.FromDate = new DateTime(1970, 1, 1);
             filter.ToDate = TenantUtil.DateTimeNow();
@@ -727,73 +830,72 @@ namespace ASC.Web.Projects.Classes
 
             using (var scope = DIHelper.Resolve())
             {
-                var tasks = scope.Resolve<EngineFactory>()
-                        .TaskEngine.GetByFilter(filter)
+                var tasks = scope.Resolve<EngineFactory>().TaskEngine.GetByFilter(filter)
                         .FilterResult.OrderBy(r => r.Project.Title)
                         .ToList();
 
-                var result = tasks.Select(r => new object[]
+                var projects = tasks.Select(r => r.Project).Distinct();
+
+                var result = new List<object[]>();
+
+                foreach (var pr in projects)
+                    result.Add(new object[] { pr.Title, CoreContext.UserManager.GetUsers(pr.Responsible).DisplayUserName(false), 
+                        tasks.Where(r => r.Project.ID == pr.ID).Select(r => new object[]
                 {
-                    r.Project.ID, r.Project.Title,
-                    r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
-                    r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
-                    r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d") : null,
-                    r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
-                    r.ID, r.Title,
-                    r.Responsibles.Any()
-                        ? r.Responsibles.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)
-                        : "",
-                    r.Status,
-                    !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "",
-                    HtmlUtil.GetText(r.Description, 500)
-                });
-
-                result = result.Where(row => row[10] != null).ToList();
-
-                result = AddUserInfo(result, 8);
-                result = AddStatusCssClass(result);
+                    r.Title,
+                    string.Join(", ", r.Responsibles.Select(x => CoreContext.UserManager.GetUsers(x).DisplayUserName(false))),
+                    r.Deadline.Equals(DateTime.MinValue) ? ( r.MilestoneDesc == null ? "" : r.MilestoneDesc.DeadLine.ToString("d") ) : r.Deadline.ToString("d"),
+                    (int)((DateTime.Now - (DateTime.MinValue.Equals(r.Deadline) ? r.MilestoneDesc.DeadLine : r.Deadline)).TotalDays)
+                })});
 
                 return result;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnProjectjTitle,
-                ReportResource.CsvColumnMilestoneTitle,
-                ReportResource.CsvColumnMilestoneDeadline, 
-                ReportResource.CsvColumnMilestoneStatus,
-                ReportResource.CsvColumnTaskTitle,
-                ReportResource.CsvColumnTaskDueDate,
-                ReportResource.CsvColumnTaskStatus,
-                ReportResource.CsvColumnUserName,
-                TaskResource.UnsortedTask};
+            get
+            {
+                return new[]
+                {
+                    ProjectResource.ProjectLeader,
+
+                    TaskResource.Task,
+                    GrammaticalResource.ResponsibleNominativePlural,
+                    MilestoneResource.MilestoneDeadline,
+                    MilestoneResource.Overdue + ", " + MilestoneResource.Days
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            var taskExpiredColumns = new[] {
-                ProjectResource.Project,
-                MilestoneResource.Milestone,
-                TaskResource.Task, 
-                TaskResource.TaskResponsible,
-                ProjectsCommonResource.Status,
-                TaskResource.UnsortedTask,
-                TaskResource.DeadLine,
-                ReportResource.NoMilestonesAndTasks,
-                CommonLinkUtility.ServerRootPath,
-                VirtualRoot };
+            get
+            {
+                var taskExpiredColumns = new[]
+                {
+                    ProjectResource.Project,
+                    MilestoneResource.Milestone,
+                    TaskResource.Task,
+                    TaskResource.TaskResponsible,
+                    ProjectsCommonResource.Status,
+                    TaskResource.UnsortedTask,
+                    TaskResource.DeadLine,
+                    ReportResource.NoMilestonesAndTasks,
+                    CommonLinkUtility.ServerRootPath,
+                    VirtualRoot
+                };
 
-            return new ReportInfo(
-                String.Format(ReportResource.ReportLateTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportLateTasks_Title,
-                taskExpiredColumns);
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportLateTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportLateTasks_Title,
+                    taskExpiredColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportLateTasks_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportLateTasks_Title; }
         }
     }
 
@@ -802,12 +904,11 @@ namespace ASC.Web.Projects.Classes
 
     class UsersWithoutActiveTasksReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public UsersWithoutActiveTasksReport() : base(ReportType.UsersWithoutActiveTasks)
         {
-            return ReportType.UsersWithoutActiveTasks;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             using (var scope = DIHelper.Resolve())
             {
@@ -818,55 +919,68 @@ namespace ASC.Web.Projects.Classes
                 }
 
                 var result = scope.Resolve<EngineFactory>().ReportEngine.BuildUsersWithoutActiveTasks(filter);
-                result = AddUserInfo(result, 0).ToList();
-                result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default)
-                        .ToList();
+
+                result = result.OrderBy(r => (string)r[0]).ToList();
 
                 return result;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnUserName,
-                ResourceEnumConverter.ConvertToString(TaskStatus.Open),
-                ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
-                ProjectsCommonResource.Total };
+            get
+            {
+                return new[]
+                {
+                    ReportResource.CsvColumnUserName,
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Open),
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
+                    ProjectsCommonResource.Total
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            var userColumns = new[] {
-                ReportResource.User,
-                "Not Accept",                
-                ResourceEnumConverter.ConvertToString(TaskStatus.Open),
-                ReportResource.ActiveTasks, 
-                ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
-                ProjectsCommonResource.Total,
-                ReportResource.ClickToSortByThisColumn,
-                CommonLinkUtility.ServerRootPath };
+            get
+            {
+                var userColumns = new[]
+                {
+                    ReportResource.User,
+                    "Not Accept",
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Open),
+                    ReportResource.ActiveTasks,
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
+                    ProjectsCommonResource.Total,
+                    ReportResource.ClickToSortByThisColumn,
+                    CommonLinkUtility.ServerRootPath
+                };
 
-            return new ReportInfo(
-                                    String.Format(ReportResource.ReportEmployeesWithoutActiveTasks_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                                    CustomNamingPeople.Substitute<ReportResource>("ReportEmployeesWithoutActiveTasks_Title").HtmlEncode(),
-                                    userColumns);
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportEmployeesWithoutActiveTasks_Description, "<ul>", "</ul>", "<li>",
+                        "</li>"),
+                    CustomNamingPeople.Substitute<ReportResource>("ReportEmployeesWithoutActiveTasks_Title")
+                        .HtmlEncode(),
+                    userColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return CustomNamingPeople.Substitute<ReportResource>("ReportEmployeesWithoutActiveTasks_Title").HtmlEncode();
+            get
+            {
+                return CustomNamingPeople.Substitute<ReportResource>("ReportEmployeesWithoutActiveTasks_Title").HtmlEncode();
+            }
         }
     }
 
     class UsersWorkloadReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public UsersWorkloadReport() : base(ReportType.UsersWorkload)
         {
-            return ReportType.UsersWorkload;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             using (var scope = DIHelper.Resolve())
             {
@@ -878,54 +992,62 @@ namespace ASC.Web.Projects.Classes
 
                 var result = factory.ReportEngine.BuildUsersWorkload(filter);
 
-                result = AddUserInfo(result, 0).ToList();
-                result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default).ToList();
+                result = result.OrderBy(r => (string)r[0]).ToList();
 
                 return result;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnUserName,
-                ResourceEnumConverter.ConvertToString(TaskStatus.Open),
-                ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
-                ProjectsCommonResource.Total };
+            get
+            {
+                return new[]
+                {
+                    ReportResource.CsvColumnUserName,
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Open),
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
+                    ProjectsCommonResource.Total
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            var userColumns = new[] {
-                ReportResource.User,
-                "Not Accept",                
-                ResourceEnumConverter.ConvertToString(TaskStatus.Open),
-                ReportResource.ActiveTasks, 
-                ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
-                ProjectsCommonResource.Total,
-                ReportResource.ClickToSortByThisColumn,
-                CommonLinkUtility.ServerRootPath };
+            get
+            {
+                var userColumns = new[]
+                {
+                    ReportResource.User,
+                    "Not Accept",
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Open),
+                    ReportResource.ActiveTasks,
+                    ResourceEnumConverter.ConvertToString(TaskStatus.Closed),
+                    ProjectsCommonResource.Total,
+                    ReportResource.ClickToSortByThisColumn,
+                    CommonLinkUtility.ServerRootPath
+                };
 
-            return new ReportInfo(
-                String.Format(ReportResource.ReportEmployment_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportEmployment_Title,
-                userColumns);
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportEmployment_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportEmployment_Title,
+                    userColumns);
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ReportEmployment_Title;
+            get { return ReportResource.ReportEmployment_Title; }
         }
     }
 
     class TimeSpendReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public TimeSpendReport() : base(ReportType.TimeSpend)
         {
-            return ReportType.TimeSpend;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             filter.FromDate = filter.GetFromDate(true);
             filter.ToDate = filter.GetToDate(true);
@@ -934,148 +1056,213 @@ namespace ASC.Web.Projects.Classes
             {
                 var factory = scope.Resolve<EngineFactory>();
 
-                var taskTime = factory.TimeTrackingEngine.GetByFilter(filter)
-                    .Select(r =>
-                            new object[]
+
+                IEnumerable<object[]> taskTime = new List<object[]>();
+                switch (filter.ViewType)
+                {
+                    case 0:
+                        taskTime = factory.TimeTrackingEngine.GetByFilter(filter)
+                            .Select(r =>
+                                new object[]
+                                {
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
+                                    r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : ""
+                                });
+
+                        taskTime = taskTime.GroupBy(r => (string)r[0], (a, b) =>
                             {
-                                r.Person, r.Task.Project.ID, r.Task.Project.Title, r.Task.ID, r.Task.Title, r.Hours, 0,
-                                r.PaymentStatus
+                                var enumerable = b as IList<object[]> ?? b.ToList();
+                                var data = (object[])enumerable.First().Clone();
+                                data[1] = enumerable.Sum(c => (float)c[1]);
+                                data[2] = enumerable.Where(r => (PaymentStatus)r[3] == PaymentStatus.Billed).Sum(c => (float)c[1]);
+                                return data;
                             });
+                        return taskTime.OrderBy(r => (string)r[0]);
 
-                if (filter.ViewType == 0)
-                {
-                    taskTime = taskTime.GroupBy(r => (Guid) r[0], (a, b) =>
-                    {
-                        var enumerable = b as IList<object[]> ?? b.ToList();
-                        var data = (object[]) enumerable.First().Clone();
-                        data[5] = enumerable.Sum(c => (float) c[5]);
-                        data[6] =
-                            enumerable.Where(r => (PaymentStatus) r[7] == PaymentStatus.Billed).Sum(c => (float) c[5]);
-                        return data;
-                    });
-                }
+                    case 1:
+                        taskTime = factory.TimeTrackingEngine.GetByFilter(filter)
+                            .Select(r =>
+                                new object[]
+                                {
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
+                                    r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : "", 
+                                    r.Task.Project, r.Task.Title
+                                });
 
-                if (filter.ViewType == 1)
-                {
-                    taskTime = taskTime.Select(r =>
-                    {
-                        if ((PaymentStatus) r[7] == PaymentStatus.Billed) r[6] = r[5];
-                        return r;
-                    });
+                        taskTime = taskTime.Select(r =>
+                        {
+                            if ((PaymentStatus)r[3] == PaymentStatus.Billed) r[2] = r[1];
+                            return r;
+                        });
+
+                        var users = taskTime.GroupBy(x => x[0]).Select(x => new object[] { x.Key, x.ToList()
+                            .Select(r => new object[] { r[1], r[2], r[3], r[4], r[5], r[6] })});
+
+
+                        var result = new List<object[]>();
+                        foreach (var user in users) // user = [string, []]
+                        {
+                            var userTasks = (IEnumerable<object[]>)user[1];
+
+                            var groupedUserTasks = userTasks.GroupBy(x => x[4]).Select(r => new object[] {
+                            new object[] { ((Project)r.Key).Title, ProjectsCommonResource.Status + ": " + LocalizedEnumConverter.ConvertToString(((Project)r.Key).Status),
+                            ProjectResource.ProjectLeader + ": " + CoreContext.UserManager.GetUsers(((Project)r.Key).Responsible).DisplayUserName(false),
+                            TaskResource.CreatingDate + ": " + ((Project)r.Key).CreateOn.ToString("d"), 
+                            ((Project)r.Key).Description != "" ? ProjectsCommonResource.Description + ": " + ((Project)r.Key).Description : ""
+                            }, r.ToList().Select(y => new object[] { y[0], y[1], y[2], y[3], y[5] } )});
+
+                            result.Add(new object[] { user[0], groupedUserTasks });
+                        }
+
+                        return result;
+
+                    case 2:
+                        taskTime = factory.TimeTrackingEngine.GetByFilter(filter)
+                            .Select(r =>
+                                new object[]
+                                {
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
+                                    r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : "",
+                                    r.Task.Project.Title
+                                });
+
+                        return taskTime.GroupBy(x => (string)x[5]).Select(x => new object[] {x.Key, x.GroupBy(r => (string)r[0], (a, b) =>
+                            {
+                                var enumerable = b as IList<object[]> ?? b.ToList();
+                                var data = (object[])enumerable.First().Clone();
+                                data[1] = enumerable.Sum(c => (float)c[1]);
+                                data[2] = enumerable.Where(r => (PaymentStatus)r[3] == PaymentStatus.Billed).Sum(c => (float)c[1]);
+                                return data;
+                            })
+                        }).OrderBy(x => (string)x[0]);
+
+                    default:
+                        throw new Exception(ProjectsCommonResource.NoData);
                 }
-                taskTime = AddUserInfo(taskTime, 0);
-                taskTime = taskTime.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default);
-                return taskTime;
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnUserName,
-                ReportResource.CsvColumnTaskTitle,
-                ReportResource.CsvColumnProjectjTitle,
-                ProjectsCommonResource.SpentTotally,
-                ProjectsCommonResource.SpentBilledTotally,
-                TimeTrackingResource.ShortHours,
-                TimeTrackingResource.ShortMinutes
-            };
+            get
+            {
+                return new[]
+                {
+                    ReportResource.CsvColumnUserName,
+                    TaskResource.Task,
+                    ProjectsCommonResource.Total,
+                    ProjectsCommonResource.SpentTotally,
+                    ReportResource.Billed,
+                    TimeTrackingResource.PaymentStatusNotChargeable,
+                    TimeTrackingResource.ShortHours,
+                    TimeTrackingResource.ShortMinutes
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportTimeSpendSummary_Description, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportTimeSpendSummary_Title,
-                new[]
+            get
+            {
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportTimeSpendSummary_Description, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportTimeSpendSummary_Title,
+                    new[]
                     {
                         ReportResource.User, ProjectsCommonResource.SpentTotally,
-                        ProjectsCommonResource.SpentBilledTotally, 
+                        ProjectsCommonResource.SpentBilledTotally,
                         ReportResource.ClickToSortByThisColumn, CommonLinkUtility.ServerRootPath, VirtualRoot,
                         TimeTrackingResource.ShortHours, TimeTrackingResource.ShortMinutes
                     });
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportTimeSpendSummary_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportTimeSpendSummary_Title; }
         }
     }
 
     class UsersActivityReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public UsersActivityReport() : base(ReportType.UsersActivity)
         {
-            return ReportType.UsersActivity;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             using (var scope = DIHelper.Resolve())
             {
-                var result = scope.Resolve<EngineFactory>().ReportEngine.BuildUsersActivityReport(filter);
-                result = AddUserInfo(result, 0).ToList();
+                var result = scope.Resolve<EngineFactory>().ReportEngine.BuildUsersActivity(filter);
                 return result
-                    .OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default)
+                    .OrderBy(r => (string)r[1])
                     .ToList();
             }
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { 
-                ReportResource.CsvColumnUserName,
-                TaskResource.Tasks,
-                MilestoneResource.Milestones,
-                MessageResource.Messages,
-                ProjectsFileResource.Files,
-                ProjectsCommonResource.Total };
+            get
+            {
+                return new[]
+                {
+                    ReportResource.CsvColumnUserName,
+                    TaskResource.Tasks,
+                    MilestoneResource.Milestones,
+                    MessageResource.Messages,
+                    ProjectsCommonResource.Total
+                };
+            }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo(
-                String.Format(ReportResource.ReportUserActivity_Descripton, "<ul>", "</ul>", "<li>", "</li>"),
-                ReportResource.ReportUserActivity_Title,
-                new[]
+            get
+            {
+                return new ReportInfo(
+                    String.Format(ReportResource.ReportUserActivity_Descripton, "<ul>", "</ul>", "<li>", "</li>"),
+                    ReportResource.ReportUserActivity_Title,
+                    new[]
                     {
                         ReportResource.User, TaskResource.Tasks, MilestoneResource.Milestones, MessageResource.Messages,
                         ProjectsFileResource.Files, ProjectsCommonResource.Total, ReportResource.ClickToSortByThisColumn,
                         CommonLinkUtility.ServerRootPath
                     });
+            }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return ReportResource.ResourceManager.GetString("ReportUserActivity_Title", CultureInfo.InvariantCulture);
+            get { return ReportResource.ReportUserActivity_Title; }
         }
     }
 
     class EmptyReport : ExtendedReportType
     {
-        public override ReportType GetReportType()
+        public EmptyReport() : base(ReportType.EmptyReport)
         {
-            return ReportType.EmptyReport;
         }
 
-        public override IEnumerable<object[]> BuildReport(TaskFilter filter)
+        public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
             return new List<object[]>();
         }
 
-        public override string[] GetCsvColumnsName()
+        public override string[] ColumnsName
         {
-            return new[] { ProjectsCommonResource.NoData };
+            get { return new[] {ProjectsCommonResource.NoData}; }
         }
 
-        public override ReportInfo GetReportInfo()
+        public override ReportInfo ReportInfo
         {
-            return new ReportInfo("", "", new[] { ProjectsCommonResource.NoData });
+            get { return new ReportInfo("", "", new[] {ProjectsCommonResource.NoData}); }
         }
 
-        public override string GetReportFileName()
+        public override string ReportFileName
         {
-            return "EmptyReport";
+            get { return "EmptyReport"; }
         }
     }
+
+    #endregion
 }

@@ -25,15 +25,9 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using ASC.Web.Studio.Core.Backup;
 using Resources;
-using ASC.Web.Studio.Core;
-using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Common
 {

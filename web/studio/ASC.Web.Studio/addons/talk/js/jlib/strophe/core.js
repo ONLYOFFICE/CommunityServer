@@ -2305,6 +2305,12 @@ Strophe.Connection.prototype = {
                     (reqStatus >= 400 && reqStatus < 600) ||
                     reqStatus >= 12000) {
                     this._hitError(reqStatus);
+                    if (navigator.onLine) {
+                        ASC.TMTalk.connectionManager.status(ASC.TMTalk.connectionManager.offlineStatusId);
+                        setTimeout(function () {
+                            ASC.TMTalk.connectionManager.status(ASC.TMTalk.connectionManager.onlineStatusId);
+                        }, 5000);
+                    }
                     if (reqStatus >= 400 && reqStatus < 500) {
                         this._changeConnectStatus(Strophe.Status.DISCONNECTING,
                                                   null);
@@ -2434,7 +2440,16 @@ Strophe.Connection.prototype = {
             this.disconnect();
             return;
         }
-
+        conflict = elem.getElementsByTagName("conflict");
+        if (conflict.length > 0) {
+           ASC.TMTalk.connectionManager.conflict = true;
+           return;
+        }
+        var newTalkWindow = elem.getElementsByTagName("newTalkWindow");
+        if (newTalkWindow.length > 0) {
+            ASC.TMTalk.connectionManager.conflict = false;
+            console.log('conflict, is exist another connection ');
+        }
         // send each incoming stanza through the handler chain
         var self = this;
         Strophe.forEachChild(elem, null, function (child) {

@@ -115,7 +115,7 @@
             <div class="headerPanelSmall">
                 <b><%= TimeTrackingResource.Date %>:</b>
             </div>
-            <input type="text" id="inputDate" class="textEditCalendar" />
+            <input type="text" id="inputDate" class="textEditCalendar" autocomplete="off"/>
         </div>      
         <div class="block-cnt-splitter time-fields-container">
             <div class="headerPanelSmall">

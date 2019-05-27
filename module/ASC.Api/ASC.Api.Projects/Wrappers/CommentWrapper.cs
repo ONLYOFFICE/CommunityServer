@@ -73,7 +73,7 @@ namespace ASC.Api.Projects.Wrappers
             Created = Updated = (ApiDateTime)comment.CreateOn;
             CreatedBy = projectApiBase.GetEmployeeWraper(comment.CreateBy);
             Inactive = comment.Inactive;
-            CanEdit = ProjectSecurity.CanEditComment(entity, comment);
+            CanEdit = projectApiBase.ProjectSecurity.CanEditComment(entity, comment);
         }
 
 

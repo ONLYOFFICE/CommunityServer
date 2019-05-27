@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Net;
 
@@ -9,9 +6,9 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 {
     internal class WebResponseStream : Stream, IDisposable
     {
-        private Stream               _responseStream;
-        private WebResponse          _response;
-        private WebRequestService   _service;
+        private Stream _responseStream;
+        private WebResponse _response;
+        private WebRequestService _service;
 
         public WebResponseStream(Stream srcStream, WebResponse response, WebRequestService service)
         {
@@ -47,14 +44,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 
         public override long Position
         {
-            get
-            {
-                return _responseStream.Position;
-            }
-            set
-            {
-                _responseStream.Position = value;
-            }
+            get { return _responseStream.Position; }
+            set { _responseStream.Position = value; }
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -85,7 +76,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             _service.DisposeWebResponseStreams(_response, this);
 
             // to all dispose stuff from base
-            base.Dispose();
+            Dispose();
         }
 
         #endregion

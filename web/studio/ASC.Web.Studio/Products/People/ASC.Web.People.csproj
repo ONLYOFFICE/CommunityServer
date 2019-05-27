@@ -4,6 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -16,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.People</RootNamespace>
     <AssemblyName>ASC.Web.People</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -48,16 +49,44 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=2.9.17.2, Culture=neutral, PublicKeyToken=db0125e360716f7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Mail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\ASC.Mail.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\MyGroup.cs">
-      <SubType>Code</SubType>
+    <Compile Include="Classes\ImportParameters.cs" />
+    <Compile Include="Core\Import\ContactInfo.cs" />
+    <Compile Include="Core\Import\ContactsUploader.cs" />
+    <Compile Include="Core\Import\ContactsUploaderResult.cs" />
+    <Compile Include="Core\Import\EncodingEnum.cs" />
+    <Compile Include="Core\Import\ImportUsersTask.cs" />
+    <Compile Include="Core\Import\IUserImporter.cs" />
+    <Compile Include="Core\Import\TextFileUserImporter.cs" />
+    <Compile Include="Core\Import\UserResults.cs" />
+    <Compile Include="Import.aspx.cs">
+      <DependentUpon>Import.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Import.aspx.designer.cs">
+      <DependentUpon>Import.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reassigns.aspx.cs">
       <DependentUpon>Reassigns.aspx</DependentUpon>
@@ -101,7 +130,6 @@
     </Compile>
     <Compile Include="ProfileAction.aspx.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProfileAction.aspx.designer.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
@@ -116,6 +144,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PeopleResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImportUsers\ImportUsers.ascx.cs">
+      <DependentUpon>ImportUsers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ImportUsers\ImportUsers.ascx.designer.cs">
+      <DependentUpon>ImportUsers.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SideNavigationPanel.ascx.cs">
       <DependentUpon>SideNavigationPanel.ascx</DependentUpon>
@@ -149,6 +184,7 @@
     <Content Include="App_Themes\Default\imgs\reassign-sprite.png" />
     <Content Include="App_Themes\Default\imgs\social-icons-small.png" />
     <Content Include="App_Themes\Default\imgs\social-icons.png" />
+    <Content Include="Import.aspx" />
     <Content Include="Reassigns.aspx" />
     <Content Include="js\reassigns.js" />
     <Content Include="js\departmentmanagement.js" />
@@ -162,6 +198,17 @@
     <Content Include="js\peopleController.js" />
     <Content Include="Profile.aspx" />
     <Content Include="Templates\PeopleTemplates.html" />
+    <Content Include="UserControls\ImportUsers\images\error_info.png" />
+    <Content Include="UserControls\ImportUsers\images\from_file.png" />
+    <Content Include="UserControls\ImportUsers\images\icon_add_users.png" />
+    <Content Include="UserControls\ImportUsers\images\manually.png" />
+    <Content Include="UserControls\ImportUsers\images\outlook.png" />
+    <Content Include="UserControls\ImportUsers\images\refresh.png" />
+    <Content Include="UserControls\ImportUsers\images\remove_red.png" />
+    <Content Include="UserControls\ImportUsers\images\trash_fu.png" />
+    <Content Include="UserControls\ImportUsers\images\up.png" />
+    <Content Include="UserControls\ImportUsers\ImportUsers.ascx" />
+    <Content Include="UserControls\ImportUsers\js\importUsers.js" />
     <Content Include="UserControls\SideNavigationPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
@@ -181,8 +228,11 @@
     <Content Include="Help.aspx" />
     <Content Include="Masters\PeopleBaseTemplate.Master" />
     <Content Include="ProfileAction.aspx" />
+    <Content Include="UserControls\ImportUsers\css\import.less" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
@@ -214,7 +264,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51245</DevelopmentServerPort>
+          <DevelopmentServerPort>54558</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
@@ -228,5 +278,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

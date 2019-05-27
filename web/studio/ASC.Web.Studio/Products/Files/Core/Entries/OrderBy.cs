@@ -42,7 +42,9 @@ namespace ASC.Files.Core
 
         [EnumMember] Type,
 
-        [EnumMember] New
+        [EnumMember] New,
+
+        [EnumMember] DateAndTimeCreation
 
     }
 

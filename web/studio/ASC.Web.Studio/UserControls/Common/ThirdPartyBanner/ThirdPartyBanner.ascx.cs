@@ -31,7 +31,6 @@ using System.Web;
 using System.Web.UI;
 using ASC.Core;
 using ASC.FederatedLogin.LoginProviders;
-using ASC.Thrdparty.Configuration;
 using ASC.VoipService.Dao;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
@@ -71,7 +70,9 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
         {
             get
             {
-                if (CoreContext.Configuration.Personal || HttpContext.Current.Request.DesktopApp())
+                if (CoreContext.Configuration.Personal
+                    || CoreContext.Configuration.CustomMode
+                    || HttpContext.Current.Request.DesktopApp())
                 {
                     yield break;
                 }
@@ -88,8 +89,7 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
 
                 if (currentProductId == WebItemManager.DocumentsProductID
                     && !ThirdPartyBannerSettings.CheckClosed("docusign")
-                    && (string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientId)
-                        || string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientSecret)))
+                    && !DocuSignLoginProvider.Instance.IsEnabled)
                 {
                     yield return new Tuple<string, string>("docusign", UserControlsCommonResource.BannerDocuSign);
                 }
@@ -97,36 +97,33 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
                 if ((currentProductId == WebItemManager.CRMProductID
                      || currentProductId == WebItemManager.PeopleProductID)
                     && !ThirdPartyBannerSettings.CheckClosed("social")
-                    && (string.IsNullOrEmpty(TwitterLoginProvider.TwitterKey)
-                        || string.IsNullOrEmpty(TwitterLoginProvider.TwitterSecret)
-                        || string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId)
-                        || string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientSecret)
-                        || string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId)
-                        || string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientSecret)
-                        || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
-                        || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientSecret)))
+                    && 
+                    (!TwitterLoginProvider.Instance.IsEnabled || 
+                    !FacebookLoginProvider.Instance.IsEnabled || 
+                    !LinkedInLoginProvider.Instance.IsEnabled || 
+                    !GoogleLoginProvider.Instance.IsEnabled))
                 {
                     yield return new Tuple<string, string>("social", UserControlsCommonResource.BannerSocial);
                 }
 
                 if (currentProductId == WebItemManager.DocumentsProductID
                     && !ThirdPartyBannerSettings.CheckClosed("storage")
-                    && (string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientId)
-                        || string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientSecret)
-                        || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientId)
-                        || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientSecret)
-                        || string.IsNullOrEmpty(OneDriveLoginProvider.OneDriveOAuth20ClientId)
-                        || string.IsNullOrEmpty(OneDriveLoginProvider.OneDriveOAuth20ClientSecret)))
+                    && (!BoxLoginProvider.Instance.IsEnabled
+                        || !DropboxLoginProvider.Instance.IsEnabled
+                        || !OneDriveLoginProvider.Instance.IsEnabled))
                 {
                     yield return new Tuple<string, string>("storage", UserControlsCommonResource.BannerStorage);
                 }
 
                 if (currentProductId == WebItemManager.CRMProductID
-                    && !ThirdPartyBannerSettings.CheckClosed("twilio")
                     && !VoipDao.ConfigSettingsExist
-                    && KeyStorage.CanSet("twilioAccountSid"))
+                    && VoipDao.Consumer.CanSet)
                 {
-                    yield return new Tuple<string, string>("twilio", UserControlsCommonResource.BannerTwilio);
+                    //if(!ThirdPartyBannerSettings.CheckClosed("twilio"))
+                    //    yield return new Tuple<string, string>("twilio", UserControlsCommonResource.BannerTwilio);
+
+                    if(!ThirdPartyBannerSettings.CheckClosed("twilio2"))
+                        yield return new Tuple<string, string>("twilio2", UserControlsCommonResource.BannerTwilio2);
                 }
             }
         }

@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Net;
-using System.Net.Sockets;
-
 using AppLimit.CloudComputing.SharpBox.Common.IO;
-using AppLimit.CloudComputing.SharpBox.Common.Net;
-using AppLimit.CloudComputing.SharpBox.Common.Net.Web;
-using AppLimit.CloudComputing.SharpBox.Common.Net.Web.Dav;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider
@@ -59,10 +50,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// This method request a directory entry from the storage provider service
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>
+        /// <param name="name"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public abstract ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent);
+        public abstract ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent);
 
         /// <summary>
         /// This method updates the locally cache resource metadata from the storage service
@@ -100,6 +91,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         {
             throw new NotSupportedException("This operation is not supported");
         }
+
         /// <summary>
         /// Writes a generic token onto the storage collection
         /// </summary>
@@ -110,7 +102,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         {
             if (token is GenericNetworkCredentials)
             {
-                GenericNetworkCredentials creds = token as GenericNetworkCredentials;
+                var creds = token as GenericNetworkCredentials;
                 tokendata.Add(TokenGenericCredUsername, creds.UserName);
                 tokendata.Add(TokenGenericCredPassword, creds.Password);
             }
@@ -125,25 +117,21 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         {
             ICloudStorageAccessToken at = null;
 
-            String type = tokendata[CloudStorage.TokenCredentialType];
+            var type = tokendata[CloudStorage.TokenCredentialType];
 
-            if (type.Equals(typeof(GenericNetworkCredentials).ToString()))
+            if (type.Equals(typeof (GenericNetworkCredentials).ToString()))
             {
                 var username = tokendata[TokenGenericCredUsername];
                 var password = tokendata[TokenGenericCredPassword];
 
-                GenericNetworkCredentials bc = new GenericNetworkCredentials();
-                bc.UserName = username;
-                bc.Password = password;
+                var bc = new GenericNetworkCredentials { UserName = username, Password = password };
 
                 at = bc;
             }
-#if !WINDOWS_PHONE
-            else if (type.Equals(typeof(GenericCurrentCredentials).ToString()))
+            else if (type.Equals(typeof (GenericCurrentCredentials).ToString()))
             {
                 at = new GenericCurrentCredentials();
             }
-#endif
 
             return at;
         }
@@ -182,10 +170,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         public virtual void DownloadResourceContent(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, Stream targetDataStream, FileOperationProgressChanged progressCallback, Object progressContext)
         {
             // build the download stream
-            using (Stream data = CreateDownloadStream(session, fileSystemEntry))
+            using (var data = CreateDownloadStream(session, fileSystemEntry))
             {
                 // copy the data                
-                StreamHelperResult res = StreamHelper.CopyStreamData(this, data, targetDataStream, CloudStorage.FileStreamCopyCallback, progressCallback, fileSystemEntry, progressContext);
+                var res = StreamHelper.CopyStreamData(this, data, targetDataStream, CloudStorage.FileStreamCopyCallback, progressCallback, fileSystemEntry, progressContext);
                 if (res.ResultCode == StreamHelperResultCodes.Aborted)
                     throw new SharpBoxException(SharpBoxErrorCodes.ErrorTransferAbortedManually);
 
@@ -215,7 +203,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
 
         #region resumable upload
 
-        public virtual bool SupportsChunking { get { return false; } }
+        public virtual bool SupportsChunking
+        {
+            get { return false; }
+        }
 
         public virtual IResumableUploadSession CreateUploadSession(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long bytesToTransfer)
         {
@@ -244,9 +235,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// </summary>
         /// <param name="session"></param>
         /// <param name="fileSystemEntry"></param>
-        /// <param name="Direction"></param>
-        /// <param name="NotDisposedStream"></param>
-        public abstract void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection Direction, Stream NotDisposedStream);
+        /// <param name="direction"></param>
+        /// <param name="notDisposedStream"></param>
+        public abstract void CommitStreamOperation(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, nTransferDirection direction, Stream notDisposedStream);
 
         /// <summary>
         /// This method uploads data into a file resource 
@@ -259,10 +250,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         public virtual void UploadResourceContent(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, Stream targetDataStream, FileOperationProgressChanged progressCallback, object progressContext)
         {
             // build the stream stream
-            using (Stream data = CreateUploadStream(session, fileSystemEntry, targetDataStream.Length))
+            using (var data = CreateUploadStream(session, fileSystemEntry, targetDataStream.Length))
             {
                 // copy the data                
-                StreamHelperResult res = StreamHelper.CopyStreamData(this, targetDataStream, data, CloudStorage.FileStreamCopyCallback, progressCallback, fileSystemEntry, progressContext);
+                var res = StreamHelper.CopyStreamData(this, targetDataStream, data, CloudStorage.FileStreamCopyCallback, progressCallback, fileSystemEntry, progressContext);
                 if (res.ResultCode == StreamHelperResultCodes.Aborted)
                     throw new SharpBoxException(SharpBoxErrorCodes.ErrorTransferAbortedManually);
 
@@ -278,10 +269,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider
         /// This methid creates a directory object in the storage service 
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="Name"></param>
+        /// <param name="name"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public abstract ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent);
+        public abstract ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent);
 
         /// <summary>
         /// This method renames a resource in the storage service

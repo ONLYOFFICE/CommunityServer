@@ -349,32 +349,6 @@
     }
 }
 
-.settingsHeaderWithViewSwitcher {
-    margin-top: 6px;
-    margin-bottom: 8px;
-
-    > a, > a:hover {
-        margin-top: 7px;
-    }
-
-    > table {
-        float: right;
-    }
-}
-
-#CustomFieldsTabs, #TagSettingsTabs, #TaskTemplateViewTabs {
-    float: right;
-
-    .splitter {
-        border: 0 none;
-        padding: 1px;
-    }
-}
-.linkTabsLabel {
-    float: right;
-    line-height: 27px;
-    margin-right: 20px;
-}
 .fakeTabContainer {
     padding: 0;
     margin: 0;
@@ -407,16 +381,10 @@
     }
 }
 
-#createNewTagSettings {
-    display: inline-block;
-    float: left;
+#TagSettingsTabs, #CustomFieldsTabs, #TaskTemplateViewTabs {
+    margin-bottom: 20px;
 }
-.cbx_AddTagWithoutAskingContainer {
-    display: inline-block;
-    margin-top: 9px;
-    margin-left: 16px;
-    float: left;
-}
+
 /*************************
 * Task Templates
 **************************/
@@ -485,8 +453,11 @@
 * Web to Lead Forms and Custom Settings
 **************************/
 .settingsHeader {
-    margin-bottom: 17px;
-    margin-top: 35px;
+    margin-bottom: 20px;
+
+    &.settingsHeaderLogo, &.settingsHeaderAddress {
+        margin-top: 35px;
+    }
 }
 .settingsHeaderWithDigit {
     margin-bottom: 12px;
@@ -499,6 +470,28 @@
             display: inline-block;
             vertical-align: middle;
             margin-top: -6px;
+        }
+    }
+}
+.settingsFirstDescription {
+    margin: 10px 0;
+}
+.settingsSecondDescription {
+    margin: 10px 0 20px;
+}
+.settingsNewItemBlock {
+    margin: 0 0 8px 0;
+
+    .settingsConfirmDialogBlock {
+        float: right;
+
+        input {
+            float: left;
+        }
+
+        label {
+            float:left;
+            padding: 2px 0 0 4px;
         }
     }
 }
@@ -606,9 +599,6 @@ InvoiceItemView.ascx, InvoiceTaxesView.ascx
 #invoiceTaxesList {
     min-height: 400px;
     display: none;
-}
-#invoiceTaxesList {
-    margin-top: 14px;
 }
 
 #invoiceItemsFilterContainer, #tableForInvoiceItemsNavigation {

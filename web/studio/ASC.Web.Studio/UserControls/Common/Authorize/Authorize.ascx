@@ -36,7 +36,7 @@
             <span class="link gray underline float-right" onclick="PasswordTool.ShowPwdReminderDialog()">
                 <%= Resource.ForgotPassword %>
             </span>
-            <% if (EnableSession) { %>
+            <% if (EnableSession && !Request.DesktopApp()) { %>
             <div>
                 <input type="checkbox" id="remember" name="remember" checked />
                 <label for="remember">

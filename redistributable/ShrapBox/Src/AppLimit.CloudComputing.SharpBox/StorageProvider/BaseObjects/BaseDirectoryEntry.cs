@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 
@@ -10,10 +9,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
     {
         private Dictionary<String, ICloudFileSystemEntry> _subDirectories = new Dictionary<string, ICloudFileSystemEntry>(StringComparer.OrdinalIgnoreCase);
         private List<ICloudFileSystemEntry> _subDirectoriesByIndex = new List<ICloudFileSystemEntry>();
-        private Boolean _subDirectoriesRefreshedInitially = false;
+        private Boolean _subDirectoriesRefreshedInitially;
 
-        public BaseDirectoryEntry(String Name, long Length, DateTime Modified, IStorageProviderService service, IStorageProviderSession session)
-            : base(Name, Length, Modified, service, session)
+        public BaseDirectoryEntry(String name, long Length, DateTime modified, IStorageProviderService service, IStorageProviderSession session)
+            : base(name, Length, modified, service, session)
         {
         }
 
@@ -102,7 +101,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             if (_subDirectories.ContainsKey(child.Id))
             {
                 child.Parent = this;
-                return;   
+                return;
             }
 
             // add the new child
@@ -115,7 +114,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
 
         public void AddChilds(IEnumerable<BaseFileEntry> childs)
         {
-            foreach (BaseFileEntry entry in childs)
+            foreach (var entry in childs)
                 AddChild(entry);
         }
 
@@ -130,7 +129,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             if (_subDirectories.ContainsKey(childId))
             {
                 // get the old child
-                ICloudFileSystemEntry oldChild = _subDirectories[childId];
+                var oldChild = _subDirectories[childId];
 
                 // remove it
                 _subDirectories.Remove(childId);
@@ -153,10 +152,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             {
                 if (_subDirectories.Count != 0)
                     return nChildState.HasChilds;
-                else if (!_subDirectoriesRefreshedInitially)
+                if (!_subDirectoriesRefreshedInitially)
                     return nChildState.HasNotEvaluated;
-                else
-                    return nChildState.HasNoChilds;
+                return nChildState.HasNoChilds;
             }
         }
 

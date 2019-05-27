@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic;
-using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Context;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
+using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
 {
@@ -22,13 +21,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         /// This method retrieves a new request token from the dropbox server
         /// </summary>
         /// <param name="configuration"></param>
-        /// <param name="ConsumerKey"></param>
-        /// <param name="ConsumerSecret"></param>
+        /// <param name="consumerKey"></param>
+        /// <param name="consumerSecret"></param>
         /// <returns></returns>
-        public static DropBoxRequestToken GetDropBoxRequestToken(DropBoxConfiguration configuration, String ConsumerKey, String ConsumerSecret)
+        public static DropBoxRequestToken GetDropBoxRequestToken(DropBoxConfiguration configuration, String consumerKey, String consumerSecret)
         {
             // build the consumer context
-            var consumerContext = new OAuthConsumerContext(ConsumerKey, ConsumerSecret);
+            var consumerContext = new OAuthConsumerContext(consumerKey, consumerSecret);
 
             // build up the oauth session
             var serviceContext = new OAuthServiceContext(configuration.RequestTokenUrl.ToString(),
@@ -46,14 +45,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         /// for web applications
         /// </summary>
         /// <param name="configuration"></param>
-        /// <param name="DropBoxRequestToken"></param>
+        /// <param name="dropBoxRequestToken"></param>
         /// <returns></returns>
-        public static String GetDropBoxAuthorizationUrl(DropBoxConfiguration configuration, DropBoxRequestToken DropBoxRequestToken)
+        public static String GetDropBoxAuthorizationUrl(DropBoxConfiguration configuration, DropBoxRequestToken dropBoxRequestToken)
         {
             // build the auth url
             return OAuthUrlGenerator.GenerateAuthorizationUrl(configuration.AuthorizationTokenUrl.ToString(),
                                                               configuration.AuthorizationCallBack.ToString(),
-                                                              DropBoxRequestToken.RealToken);
+                                                              dropBoxRequestToken.RealToken);
         }
 
         /// <summary>
@@ -62,14 +61,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         /// this call wil results in an unauthorized exception!
         /// </summary>
         /// <param name="configuration"></param>
-        /// <param name="ConsumerKey"></param>
+        /// <param name="consumerKey"></param>
         /// <param name="ConsumerSecret"></param>
-        /// <param name="DropBoxRequestToken"></param>
+        /// <param name="dropBoxRequestToken"></param>
         /// <returns></returns>
-        public static ICloudStorageAccessToken ExchangeDropBoxRequestTokenIntoAccessToken(DropBoxConfiguration configuration, String ConsumerKey, String ConsumerSecret, DropBoxRequestToken DropBoxRequestToken)
+        public static ICloudStorageAccessToken ExchangeDropBoxRequestTokenIntoAccessToken(DropBoxConfiguration configuration, String consumerKey, String ConsumerSecret, DropBoxRequestToken dropBoxRequestToken)
         {
             // build the consumer context
-            var consumerContext = new OAuthConsumerContext(ConsumerKey, ConsumerSecret);
+            var consumerContext = new OAuthConsumerContext(consumerKey, ConsumerSecret);
 
             // build up the oauth session
             var serviceContext = new OAuthServiceContext(configuration.RequestTokenUrl.ToString(),
@@ -78,7 +77,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
 
             // build the access token
             var svc = new OAuthService();
-            var accessToken = svc.GetAccessToken(serviceContext, consumerContext, DropBoxRequestToken.RealToken);
+            var accessToken = svc.GetAccessToken(serviceContext, consumerContext, dropBoxRequestToken.RealToken);
             if (accessToken == null)
                 throw new UnauthorizedAccessException();
 
@@ -86,7 +85,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
             return new DropBoxToken(accessToken,
                                     new DropBoxBaseTokenInformation
                                         {
-                                            ConsumerKey = ConsumerKey,
+                                            ConsumerKey = consumerKey,
                                             ConsumerSecret = ConsumerSecret
                                         });
         }
@@ -174,23 +173,23 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
             {
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorInvalidConsumerKeySecret);
             }
-            var DropBoxRequestToken = new DropBoxToken(oAuthRequestToken, new DropBoxBaseTokenInformation {ConsumerKey = appkey, ConsumerSecret = appsecret});
+            var dropBoxRequestToken = new DropBoxToken(oAuthRequestToken, new DropBoxBaseTokenInformation { ConsumerKey = appkey, ConsumerSecret = appsecret });
 
             // generate the dropbox service
             var service = new DropBoxStorageProviderService();
 
             // build up a request Token Session
-            var requestSession = new DropBoxStorageProviderSession(DropBoxRequestToken, configuration, consumerContext, service);
+            var requestSession = new DropBoxStorageProviderSession(dropBoxRequestToken, configuration, consumerContext, service);
 
             // build up the parameters
             var param = new Dictionary<String, String>
-                            {
-                                {"email", username},
-                                {"password", password}
-                            };
+                {
+                    { "email", username },
+                    { "password", password }
+                };
 
             // call the mobile login api 
-            var result = "";
+            string result;
 
             try
             {
@@ -199,21 +198,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
                 if (result.Length == 0)
                     throw new UnauthorizedAccessException();
             }
-
-#if MONOTOUCH || WINDOWS_PHONE || MONODROID
-            catch (Exception ex)
-            {
-                if (ex is UnauthorizedAccessException)
-                    throw ex;
-                else
-                    throw new SharpBoxException(SharpBoxErrorCodes.ErrorCouldNotContactStorageService, ex);
-            }
-#else
             catch (System.Web.HttpException netex)
             {
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorCouldNotContactStorageService, netex);
             }
-#endif
 
             // exchange a request token for an access token
             var accessToken = new DropBoxToken(result);
@@ -222,12 +210,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
             if (accessToken.BaseTokenInformation == null)
             {
                 accessToken.BaseTokenInformation = new DropBoxBaseTokenInformation
-                                                       {
-                                                           ConsumerKey = appkey,
-                                                           ConsumerSecret = appsecret
-                                                       };
+                    {
+                        ConsumerKey = appkey,
+                        ConsumerSecret = appsecret
+                    };
             }
-
 
             // go ahead
             return accessToken;

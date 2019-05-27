@@ -30,6 +30,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
@@ -49,7 +50,6 @@ using ASC.Web.Studio.Utility;
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using log4net;
 using Newtonsoft.Json;
 using File = ASC.Files.Core.File;
 using Folder = ASC.Files.Core.Folder;
@@ -88,7 +88,7 @@ namespace ASC.Web.Files.Helpers
                 {
                     Log.Info("DocuSign refresh token for user " + SecurityContext.CurrentAccount.ID);
 
-                    var refreshed = DocuSignLoginProvider.RefreshToken(token.RefreshToken);
+                    var refreshed = DocuSignLoginProvider.Instance.RefreshToken(token.RefreshToken);
 
                     if (refreshed != null)
                     {
@@ -155,7 +155,7 @@ namespace ASC.Web.Files.Helpers
         {
             if (token == null) throw new ArgumentNullException("token");
 
-            var userInfoString = RequestHelper.PerformRequest(DocuSignLoginProvider.DocuSignHost + "/oauth/userinfo",
+            var userInfoString = RequestHelper.PerformRequest(DocuSignLoginProvider.Instance.DocuSignHost + "/oauth/userinfo",
                                                               headers: new Dictionary<string, string> {{"Authorization", "Bearer " + DocuSignToken.GetRefreshedToken(token)}});
 
             Log.Debug("DocuSing userInfo: " + userInfoString);

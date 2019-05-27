@@ -187,10 +187,7 @@
     <value>Contacts</value>
   </data>
   <data name="AddTag" xml:space="preserve">
-    <value>Add Tag</value>
-  </data>
-  <data name="AddToContacts" xml:space="preserve">
-    <value>Add to contacts</value>
+    <value>Tags</value>
   </data>
   <data name="AdvancedLinkLabel" xml:space="preserve">
     <value>Advanced</value>
@@ -348,6 +345,9 @@
   <data name="CollapseAllLabel" xml:space="preserve">
     <value>Collapse all</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
   <data name="CommonSettingsLabel" xml:space="preserve">
     <value>Common Settings</value>
   </data>
@@ -367,7 +367,7 @@
     <value>Go to the next message after moving/deleting the currently viewed</value>
   </data>
   <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
-    <value>Otherwise return to Inbox.</value>
+    <value>Otherwise return to the current folder.</value>
   </data>
   <data name="ComposeLabel" xml:space="preserve">
     <value>Compose</value>
@@ -417,6 +417,12 @@
   <data name="CRMContactsLabel" xml:space="preserve">
     <value>CRM Contacts</value>
   </data>
+  <data name="ViewAccountConnectionSettingsLabel" xml:space="preserve">
+    <value>Connection settings</value>
+  </data>
+  <data name="ChangeAccountPasswordLabel" xml:space="preserve">
+    <value>Change password</value>
+  </data>
   <data name="DateLabel" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -446,6 +452,21 @@
   </data>
   <data name="DeleteAccountShure" xml:space="preserve">
     <value>Do you want to delete %1?</value>
+  </data>
+  <data name="DeleteContacts" xml:space="preserve">
+    <value>Delete contacts</value>
+  </data>
+  <data name="DeleteContactShure" xml:space="preserve">
+    <value>Do you want to delete contact {0}?</value>
+  </data>
+  <data name="DeleteContactAttention" xml:space="preserve">
+    <value>You are about to delete the selected contact. This operation cannot be undone.</value>
+  </data>
+  <data name="DeleteContactsShure" xml:space="preserve">
+    <value>Do you want to delete the selected contacts?</value>
+  </data>
+  <data name="DeleteContactsAttention" xml:space="preserve">
+    <value>You are about to delete several contacts. This operation cannot be undone.</value>
   </data>
   <data name="DeleteAttachment" xml:space="preserve">
     <value>Delete</value>
@@ -993,12 +1014,6 @@
   <data name="ProductName" xml:space="preserve">
     <value>Mail</value>
   </data>
-  <data name="PublicShareAllowTitle" xml:space="preserve">
-    <value>Can be publicly shared</value>
-  </data>
-  <data name="PublicShareDenyTitle" xml:space="preserve">
-    <value>Cannot be publicly shared</value>
-  </data>
   <data name="QuotaPopupBody" xml:space="preserve">
     <value>The available disk storage space is exceeded on your portal. Not all messages can be loaded and no new messages can be sent. Please delete some messages from the Inbox or delete some files from the Documents module. You can also change the pricing plan to have more available disk space.</value>
   </data>
@@ -1080,6 +1095,33 @@
   <data name="SaveBtnLabel" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ApplyBtnLabel" xml:space="preserve">
+    <value>Apply filter</value>
+  </data>
+  <data name="ApplyFilterBtnLabel" xml:space="preserve">
+    <value>Apply filter to existing messages</value>
+  </data>
+  <data name="ConfirmFilterActionDeleteForeverLabel" xml:space="preserve">
+    <value>Do you want to delete messages forever?</value>
+  </data>
+  <data name="EnableBtnLabel" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="DisableBtnLabel" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="CreateFilterBtnLabel" xml:space="preserve">
+    <value>Create filter</value>
+  </data>
+  <data name="SaveFilterBtnLabel" xml:space="preserve">
+    <value>Save filter</value>
+  </data>
+  <data name="CheckFilterBtnLabel" xml:space="preserve">
+    <value>Check filter</value>
+  </data>
+  <data name="RandomPasswordLabel" xml:space="preserve">
+    <value>Random password</value>
+  </data>
   <data name="SavedAt" xml:space="preserve">
     <value>Saved at</value>
   </data>
@@ -1130,6 +1172,9 @@
   </data>
   <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
     <value>Set up access rights for file(s) attached as links for email recipient(s):</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Show more</value>
   </data>
   <data name="ShowMoreAccounts" xml:space="preserve">
     <value>Show more accounts</value>
@@ -1231,6 +1276,9 @@ All messages which were received before, will be left in the CRM mailing history
   <data name="UseSmtpSSL" xml:space="preserve">
     <value>Encryption for SMTP Server</value>
   </data>
+  <data name="SSLorTLSLabel" xml:space="preserve">
+    <value>SSL/TLS</value>
+  </data>
   <data name="ViewAttachment" xml:space="preserve">
     <value>View</value>
   </data>
@@ -1254,5 +1302,119 @@ All messages which were received before, will be left in the CRM mailing history
   </data>
   <data name="YesterdayLabel" xml:space="preserve">
     <value>Yesterday</value>
+  </data>
+  <data name="YourMailboxEmailHint" xml:space="preserve">
+    <value>Your mailbox email</value>
+  </data>
+  <data name="YourMailboxPasswordHint" xml:space="preserve">
+    <value>Your mailbox password</value>
+  </data>
+  <data name="AddonAdminOpportunities" xml:space="preserve">
+    <value>Do the same as Mail user|Manage Mail Server|Manage the general Mail settings</value>
+  </data>
+  <data name="AddonUserOpportunities" xml:space="preserve">
+    <value>Manage own mail accounts, receive and send letters|Manage own Mail settings|Manage the tags and address book</value>
+  </data>
+  <data name="CreateUserFolderBtn" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="EditUserFolderBtn" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DeleteUserFolderBtn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="CreateFilterBtn" xml:space="preserve">
+    <value>Create filter</value>
+  </data>
+  <data name="EditFilterBtn" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DeleteFilterBtn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="FillForms" xml:space="preserve">
+    <value>Form Filling</value>
+  </data>
+  <data name="FiltersCommonInformationText" xml:space="preserve">
+    <value>You can manage you filters on this page.</value>
+  </data>
+  <data name="FiltersCommonNotificationText" xml:space="preserve">
+    <value>Filters can help you move your incoming mail into folders, add labels and delete unwanted mail instantly.</value>
+  </data>
+  <data name="UserFolderCommonInformationText" xml:space="preserve">
+    <value>You can move messages into this folders.</value>
+  </data>
+  <data name="UserFolderCommonNotificationText" xml:space="preserve">
+    <value>You can edit and delete the folders created in Mail only.</value>
+  </data>
+  <data name="MessageFilterSettingsLabel" xml:space="preserve">
+    <value>Filters Management</value>
+  </data>
+  <data name="UserFolderSettingsLabel" xml:space="preserve">
+    <value>Folders Management</value>
+  </data>
+  <data name="UserFolderCreateFolderLink" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="UserFolderManageFolderLink" xml:space="preserve">
+    <value>Manage folders</value>
+  </data>
+  <data name="MoveTo" xml:space="preserve">
+    <value>Move to</value>
+  </data>
+  <data name="MoveHere" xml:space="preserve">
+    <value>Move here</value>
+  </data>
+  <data name="ApplyFilterAttention" xml:space="preserve">
+    <value>If you apply this filter, the following actions will be performed to all the filtered existing messages:</value>
+  </data>
+  <data name="DeleteFilterItemShure" xml:space="preserve">
+    <value>Do you want to delete the selected filter?</value>
+  </data>
+  <data name="DeleteFilterShure" xml:space="preserve">
+    <value>You chose to delete the messages permanently. If you want to be able to recover these messages later, you should move them to the trash instead.</value>
+  </data>
+  <data name="DeleteUserFolderAttention" xml:space="preserve">
+    <value>If you delete your folder all the messages will be moved into Trash folder.</value>
+  </data>
+  <data name="CreateUserFolderLabel" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="EditUserFolderLabel" xml:space="preserve">
+    <value>Edit folder</value>
+  </data>
+  <data name="DeleteUserFolderLabel" xml:space="preserve">
+    <value>Delete folder</value>
+  </data>
+  <data name="UserFolderPlaceholder" xml:space="preserve">
+    <value>Folder name</value>
+  </data>
+  <data name="MailboxLabel" xml:space="preserve">
+    <value>Mailbox</value>
+  </data>
+  <data name="MailboxIncommingSetiingsLabel" xml:space="preserve">
+    <value>Incoming Mail (IMAP):</value>
+  </data>
+  <data name="MailboxOutgoingSetiingsLabel" xml:space="preserve">
+    <value>Outgoing Mail (SMTP):</value>
+  </data>
+  <data name="MailboxSetiingsInfoLabel" xml:space="preserve">
+    <value>Use the following settings for other email clients:</value>
+  </data>
+  <data name="FilterFilteredMessagesTitle" xml:space="preserve">
+    <value>Filtered messages</value>
+  </data>
+  <data name="MailBoxSelectorEmptyList" xml:space="preserve">
+    <value>No mailboxes in this list</value>
+  </data>
+  <data name="MailBoxSelectorNoItems" xml:space="preserve">
+    <value>There are no mailboxes</value>
+  </data>
+  <data name="MailBoxSelectorNoResult" xml:space="preserve">
+    <value>No such mailbox</value>
+  </data>
+  <data name="RequestNotificationHint" xml:space="preserve">
+    <value>Request notification</value>
   </data>
 </root>

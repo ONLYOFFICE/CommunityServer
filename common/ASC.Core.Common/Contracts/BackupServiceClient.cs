@@ -82,6 +82,11 @@ namespace ASC.Core.Common.Contracts
             return Channel.GetRestoreProgress(tenantId);
         }
 
+        public string GetTmpFolder()
+        {
+            return Channel.GetTmpFolder();
+        }
+
         public void CreateSchedule(CreateScheduleRequest request)
         {
             Channel.CreateSchedule(request);

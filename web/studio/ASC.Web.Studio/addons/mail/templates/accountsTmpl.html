@@ -1,17 +1,17 @@
 ﻿<script id="accountsTmpl" type="text/x-jquery-tmpl">
     <table class="accounts_list" id="common_mailboxes">
         <tbody>
-            {{tmpl(common_mailboxes, {showSetDefaultIcon: showSetDefaultIcon, now: new Date()}) "mailboxItemTmpl"}}
+            {{tmpl(common_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
         </tbody>
     </table>
     <table class="accounts_list" id="server_mailboxes">
         <tbody>
-            {{tmpl(server_mailboxes, {showSetDefaultIcon: showSetDefaultIcon, now: new Date()}) "mailboxItemTmpl"}}
+            {{tmpl(server_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
         </tbody>
     </table>
     <table class="accounts_list" id="aliases">
         <tbody>
-            {{tmpl(aliases, {showSetDefaultIcon: showSetDefaultIcon, now: new Date()}) "aliasItemTmpl"}}
+            {{tmpl(aliases, {showSetDefaultIcon: showSetDefaultIcon}) "aliasItemTmpl"}}
         </tbody>
     </table>
     <table class="accounts_list" id="groups">
@@ -43,7 +43,7 @@
                     ${ASC.Mail.Resources.MailResource.AccountDisableForReceiving}&nbsp;<a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
                 </span>
             {{else}}
-                {{if autoreply.turnOn && (!autoreply.turnOnToDate || new Date(autoreply.toDate) > $item.now) && new Date(autoreply.fromDate) <= $item.now}}
+                {{if showEnabledAutoreply}}
                     <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}">
                         ${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}&nbsp;<a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsPage.turnAutoreply('${email}', false);">${ASC.Mail.Resources.MailResource.TurnOffAutoreplyLabel}</a>
                     </span>
@@ -104,7 +104,7 @@
                     <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
                 </span>
             {{else}}
-                {{if autoreply.turnOn && (!autoreply.turnOnToDate || new Date(autoreply.toDate) > $item.now) && new Date(autoreply.fromDate) <= $item.now}}
+                {{if showEnabledAutoreply}}
                     <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}">
                         ${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}
                         <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsPage.turnAutoreply('${email}', false);">${ASC.Mail.Resources.MailResource.TurnOffAutoreplyLabel}</a>

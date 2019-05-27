@@ -28,8 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.Net.Security;
 using System.Runtime.Serialization;
-using log4net;
 using System.Security.Cryptography.X509Certificates;
+using ASC.Common.Logging;
 
 namespace ASC.ActiveDirectory.Base.Data
 {

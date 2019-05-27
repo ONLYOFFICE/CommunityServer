@@ -819,7 +819,7 @@ progress {
 }
 
 .textEditCalendar {
-    background-image: url("imagescss/calendar.png");
+    background-image: url('Images/svg/crm/calendar.svg');
     background-position: 75px center;
     background-repeat: no-repeat;
     border: 1px solid #AFB2B7;
@@ -941,6 +941,7 @@ body > div.loadingBanner {
     text-align: center;
     top: 9px;
     width: 360px;
+    z-index: 256;
 
     .loader-block {
         background-color: #FFFFFF;
@@ -1086,7 +1087,6 @@ input[type=number] {
 .settings-block {
     float: left;
     margin: 0 15px 45px 0;
-    padding-left: 15px;
     width: 350px;
 
     .header-base {
@@ -1345,6 +1345,93 @@ welcome popup for Collaborator
 .progress-dialog.min .actions-container.maximize {
     display: block;
 }
+
+/*******************************************************************************
+   Progress Dialog
+*******************************************************************************/
+
+.progress-dialog {
+
+    .pd-body-container {
+        max-height: 240px;
+        padding: 16px 0;
+        overflow-y: auto;
+    }
+
+    .pd-column-icon {
+        width: 30px;
+    }
+
+    .pd-column-progress {
+        width: 110px;
+    }
+
+    .pd-column-action {
+        width: 90px;
+    }
+
+    .pd-row {
+    
+    }
+
+    .pd-cell-action {
+        text-align: center;
+        width: 80px;
+    }
+
+    .pd-cell-progress {
+        text-align: center;
+        width: 100px;
+
+		progress, .asc-progress-wrapper {
+			float: left;
+			width: 100px;
+		}
+    }
+
+    .pd-cell-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 190px;
+    }
+
+    .progress-label {
+        color: #FFFFFF;
+        float: left;
+        font-size: 10px;
+        margin-left: -100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100px;
+    }
+
+    .pd-row.started .progress-complete,
+    .pd-row.started .progress-error,
+    .pd-row.started .pd-cell-action {
+        display: none;
+    }
+
+    .pd-row.done progress,
+    .pd-row.done .asc-progress-wrapper,
+    .pd-row.done .progress-label,
+    .pd-row.done .progress-error {
+        display: none;
+    }
+
+    .pd-row.error progress,
+    .pd-row.error .asc-progress-wrapper,
+    .pd-row.error .progress-label,
+    .pd-row.error .progress-complete,
+    .pd-row.error .pd-cell-action {
+        display: none;
+    }
+
+    .pd-row:hover .linkMedium {
+        text-decoration: underline;
+    }
+}
        
 /*******************************************************************************
        Actions icons for upload files container
@@ -1394,15 +1481,15 @@ welcome popup for Collaborator
     width: 12px;
 
     &.collaborator {
-        background: url("imagescss/icon-collaborator.png") center no-repeat;
+        background: url('Images/svg/people/guest.svg') center no-repeat;
     }
 
     &.admin {
-        background: url("imagescss/icon-admin.png") center no-repeat;
+        background: url('Images/svg/people/administrator.svg') center no-repeat;
     }
 
     &.owner {
-        background: url("imagescss/icon-owner.png") center no-repeat;
+        background: url('Images/svg/people/owner.svg') center no-repeat;
     }
 }
 
@@ -1414,17 +1501,25 @@ welcome popup for Collaborator
     width: 22px;
 
     &.guest {
-        background: url("imagescss/icon-guest-big.png") center no-repeat;
+        background: url('Images/svg/people/guest.svg') center no-repeat;
+        background-size: 100%;
     }
 
     &.admin {
-        background: url("imagescss/icon-admin-big.png") center no-repeat;
+        background: url('Images/svg/people/administrator.svg') center no-repeat;
+        background-size: 100%;
     }
 
     &.owner {
-        background: url("imagescss/icon-owner-big.png") center no-repeat;
+        background: url('Images/svg/people/owner.svg') center no-repeat;
+        background-size: 100%;
     }
 }
+
+.profile-user-photo.readonly .profile-role {  
+    bottom: 4px;
+}
+
 .loader32 {
     background: url("images/loader_32.gif") center center no-repeat #fff;
 }
@@ -1563,4 +1658,28 @@ body.media-width-0-1250 {
 #studio_emailPwdReminder {
     margin-top: 15px;
     width: 100%;
+}
+
+/*******************************************************************************
+            LDAP icon
+*******************************************************************************/
+
+.ldap-lock::after,
+.ldap-lock-big::after {
+    content: "LDAP";
+    background-color: #FADB8F;
+    border-radius: 2px;
+}
+
+.ldap-lock::after {
+    font-size: 9px;
+    margin-left: 2px;
+    vertical-align: middle;
+    padding: 0px 8px;
+}
+
+.ldap-lock-big::after {
+    font-size: 12px;
+    vertical-align: top;
+    padding: 2px 5px;
 }

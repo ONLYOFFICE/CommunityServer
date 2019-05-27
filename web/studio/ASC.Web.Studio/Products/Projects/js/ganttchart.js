@@ -4306,11 +4306,11 @@ ASC.Projects.GantChart = (function (window) {
             this.disableMode = flag;
 
             if (this.splitter) {
-                this.splitter.style.display = flag ? 'none' : '';
+                this.splitter.style.display = flag || this.visibleRows.length === 0 ? 'none' : '';
             }
 
             if (this.splitterFake) {
-                this.splitterFake.style.display = flag ? 'none' : '';
+                this.splitterFake.style.display = flag || this.visibleRows.length === 0 ? 'none' : '';
             }
 
             if (this.btnFlds) {

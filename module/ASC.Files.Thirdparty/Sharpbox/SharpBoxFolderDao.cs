@@ -27,11 +27,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security;
+using System.Threading;
+using AppLimit.CloudComputing.SharpBox;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
-using AppLimit.CloudComputing.SharpBox;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {
@@ -69,25 +74,22 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return parentFolder.OfType<ICloudDirectoryEntry>().Select(ToFolder).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
 
             var folders = GetFolders(parentId).AsEnumerable(); //TODO:!!!
+
             //Filter
-            switch (filterType)
+            if (subjectID != Guid.Empty)
             {
-                case FilterType.ByUser:
-                    folders = folders.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    folders = folders.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
-                case FilterType.FoldersOnly:
-                case FilterType.None:
-                    break;
-                default:
-                    return new List<Folder>();
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                                 : x.CreateBy == subjectID);
             }
 
             if (!string.IsNullOrEmpty(searchText))
@@ -104,6 +106,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.Title) : folders.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    folders = orderBy.IsAsc ? folders.OrderBy(x => x.ModifiedOn) : folders.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.CreateOn) : folders.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -114,9 +119,27 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
-            return folderIds.Select(GetFolder).ToList();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
+
+            var folders = folderIds.Select(GetFolder);
+
+            if (subjectID.HasValue && subjectID != Guid.Empty)
+            {
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID.Value)
+                                                 : x.CreateBy == subjectID);
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                folders = folders.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return folders.ToList();
         }
 
         public List<Folder> GetParentFolders(object folderId)
@@ -136,20 +159,39 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public object SaveFolder(Folder folder)
         {
-            if (folder.ID != null)
+            try
             {
-                //Create with id
-                var savedfolder = SharpBoxProviderInfo.Storage.CreateFolder(MakePath(folder.ID));
-                return MakeId(savedfolder);
+                if (folder.ID != null)
+                {
+                    //Create with id
+                    var savedfolder = SharpBoxProviderInfo.Storage.CreateFolder(MakePath(folder.ID));
+                    return MakeId(savedfolder);
+                }
+                if (folder.ParentFolderID != null)
+                {
+                    var parentFolder = GetFolderById(folder.ParentFolderID);
+
+                    folder.Title = GetAvailableTitle(folder.Title, parentFolder, IsExist);
+
+                    var newFolder = SharpBoxProviderInfo.Storage.CreateFolder(folder.Title, parentFolder);
+                    return MakeId(newFolder);
+                }
             }
-            if (folder.ParentFolderID != null)
+            catch (SharpBoxException e)
             {
-                var parentFolder = GetFolderById(folder.ParentFolderID);
-
-                folder.Title = GetAvailableTitle(folder.Title, parentFolder, IsExist);
-
-                var newFolder = SharpBoxProviderInfo.Storage.CreateFolder(folder.Title, parentFolder);
-                return MakeId(newFolder);
+                var webException = (WebException)e.InnerException;
+                if (webException != null)
+                {
+                    var response = ((HttpWebResponse)webException.Response);
+                    if (response != null)
+                    {
+                        if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+                        {
+                            throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
+                        }
+                    }
+                    throw;
+                }
             }
             return null;
         }
@@ -196,25 +238,24 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return false;
         }
 
-        public object MoveFolder(object folderId, object toFolderId)
+        public object MoveFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var entry = GetFolderById(folderId);
             var folder = GetFolderById(toFolderId);
 
             var oldFolderId = MakeId(entry);
-            var newFolderId = oldFolderId;
 
-            if (SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
-            {
-                newFolderId = MakeId(entry);
-            }
+            if (!SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
+                throw new Exception("Error while moving");
 
-            UpdatePathInDB(oldFolderId,newFolderId);
+            var newFolderId = MakeId(entry);
+
+            UpdatePathInDB(oldFolderId, newFolderId);
 
             return newFolderId;
         }
 
-        public Folder CopyFolder(object folderId, object toFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var folder = GetFolderById(folderId);
             if (!SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(folderId), MakePath(toFolderId)))
@@ -304,12 +345,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
         }
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
-        {
-            return null;
-        }
-
-        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
+        public IEnumerable<Folder> Search(string text, bool bunch)
         {
             return null;
         }

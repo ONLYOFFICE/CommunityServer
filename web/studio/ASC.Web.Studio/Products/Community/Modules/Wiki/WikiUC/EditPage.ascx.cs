@@ -49,7 +49,8 @@ namespace ASC.Web.UserControls.Wiki.UC
         NoChanges,
         SectionUpdate,
         FileSizeExceeded,
-        Error
+        Error,
+        PageTextIsEmpty
     }
 
     public partial class EditPage : BaseUserControl
@@ -353,6 +354,12 @@ namespace ASC.Web.UserControls.Wiki.UC
                 var pageResult = PageSection < 0
                                      ? Wiki_FCKEditor.Value
                                      : HtmlWikiUtil.SetWikiSectionBySectionNumber(page.Body, PageSection, Wiki_FCKEditor.Value);
+
+                if (string.IsNullOrEmpty(pageResult))
+                {
+                    SetWikiFCKEditorValue(page.PageName, Wiki_FCKEditor.Value);
+                    return SaveResult.PageTextIsEmpty;
+                }
 
                 if (pageResult.Equals(page.Body))
                 {

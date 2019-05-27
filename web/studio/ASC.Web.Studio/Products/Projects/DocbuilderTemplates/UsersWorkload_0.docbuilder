@@ -1,0 +1,67 @@
+﻿var notGrouped = [];
+var grouped = [];
+
+for (var i = 0; i < reportData.length; i++)
+	if (reportData[i][4].length == 0)
+		notGrouped.push(reportData[i]);
+	else
+		grouped.push(reportData[i]);
+
+if (notGrouped.length != 0) {
+	writeRow([0, 1, 2, 3], reportColumns, [1, 2, 3], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+
+	for (var i = 0; i < notGrouped.length; i++)
+		writeRow([0, 1, 2, 3], notGrouped[i], [1, 2, 3], {
+			color: lightGrayBorderColor
+		}, {
+			size: smallFontSize
+		}, true);
+}
+
+var group = [];
+
+for (var i = 0; i < grouped.length; i++)
+	for (var j = 0; j < grouped[i][4].length; j++)	{
+		var found = false;
+		for (var k = 0; k < group.length; k++)
+			if (grouped[i][4][j] == group[k]) {
+				found = true;
+				break;
+			}
+
+		if (!found)
+			group.push(reportData[i][4][j]);
+	}
+
+for (var i = 0; i < group.length; i++) {
+	writeText(group[i], {
+		size: chartHeaderFontSize,
+		bold: true
+	});
+	currentRow++;
+	
+	writeRow([0, 1, 2, 3], reportColumns, [1, 2, 3], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	
+	for (var j = 0; j < grouped.length; j++)
+		for (var k = 0; k < grouped[j][4].length; k++)
+			if (group[i] == grouped[j][4][k]) {
+					writeRow([0, 1, 2, 3], grouped[j], [1, 2, 3], {
+						color: lightGrayBorderColor
+					}, {
+						size: smallFontSize
+					}, true);
+					break;
+			}
+		
+	currentRow += 2;
+}

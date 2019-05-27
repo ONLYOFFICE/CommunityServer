@@ -26,65 +26,59 @@
 
 using System;
 using System.Data;
+using System.Data.Common;
 
 namespace ASC.Common.Data.AdoProxy
 {
-    class DbTransactionProxy : IDbTransaction
+    class DbTransactionProxy : System.Data.Common.DbTransaction
     {
         private bool disposed;
         private readonly ProxyContext context;
-        public readonly IDbTransaction transaction;
+        public readonly System.Data.Common.DbTransaction Transaction;
 
-        public DbTransactionProxy(IDbTransaction transaction, ProxyContext ctx)
+        public DbTransactionProxy(System.Data.Common.DbTransaction transaction, ProxyContext ctx)
         {
             if (transaction == null) throw new ArgumentNullException("transaction");
             if (ctx == null) throw new ArgumentNullException("ctx");
 
-            this.transaction = transaction;
+            Transaction = transaction;
             context = ctx;
         }
 
 
-        public void Commit()
+        public override void Commit()
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Commit", dur)))
             {
-                transaction.Commit();
+                Transaction.Commit();
             }
         }
 
-        public IDbConnection Connection
+        protected override DbConnection DbConnection
         {
-            get { return transaction.Connection; }
+            get { return (DbConnection)Transaction.Connection; }
         }
 
-        public IsolationLevel IsolationLevel
+        public override IsolationLevel IsolationLevel
         {
-            get { return transaction.IsolationLevel; }
+            get { return Transaction.IsolationLevel; }
         }
 
-        public void Rollback()
+        public override void Rollback()
         {
             using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Rollback", dur)))
             {
-                transaction.Rollback();
+                Transaction.Rollback();
             }
         }
 
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (!disposed)
             {
                 if (disposing)
                 {
-                    transaction.Dispose();
+                    Transaction.Dispose();
                 }
                 disposed = true;
             }

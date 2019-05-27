@@ -24,6 +24,7 @@
 */
 
 
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -69,6 +70,71 @@ namespace System
             var byteHash = CSP.ComputeHash(bytes);
 
             return byteHash.Aggregate(String.Empty, (current, b) => current + String.Format("{0:x2}", b));
+        }
+
+        public static int EnumerableComparer(this string x, string y)
+        {
+            var xIndex = 0;
+            var yIndex = 0;
+
+            while (xIndex < x.Length)
+            {
+                if (yIndex >= y.Length)
+                    return 1;
+
+                if (char.IsDigit(x[xIndex]) && char.IsDigit(y[yIndex]))
+                {
+                    var xBuilder = new StringBuilder();
+                    while (xIndex < x.Length && char.IsDigit(x[xIndex]))
+                    {
+                        xBuilder.Append(x[xIndex++]);
+                    }
+
+                    var yBuilder = new StringBuilder();
+                    while (yIndex < y.Length && char.IsDigit(y[yIndex]))
+                    {
+                        yBuilder.Append(y[yIndex++]);
+                    }
+
+                    long xValue;
+                    try
+                    {
+                        xValue = Convert.ToInt64(xBuilder.ToString());
+                    }
+                    catch (OverflowException)
+                    {
+                        xValue = Int64.MaxValue;
+                    }
+
+                    long yValue;
+                    try
+                    {
+                        yValue = Convert.ToInt64(yBuilder.ToString());
+                    }
+                    catch (OverflowException)
+                    {
+                        yValue = Int64.MaxValue;
+                    }
+
+                    int difference;
+                    if ((difference = xValue.CompareTo(yValue)) != 0)
+                        return difference;
+                }
+                else
+                {
+                    int difference;
+                    if ((difference = string.Compare(x[xIndex].ToString(CultureInfo.InvariantCulture), y[yIndex].ToString(CultureInfo.InvariantCulture), StringComparison.InvariantCultureIgnoreCase)) != 0)
+                        return difference;
+
+                    xIndex++;
+                    yIndex++;
+                }
+            }
+
+            if (yIndex < y.Length)
+                return -1;
+
+            return 0;
         }
     }
 }

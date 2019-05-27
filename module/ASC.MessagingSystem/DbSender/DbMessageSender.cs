@@ -26,7 +26,7 @@
 
 using System;
 using System.Configuration;
-using log4net;
+using ASC.Common.Logging;
 
 namespace ASC.MessagingSystem.DbSender
 {

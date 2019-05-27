@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
 {
@@ -32,7 +29,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
     {
         #region Singleton Stuff
 
-        static readonly WebRequestManager instance = new WebRequestManager();
+        private static readonly WebRequestManager instance = new WebRequestManager();
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
@@ -40,11 +37,9 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
         }
 
-        WebRequestManager()
+        private WebRequestManager()
         {
-#if !WINDOWS_PHONE                        
             _webProxySettings = null;
-#endif
         }
 
         /// <summary>
@@ -52,17 +47,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         /// </summary>
         public static WebRequestManager Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         #endregion
 
-#if !WINDOWS_PHONE            
-        private IWebProxy _webProxySettings;        
-#endif
+        private IWebProxy _webProxySettings;
 
         /// <summary>
         /// This event will be raised when the webrequest is prepared
@@ -83,7 +73,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             if (RequestPreparedEvent != null)
             {
-                WebRequestExecutingEventArgs e = new WebRequestExecutingEventArgs() { request = r };
+                var e = new WebRequestExecutingEventArgs() { request = r };
                 RequestPreparedEvent(this, e);
             }
         }
@@ -92,7 +82,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             if (RequestExecutingEvent != null)
             {
-                WebRequestExecutingEventArgs e = new WebRequestExecutingEventArgs() { request = r };
+                var e = new WebRequestExecutingEventArgs() { request = r };
                 RequestExecutingEvent(this, e);
             }
         }
@@ -101,18 +91,18 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             if (RequestExecutedEvent != null)
             {
-                WebRequestExecutedEventArgs e = new WebRequestExecutedEventArgs();
-
-                e.response = response;
-                e.timeNeeded = timeNeeded;                
-                e.resultStream = resultStream;
-                e.exception = exception;
+                var e = new WebRequestExecutedEventArgs
+                    {
+                        response = response,
+                        timeNeeded = timeNeeded,
+                        resultStream = resultStream,
+                        exception = exception
+                    };
 
                 RequestExecutedEvent(this, e);
             }
         }
 
-#if !WINDOWS_PHONE            
 
         /// <summary>
         /// This method allows to set an alternative proxy host. The system wide 
@@ -145,9 +135,5 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
         {
             _webProxySettings = new WebRequestManagerNullProxy();
         }
-#endif
-
     }
-
-
 }

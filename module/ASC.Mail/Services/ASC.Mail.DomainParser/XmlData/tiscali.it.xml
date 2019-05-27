@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="tiscali.it">
+    <domain>tiscali.it</domain>
+    <displayName>Tiscali Italy</displayName>
+    <displayShortName>Tiscali</displayShortName>
+    <incomingServer type="imap">
+      <hostname>imap.tiscali.it</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop.tiscali.it</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.tiscali.it</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+      <restriction>client-IP-address</restriction>
+    </outgoingServer>
+    <documentation url="http://assistenza.tiscali.it/tecnica/posta/configurazioni/"/>
+  </emailProvider>
+</clientConfig>

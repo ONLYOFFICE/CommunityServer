@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" EnableViewState="false" %>
+<%@ Import Namespace="ASC.Core" %>
 
-
+<%@ Import Namespace="ASC.Data.Storage" %>
 <script id="categoriesDialogTemplate" type="text/x-jquery-tmpl">
     <div>
         <div id="fc_cal_editor">
@@ -8,11 +9,51 @@
 		        <div class="inner">
 			        <span class="new-label">${dialogHeaderAdd}</span>
                     <span class="edit-label">${dialogHeaderEdit}</span>
+                    <span class="import-label">${dialogHeaderImport}</span>
 			        <div class="close-btn">&times;</div>
 		        </div>
 	        </div>
-	        <div class="title">
-		        <div class="bullet">&#9632;</div>
+            <div class="choose_event_source">
+                <span id="events_link" class="active"><%=Resources.CalendarJSResource.calendarExportEvents_byLink%></span>
+                <span id="events_file"><%=Resources.CalendarJSResource.calendarExportEvents_fromFile%></span>
+            </div>
+            
+	        <!-- create iCal-calendar -->
+	        <div class="ical-url-input">
+		        <div class="ical-label">${dialogInputiCalLabel}</div>
+		        <input type="text" value=""/>
+	        </div>
+            <div class="sync-with-calendar inline-block cbx-container">
+                <div>
+                    <input type="checkbox"/>
+                    <label>
+                        <%=Resources.CalendarJSResource.calendarExportEvents_syncByLink%>
+                    </label>
+                </div>
+			</div>
+            <!-- get/set iCal stream-->
+	        <div class="ical">
+		        
+		        <div class="ical-selectors">
+			        
+			        <div class="ical-import">
+				        <span id="ical-browse-btn" class="ical-link">${dialogImportLabelNew}</span>
+				        <span class="ical-file-selected">${fileNotSelected}</span>
+                        <span class="ical-file-del">x</span>
+			        </div>
+		        </div>
+	        </div>
+            <div class="botttom-indent clearFix calendar">
+                <div class="halfwidth">
+                    <div class="label"><%=Resources.CalendarJSResource.calendarImportEvents_calendarLabel%></div>
+                    <div style="position: relative;">
+				        <div class="bullet"></div>
+				        <select></select>
+			        </div>
+                </div>
+		    </div>
+            <div class="title">
+		        <div class="bullet"></div>
 		        <input type="text" value="${defaultCalendarName}" maxlength="${maxlength}"/>
 	        </div>
 	        <div class="color">
@@ -40,27 +81,11 @@
 		        </div>
 	        </div>
 	        <div class="shared-list"/>
-	
-	        <!-- create iCal-calendar -->
-	        <div class="ical-url-input">
-		        <div class="ical-label">${dialogInputiCalLabel}</div>
-		        <input type="text" value=""/>
+            <div class="export">
+				<span class="export-link link">${dialogExportLink}</span>
 	        </div>
 	
-	        <!-- get/set iCal stream -->
-	        <div class="ical">
-		        <div class="ical-logo"></div>
-		        <div class="ical-selectors">
-			        <span class="ical-label">${dialogImportExportLabel}</span>
-			        <div class="ical-import">
-				        <span id="ical-browse-btn" class="ical-link">${dialogImportLabel}</span>&nbsp;&nbsp;
-				        <span class="ical-file-selected">${fileNotSelected}</span>
-			        </div>
-			        <div class="ical-export">
-				        <span class="ical-link">${dialogStreamLink}</span>
-			        </div>
-		        </div>
-	        </div>
+	        
 	        <div class="buttons">
 		        <a class="button blue middle save-btn" href="#">${dialogButtonSave}</a>
 		        <a class="button gray middle cancel-btn" href="#">${dialogButtonCancel}</a>
@@ -80,7 +105,7 @@
 		        </div>
 	        </div>
 	        <div class="title">
-		        <div class="bullet">&#9632;</div>
+		        <div class="bullet"></div>
 		        <input type="text" value="" maxlength="${maxlength}"/>
 	        </div>
 	        <div class="color">
@@ -173,6 +198,8 @@
     <div>
         <div id="fc_event_editor" class="event-editor">
 	        <div class="start-point"></div>
+            
+            <br/>
 	        <div class="header">
 		        <div class="inner">
 			        <span>${dialogHeaderAdd}</span>
@@ -232,10 +259,10 @@
 			        <div class="users-list"></div>
 		        </div>
 		        <div class="calendar-status">
-			        <div class="calendar" style="width: 46%; padding: 0;">
+			        <div class="calendar" style="width: 100%; padding: 0;">
                         <div class="label">${dialogCalendarLabel}</div>
-			            <div>
-                            <span class="bullet">&#9632;</span>
+			            <div style="position: relative">
+                            <span class="bullet"></span>
                             <span class="name"></span>
 			            </div>
                     </div>
@@ -251,9 +278,14 @@
 	        </div>
 	        <div class="editor">
                 <div class="title">
-			        <div class="label">${dialogSummaryLabel}</div>
+			        <div class="label">${dialogTodoNameLabel}</div>
 			        <input type="text" value="${defaultEventSummary}" maxlength="${maxlength}"/>
 		        </div>
+                <div class="buttonGroup">
+                    <span class="active event">${eventButton}</span>
+                    <span class="todo">${todoButton}</span>
+                </div>
+
                 <div class="location">
 			        <div class="label">${dialogLocationLabel}</div>
 			        <input type="text" value="" maxlength="${maxlength}"/>
@@ -310,8 +342,8 @@
 		        <div class="calendar-status">
 			        <div class="calendar" style="width: 46%; padding: 0;">
                         <div class="label">${dialogCalendarLabel}</div>
-			            <div class="wrapper">
-				            <div class="bullet">&#9632;</div>
+			            <div class="wrapper" style="position: relative">
+				            <div class="bullet"></div>
 				            <select></select>
 			            </div>
                     </div>
@@ -330,6 +362,23 @@
 			        <div class="label">${dialogDescriptionLabel}</div>
 			        <textarea cols="3" rows="3"></textarea>
 		        </div>
+                
+                <div class="todo_editor">
+                    <div class="date-time">
+			            <div>
+				            <div class="label">${dialogTodoDate}</div>
+				            <div class="wrapper">
+					            <input class="date" type="text" value=""/>
+                                <div class="cal-icon"></div>
+                                <input class="time textEdit time" style="display: none!important" type="text" value=""/>
+	        </div>
+			            </div>
+		            </div>
+                    <div class="description">
+			            <div class="label">${dialogDescriptionLabel}</div>
+			            <textarea cols="3" rows="3"/>
+		            </div>
+                </div>
 	        </div>
 	
 	        <!-- Repeat settings block -->
@@ -413,6 +462,105 @@
     </div>
 </script>
 
+<script id="delete_todo_icon" type="text/x-jquery-tmpl">
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span>
+</script>
+<script id="edit_todo_icon" type="text/x-jquery-tmpl">
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsblogs"></use></svg></span>
+</script>
+<script id="settings_todo_icon" type="text/x-jquery-tmpl">
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+</script>
+
+<script id="todoViewDialogTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <div id="fc_todo_viewer">
+            <div class="viewer">
+                <div class="title big"></div>   
+                <div class="date-time">
+	                <div>
+		                <span class="date"></span>
+	                </div>
+                </div>
+                <div class="description">
+	                <div class="text"></div>
+                </div>
+                <div class="buttons">
+		            <a class="mark-btn button blue middle" href="#">${dialogButtonMarkOn}</a>
+		            <a class="edit-btn button gray middle" href="#">${dialogButtonEdit}</a>
+		            <a class="delete-btn button gray middle" href="#">${dialogButtonDelete}</a>
+	            </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="todoEditorDialogTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <div id="fc_todo_editor">
+            <div class="header">
+		        <div class="inner">
+			        <span class="title">${dialogTitle}</span>
+			        <div class="close-btn">&times;</div>
+		        </div>
+	        </div>
+            <div class="title">
+                <div class="label">${dialogNameLabel}</div>
+		        <input id="fc_todo_title" type="text" value="" maxlength="150"/>
+	        </div>
+            <div class="date-time">
+			    <div>
+				    <div class="label">${dialogDate}</div>
+				    <div class="wrapper">
+					    <input class="date" id="fc_todo_start_date" type="text" value=""/>
+                        <div class="cal-icon"></div>
+				    </div>
+			    </div>
+		    </div>
+            <div class="description">
+			    <div class="label">${dialogDescriptionLabel}</div>
+			    <textarea id="fc_todo_description" cols="3" rows="3"/>
+		    </div>
+            <div class="buttons">
+		        <a class="save-btn button blue middle" id="fc_todo_ok" href="#">${dialogButtonSave}</a>
+		        <a class="cancel-btn button gray middle" id="fc_todo_cancel" href="#">${dialogButtonCancel}</a>
+	        </div>
+        </div>
+    </div>
+</script>
+<script id="deleteTodoDalogTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <div id="fc_delete_todo">
+	        <div class="header">
+		        <div class="inner">
+                    <span class="single-content">${dialogHeader}</span>
+			        <div class="close-btn">&times;</div>
+		        </div>
+	        </div>
+            <div class="delete-text single-content">${dialogSingleBody}</div>
+	        <div class="buttons">
+		        <a class="save-btn button blue middle" href="#">${dialogButton_apply}</a>
+		        <a class="cancel-btn button gray middle" href="#">${dialogButton_cancel}</a>
+	        </div>
+        </div>
+    </div>
+</script>
+<script id="todoMenuTemplate" type="text/x-jquery-tmpl">
+    <div>
+        <div id="fc_todo_menu">
+            <div class="todo-in-calendar">
+                <label><input type="checkbox" id="todo-in-cal-check" class="bullet"/><span></span></label>
+                <label class="label" for="todo-in-cal-check">${menuTodoInCalendar}</label>
+            </div>
+            <div class="delete-marked-todo">
+                <label><input type="checkbox" id="del-mark-td-check" class="bullet"/><span></span></label>
+                <label class="label" for="del-mark-td-check">${menuDeleteMarkedTodo}</label>
+            </div>
+            <div class="sync-links">
+                <label class="label" id="sync-lnk">${menuSyncLinks}</label>
+            </div>
+        </div>
+    </div>
+</script>
 <script id="deleteSettingsDalogTemplate" type="text/x-jquery-tmpl">
     <div>
         <div id="fc_delete_settings">
@@ -455,6 +603,36 @@
 		        <span>${dialogDescription}</span>
 	        </div>
 	        <div class="saved-url-link"></div>
+            <div class="url-link caldav" style="display: none">
+                <div class="title">${dialogExportCalDav}</div>
+                <span class="control">
+                    <div class="button copy">
+                        <span>${dialogCopyButton}</span>
+                    </div>
+                    <div class="button try-again">
+                        <span>${dialogTryAgainButton}</span>
+                    </div>
+                    <span class="textinput__box"></span>
+                    <input type='text' readonly/>
+                </span>
+            </div>
+             <% if (!string.IsNullOrEmpty(ASC.Web.Studio.Utility.CommonLinkUtility.GetHelpLink()))
+                   { %>
+                    <div class="caldav-help" style="display: none">
+                        <span>${dialogCaldavHelp} </span>
+                        <a href="<%= ASC.Web.Studio.Utility.CommonLinkUtility.GetHelpLink() + "/tipstricks/export-calendars-to-devices.aspx" %>" target="_blank">${dialogHelpCenter}</a>
+                    </div>
+                <% } %>
+            <div class="url-link ical" style="display: none">
+                <div class="title">${dialogExportIcal}</div>
+                <span class="control">
+                    <div class="button copy">
+                        <span>${dialogCopyButton}</span>
+                    </div>
+                    <span class="textinput__box"></span>
+                    <input type='text' readonly/>
+                </span>
+            </div>
 	        <div class="buttons">
 		        <a class="cancel-btn button gray middle" href="#">${dialogButtonClose}</a>
 	        </div>
@@ -600,14 +778,9 @@
 			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
 		                </div>
 
-                        <div class="botttom-indent location">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%></div>
-			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
-		                </div>
-                
                         <div class="botttom-indent date-time from-to">
 			                <div class="inline-block">
-				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_fromLabel%></div>
+				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_timeLabel%></div>
 				                <div class="wrapper">
 					                <input class="from-date textEdit date" type="text" value=""/>
                                     <div class="from cal-icon"></div>
@@ -615,13 +788,16 @@
 				                </div>
 			                </div>
                             <div class="inline-block">
-				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_toLabel%></div>
+				               <!-- <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_toLabel%></div> -->
 				                <div class="wrapper">
+					                <input class="to-time textEdit time" type="text" value=""/>
 					                <input class="to-date textEdit date" type="text" value=""/>
                                     <div class="to cal-icon"></div>
-					                <input class="to-time textEdit time" type="text" value=""/>
 				                </div>
 			                </div>
+                            
+		                </div>
+                        <div class="botttom-indent clearFix repeat-alert">
                             <div class="inline-block cbx-container all-day">
                                 <div>
                                     <label>
@@ -630,60 +806,14 @@
                                     </label>
                                 </div>
 			                </div>
-		                </div>
-                
-                        <div class="botttom-indent clearFix calendar">
-                            <div class="halfwidth">
-                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_calendarLabel%></div>
-                                <div>
-				                    <div class="bullet">&#9632;</div>
-				                    <select></select>
-			                    </div>
-                            </div>
-		                </div>
-
-                        <div class="botttom-indent owner">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%></div>
-                            <div class="name"></div>
-                            <div class="selector">
-                                <select></select>
-                            </div>
-		                </div>
-
-                        <div class="botttom-indent attendees">
-			                <div class="label">
-                                <%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%>
-                                <span id="attendeesHelpSwitcher" class="HelpCenterSwitcher"></span>
-                                <div id="attendeesHelpInfo" class="popup_helper">
-                                    <%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabelHelpInfo%>
-                                </div>
-			                </div>
-                            <div class="clearFix input-container">
-                                <div class="btn-container">
-                                    <a class="button gray"><%=Resources.CalendarJSResource.confirmPopup_ButtonOk%></a>
-                                </div>
-                                <div class="text-container">
-                                    <input type="text" class="textEdit fullwidth" value=""/>
-                                </div>
-                            </div>
-                            <div class="users-list attendees-user-list"></div>
-                            <div class="attendees-noaccount">
-                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/default.aspx") %>">
-                                    <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
-                                </a>
-                                <%=Resources.CalendarJSResource.attendeesNoAccountText%>
-                            </div>
-		                </div>
-
-		                <div class="botttom-indent clearFix repeat-alert">
-			                <div class="halfwidth">
+			                <div class="inline-block">
                                 <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_repeatLabel%></div>
                                 <span class="fc-view-repeat">
 					                <span class="fc-selector-link"></span>
 					                <span class="fc-dropdown">&nbsp;</span>
 				                </span>
 			                </div>
-                            <div class="halfwidth">
+                            <div class="inline-block">
 				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_alertLabel%></div>
                                 <span class="fc-view-alert">
 					                <span class="fc-selector-link"></span>
@@ -755,15 +885,70 @@
                                 </td>
                             </tr>
 	                    </table>
+                        
+                        <div class="botttom-indent clearFix calendar">
+                            <div class="halfwidth">
+                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_calendarLabel%></div>
+                                <div class="wrapper" style="position: relative">
+				                    <div class="bullet"></div>
+				                    <select></select>
                     </div>
                 </div>
-                <div class="halfwidth right">
-                    <div class="inner">
+		                </div>
+
+                        <div class="botttom-indent location">
+			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%></div>
+			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
+		                </div>
+
+                        <div class="botttom-indent owner">
+			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%></div>
+                            <div class="name"></div>
+                            <div class="selector">
+                                <select></select>
+                            </div>
+		                </div>
+                        
                         <div class="botttom-indent description">
 			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
 			                <textarea class="textEdit fullwidth"></textarea>
 		                </div>
-
+                    </div>
+                </div>
+                <div class="halfwidth right">
+                    <div class="inner">
+                        <div class="botttom-indent attendees">
+			                <div class="label">
+                                <%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%>
+                                <span id="attendeesHelpSwitcher" class="HelpCenterSwitcher"></span>
+                                <div id="attendeesHelpInfo" class="popup_helper">
+                                    <%=CoreContext.Configuration.CustomMode ? ASC.Web.Studio.PublicResources.CustomModeResource.calendarEventEditor_attendeesLabelHelpInfoCustomMode : Resources.CalendarJSResource.calendarEventEditor_attendeesLabelHelpInfo%>
+                                </div>
+			                </div>
+                            <div class="clearFix input-container">
+                                <div class="btn-container">
+                                    <a class="button gray"><%=Resources.CalendarJSResource.confirmPopup_ButtonOk%></a>
+                                </div>
+                                <div class="text-container">
+                                    <input type="text" class="textEdit fullwidth" value=""/>
+                                </div>
+                            </div>
+                            <div class="users-list attendees-user-list"></div>
+                            <div class="attendees-noaccount">
+                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/default.aspx") %>">
+                                    <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
+                                </a>
+                                <%=Resources.CalendarJSResource.attendeesNoAccountText%>
+                            </div>
+		                </div>
+                        <div class="inline-block cbx-container sent-invitations">
+                            <div>
+                                <label>
+                                    <input class="sent-invitations cb" type="checkbox"/>
+                                    <%=Resources.CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>
+                                </label>
+                            </div>
+			            </div>
                         <div class="botttom-indent">
                             <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
                             <div>
@@ -879,6 +1064,7 @@
 	        <div class="header">
 		        <div class="inner">
 			        <span class="title">${dialogHeader}</span>
+                    <div class="close-btn">&times;</div>
 		        </div>
 	        </div>
 	        <div class="body">${dialogBody}</div>

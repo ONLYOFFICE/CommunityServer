@@ -41,7 +41,7 @@ namespace ASC.Api.Mail
         [Read(@"display_images/addresses")]
         public IEnumerable<string> GetDisplayImagesAddresses()
         {
-            return MailBoxManager.GetDisplayImagesAddresses(TenantId, Username);
+            return MailEngineFactory.DisplayImagesAddressEngine.Get();
         }
 
         ///  <summary>
@@ -55,10 +55,8 @@ namespace ASC.Api.Mail
         [Create(@"display_images/address")]
         public string AddDisplayImagesAddress(string address)
         {
-            if (string.IsNullOrEmpty(address))
-                throw new ArgumentException(@"Invalid address. Address can't be empty.", "address");
+            MailEngineFactory.DisplayImagesAddressEngine.Add(address);
 
-            MailBoxManager.AddDisplayImagesAddress(TenantId, Username, address);
             return address;
         }
 
@@ -73,12 +71,9 @@ namespace ASC.Api.Mail
         [Delete(@"display_images/address")]
         public string RemovevDisplayImagesAddress(string address)
         {
-            if (string.IsNullOrEmpty(address))
-                throw new ArgumentException(@"Invalid address. Address can't be empty.", "address");
+            MailEngineFactory.DisplayImagesAddressEngine.Remove(address);
 
-            MailBoxManager.RemovevDisplayImagesAddress(TenantId, Username, address);
             return address;
         }
-
     }
 }

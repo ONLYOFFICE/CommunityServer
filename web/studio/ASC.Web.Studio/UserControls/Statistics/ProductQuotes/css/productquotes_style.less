@@ -24,85 +24,125 @@
 */
 
 
-div.quotesBlock div.header 
-{
-    border-left: 0 none;
-    border-right: 0 none;
-    border-top: 0 none;
-    margin: 25px 0 0;
-    padding: 0 0 5px 15px;
+.informationBlock {
+    tr:not(:last-child) td {
+        padding: 0px 16px 8px 0;
+    }
+
+    tr:last-child td {
+        padding: 0px 16px 0 0;
+    }
 }
 
-div.quotesBlock div.header img
-{
-    margin-right:5px;
-    vertical-align: bottom;
+.quotesBlock {
+    margin: 0 0 45px 0;
+
+    .header-base {
+        margin: 0 0 15px 0;
+
+        img {
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+    }
+
+    .moreBox {
+        margin-top: 15px;
+
+        .link {
+            margin-left: 15px;
+        }
+    }
+
+    .empty {
+        height: 40px;
+        border-left: none;
+        border-right: none;
+        line-height: 40px;
+        padding-left: 15px;
+    }
+
+    .table-list {
+        .icon {
+            padding: 5px 0 5px 15px;
+            position: relative;
+
+            .disabled {
+                background: url(../img/disabled.png) center no-repeat;
+                display: block;
+                height: 16px;
+                left: 24px;
+                position: absolute;
+                top: 15px;
+                width: 16px;
+            }
+        }
+
+        .name {
+            width: 100%;
+            padding: 5px 10px;
+        }
+
+        .value {
+            padding: 5px 15px 5px 0;
+            text-align: right;
+            white-space: nowrap;
+        }
+    }
 }
 
-div.quotesBlock .storeUsage
-{
-    margin-top:20px;
-    padding-left:15px;
-    padding-bottom:10px;
+.tabs-header {
+    margin-bottom: 16px;
+    position: relative;
+
+    .tabs-header-item {
+        cursor: pointer;
+        display: block;
+        min-width: 50px;
+        max-width: 100px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 20px;
+        float: left;
+        white-space: nowrap;
+
+        &.active {
+            cursor: default;
+            font-weight: bold;
+        }
+
+        img {
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 4px;
+        }
+    }
+
+    .tabs-header-corner {
+        background: url(../img/corner.png) center no-repeat;
+        position: absolute;
+        width: 11px;
+        height: 7px;
+        top: 50px;
+        left: 19.5px;
+    }
 }
 
-div.quotesBlock .storeUsage .description
-{
-    color:#9da1a5;
-    font-size: 14px;
-    margin-top:5px;
-    
+.tabs-content {
+    .tabs-content-item {
+        display: none;
+        max-width: 800px;
+
+        &.active {
+            display: block;
+        }
+    }
 }
 
-div.quotesBlock .storeUsage .diskUsage
-{
-    margin-left:5px;
-    color:#e85d11;
-}
-
-div.quotesBlock .storeUsage .goBtnBox
-{
-    margin-top:15px;
-}
-
-
-div.quotesBlock .contentBlock
-{
-    padding: 10px 15px;
-}
-    
-div.quotesBlock div.information{margin:0; padding:0;}
-
-div.quotesBlock table.information{width:100%; margin:0; padding:0; border-collapse:collapse;}
-
-div.quotesBlock table.information td{margin:0; padding:0px 15px 5px 15px; border-collapse:collapse;}
-div.quotesBlock table.information td.name{width:1%; font-size:16px; color:#3C4046; white-space:nowrap;}
-div.quotesBlock table.information td.value{width:99%; white-space:nowrap;}
-
-div.quotesBlock table.quotes{width:100%; margin:0; padding:0; border-collapse:collapse;}
-div.quotesBlock table.quotes tr{border-left:0; border-right:0; height:40px;}
-div.quotesBlock table.quotes tr.borderBase:hover{background-color: #f2f2f2;}
-div.quotesBlock table.quotes tr.borderBase:hover a {text-decoration: underline;}
-div.quotesBlock table.quotes tr.describe-text{height:12px;}
-div.quotesBlock table.quotes td{margin:0; padding:5px 10px; border-collapse:collapse;}
-div.quotesBlock table.quotes td.icon{width:1%; padding:5px 0 5px 15px;position: relative;}
-div.quotesBlock table.quotes td.icon span.disabled{background: url(../img/disabled.png) center no-repeat;display: block;height: 16px;left: 24px;position: absolute;top: 15px;width: 16px;}
-div.quotesBlock table.quotes td.name{width:86%; white-space:nowrap;}
-/*div.quotesBlock table.quotes td.name{width:78%\0/;}*/
-*:first-child+html div.quotesBlock table.quotes td.name{width:76%;}
-div.quotesBlock table.quotes td.name div{max-width:750px; white-space:nowrap;overflow: hidden;}
-div.quotesBlock table.quotes td.value{width:10%; padding:5px 15px 5px 0; text-align:right; white-space:nowrap;}
-
-div.quotesBlock .moreBox
-{
-    margin-top:15px;
-}
-
-div.quotesBlock .emptySpace
-{
-    color: #646567;
-}
-
-.topTitleLink {
-    margin-left: 15px;
+body.media-width-0-1200 {
+    .tabs-header .tabs-header-item {
+        margin-right: 20px;
+    }
 }

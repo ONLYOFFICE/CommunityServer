@@ -62,7 +62,7 @@ namespace ASC.Api.Projects.Wrappers
             {
                 UpdatedBy = projectApiBase.GetEmployeeWraper(subtask.LastModifiedBy);
             }
-            CanEdit = ProjectSecurity.CanEdit(task, subtask);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(task, subtask);
 
             TaskId = task.ID;
         }

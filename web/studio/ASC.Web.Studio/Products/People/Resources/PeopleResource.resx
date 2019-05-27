@@ -285,6 +285,9 @@
   <data name="LblEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="LblImportAccounts" xml:space="preserve">
+    <value>Import accounts</value>
+  </data>
   <data name="LblMobilePhone" xml:space="preserve">
     <value>Primary Mobile Phone</value>
   </data>
@@ -539,5 +542,92 @@
   </data>
   <data name="RemovingStatusNotStarted" xml:space="preserve">
     <value>Data was not deleted</value>
+  </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>Delete profile when reassignment will be finished</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>Double quote</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>Single quote</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>Colon</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Comma</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>Semicolon</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="ImportClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>From File</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Import contacts</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>Add to portal</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Setting up compliance</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Edit Contacts</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>Example values</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>Fields in file</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>Fields on the portal OnlyOffice</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="MainEmail" xml:space="preserve">
+    <value>Main Email</value>
+  </data>
+  <data name="NoSameValuesOptions" xml:space="preserve">
+    <value>Fields in the portal cannot have the same values!</value>
+  </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>Not import</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Column</value>
   </data>
 </root>

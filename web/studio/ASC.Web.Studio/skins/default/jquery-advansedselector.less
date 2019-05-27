@@ -192,24 +192,65 @@ input[type="text"].advanced-selector-search-field:focus {
     }
 }
 
+.div-check() {
+    div {
+        background-color: transparent;
+        background-image: url("images/checkboxes.png");
+        background-position: 0px 0px;
+        background-repeat: no-repeat;
+        float: left;
+        margin: 3px 4px 1px 0;
+        height: 14px;
+        width: 14px;
+        border: 0 none;
+        padding: 0;
 
-.advanced-selector-list-items li label {
-    display: block;
-    .text-overflow();
+        &.checked {
+            background-position: -14px 0px;
+        }
+
+        &.indeterminate {
+            background-position: -28px 0px;
+        }
+    }
+
+    label {
+        display: block;
+        .text-overflow();
+    }
+}
+
+.advanced-selector-list-items,
+.advanced-selector-list-groups {
+    li {
+        .div-check();
+
+        &.pending {
+            color: #83888d;
+        }
+    }
 }
 
 .advanced-selector-all-select {
+    .div-check();
+
     display: block;
     width: 100%;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: 4px;
 
     &:hover {
         background-color: #e5e5e5;
     }
 
     input {
+        float: left;
+        margin: 2px 3px 0 0;
         vertical-align: top;
+    }
+
+    label {
+        display: block;
+        .text-overflow();
     }
 }
 
@@ -305,12 +346,6 @@ select.advanced-selector-field {
 .advanced-selector-all-select.chosen label {
     font-weight: bold;
 }
-.advanced-selector-all-select label {
-    padding-left: 5px;
-}
-.advanced-selector-all-select input ~ label {
-    padding-left: 0;
-}
 
 .advanced-selector-loader-list {
     background: url(./images/loader_32.gif) no-repeat 0 0 transparent;
@@ -322,9 +357,6 @@ select.advanced-selector-field {
     margin: -16px 0 0 -16px;
 }
 
-.advanced-selector-list-items li.pending {
-    color:#83888d;
-}
 .advanced-selector-no-results,
 .advanced-selector-empty-list,
 .advanced-selector-no-items,

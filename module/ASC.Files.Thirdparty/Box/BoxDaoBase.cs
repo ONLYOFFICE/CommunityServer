@@ -59,6 +59,11 @@ namespace ASC.Files.Thirdparty.Box
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
+        public void Dispose()
+        {
+            BoxProviderInfo.Dispose();
+        }
+
         protected DbManager GetDb()
         {
             return new DbManager(FileConstant.DatabaseId);

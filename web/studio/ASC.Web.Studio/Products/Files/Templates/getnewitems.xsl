@@ -49,25 +49,48 @@
               <xsl:attribute name="data-id">
                 <xsl:value-of select="id" />
               </xsl:attribute>
-              <xsl:attribute name="value">
-                {
-                "entryType": "<xsl:value-of select="@*" />",
-                "access": <xsl:value-of select="access" />,
-                "create_by_id": "<xsl:value-of select="create_by_id" />",
-                "create_on": "<xsl:value-of select="create_on" />",
-                <!--"id": "<xsl:value-of select="id" />",-->
-                "modified_on": "<xsl:value-of select="modified_on" />",
-                "shared": <xsl:value-of select="shared" />,
-                "title": "<xsl:value-of select="title" />",
-                "isnew": <xsl:value-of select="isnew" />,
-                "provider_key": "<xsl:value-of select="provider_key" />",
-                "provider_id": "<xsl:value-of select="provider_id" />",
-                "error": "<xsl:value-of select="error" />"
-                <!--create_by: "<xsl:value-of select="create_by" />",    encode-->
-                <!--modified_by: "<xsl:value-of select="modified_by" />",    encode-->
-                <!--total_files: <xsl:value-of select="total_files" />,    dynamic-->
-                <!--total_sub_folder: <xsl:value-of select="total_sub_folder" />,    dynamic-->
-                }
+              <xsl:attribute name="data-entryType">folder</xsl:attribute>
+              <xsl:attribute name="data-access">
+                <xsl:value-of select="access" />
+              </xsl:attribute>
+              <xsl:attribute name="data-shared">
+                <xsl:value-of select="shared" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_by_id">
+                <xsl:value-of select="create_by_id" />
+              </xsl:attribute>
+              <xsl:attribute name="data-isnew">
+                <xsl:value-of select="isnew" />
+              </xsl:attribute>
+              <xsl:attribute name="data-provider_key">
+                <xsl:value-of select="provider_key" />
+              </xsl:attribute>
+              <xsl:attribute name="data-provider_id">
+                <xsl:value-of select="provider_id" />
+              </xsl:attribute>
+              <xsl:attribute name="data-error">
+                <xsl:value-of select="error" />
+              </xsl:attribute>
+              <xsl:attribute name="data-title">
+                <xsl:value-of select="title" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_on">
+                <xsl:value-of select="create_on" />
+              </xsl:attribute>
+              <xsl:attribute name="data-modified_on">
+                <xsl:value-of select="modified_on" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_by">
+                <xsl:value-of select="create_by" />
+              </xsl:attribute>
+              <xsl:attribute name="data-modified_by">
+                <xsl:value-of select="modified_by" />
+              </xsl:attribute>
+              <xsl:attribute name="data-comment">
+                <xsl:value-of select="comment" />
+              </xsl:attribute>
+              <xsl:attribute name="data-folder_url">
+                <xsl:value-of select="folder_url" />
               </xsl:attribute>
             </input>
           </div>
@@ -108,25 +131,60 @@
               <xsl:attribute name="data-id">
                 <xsl:value-of select="id" />
               </xsl:attribute>
-              <xsl:attribute name="value">
-                {
-                "entryType": "<xsl:value-of select="@*" />",
-                "access": <xsl:value-of select="access" />,
-                "create_by_id": "<xsl:value-of select="create_by_id" />",
-                "create_on": "<xsl:value-of select="create_on" />",
-                <!--"id": "<xsl:value-of select="id" />",-->
-                "modified_on": "<xsl:value-of select="modified_on" />",
-                "shared": <xsl:value-of select="shared" />,
-                "title": "<xsl:value-of select="title" />",
-                "content_length": "<xsl:value-of select="content_length" />",
-                "file_status": "<xsl:value-of select="file_status" />",
-                "version": <xsl:value-of select="version" />,
-                "version_group": <xsl:value-of select="version_group" />,
-                "provider_key": "<xsl:value-of select="provider_key" />",
-                "error": "<xsl:value-of select="error" />"
-                <!--create_by: "<xsl:value-of select="create_by" />",    encode-->
-                <!--modified_by: "<xsl:value-of select="modified_by" />",    encode-->
-                }
+              <xsl:attribute name="data-entryType">file</xsl:attribute>
+              <xsl:attribute name="data-access">
+                <xsl:value-of select="access" />
+              </xsl:attribute>
+              <xsl:attribute name="data-shared">
+                <xsl:value-of select="shared" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_by_id">
+                <xsl:value-of select="create_by_id" />
+              </xsl:attribute>
+              <xsl:attribute name="data-isnew">
+                <xsl:value-of select="isnew" />
+              </xsl:attribute>
+              <xsl:attribute name="data-provider_key">
+                <xsl:value-of select="provider_key" />
+              </xsl:attribute>
+              <xsl:attribute name="data-provider_id">
+                <xsl:value-of select="provider_id" />
+              </xsl:attribute>
+              <xsl:attribute name="data-error">
+                <xsl:value-of select="error" />
+              </xsl:attribute>
+              <xsl:attribute name="data-title">
+                <xsl:value-of select="title" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_on">
+                <xsl:value-of select="create_on" />
+              </xsl:attribute>
+              <xsl:attribute name="data-modified_on">
+                <xsl:value-of select="modified_on" />
+              </xsl:attribute>
+              <xsl:attribute name="data-file_status">
+                <xsl:value-of select="file_status" />
+              </xsl:attribute>
+              <xsl:attribute name="data-version_group">
+                <xsl:value-of select="version_group" />
+              </xsl:attribute>
+              <xsl:attribute name="data-content_length">
+                <xsl:value-of select="content_length" />
+              </xsl:attribute>
+              <xsl:attribute name="data-content_length_string">
+                <xsl:value-of select="content_length_string" />
+              </xsl:attribute>
+              <xsl:attribute name="data-version">
+                <xsl:value-of select="version" />
+              </xsl:attribute>
+              <xsl:attribute name="data-create_by">
+                <xsl:value-of select="create_by" />
+              </xsl:attribute>
+              <xsl:attribute name="data-modified_by">
+                <xsl:value-of select="modified_by" />
+              </xsl:attribute>
+              <xsl:attribute name="data-comment">
+                <xsl:value-of select="comment" />
               </xsl:attribute>
             </input>
           </div>

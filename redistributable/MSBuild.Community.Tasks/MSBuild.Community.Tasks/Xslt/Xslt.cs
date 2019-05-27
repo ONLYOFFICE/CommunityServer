@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="Xslt.cs" company="MSBuild Community Tasks Project">
-//     Copyright © 2006 Ignaz Kohlbecker
+//     Copyright ï¿½ 2006 Ignaz Kohlbecker
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -43,6 +43,7 @@ namespace MSBuild.Community.Tasks
 		private ITaskItem[] inputs;
 		private string rootTag;
 		private string rootAttributes;
+		private bool useTrusted;
 		private ITaskItem xsl;
 		private string output;
 		#endregion Fields
@@ -100,6 +101,23 @@ namespace MSBuild.Community.Tasks
 			set
 			{
 				this.rootAttributes = value;
+			}
+		}
+		
+		/// <summary>
+		/// Enables a Trusted XSLT processor. Sepcifically enables scripts 
+		/// in the xsl transformation file
+		/// For example: <code>UseTrusted="true"</code>
+		/// </summary>
+		public bool UseTrusted
+		{
+			get
+			{
+				return useTrusted;
+			}
+			set
+			{
+				useTrusted = value;
 			}
 		}
 
@@ -242,14 +260,22 @@ namespace MSBuild.Community.Tasks
 
 			try
 			{
-				transform.Load(this.xsl.ItemSpec);
+                if(useTrusted) 
+                {
+                    transform.Load(xsl.ItemSpec, XsltSettings.TrustedXslt, null);
+                }
+                else
+                {   
+                    transform.Load(xsl.ItemSpec, XsltSettings.Default, new XmlUrlResolver());
+                }
+
 				xmlWriter = XmlWriter.Create(this.output, transform.OutputSettings);
 
 				transform.Transform(doc.DocumentElement, argumentList, xmlWriter);
 			}
 			catch (XsltException ex)
 			{
-				Log.LogErrorFromException(ex);
+				Log.LogErrorFromException(ex, false, true, new Uri(ex.SourceUri).LocalPath + '(' + ex.LineNumber + ',' + ex.LinePosition + ')');
 				return false;
 			}
 			catch (FileNotFoundException ex)
@@ -264,7 +290,7 @@ namespace MSBuild.Community.Tasks
 			}
 			catch (XmlException ex)
 			{
-				Log.LogErrorFromException(ex);
+				Log.LogErrorFromException(ex, false, true, new Uri(ex.SourceUri).LocalPath + '(' + ex.LineNumber + ',' + ex.LinePosition + ')');
 				return false;
 			}
 			finally

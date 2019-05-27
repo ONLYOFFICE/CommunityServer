@@ -151,6 +151,10 @@ namespace ASC.Files.Thirdparty.Sharpbox
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
+        public void Dispose()
+        {
+            SharpBoxProviderInfo.Dispose();
+        }
 
         protected DbManager GetDb()
         {
@@ -307,14 +311,6 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return path;
         }
 
-        public void Dispose()
-        {
-            if (SharpBoxProviderInfo.Storage.IsOpened)
-            {
-                SharpBoxProviderInfo.Storage.Close();
-            }
-        }
-
         protected Folder ToFolder(ICloudDirectoryEntry fsEntry)
         {
             if (fsEntry == null) return null;
@@ -456,7 +452,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 var path = MakePath(folderId);
                 return path == "/"
                            ? RootFolder()
-                           : SharpBoxProviderInfo.Storage.GetFolder(MakePath(folderId));
+                           : SharpBoxProviderInfo.Storage.GetFolder(path);
             }
             catch (SharpBoxException sharpBoxException)
             {

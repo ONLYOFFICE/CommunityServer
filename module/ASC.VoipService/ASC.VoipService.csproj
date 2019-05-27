@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.VoipService</RootNamespace>
     <AssemblyName>ASC.VoipService</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.IdentityModel.Logging">
       <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.1.1.5\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
@@ -42,18 +38,13 @@
       <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.5.1.5\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\packages\RestSharp.106.1.0\lib\net452\RestSharp.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="Twilio">
       <HintPath>..\..\packages\Twilio.5.6.0\lib\net451\Twilio.dll</HintPath>
@@ -65,7 +56,6 @@
     <Compile Include="Dao\CachedVoipDao.cs" />
     <Compile Include="Dao\VoipDao.cs" />
     <Compile Include="IVoipProvider.cs" />
-    <Compile Include="Twilio\TwilioLoginProvider.cs" />
     <Compile Include="Twilio\TwilioResponseHelper.cs" />
     <Compile Include="VoipCall.cs" />
     <Compile Include="VoipModel.cs" />
@@ -84,18 +74,6 @@
     <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

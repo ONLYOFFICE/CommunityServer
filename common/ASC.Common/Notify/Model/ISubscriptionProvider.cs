@@ -28,6 +28,7 @@
 
 using System;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Notify.Recipients;
 
 #endregion
@@ -83,7 +84,7 @@ namespace ASC.Notify.Model
             }
             catch (Exception exception)
             {
-                log4net.LogManager.GetLogger(typeof(SubscriptionProviderHelper)).Error(exception);
+                LogManager.GetLogger("ASC").Error(exception);
             }
 
             return result;

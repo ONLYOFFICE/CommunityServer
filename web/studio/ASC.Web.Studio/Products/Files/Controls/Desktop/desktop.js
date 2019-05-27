@@ -24,25 +24,153 @@
 */
 
 
-window.ASC.Files.Desktop = (function () {
+window.ASC.Desktop = (function () {
+    if (!window["AscDesktopEditor"]) {
+        return null;
+    }
+
     var isInit = false;
+    var domain = null;
+    var isBlockchainSupport = typeof window.AscDesktopEditor.isBlockchainSupport === "function" && window.AscDesktopEditor.isBlockchainSupport();
 
     var init = function () {
         if (isInit === false) {
             isInit = true;
 
-            ASC.Files.UI.blockUI("#desktopWelcome", 520, 600);
+            domain = new RegExp("^http(s)?:\/\/[^\/]+").exec(location)[0];
+
+            if (jq("#desktopWelcome").is(":visible")) {
+                ASC.Files.UI.blockUI("#desktopWelcome", 520, 600);
+            }
+
+            regDesktop();
+
+            if (ASC.Desktop.blockchainSupport()) {
+                if (typeof StudioManager !== "undefined" && typeof Teamlab !== "undefined") {
+                    StudioManager.addPendingRequest(requestBlockchainData);
+                }
+            }
         }
+    };
+
+    var blockchainSupport = function () {
+        return isBlockchainSupport;
+    };
+
+    var regDesktop = function () {
+        var data = {
+            displayName: ASC.displayName || Teamlab.profile.displayName,
+            domain: domain,
+            email: ASC.email || Teamlab.profile.email,
+            provider: "onlyoffice",
+        };
+
+        window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));
+
+        window.onSystemMessage = function (e) {
+            switch (e.type) {
+                case "user":
+                    {
+                        setBlockchainData(e.account);
+                        break;
+                    }
+                case "share":
+                    {
+                        if (LoadingBanner) {
+                            LoadingBanner.hideLoading();
+                        }
+
+                        if (e.result !== "OK") {
+                            ASC.Files.UI.displayInfoPanel(e.result, true);
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+        };
+
+        window.DesktopUpdateFile = function () {
+            if (ASC.Files.UI) {
+                ASC.Files.UI.checkEditing();
+            }
+        };
+
+        window.onChangeCryptoMode = function (mode) {
+            isBlockchainSupport = (mode > 0);
+
+            requestBlockchainData();
+
+            if (ASC.Files.Folders) {
+                ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, false);
+            }
+        };
+    };
+
+
+    //request
+
+    var requestBlockchainData = function () {
+        if (!ASC.Desktop.blockchainSupport()) {
+            return;
+        }
+
+        window.AscDesktopEditor.sendSystemMessage({type: "user"});
+    };
+
+    var setBlockchainData = function (account) {
+        if (typeof Teamlab !== "undefined") {
+            Teamlab.setBlockchainData({}, {address: account.address, publicKey: account.publicKey});
+        }
+    };
+
+    var setAccess = function (fileId, callback) {
+        if (!ASC.Desktop.blockchainSupport()) {
+            return;
+        }
+
+        Teamlab.getBlockchainAccess({}, fileId, {
+            success: function (params, addresses) {
+
+                var downloadLink = domain + ASC.Files.Utility.GetFileDownloadUrl(fileId);
+
+                window.AscDesktopEditor.GetHash(downloadLink,
+                    function (hash) {
+                        var data =
+                        {
+                            accounts: addresses,
+                            hash: hash,
+                            type: "share",
+                        };
+
+                        if (LoadingBanner) {
+                            LoadingBanner.displayLoading();
+                        }
+
+                        window.AscDesktopEditor.sendSystemMessage(data);
+
+                        if (typeof callback == "function") {
+                            callback();
+                        }
+                    });
+
+            }
+        });
     };
 
     return {
         init: init,
+
+        blockchainSupport: blockchainSupport,
+
+        setAccess: setAccess,
     };
 })();
 
 (function ($) {
     $(function () {
-        ASC.Files.Desktop.init();
-        
+        if (ASC.Desktop) {
+            ASC.Desktop.init();
+        }
     });
 })(jQuery);

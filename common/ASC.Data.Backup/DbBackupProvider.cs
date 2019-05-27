@@ -37,8 +37,8 @@ using System.Web.Configuration;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Data.Storage;
-using log4net;
 
 
 namespace ASC.Data.Backup

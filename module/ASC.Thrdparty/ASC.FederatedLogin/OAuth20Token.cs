@@ -49,6 +49,8 @@ namespace ASC.FederatedLogin
 
         public DateTime Timestamp { get; set; }
 
+        public string OriginJson { get; set; }
+
         public OAuth20Token()
         {
         }
@@ -104,6 +106,7 @@ namespace ASC.FederatedLogin
                     ClientID = parser.Value<string>("client_id"),
                     ClientSecret = parser.Value<string>("client_secret"),
                     RedirectUri = parser.Value<string>("redirect_uri"),
+                    OriginJson = json,
                 };
 
             long expiresIn;

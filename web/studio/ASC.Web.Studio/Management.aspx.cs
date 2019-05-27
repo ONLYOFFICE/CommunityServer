@@ -157,6 +157,8 @@ namespace ASC.Web.Studio
                     return Resource.ProductsAndInstruments;
                 case ManagementType.Backup:
                     return Resource.Backup;
+                case ManagementType.Storage:
+                    return Resource.Storage;
                 default:
                     return Resource.ResourceManager.GetString(module.ToString()) ?? module.ToString();
             }
@@ -196,6 +198,9 @@ namespace ASC.Web.Studio
                 case ManagementType.MailService:
                     //only if MailServer available
                     return SetupInfo.IsVisibleSettings("AdministrationPage");
+                case ManagementType.Storage:
+                    //only standalone feature
+                    return CoreContext.Configuration.Standalone;
             }
 
             return true;
@@ -269,7 +274,8 @@ namespace ASC.Web.Studio
                                      {
                                          ManagementType.Migration,
                                          ManagementType.Backup,
-                                         ManagementType.DeletionPortal
+                                         ManagementType.DeletionPortal,
+                                         ManagementType.Storage
                                      })
                 {
                     Title = Resource.DataManagement,

@@ -48,11 +48,11 @@ window.createMailgroupModal = (function($) {
         initMailboxAddressSelector(html, '#mailboxAddressSelector');
 
         popup.hide();
-        popup.addPopup(window.MailAdministrationResource.CreateMailgroupHeaderInfo, html, 392);
+        popup.addBig(window.MailAdministrationResource.CreateMailgroupHeaderInfo, html);
 
         $rootEl = $('#mail_server_create_mailgroup_popup');
 
-        $rootEl.find('.mailgroup_name').unbind('textchange').bind('textchange', function() {
+        $rootEl.find('.mailgroupName').unbind('textchange').bind('textchange', function () {
             turnOffAllRequiredError();
         });
 
@@ -71,7 +71,7 @@ window.createMailgroupModal = (function($) {
 
         var isValid = true;
 
-        var mailgroupName = $rootEl.find('.mailgroup_name').val();
+        var mailgroupName = $rootEl.find('.mailgroupName').val();
         if (mailgroupName.length === 0) {
             TMMail.setRequiredHint('mail_server_add_mailgroup', window.MailScriptResource.ErrorEmptyField);
             TMMail.setRequiredError('mail_server_add_mailgroup', true);
@@ -211,11 +211,11 @@ window.createMailgroupModal = (function($) {
         TMMail.disableButton($rootEl.find('.save'), disable);
         TMMail.disableButton($('#commonPopup .cancelButton'), disable);
         popup.disableCancel(disable);
-        TMMail.disableInput($rootEl.find('.mailgroup_name'), disable);
+        TMMail.disableInput($rootEl.find('.mailgroupName'), disable);
     }
 
     function setFocusToInput() {
-        $rootEl.find('.mailgroup_name').focus();
+        $rootEl.find('.mailgroupName').focus();
     }
 
     return {

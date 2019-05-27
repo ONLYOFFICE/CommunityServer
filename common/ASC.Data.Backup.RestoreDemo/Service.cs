@@ -32,18 +32,16 @@ using System.Threading;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Logging;
 using ASC.Common.Module;
-using ASC.Data.Backup.Logging;
 using ASC.Data.Backup.Tasks;
 using ASC.Notify.Cron;
-using log4net;
-using ILog = log4net.ILog;
 
 namespace ASC.Data.Backup.RestoreDemo
 {
     public class Service : IServiceController
     {
-        private readonly static ILog log = LogManager.GetLogger(typeof(Service));
+        private readonly static ILog log = LogManager.GetLogger("ASC");
         private readonly ManualResetEvent stop = new ManualResetEvent(false);
         private Thread worker;
 
@@ -150,7 +148,7 @@ namespace ASC.Data.Backup.RestoreDemo
             {
                 try
                 {
-                    var task = new RestorePortalTask(LogFactory.Create("ASC"), ToAbsolute("TeamLabSvc.exe.config"), file.FullName);
+                    var task = new RestorePortalTask(LogManager.GetLogger("ASC"), ToAbsolute("TeamLabSvc.exe.config"), file.FullName);
                     task.ProgressChanged += (sender, args) => log.Info(args.Progress);
                     task.UnblockPortalAfterCompleted = true;
                     task.ReplaceDate = true;

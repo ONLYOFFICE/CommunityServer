@@ -107,5 +107,12 @@ namespace ASC.Core.Tenants
             if (!IsVisibleSettings) return;
             (settings ?? GetInstance()).SaveForUser(userId);
         }
+
+        public static DateTime GetExpiresTime(int tenantId)
+        {
+            var settingsTenant = GetForTenant(tenantId);
+            var expires = settingsTenant.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(settingsTenant.LifeTime);
+            return expires;
+        }
     }
 }

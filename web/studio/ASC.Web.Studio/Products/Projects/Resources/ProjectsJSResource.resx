@@ -432,4 +432,31 @@
   <data name="MilestonesRemoved" xml:space="preserve">
     <value>Milestones Removed</value>
   </data>
+  <data name="TagsSelectorAddText" xml:space="preserve">
+    <value>Create new tag</value>
+  </data>
+  <data name="TagsSelectorEmptyList" xml:space="preserve">
+    <value>No tags in this list</value>
+  </data>
+  <data name="TagsSelectorEmptyTitleError" xml:space="preserve">
+    <value>Each tag must have a title</value>
+  </data>
+  <data name="TagsSelectorNoItems" xml:space="preserve">
+    <value>No tags in this group</value>
+  </data>
+  <data name="TagsSelectorNoResult" xml:space="preserve">
+    <value>No such tag</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>All generated reports you can always see, download, edit, or delete them in {0}Documents/My Documents{1}</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Report building</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Report building ({0}% complete)</value>
+  </data>
 </root>

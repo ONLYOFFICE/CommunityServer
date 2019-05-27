@@ -24,14 +24,9 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
-using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
-
-#endregion
 
 namespace ASC.Projects.Core.DataInterfaces
 {
@@ -46,5 +41,13 @@ namespace ASC.Projects.Core.DataInterfaces
         ReportTemplate SaveTemplate(ReportTemplate template);
 
         void DeleteTemplate(int id);
+
+        ReportFile Save(ReportFile template);
+
+        IEnumerable<ReportFile> Get();
+
+        ReportFile GetByFileId(int fileid);
+
+        void Remove(ReportFile report);
     }
 }

@@ -36,6 +36,8 @@ using ASC.Projects.Engine;
 using ASC.Web.Studio.Utility;
 using System.Linq;
 using ASC.Core.Users;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
 {
@@ -80,7 +82,10 @@ namespace ASC.Feed.Aggregator.Modules.Projects
 
         public override bool VisibleFor(Feed feed, object data, Guid userId)
         {
-            return base.VisibleFor(feed, data, userId) && ProjectSecurity.CanGoToFeed((Milestone)data, userId);
+            using (var scope = DIHelper.Resolve())
+            {
+                return base.VisibleFor(feed, data, userId) && scope.Resolve<ProjectSecurity>().CanGoToFeed((Milestone)data, userId);
+            }
         }
 
         public override IEnumerable<Tuple<Feed, object>> GetFeeds(FeedFilter filter)

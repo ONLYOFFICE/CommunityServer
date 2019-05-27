@@ -1,15 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Threading;
-
-using AppLimit.CloudComputing.SharpBox.Common;
-using AppLimit.CloudComputing.SharpBox.Exceptions;
 using System.Collections.Generic;
+using System.Threading;
+using AppLimit.CloudComputing.SharpBox.Common;
 
 namespace AppLimit.CloudComputing.SharpBox
 {
     public partial class CloudStorage
-    {             
+    {
         #region Async Functions
 
         internal class BackgroundRequest : AsyncObjectRequest
@@ -18,10 +15,10 @@ namespace AppLimit.CloudComputing.SharpBox
             public Object OperationParameter;
         }
 
-        internal class OpenRequest : BackgroundRequest 
+        internal class OpenRequest : BackgroundRequest
         {
             public ICloudStorageConfiguration config;
-            public ICloudStorageAccessToken token;            
+            public ICloudStorageAccessToken token;
         }
 
         /// <summary>
@@ -32,12 +29,12 @@ namespace AppLimit.CloudComputing.SharpBox
         private void OpenRequestCallback(object state)
         {
             // cast the request 
-            OpenRequest req = state as OpenRequest;
+            var req = state as OpenRequest;
 
             try
             {
-                // perform the request                                
-                req.OperationResult = Open(req.config, req.token);                
+                // perform the request
+                req.OperationResult = Open(req.config, req.token);
             }
             catch (Exception e)
             {
@@ -49,7 +46,7 @@ namespace AppLimit.CloudComputing.SharpBox
 
             // call the async callback
             req.callback(req.result);
-        }   
+        }
 
         /// <summary>
         /// Starts the async open request
@@ -61,8 +58,7 @@ namespace AppLimit.CloudComputing.SharpBox
         public IAsyncResult BeginOpenRequest(AsyncCallback callback, ICloudStorageConfiguration configuration, ICloudStorageAccessToken token)
         {
             // build the request data structure
-            OpenRequest request = new OpenRequest();
-            request.callback = callback;
+            var request = new OpenRequest { callback = callback };
             request.result = new AsyncResultEx(request);
             request.config = configuration;
             request.token = token;
@@ -81,8 +77,8 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public ICloudStorageAccessToken EndOpenRequest(IAsyncResult asyncResult)
         {
-            OpenRequest req = asyncResult.AsyncState as OpenRequest;
-            return req.OperationResult as ICloudStorageAccessToken;   
+            var req = asyncResult.AsyncState as OpenRequest;
+            return req.OperationResult as ICloudStorageAccessToken;
         }
 
 
@@ -91,16 +87,16 @@ namespace AppLimit.CloudComputing.SharpBox
         /// request, which is describe in BeginGetChildsRequest
         /// </summary>
         /// <param name="state"></param>
-        private void GetChildsRequestCallback(object state)
+        private static void GetChildsRequestCallback(object state)
         {
             // cast the request 
-            BackgroundRequest req = state as BackgroundRequest;
+            var req = state as BackgroundRequest;
 
             try
             {
-                List<ICloudFileSystemEntry> retList = new List<ICloudFileSystemEntry>();
+                var retList = new List<ICloudFileSystemEntry>();
 
-                foreach (ICloudFileSystemEntry e in req.OperationParameter as ICloudDirectoryEntry)
+                foreach (var e in req.OperationParameter as ICloudDirectoryEntry)
                 {
                     retList.Add(e);
                 }
@@ -128,7 +124,7 @@ namespace AppLimit.CloudComputing.SharpBox
         public IAsyncResult BeginGetChildsRequest(AsyncCallback callback, ICloudDirectoryEntry parent)
         {
             // build the request data structure
-            BackgroundRequest request = new BackgroundRequest();
+            var request = new BackgroundRequest();
             request.callback = callback;
             request.result = new AsyncResultEx(request);
             request.OperationParameter = parent;
@@ -137,7 +133,7 @@ namespace AppLimit.CloudComputing.SharpBox
             ThreadPool.QueueUserWorkItem(GetChildsRequestCallback, request);
 
             // return the result
-            return request.result;            
+            return request.result;
         }
 
         /// <summary>
@@ -147,7 +143,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public List<ICloudFileSystemEntry> EndGetChildsRequest(IAsyncResult asyncResult)
         {
-            BackgroundRequest req = asyncResult.AsyncState as BackgroundRequest;            
+            var req = asyncResult.AsyncState as BackgroundRequest;
             return req.OperationResult as List<ICloudFileSystemEntry>;
         }
 
@@ -160,7 +156,7 @@ namespace AppLimit.CloudComputing.SharpBox
         private void GetRootRequestCallback(object state)
         {
             // cast the request 
-            BackgroundRequest req = state as BackgroundRequest;
+            var req = state as BackgroundRequest;
 
             try
             {
@@ -186,8 +182,7 @@ namespace AppLimit.CloudComputing.SharpBox
         public IAsyncResult BeginGetRootRequest(AsyncCallback callback)
         {
             // build the request data structure
-            BackgroundRequest request = new BackgroundRequest();
-            request.callback = callback;
+            var request = new BackgroundRequest { callback = callback };
             request.result = new AsyncResultEx(request);
             request.OperationParameter = null;
 
@@ -205,11 +200,11 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public ICloudDirectoryEntry EndGetRootRequest(IAsyncResult asyncResult)
         {
-            BackgroundRequest req = asyncResult.AsyncState as BackgroundRequest;
+            var req = asyncResult.AsyncState as BackgroundRequest;
             return req.OperationResult as ICloudDirectoryEntry;
         }
-    
-       
+
+
         #endregion
     }
 }

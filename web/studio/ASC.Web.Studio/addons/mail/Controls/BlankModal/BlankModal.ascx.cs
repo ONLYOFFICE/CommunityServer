@@ -27,7 +27,6 @@
 using System;
 using System.Web;
 using ASC.Core;
-using ASC.Core.Users;
 using ASC.Web.Core;
 
 namespace ASC.Web.Mail.Controls
@@ -42,12 +41,12 @@ namespace ASC.Web.Mail.Controls
 
         public bool IsAdmin()
         {
-            return CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID);
+            return WebItemSecurity.IsProductAdministrator(WebItemManager.MailProductID, SecurityContext.CurrentAccount.ID);
         }
 
         public bool IsCrmAvailable()
         {
-            return WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), SecurityContext.CurrentAccount.ID);
+            return WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID);
         }
     }
 }

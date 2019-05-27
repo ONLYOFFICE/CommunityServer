@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Calendar</RootNamespace>
     <AssemblyName>ASC.Api.Calendar</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -52,31 +52,22 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<NoWarn>1591</NoWarn>
+    <NoWarn>1591</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="antlr.runtime">
-      <HintPath>..\..\..\packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Ical.Net">
-      <HintPath>..\..\..\packages\Ical.Net.2.3.5.1\lib\net46\Ical.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Ical.Net.Collections">
-      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.5.1\lib\net46\Ical.Net.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="Ical.Net, Version=4.0.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NodaTime">
-      <HintPath>..\..\..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.2.0.2\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -99,6 +90,7 @@
     <Compile Include="AccessRights.cs" />
     <Compile Include="BusinessObjects\Calendar.cs" />
     <Compile Include="BusinessObjects\ColumnCollection.cs" />
+    <Compile Include="BusinessObjects\Todo.cs" />
     <Compile Include="BusinessObjects\EventNotificationData.cs" />
     <Compile Include="BusinessObjects\UserViewSettings.cs" />
     <Compile Include="BusinessObjects\DataProvider.cs" />
@@ -135,6 +127,7 @@
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Tests\RecurrenceRuleTest.cs" />
+    <Compile Include="Wrappers\TodoWrapper.cs" />
     <Compile Include="Wrappers\EventHistoryWrapper.cs" />
     <Compile Include="Wrappers\EventAlertWrapper.cs" />
     <Compile Include="Wrappers\EventWrapper.cs" />
@@ -184,10 +177,6 @@
     <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

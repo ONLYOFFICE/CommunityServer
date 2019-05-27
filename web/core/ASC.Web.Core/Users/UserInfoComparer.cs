@@ -32,6 +32,8 @@ namespace ASC.Web.Core.Users
     public class UserInfoComparer : IComparer<UserInfo>
     {
         public static readonly IComparer<UserInfo> Default = new UserInfoComparer(UserSortOrder.DisplayName, false);
+        public static readonly IComparer<UserInfo> FirstName = new UserInfoComparer(UserSortOrder.FirstName, false);
+        public static readonly IComparer<UserInfo> LastName = new UserInfoComparer(UserSortOrder.LastName, false);
 
 
         public UserSortOrder SortOrder { get; set; }
@@ -56,7 +58,13 @@ namespace ASC.Web.Core.Users
             switch (SortOrder)
             {
                 case UserSortOrder.DisplayName:
-                    result = UserFormatter.Compare(x, y);
+                    result = UserFormatter.Compare(x, y, DisplayUserNameFormat.Default);
+                    break;
+                case UserSortOrder.FirstName:
+                    result = UserFormatter.Compare(x, y, DisplayUserNameFormat.FirstLast);
+                    break;
+                case UserSortOrder.LastName:
+                    result = UserFormatter.Compare(x, y, DisplayUserNameFormat.LastFirst);
                     break;
             }
 

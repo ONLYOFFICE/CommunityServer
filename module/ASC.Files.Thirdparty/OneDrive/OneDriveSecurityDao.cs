@@ -38,11 +38,6 @@ namespace ASC.Files.Thirdparty.OneDrive
         {
         }
 
-        public void Dispose()
-        {
-            OneDriveProviderInfo.Dispose();
-        }
-
         public void SetShare(FileShareRecord r)
         {
         }

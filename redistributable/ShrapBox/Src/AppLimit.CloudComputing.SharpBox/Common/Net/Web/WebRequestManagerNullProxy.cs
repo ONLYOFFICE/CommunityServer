@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
@@ -10,14 +7,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
     {
         public ICredentials Credentials
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         public Uri GetProxy(Uri destination)

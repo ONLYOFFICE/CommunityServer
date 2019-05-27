@@ -33,11 +33,11 @@ namespace ASC.Projects.Data.DAO
 {
     class ParticipantDao : BaseDao, IParticipantDao
     {
-        public IProjectDao ProjectDao { get; set; }
+        public IDaoFactory DaoFactory { get; set; }
+        public IProjectDao ProjectDao { get { return DaoFactory.ProjectDao; } }
 
-        public ParticipantDao(int tenant, IProjectDao projectDao) : base(tenant)
+        public ParticipantDao(int tenant) : base(tenant)
         {
-            ProjectDao = projectDao;
         }
 
         public int[] GetFollowingProjects(Guid participant)

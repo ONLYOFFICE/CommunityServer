@@ -27,19 +27,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Globalization;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
 using ASC.Files.Core;
-using ASC.FullTextIndex;
 using ASC.Web.Files.Api;
+using ASC.Web.CRM.Core.Search;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
-using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -144,7 +145,13 @@ namespace ASC.CRM.Core.Dao
 
         public virtual int CreateNewDeal(Deal deal)
         {
-            return CreateNewDealInDb(deal);
+            var result = CreateNewDealInDb(deal);
+
+            deal.ID = result;
+
+            FactoryIndexer<DealsWrapper>.IndexAsync(deal);
+
+            return result;
         }
 
         private int CreateNewDealInDb(Deal deal)
@@ -187,8 +194,13 @@ namespace ASC.CRM.Core.Dao
         {
             using (var tx = Db.BeginTransaction())
             {
+                var result = items.Select(item => CreateNewDealInDb(item)).ToArray();
                 tx.Commit();
-                return items.Select(item => CreateNewDealInDb(item)).ToArray();
+                foreach (var item in items)
+                {
+                    FactoryIndexer<DealsWrapper>.IndexAsync(item);
+                }
+                return result;
             }
         }
 
@@ -221,6 +233,8 @@ namespace ASC.CRM.Core.Dao
                 .Set("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
                 .Where(Exp.Eq("id", deal.ID))
                 );
+
+            FactoryIndexer<DealsWrapper>.IndexAsync(deal);
         }
 
 
@@ -264,18 +278,16 @@ namespace ASC.CRM.Core.Dao
                 searchText = searchText.Trim();
 
                 var keywords = searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-                var modules = SearchDao.GetFullTextSearchModule(EntityType.Opportunity, searchText);
 
                 if (keywords.Length > 0)
-                    if (FullTextSearch.SupportModule(modules))
+                {
+                    if (!BundleSearch.TrySelectOpportunity(searchText, out ids))
                     {
-                        ids = FullTextSearch.Search(modules);
-
-                        if (ids.Count == 0) return null;
-
+                        conditions.Add(BuildLike(new[] {"tblDeal.title", "tblDeal.description"}, keywords));
                     }
-                    else
-                        conditions.Add(BuildLike(new[] { "tblDeal.title", "tblDeal.description" }, keywords));
+                    else if (ids.Count == 0) return null;
+                }
+
             }
 
             if (tags != null && tags.Any())
@@ -629,7 +641,7 @@ namespace ASC.CRM.Core.Dao
 
         }
 
-        public List<Deal> GetDealsByPrefix(String prefix, int from, int count)
+        public List<Deal> GetDealsByPrefix(String prefix, int from, int count, int contactId = 0, bool internalSearch = true)
         {
             if (count == 0)
                 throw new ArgumentException();
@@ -655,7 +667,18 @@ namespace ASC.CRM.Core.Dao
             if (0 < from && from < int.MaxValue) q.SetFirstResult(from);
             if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
 
-            var sqlResult = Db.ExecuteList(q).ConvertAll(row => ToDeal(row)).FindAll(CRMSecurity.CanAccessTo);
+            if (contactId > 0)
+            {
+                var ids = GetRelativeToEntity(contactId, EntityType.Opportunity, null);
+
+                if (internalSearch)
+                    q.Where(Exp.Eq("tblDeal.contact_id", contactId) | Exp.In("tblDeal.id", ids));
+                else
+                    q.Where(!Exp.Eq("tblDeal.contact_id", contactId) & !Exp.In("tblDeal.id", ids));
+            }
+
+            var sqlResult = Db.ExecuteList(q).ConvertAll(ToDeal).FindAll(CRMSecurity.CanAccessTo);
+
             return sqlResult.OrderBy(deal => deal.Title).ToList();
         }
 
@@ -672,6 +695,9 @@ namespace ASC.CRM.Core.Dao
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
             DeleteBatchDealsExecute(new List<Deal>() { deal });
+
+            FactoryIndexer<DealsWrapper>.DeleteAsync(deal);
+
             return deal;
         }
 

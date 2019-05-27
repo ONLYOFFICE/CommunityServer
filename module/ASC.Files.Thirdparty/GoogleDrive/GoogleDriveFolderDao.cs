@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
@@ -39,11 +40,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public GoogleDriveFolderDao(GoogleDriveDaoSelector.GoogleDriveInfo googleDriveInfo, GoogleDriveDaoSelector googleDriveDaoSelector)
             : base(googleDriveInfo, googleDriveDaoSelector)
         {
-        }
-
-        public void Dispose()
-        {
-            GoogleDriveProviderInfo.Dispose();
         }
 
         public Folder GetFolder(object folderId)
@@ -67,25 +63,21 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return GetDriveEntries(parentId, true).Select(ToFolder).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
 
             var folders = GetFolders(parentId).AsEnumerable(); //TODO:!!!
-            //Filter
-            switch (filterType)
+
+            if (subjectID != Guid.Empty)
             {
-                case FilterType.ByUser:
-                    folders = folders.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    folders = folders.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
-                case FilterType.FoldersOnly:
-                case FilterType.None:
-                    break;
-                default:
-                    return new List<Folder>();
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                                 : x.CreateBy == subjectID);
             }
 
             if (!string.IsNullOrEmpty(searchText))
@@ -102,6 +94,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.Title) : folders.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    folders = orderBy.IsAsc ? folders.OrderBy(x => x.ModifiedOn) : folders.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.CreateOn) : folders.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -112,9 +107,27 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
-            return folderIds.Select(GetFolder).ToList();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
+                || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
+                || filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly
+                || filterType == FilterType.ArchiveOnly || filterType == FilterType.MediaOnly)
+                return new List<Folder>();
+
+            var folders = folderIds.Select(GetFolder);
+
+            if (subjectID.HasValue && subjectID != Guid.Empty)
+            {
+                folders = folders.Where(x => subjectGroup
+                                                 ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID.Value)
+                                                 : x.CreateBy == subjectID);
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                folders = folders.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return folders.ToList();
         }
 
         public List<Folder> GetParentFolders(object folderId)
@@ -192,7 +205,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (parentDriveId != null) GoogleDriveProviderInfo.CacheReset(parentDriveId, true);
         }
 
-        public object MoveFolder(object folderId, object toFolderId)
+        public object MoveFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var driveFolder = GetDriveEntry(folderId);
             if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
@@ -215,7 +228,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return MakeId(driveFolder.Id);
         }
 
-        public Folder CopyFolder(object folderId, object toFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId, CancellationToken? cancellationToken)
         {
             var driveFolder = GetDriveEntry(folderId);
             if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
@@ -290,13 +303,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
         {
-            var storageMaxUploadSize =
-                chunkedUpload
-                    ? GoogleDriveProviderInfo.Storage.MaxChunkedUploadFileSize
-                    : GoogleDriveProviderInfo.Storage.MaxUploadFileSize;
-
-            if (storageMaxUploadSize == -1)
-                storageMaxUploadSize = long.MaxValue;
+            var storageMaxUploadSize = GoogleDriveProviderInfo.Storage.GetMaxUploadSize();
 
             return chunkedUpload ? storageMaxUploadSize : Math.Min(storageMaxUploadSize, SetupInfo.AvailableFileSize);
         }
@@ -307,12 +314,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
         }
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
-        {
-            return null;
-        }
-
-        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
+        public IEnumerable<Folder> Search(string text, bool bunch)
         {
             return null;
         }

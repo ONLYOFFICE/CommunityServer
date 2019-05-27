@@ -87,14 +87,14 @@
 
             <dt class="header-base-small"><%=CRMJSResource.ExpectedCloseDate%>:</dt>
             <dd>
-                <input type="text" id="expectedCloseDate" name="expectedCloseDate" class="textEdit textEditCalendar" />
+                <input type="text" id="expectedCloseDate" name="expectedCloseDate" class="textEdit textEditCalendar" autocomplete="off"/>
             </dd>
         </dl>
 
         <div id="AdvUserSelectorContainer" class="requiredField headerPanelSmall-splitter">
             <span class="requiredErrorText"><%=CRMDealResource.EmptyDealResponsible%></span>
             <div class="headerPanelSmall header-base-small" style="margin-bottom:5px;"><%=CRMDealResource.ResponsibleDeal%>:</div>
-            <div id="advUserSelectorResponsible" data-responsible-id="">
+            <div id="advUserSelectorResponsible" data-responsible-id="" style="position: relative;">
                 <span>
                     <a class="link dotline dealResponsibleLabel"></a>
                     <span class="sort-down-black"></span>

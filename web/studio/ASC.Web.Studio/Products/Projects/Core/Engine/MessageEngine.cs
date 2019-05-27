@@ -29,9 +29,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Files.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Search;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -122,7 +124,7 @@ namespace ASC.Projects.Engine
                 ProjectSecurity.IsPrivateDisabled);
         }
 
-        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter)
+        public List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter)
         {
             return DaoFactory.MessageDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
@@ -173,10 +175,12 @@ namespace ASC.Projects.Engine
                 }
             }
 
-            if (!participant.Any())
+            if (participant == null)
                 participant = GetSubscribers(message).Select(r => new Guid(r.ID)).ToList();
 
             NotifyParticipiant(message, isNew, participant, GetFiles(message), notify);
+
+            FactoryIndexer<DiscussionsWrapper>.IndexAsync(message);
 
             return message;
         }
@@ -209,6 +213,8 @@ namespace ASC.Projects.Engine
             }
 
             UnSubscribeAll(message);
+
+            FactoryIndexer<DiscussionsWrapper>.DeleteAsync(message);
         }
 
         #endregion
@@ -222,7 +228,8 @@ namespace ASC.Projects.Engine
             if (DisableNotifications) return;
 
             var subscriptionRecipients = GetSubscribers(message);
-            var recipients = new HashSet<Guid>(participant) {SecurityContext.CurrentAccount.ID};
+
+            var recipients = new HashSet<Guid>(participant);
 
             foreach (var subscriptionRecipient in subscriptionRecipients)
             {

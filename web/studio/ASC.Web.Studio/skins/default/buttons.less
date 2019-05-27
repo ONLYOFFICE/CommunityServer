@@ -262,22 +262,87 @@
 }
 
 .on_off_button {
-    background: url("@{img-change-url}btn-onoff.png") no-repeat top center transparent;
+    //background: url("@{img-change-url}btn-onoff.png") no-repeat top center transparent;
     height: 16px;
     width: 41px;
     display: inline-block;
     cursor: pointer;
+    position: relative;
 
     &.disable {
         .opacityStyle();
     }
 
     &.on {
-        background-position: top center;
+        &:before {
+            content: "";
+            height: 16px;
+            left: 0;
+            position: absolute;
+            width: 41px;
+            color: white;
+            font-size: 10px;
+            border-radius: 3px;
+            line-height: 14px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            top: 0px;
+            content: "on";
+            background-color: #3b72a7;
+            box-sizing: border-box;
+            padding: 0 7px;
+            text-align: left;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        &:after {
+            height: 16px;
+            width: 16px;
+            background-color: #f0f0f0;
+            border: 1px solid #cecece;
+            border-radius: 3px;
+            content: "";
+            position: absolute;
+            left: 25px;
+            box-sizing: border-box;
+            top: 0px;
+        }
     }
 
     &.off {
-        background-position: bottom center;
+        &:before {
+            content: "";
+            height: 16px;
+            left: 0;
+            position: absolute;
+            width: 41px;
+            content: "off";
+            color: white;
+            font-size: 10px;
+            border-radius: 3px;
+            background-color: #aeaeae;
+            box-sizing: border-box;
+            padding: 0 7px;
+            text-align: right;
+            line-height: 14px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            top: 0px;
+        }
+
+        &:after {
+            height: 16px;
+            width: 16px;
+            background-color: #f0f0f0;
+            border: 1px solid #cecece;
+            border-radius: 3px;
+            content: "";
+            position: absolute;
+            left: 0px;
+            box-sizing: border-box;
+            top: 0px;
+        }
     }
 }
 
@@ -290,21 +355,71 @@
     padding-left: 52px;
     position: relative;
 }
-.on-off-checkbox + label:before {
-    background: url("@{img-change-url}btn-onoff.png") no-repeat bottom center transparent;
-    content: "";
-    height: 16px;
-    left: 0;
-    position: absolute;
-    width: 41px;
-}
-.on-off-checkbox:checked + label:before {
-    background-position: top center;
-}
-.on-off-checkbox:disabled + label:before {
-    .opacityStyle();
-}
+    .on-off-checkbox + label:before {
+        //background: url("@{img-change-url}btn-onoff.png") no-repeat bottom center transparent;
+        content: "";
+        height: 16px;
+        left: 0;
+        position: absolute;
+        width: 41px;
+        content: "off";
+        color: white;
+        font-size: 10px;
+        border-radius: 3px;
+        background-color: #aeaeae;
+        box-sizing: border-box;
+        padding: 0 7px;
+        text-align: right;
+        line-height: 14px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        top:0px;
+    }
 
+    .on-off-checkbox + label:after {
+        height: 16px;
+        width: 16px;
+        background-color: #f0f0f0;
+        border: 1px solid #cecece;
+        border-radius: 3px;
+        content: "";
+        position: absolute;
+        left: 0px;
+        box-sizing: border-box;
+        top:0px;
+    }
+
+
+    .on-off-checkbox:checked + label:before {
+        content: "on";
+        background-color: #3b72a7;
+        box-sizing: border-box;
+        padding: 0 6px;
+        text-align: left;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .on-off-checkbox:checked + label:after {
+        left: 25px;
+    }
+
+    .on-off-checkbox:disabled + label:before {
+        .opacityStyle();
+    }
+
+body.custom-mode {
+    .on-off-checkbox + label:before {
+        content: "";
+    }
+
+    .on-off-checkbox:checked + label:before {
+        content: "";
+    }
+
+    .on_off_button.on:before, .on_off_button.off:before {
+         content: "";
+    }
+}
 
 /*******************************************************************************
    Button Containers
@@ -341,36 +456,37 @@
         background: transparent;
 
         &:after {
-            background: url('@{imagesBaseUrl}btn_row_icons.png') no-repeat scroll 0 0 transparent;
+          //  background: url('@{imagesBaseUrl}btn_row_icons.png') no-repeat scroll 0 0 transparent;
             content: "";
             height: 15px;
             left: 12px;
-            margin-top: -8px;
+            margin-top: -7px;
             position: absolute;
             top: 50%;
             width: 15px;
         }
 
         &.__share:after {
-            background-position: 0 0;
+            background-image: url('Images/svg/documents/feed.svg');
         }
 
         &.__lock:after {
-            background-position: -19px 0;
+            background-image: url('Images/svg/documents/security.svg');
         }
 
         &.__list:after {
-            background-position: -37px 0;
+            background-image: url('Images/svg/documents/documents.svg');
         }
     }
 
     &.row-hover:hover .btn-row {
+
         color: @grayButtonTextColor;
         .borderButtons(@border-button-default);
         background-color: @bg-button-default;
 
         &:after {
-            background-image: url('@{img-change-url}/btn_row_icons.png');
+            //background-image: url('@{img-change-url}/btn_row_icons.png');
         }
 
         &:hover {
@@ -378,30 +494,30 @@
         }
 
         &.__share:after {
-            background-position: 0 -19px;
+            background-image: url('Images/svg/documents/feedblack.svg');
         }
 
         &.__lock:after {
-            background-position: -19px -19px;
+            background-image: url('Images/svg/documents/securityblack.svg');
         }
 
         &.__list:after {
-            background-position: -37px -19px;
+            background-image: url('Images/svg/documents/documentsblack.svg');
         }
     }
 
     &.__active {
         .btn-row {
             &.__share:after {
-                background-position: 0 -19px;
+                background-image: url('Images/svg/documents/feedblack.svg');
             }
 
             &.__lock:after {
-                background-position: -19px -19px;
+                background-image: url('Images/svg/documents/securityblack.svg');
             }
 
             &.__list:after {
-                background-position: -37px -19px;
+                background-image: url('Images/svg/documents/documentsblack.svg');
             }
         }
     }
@@ -432,3 +548,56 @@
             background-position: -8px -152px;
         }
     }
+
+/*******************************************************************************
+   Toggle switch buttons
+*******************************************************************************/
+@border-color: #C4C4C4;
+@active-color: #999999;
+@text-active-color: #FFFFFF;
+@default-color: #EBEBEB;
+@text-default-color: #666666;
+
+.buttonGroup {
+    position: relative;
+    display: inline-block;
+    background: @default-color;
+    border: 1px solid @border-color;
+    border-radius: 3px;
+
+    span {
+        float: left;
+        line-height: 21px;
+        padding: 0 10px;
+        cursor: pointer;
+        color: @text-default-color;
+        border: 1px solid @border-color;
+        border-width: 0 1px 0 0;
+
+        &:last-child {
+            border-width: 0;
+        }
+
+        &.active {
+            padding: 0 10px;
+            height: 21px;
+            margin: -1px;
+            background: @active-color;
+            color: @text-active-color;
+            border: 1px solid @active-color;
+
+            &:first-of-type {
+                border-radius: 3px 0 0 3px;
+                padding: 0 10.5px;
+            }
+
+            &:last-of-type {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+
+        &.disabled {
+            opacity: .5;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -61,7 +61,7 @@ window.editMailGroupModal = (function($) {
                 );
         });
 
-        popup.addSmall(window.MailAdministrationResource.EditGroupAddressesLabel, html);
+        popup.addBig(window.MailAdministrationResource.EditGroupAddressesLabel, html);
         updateMailboxList();
     }
 

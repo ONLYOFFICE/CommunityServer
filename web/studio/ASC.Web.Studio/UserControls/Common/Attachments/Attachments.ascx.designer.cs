@@ -22,6 +22,24 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl actionPanel;
         
         /// <summary>
+        /// DocUploaderHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        public global::System.Web.UI.WebControls.PlaceHolder DocUploaderHolder;
+        
+        /// <summary>
+        /// MediaViewersPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder MediaViewersPlaceHolder;
+        
+        /// <summary>
         /// TariffDocsEditionPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -38,14 +56,5 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder _phEmptyDocView;
-        
-        /// <summary>
-        /// _phDocUploader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _phDocUploader;
     }
 }

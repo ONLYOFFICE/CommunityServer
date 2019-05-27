@@ -28,9 +28,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-
+using ASC.Common.Logging;
 using ASC.MessagingSystem.DbSender;
-using log4net;
 
 
 namespace ASC.MessagingSystem

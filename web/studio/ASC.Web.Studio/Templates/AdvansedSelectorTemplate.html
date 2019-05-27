@@ -19,7 +19,7 @@
                         {{/if}}
                         {{if (opts.onechosen === false) && (opts.showGroups === false) && !(opts.isTempLoad)}}
                         <div class="advanced-selector-all-select">
-                            <input type="checkbox" />
+                            <div></div>
                             <label>${ASC.Resources.Master.UserControlsCommonResource.SelectAll}</label>
                         </div>
                         {{/if}}
@@ -34,7 +34,7 @@
                     {{if (opts.showGroups === true)}}
                     <div class="advanced-selector-block-list">
                         <div class="advanced-selector-all-select chosen">
-                            {{if (opts.onechosen == false)}}<input type="checkbox" />{{/if}}
+                            {{if (opts.onechosen == false)}}<div></div>{{/if}}
                             <label>${ASC.Resources.Master.UserControlsCommonResource.SelectAll}</label>
                         </div>
                         <div class="advanced-selector-list-groups">
@@ -68,7 +68,7 @@
                     {{if field.type == "input"}}
                 <input class="advanced-selector-field" type="text" />
                     {{else field.type == "date"}}
-                <input class="textEditCalendar" type="text" />
+                <input class="textEditCalendar" type="text" autocomplete="off"/>
                     {{else field.type == "choice"}}
                 <select class="advanced-selector-field">
                      {{each(j, item) field.items}}}
@@ -102,8 +102,8 @@
 
 <script id="template-selector-items-list" type="text/x-jquery-tmpl">
     {{each(i, item) Items}}
-        <li title="${item.status}" class="${item.status} ${item.type} {{if (item.isChecked==true)}} selected {{/if}}" data-id="${item.id}" {{if (item.data==true)}} data-cnt="${item.data}" {{/if}}>
-            {{if (isJustList == false)}} <input type="checkbox" {{if (item.isChecked==true)}} checked{{/if}}/><label>{{/if}}
+        <li title="${item.title}{{if item.status}}${' (' + item.status + ')'}{{/if}}" class="${item.status} ${item.type} {{if (item.isChecked==true)}} selected {{/if}}" data-id="${item.id}" {{if (item.data==true)}} data-cnt="${item.data}" {{/if}}>
+            {{if (isJustList == false)}} <div {{if (item.isChecked==true)}} class="checked"{{/if}}></div><label>{{/if}}
                 ${item.title}
              {{if (isJustList == false)}}</label>{{/if}}
        </li>
@@ -112,8 +112,8 @@
 
 <script id="template-selector-groups-list" type="text/x-jquery-tmpl">
     {{each(i, item) Items}}
-        <li class="" data-id="${item.id}">
-            {{if (isJustList == false)}}<input type="checkbox" />{{/if}}
+        <li data-id="${item.id}" title="${item.title}">
+            {{if (isJustList == false)}}<div></div>{{/if}}
             <label>${item.title}</label>
         </li>
     {{/each}}

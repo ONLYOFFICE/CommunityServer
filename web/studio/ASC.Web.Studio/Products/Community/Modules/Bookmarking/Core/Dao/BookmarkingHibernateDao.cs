@@ -24,6 +24,10 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Common.Util;
 using ASC.Bookmarking.Pojo;
@@ -32,12 +36,9 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.FullTextIndex;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Bookmarking.Dao
 {
@@ -310,6 +311,7 @@ namespace ASC.Bookmarking.Dao
 
         internal void UpdateBookmark(Bookmark bookmark, IList<Tag> tags)
         {
+            UserBookmark userBookmark = null;
             var tx = DbManager.BeginTransaction();
             try
             {
@@ -326,7 +328,7 @@ namespace ASC.Bookmarking.Dao
                             .Where(Exp.Eq("BookmarkID", bookmark.ID)
                                     & Exp.Eq("Tenant", Tenant)));
 
-                var userBookmark = GetCurrentUserBookmark(bookmark);
+                userBookmark = GetCurrentUserBookmark(bookmark);
                 long userBookmarkId = 0;
                 if (userBookmark != null)
                 {
@@ -341,11 +343,26 @@ namespace ASC.Bookmarking.Dao
                             .Values(userBookmarkId, GetCurrentUserId(), nowDate, bookmark.Name, bookmark.Description, bookmark.ID, 1, Tenant)
                             .Identity(0, 0L, true));
 
+                userBookmark = new UserBookmark
+                {
+                    UserBookmarkID = userBookmarkId,
+                    BookmarkID = bookmark.ID,
+                    UserID = GetCurrentUserId(),
+                    DateAdded = nowDate,
+                    Name = bookmark.Name,
+                    Description = bookmark.Description,
+                    Raiting = 1
+                };
+
                 DbManager.ExecuteNonQuery(
                             new SqlDelete("bookmarking_userbookmarktag")
                             .Where(Exp.Eq("UserBookmarkID", userBookmarkId)
                                     & Exp.Eq("Tenant", Tenant)));
 
+                if (bookmark.Tags == null)
+                {
+                    bookmark.Tags = new List<Tag>();
+                }
                 foreach (var tag in tags)
                 {
                     tag.TagID = DbManager.ExecuteScalar<long>(
@@ -365,6 +382,7 @@ namespace ASC.Bookmarking.Dao
                                     .Identity(0, 0L, true))
                         };
 
+                    
 
                     var ubt = new UserBookmarkTag { UserBookmarkID = userBookmarkId, TagID = tag.TagID };
 
@@ -373,6 +391,11 @@ namespace ASC.Bookmarking.Dao
                             .InColumns("UserBookmarkID", "TagID", "Tenant")
                             .Values(ubt.UserBookmarkID, tag.TagID, Tenant)
                             .Identity(0, 0L, true));
+
+                    if (bookmark.Tags.All(r => r.TagID == tag.TagID))
+                    {
+                        bookmark.Tags.Add(tag);
+                    }
                 }
 
                 tx.Commit();
@@ -380,6 +403,11 @@ namespace ASC.Bookmarking.Dao
             catch (Exception)
             {
                 tx.Rollback();
+            }
+
+            if (userBookmark != null)
+            {
+                FactoryIndexer<BookmarksUserWrapper>.IndexAsync(BookmarksUserWrapper.Create(userBookmark, bookmark));
             }
         }
 
@@ -864,11 +892,10 @@ group by TagID order by t.Name asc limit @l")
 
                 if (!searchStringList.Any()) return new List<Bookmark>();
 
-                if (FullTextSearch.SupportModule(FullTextSearch.BookmarksModule))
+                IReadOnlyCollection<BookmarksUserWrapper> bookmarks;
+                if (FactoryIndexer<BookmarksUserWrapper>.TrySelect(r => r.MatchAll(string.Join(" ", searchStringList.ToArray())), out bookmarks))
                 {
-                    var ids = FullTextSearch.Search(FullTextSearch.BookmarksModule.Match(string.Join(" ", searchStringList.ToArray())));
-
-                    return GetBookmarksByIDs(ids);
+                    return GetBookmarksByIDs(bookmarks.Select(r => r.BookmarkID).ToList());
                 }
 
                 var sb = new StringBuilder();

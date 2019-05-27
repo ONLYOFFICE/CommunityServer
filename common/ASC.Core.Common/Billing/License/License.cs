@@ -42,8 +42,12 @@ namespace ASC.Core.Billing
         [DataMember(Name = "affiliate_id")]
         public string AffiliateId { get; set; }
 
+        //[Obsolete]
         [DataMember(Name = "whitelabel")]
         public bool WhiteLabel { get; set; }
+
+        [DataMember(Name = "customization")]
+        public bool Customization { get; set; }
 
         [DataMember(Name = "end_date")]
         public DateTime DueDate { get; set; }

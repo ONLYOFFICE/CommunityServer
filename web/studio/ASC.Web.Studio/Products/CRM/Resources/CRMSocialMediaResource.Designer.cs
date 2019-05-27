@@ -88,24 +88,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximal allowed number of requests to Facebook is exceeded. Try again later..
-        /// </summary>
-        public static string ErrorFacebookAPILimit {
-            get {
-                return ResourceManager.GetString("ErrorFacebookAPILimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred during access to Facebook..
-        /// </summary>
-        public static string ErrorFacebookOAuth {
-            get {
-                return ResourceManager.GetString("ErrorFacebookOAuth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Internal error.
         /// </summary>
         public static string ErrorInternalServer {
@@ -219,15 +201,6 @@ namespace ASC.Web.CRM.Resources {
         public static string SearchText {
             get {
                 return ResourceManager.GetString("SearchText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Facebook account is not connected.
-        /// </summary>
-        public static string SocialMediaAccountNotFoundFacebook {
-            get {
-                return ResourceManager.GetString("SocialMediaAccountNotFoundFacebook", resourceCulture);
             }
         }
         

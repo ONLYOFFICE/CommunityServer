@@ -393,7 +393,49 @@ namespace ASC.CRM.Core
 
         public static bool CanEdit(RelationshipEvent relationshipEvent)
         {
-            return CanAccessTo(relationshipEvent);
+            var userId = SecurityContext.CurrentAccount.ID;
+
+            if (IsAdmin) return true;
+
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+
+                if (relationshipEvent.ContactID > 0)
+                {
+                    var contactObj = daoFactory.ContactDao.GetByID(relationshipEvent.ContactID);
+                    if (contactObj != null)
+                    {
+                        if(CanEdit(contactObj)) return true;
+
+                        return CanAccessTo(contactObj, userId) && relationshipEvent.CreateBy == userId;
+                    }
+                }
+
+                if (relationshipEvent.EntityType == EntityType.Case)
+                {
+                    var caseObj = daoFactory.CasesDao.GetByID(relationshipEvent.EntityID);
+                    if (caseObj != null)
+                    {
+                        if (CanEdit(caseObj)) return true;
+
+                        return CanAccessTo(caseObj, userId) && relationshipEvent.CreateBy == userId;
+                    }
+                }
+
+                if (relationshipEvent.EntityType == EntityType.Opportunity)
+                {
+                    var dealObj = daoFactory.DealDao.GetByID(relationshipEvent.EntityID);
+                    if (dealObj != null)
+                    {
+                        if (CanEdit(dealObj)) return true;
+
+                        return CanAccessTo(dealObj, userId) && relationshipEvent.CreateBy == userId;
+                    }
+                }
+
+                return false;
+            }
         }
 
         public static bool CanEdit(Contact contact)
@@ -758,8 +800,7 @@ namespace ASC.CRM.Core
 
         public static bool IsAdministrator(Guid userId)
         {
-            return CoreContext.UserManager.IsUserInGroup(userId, Constants.GroupAdmin.ID) ||
-                   WebItemSecurity.IsProductAdministrator(ProductEntryPoint.ID, userId);
+            return WebItemSecurity.IsProductAdministrator(ProductEntryPoint.ID, userId);
         }
 
         public static IEnumerable<Task> FilterRead(IEnumerable<Task> tasks)

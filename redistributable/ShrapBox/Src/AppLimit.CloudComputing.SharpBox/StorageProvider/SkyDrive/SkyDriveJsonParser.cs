@@ -68,19 +68,19 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
 
             if (IsFolderType(type))
             {
-                int count = parser.GetPropertyInt("count");
-                entry = new BaseDirectoryEntry(name, count, updatedTime, session.Service, session) {Id = id};
+                var count = parser.GetPropertyInt("count");
+                entry = new BaseDirectoryEntry(name, count, updatedTime, session.Service, session) { Id = id };
             }
             else
             {
                 var size = Convert.ToInt64(parser.GetProperty("size"));
-                entry = new BaseFileEntry(name, size, updatedTime, session.Service, session) {Id = id};
+                entry = new BaseFileEntry(name, size, updatedTime, session.Service, session) { Id = id };
             }
             entry[SkyDriveConstants.UploadLocationKey] = uploadLocation;
 
             if (!String.IsNullOrEmpty(parentID))
             {
-                entry.ParentID = SkyDriveConstants.RootIDRegex.IsMatch(parentID) ? "/" : parentID;   
+                entry.ParentID = SkyDriveConstants.RootIDRegex.IsMatch(parentID) ? "/" : parentID;
             }
             else
             {

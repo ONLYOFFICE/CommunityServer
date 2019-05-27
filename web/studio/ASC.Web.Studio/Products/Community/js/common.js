@@ -78,7 +78,7 @@ jq(function() {
 });
 
 var calculateWidthTitleBlock = function() {
-    var commonWidth = jq(window).width() - jq(".mainPageTableSidePanel").width();
+    var commonWidth = jq(document).width() - jq(".mainPageTableSidePanel").width();
     var titleWidth = commonWidth - 100;
     jq(".BlogsHeaderBlock").width(titleWidth);
 };

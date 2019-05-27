@@ -67,7 +67,7 @@ namespace ASC.Core.Caching
             PhotoExpiration = TimeSpan.FromMinutes(10);
 
             cacheNotify = AscCache.Notify;
-            cacheNotify.Subscribe<UserInfo>((u, a) => InvalidateCache());
+            cacheNotify.Subscribe<UserInfo>((u, a) => InvalidateCache(u));
             cacheNotify.Subscribe<UserPhoto>((p, a) => cache.Remove(p.Key));
             cacheNotify.Subscribe<Group>((g, a) => InvalidateCache());
             cacheNotify.Subscribe<UserGroupRef>((r, a) => UpdateUserGroupRefCache(r, a == CacheNotifyAction.Remove));
@@ -107,6 +107,8 @@ namespace ASC.Core.Caching
         /// <returns></returns>
         private UserInfo GetUserForPersonal(int tenant, Guid id)
         {
+            if (!CoreContext.Configuration.Personal) return GetUser(tenant, id);
+
             var key = GetUserCacheKeyForPersonal(tenant, id);
             var user = cache.Get<UserInfo>(key);
 
@@ -137,14 +139,8 @@ namespace ASC.Core.Caching
 
         public void RemoveUser(int tenant, Guid id)
         {
-            if (CoreContext.Configuration.Personal)
-            {
-                var key = GetUserCacheKeyForPersonal(tenant, id);
-                cache.Remove(key);
-            }
-            
             service.RemoveUser(tenant, id);
-            cacheNotify.Publish(new UserInfo { ID = id }, CacheNotifyAction.Remove);
+            cacheNotify.Publish(new UserInfo { Tenant = tenant, ID = id }, CacheNotifyAction.Remove);
         }
 
         public byte[] GetUserPhoto(int tenant, Guid id)
@@ -241,9 +237,19 @@ namespace ASC.Core.Caching
             cacheNotify.Publish(r, CacheNotifyAction.Remove);
         }
 
-
         public void InvalidateCache()
         {
+            InvalidateCache(null);
+        }
+
+        private void InvalidateCache(UserInfo userInfo)
+        {
+            if (CoreContext.Configuration.Personal && userInfo != null)
+            {
+                var key = GetUserCacheKeyForPersonal(userInfo.Tenant, userInfo.ID);
+                cache.Remove(key);
+            }
+
             trustInterval.Expire();
         }
 

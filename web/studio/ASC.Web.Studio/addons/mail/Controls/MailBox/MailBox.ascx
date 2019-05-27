@@ -6,9 +6,11 @@
 
 <div id="mailBoxContainer" class="mailBoxContainer">
 
+    <asp:PlaceHolder runat="server" ID="ControlPlaceHolder"></asp:PlaceHolder>
+
     <asp:PlaceHolder ID="TagsPageHolder" runat="server"></asp:PlaceHolder>
     <div id="popupDocumentUploader">
-        <asp:PlaceHolder id="_phDocUploader" runat="server"></asp:PlaceHolder>
+        <asp:PlaceHolder ID="_phDocUploader" runat="server"></asp:PlaceHolder>
     </div>
 
     <asp:PlaceHolder runat="server" ID="fileholder"></asp:PlaceHolder>
@@ -16,7 +18,7 @@
     <div id="itemContainer">
 
         <div class="filterPanel hidden">
-            <div ID="FolderFilter"></div>
+            <div id="FolderFilter"></div>
         </div>
 
         <div class="contentMenuWrapper messagesList" style="display: none">
@@ -25,7 +27,7 @@
                     <div class="menuActionSelect">
                         <input id="SelectAllMessagesCB" type="checkbox" title="<%= MailResource.SelectAll %>" />
                     </div>
-                    <div id="SelectAllMessagesDropdown" class="down_arrow" title="<%= MailResource.Select %>"/>
+                    <div id="SelectAllMessagesDropdown" class="down_arrow" title="<%= MailResource.Select %>" />
                 </li>
                 <li class="menuAction menuActionDelete">
                     <span title="<%= MailResource.DeleteBtnLabel %>"><%= MailResource.DeleteBtnLabel %></span>
@@ -39,15 +41,24 @@
                 <li class="menuAction menuActionSpam">
                     <span title="<%= MailScriptResource.SpamLabel %>"><%= MailScriptResource.SpamLabel %></span>
                 </li>
-                <li class="menuAction menuActionRead" read="<%= MailScriptResource.ReadLabel %>" unread="<%= MailScriptResource.UnreadLabel %>">
-                    <span title="<%= MailScriptResource.ReadLabel %>"><%= MailScriptResource.ReadLabel %></span>
+                <li class="menuAction menuActionMoveTo">
+                    <span title="<%= MailResource.MoveTo %>"><%= MailResource.MoveTo %></span>
+                    <div class="down_arrow"></div>
                 </li>
                 <li class="menuAction menuActionAddTag">
                     <span title="<%= MailResource.AddTag %>"><%= MailResource.AddTag %></span>
                     <div class="down_arrow"></div>
                 </li>
-                <li class="menu-action-simple-pagenav">
+                <li class="menuAction menuActionRead" read="<%= MailScriptResource.ReadLabel %>" unread="<%= MailScriptResource.UnreadLabel %>">
+                    <span title="<%= MailScriptResource.ReadLabel %>"><%= MailScriptResource.ReadLabel %></span>
                 </li>
+                <li class="menuAction menuActionImportant" important="<%= MailScriptResource.MarkImportantLabel %>" notimportant="<%= MailScriptResource.MarkNotImportantLabel %>">
+                    <span title="<%= MailScriptResource.MarkImportantLabel %>"><%= MailScriptResource.MarkImportantLabel %></span>
+                </li>
+                <li class="menuAction menuActionMore" style="display: none">
+                    <span title="<%= MailResource.MoreMenuButton %>">...</span>
+                </li>
+                <li class="menu-action-simple-pagenav"></li>
                 <li class="menu-action-checked-count" id="OverallDeselectAll">
                     <div class="baseLinkAction">
                         <span title="<%= MailResource.OverallDeselectAll %>"><%= MailResource.OverallDeselectAll %></span>
@@ -55,7 +66,7 @@
                 </li>
                 <li class="menu-action-checked-count" id="OverallSelectionNumber">
                     <div>
-                        <b><span id="OverallSelectionNumberText"></span></b>&nbsp;<span id="OverallSelectedNumberCategory"></span><span><%= MailResource.OverallSelected %></span>
+                        <b><span id="OverallSelectionNumberText"></span></b>&nbsp;<span><%= MailResource.OverallSelected %></span>
                     </div>
                 </li>
                 <li class="menu-action-on-top">
@@ -98,35 +109,55 @@
 
     <div id="messagesActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="openMail dropdown-item"><%= MailResource.OpenBtnLabel %></a></li>
-            <li><a class="openNewTabMail dropdown-item"><%= MailResource.OpenInNewTabBtnLabel %></a></li>
-            <li><a class="replyMail dropdown-item"><%= MailResource.ReplyBtnLabel %></a></li>
-            <li><a class="replyAllMail dropdown-item"><%= MailResource.ReplyAllBtnLabel %></a></li>
-            <li><a class="createEmail dropdown-item"><%= MailResource.CreateEmailToSenderLabel %></a></li>
-            <li><a class="forwardMail dropdown-item"><%= MailResource.ForwardLabel %></a></li>
-            <li>
-                <a class="setReadMail dropdown-item" 
-                   read="<%= MailResource.MarkAsRead %>" unread="<%= MailResource.MarkAsUnread %>">
-                    <%= MailResource.MarkAsRead %>
-                </a>
+            <li class="openMail">
+                <a class="dropdown-item"><%= MailResource.OpenBtnLabel %></a>
             </li>
-            <li>
-                <a class="markImportant dropdown-item" 
-                   important="<%= MailResource.MarkAsImportant %>" not_important="<%= MailResource.MarkAsNotImportant %>">
-                    <%= MailResource.MarkAsNotImportant %>
-                </a>
+            <li class="openNewTabMail">
+                <a class="dropdown-item"><%= MailResource.OpenInNewTabBtnLabel %></a>
             </li>
-            <% if (IsMailPrintAvailable()) 
+            <li class="openSeparator">
+                <div class="dropdown-item-seporator"></div>
+            </li>
+            <li class="replyMail">
+                <a class="dropdown-item"><%= MailResource.ReplyBtnLabel %></a>
+            </li>
+            <li class="replyAllMail">
+                <a class="dropdown-item"><%= MailResource.ReplyAllBtnLabel %></a>
+            </li>
+            <li class="forwardMail">
+                <a class="dropdown-item"><%= MailResource.ForwardLabel %></a>
+            </li>
+            <li class="createEmail">
+                <a class="dropdown-item"><%= MailResource.CreateEmailToSenderLabel %></a>
+            </li>
+            <li class="composeSeparator">
+                <div class="dropdown-item-seporator"></div>
+            </li>
+            <li class="setReadMail">
+                <a class="dropdown-item"><%= MailResource.MarkAsRead %></a>
+            </li>
+            <li class="markImportant">
+                <a class="dropdown-item"><%= MailResource.MarkAsImportant %></a>
+            </li>
+            <li class="markSeparator">
+                <div class="dropdown-item-seporator"></div>
+            </li>
+            <% if (IsMailPrintAvailable())
                { %>
-                    <li><a class="printMail dropdown-item"><%= MailScriptResource.PrintBtnLabel %></a></li>
-             <% } %>
-            <li>
-                <a class="moveToFolder dropdown-item" 
-                   spam="<%= MailScriptResource.SpamLabel %>" not_spam="<%= MailScriptResource.NotSpamLabel %>"
-                   restore="<%= MailScriptResource.RestoreBtnLabel %>">
-                </a>
+
+            <li class="printMail">
+                <a class="dropdown-item"><%= MailScriptResource.PrintBtnLabel %></a>
             </li>
-            <li><a class="deleteMail dropdown-item"><%= MailResource.DeleteBtnLabel %></a></li>
+             <li class="printSeparator">
+                <div class="dropdown-item-seporator"></div>
+            </li>
+            <% } %>
+            <li class="moveToFolder">
+                <a class="dropdown-item"><%= MailScriptResource.SpamLabel %></a>
+            </li>
+            <li class="deleteMail">
+                <a class="dropdown-item"><%= MailResource.DeleteBtnLabel %></a>
+            </li>
         </ul>
     </div>
 </div>
@@ -134,9 +165,9 @@
 
 <div id="removeQuestionWnd" style="display: none">
     <sc:Container ID="QuestionPopup" runat="server">
-        <header>
-        </header>
-        <body>
+        <Header>
+        </Header>
+        <Body>
             <div class="mail-confirmationAction">
                 <p class="questionText"></p>
             </div>
@@ -144,7 +175,7 @@
                 <button class="button middle blue remove" type="button"><%= MailResource.DeleteBtnLabel %></button>
                 <button class="button middle gray cancel" type="button"><%= MailScriptResource.CancelBtnLabel %></button>
             </div>
-        </body>
+        </Body>
     </sc:Container>
 </div>
 
@@ -174,9 +205,9 @@
         <li><a class="forwardMail dropdown-item"><%= MailResource.ForwardLabel %></a></li>
         <li><a class="singleViewMail dropdown-item"><%= MailResource.SingleViewLabel %></a></li>
         <li><a class="deleteMail dropdown-item"><%= MailResource.DeleteBtnLabel %></a></li>
-        <% if (IsMailPrintAvailable()) 
+        <% if (IsMailPrintAvailable())
            { %>
-                <li><a class="printMail dropdown-item"><%= MailScriptResource.PrintBtnLabel %></a></li>
+        <li><a class="printMail dropdown-item"><%= MailScriptResource.PrintBtnLabel %></a></li>
         <% } %>
         <li><a class="alwaysHideImages dropdown-item"><%= MailScriptResource.HideImagesLabel %></a></li>
         <li><a class="exportMessageToCrm dropdown-item"><%= MailResource.ExportMessageToCRM %></a></li>

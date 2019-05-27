@@ -21,7 +21,6 @@
     <meta name="apple-touch-fullscreen" content="yes" />
 
     <%= string.Format("<link href='{0}' rel='shortcut icon' type='image/x-icon' id='docsEditorFavicon'/>", Favicon) %>
-    <title>ONLYOFFICE™</title>
 
     <style type="text/css">
         html {

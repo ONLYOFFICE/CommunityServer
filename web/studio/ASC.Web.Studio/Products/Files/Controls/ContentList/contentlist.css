@@ -31,33 +31,57 @@
 }
 
 /*************************************************************
-   To Parent Folder
+   BreadCrumbs
 *************************************************************/
-.folder-row-toparent {
+#filesBreadCrumbs {
     border-bottom: 1px solid #D1D1D1;
     display: none;
-    margin-bottom: -1px;
-    height: 32px;
+    height: 33px;
 }
 .to-parent-folder {
-    display: block;
+    display: inline-block;
     cursor: pointer;
-    margin-left: 1px;
-    margin-top: 1px;
+    margin: 1px 4px 0 1px;
     outline: none;
-    padding-left: 7px;
+    padding-left: 5px;
     width: 70px;
 }
 .to-parent-folder .up {
-    font-weight: bold;
     line-height: 32px;
+    text-decoration: none;
 }
-.to-parent-folder:hover .up {
-    text-decoration: underline;
+.to-parent-folder .link-blank,
+.with-search-crumbs .to-parent-folder .link-dots {
+    display: none;
+}
+#searchBreadCrumbs {
+    cursor: pointer;
+}
+.search-bread-crumbs {
+    display: none;
+    line-height: 32px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+.with-search-crumbs .to-parent-folder {
+    width: 22px;
+}
+.with-search-crumbs .search-bread-crumbs {
+    display: inline-block;
+}
+.with-search-crumbs .to-parent-folder .link-blank {
+    display: inline-block;
 }
 /*************************************************************
    Main Content
 *************************************************************/
+body.media-width-0-1200 .files-content-panel {
+    padding-bottom: 28px;
+}
+
 #mainContent {
     border: 1px solid transparent;
     min-height: 450px;
@@ -77,7 +101,7 @@
     height: 36px;
     list-style: none outside none;
     padding: 6px 0 5px;
-    z-index: 100;
+    z-index: 98;
 }
 .file-row div {
     float: left;
@@ -99,8 +123,15 @@
 .file-row .thumb-folder {
     cursor: pointer;
     margin: 2px 16px 0 0;
-    overflow: hidden;
     position: relative;
+}
+.thumb-encrypted {
+    background: url("images/encrypted.png") no-repeat 0 0 / 16px 16px transparent;
+    bottom: -1px;
+    height: 16px;
+    position: absolute;
+    right: -1px;
+    width: 16px;
 }
 .file-row .checkbox {
     cursor: pointer;
@@ -245,7 +276,7 @@
     cursor: pointer;
     font-size: 10px;
     padding: 2px 5px;
-    margin: 2px 0 0 8px;
+    margin: 0 0 0 8px;
     max-width: 60px;
     overflow: hidden;
     border-radius: 2px;
@@ -309,27 +340,33 @@
 
 .file-row .pencil {
     float: left;
-    margin: 3px 0 0 8px;
+    margin: 2px 0 0 8px;
 }
 .pencil.convert-action {
     display: none;
 }
 .row-hover:hover .pencil,
 .file-row .pencil.file-editing {
-    background-position: 0 -19px;
+    background: url('../../../../skins/default/Images/svg/documents/pencilblue.svg');
+}
+.row-hover:hover .pencil.convert-action {
+    background: url('../../../../skins/default/Images/svg/documents/rotateblue.svg');
 }
 .file-row.can-coauthoring .pencil.file-editing {
-    background-position: 0 -38px;
+    background: url('../../../../skins/default/Images/svg/documents/pencil_add.svg');
 }
 .file-lock {
     display: none;
-    margin: 4px 0 0 8px;
+    margin: 2px 0 0 8px;
 }
 .file-row.file-locked .file-lock {
     display: block;
 }
 .file-row.file-locked-by .file-lock {
     cursor: default;
+}
+.file-row.file-locked-by.file-can-unlock .file-lock {
+    cursor: pointer;
 }
 .file-row.file-locked-by .pencil {
     display: none;
@@ -343,7 +380,7 @@ ul.without-share .btn-row {
 }
 .file-row .btn-row {
     margin: 5px 0 0 8px;
-    max-width: 84px;
+    max-width: 83px;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -370,6 +407,10 @@ ul.without-share .btn-row {
 #filesMainContent.compact .file-row {
     height: 28px;
     padding: 2px 0 1px;
+}
+#filesMainContent.compact .thumb-encrypted {
+    bottom: -5px;
+    right: -5px;
 }
 #filesMainContent.compact .checkbox {
     margin-top: -2px;
@@ -461,23 +502,24 @@ ul.without-share .btn-row {
 /*******************************************************************************
     Mouse moving
 *******************************************************************************/
-.file-mouse-move {
+.file-mouse-move,
+.file-mouse-move * {
     cursor: alias !important;
 }
-.file-mouse-copy {
+.file-mouse-copy,
+.file-mouse-copy * {
     cursor: copy !important;
 }
 #filesMovingTooltip {
-    background-color: #FFFFE1;
-    border: 1px solid #333;
-    color: #333;
     cursor: move;
     display: block;
-    font-size: 10px;
+    font-size: 12px;
     height: auto;
-    margin-left: 5px;
+    line-height: 24px;
+    margin-left: 13px;
+    margin-top: 6px;
     max-width: 500px;
-    padding: 5px 10px;
+    padding: 4px 16px;
     position: absolute;
     word-wrap: break-word;
     z-index: 301;
@@ -496,7 +538,7 @@ ul.without-share .btn-row {
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
     width: 100%;
-    margin-top: 5px;
+    padding-bottom: 5px;
 }
 .row-hover:hover #contentVersions,
 .row-selected #contentVersions {
@@ -527,7 +569,7 @@ ul.without-share .btn-row {
     padding: 5px;
     width: 100%;
 }
-.version-row:hover {
+.version-highlight .version-row:hover {
     background-color: #e5e5e5;
 }
 .version-group-head {
@@ -545,7 +587,7 @@ ul.without-share .btn-row {
     text-align: left;
     width: 27px;
 }
-.version-edit .version-row:hover .version-num span {
+.version-edit.version-highlight  .version-row:hover .version-num span {
     display: none;
 }
 .version-row .version-continue,
@@ -559,9 +601,9 @@ ul.without-share .btn-row {
 .version-row .version-complete {
     background-position: center -60px;
 }
-.version-row:hover .version-complete,
-.version-row:hover .version-continue,
-.version-edit .version-row:hover span.display-num {
+.version-highlight .version-row:hover .version-complete,
+.version-highlight .version-row:hover .version-continue,
+.version-edit.version-highlight  .version-row:hover span.display-num {
     display: block;
 }
 .version-row .version-date {
@@ -576,7 +618,7 @@ ul.without-share .btn-row {
 .version-sublist {
     width: 80px;
 }
-.version-row:hover .version-sublist-toggle {
+.version-highlight .version-row:hover .version-sublist-toggle {
     border-bottom: 1px dotted;
     cursor: pointer;
 }
@@ -635,7 +677,7 @@ ul.without-share .btn-row {
     font-size: 11px;
     margin-left: 7px;
 }
-.version-row:hover .version-restore span {
+.version-highlight .version-row:hover .version-restore span {
     border-bottom: 1px dotted;
 }
 .version-operation .version-download,
@@ -656,12 +698,12 @@ ul.without-share .btn-row {
 .version-operation .version-comment-edit {
     background-position: center -40px;
 }
-.version-row:hover .version-download,
-.version-row:hover .version-preview,
-.version-row:hover .version-comment-edit {
+.version-highlight .version-row:hover .version-download,
+.version-highlight .version-row:hover .version-preview,
+.version-highlight .version-row:hover .version-comment-edit {
     display: block;
 }
-.not-preview:hover .version-preview {
+#contentVersions .not-preview:hover .version-preview {
     display: none;
 }
 /*******************************************************************************
@@ -744,7 +786,7 @@ body.media-width-0-1140 .file-row .entry-title,
 body.media-width-0-1140 .file-row .entry-descr { width: 420px; }
 body.media-width-0-1140 .file-row .entry-title .name { max-width: 236px; }
 body.media-width-0-1140 .file-row.folder-row .entry-title .name { max-width: 362px; }
-body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title { width: 314px; }
+body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title { width: 283px; }
 body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title .name { max-width: 130px; }
 body.media-width-0-1140 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 256px; }
 
@@ -763,4 +805,20 @@ body[class*='media-width'] .file-row.row-rename .entry-descr {
 
 body[class*='media-width'] #filesMainContent.compact .file-row.row-rename .entry-title .name {
     max-width: 280px;
+}
+
+
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{
+    .thumb-encrypted {
+        background-image: url("images/retina/encrypted.png");
+    }
 }

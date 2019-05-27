@@ -279,4 +279,7 @@
   <data name="DeleteMilestonesPopup" xml:space="preserve">
     <value>Are you sure you want to delete milestones?</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
 </root>

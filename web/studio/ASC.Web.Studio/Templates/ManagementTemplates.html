@@ -48,10 +48,10 @@
                 {{if SelectedUsers != null &&  SelectedUsers.length > 0}}
                     {{each(i, usr) SelectedUsers}}
                         <div class="accessRights-selectedItem" id="selectedUser_${ItemName}_${usr.ID}">
-                            <img src="${StudioManager.GetImage('user_12.png')}">
-                            <img src="${StudioManager.GetImage('trash_12.png')}" id="deleteSelectedUserImg_${ItemName}_${usr.ID}"
-                                title="${ASC.Resources.Master.TemplateResource.DeleteButton}" class="display-none">
-                            ${usr.DisplayUserName}
+                            <img src="${window.imageHelper.PeopleImgSrc}">
+                            <img src="${window.imageHelper.TrashImgSrc}" id="deleteSelectedUserImg_${ItemName}_${usr.ID}"
+                                title="${window.imageHelper.TrashImgTitle}" class="display-none">
+                            ${usr.Name}
                         </div>
                     {{/each}}
                 {{/if}}
@@ -61,9 +61,9 @@
                 {{if SelectedGroups != null &&  SelectedGroups.length > 0}}
                     {{each(i, gr) SelectedGroups}}
                         <div class="accessRights-selectedItem" id="selectedGroup_${ItemName}_${gr.ID}">
-                            <img src="${StudioManager.GetImage('group_12.png')}">
-                            <img src="${StudioManager.GetImage('trash_12.png')}" id="deleteSelectedGroupImg_${ItemName}_${gr.ID}"
-                                title="${ASC.Resources.Master.TemplateResource.DeleteButton}" class="display-none">
+                            <img src="${window.imageHelper.GroupImgSrc}">
+                            <img src="${window.imageHelper.TrashImgSrc}" id="deleteSelectedGroupImg_${ItemName}_${gr.ID}"
+                                title="${window.imageHelper.TrashImgTitle}" class="display-none">
                             ${gr.Name}
                         </div>
                     {{/each}}

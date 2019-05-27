@@ -44,6 +44,12 @@ namespace ASC.Web.Studio.Core
         private static string[] hideSettings;
 
 
+        public static string MetaImageURL
+        {
+            get;
+            private set;
+        }
+
         public static string StatisticTrackURL
         {
             get;
@@ -219,12 +225,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static string ShareGooglePlusUrl
-        {
-            get;
-            private set;
-        }
-
         public static string ShareTwitterUrl
         {
             get;
@@ -268,6 +268,27 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+        public static string DownloadForDesktopUrl
+        {
+            get;
+            private set;
+        }
+        public static string DownloadForIosDocuments
+        {
+            get;
+            private set;
+        }
+        public static string DownloadForIosProjects
+        {
+            get;
+            private set;
+        }
+        public static string DownloadForAndroidDocuments
+        {
+            get;
+            private set;
+        }
+
         public static string SsoSamlLogoutUrl
         {
             get;
@@ -281,7 +302,31 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static bool SmsRegistration
+        public static string TfaRegistration
+        {
+            get;
+            private set;
+        }
+
+        public static int TfaAppBackupCodeLength
+        {
+            get;
+            private set;
+        }
+
+        public static int TfaAppBackupCodeCount
+        {
+            get;
+            private set;
+        }
+
+        public static string TfaAppSender
+        {
+            get;
+            private set;
+        }
+
+        public static string NotifyAnalyticsUrl
         {
             get;
             private set;
@@ -294,23 +339,28 @@ namespace ASC.Web.Studio.Core
 
         public static void Refresh()
         {
+            MetaImageURL = GetAppSettings("web.meta-image-url", "https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg");
             StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
             UserVoiceURL = GetAppSettings("web.uservoice", string.Empty);
             MainLogoURL = GetAppSettings("web.logo.main", string.Empty);
             MainLogoMailTmplURL = GetAppSettings("web.logo.mail.tmpl", string.Empty);
+            DownloadForDesktopUrl = GetAppSettings("web.download.for.desktop.url", "https://www.onlyoffice.com/desktop.aspx");
+            DownloadForIosDocuments = GetAppSettings("web.download.for.ios.doc", "https://itunes.apple.com/app/onlyoffice-documents/id944896972");
+            DownloadForIosProjects = GetAppSettings("web.download.for.ios.proj", "https://itunes.apple.com/app/onlyoffice-projects/id1353395928?mt=8");
+            DownloadForAndroidDocuments = GetAppSettings("web.download.for.android.doc", "https://play.google.com/store/apps/details?id=com.onlyoffice.documents");
 
             EnabledCultures = GetAppSettings("web.cultures", "en-US")
                 .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
-                .OrderBy(l => l.Name)
+                .OrderBy(l => l.DisplayName)
                 .ToList();
             EnabledCulturesPersonal = GetAppSettings("web.cultures.personal", GetAppSettings("web.cultures", "en-US"))
                 .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
-                .OrderBy(l => l.Name)
+                .OrderBy(l => l.DisplayName)
                 .ToList();
 
-            ExchangeRateRuble = GetAppSettings("exchange-rate.ruble", 60);
+            ExchangeRateRuble = GetAppSettings("exchange-rate.ruble", 65);
             MaxImageUploadSize = GetAppSettings<long>("web.max-upload-size", 1024 * 1024);
 
             TeamlabSiteRedirect = GetAppSettings("web.teamlab-site", string.Empty);
@@ -331,7 +381,6 @@ namespace ASC.Web.Studio.Core
             web_autotest_secret_email = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
             web_display_mobapps_banner = (ConfigurationManager.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             DisplayPersonalBanners = GetAppSettings("web.display.personal.banners", false);
-            ShareGooglePlusUrl = GetAppSettings("web.share.google-plus", "https://plus.google.com/share?url={0}");
             ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");
             ShareFacebookUrl = GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}");
             ControlPanelUrl = GetAppSettings("web.controlpanel.url", "");
@@ -344,7 +393,14 @@ namespace ASC.Web.Studio.Core
             hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);
 
             SmsTrial = GetAppSettings("core.sms.trial", false);
-            SmsRegistration = GetAppSettings("core.sms.registration", false);
+
+            TfaRegistration = (GetAppSettings("core.tfa.registration", "") ?? "").Trim().ToLower();
+
+            TfaAppBackupCodeLength = GetAppSettings("web.tfaapp.backup.length", 6);
+            TfaAppBackupCodeCount = GetAppSettings("web.tfaapp.backup.count", 5);
+            TfaAppSender = GetAppSettings("web.tfaapp.backup.title", "ONLYOFFICE");
+
+            NotifyAnalyticsUrl = GetAppSettings("core.notify.analytics.url", "");
         }
 
 

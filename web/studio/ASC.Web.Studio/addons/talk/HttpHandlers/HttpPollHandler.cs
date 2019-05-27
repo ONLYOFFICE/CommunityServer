@@ -24,11 +24,9 @@
 */
 
 
-using log4net;
 using System;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 
@@ -64,8 +62,7 @@ namespace ASC.Web.Talk.HttpHandlers
             request.ContentType = context.Request.ContentType;
             request.ContentLength = context.Request.ContentLength;
 
-            var stream = await request.GetRequestStreamAsync();
-
+            using (var stream = await request.GetRequestStreamAsync())
             using (var writer = new StreamWriter(stream))
             {
                 CopyStream(context.Request.InputStream, stream);
@@ -74,21 +71,21 @@ namespace ASC.Web.Talk.HttpHandlers
                 writer.Dispose();
             }
 
-            var response = await request.GetResponseAsync();
-
-            context.Response.ContentType = response.ContentType;
-
-            // copy headers & body
-            foreach (string h in response.Headers)
+            using (var response = await request.GetResponseAsync())
             {
-                context.Response.AppendHeader(h, response.Headers[h]);
-            }
+                context.Response.ContentType = response.ContentType;
 
-            using (var respStream = response.GetResponseStream())
-            {
-                CopyStream(respStream, context.Response.OutputStream);               
+                // copy headers & body
+                foreach (string h in response.Headers)
+                {
+                    context.Response.AppendHeader(h, response.Headers[h]);
+                }
+
+                using (var respStream = response.GetResponseStream())
+                {
+                    CopyStream(respStream, context.Response.OutputStream);
+                }
             }
         }
     }
-       
 }

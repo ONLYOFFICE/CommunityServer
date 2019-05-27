@@ -84,6 +84,46 @@ window.blankPages = (function($) {
         );
     }
 
+    function showEmptyUserFolders() {
+        var buttons = [{
+            text: MailScriptResource.EmptyScrUserFoldersButton,
+            cssClass: "addFirstElement",
+            handler: function () {
+                userFoldersPage.createFolder();
+                return false;
+            },
+            href: null
+        }];
+
+        showPage(
+            "userFoldersEmptyScreen",
+            MailScriptResource.EmptyScrUserFoldersHeader,
+            MailScriptResource.EmptyScrUserFoldersDescription,
+            'userfolder',
+            buttons
+        );
+    }
+
+    function showEmptyFilters() {
+        var buttons = [{
+            text: MailScriptResource.EmptyScrFiltersButton,
+            cssClass: "addFirstElement",
+            handler: function () {
+                filtersPage.createFilter();
+                return false;
+            },
+            href: null
+        }];
+
+        showPage(
+            "filtersEmptyScreen",
+            MailScriptResource.EmptyScrFiltersHeader,
+            MailScriptResource.EmptyScrFiltersDescription,
+            'userFilter',
+            buttons
+        );
+    }
+
     function showNoLettersFilter() {
         var buttons = [{
             text: MailScriptResource.ResetFilterButton,
@@ -143,6 +183,12 @@ window.blankPages = (function($) {
             header = MailScriptResource.EmptySpamHeader;
             description = MailScriptResource.EmptySpamDescription;
             imgClass = 'spam';
+            buttons = [];
+        }
+        else if (TMMail.pageIs('userfolder')) { 
+            header = MailScriptResource.EmptyUserFolderHeader; 
+            description = MailScriptResource.EmptyUserFolderDescription;
+            imgClass = 'inbox'; // TODO: Change to userfolder
             buttons = [];
         }
 
@@ -263,7 +309,7 @@ window.blankPages = (function($) {
                 text: window.MailAdministrationResource.MigrateFromMSExchangeButton,
                 cssClass: "linkMseFaq",
                 handler: null,
-                href: "http://helpcenter.onlyoffice.com/server/docker/enterprise/migrate-from-exchange.aspx",
+                href: ASC.Resources.Master.HelpLink + "/server/docker/enterprise/migrate-from-exchange.aspx",
                 skipNewLine: true,
                 openNewTab: true
             });
@@ -307,6 +353,7 @@ window.blankPages = (function($) {
         });
 
         page.show();
+        TMMail.scrollTop();
     }
 
     function hide() {
@@ -325,6 +372,8 @@ window.blankPages = (function($) {
         showNoMailContacts: showNoMailContacts,
         showEmptyTags: showEmptyTags,
         showNoMailDomains: showNoMailDomains,
+        showEmptyUserFolders: showEmptyUserFolders,
+        showEmptyFilters: showEmptyFilters,
         hide: hide
     };
 })(jQuery);

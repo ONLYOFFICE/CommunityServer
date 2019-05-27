@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -28,13 +28,14 @@ window.folderPanel = (function($) {
     var isInit = false,
         wndQuestion = undefined,
         clearFolderId = -1,
-        folders = [];
+        folders = [],
+        userFoldersInfo = null;
 
     function init() {
         if (isInit === false) {
             isInit = true;
 
-            serviceManager.bind(window.Teamlab.events.getMailFolders, onGetMailFolders);
+            window.Teamlab.bind(window.Teamlab.events.getMailFolders, onGetMailFolders);
             
             if (ASC.Mail.Presets.Folders) {
                 onGetMailFolders({}, ASC.Mail.Presets.Folders);
@@ -78,39 +79,15 @@ window.folderPanel = (function($) {
         wndQuestion.find('.mail-confirmationAction p.questionText').text(questionText);
         wndQuestion.find('div.containerHeaderBlock:first td:first').html(window.MailScriptResource.Delete);
 
-        var margintop = jq(window).scrollTop() - 135;
-        margintop = margintop + 'px';
-        jq.blockUI({
-            message: wndQuestion,
+        var defaultOptions = {
             css: {
-                left: '50%',
-                top: '25%',
-                opacity: '1',
-                border: 'none',
-                padding: '0px',
-                width: '335px',
-
-                cursor: 'default',
-                textAlign: 'left',
-                position: 'absolute',
-                'margin-left': '-167px',
-                'margin-top': margintop,
-                'background-color': 'White'
+                marginLeft: '-167px',
+                marginTop: jq(window).scrollTop() - 135 + 'px'
             },
-            overlayCSS: {
-                backgroundColor: '#AAA',
-                cursor: 'default',
-                opacity: '0.3'
-            },
-            focusInput: false,
-            baseZ: 666,
+            bindEvents: false
+        }
 
-            fadeIn: 0,
-            fadeOut: 0,
-
-            onBlock: function() {
-            }
-        });
+        StudioBlockUIManager.blockUI(wndQuestion, 335, null, null, null, defaultOptions);
     }
 
     function hide() {
@@ -121,7 +98,7 @@ window.folderPanel = (function($) {
         $('#foldersContainer').children().each(function() {
             var $this = $(this),
                 folder = parseInt($this.attr('folderid'));
-
+            
             $this.find('a').attr('href', '#' + TMMail.getSysFolderNameById(folder));
 
             if (folder === TMMail.sysfolders.trash.id ||
@@ -143,6 +120,9 @@ window.folderPanel = (function($) {
     }
 
     function markFolder(folderId) {
+        if (folderId === TMMail.sysfolders.userfolder.id)
+            return;
+
         $('#foldersContainer > .active').removeClass('active');
         $('#foldersContainer').children('[folderid=' + folderId + ']').addClass('active');
         MailFilter.setFolder(folderId);
@@ -172,12 +152,38 @@ window.folderPanel = (function($) {
         var isChainsEnabled = commonSettingsPage.isConversationsEnabled();
         var newFolders = [];
 
-        respFolders.forEach(function (t) {
+        respFolders.forEach(function (f) {
+            if (f.id == TMMail.sysfolders.userfolder.id) {
+                if (userFoldersInfo === null) {
+                    userFoldersInfo = {
+                        id: f.id,
+                        time_modified: f.time_modified,
+                        total_count: isChainsEnabled ? f.total_count : f.total_messages_count,
+                        unread: isChainsEnabled ? f.unread : f.unread_messages
+                    };
+                } else {
+                    var temp = {
+                        id: f.id,
+                        time_modified: f.time_modified,
+                        total_count: isChainsEnabled ? f.total_count : f.total_messages_count,
+                        unread: isChainsEnabled ? f.unread : f.unread_messages
+                    };
+
+                    if (params.forced ||
+                        userFoldersInfo.unread !== temp.unread ||
+                        userFoldersInfo.total_count !== temp.total_count) {
+                        userFoldersManager.reloadTree(0);
+                        userFoldersInfo = temp;
+                    }
+                }
+                return;
+            }
+
             newFolders.push({
-                id: t.id,
-                time_modified: t.time_modified,
-                total_count: isChainsEnabled ? t.total_count : t.total_messages_count,
-                unread: isChainsEnabled ? t.unread : t.unread_messages
+                id: f.id,
+                time_modified: f.time_modified,
+                total_count: isChainsEnabled ? f.total_count : f.total_messages_count,
+                unread: isChainsEnabled ? f.unread : f.unread_messages
             });
         });
 

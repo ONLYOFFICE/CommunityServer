@@ -63,6 +63,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
+        public void Dispose()
+        {
+            GoogleDriveProviderInfo.Dispose();
+        }
+
         protected DbManager GetDb()
         {
             return new DbManager(FileConstant.DatabaseId);
@@ -178,7 +183,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var gExt = MimeMapping.GetExtention(driveFile.MimeType);
             if (GoogleLoginProvider.GoogleDriveExt.Contains(gExt))
             {
-                title += FileUtility.GetGoogleDownloadableExtension(gExt);
+                var downloadableExtension = FileUtility.GetGoogleDownloadableExtension(gExt);
+                if (!downloadableExtension.Equals(FileUtility.GetFileExtension(title)))
+                {
+                    title += downloadableExtension;
+                }
             }
 
             return Global.ReplaceInvalidCharsAndTruncate(title);

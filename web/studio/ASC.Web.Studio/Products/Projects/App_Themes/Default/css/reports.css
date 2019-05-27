@@ -44,6 +44,17 @@
 .reports-menu-container .reports-category.templates.display-none {
     display: none;
 }
+
+.reports-menu-container .reports-category.generated {
+    margin-top: 26px;
+    text-decoration: none;
+    color: #333;
+}
+
+.reports-menu-container .reports-category.generated.active {
+    color:#116D9D;
+}
+
 .reports-menu-container ul {
     margin: 0;
     padding: 0;

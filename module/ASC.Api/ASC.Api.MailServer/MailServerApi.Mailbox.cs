@@ -26,24 +26,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
-using ASC.Api.MailServer.DataContracts;
-using ASC.Api.MailServer.Extensions;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Server.Utils;
-using System.Security;
-using ASC.Api.MailServer.Operations;
-using ASC.Common.Threading;
-using ASC.Mail.Aggregator.ComplexOperations.Base;
-using ASC.Mail.Server.Administration.Interfaces;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
-using SecurityContext = ASC.Core.SecurityContext;
+using ASC.Mail;
+using ASC.Mail.Core.Dao.Expressions.Mailbox;
+using ASC.Mail.Core.Engine.Operations.Base;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Enums;
+using ASC.Web.Studio.Core.Notify;
+
+// ReSharper disable InconsistentNaming
 
 namespace ASC.Api.MailServer
 {
@@ -56,73 +50,20 @@ namespace ASC.Api.MailServer
         /// <param name="local_part"></param>
         /// <param name="domain_id"></param>
         /// <param name="user_id"></param>
+        /// <param name="notifyCurrent">Send message to creating mailbox's address</param>
+        /// <param name="notifyProfile">Send message to email from user profile</param>
         /// <returns>MailboxData associated with tenant</returns>
         /// <short>Create mailbox</short> 
         /// <category>Mailboxes</category>
         [Create(@"mailboxes/add")]
-        public MailboxData CreateMailbox(string name, string local_part, int domain_id, string user_id)
+        public ServerMailboxData CreateMailbox(string name, string local_part, int domain_id, string user_id,
+            bool notifyCurrent = false, bool notifyProfile = false)
         {
-            var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
-            var isSharedDomain = domain.Tenant == Defines.SHARED_TENANT_ID;
+            var serverMailbox = MailEngineFactory.ServerMailboxEngine.CreateMailbox(name, local_part, domain_id, user_id);
 
-            if (!IsAdmin && !isSharedDomain)
-                throw new SecurityException("Need admin privileges.");
+            SendMailboxCreated(serverMailbox, notifyCurrent, notifyProfile);
 
-            var tenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
-
-            if (isSharedDomain
-                && (tenantQuota.Trial
-                || tenantQuota.Free))
-            {
-                throw new SecurityException("Not available in unpaid version");
-            }
-
-            if (string.IsNullOrEmpty(local_part))
-                throw new ArgumentException(@"Invalid local part.", "local_part");
-
-            if (domain_id < 0)
-                throw new ArgumentException(@"Invalid domain id.", "domain_id");
-
-            if (name.Length > 255)
-                throw new ArgumentException(@"Sender name exceed limitation of 64 characters.", "name");
-
-            Guid user;
-
-            if (!Guid.TryParse(user_id, out user))
-                throw new ArgumentException(@"Invalid user id.", "user_id");
-
-            if (isSharedDomain && !IsAdmin && user != SecurityContext.CurrentAccount.ID)
-                throw new SecurityException("Creation of a shared mailbox is allowed only for the current account if user is not admin.");
-
-            var teamlabAccount = CoreContext.Authentication.GetAccountByID(user);
-
-            if (teamlabAccount == null)
-                throw new InvalidDataException("Unknown user.");
-
-            var userInfo = CoreContext.UserManager.GetUsers(user);
-
-            if(userInfo.IsVisitor())
-                throw new InvalidDataException("User is visitor.");
-
-            if (local_part.Length > 64)
-                throw new ArgumentException(@"Local part of mailbox exceed limitation of 64 characters.", "local_part");
-
-            if (!Parser.IsEmailLocalPartValid(local_part))
-                throw new ArgumentException("Incorrect local part of mailbox.");
-
-            var mailboxLocalPart = local_part.ToLowerInvariant();
-
-            var login = string.Format("{0}@{1}", mailboxLocalPart, domain.Name);
-
-            var password = PasswordGenerator.GenerateNewPassword(12);
-
-            var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
-
-            var mailbox = MailServer.CreateMailbox(name, mailboxLocalPart, password, domain, account, MailServerFactory);
-
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
-
-            return mailbox.ToMailboxData();
+            return serverMailbox;
         }
 
         /// <summary>
@@ -133,58 +74,10 @@ namespace ASC.Api.MailServer
         /// <short>Create mailbox</short> 
         /// <category>Mailboxes</category>
         [Create(@"mailboxes/addmy")]
-        public MailboxData CreateMyMailbox(string name)
+        public ServerMailboxData CreateMyMailbox(string name)
         {
-            if (!SetupInfo.IsVisibleSettings("AdministrationPage") || !SetupInfo.IsVisibleSettings("MailCommonDomain") || CoreContext.Configuration.Standalone)
-                throw new Exception("Common domain is not available");
-
-            var domain = MailServer.GetWebDomains(MailServerFactory).FirstOrDefault(x => x.Tenant == Defines.SHARED_TENANT_ID);
-
-            if (domain == null)
-                throw new SecurityException("Domain not found.");
-
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException(@"Invalid mailbox name.", "name");
-
-            var teamlabAccount = CoreContext.Authentication.GetAccountByID(SecurityContext.CurrentAccount.ID);
-
-            if (teamlabAccount == null)
-                throw new InvalidDataException("Unknown user.");
-
-            var userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-
-            if (userInfo.IsVisitor())
-                throw new InvalidDataException("User is visitor.");
-
-            var tenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
-
-            if (tenantQuota.Trial || tenantQuota.Free)
-            {
-                throw new SecurityException("Not available in unpaid version");
-            }
-
-            if (name.Length > 64)
-                throw new ArgumentException(@"Local part of mailbox localpart exceed limitation of 64 characters.", "name");
-
-            if (!Parser.IsEmailLocalPartValid(name))
-                throw new ArgumentException("Incorrect mailbox name.");
-
-            var mailboxName = name.ToLowerInvariant();
-
-            var login = string.Format("{0}@{1}", mailboxName, domain.Name);
-
-            var password = PasswordGenerator.GenerateNewPassword(12);
-
-            var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
-
-            var mailbox = MailServer.CreateMailbox(account.TeamlabAccount.Name, mailboxName, password, domain, account, MailServerFactory);
-
-            if (IsSignalRAvailable)
-                MailBoxManager.UpdateUserActivity(TenantId, UserId);
-
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
-
-            return mailbox.ToMailboxData();
+            var serverMailbox = MailEngineFactory.ServerMailboxEngine.CreateMyCommonDomainMailbox(name);
+            return serverMailbox;
         }
 
         /// <summary>
@@ -194,15 +87,10 @@ namespace ASC.Api.MailServer
         /// <short>Get mailboxes list</short> 
         /// <category>Mailboxes</category>
         [Read(@"mailboxes/get")]
-        public List<MailboxData> GetMailboxes()
+        public List<ServerMailboxData> GetMailboxes()
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            var mailboxes = MailServer.GetMailboxes(MailServerFactory);
-            return mailboxes
-                .Select(mailbox => mailbox.ToMailboxData())
-                .ToList();
+            var mailboxes = MailEngineFactory.ServerMailboxEngine.GetMailboxes();
+            return mailboxes;
         }
 
         /// <summary>
@@ -217,62 +105,8 @@ namespace ASC.Api.MailServer
         [Delete(@"mailboxes/remove/{id}")]
         public MailOperationStatus RemoveMailbox(int id)
         {
-            if (id < 0)
-                throw new ArgumentException(@"Invalid domain id.", "id");
-
-            var mailbox = MailServer.GetMailbox(id, MailServerFactory);
-
-            if(mailbox == null)
-                throw new ItemNotFoundException("Account not found.");
-
-            var isSharedDomain = mailbox.Address.Domain.Tenant == Defines.SHARED_TENANT_ID;
-
-            if (!IsAdmin && !isSharedDomain)
-                throw new SecurityException("Need admin privileges.");
-
-            if (isSharedDomain && !IsAdmin && mailbox.Account.TeamlabAccount.ID != SecurityContext.CurrentAccount.ID)
-                throw new SecurityException("Removing of a shared mailbox is allowed only for the current account if user is not admin.");
-
-            return RemoveMailbox(mailbox);
-        }
-
-        private MailOperationStatus RemoveMailbox(IMailbox mailbox)
-        {
-            var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            var user = SecurityContext.CurrentAccount;
-
-            var operations = MailBoxManager.MailOperations.GetTasks()
-                .Where(o =>
-                {
-                    var oTenant = o.GetProperty<int>(MailOperation.TENANT);
-                    var oUser = o.GetProperty<string>(MailOperation.OWNER);
-                    var oType = o.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);
-                    return oTenant == tenant.TenantId &&
-                           oUser == user.ID.ToString() &&
-                           oType == MailOperationType.RemoveMailbox;
-                })
-                .ToList();
-
-            var sameOperation = operations.FirstOrDefault(o =>
-            {
-                var oSource = o.GetProperty<string>(MailOperation.SOURCE);
-                return oSource == mailbox.Id.ToString();
-            });
-
-            if (sameOperation != null)
-            {
-                return MailBoxManager.GetMailOperationStatus(sameOperation.Id);
-            }
-
-            var runningOperation = operations.FirstOrDefault(o => o.Status <= DistributedTaskStatus.Running);
-
-            if (runningOperation != null)
-                throw new MailOperationAlreadyRunningException("Remove mailbox operation already running.");
-
-            var op = new MailRemoveMailserverMailboxOperation(tenant, user, mailbox, MailBoxManager, MailServer,
-                MailServerFactory);
-
-            return MailBoxManager.QueueTask(op);
+            var status = MailEngineFactory.ServerMailboxEngine.RemoveMailbox(id);
+            return status;
         }
 
         /// <summary>
@@ -284,27 +118,10 @@ namespace ASC.Api.MailServer
         /// <short>Update mailbox</short>
         /// <category>Mailboxes</category>
         [Update(@"mailboxes/update")]
-        public MailboxData UpdateMailbox(int mailbox_id, string name)
+        public ServerMailboxData UpdateMailbox(int mailbox_id, string name)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (mailbox_id < 0)
-                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
-
-            if (name.Length > 255)
-                throw new ArgumentException(@"Sender name exceed limitation of 64 characters.", "name");
-
-            var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
-
-            if (mailbox == null)
-                throw new ArgumentException("Mailbox not exists");
-
-            MailServer.UpdateMailbox(mailbox, name, MailServerFactory);
-
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
-
-            return mailbox.ToMailboxData();
+            var mailbox = MailEngineFactory.ServerMailboxEngine.UpdateMailboxDisplayName(mailbox_id, name);
+            return mailbox;
         }
 
         /// <summary>
@@ -316,38 +133,10 @@ namespace ASC.Api.MailServer
         /// <short>Add mailbox's aliases</short>
         /// <category>AddressData</category>
         [Update(@"mailboxes/alias/add")]
-        public AddressData AddMailboxAlias(int mailbox_id, string alias_name)
+        public ServerDomainAddressData AddMailboxAlias(int mailbox_id, string alias_name)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (string.IsNullOrEmpty(alias_name))
-                throw new ArgumentException(@"Invalid alias name.", "alias_name");
-
-            if (mailbox_id < 0)
-                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
-
-            if (alias_name.Length > 64)
-                throw new ArgumentException(@"Local part of mailbox alias exceed limitation of 64 characters.", "alias_name");
-
-            if (!Parser.IsEmailLocalPartValid(alias_name))
-                throw new ArgumentException("Incorrect mailbox alias.");
-
-            var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
-
-            if (mailbox == null)
-                throw new ArgumentException("Mailbox not exists");
-
-            if (mailbox.Address.Domain.Tenant == Defines.SHARED_TENANT_ID)
-                throw new InvalidOperationException("Adding mailbox alias is not allowed for shared domain.");
-
-            var mailboxAliasName = alias_name.ToLowerInvariant();
-
-            var alias = mailbox.AddAlias(mailboxAliasName, mailbox.Address.Domain, MailServerFactory);
-
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
-
-            return alias.ToAddressData();
+            var serverAlias = MailEngineFactory.ServerMailboxEngine.AddAlias(mailbox_id, alias_name);
+            return serverAlias;
         }
 
         /// <summary>
@@ -361,24 +150,167 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/alias/remove")]
         public int RemoveMailboxAlias(int mailbox_id, int address_id)
         {
-            if (!IsAdmin)
-                throw new SecurityException("Need admin privileges.");
-
-            if (address_id < 0)
-                throw new ArgumentException(@"Invalid address id.", "address_id");
-
-            if (mailbox_id < 0)
-                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
-
-            var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
-
-            if (mailbox == null)
-                throw new ArgumentException("Mailbox not exists");
-
-            mailbox.RemoveAlias(address_id);
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
-
+            MailEngineFactory.ServerMailboxEngine.RemoveAlias(mailbox_id, address_id);
             return mailbox_id;
+        }
+
+        /// <summary>
+        ///    Change mailbox password
+        /// </summary>
+        /// <param name="mailbox_id"></param>
+        /// <param name="password"></param>
+        /// <short>Change mailbox password</short> 
+        /// <category>Mailboxes</category>
+        [Update(@"mailboxes/changepwd")]
+        public void ChangeMailboxPassword(int mailbox_id, string password)
+        {
+            MailEngineFactory.ServerMailboxEngine.ChangePassword(mailbox_id, password);
+
+            SendMailboxPasswordChanged(mailbox_id);
+        }
+
+        /// <summary>
+        ///    Check existence of mailbox address
+        /// </summary>
+        /// <param name="local_part"></param>
+        /// <param name="domain_id"></param>
+        /// <short>Is server mailbox address exists</short>
+        /// <returns>True - address exists, False - not exists</returns>
+        /// <category>Mailboxes</category>
+        [Read(@"mailboxes/alias/exists")]
+        public bool IsAddressAlreadyRegistered(string local_part, int domain_id)
+        {
+            return MailEngineFactory.ServerMailboxEngine.IsAddressAlreadyRegistered(local_part, domain_id);
+        }
+
+        /// <summary>
+        ///    Validate mailbox address
+        /// </summary>
+        /// <param name="local_part"></param>
+        /// <param name="domain_id"></param>
+        /// <short>Is server mailbox address valid</short>
+        /// <returns>True - address valid, False - not valid</returns>
+        /// <category>Mailboxes</category>
+        [Read(@"mailboxes/alias/valid")]
+        public bool IsAddressValid(string local_part, int domain_id)
+        {
+            return MailEngineFactory.ServerMailboxEngine.IsAddressValid(local_part, domain_id);
+        }
+
+        private void SendMailboxCreated(ServerMailboxData serverMailbox, bool toMailboxUser, bool toUserProfile)
+        {
+            try
+            {
+                if (serverMailbox == null)
+                    throw new ArgumentNullException("serverMailbox");
+
+                if((!toMailboxUser && !toUserProfile))
+                    return;
+
+                var emails = new List<string>();
+
+                if (toMailboxUser)
+                {
+                    emails.Add(serverMailbox.Address.Email);
+                }
+
+                var userInfo = CoreContext.UserManager.GetUsers(new Guid(serverMailbox.UserId));
+
+                if (userInfo == null || userInfo.Equals(Core.Users.Constants.LostUser))
+                    throw new Exception(string.Format("SendMailboxCreated(mailboxId={0}): user not found",
+                        serverMailbox.Id));
+
+                if (toUserProfile)
+                {
+                    if (userInfo != null && !userInfo.Equals(Core.Users.Constants.LostUser))
+                    {
+                        if (!emails.Contains(userInfo.Email) &&
+                            userInfo.ActivationStatus == EmployeeActivationStatus.Activated)
+                        {
+                            emails.Add(userInfo.Email);
+                        }
+                    }
+                }
+
+                var mailbox =
+                    MailEngineFactory.MailboxEngine.GetMailboxData(
+                        new ConcreteUserServerMailboxExp(serverMailbox.Id, TenantId, serverMailbox.UserId));
+
+                if (mailbox == null)
+                    throw new Exception(string.Format("SendMailboxCreated(mailboxId={0}): mailbox not found",
+                        serverMailbox.Id));
+
+                if (CoreContext.Configuration.Standalone)
+                {
+                    var encType = Enum.GetName(typeof(EncryptionType), mailbox.Encryption) ?? Defines.START_TLS;
+
+                    string mxHost = null;
+
+                    try
+                    {
+                        mxHost = MailEngineFactory.ServerEngine.GetMailServerMxDomain();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.ErrorFormat("GetMailServerMxDomain() failed. Exception: {0}", ex.ToString());
+                    }
+
+                    StudioNotifyService.Instance.SendMailboxCreated(emails, userInfo.DisplayUserName(),
+                        mailbox.EMail.Address,
+                        string.IsNullOrEmpty(mxHost) ? mailbox.Server : mxHost, encType.ToUpper(), mailbox.Port,
+                        mailbox.SmtpPort, mailbox.Account);
+                }
+                else
+                {
+                    StudioNotifyService.Instance.SendMailboxCreated(emails, userInfo.DisplayUserName(),
+                        mailbox.EMail.Address);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        private void SendMailboxPasswordChanged(int mailboxId)
+        {
+            try
+            {
+                if (!CoreContext.Configuration.Standalone)
+                    return;
+
+                if (mailboxId < 0)
+                    throw new ArgumentNullException("mailboxId");
+
+                var mailbox =
+                    MailEngineFactory.MailboxEngine.GetMailboxData(
+                        new ConcreteTenantServerMailboxExp(mailboxId, TenantId, false));
+
+                if (mailbox == null)
+                    throw new Exception(string.Format("SendMailboxPasswordChanged(mailboxId={0}): mailbox not found",
+                        mailboxId));
+
+                var userInfo = CoreContext.UserManager.GetUsers(new Guid(mailbox.UserId));
+
+                if (userInfo == null || userInfo.Equals(Core.Users.Constants.LostUser))
+                    throw new Exception(string.Format("SendMailboxPasswordChanged(mailboxId={0}): user not found",
+                        mailboxId));
+
+                var toEmails = new List<string>
+                {
+                    userInfo.ActivationStatus == EmployeeActivationStatus.Activated
+                        ? userInfo.Email
+                        : mailbox.EMail.Address
+                };
+
+                StudioNotifyService.Instance.SendMailboxPasswordChanged(toEmails,
+                    userInfo.DisplayUserName(), mailbox.EMail.Address);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
         }
     }
 }

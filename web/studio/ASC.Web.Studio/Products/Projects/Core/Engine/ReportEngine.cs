@@ -28,11 +28,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Core;
-using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
+using ASC.Web.Core.Users;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Projects.Engine
@@ -40,18 +42,14 @@ namespace ASC.Projects.Engine
     public class ReportEngine
     {
         public IDaoFactory DaoFactory { get; set; }
-        public ProjectEngine ProjectEngine { get; set; }
-        public TaskEngine TaskEngine { get; set; }
-        public MilestoneEngine MilestoneEngine { get; set; }
-        public MessageEngine MessageEngine { get; set; }
+        public ProjectSecurity ProjectSecurity { get; set; }
+        public EngineFactory EngineFactory { get; set; }
 
-        public ReportEngine(EngineFactory factory)
-        {
-            ProjectEngine = factory.ProjectEngine;
-            TaskEngine = factory.TaskEngine;
-            MilestoneEngine = factory.MilestoneEngine;
-            MessageEngine = factory.MessageEngine;
-        }
+        public ProjectEngine ProjectEngine { get { return EngineFactory.ProjectEngine; } }
+        public TaskEngine TaskEngine { get { return EngineFactory.TaskEngine; } }
+        public MilestoneEngine MilestoneEngine { get { return EngineFactory.MilestoneEngine; } }
+        public MessageEngine MessageEngine { get { return EngineFactory.MessageEngine; } }
+        public FileEngine FileEngine { get { return EngineFactory.FileEngine; } }
 
         public List<ReportTemplate> GetTemplates(Guid userId)
         {
@@ -76,13 +74,16 @@ namespace ASC.Projects.Engine
 
         public ReportTemplate SaveTemplate(ReportTemplate template)
         {
-            if (template == null) throw new ArgumentNullException("template");
-
             if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
-            if (template.CreateOn == default(DateTime)) template.CreateOn = TenantUtil.DateTimeNow();
-            if (template.CreateBy.Equals(Guid.Empty)) template.CreateBy = SecurityContext.CurrentAccount.ID;
             return DaoFactory.ReportDao.SaveTemplate(template);
+        }
+
+        public ReportFile Save(ReportFile reportFile)
+        {
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
+
+            return DaoFactory.ReportDao.Save(reportFile);
         }
 
         public void DeleteTemplate(int id)
@@ -92,6 +93,28 @@ namespace ASC.Projects.Engine
             DaoFactory.ReportDao.DeleteTemplate(id);
         }
 
+        public IEnumerable<ReportFile> Get()
+        {
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
+
+            return DaoFactory.ReportDao.Get();
+        }
+
+        public ReportFile GetByFileId(int fileid)
+        {
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
+
+            return DaoFactory.ReportDao.GetByFileId(fileid);
+        }
+
+        public void Remove(ReportFile report)
+        {
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
+
+            DaoFactory.ReportDao.Remove(report);
+
+            FileEngine.MoveToTrash(report.FileId);
+        }
 
         public IList<object[]> BuildUsersWithoutActiveTasks(TaskFilter filter)
         {
@@ -127,54 +150,152 @@ namespace ASC.Projects.Engine
             }
             result.AddRange(users.Select(u => new object[] { u, 0, 0, 0 }));
 
-            return result;
+            return result.Select(x => new[] { DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers((Guid)x[0]), false), x[2], x[3] }).ToList();
         }
 
         public IList<object[]> BuildUsersWorkload(TaskFilter filter)
         {
-            return TaskEngine.GetByFilterCountForStatistic(filter).Select(r=> new object[]
+            if (filter.ViewType == 0)
             {
-                r.UserId, 0, r.TasksOpen, r.TasksClosed
-            }).ToList();
+                return TaskEngine.GetByFilterCountForStatistic(filter).Select(r => new object[]
+                {
+                    DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers(r.UserId), false), r.TasksOpen, r.TasksClosed, r.TasksTotal,
+                    CoreContext.UserManager.GetUserGroups(r.UserId).Select(x=>x.Name)
+                }).ToList();
+            }
+
+            var tasks = TaskEngine.GetByFilter(filter).FilterResult;
+            var projects = tasks.Select(r => r.Project).Distinct();
+
+            var result = new List<object[]>();
+
+            foreach (var pr in projects)
+            {
+                var prTasks = tasks.Where(r => r.Project.ID == pr.ID && r.Responsibles.Count > 0).ToList();
+                if (!prTasks.Any())
+                {
+                    continue;
+                }
+
+                var users = prTasks.SelectMany(r => r.Responsibles).Distinct();
+
+                var usersResult = new List<object[]>();
+                foreach (var user in users)
+                {
+                    var tasksOpened = prTasks.Count(r => r.Responsibles.Contains(user) && r.Status == TaskStatus.Open);
+                    var tasksClosed = prTasks.Count(r => r.Responsibles.Contains(user) && r.Status == TaskStatus.Closed);
+
+                    usersResult.Add(new object[] { 
+                        DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers(user), false),
+                        tasksOpened,
+                        tasksClosed,
+                        tasksOpened + tasksClosed
+                    });
+                }
+
+                result.Add(new object[] { pr.Title, usersResult });
+            }
+
+            return result;
         }
 
-        public IList<object[]> BuildUsersActivityReport(TaskFilter filter)
+        public IList<object[]> BuildUsersActivity(TaskFilter filter)
         {
             var result = new List<object[]>();
             var tasks = TaskEngine.GetByFilterCountForReport(filter);
             var milestones = MilestoneEngine.GetByFilterCountForReport(filter);
             var messages = MessageEngine.GetByFilterCountForReport(filter);
 
-            var userIds = tasks.Select(r => r.Key).ToList();
-            userIds.AddRange(milestones.Select(r => r.Key).ToList());
-            userIds.AddRange(messages.Select(r => r.Key).ToList());
-
-            userIds = userIds.Distinct().ToList();
-
-            foreach (var userId in userIds)
+            if (filter.ViewType == 1)
             {
-                int tasksCount;
-                if (!tasks.TryGetValue(userId, out tasksCount))
-                {
-                    tasksCount = 0;
-                }
+                var projectIds = GetProjects(tasks, milestones, messages);
+                var projects = ProjectEngine.GetByID(projectIds).ToList();
 
-                int milestonesCount;
-                if (!milestones.TryGetValue(userId, out milestonesCount))
+                foreach (var p in projects)
                 {
-                    milestonesCount = 0;
-                }
+                    var userIds = GetUsers(p.ID, tasks, milestones, messages);
 
-                int messagesCount;
-                if (!messages.TryGetValue(userId, out messagesCount))
+                    foreach (var userId in userIds)
+                    {
+                        var userName = CoreContext.UserManager.GetUsers(userId).DisplayUserName();
+                        var tasksCount = GetCount(tasks, p.ID, userId);
+                        var milestonesCount = GetCount(milestones, p.ID, userId);
+                        var messagesCount = GetCount(messages, p.ID, userId);
+
+                        result.Add(new object[]
+                        {
+                            p.ID, p.Title, userName, tasksCount, milestonesCount, messagesCount,
+                            tasksCount + milestonesCount + messagesCount
+                        });
+                    }
+                }
+            }
+            else
+            {
+                var userIds = GetUsers(-1, tasks, milestones, messages);
+
+                foreach (var userId in userIds)
                 {
-                    messagesCount = 0;
-                }
+                    var group = CoreContext.UserManager.GetUserGroups(userId).FirstOrDefault();
+                    var userName = CoreContext.UserManager.GetUsers(userId).DisplayUserName();
 
-                result.Add(new object[] { userId, tasksCount, milestonesCount, messagesCount, 0, tasksCount  + milestonesCount + messagesCount });
+                    var tasksCount = GetCount(tasks, userId);
+                    var milestonesCount = GetCount(milestones, userId);
+                    var messagesCount = GetCount(messages, userId);
+
+                    result.Add(new object[]
+                        {
+                            group != null ? group.ID : Guid.Empty,
+                            group != null ? group.Name : "", userName,
+                            tasksCount,
+                            milestonesCount,
+                            messagesCount,
+                            tasksCount + milestonesCount + messagesCount
+                        });
+                }
             }
 
             return result;
+        }
+
+        private static List<int> GetProjects(params IEnumerable<Tuple<Guid, int, int>>[] data)
+        {
+            var result = new List<int>();
+
+            foreach (var item in data)
+            {
+                result.AddRange(item.Select(r => r.Item2));
+            }
+
+            return result.Distinct().ToList();
+        }
+
+        private static List<Guid> GetUsers(int pId, params IEnumerable<Tuple<Guid, int, int>>[] data)
+        {
+            var result = new List<Guid>();
+
+            foreach (var item in data)
+            {
+                result.AddRange(item.Where(r => pId == -1 || r.Item2 == pId).Select(r => r.Item1));
+            }
+
+            return result.Distinct().ToList();
+        }
+
+        private static int GetCount(IEnumerable<Tuple<Guid, int, int>> data, Guid userId)
+        {
+            return data.Where(r => r.Item1 == userId).Sum(r=> r.Item3);
+        }
+        private static int GetCount(IEnumerable<Tuple<Guid, int, int>> data, int pId, Guid userId)
+        {
+            var count = 0;
+            var item = data.FirstOrDefault(r => r.Item2 == pId && r.Item1 == userId);
+            if (item != null)
+            {
+                count = item.Item3;
+            }
+
+            return count;
         }
     }
 }

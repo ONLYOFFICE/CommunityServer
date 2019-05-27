@@ -26,9 +26,9 @@
 
 using System;
 using System.Runtime.Serialization;
-using ASC.Core;
+using System.Web;
 using ASC.Core.Common.Settings;
-using ASC.Projects.Engine;
+using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
 
@@ -41,6 +41,26 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.CommonSettings);
+            Page
+                .RegisterStyle(
+                PathProvider.GetFileStaticRelativePath("settings.less"),
+                "~/products/files/controls/fileselector/fileselector.css",
+                "~/products/files/controls/thirdparty/thirdparty.css",
+                "~/products/files/controls/contentlist/contentlist.css",
+                "~/products/files/controls/emptyfolder/emptyfolder.css",
+                "~/products/files/controls/tree/tree.css")
+                .RegisterBodyScripts(
+                PathProvider.GetFileStaticRelativePath("settings.js"),
+                    "~/products/files/controls/tree/tree.js",
+                    "~/products/files/controls/emptyfolder/emptyfolder.js",
+                    "~/products/files/controls/fileselector/fileselector.js",
+                    "~/products/files/js/common.js",
+                    "~/products/files/js/templatemanager.js",
+                    "~/products/files/js/servicemanager.js",
+                    "~/products/files/js/ui.js",
+                    "~/products/files/js/eventhandler.js");
+
+            FolderSelectorHolder.Controls.Add(LoadControl(CommonLinkUtility.ToAbsolute("~/products/files/controls/fileselector/fileselector.ascx")));
         }
     }
 
@@ -57,6 +77,21 @@ namespace ASC.Web.Projects
         [DataMember]
         public StartModuleType StartModuleType { get; set; }
 
+        [DataMember(Name = "FolderId")]
+        private object folderId;
+
+        public object FolderId
+        {
+            get
+            {
+                return folderId ?? Files.Classes.Global.FolderMy;
+            }
+            set
+            {
+                folderId = value ?? Files.Classes.Global.FolderMy;
+            }
+        }
+        
         public override Guid ID
         {
             get { return new Guid("{F833803D-0A84-4156-A73F-7680F522FE07}"); }
@@ -84,32 +119,20 @@ namespace ASC.Web.Projects
     public class StartModule
     {
         public StartModuleType StartModuleType { get; private set; }
-        public string Title { get; private set; }
+        public Func<string> Title { get; private set; }
         public string Page { get; private set; }
 
-        public static StartModule ProjectsModule = new StartModule(StartModuleType.Projects, ProjectResource.Projects, "projects.aspx");
-        public static StartModule TaskModule = new StartModule(StartModuleType.Tasks, TaskResource.Tasks, "tasks.aspx");
-        public static StartModule DiscussionModule = new StartModule(StartModuleType.Discussions, MessageResource.Messages, "messages.aspx");
-        public static StartModule TimeTrackingModule = new StartModule(StartModuleType.TimeTracking, ProjectsCommonResource.TimeTracking, "timetracking.aspx");
+        public static StartModule ProjectsModule = new StartModule(StartModuleType.Projects, () => ProjectResource.Projects, "projects.aspx");
+        public static StartModule TaskModule = new StartModule(StartModuleType.Tasks, () => TaskResource.Tasks, "tasks.aspx");
+        public static StartModule DiscussionModule = new StartModule(StartModuleType.Discussions, () => MessageResource.Messages, "messages.aspx");
+        public static StartModule TimeTrackingModule = new StartModule(StartModuleType.TimeTracking, () => ProjectsCommonResource.TimeTracking, "timetracking.aspx");
         
 
-        private StartModule(StartModuleType startModuleType, string title, string page)
+        private StartModule(StartModuleType startModuleType, Func<string> title, string page)
         {
             StartModuleType = startModuleType;
             Title = title;
             Page = page;
-        }
-
-        public static StartModule GetInstance(StartModuleType startModuleType)
-        {
-            switch (startModuleType)
-            {
-                case StartModuleType.Projects: return ProjectsModule;
-                case StartModuleType.Tasks: return TaskModule;
-                case StartModuleType.Discussions: return DiscussionModule;
-                case StartModuleType.TimeTracking: return TimeTrackingModule;
-            }
-            return null;
         }
     }
 }

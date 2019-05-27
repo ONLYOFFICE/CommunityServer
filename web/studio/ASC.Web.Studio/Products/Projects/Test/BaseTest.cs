@@ -42,7 +42,9 @@ namespace ASC.Web.Projects.Test
     public class BaseTest
     {
         protected ILifetimeScope Scope { get; set; }
+        protected TagEngine TagEngine { get; set; }
         protected TaskEngine TaskEngine { get; set; }
+        protected SubtaskEngine SubtaskEngine { get; set; }
         protected MilestoneEngine MilestoneEngine { get; set; }
         protected MessageEngine MessageEngine { get; set; }
         protected TimeTrackingEngine TimeTrackingEngine { get; set; }
@@ -52,31 +54,34 @@ namespace ASC.Web.Projects.Test
 
         private Project Project { get; set; }
 
-        public static Guid UserInTeam        = new Guid("0d5ed025-a78c-48b6-8ec9-29b225e85e23");
-        public static Guid ProjectManager    = new Guid("4bf9ca85-4565-45a1-ac18-7827aad06685");
-        public static Guid UserNotInTeam     = new Guid("e4308b59-90bd-4f6c-807e-d1ee7716fe2d");
-        public static Guid Guest             = new Guid("a9367768-30da-49a3-97f6-61c96b53c914");
-        public static Guid Admin             = new Guid("93580c54-1132-4d6b-bf2d-da0bfaaa1a28");
-        public static Guid Owner             = new Guid("646a6cff-df57-4b83-8ffe-91a24910328c");
+        public static Guid UserInTeam = new Guid("809a74fd-2f52-4284-a267-f512fb60ce9e");
+        public static Guid ProjectManager = new Guid("8a911318-129e-48b0-8414-04f49b308a9c");
+        public static Guid UserNotInTeam = new Guid("ce90d596-9c6c-490f-b538-e8d3ccc12a72");
+        public static Guid Guest = new Guid("f4381b0a-694a-4ab7-bfdb-6a6d25df65f8");
+        public static Guid Admin = new Guid("f412903b-9601-42e9-91f2-1bd31f6da9e3");
+        public static Guid Owner = new Guid("23f101b0-bc41-11e8-b696-9cb6d0fc71d8");
 
         [OneTimeSetUp]
         public void Init()
         {
             WebItemManager.Instance.LoadItems();
 
-            CoreContext.TenantManager.SetCurrentTenant(0);
+            CoreContext.TenantManager.SetCurrentTenant(CoreContext.TenantManager.GetTenants().First());
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             SecurityContext.AuthenticateMe(tenant.OwnerId);
 
             Scope = DIHelper.Resolve(true);
 
             var engineFactory = Scope.Resolve<EngineFactory>();
+            Scope.Resolve<ProjectSecurity>();
             ProjectEngine = engineFactory.ProjectEngine;
             ParticipantEngine = engineFactory.ParticipantEngine;
             TaskEngine = engineFactory.TaskEngine;
+            SubtaskEngine = engineFactory.SubtaskEngine;
             MilestoneEngine = engineFactory.MilestoneEngine;
             MessageEngine = engineFactory.MessageEngine;
             TimeTrackingEngine = engineFactory.TimeTrackingEngine;
+            TagEngine = engineFactory.TagEngine;
             DataGenerator = new DataGenerator();
 
             var team = new List<Guid>(2) { ProjectManager, UserInTeam, Guest };

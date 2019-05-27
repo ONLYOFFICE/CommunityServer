@@ -84,7 +84,9 @@ var PhoneController = new function() {
         }
         return typeof (a.def) != "undefined"
                 ? 1
-                : (typeof (b.def) != "undefined" ? -1 : 0);
+                : (typeof (b.def) != "undefined"
+                    ? -1
+                    : a.title > b.title ? 1 : 0);
     };
 
     _initCountryPhonesDropDown = function() {

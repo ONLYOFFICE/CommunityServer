@@ -15,7 +15,7 @@
                 </div>
                 <div class="port requiredField">
                     <div class="fts-settings-title"><%= Resource.Port %>:</div>
-                    <input type="text" class="fts-settings-field textEdit" value="<%= CurrentSettings.Port.HasValue ? CurrentSettings.Port.Value.ToString(CultureInfo.InvariantCulture) : ""%>" />
+                    <input type="text" class="fts-settings-field textEdit" value="<%= CurrentSettings.Port.ToString(CultureInfo.InvariantCulture)%>" />
                 </div>
             </div>
         </div>

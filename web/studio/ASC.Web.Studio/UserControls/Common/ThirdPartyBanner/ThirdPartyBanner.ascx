@@ -7,5 +7,5 @@
     <div class="cancelButton" onclick="ThirdPartyBanner.CloseBanner('<%= CurrentBanner.Item1 %>', function(){});jq('.banner-<%= CurrentBanner.Item1 %>').remove();return false;">
         &times;
     </div>
-    <%= CurrentBanner.Item2.HtmlEncode() %>
+    <%= string.Format(CurrentBanner.Item2.HtmlEncode(), "<b>","</b>") %>
 </a>

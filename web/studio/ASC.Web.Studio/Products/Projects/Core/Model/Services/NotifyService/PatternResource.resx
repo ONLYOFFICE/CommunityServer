@@ -146,7 +146,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has edited the discussion: "${EntityT
 
 $AdditionalData.get_item("MessagePreview") 
 
-#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+#foreach($fileInfo in $AdditionalData.get_item("Files")) 
 
 #beforeall 
 
@@ -154,7 +154,7 @@ $AdditionalData.get_item("MessagePreview")
 
 #each 
 
-"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+"$fileInfo.Item1":"$fileInfo.Item2" 
 
 #end
 

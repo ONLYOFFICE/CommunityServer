@@ -27,7 +27,10 @@
 using System;
 using System.Linq;
 using System.Web.Http;
+using ASC.Common.Logging;
+using ASC.Core;
 using ASC.Core.Common.Settings;
+using ASC.Core.Configuration;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
@@ -69,7 +72,7 @@ namespace ASC.Web.CRM.Configuration
 
         public override string ProductClassName { get { return "crm"; } }
 
-        public override bool Visible { get { return true; } }
+        public override bool Visible { get { return !CoreContext.Configuration.CustomMode; } }
 
         public override ProductContext Context { get { return context; } }
 
@@ -232,16 +235,47 @@ namespace ASC.Web.CRM.Configuration
                     listItemDao.CreateItem(ListType.HistoryCategory, new ListItem(CRMCommonResource.HistoryCategory_Call, "event_category_call.png"));
                     listItemDao.CreateItem(ListType.HistoryCategory, new ListItem(CRMCommonResource.HistoryCategory_Meeting, "event_category_meeting.png"));
                     // Tags
-                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Lead);
-                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Customer);
-                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Supplier);
-                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Staff);
+                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Lead, true);
+                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Customer, true);
+                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Supplier, true);
+                    daoFactory.TagDao.AddTag(EntityType.Contact, CRMContactResource.Staff, true);
 
                     var tenantSettings = Global.TenantSettings;
                     tenantSettings.WebFormKey = Guid.NewGuid();
                     tenantSettings.IsConfiguredPortal = true;
                     tenantSettings.Save();
                 }
+            }
+
+            if (!Global.TenantSettings.IsConfiguredSmtp)
+            {
+                var smtp = CRMSettings.Load().SMTPServerSettingOld;
+                if (smtp != null && CoreContext.Configuration.SmtpSettings.IsDefaultSettings)
+                {
+                    try
+                    {
+                        var newSettings = new SmtpSettings(smtp.Host, smtp.Port, smtp.SenderEmailAddress,
+                            smtp.SenderDisplayName)
+                        {
+                            EnableSSL = smtp.EnableSSL,
+                            EnableAuth = smtp.RequiredHostAuthentication,
+                        };
+
+                        if (!string.IsNullOrEmpty(smtp.HostLogin) && !string.IsNullOrEmpty(smtp.HostPassword))
+                        {
+                            newSettings.SetCredentials(smtp.HostLogin, smtp.HostPassword);
+        }
+
+                        CoreContext.Configuration.SmtpSettings = newSettings;
+                    }
+                    catch (Exception e)
+                    {
+                        LogManager.GetLogger("ASC").Error("ConfigurePortal", e);
+                    }
+                }
+                var tenantSettings = Global.TenantSettings;
+                tenantSettings.IsConfiguredSmtp = true;
+                tenantSettings.Save();
             }
         }
 

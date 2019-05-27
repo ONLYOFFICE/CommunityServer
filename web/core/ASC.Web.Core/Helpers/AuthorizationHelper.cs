@@ -63,6 +63,14 @@ namespace ASC.Web.Core.Helpers
                         authCookie = SecurityContext.AuthenticateMe(u.Email, password);
                     }
                 }
+                else if (0 <= authorization.IndexOf("Bearer", 0))
+                {
+                    authorization = authorization.Substring("Bearer ".Length);
+                    if (SecurityContext.AuthenticateMe(authorization))
+                    {
+                        authCookie = authorization;
+                    }
+                }
                 else
                 {
                     if (SecurityContext.AuthenticateMe(authorization))

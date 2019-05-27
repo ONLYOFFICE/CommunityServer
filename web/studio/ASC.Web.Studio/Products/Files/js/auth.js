@@ -28,38 +28,26 @@
     Auth for Thirdparty
 *******************************************************************************/
 
-var OAuth2Redirect = function (search) {
-    search = search.substring(search.indexOf("?") == 0 ? 1 : 0);
-
-    var params = {};
-    search.replace(/(?:^|&)([^&=]*)=?([^&]*)/g,
-        function ($0, $1, $2) {
-            if ($1) {
-                params[$1] = $2;
-            }
-        });
-
-    if (params.error) {
-        OAuthError(params.error);
-        return;
-    }
-
-    if (params.code) {
-        OAuthCallback(params.code);
-    }
+var OAuthCallback = function (token) {
 };
 
-var OAuthCallback = function (token, source) {
-};
-
-var OAuthError = function (error, source) {
+var OAuthError = function (error) {
     ASC.Files.UI.displayInfoPanel(error, true);
 };
 
-var OAuthPopup = function (url, width, height) {
+var OAuthPopup = function (url, providerKey, providerId) {
+    if (ASC.Desktop) {
+        var redirect = ASC.Files.Anchor.modulePath
+            + "#setting=thirdparty&"
+            + (providerKey ? ("providerKey=" + encodeURIComponent(providerKey))
+                : (providerId ? ("providerId=" + encodeURIComponent(providerId)) : ""));
+        location.href = url + "?redirect=" + encodeURIComponent(redirect);
+        return null;
+    }
+
     var newwindow;
     try {
-        var params = "height=" + (height || 600) + ",width=" + (width || 1020) + ",resizable=0,status=0,toolbar=0,menubar=0,location=1";
+        var params = "height=600,width=1020,resizable=0,status=0,toolbar=0,menubar=0,location=1";
         newwindow = window.open(url, "Authorization", params);
     } catch (err) {
         newwindow = window.open(url, "Authorization");

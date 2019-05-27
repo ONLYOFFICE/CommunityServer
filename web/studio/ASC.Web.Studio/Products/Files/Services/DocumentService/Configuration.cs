@@ -34,13 +34,15 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using ASC.Core;
-using ASC.Core.Common.Settings;
+using ASC.Core.Common.Configuration;
 using ASC.Core.Users;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Utils;
@@ -150,6 +152,8 @@ namespace ASC.Web.Files.Services.DocumentService
         [DataContract(Name = "document", Namespace = "")]
         public class DocumentConfig
         {
+            public string SharedLinkKey;
+
             public DocumentConfig()
             {
                 Info = new InfoConfig();
@@ -158,6 +162,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             private string _key = string.Empty;
             private string _fileUri;
+            private string _title = null;
 
 
             [DataMember(Name = "fileType")]
@@ -183,20 +188,20 @@ namespace ASC.Web.Files.Services.DocumentService
             [DataMember(Name = "title")]
             public string Title
             {
-                set { }
-                get { return Info.File.Title; }
+                set { _title = value; }
+                get { return _title ?? Info.File.Title; }
             }
 
             [DataMember(Name = "url")]
             public string Url
             {
-                set { _fileUri = value; }
+                set { _fileUri = DocumentServiceConnector.ReplaceCommunityAdress(value); }
                 get
                 {
                     if (!string.IsNullOrEmpty(_fileUri))
                         return _fileUri;
-
-                    _fileUri = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(Info.File));
+                    var last = Permissions.Edit || Permissions.Review || Permissions.Comment;
+                    _fileUri = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(Info.File, SharedLinkKey, last));
                     return _fileUri;
                 }
             }
@@ -274,11 +279,17 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "changeHistory")]
                 public bool ChangeHistory = false;
 
+                [DataMember(Name = "comment")]
+                public bool Comment = true;
+
                 [DataMember(Name = "download")]
                 public bool Download = true;
 
                 [DataMember(Name = "edit")]
                 public bool Edit = true;
+
+                [DataMember(Name = "fillForms")]
+                public bool FillForms = true;
 
                 [DataMember(Name = "print")]
                 public bool Print = true;
@@ -363,6 +374,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 get { return _userInfo.GetCulture().Name; }
             }
 
+            //todo: remove old feild after release 5.2+
             [DataMember(Name = "mergeFolderUrl", EmitDefaultValue = false)]
             public string MergeFolderUrl;
 
@@ -372,6 +384,9 @@ namespace ASC.Web.Files.Services.DocumentService
                 set { }
                 get { return ModeWrite ? "edit" : "view"; }
             }
+
+            [DataMember(Name = "saveAsUrl", EmitDefaultValue = false)]
+            public string SaveAsUrl;
 
             [DataMember(Name = "sharingSettingsUrl", EmitDefaultValue = false)]
             public string SharingSettingsUrl;
@@ -448,14 +463,17 @@ namespace ASC.Web.Files.Services.DocumentService
                     get
                     {
                         var plugins = new List<string>();
-                        if (!string.IsNullOrEmpty(KeyStorage.Get("easyBibappkey")))
+
+                        var easyBibHelper = ConsumerFactory.Get<EasyBibHelper>();
+                        if (!string.IsNullOrEmpty(easyBibHelper.AppKey))
                         {
                             plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json"));
                         }
 
-                        if (!string.IsNullOrEmpty(KeyStorage.Get("wpClientId")) &&
-                            !string.IsNullOrEmpty(KeyStorage.Get("wpClientSecret")) &&
-                            !string.IsNullOrEmpty(KeyStorage.Get("wpRedirectUrl")))
+                        var wordpressLoginProvider = ConsumerFactory.Get<WordpressLoginProvider>();
+                        if (!string.IsNullOrEmpty(wordpressLoginProvider.ClientID) &&
+                            !string.IsNullOrEmpty(wordpressLoginProvider.ClientSecret) &&
+                            !string.IsNullOrEmpty(wordpressLoginProvider.RedirectUri))
                         {
                             plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"));
                         }
@@ -485,7 +503,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 public bool About
                 {
                     set { }
-                    get { return !CoreContext.Configuration.Standalone; }
+                    get { return !CoreContext.Configuration.Standalone && !CoreContext.Configuration.CustomMode; }
                 }
 
                 [DataMember(Name = "customer")]
@@ -518,23 +536,32 @@ namespace ASC.Web.Files.Services.DocumentService
                         if (_configuration.Type == EditorType.Embedded || _configuration.Type == EditorType.External) return null;
                         if (!SecurityContext.IsAuthenticated) return null;
                         if (GobackUrl != null)
+                        {
                             return new GobackConfig
                                 {
                                     Url = GobackUrl,
                                 };
+                        }
 
                         using (var folderDao = Global.DaoFactory.GetFolderDao())
                         {
                             try
                             {
                                 var parent = folderDao.GetFolder(_configuration.Document.Info.File.FolderID);
+                                var fileSecurity = Global.GetFilesSecurity();
                                 if (_configuration.Document.Info.File.RootFolderType == FolderType.USER
                                     && !Equals(_configuration.Document.Info.File.RootFolderId, Global.FolderMy)
-                                    && !Global.GetFilesSecurity().CanRead(parent))
-                                    return new GobackConfig
-                                        {
-                                            Url = PathProvider.GetFolderUrl(Global.FolderShare),
-                                        };
+                                    && !fileSecurity.CanRead(parent))
+                                {
+                                    if (fileSecurity.CanRead(_configuration.Document.Info.File))
+                                    {
+                                        return new GobackConfig
+                                            {
+                                                Url = PathProvider.GetFolderUrl(Global.FolderShare),
+                                            };
+                                    }
+                                    return null;
+                                }
 
                                 return new GobackConfig
                                     {
@@ -546,6 +573,30 @@ namespace ASC.Web.Files.Services.DocumentService
                                 return null;
                             }
                         }
+                    }
+                }
+
+                [DataMember(Name = "loaderLogo", EmitDefaultValue = false)]
+                public string LoaderLogo
+                {
+                    set { }
+                    get
+                    {
+                        return CoreContext.Configuration.CustomMode
+                                   ? CommonLinkUtility.GetFullAbsolutePath(WebImageSupplier.GetAbsoluteWebPath("loader.svg").ToLower())
+                                   : null;
+                    }
+                }
+
+                [DataMember(Name = "loaderName", EmitDefaultValue = false)]
+                public string LoaderName
+                {
+                    set { }
+                    get
+                    {
+                        return CoreContext.Configuration.CustomMode
+                                   ? " "
+                                   : null;
                     }
                 }
 

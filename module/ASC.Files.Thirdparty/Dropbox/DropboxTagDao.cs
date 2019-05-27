@@ -40,11 +40,6 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
         }
 
-        public void Dispose()
-        {
-            DropboxProviderInfo.Dispose();
-        }
-
         #region ITagDao Members
 
         public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)

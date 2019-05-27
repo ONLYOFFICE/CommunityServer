@@ -31,8 +31,8 @@ using System.Net;
 using System.Web;
 using System.Web.Routing;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
 using ASC.Api.Utils;
+using ASC.Common.Logging;
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -47,7 +47,7 @@ namespace ASC.Api.Impl
             var log = Container.Resolve<ILog>();
 
             //Authorize request first
-            log.Debug("Authorizing {0}", requestContext.HttpContext.Request.Url);
+            log.DebugFormat("Authorizing {0}", requestContext.HttpContext.Request.Url);
 
 
             if (requestContext.RouteData.DataTokens.ContainsKey(DataTokenConstants.RequiresAuthorization)
@@ -60,7 +60,7 @@ namespace ASC.Api.Impl
 
             foreach (var apiAuthorization in authorizations)
             {
-                log.Debug("Authorizing with:{0}", apiAuthorization.GetType().ToString());
+                log.DebugFormat("Authorizing with:{0}", apiAuthorization.GetType().ToString());
                 if (apiAuthorization.Authorize(requestContext.HttpContext))
                 {
                     return GetHandler(requestContext);

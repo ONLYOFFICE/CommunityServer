@@ -34,8 +34,10 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Entities.Feed;
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
 {
@@ -105,7 +107,10 @@ namespace ASC.Feed.Aggregator.Modules.Projects
 
         public override bool VisibleFor(Feed feed, object data, Guid userId)
         {
-            return base.VisibleFor(feed, data, userId) && ProjectSecurity.CanGoToFeed((Message)data, userId);
+            using (var scope = DIHelper.Resolve())
+            {
+                return base.VisibleFor(feed, data, userId) && scope.Resolve<ProjectSecurity>().CanGoToFeed((Message)data, userId);
+            }
         }
 
         public override IEnumerable<Tuple<Feed, object>> GetFeeds(FeedFilter filter)

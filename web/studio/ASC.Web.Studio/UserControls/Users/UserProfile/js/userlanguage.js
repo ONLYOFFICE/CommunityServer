@@ -44,7 +44,18 @@ jq(function () {
 
     jq(".languageMenu ul.options li.option").on("click", function () {
         var lng = jq(this).attr('data');
-        
+
+        if (!lng) {
+            jq("#languageMenu").hide();
+            var switcher = jq(".usrLang").next(".HelpCenterSwitcher");
+            if (switcher.length)
+                setTimeout(function() {
+                    switcher.helper({ BlockHelperID: 'NotFoundLanguage' });
+                }, 0);
+
+            return;
+        }
+
         AjaxPro.UserLangController.SaveUserLanguageSettings(lng, function (res) {
             jq("#languageMenu").hide();
             

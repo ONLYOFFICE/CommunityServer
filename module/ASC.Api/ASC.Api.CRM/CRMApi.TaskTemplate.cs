@@ -47,7 +47,8 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     Task template container
         /// </returns>
-        ///<exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <visible>false</visible>
         [Create(@"{entityType:(contact|person|company|opportunity|case)}/tasktemplatecontainer")]
         public TaskTemplateContainerWrapper CreateTaskTemplateContainer(string entityType, string title)
         {
@@ -72,6 +73,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     Task template container list
         /// </returns>
+        /// <visible>false</visible>
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/tasktemplatecontainer")]
         public IEnumerable<TaskTemplateContainerWrapper> GetTaskTemplateContainers(string entityType)
         {
@@ -87,8 +89,9 @@ namespace ASC.Api.CRM
         /// <returns>
         ///    Deleted task template container
         /// </returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Delete(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper DeleteTaskTemplateContainer(int containerid)
         {
@@ -112,8 +115,9 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     Task template container
         /// </returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Update(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper UpdateTaskTemplateContainer(int containerid, string title)
         {
@@ -138,8 +142,9 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     Task template container
         /// </returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper GetTaskTemplateContainerByID(int containerid)
         {
@@ -160,8 +165,9 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     Task template list
         /// </returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public IEnumerable<TaskTemplateWrapper> GetTaskTemplates(int containerid)
         {
@@ -189,6 +195,7 @@ namespace ASC.Api.CRM
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Create(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public TaskTemplateWrapper CreateTaskTemplate(
             int containerid,
@@ -240,6 +247,7 @@ namespace ASC.Api.CRM
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Update(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public TaskTemplateWrapper UpdateTaskTemplate(
             int id,
@@ -288,6 +296,7 @@ namespace ASC.Api.CRM
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Delete(@"tasktemplatecontainer/tasktemplate/{id:[0-9]+}")]
         public TaskTemplateWrapper DeleteTaskTemplate(int id)
         {
@@ -312,6 +321,7 @@ namespace ASC.Api.CRM
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/tasktemplate/{id:[0-9]+}")]
         public TaskTemplateWrapper GetTaskTemplateByID(int id)
         {

@@ -24,18 +24,21 @@
 */
 
 
+using System;
+using System.Globalization;
+using System.Security.Authentication;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.UI;
 using ASC.Common.Caching;
 using ASC.Core;
+using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
-using System;
-using System.Security.Authentication;
-using System.Threading;
-using System.Web;
-using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 {
@@ -45,12 +48,18 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             get { return "~/UserControls/Common/AuthorizeDocs/AuthorizeDocs.ascx"; }
         }
+        public static string LocationCustomMode
+        {
+            get { return "~/UserControls/Common/AuthorizeDocs/AuthorizeDocsCustomMode.ascx"; }
+        }
 
         private readonly ICache cache = AscCache.Memory;
         protected string Login;
 
         protected string LoginMessage;
         protected int LoginMessageType = 0;
+
+        protected string HelpLink;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,11 +68,19 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less", "~/usercontrols/common/authorizedocs/css/slick.less")
                 .RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
-            Page.Title = Resource.AuthDocsTitlePage;
-            Page.MetaDescription = Resource.AuthDocsMetaDescription.HtmlEncode();
-            Page.MetaKeywords = Resource.AuthDocsMetaKeywords;
+            if (CoreContext.Configuration.CustomMode)
+                Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/custom-mode.less");
 
-            PersonalFooterHolder.Controls.Add(LoadControl(PersonalFooter.PersonalFooter.Location));
+            Page.Title = CoreContext.Configuration.CustomMode ? CustomModeResource.TitlePageNewCustomMode : Resource.AuthDocsTitlePage;
+            Page.MetaDescription = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaDescriptionCustomMode.HtmlEncode() : Resource.AuthDocsMetaDescription.HtmlEncode();
+            Page.MetaKeywords = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaKeywordsCustomMode : Resource.AuthDocsMetaKeywords;
+
+            HelpLink = GetHelpLink();
+
+            PersonalFooterHolder.Controls.Add(LoadControl(CoreContext.Configuration.CustomMode
+                                                   ? PersonalFooter.PersonalFooter.LocationCustomMode
+                                                   : PersonalFooter.PersonalFooter.Location));
+
             if (AccountLinkControl.IsNotEmpty)
             {
                 HolderLoginWithThirdParty.Controls.Add(LoadControl(LoginWithThirdParty.Location));
@@ -79,33 +96,46 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     var password = Request["pwd"];
                     if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(password))
                     {
+                        if (AccountLinkControl.IsNotEmpty
+                            && (Request.Url.GetProfile() != null
+                                || Request["__EVENTTARGET"] == "thirdPartyLogin"))
+                        {
+                            return;
+                        }
                         throw new InvalidCredentialException(Resource.InvalidUsernameOrPassword);
                     }
 
                     int counter;
-
                     int.TryParse(cache.Get<string>("loginsec/" + Login), out counter);
-
-                    if (++counter%5 == 0)
+                    if (++counter > 5)
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(10));
+                        throw new Authorize.BruteForceCredentialException();
                     }
-                    cache.Insert("loginsec/" + Login, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    cache.Insert("loginsec/" + Login, counter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
 
                     var cookiesKey = SecurityContext.AuthenticateMe(Login, password);
                     CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
                     MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
+
+                    cache.Insert("loginsec/" + Login, (--counter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
-                catch (InvalidCredentialException)
+                catch (InvalidCredentialException ex)
                 {
                     Auth.ProcessLogout();
-                    LoginMessage = Resource.InvalidUsernameOrPassword;
+                    var isBruteForce = (ex is Authorize.BruteForceCredentialException);
+                    LoginMessage = isBruteForce
+                                       ? Resource.LoginWithBruteForce
+                                       : Resource.InvalidUsernameOrPassword;
 
                     var loginName = string.IsNullOrWhiteSpace(Login) ? AuditResource.EmailNotSpecified : Login;
 
-                    MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.LoginFailInvalidCombination);
+                    var messageAction = isBruteForce
+                                            ? MessageAction.LoginFailBruteForce
+                                            : MessageAction.LoginFailInvalidCombination;
+
+                    MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
 
                     return;
                 }
@@ -146,6 +176,16 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                 LoginMessage = Resource.MessageEmailConfirmed + " " + Resource.MessageAuthorize;
                 LoginMessageType = 1;
             }
+        }
+
+        private static string GetHelpLink()
+        {
+            var baseHelpLink = CommonLinkUtility.GetHelpLink();
+
+            if (string.IsNullOrEmpty(baseHelpLink))
+                baseHelpLink = WebConfigurationManager.AppSettings["web.faq-url"] ?? string.Empty;
+
+            return baseHelpLink.TrimEnd('/');
         }
     }
 }

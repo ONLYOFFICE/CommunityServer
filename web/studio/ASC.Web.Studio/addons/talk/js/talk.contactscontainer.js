@@ -297,6 +297,15 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       ASC.TMTalk.dom.removeClass(toolbarContainer, 'unread-messages');
       setTimeout(function () {ASC.TMTalk.indicator.stop()}, 300);
     }
+      
+    var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+    if (openedRooms[jid] != undefined) {
+        openedRooms[jid].unreadMessages = 0;
+        openedRooms[jid].unreadOfflineMessages = 0;
+        localStorageManager.setItem("openedRooms", openedRooms);
+    }
+
+    ASC.TMTalk.connectionManager.clearUnreadMessage(ASC.TMTalk.connectionManager.getJid(), ASC.TMTalk.roomsManager.getRoomData().id);
   };
 
   var getOpeningConferenceCallback = function (cid) {
@@ -358,7 +367,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.sentMessageToChat, onSentMessage);
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvMessageFromChat, onRecvMessage);
     ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvMessageFromChat, onRecvMessageFromChat);
-    ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvOfflineMessagesFromChat, onRecvMessageFromChat);
+    ASC.TMTalk.messagesManager.bind(ASC.TMTalk.messagesManager.events.recvOfflineMessagesFromChat, onRecvOfflineMessageFromChat);
 
     ASC.TMTalk.indicator.bind(ASC.TMTalk.indicator.events.start, onStartIndicator);
     ASC.TMTalk.indicator.bind(ASC.TMTalk.indicator.events.show, onShowIndicator);
@@ -838,13 +847,21 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
             ASC.TMTalk.dom.removeClass(state[0], 'few-message');
         }
         state[0].innerHTML = userUnreadMessages.toString();
-
+        
+        //hack for safari
+        if (jQuery.browser.safari && node.getAttribute('data-roomid')) {
+            jQuery(node).html(jQuery(node).html());
+        }
+     
         if (forHiddenTabs) {
             return userUnreadMessages;
         }
     };
-    
-  var onRecvMessageFromChat = function (jid) {
+
+  var onRecvOfflineMessageFromChat = function (jid, unreadMessagesArr) {
+        onRecvMessageFromChat(jid, unreadMessagesArr, true);
+    };
+  var onRecvMessageFromChat = function (jid, unreadMessagesArr, isOffline) {
     if (!roomIds.hasOwnProperty(jid)) {
       var inBackground = false;
       for (var fld in roomIds) {
@@ -863,7 +880,42 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       tabs = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'tab', 'li');
       nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'contact', 'li');
       nodesInd = nodes.length;
-      unreadMessages.push({ cid: jid, type: 'chat' });
+      var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+      
+      if (typeof unreadMessagesArr == 'object' && unreadMessagesArr.length > 0) {
+          //add only new offline messages
+          if (isOffline == true) {
+              if (openedRooms[jid].unreadOfflineMessages < unreadMessagesArr.length) {
+                  var diffOfflineMessages = unreadMessagesArr.length - openedRooms[jid].unreadOfflineMessages;
+                  for (var i = 0; i < diffOfflineMessages; i++) {
+                      unreadMessages.push({ cid: jid, type: 'chat' });
+                      openedRooms[jid].unreadOfflineMessages = openedRooms[jid].unreadOfflineMessages + 1;
+                      openedRooms[jid].unreadMessages = openedRooms[jid].unreadMessages + 1;
+                  }
+              }
+              
+          } else {
+              for (var i = 0; i < unreadMessagesArr.length; i++) {
+                  unreadMessages.push({ cid: jid, type: 'chat' });
+                  openedRooms[jid].unreadMessages = openedRooms[jid].unreadMessages + 1;
+              }
+          }
+      } else {
+          if (isOffline == true) {
+              if (openedRooms[jid].unreadOfflineMessages < unreadMessagesArr.length) {
+                  unreadMessages.push({ cid: jid, type: 'chat' });
+                  openedRooms[jid].unreadMessages = openedRooms[jid].unreadMessages + 1;
+                  openedRooms[jid].unreadOfflineMessages = openedRooms[jid].unreadOfflineMessages + 1;
+              }
+          } else {
+              unreadMessages.push({ cid: jid, type: 'chat' });
+              openedRooms[jid].unreadMessages = openedRooms[jid].unreadMessages + 1;
+          }
+          
+      }
+     
+      localStorageManager.setItem("openedRooms", openedRooms);
+
       while (nodesInd--) {
           
           
@@ -1352,6 +1404,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
   };
 
   var openRoom = function (jid, inBackground) {
+    var isNewRoom = ASC.TMTalk.roomsManager.getRoomDataById(jid) == null ? true : false;
     if (!roomIds.hasOwnProperty(jid)) {
       ASC.TMTalk.roomsManager.createRoom({
         type : 'chat',
@@ -1362,6 +1415,45 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     if (roomIds.hasOwnProperty(jid)) {
       ASC.TMTalk.roomsManager.openRoom(roomIds[jid].id, inBackground === true);
     }
+    var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+    var _unreadMessages = openedRooms[jid] != undefined ? openedRooms[jid].unreadMessages : 0;
+    var _unreadOfflineMessages = openedRooms[jid] != undefined ? openedRooms[jid].unreadOfflineMessages : 0;
+
+      openedRooms[jid] = {
+          type: 'chat',
+          inBackground: inBackground === true,
+          unreadOfflineMessages: _unreadOfflineMessages,
+          unreadMessages: _unreadMessages
+      };
+      if (((openedRooms[jid].inBackground && openedRooms[jid].unreadMessages > 0) || (!TMTalk.properties.focused && openedRooms[jid].unreadMessages > 0)) && isNewRoom) {
+        var tabs = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'tab', 'li');
+        var nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'contact', 'li');
+        
+        var tabsInd = tabs.length;
+        var nodesInd = nodes.length;
+        for (var i = 0; i < openedRooms[jid].unreadMessages; i++) {
+            unreadMessages.push({ cid: jid, type: "chat" });
+        }
+        
+        while (nodesInd--) {
+            if (nodes[nodesInd].getAttribute('data-cid') === jid) {
+                var contactList = jq(nodes[nodesInd])[0].parentElement;
+                var group = jq(contactList)[0].parentElement;
+                findUnreadMessages(nodes[nodesInd], jid);
+                ASC.TMTalk.dom.addClass(nodes[nodesInd], 'new-message');
+                countUnreadMessagesGroup(group);
+            }
+        }
+        
+        while (tabsInd--) {
+            if (tabs[tabsInd].getAttribute('data-cid') === jid) {
+                ASC.TMTalk.dom.addClass(tabs[tabsInd], 'new-message');
+                findUnreadMessages(tabs[tabsInd], jid);
+                break;
+            }
+        }
+    }
+    localStorageManager.setItem("openedRooms", openedRooms);
   };
 
   var openItem = function (cid, inBackground) {
@@ -1408,17 +1500,25 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     switch (data.type) {
       case 'chat' :
         if (inBackground !== true) {
-          if (TMTalk.properties.focused) {
-            readMessages(data.id);
-          }
+            var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
 
-          var contact = ASC.TMTalk.contactsManager.getContact(jid);
-          if (contact !== null) {
-            ASC.TMTalk.tabsContainer.resetStatus('chat', {department : contact.group, message : contact.status, show : contact.show}, 1);
-          }
+            if (TMTalk.properties.focused) {
+                if (openedRooms[jid] != undefined) {
+                    openedRooms[jid].inBackground = false;
+                    openedRooms[jid].unreadMessages = 0;
+                    openedRooms[jid].unreadOfflineMessages = 0;
+                    localStorageManager.setItem("openedRooms", openedRooms);
+                }
+                readMessages(data.id);
+            }
 
-          ASC.TMTalk.dom.removeClass(contactlistContainer, 'mailing');
-          ASC.TMTalk.dom.removeClass(contactlistContainer, 'conference');
+            var contact = ASC.TMTalk.contactsManager.getContact(jid);
+            if (contact !== null) {
+                ASC.TMTalk.tabsContainer.resetStatus('chat', {department : contact.group, message : contact.status, show : contact.show}, 1);
+            }
+
+            ASC.TMTalk.dom.removeClass(contactlistContainer, 'mailing');
+            ASC.TMTalk.dom.removeClass(contactlistContainer, 'conference');
         }
         break;
       case 'conference' :
@@ -1474,11 +1574,20 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         }
         break;
     }
+    var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+    delete openedRooms[data.id];
+    localStorageManager.setItem("openedRooms", openedRooms);
+ 
   };
 
   var onClientConnecting = function () {
-    $('#talkStatusMenu').addClass('processing');
-    $('#talkContactsContainer').removeClass('processing');
+      if(!$('#talkStatusMenu').hasClass('processing'))
+      {
+          $('#talkStatusMenu').addClass('processing');
+          $('#talkContactsContainer').addClass('processing');
+          $('#talkStartSplash').hide();
+      }
+    
   //  ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientConnecting});
   };
 
@@ -1488,9 +1597,13 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#button-clear-files').bind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');
     $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').bind('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkStatusMenu').removeClass('processing');
-    if ($('#talkContactsContainer').find('li.contact:not(.default)').length === 0) {
+    $('#talkContactsContainer').removeClass('processing');
+      
+    $('#talkContentContainer.disabled #talkStartSplash').show();
+    
+    /*if ($('#talkContactsContainer').find('li.contact:not(.default)').length === 0) {
       $('#talkContactsContainer').addClass('processing');
-    }
+    }*/
 
    // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintSelectContact});
     ASC.TMTalk.sounds.play('startup');
@@ -1498,8 +1611,9 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
   var onClientDisconnecting = function () {
     $('#talkStatusMenu').addClass('processing');
-    $('#talkContactsContainer').removeClass('processing');
+    $('#talkContactsContainer').addClass('processing');
     $('#talkRoomsContainer').removeClass('searchmessage');
+    $('#talkStartSplash').hide();
   };
 
   var onClientDisconnected = function () {
@@ -1508,10 +1622,14 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#button-clear-files').unbind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
     $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').unbind('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkRoomsContainer').removeClass('searchmessage');
-    $('#talkStatusMenu').removeClass('processing');
-    $('#talkContactsContainer').removeClass('processing');
+    //$('#talkStatusMenu').removeClass('processing');
+    //$('#talkContactsContainer').removeClass('processing');
    // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
     
+    if (ASC.TMTalk.connectionManager.conflict == false) {
+        ASC.TMTalk.connectionManager.status(1);
+    }
+
     ASC.TMTalk.sounds.play('letup');
   };
 
@@ -1521,17 +1639,18 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#button-clear-files').unbind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
     $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').unbind('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkRoomsContainer').removeClass('searchmessage');
-    $('#talkStatusMenu').removeClass('processing');
-    $('#talkContactsContainer').removeClass('processing');
-  //  ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
+    //$('#talkStatusMenu').removeClass('processing');
+    //$('#talkContactsContainer').removeClass('processing');
+    //ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
 
-    ASC.TMTalk.connectionManager.bind(ASC.TMTalk.connectionManager.events.disconnected, (function (status, timeout) {
+    setTimeout(function () { ASC.TMTalk.connectionManager.status(Strophe.Status.CONNECTING); }, timeout * 1000);
+    /*ASC.TMTalk.connectionManager.bind(ASC.TMTalk.connectionManager.events.disconnected, (function (status, timeout) {
       return function () {
         if (status !== null) {
           setTimeout(function(){ASC.TMTalk.connectionManager.status(status.id)}, timeout * 1000);
         }
       };
-    })(ASC.TMTalk.connectionManager.status(), reconnectTimeout), {once : true});
+    })(ASC.TMTalk.connectionManager.status(), reconnectTimeout), {once : true});*/
   };
     
   document.addEventListener('copy', function (e) {
@@ -1550,34 +1669,114 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
       var copyFragment = $(fragment)[0];
       var firstCopyElement = null;
-      if (copyFragment.hasChildNodes) {
+      var copyElements, firstChildFragment, newCopyFragment;
+      var time, day, title, body, daysplit;
+      
+      if (copyFragment.hasChildNodes()) {
           firstCopyElement = copyFragment.firstChild;
           if (firstCopyElement.nodeName == 'LI' && $(firstCopyElement).hasClass('message')) {
-              var copyElements = copyFragment.childNodes;
-              var newCopyFragment = "";
-              for (var i = 0; i < copyElements.length; i++) {
-                  var daysplit = $(copyElements[i]).find('span.daysplit span.value').not('.hidden');
+              copyFragment.firstChild.remove();
+              copyElements = copyFragment.childNodes;
+              firstChildFragment = $(window.getSelection().getRangeAt(0).startContainer).parents('.message.paragraph')[0];
+              newCopyFragment = "";
+              
+              if (firstChildFragment) {
+                  daysplit = $(firstChildFragment).find('span.daysplit span.value').not('.hidden');
                   if (daysplit.length != 0 && daysplit[0].innerText != "") {
                       newCopyFragment += "---" + daysplit[0].innerText + "---" + '\n';
                   }
 
-                  var time = $(copyElements[i]).find('div.message-container div.date');
-                  var day = $(copyElements[i]).find('span.daysplit span.value').attr('date') ? $(copyElements[i]).find('span.daysplit span.value').attr('date'):"";
+                  time = $(firstChildFragment).find('div.message-container div.date');
+                  day = $(firstChildFragment).find('span.daysplit span.value').attr('date');
                   if (time.length != 0 && time[0].innerText != "") {
-                      newCopyFragment += "["+day+" "+ time[0].innerText.replace(/\s/g, '') + "] ";
+                      newCopyFragment += "[" + day + " " + time[0].innerText.replace(/\s/g, '') + "] ";
+                  }
+
+                  title = $(firstChildFragment).find('div.message-container div.message div.head span.title');
+                  if (title.length != 0 && title[0].innerText != "") {
+                      newCopyFragment += title[0].innerText + '\n';
+                  }
+
+                  body = $(firstChildFragment).find('div.message-container div.message div.body');
+                  if (body.length != 0 && body[0].innerText != "") {
+                      newCopyFragment += body[0].innerText + '\n';
+                  }
+              }
+              
+              for (var i = 0; i < copyElements.length; i++) {
+                  daysplit = $(copyElements[i]).find('span.daysplit span.value').not('.hidden');
+                  if (daysplit.length != 0 && daysplit[0].innerText != "") {
+                      newCopyFragment += "---" + daysplit[0].innerText + "---" + '\n';
+                  }
+
+                  time = $(copyElements[i]).find('div.message-container div.date');
+                  day = $(copyElements[i]).find('span.daysplit span.value').attr('date') ? $(copyElements[i]).find('span.daysplit span.value').attr('date') : "123";
+                  if (time.length != 0 && time[0].innerText != "") {
+                      newCopyFragment += "[" + day + " " + time[0].innerText.replace(/\s/g, '') + "] ";
                   }
                   
-                  var title = $(copyElements[i]).find('div.message-container div.message div.head span.title');
+                  title = $(copyElements[i]).find('div.message-container div.message div.head span.title');
                   if (title.length != 0 && title[0].innerText != "") {
                       newCopyFragment += title[0].innerText + '\n';
                   }
                   
-                  var body = $(copyElements[i]).find('div.message-container div.message div.body');
+                  body = $(copyElements[i]).find('div.message-container div.message div.body');
                   if (body.length != 0 && body[0].innerText != "") {
                       newCopyFragment += body[0].innerText + '\n';
                   }
               }
               return newCopyFragment;
+          } else if (firstCopyElement.nodeName == 'SPAN' && $(firstCopyElement).hasClass('daysplit')) {
+              copyElements = copyFragment.childNodes;
+              newCopyFragment = "";
+              
+              for (var i = 0; i < copyElements.length; i++) {
+                  var $copyElement = $(copyElements[i]);
+                  if ($copyElement.hasClass('daysplit')) {
+                      day = $copyElement.find('span.value').attr('date') ? $copyElement.find('span.value').attr('date') : "";
+                  } else if ($copyElement.hasClass('message-container')) {
+                      time = $copyElement.find('div.date');
+                      if (time.length != 0 && time[0].innerText != "") {
+                          newCopyFragment += "[" + day + " " + time[0].innerText.replace(/\s/g, '') + "] ";
+                      }
+                      title = $copyElement.find('div.message div.head span.title');
+                      if (title.length != 0 && title[0].innerText != "") {
+                          newCopyFragment += title[0].innerText + '\n';
+                      }
+
+                      body = $copyElement.find('div.message div.body');
+                      if (body.length != 0 && body[0].innerText != "") {
+                          newCopyFragment += body[0].innerText + '\n';
+                      }
+                  }
+              }
+              return newCopyFragment;
+          } else if (firstCopyElement.nodeName == 'DIV' && ($(firstCopyElement).hasClass('message') || $(firstCopyElement).hasClass('date'))) {
+
+              firstChildFragment = $(window.getSelection().getRangeAt(0).startContainer).parents('.message.paragraph')[0];
+              newCopyFragment = "";
+              daysplit = $(firstChildFragment).find('span.daysplit span.value').not('.hidden');
+              if (daysplit.length != 0 && daysplit[0].innerText != "") {
+                  newCopyFragment += "---" + daysplit[0].innerText + "---" + '\n';
+              }
+
+              time = $(firstChildFragment).find('div.message-container div.date');
+              day = $(firstChildFragment).find('span.daysplit span.value').attr('date');
+              if (time.length != 0 && time[0].innerText != "") {
+                  newCopyFragment += "[" + day + " " + time[0].innerText.replace(/\s/g, '') + "] ";
+              }
+
+              title = $(firstChildFragment).find('div.message-container div.message div.head span.title');
+              if (title.length != 0 && title[0].innerText != "") {
+                  newCopyFragment += title[0].innerText + '\n';
+              }
+
+              body = $(firstChildFragment).find('div.message-container div.message div.body');
+              if (body.length != 0 && body[0].innerText != "") {
+                  newCopyFragment += body[0].innerText + '\n';
+              }
+              return  newCopyFragment;
+              
           } else return null;
       } else return null;
   };
@@ -1766,6 +1965,23 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     if ($.support.iscroll) {
       clScroller = new iScroll('talkContactsContainer');
     }
+    setTimeout(function() {
+        var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+        for (key in openedRooms) {
+            var nodes = ASC.TMTalk.dom.getElementsByClassName(document.getElementById('talkContactsContainer'), 'contact', 'li');
+            var nodesInd = nodes.length;
+            while (nodesInd--) {
+                if (nodes[nodesInd].getAttribute('data-cid') === key && openedRooms[key].unreadMessages > 0) {
+                    var contactList = jq(nodes[nodesInd])[0].parentElement;
+                    var group = jq(contactList)[0].parentElement;
+                    ASC.TMTalk.contactsContainer.findUnreadMessages(nodes[nodesInd], key);
+                    ASC.TMTalk.dom.addClass(nodes[nodesInd], 'new-message');
+                    ASC.TMTalk.contactsContainer.countUnreadMessagesGroup(group);
+                }
+            }
+        }
+    }, 500);
+
   };
 
   var onGetLists = function (mailinglists) {
@@ -2565,7 +2781,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
   $(function () {
     ASC.TMTalk.contactsContainer.nodes();
-
+    var isOnlineTimerId, fromOffline = false;
     if ($.browser.safari) {
       $('#talkContactToolbarContainer div.unread-messages:first div.button-container').mousedown(function () {
         if (window.getSelection) {
@@ -2596,7 +2812,22 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
       var lastStatusId = ASC.TMTalk.properties.item(ASC.TMTalk.contactsContainer.constants.propertyStatusId);
       lastStatusId = isFinite(+lastStatusId) ? +lastStatusId : ASC.TMTalk.connectionManager.onlineStatusId;
-      setTimeout((function (statusId) {return function () {ASC.TMTalk.connectionManager.status(statusId)}})(lastStatusId), 100);
+      setTimeout((function (statusId) { return function () { ASC.TMTalk.connectionManager.status(Strophe.Status.CONNECTING); } })(ASC.TMTalk.connectionManager.onlineStatusId), 100);
+      
+      isOnlineTimerId = setTimeout(function tick() {
+          if (navigator.onLine) {
+              if (fromOffline) {
+                  ASC.TMTalk.connectionManager.status(ASC.TMTalk.connectionManager.onlineStatusId);
+              }
+              fromOffline = false;
+          } else {
+              if (!fromOffline) {
+                  ASC.TMTalk.connectionManager.status(ASC.TMTalk.connectionManager.offlineStatusId);
+                  fromOffline = true;
+              }
+          }
+          isOnlineTimerId = setTimeout(tick, 5000);
+      }, 5000);
     }
     
     if (ASC.TMTalk.sounds.supported()) {
@@ -2646,10 +2877,6 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     } else {
         $('#talkSidebarContainer').removeClass('contactlist').addClass('grouplist');
         $('#button-list-contacts-groups').removeClass('off').addClass('on');
-    }
-
-    if ($.support.iscroll) {
-      $('#talkSidebarContainer').removeClass('grouplist').addClass('contactlist');
     }
 
     ASC.TMTalk.properties.item('enblfltr', '0');
@@ -2762,7 +2989,110 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
           evt.originalEvent.stopPropagation ? evt.originalEvent.stopPropagation() : evt.originalEvent.cancelBubble = true;
         }
       });
+    var ismousemove = false;
+    function simulateTouchEvents(oo, bIgnoreChilds) {
+        if (!$(oo)[0])
+        { return false; }
 
+        if (!window.__touchTypes) {
+            window.__touchTypes = { touchstart: 'mousedown', touchmove: 'mousemove', touchend: 'mouseup' };
+            window.__touchInputs = { INPUT: 1, TEXTAREA: 1, SELECT: 1, OPTION: 1, 'input': 1, 'textarea': 1, 'select': 1, 'option': 1 };
+        }
+
+        $(oo).bind('touchstart touchmove touchend', function (ev) {
+            
+            if (ismousemove) {
+                var bSame = (ev.target == this);
+                if (bIgnoreChilds && !bSame)
+                { return; }
+
+                var b = (!bSame && ev.target.__ajqmeclk),
+                    e = ev.originalEvent;
+                if (b === true || !e.touches || e.touches.length > 1 || !window.__touchTypes[e.type])
+                { return; }
+
+                var oEv = (!bSame && typeof b != 'boolean') ? $(ev.target).data('events') : false,
+                    b = (!bSame) ? (ev.target.__ajqmeclk = oEv ? (oEv['click'] || oEv['mousedown'] || oEv['mouseup'] || oEv['mousemove']) : false) : false;
+
+                if (b || window.__touchInputs[ev.target.tagName])
+                { return; }
+
+                var touch = e.changedTouches[0], newEvent = document.createEvent("MouseEvent");
+                newEvent.initMouseEvent(window.__touchTypes[e.type], true, true, window, 1,
+                        touch.screenX, touch.screenY,
+                        touch.clientX, touch.clientY, false,
+                        false, false, false, 0, null);
+
+                touch.target.dispatchEvent(newEvent);
+                
+                if (ev.type == "touchend") {
+                    $('#talkContactsContainer').off('touchstart touchmove touchend');
+                    $('#talkContactsContainer').on('touchstart', touchstart);
+                    $('#talkContactsContainer').on('touchend', touchend);
+                    ismousemove = false;
+                }
+
+                e.preventDefault();
+                ev.stopImmediatePropagation();
+                ev.stopPropagation();
+                ev.preventDefault();
+            }
+
+        });
+        return true;
+    };
+
+    var timer, lockTimer;
+    var touchduration = 1000;
+    function sendTouchEvent(x, y, element, eventType) {
+          var touchObj = new Touch({
+              identifier: Date.now(),
+              target: element,
+              clientX: x,
+              clientY: y,
+              radiusX: 2.5,
+              radiusY: 2.5,
+              rotationAngle: 10,
+              force: 0.5,
+          });
+
+          var touchEvent = new TouchEvent(eventType, {
+              cancelable: true,
+              bubbles: true,
+              touches: [touchObj],
+              targetTouches: [],
+              changedTouches: [touchObj],
+              shiftKey: true,
+          });
+
+        element.dispatchEvent(touchEvent);
+    }
+
+    var touchstart = function(e) {
+        var pageX = e.originalEvent.touches[0].pageX,
+            pageY = e.originalEvent.touches[0].pageY;
+
+        if (lockTimer) {
+            return;
+        }
+        timer = setTimeout(function(parameters) {
+            ismousemove = true;
+            simulateTouchEvents($('#talkContactsContainer')[0]);
+            setTimeout(function() {
+                sendTouchEvent(pageX, pageY, $(e.target)[0], 'touchstart');
+                navigator.vibrate(50);
+            }, 100);
+        }, touchduration);
+        lockTimer = true;
+    };
+    var touchend = function(e) {
+          if (timer) {
+              clearTimeout(timer);
+              lockTimer = false;
+          }
+    };
+    $('#talkContactsContainer').on('touchstart', touchstart);
+    $('#talkContactsContainer').on('touchend', touchend);
     $('#talkContactsContainer')
       .mousedown(function (evt) {
         var element = evt.target;

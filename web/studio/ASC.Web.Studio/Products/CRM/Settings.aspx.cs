@@ -86,6 +86,7 @@ namespace ASC.Web.CRM
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedCategory;
                     listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextTaskCategory;
                     listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextTaskCategoryEditDelete;
+                    listItemViewControl.HeaderText = CRMTaskResource.TaskCategories;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
                     titlePage = CRMTaskResource.TaskCategories;
                     break;
@@ -102,6 +103,7 @@ namespace ASC.Web.CRM
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedCategory;
                     listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextHistoryCategory;
                     listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextHistoryCategoryEditDelete;
+                    listItemViewControl.HeaderText = CRMSettingResource.HistoryCategories;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
                     titlePage = CRMSettingResource.HistoryCategories;
                     break;
@@ -119,6 +121,7 @@ namespace ASC.Web.CRM
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedContactStage;
                     listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextContactStage;
                     listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactStageEditDelete;
+                    listItemViewControl.HeaderText = CRMContactResource.ContactStages;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
                     titlePage = CRMContactResource.ContactStages;
                     break;
@@ -136,6 +139,7 @@ namespace ASC.Web.CRM
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedContactType;
                     listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextContactType;
                     listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactTypeEditDelete;
+                    listItemViewControl.HeaderText = CRMSettingResource.ContactTypes;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
                     titlePage = CRMSettingResource.ContactTypes;
                     break;

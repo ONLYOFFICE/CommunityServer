@@ -24,100 +24,95 @@
 */
 
 
+using System;
 using System.Configuration;
+using System.Linq;
+using ASC.Common.DependencyInjection;
+using Autofac;
 
-namespace ASC.Thrdparty.Configuration
+namespace ASC.Core.Common.Configuration
 {
     public class ConsumerConfigurationSection : ConfigurationSection
     {
-        public const string SectionName = "consumers";
+        private const string ComponentsPropertyName = "components";
 
-        [ConfigurationProperty("keys")]
-        public KeyElementCollection Keys
+        [ConfigurationProperty(ComponentsPropertyName, IsRequired = false)]
+        public ConsumersElementCollection Containers
         {
-            get { return (KeyElementCollection)base["keys"]; }
-            set { base["keys"] = value; }
+            get
+        {
+                return (ConsumersElementCollection)this[ComponentsPropertyName];
         }
+    }
+    }
 
-        public static ConsumerConfigurationSection GetSection()
+    public class ConsumersElementCollection : ConfigurationElementCollection<ConsumerElement>
+    {
+        [ConfigurationProperty("name", IsRequired = false)]
+        public string Name { get { return (string)this["name"]; } }
+
+        public ConsumersElementCollection()
+            : base("component")
         {
-            return (ConsumerConfigurationSection)ConfigurationManager.GetSection(SectionName);
         }
     }
 
-    public class KeyElementCollection : ConfigurationElementCollection
+    public class ConsumerElement : ComponentElement
+        {
+        public const string OrderElement = "order";
+        public const string PropsElement = "props";
+        public const string AdditionalElement = "additional";
+
+        [ConfigurationProperty(OrderElement, IsRequired = false)]
+        public int Order { get { return Convert.ToInt32(this[OrderElement]); } }
+
+        [ConfigurationProperty(PropsElement, IsRequired = false)]
+        public DictionaryElementCollection Props { get { return this[PropsElement] as DictionaryElementCollection; } }
+
+        [ConfigurationProperty(AdditionalElement, IsRequired = false)]
+        public DictionaryElementCollection Additional { get { return this[AdditionalElement] as DictionaryElementCollection; } }
+        }
+
+    public class ConsumerConfigLoader
     {
-        protected override ConfigurationElement CreateNewElement()
+        public static ContainerBuilder LoadConsumers(string section)
         {
-            return new KeyElement();
+            var container = new ContainerBuilder();
+
+            var autofacConfigurationSection = (ConsumerConfigurationSection)ConfigurationManager.GetSection(section);
+
+            foreach (var component in autofacConfigurationSection.Containers)
+        {
+                var componentType = Type.GetType(component.Type);
+                var builder = container.RegisterType(componentType)
+                    .AsSelf()
+                    .As<Consumer>()
+                    .SingleInstance();
+
+                if (!string.IsNullOrEmpty(component.Name))
+        {
+                    builder
+                        .Named<Consumer>(component.Name)
+                        .Named(component.Name, componentType)
+                        .Named<Consumer>(component.Name.ToLower())
+                        .Named(component.Name.ToLower(), componentType);
         }
 
-        protected override object GetElementKey(ConfigurationElement element)
+                builder.WithParameter(new NamedParameter("name", component.Name));
+                builder.WithParameter(new NamedParameter(ConsumerElement.OrderElement, component.Order));
+
+                if (component.Props != null && component.Props.Any())
         {
-            return ((KeyElement)element).Name;
+                    builder.WithParameter(new NamedParameter(ConsumerElement.PropsElement, component.Props.ToDictionary(r => r.Key, r => r.Value)));
         }
 
-        public KeyElement GetKey(string name)
+                if (component.Additional != null && component.Additional.Any())
         {
-            return BaseGet(name) as KeyElement;
+                    builder.WithParameter(new NamedParameter(ConsumerElement.AdditionalElement, component.Additional.ToDictionary(r => r.Key, r => r.Value)));
         }
+            }
 
-        public string GetKeyValue(string name)
-        {
-            var keyElement = GetKey(name);
-            return keyElement != null ? keyElement.Value : string.Empty;
-        }
-    }
-
-    public class KeyElement : ConfigurationElement
-    {
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
-        public string Name
-        {
-            get { return (string)base["name"]; }
-            set { base["name"] = value; }
-        }
-
-        [ConfigurationProperty("value", DefaultValue = "")]
-        public string Value
-        {
-            get { return (string)base["value"]; }
-            set { base["value"] = value; }
-        }
-
-        [ConfigurationProperty("consumer")]
-        public string ConsumerName
-        {
-            get { return (string)base["consumer"]; }
-            set { base["consumer"] = value; }
-        }
-
-        [ConfigurationProperty("type", DefaultValue = KeyType.Default)]
-        public KeyType Type
-        {
-            get { return (KeyType)base["type"]; }
-            set { base["type"] = value; }
-        }
-
-        [ConfigurationProperty("order")]
-        public int? Order
-        {
-            get { return (int?)base["order"]; }
-            set { base["order"] = value; }
-        }
-
-        public override bool IsReadOnly()
-        {
-            return false;
-        }
-
-        public enum KeyType
-        {
-            Default,
-            Key,
-            Secret,
-            KeyDefault,
-            SecretDefault,
+            return container;
         }
     }
 }

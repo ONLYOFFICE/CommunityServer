@@ -28,6 +28,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
 using ASC.Data.Storage;
 using ASC.Web.Core;
@@ -163,7 +164,7 @@ namespace ASC.Web.CRM.Classes
 
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.CRM").ErrorFormat("TryUploadOrganisationLogoFromTmp failed with error: {0}", ex);
+                LogManager.GetLogger("ASC.CRM").ErrorFormat("TryUploadOrganisationLogoFromTmp failed with error: {0}", ex);
                 return 0;
             }
         }

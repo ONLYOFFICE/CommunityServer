@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvitePanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.InvitePanel" %>
-<%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
+<%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
@@ -32,7 +33,7 @@
 
                     <span id="shareInviteUserLinkCopy" class="baseLinkAction text-medium-describe"><%= Resource.CopyToClipboard %></span>
 
-                    <% if (BitlyLoginProvider.Enabled)
+                    <% if (UrlShortener.Enabled)
                        { %>
                     <span id="getShortenInviteLink" class="baseLinkAction text-medium-describe"><%= Resource.GetShortenLink %></span>
                     <% } %>
@@ -52,13 +53,11 @@
                 </div>
             </div>
         </div>
-
+        <% if (CompanyWhiteLabelSettings.Instance.IsDefault) { %>
         <ul id="shareInviteLinkViaSocPanel" class="clearFix">
             <li><a class="facebook" target="_blank" title="<%= Resource.TitleFacebook %>"></a></li>
             <li><a class="twitter" target="_blank" title="<%= Resource.TitleTwitter %>"></a></li>
-            <li><a class="google" target="_blank" title="<%= Resource.TitleGoogle %>"></a></li>
         </ul>
-
-
+        <% } %>
     </div>
 </div>

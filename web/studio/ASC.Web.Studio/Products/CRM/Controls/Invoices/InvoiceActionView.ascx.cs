@@ -39,6 +39,7 @@ using ASC.Web.CRM.Resources;
 using ASC.CRM.Core;
 using ASC.Web.Studio.Core;
 using System.Web;
+using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
 using ASC.Web.Studio.Utility;
@@ -162,7 +163,7 @@ namespace ASC.Web.CRM.Controls.Invoices
             catch (Exception ex)
             {
                 if (!(ex is InvoiceValidationException))
-                    log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                    LogManager.GetLogger("ASC.CRM").Error(ex);
 
                 var cookie = HttpContext.Current.Request.Cookies.Get(ErrorCookieKey);
                 if (cookie == null)

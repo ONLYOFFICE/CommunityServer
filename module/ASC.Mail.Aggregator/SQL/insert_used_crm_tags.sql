@@ -1,1 +1,0 @@
-insert mail_tag (tenant, id_user, name, addresses, crm_id) select tenant, id_user, '', '', -id_tag from mail_tag_mail where id_tag < 0 group by id_tag;

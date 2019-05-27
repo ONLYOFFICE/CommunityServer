@@ -1,1 +1,0 @@
-update mail_tag t set t.count = (select count(*) from mail_tag_mail tm where tm.tenant = t.tenant and tm.id_user = t.id_user and ((t.crm_id = 0 and tm.id_tag = t.id) or (t.crm_id > 0 and tm.id_tag = -t.crm_id)));

@@ -33,7 +33,9 @@ using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
+using ASC.ElasticSearch;
 using ASC.MessagingSystem;
+using ASC.Web.CRM.Core.Search;
 using Newtonsoft.Json;
 
 namespace ASC.Api.CRM
@@ -218,7 +220,7 @@ namespace ASC.Api.CRM
                 contactInfo.ContactID = contactid;
             }
 
-            var ids = DaoFactory.ContactInfoDao.SaveList(contactInfoList);
+            var ids = DaoFactory.ContactInfoDao.SaveList(contactInfoList, contact);
 
             for (var index = 0; index < itemsList.Count; index++)
             {
@@ -330,7 +332,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.ContactInfoDao.DeleteByContact(contactid);
-            var ids = DaoFactory.ContactInfoDao.SaveList(contactInfoList);
+            var ids = DaoFactory.ContactInfoDao.SaveList(contactInfoList, contact);
 
             for (var index = 0; index < itemsList.Count; index++)
             {
@@ -391,6 +393,12 @@ namespace ASC.Api.CRM
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
             MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
+
+            if (contactInfo.InfoType == ContactInfoType.Email)
+            {
+                FactoryIndexer<EmailWrapper>.DeleteAsync(EmailWrapper.ToEmailWrapper(contact, new List<ContactInfo> { contactInfo}));
+            }
+            FactoryIndexer<InfoWrapper>.DeleteAsync(contactInfo);
 
             return wrapper;
         }

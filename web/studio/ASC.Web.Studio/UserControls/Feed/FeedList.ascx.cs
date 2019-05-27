@@ -34,11 +34,6 @@ namespace ASC.Web.Studio.UserControls.Feed
 {
     public partial class FeedList : UserControl
     {
-        private static Guid User
-        {
-            get { return SecurityContext.CurrentAccount.ID; }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts("~/usercontrols/feed/js/feed.js", "~/usercontrols/feed/js/feed.filter.js")
@@ -53,13 +48,12 @@ namespace ASC.Web.Studio.UserControls.Feed
 
         public static string AccessRights()
         {
-            return string.Join(",", new[]
-                {
-                    WebItemSecurity.IsAvailableForUser(WebItemManager.CommunityProductID.ToString(), User).ToString(),
-                    WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), User).ToString(),
-                    WebItemSecurity.IsAvailableForUser(WebItemManager.ProjectsProductID.ToString(), User).ToString(),
-                    WebItemSecurity.IsAvailableForUser(WebItemManager.DocumentsProductID.ToString(), User).ToString()
-                });
+            return string.Join(",", 
+                    WebItemSecurity.IsAvailableForMe(WebItemManager.CommunityProductID).ToString(),
+                    WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID).ToString(),
+                    WebItemSecurity.IsAvailableForMe(WebItemManager.ProjectsProductID).ToString(),
+                    WebItemSecurity.IsAvailableForMe(WebItemManager.DocumentsProductID).ToString()
+                );
         }
     }
 }

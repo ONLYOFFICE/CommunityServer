@@ -50,10 +50,6 @@
     width: 500px;
 }
 
-#projectTagsContainer input {
-    width: 100%;
-}
-
 #projectDescriptionContainer textarea {
     resize: vertical;
 }
@@ -127,6 +123,11 @@
 #projectFollowContainer,
 #projectTagsContainer {
     margin-bottom: 22px;
+}
+
+#tagsContainer {
+    margin-top: 12px;
+    display: block;
 }
 
 #projectPrivacyCkeckbox,

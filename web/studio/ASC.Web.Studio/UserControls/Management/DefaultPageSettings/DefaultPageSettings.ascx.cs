@@ -31,6 +31,7 @@ using System.Web.UI;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using System.Linq;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -52,7 +53,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var defaultPageSettings = StudioDefaultPageSettings.Load();
             DefaultProductID = defaultPageSettings.DefaultProductID;
 
-            var products = WebItemManager.Instance.GetItemsAll<IProduct>();
+            var products = WebItemManager.Instance.GetItemsAll<IProduct>().Where(p => p.Visible);
             foreach (var p in products)
             {
                 var productInfo = WebItemSecurity.GetSecurityInfo(p.ID.ToString());

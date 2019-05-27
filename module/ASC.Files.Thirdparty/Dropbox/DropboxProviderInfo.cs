@@ -64,6 +64,20 @@ namespace ASC.Files.Thirdparty.Dropbox
             }
         }
 
+        internal bool StorageOpened
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__DROPBOX_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    return wrapper != null && wrapper.Storage.IsOpened;
+                }
+                return false;
+            }
+        }
+
         public int ID { get; set; }
 
         public Guid Owner { get; private set; }
@@ -105,7 +119,8 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public void Dispose()
         {
-            Storage.Close();
+            if (StorageOpened)
+                Storage.Close();
         }
 
         public bool CheckAccess()
@@ -211,7 +226,8 @@ namespace ASC.Files.Thirdparty.Dropbox
             if (folder == null)
             {
                 folder = Storage.GetFolder(dropboxFolderPath);
-                CacheFolder.Insert("dropboxd-" + ID + "-" + dropboxFolderPath, folder, DateTime.UtcNow.Add(CacheExpiration));
+                if (folder != null)
+                    CacheFolder.Insert("dropboxd-" + ID + "-" + dropboxFolderPath, folder, DateTime.UtcNow.Add(CacheExpiration));
             }
             return folder;
         }
@@ -222,7 +238,8 @@ namespace ASC.Files.Thirdparty.Dropbox
             if (file == null)
             {
                 file = Storage.GetFile(dropboxFilePath);
-                CacheFile.Insert("dropboxf-" + ID + "-" + dropboxFilePath, file, DateTime.UtcNow.Add(CacheExpiration));
+                if (file != null)
+                    CacheFile.Insert("dropboxf-" + ID + "-" + dropboxFilePath, file, DateTime.UtcNow.Add(CacheExpiration));
             }
             return file;
         }

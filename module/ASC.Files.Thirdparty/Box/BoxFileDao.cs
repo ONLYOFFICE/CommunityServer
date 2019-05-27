@@ -45,11 +45,6 @@ namespace ASC.Files.Thirdparty.Box
         {
         }
 
-        public void Dispose()
-        {
-            BoxProviderInfo.Dispose();
-        }
-
         public void InvalidateCache(object fileId)
         {
             var boxFileId = MakeBoxId(fileId);
@@ -87,31 +82,22 @@ namespace ASC.Files.Thirdparty.Box
             return fileIds.Select(GetBoxFile).Select(ToFile).ToList();
         }
 
-        public List<File> GetFilesForShare(object[] fileIds)
+        public List<File> GetFilesForShare(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            return GetFiles(fileIds);
-        }
+            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<object> GetFiles(object parentId)
-        {
-            return GetBoxItems(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
-        }
+            var files = GetFiles(fileIds).AsEnumerable();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
-        {
-            if (filterType == FilterType.FoldersOnly) return new List<File>();
-
-            //Get only files
-            var files = GetBoxItems(parentId, false).Select(item => ToFile(item as BoxFile));
             //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
             switch (filterType)
             {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
                 case FilterType.FoldersOnly:
                     return new List<File>();
                 case FilterType.DocumentsOnly:
@@ -128,6 +114,71 @@ namespace ASC.Files.Thirdparty.Box
                     break;
                 case FilterType.ArchiveOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            return files.ToList();
+        }
+
+        public List<object> GetFiles(object parentId)
+        {
+            return GetBoxItems(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        {
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
+
+            //Get only files
+            var files = GetBoxItems(parentId, false).Select(item => ToFile(item as BoxFile));
+
+            //Filter
+            if (subjectID != Guid.Empty)
+            {
+                files = files.Where(x => subjectGroup
+                                             ? CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID)
+                                             : x.CreateBy == subjectID);
+            }
+
+            switch (filterType)
+            {
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.MediaOnly:
+                    files = files.Where(x =>
+                        {
+                            FileType fileType;
+                            return (fileType = FileUtility.GetFileTypeByFileName(x.Title)) == FileType.Audio || fileType == FileType.Video;
+                        });
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
@@ -149,6 +200,9 @@ namespace ASC.Files.Thirdparty.Box
                     files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.ModifiedOn) : files.OrderByDescending(x => x.ModifiedOn);
+                    break;
+                case SortedByType.DateAndTimeCreation:
                     files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
@@ -173,7 +227,7 @@ namespace ASC.Files.Thirdparty.Box
             if (boxFile == null) throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
             if (boxFile is ErrorFile) throw new Exception(((ErrorFile)boxFile).Error);
 
-            var fileStream = BoxProviderInfo.Storage.DownloadStream(boxFile);
+            var fileStream = BoxProviderInfo.Storage.DownloadStream(boxFile, (int)offset);
 
             return fileStream;
         }
@@ -197,7 +251,16 @@ namespace ASC.Files.Thirdparty.Box
 
             if (file.ID != null)
             {
-                newBoxFile = BoxProviderInfo.Storage.SaveStream(MakeBoxId(file.ID), fileStream, file.Title);
+                var fileId = MakeBoxId(file.ID);
+                newBoxFile = BoxProviderInfo.Storage.SaveStream(fileId, fileStream, file.Title);
+
+                //https://github.com/box/box-windows-sdk-v2/issues/496
+                if (!newBoxFile.Name.Equals(file.Title))
+                {
+                    var folderId = GetParentFolderId(GetBoxFile(fileId));
+                    file.Title = GetAvailableTitle(file.Title, folderId, IsExist);
+                    newBoxFile = BoxProviderInfo.Storage.RenameFile(fileId, file.Title);
+                }
             }
             else if (file.FolderID != null)
             {
@@ -259,7 +322,8 @@ namespace ASC.Files.Thirdparty.Box
 
             var fromFolderId = GetParentFolderId(boxFile);
 
-            boxFile = BoxProviderInfo.Storage.MoveFile(boxFile.Id, toBoxFolder.Id);
+            var newTitle = GetAvailableTitle(boxFile.Name, toBoxFolder.Id, IsExist);
+            boxFile = BoxProviderInfo.Storage.MoveFile(boxFile.Id, newTitle, toBoxFolder.Id);
 
             BoxProviderInfo.CacheReset(boxFile.Id, true);
             BoxProviderInfo.CacheReset(fromFolderId);
@@ -276,7 +340,8 @@ namespace ASC.Files.Thirdparty.Box
             var toBoxFolder = GetBoxFolder(toFolderId);
             if (toBoxFolder is ErrorFolder) throw new Exception(((ErrorFolder)toBoxFolder).Error);
 
-            var newBoxFile = BoxProviderInfo.Storage.CopyFile(boxFile, toBoxFolder.Id);
+            var newTitle = GetAvailableTitle(boxFile.Name, toBoxFolder.Id, IsExist);
+            var newBoxFile = BoxProviderInfo.Storage.CopyFile(boxFile.Id, newTitle, toBoxFolder.Id);
 
             BoxProviderInfo.CacheReset(newBoxFile);
             BoxProviderInfo.CacheReset(toBoxFolder.Id);
@@ -395,12 +460,12 @@ namespace ASC.Files.Thirdparty.Box
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }
 
-        public IEnumerable<File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, bool bunch)
         {
             return null;
         }

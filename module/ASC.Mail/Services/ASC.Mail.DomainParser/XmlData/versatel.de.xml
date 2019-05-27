@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="versatel.de">
+    <domain>versatel.de</domain>
+    <domain>versanet.de</domain>
+    <domain>foni.net</domain>
+    <domain>gelsennet.de</domain>
+    <!-- the following are rarely used, but are used -->
+    <domain>telebel.de</domain>
+    <domain>telelev.de</domain>
+    <domain>cneweb.de</domain>
+    <domain>ruhrnet-online.de</domain>
+    <displayName>Versatel</displayName>
+    <displayShortName>Versatel</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mx.versatel.de</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mx.versatel.de</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.versatel.de</hostname>
+      <port>25</port>
+      <socketType>plain</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILADDRESS%</username>
+    </outgoingServer>
+    <documentation url="http://www.versatel.de/hilfe/index_popup.php?einrichtung_email_programm">
+      <descr lang="en">Email settings</descr>
+    </documentation>
+    <documentation url="http://versatel.custhelp.com/cgi-bin/versatel.cfg/php/enduser/std_adp.php?p_faqid=230">
+      <descr lang="en">IMAP server</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

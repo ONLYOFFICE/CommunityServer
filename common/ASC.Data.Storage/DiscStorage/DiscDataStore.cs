@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Data.Storage.Configuration;
 
@@ -123,6 +124,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Uri Save(string domain, string path, Stream stream)
         {
+            LogManager.GetLogger("ASC").Debug("Save " + path);
             var buffered = stream.GetBuffered();
             if (QuotaController != null)
             {

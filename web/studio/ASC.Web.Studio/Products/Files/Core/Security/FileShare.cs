@@ -48,5 +48,11 @@ namespace ASC.Files.Core.Security
 
         [EnumMember(Value = "5")]
         Review,
+
+        [EnumMember(Value = "6")]
+        Comment,
+
+        [EnumMember(Value = "7")]
+        FillForms,
     }
 }

@@ -286,15 +286,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authentication.
-        /// </summary>
-        public static string Authentication {
-            get {
-                return ResourceManager.GetString("Authentication", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Basic Information.
         /// </summary>
         public static string BasicInformation {
@@ -579,15 +570,6 @@ namespace ASC.Web.CRM.Resources {
         public static string CreateNewTagListButton {
             get {
                 return ResourceManager.GetString("CreateNewTagListButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create test mail.
-        /// </summary>
-        public static string CreateTestLetter {
-            get {
-                return ResourceManager.GetString("CreateTestLetter", resourceCulture);
             }
         }
         
@@ -1100,15 +1082,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable SSL.
-        /// </summary>
-        public static string EnableSSL {
-            get {
-                return ResourceManager.GetString("EnableSSL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Export {
@@ -1132,15 +1105,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ExportDataSettingsInfo {
             get {
                 return ResourceManager.GetString("ExportDataSettingsInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No Products &amp; Services to be exported for this filter.
-        /// </summary>
-        public static string ExportInvoiceItemsEmptyError {
-            get {
-                return ResourceManager.GetString("ExportInvoiceItemsEmptyError", resourceCulture);
             }
         }
         
@@ -1244,15 +1208,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get default settings.
-        /// </summary>
-        public static string GetDefaultSettings {
-            get {
-                return ResourceManager.GetString("GetDefaultSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Heading {
@@ -1267,33 +1222,6 @@ namespace ASC.Web.CRM.Resources {
         public static string HistoryCategories {
             get {
                 return ResourceManager.GetString("HistoryCategories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Host.
-        /// </summary>
-        public static string Host {
-            get {
-                return ResourceManager.GetString("Host", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Host Login.
-        /// </summary>
-        public static string HostLogin {
-            get {
-                return ResourceManager.GetString("HostLogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Host Password.
-        /// </summary>
-        public static string HostPassword {
-            get {
-                return ResourceManager.GetString("HostPassword", resourceCulture);
             }
         }
         
@@ -1415,15 +1343,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Port.
-        /// </summary>
-        public static string Port {
-            get {
-                return ResourceManager.GetString("Port", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete option.
         /// </summary>
         public static string RemoveOption {
@@ -1505,33 +1424,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sender Display Name.
-        /// </summary>
-        public static string SenderDisplayName {
-            get {
-                return ResourceManager.GetString("SenderDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sender Email Address.
-        /// </summary>
-        public static string SenderEmailAddress {
-            get {
-                return ResourceManager.GetString("SenderEmailAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send test mail.
-        /// </summary>
-        public static string SendTestMail {
-            get {
-                return ResourceManager.GetString("SendTestMail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customize user fields.
         /// </summary>
         public static string SettingCustomFields {
@@ -1574,33 +1466,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Size {
             get {
                 return ResourceManager.GetString("Size", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SMTP Settings.
-        /// </summary>
-        public static string SMTPSettings {
-            get {
-                return ResourceManager.GetString("SMTPSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The SMTP settings are needed to set up an email account which will be used to send emails to the clients from the CRM client database. Please fill in all the fields and click the &apos;Save&apos; button to be able to send emails right from the portal..
-        /// </summary>
-        public static string SMTPSettingsDescription {
-            get {
-                return ResourceManager.GetString("SMTPSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the ONLYOFFICE™ access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work..
-        /// </summary>
-        public static string SMTPSettingsHelp {
-            get {
-                return ResourceManager.GetString("SMTPSettingsHelp", resourceCulture);
             }
         }
         

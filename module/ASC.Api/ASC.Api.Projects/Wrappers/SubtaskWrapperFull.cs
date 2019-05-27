@@ -38,7 +38,7 @@ namespace ASC.Api.Projects.Wrappers
         public SubtaskWrapperFull(ProjectApiBase projectApiBase,Subtask subtask)
             : base(projectApiBase, subtask, subtask.ParentTask)
         {
-            ParentTask = new SimpleTaskWrapper(subtask.ParentTask);
+            ParentTask = new SimpleTaskWrapper(projectApiBase, subtask.ParentTask);
         }
     }
 }

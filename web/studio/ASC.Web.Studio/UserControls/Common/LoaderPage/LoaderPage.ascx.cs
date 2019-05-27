@@ -30,6 +30,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Common.LoaderPage
 {
@@ -37,12 +38,16 @@ namespace ASC.Web.Studio.UserControls.Common.LoaderPage
     {
         public bool Static { get; set; }
 
+        protected bool DefaultSettings { get; set; }
+
         public static string Location
         {
             get { return "~/UserControls/Common/LoaderPage/LoaderPage.ascx"; }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            DefaultSettings = CompanyWhiteLabelSettings.Instance.IsDefault;
+
             Page.RegisterStyle("~/usercontrols/common/loaderpage/css/loaderpage.less");
         }
     }

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="mail.telenor.dk">
+    <!-- Main domains -->
+    <domain>mail.telenor.dk</domain>
+    <domain>vip.cybercity.dk</domain>
+    <domain>post.cybercity.dk</domain>
+    <!-- Alias domains -->
+    <domain>email.dk</domain>
+    <domain>mobil.dk</domain>
+    <domain>privatmail.dk</domain>
+    <domain>info.dk</domain>
+    <domain>io.dk</domain>
+    <domain>it.dk</domain>
+    <domain>film.dk</domain>
+    <domain>worldonline.dk</domain>
+    <domain>wol.dk</domain>
+    <!-- Nonsense domains -->
+    <domain>1031.inord.dk</domain>
+    <domain>123mail.dk</domain>
+    <domain>12fuel.dk</domain>
+    <domain>12mail.dk</domain>
+    <domain>12move.dk</domain>
+    <domain>2senior.dk</domain>
+    <domain>anarki.dk</domain>
+    <domain>anderledes.dk</domain>
+    <domain>begavet.dk</domain>
+    <domain>bitnisse.dk</domain>
+    <domain>city.dk</domain>
+    <domain>cool.dk</domain>
+    <domain>cyberdude.dk</domain>
+    <domain>cyberjunkie.dk</domain>
+    <domain>dk2net.dk</domain>
+    <domain>dk-online.dk</domain>
+    <domain>elinstallatoer.dk</domain>
+    <domain>elsker.dk</domain>
+    <domain>elvis.dk</domain>
+    <domain>fald.dk</domain>
+    <domain>fedt.dk</domain>
+    <domain>feminin.dk</domain>
+    <domain>forening.dk</domain>
+    <domain>gadefejer.dk</domain>
+    <domain>gason.dk</domain>
+    <domain>grin.dk</domain>
+    <domain>grov.dk</domain>
+    <domain>hardworking.dk</domain>
+    <domain>heaven.dk</domain>
+    <domain>hemmelig.dk</domain>
+    <domain>huleboer.dk</domain>
+    <domain>image.dk</domain>
+    <domain>inbound.dk</domain>
+    <domain>indbakke.dk</domain>
+    <domain>infile.dk</domain>
+    <domain>jyde.dk</domain>
+    <domain>klog.dk</domain>
+    <domain>knus.dk</domain>
+    <domain>krudt.dk</domain>
+    <domain>kulturel.dk</domain>
+    <domain>larsen.dk</domain>
+    <domain>lazy.dk</domain>
+    <domain>lystig.dk</domain>
+    <domain>mail.dia.dk</domain>
+    <domain>maskulin.dk</domain>
+    <domain>min-postkasse.dk</domain>
+    <domain>musling.dk</domain>
+    <domain>natteliv.dk</domain>
+    <domain>netbruger.dk</domain>
+    <domain>pedal.dk</domain>
+    <domain>pengemand.dk</domain>
+    <domain>pokerface.dk</domain>
+    <domain>post.dia.dk</domain>
+    <domain>postman.dk</domain>
+    <domain>privat.dia.dk</domain>
+    <domain>quake.dk</domain>
+    <domain>ready.dk</domain>
+    <domain>secret.dk</domain>
+    <domain>sleepy.dk</domain>
+    <domain>sporty.dk</domain>
+    <domain>superbruger.dk</domain>
+    <domain>talent.dk</domain>
+    <domain>tanke.dk</domain>
+    <domain>taxidriver.dk</domain>
+    <domain>teens.dk</domain>
+    <domain>teknik.dk</domain>
+    <domain>tjekket.dk</domain>
+    <domain>traceroute.dk</domain>
+    <domain>tv.dk</domain>
+    <domain>ugenstilbud.dk</domain>
+    <domain>ungdom.dk</domain>
+    <domain>video.dk</domain>
+    <domain>vittig.dk</domain>
+    <displayName>Telenor Danmark</displayName>
+    <displayShortName>Telenor</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mail.telenor.dk</hostname>
+      <port>143</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>mail.telenor.dk</hostname>
+      <port>110</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.telenor.dk</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+  <documentation url="http://www.telenor.dk/privat/kundeservice/kundeservice/bredbaand/opsaetning/email-og-hjemmeside/tabs/opsaetning/outlook-express-6.0.aspx"/>
+  <documentation url="http://www.telenor.dk/privat/kundeservice/kundeservice/bredbaand/opsaetning/email-og-hjemmeside/tabs/opsaetning/windows-live-mail.aspx"/>
+  <documentation url="http://mailselvbetjening.telenor.dk/">
+    <descr lang="en">Domain list source (requires login)</descr>
+  </documentation>
+</clientConfig>

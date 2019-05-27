@@ -8,10 +8,11 @@
 <%@ Assembly Name="ASC.Web.Core" %>
 
 <div id="invoiceTaxesList"class="clearFix">
-    <p style="margin-bottom: 10px;"><%= CRMInvoiceResource.InvoiceTaxesDescriptionText %></p>
-    <p style="margin-bottom: 20px;"><%= CRMInvoiceResource.InvoiceTaxesDescriptionTextEditDelete%></p>
-    <div class="clearFix" style="margin-bottom: 8px;">
-        <a class="gray button" id="createNewTax">
+    <div class="header-base settingsHeader"><%= CRMCommonResource.InvoiceTaxes %></div>
+    <p class="settingsFirstDescription"><%= CRMInvoiceResource.InvoiceTaxesDescriptionText %></p>
+    <p class="settingsSecondDescription"><%= CRMInvoiceResource.InvoiceTaxesDescriptionTextEditDelete %></p>
+    <div class="clearFix settingsNewItemBlock">
+        <a id="createNewTax" class="gray button">
             <span class="plus"><%= CRMInvoiceResource.CreateInvoiceTax %></span>
         </a>
     </div>

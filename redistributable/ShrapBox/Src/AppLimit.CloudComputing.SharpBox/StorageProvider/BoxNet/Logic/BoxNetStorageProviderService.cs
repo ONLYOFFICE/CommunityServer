@@ -6,9 +6,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BoxNet.Logic
 {
     internal class BoxNetStorageProviderService : WebDavStorageProviderService
     {
-        protected override String OnNameBase(String targetUrl, IStorageProviderService service, IStorageProviderSession session, String NameBase)
+        protected override String OnNameBase(String targetUrl, IStorageProviderService service, IStorageProviderSession session, String nameBase)
         {
-            return NameBase.StartsWith("https") ? NameBase : NameBase.Replace("http", "https");
+            return nameBase.StartsWith("https") ? nameBase : nameBase.Replace("http", "https");
         }
     }
 }

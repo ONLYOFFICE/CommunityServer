@@ -4,7 +4,7 @@
 
 <div id="studio_productSettings">
     <div class="clearFix">
-        <div class="float-left" style="margin: 0 5px 45px 0; padding-left: 15px;">
+        <div class="float-left" style="margin: 0 5px 45px 0;">
         <div class="clearFix">
             <div class="web-item-list">
                 <div class="header-base">

@@ -36,6 +36,7 @@
             <div class="background" unselectable="on"></div>
             <div class="container" unselectable="on">
              <!-- <div class="right-side" unselectable="on"></div> -->
+              <div class="chat_image"></div>
               <div class="label" unselectable="on"><%=string.Format(TalkResource.LabelFirstSplash,"<br/>")%></div>
             </div>
           </div>

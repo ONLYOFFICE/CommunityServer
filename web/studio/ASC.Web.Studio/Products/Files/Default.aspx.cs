@@ -123,7 +123,6 @@ namespace ASC.Web.Files
                                   "controls/convertfile/convertfile.js",
                                   "controls/createmenu/createmenu.js",
                                   "controls/emptyfolder/emptyfolder.js",
-                                  "controls/fileviewer/fileviewer.js",
                                   "controls/thirdparty/thirdparty.js",
                                   "controls/tree/treebuilder.js",
                                   "controls/tree/tree.js"
@@ -141,13 +140,11 @@ namespace ASC.Web.Files
                                   "controls/contentlist/contentlist.css",
                                   "controls/convertfile/convertfile.css",
                                   "controls/emptyfolder/emptyfolder.css",
-                                  "controls/fileviewer/fileviewer.css",
                                   "controls/maincontent/maincontent.css",
                                   "controls/morefeatures/css/morefeatures.css",
                                   "controls/thirdparty/thirdparty.css",
                                   "controls/tree/treebuilder.css",
-                                  "controls/tree/tree.css"
-                       );
+                                  "controls/tree/tree.css");
         }
 
         private void LoadControls()
@@ -169,6 +166,11 @@ namespace ASC.Web.Files
             mainMenu.EnableThirdParty = enableThirdParty;
             mainMenu.Desktop = Desktop;
             CommonSideHolder.Controls.Add(mainMenu);
+
+            if (Request.SailfishApp())
+            {
+                CommonContainerHolder.Controls.Add(LoadControl(Files.Controls.Sailfish.Location));
+            }
 
             var mainContent = (MainContent)LoadControl(MainContent.Location);
             mainContent.TitlePage = FilesCommonResource.TitlePage;

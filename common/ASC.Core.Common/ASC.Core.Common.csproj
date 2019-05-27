@@ -9,11 +9,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Core.Common</RootNamespace>
     <AssemblyName>ASC.Core.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -37,41 +35,45 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK.CloudFront">
-      <HintPath>..\..\packages\AWSSDK.CloudFront.3.3.6.1\lib\net45\AWSSDK.CloudFront.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.CloudFront.3.3.10.10\lib\net45\AWSSDK.CloudFront.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.Core">
-      <HintPath>..\..\packages\AWSSDK.Core.3.3.21.6\lib\net45\AWSSDK.Core.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.S3">
-      <HintPath>..\..\packages\AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.SimpleEmail">
-      <HintPath>..\..\packages\AWSSDK.SimpleEmail.3.3.6.1\lib\net45\AWSSDK.SimpleEmail.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.SimpleEmail.3.3.7.2\lib\net45\AWSSDK.SimpleEmail.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.2.0.4\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.1.2.3\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis.Extensions.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.2.2.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
+      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,13 +85,11 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCommonLinkUtility.cs" />
     <Compile Include="Billing\BillingClient.cs" />
     <Compile Include="Billing\CouponManager.cs" />
     <Compile Include="Billing\ITariffSyncService.cs" />
@@ -116,8 +116,8 @@
     <Compile Include="Configuration\ConnectionStringNameTypeConverter.cs" />
     <Compile Include="Configuration\AmiPublicDnsSyncService.cs" />
     <Compile Include="Billing\ITariffService.cs" />
+    <Compile Include="Configuration\Consumer.cs" />
     <Compile Include="Configuration\ConsumerConfigurationSection.cs" />
-    <Compile Include="Configuration\KeyStorage.cs" />
     <Compile Include="Context\Impl\AuthManager.cs" />
     <Compile Include="Context\Impl\AuthorizationManager.cs" />
     <Compile Include="Context\Impl\CoreConfiguration.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="Core\PartnerStatus.cs" />
     <Compile Include="Core\PartnerType.cs" />
     <Compile Include="Core\DBResourceManager.cs" />
+    <Compile Include="Data\DbSettingsManager.cs" />
     <Compile Include="MultiRegionHostedSolution.cs" />
     <Compile Include="Core\EmployeeType.cs" />
     <Compile Include="Core\EmployeeActivationStatus.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Tenants\TenantAnalyticsSettings.cs" />
     <Compile Include="Tenants\TenantAuditSettings.cs" />
     <Compile Include="Tenants\TenantCookieSettings.cs" />
     <Compile Include="Tenants\TenantDomainValidator.cs" />
@@ -216,8 +218,7 @@
     <Compile Include="Tests\CachedSubscriptionServiceTest.cs" />
     <Compile Include="Tests\ClientPaymentManagerTest.cs" />
     <Compile Include="Tests\CookieStorageTest.cs" />
-    <None Include="Tests\App.config">
-    </None>
+    <None Include="Tests\App.config"></None>
     <Compile Include="Tests\BillingClientTest.cs" />
     <Compile Include="Tests\SignatureTest.cs" />
     <Compile Include="Tests\TariffSyncServiceTest.cs" />

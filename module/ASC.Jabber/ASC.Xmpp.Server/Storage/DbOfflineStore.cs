@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Notify.Signalr;
 using ASC.Common.Data.Sql;
 using ASC.Xmpp.Core.protocol;
@@ -151,8 +151,22 @@ namespace ASC.Xmpp.Server.Storage
             }
         }
 
+        public void RemoveAllOfflineMessages(Jid jid, Jid from)
+        {
+
+            var messages = GetOfflineMessages(jid);
+            foreach (var message in messages)
+            {
+                if (message.From.Bare == from.ToString())
+                {
+                    ExecuteNonQuery(new SqlDelete("jabber_offmessage").Where("jid", GetBareJid(jid)).Where(Exp.Like("message", String.Format("from=\"{0}", message.From.Bare))));
+                }
+            }
+            lock (countCache) countCache.Remove(GetBareJid(jid));
+        }
         public void RemoveAllOfflineMessages(Jid jid)
         {
+
             ExecuteNonQuery(new SqlDelete("jabber_offmessage").Where("jid", GetBareJid(jid)));
             lock (countCache) countCache.Remove(GetBareJid(jid));
         }

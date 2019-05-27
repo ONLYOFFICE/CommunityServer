@@ -1105,6 +1105,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string SelectTags {
+            get {
+                return ResourceManager.GetString("SelectTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Settings.
         /// </summary>
         public static string Settings {

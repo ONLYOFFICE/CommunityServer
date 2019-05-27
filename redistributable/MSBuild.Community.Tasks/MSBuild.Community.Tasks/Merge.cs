@@ -125,11 +125,10 @@ namespace MSBuild.Community.Tasks
         /// </returns>
         public override bool Execute()
         {
-            if ((this.sourceFiles == null) || (this.sourceFiles.Length == 0))
+            if (sourceFiles == null || sourceFiles.Length == 0)
             {
                 Log.LogMessage(MessageImportance.Normal,
-                        Resources.MergeCompleteNoSourceFiles,
-                        sourceFiles.Length, destinationFile.ItemSpec);
+                        Resources.MergeCompleteNoSourceFiles, 0, destinationFile?.ItemSpec);
 
                 return true;
             }

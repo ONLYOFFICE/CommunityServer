@@ -32,7 +32,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
@@ -45,8 +45,6 @@ using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Utility;
-
-using log4net;
 
 namespace ASC.Web.Studio
 {
@@ -64,17 +62,19 @@ namespace ASC.Web.Studio
                 {
                     if (!applicationStarted)
                     {
-                        applicationStarted = true;
                         Startup.Configure();
+                        applicationStarted = true;
                     }
                 }
             }
 
+            SecurityContext.Logout();
             var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
 
             BlockNotFoundPortal(tenant);
             BlockRemovedOrSuspendedPortal(tenant);
             BlockTransferingOrRestoringPortal(tenant);
+            BlockMigratingPortal(tenant);
             BlockNotPaidPortal(tenant);
             TenantWhiteLabelSettings.Apply(tenant.TenantId);
 
@@ -307,6 +307,22 @@ namespace ASC.Web.Studio
             ResponseRedirect("~/PreparationPortal.aspx?type=" + (tenant.Status == TenantStatus.Transfering ? "0" : "1"), HttpStatusCode.ServiceUnavailable);
         }
 
+        private void BlockMigratingPortal(Tenant tenant)
+        {
+            if (tenant.Status != TenantStatus.Migrating)
+            {
+                return;
+            }
+
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png","MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "settings/storage/progress.json" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                return;
+            }
+
+            ResponseRedirect("~/MigrationPortal.aspx", HttpStatusCode.ServiceUnavailable);
+        }
+
         private void BlockNotPaidPortal(Tenant tenant)
         {
             if (tenant == null) return;
@@ -322,25 +338,13 @@ namespace ASC.Web.Studio
                 if (string.IsNullOrEmpty(AdditionalWhiteLabelSettings.Instance.BuyUrl)
                     || AdditionalWhiteLabelSettings.Instance.BuyUrl == AdditionalWhiteLabelSettings.DefaultBuyUrl)
                 {
-                    LogManager.GetLogger(typeof(Global)).WarnFormat("Tenant {0} is not paid", tenant.TenantId);
+                    LogManager.GetLogger("ASC").WarnFormat("Tenant {0} is not paid", tenant.TenantId);
                     Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
                     Response.End();
                 }
                 else if (!Request.Url.AbsolutePath.EndsWith(CommonLinkUtility.ToAbsolute(PaymentRequired.Location)))
                 {
                     ResponseRedirect(PaymentRequired.Location, HttpStatusCode.PaymentRequired);
-                }
-                return;
-            }
-
-            if (CoreContext.Configuration.Standalone)
-            {
-                var licenseDay = TenantExtra.GetCurrentTariff().LicenseDate.Date;
-                if (licenseDay < DateTime.Today && licenseDay < TenantExtra.VersionReleaseDate)
-                {
-                    LogManager.GetLogger(typeof(Global)).Fatal("The installation was updated without a license");
-                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
-                    Response.End();
                 }
             }
         }

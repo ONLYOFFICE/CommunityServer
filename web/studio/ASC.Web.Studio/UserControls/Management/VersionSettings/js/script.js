@@ -24,19 +24,22 @@
 */
 
 
-var StudioVersionManagement = new function() {
+var StudioVersionManagement = new function () {
 
-    this.SwitchVersion = function() {
-        AjaxPro.onLoading = function(b) {
-            if (b)
+    this.SwitchVersion = function () {
+        AjaxPro.onLoading = function (b) {
+            if (b) {
                 LoadingBanner.showLoaderBtn("#studio_versionSetting");
-            else
+            } else {
                 LoadingBanner.hideLoaderBtn("#studio_versionSetting");
+            }
         };
-        VersionSettingsController.SwitchVersion(jq('#versionSelector  input:radio[name=version]:checked').val(), function(res) {
+        VersionSettingsController.SwitchVersion(jq('#versionSelector  input:radio[name=version]:checked').val(), function (res) {
             if (res.value.Status == '1') {
                 LoadingBanner.showLoaderBtn("#studio_versionSetting");
-                setTimeout(function() { window.location.reload(true) }, 5000);
+                setTimeout(function () {
+                    window.location.reload(true);
+                }, 10000);
             } else {
                 LoadingBanner.showMesInfoBtn("#studio_versionSetting", res.value.Message, "error");
             }

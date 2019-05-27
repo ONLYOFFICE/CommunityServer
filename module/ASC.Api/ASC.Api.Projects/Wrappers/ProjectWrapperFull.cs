@@ -114,7 +114,7 @@ namespace ASC.Api.Projects.Wrappers
 
             if (project.Security == null)
             {
-                ProjectSecurity.GetProjectSecurityInfo(project);
+                projectApiBase.ProjectSecurity.GetProjectSecurityInfo(project);
             }
             Security = project.Security;
             CanEdit = Security.CanEdit;

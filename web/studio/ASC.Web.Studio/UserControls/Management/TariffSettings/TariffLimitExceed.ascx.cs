@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Web;
@@ -39,6 +40,8 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         protected bool IsFreeTariff;
+        protected MailWhiteLabelSettings MailWhiteLabelSettings;
+        protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -52,6 +55,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = (quota.Free || quota.NonProfit || quota.Trial) && !quota.Open;
+            MailWhiteLabelSettings = MailWhiteLabelSettings.Instance;
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
     }
 }

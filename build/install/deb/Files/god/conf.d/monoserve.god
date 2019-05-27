@@ -5,7 +5,7 @@ module God
         socket = nil
         self.info = []
         begin
-          timeout(5) do
+          Timeout.timeout(5) do
             socket = UNIXSocket.new(self.path)
           end
         rescue Timeout::Error
@@ -48,7 +48,7 @@ God.watch do |w|
       c.times = 5
       c.interval = 5.seconds
     end
-	restart.condition(:cpu_usage) do |c|
+    restart.condition(:cpu_usage) do |c|
       c.above = 90.percent
       c.times = 5
       c.interval = 3.minutes

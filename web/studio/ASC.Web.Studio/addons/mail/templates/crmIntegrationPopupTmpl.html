@@ -70,25 +70,13 @@
             </select>
         </div>
         <div class="choose_contact bold">${ASC.Mail.Resources.MailResource.LinkConversationChooseContactsLabel}</div>
-        <div>
-            <table cellspacing="0" cellpadding="1" class="search_panel">
-                <tbody>
-                    <tr>
-                        <td width="16px" style="border-right: 0 none;">
-                            <img align="absmiddle" src="/skins/default/imagescss/search_16.png" class="crm_search_contact_icon"/>
-                            <img align="absmiddle" src="/skins/default/images/loader_16.gif" class="crm_search_loading_icon" style="display: none"/>
-                        </td>
-                        <td style="border-left: 0 none">
-                            <div>
-                                <input id="link_search_panel" class="search_input" placeholder="${ASC.Mail.Resources.MailResource.LinkConversationSearchPlaceHolderLabel}"/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="search_panel">
+            <input id="link_search_panel" class="search_input" placeholder="${ASC.Mail.Resources.MailResource.LinkConversationSearchPlaceHolderLabel}"/>
+            <label for="link_search_panel" class="search_image lupe"></label>
+            <img src="/skins/default/images/loader_16.gif" class="crm_search_loading_icon" style="display: none"/>
         </div>
     </div>
-    <div class="linked_table_parent" style="display: none;">
+    <div class="linked_table_parent webkit-scrollbar" style="display: none;">
         <table class="linked_contacts_table" cellspacing="0" cellpadding="0">
         </table>
     </div>
@@ -108,30 +96,28 @@
 </script>
 
 <script id="crmContactItemTmpl" type="text/x-jquery-tmpl">
-    <tr data-entity_id="${entity_id}" entity_type="${entity_type}" class='linked_entity_row'>
+    <tr data-entity_id="${id}" entity_type="${entityType}" class='linked_entity_row'>
         <td class="linked_entity_row_avatar_column">
-        {{if entity_type == 1}}
-            <img src="${avatarLink}" class="crm_avatar_img"/>
+        {{if entityType == 1}}
+            <img src="${smallFotoUrl}" class="crm_avatar_img"/>
         {{/if}}
-        {{if entity_type == 2}}
-            <div class="crm_avatar_img case"/>
+        {{if entityType == 2}}
+            <div class="crm_avatar_img case"></div>
         {{/if}}
-        {{if entity_type == 3}}
-            <div class="crm_avatar_img opportunities"/>
+        {{if entityType == 3}}
+            <div class="crm_avatar_img opportunities"></div>
         {{/if}}
         </td>
         <td class="linked_entity_row_title_column">
-            <span>
-                {{if entity_type == 1}}
-                <a href="/products/crm/default.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
-                {{/if}}
-                {{if entity_type == 2}}
-                <a href="/products/crm/cases.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
-                {{/if}}
-                {{if entity_type == 3}}
-                <a href="/products/crm/deals.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
-                {{/if}}
-            </span>
+            {{if entityType == 1}}
+            <a href="/products/crm/default.aspx?id=${id}" title="${title}" class="link" target="_blank">${displayName}</a>
+            {{/if}}
+            {{if entityType == 2}}
+            <a href="/products/crm/cases.aspx?id=${id}" title="${title}" class="link" target="_blank">${displayName}</a>
+            {{/if}}
+            {{if entityType == 3}}
+            <a href="/products/crm/deals.aspx?id=${id}" title="${title}" class="link" target="_blank">${displayName}</a>
+            {{/if}}
         </td>
         <td class="linked_entity_row_button_column">
             <div class="unlink_entity"></div>

@@ -65,6 +65,19 @@ namespace ASC.Data.Storage.GoogleCloud
    
         private bool _lowerCasing = true;
 
+        public GoogleCloudStorage(string tenant)
+        {
+            _tenant = tenant;
+
+            _modulename = string.Empty;
+            _dataList = null;
+
+            _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
+            _domainsAcl = new Dictionary<string, PredefinedObjectAcl>();
+            _moduleAcl = PredefinedObjectAcl.PublicRead;
+
+        }
+
         public GoogleCloudStorage(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
             _tenant = tenant;

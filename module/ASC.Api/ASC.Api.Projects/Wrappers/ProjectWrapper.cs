@@ -47,7 +47,7 @@ namespace ASC.Api.Projects.Wrappers
             Description = project.Description;
             Responsible = projectApiBase.GetEmployeeWraper(project.Responsible);
             Status = (int)project.Status;
-            CanEdit = ProjectSecurity.CanEdit(project);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(project);
             IsPrivate = project.Private;
         }
 

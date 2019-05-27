@@ -68,11 +68,16 @@ ProgressManager = new function () {
                     if (response.value) {
                         showProgress(response.value.Progress);
                         if (response.value.IsCompleted) {
-                            window.location.href = "./";
+                            setTimeout(function() {
+                                    window.location.href = "./";
+                                }, 5000);
+
                         }
                     } else {
                         showProgress(100);
-                        window.location.href = "./";
+                        setTimeout(function () {
+                            window.location.href = "./";
+                        }, 5000);
                     }
                     setTimeout(function () {
                         AjaxPro.Backup.GetRestoreProgress(getProgress);

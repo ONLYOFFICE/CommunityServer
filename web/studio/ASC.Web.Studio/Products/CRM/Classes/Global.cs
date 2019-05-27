@@ -144,25 +144,6 @@ namespace ASC.Web.CRM.Classes
 
         #region CRM Settings
 
-        public static void SaveSMTPSettings(string host, int port, bool authentication, string hostLogin, string hostPassword, string senderDisplayName, string senderEmailAddress, bool enableSSL)
-        {
-            var crmSettings = Global.TenantSettings;
-
-            crmSettings.SMTPServerSetting = new SMTPServerSetting
-            {
-                Host = host,
-                Port = port,
-                RequiredHostAuthentication = authentication,
-                HostLogin = hostLogin,
-                HostPassword = hostPassword,
-                SenderDisplayName = senderDisplayName,
-                SenderEmailAddress = senderEmailAddress,
-                EnableSSL = enableSSL
-            };
-
-            crmSettings.Save();
-        }
-
         public static void SaveDefaultCurrencySettings(CurrencyInfo currency)
         {
             var tenantSettings = TenantSettings;

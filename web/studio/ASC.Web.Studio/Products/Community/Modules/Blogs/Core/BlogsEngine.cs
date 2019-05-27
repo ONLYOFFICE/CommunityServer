@@ -24,6 +24,11 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
 using ASC.Blogs.Core.Data;
 using ASC.Blogs.Core.Domain;
 using ASC.Blogs.Core.Security;
@@ -32,17 +37,14 @@ using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Common.Notify;
-using ASC.FullTextIndex;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using ASC.ElasticSearch;
+using ASC.Web.Community.Search;
 
 namespace ASC.Blogs.Core
 {
@@ -90,10 +92,12 @@ namespace ASC.Blogs.Core
 
         private List<int> SearchPostsInternal(string searchText)
         {
-            if (FullTextSearch.SupportModule(FullTextSearch.BlogsModule))
+            List<int> blogs;
+            if (FactoryIndexer<BlogsWrapper>.TrySelectIds(r => r.MatchAll(searchText), out blogs))
             {
-                return FullTextSearch.Search(FullTextSearch.BlogsModule.Match(searchText));
+                return blogs;
             }
+
             var keyWords = new List<string>(searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
             keyWords.RemoveAll(kw => kw.Length < 3);
 
@@ -220,6 +224,8 @@ namespace ASC.Blogs.Core
                 isNew ? Constants.Action_AddPost : Constants.Action_EditRemovePost);
 
             _storage.GetPostDao().SavePost(post);
+            FactoryIndexer<BlogsWrapper>.IndexAsync(post);
+
             if (isNew)
             {
                 var initiatorInterceptor = new InitiatorInterceptor(new DirectRecipient(post.UserID.ToString(), ""));
@@ -287,7 +293,7 @@ namespace ASC.Blogs.Core
                 Constants.NewComment,
                 post.ID.ToString()
                 );
-
+            FactoryIndexer<BlogsWrapper>.DeleteAsync(post);
             AscCache.Default.Remove("communityScreen" + TenantProvider.CurrentTenantID);
         }
 

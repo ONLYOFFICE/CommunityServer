@@ -35,7 +35,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using log4net;
+using ASC.Common.Logging;
 using Newtonsoft.Json;
 
 namespace ASC.Core.Common.Billing
@@ -235,7 +235,7 @@ namespace ASC.Core.Common.Billing
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger(typeof(CouponManager)).Error(ex.Message, ex);
+                LogManager.GetLogger("ASC").Error(ex.Message, ex);
                 throw;
             }
         }

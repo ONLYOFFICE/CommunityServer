@@ -185,8 +185,9 @@ jq(document).ready(function () {
             jq('.studio-action-panel').hide();
         });
     }
-
-
+    if (jQuery.browser.msie || /iPad|iPhone|iPod/.test(navigator.userAgent) || /Sailfish/.test(navigator.userAgent) || /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        svg4everybody();
+    }
 });
 
 var Searcher = new function () {

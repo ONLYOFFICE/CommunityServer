@@ -27,12 +27,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Core.Notify.Senders;
 using ASC.Core.Tenants;
 using ASC.Notify.Messages;
 using ASC.Notify.Sinks;
-using log4net;
 
 namespace ASC.Core.Notify
 {

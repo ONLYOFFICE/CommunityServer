@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -174,8 +174,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                     var data = {
                         fileId: fileId,
-                        version: "",
-                        shareLink: ""
+                        version: ""
                     };
 
                     window.Teamlab.addMailDocument(
@@ -750,9 +749,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     var parsed = emailAddresses.parseOneAddress(s);
                     if (parsed) {
                         var isValid = true;
-                        if (parsed.domain.indexOf(".") === -1) {
+                        if (parsed.domain.indexOf(".") === -1 || !/(^((?!-)[a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}\.?$)/.test(parsed.domain)) {
                             isValid = false;
                             parsedObjs.errors.push({ message: "Incorrect domain", type: parseErrorTypes.IncorrectEmail, errorItem: s });
+                        }
+
+                        if (parsed.domain.indexOf('[') === 0 && parsed.domain.indexOf(']') === parsed.domain.length - 1) {
+                            parsedObjs.errors.push({ message: "Domains as ip adress are not suppoted", type: parseErrorTypes.IncorrectEmail, errorItem: s });
                         }
 
                         if (!/^[\x00-\x7F]+$/.test(punycode.toUnicode(parsed.domain))) {
@@ -760,10 +763,19 @@ if (typeof ASC.Mail.Utility === "undefined") {
                             parsedObjs.errors.push({ message: "Punycode domains are not suppoted", type: parseErrorTypes.IncorrectEmail, errorItem: s });
                         }
 
-                        if (!/^[\x00-\x7F]+$/.test(parsed.local))
-                        {
+                        if (!/^[\x00-\x7F]+$/.test(parsed.local) || !/^([a-zA-Z0-9]+)([_\-\.\+][a-zA-Z0-9]+)*$/.test(parsed.local)) {
                             isValid = false;
                             parsedObjs.errors.push({ message: "Incorrect localpart", type: parseErrorTypes.IncorrectEmail, errorItem: s });
+                        }
+
+                        if (/\s+/.test(parsed.local) || parsed.local !== parsed.parts.local.tokens) {
+                            isValid = false;
+                            parsedObjs.errors.push({ message: "Incorrect, localpart contains spaces", type: parseErrorTypes.IncorrectEmail, errorItem: s });
+                        }
+
+                        if (/\s+/.test(parsed.domain) || parsed.domain !== parsed.parts.domain.tokens) {
+                            isValid = false;
+                            parsedObjs.errors.push({ message: "Incorrect, domain contains spaces", type: parseErrorTypes.IncorrectEmail, errorItem: s });
                         }
 
                         parsedObjs.addresses.push(new ASC.Mail.Address(parsed.name || "", parsed.address, isValid));
@@ -819,8 +831,22 @@ if (typeof ASC.Mail.Utility === "undefined") {
              * @param {String}/{ASC.Mail.Address} email
              * @return {Bool} result
              */
-            IsValidEmail: function (email) {
-                return ASC.Mail.Utility.ParseAddress(email).isValid;
+            IsValidEmail: function (email, options) {
+                options = options || {
+                    nameExistance: false
+                }
+
+                if (!options.hasOwnProperty('nameExistance')) {
+                    options.nameExistance = false;
+                }
+
+                var parsed = ASC.Mail.Utility.ParseAddress(email);
+
+                if (!options.nameExistance && parsed.name)
+                    return false;
+                    
+
+                return parsed.isValid;
             },
             /**
              * Check domain validity
@@ -1370,8 +1396,21 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     str += ';WKST=' + ICAL.Recur.numericDayToIcalDay(rrule.wkst);
                 }
                 return str;
-            }
+            },
 
+            GetDraftUrl: function(fileId, fileVersion) {
+                var url = "/ComposeDraft.ashx";
+
+                if (fileId) {
+                    url += "?fileId={0}".format(encodeURIComponent(fileId));
+
+                    if (fileVersion) {
+                        return url + "&version={0}".format(encodeURIComponent(fileVersion));
+                    }
+                }
+
+                return url;
+            }
         };
     })();
 }
@@ -1393,6 +1432,8 @@ if (typeof ASC.Mail.Message === "undefined") {
         this.tags = [];
         this.fileLinksShareMode = 2; // ASC.Files.Constants.AceStatusEnum.Read;
         this.calendarIcs = "";
+        this.requestReceipt = false;
+        this.requestRead = false;
 
         this.HasDocumentsForSave = function () {
             return docIds.length > 0;
@@ -1502,124 +1543,6 @@ if (typeof ASC.Mail.Message === "undefined") {
 
 if (typeof ASC.Mail.Sanitizer === "undefined") {
     ASC.Mail.Sanitizer = (function() {
-        var tagWhitelist = {
-            'A': true,
-            'ABBR': true,
-            'ACRONYM': true,
-            'ADDRESS': true,
-            'APPLET': true,
-            'AREA': true,
-            'ARTICLE': true,
-            'ASIDE': true,
-            'AUDIO': true,
-            'B': true,
-            'BDI': true,
-            'BDO': true,
-            'BGSOUND': true,
-            'BLOCKQUOTE': true,
-            'BIG': true,
-            'BODY': true,
-            'BLINK': true,
-            'BR': true,
-            'CANVAS': true,
-            'CAPTION': true,
-            'CENTER': true,
-            'CITE': true,
-            'CODE': true,
-            'COL': true,
-            'COLGROUP': true,
-            'COMMENT': true,
-            'DATALIST': true,
-            'DD': true,
-            'DEL': true,
-            'DETAILS': true,
-            'DFN': true,
-            'DIR': true,
-            'DIV': true,
-            'DL': true,
-            'DT': true,
-            'EM': true,
-            'FIGCAPTION': true,
-            'FIGURE': true,
-            'FONT': true,
-            'FOOTER': true,
-            'H1': true,
-            'H2': true,
-            'H3': true,
-            'H4': true,
-            'H5': true,
-            'H6': true,
-            'HEAD': true,
-            'HEADER': true,
-            'HGROUP': true,
-            'HR': true,
-            'HTML': true,
-            'I': true,
-            'IMG': true,
-            'INS': true,
-            'ISINDEX': true,
-            'KBD': true,
-            'LABEL': true,
-            'LEGEND': true,
-            'LI': true,
-            'MAP': true,
-            'MARQUEE': true,
-            'MARK': true,
-            'META': false,
-            'METER': true,
-            'NAV': true,
-            'NOBR': true,
-            'NOEMBED': true,
-            'NOFRAMES': true,
-            'NOSCRIPT': true,
-            'OL': true,
-            'OPTGROUP': true,
-            'OPTION': true,
-            'O:SMARTTAGTYPE': true,
-            'P': true,
-            'PLAINTEXT': true,
-            'PRE': true,
-            'Q': true,
-            'RP': true,
-            'RT': true,
-            'RUBY': true,
-            'S': true,
-            'SAMP': true,
-            'SECTION': true,
-            'SMALL': true,
-            'SPAN': true,
-            'SOURCE': true,
-            'STRIKE': true,
-            'STRONG': true,
-            'STYLE': false,
-            'SUB': true,
-            'SUMMARY': true,
-            'SUP': true,
-            'TABLE': true,
-            'TBODY': true,
-            'TD': true,
-            'TFOOT': true,
-            'TH': true,
-            'THEAD': true,
-            'TIME': true,
-            'TITLE': false,
-            'TR': true,
-            'TT': true,
-            'U': true,
-            'UL': true,
-            'VAR': true,
-            'VIDEO': true,
-            'WBR': true,
-            'XMP': true
-        },
-        regexps = {
-            styleEmbeddedImage: /^data:([\w/]+);(\w+),([^\"^)\s]+)/,
-            styleItems: /^([^\s^:]+)\s*:\s*([^;]+);?/g,
-            styleUrl: /^.*\b\s*url\s*\(([^)]*)\)/i,
-            styleForbiddenValue: /^(?:(expression|eval|javascript|vbscript))\s*(\(|:)/,  // expression(....)
-            quotes: /['"]+/g
-        };
-
         function checkOptions(options) {
             options = options || {
                 urlProxyHandler: "",
@@ -1648,165 +1571,88 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             return options;
         }
 
-        function changeUrlToProxy(url, options) {
-            checkOptions(options);
+        // specify the regex to detect external content
+        var regex = /(url\("?)(?!data:)/gim;
 
-            var newUrl = options.needProxyHttp && url.indexOf("http://") === 0
-                                ? "{0}?url={1}".format(options.urlProxyHandler, jq.base64.encode(url))
-                                : url;
-
-            return newUrl;
-        }
-
-        function parseUrl(url) {
-            var a = document.createElement('a');
-            a.href = url;
-            return a;
-        }
-
-        function isWellFormedUrl(url) {
-            try {
-                var uri = parseUrl(url);
-                return uri.protocol === "http:" || uri.protocol === "https:";
-            } catch (e) {
-                return false;
-            }
-        }
-
-        function fixBaseLink(foundedUrl, options) {
-            if (foundedUrl.indexOf("/") !== 0)
-                return foundedUrl;
-
-            return options.baseHref ? options.baseHref + foundedUrl : foundedUrl;
-        }
-
-        function fixStyles(node, result, options) {
-            checkOptions(options);
-            
-            var styles = node.style,
-                cleanStyle = "",
-                needChangeStyle = false;
-
-            var i, len;
-            for (i = 0, len = styles.length; i < len; i++) {
-                var styleName = (styles[i] || "").trim().toLowerCase();
-                var styleValue = (styles[styles[i]] || "").trim().toLowerCase();
-                try {
-                    if (regexps.styleForbiddenValue.test(styleValue) ||
-                        styleName === "position" ||
-                        styleName === "margin-left" && styleValue.indexOf("-") !== -1 ||
-                        styleName === "margin-top" && styleValue.indexOf("-") !== -1 ||
-                        styleName === "margin-rigth" && styleValue.indexOf("-") !== -1 ||
-                        styleName === "margin-bottom" && styleValue.indexOf("-") !== -1 ||
-                        styleName === "left" ||
-                        styleName === "top" ||
-                        styleName === "rigth" ||
-                        styleName === "bottom") {
-                        needChangeStyle = true;
-                        continue;
-                    }
-
-                    // check if valid url 
-                    var urlStyleMatcher = regexps.styleUrl.exec(styleValue);
-                    if (!urlStyleMatcher) {
-                        cleanStyle = "{0}{1}:{2};".format(cleanStyle, styleName, styleValue);
-                        continue;
-                    }
-
-                    var urlString = urlStyleMatcher[1].replace(regexps.quotes, "");
-                    if (!regexps.styleEmbeddedImage.test(urlString)) {
-                        var val = urlString.indexOf("//") === 0
-                            ? "http:" + urlString
-                            : urlString;
-
-                        if (!isWellFormedUrl(val)) {
-                            needChangeStyle = true;
-                            continue;
-                        }
-                    }
-
-                    var newUrl = fixBaseLink(urlString, options);
-
-                    if (options.needProxyHttp) {
-                        if (newUrl.length > 0) {
-                            newUrl = changeUrlToProxy(newUrl, options);
-                        } else {
-                            var t = changeUrlToProxy(urlString, options);
-                            if (!t.Equals(urlString))
-                                newUrl = t;
-                        }
-                    }
-
-                    if (newUrl.length > 0 && newUrl !== urlString) {
-                        styleValue = styleValue.replace(urlString, newUrl);
-                        needChangeStyle = true;
-                    }
-
-                    if ((styleName === "background-image" ||
-                        (styleName === "background" &&
-                            styleValue.indexOf("url(") !== -1)) &&
-                        !options.loadImages) {
-                        styleName = "tl_disabled_" + styleName;
-                        result.imagesBlocked = true;
-                        needChangeStyle = true;
-                    }
-                } catch (e) {
-                    needChangeStyle = true;
-                    continue;
+        /**
+         *  Take CSS property-value pairs and proxy URLs in values,
+         *  then add the styles to an array of property-value pairs
+         */
+        function addStyles(output, styles, options) {
+            for (var prop = styles.length - 1; prop >= 0; prop--) {
+                if (styles[styles[prop]] && options.needProxyHttp) {
+                    var url = styles[styles[prop]].replace(regex, '$1' + options.urlProxyHandler);
+                    styles[styles[prop]] = url;
                 }
-
-                cleanStyle = "{0}{1}{2};".format(cleanStyle, styleName, styleValue.length === 0 ? "" : ":" + styleValue);
+                if (styles[styles[prop]]) {
+                    output.push(styles[prop] + ':' + styles[styles[prop]] + ';');
+                }
             }
-
-            if (needChangeStyle) {
-                console.log("Sanitizer: tag '%s' style changed:\n\told: '%s'\n\n\tnew: '%s'\n", node.tagName, styles.cssText, cleanStyle);
-            }
-
-            return needChangeStyle ? cleanStyle : styles.cssText;
         }
 
         /**
-         * detect IE
-         * returns version of IE or false, if browser is not Internet Explorer
+         * Take CSS rules and analyze them, proxy URLs via addStyles(),
+         * then create matching CSS text for later application to the DOM
          */
-        function detectIE() {
-            var ua = window.navigator.userAgent;
-
-            // Test values; Uncomment to check result …
-
-            // IE 10
-            // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-
-            // IE 11
-            // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-
-            // Edge 12 (Spartan)
-            // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-
-            // Edge 13
-            // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-
-            var msie = ua.indexOf('MSIE ');
-            if (msie > 0) {
-                // IE 10 or older => return version number
-                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+        function addCssRules(output, cssRules, options) {
+            for (var index = cssRules.length - 1; index >= 0; index--) {
+                var rule = cssRules[index];
+                // check for rules with selector
+                if (rule.type === 1 && rule.selectorText) {
+                    output.push(rule.selectorText + '{');
+                    if (rule.style) {
+                        addStyles(output, rule.style, options);
+                    }
+                    output.push('}');
+                    // check for @media rules
+                } else if (rule.type === rule.MEDIA_RULE) {
+                    output.push('@media ' + rule.media.mediaText + '{');
+                    addCssRules(output, rule.cssRules, options);
+                    output.push('}');
+                    // check for @font-face rules
+                } else if (rule.type === rule.FONT_FACE_RULE) {
+                    output.push('@font-face {');
+                    if (rule.style) {
+                        addStyles(output, rule.style, options);
+                    }
+                    output.push('}');
+                    // check for @keyframes rules
+                } else if (rule.type === rule.KEYFRAMES_RULE) {
+                    output.push('@keyframes ' + rule.name + '{');
+                    for (var i = rule.cssRules.length - 1; i >= 0; i--) {
+                        var frame = rule.cssRules[i];
+                        if (frame.type === 8 && frame.keyText) {
+                            output.push(frame.keyText + '{');
+                            if (frame.style) {
+                                addStyles(output, frame.style, options);
+                            }
+                            output.push('}');
+                        }
+                    }
+                    output.push('}');
+                }
             }
+        }
 
-            var trident = ua.indexOf('Trident/');
-            if (trident > 0) {
-                // IE 11 => return version number
-                var rv = ua.indexOf('rv:');
-                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+        function isForbiddenStyle(styleName, styleValue) {
+            styleName = (styleName || "").trim().toLowerCase();
+            styleValue = (styleValue || "").trim().toLowerCase();
+
+            switch (styleName) {
+                case "position":
+                case "left":
+                case "top":
+                case "right":
+                case "bottom":
+                    return true;
+                case "margin-left":
+                case "margin-top":
+                case "margin-rigth":
+                case "margin-bottom":
+                    return styleValue.indexOf("-") !== -1;
+                default:
+                    return false;
             }
-
-            var edge = ua.indexOf('Edge/');
-            if (edge > 0) {
-                // Edge (IE 12+) => return version number
-                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-            }
-
-            // other browser
-            return false;
         }
 
         function sanitize(html, options) {
@@ -1822,108 +1668,110 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             if (!html)
                 return result;
 
-            var iframe = document.createElement("iframe");
-            if (iframe["sandbox"] === undefined) {
-                var error = "Sorry, but your browser does not support sandboxed iframes. Please upgrade to a modern browser.";
-                alert(error);
-                throw error;
-            }
-            iframe["sandbox"] = "allow-same-origin";
-            iframe.style.display = "none";
-            if (!detectIE())
-                iframe.src = "data:text/html;base64,PHNwYW4+ZmFrZSBodG1sPC9zcGFuPg==";
-            document.body.appendChild(iframe); // necessary so the iframe contains a document
+            // Proxy a URL in case it's not a Data URI
+            function proxyAttribute(url) {
+                if (!options.needProxyHttp)
+                    return url;
 
-            function insertHtmlToSandbox(htmlStr) {
-                iframe.contentDocument.open();
-                iframe.contentDocument.write(htmlStr);
-                iframe.contentDocument.close();
-            }
-
-            try {
-                var temp = html
-                    .replace(/<\/?link\b.*?>/g, "")
-                    .replace(/ on\w+=".*?"/g, "");
-
-                insertHtmlToSandbox(temp);
-
-            } catch (e) {
-                insertHtmlToSandbox(html);
-            } 
-
-            function makeSanitizedCopy(node) {
-                var newNode;
-                switch (node.nodeType) {
-                case Node.TEXT_NODE:
-                    newNode = node.cloneNode(true);
-                    break;
-                case Node.ELEMENT_NODE:
-                    var tagName = node.tagName.toUpperCase();
-
-                    if (!tagWhitelist[tagName]) {
-                        newNode = document.createDocumentFragment();
-                        break;
-                    }
-
-                    newNode = iframe.contentDocument.createElement(tagName);
-                    var i, n;
-                    for (i = 0, n = node.attributes.length; i < n; i++) {
-                        var attr = node.attributes[i];
-                        try {
-                            var newValue;
-                            switch (attr.name) {
-                            case "background":
-                            case "src":
-                                newValue = attr.value;
-                                if (!regexps.styleEmbeddedImage.test(newValue)) {
-                                    newValue = fixBaseLink(attr.value, options);
-                                }
-
-                                if (!options.loadImages) {
-                                    newNode.setAttribute("tl_disabled_" + attr.name, changeUrlToProxy(newValue, options));
-                                    result.imagesBlocked = true;
-                                } else {
-                                    newNode.setAttribute(attr.name, changeUrlToProxy(newValue, options));
-                                }
-                                break;
-                           case "style":
-                                newValue = fixStyles(node, result, options);
-                                newNode.setAttribute(attr.name, newValue);
-                                break;
-                            case "class":
-                                // Skips any classes
-                                break;
-                            default:
-                                if (attr.name.indexOf("on") !== 0 && attr.value.length > 0) // skip all javascript events and attributes with empty value 
-                                    newNode.setAttribute(attr.name, attr.value);
-                                break;
-                            }
-                        } catch (ex) {
-                            console.log("sanitize: ", ex);
-                        }
-                    }
-                    for (i = 0, n = node.childNodes.length; i < n; i++) {
-                        try {
-                            var subCopy = makeSanitizedCopy(node.childNodes[i]);
-                            newNode.appendChild(subCopy, false);
-                        } catch (er) {
-                            console.log("sanitize: ", er);
-                        }
-                    }
-
-                    break;
-                default:
-                    newNode = document.createDocumentFragment();
-                    break;
+                if (/^data:image\//.test(url)) {
+                    return url;
+                } else {
+                    result.httpProxied = true;
+                    return options.urlProxyHandler + encodeURIComponent(url);
                 }
-                return newNode;
-            };
+            }
 
-            var resultElement = makeSanitizedCopy(iframe.contentDocument.body);
-            document.body.removeChild(iframe);
+            // Add a hook to enforce proxy for leaky CSS rules
+            window.DOMPurify.addHook("uponSanitizeElement", function (node, data) {
+                if (data.tagName === "style") {
+                    var output = [];
+                    addCssRules(output, node.sheet.cssRules, options);
+                    node.textContent = output.join("\n");
+                }
+            });
 
-            result.html = resultElement.innerHTML;
+            window.DOMPurify.addHook("afterSanitizeAttributes", function (node) {
+                // set all elements owning target to target=_blank
+                if (node.hasOwnProperty("target")) {
+                    node.setAttribute("target", "_blank");
+                }
+
+                // Check all style attribute values and proxy them
+                if (node.hasAttribute("style")) {
+                    var styles = node.style;
+                    var output = [];
+                    for (var prop = styles.length - 1; prop >= 0; prop--) {
+                        var styleName = styles[prop],
+                            styleValue = node.style[styleName];
+
+                        // we re-write each property-value pair to remove invalid CSS
+                        if (styleValue && regex.test(styleValue)) {
+                            if (options.needProxyHttp) {
+                                var url = styleValue.replace(regex, '$1' + options.urlProxyHandler);
+                                result.httpProxied = true;
+                                node.style[styleName] = url;
+                            }
+                        }
+
+                        if (isForbiddenStyle(styleName, styleValue)) {
+                            continue;
+                        }
+
+                        if (!options.loadImages &&
+                        (styleName === "background-image" || styleName === "background")) {
+                            styleName = "tl_disabled_" + styleName;
+                            result.imagesBlocked = true;
+                        }
+
+                        output.push(styleName + ':' + styleValue + ';');
+                    }
+                    // re-add styles in case any are left
+                    if (output.length) {
+                        node.setAttribute('style', output.join(""));
+                    } else {
+                        node.removeAttribute('style');
+                    }
+                }
+                var newSrcVal;
+                if (node.hasAttribute("src")) {
+                    if (!options.loadImages) {
+                        newSrcVal = proxyAttribute(node.getAttribute("src"));
+
+                        if (newSrcVal) {
+                            node.removeAttribute("src");
+                            node.setAttribute("tl_disabled_src", newSrcVal);
+                            result.imagesBlocked = true;
+
+                        }
+                    }
+                }
+
+                if (node.hasAttribute("background")) {
+                    if (!options.loadImages) {
+                        newSrcVal = proxyAttribute(node.getAttribute("background"));
+
+                        if (newSrcVal) {
+                            node.removeAttribute("background");
+                            node.setAttribute("tl_disabled_background", newSrcVal);
+                            result.imagesBlocked = true;
+                        }
+                    }
+                }
+            });
+
+            var clean = window.DOMPurify.sanitize(html,
+            {
+                ALLOWED_URI_REGEXP:
+                    /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|blob|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,// eslint-disable-line no-useless-escape
+                FORBID_TAGS: ['style', 'input', 'form', 'title', 'iframe', 'meta'],
+                FORBID_ATTR: ['srcset', 'action']
+            });
+
+            result.html = clean;
             result.sanitized = true;
+
+            window.DOMPurify.removeHook("afterSanitizeAttributes");
+            window.DOMPurify.removeHook("uponSanitizeElement");
 
             return result;
         }

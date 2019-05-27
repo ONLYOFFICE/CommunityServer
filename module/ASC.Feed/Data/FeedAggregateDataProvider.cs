@@ -82,25 +82,18 @@ namespace ASC.Feed.Data
             using (var db = new DbManager(Constants.FeedDbId))
             using (var tx = db.BeginTransaction())
             {
+                var i = new SqlInsert("feed_aggregate", true)
+                    .InColumns("id", "tenant", "product", "module", "author", "modified_by", "group_id", "created_date",
+                        "modified_date", "json", "keywords", "aggregated_date");
+                var i2 = new SqlInsert("feed_users", true).InColumns("feed_id", "user_id");
+
                 foreach (var f in feeds)
                 {
                     if (0 >= f.Users.Count) continue;
 
-                    var i = new SqlInsert("feed_aggregate", true)
-                        .InColumnValue("id", f.Id)
-                        .InColumnValue("tenant", f.Tenant)
-                        .InColumnValue("product", f.ProductId)
-                        .InColumnValue("module", f.ModuleId)
-                        .InColumnValue("author", f.AuthorId)
-                        .InColumnValue("modified_by", f.ModifiedById)
-                        .InColumnValue("group_id", f.GroupId)
-                        .InColumnValue("created_date", f.CreatedDate)
-                        .InColumnValue("modified_date", f.ModifiedDate)
-                        .InColumnValue("json", f.Json)
-                        .InColumnValue("keywords", f.Keywords)
-                        .InColumnValue("aggregated_date", aggregatedDate);
+                   i.Values(f.Id, f.Tenant, f.ProductId, f.ModuleId, f.AuthorId, f.ModifiedById, f.GroupId, f.CreatedDate, f.ModifiedDate, f.Json, f.Keywords, aggregatedDate);
 
-                    db.ExecuteNonQuery(i);
+
 
                     if (f.ClearRightsBeforeInsert)
                     {
@@ -112,13 +105,12 @@ namespace ASC.Feed.Data
 
                     foreach (var u in f.Users)
                     {
-                        db.ExecuteNonQuery(
-                            new SqlInsert("feed_users", true)
-                                .InColumnValue("feed_id", f.Id)
-                                .InColumnValue("user_id", u.ToString())
-                            );
+                        i2.Values(f.Id, u.ToString());
                     }
                 }
+
+                db.ExecuteNonQuery(i);
+                db.ExecuteNonQuery(i2);
 
                 tx.Commit();
             }

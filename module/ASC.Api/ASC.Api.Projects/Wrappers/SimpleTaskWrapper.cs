@@ -106,7 +106,7 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool CanDelete { get; set; }
 
-        public SimpleTaskWrapper(Task task)
+        public SimpleTaskWrapper(ProjectApiBase projectApiBase,Task task)
         {
             ID = task.ID;
             Title = task.Title;
@@ -145,10 +145,10 @@ namespace ASC.Api.Projects.Wrappers
                 Links = task.Links.Select(r => new TaskLinkWrapper(r));
             }
 
-            CanEdit = ProjectSecurity.CanEdit(task);
-            CanCreateSubtask = ProjectSecurity.CanCreateSubtask(task);
-            CanCreateTimeSpend = ProjectSecurity.CanCreateTimeSpend(task);
-            CanDelete = ProjectSecurity.CanDelete(task);
+            CanEdit = projectApiBase.ProjectSecurity.CanEdit(task);
+            CanCreateSubtask = projectApiBase.ProjectSecurity.CanCreateSubtask(task);
+            CanCreateTimeSpend = projectApiBase.ProjectSecurity.CanCreateTimeSpend(task);
+            CanDelete = projectApiBase.ProjectSecurity.CanDelete(task);
         }
     }
 }

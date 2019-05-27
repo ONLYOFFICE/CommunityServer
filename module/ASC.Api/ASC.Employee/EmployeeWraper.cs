@@ -26,6 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Api.Impl;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Users;
@@ -41,6 +42,11 @@ namespace ASC.Api.Employee
         }
 
         public EmployeeWraper(UserInfo userInfo)
+            : this(userInfo, null)
+        {
+        }
+
+        public EmployeeWraper(UserInfo userInfo, ApiContext context)
         {
             Id = userInfo.ID;
             DisplayName = DisplayUserSettings.GetFullUserName(userInfo);
@@ -48,9 +54,12 @@ namespace ASC.Api.Employee
             {
                 Title = userInfo.Title;
             }
-            AvatarSmall = CommonLinkUtility.GetFullAbsolutePath(UserPhotoManager.GetSizedPhotoUrl(userInfo.ID, 64, 64));
-        }
 
+            if (EmployeeWraperFull.CheckContext(context, "avatarSmall"))
+            {
+                AvatarSmall = UserPhotoManager.GetSmallPhotoURL(userInfo.ID) + "?_=" + userInfo.LastModified.GetHashCode();
+            }
+        }
 
         [DataMember(Order = 1)]
         public Guid Id { get; set; }

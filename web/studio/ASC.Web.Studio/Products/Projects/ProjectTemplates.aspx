@@ -1,5 +1,4 @@
 ﻿<%@ Assembly Name="ASC.Web.Projects" %>
-<%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
 <%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Projects/Masters/BasicTemplate.Master" CodeBehind="ProjectTemplates.aspx.cs" Inherits="ASC.Web.Projects.ProjectTemplates" %>
     

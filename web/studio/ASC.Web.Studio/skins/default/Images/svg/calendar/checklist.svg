@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><defs></defs>
+<title>checklist</title>
+<path fill="#83888d" d="M12,2H2A1,1,0,0,0,1,3V13a1,1,0,0,0,1,1H12a1,1,0,0,0,1-1V3A1,1,0,0,0,12,2ZM11,12H3V5h8Z"/>
+<rect fill="#83888d" x="4" y="6" width="1" height="1"/>
+<rect fill="#83888d" x="4" y="8" width="1" height="1"/>
+<rect fill="#83888d" x="4" y="10" width="1" height="1"/>
+<rect fill="#83888d" x="6" y="10" width="4" height="1"/>
+<rect fill="#83888d" x="6" y="8" width="3" height="1"/>
+<rect fill="#83888d" x="6" y="6" width="4" height="1"/>
+</svg>

@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 using ASC.Data.Backup.Tasks.Data;
 
@@ -64,7 +65,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             get { return _relations; }
         }
 
-        protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
+        protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, RelationInfo relation, ref object value)
         {
             if (relation.ParentTable == "crm_organisation_logo")
             {

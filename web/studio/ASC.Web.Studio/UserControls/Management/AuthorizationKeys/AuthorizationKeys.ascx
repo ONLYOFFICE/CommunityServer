@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthorizationKeys.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.AuthorizationKeys" %>
+<%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="authKeysContainer">
@@ -18,9 +19,9 @@
            { %>
         <div class="auth-service-item">
             <div class="auth-service-name clearFix">
-                <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".png") %>" alt="<%= service.Title %>" />
+                <img src="<%= WebPath.GetPath("usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
                 <span class="sub-button">
-                    <a id="switcherBtn<%= service.Name %>" class="on_off_button <%= service.CanSet ? "" : "disable" %> <%= (service.Secret == null || string.IsNullOrEmpty(service.Secret.Value)) ? "off" : "on" %>"></a>
+                    <a id="switcherBtn<%= service.Name %>" class="on_off_button <%= service.CanSet ? "" : "disable" %> <%= (service.Props.All(r=> string.IsNullOrEmpty(r.Value))) ? "off" : "on" %>"></a>
                 </span>
             </div>
             <div class="auth-service-dscr"><%= service.Description ?? service.Title %></div>
@@ -41,7 +42,7 @@
                 </div>
                 <div class="containerBodyBlock clearFix">
 
-                    <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".png") %>" alt="<%= service.Title %>" />
+                    <img src="<%= WebPath.GetPath("usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
 
                     <% if (!string.IsNullOrEmpty(service.Instruction))
                        { %>
@@ -57,26 +58,10 @@
                     <% } %>
 
                     <div>
-                        <% if (service.Key != null)
-                           { %>
-                        <div class="bold headerPanelSmall"><%= service.Key.Title %>:</div>
-                        <input id="<%= service.Key.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= service.Key.Title %>" value="<%= service.Key.Value %>" />
-                        <% } %>
-                        <% if (service.Secret != null)
-                           { %>
-                        <div class="bold headerPanelSmall"><%= service.Secret.Title %>:</div>
-                        <input id="<%= service.Secret.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= service.Secret.Title %>" value="<%= service.Secret.Value %>" />
-                        <% } %>
-                        <% if (service.KeyDefault != null)
-                           { %>
-                        <div class="bold headerPanelSmall"><%= service.KeyDefault.Title %>:</div>
-                        <input id="<%= service.KeyDefault.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= service.KeyDefault.Title %>" value="<%= service.KeyDefault.Value %>" />
-                        <% } %>
-                        <% if (service.SecretDefault != null)
-                           { %>
-                        <div class="bold headerPanelSmall"><%= service.SecretDefault.Title %>:</div>
-                        <input id="<%= service.SecretDefault.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= service.SecretDefault.Title %>" value="<%= service.SecretDefault.Value %>" />
-                        <% } %>
+                        <%foreach (var prop in service.Props){%>
+                        <div class="bold headerPanelSmall"><%= prop.Title %>:</div>
+                        <input id="<%= prop.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= prop.Title %>" value="<%= prop.Value %>" />
+                        <%}%>
                     </div>
 
                     <div class="small-button-container">

@@ -31,6 +31,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -41,7 +42,6 @@ using ASC.Notify.Patterns;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
 using MimeKit.Utils;
-using log4net;
 using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.Core.Notify
@@ -172,7 +172,7 @@ namespace ASC.Web.Studio.Core.Notify
                              }
                              if (productId != Guid.Empty && productId != new Guid("f4d98afdd336433287783c6945c81ea0") /* ignore people product */)
                              {
-                                 return !WebItemSecurity.IsAvailableForUser(productId.ToString(), u.ID);
+                                 return !WebItemSecurity.IsAvailableForUser(productId, u.ID);
                              }
                          }
 
@@ -186,7 +186,7 @@ namespace ASC.Web.Studio.Core.Notify
                      }
                      catch (Exception error)
                      {
-                         LogManager.GetLogger(typeof(NotifyConfiguration)).Error(error);
+                         LogManager.GetLogger("ASC").Error(error);
                      }
                      return false;
                  });
@@ -220,7 +220,7 @@ namespace ASC.Web.Studio.Core.Notify
                      }
                      catch (Exception error)
                      {
-                         LogManager.GetLogger(typeof(NotifyConfiguration)).Error(error);
+                         LogManager.GetLogger("ASC").Error(error);
                      }
                      return false;
                  });
@@ -254,7 +254,7 @@ namespace ASC.Web.Studio.Core.Notify
             }
 
             var logoText = TenantWhiteLabelSettings.DefaultLogoText;
-            if ((TenantExtra.Enterprise || TenantExtra.Hosted) && !MailWhiteLabelSettings.Instance.IsDefault)
+            if ((TenantExtra.Enterprise || TenantExtra.Hosted || (CoreContext.Configuration.Personal && CoreContext.Configuration.CustomMode)) && !MailWhiteLabelSettings.Instance.IsDefault)
             {
                 logoText = TenantLogoManager.GetLogoText();
             }
@@ -270,6 +270,7 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(CommonTags.Helper, new PatternHelper()));
             request.Arguments.Add(new TagValue(CommonTags.RecipientID, Context.SYS_RECIPIENT_ID));
             request.Arguments.Add(new TagValue(CommonTags.RecipientSubscriptionConfigURL, CommonLinkUtility.GetMyStaff()));
+            request.Arguments.Add(new TagValue(CommonTags.HelpLink, CommonLinkUtility.GetHelpLink(false)));
             request.Arguments.Add(new TagValue(Constants.LetterLogoText, logoText));
             request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoText));
             request.Arguments.Add(new TagValue(Constants.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
@@ -284,7 +285,7 @@ namespace ASC.Web.Studio.Core.Notify
 
         private static void AddLetterLogo(NotifyRequest request)
         {
-            if (CoreContext.Configuration.Standalone)
+            if (TenantExtra.Enterprise || TenantExtra.Hosted || (CoreContext.Configuration.Personal && CoreContext.Configuration.CustomMode))
             {
                 try
                 {
@@ -315,7 +316,7 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception error)
                 {
-                    LogManager.GetLogger(typeof(NotifyConfiguration)).Error(error);
+                    LogManager.GetLogger("ASC").Error(error);
                 }
             }
 

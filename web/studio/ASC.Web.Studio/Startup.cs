@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -26,11 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 
+using ASC.ActiveDirectory.Base;
 using ASC.Common.Data;
 using ASC.Core;
 using ASC.Data.Storage;
@@ -45,11 +47,9 @@ using ASC.Web.Studio.Utility;
 using TMResourceData;
 
 using AjaxPro.Security;
-using log4net.Config;
 using RedisSessionProvider.Config;
 using StackExchange.Redis;
-using StackExchange.Redis.Extensions.Core.Configuration;
-
+using StackExchange.Redis.Extensions.LegacyConfiguration;
 using WhiteLabelHelper = ASC.Web.Studio.Utility.WhiteLabelHelper;
 
 namespace ASC.Web.Studio
@@ -58,8 +58,6 @@ namespace ASC.Web.Studio
     {
         public static void Configure()
         {
-            XmlConfigurator.Configure();
-
             DbRegistry.Configure();
 
             PrepareRedisSessionProvider();
@@ -99,9 +97,11 @@ namespace ASC.Web.Studio
 
             WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
 
+            LdapNotifyHelper.RegisterAll();
+
             try
             {
-                (new S3UploadGuard()).DeleteExpiredUploads(TimeSpan.FromDays(1));//todo:
+                new S3UploadGuard().DeleteExpiredUploadsAsync(TimeSpan.FromDays(1));//todo:
             }
             catch (Exception)
             {
@@ -127,10 +127,10 @@ namespace ASC.Web.Studio
 
         private static void PrepareRedisSessionProvider()
         {
-            var configuration = RedisCachingSectionHandler.GetConfig();
+            var configuration = ConfigurationManager.GetSection("redisCacheClient") as RedisCachingSectionHandler;
             if (configuration != null)
             {
-                RedisConnectionConfig.GetSERedisServerConfig = (HttpContextBase context) =>
+                RedisConnectionConfig.GetSERedisServerConfig = context =>
                 {
                     if (configuration.RedisHosts != null && configuration.RedisHosts.Count > 0)
                     {

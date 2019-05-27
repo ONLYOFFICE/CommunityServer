@@ -57,6 +57,7 @@
 	width: 100%;
 	background-color: #FFFFFF;
 	border: 1px solid #C7C7C7;
+	resize: none;
 }
 
 .bookmarkingInputUrl, .bookmarkingInputText

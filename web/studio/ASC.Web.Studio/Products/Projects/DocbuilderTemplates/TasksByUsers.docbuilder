@@ -1,0 +1,39 @@
+﻿for (var i = 0; i < reportData.length; i++)
+{
+	writeText(reportData[i][0], {
+		size: headerFontSize,
+		bold: true
+	});
+	currentRow++;
+	
+	var projects = reportData[i][1];
+	for (var j = 0; j < projects.length; j++)
+	{
+		writeText(projects[j][0], {
+			size: chartHeaderFontSize,
+			bold: true
+		});
+		writeText(reportColumns[0] + ": " + projects[j][1], {
+			size: smallFontSize
+		});
+		currentRow++
+		
+		var tasks = projects[j][2];
+		writeRow([1, 2, 3, 4, 5], reportColumns, [1, 4], {
+			size: darkGrayBorderColor
+		},
+		{
+			size: smallFontSize,
+			color: grayFontColor
+		});
+		for(var k = 0; k < tasks.length; k++)
+			writeRow([0, 1, 2, 3, 4], tasks[k], [1, 4], {
+				color: lightGrayBorderColor
+			}, {
+				color: tasks[k][2] == reportColumns[6] ? blackFontColor : grayFontColor,
+				size: smallFontSize,
+			}, true);
+		currentRow++;
+	}
+	currentRow += 2;
+}

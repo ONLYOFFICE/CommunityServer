@@ -33,6 +33,7 @@ using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
+using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using Newtonsoft.Json;
@@ -99,6 +100,11 @@ namespace ASC.Web.Files.HttpHandlers
                         WriteError(context, "Unknown request type.");
                         return;
                 }
+            }
+            catch (FileNotFoundException error)
+            {
+                Global.Logger.Error(error);
+                WriteError(context, FilesCommonResource.ErrorMassage_FileNotFound);
             }
             catch (Exception error)
             {

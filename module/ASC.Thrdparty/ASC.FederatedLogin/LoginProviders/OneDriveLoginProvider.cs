@@ -24,33 +24,43 @@
 */
 
 
-using ASC.Thrdparty.Configuration;
+using System.Collections.Generic;
+using ASC.Core.Common.Configuration;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
-    public class OneDriveLoginProvider
+    public class OneDriveLoginProvider : Consumer, IOAuthProvider
     {
-        public const string OneDriveProfileScope = "wl.signin wl.skydrive_update wl.offline_access";
-
         private const string OneDriveOauthUrl = "https://login.live.com/";
-        public const string OneDriveOauthCodeUrl = OneDriveOauthUrl + "oauth20_authorize.srf";
-        public const string OneDriveOauthTokenUrl = OneDriveOauthUrl + "oauth20_token.srf";
-
         public const string OneDriveApiUrl = "https://api.onedrive.com";
 
-        public static string OneDriveOAuth20ClientId
+        public static OneDriveLoginProvider Instance
         {
-            get { return KeyStorage.Get("skydriveappkey"); }
+            get { return ConsumerFactory.Get<OneDriveLoginProvider>(); }
         }
 
-        public static string OneDriveOAuth20ClientSecret
+        public string Scopes { get { return "wl.signin wl.skydrive_update wl.offline_access"; } }
+        public string CodeUrl { get { return OneDriveOauthUrl + "oauth20_authorize.srf"; } }
+        public string AccessTokenUrl { get { return OneDriveOauthUrl + "oauth20_token.srf"; } }
+        public string RedirectUri { get { return this["skydriveRedirectUrl"]; } }
+        public string ClientID { get { return this["skydriveappkey"]; } }
+        public string ClientSecret { get { return this["skydriveappsecret"]; } }
+
+        public bool IsEnabled
         {
-            get { return KeyStorage.Get("skydriveappsecret"); }
+            get
+            {
+                return !string.IsNullOrEmpty(ClientID) &&
+                       !string.IsNullOrEmpty(ClientSecret) &&
+                       !string.IsNullOrEmpty(RedirectUri);
+            }
         }
 
-        public static string OneDriveOAuth20RedirectUrl
+        public OneDriveLoginProvider() { }
+
+        public OneDriveLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
+            : base(name, order, props, additional)
         {
-            get { return KeyStorage.Get("skydriveRedirectUrl"); }
         }
     }
 }

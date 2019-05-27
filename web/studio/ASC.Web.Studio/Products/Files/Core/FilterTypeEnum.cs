@@ -52,5 +52,7 @@ namespace ASC.Files.Core
         [EnumMember] ArchiveOnly = 10,
 
         [EnumMember] ByExtension = 11,
+
+        [EnumMember] MediaOnly = 12,
     }
 }

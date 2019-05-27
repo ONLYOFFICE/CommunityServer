@@ -54,7 +54,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
 
             var quotainfo = jh.GetSubObjectString("quota_info");
             if (quotainfo != null)
-                QuotaInfo = new DropBoxQuotaInfo(quotainfo.ToString());
+                QuotaInfo = new DropBoxQuotaInfo(quotainfo);
         }
     }
 }

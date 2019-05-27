@@ -7,6 +7,7 @@
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="ASC.Data.Storage" %>
 
 <%-- TREE --%>
 <div id="<%= ID %>" class="jstree webkit-scrollbar <%= AdditionalCssClass %>">
@@ -14,10 +15,11 @@
         <% if (!IsVisitor)
            { %>
         <li data-id="<%= Global.FolderMy %>" class="tree-node jstree-closed">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderMy %>" title="<%= FilesUCResource.MyFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderMy %>">
-                <span class="menu-item-icon myFiles"></span><%= FilesUCResource.MyFiles %>
-                <input type="hidden" name="entry_data" data-id="<%= Global.FolderMy %>" value='{ "entryType": "folder", "access" : "<%= (int)FileShare.None %>" }' />
+                <span class="menu-item-icon myFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconspeople"></use></svg></span><%= FilesUCResource.MyFiles %>
+                <input type="hidden" name="entry_data" data-id="<%= Global.FolderMy %>" data-entryType="folder" data-access="<%= (int)FileShare.None %>" />
             </a>
             <% if (WithNew)
                { %>
@@ -32,10 +34,11 @@
         <% if (!Global.IsOutsider)
            { %>
         <li data-id="<%= Global.FolderShare %>" class="tree-node jstree-closed access-read">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderShare %>" title="<%= FilesUCResource.SharedForMe %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderShare %>">
-                <span class="menu-item-icon shareformeFiles"></span><%= FilesUCResource.SharedForMe %>
-                <input type="hidden" name="entry_data" data-id="<%= Global.FolderShare %>" value='{ "entryType": "folder", "access" : "<%= (int)FileShare.Read %>" }' />
+                <span class="menu-item-icon shareformeFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsfeed"></use></svg></span><%= FilesUCResource.SharedForMe %>
+                <input type="hidden" name="entry_data" data-id="<%= Global.FolderShare %>" data-entryType="folder" data-access="<%= (int)FileShare.Read %>" />
             </a>
             <% if (WithNew)
                { %>
@@ -45,10 +48,11 @@
         <% } %>
 
         <li data-id="<%= Global.FolderCommon %>" class="tree-node jstree-closed <%= Global.IsAdministrator ? string.Empty : "access-read" %>">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderCommon %>" title="<%= FilesUCResource.CorporateFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderCommon %>">
-                <span class="menu-item-icon corporateFiles"></span><%= FilesUCResource.CorporateFiles %>
-                <input type="hidden" name="entry_data" data-id="<%= Global.FolderCommon %>" value='{ "entryType": "folder", "access" : "<%= (int)(Global.IsAdministrator ? FileShare.ReadWrite : FileShare.Read) %>" }' />
+                <span class="menu-item-icon corporateFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconscase"></use></svg></span><%= FilesUCResource.CorporateFiles %>
+                <input type="hidden" name="entry_data" data-id="<%= Global.FolderCommon %>" data-entryType="folder" data-access="<%= (int)(Global.IsAdministrator ? FileShare.ReadWrite : FileShare.Read) %>" />
             </a>
             <% if (WithNew)
                { %>
@@ -62,10 +66,11 @@
         <% if (Global.FolderProjects != null)
            { %>
         <li data-id="<%= Global.FolderProjects %>" class="tree-node jstree-closed access-read">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderProjects %>" title="<%= FilesUCResource.ProjectFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderProjects %>">
-                <span class="menu-item-icon projectFiles"></span><%= FilesUCResource.ProjectFiles %>
-                <input type="hidden" name="entry_data" data-id="<%= Global.FolderProjects %>" value='{ "entryType": "folder", "access" : "<%= (int)FileShare.Read %>" }' />
+                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
+                <input type="hidden" name="entry_data" data-id="<%= Global.FolderProjects %>" data-entryType="folder" data-access="<%= (int)FileShare.Read %>" />
             </a>
             <% if (WithNew)
                { %>
@@ -78,10 +83,11 @@
            else
            { %>
         <li data-id="<%= FolderIDCurrentRoot %>" class="tree-node jstree-closed">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= FolderIDCurrentRoot %>" title="<%= FilesUCResource.ProjectFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + FolderIDCurrentRoot %>">
-                <span class="menu-item-icon projectFiles"></span><%= FilesUCResource.ProjectFiles %>
-                <input type="hidden" name="entry_data" data-id="<%= FolderIDCurrentRoot %>" value='{ "entryType": "folder", "access" : "<%= (int)FileShare.ReadWrite %>" }' />
+                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
+                <input type="hidden" name="entry_data" data-id="<%= FolderIDCurrentRoot %>" data-entryType="folder" data-access="<%= (int)FileShare.ReadWrite %>" />
             </a>
         </li>
         <% } %>
@@ -91,10 +97,11 @@
         <% if (!WithoutTrash)
            { %>
         <li data-id="<%= Global.FolderTrash %>" class="tree-node jstree-closed">
+            <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon visibility-hidden"></span>
             <a data-id="<%= Global.FolderTrash %>" title="<%= FilesUCResource.Trash %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderTrash %>">
-                <span class="menu-item-icon trashFiles"></span><%= FilesUCResource.Trash %>
-                <input type="hidden" name="entry_data" data-id="<%= Global.FolderTrash %>" value='{ "entryType": "folder", "access" : "<%= (int)FileShare.ReadWrite %>" }' />
+                <span class="menu-item-icon trashFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span><%= FilesUCResource.Trash %>
+                <input type="hidden" name="entry_data" data-id="<%= Global.FolderTrash %>" data-entryType="folder" data-access="<%= (int)FileShare.ReadWrite %>" />
             </a>
         </li>
         <% } %>

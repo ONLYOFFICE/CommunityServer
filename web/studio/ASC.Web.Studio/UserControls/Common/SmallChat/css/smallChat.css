@@ -34,10 +34,16 @@
     background-color: white;
     bottom: 0;
     top: auto;
-    z-index: 100;
+    z-index: 99;
     outline: none;
 }
 
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {
+    display: none!important;
+}
+.small_chat_main_window.small_chat_main_window_full {
+     position: fixed;
+}
 .noty_text {
     font-weight: bold;
 }
@@ -132,7 +138,7 @@
 .small_chat_down_panel {
     background: white;
     width: inherit;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     padding: 5px 0 5px 0;
 }
@@ -302,39 +308,47 @@
 }
 
 .extend_chat_icon {
-    background: url(images/main_icons_sprite.png) -46px 2px no-repeat transparent;
+    background: url(images/expand.svg) no-repeat;
+    background-position:50%;
+    opacity:0.8;
 }
 
 .extend_chat_icon:hover {
-    background-position: -46px -22px;
+    opacity: 1
 }
 
 .show_small_chat_icon {
-    background: url(images/main_icons_sprite.png) no-repeat transparent;
+    background: url(images/talk.svg) no-repeat;
+    opacity:0.8;
+    background-position: 50%;
 }
 
 .small_chat_option_icon {
-    background: url(images/main_icons_sprite.png) -69px 2px no-repeat transparent;
+    background: url(images/settings.svg) no-repeat;
+    background-position:50%;
+    opacity:0.8;
 }
 
 .small_chat_option_icon:hover {
-     background-position: -69px -22px;
+     opacity: 1
 }
 
 .small_chat_icon_white:hover {
-    background-position: 2px -22px;
+    opacity: 1
 }
 
 .small_chat_icon_white {
-    background-position: 2px 2px;
+    /*background-position: 2px 2px;*/
 }
 
 .small_chat_icon_green {
-    background-position: -22px 2px;
+     background: url(images/talk_green.svg) no-repeat;
+     background-position: 50%;
 }
 
 #smallChatOptionsPopupID {
     padding-left: 5px;
+    min-width: 270px;
 }
 
 .down_panel_icon {

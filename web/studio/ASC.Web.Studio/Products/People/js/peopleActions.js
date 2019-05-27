@@ -56,8 +56,8 @@ window.peopleActions = (function() {
             }
         }
     };
-
-    var callbackAddUser = function(result) {
+	
+	var callbackAddUser = function(result) {
         var $o = jq.tmpl("userListTemplate", { users: [result.Data], isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin });
 
         if (jq("#peopleData tr.profile").length == 0) {
@@ -90,7 +90,7 @@ window.peopleActions = (function() {
         },
 
         add_profiles: function(evt, $btn) {
-            ImportUsersManager.ShowImportControl('ASC.Controls.AnchorController.trigger()');
+            location.href = "/products/people/import.aspx";
         },
 
         send_invites: function(evt, $btn) {
@@ -110,8 +110,8 @@ window.peopleActions = (function() {
                 //}
             }
         },
-
-        open_dialog: function(evt, $btn) {
+		
+		open_dialog: function(evt, $btn) {
             var userId = $btn.parents('tr.item.profile:first').attr('data-id');
             if (userId) {
                 var userName = $btn.parents('tr.item.profile:first').attr('data-username');
@@ -150,6 +150,6 @@ jq(function () {
     }
 
     jq(".people-import-banner_img").on("click", function () {
-        ImportUsersManager.ShowImportControl('ASC.Controls.AnchorController.trigger()');
+        location.href = "/products/people/import.aspx";
     });
 })

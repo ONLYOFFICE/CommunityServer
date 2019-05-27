@@ -50,7 +50,7 @@ namespace ASC.ActiveDirectory.Base.Data
         /// </summary>
         /// <param name="propertyName">property name</param>
         /// <returns>value object</returns>
-        public abstract object GetValue(string propertyName);
+        public abstract object GetValue(string propertyName, bool getBytes = false);
 
         /// <summary>
         /// Get property values

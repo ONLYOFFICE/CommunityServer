@@ -24,15 +24,18 @@
 */
 
 
+using System.Collections.Generic;
 using System.Diagnostics;
-using ASC.Thrdparty.Configuration;
+using ASC.Core.Common.Configuration;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     public class AuthService
     {
-        public string Name { get; private set; }
+        public Consumer Consumer { get; set; }
+
+        public string Name { get { return Consumer.Name; } }
 
         public string Title { get; private set; }
 
@@ -40,58 +43,34 @@ namespace ASC.Web.Studio.UserControls.Management
 
         public string Instruction { get; private set; }
 
-        public bool CanSet = false;
+        public bool CanSet { get { return Consumer.CanSet; } }
 
-        public int? Order;
+        public int? Order { get { return Consumer.Order; } }
 
-        public AuthKey Key { get; private set; }
+        public List<AuthKey> Props { get; private set; }
 
-        public AuthKey Secret { get; private set; }
-
-        public AuthKey KeyDefault { get; private set; }
-
-        public AuthKey SecretDefault { get; private set; }
-
-        public AuthService(string name)
+        public AuthService(Consumer consumer)
         {
-            Name = name;
-            Title = GetResourceString(name) ?? name;
-            Description = GetResourceString(name + "Description");
-            Instruction = GetResourceString(name + "Instruction");
-        }
+            Consumer = consumer;
+            Title = consumer.GetResourceString(consumer.Name) ?? consumer.Name;
+            Description = consumer.GetResourceString(consumer.Name + "Description");
+            Instruction = consumer.GetResourceString(consumer.Name + "Instruction");
+            Props = new List<AuthKey>();
 
-        public AuthService WithKey(string keyName, string keyValue)
-        {
-            if (keyName != null)
-                Key = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "Key") ?? keyName };
-            return this;
+            foreach (var item in consumer.ManagedKeys)
+            {
+                Props.Add(new AuthKey { Name = item, Value = Consumer[item], Title = consumer.GetResourceString(item) ?? item });
+            }
         }
+    }
 
-        public AuthService WithSecret(string keyName, string keyValue)
-        {
-            if (keyName != null)
-                Secret = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "Secret") ?? keyName };
-            return this;
-        }
-
-        public AuthService WithKeyDefault(string keyName, string keyValue)
-        {
-            if (keyName != null)
-                KeyDefault = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "KeyDefault") ?? keyName };
-            return this;
-        }
-
-        public AuthService WithSecretDefault(string keyName, string keyValue)
-        {
-            if (keyName != null)
-                SecretDefault = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "SecretDefault") ?? keyName };
-            return this;
-        }
-
-        private static string GetResourceString(string resourceKey)
+    public static class ConsumerExtension
+    {
+        public static string GetResourceString(this Consumer consumer, string resourceKey)
         {
             try
             {
+                Resource.ResourceManager.IgnoreCase = true;
                 return Resource.ResourceManager.GetString("Consumers" + resourceKey);
             }
             catch
@@ -102,8 +81,12 @@ namespace ASC.Web.Studio.UserControls.Management
     }
 
     [DebuggerDisplay("({Name},{Value})")]
-    public class AuthKey : KeyElement
+    public class AuthKey
     {
+        public string Name { get; set; }
+
+        public string Value { get; set; }
+
         public string Title { get; set; }
     }
 }

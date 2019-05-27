@@ -47,6 +47,7 @@ namespace MSBuild.Community.Tasks.Git
         {
             Command = "rev-parse";
             Short = true;
+            ShortLength = 0;
             Revision = "HEAD";                    
         }
 
@@ -70,6 +71,14 @@ namespace MSBuild.Community.Tasks.Git
         public bool Short { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating short hash length.
+        /// </summary>
+        /// <value>
+        ///   Length for short hash.
+        /// </value>
+        public int ShortLength { get; set; }
+
+        /// <summary>
         /// Generates the arguments.
         /// </summary>
         /// <param name="builder">The builder.</param>
@@ -78,7 +87,10 @@ namespace MSBuild.Community.Tasks.Git
             builder.AppendSwitch("--verify");
 
             if (Short)
-                builder.AppendSwitch("--short");
+            {
+                if (ShortLength > 0) builder.AppendSwitch("--short=" + ShortLength);
+                else builder.AppendSwitch("--short");
+            }
 
             base.GenerateArguments(builder);
 

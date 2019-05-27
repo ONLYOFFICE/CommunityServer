@@ -341,15 +341,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter your facebook account identifier..
-        /// </summary>
-        public static string ContactFacebookDescription {
-            get {
-                return ResourceManager.GetString("ContactFacebookDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter the name of your Twitter account. For example, teamlabdotcom.
         /// </summary>
         public static string ContactTwitterDescription {
@@ -809,15 +800,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find account in Facebook.
-        /// </summary>
-        public static string FindFacebook {
-            get {
-                return ResourceManager.GetString("FindFacebook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Find account in Twitter.
         /// </summary>
         public static string FindTwitter {
@@ -913,15 +895,6 @@ namespace ASC.Web.CRM.Resources {
         public static string HelpTitleCreateWebsite {
             get {
                 return ResourceManager.GetString("HelpTitleCreateWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Link with opportunity.
-        /// </summary>
-        public static string LinkWithDeal {
-            get {
-                return ResourceManager.GetString("LinkWithDeal", resourceCulture);
             }
         }
         

@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using ASC.Api.Documents;
 using ASC.Api.Employee;
 using ASC.Api.Impl;
@@ -37,7 +36,6 @@ using ASC.Files.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Core;
-using ASC.Web.Studio.UserControls.Common.Comments;
 using Autofac;
 
 namespace ASC.Api.Projects
@@ -47,7 +45,8 @@ namespace ASC.Api.Projects
         protected internal ApiContext Context;
         private readonly ILifetimeScope scope;
         private readonly ILifetimeScope crmScope;
-        
+
+        protected internal ProjectSecurity ProjectSecurity { get; private set; }
         protected EngineFactory EngineFactory { get; private set; }
         protected DaoFactory CrmDaoFactory { get; private set; }
         private readonly HttpRequestDictionary<EmployeeWraperFull> employeeFullCache = new HttpRequestDictionary<EmployeeWraperFull>("employeeFullCache");
@@ -65,6 +64,7 @@ namespace ASC.Api.Projects
         {
             scope = DIHelper.Resolve();
             EngineFactory = scope.Resolve<EngineFactory>();
+            ProjectSecurity = scope.Resolve<ProjectSecurity>();
 
             crmScope = Web.CRM.Core.DIHelper.Resolve();
             CrmDaoFactory = crmScope.Resolve<DaoFactory>();

@@ -26,17 +26,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
-
 using ASC.Api.Enums;
 using ASC.Api.Interfaces;
-using ASC.Api.Logging;
 using ASC.Api.Utils;
+using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Web.Core.Client;
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -90,7 +91,7 @@ namespace ASC.Api.Impl
                 }
                 catch (Exception)
                 {
-                    Log.Warn("Custom reponder for {0} failed", method.ToString());
+                    Log.WarnFormat("Custom reponder for {0} failed", method.ToString());
                 }
             }
             if (responder == null)
@@ -106,13 +107,13 @@ namespace ASC.Api.Impl
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, "Error while responding!");
+                    Log.Error("Error while responding!", e);
                     throw;
                 }
             }
             else
             {
-                Log.Error(null, "no formatter error");
+                Log.Error("no formatter error");
                 throw new HttpException((int)HttpStatusCode.BadRequest, "No formatter");
             }
         }
@@ -154,14 +155,14 @@ namespace ASC.Api.Impl
             }
             catch (ThreadAbortException e)
             {
-                Log.Error(e, "thread aborted");
+                Log.Error("thread aborted", e);
             }
             catch (Exception e)
             {
                 var method = contextWrapper.Request != null ? contextWrapper.Request.HttpMethod : null;
                 var url = contextWrapper.Request != null ? contextWrapper.Request.Url : null;
                 var user = contextWrapper.User != null ? contextWrapper.User.Identity.Name : null;
-                Log.Error(e, "error during processing http request {0}: {1}, user: {2}", method, url, user);
+                Log.Error(string.Format("error during processing http request {0}: {1}, user: {2}", method, url, user), e);
                 throw;
             }
         }
@@ -207,6 +208,22 @@ namespace ASC.Api.Impl
                 ApiResponce.Response = new object();
             }
             ApiResponce.Code = context.Response.StatusCode;
+            if (context.Handler.GetType() == GetType())
+            {
+                var acceptEncoding = context.Request.Headers["Accept-Encoding"];
+
+                if (!string.IsNullOrEmpty(acceptEncoding))
+                {
+                    var encodings = acceptEncoding.Split(',');
+                    if(encodings.Contains("gzip") && ClientSettings.GZipEnabled)
+                    {
+                        context.Response.Filter = new GZipStream(context.Response.Filter, CompressionMode.Compress);
+                        context.Response.AppendHeader("Content-Encoding", "gzip");
+                    }
+                }
+
+                SecurityContext.Logout();
+            }
         }
 
         protected void SetError(HttpContextBase context, Exception e, HttpStatusCode code)
@@ -216,7 +233,7 @@ namespace ASC.Api.Impl
 
         protected void SetError(HttpContextBase context, Exception e, HttpStatusCode code, string description)
         {
-            Log.Error(e, "method error: {0} - {1}", context.Request.Url, description);
+            Log.Error(string.Format("method error: {0} - {1}", context.Request.Url, description), e);
             if (context.Response.StatusCode / 100 == 2)
             {
                 context.Response.StatusCode = (int)code;

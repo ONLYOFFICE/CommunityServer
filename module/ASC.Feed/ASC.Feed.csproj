@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Feed</RootNamespace>
     <AssemblyName>ASC.Feed</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -57,9 +57,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +68,9 @@
     <Compile Include="Data\FeedAggregateDataProvider.cs" />
     <Compile Include="Data\FeedReadedDataProvider.cs" />
     <Compile Include="Data\FeedRow.cs" />
+    <Compile Include="Feed.cs" />
     <Compile Include="FeedApiFilter.cs" />
+    <Compile Include="FeedComment.cs" />
     <Compile Include="FeedMin.cs" />
     <Compile Include="FeedAction.cs" />
     <Compile Include="FeedFilter.cs" />

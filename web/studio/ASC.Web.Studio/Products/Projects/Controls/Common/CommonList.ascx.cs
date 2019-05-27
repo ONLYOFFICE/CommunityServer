@@ -37,18 +37,22 @@ namespace ASC.Web.Projects.Controls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var discussionFilesControl = (Attachments)LoadControl(Attachments.Location);
-            discussionFilesControl.EmptyScreenVisible = false;
-            discussionFilesControl.ModuleName = "projects";
-            phAttachmentsControl.Controls.Add(discussionFilesControl);
+            if (!(Page is Web.Projects.Reports))
+            {
+                var discussionFilesControl = (Attachments) LoadControl(Attachments.Location);
+                discussionFilesControl.EmptyScreenVisible = false;
+                discussionFilesControl.ModuleName = "projects";
+                discussionFilesControl.DocUploaderHolder.Controls.Add(LoadControl(ProjectDocumentsPopup.Location));
+                phAttachmentsControl.Controls.Add(discussionFilesControl);
 
-            CommonControlsConfigurer.CommentsConfigure(commonComments);
-            commonComments.ObjectID = "common";
-            commonComments.ShowCaption = false;
-            commonComments.BehaviorID = "commentsObj";
-            commonComments.FckDomainName = "projects_comments";
-            commonComments.OnRemovedCommentJS = "ASC.Projects.Common.removeComment";
-            commonComments.InitJS = false;
+                CommonControlsConfigurer.CommentsConfigure(commonComments);
+                commonComments.ObjectID = "common";
+                commonComments.ShowCaption = false;
+                commonComments.BehaviorID = "commentsObj";
+                commonComments.FckDomainName = "projects_comments";
+                commonComments.OnRemovedCommentJS = "ASC.Projects.Common.removeComment";
+                commonComments.InitJS = false;
+            }
         }
     }
 }

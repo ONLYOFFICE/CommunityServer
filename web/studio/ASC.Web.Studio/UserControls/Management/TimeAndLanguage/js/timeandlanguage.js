@@ -47,7 +47,7 @@ var TimeAndLanguage = new function () {
 
 TimeAndLanguageContentManager = function () {
     this.SaveTimeLangSettings = function (parentCallback) {
-        Teamlab.setTimaAndLanguage(jq("#studio_lng").val(), jq("#studio_timezone").val(), {
+        Teamlab.setTimaAndLanguage(jq("#studio_lng").val() || jq('#studio_lng').data('default'), jq("#studio_timezone").val(), {
             success: function (params, response) {
                 if (parentCallback != null)
                     parentCallback({Status: 1, Message: response});
@@ -59,3 +59,23 @@ TimeAndLanguageContentManager = function () {
         });
     };
 };
+
+jq(function () {
+    var previous;
+
+    if (jq("#NotFoundLanguage").length) {
+        jq("#studio_lng").on('focus', function () {
+            previous = this.value;
+        }).change(function () {
+            if (!this.value) {
+                setTimeout(function() {
+                    jq(".langTimeZoneBlock .HelpCenterSwitcher").helper({ BlockHelperID: 'NotFoundLanguage' });
+                }, 0);
+                this.value = previous;
+                return false;
+            } else {
+                previous = this.value;
+            }
+        });
+    }
+});

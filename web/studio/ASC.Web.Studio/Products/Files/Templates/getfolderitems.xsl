@@ -159,6 +159,12 @@
                 <xsl:attribute name="data-comment">
                    <xsl:value-of select="comment" />
                 </xsl:attribute>
+                <xsl:attribute name="data-folder_url">
+                  <xsl:value-of select="folder_url" />
+                </xsl:attribute>
+                <xsl:attribute name="data-folder_id">
+                  <xsl:value-of select="folder_id" />
+                </xsl:attribute>
               </input>
             </div>
           </div>
@@ -229,6 +235,9 @@
             <xsl:if test="locked_by != ''">
               file-locked-by
             </xsl:if>
+            <xsl:if test="locked_by != ''">
+              file-locked-by
+            </xsl:if>
           </xsl:attribute>
           <xsl:attribute name="data-id">file_<xsl:value-of select="id" /></xsl:attribute>
           <div class="checkbox">
@@ -247,6 +256,9 @@
             <xsl:attribute name="title">
               <xsl:value-of select="title" />
             </xsl:attribute>
+            <xsl:if test="encrypted = 'true'">
+              <div class="thumb-encrypted"></div>
+            </xsl:if>
           </div>
           <div class="entry-info">
             <div class="entry-title">
@@ -331,7 +343,7 @@
                     </span>
                     <span> | </span>
                     <span class="content-length">
-                      <xsl:value-of select="content_length" />
+                      <xsl:value-of select="content_length_string" />
                     </span>
                   </xsl:otherwise>
                 </xsl:choose>
@@ -381,6 +393,9 @@
                 <xsl:attribute name="data-content_length">
                    <xsl:value-of select="content_length" />
                 </xsl:attribute>
+                <xsl:attribute name="data-content_length_string">
+                   <xsl:value-of select="content_length_string" />
+                </xsl:attribute>
                 <xsl:attribute name="data-version">
                    <xsl:value-of select="version" />
                 </xsl:attribute>
@@ -392,6 +407,12 @@
                 </xsl:attribute>
                 <xsl:attribute name="data-comment">
                    <xsl:value-of select="comment" />
+                </xsl:attribute>
+                <xsl:attribute name="data-folder_id">
+                  <xsl:value-of select="folder_id" />
+                </xsl:attribute>
+                <xsl:attribute name="data-encrypted">
+                   <xsl:value-of select="encrypted" />
                 </xsl:attribute>
               </input>
             </div>

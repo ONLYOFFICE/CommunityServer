@@ -1,0 +1,34 @@
+﻿oWs.SetColumnWidth(4, 16);
+
+for (var i = 0; i < reportData.length; i++)
+{
+	writeText(reportData[i][0], {
+		size: headerFontSize,
+		bold: true
+	});	
+	writeText(reportColumns[0] + ": " + reportData[i][1], {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	currentRow++
+	
+	writeRow([1, 2, 3, 4], reportColumns, [2, 3], {
+		color: darkGrayBorderColor
+	}, {
+		size: smallFontSize,
+		color: grayFontColor
+	});
+	var curR = currentRow;
+	for(var j = 0; j < reportData[i][2].length; j++)
+		writeRow([0, 1, 2, 3], reportData[i][2][j], [2, 3], {
+			color: lightGrayBorderColor
+		}, {
+			size: smallFontSize,
+			setWrap: true
+		}, true);
+
+	var redRange = nextChar(currentColumn, 2) + curR + ":" + nextChar(currentColumn, 2) + (currentRow - 1);
+	oWs.GetRange(redRange).SetFontColor(redFontColor);
+	
+	currentRow++;
+}

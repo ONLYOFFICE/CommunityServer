@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Runtime.Serialization;
-using AppLimit.CloudComputing.SharpBox.Common;
 
 namespace AppLimit.CloudComputing.SharpBox
 {
@@ -24,7 +20,7 @@ namespace AppLimit.CloudComputing.SharpBox
         nDownload
     };
 
-    
+
     /// <summary>
     /// This class contains the arguments which can be used when a data transfer operation is running
     /// </summary>
@@ -81,7 +77,7 @@ namespace AppLimit.CloudComputing.SharpBox
         public FileDataTransferEventArgs()
         {
             Cancel = false;
-        }  
+        }
 
         #region ICloneable Members
 
@@ -92,24 +88,24 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <returns></returns>
         public object Clone()
         {
-            FileDataTransferEventArgs e = new FileDataTransferEventArgs()
-            {
-                CurrentBytes = this.CurrentBytes,
-                CustomnContext = this.CustomnContext,
-                FileSystemEntry = this.FileSystemEntry,
-                OpenTransferTime = this.OpenTransferTime,
-                PercentageProgress = this.PercentageProgress,
-                TotalBytes = this.TotalBytes,
-                TransferRateCurrent = this.TransferRateCurrent,
-                TransferRateTotal = this.TransferRateTotal,
-                Cancel = false
-            };
+            var e = new FileDataTransferEventArgs
+                {
+                    CurrentBytes = CurrentBytes,
+                    CustomnContext = CustomnContext,
+                    FileSystemEntry = FileSystemEntry,
+                    OpenTransferTime = OpenTransferTime,
+                    PercentageProgress = PercentageProgress,
+                    TotalBytes = TotalBytes,
+                    TransferRateCurrent = TransferRateCurrent,
+                    TransferRateTotal = TransferRateTotal,
+                    Cancel = false
+                };
 
             return e;
         }
 
         #endregion
-    }   
+    }
 
     /// <summary>
     /// This delegate can be used as callback for upload or download operation in the 
@@ -118,7 +114,7 @@ namespace AppLimit.CloudComputing.SharpBox
     /// <param name="sender">sender object of the event</param>
     /// <param name="e">event args</param>    
     public delegate void FileOperationProgressChanged(object sender, FileDataTransferEventArgs e);
-    
+
     /// <summary>
     /// This interface implements a specifc transfer logic which can be used
     /// to transport data from a local data stream to a remote filesystem entry 
@@ -167,8 +163,7 @@ namespace AppLimit.CloudComputing.SharpBox
         /// </summary>
         /// <param name="uploadSize"></param>        
         Stream GetUploadStream(long uploadSize);
-        
-#if !WINDOWS_PHONE
+
         /// <summary>
         /// This method supports the serialization of object graphs into the remote file container
         /// </summary>        
@@ -182,7 +177,6 @@ namespace AppLimit.CloudComputing.SharpBox
         /// <param name="dataFormatter"></param>
         /// <returns></returns>
         Object Deserialize(IFormatter dataFormatter);
-#endif
 
         IResumableUploadSession CreateResumableSession(long bytesToTransfer);
 

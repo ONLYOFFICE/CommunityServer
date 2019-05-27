@@ -130,7 +130,7 @@ namespace ASC.Api.Projects.Wrappers
 
             if (task.Security == null)
             {
-                ProjectSecurity.GetTaskSecurityInfo(task);
+                projectApiBase.ProjectSecurity.GetTaskSecurityInfo(task);
             }
 
             if (projectApiBase.Context.GetRequestValue("simple") != null)

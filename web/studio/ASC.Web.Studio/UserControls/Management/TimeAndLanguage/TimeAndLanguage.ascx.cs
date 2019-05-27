@@ -26,15 +26,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.MessagingSystem;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.Studio.Core;
@@ -77,11 +74,16 @@ namespace ASC.Web.Studio.UserControls.Management
                 currentCulture = "en-US";
             }
             var sb = new StringBuilder();
-            sb.Append("<select id=\"studio_lng\" class=\"comboBox\">");
+            sb.AppendFormat("<select id=\"studio_lng\" class=\"comboBox\" data-default=\"{0}\">", currentCulture);
             foreach (var ci in SetupInfo.EnabledCultures)
             {
-                sb.AppendFormat("<option " + (String.Equals(currentCulture, ci.Name) ? "selected" : "") + " value=\"{0}\">{1}</option>", ci.Name, ci.DisplayName);
+                var displayName = CoreContext.Configuration.CustomMode ? ci.NativeName : ci.DisplayName;
+                sb.AppendFormat("<option " + (String.Equals(currentCulture, ci.Name) ? "selected" : "") + " value=\"{0}\">{1}</option>", ci.Name, displayName);
             }
+
+            if (ShowHelper)
+                sb.AppendFormat("<option value=\"\">{0}</option>", Resource.MoreLanguages);
+
             sb.Append("</select>");
 
             return sb.ToString();
@@ -92,7 +94,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var sb = new StringBuilder("<select id='studio_timezone' class='comboBox'>");
             foreach (var tz in GetTimeZones().OrderBy(z => z.BaseUtcOffset))
             {
-                var displayName = tz.DisplayName;
+                var displayName = ASC.Common.Utils.TimeZoneConverter.GetTimeZoneName(tz);
                 if (!displayName.StartsWith("(UTC") && !displayName.StartsWith("UTC"))
                 {
                     if (tz.BaseUtcOffset != TimeSpan.Zero)
@@ -115,13 +117,25 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
 
-        private static IEnumerable<TimeZoneInfo> GetTimeZones()
+        public static IEnumerable<TimeZoneInfo> GetTimeZones()
         {
-            var timeZones = TimeZoneInfo.GetSystemTimeZones().ToList();
+            //hack for MONO. In NodaTime.dll method FromTimeZoneInfo throw exception for Europe/Vatican, Europe/San_Marino, Europe/Rome, Europe/Malta
+            var timeZones = WorkContext.IsMono
+                                ? TimeZoneInfo.GetSystemTimeZones()
+                                              .Where(
+                                                  tz =>
+                                                  tz.Id != "Europe/Vatican" &&
+                                                  tz.Id != "Europe/San_Marino" &&
+                                                  tz.Id != "Europe/Rome" &&
+                                                  tz.Id != "Europe/Malta")
+                                              .ToList()
+                                : TimeZoneInfo.GetSystemTimeZones().ToList();
+
             if (timeZones.All(tz => tz.Id != "UTC"))
             {
                 timeZones.Add(TimeZoneInfo.Utc);
             }
+
             return timeZones;
         }
     }

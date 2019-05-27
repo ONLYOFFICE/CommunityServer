@@ -37,6 +37,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 return new[]
                 {
                     "~/templates/UserProfileCardTemplate.html",
+                    "~/templates/AdvansedUserProfileEditTemplate.html",
                     "~/templates/AdvansedFilterTemplate.html",
                     "~/templates/FeedListTemplate.html",
                     "~/templates/DropFeedTemplate.html",
@@ -48,7 +49,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                     "~/templates/CommonTemplates.html",
                     "~/templates/ManagementTemplates.html",
                     "~/templates/CommentsTemplates.html",
-                    "~/templates/ContainerTemplate.html"
+                    "~/templates/ContainerTemplate.html",
+                    "~/templates/ProgressDialogTemplate.html"
                 };
             }
         }

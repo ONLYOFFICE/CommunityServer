@@ -336,4 +336,7 @@
   <data name="wikiVersionCaption" xml:space="preserve">
     <value>Ver.</value>
   </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>The Text field is empty.</value>
+  </data>
 </root>

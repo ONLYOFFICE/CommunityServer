@@ -84,9 +84,13 @@
     }
 
     function initToolbar() {
-        $("#peopleSidepanel").find("a.dropdown-item:not(.invite-link)").bind("click", onButtonClick);
+        jq("#peopleSidepanel").find("a.dropdown-item:not(.invite-link)").bind("click", onButtonClick);
 
         jq("#actionGroupMenu").find("a.dropdown-item").bind("click", onButtonClick);
+
+        jq(".people-import-banner_img").on("click", function () {
+            ImportUsersManager.ShowImportControl('ASC.Controls.AnchorController.trigger()');
+        });
 
         bindClipboardEvent();
     }
@@ -116,6 +120,15 @@
         }
     };
 
+    function initGroupList() {
+        var groupList = jq.tmpl("groupListTemplate", { groups: window.GroupManager.getAllGroups() });
+
+        jq("#groupList").empty().append(groupList);
+
+        if (groupList.length) {
+            jq("#groupListContainer .menu-item:first").toggleClass("none-sub-list sub-list");
+        }
+    };
 
     function initMenuList() {
         $(window).bind("change-group", onChangeGroup);
@@ -123,6 +136,7 @@
 
     $(function() {
         initToolbar();
+        initGroupList();
         initMenuList();
     });
 })(jQuery);

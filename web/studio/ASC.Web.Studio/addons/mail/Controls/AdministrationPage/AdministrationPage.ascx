@@ -15,6 +15,7 @@
 <div id="mailboxActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
         <li><a class="editMailbox dropdown-item"><%= MailAdministrationResource.EditMailboxLabel %></a></li>
+        <li><a class="changeMailboxPassword dropdown-item"><%= MailResource.ChangeAccountPasswordLabel %></a></li>
         <li><a class="deleteMailbox dropdown-item"><%= MailAdministrationResource.DeleteMailboxLabel %></a></li>
     </ul>
 </div>
@@ -29,6 +30,7 @@
 <div id="domainActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
         <li><a class="showDnsSettingsDomain dropdown-item"><%= MailAdministrationResource.DNSSettingsLabel %></a></li>
+        <li><a class="showConnectionSettingsDomain dropdown-item"><%= MailResource.ViewAccountConnectionSettingsLabel %></a></li>
         <li><a class="deleteDomain dropdown-item"><%= MailAdministrationResource.DeleteDomain %></a></li>
     </ul>
 </div>

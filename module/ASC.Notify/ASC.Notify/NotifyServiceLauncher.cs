@@ -24,15 +24,15 @@
 */
 
 
+using System.ServiceModel;
+
 using ASC.Common.Data;
+using ASC.Common.Logging;
 using ASC.Common.Module;
 using ASC.Notify.Config;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
-using log4net;
-using log4net.Config;
-using System.ServiceModel;
 using TMResourceData;
 
 namespace ASC.Notify
@@ -46,8 +46,6 @@ namespace ASC.Notify
 
         public void Start()
         {
-            XmlConfigurator.Configure();
-
             serviceHost = new ServiceHost(typeof(NotifyService));
             serviceHost.Open();
             

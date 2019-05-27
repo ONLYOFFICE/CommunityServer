@@ -8,7 +8,11 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
     {
         protected string _baseKey;
         protected Func<T, bool> _cacheCodition;
-        protected long ClearId {get { return DateTime.UtcNow.Ticks; }}
+
+        protected long ClearId
+        {
+            get { return DateTime.UtcNow.Ticks; }
+        }
 
         public T this[string key]
         {
@@ -86,8 +90,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 
         public virtual T Get(string rootkey, string key, Func<T> defaults)
         {
-            string fullKey = BuildKey(key, rootkey);
-            object objectCache = GetObjectFromCache(fullKey);
+            var fullKey = BuildKey(key, rootkey);
+            var objectCache = GetObjectFromCache(fullKey);
             if (FitsCondition(objectCache))
             {
 #if (DEBUG)
@@ -100,7 +104,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 #if (DEBUG)
                 OnMiss(fullKey);
 #endif
-                T newValue = defaults();
+                var newValue = defaults();
                 if (_cacheCodition == null || _cacheCodition(newValue))
                 {
                     Add(rootkey, key, newValue);

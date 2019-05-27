@@ -104,5 +104,23 @@ namespace ASC.Web.Projects.Resources {
                 return ResourceManager.GetString("MonthNominative", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsible users.
+        /// </summary>
+        public static string ResponsibleNominativePlural {
+            get {
+                return ResourceManager.GetString("ResponsibleNominativePlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        public static string TaskGenitivePlural {
+            get {
+                return ResourceManager.GetString("TaskGenitivePlural", resourceCulture);
+            }
+        }
     }
 }

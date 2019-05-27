@@ -26,6 +26,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -58,6 +59,7 @@ namespace ASC.Web.Calendar.UserControls
                     "~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
                     "~/addons/calendar/usercontrols/css/jquery.jscrollpane.css")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                    "~/addons/calendar/usercontrols/js/bluebird.min.js",
                     "~/addons/calendar/usercontrols/popup/popup.js",
                     "~/addons/calendar/usercontrols/js/calendar_controller.js",
                     "~/addons/calendar/usercontrols/js/recurrence_rule.js",
@@ -82,17 +84,12 @@ namespace ASC.Web.Calendar.UserControls
 
         protected string RenderTimeZones()
         {
-            var sb = new StringBuilder();
-            var i = 0;
-            foreach (var tz in TimeZoneInfo.GetSystemTimeZones())
-            {
-                if (i > 0)
-                    sb.Append(",");
-
-                sb.AppendFormat("{{name:\"{0}\", id:\"{1}\", offset:{2}}}", tz.DisplayName, tz.Id, (int)tz.BaseUtcOffset.TotalMinutes);
-                i++;
-            }
-            return sb.ToString();
+            return string.Join(",",
+                               Studio.UserControls.Management.TimeAndLanguage.GetTimeZones()
+                                     .Select(tz => string.Format("{{name:\"{0}\", id:\"{1}\", offset:{2}}}",
+                                                                 Common.Utils.TimeZoneConverter.GetTimeZoneName(tz),
+                                                                 tz.Id,
+                                                                 (int) tz.GetOffset().TotalMinutes)));
         }
     }
 }

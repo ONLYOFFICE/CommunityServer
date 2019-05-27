@@ -61,15 +61,15 @@
     <% } %>
 
 
-    <div class="birthday-header birthday-content-splitter">
-        <%= BirthdaysResource.BirthdaysUpcomingTitle%>
-    </div>
 
     <asp:PlaceHolder ID="upcomingEmptyContent" runat="server"></asp:PlaceHolder>
 
 
     <% if (upcomingBirthdays != null && upcomingBirthdays.Count > 0) %>
     <% { %>
+    <div class="birthday-header birthday-content-splitter">
+        <%= BirthdaysResource.BirthdaysUpcomingTitle%>
+    </div>
     <table class="tableBase birthday-content-splitter" cellspacing="0" cellpadding="8">
         <colgroup>
             <col width="80px" />

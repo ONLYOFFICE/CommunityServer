@@ -24,7 +24,7 @@
                         <b><%=ASC.Web.Community.Forum.Resources.ForumResource.ThreadCategoryDescription%>:</b>
                     </div>
                     <div>
-                        <textarea style="width: 100%; height: 100px;" id="forum_fmCategoryDescription"></textarea>
+                        <textarea style="width: 100%; height: 100px; resize: none;" id="forum_fmCategoryDescription"></textarea>
                     </div>
                 </div>
                 <div class="headerPanel-splitter requiredField">
@@ -41,7 +41,7 @@
                         <b><%=ASC.Web.Community.Forum.Resources.ForumResource.ThreadDescription%>:</b>
                     </div>
                     <div>
-                        <textarea style="width: 100%; height: 100px;" id="forum_fmThreadDescription"></textarea>
+                        <textarea style="width: 100%; height: 100px; resize: none;" id="forum_fmThreadDescription"></textarea>
                     </div>
                 </div>
                 <div class="big-button-container">

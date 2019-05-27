@@ -43,6 +43,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
+using ASC.Common.Logging;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -72,7 +73,7 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 if (!String.IsNullOrEmpty(_topLogo)) return _topLogo;
 
-                _topLogo = CoreContext.Configuration.Personal ?
+                _topLogo = CoreContext.Configuration.Personal && !CoreContext.Configuration.CustomMode ?
                     WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal.png") :
                     TenantLogoManager.GetTopLogo(!TenantLogoManager.IsRetina(Request));
 
@@ -85,27 +86,23 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             get
             {
-                if (CoreContext.Configuration.Personal)
+                if (CoreContext.Configuration.Personal && !CoreContext.Configuration.CustomMode)
                     return String.Format("height:72px; width: 220px; background: url('{0}') no-repeat;",
                                          WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth_old.png"));
 
                 var general = !TenantLogoManager.IsRetina(Request);
 
-                var height = general
-                                 ? TenantWhiteLabelSettings.logoDarkSize.Height/2
-                                 : TenantWhiteLabelSettings.logoDarkSize.Height;
+                var height = TenantWhiteLabelSettings.logoDarkSize.Height / 2;
 
-                var width = general
-                                 ? TenantWhiteLabelSettings.logoDarkSize.Width / 2
-                                 : TenantWhiteLabelSettings.logoDarkSize.Width;
+                var width = TenantWhiteLabelSettings.logoDarkSize.Width / 2;
 
                 if (TenantLogoManager.WhiteLabelEnabled)
                 {
-                    return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat;",
+                    return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
                                          height, width, TenantLogoManager.GetLogoDark(general));
                 }
 
-                return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat;",
+                return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
                                      height, width, TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark,general));
             }
         }
@@ -128,13 +125,16 @@ namespace ASC.Web.Studio.UserControls.Common
         protected string CurrentProductClassName { get; set; }
 
         private List<AuthService> _authServiceList;
-        public List<AuthService> AuthServiceList
+        protected List<AuthService> AuthServiceList
         {
             get
             {
                 return _authServiceList ?? (_authServiceList = new AuthorizationKeys().AuthServiceList);
             }
         }
+
+        protected bool ShowAppsNavItem { get; set; }
+        protected bool ShowDesktopNavItem { get; set; }
 
         protected List<IWebItem> Modules { get; set; }
         protected IEnumerable<IWebItem> Addons { get; set; }
@@ -192,25 +192,59 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 foreach (var webItem in productsList)
                 {
-                    if (webItem.ID == WebItemManager.DocumentsProductID ||
-                        webItem.ID == WebItemManager.ProjectsProductID ||
-                        webItem.ID == WebItemManager.CRMProductID ||
-                        webItem.ID == WebItemManager.CommunityProductID ||
-                        webItem.ID == WebItemManager.PeopleProductID)
-                    {
-                        Modules.Add(webItem);
-                    }
-                    else
+                    if (webItem.ID != WebItemManager.DocumentsProductID
+                        && webItem.ID != WebItemManager.ProjectsProductID 
+                        && webItem.ID != WebItemManager.CRMProductID 
+                        && webItem.ID != WebItemManager.PeopleProductID
+                        && webItem.ID != WebItemManager.CommunityProductID)
                     {
                         CustomModules.Add(webItem);
                     }
                 }
 
+                var currentItem = productsList.Find(r => r.ID == WebItemManager.DocumentsProductID);
+                if (currentItem != null)
+                {
+                    Modules.Add(currentItem);
+                    productsList.Remove(currentItem);
+                }
+                currentItem = productsList.Find(r => r.ID == WebItemManager.ProjectsProductID);
+                if (currentItem != null)
+                {
+                    Modules.Add(currentItem);
+                    productsList.Remove(currentItem);
+                }
+                currentItem = productsList.Find(r => r.ID == WebItemManager.CRMProductID);
+                if (currentItem != null)
+                {
+                    Modules.Add(currentItem);
+                    productsList.Remove(currentItem);
+                }
+                if (CurrentUser != null && !CurrentUser.IsOutsider())
+                {
+                    currentItem = _customNavItems.Find(r => r.ID == WebItemManager.MailProductID);
+                    if (currentItem != null)
+                    {
+                        Modules.Add(currentItem);
+                    }
+                }
+                currentItem = productsList.Find(r => r.ID == WebItemManager.PeopleProductID);
+                if (currentItem != null)
+                {
+                    Modules.Add(currentItem);
+                    productsList.Remove(currentItem);
+                }
+                currentItem = productsList.Find(r => r.ID == WebItemManager.CommunityProductID);
+                if (currentItem != null)
+                {
+                    Modules.Add(currentItem);
+                    productsList.Remove(currentItem);
+                }
+
                 Addons = _customNavItems
                     .Where(item =>
                            (item.ID == WebItemManager.CalendarProductID ||
-                            item.ID == WebItemManager.TalkProductID ||
-                            item.ID == WebItemManager.MailProductID))
+                            item.ID == WebItemManager.TalkProductID))
                     .OrderBy(item => item.Context.DefaultSortOrder);
 
                 CustomNavigationItems = CustomNavigationSettings.Load().Items.Where(x => x.ShowInMenu);
@@ -231,7 +265,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
                 catch (Exception ex)
                 {
-                    log4net.LogManager.GetLogger("ASC.Web.Studio").Error(ex);
+                    LogManager.GetLogger("ASC.Web.Studio").Error(ex);
                 }
             }
 
@@ -247,6 +281,10 @@ namespace ASC.Web.Studio.UserControls.Common
             }
 
             Settings = CompanyWhiteLabelSettings.Instance;
+
+            ShowAppsNavItem = SetupInfo.IsVisibleSettings("AppsNavItem") && !CoreContext.Configuration.CustomMode;
+
+            ShowDesktopNavItem = !CoreContext.Configuration.CustomMode;
         }
 
         #region currentProduct
@@ -266,6 +304,20 @@ namespace ASC.Web.Studio.UserControls.Common
                 CurrentProductName = UserControlsCommonResource.FeedTitle;
                 return;
             }
+            if (Page is Studio.AppInstall)
+            {
+                CurrentProductClassName = "install-apps";
+                CurrentProductName = Resource.OnlyofficeApps;
+                return;
+            }
+
+            if (Page is Studio.Tariffs)
+            {
+                CurrentProductClassName = "payments";
+                CurrentProductName = Resource.Payments;
+                return;
+            }
+
 
             if (Page is Studio.Management)
             {
@@ -359,6 +411,11 @@ namespace ASC.Web.Studio.UserControls.Common
         protected string GetAbsoluteCompanyTopLogoPath()
         {
             return string.IsNullOrEmpty(SetupInfo.MainLogoURL) ? TopLogo : SetupInfo.MainLogoURL;
+        }
+
+        protected string GetAbsoluteCompanyTopLogoTitle()
+        {
+            return TenantLogoManager.GetLogoText();
         }
 
         protected void RenderSearchProducts()

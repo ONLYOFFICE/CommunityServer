@@ -28,7 +28,6 @@ namespace ASC.Thrdparty
 {
     public enum SocialNetworks
     {
-        Twitter,
-        Facebook
+        Twitter
     }
 }

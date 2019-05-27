@@ -208,14 +208,22 @@ window.ASC.TMTalk.messagesManager = (function () {
     ASC.TMTalk.connectionManager.getMessagesByNumber(jid, (isFinite(+historycount) ? +historycount : maxHistoryCount) + messageslen);
   };
 
-  var updateHistory = function (jid, startindex, count) {
+  var updateHistory = function (jid, startindex, count, text) {
      history[jid] = {
         loaded: false,
         messages: [],
         archive: null
      };
-     ASC.TMTalk.connectionManager.getMessagesByRange(jid, startindex, count);
+     ASC.TMTalk.connectionManager.getMessagesByRange(jid, startindex, count, text);
   };
+  
+  var updateOpenRoomsHistory = function () {
+      var openedRooms = localStorageManager.getItem("openedRooms") != undefined ? localStorageManager.getItem("openedRooms") : {};
+      for (var key in openedRooms) {
+          ASC.TMTalk.messagesManager.updateHistory(key, 0, 20, '');
+      }
+  };
+    
   var getHistoryByFilter = function (jid, from, to) {
     if (ASC.TMTalk.connectionManager.connected() === false) {
       eventManager.call(customEvents.loadFilteredHistory, window, [jid, history.hasOwnProperty(jid) ? filteringMessages(history[jid].archive.messages, from, to) : []]);
@@ -241,7 +249,7 @@ window.ASC.TMTalk.messagesManager = (function () {
     }
   };
 
-  var loadHistory = function (iq) {
+  var loadHistory = function (iq, removeOld, searchText) {
     var
       child = null,
       isMe = false,
@@ -258,7 +266,7 @@ window.ASC.TMTalk.messagesManager = (function () {
       jid = iq.getAttribute('from'),
       ownjid = ASC.TMTalk.connectionManager.getJid();
 
-    if (!history.hasOwnProperty(jid) || history[jid].loaded === true) {
+    if (!history.hasOwnProperty(jid)) {
       return undefined;
     }
 
@@ -310,7 +318,7 @@ window.ASC.TMTalk.messagesManager = (function () {
       var newmessages = history[jid].messages.length;
       history[jid].loaded = true;
       history[jid].messages = messages;
-      eventManager.call(customEvents.loadHistory, window, [jid, history[jid].messages, newmessages]);
+        eventManager.call(customEvents.loadHistory, window, [jid, history[jid].messages, newmessages, removeOld, searchText]);
     }
   };
 
@@ -749,6 +757,7 @@ window.ASC.TMTalk.messagesManager = (function () {
     recvOfflineMessagesFromChat : recvOfflineMessagesFromChat,
 
     updateHistory       : updateHistory,
+    updateOpenRoomsHistory: updateOpenRoomsHistory,
     getHistory          : getHistory,
     getHistoryByFilter  : getHistoryByFilter,
     loadHistory         : loadHistory,

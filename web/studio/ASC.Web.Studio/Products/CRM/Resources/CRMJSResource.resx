@@ -211,9 +211,6 @@
     <value>All the entered information will be lost.
 Are you sure you want to continue anyway?</value>
   </data>
-  <data name="ContactFacebookDescription" xml:space="preserve">
-    <value>Please enter your facebook account identifier.</value>
-  </data>
   <data name="ContactTwitterDescription" xml:space="preserve">
     <value>Please enter the name of your Twitter account. For example, teamlabdotcom</value>
   </data>
@@ -364,9 +361,6 @@ Are you sure you want to continue anyway?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Estimated deal due date</value>
   </data>
-  <data name="FindFacebook" xml:space="preserve">
-    <value>Find account in Facebook</value>
-  </data>
   <data name="FindTwitter" xml:space="preserve">
     <value>Find account in Twitter</value>
   </data>
@@ -399,9 +393,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="HelpTitleCreateWebsite" xml:space="preserve">
     <value>Create a Website Contact Form</value>
-  </data>
-  <data name="LinkWithDeal" xml:space="preserve">
-    <value>Link with opportunity</value>
   </data>
   <data name="LinkWithProject" xml:space="preserve">
     <value>Link with project</value>

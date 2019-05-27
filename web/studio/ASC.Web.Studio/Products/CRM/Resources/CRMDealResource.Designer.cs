@@ -61,6 +61,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new opportunity.
+        /// </summary>
+        public static string AddNewDeal {
+            get {
+                return ResourceManager.GetString("AddNewDeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save and Create New Opportunity.
         /// </summary>
         public static string AddThisAndCreateDealButton {
@@ -183,15 +192,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ClientDeal {
             get {
                 return ResourceManager.GetString("ClientDeal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create opportunity.
-        /// </summary>
-        public static string CreateDeal {
-            get {
-                return ResourceManager.GetString("CreateDeal", resourceCulture);
             }
         }
         
@@ -682,6 +682,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find opportunity by title.
+        /// </summary>
+        public static string FindDealByName {
+            get {
+                return ResourceManager.GetString("FindDealByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import opportunities.
         /// </summary>
         public static string ImportDeals {
@@ -750,6 +759,15 @@ namespace ASC.Web.CRM.Resources {
         public static string ImportStartingPanelHeader {
             get {
                 return ResourceManager.GetString("ImportStartingPanelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select from existing opportunities or add a new one.
+        /// </summary>
+        public static string LinkDealsFromExisting {
+            get {
+                return ResourceManager.GetString("LinkDealsFromExisting", resourceCulture);
             }
         }
         

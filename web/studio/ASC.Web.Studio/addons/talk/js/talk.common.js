@@ -106,7 +106,25 @@ window.ASC.TMTalk.sounds = (function () {
     isEnabled = null,
     soundsContainer = null;
 
-  var init = function (o) {
+    var initHtml = function() {
+        var o = document.createElement('div'),
+            soundsContainerId = 'talkHtmlSoundsContainer';
+        o.setAttribute('id', soundsContainerId);
+        
+        for (var i = 0; i < ASC.TMTalk.Config.soundsHtml.length; i++) {
+            var audioFindName = ASC.TMTalk.Config.soundsHtml[i].match(/\/\w+\./g);
+            if (audioFindName.length > 0) {
+                var audio = document.createElement('audio');
+                var audioName = audioFindName[audioFindName.length - 1].substring(1, audioFindName[audioFindName.length - 1].length - 1);
+                
+                audio.setAttribute('id', audioName);
+                audio.setAttribute('src', ASC.TMTalk.Config.soundsHtml[i]);
+                o.appendChild(audio);
+            }
+        }
+        document.getElementById('talkWrapper').appendChild(o);
+    };
+    var init = function (o) {
     if (typeof o === 'string') {
       o = document.getElementById(o);
     }
@@ -114,21 +132,27 @@ window.ASC.TMTalk.sounds = (function () {
       return null;
     }
     soundsContainer = o;
-    if (isEnabled === null && ASC.TMTalk.flashPlayer.isCorrect) {
+    if (isEnabled === null) {
       isEnabled = true;
     }
   };
 
-  var play = function (soundname) {
+    var play = function (soundname) {
     if (isEnabled === true && typeof soundname === 'string') {
-      try { soundsContainer.playSound(soundname) } catch (err) { }
+        var sound = document.getElementById(soundname + 'sound');
+        if (sound != null) {
+            try {
+                sound.play().catch(function (e) {
+                    console.log(e.message);
+                });
+            } catch(e) {}
+        }
+        //try { soundsContainer.playSound(soundname) } catch (err) { }
     }
   };
 
   var enable = function () {
-    if (ASC.TMTalk.flashPlayer.isCorrect) {
       isEnabled = true;
-    }
   };
 
   var disable = function () {
@@ -136,7 +160,8 @@ window.ASC.TMTalk.sounds = (function () {
   };
 
   var supported = function () {
-    return ASC.TMTalk.flashPlayer.isCorrect;
+      return true;
+      //return ASC.TMTalk.flashPlayer.isCorrect;
   };
 
   return {
@@ -145,6 +170,8 @@ window.ASC.TMTalk.sounds = (function () {
     init  : init,
     play  : play,
 
+    initHtml: initHtml,
+    
     enable  : enable,
     disable : disable
   };
@@ -520,7 +547,11 @@ window.ASC.TMTalk.dragMaster = (function () {
   var execEvent = function (eventType, thisArg, argsArray) {
     thisArg = thisArg || window;
     argsArray = argsArray || [];
-
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else {
+        document.selection.empty();
+    }
     switch (eventType.toLowerCase()) {
       case 'ondrag' :
         if (typeof onDrop === 'function') {

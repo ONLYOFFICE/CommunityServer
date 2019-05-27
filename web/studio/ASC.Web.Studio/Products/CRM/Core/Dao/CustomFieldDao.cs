@@ -36,6 +36,9 @@ using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
 using Newtonsoft.Json;
 using ASC.Common.Data;
+using ASC.Core;
+using ASC.ElasticSearch;
+using ASC.Web.CRM.Core.Search;
 using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
 
@@ -87,15 +90,31 @@ namespace ASC.CRM.Core.Dao
             Db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.Eq("entity_id", entityID) & Exp.Eq("entity_type", (int)entityType) & Exp.Eq("field_id", fieldID)));
 
             if (!String.IsNullOrEmpty(fieldValue))
-                Db.ExecuteNonQuery(
+            {
+                var lastModifiedOn = TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow());
+                var id = Db.ExecuteScalar<int>(
                         Insert("crm_field_value")
+                        .InColumnValue("id", 0)
                         .InColumnValue("entity_id", entityID)
                         .InColumnValue("value", fieldValue)
                         .InColumnValue("field_id", fieldID)
                         .InColumnValue("entity_type", (int)entityType)
-                        .InColumnValue("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                        .InColumnValue("last_modifed_on", lastModifiedOn)
                         .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
+                        .Identity(1, 0, true)
                         );
+
+                FactoryIndexer<FieldsWrapper>.IndexAsync(new FieldsWrapper
+                {
+                    Id = id,
+                    EntityId = entityID,
+                    EntityType = (int)entityType,
+                    Value = fieldValue,
+                    FieldId = fieldID,
+                    LastModifiedOn = lastModifiedOn,
+                    TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId
+                });
+            }
         }
 
         private string GetValidMask(CustomFieldType customFieldType, String mask)

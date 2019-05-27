@@ -190,9 +190,9 @@ ASC.Projects.AllProject = (function () {
                 handler: changeStatus,
                 getItem: getProjectByTarget,
                 statuses: [
-                    { cssClass: "open", text: resources.StatusOpenProject, id: 0 },
-                    { cssClass: "paused", text: resources.StatusSuspend, id: 2 },
-                    { cssClass: "closed", text: resources.StatusClosedProject, id:1 }
+                    { cssClass: "open", text: prjResources.StatusOpenProject, id: 0 },
+                    { cssClass: "paused", text: prjResources.StatusSuspendProject, id: 2 },
+                    { cssClass: "closed", text: prjResources.StatusClosedProject, id: 1 }
                 ]
             },
             undefined,
@@ -212,7 +212,9 @@ ASC.Projects.AllProject = (function () {
             $projectsTable.on(clickEvent, ".responsible .participants", baseObject.Common.goToWithoutReload);
 
             $projectsTable.on(clickEvent, "td.responsible span.userLink", function () {
-                var project = getProjectById(jq(this).parents("#tableListProjects tr").attr("id"));
+                var $self = jq(this);
+                if ($self.hasClass("not-action")) return;
+                var project = getProjectById($self.parents("#tableListProjects tr").attr("id"));
                 ASC.Projects.ProjectsAdvansedFilter.addUser('project_manager', project.responsible.id, ['team_member']);
             });
         }

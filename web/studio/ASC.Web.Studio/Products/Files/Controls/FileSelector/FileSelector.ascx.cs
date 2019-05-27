@@ -43,6 +43,7 @@ namespace ASC.Web.Files.Controls
 
         public bool OnlyFolder;
         public bool IsFlat;
+        public bool Multiple;
         public string SuccessButton = FilesUCResource.ButtonOk;
 
         protected void Page_Load(object sender, EventArgs e)

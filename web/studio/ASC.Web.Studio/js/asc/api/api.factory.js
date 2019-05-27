@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -236,6 +236,7 @@ window.ServiceFactory = (function() {
             apiHandler('prj-projectperson', /project\/[\w\d-]+\/team\.json/, post),
             apiHandler('prj-projectperson', /project\/[\w\d-]+\/team\.json/, dlt),
             apiHandler('prj-projectpersons', /project\/[\w\d-]+\/team\.json/, get),
+            apiHandler('prj-projectpersons', /project\/[\w\d-]+\/teamExcluded\.json/, get),
             apiHandler('prj-timespend', /project\/time\/[\w\d-]+\.json/),
             apiHandler('prj-timespends', /project\/time\/filter\.json/, get),
             apiHandler('prj-timespends', /project\/task\/[\w\d-]+\/time\.json/, get),
@@ -274,7 +275,6 @@ window.ServiceFactory = (function() {
             apiHandler('crm-socialmediaavatars', /crm\/contact\/socialmediaavatar\.json/),
             apiHandler('crm-tweets', /crm\/contact\/[\w\d-]+\/tweets\.json/),
             apiHandler('crm-twitterprofiles', /crm\/contact\/twitterprofile\.json/),
-            apiHandler('crm-facebookprofiles', /crm\/contact\/facebookprofile\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/send\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/status\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/cancel\.json/),
@@ -282,6 +282,9 @@ window.ServiceFactory = (function() {
             apiHandler('crm-progressitem', /crm\/contact\/export\/status\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/export\/cancel\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/export\/start\.json/),
+            apiHandler('crm-exportitem', /crm\/export\/partial\/status\.json/),
+            apiHandler('crm-exportitem', /crm\/export\/partial\/cancel\.json/),
+            apiHandler('crm-exportitem', /crm\/export\/partial\/[\w\d-]+\/start\.json/),
             apiHandler('crm-fileuploadresult', /crm\/import\/uploadfake\.json/),
             apiHandler('crm-task', /crm\/task\.json/),
             apiHandler('crm-task', /crm\/task\/[\w\d-]+\.json/),
@@ -425,6 +428,7 @@ window.ServiceFactory = (function() {
             apiHandler('comments', /comment\.json/, get),
 
             apiHandler('prj-settings', /project\/settings\.json/),
+            apiHandler('prj-report', /project\/report\/files\.json/),
             
             apiHandler('text', /project\/comment\/[\w\d-]+\.json/, dlt),
             apiHandler('text', /community\/wiki\/comment\/[\w\d-]+\.json/, dlt),
@@ -1111,14 +1115,12 @@ window.ServiceFactory = (function() {
             avatar: o.avatar || o.avatarSmall || defaultAvatar,
             avatarBig: o.avatarBig,
             avatarSmall: o.avatarSmall || defaultAvatarSmall,
-            group: createGroup(o.groups && o.groups.length > 0 ? o.groups[0] || null : null),
             groups: createGroups(o.groups || []),
             status: o.status || 0,
             activationStatus: o.activationStatus || 0,
             isActivated: activationStatuses.activated.id === (o.activationStatus || 0),
-            isOnline: typeof(o.isOnline) != "undefined" ? o.isOnline : '',
             isPending: activationStatuses.pending.id === (o.activationStatus || 0),
-            isTerminated: profileStatuses.terminated.id === (o.status || 0),
+            isTerminated: typeof (o.isTerminated) !== "undefined" ? o.isTerminated : profileStatuses.terminated.id === (o.status || 0),
             isMe: myProfile ? myProfile.id === o.id : false,
             isManager: false,
             isPortalOwner: typeof(o.isOwner) != "undefined" ? o.isOwner : null,
@@ -1563,7 +1565,7 @@ window.ServiceFactory = (function() {
                 responsibles = createPersons(response.responsibles || response.responsible);
             } else if (response.responsibleIds) {
                 responsibles = response.responsibleIds.map(function(item) {
-                    return UserManager.getPerson(item, createPerson);
+                    return createPerson(UserManager.getUser(item) || UserManager.getRemovedProfile());
                 });
             }
 
@@ -1944,6 +1946,10 @@ window.ServiceFactory = (function() {
         },
         settings: function(response) {
             return response;
+        },
+
+        report: function(response) {
+            return response;
         }
     };
 
@@ -2002,15 +2008,10 @@ window.ServiceFactory = (function() {
             }
 
             function getComment(comment) {
-                var commentDateStr = comment.Date.slice(0, -1) + ".0+" + ASC.Resources.Master.CurrentTenantUtcOffset;
+                var commentDateStr = comment.Date.slice(0, -1);
                 var commentDate = serializeDate(commentDateStr);
 
-                var offsetHours = parseInt(ASC.Resources.Master.CurrentTenantUtcHoursOffset);
-                var offsetMinutes = parseInt(ASC.Resources.Master.CurrentTenantUtcMinutesOffset);
-                if (!isNaN(offsetHours)) {
-                    commentDate.setHours(commentDate.getHours() + offsetHours);
-                    commentDate.setMinutes(commentDate.getMinutes() + offsetMinutes);
-                }
+                commentDate.setMinutes(commentDate.getMinutes() + ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset);
 
                 return {
                     id: comment.Id,
@@ -2435,24 +2436,22 @@ window.ServiceFactory = (function() {
             });
         },
 
-        facebookprofile: function(response) {
-            var postedOn = serializeDate(response.postedOn);
-            return {
-                type: "facebookprofile",
-                userID: response.userID,
-                userName: response.userName,
-                smallImageUrl: response.smallImageUrl
-            };
-        },
-
-        facebookprofiles: function(response) {
-            return collection(response, null, function(response) {
-                return factories.crm.facebookprofile(response);
-            });
-        },
-
         progressitem: function(response) {
             return response;
+        },
+
+        exportitem: function (response) {
+            if (!response) return response;
+
+            return {
+                id: response.id,
+                status: response.status,
+                percentage: response.percentage,
+                exception: response.errorText,
+                fileId: response.fileId,
+                fileUrl: response.fileUrl,
+                fileName: response.fileName
+            };
         },
 
         fileuploadresult:  function(response) {
