@@ -2,59 +2,50 @@
 
 **ONLYOFFICE Community Server** is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place. This document provides the roadmap of the planned **ONLYOFFICE Community Server** changes 
 
-## Version 9.6
+## Version 10.5
 
 ### General
 
-* SMTP settings in SaaS and installation
-* Modularity support
-* Possibility to use ONLYOFFICE as Identity Provider
-* Availability of integration with S3 from the interface
-* Integration with Google Cloud storage, Selectel.ru
-* Migration to the open development
-
-### Documents module
-
-* Full-text search within document contents
-* Document list sorting enhancements
-* Access rights enhancements
-
-### Projects module
-
-* Reports with their display in the document editors
-* Mobile application
-
-
-## Version 10.0
-
-### General
-
-* Backup for the Mail Server, bugfixing
-* Creating users with credentials
-* Launch of the test PoA network
-* Tasks for the Calendar
+* New mail messages for portals
+* Docker installation using the install.sh script
+* Scripts for the installation from DigitalOcean Marketplace
+* Interface adaptation for mobile devices
 
 ### Control Panel
 
 * HealthCheck
-* Customization for the editors
-* Work of the Control Panel without portals
+* List of the users logged in to the portal
 
 ### Documents module
 
-* Prohibition of the document copying, download and printing
-* Separate settings for document version storage
-* Mediaplayer (audio and video)
+* Open version history when clicking the file version
+* Open the file and scroll to the bookmark
+* Rename the file using the F2 hotkey
+* Support of the password protected files for conversion
+* Support of the document digital signature
 
 ### Projects module
 
-* Mobile application
 * Custom task statuses
+* Delete the project without reloading the page
+* Mass project deletion option
 
 ### CRM module
 
 * Enhancements and customization of the invoice editors
 * Integration with MailChimp, SendPlus mail services
+* SMS distribution to the contacts
+
+### Mail module
+
+* Mail message templates
+* Possibility to download all attachments in a single archive file
+
+### Calendar
+
+* Optimization for calendars with many events
+* CalDav synchronization of the 'Other calendars' section
+* Settings for notifications about birthdays
 
 
 ## Version 11.0
@@ -64,7 +55,6 @@
 * Portal registration via email
 * Wiki update
 * Two-factor authentication using disposable password generation
-* Interface adaptation for mobile devices
 * PostgreSQL database support
 * MS SQL Server support
 * Blockchain portal version
@@ -79,16 +69,14 @@
 
 ### CRM module
 
-* SMS distribution to the contacts
 * Task templates
-* Integratino with accounting software
+* Integration with accounting software
 * Extended search
 * Mobile application
 * Generator of any user reports
 
 ### Mail module
 
-* Mail messages templates
 * Possibility to create mailboxes at the custom domain when creating the user
 * Message read notification
 * Support of IMAP synchronization in mail server
