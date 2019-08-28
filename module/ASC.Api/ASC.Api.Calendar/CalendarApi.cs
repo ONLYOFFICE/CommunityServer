@@ -574,7 +574,7 @@ namespace ASC.Api.Calendar
                       "<I:calendar-color>" + color + "</I:calendar-color>" +
                       "<C:calendar-description>" + description + "</C:calendar-description></prop></set></mkcol>";
 
-            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + currentAccountPaswd + "@");
+            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + HttpUtility.UrlEncode(currentAccountPaswd) + "@");
 
             var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + calDavGuid;
 

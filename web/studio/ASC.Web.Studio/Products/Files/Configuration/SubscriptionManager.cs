@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Core;
 using ASC.Notify.Model;
 using ASC.Web.Core.Subscriptions;
 using ASC.Web.Files.Resources;
@@ -53,24 +54,8 @@ namespace ASC.Web.Files.Classes
 
         public List<SubscriptionType> GetSubscriptionTypes()
         {
-            return new List<SubscriptionType>
+            var subscriptionTypes = new List<SubscriptionType>
                                     {
-                                        new SubscriptionType
-                                            {
-                                                ID = _subscrTypeDocuSignComplete,
-                                                Name = FilesCommonResource.SubscriptDocuSignComplete,
-                                                NotifyAction = NotifyConstants.Event_DocuSignComplete,
-                                                Single = true,
-                                                CanSubscribe = true
-                                            },
-                                        new SubscriptionType
-                                            {
-                                                ID = _subscrTypeDocuSignStatus,
-                                                Name = FilesCommonResource.SubscriptDocuSignStatus,
-                                                NotifyAction = NotifyConstants.Event_DocuSignStatus,
-                                                Single = true,
-                                                CanSubscribe = true
-                                            },
                                         new SubscriptionType
                                             {
                                                 ID = _subscrTypeShareDoc,
@@ -96,6 +81,30 @@ namespace ASC.Web.Files.Classes
                                                 CanSubscribe = true
                                             }
                                     };
+
+            if (CoreContext.Configuration.CustomMode) return subscriptionTypes;
+
+            subscriptionTypes.AddRange(new List<SubscriptionType>
+                                    {
+                                        new SubscriptionType
+                                            {
+                                                ID = _subscrTypeDocuSignComplete,
+                                                Name = FilesCommonResource.SubscriptDocuSignComplete,
+                                                NotifyAction = NotifyConstants.Event_DocuSignComplete,
+                                                Single = true,
+                                                CanSubscribe = true
+                                            },
+                                        new SubscriptionType
+                                            {
+                                                ID = _subscrTypeDocuSignStatus,
+                                                Name = FilesCommonResource.SubscriptDocuSignStatus,
+                                                NotifyAction = NotifyConstants.Event_DocuSignStatus,
+                                                Single = true,
+                                                CanSubscribe = true
+                                            }
+                                    });
+
+            return subscriptionTypes;
         }
 
         public ISubscriptionProvider SubscriptionProvider

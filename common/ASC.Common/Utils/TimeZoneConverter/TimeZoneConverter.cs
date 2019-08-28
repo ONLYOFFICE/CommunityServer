@@ -44,6 +44,8 @@ namespace ASC.Common.Utils
 
         private static bool _customMode;
 
+        private static bool _isMono;
+
         private static Dictionary<string, string> _translations;
 
         static TimeZoneConverter()
@@ -197,6 +199,8 @@ namespace ASC.Common.Utils
             {
                 _customMode = ConfigurationManager.AppSettings["core.custom-mode"] == "true";
 
+                _isMono = Type.GetType("Mono.Runtime") != null;
+
                 if (!_customMode)
                 {
                     _translations = new Dictionary<string, string>();
@@ -223,7 +227,7 @@ namespace ASC.Common.Utils
         public static string GetTimeZoneName(TimeZoneInfo timeZone)
         {
             if (!_customMode)
-                return timeZone.DisplayName;
+                return _isMono ? timeZone.Id : timeZone.DisplayName;
 
             return _translations.ContainsKey(timeZone.Id) ? _translations[timeZone.Id] : timeZone.DisplayName;
         }

@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Calendar.Notification;
 using ASC.Web.Core.Subscriptions;
 using ASC.Api.Calendar.Notification;
 
@@ -35,7 +34,7 @@ namespace ASC.Web.Calendar.Notification
     public class CalendarSubscriptionManager : IProductSubscriptionManager
     {
         public SubscriptionType CalendarSharingSubscription { get {
-            return new SubscriptionType() {
+            return new SubscriptionType {
                 ID = new Guid("{1CE43C40-72F4-4265-A4C6-8B55E29DB447}"),
                 Name = Resources.CalendarAddonResource.CalendarSharingSubscription,
                 NotifyAction = CalendarNotifySource.CalendarSharing,
@@ -47,7 +46,7 @@ namespace ASC.Web.Calendar.Notification
         {
             get
             {
-                return new SubscriptionType()
+                return new SubscriptionType
                 {
                     ID = new Guid("{862D17FE-7119-4aa0-B1AA-E3C23097CB69}"),
                     Name = Resources.CalendarAddonResource.EventAlertSubscription,
@@ -67,10 +66,10 @@ namespace ASC.Web.Calendar.Notification
 
         public List<SubscriptionType> GetSubscriptionTypes()
         {
-            return new List<SubscriptionType>() { CalendarSharingSubscription, EventAlertSubscription};
+            return new List<SubscriptionType> { CalendarSharingSubscription, EventAlertSubscription};
         }
 
-        public ASC.Notify.Model.ISubscriptionProvider SubscriptionProvider
+        public Notify.Model.ISubscriptionProvider SubscriptionProvider
         {
             get { return CalendarNotifySource.Instance.GetSubscriptionProvider(); }
         }

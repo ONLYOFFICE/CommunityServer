@@ -41,12 +41,12 @@ namespace ASC.Web.Studio.UserControls.Users
     {
         public static string Location
         {
-            get { return "~/usercontrols/users/resendinvitescontrol/resendinvitescontrol.ascx"; }
+            get { return "~/UserControls/Users/ResendInvitesControl/ResendInvitesControl.ascx"; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/users/resendinvitescontrol/js/resendinvitescontrol.js");
+            Page.RegisterBodyScripts("~/UserControls/Users/ResendInvitesControl/js/resendinvitescontrol.js");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             _invitesResenderContainer.Options.IsPopup = true;

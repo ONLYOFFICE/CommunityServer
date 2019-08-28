@@ -36,7 +36,7 @@ namespace ASC.Web.Studio.UserControls.Feed
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/feed/js/feed.js", "~/usercontrols/feed/js/feed.filter.js")
+            Page.RegisterBodyScripts("~/UserControls/Feed/js/feed.js", "~/UserControls/Feed/js/feed.filter.js")
                 .RegisterStyle("~/UserControls/Feed/css/feed.less")
                 .RegisterInlineScript(@"ASC.Feed.init('"+ AccessRights() + "');");
         }

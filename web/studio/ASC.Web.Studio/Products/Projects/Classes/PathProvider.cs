@@ -39,10 +39,10 @@ namespace ASC.Web.Projects.Classes
 
         static PathProvider()
         {
-            BaseVirtualPath = "~/Products/Projects/".ToLower();
+            BaseVirtualPath = "~/Products/Projects/";
             try
             {
-                BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath).ToLower();
+                BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath);
             }
             catch (Exception)
             {
@@ -56,14 +56,14 @@ namespace ASC.Web.Projects.Classes
             switch (ext)
             {
                 case ".js":
-                    return VirtualPathUtility.ToAbsolute("~/products/projects/js/" + fileName);
+                    return VirtualPathUtility.ToAbsolute("~/Products/Projects/js/" + fileName);
                 case ".png":
-                    return WebPath.GetPath("/products/projects/App_Themes/Default/Images/" + fileName);
+                    return WebPath.GetPath("/Products/Projects/App_Themes/Default/images/" + fileName);
                 case ".ascx":
-                    return CommonLinkUtility.ToAbsolute("~/products/projects/controls/" + fileName).ToLowerInvariant();
+                    return CommonLinkUtility.ToAbsolute("~/Products/Projects/Controls/" + fileName);
                 case ".css":
                 case ".less":
-                    return VirtualPathUtility.ToAbsolute("~/products/projects/app_themes/default/css/" + fileName);
+                    return VirtualPathUtility.ToAbsolute("~/Products/Projects/App_Themes/default/css/" + fileName);
             }
             return fileName;
         }

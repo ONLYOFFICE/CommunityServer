@@ -6,7 +6,7 @@
 <li class="menu-item none-sub-list userforum add-block">
     <div class="category-wrapper">
         <a class="menu-item-label outer-text text-overflow" href="<%= UserForumLink %>" target="_blank" >
-            <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuTalk"></use></svg></span>
+            <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuTalk"></use></svg></span>
             <span class="menu-item-label inner-text">
                 <%= Resource.UserForum%>
             </span>

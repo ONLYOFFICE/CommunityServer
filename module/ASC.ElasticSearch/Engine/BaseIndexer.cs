@@ -826,7 +826,7 @@ namespace ASC.ElasticSearch
 
             using (var db = new DbManager("default", 1800000))
             {
-                db.ExecuteNonQuery("SET SESSION group_concat_max_len = 1000000;");
+                db.ExecuteNonQuery("SET SESSION group_concat_max_len = 4294967295;");
                 data = db.ExecuteList(dataQuery).ConvertAll(Wrapper.GetDataConverter());
             }
 

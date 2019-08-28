@@ -51,8 +51,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             // Move to CommonBodyScripts.ascx.cs
-        //    Page.RegisterBodyScripts("~/usercontrols/management/invitepanel/js/invitepanel.js")
-            Page.RegisterStyle("~/usercontrols/management/invitepanel/css/invitepanel.less");
+            //    Page.RegisterBodyScripts("~/UserControls/Management/InvitePanel/js/invitepanel.js")
+            Page.RegisterStyle("~/UserControls/Management/InvitePanel/css/invitepanel.less");
 
             GeneratedUserLink = GenerateLink(EmployeeType.User);
             GeneratedVisitorLink = GenerateLink(EmployeeType.Visitor);

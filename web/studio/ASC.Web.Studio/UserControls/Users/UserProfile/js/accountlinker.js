@@ -26,7 +26,7 @@
 
 jq(function () {
     if (window.AccountLinkControl_SettingsView === true) {
-        jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
     }
 
     jq(".account-links").delegate('.popup', 'click', function () {
@@ -41,7 +41,7 @@ jq(function () {
                             break;
                         }
                     }
-                    jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+                    jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
                 },
                 error: function (params, errors) {
                     toastr.error(errors[0]);
@@ -65,7 +65,7 @@ function loginCallback(profile) {
                     break;
                 }
             }
-            jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+            jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
         },
         error: function (params, errors) {
             toastr.error(errors[0]);

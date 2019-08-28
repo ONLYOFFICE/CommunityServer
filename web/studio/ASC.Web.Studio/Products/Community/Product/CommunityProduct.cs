@@ -63,12 +63,12 @@ namespace ASC.Web.Community.Product
 
         public override string StartURL
         {
-            get { return "~/products/community/"; }
+            get { return "~/Products/Community/"; }
         }
 
         public override string HelpURL
         {
-            get { return "~/products/community/help.aspx"; }
+            get { return "~/Products/Community/Help.aspx"; }
         }
 
         public override string ProductClassName

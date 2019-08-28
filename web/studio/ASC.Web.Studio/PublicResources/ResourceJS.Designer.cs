@@ -79,6 +79,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validation code field cannot be empty.
+        /// </summary>
+        public static string ActivateTfaAppEmptyCode {
+            get {
+                return ResourceManager.GetString("ActivateTfaAppEmptyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string AddButton {

@@ -126,7 +126,7 @@ namespace ASC.Web.Community.Wiki
             {
                 var emptyScreenControl = new EmptyScreenControl
                     {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
+                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
                         Header = WikiResource.EmptyScreenWikiFilesCaption,
                         Describe = WikiResource.EmptyScreenWikiFilesText,
                     };

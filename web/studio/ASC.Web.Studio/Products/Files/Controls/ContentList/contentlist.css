@@ -347,13 +347,13 @@ body.media-width-0-1200 .files-content-panel {
 }
 .row-hover:hover .pencil,
 .file-row .pencil.file-editing {
-    background: url('../../../../skins/default/Images/svg/documents/pencilblue.svg');
+    background: url('../../../../skins/default/images/svg/documents/pencilblue.svg');
 }
 .row-hover:hover .pencil.convert-action {
-    background: url('../../../../skins/default/Images/svg/documents/rotateblue.svg');
+    background: url('../../../../skins/default/images/svg/documents/rotateblue.svg');
 }
 .file-row.can-coauthoring .pencil.file-editing {
-    background: url('../../../../skins/default/Images/svg/documents/pencil_add.svg');
+    background: url('../../../../skins/default/images/svg/documents/pencil_add.svg');
 }
 .file-lock {
     display: none;

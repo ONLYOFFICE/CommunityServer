@@ -970,11 +970,13 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             log.Debug("DoOptionalOperations->UploadIcsToCalendar()");
 
-            factory
-                .CalendarEngine
-                .UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
-                    message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
-                    _tasksConfig.DefaultApiSchema);
+            if (folder.Folder != Enums.FolderType.Spam) {
+                factory
+                    .CalendarEngine
+                    .UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
+                        message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
+                        _tasksConfig.DefaultApiSchema);
+            }
 
             if (_tasksConfig.SaveOriginalMessage)
             {

@@ -55,8 +55,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/PasswordSettings/js/PasswordSettings.js")
-                .RegisterStyle("~/usercontrols/management/passwordsettings/css/passwordsettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/PasswordSettings/js/passwordsettings.js")
+                .RegisterStyle("~/UserControls/Management/PasswordSettings/css/passwordsettings.less");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

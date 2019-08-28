@@ -53,15 +53,15 @@ namespace ASC.Web.Projects
             Page
                 .RegisterStyle(PathProvider.GetFileStaticRelativePath("common.css"))
                 .RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                               "controls/maincontent/maincontent.css",
-                               "controls/contentlist/contentlist.css",
-                               "controls/accessrights/accessrights.css",
-                               "controls/thirdparty/thirdparty.css",
-                               "controls/convertfile/convertfile.css",
-                               "controls/emptyfolder/emptyfolder.css",
-                               "controls/chunkuploaddialog/chunkuploaddialog.css",
-                               "controls/tree/treebuilder.css",
-                               "controls/tree/tree.css"
+                               "Controls/MainContent/maincontent.css",
+                               "Controls/ContentList/contentlist.css",
+                               "Controls/AccessRights/accessrights.css",
+                               "Controls/ThirdParty/thirdparty.css",
+                               "Controls/ConvertFile/convertfile.css",
+                               "Controls/EmptyFolder/emptyfolder.css",
+                               "Controls/ChunkUploadDialog/chunkuploaddialog.css",
+                               "Controls/Tree/treebuilder.css",
+                               "Controls/Tree/tree.css"
                 )
                 .RegisterBodyScripts(ResolveUrl,
                                      "~/js/third-party/jquery/jquery.mousewheel.js",
@@ -85,12 +85,12 @@ namespace ASC.Web.Projects
                                      "socketmanager.js"
                 )
                 .RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                     "controls/createmenu/createmenu.js",
-                                     "controls/convertfile/convertfile.js",
-                                     "controls/emptyfolder/emptyfolder.js",
-                                     "controls/chunkuploaddialog/chunkuploadmanager.js",
-                                     "controls/tree/treebuilder.js",
-                                     "controls/tree/tree.js"
+                                     "Controls/CreateMenu/createmenu.js",
+                                     "Controls/ConvertFile/convertfile.js",
+                                     "Controls/EmptyFolder/emptyfolder.js",
+                                     "Controls/ChunkUploadDialog/chunkuploadmanager.js",
+                                     "Controls/Tree/treebuilder.js",
+                                     "Controls/Tree/tree.js"
                 )
                 .RegisterClientScript(new Files.Masters.ClientScripts.FilesLocalizationResources())
                 .RegisterClientScript(new Files.Masters.ClientScripts.FilesConstantsResources());

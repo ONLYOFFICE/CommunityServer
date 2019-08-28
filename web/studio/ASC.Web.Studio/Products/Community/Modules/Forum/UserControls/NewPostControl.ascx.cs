@@ -198,7 +198,7 @@ namespace ASC.Web.UserControls.Forum
 
         private void InitScripts()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
 
             //Page.RegisterInlineScript("ckeditorConnector.load(function () {ForumManager.forumEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComForum', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
@@ -252,7 +252,7 @@ namespace ASC.Web.UserControls.Forum
             Utility.RegisterTypeForAjax(this.GetType());
             Utility.RegisterTypeForAjax(typeof(PostControl));
 
-            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js", "~/js/uploader/jquery.fileuploadManager.js");
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js", "~/js/uploader/jquery.fileuploadmanager.js");
 
             PostType = NewPostType.Topic;
             PostAction = PostAction.Normal;

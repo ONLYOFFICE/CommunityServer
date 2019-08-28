@@ -60,7 +60,7 @@ namespace ASC.Data.Backup.Console
 
             if (!string.IsNullOrWhiteSpace(options.Restore))
             {
-                var webconfig = ToAbsolute(options.WebConfigPath ?? Path.Combine("..", "..", "WebStudio", "web.config"));
+                var webconfig = ToAbsolute(options.WebConfigPath ?? Path.Combine("..", "..", "WebStudio", "Web.config"));
                 var backupfile = ToAbsolute(options.Restore);
                 var backuper = new BackupManager(backupfile, webconfig);
                 backuper.ProgressChanged += (s, e) =>
@@ -86,7 +86,7 @@ namespace ASC.Data.Backup.Console
                 var log = LogManager.GetLogger("ASC");
                 if (!Path.HasExtension(options.WebConfigPath))
                 {
-                    options.WebConfigPath = Path.Combine(options.WebConfigPath, "web.config");
+                    options.WebConfigPath = Path.Combine(options.WebConfigPath, "Web.config");
                 }
                 if (!File.Exists(options.WebConfigPath))
                 {

@@ -33,9 +33,12 @@ jq(function () {
 
     if (jq("#agree_to_terms").prop("checked")) {
         bindConfirmEmailBtm();
-        jq('.account-links a')
+        jq('.auth-form-with_btns_social .account-links a')
                     .removeClass('disabled')
                     .unbind('click');
+    } else {
+        jq('.auth-form-with_btns_social .account-links a')
+            .addClass('disabled');
     }
 
     jq('.auth-form-with_form_btn')
@@ -45,7 +48,7 @@ jq(function () {
 
     function bindConfirmEmailBtm() {
 
-        jq('.account-links a').removeClass('disabled');
+        jq('.auth-form-with_btns_social .account-links a').removeClass('disabled');
 
         jq("#confirmEmailBtn")
             .removeClass('disabled')
@@ -178,7 +181,7 @@ jq(function () {
         }
         function hideAccountLinks() {
             if (!jq("#agree_to_terms")[0].checked) {
-                jq('.account-links a')
+                jq('.auth-form-with_btns_social .account-links a')
                     .click(function () { return false; })
                     .addClass('disabled');
                 jq("#confirmEmailBtn")
@@ -194,7 +197,7 @@ jq(function () {
             }
         });
         jq("#desktop_agree_to_terms").change(function () {
-            var btn = jq('.auth-form-with_form_btn');
+            var btn = jq("#loginBtn");
             if (this.checked) {
                 btn.removeClass('disabled').unbind('click');
             } else {

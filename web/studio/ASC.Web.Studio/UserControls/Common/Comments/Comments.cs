@@ -165,12 +165,12 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
         private void RegisterClientScripts()
         {
             Page
-                .RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js",
+                .RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js",
                     "~/js/uploader/ajaxupload.js",
-                    "~/usercontrols/common/comments/js/comments.js",
+                    "~/UserControls/Common/Comments/js/comments.js",
                     "~/js/third-party/highlight.pack.js")
                 .RegisterInlineScript("hljs.initHighlightingOnLoad();")
-                .RegisterStyle("~/usercontrols/common/comments/css/codehighlighter/vs.less");
+                .RegisterStyle("~/UserControls/Common/Comments/css/codehighlighter/vs.less");
 
 
             var uploadPath = string.Format("{0}://{1}:{2}{3}", Page.Request.GetUrlRewriter().Scheme, Page.Request.GetUrlRewriter().Host, Page.Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?newEditor=true");

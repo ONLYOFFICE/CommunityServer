@@ -1313,145 +1313,22 @@ input.auth-form-with_field {
 		}
 	}
 }
+
 .auth-docs_btns_social {
     position: relative;
-	margin: 20px auto;
+    margin: 20px auto;
 
-    .login-with-label {
-        display: none;
-    }
+    .social-login ul.account-links {
+        text-align: center;
 
-    .social-login .account-links {
-        height: 32px;
-		margin-top: 2px;
-		text-align: center;
+        li {
+            display: inline-block;
+            float: none;
 
-        ul {
-			display: inline-block;
-			list-style: none outside none;
-			margin: 0;
-			padding: 0;
-
-			li {
-				display: inline-block;
-				float: none;
-				margin: 0;
-				padding: 0;
-				vertical-align: middle;
-				height: auto;
-				height: initial;
-				line-height: normal;
-				a.google {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/google.svg")!important;
-						margin-top: 0!important; 
-						margin-left: 0!important;
-						margin-right: 21px!important;
-						vertical-align: middle;
-					}
-				}
-
-				a.facebook {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/facebook.svg")!important;
-					}
-				}
-
-				a.twitter {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						//background-image: url("images/social_icons.svg#twitter")!important;
-					}
-				}
-
-				a.linkedin {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/linkenin.svg")!important;
-					}
-				}
-
-				a.mailru {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/mailru.svg")!important;
-						width: 80px;
-					}
-				}
-
-				a.yandex {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/yandex.svg")!important;
-					}
-				}
-
-				a.vk {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/vk.svg")!important;
-					}
-				}
-
-				a.gosuslugi {
-					span.icon{
-						background-color: Transparent;
-						background-repeat: no-repeat;
-						background-image: url("images/gosuslugi.svg")!important;
-						width: 80px;
-					}
-				}
-				a {
-					width: auto;
-				    width: initial;
-					text-indent: 0;
-					background: none;
-					vertical-align: middle;
-					display: inline-block;
-					padding: 0px 8px 0 8px;
-					height: 40px;
-					box-shadow: 0 2px 2px #c4c9cc;
-					border-radius: 2px;
-					text-decoration: none;
-
-					&:hover{
-						box-shadow: 0 2px 2px #a5acb0
-					}
-					&.disabled{
-						opacity: 0.5;
-						cursor: default;
-					}
-					span.icon{
-						display: inline-block;
-						margin: 11px 3px 0px 3px;
-						width: 18px;
-						height: 18px;
-						background-size: contain;
-					}
-
-					.provider-text{
-						font-family:'Roboto',sans-serif;
-						font-size: 14px;
-						display: inline-block;
-						vertical-align: middle;
-						color: rgba(0, 0, 0, 0.54);
-						line-height: 41px;
-						font-weight: 500;
-					}
-				}
-			}
-		}
-
-		
+            .google span {
+                margin: 8px;
+            }
+        }
     }
 
     .errorBox {
@@ -1999,13 +1876,6 @@ input.auth-form-with_field {
 				width: 360px;
 			}
 		}
-		.auth-docs_btns_social{
-			.social-login{
-				.account-links{
-					margin-top: 0;
-				}
-			}
-		}
 	}
 }
 .cookieMess{
@@ -2171,13 +2041,6 @@ body.desktop {
 		vertical-align: top;
 		margin-top: 2px;
 	}
-	.auth-docs_btns_social{
-		.social-login{
-			.account-links{
-				margin-top: 0;
-			}
-		} 
-	} 
 	.try-welcome-top{
 		&.studio-top-panel{
 			.studio-top-logo{
@@ -2295,29 +2158,6 @@ body.desktop {
 						margin-left: 24px;
 					}
 				}
-				/*.auth-form-with_btns_social{
-					.social-login{
-						.account-links{
-							height: 22px;
-							margin-top: 4px;
-							margin-left: 0;
-							ul{
-							    width: 88px;
-								li{
-									width: 22px;
-									height: 22px;
-									margin-right: 7px;
-									a{
-										height: 22px;
-										margin: 0;
-										width: 22px;
-										background-size: cover !important;
-									}
-								}
-							} 
-						}
-					} 
-				}*/
 			}
 		}
 	}
@@ -2922,14 +2762,6 @@ body.desktop {
 						vertical-align: top;
 						margin-left: 0;
 					}
-					.social-login{
-						margin-left: 0;
-
-						.account-links{
-							margin-top: 0;
-							margin-left: 0;
-						}
-					} 
 				}
 			} 
 		}
@@ -3069,31 +2901,6 @@ body.desktop {
 						line-height: 48px;
 						font-size: 14px;
 					}
-					.auth-docs_btns_social .social-login .account-links ul li a{
-						margin-left: 0;
-					}
-					/*.auth-docs_btns_social{
-						.social-login{
-							.account-links{
-								margin-top: 20px;
-								margin-left: 0px;
-
-								ul{
-									width: 130px;
-
-									li{
-										width: initial;
-										height: initial;
-										float: left;
-										a{
-											height: 32px;
-											width: 32px;
-										}
-									}
-								}
-							}
-						} 
-					} */
 					.auth-form-with_form_or{
 						margin-top: 23px;
 						font-size: 18px;

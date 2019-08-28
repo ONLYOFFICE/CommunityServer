@@ -56,7 +56,7 @@ namespace ASC.Web.Studio.UserControls.Common.HelpCenter
                 return;
             }
 
-            Page.RegisterStyle("~/usercontrols/common/helpcenter/css/help-center.less");
+            Page.RegisterStyle("~/UserControls/Common/HelpCenter/css/help-center.less");
 
             string module;
             string mainLink;

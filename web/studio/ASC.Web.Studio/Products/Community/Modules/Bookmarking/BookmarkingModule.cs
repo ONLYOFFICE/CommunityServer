@@ -63,7 +63,7 @@ namespace ASC.Web.Community.Bookmarking
 
         public override string StartURL
         {
-            get { return "~/products/community/modules/bookmarking/"; }
+            get { return "~/Products/Community/Modules/Bookmarking/"; }
         }
 
         public BookmarkingModule()
@@ -75,7 +75,7 @@ namespace ASC.Web.Community.Bookmarking
                     IconFileName = "bookmarking_icon.png",
                     SubscriptionManager = new BookmarkingSubscriptionManager(),
                     SearchHandler = new BookmarkingSearchHandler(),
-                    GetCreateContentPageAbsoluteUrl = () => BookmarkingPermissionsCheck.PermissionCheckCreateBookmark() ? VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/" + BookmarkingServiceHelper.GetCreateBookmarkPageUrl()) : null,
+                    GetCreateContentPageAbsoluteUrl = () => BookmarkingPermissionsCheck.PermissionCheckCreateBookmark() ? VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/" + BookmarkingServiceHelper.GetCreateBookmarkPageUrl()) : null,
                 };
         }
     }

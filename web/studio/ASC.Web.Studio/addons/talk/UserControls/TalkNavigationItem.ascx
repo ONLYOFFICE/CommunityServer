@@ -4,7 +4,7 @@
 
 <li class="top-item-box talk">
   <span id="talkMsgLabel" class="inner-text" title="<%=GetMessageStr()%>" onclick="ASC.Controls.JabberClient.extendChat()">
-    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuTalk"></use></svg>
+    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuTalk"></use></svg>
     <span id="talkMsgCount" class="inner-label">0</span>
   </span>
 </li>

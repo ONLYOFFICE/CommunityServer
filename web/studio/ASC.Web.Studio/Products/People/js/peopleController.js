@@ -905,7 +905,7 @@ ASC.People.PeopleController = (function() {
                     if (!(user.isAdmin || user.listAdminModules.length || user.isPortalOwner)) {
                         enableChangeType++;
                     }
-                    if (!user.isActivated && !user.isLDAP && !user.isSSO) {
+                    if (!user.isActivated && !user.isSSO) {
                         enableSendInvite++;
                     }
                 }

@@ -64,8 +64,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(ConfirmActivation));
-            Page.RegisterBodyScripts("~/usercontrols/management/confirmactivation/js/confirmactivation.js")
-                .RegisterStyle("~/usercontrols/management/ConfirmActivation/css/confirmactivation.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/ConfirmActivation/js/confirmactivation.js")
+                .RegisterStyle("~/UserControls/Management/ConfirmActivation/css/confirmactivation.less");
             Page.Title = HeaderStringHelper.GetPageTitle(Resource.Authorization);
             ButtonEmailAndPasswordOK.Text = Resource.EmailAndPasswordOK;
             btChangeEmail.Text = Resource.ChangeEmail;

@@ -68,7 +68,7 @@ namespace ASC.Web.Community.Wiki
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/products/community/modules/wiki/app_themes/default/css/wikicss.css");
+            Page.RegisterStyle("~/Products/Community/Modules/Wiki/App_Themes/default/css/wikicss.css");
             Utility.RegisterTypeForAjax(GetType(), Page);
         }
 

@@ -60,7 +60,7 @@ namespace ASC.Web.Community.News
 
         public override string StartURL
         {
-            get { return "~/products/community/modules/news/"; }
+            get { return "~/Products/Community/Modules/News/"; }
         }
 
         public NewsModule()

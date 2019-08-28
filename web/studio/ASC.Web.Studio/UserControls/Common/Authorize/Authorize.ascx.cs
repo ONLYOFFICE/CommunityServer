@@ -156,8 +156,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/authorize/css/authorize.less")
-                .RegisterBodyScripts("~/usercontrols/common/authorize/js/authorize.js");
+            Page.RegisterStyle("~/UserControls/Common/Authorize/css/authorize.less")
+                .RegisterBodyScripts("~/UserControls/Common/Authorize/js/authorize.js");
 
             Login = "";
             Password = "";
@@ -275,7 +275,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 if (string.IsNullOrEmpty(HashId))
                 {
                     int.TryParse(cache.Get<String>("loginsec/" + Login), out loginCounter);
-                    if (++loginCounter > 5)
+                    if (++loginCounter > 5 && !SetupInfo.IsSecretEmail(Login))
                     {
                         throw new BruteForceCredentialException();
                     }

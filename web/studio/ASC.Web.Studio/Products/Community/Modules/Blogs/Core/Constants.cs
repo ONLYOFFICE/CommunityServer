@@ -60,7 +60,7 @@ namespace ASC.Blogs.Core
 
         #region Virtual Path
 
-        public const string BaseVirtualPath = "~/products/community/modules/blogs/";
+        public const string BaseVirtualPath = "~/Products/Community/Modules/Blogs/";
         public static string GetModuleAbsolutePath(string virualPath)
         {
             if (virualPath == "" || virualPath == "/")
@@ -70,7 +70,7 @@ namespace ASC.Blogs.Core
         }
 
         public static string DefaultPageUrl { get { return GetModuleAbsolutePath(""); } }
-        public static string ViewBlogPageUrl { get { return GetModuleAbsolutePath("viewblog.aspx"); } }
+        public static string ViewBlogPageUrl { get { return GetModuleAbsolutePath("ViewBlog.aspx"); } }
         public static string UserPostsPageUrl { get { return GetModuleAbsolutePath("/") + "?userid="; } }
 
         #endregion

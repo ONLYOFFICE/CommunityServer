@@ -36,7 +36,7 @@ namespace ASC.Web.People.Masters.ClientScripts
             {
                 return new[]
                 {
-                    "~/products/people/templates/PeopleTemplates.html"
+                    "~/Products/People/Templates/PeopleTemplates.html"
                 };
             }
         }

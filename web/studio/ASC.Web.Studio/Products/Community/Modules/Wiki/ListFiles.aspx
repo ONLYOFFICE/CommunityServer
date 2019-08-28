@@ -9,7 +9,7 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
-    <link href="<%=CommonLinkUtility.ToAbsolute("~/products/community/modules/wiki/app_themes/default/css/filetype_style.css")%>"
+    <link href="<%=CommonLinkUtility.ToAbsolute("~/Products/Community/Modules/Wiki/App_Themes/default/css/filetype_style.css")%>"
         rel="stylesheet" type="text/css" />
 
     <script language="JavaScript" type="text/javascript">

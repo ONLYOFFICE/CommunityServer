@@ -88,7 +88,7 @@ namespace ASC.Web.Community.Blogs
                                 {
                                     ID = id,
                                     Name = DisplayUserSettings.GetFullUserName(new Guid(id)),
-                                    URL = VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/") + "?userid=" + id,
+                                    URL = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/") + "?userid=" + id,
                                     SubscriptionType = GetSubscriptionTypes().Find(st => st.ID.Equals(_blogPersSubscriptionTypeID))
                                 });
                         }
@@ -116,7 +116,7 @@ namespace ASC.Web.Community.Blogs
                                 {
                                     ID = post.ID.ToString(),
                                     Name = post.Title,
-                                    URL = VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/viewblog.aspx") + "?blogid=" + post.ID.ToString(),
+                                    URL = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/ViewBlog.aspx") + "?blogid=" + post.ID.ToString(),
                                     SubscriptionType = GetSubscriptionTypes().Find(st => st.ID.Equals(_commentSubscriptionTypeID))
                                 });
                         }
@@ -216,7 +216,7 @@ namespace ASC.Web.Community.Blogs
                             {
                                 ID = id,
                                 Name = DisplayUserSettings.GetFullUserName(new Guid(id)),
-                                URL = VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/") + "?userid=" + id,
+                                URL = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/") + "?userid=" + id,
                                 SubscriptionType = GetSubscriptionTypes().Find(st => st.ID.Equals(_blogPersSubscriptionTypeID))
                             });
                     }
@@ -245,7 +245,7 @@ namespace ASC.Web.Community.Blogs
                             {
                                 ID = post.ID.ToString(),
                                 Name = post.Title,
-                                URL = VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/viewblog.aspx") + "?blogid=" + post.ID.ToString(),
+                                URL = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/ViewBlog.aspx") + "?blogid=" + post.ID.ToString(),
                                 SubscriptionType = GetSubscriptionTypes().Find(st => st.ID.Equals(_commentSubscriptionTypeID))
                             });
                     }

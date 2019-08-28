@@ -45,7 +45,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             _showBackupCodesContainer.Options.IsPopup = true;
 
-            Page.RegisterBodyScripts("~/usercontrols/management/tfacontrols/js/resetapp.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/TfaControls/js/resetapp.js");
         }
     }
 }

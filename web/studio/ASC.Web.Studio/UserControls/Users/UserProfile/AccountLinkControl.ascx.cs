@@ -72,8 +72,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/accountlink_style.less")
-                .RegisterBodyScripts("~/usercontrols/users/userprofile/js/accountlinker.js");
+            Page.RegisterStyle("~/UserControls/Users/UserProfile/css/accountlink_style.less")
+                .RegisterBodyScripts("~/UserControls/Users/UserProfile/js/accountlinker.js");
             InitProviders();
 
             Page.RegisterInlineScript(String.Format(@" AccountLinkControl_Providers = {0};
@@ -111,6 +111,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             foreach (var provider in providers.Where(provider => string.IsNullOrEmpty(fromOnly) || fromOnly == provider || (provider == "google" && fromOnly == "openid")))
             {
+                if (InviteView && provider.ToLower() == "twitter") continue;
+
                 var loginProvider = ProviderManager.GetLoginProvider(provider);
                 if (loginProvider != null && loginProvider.IsEnabled)
                     AddProvider(provider, linkedAccounts);
@@ -134,11 +136,6 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         private static AccountLinker GetLinker()
         {
             return new AccountLinker("webstudio");
-        }
-
-        public IEnumerable<AccountInfo> GetLinkableProviders()
-        {
-            return Infos.Where(x => x.Provider.ToLower() != "twitter");
         }
     }
 

@@ -1,0 +1,12 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master"  EnableViewState="false" CodeBehind="BasicTemplate.master.cs" Inherits="ASC.Web.Sample.Masters.BasicTemplate" %>
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+
+<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
+    <asp:PlaceHolder ID="SideNavigation" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
+</asp:Content>
+
+

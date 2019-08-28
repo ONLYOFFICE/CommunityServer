@@ -77,8 +77,8 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         private void InitScripts()
         {
-            Page.RegisterStyle("~/usercontrols/common/attachments/css/attachments.less")
-                .RegisterBodyScripts("~/usercontrols/common/attachments/js/attachments.js");
+            Page.RegisterStyle("~/UserControls/Common/Attachments/css/attachments.less")
+                .RegisterBodyScripts("~/UserControls/Common/Attachments/js/attachments.js");
         }
 
         private void CreateEmptyPanel()
@@ -89,7 +89,7 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
             var emptyParticipantScreenControl = new EmptyScreenControl
                 {
-                    ImgSrc = VirtualPathUtility.ToAbsolute("~/UserControls/Common/Attachments/Images/documents-logo.png"),
+                    ImgSrc = VirtualPathUtility.ToAbsolute("~/UserControls/Common/Attachments/images/documents-logo.png"),
                     Header = UserControlsCommonResource.EmptyListDocumentsHead,
                     Describe = String.Format(FileUtility.ExtsWebEdited.Any() ? UserControlsCommonResource.EmptyListDocumentsDescr.HtmlEncode() : UserControlsCommonResource.EmptyListDocumentsDescrPoor.HtmlEncode(),
                                              //create

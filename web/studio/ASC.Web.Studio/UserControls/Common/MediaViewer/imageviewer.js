@@ -472,6 +472,8 @@ window.ASC.Files.ImageViewer = (function () {
     };
 
     var mouseWheelEvent = function (event, delta) {
+        if (jq(".blockUI:visible").length) return true;
+
         if (scalingInProcess) {
             return false;
         }

@@ -346,7 +346,7 @@ namespace ASC.Specific.AuthorizationApi
 
                     int counter;
                     int.TryParse(Cache.Get<String>("loginsec/" + userName), out counter);
-                    if (++counter > 5)
+                    if (++counter > 5 && !SetupInfo.IsSecretEmail(userName))
                     {
                         throw new Authorize.BruteForceCredentialException();
                     }

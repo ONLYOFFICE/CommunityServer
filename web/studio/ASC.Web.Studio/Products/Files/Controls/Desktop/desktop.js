@@ -119,8 +119,22 @@ window.ASC.Desktop = (function () {
     };
 
     var setBlockchainData = function (account) {
+        if (!account.address || !account.publicKey) {
+            ASC.Files.UI.displayInfoPanel("Empty blockchain address", true);
+            return;
+        }
+
         if (typeof Teamlab !== "undefined") {
-            Teamlab.setBlockchainData({}, {address: account.address, publicKey: account.publicKey});
+            Teamlab.setBlockchainData({},
+                {
+                    address: account.address,
+                    publicKey: account.publicKey
+                },
+                {
+                    error: function (params, error) {
+                        ASC.Files.UI.displayInfoPanel(error[0], true);
+                    }
+                });
         }
     };
 
@@ -135,11 +149,12 @@ window.ASC.Desktop = (function () {
                 var downloadLink = domain + ASC.Files.Utility.GetFileDownloadUrl(fileId);
 
                 window.AscDesktopEditor.GetHash(downloadLink,
-                    function (hash) {
+                     function (hash, docinfo) {
                         var data =
                         {
-                            accounts: addresses,
+                            accounts: { "addresses" : addresses },
                             hash: hash,
+							docinfo: (typeof docinfo === "object" ? docinfo.docinfo : null),
                             type: "share",
                         };
 
@@ -154,6 +169,9 @@ window.ASC.Desktop = (function () {
                         }
                     });
 
+            },
+            error: function (params, error) {
+                ASC.Files.UI.displayInfoPanel(error[0], true);
             }
         });
     };

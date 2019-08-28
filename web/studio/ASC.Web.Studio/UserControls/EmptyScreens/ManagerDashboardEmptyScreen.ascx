@@ -12,7 +12,7 @@
     <% if (!IsVisitor && !ProductDisabled(WebItemManager.PeopleProductID))
        { %>
     <div class="module-item clearFix">
-        <span class="main-title-icon people"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/feed-icons.svg#feedIconspeople"></use></svg></span>
+        <span class="main-title-icon people"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconspeople"></use></svg></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(PeopleProduct.GetStartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_PeopleLink %>
         </a>
@@ -21,7 +21,7 @@
     <% } %>
 
     <div class="module-item clearFix">
-        <span class="main-title-icon documents"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/feed-icons.svg#feedIconsdocuments"></use></svg></span>
+        <span class="main-title-icon documents"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconsdocuments"></use></svg></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.Files.Classes.PathProvider.StartURL) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_DocumentsLink %>
         </a>
@@ -31,7 +31,7 @@
     <% if (!IsVisitor && !ProductDisabled(WebItemManager.CRMProductID))
        { %>
     <div class="module-item clearFix">
-        <span class="main-title-icon crm"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/feed-icons.svg#feedIconshome"></use></svg></span>
+        <span class="main-title-icon crm"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconshome"></use></svg></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.CRM.PathProvider.StartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_CRMLink %>
         </a>
@@ -42,7 +42,7 @@
     <% if (!ProductDisabled(WebItemManager.ProjectsProductID))
        { %>
     <div class="module-item clearFix">
-        <span class="main-title-icon projects"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/feed-icons.svg#feedIconsprojects"></use></svg></span>
+        <span class="main-title-icon projects"><svg class="main-title-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconsprojects"></use></svg></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.Projects.Classes.PathProvider.BaseVirtualPath) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_ProjectsLink %>
         </a>

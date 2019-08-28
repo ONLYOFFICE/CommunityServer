@@ -48,8 +48,8 @@ namespace ASC.Web.Studio.UserControls.Common.PersonalFooter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/personalfooter/css/personalfooter.less")
-                .RegisterBodyScripts("~/usercontrols/common/personalfooter/js/personalfooter.js");
+            Page.RegisterStyle("~/UserControls/Common/PersonalFooter/css/personalfooter.less")
+                .RegisterBodyScripts("~/UserControls/Common/PersonalFooter/js/personalfooter.js");
 
             HelpLink = GetHelpLink();
         }

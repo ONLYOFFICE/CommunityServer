@@ -54,7 +54,7 @@
             </a>
         </li>
         <% }
-       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP() && !ProfileHelper.UserInfo.IsSSO())
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsSSO())
            { %>
         <li class="email-activate <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.ActivateEmailAgain %>"
@@ -63,7 +63,7 @@
             </a>
         </li>
         <% }
-       if (Actions.AllowEdit && !MobileDetector.IsMobile)
+       if (Actions.AllowEdit && !MobileDetector.IsMobile && (!ProfileHelper.UserInfo.IsLDAP() || (ProfileHelper.UserInfo.IsLDAP() && ProfileHelper.UserInfo.HasAvatar())))
            { %>
         <li class="edit-photo">
             <a class="dropdown-item"

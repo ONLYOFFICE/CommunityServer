@@ -135,6 +135,7 @@ namespace ASC.Core
                 HostedRegion = ri.HostedRegion,
                 PartnerId = ri.PartnerId,
                 AffiliateId = ri.AffiliateId,
+                Campaign = ri.Campaign,
                 Industry = ri.Industry,
                 Spam = ri.Spam,
                 Calls = ri.Calls

@@ -63,7 +63,7 @@ namespace ASC.Web.Core.Utility
         public static string GetThemeFolderName(string path)
         {
             var folderName = GetColorThemesSettings();
-            var resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, folderName);
+            var resolvedPath = path.Replace(ThemeFolderTemplate, folderName);
 
             if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                 resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);
@@ -76,7 +76,7 @@ namespace ASC.Web.Core.Utility
             }
             catch (Exception)
             {
-                resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, "default");
+                resolvedPath = path.Replace(ThemeFolderTemplate, "default");
 
                 if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                     resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);

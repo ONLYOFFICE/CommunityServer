@@ -25,13 +25,10 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using ASC.Blogs.Core.Resources;
 using ASC.Blogs.Core.Security;
 using ASC.Core;
-using ASC.Web.Community.Blogs.Common;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement;
@@ -42,7 +39,7 @@ namespace ASC.Web.Community.Blogs.Common
     {
         public override Guid ID
         {
-            get { return new Guid("6A598C74-91AE-437d-A5F4-AD339BD11BB2"); }
+            get { return ASC.Blogs.Core.Constants.ModuleId; }
         }
 
         public override Guid ProjectId
@@ -62,7 +59,7 @@ namespace ASC.Web.Community.Blogs.Common
 
         public override string StartURL
         {
-            get { return "~/products/community/modules/blogs/"; }
+            get { return ASC.Blogs.Core.Constants.BaseVirtualPath; }
         }        
 
         public BlogsModule()
@@ -73,7 +70,7 @@ namespace ASC.Web.Community.Blogs.Common
                 SmallIconFileName = "blog_add.png",
                 IconFileName = "blogiconwg.png",
                 SubscriptionManager = new BlogsSubscriptionManager(),
-                GetCreateContentPageAbsoluteUrl = () => CanEdit() ? VirtualPathUtility.ToAbsolute(ASC.Blogs.Core.Constants.BaseVirtualPath + "addblog.aspx") : null,
+                GetCreateContentPageAbsoluteUrl = () => CanEdit() ? VirtualPathUtility.ToAbsolute(ASC.Blogs.Core.Constants.BaseVirtualPath + "AddBlog.aspx") : null,
                 SearchHandler = new BlogsSearchHandler(),
             };
         }

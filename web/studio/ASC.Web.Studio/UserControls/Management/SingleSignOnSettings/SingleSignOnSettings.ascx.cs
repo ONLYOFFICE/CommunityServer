@@ -42,7 +42,7 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     {
         protected SsoSettingsV2 Settings { get; private set; }
 
-        protected const string Location = "~/userControls/Management/SingleSignOnSettings/SingleSignOnSettings.ascx";
+        protected const string Location = "~/UserControls/Management/SingleSignOnSettings/SingleSignOnSettings.ascx";
         
         protected string HelpLink { get; set; }
 
@@ -55,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
             }
 
             AjaxPro.Utility.RegisterTypeForAjax(typeof(SingleSignOnSettings), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/singlesignonsettings/js/singlesignonsettings.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/SingleSignOnSettings/js/singlesignonsettings.js");
 
             Settings = SsoSettingsV2.Load();
 

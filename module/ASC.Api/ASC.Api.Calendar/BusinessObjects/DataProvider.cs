@@ -699,7 +699,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         private void RemoveCaldavCalendar(string currentUserName, string email, string currentAccountPaswd, string encoded, Guid calDavGuid, Uri myUri)
         {
             var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
-            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + currentAccountPaswd + "@");
+            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + HttpUtility.UrlEncode(currentAccountPaswd) + "@");
             var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + calDavGuid;
 
             try

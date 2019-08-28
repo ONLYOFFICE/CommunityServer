@@ -149,7 +149,7 @@ namespace ASC.Web.People.Core.Import
                     UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, importUsersAsCollaborators);
 
                     var messageAction = importUsersAsCollaborators ? MessageAction.GuestImported : MessageAction.UserImported;
-                    MessageService.Send(httpHeaders, messageAction, MessageTarget.Create(userInfo.ID), userInfo.DisplayUserName(false));
+                    MessageService.Send(httpHeaders, messageAction, MessageTarget.Create(userInfo.ID), string.Format("{0} ({1})", userInfo.DisplayUserName(false), userInfo.Email));
 
                     Data.Add(new UserResults { Email = userData.Email, Result = String.Empty });
                     Percentage++;

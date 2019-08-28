@@ -105,7 +105,7 @@ namespace ASC.Data.Backup
                 var map = new ExeConfigurationFileMap();
                 map.ExeConfigFilename = string.Compare(Path.GetExtension(config), ".config", true) == 0 ?
                     config :
-                    Path.Combine(config, "web.config");
+                    Path.Combine(config, "Web.config");
                 return ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
             }
             return WebConfigurationManager.OpenWebConfiguration(config);
@@ -248,7 +248,7 @@ namespace ASC.Data.Backup
                 var file = connectionString.ElementInformation.Source;
                 if ("web.connections.config".Equals(Path.GetFileName(file), StringComparison.InvariantCultureIgnoreCase))
                 {
-                    file = Path.Combine(Path.GetDirectoryName(file), "web.config");
+                    file = Path.Combine(Path.GetDirectoryName(file), "Web.config");
                 }
                 var xconfig = XDocument.Load(file);
                 var provider = xconfig.XPathSelectElement("/configuration/system.data/DbProviderFactories/add[@invariant='" + connectionString.ProviderName + "']");

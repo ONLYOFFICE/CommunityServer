@@ -41,8 +41,8 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/sailfish/sailfish.css");
-            Page.RegisterBodyScripts("~/products/files/controls/sailfish/sailfish.js");
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "Controls/Sailfish/sailfish.css");
+            Page.RegisterBodyScripts("~/Products/Files/Controls/Sailfish/sailfish.js");
         }
     }
 }

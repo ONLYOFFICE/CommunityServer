@@ -49,7 +49,7 @@ namespace ASC.Data.Backup.Restore
             try
             {
                 var config = ConfigurationManager.AppSettings["coreConfig"];
-                config = Path.GetFullPath(!string.IsNullOrEmpty(config) ? config : "TeamLabSvc.exe.Config");
+                config = Path.GetFullPath(!string.IsNullOrEmpty(config) ? config : "TeamLabSvc.exe.config");
                 if (File.Exists(config)) textBoxCoreConfig.Text = config;
 
                 config = ConfigurationManager.AppSettings["webConfig"];

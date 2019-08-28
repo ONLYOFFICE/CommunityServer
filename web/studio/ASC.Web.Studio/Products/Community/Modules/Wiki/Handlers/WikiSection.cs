@@ -243,7 +243,7 @@ namespace ASC.Web.UserControls.Wiki.Handlers
             }
         }
 
-        [ConfigurationProperty("baseRelPath", DefaultValue = "~/products/community/modules/wiki/wikiuc/fckeditor/", IsRequired = true)]
+        [ConfigurationProperty("baseRelPath", DefaultValue = "~/Products/Community/Modules/Wiki/WikiUC/fckeditor/", IsRequired = true)]
         public string BaseRelPath
         {
             get

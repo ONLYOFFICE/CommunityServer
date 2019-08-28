@@ -7,11 +7,11 @@ var g_fcOptions = {
 
 		isRTL:           <%=(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "true" : "false")%>,
 
-		monthNames:      ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames, 0, 12)%>"],
-		monthNamesShort: ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedMonthNames, 0, 12)%>"],
+		monthNames:      ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames, 0, 12)%>"],
+		monthNamesShort: ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedMonthNames, 0, 12)%>"],
 
-		dayNames:        ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],
-		dayNamesShort:   ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
+		dayNames:        ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],
+		dayNamesShort:   ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
 		firstDay:        <%=(int)System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek%>,
 
 		titleFormat: {
@@ -235,8 +235,8 @@ var g_fcOptions = {
             dialogIntervalOption_month:   "<%=Resources.CalendarJSResource.repeatSettings_intervalMonth%>",
             dialogIntervalOption_year:    "<%=Resources.CalendarJSResource.repeatSettings_intervalYear%>",
             
-            dayNames:                     ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],            
-            dayNamesShort:                ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
+            dayNames:                     ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],            
+            dayNamesShort:                ["<%=String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
             
             dayAliasNames:                ["<%=Resources.CalendarJSResource.repeatSettings_firstLabel%>",
                                            "<%=Resources.CalendarJSResource.repeatSettings_secondLabel%>",

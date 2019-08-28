@@ -55,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/cookiesettings/js/cookiesettings.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/CookieSettings/js/cookiesettings.js");
 
             LifeTime = CookiesManager.GetLifeTime();
         }

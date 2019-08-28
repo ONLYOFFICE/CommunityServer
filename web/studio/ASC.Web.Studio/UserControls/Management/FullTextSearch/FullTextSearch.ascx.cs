@@ -58,8 +58,8 @@ namespace ASC.Web.Studio.UserControls.Management
                 Response.Redirect("~/management.aspx");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/fulltextsearch/js/fulltextsearch.js")
-                .RegisterStyle("~/usercontrols/management/fulltextsearch/css/fulltextsearch.css");
+            Page.RegisterBodyScripts("~/UserControls/Management/FullTextSearch/js/fulltextsearch.js")
+                .RegisterStyle("~/UserControls/Management/FullTextSearch/css/fulltextsearch.css");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

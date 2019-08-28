@@ -109,13 +109,13 @@ namespace ASC.Web.Community.News
             {
                 (Master as NewsMaster).CurrentPageCaption = NewsResource.NewsEditBreadCrumbsPoll;
                 Title = HeaderStringHelper.GetPageTitle(NewsResource.NewsEditBreadCrumbsPoll);
-                lbCancel.NavigateUrl = VirtualPathUtility.ToAbsolute("~/products/community/modules/news/") + "?docid=" + docID + Info.UserIdAttribute;
+                lbCancel.NavigateUrl = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/") + "?docid=" + docID + Info.UserIdAttribute;
             }
             else
             {
                 (Master as NewsMaster).CurrentPageCaption = NewsResource.NewsAddBreadCrumbsPoll;
                 Title = HeaderStringHelper.GetPageTitle(NewsResource.NewsAddBreadCrumbsPoll);
-                lbCancel.NavigateUrl = VirtualPathUtility.ToAbsolute("~/products/community/modules/news/") + (string.IsNullOrEmpty(Info.UserIdAttribute) ? string.Empty : "?" + Info.UserIdAttribute.Substring(1));
+                lbCancel.NavigateUrl = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/") + (string.IsNullOrEmpty(Info.UserIdAttribute) ? string.Empty : "?" + Info.UserIdAttribute.Substring(1));
             }
 
         }
@@ -167,7 +167,7 @@ namespace ASC.Web.Community.News
 
             storage.SaveFeed(feed, isEdit, FeedType.Poll);
 
-            Response.Redirect(VirtualPathUtility.ToAbsolute("~/products/community/modules/news/") + "?docid=" + feed.Id + Info.UserIdAttribute);
+            Response.Redirect(VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/") + "?docid=" + feed.Id + Info.UserIdAttribute);
         }
     }
 }

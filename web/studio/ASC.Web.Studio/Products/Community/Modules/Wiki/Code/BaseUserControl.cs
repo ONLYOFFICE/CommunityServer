@@ -141,8 +141,8 @@ namespace ASC.Web.UserControls.Wiki
         {
             base.OnInit(e);
 
-            Page.RegisterBodyScripts("~/products/community/modules/wiki/scripts/editpage.js")
-                .RegisterStyle("~/products/community/modules/wiki/content/main.css");
+            Page.RegisterBodyScripts("~/Products/Community/Modules/Wiki/scripts/editpage.js")
+                .RegisterStyle("~/Products/Community/Modules/Wiki/content/main.css");
         }
 
         protected override void OnLoad(EventArgs e)

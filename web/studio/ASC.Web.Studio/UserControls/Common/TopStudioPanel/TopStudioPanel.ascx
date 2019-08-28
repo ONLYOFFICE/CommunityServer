@@ -51,7 +51,7 @@
            { %>
             <li class="product-menu with-subitem">
            <span class="active-icon-svg">
-               <svg class="active-icon"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenu<%= CurrentProductClassName %>"></use></svg>
+               <svg class="active-icon"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= CurrentProductClassName %>"></use></svg>
            </span>
                 <a class="product-cur-link" title="<%= CurrentProductName %>">
                     <%: CurrentProductName %>
@@ -84,7 +84,7 @@
            { %>
             <li class="top-item-box search">
                 <span class="searchActiveBox inner-text" title="<%= Resource.Search %>">
-                    <svg><use base="<%= WebPath.GetPath("/")%>" base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusearch"></use></svg>
+                    <svg><use base="<%= WebPath.GetPath("/")%>" base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusearch"></use></svg>
                 </span>
             </li>
         <% } %>
@@ -93,7 +93,7 @@
            { %>
             <li class="top-item-box settings" >
                 <a class="inner-text" href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>">
-                    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg>
+                    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg>
                 </a>
             </li>
         <% } %>
@@ -102,7 +102,7 @@
            { %>
             <li class="top-item-box tariffs <%= DisplayTrialCountDays ? "has-led" : "" %>">
                 <a class="inner-text" href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>">
-                    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use></svg>
+                    <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use></svg>
                     <% if (DisplayTrialCountDays)
                        { %>
                         <span class="inner-label">trial <%= TariffDays %></span>
@@ -127,7 +127,7 @@
                                 <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
                                     <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
                                         <span class="dropdown-item-icon">
-                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
+                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
                                         </span>
                                         <%= item.Name.HtmlEncode() %>
                                     </a>
@@ -138,7 +138,7 @@
                                 <li class="controlpanel">
                                     <a href="<%= SetupInfo.ControlPanelUrl %>" target="_blank" class="dropdown-item menu-products-item controlpanel">
                                         <span class="dropdown-item-icon">
-                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenucontrolpanel"></use></svg>
+                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenucontrolpanel"></use></svg>
                                         </span>
                                         <%= Resource.ControlPanelLabel %>
                                     </a>
@@ -150,7 +150,7 @@
                                 <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
                                     <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
                                         <span class="dropdown-item-icon">
-                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
+                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
                                         </span>
                                         <%= item.Name.HtmlEncode() %>
                                     </a>
@@ -158,7 +158,7 @@
                                 <% } %>
                                 <li class="feed">
                                     <a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>">
-                                        <span class="dropdown-item-icon"> <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenufeed"></use></svg> </span>
+                                        <span class="dropdown-item-icon"> <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenufeed"></use></svg> </span>
                                         <%= UserControlsCommonResource.FeedTitle %>
                                     </a>
                                 </li>
@@ -172,7 +172,7 @@
                                 <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
                                     <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
                                         <span class="dropdown-item-icon">
-                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
+                                            <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= item.ProductClassName %>"></use></svg>
                                         </span>
                                         <%= item.Name.HtmlEncode() %>
                                     </a>
@@ -195,15 +195,15 @@
                             <ul class="dropdown-content">
                                 <% if (IsAdministrator) { %>
                                 <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>">
-                                    <span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span><%= Resource.Administration %></a></li>
+                                    <span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span><%= Resource.Administration %></a></li>
                                 <% } %>
                                 
                                 <% if (ShowAppsNavItem) { %>
                                 <li class="apps">
                                     <% if (IsAdministrator) { %>
-                                    <a href="<%= CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) %>" title="<%= Resource.Apps %>" class="dropdown-item menu-products-item <%= "apps" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuproductsandinstruments"></use></svg></span><%= Resource.Apps %></a>
+                                    <a href="<%= CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) %>" title="<%= Resource.Apps %>" class="dropdown-item menu-products-item <%= "apps" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuproductsandinstruments"></use></svg></span><%= Resource.Apps %></a>
                                     <% } else if (AuthServiceList.Any()) { %>
-                                    <a title="<%= Resource.Apps %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuproductsandinstruments"></use></svg></span><%= Resource.Apps %></a>
+                                    <a title="<%= Resource.Apps %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"><svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuproductsandinstruments"></use></svg></span><%= Resource.Apps %></a>
                                     <div id="appsPopupBody" class="display-none">
                                         <p>
                                             <%= Resource.AppsDescription %><br>
@@ -214,7 +214,7 @@
                                         <div class="apps-list">
                                         <% foreach (var service in AuthServiceList) { %>
                                             <span>
-                                                <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
+                                                <img src="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
                                             </span>
                                         <% } %>
                                         </div>
@@ -226,7 +226,7 @@
                                 </li>
                                 <% } %>
                                 <% if (!DisableTariff) { %>
-                                <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item <%= CurrentProductClassName == "payments" ? "active" : "" %>"><span class="dropdown-item-icon"> <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use></svg> </span><%= Resource.TariffSettings %></a></li>
+                                <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item <%= CurrentProductClassName == "payments" ? "active" : "" %>"><span class="dropdown-item-icon"> <svg class="dropdown-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use></svg> </span><%= Resource.TariffSettings %></a></li>
                                 <% } %>
                             </ul>
                         </div>

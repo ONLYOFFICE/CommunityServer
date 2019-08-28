@@ -3,8 +3,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CalendarControl.ascx.cs" Inherits="ASC.Web.Calendar.UserControls.CalendarControl" %>
 
 
-<%@ Register Src="~/addons/calendar/usercontrols/CalendarResources.ascx" TagName="CalendarResources" TagPrefix="ascwc" %>
-<%@ Register Src="~/addons/calendar/usercontrols/CalendarTemplates.ascx" TagName="CalendarTemplates" TagPrefix="ascwc" %>
+<%@ Register Src="~/addons/calendar/UserControls/CalendarResources.ascx" TagName="CalendarResources" TagPrefix="ascwc" %>
+<%@ Register Src="~/addons/calendar/UserControls/CalendarTemplates.ascx" TagName="CalendarTemplates" TagPrefix="ascwc" %>
 
 
 <ascwc:CalendarResources runat="server"></ascwc:CalendarResources>

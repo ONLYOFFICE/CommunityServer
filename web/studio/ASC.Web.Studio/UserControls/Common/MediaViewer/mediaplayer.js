@@ -261,8 +261,10 @@ window.ASC.Files.MediaPlayer = (function () {
         return perc;
     }
 
-    var keyCodes = { enter: 13, esc: 27, spaceBar: 32, left: 37, up: 38, right: 39, down: 40, deleteKey: 46 };
+    var keyCodes = { enter: 13, esc: 27, spaceBar: 32, left: 37, up: 38, right: 39, down: 40, deleteKey: 46, S: 83 };
     var keyDownEvent = function (e) {
+        if (jq(".blockUI:visible").length) return true;
+
         var key = e.keyCode || e.which;
 
         switch (key) {
@@ -300,14 +302,18 @@ window.ASC.Files.MediaPlayer = (function () {
                 return false;
 
             case keyCodes.esc:
-                if (jq(".blockUI:visible").length == 0) {
-                    closePlayer();
-                }
+                closePlayer();
                 return false;
 
             case keyCodes.deleteKey:
                 deleteFile();
                 return false;
+
+            case keyCodes.S:
+                if (e.ctrlKey) {
+                    jq("#videoDownload").click();
+                    return false;
+                }
         }
         return true;
     };

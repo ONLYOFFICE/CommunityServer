@@ -28,20 +28,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
-using System.Web.UI.WebControls;
 using ASC.Blogs.Core;
 using ASC.Blogs.Core.Domain;
 using ASC.Blogs.Core.Resources;
 using ASC.Blogs.Core.Security;
 using ASC.Core;
-using ASC.Core.Users;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 using System.Globalization;
-using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.Core.Users;
 
 namespace ASC.Web.Community.Blogs
 {
@@ -215,7 +211,7 @@ namespace ASC.Web.Community.Blogs
                     PageUrl = string.Format(
                         CultureInfo.CurrentCulture,
                         "{0}?{1}",
-                        VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/"),
+                        VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/"),
                         QueryString("page")
                         //BlogsPageSize
                         ),

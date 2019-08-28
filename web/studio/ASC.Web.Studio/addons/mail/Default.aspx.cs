@@ -36,7 +36,6 @@ using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.FederatedLogin.LoginProviders;
 using ASC.Mail.Core;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
@@ -183,11 +182,6 @@ namespace ASC.Web.Mail
         public static String GetMailSupportUri()
         {
             return "mailto:" + Core.WhiteLabel.MailWhiteLabelSettings.Instance.SupportEmail;
-        }
-
-        public static bool IsTurnOnOAuth()
-        {
-            return GoogleLoginProvider.Instance.IsEnabled;
         }
 
         public static bool IsTurnOnServer()
@@ -478,7 +472,7 @@ namespace ASC.Web.Mail
                     .AddSource(ResolveUrl, new ClientTemplateResources())
                     .AddSource(VirtualPathUtility.ToAbsolute,
                         "~/js/third-party/ical.js",
-                        "~/js/third-party/setImmediate.js",
+                        "~/js/third-party/setimmediate.js",
                         "~/js/third-party/sorttable.js",
                         "~/js/third-party/moment.min.js",
                         "~/js/third-party/moment-timezone.min.js",
@@ -495,7 +489,7 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/containers/set.js",
                         "~/addons/mail/js/mail.common.js",
                         "~/addons/mail/js/dropdown.js",
-                        "~/addons/mail/js/mail.crmLinkPopup.js",
+                        "~/addons/mail/js/mail.crmlinkpopup.js",
                         "~/addons/mail/js/mail.default.js",
                         "~/addons/mail/js/mail.servicemanager.js",
                         "~/addons/mail/js/fromsenderfilter.js",
@@ -513,11 +507,11 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/mail.navigation.js",
                         "~/addons/mail/js/mail.settingspanel.js",
                         "~/addons/mail/js/mail.attachmentmanager.js",
-                        "~/addons/mail/js/actionMenu.js",
-                        "~/addons/mail/js/actionPanel.js",
-                        "~/addons/mail/js/autocomplete/emailAutocomplete.js",
-                        "~/addons/mail/js/autocomplete/crmAutocomplete.js",
-                        "~/addons/mail/js/hidePanel.js",
+                        "~/addons/mail/js/actionmenu.js",
+                        "~/addons/mail/js/actionpanel.js",
+                        "~/addons/mail/js/autocomplete/emailautocomplete.js",
+                        "~/addons/mail/js/autocomplete/crmautocomplete.js",
+                        "~/addons/mail/js/hidepanel.js",
                         "~/addons/mail/js/tags/tags.js",
                         "~/addons/mail/js/tags/panel.js",
                         "~/addons/mail/js/tags/colorspopup.js",
@@ -533,21 +527,21 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/administration/modal/createmailbox.js",
                         "~/addons/mail/js/administration/modal/createmailgroup.js",
                         "~/addons/mail/js/tags/modal.js",
-                        "~/addons/mail/js/contacts/filter/crmFilter.js",
+                        "~/addons/mail/js/contacts/filter/crmfilter.js",
                         "~/addons/mail/js/contacts/page.js",
                         "~/addons/mail/js/contacts/panel.js",
                         "~/addons/mail/js/contacts/types.js",
-                        "~/addons/mail/js/contacts/filter/tlFilter.js",
-                        "~/addons/mail/js/contacts/filter/customFilter.js",
-                        "~/addons/mail/js/contacts/tlGroups.js",
+                        "~/addons/mail/js/contacts/filter/tlfilter.js",
+                        "~/addons/mail/js/contacts/filter/customfilter.js",
+                        "~/addons/mail/js/contacts/tlgroups.js",
                         "~/addons/mail/js/contacts/contacts.js",
-                        "~/addons/mail/js/contacts/modal/editContact.js",
+                        "~/addons/mail/js/contacts/modal/editcontact.js",
                         "~/addons/mail/js/blankpage.js",
                         "~/addons/mail/js/popup.js",
                         "~/addons/mail/js/alerts.js",
-                        "~/addons/mail/js/filterCache.js",
-                        "~/addons/mail/js/accountsPanel.js",
-                        "~/addons/mail/js/trustedAddresses.js",
+                        "~/addons/mail/js/filtercache.js",
+                        "~/addons/mail/js/accountspanel.js",
+                        "~/addons/mail/js/trustedaddresses.js",
                         "~/addons/mail/js/userfolders/panel.js",
                         "~/addons/mail/js/userfolders/page.js",
                         "~/addons/mail/js/userfolders/dropdown.js",
@@ -572,7 +566,7 @@ namespace ASC.Web.Mail
             return (StyleBundleData)
                 new StyleBundleData("mail", "mail")
                     .AddSource(ResolveUrl,
-                        "~/addons/mail/app_themes/default/less/mail.less");
+                        "~/addons/mail/App_Themes/default/less/mail.less");
         }
     }
 }

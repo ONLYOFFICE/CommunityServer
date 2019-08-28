@@ -36,7 +36,7 @@ namespace ASC.Web.CRM.Controls.Sender
     {
         public static String Location
         {
-            get { return PathProvider.GetFileStaticRelativePath("sender/smtpsender.ascx"); }
+            get { return PathProvider.GetFileStaticRelativePath("Sender/SmtpSender.ascx"); }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -76,7 +76,7 @@ namespace ASC.Web.CRM.Controls.Sender
 
         private void RegisterScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
 
             var sb = new StringBuilder();
 

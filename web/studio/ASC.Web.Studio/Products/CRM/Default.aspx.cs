@@ -43,7 +43,7 @@ namespace ASC.Web.CRM
 
         public static String Location
         {
-            get { return "~/products/crm/default.aspx"; }
+            get { return "~/Products/CRM/Default.aspx"; }
         }
 
         protected string HelpLink { get; set; }

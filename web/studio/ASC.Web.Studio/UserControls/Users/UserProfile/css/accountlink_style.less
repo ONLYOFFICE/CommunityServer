@@ -24,169 +24,94 @@
 */
 
 
-@imagepathlink:'/usercontrols/users/userprofile/css/images/';
-
-.invite {
-    padding-top:10px;
-}
+@imagepathlink:'/UserControls/Users/UserProfile/css/images/';
 
 .account-links {
-    text-align: left;
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: inline-block;
-    }
-
-    .label {
-        display: none;
-    }
-
-    li {
-        vertical-align: middle;
-        height: 35px;
-        line-height: 35px;
-        padding-left: 40px;
-        background-position: -40px 0;
-        background-repeat: no-repeat;
-        background-image: url('@{imagepathlink}acc_social.png');
-
-        &.facebook {
-            background-position: 0 1px;
-        }
-
-        &.linkedin {
-            background-position: 0 -66px;
-        }
-
-        &.google {
-            background-position: 0 -33px;
-        }
-
-        &.twitter {
-            background-position: 0 -99px;
-        }
-
-        a {
-            margin: 5px;
-        }
-    }
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* ------------------ */
-#social .account-links {
-    text-align: center;
-    display: block;
+#social {
+    font-size: 14px;
+    line-height: 30px;
+    margin-top: 16px;
+    text-align: left;
 
-    .info {
-        float: left;
-        height: 24px;
-        line-height: 24px;
-        vertical-align: middle;
-        text-align: right;
-        width: 50%;
-    }
-
-    ul {
-        padding: 0;
-        list-style: none;
-        display: inline-block;
-        margin: 0;
-        text-align: left;
-    }
-
-    li {
-        height: 24px;
-        line-height: 24px;
-        padding-left: 0;
-        float: left;
-        background-image: none;
+    .account-links li {
+        margin-right: 8px;
 
         a {
-            display: block;
-            width: 24px;
-            height: 24px;
-            margin: 0 0 0 6px;
-            text-indent: -10000px;
-            position: relative;
-            background-image: url('@{imagepathlink}acc_social_small.png');
-            background-repeat: no-repeat;
+            border-radius: 2px;
+            box-shadow: 0 2px 2px #c4c9cc;
+            display: inline-block;
+            height: 31px;
+            padding: 0px 8px 0 8px;
+            text-decoration: none;
 
-            span.linked {
-                display: block;
-                position: absolute;
-                width: 16px;
-                height: 16px;
-                background: url('@{imagepathlink}acc_linked.png');
-                bottom: 0;
-                right: 0;
+            &:hover {
+                box-shadow: 0 2px 2px #a5acb0;
+            }
+
+            &.disabled {
+                opacity: 0.5;
+                cursor: default;
             }
         }
 
-
-
-        .facebook {
-            background-position: 0 0;
-        }
-
-        .linkedin {
-            background-position: -50px 0;
+        .icon {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: block;
+            height: 18px;
+            margin: 8px 2px 0px 2px;
+            width: 18px;
         }
 
         .google {
-            background-position: -25px 0;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+
+            .icon {
+                /*background-image: url("images/google.svg");*/
+                background-image: url("../../../../skins/default/images/svg/people/google.png");
+                background-size: auto;
+                height: 34px;
+                margin: 0;
+                width: 105px;
+            }
         }
 
-        .twitter {
-            background-position: -75px 0;
+        .facebook .icon {
+            background-image: url("images/facebook.svg");
         }
-    }
-}
 
-/******************************************\
-    Login with ThirdParty
-\******************************************/
-.login-with-label {
-    margin: 10px 0;
-    color: #FFFFFF;
-    font-size: 16px;
-}
-.social-login {
-    .account-links li {
-        float: left;
-        height: 118px;
-        line-height: 118px;
-        padding-left: 0;
-
-        a {
-            background-color: transparent;
-            background-position: 0 0;
-            background-repeat: no-repeat;
-            display: block;
-            height: 118px;
-            margin: 0 5px;
-            outline: medium none;
-            position: relative;
-            text-indent: -10000px;
-            width: 118px;
+        .linkedin .icon {
+            background-image: url("images/linkenin.svg");
         }
-    }
 
-    li .facebook {
-        background: url("@{imagepathlink}facebook-button.png");
-    }
+        .twitter .icon {
+            background-image: url("images/twitter.svg");
+        }
 
-    li .linkedin {
-        background: url("@{imagepathlink}linkedin-button.png");
-    }
+        .mailru .icon {
+            background-image: url("images/mailru.svg");
+            width: 80px;
+        }
 
-    li .google {
-        background: url("@{imagepathlink}google-button.png");
-    }
+        .yandex .icon {
+            background-image: url("images/yandex.svg");
+        }
 
-    li .twitter {
-        background: url("@{imagepathlink}twitter-button.png");
+        .vk .icon {
+            background-image: url("images/vk.svg");
+        }
+
+        .gosuslugi .icon {
+            background-image: url("images/gosuslugi.svg");
+            width: 80px;
+        }
     }
 }

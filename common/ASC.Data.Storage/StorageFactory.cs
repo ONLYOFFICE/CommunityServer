@@ -250,7 +250,7 @@ namespace ASC.Data.Storage
                 if (configpath.Contains(Path.DirectorySeparatorChar) && (!Uri.IsWellFormedUriString(configpath, UriKind.Relative) || WorkContext.IsMono))
                 {
                     //Not mapped path
-                    var filename = string.Compare(Path.GetExtension(configpath), ".config", true) == 0 ? configpath : Path.Combine(configpath, "web.config");
+                    var filename = string.Compare(Path.GetExtension(configpath), ".config", true) == 0 ? configpath : Path.Combine(configpath, "Web.config");
                     var configMap = new ExeConfigurationFileMap { ExeConfigFilename = filename };
                     section = (StorageConfigurationSection)ConfigurationManager
                         .OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None)

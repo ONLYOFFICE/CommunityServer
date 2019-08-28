@@ -129,8 +129,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js")
-                .RegisterStyle("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less");
+            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/UserControls/Management/ConfirmInviteActivation/js/confirm_invite_activation.js")
+                .RegisterStyle("~/UserControls/Management/ConfirmInviteActivation/css/confirm_invite_activation.less");
 
             var uid = Guid.Empty;
             try

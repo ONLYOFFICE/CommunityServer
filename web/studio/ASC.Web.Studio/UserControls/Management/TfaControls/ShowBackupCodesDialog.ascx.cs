@@ -45,8 +45,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             _showBackupCodesContainer.Options.IsPopup = true;
 
-            Page.RegisterBodyScripts("~/usercontrols/management/tfacontrols/js/showbackup.js")
-                .RegisterStyle("~/usercontrols/management/tfacontrols/css/showbackup.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/TfaControls/js/showbackup.js")
+                .RegisterStyle("~/UserControls/Management/TfaControls/css/showbackup.less");
         }
     }
 }

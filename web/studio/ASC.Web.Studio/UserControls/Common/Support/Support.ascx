@@ -8,7 +8,7 @@
     <div class="category-wrapper">
         <a class="menu-item-label outer-text text-overflow support-link" href="<%= SupportFeedbackLink %>" target="_blank" >
             <span class="menu-item-icon support">
-                <svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusupport"></use></svg>
+                <svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusupport"></use></svg>
             </span>
             <span class="menu-item-label inner-text">
                 <%= Resource.FeedbackSupport %>

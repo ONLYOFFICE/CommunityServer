@@ -294,7 +294,7 @@ namespace ASC.Api.Projects
         private void ChechDocBuilder()
         {
             ProjectSecurity.DemandAuthentication();
-            if (!TenantExtra.EnableDocbuilder || string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl))
+            if (string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl))
                 throw ProjectSecurity.CreateSecurityException();
         }
 

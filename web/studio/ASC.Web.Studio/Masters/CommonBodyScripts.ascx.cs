@@ -56,10 +56,10 @@ namespace ASC.Web.Studio.Masters
                         "~/js/asc/plugins/jquery-contactadvansedselector.js",
                         "~/js/asc/plugins/jquery-emailadvansedselector.js",
                         "~/js/asc/plugins/jquery.tlblock.js",
-                        "~/js/asc/plugins/popupBox.js",
+                        "~/js/asc/plugins/popupbox.js",
                         "~/js/asc/core/asc.files.utility.js",
                         "~/js/asc/core/basetemplate.master.init.js",
-                        "~/usercontrols/common/helpcenter/js/help-center.js",
+                        "~/UserControls/Common/HelpCenter/js/help-center.js",
                         "~/js/asc/core/groupselector.js",
                         "~/js/asc/core/asc.mail.utility.js",
                         "~/js/third-party/async.js",
@@ -69,11 +69,11 @@ namespace ASC.Web.Studio.Masters
                         "~/js/third-party/punycode.js",
                         "~/js/third-party/purify.min.js",
                         "~/js/asc/core/asc.mailreader.js",
-                        "~/usercontrols/common/videoguides/js/videoguides.js",
+                        "~/UserControls/Common/VideoGuides/js/videoguides.js",
                         "~/js/asc/core/asc.feedreader.js",
                         "~/addons/talk/js/talk.navigationitem.js",
-                        "~/usercontrols/common/invitelink/js/invitelink.js",
-                        "~/usercontrols/management/invitepanel/js/invitepanel.js"
+                        "~/UserControls/Common/InviteLink/js/invitelink.js",
+                        "~/UserControls/Management/InvitePanel/js/invitepanel.js"
                         );
         }
 

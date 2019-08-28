@@ -16,7 +16,7 @@
             <div id="userProfilePhoto" class="profile-action-usericon">
                 <img alt="" src="<%= MainImgUrl %>" />
             </div>
-            <% if (UserInfo.IsMe() || IsAdmin)
+            <% if ((UserInfo.IsMe() || IsAdmin) && (!UserInfo.IsLDAP() || (UserInfo.HasAvatar() || !LdapSettings.GetImportedFields.Contains(LdapSettings.MappingFields.AvatarAttribute))))
                { %>
             <div id="loadPhotoImage" class="action-block grey-phone">
                 <span class="bold">

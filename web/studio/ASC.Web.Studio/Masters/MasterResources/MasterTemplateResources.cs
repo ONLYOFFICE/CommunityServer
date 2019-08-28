@@ -36,21 +36,21 @@ namespace ASC.Web.Studio.Masters.MasterResources
             {
                 return new[]
                 {
-                    "~/templates/UserProfileCardTemplate.html",
-                    "~/templates/AdvansedUserProfileEditTemplate.html",
-                    "~/templates/AdvansedFilterTemplate.html",
-                    "~/templates/FeedListTemplate.html",
-                    "~/templates/DropFeedTemplate.html",
-                    "~/templates/DropMailTemplate.html",
-                    "~/templates/GroupSelectorTemplate.html",
-                    "~/templates/SharingSettingsTemplate.html",
-                    "~/templates/AdvansedSelectorTemplate.html",
-                    "~/templates/AdvansedEmailSelectorTemplate.html",
-                    "~/templates/CommonTemplates.html",
-                    "~/templates/ManagementTemplates.html",
-                    "~/templates/CommentsTemplates.html",
-                    "~/templates/ContainerTemplate.html",
-                    "~/templates/ProgressDialogTemplate.html"
+                    "~/Templates/UserProfileCardTemplate.html",
+                    "~/Templates/AdvansedUserProfileEditTemplate.html",
+                    "~/Templates/AdvansedFilterTemplate.html",
+                    "~/Templates/FeedListTemplate.html",
+                    "~/Templates/DropFeedTemplate.html",
+                    "~/Templates/DropMailTemplate.html",
+                    "~/Templates/GroupSelectorTemplate.html",
+                    "~/Templates/SharingSettingsTemplate.html",
+                    "~/Templates/AdvansedSelectorTemplate.html",
+                    "~/Templates/AdvansedEmailSelectorTemplate.html",
+                    "~/Templates/CommonTemplates.html",
+                    "~/Templates/ManagementTemplates.html",
+                    "~/Templates/CommentsTemplates.html",
+                    "~/Templates/ContainerTemplate.html",
+                    "~/Templates/ProgressDialogTemplate.html"
                 };
             }
         }

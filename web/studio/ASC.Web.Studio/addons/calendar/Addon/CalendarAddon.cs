@@ -25,7 +25,6 @@
 
 
 using System;
-using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.WebZones;
 using ASC.Web.Calendar.Notification;
@@ -130,7 +129,7 @@ namespace ASC.Web.Calendar
 
             sb.AppendFormat(@"<li class=""top-item-box calendar"">
                                   <a class=""inner-text"" href=""{0}"" title=""{1}"">
-                                      <svg><use base=""{2}""  href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuCalendar""></use></svg>
+                                      <svg><use base=""{2}""  href=""/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuCalendar""></use></svg>
                                       <span class=""inner-label""></span>
                                   </a>
                               </li>", 

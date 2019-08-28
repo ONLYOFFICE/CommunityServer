@@ -28,9 +28,11 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using ASC.Common.Logging;
 using ASC.Common.Module;
 using ASC.Core;
-using log4net;
+
+
 namespace ASC.Radicale
 {
     public class Launcher: IServiceController

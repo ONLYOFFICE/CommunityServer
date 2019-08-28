@@ -41,7 +41,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             content.Controls.Add(LoadControl(NamingPeopleSettingsContent.Location));
-            Page.RegisterBodyScripts("~/usercontrols/Management/NamingPeopleSettings/js/namingpeople.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/NamingPeopleSettings/js/namingpeople.js");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

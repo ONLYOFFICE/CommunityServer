@@ -25,7 +25,6 @@
 
 
 using System;
-using ASC.Web.Community.Birthdays;
 using ASC.Web.Community.Birthdays.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
@@ -63,7 +62,7 @@ namespace ASC.Web.Community.Birthdays
 
         public override string StartURL
         {
-            get { return "~/products/community/modules/birthdays/"; }
+            get { return "~/Products/Community/Modules/Birthdays/"; }
         }
 
         public BirthdaysModule()

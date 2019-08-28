@@ -1076,7 +1076,7 @@ div.gantt-splitter:hover:after{
 .icon-private:after {
     position: absolute;
     content: "";
-	background: url('../../../../../skins/default/Images/svg/projects/lockorange.svg') no-repeat;
+	background: url('../../../../../skins/default/images/svg/projects/lockorange.svg') no-repeat;
     background-size:85% 85%;
 	width: 16px;
 	height: 16px;

@@ -47,9 +47,9 @@ namespace ASC.Web.Community.Bookmarking.Util
         {
             BookmarkingBusinessConstants.CommunityProductID = CommunityProduct.ID;
 
-            Page.RegisterStyle("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css")
-                .RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js",
-                "~/products/community/js/tagsautocompletebox.js");
+            Page.RegisterStyle("~/Products/Community/Modules/Bookmarking/App_Themes/default/css/bookmarkingstyle.css")
+                .RegisterBodyScripts("~/Products/Community/Modules/Bookmarking/js/bookmarking.js",
+                "~/Products/Community/js/tagsautocompletebox.js");
 
             ServiceHelper = BookmarkingServiceHelper.GetCurrentInstanse();
 

@@ -56,9 +56,9 @@ namespace ASC.Web.Studio.UserControls.Management
             Page
                 .RegisterBodyScripts(
                     "~/js/uploader/ajaxupload.js",
-                    "~/usercontrols/management/customnavigation/js/customnavigation.js")
+                    "~/UserControls/Management/CustomNavigation/js/customnavigation.js")
                 .RegisterStyle(
-                    "~/usercontrols/management/customnavigation/css/customnavigation.less");
+                    "~/UserControls/Management/CustomNavigation/css/customnavigation.less");
 
             Items = CustomNavigationSettings.Load().Items;
         }

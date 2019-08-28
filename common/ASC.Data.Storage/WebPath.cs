@@ -144,8 +144,8 @@ namespace ASC.Data.Storage
                     }
                 }
             }
-            //To LOWER! cause Amazon is CASE SENSITIVE!
-            return result.ToLowerInvariant();
+
+            return result;
         }
 
         public static bool Exists(string relativePath)

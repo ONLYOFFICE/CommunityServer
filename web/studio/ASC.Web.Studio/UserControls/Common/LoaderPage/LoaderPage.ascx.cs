@@ -48,7 +48,7 @@ namespace ASC.Web.Studio.UserControls.Common.LoaderPage
         {
             DefaultSettings = CompanyWhiteLabelSettings.Instance.IsDefault;
 
-            Page.RegisterStyle("~/usercontrols/common/loaderpage/css/loaderpage.less");
+            Page.RegisterStyle("~/UserControls/Common/LoaderPage/css/loaderpage.less");
         }
     }
 }

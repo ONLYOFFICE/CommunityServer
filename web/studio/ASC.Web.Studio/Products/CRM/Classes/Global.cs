@@ -138,7 +138,7 @@ namespace ASC.Web.CRM.Classes
         {
             get
             {
-                return TenantExtra.EnableDocbuilder && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl) && CRMSecurity.IsAdmin;
+                return !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl) && CRMSecurity.IsAdmin;
             }
         }
 

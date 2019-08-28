@@ -997,7 +997,10 @@
         that.options.itemsSelectedIds = Object.extend({}, that.itemsSelectedIds);
         for (var sil in selectedItemsList) {
             if (selectedItemsList.hasOwnProperty(sil)) {
-                selectedItems.push(getItemById(sil, that.items));
+                var item = getItemById(sil, that.items);
+                if (item !== null) {
+                    selectedItems.push(item);
+                }
             }
         }
 
@@ -1434,7 +1437,7 @@
             if (searchQuery) {
                 items = items
                     .filter(function (item) {
-                        return item.title.toLowerCase().indexOf(searchQuery) > -1;
+                        return Encoder.htmlDecode(item.title).toLowerCase().indexOf(searchQuery) > -1;
                     });
             }
 

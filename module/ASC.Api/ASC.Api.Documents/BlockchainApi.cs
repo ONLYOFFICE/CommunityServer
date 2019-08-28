@@ -24,16 +24,17 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Files.Core.Entries;
 using ASC.Web.Studio.Core;
 using Newtonsoft.Json;
-using ASC.Common.Logging;
 
 namespace ASC.Api.Documents
 {
@@ -53,11 +54,20 @@ namespace ASC.Api.Documents
         public object UpdateData(string address, string publicKey)
         {
             SecurityContext.DemandPermissions(new UserSecurityProvider(SecurityContext.CurrentAccount.ID), Core.Users.Constants.Action_EditUser);
+
+            if (string.IsNullOrEmpty(address)) throw new ArgumentNullException("address");
+            if (string.IsNullOrEmpty(publicKey)) throw new ArgumentNullException("publicKey");
+
             var currentAddressString = BlockchainLoginProvider.GetAddress();
             if (!string.IsNullOrEmpty(currentAddressString))
             {
                 var currentAddress = JsonConvert.DeserializeObject<BlockchainAddress>(currentAddressString);
-                if (currentAddress.PublicKey.Equals(publicKey)) return new { isset = true };
+                if (currentAddress != null
+                    && !string.IsNullOrEmpty(currentAddress.PublicKey)
+                    && currentAddress.PublicKey.Equals(publicKey))
+                {
+                    return new { isset = true };
+                }
 
                 LogManager.GetLogger("ASC.Api.Documents").InfoFormat("User {0} updates address", SecurityContext.CurrentAccount.ID);
             }

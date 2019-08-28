@@ -39,8 +39,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/DocService/js/docservice.js");
-            Page.ClientScript.RegisterClientScriptBlock(GetType(), "docservice_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/docservice/css/docservice.css") + "\">", false);
+            Page.RegisterBodyScripts("~/UserControls/Management/DocService/js/docservice.js");
+            Page.ClientScript.RegisterClientScriptBlock(GetType(), "docservice_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("UserControls/Management/DocService/css/docservice.css") + "\">", false);
         }
     }
 }

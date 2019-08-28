@@ -72,7 +72,7 @@ li.jstree-closed.parent-selected > .jstree-wholerow {
     display: none;
 }
 .jstree-icon {
-    background: url('../../../../skins/default/Images/svg/documents/folder.svg') no-repeat;
+    background: url('../../../../skins/default/images/svg/documents/folder.svg') no-repeat;
     cursor: pointer;
     display: inline-block;
     height: 20px;

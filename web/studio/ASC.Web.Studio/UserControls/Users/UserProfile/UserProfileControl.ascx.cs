@@ -149,8 +149,8 @@ namespace ASC.Web.Studio.UserControls.Users
 
             _deleteProfileContainer.Options.IsPopup = true;
 
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less")
-                .RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userprofilecontrol.js"));
+            Page.RegisterStyle("~/UserControls/Users/UserProfile/css/userprofilecontrol_style.less")
+                .RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/UserControls/Users/UserProfile/js/userprofilecontrol.js"));
 
             if (Actions.AllowEdit)
             {

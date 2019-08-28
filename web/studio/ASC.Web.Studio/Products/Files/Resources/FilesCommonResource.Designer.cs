@@ -169,15 +169,6 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE FILE.
-        /// </summary>
-        public static string AppButtonCreate {
-            get {
-                return ResourceManager.GetString("AppButtonCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opening this file in ONLYOFFICE™ will create a new copy of this file in Office Open XML format in your Google Drive. This way the original file will not be modified. To further edit the file in ONLYOFFICE™ you will have to open a new copy..
         /// </summary>
         public static string AppConvertCopy {

@@ -71,7 +71,7 @@ namespace ASC.Web.Files.Configuration
             _productContext =
                 new ProductContext
                     {
-                        MasterPageFile = FilesLinkUtility.FilesBaseVirtualPath + "masters/basictemplate.master",
+                        MasterPageFile = FilesLinkUtility.FilesBaseVirtualPath + "Masters/BasicTemplate.master",
                         DisabledIconFileName = "product_disabled_logo.png",
                         IconFileName = "product_logo.png",
                         LargeIconFileName = "product_logolarge.png",

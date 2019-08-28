@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Statistics
         protected void Page_Load(object sender, EventArgs e)
         {
             Page
-                .RegisterStyle("~/usercontrols/statistics/productquotes/css/productquotes_style.less")
-                .RegisterBodyScripts("~/usercontrols/statistics/productquotes/js/product_quotes.js");
+                .RegisterStyle("~/UserControls/Statistics/ProductQuotes/css/productquotes_style.less")
+                .RegisterBodyScripts("~/UserControls/Statistics/ProductQuotes/js/product_quotes.js");
 
             MaxTotalSpace = TenantExtra.GetTenantQuota().MaxTotalSize;
             UsedSpace = TenantStatisticsProvider.GetUsedSize();

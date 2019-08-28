@@ -243,6 +243,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 using (var dbManager = new DbManager("default", 100000))
                 {
+                    dbManager.ExecuteNonQuery("analyze table " +  t);
                     return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t));
                 }
             }

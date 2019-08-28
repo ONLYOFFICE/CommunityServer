@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/firsttime/js/view.js")
-                .RegisterStyle("~/usercontrols/firsttime/css/stepcontainer.less");
+            Page.RegisterBodyScripts("~/UserControls/FirstTime/js/view.js")
+                .RegisterStyle("~/UserControls/FirstTime/css/stepcontainer.less");
 
             SaveButtonEvent = "ASC.Controls.FirstTimeView.SaveRequiredStep();";
             content1.Controls.Add(LoadControl(EmailAndPassword.Location));

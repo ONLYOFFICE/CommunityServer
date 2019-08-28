@@ -83,7 +83,7 @@ namespace ASC.Web.CRM
                     .AddSource(PathProvider.GetFileStaticRelativePath,
                         "common.js",
                         "navsidepanel.js",
-                        "fileUploader.js",
+                        "fileuploader.js",
                         "tasks.js",
                         "contacts.js",
                         "cases.js",

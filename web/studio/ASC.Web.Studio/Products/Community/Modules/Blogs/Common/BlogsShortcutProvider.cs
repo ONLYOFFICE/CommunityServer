@@ -25,14 +25,7 @@
 
 
 using System;
-using System.Data;
-using System.Configuration;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 using ASC.Blogs.Core;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Core;
@@ -44,8 +37,8 @@ namespace ASC.Web.Community.Blogs
     {
         public static string GetCreateContentPageUrl()
         {
-            if (ASC.Core.SecurityContext.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(
-                    SecurityContext.CurrentAccount.ID)), ASC.Blogs.Core.Constants.Action_AddPost))
+            if (SecurityContext.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(
+                    SecurityContext.CurrentAccount.ID)), Constants.Action_AddPost))
 
                 return VirtualPathUtility.ToAbsolute(Constants.BaseVirtualPath + "addblog.aspx");
 
@@ -62,8 +55,8 @@ namespace ASC.Web.Community.Blogs
             if (shortcutID.Equals(new Guid("98DB8D88-EDF2-4f82-B3AF-B95E87E3EE5C")) || 
                 shortcutID.Equals(new Guid("20673DF0-665E-4fc8-9B44-D48B2A783508")))
             {
-                return ASC.Core.SecurityContext.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(
-                    SecurityContext.CurrentAccount.ID)), ASC.Blogs.Core.Constants.Action_AddPost);
+                return SecurityContext.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(
+                    SecurityContext.CurrentAccount.ID)), Constants.Action_AddPost);
             }            
             
             return false;

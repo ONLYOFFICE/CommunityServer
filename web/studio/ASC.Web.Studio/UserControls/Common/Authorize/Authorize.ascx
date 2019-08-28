@@ -54,16 +54,14 @@
             <a id="loginButton" class="button blue big signIn" onclick="jQuery('#authMessage').hide(); jQuery('.pwdLoginTextbox').removeClass('error'); Authorize.Login(); return false;">
                 <%= Resource.LoginButton %>
             </a>
-            <% if (AccountLinkControl.IsNotEmpty)
-               { %>
-            <div id="social" class="social_nets clearFix" style="display: <%= SetupInfo.ThirdPartyAuthEnabled ? "block" : "none" %>">
-                <span><%= Resource.LoginWithAccount %></span>
-                <div class="float-right">
-                    <asp:PlaceHolder ID="signInPlaceholder" runat="server" />
-                </div>
-            </div>
-            <% } %>
         </div>
         <div id="authMessage" class="auth-form_message"><%= ErrorMessage + LoginMessage %></div>
+        <% if (AccountLinkControl.IsNotEmpty && SetupInfo.ThirdPartyAuthEnabled)
+            { %>
+        <div id="social">
+            <div><%= Resource.LoginWithAccount %></div>
+            <asp:PlaceHolder ID="signInPlaceholder" runat="server" />
+        </div>
+        <% } %>
     </div>
 </div>

@@ -60,7 +60,7 @@ namespace ASC.Web.Community.Forum.Common
 
         public override string StartURL
         {
-            get { return "~/products/community/modules/forum/"; }
+            get { return "~/Products/Community/Modules/Forum/"; }
         }
      
         public ForumModule()

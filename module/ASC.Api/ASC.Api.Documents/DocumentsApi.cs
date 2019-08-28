@@ -41,12 +41,15 @@ using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Utils;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Configuration;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Services.DocumentService;
@@ -1144,6 +1147,61 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
+        ///   Get a list of available providers
+        /// </summary>
+        /// <category>Third-Party Integration</category>
+        /// <returns>List of provider key</returns>
+        /// <remarks>List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
+        /// <returns></returns>
+        [Read("thirdparty/capabilities")]
+        public List<List<string>> Capabilities()
+        {
+            var result = new List<List<string>>();
+
+            if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
+                || (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Core.Users.Constants.GroupAdmin.ID)
+                    && !WebItemSecurity.IsProductAdministrator(ProductEntryPoint.ID, SecurityContext.CurrentAccount.ID)
+                    && !FilesSettings.EnableThirdParty
+                    && !CoreContext.Configuration.Personal))
+            {
+                return result;
+            }
+
+            if (ThirdpartyConfiguration.SupportBoxInclusion)
+            {
+                result.Add(new List<string> { "Box", BoxLoginProvider.Instance.ClientID, BoxLoginProvider.Instance.RedirectUri });
+            }
+            if (ThirdpartyConfiguration.SupportDropboxInclusion)
+            {
+                result.Add(new List<string> { "DropboxV2", DropboxLoginProvider.Instance.ClientID, DropboxLoginProvider.Instance.RedirectUri });
+            }
+            if (ThirdpartyConfiguration.SupportGoogleDriveInclusion)
+            {
+                result.Add(new List<string> { "GoogleDrive", GoogleLoginProvider.Instance.ClientID, GoogleLoginProvider.Instance.RedirectUri });
+            }
+            if (ThirdpartyConfiguration.SupportOneDriveInclusion)
+            {
+                result.Add(new List<string> { "OneDrive", OneDriveLoginProvider.Instance.ClientID, OneDriveLoginProvider.Instance.RedirectUri });
+            }
+            if (ThirdpartyConfiguration.SupportSharePointInclusion)
+            {
+                result.Add(new List<string> { "SharePoint" });
+            }
+            if (ThirdpartyConfiguration.SupportYandexInclusion)
+            {
+                result.Add(new List<string> { "Yandex" });
+            }
+            if (ThirdpartyConfiguration.SupportWebDavInclusion)
+            {
+                result.Add(new List<string> { "WebDav" });
+            }
+
+            //Obsolete BoxNet, DropBox, Google, SkyDrive,
+
+            return result;
+        }
+
+        /// <summary>
         ///   Saves the third party file storage service account
         /// </summary>
         /// <short>Save third party account</short>
@@ -1157,7 +1215,7 @@ namespace ASC.Api.Documents
         /// <param name="providerId">Provider ID</param>
         /// <category>Third-Party Integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks> List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
+        /// <remarks>List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
         /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderWrapper SaveThirdParty(

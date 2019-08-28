@@ -113,7 +113,7 @@ namespace ASC.Web.CRM.Controls.Common
 
         private void RegisterScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
             Page.RegisterInlineScript("ckeditorConnector.load(function () { ASC.CRM.HistoryView.historyCKEditor = jq('#historyCKEditor').ckeditor(function() { ASC.CRM.HistoryView.bindCKEditorEvents(); },{ toolbar: 'CrmHistory', height: '150'}).editor;});");
         }
 

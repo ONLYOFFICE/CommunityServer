@@ -25,15 +25,10 @@
 
 
 using System;
-using System.Text;
 using System.Web;
 using AjaxPro;
 using ASC.Blogs.Core;
-using ASC.Core;
-using ASC.Data.Storage;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs
@@ -68,7 +63,7 @@ namespace ASC.Web.Community.Blogs
             if (string.IsNullOrEmpty(text))
                 return "";
 
-            return text.Length > ASC.Blogs.Core.Constants.MAX_TEXT_LENGTH ? text.Substring(0, ASC.Blogs.Core.Constants.MAX_TEXT_LENGTH) : text;
+            return text.Length > Constants.MAX_TEXT_LENGTH ? text.Substring(0, Constants.MAX_TEXT_LENGTH) : text;
         }
 
         protected virtual string RenderRedirectUpload()
@@ -78,9 +73,9 @@ namespace ASC.Web.Community.Blogs
 
         protected void RenderScripts()
         {
-            Page.RegisterBodyScripts("~/products/community/modules/blogs/js/blogs.js",
-                "~/products/community/js/tagsautocompletebox.js")
-                .RegisterStyle("~/products/community/modules/blogs/app_themes/default/blogstyle.css")
+            Page.RegisterBodyScripts("~/Products/Community/Modules/Blogs/js/blogs.js",
+                "~/Products/Community/js/tagsautocompletebox.js")
+                .RegisterStyle("~/Products/Community/Modules/Blogs/App_Themes/default/blogstyle.css")
                 .RegisterInlineScript(@"
 function createSearchHelper() {
 

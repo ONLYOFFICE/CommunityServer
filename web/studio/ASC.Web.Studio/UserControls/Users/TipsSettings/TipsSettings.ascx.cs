@@ -48,8 +48,8 @@ namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/Users/TipsSettings/js/tipsSettings.js")
-                .RegisterStyle("~/UserControls/Users/TipsSettings/css/tipsSettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Users/TipsSettings/js/tipssettings.js")
+                .RegisterStyle("~/UserControls/Users/TipsSettings/css/tipssettings.less");
         }
     }
 }

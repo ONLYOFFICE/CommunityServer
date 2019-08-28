@@ -4,6 +4,11 @@ DROP PROCEDURE IF EXISTS upgrade10 DLM00
 
 CREATE PROCEDURE upgrade10()
 BEGIN
+    IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tenants_partners' AND COLUMN_NAME = 'campaign') THEN
+        ALTER TABLE `tenants_partners`
+            ADD COLUMN `campaign` VARCHAR(50) NULL DEFAULT NULL AFTER `affiliate_id`;
+    END IF;
+
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'calendar_events' AND COLUMN_NAME = 'update_date') THEN
 		ALTER TABLE `calendar_events`
 			ADD COLUMN `update_date` DATETIME NULL DEFAULT NULL AFTER `end_date`;

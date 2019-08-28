@@ -247,7 +247,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
             }
 
-            if (TenantExtra.EnableDocbuilder && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl))
+            if (!string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl))
             {
                 try
                 {

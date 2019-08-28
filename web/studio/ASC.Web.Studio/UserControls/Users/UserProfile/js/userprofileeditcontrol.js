@@ -589,7 +589,10 @@ window.EditProfileManager = (function () {
     var isValidBithday = function () {
         var fromDateInp = $profileRegistrationDate,
             birthDateInp = $profileBirthDate;
-        return (fromDateInp === '') ? true : (fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime()) ? true : false;
+        return !fromDateInp.length
+            || fromDateInp.datepicker("getDate") === null
+            || birthDateInp.datepicker("getDate") === null
+            || fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime();
     };
 
     var initBorderPhoto = function () {

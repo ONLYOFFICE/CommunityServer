@@ -61,7 +61,7 @@
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %>" href="/products/people/#sortorder=ascending">
-                        <span class="menu-item-icon people"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenupeople"></use></svg></span>
+                        <span class="menu-item-icon people"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupeople"></use></svg></span>
                         <span class="menu-item-label inner-text"><%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %></span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
             <div class="category-wrapper">
                 <span class="expander"></span>
                 <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) %>">
-                    <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+                    <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
                     <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
                 </a>
             </div>

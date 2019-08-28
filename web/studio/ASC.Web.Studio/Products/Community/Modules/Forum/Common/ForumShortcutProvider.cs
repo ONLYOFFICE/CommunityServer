@@ -33,7 +33,7 @@ namespace ASC.Web.Community.Forum
     {
         public static string GetCreateContentPageUrl()
         {
-            return ValidateCreateTopicOrPoll(false) ? VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/newpost.aspx") + "?m=0" : null;
+            return ValidateCreateTopicOrPoll(false) ? VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/NewPost.aspx") + "?m=0" : null;
         }
 
         private static bool ValidateCreateTopicOrPoll(bool isPool)

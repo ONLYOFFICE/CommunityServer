@@ -101,7 +101,7 @@ namespace ASC.Web.UserControls.Forum
                 PageUrl = string.Format(
                         CultureInfo.CurrentCulture,
                         "{0}?&f={1}&size={2}",
-                        VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/topics.aspx"),
+                        VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/Topics.aspx"),
                         ThreadID,
                         pageSize
                         ),

@@ -44,8 +44,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/greetingsettings/js/greetingsettings.js"))
-                .RegisterStyle("~/usercontrols/management/greetingsettings/css/greetingsettings.less");
+            Page.RegisterBodyScripts(ResolveUrl("~/UserControls/Management/GreetingSettings/js/greetingsettings.js"))
+                .RegisterStyle("~/UserControls/Management/GreetingSettings/css/greetingsettings.less");
 
             if (GreetingLogoSettings.AvailableControl)
             {

@@ -41,7 +41,7 @@ namespace ASC.Web.Projects.Controls.Messages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
 
             Text = "";
 

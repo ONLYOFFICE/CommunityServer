@@ -103,11 +103,11 @@ namespace ASC.Web.Projects.Masters
         public void RegisterCRMResources()
         {
             Master
-                .AddStyles(ResolveUrl, "~/products/crm/app_themes/default/css/common.less",
-                    "~/products/crm/app_themes/default/css/contacts.less")
+                .AddStyles(ResolveUrl, "~/Products/CRM/App_Themes/default/css/common.less",
+                    "~/Products/CRM/App_Themes/default/css/contacts.less")
                 .AddBodyScripts(ResolveUrl,
-                    "~/products/crm/js/contacts.js",
-                    "~/products/crm/js/common.js");
+                    "~/Products/CRM/js/contacts.js",
+                    "~/Products/CRM/js/common.js");
         }
 
         public void WriteProjectResources()

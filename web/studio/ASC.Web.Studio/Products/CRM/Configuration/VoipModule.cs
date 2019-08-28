@@ -110,7 +110,7 @@ namespace ASC.Web.CRM.Configuration
             return
                 string.Format(@"<li class=""top-item-box voip display-none"">
                                   <a class=""voipActiveBox inner-text"" title=""{0}"">
-                                      <svg><use base=""{1}"" href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenuphone""></use></svg>
+                                      <svg><use base=""{1}"" href=""/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenuphone""></use></svg>
                                       <span class=""inner-label"">{2}</span>
                                   </a>
                                 </li>",

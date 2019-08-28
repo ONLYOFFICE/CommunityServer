@@ -79,8 +79,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/TfaControls/js/confirmtfa.js")
-                .RegisterStyle("~/usercontrols/management/TfaControls/css/confirmtfa.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/TfaControls/js/confirmtfa.js")
+                .RegisterStyle("~/UserControls/Management/TfaControls/css/confirmtfa.less");
 
             if (Activation)
             {

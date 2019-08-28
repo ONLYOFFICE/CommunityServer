@@ -2202,6 +2202,7 @@ CREATE TABLE IF NOT EXISTS `tenants_partners` (
   `tenant_id` int(10) NOT NULL,
   `partner_id` varchar(36) DEFAULT NULL,
   `affiliate_id` varchar(50) DEFAULT NULL,
+  `campaign` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

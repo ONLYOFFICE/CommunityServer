@@ -62,8 +62,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/PortalAccessSettings/js/portalAccess.js")
-                .RegisterStyle("~/usercontrols/management/PortalAccessSettings/css/portalAccess.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/PortalAccessSettings/js/portalaccess.js")
+                .RegisterStyle("~/UserControls/Management/PortalAccessSettings/css/portalaccess.less");
 
             var managementPage = Page as Studio.Management;
 

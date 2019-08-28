@@ -124,10 +124,10 @@ namespace ASC.Web.Files
                        )
                        .AddSource(ResolveUrl,
                                   "~/js/third-party/clipboard.js",
-                                  "~/products/files/controls/desktop/desktop.js"
+                                  "~/Products/Files/Controls/Desktop/desktop.js"
                        )
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "controls/accessrights/accessrights.js"
+                                  "Controls/AccessRights/accessrights.js"
                        );
         }
 
@@ -137,7 +137,7 @@ namespace ASC.Web.Files
                    new StyleBundleData("filesshare", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "controls/accessrights/accessrights.css"
+                                  "Controls/AccessRights/accessrights.css"
                        );
         }
     }

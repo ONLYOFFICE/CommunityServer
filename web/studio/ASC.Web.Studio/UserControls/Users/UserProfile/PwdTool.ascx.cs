@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             _pwdRemainderContainer.Options.InfoMessageText = "";
             _pwdRemainderContainer.Options.InfoType = InfoType.Info;
 
-            Page.RegisterBodyScripts("~/usercontrols/users/UserProfile/js/pwdtool.js");
+            Page.RegisterBodyScripts("~/UserControls/Users/UserProfile/js/pwdtool.js");
         }
     }
 }

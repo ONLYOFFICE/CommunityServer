@@ -71,6 +71,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected bool ProfileIsVisitor;
         protected bool ProfileIsLdap;
         protected bool ProfileIsSso;
+        protected bool ProfileHasAvatar;
         protected string ProfilePath;
 
         protected RoleUser ProfileRole;
@@ -173,6 +174,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             ProfileIsLdap = Profile.IsLDAP();
             ProfileIsSso = Profile.IsSSO();
 
+            ProfileHasAvatar = Profile.HasAvatar();
+
             ProfilePath = CommonLinkUtility.GetUserProfile(Profile.ID);
 
             ProfileRole = GetRole();
@@ -231,8 +234,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         private void RegisterBodyScript()
         {
-            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/usercontrols/users/userprofile/js/userprofileeditcontrol.js")
-                .RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
+            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/UserControls/Users/UserProfile/js/userprofileeditcontrol.js")
+                .RegisterStyle("~/UserControls/Users/UserProfile/css/profileeditcontrol_style.less");
         }
 
         private void InitUserTypeSelector()

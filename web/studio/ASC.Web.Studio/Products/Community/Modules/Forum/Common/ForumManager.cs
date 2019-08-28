@@ -45,7 +45,7 @@ namespace ASC.Web.Community.Forum
 
         public static string BaseVirtualPath
         {
-            get { return "~/products/community/modules/forum"; }
+            get { return "~/Products/Community/Modules/Forum"; }
         }
 
 

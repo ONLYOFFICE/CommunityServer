@@ -137,7 +137,7 @@ namespace ASC.Web.Mail
 
             return string.Format(@"<li class=""top-item-box mail"">
                                      <a class=""inner-text mailActiveBox"" href=""{0}"" title=""{1}"">
-                                       <svg><use base=""{2}"" href=""/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenumail""></use></svg>                                       
+                                       <svg><use base=""{2}"" href=""/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenumail""></use></svg>
                                        <span id=""TPUnreadMessagesCount"" class=""inner-label""></span>
                                      </a>
                                    </li>",

@@ -74,13 +74,13 @@ namespace ASC.Web.Files
         {
             if (IsPostBack)
             {
-                if (ConvertCheck.Checked)
-                {
-                    FilesSettings.ConvertNotify = !ConvertCheck.Checked;
-                }
-
                 if (IsConvert)
                 {
+                    if (ConvertCheck.Checked)
+                    {
+                        FilesSettings.ConvertNotify = !ConvertCheck.Checked;
+                    }
+
                     Response.Redirect(ThirdPartyAppHandler.HandlerPath
                                       + "?" + FilesLinkUtility.Action + "=convert"
                                       + "&" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(FileId)
@@ -92,13 +92,19 @@ namespace ASC.Web.Files
                 var fileName = string.IsNullOrEmpty(InputName.Text) ? FilesJSResource.TitleNewFileText : InputName.Text;
                 fileName = fileName.Substring(0, Math.Min(fileName.Length, Global.MaxTitle - 5));
                 fileName = Global.ReplaceInvalidCharsAndTruncate(fileName);
-                FileType fileType;
-                if (!Enum.TryParse(Request["fileType"], true, out fileType))
+
+                var fileType = FileType.Document;
+                if (!string.IsNullOrEmpty(Request[ButtonCreateSpreadsheet.UniqueID]))
                 {
-                    fileType = FileType.Document;
+                    fileType = FileType.Spreadsheet;
+                }
+                else if (!string.IsNullOrEmpty(Request[ButtonCreatePresentation.UniqueID]))
+                {
+                    fileType = FileType.Presentation;
                 }
                 var ext = FileUtility.InternalExtension[fileType];
                 fileName += ext;
+
                 Response.Redirect(ThirdPartyAppHandler.HandlerPath
                                   + "?" + FilesLinkUtility.Action + "=create"
                                   + "&" + FilesLinkUtility.FolderId + "=" + HttpUtility.UrlEncode(FolderId)
@@ -128,7 +134,9 @@ jq("".files-app-convert"").trackEvent(""files_app"", ""action-click"", ""convert
             }
             else
             {
-                ButtonCreate.Text = FilesCommonResource.AppButtonCreate;
+                ButtonCreateDocument.Text = FilesUCResource.ButtonCreateDocument2;
+                ButtonCreateSpreadsheet.Text = FilesUCResource.ButtonCreateSpreadsheet2;
+                ButtonCreatePresentation.Text = FilesUCResource.ButtonCreatePresentation2;
                 InputName.MaxLength = Global.MaxTitle;
                 InputName.Attributes.Add("placeholder", FilesJSResource.TitleNewFileText);
             }

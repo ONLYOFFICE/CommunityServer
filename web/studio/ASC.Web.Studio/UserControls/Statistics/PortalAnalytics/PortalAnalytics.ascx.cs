@@ -50,8 +50,8 @@ namespace ASC.Web.Studio.UserControls.Statistics
                 return;
 
             Page
-                .RegisterStyle("~/usercontrols/statistics/portalanalytics/css/portalanalytics.less")
-                .RegisterBodyScripts("~/usercontrols/statistics/portalanalytics/js/portalanalytics.js");
+                .RegisterStyle("~/UserControls/Statistics/PortalAnalytics/css/portalanalytics.less")
+                .RegisterBodyScripts("~/UserControls/Statistics/PortalAnalytics/js/portalanalytics.js");
 
             if (TenantExtra.Opensource)
             {

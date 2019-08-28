@@ -32,7 +32,7 @@ namespace ASC.Web.Community.ClientScripts
     {
         protected override string[] Links
         {
-            get { return new[] {"~/products/community/templates/CommonTemplates.html"}; }
+            get { return new[] {"~/Products/Community/Templates/CommonTemplates.html"}; }
         }
     }
 }

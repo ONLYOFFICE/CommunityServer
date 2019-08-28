@@ -22,9 +22,12 @@
                 <div id="userProfilePhoto" class="profile-action-usericon">
                     <img src="<%= PhotoPath %>" alt="" />
                 </div>
+                <% if (!ProfileIsLdap || ((ProfileHasAvatar || !LdapSettings.GetImportedFields.Contains(LdapSettings.MappingFields.AvatarAttribute))))
+                    { %>
                 <div id="loadPhotoImage" class="action-block grey-phone">
                     <span class="bold"><%= Resource.EditPhoto %></span>
                 </div>
+                <% } %>
                 <% if (IsPageEditProfileFlag && ProfileRole != null) { %>
                 <div class="profile-role <%= ProfileRole.Class %>" title="<%= ProfileRole.Title%>"></div>
                 <% } %>

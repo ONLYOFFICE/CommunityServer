@@ -32,7 +32,7 @@
   <ItemGroup>
     <ServiceFiles Include="$(BinDir)ASC.*.dll" />
     <ServiceFiles Include="$(BinDir)ASC.Resource.Data.dll" />
-    <ServiceFiles Include="$(RootDir)build\config\TeamLabSvc.exe.Config" />
+    <ServiceFiles Include="$(RootDir)build\config\TeamLabSvc.exe.config" />
     <ServiceFiles Include="$(RootDir)build\ManageServices.bat" />
     <ServiceFiles Include="$(RootDir)module\ASC.HealthCheck\ASC.HealthCheck\bin\$(Configuration)\ASC.HealthCheck.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.Mail.Autoreply\ASC.Mail.Autoreply\bin\$(Configuration)\ASC.Mail.Autoreply.dll" />
@@ -116,7 +116,7 @@
     <ServiceFiles Include="$(RootDir)packages\RestSharp.106.1.0\lib\net452\RestSharp.dll" />
     <ServiceFiles Include="$(RootDir)packages\Rackspace.0.2.0\lib\net45\Rackspace.dll" />
     <ServiceFiles Include="$(RootDir)packages\RedisSessionProvider.10.0.1\lib\net472\RedisSessionProvider.dll" />
-    <ServiceFiles Include="$(RootDir)packages\sharpcompress.0.22.0\lib\net45\SharpCompress.dll" />
+    <ServiceFiles Include="$(RootDir)packages\SharpCompress.0.22.0\lib\net45\SharpCompress.dll" />
     <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll" />
     <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll" />
     <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll" />
@@ -352,11 +352,11 @@
     <CreateItem Include="$(DeployTo)">
       <Output ItemName="ConfigSubstitutionRoot" TaskParameter="Include" />
     </CreateItem>
-    <XmlMassUpdate Condition="'%(ConfigSubstitutionRoot.Identity)' != '' AND Exists('..\config\private\TeamLabSvc.exe.Config.Substitutions.xml')" ContentFile="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" SubstitutionsFile="..\config\private\TeamLabSvc.exe.Config.Substitutions.xml" ContentRoot="/" SubstitutionsRoot="/configuration/substitutions/%(ConfigSubstitutionRoot.Identity)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
-    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/teamlab/services/add[not(@type='$(ServiceLauncher)')]" Delete="true" />
-    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/log4net/appender[@name='File']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName)" />
-    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/log4net/appender[@name='Sql']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName).SQL.log" />
-    <XmlUpdate Condition="'$(ServiceLauncher)' != '' AND '$(SplitServices)' == '1'" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.Config" XPath="/configuration/nlog/variable[@name='svcName']/@value" Value="$(ServiceName)" />
+    <XmlMassUpdate Condition="'%(ConfigSubstitutionRoot.Identity)' != '' AND Exists('..\config\private\TeamLabSvc.exe.Config.Substitutions.xml')" ContentFile="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.config" SubstitutionsFile="..\config\private\TeamLabSvc.exe.Config.Substitutions.xml" ContentRoot="/" SubstitutionsRoot="/configuration/substitutions/%(ConfigSubstitutionRoot.Identity)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
+    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.config" XPath="/configuration/teamlab/services/add[not(@type='$(ServiceLauncher)')]" Delete="true" />
+    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.config" XPath="/configuration/log4net/appender[@name='File']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName)" />
+    <XmlUpdate Condition="'$(ServiceLauncher)' != ''" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.config" XPath="/configuration/log4net/appender[@name='Sql']/file/conversionPattern/@value" Value="%folder{LogDirectory}svc$(ServiceName).SQL.log" />
+    <XmlUpdate Condition="'$(ServiceLauncher)' != '' AND '$(SplitServices)' == '1'" XmlFileName="$(OutDir)Services\$(ServiceName)\TeamLabSvc.exe.config" XPath="/configuration/nlog/variable[@name='svcName']/@value" Value="$(ServiceName)" />
     <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_portal_url']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
       <Output TaskParameter="Value" PropertyName="RadicalePortalUrl" />
     </XmlRead>
@@ -366,22 +366,13 @@
     <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_machine_key']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
       <Output TaskParameter="Value" PropertyName="RadicaleMachineKey" />
     </XmlRead>
-    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileWinINFO/n:property[@name='radicale_log_file_win_info']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
-      <Output TaskParameter="Value" PropertyName="RadicaleLogFileWinINFO" />
+    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:$(DeployTo)/n:property[@name='radicale_log_file']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
+      <Output TaskParameter="Value" PropertyName="RadicaleLogFile" />
     </XmlRead>
-    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileWinNotINFO/n:property[@name='radicale_log_file_win_notinfo']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
-      <Output TaskParameter="Value" PropertyName="RadicaleLogFileWinNotINFO" />
-    </XmlRead>
-    <XmlRead Condition="Exists('..\config\private\Radicale.Config.Substitutions.xml')" Namespace="http://nant.sf.net/release/0.85/nant.xsd" Prefix="n" XPath="/n:configuration/n:substitutions/n:RadicaleLogFileNotWin/n:property[@name='radicale_log_file_notwin']/@value" XmlFileName="..\config\private\Radicale.Config.Substitutions.xml">
-      <Output TaskParameter="Value" PropertyName="RadicaleLogFileNotWin" />
-    </XmlRead>
-    <FileUpdate Condition="$(RadicalePortalUrl) != ''" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="portal_url =.+" ReplacementText="portal_url = $(RadicalePortalUrl)" />
-    <FileUpdate Condition="$(RadicaleFilesystemFolder) != '' And $(DeployTo) != 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="filesystem_folder =.+" ReplacementText="filesystem_folder = $(RootDir)$(RadicaleFilesystemFolder)" />
-    <FileUpdate Condition="$(RadicaleFilesystemFolder) != '' And $(DeployTo) == 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="filesystem_folder =.+" ReplacementText="filesystem_folder = $(RadicaleFilesystemFolder)" />
-    <FileUpdate Condition="$(OS) == 'Windows_NT' And $(DeployTo) == 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileWinINFO),'midnight', 1, 7)" />
-    <FileUpdate Condition="$(OS) == 'Windows_NT' And $(DeployTo) != 'INFO'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileWinNotINFO),'midnight', 1, 7)" />
-    <FileUpdate Condition="$(OS) != 'Windows_NT'" Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFileNotWin),'midnight', 1, 7)" />
-    <FileUpdate Condition="$(RadicaleMachineKey) != ''" Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="machine_key =.+" ReplacementText="machine_key = $(RadicaleMachineKey)" />
+    <FileUpdate Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="portal_url =.+" ReplacementText="portal_url = $(RadicalePortalUrl)" />
+    <FileUpdate Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="filesystem_folder =.+" ReplacementText="filesystem_folder = $(RadicaleFilesystemFolder)" />
+    <FileUpdate Files="$(OutDir)Services\$(ServiceName)\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFile),'midnight', 1, 7)" />
+    <FileUpdate Files="$(OutDir)Services\$(ServiceName)\radicale.config" Encoding="ASCII" Regex="machine_key =.+" ReplacementText="machine_key = $(RadicaleMachineKey)" />
   </Target>
   <Target Name="GenerateBundle">
     <Copy SourceFiles="ASC.Web.Core.BuildTask.dll" DestinationFiles="$(OutDir)\WebStudio\bin\ASC.Web.Core.BuildTask.dll" />

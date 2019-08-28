@@ -14,7 +14,7 @@
             <% { %>
             <li>
                 <ul class="create-new-link-list">
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/addblog.aspx")%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/AddBlog.aspx")%>">
                         <%= CommunityResource.Post%>
                     </a></li>
                 </ul>
@@ -28,16 +28,16 @@
                     <li>
                         <div class="dropdown-item-seporator"></div>
                     </li>
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editnews.aspx") + "?type=News"%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/editnews.aspx") + "?type=News"%>">
                         <%= CommunityResource.News%>
                     </a></li>
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editnews.aspx") + "?type=Order"%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/editnews.aspx") + "?type=Order"%>">
                         <%= CommunityResource.Order%>
                     </a></li>
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editnews.aspx") + "?type=Advert"%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/editnews.aspx") + "?type=Advert"%>">
                         <%= CommunityResource.Announcement%>
                     </a></li>
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editpoll.aspx")%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/editpoll.aspx")%>">
                         <%= CommunityResource.Poll%>
                     </a></li>
                 </ul>
@@ -56,7 +56,7 @@
                     <% if (IsAdmin) %>
                     <% { %>
                     <li id="createNewButton_Forums_newForum">
-                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/newforum.aspx")%>">
+                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/NewForum.aspx")%>">
                             <%= CommunityResource.Forum%>
                         </a>
                     </li>
@@ -64,19 +64,19 @@
                     <% if (ForumsHasThreadCategories) %>
                     <% { %>
                     <li id="createNewButton_Forums_newTopic">
-                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/newpost.aspx") + "?m=0" + (ForumID != 0 ? "&f=" + ForumID : "")%>">
+                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/NewPost.aspx") + "?m=0" + (ForumID != 0 ? "&f=" + ForumID : "")%>">
                             <%= CommunityResource.Topic%>
                         </a>
                     </li>
                     <li id="createNewButton_Forums_newPoll">
-                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/newpost.aspx") + "?m=1"+ (ForumID != 0 ? "&f=" + ForumID : "")%>">
+                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/NewPost.aspx") + "?m=1"+ (ForumID != 0 ? "&f=" + ForumID : "")%>">
                             <%= CommunityResource.Poll%>
                         </a>
                     </li>
                     <% if (InAParticularTopic && MakeCreateNewTopic && TopicID > 0) %>
                     <% { %>
                     <li id="createNewButton_Forums_newPost">
-                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/newpost.aspx") + "?t="  + TopicID %>">
+                        <a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/NewPost.aspx") + "?t="  + TopicID %>">
                             <%= CommunityResource.Post%>
                         </a>
                     </li>
@@ -97,7 +97,7 @@
             <% { %>
             <li>
                 <ul class="create-new-link-list">
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/createbookmark.aspx")%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/CreateBookmark.aspx")%>">
                             <%= CommunityResource.Bookmark%>
                     </a></li>
                 </ul>
@@ -108,7 +108,7 @@
             <% { %>
             <li>
                 <ul class="create-new-link-list">
-                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?action=New"%>">
+                    <li><a class="dropdown-item" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?action=New"%>">
                             <%= CommunityResource.Page%>
                     </a></li>
                 </ul>
@@ -139,8 +139,8 @@
             <% if (IsBlogsAvailable) %>
             <% { %>
             <li class="menu-item none-sub-list<%if(CurrentPage=="blogs"){%> active currentCategory<%}%> ">
-                <span class="menu-item-icon blogs"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsblogs"></use></svg></span>
-                <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/default.aspx")%>">
+                <span class="menu-item-icon blogs"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsblogs"></use></svg></span>
+                <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/Default.aspx")%>">
                     <%= CommunityResource.Blogs%>
                 </a>
                 <span id="feed-new-blogs-count" class="feed-new-count"></span>
@@ -152,30 +152,30 @@
             <li class="menu-item sub-list<%if(CurrentPage=="events"){%> active currentCategory<%}%><%if(IsInEvents){%> currentCategory<%}%>">
                 <div class="category-wrapper">
                     <span class="expander"></span>
-                    <span class="menu-item-icon events"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconspin"></use></svg></span>
-                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/default.aspx")%>">
+                    <span class="menu-item-icon events"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconspin"></use></svg></span>
+                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/default.aspx")%>">
                         <%= CommunityResource.Events%>
                     </a>
                     <span id="feed-new-events-count" class="feed-new-count"></span>
                 </div>
                 <ul class="menu-sub-list">
                     <li class="menu-sub-item<%if(CurrentPage=="news"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/default.aspx") + "?type=News"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/default.aspx") + "?type=News"%>">
                             <%= CommunityResource.News%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="order"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/default.aspx") + "?type=Order"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/default.aspx") + "?type=Order"%>">
                             <%= CommunityResource.Orders%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="advert"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/default.aspx") + "?type=Advert"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/default.aspx") + "?type=Advert"%>">
                             <%= CommunityResource.Announcements%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="poll"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/default.aspx") + "?type=Poll"%> ">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/default.aspx") + "?type=Poll"%> ">
                             <%= CommunityResource.Polls%>
                         </a>
                     </li>
@@ -186,8 +186,8 @@
             <% if (IsForumsAvailable) %>
             <% { %>
                 <li class="menu-item none-sub-list<%if(CurrentPage=="forum"){%> active currentCategory<%}%>">
-                    <span class="menu-item-icon forum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsforum"></use></svg></span>
-                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/default.aspx")%>">
+                    <span class="menu-item-icon forum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsforum"></use></svg></span>
+                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/Default.aspx")%>">
                         <%= CommunityResource.Forums%>
                     </a>
                     <span id="feed-new-forums-count" class="feed-new-count"></span>
@@ -199,15 +199,15 @@
             <li class="menu-item sub-list<%if(CurrentPage=="bookmarking"){%> active currentCategory<%}%><%if(IsInBookmarks){%> currentCategory<%}%>">
                 <div class="category-wrapper">
                     <span class="expander"></span>
-                    <span class="menu-item-icon bookmarks"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsbookmark"></use></svg></span>
-                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/default.aspx")%>">
+                    <span class="menu-item-icon bookmarks"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsbookmark"></use></svg></span>
+                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/Default.aspx")%>">
                         <%= CommunityResource.Bookmarks%>
                     </a>
                     <span id="feed-new-bookmarks-count" class="feed-new-count"></span>
                 </div>
                 <ul class="menu-sub-list">
                     <li class="menu-sub-item<%if(CurrentPage=="bookmarkingfavourite"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/favouritebookmarks.aspx")%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/FavouriteBookmarks.aspx")%>">
                             <%= CommunityResource.Favorites%>
                         </a>
                     </li>
@@ -220,39 +220,39 @@
             <li class="menu-item sub-list<%if(CurrentPage=="wiki"){%> active currentCategory<%}%><%if(IsInWiki){%> currentCategory<%}%>">
                 <div class="category-wrapper">
                     <span class="expander"></span>
-                    <span class="menu-item-icon wiki"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconswiki"></use></svg></span>
-                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx")%>">
+                    <span class="menu-item-icon wiki"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconswiki"></use></svg></span>
+                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx")%>">
                         <%= CommunityResource.Wiki%>
                     </a>
                 </div>
                 <ul class="menu-sub-list">
                     <li class="menu-sub-item<%if(CurrentPage=="wikicategories"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:Categories"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:Categories"%>">
                             <%= CommunityResource.Categories%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="wikiindex"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:Index"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:Index"%>">
                             <%= CommunityResource.Index%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="wikinew"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:NewPages"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:NewPages"%>">
                             <%= CommunityResource.NewPages%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="wikirecently"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:Recently"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:Recently"%>">
                             <%= CommunityResource.RecentlyEdited%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="wikifiles"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:Files"%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:Files"%>">
                             <%= CommunityResource.Files%>
                         </a>
                     </li>
                     <li class="menu-sub-item<%if(CurrentPage=="wikihelp"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/default.aspx") + "?page=Internal:Help"%> ">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/Default.aspx") + "?page=Internal:Help"%> ">
                             <%= CommunityResource.Help%>
                         </a>
                     </li>
@@ -263,8 +263,8 @@
             <%if (IsBirthdaysAvailable)
               { %>
                 <li class="menu-item none-sub-list<%if(CurrentPage=="birthdays"){%> active currentCategory<%}%>">
-                    <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsgroup"></use></svg></span>
-                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/birthdays/")%>">
+                    <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsgroup"></use></svg></span>
+                    <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Birthdays/")%>">
                         <%= CommunityResource.Birthdays%>
                     </a>
                 </li>
@@ -277,7 +277,7 @@
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow" href="<%=GetDefaultSettingsPageUrl()%>">
-                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
                         <span class="menu-item-label inner-text<%if(!IsInSettings){%> gray-text<%}%>"><%= CommunityResource.Settings %></span>
                     </a>
                 </div>
@@ -285,7 +285,7 @@
                     <% if (IsForumsAvailable) %>
                     <% { %>
                     <li class="menu-sub-item<%if(CurrentPage=="forumeditor"){%> active<%}%>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/managementcenter.aspx")%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/ManagementCenter.aspx")%>">
                             <%= CommunityResource.ForumEditor%>
                         </a>
                     </li>

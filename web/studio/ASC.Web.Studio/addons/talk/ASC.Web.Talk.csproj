@@ -154,7 +154,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.png" />
     <Content Include="css\default\talk.style.de-de.css" />
     <Content Include="css\default\talk.style.en-gb.css" />
     <Content Include="css\default\talk.style.en-us.css" />
@@ -201,8 +201,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\Images\product_logo.png" />
-    <Content Include="App_Themes\Default\Images\product_logo_disabled.png" />
+    <Content Include="App_Themes\default\images\product_logo.png" />
+    <Content Include="App_Themes\default\images\product_logo_disabled.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\default\imagescss\" />

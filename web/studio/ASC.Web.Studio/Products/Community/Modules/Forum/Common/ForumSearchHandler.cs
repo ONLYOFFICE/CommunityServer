@@ -48,7 +48,7 @@ namespace ASC.Web.Community.Forum
                 {
                     Name = topic.Title,
                     Description = String.Format(Resources.ForumResource.FindTopicDescription, topic.ThreadTitle),
-                    URL = VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/posts.aspx") + "?t=" + topic.ID,
+                    URL = VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/Posts.aspx") + "?t=" + topic.ID,
                     Date = topic.CreateDate
                 }).ToArray();
         }

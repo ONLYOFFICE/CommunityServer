@@ -33,7 +33,7 @@ namespace ASC.Web.Community.News.Code
     {
         public static string BaseVirtualPath
         {
-            get { return "~/products/community/modules/news/"; }
+            get { return "~/Products/Community/Modules/News/"; }
         }
 
         public static string MainPageUrl

@@ -53,7 +53,7 @@ namespace ASC.Web.Files.Controls
             Page.RegisterClientScript(new Masters.ClientScripts.FilesConstantsResources());
 
             Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                               "app_themes/<theme_folder>/leftmenu.less");
+                               "App_Themes/<theme_folder>/leftmenu.less");
 
             if (Global.IsOutsider)
                 WithoutTrash = true;

@@ -39,7 +39,7 @@ namespace ASC.Web.Community
         protected void Page_Load(object sender, EventArgs e)
         {
             //Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/community/master/Styles.ascx")));
-            Page.RegisterBodyScripts(ResolveUrl, "~/products/community/js/common.js");
+            Page.RegisterBodyScripts(ResolveUrl, "~/Products/Community/js/common.js");
 
 
             _sideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));

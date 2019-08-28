@@ -35,6 +35,7 @@ using ASC.Core;
 using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
@@ -65,11 +66,11 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             LoginMessage = Request["m"];
 
-            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less", "~/usercontrols/common/authorizedocs/css/slick.less")
-                .RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js", "~/js/third-party/slick.min.js");
+            Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/authorizedocs.less", "~/UserControls/Common/AuthorizeDocs/css/slick.less")
+                .RegisterBodyScripts("~/UserControls/Common/AuthorizeDocs/js/authorizedocs.js", "~/UserControls/Common/Authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
             if (CoreContext.Configuration.CustomMode)
-                Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/custom-mode.less");
+                Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/custom-mode.less");
 
             Page.Title = CoreContext.Configuration.CustomMode ? CustomModeResource.TitlePageNewCustomMode : Resource.AuthDocsTitlePage;
             Page.MetaDescription = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaDescriptionCustomMode.HtmlEncode() : Resource.AuthDocsMetaDescription.HtmlEncode();
@@ -107,7 +108,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
                     int counter;
                     int.TryParse(cache.Get<string>("loginsec/" + Login), out counter);
-                    if (++counter > 5)
+                    if (++counter > 5 && !SetupInfo.IsSecretEmail(Login))
                     {
                         throw new Authorize.BruteForceCredentialException();
                     }

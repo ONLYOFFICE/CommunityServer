@@ -52,8 +52,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts("~/usercontrols/Management/AdminMessageSettings/js/admmess.js")
-                .RegisterStyle("~/usercontrols/management/AdminMessageSettings/css/admmess.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/AdminMessageSettings/js/admmess.js")
+                .RegisterStyle("~/UserControls/Management/AdminMessageSettings/css/admmess.less");
 
             _studioAdmMessNotifSettings = StudioAdminMessageSettings.Load();
 

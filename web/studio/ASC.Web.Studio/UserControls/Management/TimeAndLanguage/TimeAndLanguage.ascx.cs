@@ -56,8 +56,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/TimeAndLanguage/js/TimeAndLanguage.js")
-                .RegisterStyle("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/TimeAndLanguage/js/timeandlanguage.js")
+                .RegisterStyle("~/UserControls/Management/TimeAndLanguage/css/timeandlanguage.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 

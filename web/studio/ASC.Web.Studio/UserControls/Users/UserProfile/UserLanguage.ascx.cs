@@ -52,8 +52,8 @@ namespace ASC.Web.Studio.UserControls.Users
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterStyle(ResolveUrl("~/usercontrols/users/userprofile/css/userlanguages.less"))
-                .RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userlanguage.js"));
+            Page.RegisterStyle(ResolveUrl("~/UserControls/Users/UserProfile/css/userlanguages.less"))
+                .RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/UserControls/Users/UserProfile/js/userlanguage.js"));
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 

@@ -145,7 +145,8 @@ namespace ASC.Web.Studio
                         {WebItemManager.CRMProductID, 1},
                         {WebItemManager.MailProductID, 2},
                         {WebItemManager.PeopleProductID, 3},
-                        {WebItemManager.CommunityProductID, 4}
+                        {WebItemManager.CommunityProductID, 4},
+                        {WebItemManager.SampleProductID, 5}
                     };
 
             if (!string.IsNullOrEmpty(SetupInfo.StartProductList))

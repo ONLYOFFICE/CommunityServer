@@ -173,7 +173,7 @@ namespace ASC.Data.Backup
 
         private string GetWebConfig(string[] configs)
         {
-            return configs.Where(c => "web.config".Equals(Path.GetFileName(c), StringComparison.InvariantCultureIgnoreCase)).SingleOrDefault();
+            return configs.Where(c => "Web.config".Equals(Path.GetFileName(c), StringComparison.InvariantCultureIgnoreCase)).SingleOrDefault();
         }
 
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged;

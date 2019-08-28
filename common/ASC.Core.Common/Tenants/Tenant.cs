@@ -105,6 +105,8 @@ namespace ASC.Core.Tenants
 
         public string AffiliateId { get; set; }
 
+        public string Campaign { get; set; }
+
         public string PaymentId { get; set; }
 
         public TenantIndustry Industry { get; set; }

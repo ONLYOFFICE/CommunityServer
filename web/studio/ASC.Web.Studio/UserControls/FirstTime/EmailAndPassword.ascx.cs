@@ -108,8 +108,8 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         {
             Page.RegisterBodyScripts(
                 "~/js/uploader/jquery.fileupload.js",
-                "~/usercontrols/firsttime/js/manager.js")
-                .RegisterStyle("~/usercontrols/firsttime/css/EmailAndPassword.less");
+                "~/UserControls/FirstTime/js/manager.js")
+                .RegisterStyle("~/UserControls/FirstTime/css/emailandpassword.less");
 
             var script = new StringBuilder();
 

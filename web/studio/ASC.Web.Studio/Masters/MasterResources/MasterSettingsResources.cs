@@ -83,7 +83,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         GroupSelector_WithGroupAdmin = new { Id = Constants.GroupAdmin.ID, Name = UserControlsCommonResource.Admin.HtmlEncode().ReplaceSingleQuote() },
                         SetupInfoNotifyAddress = SetupInfo.NotifyAddress,
                         SetupInfoTipsAddress = SetupInfo.TipsAddress,
-                        CKEDITOR_BASEPATH = WebPath.GetPath("/usercontrols/common/ckeditor/"),
+                        CKEDITOR_BASEPATH = WebPath.GetPath("/UserControls/Common/ckeditor/"),
                         MaxImageFCKWidth = ConfigurationManager.AppSettings["MaxImageFCKWidth"] ?? "620",
                         UserPhotoHandlerUrl = VirtualPathUtility.ToAbsolute("~/UserPhoto.ashx"),
                         ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(),

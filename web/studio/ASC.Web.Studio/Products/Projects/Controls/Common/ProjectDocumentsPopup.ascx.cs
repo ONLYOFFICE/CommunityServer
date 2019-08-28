@@ -56,8 +56,8 @@ namespace ASC.Web.Projects.Controls.Common
 
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/projectDocumentsPopup.less")
-                .RegisterBodyScripts("~/products/projects/js/projectDocumentsPopup.js");
+            Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/projectdocumentspopup.less")
+                .RegisterBodyScripts("~/Products/Projects/js/projectdocumentspopup.js");
         }
     }
 }

@@ -49,7 +49,7 @@ namespace ASC.Data.Backup.Utils
         {
             if (!Path.HasExtension(path))
             {
-                path = Path.Combine(path, "web.config");
+                path = Path.Combine(path, "Web.config");
             }
             return ToRootedPath(path);
         }

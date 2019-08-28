@@ -53,7 +53,7 @@ namespace ASC.Web.CRM.Controls.Settings
             var emptyScreenControl = new EmptyScreenControl
                 {
                     ID = "voip-calls-empty-list-box",
-                    ImgSrc = WebPath.GetPath("usercontrols/feed/images/empty_screen_feed.png"),
+                    ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_screen_feed.png"),
                     Header = UserControlsCommonResource.VoipCallsNotFound,
                     Describe = UserControlsCommonResource.VoipCallsNotFoundDescription
                 };
@@ -62,7 +62,7 @@ namespace ASC.Web.CRM.Controls.Settings
             var emptyScreenFilterControl = new EmptyScreenControl
             {
                 ID = "voip-calls-empty-filter-box",
-                ImgSrc = WebPath.GetPath("usercontrols/feed/images/empty_filter.png"),
+                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_filter.png"),
                 Header = UserControlsCommonResource.FilterNoVoipCalls,
                 Describe = UserControlsCommonResource.FilterNoVoipCallsDescription,
                 ButtonHTML = string.Format("<a href='javascript:void(0)' class='baseLinkAction clearFilterButton'>{0}</a>",

@@ -66,13 +66,13 @@ namespace ASC.Web.Studio.UserControls.Management
                 && !TariffSettings.HideNotify
                 && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
-                Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffnotify.less");
+                Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariffnotify.less");
 
                 Notify = GetTariffNotify();
 
                 if (CanClose)
                 {
-                    Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffnotify.js");
+                    Page.RegisterBodyScripts("~/UserControls/Management/TariffSettings/js/tariffnotify.js");
                     AjaxPro.Utility.RegisterTypeForAjax(GetType());
                 }
             }

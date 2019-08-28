@@ -66,6 +66,8 @@ namespace ASC.Core.Tenants
 
         public bool Analytics { get; set; }
 
+        public string Campaign { get; set; }
+
 
         public TenantRegistrationInfo()
         {

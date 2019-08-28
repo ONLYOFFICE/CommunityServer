@@ -203,13 +203,6 @@ ASC.Files.Utility.getFolderCssClass = function (compact) {
     return "ftFolder_" + (compact === true ? 21 : 32);
 };
 
-ASC.Files.Utility.CanWebEditBrowser =
-    true === (jq.browser.msie && jq.browser.versionCorrect >= 9
-        || jq.browser.safari && jq.browser.versionCorrect >= 5
-        || jq.browser.mozilla && jq.browser.versionCorrect >= 4
-        || jq.browser.chrome && jq.browser.versionCorrect >= 7
-        || jq.browser.opera && jq.browser.versionCorrect >= 10.5);
-
 ASC.Files.Utility.GetFileExtension = function (fileTitle) {
     if (typeof fileTitle == "undefined" || fileTitle == null) {
         return "";
@@ -239,7 +232,7 @@ ASC.Files.Utility.CanWebView = function (fileTitle) {
 
 ASC.Files.Utility.CanWebEdit = function (fileTitle) {
     return (
-        ASC.Files.Utility.CanWebEditBrowser && Teamlab.profile.isVisitor !== true
+        Teamlab.profile.isVisitor !== true
             ? jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebEdited) != -1
             : false
     );

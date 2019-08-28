@@ -36,7 +36,7 @@
 }
 .files-app-content-create {
     margin-top: 150px;
-    width: 270px;
+    width: 320px;
 }
 .files-app-baner {
     background: url("images/personal_convert.png") no-repeat left center transparent;
@@ -57,25 +57,32 @@
     font-size: 14px;
     margin: 14px 0 20px;
     padding: 8px 10px;
-    width: 248px;
+    width: 300px;
 }
 .files-app-types {
-    margin: 15px 0 45px;
-}
-.files-app-types .try-button {
-    cursor: pointer;
-    display: inline-block;
-    margin-left: 35px;
-    white-space: nowrap;
-}
-.files-app-types .try-button.document {
-    margin-left: 0;
-}
-.files-app-types .try-button > input {
-    cursor: pointer;
-    display: block;
-    margin: 8px 0 0 26px;
+    margin: 14px -23px 45px;
 }
 .files-app-create {
-    width: 270px;
+    background: no-repeat center top transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    height: 140px;
+    margin-right: 25px;
+    overflow: visible;
+    padding: 98px 0 0;
+    text-align: center;
+    width: 105px;
+    white-space: normal;
+}
+.files-app-create.document {
+    background-image: url("images/file_docx.png");
+}
+.files-app-create.spreadsheet {
+    background-image: url("images/file_xlsx.png");
+}
+.files-app-create.presentation {
+    background-image: url("images/file_pptx.png");
+    margin-right: 0;
 }

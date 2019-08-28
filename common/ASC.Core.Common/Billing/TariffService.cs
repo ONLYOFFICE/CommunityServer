@@ -271,8 +271,8 @@ namespace ASC.Core.Billing
                         using (var client = GetBillingClient())
                         {
                             urls = tenant.HasValue ?
-                                       client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), "__Currency__", "__Language__", "__CustomerID__") :
-                                       client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, "__Currency__", "__Language__", "__CustomerID__");
+                                       client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), GetCampaign(tenant.Value), "__Currency__", "__Language__", "__CustomerID__") :
+                                       client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, null, "__Currency__", "__Language__", "__CustomerID__");
                         }
                     }
                     catch (Exception error)
@@ -548,6 +548,11 @@ namespace ASC.Core.Billing
         private string GetAffiliateId(int tenant)
         {
             return config.GetAffiliateId(tenant);
+        }
+
+        private string GetCampaign(int tenant)
+        {
+            return config.GetCampaign(tenant);
         }
 
         private TimeSpan GetCacheExpiration()

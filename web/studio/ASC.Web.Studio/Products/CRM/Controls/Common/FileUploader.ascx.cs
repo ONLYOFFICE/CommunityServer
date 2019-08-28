@@ -42,7 +42,7 @@ namespace ASC.Web.CRM.Controls.Common
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
-            Page.RegisterBodyScripts("~/js/uploader/jquery.fileuploadManager.js");
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileuploadmanager.js");
 
             RegisterScript();
         }

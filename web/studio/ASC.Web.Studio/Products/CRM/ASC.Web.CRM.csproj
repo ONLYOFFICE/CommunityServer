@@ -323,6 +323,7 @@
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
@@ -713,43 +714,43 @@
     <Compile Include="Utils\PdfCreator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\reports.less" />
-    <Content Include="App_Themes\Default\images\contacts.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_phones.png" />
-    <Content Include="App_Themes\Default\images\customize.png" />
-    <Content Include="App_Themes\Default\images\drag.png" />
-    <Content Include="App_Themes\Default\images\drug-n-drop_items.png" />
-    <Content Include="App_Themes\Default\images\empty_company_logo_180_180.png" />
-    <Content Include="App_Themes\Default\images\empty_company_logo_200_200.png" />
-    <Content Include="App_Themes\Default\images\empty_people_logo_180_180.png" />
-    <Content Include="App_Themes\Default\images\empty_people_logo_200_200.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_invoices.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_products_services.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_taxes.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_voip_settings.png" />
-    <Content Include="App_Themes\Default\images\event_categories.png" />
-    <Content Include="App_Themes\Default\images\flags_all.png" />
-    <Content Include="App_Themes\Default\images\icons.png" />
-    <Content Include="App_Themes\Default\images\edit_small.png" />
-    <Content Include="App_Themes\Default\images\import.png" />
-    <Content Include="App_Themes\Default\images\integration.png" />
-    <Content Include="App_Themes\Default\images\invoice.png" />
-    <Content Include="App_Themes\Default\images\loader_16_static.png" />
-    <Content Include="App_Themes\Default\images\loader_24.gif" />
-    <Content Include="App_Themes\Default\images\loader_24_static.png" />
-    <Content Include="App_Themes\Default\images\twitter.png" />
-    <Content Include="App_Themes\Default\images\voip_call_icons_sprite.png" />
-    <Content Include="App_Themes\Default\images\mail_icons.png" />
-    <Content Include="App_Themes\Default\images\org_logo_default.png" />
-    <Content Include="App_Themes\Default\images\people_icon.png" />
-    <Content Include="App_Themes\Default\images\product_logo.png" />
-    <Content Include="App_Themes\Default\images\product_logolarge.png" />
-    <Content Include="App_Themes\Default\images\remove.png" />
-    <Content Include="App_Themes\Default\images\remove_12.png" />
-    <Content Include="App_Themes\Default\images\sales.png" />
-    <Content Include="App_Themes\Default\images\search_in_module.png" />
-    <Content Include="App_Themes\Default\images\task_categories.png" />
-    <Content Include="App_Themes\Default\images\voip_logo.png" />
+    <Content Include="App_Themes\default\css\reports.less" />
+    <Content Include="App_Themes\default\images\contacts.png" />
+    <Content Include="App_Themes\default\images\empty_screen_phones.png" />
+    <Content Include="App_Themes\default\images\customize.png" />
+    <Content Include="App_Themes\default\images\drag.png" />
+    <Content Include="App_Themes\default\images\drug-n-drop_items.png" />
+    <Content Include="App_Themes\default\images\empty_company_logo_180_180.png" />
+    <Content Include="App_Themes\default\images\empty_company_logo_200_200.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_180_180.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_200_200.png" />
+    <Content Include="App_Themes\default\images\empty_screen_invoices.png" />
+    <Content Include="App_Themes\default\images\empty_screen_products_services.png" />
+    <Content Include="App_Themes\default\images\empty_screen_taxes.png" />
+    <Content Include="App_Themes\default\images\empty_screen_voip_settings.png" />
+    <Content Include="App_Themes\default\images\event_categories.png" />
+    <Content Include="App_Themes\default\images\flags_all.png" />
+    <Content Include="App_Themes\default\images\icons.png" />
+    <Content Include="App_Themes\default\images\edit_small.png" />
+    <Content Include="App_Themes\default\images\import.png" />
+    <Content Include="App_Themes\default\images\integration.png" />
+    <Content Include="App_Themes\default\images\invoice.png" />
+    <Content Include="App_Themes\default\images\loader_16_static.png" />
+    <Content Include="App_Themes\default\images\loader_24.gif" />
+    <Content Include="App_Themes\default\images\loader_24_static.png" />
+    <Content Include="App_Themes\default\images\twitter.png" />
+    <Content Include="App_Themes\default\images\voip_call_icons_sprite.png" />
+    <Content Include="App_Themes\default\images\mail_icons.png" />
+    <Content Include="App_Themes\default\images\org_logo_default.png" />
+    <Content Include="App_Themes\default\images\people_icon.png" />
+    <Content Include="App_Themes\default\images\product_logo.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="App_Themes\default\images\remove.png" />
+    <Content Include="App_Themes\default\images\remove_12.png" />
+    <Content Include="App_Themes\default\images\sales.png" />
+    <Content Include="App_Themes\default\images\search_in_module.png" />
+    <Content Include="App_Themes\default\images\task_categories.png" />
+    <Content Include="App_Themes\default\images\voip_logo.png" />
     <Content Include="Calls.aspx" />
     <Content Include="Cases.aspx" />
     <Content Include="Controls\Cases\CasesActionView.ascx" />
@@ -779,7 +780,7 @@
     <Content Include="Reports.aspx" />
     <Content Include="js\voip.common.js" />
     <Content Include="js\voip.numbers.js" />
-    <Content Include="js\fileUploader.js" />
+    <Content Include="js\fileuploader.js" />
     <Content Include="js\voip.calls.js" />
     <Content Include="js\voip.quick.js" />
     <Content Include="Controls\Settings\VoipSettings\VoipQuick.ascx" />
@@ -872,13 +873,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\fg.css" />
-    <Content Include="App_Themes\Default\images\activity_widget.png" />
-    <Content Include="App_Themes\Default\images\cases_widget.png" />
-    <Content Include="App_Themes\Default\images\deal_widget.png" />
-    <Content Include="App_Themes\Default\images\fg.png" />
-    <Content Include="App_Themes\Default\images\people_widget.png" />
-    <Content Include="App_Themes\Default\images\tasks_widget.png" />
+    <Content Include="App_Themes\default\css\fg.css" />
+    <Content Include="App_Themes\default\images\activity_widget.png" />
+    <Content Include="App_Themes\default\images\cases_widget.png" />
+    <Content Include="App_Themes\default\images\deal_widget.png" />
+    <Content Include="App_Themes\default\images\fg.png" />
+    <Content Include="App_Themes\default\images\people_widget.png" />
+    <Content Include="App_Themes\default\images\tasks_widget.png" />
     <Content Include="Default.aspx" />
     <Content Include="Controls\Common\FileUploader.ascx" />
     <Content Include="Controls\Common\PrivatePanel.ascx" />
@@ -896,74 +897,74 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\images\32-attach.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_projects.png" />
-    <Content Include="App_Themes\Default\images\event_category_attach_file.png" />
-    <Content Include="App_Themes\Default\images\event_category_call.png" />
-    <Content Include="App_Themes\Default\images\event_category_close.png" />
-    <Content Include="App_Themes\Default\images\event_category_email.png" />
-    <Content Include="App_Themes\Default\images\event_category_meeting.png" />
-    <Content Include="App_Themes\Default\images\event_category_note.png" />
-    <Content Include="App_Themes\Default\images\hover_32-attach.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_attach_file.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_call.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_close.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_email.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_meeting.png" />
-    <Content Include="App_Themes\Default\images\hover_event_category_note.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_call.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_deal.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_demo.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_email.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_fax.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_follow_up.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_lunch.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_meeting.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_note.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_ship.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_social_networks.png" />
-    <Content Include="App_Themes\Default\images\hover_task_category_thank_you.png" />
-    <Content Include="App_Themes\Default\images\import-cases.png" />
-    <Content Include="App_Themes\Default\images\import-opportunities.png" />
-    <Content Include="App_Themes\Default\images\import-tasks.png" />
-    <Content Include="App_Themes\Default\images\product_disabled_logo.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_case_participants.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_company_participants.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_opportunity_participants.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_persons.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_social.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_tags.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_twitter.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_userfields.png" />
-    <Content Include="App_Themes\Default\images\back-progress-light-big.png" />
-    <Content Include="App_Themes\Default\images\companies_widget.png" />
-    <Content Include="App_Themes\Default\images\csv_16.png" />
-    <Content Include="App_Themes\Default\images\empty_company_logo_145_145.png" />
-    <Content Include="App_Themes\Default\images\empty_company_logo_40_40.png" />
-    <Content Include="App_Themes\Default\images\empty_company_logo_82_82.png" />
-    <Content Include="App_Themes\Default\images\empty_people_logo_145_145.png" />
-    <Content Include="App_Themes\Default\images\empty_people_logo_40_40.png" />
-    <Content Include="App_Themes\Default\images\empty_people_logo_82_82.png" />
-    <Content Include="App_Themes\Default\images\export_data.png" />
-    <Content Include="App_Themes\Default\images\import_contacts.png" />
-    <Content Include="App_Themes\Default\images\mail_send.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_cases.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_companies.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_deals.png" />
-    <Content Include="App_Themes\Default\images\empty_screen_tasks.png" />
-    <Content Include="App_Themes\Default\images\task_category_call.png" />
-    <Content Include="App_Themes\Default\images\task_category_deal.png" />
-    <Content Include="App_Themes\Default\images\task_category_demo.png" />
-    <Content Include="App_Themes\Default\images\task_category_email.png" />
-    <Content Include="App_Themes\Default\images\task_category_fax.png" />
-    <Content Include="App_Themes\Default\images\task_category_follow_up.png" />
-    <Content Include="App_Themes\Default\images\task_category_lunch.png" />
-    <Content Include="App_Themes\Default\images\task_category_meeting.png" />
-    <Content Include="App_Themes\Default\images\task_category_note.png" />
-    <Content Include="App_Themes\Default\images\task_category_ship.png" />
-    <Content Include="App_Themes\Default\images\task_category_social_networks.png" />
-    <Content Include="App_Themes\Default\images\task_category_thank_you.png" />
-    <Content Include="App_Themes\Default\images\web_to_leads.png" />
+    <Content Include="App_Themes\default\images\32-attach.png" />
+    <Content Include="App_Themes\default\images\empty_screen_projects.png" />
+    <Content Include="App_Themes\default\images\event_category_attach_file.png" />
+    <Content Include="App_Themes\default\images\event_category_call.png" />
+    <Content Include="App_Themes\default\images\event_category_close.png" />
+    <Content Include="App_Themes\default\images\event_category_email.png" />
+    <Content Include="App_Themes\default\images\event_category_meeting.png" />
+    <Content Include="App_Themes\default\images\event_category_note.png" />
+    <Content Include="App_Themes\default\images\hover_32-attach.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_attach_file.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_call.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_close.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_email.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_meeting.png" />
+    <Content Include="App_Themes\default\images\hover_event_category_note.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_call.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_deal.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_demo.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_email.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_fax.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_follow_up.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_lunch.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_meeting.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_note.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_ship.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_social_networks.png" />
+    <Content Include="App_Themes\default\images\hover_task_category_thank_you.png" />
+    <Content Include="App_Themes\default\images\import-cases.png" />
+    <Content Include="App_Themes\default\images\import-opportunities.png" />
+    <Content Include="App_Themes\default\images\import-tasks.png" />
+    <Content Include="App_Themes\default\images\product_disabled_logo.png" />
+    <Content Include="App_Themes\default\images\empty_screen_case_participants.png" />
+    <Content Include="App_Themes\default\images\empty_screen_company_participants.png" />
+    <Content Include="App_Themes\default\images\empty_screen_opportunity_participants.png" />
+    <Content Include="App_Themes\default\images\empty_screen_persons.png" />
+    <Content Include="App_Themes\default\images\empty_screen_social.png" />
+    <Content Include="App_Themes\default\images\empty_screen_tags.png" />
+    <Content Include="App_Themes\default\images\empty_screen_twitter.png" />
+    <Content Include="App_Themes\default\images\empty_screen_userfields.png" />
+    <Content Include="App_Themes\default\images\back-progress-light-big.png" />
+    <Content Include="App_Themes\default\images\companies_widget.png" />
+    <Content Include="App_Themes\default\images\csv_16.png" />
+    <Content Include="App_Themes\default\images\empty_company_logo_145_145.png" />
+    <Content Include="App_Themes\default\images\empty_company_logo_40_40.png" />
+    <Content Include="App_Themes\default\images\empty_company_logo_82_82.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_145_145.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_40_40.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_82_82.png" />
+    <Content Include="App_Themes\default\images\export_data.png" />
+    <Content Include="App_Themes\default\images\import_contacts.png" />
+    <Content Include="App_Themes\default\images\mail_send.png" />
+    <Content Include="App_Themes\default\images\empty_screen_cases.png" />
+    <Content Include="App_Themes\default\images\empty_screen_companies.png" />
+    <Content Include="App_Themes\default\images\empty_screen_deals.png" />
+    <Content Include="App_Themes\default\images\empty_screen_tasks.png" />
+    <Content Include="App_Themes\default\images\task_category_call.png" />
+    <Content Include="App_Themes\default\images\task_category_deal.png" />
+    <Content Include="App_Themes\default\images\task_category_demo.png" />
+    <Content Include="App_Themes\default\images\task_category_email.png" />
+    <Content Include="App_Themes\default\images\task_category_fax.png" />
+    <Content Include="App_Themes\default\images\task_category_follow_up.png" />
+    <Content Include="App_Themes\default\images\task_category_lunch.png" />
+    <Content Include="App_Themes\default\images\task_category_meeting.png" />
+    <Content Include="App_Themes\default\images\task_category_note.png" />
+    <Content Include="App_Themes\default\images\task_category_ship.png" />
+    <Content Include="App_Themes\default\images\task_category_social_networks.png" />
+    <Content Include="App_Themes\default\images\task_category_thank_you.png" />
+    <Content Include="App_Themes\default\images\web_to_leads.png" />
     <Content Include="Controls\Cases\CasesFullCardView.ascx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
     <Content Include="Controls\Contacts\ContactFullCardView.ascx" />
@@ -993,43 +994,43 @@
     <EmbeddedResource Include="InvoiceTemplates\template.docx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\common.less" />
+    <Content Include="App_Themes\default\css\common.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\base.less" />
+    <Content Include="App_Themes\default\css\base.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\tasks.less" />
+    <Content Include="App_Themes\default\css\tasks.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\cases.less" />
+    <Content Include="App_Themes\default\css\cases.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\deals.less" />
+    <Content Include="App_Themes\default\css\deals.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\contacts.less" />
+    <Content Include="App_Themes\default\css\contacts.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\socialmedia.less" />
+    <Content Include="App_Themes\default\css\socialmedia.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\settings.less" />
+    <Content Include="App_Themes\default\css\settings.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\invoices.less" />
+    <Content Include="App_Themes\default\css\invoices.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\voip.quick.less" />
+    <Content Include="App_Themes\default\css\voip.quick.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\voip.calls.less" />
+    <Content Include="App_Themes\default\css\voip.calls.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\voip.numbers.less" />
+    <Content Include="App_Themes\default\css\voip.numbers.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\voip.common.less" />
+    <Content Include="App_Themes\default\css\voip.common.less" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">

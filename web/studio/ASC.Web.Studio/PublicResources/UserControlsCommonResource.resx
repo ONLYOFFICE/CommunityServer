@@ -495,9 +495,6 @@
   <data name="LinkText" xml:space="preserve">
     <value>Add users</value>
   </data>
-  <data name="LoginWith" xml:space="preserve">
-    <value>Please, log in with your account</value>
-  </data>
   <data name="LogoutButton" xml:space="preserve">
     <value>Sign Out</value>
   </data>

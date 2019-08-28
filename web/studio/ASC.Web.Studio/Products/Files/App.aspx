@@ -11,9 +11,10 @@
 <asp:Content runat="server" ContentPlaceHolderID="BTPageContent">
     <asp:PlaceHolder ID="CommonContainerHolder" runat="server">
         <div class="files-app-center">
-            <div class="files-app-content <%= IsConvert?"":"files-app-content-create" %>">
+            <div class="files-app-content <%= IsConvert ? "" : "files-app-content-create" %>">
                 <% if (IsConvert)
                    { %>
+
                 <div class="files-app-baner"></div>
                 <%: FilesCommonResource.AppConvertCopy %>
                 <asp:CheckBox runat="server" ID="ConvertCheck" CssClass="files-app-checkbox" />
@@ -27,11 +28,10 @@
                 <asp:TextBox runat="server" ID="InputName" CssClass="app-filename textEdit"></asp:TextBox>
                 <span class="header-base middle"><%= FilesCommonResource.AppEnterType %></span>
                 <div class="files-app-types">
-                    <label class="try-button document"><%= FilesUCResource.ButtonCreateText %><input type="radio" name="fileType" value="<%= FileType.Document %>" checked="checked" /></label>
-                    <label class="try-button spreadsheet"><%= FilesUCResource.ButtonCreateSpreadsheet %><input type="radio" name="fileType" value="<%= FileType.Spreadsheet %>" /></label>
-                    <label class="try-button presentation"><%= FilesUCResource.ButtonCreatePresentation %><input type="radio" name="fileType" value="<%= FileType.Presentation %>" /></label>
+                    <asp:Button runat="server" ID="ButtonCreateDocument" CssClass="files-app-create document" />
+                    <asp:Button runat="server" ID="ButtonCreateSpreadsheet" CssClass="files-app-create spreadsheet" />
+                    <asp:Button runat="server" ID="ButtonCreatePresentation" CssClass="files-app-create presentation" />
                 </div>
-                <asp:Button runat="server" ID="ButtonCreate" CssClass="files-app-create button big green" />
 
                 <% } %>
             </div>

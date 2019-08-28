@@ -46,8 +46,6 @@ namespace ASC.Web.UserControls.Forum.Common
 
         public int PostCountOnPage { get; private set; }
 
-        public string ConfigPath { get; private set; }
-
         public string UserControlsVirtualPath { get; private set; }
 
         public string FileStoreModuleID { get; private set; }
@@ -93,16 +91,14 @@ namespace ASC.Web.UserControls.Forum.Common
 
             ModuleID = new Guid("853B6EB9-73EE-438d-9B09-8FFEEDF36234");
             ImageItemID = new Guid("853B6EB9-73EE-438d-9B09-8FFEEDF36234");
-            UserControlsVirtualPath = "~/products/community/modules/forum/usercontrols";
-            StartPageVirtualPath = "~/products/community/modules/forum/default.aspx";
-            TopicPageVirtualPath = "~/products/community/modules/forum/topics.aspx";
-            PostPageVirtualPath = "~/products/community/modules/forum/posts.aspx";
-            SearchPageVirtualPath = "~/products/community/modules/forum/search.aspx";
-            NewPostPageVirtualPath = "~/products/community/modules/forum/newpost.aspx";
-            EditTopicPageVirtualPath = "~/products/community/modules/forum/edittopic.aspx";
+            UserControlsVirtualPath = "~/Products/Community/Modules/Forum/UserControls";
+            StartPageVirtualPath = "~/Products/Community/Modules/Forum/Default.aspx";
+            TopicPageVirtualPath = "~/Products/Community/Modules/Forum/Topics.aspx";
+            PostPageVirtualPath = "~/Products/Community/Modules/Forum/Posts.aspx";
+            SearchPageVirtualPath = "~/Products/Community/Modules/Forum/Search.aspx";
+            NewPostPageVirtualPath = "~/Products/Community/Modules/Forum/NewPost.aspx";
+            EditTopicPageVirtualPath = "~/Products/Community/Modules/Forum/EditTopic.aspx";
             FileStoreModuleID = "forum";
-            ConfigPath = "~/products/community/modules/forum/web.config";
-
 
             LinkProvider = new LinkProvider(this);
             //registry

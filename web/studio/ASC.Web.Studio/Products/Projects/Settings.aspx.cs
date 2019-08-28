@@ -44,23 +44,23 @@ namespace ASC.Web.Projects
             Page
                 .RegisterStyle(
                 PathProvider.GetFileStaticRelativePath("settings.less"),
-                "~/products/files/controls/fileselector/fileselector.css",
-                "~/products/files/controls/thirdparty/thirdparty.css",
-                "~/products/files/controls/contentlist/contentlist.css",
-                "~/products/files/controls/emptyfolder/emptyfolder.css",
-                "~/products/files/controls/tree/tree.css")
+                "~/Products/Files/Controls/FileSelector/fileselector.css",
+                "~/Products/Files/Controls/ThirdParty/thirdparty.css",
+                "~/Products/Files/Controls/ContentList/contentlist.css",
+                "~/Products/Files/Controls/EmptyFolder/emptyfolder.css",
+                "~/Products/Files/Controls/Tree/tree.css")
                 .RegisterBodyScripts(
                 PathProvider.GetFileStaticRelativePath("settings.js"),
-                    "~/products/files/controls/tree/tree.js",
-                    "~/products/files/controls/emptyfolder/emptyfolder.js",
-                    "~/products/files/controls/fileselector/fileselector.js",
-                    "~/products/files/js/common.js",
-                    "~/products/files/js/templatemanager.js",
-                    "~/products/files/js/servicemanager.js",
-                    "~/products/files/js/ui.js",
-                    "~/products/files/js/eventhandler.js");
+                    "~/Products/Files/Controls/Tree/tree.js",
+                    "~/Products/Files/Controls/EmptyFolder/emptyfolder.js",
+                    "~/Products/Files/Controls/FileSelector/fileselector.js",
+                    "~/Products/Files/js/common.js",
+                    "~/Products/Files/js/templatemanager.js",
+                    "~/Products/Files/js/servicemanager.js",
+                    "~/Products/Files/js/ui.js",
+                    "~/Products/Files/js/eventhandler.js");
 
-            FolderSelectorHolder.Controls.Add(LoadControl(CommonLinkUtility.ToAbsolute("~/products/files/controls/fileselector/fileselector.ascx")));
+            FolderSelectorHolder.Controls.Add(LoadControl(CommonLinkUtility.ToAbsolute("~/Products/Files/Controls/FileSelector/FileSelector.ascx")));
         }
     }
 

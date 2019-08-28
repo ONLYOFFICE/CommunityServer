@@ -18,7 +18,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderMy %>" title="<%= FilesUCResource.MyFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderMy %>">
-                <span class="menu-item-icon myFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconspeople"></use></svg></span><%= FilesUCResource.MyFiles %>
+                <span class="menu-item-icon myFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconspeople"></use></svg></span><%= FilesUCResource.MyFiles %>
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderMy %>" data-entryType="folder" data-access="<%= (int)FileShare.None %>" />
             </a>
             <% if (WithNew)
@@ -37,7 +37,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderShare %>" title="<%= FilesUCResource.SharedForMe %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderShare %>">
-                <span class="menu-item-icon shareformeFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsfeed"></use></svg></span><%= FilesUCResource.SharedForMe %>
+                <span class="menu-item-icon shareformeFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsfeed"></use></svg></span><%= FilesUCResource.SharedForMe %>
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderShare %>" data-entryType="folder" data-access="<%= (int)FileShare.Read %>" />
             </a>
             <% if (WithNew)
@@ -51,7 +51,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderCommon %>" title="<%= FilesUCResource.CorporateFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderCommon %>">
-                <span class="menu-item-icon corporateFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconscase"></use></svg></span><%= FilesUCResource.CorporateFiles %>
+                <span class="menu-item-icon corporateFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconscase"></use></svg></span><%= FilesUCResource.CorporateFiles %>
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderCommon %>" data-entryType="folder" data-access="<%= (int)(Global.IsAdministrator ? FileShare.ReadWrite : FileShare.Read) %>" />
             </a>
             <% if (WithNew)
@@ -69,7 +69,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderProjects %>" title="<%= FilesUCResource.ProjectFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderProjects %>">
-                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
+                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderProjects %>" data-entryType="folder" data-access="<%= (int)FileShare.Read %>" />
             </a>
             <% if (WithNew)
@@ -86,7 +86,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= FolderIDCurrentRoot %>" title="<%= FilesUCResource.ProjectFiles %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + FolderIDCurrentRoot %>">
-                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
+                <span class="menu-item-icon projectFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsprojects"></use></svg></span><%= FilesUCResource.ProjectFiles %>
                 <input type="hidden" name="entry_data" data-id="<%= FolderIDCurrentRoot %>" data-entryType="folder" data-access="<%= (int)FileShare.ReadWrite %>" />
             </a>
         </li>
@@ -100,7 +100,7 @@
             <div class="jstree-wholerow">&nbsp;</div>
             <span class="jstree-icon visibility-hidden"></span>
             <a data-id="<%= Global.FolderTrash %>" title="<%= FilesUCResource.Trash %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderTrash %>">
-                <span class="menu-item-icon trashFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span><%= FilesUCResource.Trash %>
+                <span class="menu-item-icon trashFiles"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span><%= FilesUCResource.Trash %>
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderTrash %>" data-entryType="folder" data-access="<%= (int)FileShare.ReadWrite %>" />
             </a>
         </li>

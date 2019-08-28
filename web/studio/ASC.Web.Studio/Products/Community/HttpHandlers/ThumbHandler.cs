@@ -46,7 +46,7 @@ namespace ASC.Web.Community.HttpHandlers
 
         private void ProccessFail(HttpContext context)
         {
-            context.Response.Redirect("~/products/community/modules/bookmarking/app_Themes/default/images/noimageavailable.jpg");
+            context.Response.Redirect("~/Products/Community/Modules/Bookmarking/App_Themes/default/images/noimageavailable.jpg");
         }
     }
 }

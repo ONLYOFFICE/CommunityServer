@@ -46,8 +46,8 @@ namespace ASC.Web.Studio.UserControls.Common.Search
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/search/css/searchresults.less")
-                .RegisterBodyScripts("~/usercontrols/common/search/js/searchresults.js");
+            Page.RegisterStyle("~/UserControls/Common/Search/css/searchresults.less")
+                .RegisterBodyScripts("~/UserControls/Common/Search/js/searchresults.js");
 
             results.ItemDataBound += ResultsItemDataBound;
             results.DataSource = SearchResultsData;

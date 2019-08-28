@@ -145,7 +145,7 @@ namespace ASC.Web.Community.Wiki
                 var emptyScreenControl = new EmptyScreenControl
                     {
                         ID = "wikiListPagesEmpty",
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
+                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
                         Header = emptyScreenCaption,
                         Describe = emptyScreenText,
                         CssClass = "display-none"
@@ -176,7 +176,7 @@ namespace ASC.Web.Community.Wiki
                 var emptyScreenControl = new EmptyScreenControl
                     {
                         ID = "wikiListPagesByLetterEmpty",
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
+                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
                         Header = WikiResource.EmptyScreenWikiIndexCaption,
                         Describe = WikiResource.EmptyScreenWikiIndexText,
                         CssClass = "display-none"

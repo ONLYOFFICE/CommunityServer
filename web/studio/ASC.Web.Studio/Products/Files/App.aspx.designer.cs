@@ -49,13 +49,31 @@ namespace ASC.Web.Files {
         protected global::System.Web.UI.WebControls.TextBox InputName;
         
         /// <summary>
-        /// ButtonCreate control.
+        /// ButtonCreateDocument control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCreate;
+        protected global::System.Web.UI.WebControls.Button ButtonCreateDocument;
+        
+        /// <summary>
+        /// ButtonCreateSpreadsheet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCreateSpreadsheet;
+        
+        /// <summary>
+        /// ButtonCreatePresentation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCreatePresentation;
         
         /// <summary>
         /// Master property.

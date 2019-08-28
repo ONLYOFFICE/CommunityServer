@@ -35,8 +35,8 @@ namespace ASC.Web.Projects.Controls.Projects
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "projectaction.js")
-                .RegisterBodyScripts("~/products/projects/js/addmilestonecontainer.js")
-                .RegisterStyle("~/products/projects/app_themes/default/css/addmilestonecontainer.css");
+                .RegisterBodyScripts("~/Products/Projects/js/addmilestonecontainer.js")
+                .RegisterStyle("~/Products/Projects/App_Themes/default/css/addmilestonecontainer.css");
 
             Page.Master.RegisterCRMResources();
 

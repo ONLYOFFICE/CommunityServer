@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Text;
 
 namespace ASC.Blogs.Core.Domain
 {

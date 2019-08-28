@@ -24,6 +24,7 @@
 */
 
 
+using System.Web;
 using ASC.Core.Configuration;
 using ASC.Core.Tenants;
 using System;
@@ -55,7 +56,13 @@ namespace ASC.Core
 
         public bool Personal
         {
-            get { return personal ?? (bool)(personal = ConfigurationManager.AppSettings["core.personal"] == "true"); }
+            get
+            {
+                //todo: should replace only frotend
+                if (CustomMode && HttpContext.Current != null && HttpContext.Current.Request.SailfishApp()) return true;
+
+                return personal ?? (bool)(personal = ConfigurationManager.AppSettings["core.personal"] == "true");
+            }
         }
 
         public bool CustomMode
@@ -212,6 +219,15 @@ namespace ASC.Core
             var t = tenantService.GetTenant(tenant);
             if (t != null && !string.IsNullOrWhiteSpace(t.AffiliateId))
                 return t.AffiliateId;
+
+            return null;
+        }
+
+        public string GetCampaign(int tenant)
+        {
+            var t = tenantService.GetTenant(tenant);
+            if (t != null && !string.IsNullOrWhiteSpace(t.Campaign))
+                return t.Campaign;
 
             return null;
         }

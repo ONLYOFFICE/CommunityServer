@@ -39,3 +39,10 @@
 .sailfish .files-content-panel {
     margin-top: 8px;
 }
+
+.sailfish .input-rename {
+    width: 150px;
+}
+.sailfish .row-rename div.entry-info {
+    width: 195px;
+}

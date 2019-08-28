@@ -50,8 +50,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             if (RegisterStylesAndScripts)
             {
-                Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less")
-                    .RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofilecontrol.js");
+                Page.RegisterStyle("~/UserControls/Users/UserProfile/css/userprofilecontrol_style.less")
+                    .RegisterBodyScripts("~/UserControls/Users/UserProfile/js/userprofilecontrol.js");
             }
         }
     }

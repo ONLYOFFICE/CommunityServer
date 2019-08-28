@@ -36,22 +36,22 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             {
                 return new[]
                 {
-                    "~/products/projects/ProjectsTemplates/ListProjectsTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ListMilestonesTemplates.html",
-                    "~/products/projects/ProjectsTemplates/TimeTrackingTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ListTasksTemplates.html",
-                    "~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.html",
-                    "~/products/projects/ProjectsTemplates/SubtaskTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ActionPanelsTemplates.html",
-                    "~/products/projects/ProjectsTemplates/PopupContentTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ReportTemplates.html",
-                    "~/products/projects/ProjectsTemplates/ProjectAction.html",
-                    "~/products/projects/ProjectsTemplates/SettingsTemplates.html",
-                    "~/products/crm/templates/SimpleContactListTemplate.html",
-                    "~/products/crm/templates/ContactSelectorTemplates.html",
-                    "~/products/crm/templates/ContactInfoCardTemplate.html"
+                    "~/Products/Projects/ProjectsTemplates/ListProjectsTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ListMilestonesTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/TimeTrackingTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ProjectsTmplTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ListTasksTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/TaskDescriptionTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/SubtaskTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ListDiscussionsTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ActionPanelsTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/PopupContentTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ReportTemplates.html",
+                    "~/Products/Projects/ProjectsTemplates/ProjectAction.html",
+                    "~/Products/Projects/ProjectsTemplates/SettingsTemplates.html",
+                    "~/Products/CRM/Templates/SimpleContactListTemplate.html",
+                    "~/Products/CRM/Templates/ContactSelectorTemplates.html",
+                    "~/Products/CRM/Templates/ContactInfoCardTemplate.html"
                 };
             }
         }

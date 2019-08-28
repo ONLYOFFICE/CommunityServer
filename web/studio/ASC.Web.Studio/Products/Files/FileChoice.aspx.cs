@@ -193,9 +193,9 @@ namespace ASC.Web.Files
                                   "filechoice.js"
                        )
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "controls/emptyfolder/emptyfolder.js",
-                                  "controls/fileselector/fileselector.js",
-                                  "controls/tree/tree.js"
+                                  "Controls/EmptyFolder/emptyfolder.js",
+                                  "Controls/FileSelector/fileselector.js",
+                                  "Controls/Tree/tree.js"
                        );
         }
 
@@ -205,11 +205,11 @@ namespace ASC.Web.Files
                    new StyleBundleData("fileschoice", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath, "filechoice.css")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "controls/fileselector/fileselector.css",
-                                  "controls/thirdparty/thirdparty.css",
-                                  "controls/contentlist/contentlist.css",
-                                  "controls/emptyfolder/emptyfolder.css",
-                                  "controls/tree/tree.css"
+                                  "Controls/FileSelector/fileselector.css",
+                                  "Controls/ThirdParty/thirdparty.css",
+                                  "Controls/ContentList/contentlist.css",
+                                  "Controls/EmptyFolder/emptyfolder.css",
+                                  "Controls/Tree/tree.css"
                        );
         }
 

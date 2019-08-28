@@ -71,7 +71,7 @@ namespace ASC.Web.Community.Wiki.Common
 
         public override ImageOptions Logo
         {
-            get { return new ImageOptions { ImageFileName = "WikiLogo16.png", PartID = WikiManager.ModuleId }; }
+            get { return new ImageOptions { ImageFileName = "wikilogo16.png", PartID = WikiManager.ModuleId }; }
         }
 
         public override string SearchName

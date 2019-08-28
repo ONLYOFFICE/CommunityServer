@@ -58,8 +58,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/maildomainsettings/js/maildomainsettings.js")
-                .RegisterStyle("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/MailDomainSettings/js/maildomainsettings.js")
+                .RegisterStyle("~/UserControls/Management/MailDomainSettings/css/maildomainsettings.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
             _studioTrustedDomainSettings = StudioTrustedDomainSettings.Load();

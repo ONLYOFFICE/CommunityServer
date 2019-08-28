@@ -67,11 +67,11 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 ThumbnailSettings = UserPhotoThumbnailSettings.LoadForUser(User.ID);
             }
 
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less",
-                               "~/usercontrols/users/userprofile/css/jquery.jcrop.less")
+            Page.RegisterStyle("~/UserControls/Users/UserProfile/css/loadphoto_style.less",
+                               "~/UserControls/Users/UserProfile/css/jquery.jcrop.less")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
-                                    "~/usercontrols/users/userprofile/js/loadphoto.js",
-                                     "~/usercontrols/users/userprofile/js/jquery.jcrop.js");
+                                    "~/UserControls/Users/UserProfile/js/loadphoto.js",
+                                     "~/UserControls/Users/UserProfile/js/jquery.jcrop.js");
 
             var script =
                 string.Format(

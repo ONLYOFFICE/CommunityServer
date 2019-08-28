@@ -45,8 +45,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/monitoring/js/loghelper.js")
-                .RegisterStyle("~/usercontrols/management/monitoring/css/monitoring.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/loghelper.js")
+                .RegisterStyle("~/uUserControls/Management/Monitoring/css/monitoring.less");
             
             if (IsDownloadRequest())
                 DownloadArchive();

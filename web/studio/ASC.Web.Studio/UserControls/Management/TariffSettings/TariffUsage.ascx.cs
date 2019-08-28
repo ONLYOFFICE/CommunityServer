@@ -143,13 +143,13 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             Page
-                .RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffusage.js",
+                .RegisterBodyScripts("~/UserControls/Management/TariffSettings/js/tariffusage.js",
                     "~/js/asc/plugins/countries.js",
                     "~/js/asc/plugins/phonecontroller.js")
                 .RegisterStyle(
                     "~/skins/default/phonecontroller.css",
-                    "~/usercontrols/management/tariffsettings/css/tariff.less",
-                    "~/usercontrols/management/tariffsettings/css/tariffusage.less")
+                    "~/UserControls/Management/TariffSettings/css/tariff.less",
+                    "~/UserControls/Management/TariffSettings/css/tariffusage.less")
                 .RegisterClientScript(new CountriesResources());
 
             CurrentRegion = RegionDefault;

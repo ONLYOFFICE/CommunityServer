@@ -29,16 +29,16 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 	public static class BookmarkingRequestConstants
 	{
 		//Page address to be used in a get request
-		public const string BookmarkingPageName = "default.aspx";
+		public const string BookmarkingPageName = "Default.aspx";
 		public const string Question_Sybmol = "?";
-		public const string BookmarkInfoPageName = "bookmarkinfo.aspx";
-		public const string FavouriteBookmarksPageName = "favouritebookmarks.aspx";
-		public const string CreateBookmarkPageName = "createbookmark.aspx";
+		public const string BookmarkInfoPageName = "BookmarkInfo.aspx";
+		public const string FavouriteBookmarksPageName = "FavouriteBookmarks.aspx";
+		public const string CreateBookmarkPageName = "CreateBookmark.aspx";
 		public const string UrlGetRequest = "url";
 		public const string SelectedTab = "selectedtab";
 		public const string SelectedTabBookmarkCommnets = "bookmarkcommnetstab";
 		public const string SelectedTabBookmarkAddedBy = "bookmarkaddedbytab";
-		public const string BookmarksCreatedByUserPageName = "userbookmarks.aspx";
+		public const string BookmarksCreatedByUserPageName = "UserBookmarks.aspx";
 		public const string UidParam = "uid";
 
 		//Sorting constants
@@ -76,7 +76,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 		//No thumbnail available image
 		public const string NoImageAvailable = "noimageavailable.jpg";
 
-		public const string BookmarkingBasePath = "~/products/community/modules/bookmarking";
+		public const string BookmarkingBasePath = "~/Products/Community/Modules/Bookmarking";
 
 		public const string BookmarkingStorageManagerID = "bookmarking";
 		

@@ -379,7 +379,7 @@ function updateThumbnailSrc() {
 
 function updateThumbnails(url, thumbnailUrl) {
 	if (thumbnailUrl == null || '' == thumbnailUrl) {
-		thumbnailUrl = 'app_themes/default/images/noimageavailable.jpg';
+		thumbnailUrl = 'App_Themes/default/images/noimageavailable.jpg';
 	}
 	jq("img[alt='" + url + "']").each(function() {
 		jq(this).attr("src", thumbnailUrl);

@@ -55,7 +55,7 @@
     </Reference>
     <Reference Include="ASC.Mail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Bin\ASC.Mail.dll</HintPath>
+      <HintPath>..\..\bin\ASC.Mail.dll</HintPath>
     </Reference>
     <Reference Include="ASC.MessagingSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="ProfileAction.aspx.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProfileAction.aspx.designer.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
@@ -161,41 +162,41 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\images\product_disabled_logo.png" />
-    <Content Include="App_Themes\Default\images\product_logo.png" />
-    <Content Include="App_Themes\Default\images\product_logolarge.png" />
-    <Content Include="App_Themes\Default\images\product_logomiddle.png" />
-    <Content Include="App_Themes\Default\images\product_search_icon.png" />
-    <Content Include="App_Themes\Default\imgs\angle00.png" />
-    <Content Include="App_Themes\Default\imgs\angle01.png" />
-    <Content Include="App_Themes\Default\imgs\angle02.png" />
-    <Content Include="App_Themes\Default\imgs\angle03.png" />
-    <Content Include="App_Themes\Default\imgs\angle05.png" />
-    <Content Include="App_Themes\Default\imgs\angle07.png" />
-    <Content Include="App_Themes\Default\imgs\angle08.png" />
-    <Content Include="App_Themes\Default\imgs\birthday.png" />
-    <Content Include="App_Themes\Default\imgs\btn-subtr.png" />
-    <Content Include="App_Themes\Default\imgs\delete_small.png" />
-    <Content Include="App_Themes\Default\imgs\icon-user-blocked-small.png" />
-    <Content Include="App_Themes\Default\imgs\icon-user-wait-small.png" />
-    <Content Include="App_Themes\Default\imgs\loader.gif" />
-    <Content Include="App_Themes\Default\imgs\new_field.png" />
-    <Content Include="App_Themes\Default\imgs\people_import.png" />
-    <Content Include="App_Themes\Default\imgs\reassign-sprite.png" />
-    <Content Include="App_Themes\Default\imgs\social-icons-small.png" />
-    <Content Include="App_Themes\Default\imgs\social-icons.png" />
+    <Content Include="App_Themes\default\images\product_disabled_logo.png" />
+    <Content Include="App_Themes\default\images\product_logo.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="App_Themes\default\images\product_logomiddle.png" />
+    <Content Include="App_Themes\default\images\product_search_icon.png" />
+    <Content Include="App_Themes\default\imgs\angle00.png" />
+    <Content Include="App_Themes\default\imgs\angle01.png" />
+    <Content Include="App_Themes\default\imgs\angle02.png" />
+    <Content Include="App_Themes\default\imgs\angle03.png" />
+    <Content Include="App_Themes\default\imgs\angle05.png" />
+    <Content Include="App_Themes\default\imgs\angle07.png" />
+    <Content Include="App_Themes\default\imgs\angle08.png" />
+    <Content Include="App_Themes\default\imgs\birthday.png" />
+    <Content Include="App_Themes\default\imgs\btn-subtr.png" />
+    <Content Include="App_Themes\default\imgs\delete_small.png" />
+    <Content Include="App_Themes\default\imgs\icon-user-blocked-small.png" />
+    <Content Include="App_Themes\default\imgs\icon-user-wait-small.png" />
+    <Content Include="App_Themes\default\imgs\loader.gif" />
+    <Content Include="App_Themes\default\imgs\new_field.png" />
+    <Content Include="App_Themes\default\imgs\people_import.png" />
+    <Content Include="App_Themes\default\imgs\reassign-sprite.png" />
+    <Content Include="App_Themes\default\imgs\social-icons-small.png" />
+    <Content Include="App_Themes\default\imgs\social-icons.png" />
     <Content Include="Import.aspx" />
     <Content Include="Reassigns.aspx" />
     <Content Include="js\reassigns.js" />
     <Content Include="js\departmentmanagement.js" />
-    <Content Include="js\peopleActions.js" />
-    <Content Include="js\PeopleManager.js" />
-    <Content Include="js\sideNavigationPanel.js" />
+    <Content Include="js\peopleactions.js" />
+    <Content Include="js\peoplemanager.js" />
+    <Content Include="js\sidenavigationpanel.js" />
     <Content Include="Default.aspx" />
-    <Content Include="js\peopleCore.js" />
-    <Content Include="js\filterHandler.js" />
-    <Content Include="js\navigatorHandler.js" />
-    <Content Include="js\peopleController.js" />
+    <Content Include="js\peoplecore.js" />
+    <Content Include="js\filterhandler.js" />
+    <Content Include="js\navigatorhandler.js" />
+    <Content Include="js\peoplecontroller.js" />
     <Content Include="Profile.aspx" />
     <Content Include="Templates\PeopleTemplates.html" />
     <Content Include="UserControls\ImportUsers\images\error_info.png" />
@@ -208,7 +209,7 @@
     <Content Include="UserControls\ImportUsers\images\trash_fu.png" />
     <Content Include="UserControls\ImportUsers\images\up.png" />
     <Content Include="UserControls\ImportUsers\ImportUsers.ascx" />
-    <Content Include="UserControls\ImportUsers\js\importUsers.js" />
+    <Content Include="UserControls\ImportUsers\js\importusers.js" />
     <Content Include="UserControls\SideNavigationPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +225,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Themes\Default\css\people.master.less" />
+    <None Include="App_Themes\default\css\people.master.less" />
     <Content Include="Help.aspx" />
     <Content Include="Masters\PeopleBaseTemplate.Master" />
     <Content Include="ProfileAction.aspx" />

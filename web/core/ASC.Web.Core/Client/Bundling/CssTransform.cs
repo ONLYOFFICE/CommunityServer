@@ -105,7 +105,7 @@ namespace ASC.Web.Core.Client.Bundling
                 {
                     path = "~" + path;
                 }
-                path = VirtualPathUtility.MakeRelative(bundlepath, path).ToLowerInvariant();
+                path = VirtualPathUtility.MakeRelative(bundlepath, path);
                 return m.Value.Replace(m.Groups[1].Value, "\"" + path + "\"");
             }
             return m.Value;

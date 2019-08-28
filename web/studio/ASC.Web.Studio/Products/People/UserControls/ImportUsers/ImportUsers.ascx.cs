@@ -89,7 +89,7 @@ namespace ASC.Web.People.UserControls
         {
             Page.RegisterStyle(PeopleProduct.ProductPath + "UserControls/ImportUsers/css/import.less")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js", "~/js/third-party/xregexp.js",
-                PeopleProduct.ProductPath + "UserControls/ImportUsers/js/ImportUsers.js");
+                PeopleProduct.ProductPath + "UserControls/ImportUsers/js/importusers.js");
         }
     }
 }

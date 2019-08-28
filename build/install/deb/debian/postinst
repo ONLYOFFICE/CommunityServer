@@ -141,7 +141,7 @@ install_db(){
 
 apply_connection_string(){
 	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
-		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;Connection Timeout=30;Maximum Pool Size=300;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 	fi
 }
 
@@ -229,9 +229,16 @@ case "$1" in
                 mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 
 		upgrade_storage
-
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR
-		chown {{package_sysname}}:{{package_sysname}} -R $LOG_DIR
+	
+		chown {{package_sysname}}:{{package_sysname}} $DIR
+		chown {{package_sysname}}:{{package_sysname}} $APP_DATA_DIR
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Services/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/WebStudio/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Sql/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Tools/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/ApiSystem/				
+		chown {{package_sysname}}:{{package_sysname}} $LOG_DIR
+		
 		chown www-data:www-data -R /var/cache/nginx/{{package_sysname}}
 		chown {{package_sysname}}:www-data -R /var/run/{{package_sysname}}
 		chmod g+s+w /var/run/{{package_sysname}}
@@ -261,6 +268,7 @@ END
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 
+		
         #configure elasticsearch
         service elasticsearch stop
 	
@@ -324,6 +332,14 @@ END
 			sed -i "s/thread_pool.write.size.*/thread_pool.write.size: $CORE_COUNT/" /etc/elasticsearch/elasticsearch.yml 
 		fi
 		
+		if grep -q "HeapDumpOnOutOfMemoryError" /etc/elasticsearch/jvm.options; then
+			sed "/-XX:+HeapDumpOnOutOfMemoryError/d" -i /etc/elasticsearch/jvm.options
+		fi
+
+		if [ -d /etc/elasticsearch/ ]; then 
+			chmod g+ws /etc/elasticsearch/
+		fi
+		
         service elasticsearch start
 	
 
@@ -368,14 +384,19 @@ END
     			# change web.appsettings link to editor
     			sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_ROOT_DIR}/web.appsettings.config
     			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
-    			
     			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
-    
+				
+				sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
+    			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
+    			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
+				
 	    		sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
 
 				if [ "${DOCUMENT_SERVER_JWT_ENABLED}" = "true" ]; then
 	    			sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
 	    			sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
+					sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
+	    			sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
 				fi
 		fi
 
@@ -385,7 +406,7 @@ END
 			sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
-			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
+			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 		fi
 
 		# end

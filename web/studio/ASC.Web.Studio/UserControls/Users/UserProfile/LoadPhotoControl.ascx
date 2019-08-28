@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoadPhotoControl.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserProfile.LoadPhotoControl" %>
+<%@ Import Namespace="ASC.ActiveDirectory.Base.Settings" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="Resources" %>
@@ -29,7 +30,7 @@
                 <img src="<%= MainImgUrl %>" alt=""/>
                 <div class="empty-selection display-none"><%= ResourceJS.EmptySelectedArea %></div>
             </div>
-            <% if (!IsLdap)
+            <% if (!IsLdap || !LdapSettings.GetImportedFields.Contains(LdapSettings.MappingFields.AvatarAttribute))
             { %>
                 <div class="preview-buttons-container clearFix">
                     <a class="link dotline delete-btn"><%= Resource.DeleteButton %></a>

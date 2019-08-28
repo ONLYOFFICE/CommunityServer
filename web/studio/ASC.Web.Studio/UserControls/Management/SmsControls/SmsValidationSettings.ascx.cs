@@ -50,7 +50,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/SmsValidation.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/SmsControls/js/smsvalidation.js");
 
             SmsEnable = StudioSmsNotificationSettings.IsVisibleSettings && SmsProviderManager.Enabled();
             TfaAppEnable = TfaAppAuthSettings.IsVisibleSettings;

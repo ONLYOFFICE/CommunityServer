@@ -59,7 +59,7 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyle("~/usercontrols/common/thirdpartybanner/css/thirdpartybanner.css");
+            Page.RegisterStyle("~/UserControls/Common/ThirdPartyBanner/css/thirdpartybanner.css");
 
             var tmp = GetBanner;
             var i = new Random().Next(0, tmp.Count());

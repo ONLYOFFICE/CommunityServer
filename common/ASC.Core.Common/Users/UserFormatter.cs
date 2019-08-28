@@ -144,7 +144,7 @@ namespace ASC.Core.Users
             return format.IndexOf("{0}") < format.IndexOf("{1}") ? DisplayUserNameFormat.FirstLast : DisplayUserNameFormat.LastFirst;
         }
 
-        public static Regex UserNameRegex = new Regex(@"(?s)^(?!.*[:\/]).*$");
+        public static Regex UserNameRegex = new Regex(ConfigurationManager.AppSettings["core.username.regex"] ?? "");
 
         public static bool IsValidUserName(string firstName, string lastName)
         {

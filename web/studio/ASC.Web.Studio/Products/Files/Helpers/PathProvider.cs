@@ -41,17 +41,17 @@ namespace ASC.Web.Files.Classes
 {
     public static class PathProvider
     {
-        public static readonly String ProjectVirtualPath = "~/products/projects/tmdocs.aspx";
+        public static readonly String ProjectVirtualPath = "~/Products/Projects/TMDocs.aspx";
 
-        public static readonly String TemplatePath = "/products/files/templates/";
+        public static readonly String TemplatePath = "/Products/Files/Templates/";
 
         public static readonly String StartURL = FilesLinkUtility.FilesBaseVirtualPath;
 
-        public static readonly String GetFileServicePath = CommonLinkUtility.ToAbsolute("~/products/files/services/wcfservice/service.svc/");
+        public static readonly String GetFileServicePath = CommonLinkUtility.ToAbsolute("~/Products/Files/Services/WCFService/service.svc/");
 
         public static string GetImagePath(string imgFileName)
         {
-            return WebImageSupplier.GetAbsoluteWebPath(imgFileName, Configuration.ProductEntryPoint.ID).ToLower();
+            return WebImageSupplier.GetAbsoluteWebPath(imgFileName, Configuration.ProductEntryPoint.ID);
         }
 
         public static string GetFileStaticRelativePath(string fileName)
@@ -60,11 +60,11 @@ namespace ASC.Web.Files.Classes
             switch (ext)
             {
                 case ".js": //Attention: Only for ResourceBundleControl
-                    return VirtualPathUtility.ToAbsolute("~/products/files/js/" + fileName);
+                    return VirtualPathUtility.ToAbsolute("~/Products/Files/js/" + fileName);
                 case ".ascx":
-                    return CommonLinkUtility.ToAbsolute("~/products/files/controls/" + fileName).ToLowerInvariant();
+                    return CommonLinkUtility.ToAbsolute("~/Products/Files/Controls/" + fileName);
                 case ".css": //Attention: Only for ResourceBundleControl
-                    return VirtualPathUtility.ToAbsolute("~/products/files/app_themes/default/" + fileName);
+                    return VirtualPathUtility.ToAbsolute("~/Products/Files/App_Themes/default/" + fileName);
             }
 
             return fileName;
@@ -72,7 +72,7 @@ namespace ASC.Web.Files.Classes
 
         public static String GetFileControlPath(String fileName)
         {
-            return CommonLinkUtility.ToAbsolute("~/products/files/controls/" + fileName).ToLowerInvariant();
+            return CommonLinkUtility.ToAbsolute("~/Products/Files/Controls/" + fileName);
         }
 
         public static string GetFolderUrl(Folder folder, int projectID = 0)

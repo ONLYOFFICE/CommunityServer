@@ -38,7 +38,7 @@
 #emptyContainer_trash .empty-folder-goto:after {
    /* background: url("images/btn_emptyfolder.png") no-repeat center top transparent;*/
 
-    background-image: url('../../../../skins/default/Images/svg/documents/people.svg');
+    background-image: url('../../../../skins/default/images/svg/documents/people.svg');
 }
 
 .empty-folder-create-document {

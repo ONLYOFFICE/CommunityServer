@@ -25,7 +25,6 @@
 
 
 using System.Web.UI;
-using ASC.Web.Studio;
 
 namespace ASC.Web.Community.Blogs
 {

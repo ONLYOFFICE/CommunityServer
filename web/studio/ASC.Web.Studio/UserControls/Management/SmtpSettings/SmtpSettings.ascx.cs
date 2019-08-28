@@ -75,11 +75,11 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts(ResolveUrl, "~/usercontrols/management/smtpsettings/js/smtpsettings.js");
+            Page.RegisterBodyScripts(ResolveUrl, "~/UserControls/Management/SmtpSettings/js/smtpsettings.js");
             Page.ClientScript.RegisterClientScriptBlock(GetType(),
                 "smtpsettings_style",
                 string.Format("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\">",
-                    WebPath.GetPath("usercontrols/management/smtpsettings/css/smtpsettings.css")), false);
+                    WebPath.GetPath("UserControls/Management/SmtpSettings/css/smtpsettings.css")), false);
             Page.RegisterInlineScript(GetSmtpSettingsInitInlineScript(), true, false);
         }
 

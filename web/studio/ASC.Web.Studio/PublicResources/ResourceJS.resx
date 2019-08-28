@@ -123,6 +123,9 @@
   <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
     <value>Enter mobile phone number</value>
   </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>Validation code field cannot be empty</value>
+  </data>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
   </data>

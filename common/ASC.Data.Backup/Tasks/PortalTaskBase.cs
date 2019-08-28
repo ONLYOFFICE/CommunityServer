@@ -279,7 +279,7 @@ namespace ASC.Data.Backup.Tasks
 
                     while ((commandText = await reader.ReadLineAsync()) != null)
                     {
-                        while (!commandText.Contains(delimiter))
+                        while (!commandText.EndsWith(delimiter))
                         {
                             var newline = await reader.ReadLineAsync();
                             if (newline == null)

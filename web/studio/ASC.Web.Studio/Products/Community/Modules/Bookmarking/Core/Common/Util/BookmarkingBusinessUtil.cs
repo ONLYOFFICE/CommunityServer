@@ -41,7 +41,7 @@ namespace ASC.Bookmarking.Common.Util
 
         public static string GenerateBookmarksUrl(Bookmark b)
         {
-            return VirtualPathUtility.ToAbsolute(BookmarkingBusinessConstants.BookmarkingBasePath + "/default.aspx");
+            return VirtualPathUtility.ToAbsolute(BookmarkingBusinessConstants.BookmarkingBasePath + "/Default.aspx");
         }
 
         public static string RenderProfileLink(Guid userID)

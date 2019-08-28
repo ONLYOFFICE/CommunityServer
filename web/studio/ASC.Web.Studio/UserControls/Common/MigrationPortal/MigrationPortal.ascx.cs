@@ -34,7 +34,7 @@ namespace ASC.Web.Studio.UserControls.Common.MigrationPortal
     {
         public static string Location
         {
-            get { return "~/usercontrols/common/MigrationPortal/MigrationPortal.ascx"; }
+            get { return "~/UserControls/Common/MigrationPortal/MigrationPortal.ascx"; }
         }
 
         protected string HeaderPage { get; set; }

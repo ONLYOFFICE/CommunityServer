@@ -88,10 +88,6 @@
 
         jq("#actionGroupMenu").find("a.dropdown-item").bind("click", onButtonClick);
 
-        jq(".people-import-banner_img").on("click", function () {
-            ImportUsersManager.ShowImportControl('ASC.Controls.AnchorController.trigger()');
-        });
-
         bindClipboardEvent();
     }
 

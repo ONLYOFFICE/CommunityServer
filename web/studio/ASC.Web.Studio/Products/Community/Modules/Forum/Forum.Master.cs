@@ -70,7 +70,7 @@ namespace ASC.Web.Community.Forum
             sb.Append(" ForumContainer_PanelInfoID = '" + ForumContainer.GetInfoPanelClientID() + "'; ");
 
             Page.RegisterBodyScripts(ForumManager.BaseVirtualPath + "/js/forummaker.js")
-                .RegisterStyle(ForumManager.BaseVirtualPath + "/app_themes/default/style.css")
+                .RegisterStyle(ForumManager.BaseVirtualPath + "/App_Themes/default/style.css")
                 .RegisterInlineScript(sb.ToString());
 
             SearchText = "";

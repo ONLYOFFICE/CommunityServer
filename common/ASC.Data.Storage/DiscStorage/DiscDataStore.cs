@@ -147,7 +147,7 @@ namespace ASC.Data.Storage.DiscStorage
             //optimaze disk file copy
             var fileStream = buffered as FileStream;
             long fslen;
-            if (fileStream != null && WorkContext.IsMono)
+            if (fileStream != null && WorkContext.IsMono && false) // false, because Mono 6.0 throw System.IO.IOException: Sharing violation on path /tmp/...
             {
                 File.Copy(fileStream.Name, target, true);
                 fslen = fileStream.Length;

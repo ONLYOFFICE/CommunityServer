@@ -158,7 +158,7 @@ namespace ASC.Web.Community.News
 
         protected void RenderScripts()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
 
             //Page.RegisterInlineScript("ckeditorConnector.load(function () {window.newsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComNews', extraPlugins: '', filebrowserUploadUrl: '" + RedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.load(function () {" +

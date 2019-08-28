@@ -304,6 +304,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Document.
+        /// </summary>
+        public static string ButtonCreateDocument2 {
+            get {
+                return ResourceManager.GetString("ButtonCreateDocument2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder.
         /// </summary>
         public static string ButtonCreateFolder {
@@ -322,11 +331,29 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Presentation.
+        /// </summary>
+        public static string ButtonCreatePresentation2 {
+            get {
+                return ResourceManager.GetString("ButtonCreatePresentation2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spreadsheet.
         /// </summary>
         public static string ButtonCreateSpreadsheet {
             get {
                 return ResourceManager.GetString("ButtonCreateSpreadsheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Spreadsheet.
+        /// </summary>
+        public static string ButtonCreateSpreadsheet2 {
+            get {
+                return ResourceManager.GetString("ButtonCreateSpreadsheet2", resourceCulture);
             }
         }
         

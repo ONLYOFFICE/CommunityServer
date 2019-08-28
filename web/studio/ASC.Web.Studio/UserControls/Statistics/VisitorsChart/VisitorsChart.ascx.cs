@@ -42,11 +42,11 @@ namespace ASC.Web.Studio.UserControls.Statistics
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyle("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less")
-                .RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js",
-                "~/usercontrols/statistics/visitorschart/js/jquery.flot.js",
-                "~/usercontrols/statistics/visitorschart/js/tooltip.js",
-                "~/usercontrols/statistics/visitorschart/js/visitorschart.js");
+            Page.RegisterStyle("~/UserControls/Statistics/VisitorsChart/css/visitorschart_style.less")
+                .RegisterBodyScripts("~/UserControls/Statistics/VisitorsChart/js/excanvas.min.js",
+                "~/UserControls/Statistics/VisitorsChart/js/jquery.flot.js",
+                "~/UserControls/Statistics/VisitorsChart/js/tooltip.js",
+                "~/UserControls/Statistics/VisitorsChart/js/visitorschart.js");
 
             var jsResources = new StringBuilder();
             jsResources.Append("jq(document).ready(function(){");

@@ -43,7 +43,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffhistory.less");
+            Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariffhistory.less");
 
             PaymentsRepeater.DataSource = Payments;
             PaymentsRepeater.DataBind();

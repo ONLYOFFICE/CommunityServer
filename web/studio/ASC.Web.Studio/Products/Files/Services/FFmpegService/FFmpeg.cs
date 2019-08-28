@@ -18,7 +18,7 @@ namespace ASC.Web.Files.Services.FFmpegService
             get
             {
                 if (string.IsNullOrEmpty(FFmpegPath)) return new List<string>();
-                return ConvertableMedia.Keys.ToList();
+                return ConvertableMedia.ToList();
             }
         }
 
@@ -52,13 +52,13 @@ namespace ASC.Web.Files.Services.FFmpegService
             logger = LogManager.GetLogger("ASC.Files");
 
             var exts = WebConfigurationManager.AppSettings["files.ffmpeg.exts"];
-            ConvertableMedia = new Dictionary<string, string>();
+            ConvertableMedia = new List<string>();
 
             if (!string.IsNullOrEmpty(exts))
             {
                 try
                 {
-                    ConvertableMedia = exts.Split('|').ToDictionary(f => f.Split('-')[0], f => f.Split('-')[1]);
+                    ConvertableMedia = exts.Split('|').ToList();
                 }
                 catch (Exception e)
                 {
@@ -74,46 +74,32 @@ namespace ASC.Web.Files.Services.FFmpegService
                 {
                     if (!Directory.Exists(folder)) continue;
 
-                    if (WorkContext.IsMono)
+                    foreach (var name in FFmpegExecutables)
                     {
-                        if (File.Exists(Path.Combine(folder, "ffmpeg")))
+                        var path = Path.Combine(folder, WorkContext.IsMono ? name : name + ".exe");
+                        if (File.Exists(path))
                         {
-                            FFmpegPath = Path.Combine(folder, "ffmpeg");
-                            break;
-                        }
-                        else if (File.Exists(Path.Combine(folder, "avconv")))
-                        {
-                            FFmpegPath = Path.Combine(folder, "avconv");
+                            FFmpegPath = path;
+                            logger.InfoFormat("FFmpeg found in {0}", path);
                             break;
                         }
                     }
-                    else
-                    {
-                        if (File.Exists(Path.Combine(folder, "ffmpeg.exe")))
-                        {
-                            FFmpegPath = Path.Combine(folder, "ffmpeg.exe");
-                            break;
-                        }
-                        else if (File.Exists(Path.Combine(folder, "avconv.exe")))
-                        {
-                            FFmpegPath = Path.Combine(folder, "avconv.exe");
-                            break;
-                        }
-                    }
+
+                    if (!string.IsNullOrEmpty(FFmpegPath)) break;
                 }
             }
         }
 
-        private static readonly Dictionary<string, string> ConvertableMedia;
+        private static readonly List<string> ConvertableMedia;
+        private static readonly List<string> FFmpegExecutables = new List<string>() { "ffmpeg", "avconv" };
         private static readonly string FFmpegPath = WebConfigurationManager.AppSettings["files.ffmpeg"];
-        private static readonly string FFmpegArgs = WebConfigurationManager.AppSettings["files.ffmpeg.args"] ?? "-f {0} -i - -preset ultrafast -movflags frag_keyframe+empty_moov -f {1} -";
+        private static readonly string FFmpegArgs = WebConfigurationManager.AppSettings["files.ffmpeg.args"] ?? "-i - -preset ultrafast -movflags frag_keyframe+empty_moov -f {0} -";
 
         private static readonly ILog logger;
 
         private static ProcessStartInfo PrepareFFmpeg(string inputFormat)
         {
-            if (!ConvertableMedia.ContainsKey(inputFormat.TrimStart('.'))) throw new ArgumentException();
-            var internalFormat = ConvertableMedia[inputFormat.TrimStart('.')];
+            if (!ConvertableMedia.Contains(inputFormat.TrimStart('.'))) throw new ArgumentException();
 
             var startInfo = new ProcessStartInfo();
 
@@ -125,7 +111,7 @@ namespace ASC.Web.Files.Services.FFmpegService
 
             startInfo.FileName = FFmpegPath;
             startInfo.WorkingDirectory = Path.GetDirectoryName(FFmpegPath);
-            startInfo.Arguments = string.Format(FFmpegArgs, internalFormat, "mp4");
+            startInfo.Arguments = string.Format(FFmpegArgs, "mp4");
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardInput = true;

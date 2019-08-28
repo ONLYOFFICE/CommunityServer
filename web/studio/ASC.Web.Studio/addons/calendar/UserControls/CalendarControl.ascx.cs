@@ -25,13 +25,10 @@
 
 
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Web.Core.Utility;
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Calendar.UserControls
@@ -40,7 +37,7 @@ namespace ASC.Web.Calendar.UserControls
     {
         public static string Location
         {
-            get { return "~/addons/calendar/usercontrols/calendarcontrol.ascx"; }
+            get { return "~/addons/calendar/UserControls/CalendarControl.ascx"; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -53,21 +50,21 @@ namespace ASC.Web.Calendar.UserControls
         private void InitScripts()
         {
             Page
-                .RegisterStyle("~/addons/calendar/app_themes/<theme_folder>/calendar.less")
-                .RegisterStyle("~/addons/calendar/usercontrols/popup/css/popup.css",
-                    "~/addons/calendar/usercontrols/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
-                    "~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
-                    "~/addons/calendar/usercontrols/css/jquery.jscrollpane.css")
+                .RegisterStyle("~/addons/calendar/App_Themes/<theme_folder>/calendar.less")
+                .RegisterStyle("~/addons/calendar/UserControls/popup/css/popup.css",
+                    "~/addons/calendar/UserControls/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/UserControls/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/UserControls/css/jquery.jscrollpane.css")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
-                    "~/addons/calendar/usercontrols/js/bluebird.min.js",
-                    "~/addons/calendar/usercontrols/popup/popup.js",
-                    "~/addons/calendar/usercontrols/js/calendar_controller.js",
-                    "~/addons/calendar/usercontrols/js/recurrence_rule.js",
-                    "~/addons/calendar/usercontrols/js/calendar_event_page.js",
-                    "~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js",
-                    "~/addons/calendar/usercontrols/js/jquery.mousewheel.js",
-                    "~/addons/calendar/usercontrols/js/jquery.cookie.js",
-                    "~/addons/calendar/usercontrols/fullcalendar/fullcalendar.js");
+                    "~/addons/calendar/UserControls/js/bluebird.min.js",
+                    "~/addons/calendar/UserControls/popup/popup.js",
+                    "~/addons/calendar/UserControls/js/calendar_controller.js",
+                    "~/addons/calendar/UserControls/js/recurrence_rule.js",
+                    "~/addons/calendar/UserControls/js/calendar_event_page.js",
+                    "~/addons/calendar/UserControls/js/jquery.jscrollpane.min.js",
+                    "~/addons/calendar/UserControls/js/jquery.mousewheel.js",
+                    "~/addons/calendar/UserControls/js/jquery.cookie.js",
+                    "~/addons/calendar/UserControls/fullcalendar/fullcalendar.js");
 
 
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "calendar_full_screen",
@@ -77,7 +74,7 @@ namespace ASC.Web.Calendar.UserControls
                     </style>", false);
 
             var script = new StringBuilder();
-            script.AppendFormat("ASC.CalendarController.init([{0}], '{1}');", RenderTimeZones(), VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/fullcalendar/tmpl/notifications.editor.tmpl"));
+            script.AppendFormat("ASC.CalendarController.init([{0}], '{1}');", RenderTimeZones(), VirtualPathUtility.ToAbsolute("~/addons/calendar/UserControls/fullcalendar/tmpl/notifications.editor.tmpl"));
 
             Page.RegisterInlineScript(script.ToString());
         }

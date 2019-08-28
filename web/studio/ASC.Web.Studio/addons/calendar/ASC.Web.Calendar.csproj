@@ -106,10 +106,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\images\biglogo.png" />
-    <Content Include="App_Themes\Default\images\logo.png" />
-    <Content Include="App_Themes\Default\images\disabledlogo.png" />
-    <Content Include="App_Themes\Default\images\minilogo.png" />
+    <Content Include="App_Themes\default\images\logo.png" />
+    <Content Include="App_Themes\default\images\disabledlogo.png" />
+    <Content Include="App_Themes\default\images\minilogo.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.png" />
     <Content Include="default.aspx" />
     <Content Include="UserControls\CalendarTemplates.ascx" />
     <Content Include="UserControls\CalendarControl.ascx" />
@@ -143,7 +143,7 @@
     <Content Include="UserControls\fullcalendar\css\asc-dialog\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="UserControls\fullcalendar\css\asc-dialog\images\ui-icons_ffffff_256x240.png" />
     <Content Include="UserControls\fullcalendar\css\asc-dialog\jquery-ui-1.8.14.custom.css" />
-    <Content Include="App_Themes\Default\calendar.less" />
+    <Content Include="App_Themes\default\calendar.less" />
     <Content Include="App_Themes\bright-blue\calendar.less" />
     <Content Include="App_Themes\dark-green\calendar.less" />
     <Content Include="App_Themes\deep-blue\calendar.less" />

@@ -403,8 +403,8 @@ div.advansed-filter div.advansed-filter-sort-container span.title{display:inline
 div.advansed-filter div.advansed-filter-sort-container span.title:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -2px;}
 
 div.advansed-filter div.advansed-filter-sort-container span.title span.value{border-bottom:1px dotted #333333; cursor:pointer; white-space:nowrap;}
-div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background: url('Images/svg/projects/ascending.svg');}
-div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background: url('Images/svg/projects/descending.svg');}
+div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background: url('images/svg/projects/ascending.svg');}
+div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background: url('images/svg/projects/descending.svg');}
 
 div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title{cursor:default; padding: 0 5px 0 0;}
 div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title:after {border: 0 none;}

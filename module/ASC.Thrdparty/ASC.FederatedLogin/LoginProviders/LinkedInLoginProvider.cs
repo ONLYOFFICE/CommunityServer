@@ -34,11 +34,12 @@ namespace ASC.FederatedLogin.LoginProviders
 {
     public class LinkedInLoginProvider : BaseLoginProvider<LinkedInLoginProvider>
     {
-        private const string LinkedInProfileUrl = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,formatted-name,email-address)?format=json";
+        private const string LinkedInProfileUrl = "https://api.linkedin.com/v2/me";
+        private const string LinkedInEmailUrl = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
 
         public override string AccessTokenUrl
         {
-            get { return "https://www.linkedin.com/uas/oauth2/accessToken"; }
+            get { return "https://www.linkedin.com/oauth/v2/accessToken"; }
         }
 
         public override string RedirectUri
@@ -58,12 +59,12 @@ namespace ASC.FederatedLogin.LoginProviders
 
         public override string CodeUrl
         {
-            get { return "https://www.linkedin.com/uas/oauth2/authorization"; }
+            get { return "https://www.linkedin.com/oauth/v2/authorization"; }
         }
 
         public override string Scopes
         {
-            get { return "r_basicprofile r_emailaddress"; }
+            get { return "r_liteprofile r_emailaddress"; }
         }
 
         public LinkedInLoginProvider() { }
@@ -82,6 +83,11 @@ namespace ASC.FederatedLogin.LoginProviders
             var linkedInProfile = RequestHelper.PerformRequest(LinkedInProfileUrl,
                 headers: new Dictionary<string, string> {{"Authorization", "Bearer " + accessToken}});
             var loginProfile = ProfileFromLinkedIn(linkedInProfile);
+
+            var linkedInEmail = RequestHelper.PerformRequest(LinkedInEmailUrl,
+                headers: new Dictionary<string, string> {{"Authorization", "Bearer " + accessToken}});
+            loginProfile.EMail = EmailFromLinkedIn(linkedInEmail);
+
             return loginProfile;
         }
 
@@ -93,14 +99,21 @@ namespace ASC.FederatedLogin.LoginProviders
             var profile = new LoginProfile
             {
                 Id = jProfile.Value<string>("id"),
-                FirstName = jProfile.Value<string>("firstName"),
-                LastName = jProfile.Value<string>("lastName"),
-                DisplayName = jProfile.Value<string>("formattedName"),
+                FirstName = jProfile.Value<string>("localizedFirstName"),
+                LastName = jProfile.Value<string>("localizedLastName"),
                 EMail = jProfile.Value<string>("emailAddress"),
                 Provider = ProviderConstants.LinkedIn,
             };
 
             return profile;
+        }
+
+        internal static string EmailFromLinkedIn(string linkedInEmail)
+        {
+            var jEmail = JObject.Parse(linkedInEmail);
+            if (jEmail == null) throw new Exception("Failed to correctly process the response");
+
+            return jEmail.SelectToken("elements[0].handle~.emailAddress").ToString();
         }
     }
 }

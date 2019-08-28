@@ -186,7 +186,7 @@
     }
 
     .baseLinkAction {
-        background: url('../../../../skins/default/Images/svg/people/pencilgray.svg') no-repeat 0 0 transparent;
+        background: url('../../../../skins/default/images/svg/people/pencilgray.svg') no-repeat 0 0 transparent;
         border: 0;
         display: inline-block;
         width: 16px;
@@ -197,7 +197,7 @@
         color: #FFF !important;
 
         &:hover {
-            background: url('../../../../skins/default/Images/svg/people/pencilblue.svg') no-repeat 0 0 transparent;
+            background: url('../../../../skins/default/images/svg/people/pencilblue.svg') no-repeat 0 0 transparent;
         }
     }
 }
@@ -346,129 +346,72 @@ body.media-width-0-1200 {
 
 
 /* <AccountLinkControl> */
-.social-logins .account-links ul {
-    display: block;
+.social-logins ul.account-links {
     height: 80px;
 
     li {
-        background: none;
-        width: auto;
-        min-width: 100px;
-        line-height: normal;
-        margin: 0 0 0 52px;
-        padding: 0;
+        margin: 0 48px 0 0;
         float: left;
         white-space: nowrap;
 
-        &:first-child {
-            margin-left: 0;
-        }
-
         span {
+            color: #787878;
             display: block;
             margin: 8px 0 0;
-            color: #787878;
+        }
+        &.connected span {
+            color: #116d9d;
         }
 
         a {
-            display: inline-block;
             border-bottom: 1px dotted #000000;
-            margin: 4px 0 0;
             color: #000000;
+            display: inline-block;
+            margin: 4px 0 0;
             text-decoration: none;
         }
 
-        .label {
-            display: block;
-            background-image: url(./images/social-icons.png);
+        .icon {
+            background-color: transparent;
             background-position: 0 0;
             background-repeat: no-repeat;
-            background-color: #83888d;
-            width: 32px;
-            height: 32px;
-            .borderRadius(3px);
+            height: 34px;
             margin: 0;
+            width: 105px;
+            .borderRadius(3px);
         }
-        &.google {
-            .label {
-                background: url('../../../../skins/default/Images/svg/people/googlegray.svg') no-repeat 0 0 transparent;
-                background-size: 100%;
-            }
-            &.connected {
-                .label {
-                    background: url('../../../../skins/default/Images/svg/people/google.svg') no-repeat 0 0 transparent;
-                    background-size: 100%;
-                }
-            }
+        &.google .icon {
+            background-image: url("../../../../skins/default/images/svg/people/google.png");
         }
 
-        &.twitter {
-            .label {
-                background: url('../../../../skins/default/Images/svg/people/twittergray.svg') no-repeat 0 0 transparent;
-                background-size: 100%;
-            }
-            &.connected {
-                .label {
-                    background: url('../../../../skins/default/Images/svg/people/twitter.svg') no-repeat 0 0 transparent;
-                    background-size: 100%;
-                }
-            }
+        &.twitter .icon {
+            background-image: url("../../../../skins/default/images/svg/people/twitter.png");
         }
 
-        &.facebook {
-            .label {
-                background: url('../../../../skins/default/Images/svg/people/facebookgray.svg') no-repeat 0 0 transparent;
-                background-size: 100%;
-            }
-            &.connected {
-                .label {
-                    background: url('../../../../skins/default/Images/svg/people/facebook.svg') no-repeat 0 0 transparent;
-                    background-size: 100%;
-                }
-            }
+        &.facebook .icon {
+            background-image: url("../../../../skins/default/images/svg/people/facebook.png");
         }
 
-        &.linkedin {
-            .label {
-                background: url('../../../../skins/default/Images/svg/people/linked_in_icongray.svg') no-repeat 0 0 transparent;
-                background-size: 100%;
-            }
-            &.connected {
-                .label {
-                    background: url('../../../../skins/default/Images/svg/people/linked_in_icon.svg') no-repeat 0 0 transparent;
-                    background-size: 100%;
-                }
-            }
+        &.linkedin .icon {
+            background-image: url("../../../../skins/default/images/svg/people/linkedin.png");
         }
     }
 }
 
 body.media-width-0-1400 {
-    .social-logins .account-links ul li {
-        margin: 0 0 0 30px;
-        &:first-child {
-            margin-left: 0;
-        }
+    .social-logins ul.account-links li {
+        margin-right: 32px;
+
         span {
-            max-width: 100px;
-            -ms-word-wrap: break-word;
-            word-wrap: break-word;
             white-space: normal;
+            word-wrap: break-word;
+            -ms-word-wrap: break-word;
         }
     }
 }
 body.media-width-0-1200 {
-    .social-logins .account-links ul li {
-        margin: 0 0 0 10px;
-        &:first-child {
-            margin-left: 0;
-        }
-        span {
-            max-width: 100px;
-            -ms-word-wrap: break-word;
-            word-wrap: break-word;
-            white-space: normal;
-        }
+    .social-logins ul.account-links li {
+        margin-right: 16px;
     }
 }
 

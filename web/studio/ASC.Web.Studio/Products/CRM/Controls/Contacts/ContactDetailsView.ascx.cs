@@ -81,9 +81,9 @@ namespace ASC.Web.CRM.Controls.Contacts
             if (TargetContact is Company)
                 ExecPeopleContainerView();
 
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.less")
-                .RegisterBodyScripts("~/products/projects/js/base.js")
-                .RegisterBodyScripts("~/products/projects/js/projects.js");
+            Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/allprojects.less")
+                .RegisterBodyScripts("~/Products/Projects/js/base.js")
+                .RegisterBodyScripts("~/Products/Projects/js/projects.js");
             RegisterScript();
         }
 

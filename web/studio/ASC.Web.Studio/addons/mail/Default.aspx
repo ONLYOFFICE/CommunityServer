@@ -64,7 +64,7 @@
                         <tr>
                             <td width="100%">
                                 <a class="menu-item-label outer-text text-overflow" href="#inbox" folderid="1">
-                                    <span class="menu-item-icon inbox"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsinbox"></use></svg></span>
+                                    <span class="menu-item-icon inbox"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconsinbox"></use></svg></span>
                                     <span class="menu-item-label inner-text"><%= MailResource.FolderNameInbox %></span>
                                 </a>
                             </td>
@@ -79,7 +79,7 @@
                         <tr>
                             <td width="100%">
                                 <a class="menu-item-label outer-text text-overflow" href="#sent" folderid="2">
-                                    <span class="menu-item-icon sent"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconssent"></use></svg></span>
+                                    <span class="menu-item-icon sent"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconssent"></use></svg></span>
                                     <span class="menu-item-label inner-text"><%= MailResource.FolderNameSent %></span>
                                 </a>
                             </td>
@@ -94,7 +94,7 @@
                         <tr>
                             <td width="100%">
                                 <a class="menu-item-label outer-text text-overflow" href="#drafts" folderid="3">
-                                    <span class="menu-item-icon drafts"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsblogs"></use></svg></span>
+                                    <span class="menu-item-icon drafts"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconsblogs"></use></svg></span>
                                     <span class="menu-item-label inner-text"><%= MailResource.FolderNameDrafts %></span>
                                 </a>
                             </td>
@@ -109,7 +109,7 @@
                         <tr>
                             <td width="100%">
                                 <a class="menu-item-label outer-text text-overflow" href="#trash" folderid="4">
-                                    <span class="menu-item-icon trash"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconstrash"></use></svg></span>
+                                    <span class="menu-item-icon trash"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconstrash"></use></svg></span>
                                     <span class="menu-item-label inner-text"><%= MailResource.FolderNameTrash %></span>
                                 </a>
                             </td>
@@ -124,7 +124,7 @@
                         <tr>
                             <td width="100%">
                                 <a class="menu-item-label outer-text text-overflow" href="#spam" folderid="5">
-                                    <span class="menu-item-icon spam"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsspam"></use></svg></span>
+                                    <span class="menu-item-icon spam"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconsspam"></use></svg></span>
                                     <span class="menu-item-label inner-text"><%= MailResource.FolderNameSpam %></span>
                                 </a>
                             </td>
@@ -144,7 +144,7 @@
                 <span><%= MailResource.UserFolderCreateFolderLink %></span>
             </a>
             <a class="pull-right" title="<%= MailResource.UserFolderManageFolderLink %>" href="#foldersettings">
-                <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+                <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
             </a>
         </div>
 
@@ -167,7 +167,7 @@
             <div class="category-wrapper">
                 <span class="expander"></span>
                 <a class="menu-item-label outer-text text-overflow" id="addressBookLabel" href="javascript:void(0);">
-                     <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/mail-icons.svg#mailIconsgroup"></use></svg></span>
+                     <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/mail-icons.svg#mailIconsgroup"></use></svg></span>
                     <span class="menu-item-label inner-text"><%= MailResource.AddressBook %></span>
                 </a>
             </div>
@@ -199,7 +199,7 @@
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow" id="settingsLabel" href="javascript:void(0);">
-                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+                        <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
                         <span class="menu-item-label inner-text gray-text settings"><%: MailResource.Settings %></span>
                     </a>
                 </div>

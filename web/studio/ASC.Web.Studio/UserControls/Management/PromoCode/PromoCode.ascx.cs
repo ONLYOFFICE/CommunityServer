@@ -48,7 +48,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts("~/usercontrols/Management/PromoCode/promocode.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/PromoCode/promocode.js");
         }
 
         [AjaxMethod]

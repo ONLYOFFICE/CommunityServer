@@ -215,7 +215,7 @@
         </div>
 
         <div class="login_accept-btn-cnt">
-            <button class="default-personal-popup_btn disabled" type="submit"><%= CustomModeResource.LoginCustomMode %></button>
+            <button id="loginBtn" class="default-personal-popup_btn disabled" type="submit"><%= CustomModeResource.LoginCustomMode %></button>
             <span class="login_forget-psw" onclick="PasswordTool.ShowPwdReminderDialog();"><%= CustomModeResource.ForgotPswdCustomMode %></span>
         </div>
         

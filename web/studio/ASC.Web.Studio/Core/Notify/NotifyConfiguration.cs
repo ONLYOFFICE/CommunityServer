@@ -274,11 +274,7 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(Constants.LetterLogoText, logoText));
             request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoText));
             request.Arguments.Add(new TagValue(Constants.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
-
-            if (!request.Arguments.Any(x => CommonTags.SendFrom.Equals(x.Tag)))
-            {
-                request.Arguments.Add(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
-            }
+            request.Arguments.Add(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
 
             AddLetterLogo(request);
         }

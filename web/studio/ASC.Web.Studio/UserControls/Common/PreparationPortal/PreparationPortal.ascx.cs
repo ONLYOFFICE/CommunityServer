@@ -35,7 +35,7 @@ namespace ASC.Web.Studio.UserControls.Common
     {
         public static string Location
         {
-            get { return "~/usercontrols/common/preparationportal/preparationportal.ascx"; }
+            get { return "~/UserControls/Common/PreparationPortalCnt/PreparationPortalCnt.ascx"; }
         }
 
         protected String HeaderPage { get; set; }

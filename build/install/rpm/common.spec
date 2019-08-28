@@ -80,7 +80,7 @@ for FILE in `find "$RPM_BUILD_ROOT/var/www/%{package_sysname}/"`; do
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config(noreplace) \"$RELFILE\"" >>onlyoffice.list
 			;;
 
-			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.Config | */ASC.Mail.StorageCleaner.exe.config | */ASC.Mail.Aggregator.CollectionService.exe.config | */ASC.Mail.Watchdog.Service.exe.config | */ASC.Mail.EmlDownloader.exe.config )
+			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.config | */ASC.Mail.StorageCleaner.exe.config | */ASC.Mail.Aggregator.CollectionService.exe.config | */ASC.Mail.Watchdog.Service.exe.config | */ASC.Mail.EmlDownloader.exe.config )
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config \"$RELFILE\"" >>onlyoffice.list
 			;;
 
@@ -118,11 +118,11 @@ APP_SERVICES_ROOT_DIR="$DIR/Services";
 CONTROL_PANEL_PORT_80_TCP_ADDR="localhost:8082";
 SERVICE_SSO_AUTH_HOST_ADDR="localhost";
 
-cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
-sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
-sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
+cp ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-controlpanel.conf;
+sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-controlpanel.conf;
+sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-controlpanel.conf;
 sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_WEB_ROOT_DIR}/web.appsettings.config;
-sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
+sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 
 %triggerin -- elasticsearch
 ELASTIC_SEARCH_CONF_PATH="/etc/elasticsearch/elasticsearch.yml"
@@ -191,12 +191,22 @@ else
 	sed -i "s/thread_pool.write.size.*/thread_pool.write.size: $CORE_COUNT/" ${ELASTIC_SEARCH_CONF_PATH} 
 fi
 
+if grep -q "HeapDumpOnOutOfMemoryError" /etc/elasticsearch/jvm.options; then
+	sed "/-XX:+HeapDumpOnOutOfMemoryError/d" -i /etc/elasticsearch/jvm.options
+fi
+
+if [ -d /etc/elasticsearch/ ]; then 
+	chmod g+ws /etc/elasticsearch/
+fi
+
 systemctl start elasticsearch.service	
 
 %triggerin -- python3, python36
 
-if rpm -q python36; then
-	update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+if ! which python3; then
+	if rpm -q python36; then
+		update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+	fi
 fi
 
 DIR=/var/www/%{package_sysname}
@@ -210,34 +220,49 @@ python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 %triggerin -- %{package_sysname}-documentserver, %{package_sysname}-documentserver-ie
 
 DIR=/var/www/%{package_sysname}
+APP_DATA_DIR="${DIR}/Data"
 NGINX_ROOT_DIR="/etc/nginx";
 APP_WEB_ROOT_DIR="$DIR/WebStudio";
 APP_SERVICES_ROOT_DIR="$DIR/Services";
 
 SERVER_HOST="localhost";
-LICENSE_FILE_PATH="/var/www/onlyoffice/Data/license.lic";
+LICENSE_FILE_PATH="/var/www/%{package_sysname}/Data/license.lic";
 
 DOCUMENT_SERVER_PROTOCOL="http";
 DOCUMENT_SERVER_HOST="localhost:8083";
 DOCUMENT_SERVER_HOST_PROXY="localhost\/ds-vpath";
 DOCUMENT_SERVER_API_URL="\/ds-vpath\/";
-DOCUMENT_SERVER_JWT_SECRET=${JWT_SECRET:-"onlyoffice"};
+DOCUMENT_SERVER_JWT_SECRET=${JWT_SECRET:-"%{package_sysname}"};
 DOCUMENT_SERVER_JWT_HEADER=${JWT_HEADER:-"AuthorizationJwt"};
 
-cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
+cp ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-documentserver.conf.template ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-documentserver.conf;
 
-sed 's,{{DOCUMENT_SERVER_HOST_ADDR}},'"${DOCUMENT_SERVER_PROTOCOL}:\/\/${DOCUMENT_SERVER_HOST}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
-sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_WEB_ROOT_DIR}/web.appsettings.config
-sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config
-sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config
-sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config
-sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config
+sed 's,{{DOCUMENT_SERVER_HOST_ADDR}},'"${DOCUMENT_SERVER_PROTOCOL}:\/\/${DOCUMENT_SERVER_HOST}"',' -i ${NGINX_ROOT_DIR}/includes/%{package_sysname}-communityserver-proxy-to-documentserver.conf;
+
+sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_WEB_ROOT_DIR}/web.appsettings.config;
+sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config;
+sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config;
+sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config;
+sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config;
+
+sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+
 sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_WEB_ROOT_DIR}/web.appsettings.config
 
+if [ "$(ls -alhd ${APP_DATA_DIR} | awk '{ print $3 }')" != "%{package_sysname}" ]; then
+	  chown %{package_sysname}:%{package_sysname} ${APP_DATA_DIR}
+fi
+
 %post
+
+DIR=/var/www/%{package_sysname}
+
 #import common ssl certificates
 mozroots --import --sync --machine --quiet
-
 mkdir -p /etc/mono/registry/LocalMachine
 mkdir -p /usr/share/.mono/keypairs
 mkdir -p /var/cache/nginx/%{package_sysname}
@@ -257,8 +282,8 @@ fi
 systemctl daemon-reload
 
 if [ ! -f /proc/net/if_inet6 ]; then
-	sed '/listen\s*\[::\]:80/d' -i /etc/nginx/includes/onlyoffice-communityserver-common-ssl.conf.template	
-	sed '/listen\s*\[::\]:443/d' -i /etc/nginx/includes/onlyoffice-communityserver-common-ssl.conf.template	
+	sed '/listen\s*\[::\]:80/d' -i /etc/nginx/includes/%{package_sysname}-communityserver-common-ssl.conf.template	
+	sed '/listen\s*\[::\]:443/d' -i /etc/nginx/includes/%{package_sysname}-communityserver-common-ssl.conf.template	
 fi
 
 if %{getenforce} >/dev/null 2>&1; then

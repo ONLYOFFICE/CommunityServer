@@ -23,15 +23,15 @@
     <!-- Core -->
     <ProjectToBuild Include="$(ASCDir)common\ASC.Common\ASC.Common.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Core.Common\ASC.Core.Common.csproj"/>
-	<ProjectToBuild Include="$(ASCDir)module\ASC.ElasticSearch\ASC.ElasticSearch.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.ElasticSearch\ASC.ElasticSearch.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.IPSecurity\ASC.IPSecurity.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage\ASC.Data.Storage.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj' )"/>
-	<ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.Migration\ASC.Data.Storage.Migration.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.Migration\ASC.Data.Storage.Migration.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Notify.Textile\ASC.Notify.Textile.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.TeamLabSvc\ASC.TeamLabSvc\ASC.TeamLabSvc.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Feed\ASC.Feed.csproj"/>
-	
+
     <!-- Api client -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Client\ASC.Api.Client.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Api\ASC.Api.Client\' )"/>
 
@@ -80,9 +80,12 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\ASC.Mail.Server\ASC.Mail.Server.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail\ASC.Mail.csproj"/>
 
-	<!-- People-->
+    <!-- People-->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\People\ASC.Web.People.csproj"/>
-	
+
+    <!-- Sample -->
+    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Sample\ASC.Web.Sample.csproj"/>
+
     <!-- Mail Services -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\ASC.Mail.Watchdog.Service.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
@@ -113,13 +116,14 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Mail\ASC.Api.Mail.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.MailServer\ASC.Api.MailServer.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Portal\ASC.Api.Portal.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Sample\ASC.Api.Sample.csproj"/>
 
     <!-- Talk -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\talk\ASC.Web.Talk.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Server\ASC.Xmpp.Server.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj"/>
-	
+
     <!-- Calendar -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\calendar\ASC.Web.Calendar.csproj"/>
 
@@ -128,7 +132,7 @@
 
     <!-- SocketIO service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj' ) "/>
-    
+
     <!-- Thumbnails service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thumbnails.Svc\ASC.Thumbnails.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Thumbnails.Svc\ASC.Thumbnails.Svc.csproj' ) "/>
 
@@ -141,7 +145,7 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
     <!-- ThumbnailHelper -->
     <ProjectToBuild Include="$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj" Condition=" Exists( '$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj' ) "/>
-   
+
   </ItemGroup>
 
   <Target Name="Build">

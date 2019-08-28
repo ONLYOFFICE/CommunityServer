@@ -60,11 +60,11 @@ jq(document).on("keyup",
 
 jq(document).on("click", "#buttonConfirmInvite", function () {
     var requireFields = {
-        email: jq("#studio_confirm_Email"),
-        firstname: jq("#studio_confirm_FirstName"),
-        lastname: jq("#studio_confirm_LastName"),
-        psw: jq("#studio_confirm_pwd")
-    },
+            email: jq("#studio_confirm_Email"),
+            firstname: jq("#studio_confirm_FirstName"),
+            lastname: jq("#studio_confirm_LastName"),
+            psw: jq("#studio_confirm_pwd")
+        },
         error = 0;
 
     jq("#registrationForm input").removeClass("with-error");

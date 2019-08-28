@@ -104,7 +104,7 @@ namespace ASC.Core.Billing
             }
         }
 
-        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string currency = null, string language = null, string customerId = null)
+        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null)
         {
             var urls = new Dictionary<string, Tuple<Uri, Uri>>();
 
@@ -112,6 +112,10 @@ namespace ASC.Core.Billing
             if (!string.IsNullOrEmpty(affiliateId))
             {
                 additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
+            }
+            if (!string.IsNullOrEmpty(campaign))
+            {
+                additionalParameters.Add(Tuple.Create("campaign", campaign));
             }
             if (!string.IsNullOrEmpty(currency))
             {

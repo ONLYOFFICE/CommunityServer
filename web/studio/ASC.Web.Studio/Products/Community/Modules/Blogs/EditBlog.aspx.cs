@@ -71,7 +71,7 @@ namespace ASC.Web.Community.Blogs
                 var control = FindControl(Request.Params["__EVENTTARGET"]);
                 if (lbCancel.Equals(control))
                 {
-                    Response.Redirect("viewblog.aspx?blogid=" + Request.Params["blogid"]);
+                    Response.Redirect("ViewBlog.aspx?blogid=" + Request.Params["blogid"]);
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace ASC.Web.Community.Blogs
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/ckeditor/ckeditor-connector.js");
 
             //Page.RegisterInlineScript("ckeditorConnector.load(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
@@ -212,7 +212,7 @@ namespace ASC.Web.Community.Blogs
 
             CommonControlsConfigurer.FCKEditingComplete("blogs", post.ID.ToString(), post.Content, true);
 
-            Response.Redirect("viewblog.aspx?blogid=" + post.ID.ToString());
+            Response.Redirect("ViewBlog.aspx?blogid=" + post.ID.ToString());
         }
 
         #region Events

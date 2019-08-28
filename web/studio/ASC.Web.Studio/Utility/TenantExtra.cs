@@ -87,10 +87,6 @@ namespace ASC.Web.Studio.Utility
             get { return Enterprise && GetTenantQuota().ControlPanel && GetCurrentTariff().State < TariffState.NotPaid && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin(); }
         }
 
-        public static bool EnableDocbuilder
-        {
-            get { return !Opensource; }
-        }
         public static string GetAppsPageLink()
         {
             return VirtualPathUtility.ToAbsolute("~/appinstall.aspx");

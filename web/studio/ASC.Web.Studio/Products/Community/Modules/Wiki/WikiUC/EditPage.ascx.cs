@@ -468,9 +468,9 @@ namespace ASC.Web.UserControls.Wiki.UC
             //    script += string.Format(linkCssFormat, MainCssFile);
             //}
 
-            script += string.Format(linkCssFormat, VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/content/main.css"));
+            script += string.Format(linkCssFormat, VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/content/main.css"));
 
-            script += string.Format(scriptFormat, VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/scripts/editpage.js"));
+            script += string.Format(scriptFormat, VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/scripts/editpage.js"));
 
             script += "\";";
 

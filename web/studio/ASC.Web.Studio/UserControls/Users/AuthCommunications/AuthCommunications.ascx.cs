@@ -87,7 +87,7 @@ namespace ASC.Web.Studio.UserControls
 
             ShowSeparator = _joinBlock.Visible && _sendAdmin.Visible;
 
-            Page.RegisterBodyScripts("~/usercontrols/users/AuthCommunications/js/authcommunications.js");
+            Page.RegisterBodyScripts("~/UserControls/Users/AuthCommunications/js/authcommunications.js");
         }
 
         [SecurityPassthrough]

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
@@ -51,17 +52,25 @@ namespace ASC.Data.Backup.Storage
 
         public bool IsToBeProcessed()
         {
-            var cron = new CronExpression(Cron);
-            var tenantTimeZone = CoreContext.TenantManager.GetTenant(TenantId).TimeZone;
-            var lastBackupTime = LastBackupTime.Equals(default(DateTime))
-                ? DateTime.UtcNow.Date.AddSeconds(-1)
-                : TenantUtil.DateTimeFromUtc(tenantTimeZone, LastBackupTime);
+            try
+            {
+                var cron = new CronExpression(Cron);
+                var tenantTimeZone = CoreContext.TenantManager.GetTenant(TenantId).TimeZone;
+                var lastBackupTime = LastBackupTime.Equals(default(DateTime))
+                    ? DateTime.UtcNow.Date.AddSeconds(-1)
+                    : TenantUtil.DateTimeFromUtc(tenantTimeZone, LastBackupTime);
 
-            var nextBackupTime = cron.GetTimeAfter(lastBackupTime);
+                var nextBackupTime = cron.GetTimeAfter(lastBackupTime);
 
-            if (!nextBackupTime.HasValue) return false;
-            var now = TenantUtil.DateTimeFromUtc(tenantTimeZone, DateTime.UtcNow);
-            return nextBackupTime <= now;
+                if (!nextBackupTime.HasValue) return false;
+                var now = TenantUtil.DateTimeFromUtc(tenantTimeZone, DateTime.UtcNow);
+                return nextBackupTime <= now;
+            }
+            catch (Exception e)
+            {
+                LogManager.GetLogger("ASC").Error("Schedule " + TenantId, e);
+                return false;
+            }
         }
     }
 }

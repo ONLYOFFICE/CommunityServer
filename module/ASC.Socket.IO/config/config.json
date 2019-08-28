@@ -1,9 +1,12 @@
-﻿{
+{
   "port": 9899,
   "core.machinekey": "1123askdasjklasbnd",
   "portal.internal.url": "",
   "redis":{
     "host": "localhost",
-    "port": 6379
+    "port": 6379,
+	"db": 0,
+    "pass":"",
+    "ttl":84600
     }
 }

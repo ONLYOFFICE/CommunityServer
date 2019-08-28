@@ -39,7 +39,7 @@ namespace ASC.Web.Studio.ThirdParty
     {
         public static string Location
         {
-            get { return CommonLinkUtility.ToAbsolute("~/thirdparty/google.aspx"); }
+            get { return CommonLinkUtility.ToAbsolute("~/ThirdParty/Google.aspx"); }
         }
 
         protected void Page_Load(object sender, EventArgs e)

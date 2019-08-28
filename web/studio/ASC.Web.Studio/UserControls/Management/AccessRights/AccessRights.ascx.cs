@@ -109,8 +109,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var isRetina = TenantLogoManager.IsRetina(HttpContext.Current.Request);
 
-            Page.RegisterBodyScripts("~/usercontrols/management/accessrights/js/accessrights.js")
-                .RegisterStyle("~/usercontrols/management/accessrights/css/accessrights.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/AccessRights/js/accessrights.js")
+                .RegisterStyle("~/UserControls/Management/AccessRights/css/accessrights.less");
 
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
             var currentOwner = CoreContext.UserManager.GetUsers(curTenant.OwnerId);

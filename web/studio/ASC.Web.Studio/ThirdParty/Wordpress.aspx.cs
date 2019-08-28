@@ -38,7 +38,7 @@ namespace ASC.Web.Studio.ThirdParty
     {
         public static string Location
         {
-            get { return CommonLinkUtility.ToAbsolute("~/thirdparty/wordpress.aspx"); }
+            get { return CommonLinkUtility.ToAbsolute("~/ThirdParty/Wordpress.aspx"); }
         }
 
         protected void Page_Load(object sender, EventArgs e)

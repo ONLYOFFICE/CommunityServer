@@ -34,7 +34,7 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
     {
         public static string Location
         {
-            get { return CommonLinkUtility.ToAbsolute("~/thirdparty/importcontacts/import.aspx"); }
+            get { return CommonLinkUtility.ToAbsolute("~/ThirdParty/ImportContacts/Import.aspx"); }
         }
 
         public static bool Enable

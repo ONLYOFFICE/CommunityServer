@@ -47,7 +47,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/pricingpagesettings/js/pricingpagesettings.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/PricingPageSettings/js/pricingpagesettings.js");
 
             Checked = TariffSettings.HidePricingPage;
         }

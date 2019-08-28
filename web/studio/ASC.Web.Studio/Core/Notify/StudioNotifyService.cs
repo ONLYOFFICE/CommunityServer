@@ -465,8 +465,7 @@ namespace ASC.Web.Studio.Core.Notify
                         Constants.TagGreenButton(greenButtonText, inviteUrl),
                         new TagValue(Constants.TagBody, inviteMessage ?? string.Empty),
                         new TagValue(CommonTags.Footer, "common"),
-                        new TagValue(Constants.TagUserDisplayName, (user.DisplayUserName() ?? "").Trim()),
-                        CreateSendFromTag());
+                        new TagValue(Constants.TagUserDisplayName, (user.DisplayUserName() ?? "").Trim()));
         }
 
         public void UserInfoAddedAfterInvite(UserInfo newUserInfo)
@@ -642,7 +641,6 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
                 new TagValue(CommonTags.Footer, footer),
                 new TagValue("noUnsubscribeLink", "true"),
-                CreateSendFromTag(),
                 new TagValue(Constants.TagAnalytics, analytics));
         }
 
@@ -698,7 +696,6 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
                 new TagValue(CommonTags.Footer, footer),
                 new TagValue("noUnsubscribeLink", "true"),
-                CreateSendFromTag(),
                 new TagValue(Constants.TagAnalytics, analytics));
         }
 
@@ -887,7 +884,6 @@ namespace ASC.Web.Studio.Core.Notify
                 Constants.TagTableItem(5, tableItemText5, string.Empty, tableItemImg5, tableItemComment5, null, string.Empty),
                 Constants.TagTableBottom(),
                 new TagValue(CommonTags.Footer, "common"),
-                CreateSendFromTag(),
                 new TagValue(Constants.TagAnalytics, analytics));
         }
 
@@ -2719,8 +2715,8 @@ namespace ASC.Web.Studio.Core.Notify
 
                         if (action == null) continue;
 
-                        log.InfoFormat(@"Send letter personal '{1}'  to {0} culture {2}. tenant id: {3} user culture {4} create on {5} now date {6}",
-                              user.Email, action.Name, culture, tenant.TenantId, user.GetCulture(), user.CreateDate, scheduleDate.Date);
+                        log.InfoFormat(@"Send letter personal '{1}' to {0} culture {2}. tenant id: {3} user culture {4} create on {5} now date {6}",
+                              user.Email, action.ID, culture, tenant.TenantId, user.GetCulture(), user.CreateDate, scheduleDate.Date);
 
                         sendCount++;
 
@@ -2789,8 +2785,7 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(CommonTags.Footer, CoreContext.Configuration.CustomMode ? "personalCustomMode" : "personal"),
                 new TagValue(CommonTags.IsPersonal, "true"),
                 new TagValue(CommonTags.MasterTemplate, "HtmlMasterPersonal"),
-                Constants.UnsubscribeLink,
-                CreateSendFromTag());
+                Constants.UnsubscribeLink);
         }
 
         #endregion
@@ -2886,14 +2881,6 @@ namespace ASC.Web.Studio.Core.Notify
             return (emails ?? new string[0])
                 .Select(e => new DirectRecipient(e, null, new[] { e }, checkActivation))
                 .ToArray();
-        }
-
-        private static TagValue CreateSendFromTag()
-        {
-            return new TagValue(CommonTags.SendFrom,
-                SecurityContext.IsAuthenticated && SecurityContext.CurrentAccount is IUserAccount ?
-                    DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID), false).Replace(">", "&#62").Replace("<", "&#60") :
-                    CoreContext.TenantManager.GetCurrentTenant().Name);
         }
 
         private string GetMyStaffLink()

@@ -33,7 +33,7 @@ namespace ASC.Web.Calendar.UserControls
     {
         public static string Location
         {
-            get { return "~/addons/calendar/usercontrols/sidepanel.ascx"; }
+            get { return "~/addons/calendar/UserControls/SidePanel.ascx"; }
         }
 
         protected void Page_Load(object sender, EventArgs e)

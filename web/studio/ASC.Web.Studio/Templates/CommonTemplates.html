@@ -148,29 +148,27 @@
 </script>
 
 <script id="template-accountLinkCtrl" type="text/x-jquery-tmpl">
-    <div class="account-links tabs-content">
-        <ul class="clearFix">
-            {{each(i, acc) infos}}
-            <li class="${acc.Provider}{{if acc.Linked == true}} connected{{/if}}">
-                <span class="label"></span>
-                <span {{if acc.Linked == true}} class="linked"{{/if}}>
-                    {{if acc.Linked == true}}
-                        ${ASC.Resources.Master.TemplateResource.AssociateAccountConnected}
-                    {{else}}
-                        ${ASC.Resources.Master.TemplateResource.AssociateAccountNotConnected}
-                    {{/if}}
-                </span> 
-                <a href="${acc.Url}" class="popup{{if acc.Linked == true}} linked{{/if}}" id="${acc.Provider}">
-                    {{if acc.Linked == true}}
-                        ${ASC.Resources.Master.TemplateResource.AssociateAccountDisconnect}
-                    {{else}}
-                        ${ASC.Resources.Master.TemplateResource.AssociateAccountConnect}
-                    {{/if}}
-                </a>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
+    <ul class="account-links tabs-content">
+        {{each(i, acc) infos}}
+        <li class="${acc.Provider}{{if acc.Linked == true}} connected{{/if}}">
+            <span class="icon"></span>
+            <span>
+                {{if acc.Linked == true}}
+                    ${ASC.Resources.Master.TemplateResource.AssociateAccountConnected}
+                {{else}}
+                    ${ASC.Resources.Master.TemplateResource.AssociateAccountNotConnected}
+                {{/if}}
+            </span> 
+            <a href="${acc.Url}" class="popup{{if acc.Linked == true}} linked{{/if}}" id="${acc.Provider}">
+                {{if acc.Linked == true}}
+                    ${ASC.Resources.Master.TemplateResource.AssociateAccountDisconnect}
+                {{else}}
+                    ${ASC.Resources.Master.TemplateResource.AssociateAccountConnect}
+                {{/if}}
+            </a>
+        </li>
+        {{/each}}
+    </ul>
 </script>
 
 <script id="template-mailCalendar" type="text/x-jquery-tmpl">

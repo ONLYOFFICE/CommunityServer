@@ -50,7 +50,7 @@ namespace ASC.Web.Studio.UserControls.Management.DnsSettings
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/DnsSettings/dnssettings.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/DnsSettings/dnssettings.js");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

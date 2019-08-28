@@ -372,9 +372,6 @@
   <data name="ComposeLabel" xml:space="preserve">
     <value>Compose</value>
   </data>
-  <data name="ConnectLabel" xml:space="preserve">
-    <value>Connect</value>
-  </data>
   <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
     <value>Copy to My Documents</value>
   </data>
@@ -758,9 +755,6 @@
   </data>
   <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
     <value>Get default settings</value>
-  </data>
-  <data name="GoogleLabel" xml:space="preserve">
-    <value>Google</value>
   </data>
   <data name="GoToNextMessage" xml:space="preserve">
     <value>Next</value>

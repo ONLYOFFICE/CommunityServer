@@ -46,7 +46,6 @@
 .sortable thead th
 {
 	cursor: pointer;
-	cursor: hand;
 	color: #000000;
 	font-size: 12px;
 }
@@ -91,7 +90,7 @@ a.report-small-header:active   {
 a.report-big-header:hover,
 a.report-middle-header:hover,
 a.report-small-header:hover {
-    text-decoration:undeline;
+    text-decoration: underline;
 }
 
 a.report-big-header {

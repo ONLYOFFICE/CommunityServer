@@ -38,15 +38,15 @@ namespace ASC.Web.Mail.Controls
     {
         public static string Location
         {
-            get { return "~/addons/mail/controls/documentspopup/DocumentsPopup.ascx"; }
+            get { return "~/addons/mail/Controls/DocumentsPopup/DocumentsPopup.ascx"; }
         }
 
         protected string FrameUrl;
 
         private void InitScripts()
         {
-            Page.RegisterStyle("~/addons/mail/controls/documentspopup/css/documentsPopup.less")
-                .RegisterBodyScripts("~/addons/mail/controls/documentspopup/js/documentsPopup.js");
+            Page.RegisterStyle("~/addons/mail/Controls/DocumentsPopup/css/documentspopup.less")
+                .RegisterBodyScripts("~/addons/mail/Controls/DocumentsPopup/js/documentspopup.js");
         }
 
         protected void Page_Load(object sender, EventArgs e)

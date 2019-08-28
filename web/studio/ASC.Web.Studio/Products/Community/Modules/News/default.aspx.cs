@@ -78,7 +78,7 @@ namespace ASC.Web.Community.News
 
         protected Uri FeedItemUrlWithParam
         {
-            get { return new Uri("~/products/community/modules/news/editnews.aspx?docID=" + Info.UserIdAttribute, UriKind.Relative); }
+            get { return new Uri("~/Products/Community/Modules/News/editnews.aspx?docID=" + Info.UserIdAttribute, UriKind.Relative); }
 
         }
 
@@ -134,7 +134,7 @@ namespace ASC.Web.Community.News
                     }
                     else
                     {
-                        Response.Redirect(VirtualPathUtility.ToAbsolute("~/products/community/modules/news/"));
+                        Response.Redirect(VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/"));
                         ContentView.Visible = true;
                         FeedView.Visible = false;
                         FeedRepeater.Visible = true;
@@ -318,7 +318,7 @@ namespace ASC.Web.Community.News
                     pgNavigator.PageUrl = string.Format(
                         CultureInfo.CurrentCulture,
                         "{0}?search={1}&size={2}",
-                        VirtualPathUtility.ToAbsolute("~/products/community/modules/news/"),
+                        VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/"),
                         Request["search"],
                         pageSize
                         );
@@ -329,14 +329,14 @@ namespace ASC.Web.Community.News
                                               string.Format(
                                                   CultureInfo.CurrentCulture,
                                                   "{0}?{1}&size={2}",
-                                                  VirtualPathUtility.ToAbsolute("~/products/community/modules/news/"),
+                                                  VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/"),
                                                   (string.IsNullOrEmpty(Info.UserIdAttribute) ? string.Empty : "?" + Info.UserIdAttribute.Substring(1)),
                                                   pageSize
                                                   ) :
                                               string.Format(
                                                   CultureInfo.CurrentCulture,
                                                   "{0}?type={1}{2}&size={3}",
-                                                  VirtualPathUtility.ToAbsolute("~/products/community/modules/news/"),
+                                                  VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/News/"),
                                                   Request["type"],
                                                   Info.UserIdAttribute,
                                                   pageSize);

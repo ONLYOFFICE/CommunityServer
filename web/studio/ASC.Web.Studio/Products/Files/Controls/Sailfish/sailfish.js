@@ -27,6 +27,67 @@
 window.ASC.Sailfish = (function () {
     var isInit = false;
 
+    var base64ToBlob = function(b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        var blob = new window.Blob(byteArrays, { type: contentType });
+        return blob;
+    };
+
+    var blobToFile = function(blob, fileName) {
+        return new window.File([blob], fileName, { type: blob.type });
+    };
+
+    var fileToDataTransfer = function(file) {
+        var dataTransfer = new window.ClipboardEvent('').clipboardData || new window.DataTransfer();
+        dataTransfer.items.add(file);
+        return dataTransfer;
+    };
+
+    var makeFakeFileList = function(input, file) {
+        var fileList = [file];
+        fileList.__proto__ = Object.create(window.FileList.prototype);
+
+        Object.defineProperty(input, 'files', {
+            value: fileList,
+            writeable: false,
+        });
+    };
+
+    var uploadBase64 = function (fileName, base64Data, contentType) {
+        var blob = base64ToBlob(base64Data, contentType);
+        var file = blobToFile(blob, fileName);
+
+        var fileInputObj = jq("#fileupload");
+        var fileInput = fileInputObj[0];
+
+        try {
+            var dataTransfer = fileToDataTransfer(file);
+            fileInput.files = dataTransfer.files;
+        } catch (error) {
+            console.log(error);
+            makeFakeFileList(fileInput, file);
+        }
+
+        fileInputObj.change();
+    };
+
     var init = function () {
         if (isInit === false) {
             isInit = true;
@@ -44,7 +105,14 @@ window.ASC.Sailfish = (function () {
 
             jq("#buttonUploadSailfish").on("click", function (e) {
                 e.preventDefault();
-                jq("#fileupload").click();
+
+                var userAgent = (navigator && navigator.userAgent) || '';
+
+                if (userAgent.includes("NeedEmulateUpload") && window.emulateUpload) {
+                    window.emulateUpload(uploadBase64);
+                } else {
+                    jq("#fileupload").click();
+                }
             });
         }
     };

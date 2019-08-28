@@ -369,7 +369,7 @@
   <data name="pattern_activate_email" xml:space="preserve">
     <value>h1.Activate your email for "${__VirtualRootPath}":"$InviteLink" portal.
 
-Hello $UserDisplayName,
+Hello!
 
 To start participating in the "${__VirtualRootPath}":"$InviteLink" portal life you need to activate your email address. This is done for security reasons.
 
@@ -497,9 +497,9 @@ $Body</value>
   <data name="pattern_invite" xml:space="preserve">
     <value>h1.Invitation to join ${LetterLogoText} portal
 
-Dear $UserDisplayName,
+Hello!
 
-$__AuthorName has invited you to join ${LetterLogoText} - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"$InviteLink" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+You are invited to join ${LetterLogoText} - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"$InviteLink" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
 
 You can accept the invitation by following the link below, it is only valid for 7 days:
 
@@ -701,13 +701,7 @@ Dear $UserDisplayName,
 
 Your $PortalUrl portal address was changed to the new "${__VirtualRootPath}":"${__VirtualRootPath}" address.
 
-*Note*: All the shared documents links are inaccessible now, as well as DNS settings and single sign-on options stop working until you change them. The third party iCal links added to your calendar will also stop updating until you reload them.
-
-If you have any questions or need assistance please feel free to contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
-
-Best regards,
-ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+*Note*: All the shared documents links are inaccessible now, as well as DNS settings and single sign-on options stop working until you change them. The third party iCal links added to your calendar will also stop updating until you reload them.</value>
   </data>
   <data name="pattern_profile_delete" xml:space="preserve">
     <value>h1.Removal of the profile from the "${__VirtualRootPath}":"${__VirtualRootPath}" portal
@@ -1355,9 +1349,9 @@ Truly yours,
 ${LetterLogoText} Team</value>
   </data>
   <data name="pattern_saas_user_activation" xml:space="preserve">
-    <value>Dear $UserName,
+    <value>Hello!
 
-$__AuthorName has invited you to join ONLYOFFICE - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+You are invited to join ONLYOFFICE - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
 
 You can accept the invitation by following the link below, it is only valid for 7 days:
 
@@ -1372,7 +1366,7 @@ ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_saas_user_welcome" xml:space="preserve">
-    <value>Dear $UserName,
+    <value>Hello!
 
 Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}".
 
@@ -1430,7 +1424,7 @@ ONLYOFFICE Team
     <value>Welcome to Your Portal!</value>
   </data>
   <data name="subject_saas_user_activation" xml:space="preserve">
-    <value>Invitation from $__AuthorName to Join ${__VirtualRootPath}</value>
+    <value>Join ${__VirtualRootPath}</value>
   </data>
   <data name="subject_saas_user_welcome" xml:space="preserve">
     <value>Welcome to Your ONLYOFFICE Portal!</value>
@@ -1598,7 +1592,7 @@ Truly yours,
 ${LetterLogoText} Team</value>
   </data>
   <data name="pattern_saas_guest_activation" xml:space="preserve">
-    <value>Dear $UserName,
+    <value>Hello!
 
 You have been invited as a guest user to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}". Please accept the invitation by following the link below, it is only valid for 7 days:
 
@@ -1613,7 +1607,7 @@ ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_saas_guest_welcome" xml:space="preserve">
-    <value>Dear $UserName,
+    <value>Hello!
 
 Your guest profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}".
 
@@ -1668,7 +1662,7 @@ ONLYOFFICE Team
     <value>Welcome to Your Portal!</value>
   </data>
   <data name="subject_saas_guest_activation" xml:space="preserve">
-    <value>Invitation from $__AuthorName to join ${__VirtualRootPath}</value>
+    <value>Join ${__VirtualRootPath}</value>
   </data>
   <data name="subject_saas_guest_welcome" xml:space="preserve">
     <value>Welcome to Your ONLYOFFICE Portal!</value>

@@ -114,8 +114,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void RegisterClientScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/productsandinstruments/js/productsandinstruments.js")
-                .RegisterStyle("~/usercontrols/management/productsandinstruments/css/productsandinstruments.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/ProductsAndInstruments/js/productsandinstruments.js")
+                .RegisterStyle("~/UserControls/Management/ProductsAndInstruments/css/productsandinstruments.less");
         }
 
         #endregion

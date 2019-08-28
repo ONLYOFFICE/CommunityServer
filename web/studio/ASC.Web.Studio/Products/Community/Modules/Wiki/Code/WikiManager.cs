@@ -48,7 +48,7 @@ namespace ASC.Web.UserControls.Wiki
         {
             get
             {
-                return "~/Products/Community/Modules/Wiki".ToLower();
+                return "~/Products/Community/Modules/Wiki";
             }
         }
 
@@ -56,7 +56,7 @@ namespace ASC.Web.UserControls.Wiki
         {
             get
             {
-                return "~/Products/Community/Modules/Wiki/Default.aspx".ToLower();
+                return "~/Products/Community/Modules/Wiki/Default.aspx";
             }
         }
 

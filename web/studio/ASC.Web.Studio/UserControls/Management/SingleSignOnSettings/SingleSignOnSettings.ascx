@@ -2,7 +2,7 @@
 <%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Import Namespace="Resources" %>
 
-<link rel="stylesheet" type="text/css" href="<%= WebPath.GetPath("usercontrols/management/singlesignonsettings/css/singlesignonsettings.css") %>"/>
+<link rel="stylesheet" type="text/css" href="<%= WebPath.GetPath("UserControls/Management/SingleSignOnSettings/css/singlesignonsettings.css") %>"/>
 
 <div class="clearFix">
     <div class="sso-settings-main-container settings-block">

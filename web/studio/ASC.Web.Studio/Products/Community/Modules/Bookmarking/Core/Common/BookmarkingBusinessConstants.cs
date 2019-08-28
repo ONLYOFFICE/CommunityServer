@@ -70,7 +70,7 @@ namespace ASC.Bookmarking.Common
 
         public const int MostPopularBookmarksByTagLimit = 3;
 
-        public const string BookmarkingBasePath = "~/products/community/modules/bookmarking";
+        public const string BookmarkingBasePath = "~/Products/Community/Modules/Bookmarking";
 
         #region Check Permissions
 

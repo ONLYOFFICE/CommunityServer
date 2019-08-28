@@ -45,7 +45,7 @@ namespace ASC.Web.Files.Masters
                       "editor.js");
 
             AddSource(ResolveUrl,
-                      "~/products/files/controls/desktop/desktop.js"
+                      "~/Products/Files/Controls/Desktop/desktop.js"
                 );
         }
     }

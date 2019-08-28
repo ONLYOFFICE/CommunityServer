@@ -166,13 +166,22 @@ namespace ASC.Web.Files.Services.DocumentService
             var users = FileTracker.GetEditingBy(fileId);
             var usersDrop = new List<string>();
 
-            File file;
-            using (var fileDao = Global.DaoFactory.GetFileDao())
+            string docKey;
+            var app = ThirdPartySelector.GetAppByFileId(fileId);
+            if (app == null)
             {
-                file = fileDao.GetFile(fileId);
+                File file;
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    file = fileDao.GetFile(fileId);
+                }
+                docKey = DocumentServiceHelper.GetDocKey(file);
+            }
+            else
+            {
+                docKey = fileData.Key;
             }
 
-            var docKey = DocumentServiceHelper.GetDocKey(file);
             if (!fileData.Key.Equals(docKey))
             {
                 Global.Logger.InfoFormat("DocService editing file {0} ({1}) with key {2} for {3}", fileId, docKey, fileData.Key, string.Join(", ", fileData.Users));
@@ -231,18 +240,22 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             File file;
-            using (var fileDao = Global.DaoFactory.GetFileDao())
+            var app = ThirdPartySelector.GetAppByFileId(fileId);
+            if (app == null)
             {
-                file = fileDao.GetFile(fileId);
-            }
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    file = fileDao.GetFile(fileId);
+                }
 
-            var docKey = DocumentServiceHelper.GetDocKey(file);
-            if (!fileData.Key.Equals(docKey))
-            {
-                Global.Logger.ErrorFormat("DocService saving file {0} ({1}) with key {2}", fileId, docKey, fileData.Key);
+                var docKey = DocumentServiceHelper.GetDocKey(file);
+                if (!fileData.Key.Equals(docKey))
+                {
+                    Global.Logger.ErrorFormat("DocService saving file {0} ({1}) with key {2}", fileId, docKey, fileData.Key);
 
-                StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
-                return "0";
+                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
+                    return "0";
+                }
             }
 
             try

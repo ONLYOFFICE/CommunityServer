@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/defaultpagesettings/js/defaultpage.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/DefaultPageSettings/js/defaultpage.js");
 
             DefaultPages = new List<DefaultStartPageWrapper>();
 

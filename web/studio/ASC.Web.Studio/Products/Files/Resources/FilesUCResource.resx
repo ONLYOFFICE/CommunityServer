@@ -198,11 +198,20 @@
   <data name="ButtonCreateFolder" xml:space="preserve">
     <value>Folder</value>
   </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Create Document</value>
+  </data>
   <data name="ButtonCreatePresentation" xml:space="preserve">
     <value>Presentation</value>
   </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Create Presentation</value>
+  </data>
   <data name="ButtonCreateSpreadsheet" xml:space="preserve">
     <value>Spreadsheet</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Create Spreadsheet</value>
   </data>
   <data name="ButtonCreateText" xml:space="preserve">
     <value>Document</value>

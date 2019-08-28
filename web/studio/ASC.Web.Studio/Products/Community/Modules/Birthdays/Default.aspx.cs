@@ -55,7 +55,7 @@ namespace ASC.Web.Community.Birthdays
             {
                 upcomingEmptyContent.Controls.Add(new EmptyScreenControl
                     {
-                        ImgSrc = VirtualPathUtility.ToAbsolute("~/products/community/modules/birthdays/app_Themes/default/images/birthday.png"),
+                        ImgSrc = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Birthdays/App_Themes/default/images/birthday.png"),
                         Header = BirthdaysResource.BirthdayEmptyScreenCaption,
                         Describe = BirthdaysResource.BirthdaysEmptyModuleDescription
                     });
@@ -67,8 +67,8 @@ namespace ASC.Web.Community.Birthdays
         protected void RenderScripts()
         {
             Page
-                .RegisterStyle("~/products/community/modules/birthdays/app_themes/default/birthdays.css")
-                .RegisterBodyScripts("~/products/community/modules/birthdays/js/birthdays.js");
+                .RegisterStyle("~/Products/Community/Modules/Birthdays/App_Themes/default/birthdays.css")
+                .RegisterBodyScripts("~/Products/Community/Modules/Birthdays/js/birthdays.js");
         }
 
         private static List<UserInfo> GetTodayBirthdays()

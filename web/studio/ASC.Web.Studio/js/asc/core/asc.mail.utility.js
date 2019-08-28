@@ -1688,6 +1688,9 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
                     addCssRules(output, node.sheet.cssRules, options);
                     node.textContent = output.join("\n");
                 }
+                else if (node.className === "MsoNormal") {
+                    node.setAttribute("style", "margin: 0cm; margin-bottom: .0001pt");
+                }
             });
 
             window.DOMPurify.addHook("afterSanitizeAttributes", function (node) {

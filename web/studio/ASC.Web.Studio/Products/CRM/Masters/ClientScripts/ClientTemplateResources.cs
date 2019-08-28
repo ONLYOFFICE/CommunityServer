@@ -37,20 +37,20 @@ namespace ASC.Web.CRM.Masters.ClientScripts
             get
             {
                 return new[] {
-                "~/products/crm/templates/CasesTemplates.html",
-                "~/products/crm/templates/CommonCustomFieldsTemplates.html",
-                "~/products/crm/templates/CommonTemplates.html",
-                "~/products/crm/templates/ContactsTemplates.html",
-                "~/products/crm/templates/DealsTemplates.html",
-                "~/products/crm/templates/DealsSelectorTemplates.html",
-                "~/products/crm/templates/SimpleContactListTemplate.html",
-                "~/products/crm/templates/TasksTemplates.html",
-                "~/products/crm/templates/ContactSelectorTemplates.html",
-                "~/products/crm/templates/ContactInfoCardTemplate.html",
-                "~/products/crm/templates/SettingsTemplates.html",
-                "~/products/crm/templates/InvoicesTemplates.html",
-                "~/products/crm/templates/VoipTemplates.html",
-                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.html"
+                "~/Products/CRM/Templates/CasesTemplates.html",
+                "~/Products/CRM/Templates/CommonCustomFieldsTemplates.html",
+                "~/Products/CRM/Templates/CommonTemplates.html",
+                "~/Products/CRM/Templates/ContactsTemplates.html",
+                "~/Products/CRM/Templates/DealsTemplates.html",
+                "~/Products/CRM/Templates/DealsSelectorTemplates.html",
+                "~/Products/CRM/Templates/SimpleContactListTemplate.html",
+                "~/Products/CRM/Templates/TasksTemplates.html",
+                "~/Products/CRM/Templates/ContactSelectorTemplates.html",
+                "~/Products/CRM/Templates/ContactInfoCardTemplate.html",
+                "~/Products/CRM/Templates/SettingsTemplates.html",
+                "~/Products/CRM/Templates/InvoicesTemplates.html",
+                "~/Products/CRM/Templates/VoipTemplates.html",
+                "~/Products/Projects/ProjectsTemplates/ListProjectsTemplates.html"
                 };
             }
         }

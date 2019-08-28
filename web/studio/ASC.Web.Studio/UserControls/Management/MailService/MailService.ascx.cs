@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/MailService/js/mailservice.js");
-            Page.ClientScript.RegisterClientScriptBlock(GetType(), "mailservice_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/mailservice/css/mailservice.css") + "\">", false);
+            Page.RegisterBodyScripts("~/UserControls/Management/MailService/js/mailservice.js");
+            Page.ClientScript.RegisterClientScriptBlock(GetType(), "mailservice_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("UserControls/Management/MailService/css/mailservice.css") + "\">", false);
 
             var mailServerInfo = CoreContext.Configuration.Standalone ? MailServiceHelper.GetMailServerInfo() : null;
 

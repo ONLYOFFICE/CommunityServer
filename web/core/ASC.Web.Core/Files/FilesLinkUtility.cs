@@ -37,7 +37,7 @@ namespace ASC.Web.Core.Files
 {
     public static class FilesLinkUtility
     {
-        public const string FilesBaseVirtualPath = "~/products/files/";
+        public const string FilesBaseVirtualPath = "~/Products/Files/";
         public const string EditorPage = "doceditor.aspx";
         private static readonly string FilesUploaderURL = WebConfigurationManager.AppSettings["files.uploader.url"] ?? "~";
 

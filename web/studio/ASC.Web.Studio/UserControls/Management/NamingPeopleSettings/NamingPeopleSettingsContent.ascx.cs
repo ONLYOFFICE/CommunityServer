@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/namingpeoplesettings/js/namingpeoplecontent.js")
-                .RegisterStyle("~/usercontrols/management/namingpeoplesettings/css/namingpeople.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/NamingPeopleSettings/js/namingpeoplecontent.js")
+                .RegisterStyle("~/UserControls/Management/NamingPeopleSettings/css/namingpeople.less");
 
             var schemas = new List<object>();
             var currentSchemaId = CustomNamingPeople.Current.Id;

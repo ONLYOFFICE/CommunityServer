@@ -1303,15 +1303,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, log in with your account.
-        /// </summary>
-        public static string LoginWith {
-            get {
-                return ResourceManager.GetString("LoginWith", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sign Out.
         /// </summary>
         public static string LogoutButton {

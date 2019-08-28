@@ -103,6 +103,11 @@ namespace ASC.Web.Core
             get { return new Guid("{46CFA73A-F320-46CF-8D5B-CD82E1D67F26}"); }
         }
 
+        public static Guid SampleProductID
+        {
+            get { return new Guid("{314B5C27-631B-4C6C-8B11-C6400491ABEF}"); }
+        }
+
         public static WebItemManager Instance { get; private set; }
 
         public IWebItem this[Guid id]

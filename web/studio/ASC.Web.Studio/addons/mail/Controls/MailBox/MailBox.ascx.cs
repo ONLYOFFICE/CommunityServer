@@ -43,21 +43,21 @@ namespace ASC.Web.Mail.Controls
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js",
-                                 "~/usercontrols/common/ckeditor/ckeditor-connector.js",
-                                 "~/products/files/js/common.js",
-                                 "~/products/files/js/templatemanager.js",
-                                 "~/products/files/js/servicemanager.js",
-                                 "~/products/files/js/ui.js",
-                                 "~/products/files/js/eventhandler.js",
-                                 "~/products/files/controls/emptyfolder/emptyfolder.js",
-                                 "~/products/files/controls/fileselector/fileselector.js",
-                                 "~/products/files/controls/tree/tree.js"
+                                 "~/UserControls/Common/ckeditor/ckeditor-connector.js",
+                                 "~/Products/Files/js/common.js",
+                                 "~/Products/Files/js/templatemanager.js",
+                                 "~/Products/Files/js/servicemanager.js",
+                                 "~/Products/Files/js/ui.js",
+                                 "~/Products/Files/js/eventhandler.js",
+                                 "~/Products/Files/Controls/EmptyFolder/emptyfolder.js",
+                                 "~/Products/Files/Controls/FileSelector/fileselector.js",
+                                 "~/Products/Files/Controls/Tree/tree.js"
             )
-            .RegisterStyle("~/products/files/controls/fileselector/fileselector.css",
-                           "~/products/files/controls/thirdparty/thirdparty.css",
-                           "~/products/files/controls/contentlist/contentlist.css",
-                           "~/products/files/controls/emptyfolder/emptyfolder.css",
-                           "~/products/files/controls/tree/tree.css"
+            .RegisterStyle("~/Products/Files/Controls/FileSelector/fileselector.css",
+                           "~/Products/Files/Controls/ThirdParty/thirdparty.css",
+                           "~/Products/Files/Controls/ContentList/contentlist.css",
+                           "~/Products/Files/Controls/EmptyFolder/emptyfolder.css",
+                           "~/Products/Files/Controls/Tree/tree.css"
             );
 
         ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));

@@ -65,7 +65,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
-                "~/usercontrols/management/greetingsettings/js/greetinglogosettings.js");
+                "~/UserControls/Management/GreetingSettings/js/greetinglogosettings.js");
 
             _tenantInfoSettings = TenantInfoSettings.Load();
 

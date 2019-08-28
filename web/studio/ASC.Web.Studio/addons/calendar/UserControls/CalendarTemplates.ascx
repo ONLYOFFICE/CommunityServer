@@ -463,13 +463,13 @@
 </script>
 
 <script id="delete_todo_icon" type="text/x-jquery-tmpl">
-    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span>
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconstrash"></use></svg></span>
 </script>
 <script id="edit_todo_icon" type="text/x-jquery-tmpl">
-    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/community-icons.svg#communityIconsblogs"></use></svg></span>
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsblogs"></use></svg></span>
 </script>
 <script id="settings_todo_icon" type="text/x-jquery-tmpl">
-    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/Images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
+    <span class="menu-item-icon userforum"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
 </script>
 
 <script id="todoViewDialogTemplate" type="text/x-jquery-tmpl">

@@ -37,7 +37,7 @@ namespace ASC.Web.Studio.UserControls.Common.SmallChat
         {
             get
             {
-                return "~/userControls/Common/SmallChat/SmallChat.ascx";
+                return "~/UserControls/Common/SmallChat/SmallChat.ascx";
             }
         }
 
@@ -45,18 +45,18 @@ namespace ASC.Web.Studio.UserControls.Common.SmallChat
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SoundPath = WebPath.GetPath("usercontrols/common/smallchat/css/sounds/chat");
+            SoundPath = WebPath.GetPath("UserControls/Common/SmallChat/css/sounds/chat");
 
             Page
                 .RegisterStyle(
-                    "~/usercontrols/common/smallchat/css/smallchat.css",
-                    "~/usercontrols/common/smallchat/css/jquery.cssemoticons.css")
+                    "~/UserControls/Common/SmallChat/css/smallchat.css",
+                    "~/UserControls/Common/SmallChat/css/jquery.cssemoticons.css")
                 .RegisterBodyScripts(
                     "~/js/third-party/jquery/jquery.linkify.js",
                     "~/js/third-party/jquery/noty/jquery.noty.js",
                     "~/js/third-party/jquery/jquery.cssemoticons.js",
                     "~/js/third-party/autosize.js",
-                    "~/usercontrols/common/smallchat/js/smallchat.js");
+                    "~/UserControls/Common/SmallChat/js/smallchat.js");
         }
     }
 }

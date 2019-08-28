@@ -153,9 +153,6 @@
   <data name="AppButtonConvert" xml:space="preserve">
     <value>CONTINUE</value>
   </data>
-  <data name="AppButtonCreate" xml:space="preserve">
-    <value>CREATE FILE</value>
-  </data>
   <data name="AppConvertCopy" xml:space="preserve">
     <value>Opening this file in ONLYOFFICE™ will create a new copy of this file in Office Open XML format in your Google Drive. This way the original file will not be modified. To further edit the file in ONLYOFFICE™ you will have to open a new copy.</value>
   </data>

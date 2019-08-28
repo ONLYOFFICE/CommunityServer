@@ -39,8 +39,8 @@ namespace ASC.Web.CRM
     public  static class PathProvider
     {
 
-        public static readonly String BaseVirtualPath = "~/products/crm/";
-        public static readonly String BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath).ToLower();
+        public static readonly String BaseVirtualPath = "~/Products/CRM/";
+        public static readonly String BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath);
 
         public static String StartURL()
         {
@@ -71,20 +71,20 @@ namespace ASC.Web.CRM
             if (fileName.EndsWith(".js"))
             {
                 //Attention: Only for ResourceBundleControl
-                return VirtualPathUtility.ToAbsolute("~/products/crm/js/" + fileName);
+                return VirtualPathUtility.ToAbsolute("~/Products/CRM/js/" + fileName);
             }
             if (fileName.EndsWith(".ascx"))
             {
-                return VirtualPathUtility.ToAbsolute("~/products/crm/controls/" + fileName);
+                return VirtualPathUtility.ToAbsolute("~/Products/CRM/Controls/" + fileName);
             }
             if (fileName.EndsWith(".css") || fileName.EndsWith(".less"))
             {
                 //Attention: Only for ResourceBundleControl
-                return VirtualPathUtility.ToAbsolute("~/products/crm/app_themes/default/css/" + fileName);
+                return VirtualPathUtility.ToAbsolute("~/Products/CRM/App_Themes/default/css/" + fileName);
             }
             if (fileName.EndsWith(".png") || fileName.EndsWith(".gif") || fileName.EndsWith(".jpg"))
             {
-                return WebPath.GetPath("/products/crm/app_themes/default/images/" + fileName);
+                return WebPath.GetPath("/Products/CRM/App_Themes/default/images/" + fileName);
             }
 
             return fileName;

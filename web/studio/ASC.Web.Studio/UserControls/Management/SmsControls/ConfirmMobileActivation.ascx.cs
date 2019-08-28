@@ -91,8 +91,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/confirmmobile.js")
-                .RegisterStyle("~/usercontrols/management/SmsControls/css/confirmmobile.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/SmsControls/js/confirmmobile.js")
+                .RegisterStyle("~/UserControls/Management/SmsControls/css/confirmmobile.less");
 
             if (string.IsNullOrEmpty(User.MobilePhone))
                 Activation = true;

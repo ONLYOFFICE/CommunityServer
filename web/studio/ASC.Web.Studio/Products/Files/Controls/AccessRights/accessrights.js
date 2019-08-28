@@ -402,7 +402,7 @@ window.ASC.Files.Share = (function () {
     };
 
     var isShortenLink = function () {
-        return !new RegExp("/products/files/").test(shareLink);
+        return !new RegExp("/products/files/", "i").test(shareLink);
     };
 
     //request

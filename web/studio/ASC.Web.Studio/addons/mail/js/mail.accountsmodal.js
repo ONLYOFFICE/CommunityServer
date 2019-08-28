@@ -655,7 +655,7 @@ window.accountsModal = (function($) {
         $('#manageWindow div.containerHeaderBlock:first').find('td:first').html(window.MailScriptResource.NewAccount);
 
         if ($(html).find('#oauth_frame_blocker').length) {
-            blockUi(523, $("#manageWindow"));
+            blockUi(536, $("#manageWindow"));
 
             $(".oauth-block").click(function () {
                 var url = $(this).attr("data-url");

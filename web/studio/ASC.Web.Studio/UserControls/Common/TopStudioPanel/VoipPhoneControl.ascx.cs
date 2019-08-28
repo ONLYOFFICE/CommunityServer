@@ -72,7 +72,7 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 return new[]
                 {
-                    "~/templates/VoipTemplate.html"
+                    "~/Templates/VoipTemplate.html"
                 };
             }
         }

@@ -13969,7 +13969,7 @@ ASC.Projects.GantChart = (function (window) {
                     };
                 }
 
-                lockImg.src = "../projects/app_themes/default/images/small-icons.png"; // PRIVATE ICON
+                lockImg.src = "/Products/Projects/App_Themes/default/images/small-icons.png"; // PRIVATE ICON
 
                 this._userDefaults = new UserDefaults(this);
                 this.storage = new Storage(this);

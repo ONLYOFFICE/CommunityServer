@@ -339,7 +339,7 @@
         </div>
 
         <div class="login_accept-btn-cnt">
-            <button class="default-personal-popup_btn disabled" type="submit"><%= Resource.AuthDocsLogIn %></button>
+            <button id="loginBtn" class="default-personal-popup_btn disabled" type="submit"><%= Resource.AuthDocsLogIn %></button>
             <span class="login_forget-psw" onclick="PasswordTool.ShowPwdReminderDialog();"><%= Resource.AuthDocsForgotPswd %></span>
         </div>
         

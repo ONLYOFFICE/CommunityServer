@@ -76,9 +76,9 @@ namespace ASC.Web.Studio.UserControls.Management
             Page
                 .RegisterBodyScripts(
                     "~/js/uploader/jquery.fileupload.js",
-                    "~/usercontrols/management/tariffsettings/js/tariffstandalone.js")
-                .RegisterStyle("~/usercontrols/management/tariffsettings/css/tariff.less",
-                    "~/usercontrols/management/tariffsettings/css/tariffstandalone.less");
+                    "~/UserControls/Management/TariffSettings/js/tariffstandalone.js")
+                .RegisterStyle("~/UserControls/Management/TariffSettings/css/tariff.less",
+                    "~/UserControls/Management/TariffSettings/css/tariffstandalone.less");
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();

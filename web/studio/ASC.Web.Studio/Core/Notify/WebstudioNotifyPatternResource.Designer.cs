@@ -1206,7 +1206,7 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to h1.Activate your email for &quot;${__VirtualRootPath}&quot;:&quot;$InviteLink&quot; portal.
         ///
-        ///Hello $UserDisplayName,
+        ///Hello!
         ///
         ///To start participating in the &quot;${__VirtualRootPath}&quot;:&quot;$InviteLink&quot; portal life you need to activate your email address. This is done for security reasons.
         ///
@@ -2193,9 +2193,9 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to h1.Invitation to join ${LetterLogoText} portal
         ///
-        ///Dear $UserDisplayName,
+        ///Hello!
         ///
-        ///$__AuthorName has invited you to join ${LetterLogoText} - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;$InviteLink&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+        ///You are invited to join ${LetterLogoText} - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;$InviteLink&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
         ///
         ///You can accept the invitation by following the link below, it is only valid for 7 days:
         ///
@@ -2682,9 +2682,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Your $PortalUrl portal address was changed to the new &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; address.
         ///
-        ///*Note*: All the shared documents links are inaccessible now, as well as DNS settings and single sign-on options stop working until you change them. The third party iCal links added to your calendar will also stop updating until you reload them.
-        ///
-        ///If you have any questions or need assistance please feel free to contact us at &quot;support@onlyoff [rest of string was truncated]&quot;;.
+        ///*Note*: All the shared documents links are inaccessible now, as well as DNS settings and single sign-on options stop working until you change them. The third party iCal links added to your calendar will also stop updating until you reload them..
         /// </summary>
         public static string pattern_portal_rename {
             get {
@@ -3233,7 +3231,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello!
         ///
         ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
         ///
@@ -3241,7 +3239,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;  [rest of string was truncated]&quot;;.
+        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_guest_activation {
             get {
@@ -3250,7 +3248,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello!
         ///
         ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
         ///
@@ -3258,7 +3256,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
         ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualR [rest of string was truncated]&quot;;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/ [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_guest_welcome {
             get {
@@ -3267,15 +3265,15 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello!
         ///
-        ///$__AuthorName has invited you to join ONLYOFFICE - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+        ///You are invited to join ONLYOFFICE - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
         ///
         ///You can accept the invitation by following the link below, it is only valid for 7 days:
         ///
         ///$GreenButton
         ///
-        ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can can [rest of string was truncated]&quot;;.
+        ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions o [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_user_activation {
             get {
@@ -3305,7 +3303,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello!
         ///
         ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
         ///
@@ -3314,7 +3312,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
         ///# Create, edit and organize &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
         ///# Add your email account to &quot;ONLYOFFICE Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milesto [rest of string was truncated]&quot;;.
+        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milestones and t [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_user_welcome {
             get {
@@ -4380,7 +4378,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
         public static string subject_saas_guest_activation {
             get {
@@ -4398,7 +4396,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
         public static string subject_saas_user_activation {
             get {

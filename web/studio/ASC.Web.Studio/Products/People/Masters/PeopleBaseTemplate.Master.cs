@@ -68,15 +68,15 @@ namespace ASC.Web.People.Masters
                 new ScriptBundleData("people", "people")
                     .AddSource(ResolveUrl, new ClientTemplateResources())
                     .AddSource(ResolveUrl,
-                        "~/products/people/js/peoplemanager.js",
-                        "~/products/people/js/filterHandler.js",
-                        "~/products/people/js/navigatorHandler.js",
-                        "~/products/people/js/peopleController.js",
-                        "~/products/people/js/peopleCore.js",
-                        "~/products/people/js/departmentmanagement.js",
-                        "~/products/people/js/peopleActions.js",
-                        "~/products/people/js/reassigns.js",
-                        "~/products/people/js/sideNavigationPanel.js");
+                        "~/Products/People/js/peoplemanager.js",
+                        "~/Products/People/js/filterhandler.js",
+                        "~/Products/People/js/navigatorhandler.js",
+                        "~/Products/People/js/peoplecontroller.js",
+                        "~/Products/People/js/peoplecore.js",
+                        "~/Products/People/js/departmentmanagement.js",
+                        "~/Products/People/js/peopleactions.js",
+                        "~/Products/People/js/reassigns.js",
+                        "~/Products/People/js/sidenavigationpanel.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()
@@ -84,7 +84,7 @@ namespace ASC.Web.People.Masters
             return (StyleBundleData)
                 new StyleBundleData("people", "people")
                     .AddSource(ResolveUrl,
-                        "~/products/people/app_themes/default/css/people.master.less");
+                        "~/Products/People/App_Themes/default/css/people.master.less");
         }
     }
 }

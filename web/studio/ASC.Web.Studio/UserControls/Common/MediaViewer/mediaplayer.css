@@ -71,7 +71,7 @@
 #videoOverlay {
     height: 60px;
     width: 80px;
-    background: url('./Images/play-large.png') rgba(0, 0, 0, 0.5) no-repeat center;
+    background: url('./images/play-large.png') rgba(0, 0, 0, 0.5) no-repeat center;
     position: absolute;
     border-radius: 5px;
     z-index: 401;
@@ -136,12 +136,12 @@
 }
 #mediaNext {
     margin-left: 20px;
-    background-image: url('./Images/next.png');
+    background-image: url('./images/next.png');
 }
 
 #mediaPrev {
     margin-right: 20px;
-    background-image: url('./Images/previous.png');
+    background-image: url('./images/previous.png');
 }
 
 #filesMediaPlayer {
@@ -190,7 +190,7 @@
 }
 
 #mediaPlayerClose {
-    background-image: url('./Images/close.png');
+    background-image: url('./images/close.png');
     position: fixed;
     top: 9px;
     right: 10px;
@@ -198,11 +198,11 @@
 }
 
 .jp-play {
-    background-image: url('./Images/play.png');
+    background-image: url('./images/play.png');
 }
 
 .jp-state-playing .jp-play {
-    background-image: url('./Images/pause.png');
+    background-image: url('./images/pause.png');
 }
 
 .jp-duration {
@@ -216,22 +216,22 @@
 }
 
 .jp-video-full .jp-full-screen {
-    background-image: url('./Images/fullscreen-off.png');
+    background-image: url('./images/fullscreen-off.png');
 }
 
 .jp-full-screen {
     width: 0;
     display: none;
-    background-image: url('./Images/fullscreen-on.png');
+    background-image: url('./images/fullscreen-on.png');
 }
 
 .jp-mute {
-    background-image: url('./Images/volume.png');
+    background-image: url('./images/volume.png');
     margin: 0;
 }
 
 .jp-state-muted .jp-mute {
-    background-image: url('./Images/volume_muted.png');
+    background-image: url('./images/volume_muted.png');
 }
 
 .jp-seek, .jp-pos {
@@ -302,10 +302,10 @@
 }
 
 #videoDelete {
-    background-image: url('./Images/trash.png');
+    background-image: url('./images/trash.png');
 }
 #videoDownload {
-    background-image: url('./Images/dl.png');
+    background-image: url('./images/dl.png');
 }
 
 /* Image Viewer*/
@@ -324,19 +324,19 @@
 }
 
 #imageZoomIn {
-    background-image: url('./Images/zoom-in.png');
+    background-image: url('./images/zoom-in.png');
 }
 #imageZoomOut {
-    background-image: url('./Images/zoom-out.png');
+    background-image: url('./images/zoom-out.png');
 }
 #imageFullScale {
-    background-image: url('./Images/zoom-to-actual-pixels.png');
+    background-image: url('./images/zoom-to-actual-pixels.png');
 }
 #imageRotateLeft {
-    background-image: url('./Images/rotate-ccw.png');
+    background-image: url('./images/rotate-ccw.png');
 }
 #imageRotateRight {
-    background-image: url('./Images/rotate-cw.png');
+    background-image: url('./images/rotate-cw.png');
 }
 
 #imageViewerInfo {

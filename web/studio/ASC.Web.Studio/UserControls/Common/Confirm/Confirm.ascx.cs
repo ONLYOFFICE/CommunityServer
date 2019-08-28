@@ -34,7 +34,7 @@ namespace ASC.Web.Studio.UserControls.Common
     {
         public static string Location
         {
-            get { return "~/usercontrols/common/confirm/confirm.ascx"; }
+            get { return "~/UserControls/Common/Confirm/Confirm.ascx"; }
         }
 
         public Confirm()
@@ -53,7 +53,7 @@ namespace ASC.Web.Studio.UserControls.Common
             _studioConfirm.Options.IsPopup = true;
             _confirmEnterCode.Value = String.Format("StudioConfirm.Select('{0}',{1});", AdditionalID, SelectJSCallback);
 
-            Page.RegisterBodyScripts("~/usercontrols/common/confirm/js/confirm.js");
+            Page.RegisterBodyScripts("~/UserControls/Common/Confirm/js/confirm.js");
         }
     }
 }

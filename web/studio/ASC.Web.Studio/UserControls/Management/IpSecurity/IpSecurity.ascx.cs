@@ -51,8 +51,8 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
         {
             if (!Enabled) return;
 
-            Page.RegisterBodyScripts("~/usercontrols/management/ipsecurity/js/ipsecurity.js")
-                .RegisterStyle("~/usercontrols/management/ipsecurity/css/ipsecurity.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/IpSecurity/js/ipsecurity.js")
+                .RegisterStyle("~/UserControls/Management/IpSecurity/css/ipsecurity.less");
 
             var managementPage = Page as Studio.Management;
             TenantAccessAnyone = managementPage != null ?

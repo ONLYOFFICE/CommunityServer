@@ -50,7 +50,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/deactivateportal/js/deactivateportal.js");
+            Page.RegisterBodyScripts("~/UserControls/Management/DeactivatePortal/js/deactivateportal.js");
 
             ShowAutoRenew = !CoreContext.Configuration.Standalone &&
                             CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).Any() &&

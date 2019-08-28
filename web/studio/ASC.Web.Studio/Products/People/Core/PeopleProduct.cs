@@ -34,7 +34,7 @@ namespace ASC.Web.People.Core
 {
     public class PeopleProduct : Product
     {
-        internal const string ProductPath = "~/products/people/";
+        internal const string ProductPath = "~/Products/People/";
 
         private ProductContext _context;
 
@@ -77,7 +77,7 @@ namespace ASC.Web.People.Core
 
         public override string HelpURL
         {
-            get { return string.Concat(ProductPath, "help.aspx"); }
+            get { return string.Concat(ProductPath, "Help.aspx"); }
         }
 
         public static string GetStartURL()
@@ -94,7 +94,7 @@ namespace ASC.Web.People.Core
         {
             _context = new ProductContext
                 {
-                    MasterPageFile = "~/products/people/PeopleBaseTemplate.Master",
+                    MasterPageFile = "~/Products/People/PeopleBaseTemplate.Master",
                     DisabledIconFileName = "product_disabled_logo.png",
                     IconFileName = "product_logo.png",
                     LargeIconFileName = "product_logolarge.png",
