@@ -1,5 +1,24 @@
-[![License](https://img.shields.io/badge/License-GNU%20GPL%20V3-green.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![Release](https://img.shields.io/badge/release-10.5.1-blue.svg)](https://github.com/ONLYOFFICE/portals/releases)
+<p align="center">
+	<a href="https://www.onlyoffice.com/"><img alt="https://www.onlyoffice.com/" width="500px" src="https://static-www.onlyoffice.com/images/logo_small.svg"></a>
+</p>
+<hr />
+<p align="center">
+  <a href="https://www.onlyoffice.com/">Website</a> |
+  <a href="https://www.onlyoffice.com/server-solutions.aspx">Products</a> |
+  <a href="https://helpcenter.onlyoffice.com/">Documentation</a> |
+  <a href="https://api.onlyoffice.com/">Api</a> |
+  <a href="https://www.onlyoffice.com/about.aspx">About</a>
+</p>
+<p align="center">
+  <a href="https://www.facebook.com/ONLYOFFICE-833032526736775/"><img alt="https://www.facebook.com/ONLYOFFICE-833032526736775/" src="https://download.onlyoffice.com/assets/logo/opensource/fb.png"></a>
+  <a href="https://twitter.com/ONLY_OFFICE"><img alt="https://twitter.com/ONLY_OFFICE" src="https://download.onlyoffice.com/assets/logo/opensource/tw.png"></a>
+  <a href="https://www.youtube.com/user/onlyofficeTV"><img alt="https://www.youtube.com/user/onlyofficeTV" src="https://download.onlyoffice.com/assets/logo/opensource/yt.png"></a>
+  <a href="https://www.instagram.com/the_onlyoffice/"><img alt="https://www.instagram.com/the_onlyoffice/" src="https://download.onlyoffice.com/assets/logo/opensource/in.png"></a>
+</p>
+<p align="center">
+  <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img alt="http://www.gnu.org/licenses/gpl-3.0.html" src="https://img.shields.io/badge/License-GNU%20GPL%20V3-green.svg?style=flat"></a>
+  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-10.5.1-blue.svg"></a>
+</p>
 
 ## Overview
 
