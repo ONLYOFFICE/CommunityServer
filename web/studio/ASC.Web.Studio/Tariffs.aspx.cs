@@ -26,6 +26,7 @@
 
 using System;
 using System.Linq;
+using System.Web;
 using ASC.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.UserControls.Management;
@@ -68,7 +69,12 @@ namespace ASC.Web.Studio
 
             Title = HeaderStringHelper.GetPageTitle(Resources.Resource.Tariffs);
 
-            if (CoreContext.Configuration.Standalone)
+            if (Request.DesktopApp())
+            {
+                Master.DisabledTopStudioPanel = true;
+                pageContainer.Controls.Add(LoadControl(TariffDesktop.Location));
+            }
+            else if (CoreContext.Configuration.Standalone)
             {
                 pageContainer.Controls.Add(LoadControl(TariffStandalone.Location));
             }
@@ -81,7 +87,7 @@ namespace ASC.Web.Studio
                     && !TenantExtra.GetTenantQuota().Trial
                     && CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID))
                 {
-                    var tariffHistory = (TariffHistory) LoadControl(TariffHistory.Location);
+                    var tariffHistory = (TariffHistory)LoadControl(TariffHistory.Location);
                     tariffHistory.Payments = payments;
                     pageContainer.Controls.Add(tariffHistory);
                 }

@@ -123,9 +123,7 @@
 The following "${__VirtualRootPath}":"${__VirtualRootPath}" portal user has the birthday $BirthdayDate
 $BirthdayUserName
 
-Visit the "${__VirtualRootPath}":"${__VirtualRootPath}" portal to view the event or send your birthday greetings.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the new events on the "${__VirtualRootPath}":"${__VirtualRootPath}" portal, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+Visit the "${__VirtualRootPath}":"${__VirtualRootPath}" portal to view the event or send your birthday greetings.</value>
   </data>
   <data name="subject_BirthdayReminder" xml:space="preserve">
     <value>$BirthdayUserName has the birthday $BirthdayDate</value>

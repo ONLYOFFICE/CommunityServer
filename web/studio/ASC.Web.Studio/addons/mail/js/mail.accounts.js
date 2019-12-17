@@ -193,6 +193,7 @@ window.accountsManager = (function($) {
         mailBox.markFolderAsChanged(TMMail.sysfolders.inbox.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.sent.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.drafts.id);
+        mailBox.markFolderAsChanged(TMMail.sysfolders.templates.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.trash.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.spam.id);
     }

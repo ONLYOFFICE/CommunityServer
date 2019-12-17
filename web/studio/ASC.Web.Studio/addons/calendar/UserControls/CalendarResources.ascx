@@ -76,7 +76,7 @@ var g_fcOptions = {
             dialogButton_delete:                    "<%=Resources.CalendarJSResource.calendarCategoriesDialog_deleteButton%>",
 
             dialogErrorMassageSpecCharacter:        "<%=Resources.CalendarJSResource.dialogErrorMassageSpecCharacter%>",
-
+            dialogCopyMessage:                      "<%=Resources.CalendarJSResource.dialogCopyMessage%>",
 			// list of subscriptions
 			subscriptionsTitle:                     "<%=Resources.CalendarJSResource.calendarCategoriesList_subscriptionsHeader%>",
 			//

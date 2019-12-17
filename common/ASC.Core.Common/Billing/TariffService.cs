@@ -42,7 +42,7 @@ using ASC.Core.Tenants;
 
 namespace ASC.Core.Billing
 {
-    class TariffService : DbBaseService, ITariffService
+    public class TariffService : DbBaseService, ITariffService
     {
         private const int DEFAULT_TRIAL_PERIOD = 30;
         private static readonly TimeSpan DEFAULT_CACHE_EXPIRATION = TimeSpan.FromMinutes(5);

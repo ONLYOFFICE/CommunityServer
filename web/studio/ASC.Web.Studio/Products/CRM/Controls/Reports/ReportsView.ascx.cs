@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using ASC.CRM.Core;
+using ASC.Core;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
 
@@ -78,6 +79,11 @@ namespace ASC.Web.CRM.Controls.Reports
 
                 if (Enum.IsDefined(typeof (ReportType), reportType))
                     CurrentReportType = (ReportType) reportType;
+
+                if (CurrentReportType == ReportType.WorkloadByVoip && CoreContext.Configuration.CustomMode)
+                {
+                    Response.Redirect(PathProvider.StartURL());
+                }
 
                 InitReportInfo();
             }

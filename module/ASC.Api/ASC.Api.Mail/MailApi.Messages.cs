@@ -105,17 +105,13 @@ namespace ASC.Api.Mail
                 MailboxId = mailbox_id,
                 CustomLabels = new List<int>(tags),
                 SearchText = search,
+                Page = page.HasValue ? (page.Value > 0 ? page.Value - 1 : 0) : 0,
                 PageSize = page_size.GetValueOrDefault(25),
                 Sort = Defines.ORDER_BY_DATE_SENT,
                 SortOrder = sortorder,
                 WithCalendar = with_calendar,
                 UserFolderId = user_folder_id
             };
-
-            if (page.HasValue)
-            {
-                filter.Page = page.Value > 0 ? page.Value - 1 : 0;
-            }
 
             long totalMessages;
 
@@ -171,6 +167,7 @@ namespace ASC.Api.Mail
             if (item.WasNew && markRead.HasValue && markRead.Value)
             {
                 MailEngineFactory.MessageEngine.SetUnread(new List<int> {item.Id}, false);
+                item.IsNew = false;
             }
 
             if (needSanitizeHtml)
@@ -193,6 +190,60 @@ namespace ASC.Api.Mail
             }
 
             return item;
+        }
+
+        /// <summary>
+        ///    Reassigns drafts/templates to selected email.
+        /// </summary>
+        /// <param name="folder">Folder id</param>
+        /// <param name="email">Email to which messages will be reassigned</param>
+        /// <returns>none</returns>
+        /// <short>Reassign drafts/templates</short> 
+        /// <category>Messages</category>
+        [Update(@"messages/reassign")]
+        public void ReassignMailMessages(int folder, string email)
+        {
+            var filter = new MailSearchFilterData
+            {
+                PrimaryFolder = (FolderType)folder
+            };
+
+            if (filter.PrimaryFolder != FolderType.Draft && filter.PrimaryFolder != FolderType.Templates)
+            {
+                throw new InvalidOperationException("Only folders Templates and Drafts are allowed.");
+            }
+
+            long totalMessages;
+
+            var messages = MailEngineFactory.MessageEngine.GetFilteredMessages(filter, out totalMessages);
+
+            _context.SetTotalCount(totalMessages);
+
+            for (var i = 0; i < messages.Count; i++)
+            {
+                var message = messages[i];
+
+                if (message.Bcc == null)
+                {
+                    message.Bcc = "";
+                }
+
+                var to = message.To.Split(',').ToList<string>();
+                var cc = message.Cc.Split(',').ToList<string>();
+                var bcc = message.Bcc.Split(',').ToList<string>();
+
+                if (filter.PrimaryFolder == FolderType.Draft)
+                {
+                    MailEngineFactory.DraftEngine.Save(message.Id, email, to, cc, bcc, message.MimeReplyToId, message.Important, message.Subject,
+                        message.TagIds, message.HtmlBody, message.Attachments, message.CalendarEventIcs);
+                }
+
+                if (filter.PrimaryFolder == FolderType.Templates)
+                {
+                    MailEngineFactory.TemplateEngine.Save(message.Id, email, to, cc, bcc, message.MimeReplyToId, message.Important, message.Subject,
+                            message.TagIds, message.HtmlBody, message.Attachments, message.CalendarEventIcs);
+                }
+            }
         }
 
         /// <summary>
@@ -470,6 +521,36 @@ namespace ASC.Api.Mail
             }
         }
 
+        /// <visible>false</visible>
+        [Obsolete]
+        [Update(@"messages/save")]
+        public MailMessage SaveMessageOld(int id,
+                                          string from,
+                                          List<string> to,
+                                          List<string> cc,
+                                          List<string> bcc,
+                                          string mimeReplyToId,
+                                          bool importance,
+                                          string subject,
+                                          List<int> tags,
+                                          string body,
+                                          List<MailAttachmentData> attachments,
+                                          string calendarIcs)
+        {
+            return SaveMessage(id,
+                               from,
+                               to,
+                               cc,
+                               bcc,
+                               mimeReplyToId,
+                               importance,
+                               subject,
+                               tags,
+                               body,
+                               attachments,
+                               calendarIcs);
+        }
+
         /// <summary>
         ///    Saves the message with the ID specified in the request
         /// </summary>
@@ -488,7 +569,7 @@ namespace ASC.Api.Mail
         /// <returns>Saved message id</returns>
         /// <short>SaveToDraft message</short> 
         /// <category>Messages</category>
-        [Update(@"messages/save")]
+        [Update(@"drafts/save")]
         public MailMessage SaveMessage(int id,
             string from,
             List<string> to,
@@ -514,6 +595,66 @@ namespace ASC.Api.Mail
             try
             {
                 return MailEngineFactory.DraftEngine.Save(id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags,
+                    body, attachments, calendarIcs);
+            }
+            catch (DraftException ex)
+            {
+                string fieldName;
+
+                switch (ex.FieldType)
+                {
+                    case DraftFieldTypes.From:
+                        fieldName = MailApiResource.FieldNameFrom;
+                        break;
+                    default:
+                        fieldName = "";
+                        break;
+                }
+                switch (ex.ErrorType)
+                {
+                    case DraftException.ErrorTypes.IncorrectField:
+                        throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress.Replace("%1", fieldName));
+                    case DraftException.ErrorTypes.EmptyField:
+                        throw new ArgumentException(MailApiResource.ErrorEmptyField.Replace("%1", fieldName));
+                    case DraftException.ErrorTypes.TotalSizeExceeded:
+                        throw new ArgumentException(MailScriptResource.AttachmentsTotalLimitError);
+                    default:
+                        throw;
+                }
+            }
+        }
+
+        /// <summary>
+        ///    Saves the template with the ID specified in the request
+        /// </summary>
+        /// <param name="id">Template id which will be saved.</param>
+        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
+        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="mimeReplyToId">Template id to which the reply answer</param>
+        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
+        /// <param name="subject">Template subject</param>
+        /// <param name="tags">List of tags id added to message</param>
+        /// <param name="body">Template body as html string.</param>
+        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
+        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
+        /// <returns>Saved template id</returns>
+        /// <short>SaveToTemplate message</short> 
+        /// <category>Templates</category>
+        [Update(@"templates/save")]
+        public MailMessage SaveTemplate(int id, string from, List<string> to, List<string> cc, List<string> bcc, string mimeReplyToId, bool importance, string subject,
+            List<int> tags, string body, List<MailAttachmentData> attachments, string calendarIcs)
+        {
+            if (string.IsNullOrEmpty(from))
+                throw new ArgumentNullException("from");
+
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+            try
+            {
+                return MailEngineFactory.TemplateEngine.Save(id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags,
                     body, attachments, calendarIcs);
             }
             catch (DraftException ex)
@@ -579,12 +720,13 @@ namespace ASC.Api.Mail
         /// <param name="id"> Message id for adding attachment</param>
         /// <param name="fileId">Teamlab document id.</param>
         /// <param name="version">Teamlab document version</param>
+        /// <param name="needSaveToTemp">Need save to temp for templates</param>
         /// <returns>Attached document as MailAttachment object</returns>
         /// <short>Attach Teamlab document</short>
         /// <category>Messages</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Create(@"messages/{id:[0-9]+}/document")]
-        public MailAttachmentData AttachDocument(int id, string fileId, string version)
+        public MailAttachmentData AttachDocument(int id, string fileId, string version, bool needSaveToTemp)
         {
             try
             {
@@ -592,7 +734,7 @@ namespace ASC.Api.Mail
                 Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
                 var attachment = MailEngineFactory.AttachmentEngine
-                    .AttachFileFromDocuments(TenantId, Username, id, fileId, version);
+                    .AttachFileFromDocuments(TenantId, Username, id, fileId, version, needSaveToTemp);
 
                 return attachment;
             }

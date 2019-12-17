@@ -24,7 +24,9 @@
 */
 
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ASC.Web.Studio.UserControls.Users.UserProfile;
 
 namespace ASC.Specific.CapabilitiesApi
 {
@@ -35,19 +37,26 @@ namespace ASC.Specific.CapabilitiesApi
         public bool LdapEnabled { get; set; }
 
         [DataMember]
-        public string SsoUrl { get; set; } // if empty sso is disabled
+        public List<string> Providers { get; set; }
 
         [DataMember]
         public string SsoLabel { get; set; }
 
+        /// <summary>
+        /// if empty sso is disabled
+        /// </summary>
+        [DataMember]
+        public string SsoUrl { get; set; }
+
         public static CapabilitiesData GetSample()
         {
             return new CapabilitiesData
-            {
-                LdapEnabled = false,
-                SsoUrl = string.Empty,
-                SsoLabel = string.Empty
-            };
+                {
+                    LdapEnabled = false,
+                    Providers = AccountLinkControl.AuthProviders,
+                    SsoLabel = string.Empty,
+                    SsoUrl = string.Empty,
+                };
         }
     }
 }

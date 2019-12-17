@@ -239,22 +239,20 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw new SecurityAccessDeniedException(Resource.ErrorConfirmURLError);
             }
 
-            var curTenant = CoreContext.TenantManager.GetCurrentTenant();
-            var tariff = CoreContext.TenantManager.GetTenantQuota(curTenant.TenantId);
-
-            CoreContext.TenantManager.RemoveTenant(curTenant.TenantId);
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            CoreContext.TenantManager.RemoveTenant(tenant.TenantId);
 
             if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
             {
-                ApiSystemHelper.RemoveTenantFromCache(curTenant.TenantAlias);
+                ApiSystemHelper.RemoveTenantFromCache(tenant.TenantAlias);
             }
 
-            var currentUser = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
+            var owner = CoreContext.UserManager.GetUsers(tenant.OwnerId);
             var redirectLink = SetupInfo.TeamlabSiteRedirect + "/remove-portal-feedback-form.aspx#" +
-                        Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + currentUser.FirstName +
-                                                                                    "\",\"lastname\":\"" + currentUser.LastName +
-                                                                                    "\",\"alias\":\"" + curTenant.TenantAlias +
-                                                                                    "\",\"email\":\"" + currentUser.Email + "\"}"));
+                        Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + owner.FirstName +
+                                                                                    "\",\"lastname\":\"" + owner.LastName +
+                                                                                    "\",\"alias\":\"" + tenant.TenantAlias +
+                                                                                    "\",\"email\":\"" + owner.Email + "\"}"));
 
             var authed = false;
             try
@@ -276,13 +274,13 @@ namespace ASC.Web.Studio.UserControls.Management
             _successMessage = string.Format(Resource.DeletePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
             _successMessage = string.Format(_successMessage, redirectLink);
 
-            StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(curTenant, tariff, redirectLink);
+            StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(owner, redirectLink);
 
-            return JsonConvert.SerializeObject(
-                new {
+            return JsonConvert.SerializeObject(new
+                {
                     successMessage = _successMessage,
-                    redirectLink = redirectLink }
-                );
+                    redirectLink
+                });
         }
 
 

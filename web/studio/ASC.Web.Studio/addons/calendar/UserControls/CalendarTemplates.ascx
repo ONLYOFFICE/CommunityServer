@@ -149,15 +149,15 @@
 	
 	        <!-- get/set iCal stream -->
 	        <div class="ical">
-		        <div class="ical-logo"></div>
+		        <!--<div class="ical-logo"></div> -->
 		        <div class="ical-selectors">
-			        <span class="ical-label">${dialogImportExportLabel}</span>
+			       <!-- <span class="ical-label">${dialogImportExportLabel}</span> -->
 			        <div class="ical-import">
 				        <span id="ical-browse-btn-subs" class="ical-link">${dialogImportLabel}</span>&nbsp;&nbsp;
 				        <span class="ical-file-selected">${fileNotSelected}</span>
 			        </div>
 			        <div class="ical-export">
-				        <span class="ical-link">${dialogStreamLink}</span>
+				        <span class="ical-link">${dialogExportLink}</span>
 			        </div>
 		        </div>
 	        </div>
@@ -940,15 +940,15 @@
                                 </a>
                                 <%=Resources.CalendarJSResource.attendeesNoAccountText%>
                             </div>
-		                </div>
-                        <div class="inline-block cbx-container sent-invitations">
-                            <div>
-                                <label>
-                                    <input class="sent-invitations cb" type="checkbox"/>
-                                    <%=Resources.CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>
-                                </label>
+                            <div class="inline-block cbx-container sent-invitations">
+                                <div>
+                                    <label>
+                                        <input class="sent-invitations cb" type="checkbox"/>
+                                        <%=Resources.CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>
+                                    </label>
+                                </div>
                             </div>
-			            </div>
+                        </div>
                         <div class="botttom-indent">
                             <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
                             <div>
@@ -964,7 +964,7 @@
             </div>
 	    </div>
 
-	    <div class="buttons">
+	    <div class="buttons clearFix">
 		    <a class="save-btn button blue big"><%=Resources.CalendarJSResource.calendarEventEditor_saveButton%></a>
 		    <a class="close-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_closeButton%></a>
 		    <a class="cancel-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_cancelButton%></a>

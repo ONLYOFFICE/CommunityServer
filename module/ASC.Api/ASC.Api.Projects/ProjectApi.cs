@@ -33,6 +33,7 @@ using ASC.Api.Documents;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Api.Projects.Calendars;
+using ASC.Api.Utils;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Calendars;
@@ -60,12 +61,12 @@ namespace ASC.Api.Projects
         public TaskFilter CreateFilter(EntityType entityType)
         {
             var filter = new TaskFilter
-                   {
-                       SortOrder = !Context.SortDescending,
-                       SearchText = Context.FilterValue,
-                       Offset = Context.StartIndex,
-                       Max = Context.Count
-                   };
+            {
+                SortOrder = !Context.SortDescending,
+                SearchText = Context.FilterValue,
+                Offset = Context.StartIndex,
+                Max = Context.Count
+            };
 
             if (!string.IsNullOrEmpty(Context.SortBy))
             {
@@ -141,7 +142,7 @@ namespace ASC.Api.Projects
                             });
                         }
 
-                        var index = project.ID%CalendarColors.BaseColors.Count;
+                        var index = project.ID % CalendarColors.BaseColors.Count;
                         cals.Add(new ProjectCalendar(
                             project,
                             CalendarColors.BaseColors[index].BackgroudColor,
@@ -162,7 +163,7 @@ namespace ASC.Api.Projects
                         if (projects != null && projects.Any(proj => proj.ID == p.ID)) continue;
 
                         var sharingOptions = new SharingOptions();
-                        sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = userId, IsGroup = false});
+                        sharingOptions.PublicItems.Add(new SharingOptions.PublicItem { Id = userId, IsGroup = false });
                         foreach (var participant in team.Where(r => r.ProjectID == p.ID))
                         {
                             sharingOptions.PublicItems.Add(new SharingOptions.PublicItem
@@ -172,7 +173,7 @@ namespace ASC.Api.Projects
                             });
                         }
 
-                        var index = p.ID%CalendarColors.BaseColors.Count;
+                        var index = p.ID % CalendarColors.BaseColors.Count;
                         cals.Add(new ProjectCalendar(
                             p,
                             CalendarColors.BaseColors[index].BackgroudColor,
@@ -186,7 +187,10 @@ namespace ASC.Api.Projects
         }
 
         [Update(@"settings")]
-        public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate, bool? hideEntitiesInPausedProjects, StartModuleType? startModule, object folderId)
+        public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate,
+            bool? hideEntitiesInPausedProjects,
+            StartModuleType? startModule,
+            object folderId)
         {
             if (everebodyCanCreate.HasValue || hideEntitiesInPausedProjects.HasValue)
             {
@@ -240,8 +244,64 @@ namespace ASC.Api.Projects
                 EverebodyCanCreate = commonSettings.EverebodyCanCreate,
                 HideEntitiesInPausedProjects = commonSettings.HideEntitiesInPausedProjects,
                 StartModuleType = userSettings.StartModuleType,
-                FolderId = userSettings.FolderId
+                FolderId = userSettings.FolderId,
             };
+        }
+
+
+        [Create(@"status")]
+        public CustomTaskStatus CreateStatus(CustomTaskStatus status)
+        {
+            return EngineFactory.StatusEngine.Create(status);
+        }
+
+        [Update(@"status")]
+        public CustomTaskStatus UpdateStatus(CustomTaskStatus newStatus)
+        {
+            if (newStatus.IsDefault && !EngineFactory.StatusEngine.Get().Any(r => r.IsDefault && r.StatusType == newStatus.StatusType))
+            {
+                return CreateStatus(newStatus);
+            }
+
+            var status = EngineFactory.StatusEngine.Get().FirstOrDefault(r => r.Id == newStatus.Id).NotFoundIfNull();
+
+            status.Title = Update.IfNotEmptyAndNotEquals(status.Title, newStatus.Title);
+            status.Description = Update.IfNotEmptyAndNotEquals(status.Description, newStatus.Description);
+            status.Color = Update.IfNotEmptyAndNotEquals(status.Color, newStatus.Color);
+            status.Image = Update.IfNotEmptyAndNotEquals(status.Image, newStatus.Image);
+            status.ImageType = Update.IfNotEmptyAndNotEquals(status.ImageType, newStatus.ImageType);
+            status.Order = Update.IfNotEmptyAndNotEquals(status.Order, newStatus.Order);
+            status.StatusType = Update.IfNotEmptyAndNotEquals(status.StatusType, newStatus.StatusType);
+            status.Available = Update.IfNotEmptyAndNotEquals(status.Available, newStatus.Available);
+
+            EngineFactory.StatusEngine.Update(status);
+
+            return status;
+        }
+
+        [Update(@"statuses")]
+        public List<CustomTaskStatus> UpdateStatuses(List<CustomTaskStatus> statuses)
+        {
+            foreach (var status in statuses)
+            {
+                UpdateStatus(status);
+            }
+
+            return statuses;
+        }
+
+        [Read(@"status")]
+        public List<CustomTaskStatus> GetStatuses()
+        {
+            return EngineFactory.StatusEngine.GetWithDefaults();
+        }
+
+        [Delete(@"status/{id}")]
+        public CustomTaskStatus DeleteStatus(int id)
+        {
+            var status = EngineFactory.StatusEngine.Get().FirstOrDefault(r => r.Id == id).NotFoundIfNull();
+            EngineFactory.StatusEngine.Delete(status.Id);
+            return status;
         }
     }
 }

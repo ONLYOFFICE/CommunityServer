@@ -31,6 +31,7 @@ ASC.Projects.AllMilestones = (function () {
         filter = baseObject.ProjectsAdvansedFilter,
         pageNavigator = baseObject.PageNavigator,
         common = baseObject.Common,
+        milestoneAction = baseObject.MilestoneAction,
         currentProject;
 
 
@@ -86,14 +87,16 @@ ASC.Projects.AllMilestones = (function () {
                 baseEmptyScreen: {
                     img: "milestones",
                     header: resources.MilestoneResource.MilestoneNotFound_Header,
-                    description: resources.MilestoneResource.MilestonesMarkMajorTimestamps,
+                    description: teamlab.profile.isVisitor
+                                    ? resources.MilestoneResource.MilestonesMarkMajorTimestampsVisitor
+                                    : resources.MilestoneResource.MilestonesMarkMajorTimestamps,
                     button: {
                         title: resources.MilestoneResource.PlanFirstMilestone,
-                        onclick: ASC.Projects.MilestoneAction.showNewMilestonePopup,
+                        onclick: milestoneAction.showNewMilestonePopup,
                         canCreate: function () {
                             return currentProjectId ?
                                 canCreateMilestone(currentProject) :
-                                ASC.Projects.Master.Projects.some(canCreateMilestone);
+                                baseObject.Master.Projects.some(canCreateMilestone);
                         }
                     }
                 },
@@ -185,7 +188,7 @@ ASC.Projects.AllMilestones = (function () {
             isNotify: milestone.isNotify
         };
 
-        ASC.Projects.MilestoneAction.onGetMilestoneBeforeUpdate(milestoneForUpdate);
+        milestoneAction.onGetMilestoneBeforeUpdate(milestoneForUpdate);
     }
 
     function addMilestoneTaskActionHandler(milestoneId) {
@@ -199,8 +202,11 @@ ASC.Projects.AllMilestones = (function () {
     }
 
     function maRemoveHandler(milestoneId) {
+        var milestone = getMilestoneById(milestoneId);
         self.showCommonPopup("milestoneRemoveWarning", function () {
             loadingBanner.displayLoading();
+
+            milestoneAction.updateCaldavMilestone(milestone.id, milestone.projectId, 2);
             teamlab.removePrjMilestone(milestoneId);
             jq.unblockUI();
         });
@@ -212,6 +218,7 @@ ASC.Projects.AllMilestones = (function () {
             teamlab.removePrjMilestones({ ids: milestoneids }, {
                 success: function (params, data) {
                     for (var i = 0; i < data.length; i++) {
+                        milestoneAction.updateCaldavMilestone(data[i].id, data[i].projectId, 2);
                         teamlab.call(teamlab.events.removePrjMilestone, this, [{ disableMessage: true }, data[i]]);
                     }
                     loadingBanner.hideLoading();
@@ -325,7 +332,7 @@ ASC.Projects.AllMilestones = (function () {
         self.showOrHideData(currentMilestonesList, filterMilestoneCount);
         $milestoneListBody.find("tr:first").yellowFade();
 
-        ASC.Projects.MilestoneAction.unlockMilestoneActionPage();
+        milestoneAction.unlockMilestoneActionPage();
         jq.unblockUI();
     };
     function onUpdateMilestone(params, milestone) {
@@ -339,7 +346,7 @@ ASC.Projects.AllMilestones = (function () {
 
         $updatedMilestone.replaceWith(newMilestone);
         newMilestone.yellowFade();
-        ASC.Projects.MilestoneAction.unlockMilestoneActionPage();
+        milestoneAction.unlockMilestoneActionPage();
         jq.unblockUI();
         common.displayInfoPanel(projectsJsResource.MilestoneUpdated);
     };

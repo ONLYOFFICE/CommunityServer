@@ -33,6 +33,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+using ASC.Web.Core;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Users;
 using ASC.Web.Projects.Classes;
@@ -54,8 +55,13 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             {
                 SortBy = "title",
                 SortOrder = true,
-                ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
+                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open }
             };
+
+            if (!ProjectsCommonSettings.Load().HideEntitiesInPausedProjects)
+            {
+                filter.ProjectStatuses.Add(ProjectStatus.Paused);
+            }
 
             using (var scope = DIHelper.Resolve())
             {
@@ -88,7 +94,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     }).ToList();
 
                 var tags = engineFactory.TagEngine.GetTags()
-                        .Select(r => new {value = r.Key, title = r.Value.HtmlEncode()})
+                        .Select(r => new { value = r.Key, title = r.Value.HtmlEncode() })
                         .ToList();
 
                 var result = new List<KeyValuePair<string, object>>(1)
@@ -108,7 +114,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                 {
                     SortBy = "deadline",
                     SortOrder = false,
-                    MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open}
+                    MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open }
                 };
 
                 var milestones = engineFactory.MilestoneEngine.GetByFilter(filter)
@@ -117,11 +123,11 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                         id = m.ID,
                         title = m.Title,
                         deadline = SetDate(m.DeadLine, TimeZoneInfo.Local),
-                        projectOwner = new {id = m.Project.ID},
-                        status = (int) m.Status
+                        projectOwner = new { id = m.Project.ID },
+                        status = (int)m.Status
                     }).ToList();
 
-                result.Add(RegisterObject(new {Milestones = new {response = milestones}}));
+                result.Add(RegisterObject(new { Milestones = new { response = milestones } }));
 
                 return result;
             }
@@ -159,7 +165,8 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                 var userLastModified = CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
                 var projectMaxLastModified = engineFactory.ProjectEngine.GetMaxLastModified().ToString(CultureInfo.InvariantCulture);
                 var milestoneMaxLastModified = engineFactory.MilestoneEngine.GetLastModified();
-                return string.Format("{0}|{1}|{2}|{3}", currentUserId, userLastModified, projectMaxLastModified, milestoneMaxLastModified);
+                var paused = ProjectsCommonSettings.LoadForCurrentUser().HideEntitiesInPausedProjects;
+                return string.Format("{0}|{1}|{2}|{3}|{4}", currentUserId, userLastModified, projectMaxLastModified, milestoneMaxLastModified, paused);
             }
         }
     }
@@ -273,7 +280,8 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                         {
                             CanCreateProject = projectSecurity.CanCreate<Project>(null),
                             IsModuleAdmin = projectSecurity.CurrentUserAdministrator,
-                            ProjectsCommonSettings.LoadForCurrentUser().StartModuleType
+                            ProjectsCommonSettings.LoadForCurrentUser().StartModuleType,
+                            WebItemManager.ProjectsProductID
                         })
                 };
             }

@@ -218,14 +218,25 @@ namespace ASC.Mail.Data.Storage
                 {
                     using (var reader = new MemoryStream(mailAttachmentData.data))
                     {
-                        var uploadUrl = storage.Save(attachmentPath, reader, mailAttachmentData.fileName);
+                        var uploadUrl = (mailAttachmentData.needSaveToTemp)
+                            ? storage.Save("attachments_temp", attachmentPath, reader, mailAttachmentData.fileName)
+                            : storage.Save(attachmentPath, reader, mailAttachmentData.fileName);
+
                         mailAttachmentData.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
                     }
                 }
                 else
                 {
-                    var uploadUrl = storage.Save(attachmentPath, mailAttachmentData.dataStream, mailAttachmentData.fileName);
+                    var uploadUrl = (mailAttachmentData.needSaveToTemp)
+                        ? storage.Save("attachments_temp", attachmentPath, mailAttachmentData.dataStream, mailAttachmentData.fileName)
+                        : storage.Save(attachmentPath, mailAttachmentData.dataStream, mailAttachmentData.fileName);
+
                     mailAttachmentData.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
+                }
+
+                if (mailAttachmentData.needSaveToTemp)
+                {
+                    mailAttachmentData.tempStoredUrl = mailAttachmentData.storedFileUrl;
                 }
             }
             catch (Exception e)

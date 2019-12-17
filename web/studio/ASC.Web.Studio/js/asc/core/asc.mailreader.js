@@ -126,6 +126,7 @@ ASC.Controls.MailReader = function () {
         Teamlab.bind(Teamlab.events.setDefaultAccount, updateFoldersAndUpdateMailboxes);
         Teamlab.bind(Teamlab.events.sendMailMessage, updateFolders);
         Teamlab.bind(Teamlab.events.saveMailMessage, updateFolders);
+        Teamlab.bind(Teamlab.events.saveMailTemplate, updateFolders);
         Teamlab.bind(Teamlab.events.moveMailConversations, updateFolders);
         Teamlab.bind(Teamlab.events.restoreMailConversations, updateFolders);
         Teamlab.bind(Teamlab.events.removeMailConversations, updateFolders);

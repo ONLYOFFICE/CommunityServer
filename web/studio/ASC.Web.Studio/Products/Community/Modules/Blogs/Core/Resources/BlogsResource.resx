@@ -258,4 +258,7 @@
   <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
     <value>Unsubscribe from all posts</value>
   </data>
+  <data name="EmptyScreenBlogTextVisitor" xml:space="preserve">
+    <value>Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users' comments.</value>
+  </data>
 </root>

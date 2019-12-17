@@ -159,7 +159,7 @@ namespace ASC.Data.Storage
                         }
                     }
 
-                    Log.Debug("Domain:");
+                    Log.DebugFormat("Module:{0},Domain:", module);
 
                     files = oldStore.ListFilesRelative(string.Empty, "\\", "*.*", true)
                         .Where(path => domains.All(domain => !path.Contains(domain + "/")))
@@ -172,11 +172,14 @@ namespace ASC.Data.Storage
                     }
 
                     StepDone();
+                    Log.DebugFormat("Percentage:{0}", Percentage);
                 }
 
                 settings.Save();
+                Log.Debug("StaticUploader Save");
                 tenant.SetStatus(TenantStatus.Active);
                 CoreContext.TenantManager.SaveTenant(tenant);
+                Log.Debug("StaticUploader SetStatus");
             }
             catch (Exception e)
             {

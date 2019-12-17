@@ -131,7 +131,7 @@ window.ASC.Files.Actions = (function () {
     /* Methods*/
 
     var showActionsViewPanel = function (event) {
-        jq("#buttonUnsubscribe, #buttonDelete, #buttonMoveto, #buttonCopyto, #buttonShare, #buttonMarkRead").hide();
+        jq("#buttonUnsubscribe, #buttonDelete, #buttonMoveto, #buttonCopyto, #buttonShare, #buttonMarkRead, #buttonSendInEmail").hide();
         jq("#mainContentHeader .unlockAction").removeClass("unlockAction");
         var count = jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)").length;
         var countWithRights = count;
@@ -171,7 +171,7 @@ window.ASC.Files.Actions = (function () {
 
             if (!ASC.Resources.Master.Personal && entryObj.is(":not(.without-share)")
                 && ASC.Files.Share && ASC.Files.Folders.currentFolder.shareable
-                && (!entryData.encrypted || ASC.Files.Utility.CanWebEncrypt(ASC.Files.UI.getObjectData(entryObj).title) && ASC.Desktop && ASC.Desktop.blockchainSupport())) {
+                && (!entryData.encrypted || ASC.Files.Utility.CanWebEncrypt(entryData.title) && ASC.Desktop && ASC.Desktop.encryptionSupport())) {
                 countCanShare++;
             }
         });
@@ -221,6 +221,11 @@ window.ASC.Files.Actions = (function () {
         } else if (ASC.Files.Folders.folderContainer != "project" && countCanShare > 0) {
             jq("#buttonShare").show().find("span").html(countCanShare);
             jq("#mainShare").addClass("unlockAction");
+
+            var filesCount = jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.folder-row):has(.checkbox input:checked)").length;
+            if (filesCount > 0) {
+                jq("#buttonSendInEmail").show().find("span").html(filesCount);
+            }
         }
 
         if (onlyThirdParty) {
@@ -304,12 +309,13 @@ window.ASC.Files.Actions = (function () {
 
             if (!ASC.Files.Utility.CanWebView(entryTitle)
                 && (typeof ASC.Files.ImageViewer == "undefined" || !ASC.Files.Utility.CanImageView(entryTitle))
-                && (typeof ASC.Files.MediaPlayer == "undefined" || !ASC.Files.MediaPlayer.canPlay(entryTitle))) {
+                && (typeof ASC.Files.MediaPlayer == "undefined" || !ASC.Files.MediaPlayer.canPlay(entryTitle, true))) {
                 jq("#filesOpen").hide().addClass("display-none");
             }
 
             if (!ASC.Files.ThirdParty || !ASC.Files.ThirdParty.docuSignAttached()
-                || jq.inArray(ASC.Files.Utility.GetFileExtension(entryTitle), ASC.Files.Constants.DocuSignFormats) == -1) {
+                || jq.inArray(ASC.Files.Utility.GetFileExtension(entryTitle), ASC.Files.Constants.DocuSignFormats) == -1
+                || entryData.encrypted) {
                 jq("#filesDocuSign").hide();
             }
 
@@ -799,6 +805,19 @@ window.ASC.Files.Actions = (function () {
         jq("#filesSendInEmail").click(function () {
             ASC.Files.Actions.hideAllActionPanels();
             window.location.href = ASC.Mail.Utility.GetDraftUrl(ASC.Files.Actions.currentEntryData.entryId);
+        });
+
+        jq("#studioPageContent").on("click", "#buttonSendInEmail", function () {
+            ASC.Files.Actions.hideAllActionPanels();
+
+            var fileIds = jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.folder-row):has(.checkbox input:checked)").map(function () {
+                var entryRowData = ASC.Files.UI.getObjectData(this);
+                var entryRowId = entryRowData.entryId;
+
+                return entryRowId;
+            });
+
+            window.location.href = ASC.Mail.Utility.GetDraftUrl(fileIds.get());
         });
 
         jq("#filesUnsubscribe, #foldersUnsubscribe").click(function () {

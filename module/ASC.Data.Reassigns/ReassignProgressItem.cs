@@ -108,19 +108,16 @@ namespace ASC.Data.Reassigns
                 Percentage = 66;
                 _projectsReassign.Reassign(_fromUserId, _toUserId);
 
-                if (!CoreContext.Configuration.CustomMode)
-                {
-                    logger.Info("reassignment of data from crm");
+                logger.Info("reassignment of data from crm");
 
-                    Percentage = 99;
-                    using (var scope = DIHelper.Resolve(_tenantId))
-                    {
-                        var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
-                        crmDaoFactory.ContactDao.ReassignContactsResponsible(_fromUserId, _toUserId);
-                        crmDaoFactory.DealDao.ReassignDealsResponsible(_fromUserId, _toUserId);
-                        crmDaoFactory.TaskDao.ReassignTasksResponsible(_fromUserId, _toUserId);
-                        crmDaoFactory.CasesDao.ReassignCasesResponsible(_fromUserId, _toUserId);
-                    }
+                Percentage = 99;
+                using (var scope = DIHelper.Resolve(_tenantId))
+                {
+                    var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
+                    crmDaoFactory.ContactDao.ReassignContactsResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.DealDao.ReassignDealsResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.TaskDao.ReassignTasksResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.CasesDao.ReassignCasesResponsible(_fromUserId, _toUserId);
                 }
 
                 SendSuccessNotify();

@@ -44,7 +44,6 @@ namespace ASC.Notify.Patterns
             private set;
         }
 
-
         public TagValue(string tag, object value)
         {
             if (string.IsNullOrEmpty(tag)) throw new ArgumentNullException("tag");
@@ -59,6 +58,28 @@ namespace ASC.Notify.Patterns
         public AdditionalSenderTag(string senderName)
             : base("__AdditionalSender", senderName)
         {
+        }
+    }
+
+    public class TagActionValue : ITagValue
+    {
+        private readonly Func<string> action;
+
+        public string Tag
+        {
+            get;
+            private set;
+        }
+
+        public object Value
+        {
+            get { return action(); }
+        }
+
+        public TagActionValue(string name, Func<string> action)
+        {
+            Tag = name;
+            this.action = action;
         }
     }
 }

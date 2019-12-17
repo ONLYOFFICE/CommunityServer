@@ -147,5 +147,30 @@ namespace ASC.Api.Mail
         {
             MailCommonSettings.GoNextAfterMove = enabled;
         }
+
+        /// <summary>
+        ///    Returns ReplaceMessageBody flag
+        /// </summary>
+        /// <returns>boolean</returns>
+        /// <short>Get ReplaceMessageBody flag</short> 
+        /// <category>Settings</category>
+        [Read(@"settings/replaceMessageBody")]
+        public bool GetEnableReplaceMessageBodyFlag()
+        {
+            var value = MailCommonSettings.ReplaceMessageBody;
+            return value;
+        }
+
+        /// <summary>
+        ///    Set ReplaceMessageBody flag
+        /// </summary>
+        /// <param name="enabled">True or False value</param>
+        /// <short>Set ReplaceMessageBody flag</short> 
+        /// <category>Settings</category>
+        [Update(@"settings/replaceMessageBody")]
+        public void SetEnableReplaceMessageBodyFlag(bool enabled)
+        {
+            MailCommonSettings.ReplaceMessageBody = enabled;
+        }
     }
 }

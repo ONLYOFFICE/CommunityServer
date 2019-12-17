@@ -66,15 +66,30 @@
 		_arrowWidth: 0,
 		_arrowHeight: 0,
 
+		_arrowSize: {},
+
 		_create: function() {
+			var arrow = $('<div class="arrow" style="margin:0;"/>');
+
 			this.element
 					.hide()
-					.appendTo("body")
 					.addClass(this.options.cssClassName)
-					.append('<div class="arrow" style="margin:0;"/>');
-			this._arrow = this.element.find(".arrow");
-			this._arrowWidth = this._arrow.outerWidth(true);
-			this._arrowHeight = this._arrow.outerHeight(true);
+					.append(arrow)
+					.appendTo("body");
+
+			this._arrow = arrow;
+
+			var size = this._arrowSize[this.options.cssClassName];
+
+			if (!size) {
+				size = this._arrowSize[this.options.cssClassName] = {
+					width: this._arrow.outerWidth(true),
+					height: this._arrow.outerHeight(true)
+				};
+			}
+
+			this._arrowWidth = size.width;
+			this._arrowHeight = size.height;
 		},
 
 		_makeVArrow: function(arrow, anchorX, label) {
@@ -291,7 +306,7 @@
         },
 
 		close: function() {
-			if(this.element.is(":visible")) {
+			if (this.element[0].style.display != "none") {
 				this.element.hide();
 			}
 			this._visible = false;
@@ -426,7 +441,7 @@
 				$(window.document).bind("mousedown", t, t._outerClick);
 			}
 
-			$.each(t.options.items, function(i,_item) {
+            $.each(t.options.items, function(i,_item) {
 				if (_item === t.options.divider || 
 						_item.label === t.options.divider) {
 					$("<div class='divider'/>").appendTo(t.element);
@@ -438,7 +453,7 @@
 							.click({itemIndex: i, item: _item}, function(e) {t._itemClick(e);})
 							.appendTo(t.element);
 				}
-			});
+            });
 		},
 
 		_outerClick: function(event) {

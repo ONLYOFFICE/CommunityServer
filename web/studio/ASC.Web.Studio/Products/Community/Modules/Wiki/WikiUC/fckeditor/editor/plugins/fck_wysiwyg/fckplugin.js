@@ -29,8 +29,7 @@
  */
 
 // Rename the "Source" buttom to "Wikitext".
-if (window.parent.WikiMobile == 'False')
-    FCKToolbarItems.RegisterItem('Source', new FCKToolbarButton('Source', FCKLang.Wikitext, null, FCK_TOOLBARITEM_ONLYICON, true, true, FCKPlugins.Items[window.parent.WikiPlugName].Path + "wikiCommand.png"));
+FCKToolbarItems.RegisterItem('Source', new FCKToolbarButton('Source', FCKLang.Wikitext, null, FCK_TOOLBARITEM_ONLYICON, true, true, FCKPlugins.Items[window.parent.WikiPlugName].Path + "wikiCommand.png"));
 
 var wikiSourceCommand = FCKCommands.GetCommand('Source');
 function CheckWikiTextButtonToolBar(elem)

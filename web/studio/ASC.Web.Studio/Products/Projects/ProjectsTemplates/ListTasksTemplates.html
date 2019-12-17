@@ -10,7 +10,7 @@
             <input title="Select" type="checkbox">
         </div>
         <div class="check">
-            {{tmpl({canEdit: $item.data.canEdit, status: ASC.Projects.StatusList.getById($item.data.status)}) 'projects_statusChangeContainer'}}
+            {{tmpl({canEdit: $item.data.canEdit, status: ASC.Projects.StatusList.getByData($item.data)}) 'projects_statusChangeContainer'}}
         </div>
 
         <div class="taskPlace">

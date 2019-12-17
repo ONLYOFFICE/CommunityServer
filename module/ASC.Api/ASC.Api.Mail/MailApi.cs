@@ -36,6 +36,7 @@ using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Mail.Core;
 using ASC.Mail.Core.Engine.Operations.Base;
+using ASC.Web.Mail.Resources;
 
 namespace ASC.Api.Mail
 {
@@ -172,6 +173,27 @@ namespace ASC.Api.Mail
             //TODO: Move strings to Resource file
             switch (type)
             {
+                case MailOperationType.DownloadAllAttachments:
+                    {
+                        var progress = op.GetProperty<MailOperationDownloadAllAttachmentsProgress>(MailOperation.PROGRESS);
+                        switch (progress)
+                        {
+                            case MailOperationDownloadAllAttachmentsProgress.Init:
+                                return MailApiResource.SetupTenantAndUserHeader;
+                            case MailOperationDownloadAllAttachmentsProgress.GetAttachments:
+                                return MailApiResource.GetAttachmentsHeader;
+                            case MailOperationDownloadAllAttachmentsProgress.Zipping:
+                                return MailApiResource.ZippingAttachmentsHeader;
+                            case MailOperationDownloadAllAttachmentsProgress.ArchivePreparation:
+                                return MailApiResource.PreparationArchiveHeader;
+                            case MailOperationDownloadAllAttachmentsProgress.CreateLink:
+                                return MailApiResource.CreatingLinkHeader;
+                            case MailOperationDownloadAllAttachmentsProgress.Finished:
+                                return MailApiResource.FinishedHeader;
+                            default:
+                                return status;
+                        }
+                    }
                 case MailOperationType.RemoveMailbox:
                 {
                     var progress = op.GetProperty<MailOperationRemoveMailboxProgress>(MailOperation.PROGRESS);

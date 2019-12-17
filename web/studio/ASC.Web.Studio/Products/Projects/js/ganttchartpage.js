@@ -49,6 +49,7 @@ ASC.Projects.GantChartPage = (function () {
         loadTasks = false,
         loadMilestones = false,
         loadGanttIndex = false,
+        loadStatuses = false,
 
         taskForDiagram = [],
         milestonesForDiagram = [],
@@ -98,6 +99,7 @@ ASC.Projects.GantChartPage = (function () {
         saveLinkButton,
         taskSelectContainer,
         statusListContainer,
+        statusListTaskContainer,
         parentTaskName, dependentTaskSelector, linkTypeSelector,
         taskContextMenu, milestoneContextMenu,
         setResponsibleMenu,
@@ -377,6 +379,7 @@ ASC.Projects.GantChartPage = (function () {
         saveLinkButton = jq("#addNewLinkPopup .save");
         taskSelectContainer = jq("#addNewLinkPopup .task-select");
         statusListContainer = jq("#statusListContainer");
+        statusListTaskContainer = jq("#statusListTaskContainer");
         taskContextMenu = jq("#taskContextMenu");
         milestoneContextMenu = jq("#milestoneContextMenu");
         taskContextMenuStatus = jq("#taskStatus");
@@ -614,19 +617,11 @@ ASC.Projects.GantChartPage = (function () {
         });
 
         // change status
-        statusListContainer.on("click", ".open", function () {
+        statusListContainer.on("click", ".status", function () {
             enableChartEvents();
             statusListContainer.hide();
             if (!jq(this).hasClass("underline")) {
                 chart.modelController().finalizeStatus(taskStatus.open);
-            }
-        });
-
-        statusListContainer.on("click", ".closed", function () {
-            enableChartEvents();
-            statusListContainer.hide();
-            if (!jq(this).hasClass("underline")) {
-                chart.modelController().finalizeStatus(taskStatus.closed);
             }
         });
 
@@ -653,7 +648,8 @@ ASC.Projects.GantChartPage = (function () {
                 }
                 event.stopPropagation();
             } else {
-                chart.modelController().finalizeOperation(action);
+                var status = Number(action);
+                chart.modelController().finalizeOperation(typeof (status) === "number" && status === status ? status : action);
                 jq(".gantt-context-menu").hide();
             }
         });
@@ -965,7 +961,7 @@ ASC.Projects.GantChartPage = (function () {
         if (!reload) {
             jq(document).bind("loadTasks", function (event, data) {
                 loadTasks = true;
-                jq(document).trigger("loadData", [{ prjId: data.prjId }]);
+                jq(document).trigger("loadData", { prjId: data.prjId });
             });
 
             jq(document).bind("loadMilestones", function (event, data) {
@@ -977,14 +973,16 @@ ASC.Projects.GantChartPage = (function () {
                 loadGanttIndex = true;
                 jq(document).trigger("loadData", { prjId: data.prjId });
             });
+            jq(document).bind("loadStatuses", function (event, data) {
+                loadStatuses = true;
+                jq(document).trigger("loadData", { prjId: data.prjId });
+            });
 
             jq(document).bind("loadData", function (event, data) {
-                if (loadMilestones && loadTasks && loadGanttIndex) {
+                if (loadMilestones && loadTasks && loadGanttIndex && loadStatuses) {
 
                     if (!data) return;
                     allProjectsHash[data.prjId].dataLoaded = true;
-
-                    var i = 0, indexes = null, cur = null, setPos = true;
 
                     buildGanttChartStorageForProject(data.prjId);
 
@@ -1160,6 +1158,11 @@ ASC.Projects.GantChartPage = (function () {
             }
         });
 
+        if (!loadStatuses) {
+            ASC.Projects.Common.initCustomStatuses(function () {
+                jq(document).trigger("loadStatuses", [{ prjId: projectId }]);
+            });
+        }
         if (!currentProjectId || currentProjectId != projectId) {
             Teamlab.getPrjTeam({ prjId: projectId }, projectId, {
                 success: function (params, team) {
@@ -1500,6 +1503,8 @@ ASC.Projects.GantChartPage = (function () {
             created = resetDateHours(task.crtdate),
             startDate = task.startDate,
             priority = task.priority,
+            customTaskStatus = task.customTaskStatus,
+            createdBy = task.createdBy,
             status = task.status,
             ownerId = task.projectOwner,
             subtasks = task.subtasksCount ? task.subtasksCount : 0,
@@ -1567,7 +1572,7 @@ ASC.Projects.GantChartPage = (function () {
         else if ('object' == typeof (task.projectOwner) && !isNaN(task.projectOwner.id))
             ownerId = task.projectOwner.id;
 
-        chart.modelController().addTask(id, ownerId, title, performer, description, begin, end, status, milestone, priority, subtasks, responsibles, taskLinks, undo, beginFail);
+        chart.modelController().addTask(id, ownerId, title, performer, description, begin, end, status, customTaskStatus, milestone, priority, subtasks, responsibles, taskLinks, undo, beginFail, createdBy);
 
         if (update) {
 
@@ -1930,9 +1935,9 @@ ASC.Projects.GantChartPage = (function () {
     var onTaskError = function () {
         unblockChartInterface();
     };
-    var updateTask = function (task) {
+    var updateTask = function (task, params) {
         blockChartInterface();
-        var params = {};
+        params = params || {};
         if (task.updRespFlag) {
             params.updRespFlag = true;
         }
@@ -1952,6 +1957,16 @@ ASC.Projects.GantChartPage = (function () {
         }
     };
     var onUpdateTask = function (params, task) {
+
+        if (params.status) {
+            enableChartEvents();
+            statusListTaskContainer.hide();
+            statusListTaskContainer.data("id", "");
+            if (!jq(this).hasClass("underline")) {
+                chart.modelController().finalizeStatus(task.status);
+            }
+        }
+
         var visible = allProjectsHash[task.projectId].allTaskHash[task.id].visible;
         allProjectsHash[task.projectId].allTaskHash[task.id] = task;
         allProjectsHash[task.projectId].allTaskHash[task.id].visible = visible;
@@ -2188,6 +2203,7 @@ ASC.Projects.GantChartPage = (function () {
             kLinkBeginEnd = 2,
 
             kHanderShowTaskPopUpWindow = '500',
+            kHanderShowTaskPopUpCustomWindow = '501',
             kHanderShowEditPopUpMenuWindow = '502',
             kHanderShowRespPopUpMenuWindow = '503',
             kHanderShowEditElemPopUpMenuWindow = '504',
@@ -2324,7 +2340,8 @@ ASC.Projects.GantChartPage = (function () {
             element.milestone = m;
             var task = convertToTeamlabTask(element, true);
             task.status = element.status();
-            updateTask(task);
+            task.statusId = element.customTaskStatus();
+            updateTask(task, { status: true});
         });
         chart.addHandler(kHandlerChangeMilestoneStatus, function (p, m, element) {
             var data = {};
@@ -2386,7 +2403,7 @@ ASC.Projects.GantChartPage = (function () {
         chart.addHandler(kHandlerBeforeDeleteMilestone, function (p, m, element) {
             showMilestoneQuestionPopup(m);
         });
-        chart.addHandler(kHandlerBeforeChangeTaskStatus, function (p, m, t, element) {
+        chart.addHandler(kHandlerBeforeChangeTaskStatus, function (p, m, t, element, cs) {
             if (element.subtasks().length && element.status() != 2) {
                 for (var i = 0; i < element.subtasks().length; i++) {
                     if (element.subtasks()[i].status == 1) {
@@ -2395,7 +2412,7 @@ ASC.Projects.GantChartPage = (function () {
                     }
                 }
             }
-            chart.modelController().finalize();
+            chart.modelController().finalize(cs);
         });
         chart.addHandler(kHandlerBeforeChangeMilestoneStatus, function (p, m, element) {
             var tasks = element.tasks();
@@ -2412,6 +2429,10 @@ ASC.Projects.GantChartPage = (function () {
         chart.addHandler(kHanderShowTaskPopUpWindow, function (element, coords) {
             var element = element || {};
             showStatusListContainer(element, coords);
+        });
+        chart.addHandler(kHanderShowTaskPopUpCustomWindow, function (element, coords) {
+            var element = element || {};
+            showStatusListTaskContainer(element, coords);
         });
         chart.addHandler(kHanderShowEditPopUpMenuWindow, function (coords, element, isTask, project) {
             if (readMode) return;
@@ -2784,8 +2805,38 @@ ASC.Projects.GantChartPage = (function () {
             statusListContainer.data("id", "");
             return true;
         }
+
         statusListContainer.data("id", element.id());
         showContextMenu(statusListContainer, coords.left - 10, coords.top - 1);
+    };
+
+    var showStatusListTaskContainer = function (element, coords) {
+        if (statusListTaskContainer.data("id") == element.id()) {
+            statusListTaskContainer.data("id", "");
+            return true;
+        }
+        if (element.isTask) {
+            var master = ASC.Projects.Master;
+            var statuses = master.customStatuses.filter(function (item) {
+                return typeof item.available !== "undefined" && item.available === false;
+            });
+
+            var currentUserId = Teamlab.profile.id;
+            for (var i = 0; i < statuses.length; i++) {
+                var id = statuses[i].id;
+                var $li = statusListContainer.find("li[dataid=" + id + "]");
+                if (element.createdBy === currentUserId ||
+                    element.project.responsibles().id === currentUserId ||
+                    master.isModuleAdmin) {
+                    $li.show();
+                } else {
+                    $li.hide();
+                }
+            }
+        }
+
+        statusListTaskContainer.data("id", element.id());
+        showContextMenu(statusListTaskContainer, coords.left - 10, coords.top - 1);
     };
     var showTaskContextMenu = function (element, coords) {
         if (taskContextMenu.is(":visible") && taskContextMenu.data("id") == element.id()) {

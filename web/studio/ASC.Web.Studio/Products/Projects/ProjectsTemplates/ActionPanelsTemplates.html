@@ -72,16 +72,16 @@
     {{if project}}
     <div class="project">
         <div class="param">${ASC.Projects.Resources.TasksResource.Project}:</div>
-        <div class="value" projectid="${projectId}">
-            <span class="link dotline">{{html project}}</span>
+        <div class="value">
+            <span {{if typeof(projectStatus) !=="undefined" && projectStatus !== 1}} class="link dotline" {{/if}}  projectid="${projectId}">{{html project}}</span>
         </div>
     </div>
     {{/if}}
     {{if milestone}}
     <div class="milestone">
         <div class="param">${ASC.Projects.Resources.TasksResource.Milestone}:</div>
-        <div class="value" projectid="${projectId}" milestone="${milestoneId}">
-            <span class="link dotline">{{html milestone}}</span>
+        <div class="value">
+            <span {{if typeof(milestoneStatus) !=="undefined" && milestoneStatus !== 1}} class="link dotline" {{/if}}  projectid="${projectId}" milestone="${milestoneId}">{{html milestone}}</span>
         </div>
     </div>
     {{/if}}
@@ -121,9 +121,23 @@
             {{/if}}
         </li>
         {{each actions}}
-            <li class="menuAction" id="${id}" title="${title}">
-                <span>${title}</span>
-            </li>
+        <li class="menuAction" id="${id}" title="${title}">
+            <span>${title}</span>
+            {{if multi}}
+            <div class="down_arrow"></div>
+            <div id="${id}Selector" class="studio-action-panel">
+                <ul class="dropdown-content">
+                    {{each multi}}
+                    <li id="${id}">
+                        <a class="dropdown-item">
+                            ${title}
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+        </li>
         {{/each}}
 
         <li class="menu-action-checked-count">
@@ -159,19 +173,11 @@
 
 <script id="projects_navPanel" type="text/x-jquery-tmpl">
     <div class="project-info-container">
-        <div class="project-total-info">
-            <div class="project-title header-with-menu with-entity-menu">
-                {{if typeof $item.data.uplink != "undefined"}}
-                <a class="header-back-link" href="${$item.data.uplink}"></a>
-                {{/if}}
-                <span class="main-title-icon ${$item.data.icon}"></span>
-                {{if $item.data.private}}<span class="private"></span>{{/if}}
-                <span id="essenceTitle" class="text-overflow truncated-text" title="${$item.data.title}">${$item.data.title}</span>
-                {{if typeof $item.data.subscribed != "undefined"}}
-                <a id="subscribe" class="follow-status {{if $item.data.subscribed}}subscribed{{else}}unsubscribed{{/if}}" title="${$item.data.subscribedTitle}"></a>
-                {{/if}}
-                <span class="entity-menu"></span>
-            </div>
+        <div class="project-total-info project-title header-with-menu with-entity-menu">
+            <span class="main-title-icon ${$item.data.icon}"></span>
+            {{if $item.data.private}}<span class="private"></span>{{/if}}
+            <span id="essenceTitle" class="text-overflow" title="${$item.data.title}">${$item.data.title}</span>
+            <span class="entity-menu"></span>
         </div>
 
         <div id="projectTabs" class="display-none tabsNavigationLinkBox"></div>

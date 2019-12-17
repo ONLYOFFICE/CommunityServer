@@ -32,8 +32,6 @@
             <span id="thirdPartyDialogCaption"></span>
         </header>
         <body>
-            <input class="empty-login-data" type="text" name="fakeusernameremembered" />
-            <input class="empty-login-data" type="password" name="fakepasswordremembered" />
             <div id="thirdPartyPanel">
                 <div class="thirdparty-editor-row">
                     <div><%: FilesUCResource.ThirdPartyReconnectTitle %></div>
@@ -42,12 +40,12 @@
 
                 <div class="thirdparty-editor-row">
                     <div><%: FilesUCResource.ConnectionUrl %></div>
-                    <input type="url" id="thirdPartyConnectionUrl" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" autocomplete="off" />
+                    <input type="url" id="thirdPartyConnectionUrl" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" name="account-new-field" autocomplete="off" />
                 </div>
 
                 <div class="thirdparty-editor-row">
                     <div><%: FilesUCResource.Password %></div>
-                    <input type="password" id="thirdPartyPassword" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" autocomplete="off" />
+                    <input type="password" id="thirdPartyPassword" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" name="account-new-field" autocomplete="new-password" />
                 </div>
 
                 <div class="thirdparty-editor-row">

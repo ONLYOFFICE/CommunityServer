@@ -177,6 +177,9 @@
   <data name="EmptyScreenText" xml:space="preserve">
     <value>Create your own events, post important announcements, share the latest news and add polls to collect your colleagues' opinions directly on your portal.</value>
   </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>Create your own events, post important announcements, share the latest news and add polls to collect your colleagues' opinions directly on your portal.</value>
+  </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>Access denied</value>
   </data>

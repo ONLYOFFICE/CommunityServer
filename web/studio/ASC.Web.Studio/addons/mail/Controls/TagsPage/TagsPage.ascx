@@ -15,9 +15,7 @@
 
 <div class="popup_helper" id="TagsHelperBlock">
     <p><%=ASC.Web.Mail.Resources.MailResource.TagsCommonInformationText%></p>
-    <% if (!CustomMode) { %>
     <p><%=ASC.Web.Mail.Resources.MailResource.TagsCommonNotificationText%></p>
-    <% } %>
     <div class="cornerHelpBlock pos_top"></div>
 </div>
 

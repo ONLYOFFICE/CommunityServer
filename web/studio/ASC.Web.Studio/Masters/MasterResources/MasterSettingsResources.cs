@@ -33,6 +33,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
@@ -86,12 +87,14 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         CKEDITOR_BASEPATH = WebPath.GetPath("/UserControls/Common/ckeditor/"),
                         MaxImageFCKWidth = ConfigurationManager.AppSettings["MaxImageFCKWidth"] ?? "620",
                         UserPhotoHandlerUrl = VirtualPathUtility.ToAbsolute("~/UserPhoto.ashx"),
+                        UserDefaultBigPhotoURL = UserPhotoManager.GetDefaultBigPhotoURL(),
                         ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(),
                         UrlShareTwitter = SetupInfo.ShareTwitterUrl,
                         UrlShareFacebook = SetupInfo.ShareFacebookUrl,
                         LogoDarkUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)),
-                        HelpLink = helpLink ?? ""
-                })
+                        HelpLink = helpLink ?? "",
+                        MailMaximumMessageBodySize = ConfigurationManager.AppSettings["mail.maximum-message-body-size"] ?? "524288"
+        })
             };
 
             if (CoreContext.Configuration.Personal)

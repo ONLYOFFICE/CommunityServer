@@ -54,7 +54,7 @@ ASC.Projects.navSidePanel = (function () {
         $menuMyDiscussions,
         $menuLatestDiscussion;
 
-    var ascProjects = ASC.Projects;
+    var ascProjects = ASC.Projects, teamlab;
 
     var openClass = "open",
         activeClass = "active",
@@ -71,6 +71,7 @@ ASC.Projects.navSidePanel = (function () {
     var profileID;
 
     function init() {
+        teamlab = Teamlab;
         currentProjectId = jq.getURLParam('prjID');
 
         if (!$createNewDiscussion) {
@@ -84,13 +85,29 @@ ASC.Projects.navSidePanel = (function () {
         }
 
         if (isInit) {
+            highlightMenu();
             return;
         }
 
-        Teamlab.bind(Teamlab.events.updatePrjProjectStatus,
-            function(params, project) {
-                showOrHideCreateNew();
-            });
+        teamlab.bind(teamlab.events.updatePrjProjectStatus, showOrHideCreateNew);
+
+        function onRemoveProjects(params, projects) {
+            showOrHideCreateNew();
+            for (var i = 0; i < projects.length; i++) {
+                $myProjectsConteiner.find("li[id=" + projects[i].id + "]").remove();
+            }
+            var subItems = $myProjectsConteiner.find("li");
+            if (subItems.length === 0) {
+                jq("#myProjectsExpander").remove();
+                $myProjectsConteiner.removeAttr("id");
+            }
+        }
+
+        teamlab.bind(teamlab.events.removePrjProjects, onRemoveProjects);
+
+        teamlab.bind(teamlab.events.removePrjProject, function (params, project) {
+            onRemoveProjects(null, [project]);
+        });
 
         profileID = Teamlab.profile.id;
         isInit = true;
@@ -131,7 +148,7 @@ ASC.Projects.navSidePanel = (function () {
         });
 
         $createNewTask.click(function () {
-            var anchor = ASC.Controls.AnchorController.getAnchor();
+            var anchor = location.hash.substring(1);
             var author = jq.getAnchorParam('responsible_for_milestone', anchor) ||
                 jq.getAnchorParam('tasks_responsible', anchor) ||
                 jq.getAnchorParam('project_manager', anchor) ||
@@ -239,17 +256,22 @@ ASC.Projects.navSidePanel = (function () {
             $menuTemplates.addClass(activeClass);
         }
 
+        var hash = document.location.hash;
         if (currentPage === "settings.aspx") {
             if (!$menuSettings.hasClass("open")) {
                 $menuSettings.find(".expander").click();
             }
-            $menuSettings.find(" .menu-sub-item:first").addClass(activeClass);
+
+            if (hash === "#status") {
+                $menuSettings.find(" .menu-sub-item:nth-child(2)").addClass(activeClass);
+            } else {
+                $menuSettings.find(" .menu-sub-item:first").addClass(activeClass);
+            }
         }
 
 
 
         var currentCategory = jq(".menu-list").find(".menu-item." + activeClass).attr("id");
-        var hash = document.location.hash;
         var flag = false;
 
         var pageProjectsFlag = location.href.indexOf(projectsPage);
@@ -358,7 +380,7 @@ ASC.Projects.navSidePanel = (function () {
 
             createItem($menuTimeTracking.find('a'), timetrackingPage)
         ];
-
+        
         if (jq.getURLParam("id") == null || (location.href.contains("messages.aspx") && !location.href.contains("action") || location.href.contains("tasks.aspx"))) {
             initMenuItems(menuitems);
 
@@ -367,13 +389,21 @@ ASC.Projects.navSidePanel = (function () {
                 return function () {
                     if (!checkInit()) return true;
                     ASC.Projects.Common.goToWithoutReload.call(this);
-                    highlightMenu();
                     return false;
                 }
             }
             for (var i = 0, j = myprojects.length; i < j; i++) {
                 jq(myprojects[i]).on("click", myProjectsOnClick(myprojects[i]));
             };
+        }
+
+        if (location.href.contains("settings.aspx")) {
+            $menuSettings.find(".menu-sub-item:nth-child(2) a").on("click", function () {
+                var $self = jq(this).parent();
+                $self.siblings().removeClass(activeClass);
+                $self.addClass(activeClass);
+                ASC.Projects.Common.goToWithoutReload.call(jq(this));
+            });
         }
     };
 
@@ -399,7 +429,7 @@ ASC.Projects.navSidePanel = (function () {
             href += "#" + basePath + "&" + hash;
         }
 
-        return { id: id, href: href, onclick: highlightMenu };
+        return { id: id, href: href };
     }
 
     function initMenuItems(items) {
@@ -490,14 +520,7 @@ ASC.Projects.navSidePanel = (function () {
         if (location.href.endsWith(item.href)) return false;
         event.stopPropagation();
         history.pushState({ href: item.href }, { href: item.href }, item.href);
-        ASC.Controls.AnchorController.historyCheck();
-        if (!jq(this).attr("href").contains("#")) {
-            location.hash = "";
-        }
         common.baseInit();
-        if (item.hasOwnProperty('onclick')) {
-            item.onclick();
-        }
         return false;
     }
 

@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= String.Format(Resource.StatisticsDescription.HtmlEncode(), "<br />") %></p>
+        <p><%= String.Format((CoreContext.Configuration.Standalone ? Resource.StatisticsDescriptionStandalone : Resource.StatisticsDescription).HtmlEncode(), "<br />") %></p>
     </div>
 </div>
 

@@ -60,40 +60,23 @@ namespace ASC.Mail.Data.Storage
             return ComplexReplace(name, BAD_CHARS_IN_PATH);
         }
 
-        public static string GetPreSignedUri(int fileId, int tenant, string user, string stream, int fileNumber,
-                                          string fileName, IDataStore dataStore)
+        public static string GetPreSignedUri(int fileId, int tenant, string user, string stream, int fileNumber, string fileName)
         {
-            var attachmentPath = GetFileKey(user, stream, fileNumber, fileName);
+            //TODO: Move url to config;
+            const string attachmentPath = "/addons/mail/httphandlers/download.ashx";
 
-            //if (dataStore == null)
-            //    dataStore = MailDataStore.GetDataStore(tenant);
-
-            string url;
-
-            //if (dataStore.IsSupportedPreSignedUri)
-            //{
-            //    var contentDispositionFileName = ContentDispositionUtil.GetHeaderValue(fileName, withoutBase: true);
-            //    var headersForUrl = new []{"Content-Disposition:" + contentDispositionFileName};
-            //    url = dataStore.GetPreSignedUri("", attachmentPath, TimeSpan.FromMinutes(10), headersForUrl).ToString();
-            //}
-            //else
+            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(attachmentPath));
+            if (uriBuilder.Uri.IsLoopback)
             {
-                //TODO: Move url to config;
-                attachmentPath = "/addons/mail/httphandlers/download.ashx";
-
-                var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(attachmentPath));
-                if (uriBuilder.Uri.IsLoopback)
-                {
-                    uriBuilder.Host = Dns.GetHostName();
-                }
-                var query = uriBuilder.Query;
-
-                query += "attachid=" + fileId + "&";
-                query += "stream=" + stream + "&";
-                query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId + stream);
-
-                url = uriBuilder.Uri + "?" + query;
+                uriBuilder.Host = Dns.GetHostName();
             }
+            var query = uriBuilder.Query;
+
+            query += "attachid=" + fileId + "&";
+            query += "stream=" + stream + "&";
+            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId + stream);
+
+            var url = uriBuilder.Uri + "?" + query;
 
             return url;
         }
@@ -121,6 +104,11 @@ namespace ASC.Mail.Data.Storage
             return string.Format("{0}/{1}/attachments/{2}/{3}", user, stream, fileNumber, ComplexReplace(fileName, BAD_CHARS_IN_PATH));
         }
 
+        public static string GetTempFileKey(string user, string stream, int fileNumber, string fileName)
+        {
+            return string.Format("temp/{0}/{1}/attachments/{2}/{3}", user, stream, fileNumber, ComplexReplace(fileName, BAD_CHARS_IN_PATH));
+        }
+
         public static string GetBodyKey(string stream)
         {
             return string.Format("{0}/{1}", stream, BODY_FILE_NAME);
@@ -141,9 +129,14 @@ namespace ASC.Mail.Data.Storage
             return GetFileKey(mailAttachmentData.user, mailAttachmentData.streamId, mailAttachmentData.fileNumber, mailAttachmentData.storedName);
         }
 
-        public static string GetPreSignedUrl(MailAttachmentData mailAttachmentData, IDataStore dataStore = null)
+        public static string GetTempStoredFilePath(MailAttachmentData mailAttachmentData)
         {
-            return GetPreSignedUri(mailAttachmentData.fileId, mailAttachmentData.tenant, mailAttachmentData.user, mailAttachmentData.streamId, mailAttachmentData.fileNumber, mailAttachmentData.storedName, dataStore);
+            return GetTempFileKey(mailAttachmentData.user, mailAttachmentData.streamId, mailAttachmentData.fileNumber, mailAttachmentData.storedName);
+        }
+
+        public static string GetPreSignedUrl(MailAttachmentData mailAttachmentData)
+        {
+            return GetPreSignedUri(mailAttachmentData.fileId, mailAttachmentData.tenant, mailAttachmentData.user, mailAttachmentData.streamId, mailAttachmentData.fileNumber, mailAttachmentData.storedName);
         }
 
         public static string GerStoredSignatureImagePath(string user, int mailboxId, string storedName)

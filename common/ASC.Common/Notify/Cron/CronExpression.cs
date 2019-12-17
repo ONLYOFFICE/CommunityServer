@@ -263,7 +263,8 @@ namespace ASC.Notify.Cron
                     years = new TreeSet();
                 }
                 int exprOn = Second;
-#if NET_20                string[] exprsTok = expression.Trim().Split(new char[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+#if NET_20
+                string[] exprsTok = expression.Trim().Split(new char[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 #else
                 string[] exprsTok = expression.Trim().Split(new[] {' ', '\t', '\r', '\n'});
 #endif
@@ -1122,6 +1123,9 @@ namespace ASC.Notify.Cron
 
         public virtual DateTime? GetTimeAfter(DateTime afterTimeUtc)
         {
+            if (afterTimeUtc == DateTime.MaxValue)
+                return null;
+
             afterTimeUtc = afterTimeUtc.AddSeconds(1);
 
             DateTime d = CreateDateTimeWithoutMillis(afterTimeUtc);
@@ -1337,6 +1341,9 @@ namespace ASC.Notify.Cron
                         {
                             if (mon == 12)
                             {
+                                if (d.Year == DateTime.MaxValue.Year)
+                                    return null;
+
                                 d = new DateTime(d.Year, mon - 11, 1, 0, 0, 0).AddYears(1);
                             }
                             else
@@ -1390,6 +1397,9 @@ namespace ASC.Notify.Cron
                         {
                             if (mon == 12)
                             {
+                                if (d.Year == DateTime.MaxValue.Year)
+                                    return null;
+
                                 d = new DateTime(d.Year, mon - 11, 1, 0, 0, 0).AddYears(1);
                             }
                             else
@@ -1408,7 +1418,7 @@ namespace ASC.Notify.Cron
                     }
                     else
                     {
-                        int cDow = ((int) d.DayOfWeek);
+                        int cDow = ((int)d.DayOfWeek) + 1;
                         var dow = ((int) daysOfWeek.First());
 
                         st = daysOfWeek.TailSet(cDow);
@@ -1430,6 +1440,9 @@ namespace ASC.Notify.Cron
                         {
                             if (mon == 12)
                             {
+                                if (d.Year == DateTime.MaxValue.Year)
+                                    return null;
+
                                 d = new DateTime(d.Year, mon - 11, 1, 0, 0, 0).AddYears(1);
                             }
                             else

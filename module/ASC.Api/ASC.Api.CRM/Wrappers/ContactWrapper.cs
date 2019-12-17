@@ -112,7 +112,7 @@ namespace ASC.Api.CRM.Wrappers
         {
             return new PersonWrapper(0)
                 {
-                    IsPrivate = false,
+                    IsPrivate = true,
                     IsShared = false,
                     IsCompany = false,
                     FirstName = "Tadjeddine",
@@ -195,7 +195,8 @@ namespace ASC.Api.CRM.Wrappers
         {
             return new CompanyWrapper(0)
                 {
-                    IsPrivate = false,
+                    IsPrivate = true,
+                    IsShared = false,
                     IsCompany = true,
                     About = "",
                     CompanyName = "Food and Culture Project",
@@ -264,7 +265,7 @@ namespace ASC.Api.CRM.Wrappers
         {
             return new PersonWrapper(0)
             {
-                IsPrivate = false,
+                IsPrivate = true,
                 IsShared = false,
                 IsCompany = false,
                 FirstName = "Tadjeddine",
@@ -468,7 +469,7 @@ namespace ASC.Api.CRM.Wrappers
         {
             return new ContactBaseWrapper(0)
                 {
-                    IsPrivate = false,
+                    IsPrivate = true,
                     IsShared = false,
                     IsCompany = false,
                     DisplayName = "Tadjeddine Bachir",

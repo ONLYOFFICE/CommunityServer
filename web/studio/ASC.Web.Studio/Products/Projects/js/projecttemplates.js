@@ -43,8 +43,8 @@ ASC.Projects.Templates = (function () {
 })(jQuery);
 
 ASC.Projects.ListProjectsTemplates = (function () {
-    var idDeleteTempl;
-    var clickEventName = "click", targetAttr = "target", openClass = "open", templateClass = ".template";
+    var idDeleteTempl, templates;
+    var targetAttr = "target", openClass = "open", templateClass = ".template";
     var $listTemplates, $templateActionPanel;
     var teamlab, loadingBanner, resources = ASC.Projects.Resources;
 
@@ -53,38 +53,55 @@ ASC.Projects.ListProjectsTemplates = (function () {
         loadingBanner = LoadingBanner;
         $listTemplates = jq("#listTemplates");
 
-        var resources = ASC.Projects.Resources.ProjectTemplatesResource,
-            actionMenuItems = [
-                { id: "editTmpl", text: resources.Edit },
-                { id: "createProj", text: resources.CreateProject },
-                { id: "deleteTmpl", text: resources.Delete }
-            ];
-
-        $templateActionPanel = ASC.Projects.Common.createActionPanel($listTemplates, "templateActionPanel", { menuItems: actionMenuItems });
-
-        $templateActionPanel.find("#editTmpl").on(clickEventName, function () {
-            var tmplId = buttonOnClick(true);
-            window.location.replace('projectTemplates.aspx?id=' + tmplId + '&action=edit');
-        });
-
-        $templateActionPanel.find("#deleteTmpl").on(clickEventName, function () {
-            idDeleteTempl = parseInt(buttonOnClick());
-            ASC.Projects.Base.showCommonPopup("projectTemplateRemoveWarning",
-                function () {
-                    teamlab.removePrjTemplate({ tmplId: idDeleteTempl }, idDeleteTempl, { success: onDeleteTemplate });
-                },
-                function () {
-                    idDeleteTempl = 0;
-                });
-        });
-
-        $templateActionPanel.find("#createProj").on(clickEventName, function () {
-            var tmplId = buttonOnClick(true);
-            window.location.replace('projects.aspx?tmplid=' + tmplId + '&action=add');
-        });
+        jq("#CommonListContainer").show();
+        ASC.Projects.Base.initActionPanel(showEntityMenu, $listTemplates);
 
         teamlab.getPrjTemplates({}, { success: displayListTemplates, before: loadingBanner.displayLoading, after: loadingBanner.hideLoading });
     };
+
+    function showEntityMenu(selectedActionCombobox) {
+        var resources = ASC.Projects.Resources.ProjectTemplatesResource;
+        var id = parseInt(selectedActionCombobox.attr("id"));
+        var template = templates.find(function (item) { return item.id === id });
+
+        var ActionMenuItem = ASC.Projects.ActionMenuItem;
+        var menuItems = [];
+
+        if (template.canEdit) {
+            menuItems.push(new ActionMenuItem("editTmpl", resources.Edit, taEdit.bind(null, id)));
+        }
+
+        if (ASC.Projects.Master.CanCreateProject) {
+            menuItems.push(new ActionMenuItem("createProj", resources.CreateProject, taCreate.bind(null, id)));
+        }
+
+        if (template.canEdit) {
+            menuItems.push(new ActionMenuItem("deleteTmpl", resources.Delete, taDelete.bind(null, id)));
+        }
+        return { menuItems: menuItems };
+    }
+
+    function taEdit(tmplId) {
+        buttonOnClick();
+        window.location.replace('projectTemplates.aspx?id=' + tmplId + '&action=edit');
+    }
+
+    function taDelete(tmplId) {
+        buttonOnClick();
+        idDeleteTempl = parseInt(tmplId);
+        ASC.Projects.Base.showCommonPopup("projectTemplateRemoveWarning",
+            function () {
+                teamlab.removePrjTemplate({ tmplId: idDeleteTempl }, idDeleteTempl, { success: onDeleteTemplate });
+            },
+            function () {
+                idDeleteTempl = 0;
+            });
+    }
+
+    function taCreate(tmplId) {
+        buttonOnClick(true);
+        window.location.replace('projects.aspx?tmplid=' + tmplId + '&action=add');
+    }
 
     function onDeleteTemplate() {
         jq("#" + idDeleteTempl).remove();
@@ -142,7 +159,9 @@ ASC.Projects.ListProjectsTemplates = (function () {
         return { title: template.title, id: template.id, milestones: mCount, tasks: tCount };
     };
 
-    function displayListTemplates(params, templates) {
+    function displayListTemplates(params, data) {
+        templates = data;
+
         if (templates.length) {
             for (var i = 0; i < templates.length; i++) {
                 var tmpl = createTemplateTmpl(templates[i]);
@@ -182,8 +201,6 @@ ASC.Projects.ListProjectsTemplates = (function () {
         if (clearOnbeforeunload) {
             window.onbeforeunload = null;
         }
-
-        return $templateActionPanel.attr(targetAttr);
     }
 
     return {

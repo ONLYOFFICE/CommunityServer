@@ -30,7 +30,7 @@
 
 <script id="userListTemplate" type="text/x-jquery-tmpl">
     {{each(i, user) users}}
-    <tr id="user_${user.id}" class="item profile {{if ($data.isAdmin === true || user.isMe === true) && (user.isMe === true || user.isPortalOwner !== true)}} with-entity-menu {{/if}} {{if user.isTerminated}} blocked{{else user.isActivated === false}} waited{{/if}} {{if user.isChecked == true}} selected{{/if}}"
+    <tr id="user_${user.id}" class="item profile {{if ($data.isAdmin === true || user.isMe === true) && (user.isMe === true || user.isPortalOwner !== true)}} with-entity-menu {{/if}} {{if user.isTerminated}} blocked{{else user.isPending === true}} waited{{/if}} {{if user.isChecked == true}} selected{{/if}}"
         data-id="${user.id}"
         data-username="${user.userName}"
         data-email="${user.email}"
@@ -115,7 +115,7 @@
             ${ASC.People.Resources.PeopleResource.BlockedMessage}
         </span>
      {{else}}
-          {{if user.isActivated === false && user.email}}
+          {{if user.isPending === true && user.email}}
             <span class="email gray-text">${ASC.People.Resources.PeopleResource.WaitingForConfirmation}</span>
           {{/if}}
        {{/if}}

@@ -282,6 +282,15 @@
   <data name="DescriptSetVersion" xml:space="preserve">
     <value>Updating version</value>
   </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Preparing file for encryption</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Encrypting file</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Saving encrypted file</value>
+  </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
   </data>
@@ -311,6 +320,9 @@
   </data>
   <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
     <value>Sorry, this file format isn't supported</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>The password you entered is incorrect. Please try again.</value>
   </data>
   <data name="ErrorMassage_SecondDownload" xml:space="preserve">
     <value>Please wait for the previous download to complete or cancel it</value>
@@ -512,9 +524,6 @@
   </data>
   <data name="RevisionCount" xml:space="preserve">
     <value>revisions: {0}</value>
-  </data>
-  <data name="RevisionCurrent" xml:space="preserve">
-    <value>current</value>
   </data>
   <data name="shareLinkMailBody" xml:space="preserve">
     <value>You have been granted access to the {0} document. Click the link below to open the document right now: {1}</value>

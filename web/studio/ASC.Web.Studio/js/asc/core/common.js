@@ -262,7 +262,7 @@ jQuery.extend({
 
     linksParser: function(val) {
         var replaceUrl = function(str) {
-            return '<a target="_new" href="' + (/^http/.test(str) ? str : 'http://' + str) + '">' + str + '</a>';
+            return '<a target="_blank" href="' + (/^http/.test(str) ? str : 'http://' + str) + '">' + str + '</a>';
         };
         var regUrl = /(\b(((https?|ftp|file):\/\/)|(www.))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
         return val.replace(regUrl, replaceUrl);
@@ -866,6 +866,8 @@ var StudioManager = new function () {
         jq(".mediafile, .screenzoom").click(function (event) {
             event.stopPropagation();
 
+            jq(window).click();
+
             var playlist = [];
             var selIndex = 0;
 
@@ -1052,31 +1054,31 @@ ASC.EmailOperationManager = (function () {
 
     function showResendInviteWindow (userEmail, userID, adminMode, responseAction) {
         jq("#divEmailOperationError").html("").hide();
-        jq("#studio_emailOperationResult").hide();
+        jq("#studio_emailOperationResult").addClass("display-none");
 
         if (adminMode == true) {
             jq("#emailInputContainer").removeClass("display-none");
-            jq("#emailMessageContainer").hide();
+            jq("#emailMessageContainer").addClass("display-none");
         } else {
             jq("#emailInputContainer").addClass("display-none");
-            jq("#emailMessageContainer").show();
+            jq("#emailMessageContainer").removeClass("display-none");
 
-            jq("#emailActivationText").hide();
-            jq("#emailChangeText").hide();
-            jq("#resendInviteText").show();
+            jq("#emailActivationText").addClass("display-none");
+            jq("#emailChangeText").addClass("display-none");
+            jq("#resendInviteText").removeClass("display-none");
 
             jq("#emailMessageContainer [name='userEmail']").attr("href", "../../addons/mail/#composeto/email=" + userEmail).html(userEmail);
         }
 
-        jq("#emailActivationDialogPopupHeader").hide();
-        jq("#emailChangeDialogPopupHeader").hide();
-        jq("#resendInviteDialogPopupHeader").show();
+        jq("#emailActivationDialogPopupHeader").addClass("display-none");
+        jq("#emailChangeDialogPopupHeader").addClass("display-none");
+        jq("#resendInviteDialogPopupHeader").removeClass("display-none");
 
         jq("#studio_emailOperationContent").removeClass("display-none");
 
-        jq("#emailChangeDialogText").hide();
-        jq("#emailActivationDialogText").hide();
-        jq("#resendInviteDialogText").show();
+        jq("#emailChangeDialogText").addClass("display-none");
+        jq("#emailActivationDialogText").addClass("display-none");
+        jq("#resendInviteDialogText").removeClass("display-none");
 
         jq("#emailOperation_email").val(userEmail);
         jq("#btEmailOperationSend").removeClass("disable");
@@ -1600,43 +1602,51 @@ less = {}; less.env = 'development';
  * UserManager
  */
 window.UserManager = new function() {
-    var users = null;
-    var usersCache = [];
+    var usersCache = null;
+    var usersDisabledCache = null;
     var personCache = [];
 
     function init() {
-        if (users != null)
+        if (usersCache != null)
             return;
 
         var master = ASC.Resources.Master;
-        users = [].concat(master.ApiResponses_ActiveProfiles.response, master.ApiResponses_DisabledProfiles.response);
+        usersCache = {};
 
-        for (var i = 0; i < users.length; i++) {
-            var usersItem = users[i];
-            usersCache[usersItem.id] = usersItem;
+        var activeUsers = master.ApiResponses_ActiveProfiles.response;
+        var activeUsersLength = activeUsers.length;
+        for (var i = 0; i < activeUsersLength; i++) {
+            var activeUserItem = activeUsers[i];
+            usersCache[activeUserItem.id] = activeUserItem;
         }
+
+        delete master.ApiResponses_ActiveProfiles;
+
+        usersDisabledCache = {};
+        var disabledUsers = master.ApiResponses_DisabledProfiles.response;
+        var disabledUsersLength = disabledUsers.length;
+        for (var j = 0; j < disabledUsersLength; j++) {
+            var disabledUserItem = disabledUsers[j];
+            usersDisabledCache[disabledUserItem.id] = disabledUserItem;
+        }
+
+        delete master.ApiResponses_DisabledProfiles;
     }
 
     function getAllUsers(activeOnly) {
         init();
-        return activeOnly ? ASC.Resources.Master.ApiResponses_ActiveProfiles.response : users;
+        return activeOnly ? usersCache : jq.extend({}, usersCache, usersDisabledCache);
     }
 
     function getUser(userId) {
         if (!userId)
             return null;
 
-        if (usersCache[userId]) return usersCache[userId];
-
         init();
 
-        for (var i = 0, j = users.length; i < j; i++) {
-            var usersItem = users[i];
-            if (usersItem.id === userId) {
-                usersCache[userId] = usersItem;
-                return usersItem;
-            }
-        }
+        if (usersCache[userId]) return usersCache[userId];
+
+        if (usersDisabledCache[userId]) return usersDisabledCache[userId];
 
         return null;
     }
@@ -1668,9 +1678,17 @@ window.UserManager = new function() {
 
         var result = [];
 
-        for (var i = 0; i < users.length; i++)
-            if (~ids.indexOf(users[i].id))
-                result.push(users[i]);
+        for (var userId in usersCache) {
+            if (usersCache.hasOwnProperty(userId) && ~ids.indexOf(userId)) {
+                result.push(usersCache[userId]);
+            }
+        }
+
+        for (var disabledUserId in usersDisabledCache) {
+            if (usersDisabledCache.hasOwnProperty(disabledUserId) && ~ids.indexOf(disabledUserId)) {
+                result.push(usersDisabledCache[disabledUserId]);
+            }
+        }
 
         return result;
     }
@@ -1679,12 +1697,17 @@ window.UserManager = new function() {
         return ASC.Resources.Master.ApiResponsesRemovedProfile.response;
     }
 
+    function addNewUser(newUser) {
+        usersCache[newUser.id] = newUser;
+    }
+
     return {
         getAllUsers: getAllUsers,
         getUser: getUser,
         getPerson: getPerson,
         getUsers: getUsers,
-        getRemovedProfile: getRemovedProfile
+        getRemovedProfile: getRemovedProfile,
+        addNewUser: addNewUser
     };
 };
 
@@ -1717,7 +1740,7 @@ window.GroupManager = new function () {
 
         groupItems = {};
 
-        var i, j, k, n, usersId, groupId;
+        var i, j, k, n, groupId;
 
         for (i = 0, j = groups.length; i < j; i++) {
             groupId = groups[i].id;
@@ -1726,11 +1749,13 @@ window.GroupManager = new function () {
 
         var users = window.UserManager.getAllUsers();
 
-        for (i = 0, n = users.length; i < n; i++) {
-            usersId = users[i].id;
-            for (j = 0, k = users[i].groups.length; j < k; j++) {
-                groupId = users[i].groups[j];
-                groupItems[groupId] ? groupItems[groupId].push(usersId) : groupItems[groupId] = [usersId];
+        for (var userId in users) {
+            if (!users.hasOwnProperty(userId)) continue;
+
+            var user = users[userId];
+            for (j = 0, k = user.groups.length; j < k; j++) {
+                groupId = user.groups[j];
+                groupItems[groupId] ? groupItems[groupId].push(userId) : groupItems[groupId] = [userId];
             }
         }
     }

@@ -211,7 +211,11 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
     };
 
     this.resetFolder = function (folderId) {
-        resetNode(getTreeNode(folderId));
+        var treeNode = getTreeNode(folderId);
+        var beOpened = treeNode.hasClass("jstree-open");
+
+        resetNode(treeNode);
+        return beOpened;
     };
 
     this.rollUp = function () {

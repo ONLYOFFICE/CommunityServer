@@ -328,7 +328,7 @@ window.ASC.Files.Marker = (function () {
                 var newFiles = jq("#filesNewsList .file-row:not(.folder-row):not(.error-entry) .ft_Image, #filesNewsList .file-row:not(.folder-row):not(.error-entry) .ft_Video");
 
                 var mediaFiles = [];
-                var pos;
+                var pos = 0;
                 for (var i = 0; i < newFiles.length; i++) {
                     var fData = ASC.Files.UI.getObjectData(newFiles[i]);
 
@@ -339,6 +339,9 @@ window.ASC.Files.Marker = (function () {
                         }
                     }
                 }
+
+                var newFolderId = jq("#filesNewsPanel").attr("data-id");
+                var newObj = jq(".is-new" + ASC.Files.UI.getSelectorId(newFolderId));
 
                 ASC.Files.MediaPlayer.init(-1, {
                     playlist: mediaFiles,
@@ -352,32 +355,29 @@ window.ASC.Files.Marker = (function () {
                         ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, true);
                     },
                     onMediaChangedAction: function (fileId) {
+                        var newsObj = ASC.Files.UI.getEntryObject("file", fileId).find(".is-new");
+                        if (!newsObj.is(":visible")) {
+                            if (!newObj.is(":visible")) {
+                                newObj = ASC.Files.UI.getEntryObject("folder", newFolderId).find(".is-new");
+                            }
+                            prevCount = newObj.html() | 0;
+                            ASC.Files.Marker.setNewCount("folder", newFolderId, prevCount - 1);
+                        }
+
                         ASC.Files.Marker.removeNewIcon("file", fileId);
 
                         var hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
                         ASC.Files.Anchor.move(hash, true);
                     },
-                    downloadAction: ASC.Files.Utility.GetFileDownloadUrl,
-                    canDelete: function (fileId) {
-                        var entryObj = ASC.Files.UI.getEntryObject("file", fileId);
-                        if (!ASC.Files.UI.accessDelete(entryObj)
-                            || ASC.Files.UI.editingFile(entryObj)
-                            || ASC.Files.UI.lockedForMe(entryObj)) {
-                            return false;
-                        }
-                        return true;
-                    },
-                    deleteAction: function (fileId, successfulDeletion) {
-                        ASC.Files.Folders.deleteItem("file", fileId, successfulDeletion);
-                    }
+                    downloadAction: ASC.Files.Utility.GetFileDownloadUrl
                 });
             } else {
                 updated = ASC.Files.Folders.clickOnFile(fileData);
             }
 
             if (!updated) {
-                var newFolderId = jq("#filesNewsPanel").attr("data-id");
-                var newObj = jq(".is-new" + ASC.Files.UI.getSelectorId(newFolderId));
+                newFolderId = jq("#filesNewsPanel").attr("data-id");
+                newObj = jq(".is-new" + ASC.Files.UI.getSelectorId(newFolderId));
                 if (!newObj.is(":visible")) {
                     newObj = ASC.Files.UI.getEntryObject("folder", newFolderId).find(".is-new");
                 }

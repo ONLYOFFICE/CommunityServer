@@ -34,6 +34,7 @@ namespace ASC.Mail.Enums
         Draft = 3,
         Trash = 4,
         Spam = 5,
-        UserFolder = 6
+        UserFolder = 6,
+        Templates = 7
     }
 }

@@ -30,6 +30,7 @@ DB_USER=""
 DB_PWD=""
 DB_NAME=""
 
+
 install_db(){
 	db_get {{package_sysname}}-communityserver/db-host || true
 	DB_HOST="$RET"
@@ -61,31 +62,43 @@ install_db(){
 	    if ! grep -q "^sql_mode" ${CNF_PATH}; then
         	sed "/\[mysqld\]/a sql_mode = 'NO_ENGINE_SUBSTITUTION'" -i ${CNF_PATH} # disable new STRICT mode in mysql 5.7
 	    else
-		sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i ${CNF_PATH} || true # ignore errors
-            fi
+			sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i ${CNF_PATH} || true # ignore errors
+        fi
 
 	    if ! grep -q "^max_connections"  ${CNF_PATH}; then
         	sed '/\[mysqld\]/a max_connections = 1000' -i ${CNF_PATH}
 	    else
-		sed "s/max_connections.*/max_connections = 1000/" -i ${CNF_PATH} || true # ignore errors
+			sed "s/max_connections.*/max_connections = 1000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
 	    if ! grep -q "^group_concat_max_len"  ${CNF_PATH}; then
         	sed '/\[mysqld\]/a group_concat_max_len = 2048' -i ${CNF_PATH}
 	    else
-		sed "s/group_concat_max_len.*/group_concat_max_len = 2048/" -i ${CNF_PATH} || true # ignore errors
+			sed "s/group_concat_max_len.*/group_concat_max_len = 2048/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
 	    if ! grep -q "^max_allowed_packet"  ${CNF_PATH}; then
         	sed '/\[mysqld\]/a max_allowed_packet = 1048576000' -i ${CNF_PATH}
 	    else
-		sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i ${CNF_PATH} || true # ignore errors
+			sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
+		
+		if ! grep -q "^character_set_server"  ${CNF_PATH}; then
+			sed '/\[mysqld\]/a character_set_server = utf8' -i ${CNF_PATH}
+		else
+			sed "s/character_set_server.*/character_set_server = utf8/" -i ${CNF_PATH} || true # ignore errors
+		fi
+		
+		if ! grep -q "^collation_server"  ${CNF_PATH}; then
+			sed '/\[mysqld\]/a collation_server = utf8_general_ci' -i ${CNF_PATH}
+		else
+			sed "s/collation_server.*/collation_server = utf8_general_ci/" -i ${CNF_PATH} || true # ignore errors
+		fi
 
 		if ! grep -q "^default-authentication-plugin"  ${CNF_PATH}; then
         	sed '/\[mysqld\]/a default-authentication-plugin = mysql_native_password' -i ${CNF_PATH}
 	    else
-		sed "s/default-authentication-plugin.*/default-authentication-plugin = mysql_native_password/" -i ${CNF_PATH} || true # ignore errors
+			sed "s/default-authentication-plugin.*/default-authentication-plugin = mysql_native_password/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
 	    if [ -e ${CNF_SERVICE_PATH} ]; then
@@ -141,7 +154,7 @@ install_db(){
 
 apply_connection_string(){
 	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
-		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;Connection Timeout=30;Maximum Pool Size=300;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=true;Connection Timeout=30;Maximum Pool Size=300;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 	fi
 }
 
@@ -267,6 +280,7 @@ END
 		python3 -m pip install --upgrade radicale
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
+		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
 
 		
         #configure elasticsearch
@@ -314,7 +328,11 @@ END
 			sed -i "s/thread_pool.write.queue_size.*/thread_pool.write.queue_size: 250/" /etc/elasticsearch/elasticsearch.yml 
 		fi
 			
-	    CORE_COUNT=$(expr $(cat /proc/cpuinfo | grep processor | wc -l) / 2)
+		export LC_ALL=C
+
+  	        CORE_COUNT=$(( $(lscpu | awk '/^Socket\(s\)/{ print $2 }') * $(lscpu | awk '/^Core\(s\) per socket/{ print $4 }') ));
+
+ 	        unset LC_ALL
 
 		if [ "$CORE_COUNT" -eq "0" ]; then
 			CORE_COUNT=1;

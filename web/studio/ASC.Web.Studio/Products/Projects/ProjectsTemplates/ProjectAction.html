@@ -20,7 +20,7 @@
             ${ASC.Projects.Resources.ProjectResource.ProjectTitle}
         </div>
         <div class="inputTitleContainer" style="width: 100%">
-            <input ID="projectTitle" class="textEdit" type="text" value="${project.title}"/>
+            <input ID="projectTitle" class="textEdit" type="text" value="${project.title}" maxlength="250"/>
         </div>
         <div style="clear: both;"></div>
     </div>
@@ -139,7 +139,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Proj
                 </p>
             </div>
         </div>
-        <div class="checkboxPrivateProj">
+        <div class="checkboxContainer">
             <input id="projectPrivacyCkeckbox" type="checkbox" {{if project.private}}checked{{/if}}/>
             <label for="projectPrivacyCkeckbox">${ASC.Projects.Resources.ProjectResource.IUnerstandForEditHidden}</label>
             <div class="HelpCenterSwitcher" onclick="
@@ -149,13 +149,15 @@ jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject' });" title="${ASC.Pro
     {{/if}}
 
     {{if typeof project.status === "undefined" && !hideChooseTeam}}
-    <div id="projectFollowContainer">
-        <div class="followingCheckboxContainer">
-            <input id="followingProjectCheckbox" type="checkbox"/>
-            <label for="followingProjectCheckbox">${ASC.Projects.Resources.ProjectResource.FollowingProjects}</label>
-            <div class="HelpCenterSwitcher" onclick="
+    <div class="checkboxContainer">
+        <input id="followingProjectCheckbox" type="checkbox"/>
+        <label for="followingProjectCheckbox">${ASC.Projects.Resources.ProjectResource.FollowingProjects}</label>
+        <div class="HelpCenterSwitcher" onclick="
 jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionFollowProject}"></div>
-        </div>
+    </div>
+    <div class="checkboxContainer">
+        <input id="notifyProjectCheckbox" type="checkbox" disabled="disabled"/>
+        <label for="notifyProjectCheckbox">${ASC.Projects.Resources.ProjectTemplatesResource.NotifyResponsibles}</label>
     </div>
     {{/if}}
     <div id="projectActionsContainer" class="big-button-container">

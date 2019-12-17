@@ -195,6 +195,9 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Autosaved</value>
+  </data>
   <data name="CommentConvert" xml:space="preserve">
     <value>Converted from {0}</value>
   </data>
@@ -212,6 +215,12 @@
   </data>
   <data name="CommentEditEncrypt" xml:space="preserve">
     <value>Edited with encrypt</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Encrypted</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Saved</value>
   </data>
   <data name="CommentOverwrite" xml:space="preserve">
     <value>Overwrited</value>
@@ -234,11 +243,11 @@
   <data name="Convert" xml:space="preserve">
     <value>Convert</value>
   </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>The document converted to {0} to allow its editing</value>
+  </data>
   <data name="ConvertTo" xml:space="preserve">
     <value>Convert into</value>
-  </data>
-  <data name="CopyToForEdit" xml:space="preserve">
-    <value>The document converted copy has been created in folder {0} to allow its editing</value>
   </data>
   <data name="CreatingDate" xml:space="preserve">
     <value>Creation date</value>
@@ -269,6 +278,9 @@
   </data>
   <data name="DocuSignStatusVoided" xml:space="preserve">
     <value>Voided</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Notify when mentioned in document</value>
   </data>
   <data name="Employees" xml:space="preserve">
     <value>Employees</value>
@@ -608,5 +620,8 @@
   </data>
   <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
     <value>The operation was canceled</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
   </data>
 </root>

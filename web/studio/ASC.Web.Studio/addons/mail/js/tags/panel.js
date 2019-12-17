@@ -150,7 +150,7 @@ window.tagsPanel = (function($) {
         var $html = getTag$Html(tag);
         var tags = panelContent.find('.tag[labelid]');
         var insertFlag = false;
-        $.each(tags, function(index, value) {
+        $.each(tags, function (index, value) {
             var id = parseInt($(value).attr('labelid'));
             if ((tag.id > 0 && (id > tag.id || id < 0)) || (tag.id < 0 && id < tag.id)) {
                 $(value).before($html);

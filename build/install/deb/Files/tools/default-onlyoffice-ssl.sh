@@ -11,7 +11,7 @@ SSL_DHPARAM_PATH="${ROOT_DIR}/dhparam.pem";
 mkdir -p ${ROOT_DIR}
 
 if [ ! -f ${SSL_DHPARAM_PATH} ]; then
-        sudo openssl dhparam -out dhparam.pem 2048
+        openssl dhparam -out dhparam.pem 2048
 
         mv dhparam.pem ${SSL_DHPARAM_PATH};
 fi

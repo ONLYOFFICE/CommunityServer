@@ -186,6 +186,14 @@ namespace ASC.ActiveDirectory.ComplexOperations
         {
             var t = CoreContext.TenantManager.GetCurrentTenant();
 
+            var currentDomainSettings = LdapCurrentDomain.Load();
+
+            if (string.IsNullOrEmpty(currentDomainSettings.CurrentDomain) || currentDomainSettings.CurrentDomain != Importer.LDAPDomain)
+            {
+                currentDomainSettings.CurrentDomain = Importer.LDAPDomain;
+                currentDomainSettings.Save();
+            }
+
             if (!LDAPSettings.GroupMembership)
             {
                 Logger.Debug("SyncLDAPUsers()");

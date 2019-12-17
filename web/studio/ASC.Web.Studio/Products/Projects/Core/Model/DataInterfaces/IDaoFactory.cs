@@ -24,6 +24,8 @@
 */
 
 
+
+
 namespace ASC.Projects.Core.DataInterfaces
 {
     public interface IDaoFactory
@@ -51,5 +53,7 @@ namespace ASC.Projects.Core.DataInterfaces
         ISearchDao SearchDao { get; }
 
         ITagDao TagDao { get; }
+
+        IStatusDao StatusDao { get; }
     }
 }

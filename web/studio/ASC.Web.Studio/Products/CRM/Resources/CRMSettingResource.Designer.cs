@@ -1452,7 +1452,7 @@ namespace ASC.Web.CRM.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to The default {0}logo{1} of your organization will be displayed on your {0}Invoices{1}.{3}
-        ///To replace the logo click the &apos;Change Logo&apos; link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}..
+        ///To replace the logo click the &apos;Change Logo&apos; link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image file in PNG or JPG format not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}..
         /// </summary>
         public static string SettingsCompanyLogoHelp {
             get {

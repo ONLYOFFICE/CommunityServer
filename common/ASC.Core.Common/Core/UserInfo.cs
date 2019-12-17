@@ -87,7 +87,7 @@ namespace ASC.Core.Users
 
         public bool IsActive
         {
-            get { return ActivationStatus == EmployeeActivationStatus.Activated; }
+            get { return ActivationStatus.HasFlag(EmployeeActivationStatus.Activated); }
         }
 
         public string CultureName { get; set; }
@@ -172,7 +172,7 @@ namespace ASC.Core.Users
             groupCache.Reset(ID.ToString());
         }
 
-        internal string ContactsToString()
+        public string ContactsToString()
         {
             if (Contacts.Count == 0) return null;
             var sBuilder = new StringBuilder();
@@ -183,7 +183,7 @@ namespace ASC.Core.Users
             return sBuilder.ToString();
         }
 
-        internal UserInfo ContactsFromString(string contacts)
+        public UserInfo ContactsFromString(string contacts)
         {
             if (string.IsNullOrEmpty(contacts)) return this;
             Contacts.Clear();

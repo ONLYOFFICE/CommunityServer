@@ -122,6 +122,7 @@ window.ProjectDocumentsPopup = (function () {
             }
         });
 
+        jq("#attachFrame").css("visibility", "hidden");
         jq("#popupDocumentUploader .loader-page").show();
     };
 
@@ -189,9 +190,10 @@ window.ProjectDocumentsPopup = (function () {
     function frameLoad (folderId) {
         jq("#fileChoiceFrame")[0].contentWindow.ASC.Files.FileChoice.eventAfter = function () {
             jq("#fileChoiceFrame")[0].contentWindow.ASC.Files.FileSelector.fileSelectorTree.displayAsRoot(folderId);
-        };
 
-        jq("#popupDocumentUploader .loader-page").hide();
+            jq("#popupDocumentUploader .loader-page").hide();
+            jq("#attachFrame").css("visibility", "visible");
+        };
     }
 
     return {

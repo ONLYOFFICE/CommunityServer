@@ -169,16 +169,10 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        public static String UploadLogo(Stream inputStream, bool isTmpDir)
+        public static String UploadLogo(byte[] imageData, ImageFormat imageFormat)
         {
-            var imageData = Global.ToByteArray(inputStream);
-
-            var fileExtension = String.Concat("." + Global.GetImgFormatName(ImageFormat.Jpeg));
-            var photoPath = BuildFilePath(fileExtension);
-
-            var result = ExecResizeImage(imageData, OrganisationLogoSize, Global.GetStore(), photoPath);
-
-            return result;
+            var photoPath = BuildFilePath("." + Global.GetImgFormatName(imageFormat));
+            return ExecResizeImage(imageData, OrganisationLogoSize, Global.GetStore(), photoPath);
         }
     }
 }

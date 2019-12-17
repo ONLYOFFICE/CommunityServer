@@ -65,7 +65,9 @@ namespace ASC.CRM.Core
 
         public bool CanEdit(FileEntry entry, Guid userId)
         {
-            return entry.CreateBy == userId || entry.ModifiedBy == userId || CRMSecurity.IsAdministrator(userId);
+            return
+                CanRead(entry, userId) &&
+                entry.CreateBy == userId || entry.ModifiedBy == userId || CRMSecurity.IsAdministrator(userId);
         }
 
         public bool CanRead(FileEntry entry, Guid userId)
@@ -87,7 +89,7 @@ namespace ASC.CRM.Core
                 {
                     var eventIds = tagDao.GetTags(entry.ID, FileEntryType.File, TagType.System)
                         .Where(x => x.TagName.StartsWith("RelationshipEvent_"))
-                        .Select(x => Convert.ToInt32(x.TagName.Split(new[] {'_'})[1]))
+                        .Select(x => Convert.ToInt32(x.TagName.Split(new[] { '_' })[1]))
                         .ToList();
 
                     if (!eventIds.Any()) return false;

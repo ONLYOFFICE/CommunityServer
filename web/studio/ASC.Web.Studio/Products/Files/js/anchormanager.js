@@ -117,6 +117,7 @@ window.ASC.Files.Anchor = (function () {
         }
         if (typeof ASC.Files.MediaPlayer != "undefined") {
             ASC.Files.MediaPlayer.init(fileId, {
+                allowConvert: true,
                 onCloseAction: function (folderId) {
                     if (!ASC.Files.Common.isCorrectId(ASC.Files.Folders.currentFolder.id)) {
                         ASC.Files.Anchor.navigationSet(folderId, false);
@@ -134,6 +135,9 @@ window.ASC.Files.Anchor = (function () {
                 downloadAction: ASC.Files.Utility.GetFileDownloadUrl,
                 canDelete: function (fileId) {
                     var entryObj = ASC.Files.UI.getEntryObject("file", fileId);
+                    if (entryObj.length <= 0) {
+                        return false;
+                    }
                     if (!ASC.Files.UI.accessDelete(entryObj)
                         || ASC.Files.UI.editingFile(entryObj)
                         || ASC.Files.UI.lockedForMe(entryObj)) {

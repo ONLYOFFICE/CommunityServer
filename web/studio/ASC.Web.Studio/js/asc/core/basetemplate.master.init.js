@@ -187,8 +187,13 @@ var defineBodyMediaClass = function () {
         });
     }
 
+    var tipsWasClosed = false;
+    if (window.sessionStorage)
+        tipsWasClosed = !!window.sessionStorage.getItem("tipsWasClosed");
+
     // init Tips
-    if (ASC.Resources.Master.SetupInfoTipsAddress &&
+    if (!tipsWasClosed &&
+        ASC.Resources.Master.SetupInfoTipsAddress &&
         ASC.Resources.Master.IsAuthenticated == true &&
         ASC.Resources.Master.ApiResponsesMyProfile.response &&
         !ASC.Resources.Master.ApiResponsesMyProfile.response.isOutsider &&

@@ -183,10 +183,20 @@
     <Compile Include="Controls\FileUploader\HttpModule\UploadProgressHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Notify\SpamEmailSettings.cs" />
     <Compile Include="PublicResources\CustomModeResource.Designer.cs">
       <DependentUpon>CustomModeResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Core\Notify\StudioNotifyHelper.cs" />
+    <Compile Include="Core\Notify\StudioPeriodicNotify.cs" />
+    <Compile Include="Core\Notify\TagValues.cs" />
+    <Compile Include="Core\Notify\Actions.cs" />
+    <Compile Include="Core\Notify\WebstudioNotifyPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebstudioNotifyPatternResource.resx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Common\MediaViewer\MediaPlayer.ascx.cs">
       <DependentUpon>MediaPlayer.ascx</DependentUpon>
@@ -219,12 +229,7 @@
     <Compile Include="Core\Backup\BackupFileUploadHandler.cs" />
     <Compile Include="Core\Backup\BackupHelper.cs" />
     <Compile Include="Core\IpRestrictionsSettings.cs" />
-    <Compile Include="Core\Notify\StudioWhatsNewManager.cs" />
-    <Compile Include="Core\Notify\WebstudioNotifyPatternResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WebstudioNotifyPatternResource.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Core\Notify\StudioWhatsNewNotify.cs" />
     <Compile Include="Core\PersonalSettings.cs" />
     <Compile Include="Core\HelpCenter\HelpCenterHelper.cs" />
     <Compile Include="Core\HelpCenter\HelpCenterStorage.cs" />
@@ -310,7 +315,6 @@
     <Compile Include="Core\Import\IUserImporter.cs" />
     <Compile Include="Core\Import\OutlookCSVUserImporter.cs" />
     <Compile Include="Core\Import\TextFileUserImporter.cs" />
-    <Compile Include="Core\Notify\PatternHelper.cs" />
     <Compile Include="Core\Search\SearchComparer.cs" />
     <Compile Include="Core\Search\SearchResult.cs" />
     <Compile Include="Core\SecutiryConstants.cs" />
@@ -608,6 +612,13 @@
     </Compile>
     <Compile Include="UserControls\Management\StorageSettings\StorageSettings.ascx.designer.cs" Condition="Exists('UserControls\Management\StorageSettings\StorageSettings.ascx.designer.cs')">
       <DependentUpon>StorageSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffDesktop.ascx.cs">
+      <DependentUpon>TariffDesktop.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffDesktop.ascx.designer.cs">
+      <DependentUpon>TariffDesktop.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffNotify.ascx.cs">
       <DependentUpon>TariffNotify.ascx</DependentUpon>
@@ -1013,7 +1024,7 @@
     <Compile Include="Controls\Common\SideContainer.cs" />
     <Compile Include="Controls\Users\EmployeeUserCard.cs" />
     <Compile Include="Core\FCKUploadsDBManager.cs" />
-    <Compile Include="Core\Notify\Constants.cs" />
+    <Compile Include="Core\Notify\Tags.cs" />
     <Compile Include="Core\Notify\NotifyConfiguration.cs" />
     <Compile Include="Core\Notify\WebPatternResource.Designer.cs">
       <DependentUpon>WebPatternResource.resx</DependentUpon>
@@ -1165,11 +1176,49 @@
     <Content Include="skins\deep-blue\img\up.svg" />
     <Content Include="skins\default\imagescss\rotate.svg" />
     <Content Include="skins\default\imagescss\up.svg" />
+    <Content Include="skins\default\images\notification\demo-100.png" />
+    <Content Include="skins\default\images\notification\mailus-100.png" />
+    <Content Include="skins\default\images\notification\mail_logo.png" />
+    <Content Include="skins\default\images\notification\personal-wellcome-bg.png" />
+    <Content Include="skins\default\images\notification\social-blog-40.png" />
+    <Content Include="skins\default\images\notification\social-fb-40.png" />
+    <Content Include="skins\default\images\notification\social-inst-40.png" />
+    <Content Include="skins\default\images\notification\social-tw-40.png" />
+    <Content Include="skins\default\images\notification\social-vk-40.png" />
+    <Content Include="skins\default\images\notification\social-youtube-40.png" />
+    <Content Include="skins\default\images\notification\tech-100.png" />
+    <Content Include="skins\default\images\notification\tips-comfort-3rdparty-100.png" />
+    <Content Include="skins\default\images\notification\tips-comfort-answers-100 .png" />
+    <Content Include="skins\default\images\notification\tips-comfort-subscriptions-100.png" />
+    <Content Include="skins\default\images\notification\tips-comfort-training-100.png" />
+    <Content Include="skins\default\images\notification\tips-customize-3rdparty-100.png" />
+    <Content Include="skins\default\images\notification\tips-customize-brand-100.png" />
+    <Content Include="skins\default\images\notification\tips-customize-customize-100.png" />
+    <Content Include="skins\default\images\notification\tips-customize-modules-100.png" />
+    <Content Include="skins\default\images\notification\tips-customize-regional-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-3rdparty-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-apps-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-attach-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-coediting-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-desktop-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-docinfo-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-formatting-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-mailmerge-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-review-100.png" />
+    <Content Include="skins\default\images\notification\tips-documents-share-100.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-backup-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-brand-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-customize-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-regional-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-security-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-telephony-50.png" />
+    <Content Include="skins\default\images\notification\tips-welcome-usertrack-50.png" />
     <Content Include="skins\default\images\onlyoffice_logo\light_small_general.svg" />
     <Content Include="skins\pure-orange\img\rotate.svg" />
     <Content Include="skins\pure-orange\img\up.svg" />
     <Content Include="skins\wild-pink\img\rotate.svg" />
     <Content Include="skins\wild-pink\img\up.svg" />
+    <Content Include="UserControls\Common\Authorize\js\recaptchacontroller.js" />
     <Content Include="UserControls\Common\MediaViewer\imageviewer.js" />
     <Content Include="UserControls\Common\MediaViewer\tiff.min.js" />
     <Content Include="UserControls\Common\MediaViewer\images\close.png" />
@@ -1670,7 +1719,6 @@
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\icon_google.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\icon_lindkn.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\image_background.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\logo_chrombook.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\presentations.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_1.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_2.png" />
@@ -1678,28 +1726,53 @@
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_4.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_5.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_6.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\small_stars.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\spreadsheets.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\starsraring.png" />
     <Content Include="UserControls\Common\ckeditor\contents.css" />
     <Content Include="UserControls\Common\MigrationPortal\js\migrationportal.js" />
     <Content Include="UserControls\Common\MigrationPortal\MigrationPortal.ascx" />
     <Content Include="UserControls\Common\PersonalFooter\PersonalFooterCustomMode.ascx" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\access-deny.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\access-for-comment.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\fill-form.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\link.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\pencil.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\review.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\views.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\sharingsettingsparams.less" />
     <Content Include="UserControls\Common\SharingSettings\css\dark-green\sharingsettingsparams.less" />
     <Content Include="UserControls\Common\SharingSettings\css\deep-blue\sharingsettingsparams.less" />
     <Content Include="UserControls\Common\SharingSettings\css\default\baseparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\access-deny-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\access-deny.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\access-for-comment-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\access-for-comment.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\fill-form-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\fill-form.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\group.png" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\link.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\pencil.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\pencilblue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\review-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\review.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\views-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\views.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\sharingsettings.less" />
     <Content Include="UserControls\Common\SharingSettings\css\default\sharingsettingsparams.less" />
     <Content Include="UserControls\Common\SharingSettings\css\pure-orange\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\access-deny.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\access-for-comment.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\fill-form.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\link.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\pencil.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\review.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\views.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\wild-pink\sharingsettingsparams.less" />
     <Content Include="UserControls\Common\SmallChat\css\images\expand.svg" />
     <Content Include="UserControls\Common\SmallChat\css\images\settings.svg" />
@@ -1727,7 +1800,6 @@
     <Content Include="js\third-party\jquery\noty\bottomright.js" />
     <Content Include="js\third-party\jquery\noty\default.js" />
     <Content Include="js\third-party\jquery\noty\jquery.noty.js" />
-    <Content Include="js\third-party\voip\voximplant.min.js" />
     <Content Include="Masters\BaseTemplate.master" />
     <Content Include="Masters\BodyScripts.ascx" />
     <Content Include="Masters\CommonBodyScripts.ascx" />
@@ -1762,7 +1834,6 @@
     <Content Include="skins\default\imagescss\back-progress.png" />
     <Content Include="skins\default\imagescss\btn-onoff.png" />
     <Content Include="skins\default\imagescss\btn-edit.png" />
-    <Content Include="skins\default\imagescss\btn_64.png" />
     <Content Include="skins\default\imagescss\btn_icons.png" />
     <Content Include="skins\default\imagescss\btn_row_icons.png" />
     <Content Include="skins\default\imagescss\btn_separator.png" />
@@ -1799,7 +1870,6 @@
     <Content Include="skins\default\imagescss\ip_phone.png" />
     <Content Include="skins\default\imagescss\ip_tastatura.png" />
     <Content Include="skins\default\imagescss\js_28.png" />
-    <Content Include="skins\default\imagescss\loading-camomile.gif" />
     <Content Include="skins\default\imagescss\lock.png" />
     <Content Include="skins\default\imagescss\mainmenu_upload.png" />
     <Content Include="skins\default\imagescss\markers.gif" />
@@ -1949,6 +2019,8 @@
     <Content Include="UserControls\Management\StorageSettings\css\storagesettings.less" />
     <Content Include="UserControls\Management\StorageSettings\js\storagesettings.js" />
     <Content Include="UserControls\Management\StorageSettings\StorageSettings.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\js\tariffdesktop.js" />
+    <Content Include="UserControls\Management\TariffSettings\TariffDesktop.ascx" />
     <Content Include="UserControls\Management\TariffSettings\css\img\close.png" />
     <Content Include="UserControls\Management\TariffSettings\js\tariffnotify.js" />
     <Content Include="UserControls\Management\TariffSettings\TariffNotify.ascx" />
@@ -2077,12 +2149,14 @@
     <Content Include="UserControls\Users\TipsSettings\TipsSettings.ascx" />
     <Content Include="UserControls\Users\UserProfile\css\images\birthday.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\btn-edit.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\check_tick.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\facebook.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\flags.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\google.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\gosuslugi.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\linkenin.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\mailru.svg" />
+    <Content Include="UserControls\Users\UserProfile\css\images\read-only.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\social-icons-small.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\twitter.svg" />
@@ -2112,6 +2186,7 @@
     <Content Include="UserControls\Users\UserProfile\UserProfileActions.ascx" />
     <Content Include="UserControls\Users\UserProfile\UserProfileEditControl.ascx" />
     <Content Include="UserControls\Management\PortalRename\css\portalrename.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\tariffdesktop.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tariffnotify.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tariffstandalone.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tariff.less" />
@@ -2381,7 +2456,6 @@
     <Content Include="skins\default\phonecontroller.css" />
     <Content Include="UserControls\Common\PersonalFooter\css\personalfooter.less" />
     <Content Include="UserControls\Users\UserProfile\css\userlanguages.less" />
-    <Content Include="skins\default\magnific-popup.less" />
     <Content Include="UserControls\Management\AuditTrail\css\audittrail.less" />
     <Content Include="UserControls\Management\LoginHistory\css\loginhistory.less" />
     <Content Include="UserControls\Common\SmallChat\css\sounds\chat.ogg" />
@@ -2460,7 +2534,6 @@
     <Content Include="js\asc\plugins\popupbox.js" />
     <Content Include="js\asc\plugins\countries.js" />
     <Content Include="js\asc\plugins\phonecontroller.js" />
-    <Content Include="js\third-party\jquery\jquery.magnific-popup.js" />
     <Content Include="js\third-party\jquery\jquery.blockUI.js" />
     <Content Include="js\third-party\jquery\jquery.colors.js" />
     <Content Include="js\third-party\jquery\jquery.cookies.js" />
@@ -2768,7 +2841,6 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(TrunkDir)packages\jQuery.3.3.1\Content\Scripts\jquery-3.3.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\jQuery.BlockUI.2.70\Content\Scripts\jquery.blockUI.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.blockUI.js" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)packages\Magnific.Popup.1.1.0\Content\Scripts\jquery.magnific-popup.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.magnific-popup.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\jquery.mousewheel.3.1.13\Content\Scripts\jquery.mousewheel.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.mousewheel.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\jQuery.FileUpload.9.22.0\content\Scripts\jQuery.FileUpload\jquery.fileupload.js" DestinationFiles="$(MSBuildProjectDirectory)\js\uploader\jquery.fileupload.js" ContinueOnError="true" />
   </Target>

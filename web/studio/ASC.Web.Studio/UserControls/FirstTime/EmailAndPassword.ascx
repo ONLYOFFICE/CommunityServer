@@ -35,6 +35,15 @@
                 </div>
             </div>
             <% } %>
+            <% if (IsAmi)
+                { %>
+            <div>
+                <div class="label"><%= Resource.EmailAndPasswordAmiId %></div>
+                <div>
+                    <input id="amiid" class="textEdit" maxlength="50" />
+                </div>
+            </div>
+            <% } %>
         </div>
         <% if (RequestLicense)
             { %>

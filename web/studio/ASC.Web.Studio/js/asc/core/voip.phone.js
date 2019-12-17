@@ -386,8 +386,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
         $selectContactBtn.contactadvancedSelector({
             inPopup: true,
             isTempLoad: true,
-            onechosen: true,
-            withPhoneOnly: true
+            onechosen: true
         });
     }
 
@@ -860,14 +859,18 @@ ASC.CRM.Voip.PhoneView = (function($) {
         selectedContact = contact;
         $selectedContact.text(contact.title).show();
 
-        var phone = contact.phone[0].data;
-        renderSelectedPhone(phone);
+        if (contact.phone && contact.phone.length) {
+            var phone = contact.phone[0].data;
+            renderSelectedPhone(phone);
 
-        var $items = jq.tmpl(contactPhoneSwitcherItemTmpl, contact.phone);
-        $contactPhoneSwitcherPanel.find('.dropdown-content').html($items);
+            var $items = jq.tmpl(contactPhoneSwitcherItemTmpl, contact.phone);
+            $contactPhoneSwitcherPanel.find('.dropdown-content').html($items);
+            $selectedContactPhoneSwitcherBtn.show();
+        } else {
+            setDefaultCountryData();
+        }
 
         $phoneClearBtn.show();
-        $selectedContactPhoneSwitcherBtn.show();
     }
 
     function renderSelectedPhone(phone) {

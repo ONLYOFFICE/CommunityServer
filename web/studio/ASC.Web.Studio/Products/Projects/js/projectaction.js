@@ -41,6 +41,7 @@ ASC.Projects.ProjectAction = (function() {
         $projectParticipants,
         $notifyManagerCheckbox,
         $followingProjectCheckbox,
+        $notifyProjectCheckbox,
         $projectTitle,
         $projectDescription,
         $projectParticipantsContainer,
@@ -53,7 +54,7 @@ ASC.Projects.ProjectAction = (function() {
         requiredInputErrorClass = "requiredInputError",
         itemsDisplayListClass = ".items-display-list";
 
-    var teamlab, loadingBanner, project, team = [], tagsId = [];
+    var teamlab, loadingBanner, project, team = [], tagsId = [], master;
 
     var init = function () {
         teamlab = Teamlab;
@@ -64,6 +65,7 @@ ASC.Projects.ProjectAction = (function() {
         param = jq.getURLParam("contactID");
         contactId = param ? param : undefined;
         projectId = jq.getURLParam("prjID");
+        master = ASC.Projects.Master;
 
         if (!projectId) {
             teamlab.getPrjTemplates({}, { success: onGetTemplates });
@@ -86,6 +88,7 @@ ASC.Projects.ProjectAction = (function() {
         $projectParticipants = jq("#projectParticipants");
         $notifyManagerCheckbox = jq("#notifyManagerCheckbox");
         $followingProjectCheckbox = jq("#followingProjectCheckbox");
+        $notifyProjectCheckbox = jq("#notifyProjectCheckbox");
         $projectTitle = jq("[id$=projectTitle]");
         $projectDescription = jq("[id$=projectDescription]");
         $projectParticipantsContainer = jq("#projectParticipantsContainer");
@@ -126,21 +129,21 @@ ASC.Projects.ProjectAction = (function() {
             };
 
             for (var i = 0; i < project.tags.length; i++) {
-                var tag = ASC.Projects.Master.Tags.filter(findTag(project.tags[i])).map(function (item) { return item.value; });
+                var tag = master.Tags.filter(findTag(project.tags[i])).map(function (item) { return item.value; });
                 itemsSelectedIds = itemsSelectedIds.concat(tag);
             }
         }
 
         $projectTag.tagsadvancedSelector({
             canadd: true,
-            itemsChoose: ASC.Projects.Master.Tags.map(function (item) { return { id: item.value, title: item.title } }),
+            itemsChoose: master.Tags.map(function (item) { return { id: item.value, title: item.title } }),
             itemsSelectedIds:itemsSelectedIds
         }).on("showList", function (event, items) {
             tagsId = items.map(function(item) {
                 return item.id;
             });
             var titles = items.map(function (item) {
-                return item.title;
+                return Encoder.htmlEncode(item.title);
             });
             var selectedTags = titles.length ? titles.reduce(function (previousValue, currentValue) {
                 return previousValue + ", " + currentValue;
@@ -166,7 +169,7 @@ ASC.Projects.ProjectAction = (function() {
                 showCloseQuestion(item.id);
             });
 
-            team = ASC.Projects.Master.Team.filter(function (item) {
+            team = master.Team.filter(function (item) {
                 return item.id !== projectResponsible;
             });
             if ($projectManagerSelector.attr("data-id") == currentUserId) {
@@ -201,6 +204,7 @@ ASC.Projects.ProjectAction = (function() {
 
         // popup and other button
 
+        var oldTeam = team.map(user => user.id);
         jq("#projectActionButton").click(function () {
             if (!validateProjectData() || jq(this).hasClass("disable")) return;
 
@@ -210,6 +214,12 @@ ASC.Projects.ProjectAction = (function() {
             lockProjectActionPageElements();
 
             if (projectId) {
+                var needDelete = oldTeam.filter(function (userId) {
+                    return team.map(user => user.id).indexOf(userId) < 0;
+                });
+                needDelete.forEach(function (user) {
+                    teamlab.removeCaldavProjectCalendar(projectId, user);
+                });
                 updateProject(projectId, project);
             } else {
                 addProject(project);
@@ -220,7 +230,7 @@ ASC.Projects.ProjectAction = (function() {
             ASC.Projects.Base.showCommonPopup("projectRemoveWarning",
                 function () {
                     lockProjectActionPageElements();
-                    teamlab.removePrjProject({}, projectId, { success: onDeleteProject, error: unlockProjectActionPageElements });
+                    teamlab.removePrjProject(projectId, { success: onDeleteProject, error: onError });
                 });
         });
 
@@ -236,7 +246,6 @@ ASC.Projects.ProjectAction = (function() {
             deleteItemInArray(teamIds, id);
             team = team.filter(function (item) { return item.id !== id; });
 
-            $projectParticipants.attr("value", teamIds.join());
             if (teamIds.length == 0) {
                 $projectParticipantsContainer.hide();
             }
@@ -269,6 +278,12 @@ ASC.Projects.ProjectAction = (function() {
 
         if (!projectId && ASC.Projects.MilestoneContainer) {
             ASC.Projects.MilestoneContainer.init();
+            jq(document).bind("chooseResp", function (event, data) {
+                showNotifyProjectCheckbox();
+            });
+            jq(document).bind("unchooseResp", function (event, data) {
+                hideNotifyProjectCheckbox();
+            });
         }
         jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
 
@@ -336,7 +351,6 @@ ASC.Projects.ProjectAction = (function() {
         teamIds = team.map(function (item) { return item.id; });
 
         var projectManagerId = $projectManagerSelector.attr("data-id");
-        $projectParticipants.attr("value", teamIds.join());
 
         if (team.length > 0) {
             var teamForTemplate = team.map(function(item) {
@@ -360,14 +374,27 @@ ASC.Projects.ProjectAction = (function() {
             }
             $projectParticipantsContainer.show();
             $projectTeamSelector.useradvancedSelector("select", teamIds);
+            if (!project) {
+                showNotifyProjectCheckbox();
+            }
         } else {
             $projectParticipantsContainer.empty().hide();
         }
     };
 
+    function showNotifyProjectCheckbox() {
+        $notifyProjectCheckbox.show();
+        $notifyProjectCheckbox.removeAttr(disabledAttr);
+    }
+
+    function hideNotifyProjectCheckbox() {
+        $notifyProjectCheckbox.attr(disabledAttr, disabledAttr);
+    }
+
     function mapTeamMember(item) {
         var resources = ASC.Projects.Resources;
         item.isManager = projectResponsible === item.id;
+        item.isAdmin = item.isAdmin || (item.groups && item.groups.indexOf(master.ProjectsProductID) > -1);
         return jq.extend({
                 security: [
                     security(item, "canReadMessages", resources.MessageResource.Messages),
@@ -456,7 +483,7 @@ ASC.Projects.ProjectAction = (function() {
                     CanReadContacts: getPropertyOrDefault(item, "canReadContacts")
                 };
             });
-
+            project.notifyResponsibles = $notifyProjectCheckbox.is(":" + checkedProp);
         }
         return project;
     };
@@ -602,17 +629,21 @@ ASC.Projects.ProjectAction = (function() {
         loadingBanner.hideLoading();
     };
 
+    function onError(params, error) {
+        ASC.Projects.Common.displayInfoPanel(error, true);
+        unlockProjectActionPageElements();
+    }
     // actions
     function addProject(project) {
         var params = {};
         if (isProjectsCreatedFromCRM()) {
             params.isProjectsCreatedFromCRM = true;
         }
-        teamlab.addPrjProject(params, project, { success: onAddProject, error: unlockProjectActionPageElements });
+        teamlab.addPrjProject(params, project, { success: onAddProject, error: onError });
     };
 
     function updateProject(projectId, project) {
-        teamlab.updatePrjProject({}, projectId, project, { success: onUpdateProject, error: unlockProjectActionPageElements });
+        teamlab.updatePrjProject({}, projectId, project, { success: onUpdateProject, error: onError });
     };
 
     //handlers
@@ -653,8 +684,12 @@ ASC.Projects.ProjectAction = (function() {
     function onGetCRMOpportunity(params, opportunity) {
         $projectTitle.val(opportunity.title);
         $projectDescription.val(opportunity.description);
-        $projectManagerSelector.useradvancedSelector("select", [opportunity.responsible.id]);
-        $projectManagerSelector.html(Encoder.htmlDecode(opportunity.responsible.displayName)).attr("data-id", opportunity.responsible.id).removeClass("plus");
+
+        if (opportunity.responsible.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {
+            $projectManagerSelector.useradvancedSelector("select", [opportunity.responsible.id]);
+            $projectManagerSelector.html(Encoder.htmlDecode(opportunity.responsible.displayName)).attr("data-id", opportunity.responsible.id).removeClass("plus");
+        }
+
         if (opportunity.responsible.id == currentUserId) {
             $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
             $followingProjectCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
@@ -687,7 +722,7 @@ ASC.Projects.ProjectAction = (function() {
         jq("#projectActionPage").html(jq.tmpl("projects_action_create",
         {
             IsProjectCreatedFromCrm: isProjectsCreatedFromCRM(),
-            hideChooseTeam: window.UserManager.getAllUsers(true).length === 1,
+            hideChooseTeam: Object.keys(window.UserManager.getAllUsers(true)).length === 1,
             showTemplates: data.length > 0,
             pageTitle: ASC.Projects.Resources.ProjectResource.CreateNewProject,
             IsPrivateDisabled: false,
@@ -731,14 +766,14 @@ ASC.Projects.ProjectAction = (function() {
 
     function onGetProject(params, data) {
         project = data;
-        tagsId = ASC.Projects.Master.Tags
+        tagsId = master.Tags
             .filter(function (item) { return data.tags.indexOf(item.title) > -1; })
             .map(function (item) { return item.value });
 
         jq("#projectActionPage").html(jq.tmpl("projects_action_create",
             {
                 IsProjectCreatedFromCrm: isProjectsCreatedFromCRM(),
-                hideChooseTeam: window.UserManager.getAllUsers(true).length === 1,
+                hideChooseTeam: Object.keys(window.UserManager.getAllUsers(true)).length === 1,
                 showTemplates: false,
                 pageTitle: ASC.Projects.Resources.ProjectResource.EditProject,
                 IsPrivateDisabled: false,

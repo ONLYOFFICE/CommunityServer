@@ -419,7 +419,23 @@ window.ASC.Files.EventHandler = (function () {
             var fileTitle = fileData.title;
             var fileId = fileData.entryId;
 
-            ASC.Files.Actions.checkEditFile(fileId, winEditor);
+            if (ASC.Desktop && ASC.Desktop.encryptionSupport() && ASC.Desktop.encryptFileByUrl) {
+                ASC.Files.UI.blockObject(fileObj, true, ASC.Files.FilesJSResources.DescriptCreate);
+                ASC.Desktop.encryptFileByUrl(ASC.Files.Utility.GetFileDownloadUrl(fileId), function (encryptedFile, encrypted) {
+                    if (encrypted) {
+                        ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.DesktopMessageStoring);
+                        ASC.Files.Folders.replaceFileStream(fileData, encryptedFile, winEditor);
+                    } else {
+                        if (ASC.Desktop && ASC.Desktop.encryptionSupport() && ASC.Desktop.encryptionUploadEnd) {
+                            ASC.Desktop.encryptionUploadEnd();
+                        }
+                        ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFile.format(fileTitle));
+                    }
+                });
+                return;
+            } else {
+                ASC.Files.Actions.checkEditFile(fileId, winEditor);
+            }
         } else {
             fileTitle = params.fileTitle;
         }
@@ -452,7 +468,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         if (ASC.Files.Tree) {
-            ASC.Files.Tree.resetFolder(params.parentFolderID);
+            ASC.Files.Tree.reloadFolder(params.parentFolderID);
         }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFolder.format(folderTitle));
@@ -483,7 +499,7 @@ window.ASC.Files.EventHandler = (function () {
         var folderNewTitle = ASC.Files.UI.getObjectData(folderObj).title;
 
         if (ASC.Files.Tree) {
-            ASC.Files.Tree.resetFolder(params.parentFolderID);
+            ASC.Files.Tree.reloadFolder(params.parentFolderID);
         }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoRenameFolder.format(params.name, folderNewTitle));
@@ -540,7 +556,7 @@ window.ASC.Files.EventHandler = (function () {
                 ASC.Files.UI.updateMainContentHeader();
 
                 if (ASC.Files.Tree) {
-                    ASC.Files.Tree.resetFolder(params.parentFolderID);
+                    ASC.Files.Tree.reloadFolder(params.parentFolderID);
                 }
 
                 var folderData = ASC.Files.UI.getObjectData(folderObj);
@@ -630,19 +646,21 @@ window.ASC.Files.EventHandler = (function () {
             jq(".not-preview").removeClass("not-preview");
         }
 
-        var curVersion = jq("#contentVersions .version-row").length;
-        var curVersionGroup = jq("#contentVersions .version-row:first").attr("data-version-group");
-
+        var curVersion = jq("#contentVersions .version-row:first").attr("data-version");
         jq("#contentVersions .version-row[data-version='" + curVersion + "'] .version-restore").empty();
-        jq("#contentVersions .version-row[data-version='" + curVersion + "'] .version-sublist span").text(ASC.Files.FilesJSResources.RevisionCurrent);
 
-        jq("#contentVersions .version-row[data-version-group=" + curVersionGroup + "]").show();
+        var curVersionGroup = -1;
         jq("#contentVersions .version-row").each(function () {
             var row = jq(this);
             var versionGroup = row.attr("data-version-group");
+            var version = row.attr("data-version");
 
             if (versionGroup != curVersionGroup) {
-                row.find(".version-complete").remove();
+                if (version == curVersion) {
+                    row.find(".version-continue").remove();
+                } else {
+                    row.find(".version-complete").remove();
+                }
                 curVersionGroup = versionGroup;
                 row.addClass("version-group-head");
 
@@ -799,10 +817,9 @@ window.ASC.Files.EventHandler = (function () {
             folderCountObj.html((parseInt(folderCountObj.html()) || 0) + foldersCount);
 
             if (ASC.Files.Tree) {
-                ASC.Files.Tree.resetFolder(folderToId);
+                ASC.Files.Tree.reloadFolder(folderToId);
                 if (!isCopyOperation && folderToId != ASC.Files.Folders.currentFolder.id) {
-                    ASC.Files.Tree.resetFolder(folderFromId || ASC.Files.Folders.currentFolder.id);
-                    ASC.Files.Tree.updateTreePath();
+                    ASC.Files.Tree.reloadFolder(folderFromId || ASC.Files.Folders.currentFolder.id);
                 }
             }
         }
@@ -894,8 +911,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         if (foldersCountChange && ASC.Files.Tree) {
-            ASC.Files.Tree.resetFolder(folderFromId || ASC.Files.Folders.currentFolder.id);
-            ASC.Files.Tree.updateTreePath();
+            ASC.Files.Tree.reloadFolder(folderFromId || ASC.Files.Folders.currentFolder.id);
         }
 
         if (listItemId.length > 0 && redrawItems) {

@@ -86,6 +86,24 @@ namespace ASC.Files.Core.Data
                 .FirstOrDefault();
         }
 
+        public File GetFileStable(object fileId, int fileVersion = -1)
+        {
+            var query = GetFileQuery(Exp.Eq("id", fileId)
+                                     & Exp.Eq("forcesave", 0))
+                .OrderBy("version", false)
+                .SetMaxResults(1);
+
+            if (fileVersion >= 0)
+            {
+                query.Where(Exp.Le("version", fileVersion));
+            }
+
+            return dbManager
+                .ExecuteList(query)
+                .ConvertAll(ToFile)
+                .SingleOrDefault();
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             var files = dbManager
@@ -301,7 +319,7 @@ namespace ASC.Files.Core.Data
             }
 
             var isNew = false;
-            var parentFoldersIds = new List<object>();
+            List<object> parentFoldersIds;
             lock (syncRoot)
             {
                 using (var tx = dbManager.BeginTransaction())
@@ -344,7 +362,8 @@ namespace ASC.Files.Core.Data
                                 .InColumnValue("modified_on", TenantUtil.DateTimeToUtc(file.ModifiedOn))
                                 .InColumnValue("converted_type", file.ConvertedType)
                                 .InColumnValue("comment", file.Comment)
-                                .InColumnValue("encrypted", file.Encrypted);
+                                .InColumnValue("encrypted", file.Encrypted)
+                                .InColumnValue("forcesave", (int)file.Forcesave);
                     dbManager.ExecuteNonQuery(sql);
                     tx.Commit();
 
@@ -397,6 +416,99 @@ namespace ASC.Files.Core.Data
             return GetFile(file.ID);
         }
 
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            if (file == null) throw new ArgumentNullException("file");
+            if (file.ID == null) throw new ArgumentException("No file id or folder id toFolderId determine provider");
+
+            if (SetupInfo.MaxChunkedUploadSize < file.ContentLength)
+            {
+                throw FileSizeComment.GetFileSizeException(SetupInfo.MaxChunkedUploadSize);
+            }
+
+            if (CoreContext.Configuration.Personal && SetupInfo.IsVisibleSettings("PersonalMaxSpace"))
+            {
+                if (CoreContext.Configuration.PersonalMaxSpace - Global.GetUserUsedSpace(file.ID == null ? SecurityContext.CurrentAccount.ID : file.CreateBy) < file.ContentLength)
+                {
+                    throw FileSizeComment.GetPersonalFreeSpaceException(CoreContext.Configuration.PersonalMaxSpace);
+                }
+            }
+
+            List<object> parentFoldersIds;
+            lock (syncRoot)
+            {
+                using (var tx = dbManager.BeginTransaction())
+                {
+
+                    file.Title = Global.ReplaceInvalidCharsAndTruncate(file.Title);
+                    //make lowerCase
+                    file.Title = FileUtility.ReplaceFileExtension(file.Title, FileUtility.GetFileExtension(file.Title));
+
+                    file.ModifiedBy = SecurityContext.CurrentAccount.ID;
+                    file.ModifiedOn = TenantUtil.DateTimeNow();
+                    if (file.CreateBy == default(Guid)) file.CreateBy = SecurityContext.CurrentAccount.ID;
+                    if (file.CreateOn == default(DateTime)) file.CreateOn = TenantUtil.DateTimeNow();
+
+                    var sql = Update("files_file")
+                        .Set("version", file.Version)
+                        .Set("version_group", file.VersionGroup)
+                        .Set("folder_id", file.FolderID)
+                        .Set("title", file.Title)
+                        .Set("content_length", file.ContentLength)
+                        .Set("category", (int)file.FilterType)
+                        .Set("create_by", file.CreateBy.ToString())
+                        .Set("create_on", TenantUtil.DateTimeToUtc(file.CreateOn))
+                        .Set("modified_by", file.ModifiedBy.ToString())
+                        .Set("modified_on", TenantUtil.DateTimeToUtc(file.ModifiedOn))
+                        .Set("converted_type", file.ConvertedType)
+                        .Set("comment", file.Comment)
+                        .Set("encrypted", file.Encrypted)
+                        .Set("forcesave", (int)file.Forcesave)
+                        .Where("id", file.ID)
+                        .Where("version", file.Version);
+                    dbManager.ExecuteNonQuery(sql);
+                    tx.Commit();
+
+                    file.PureTitle = file.Title;
+
+                    parentFoldersIds = dbManager.ExecuteList(
+                        new SqlQuery("files_folder_tree")
+                            .Select("parent_id")
+                            .Where(Exp.Eq("folder_id", file.FolderID))
+                            .OrderBy("level", false)
+                        ).ConvertAll(row => row[0]);
+
+                    if (parentFoldersIds.Count > 0)
+                        dbManager.ExecuteNonQuery(
+                            Update("files_folder")
+                                .Set("modified_on", TenantUtil.DateTimeToUtc(file.ModifiedOn))
+                                .Set("modified_by", file.ModifiedBy.ToString())
+                                .Where(Exp.In("id", parentFoldersIds)));
+                }
+            }
+
+            if (fileStream != null)
+            {
+                try
+                {
+                    DeleteVersionStream(file);
+                    SaveFileStream(file, fileStream);
+                }
+                catch
+                {
+                    if (!IsExistOnStorage(file))
+                    {
+                        DeleteVersion(file);
+                    }
+                    throw;
+                }
+            }
+
+            FactoryIndexer<FilesWrapper>.IndexAsync(FilesWrapper.GetFilesWrapper(file, parentFoldersIds));
+
+            return GetFile(file.ID);
+        }
+
         private void DeleteVersion(File file)
         {
             if (file == null
@@ -413,6 +525,11 @@ namespace ASC.Files.Core.Data
                     .Set("current_version", true)
                     .Where("id", file.ID)
                     .Where("version", file.Version - 1));
+        }
+
+        private static void DeleteVersionStream(File file)
+        {
+            Global.GetStore().DeleteDirectory(GetUniqFileVersionPath(file.ID, file.Version));
         }
 
         private static void SaveFileStream(File file, Stream stream)
@@ -623,7 +740,14 @@ namespace ASC.Files.Core.Data
         public static String GetUniqFilePath(File file, string fileTitle)
         {
             return file != null
-                       ? string.Format("{0}/v{1}/{2}", GetUniqFileDirectory(file.ID), file.Version, fileTitle)
+                       ? string.Format("{0}/{1}", GetUniqFileVersionPath(file.ID, file.Version), fileTitle)
+                       : null;
+        }
+
+        public static String GetUniqFileVersionPath(object fileIdObject, int version)
+        {
+            return fileIdObject != null
+                       ? string.Format("{0}/v{1}", GetUniqFileDirectory(fileIdObject), version)
                        : null;
         }
 
@@ -687,6 +811,7 @@ namespace ASC.Files.Core.Data
                 file.ContentLength = uploadSession.BytesTotal;
                 file.ConvertedType = null;
                 file.Comment = FilesCommonResource.CommentUpload;
+                file.Encrypted = uploadSession.Encrypted;
                 return file;
             }
 
@@ -696,6 +821,7 @@ namespace ASC.Files.Core.Data
                     Title = uploadSession.File.Title,
                     ContentLength = uploadSession.BytesTotal,
                     Comment = FilesCommonResource.CommentUpload,
+                    Encrypted = uploadSession.Encrypted,
                 };
         }
 
@@ -836,6 +962,7 @@ namespace ASC.Files.Core.Data
                 .Select("changes")
                 .Select("create_on")
                 .Where(Exp.Eq("id", fileId))
+                .Where(Exp.Eq("forcesave", 0))
                 .OrderBy("version", true);
 
             if (fileVersion > 0)
@@ -901,9 +1028,17 @@ namespace ASC.Files.Core.Data
                 ConvertedType = (string)r[12],
                 Comment = (string)r[13],
                 Encrypted = Convert.ToBoolean(r[14]),
+                Forcesave = ParseForcesaveType(r[15]),
             };
 
             return result;
+        }
+
+        private static ForcesaveType ParseForcesaveType(object v)
+        {
+            return v != null
+                       ? (ForcesaveType)Enum.Parse(typeof (ForcesaveType), v.ToString().Substring(0, 1))
+                       : default(ForcesaveType);
         }
 
         private Func<Selector<FilesWrapper>, Selector<FilesWrapper>> GetFuncForSearch(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)

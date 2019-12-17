@@ -26,9 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.TFA
 {
@@ -63,15 +61,7 @@ namespace ASC.Web.Studio.Core.TFA
 
         public static bool IsVisibleSettings
         {
-            get
-            {
-                var quota = TenantExtra.GetTenantQuota();
-                return CoreContext.Configuration.Standalone
-                       || (!quota.Trial
-                           && !quota.NonProfit
-                           && !quota.Free
-                           && !quota.Open);
-            }
+            get { return SetupInfo.IsVisibleSettings<TfaAppAuthSettings>(); }
         }
     }
 }

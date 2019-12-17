@@ -89,7 +89,9 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemDictionary<String, String> CheckEditing(ItemList<String> filesId);
 
-        File SaveEditing(String fileId, string fileExtension, string fileuri, Stream stream, String doc);
+        File SaveEditing(String fileId, string fileExtension, string fileuri, Stream stream, String doc, bool forcesave);
+
+        File UpdateFileStream(String fileId, Stream stream, bool encrypted);
 
         string StartEdit(String fileId, bool editingAlone, String doc);
 
@@ -123,7 +125,13 @@ namespace ASC.Web.Files.Services.WCFService
 
         bool StoreOriginal(bool store);
 
+        bool HideConfirmConvert(bool isForSave);
+
         bool UpdateIfExist(bool update);
+
+        bool Forcesave(bool value);
+
+        bool StoreForcesave(bool value);
 
         bool ChangeDeleteConfrim(bool update);
 
@@ -146,6 +154,10 @@ namespace ASC.Web.Files.Services.WCFService
         object GetNewItems(String folderId);
 
         bool SetAceLink(String fileId, FileShare share);
+
+        ItemList<MentionWrapper> SharedUsers(String fileId);
+
+        ItemList<AceShortWrapper> SendEditorNotify(String fileId, MentionMessageWrapper mentionMessage);
 
         #endregion
 

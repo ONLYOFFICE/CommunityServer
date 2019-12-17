@@ -80,7 +80,6 @@ namespace ASC.Web.CRM.Controls.Common
             ImportFromCSVStepOneDescriptionLabel = CRMContactResource.ImportFromCSVStepOneDescription;
             ImportFromCSVStepTwoDescriptionLabel = CRMContactResource.ImportFromCSVStepTwoDescription;
 
-
             ImportStartingPanelHeaderLabel = CRMContactResource.ImportStartingPanelHeader;
             ImportStartingPanelDescriptionLabel = CRMContactResource.ImportStartingPanelDescription;
             ImportStartingPanelButtonLabel = CRMContactResource.ImportStartingPanelButton;

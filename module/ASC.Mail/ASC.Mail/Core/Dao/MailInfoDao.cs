@@ -94,7 +94,8 @@ namespace ASC.Mail.Core.Dao
                     MailTable.Columns.CalendarUid.Prefix(MM_ALIAS),
                     MailTable.Columns.Stream.Prefix(MM_ALIAS),
                     MailTable.Columns.Uidl.Prefix(MM_ALIAS),
-                    MailTable.Columns.IsRemoved.Prefix(MM_ALIAS));
+                    MailTable.Columns.IsRemoved.Prefix(MM_ALIAS),
+                    MailTable.Columns.Introduction.Prefix(MM_ALIAS));
 
             if (exp.TagIds != null && exp.TagIds.Any())
             {
@@ -322,7 +323,8 @@ namespace ASC.Mail.Core.Dao
                 CalendarUid = r[18] != null ? Convert.ToString(r[19]) : null,
                 Stream = Convert.ToString(r[20]),
                 Uidl = Convert.ToString(r[21]),
-                IsRemoved = Convert.ToBoolean(r[22])
+                IsRemoved = Convert.ToBoolean(r[22]),
+                Intoduction = Convert.ToString(r[23])
             };
 
             return mailInfo;

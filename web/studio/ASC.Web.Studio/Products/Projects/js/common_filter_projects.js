@@ -30,8 +30,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         baseSortBy = "",
         baseFilter = true,
         filter,
-        currentSettings,
-        anchor = ASC.Controls.AnchorController;
+        currentSettings;
 
     var tasksAdditionalFilterId = "t_",
         projectsAdditionalFilterId = "p_",
@@ -78,6 +77,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         nomilestonesFilter = "nomilestones",
 
         statusFilter = "status",
+        substatusFilter = "substatus",
         openFilter = "open",
         closedFilter = "closed",
         archivedFilter = "archived",
@@ -165,7 +165,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         responsibleForMilestoneFilter, meProjectManagerFilter, projectManagerFilter, meAuthorFilter, authorFilter,
         userFilter, meTasksResponsibleFilter, tasksResponsibleFilter, meTasksCreatorFilter, tasksCreatorFilter,
         meTasksFilter, userTasksFilter, noresponsibleFilter, groupFilter, followedFilter, tagFilter, textFilter, projectFilter,
-        myprojectsFilter, milestoneFilter, nomilestonesFilter, mymilestonesFilter, statusFilter, openFilter, closedFilter, archivedFilter, pausedFilter, paymentStatusFilter, notChargeableFilter, notBilledFilter, billedFilter, overdueFilter, todayFilter, upcomingFilter,
+        myprojectsFilter, milestoneFilter, nomilestonesFilter, mymilestonesFilter, statusFilter, substatusFilter, openFilter, closedFilter, archivedFilter, pausedFilter, paymentStatusFilter, notChargeableFilter, notBilledFilter, billedFilter, overdueFilter, todayFilter, upcomingFilter,
         recentFilter, deadlineStartFilter, deadlineStopFilter, createdStartFilter, createdStopFilter, periodStartFilter, periodStopFilter, entityFilter, projectEntityFilter, milestoneEntityFilter, discussionEntityFilter, teamEntityFilter, taskEntityFilter, subtaskEntityFilter,
         timeEntityFilter, commentEntityFilter, sortByFilter, sortOrderFilter
     ];
@@ -187,6 +187,8 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         clickFilterEventName = "click.filter";
 
     var currentAdditionalId;
+
+    var customStatuses;
 
     var init = function (newCurrentAdditionalId, objct, settings) {
         self = this;
@@ -230,8 +232,11 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         if (visible) {
             filter.attr("style", "visibility:visible");
         }
-        
+
         filter.removeClass("is-init");
+
+        jq('#ProjectsAdvansedFilter').advansedFilter("resetText");
+
         /*        filter.empty();
                 filter.removeAttr("class");*/
     };
@@ -254,7 +259,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         if (str) {
             tmpUrl += str;
         } else {
-            tmpUrl += ASC.Controls.AnchorController.getAnchor();
+            tmpUrl += location.hash.substring(1);
         }
         var results = regex.exec(tmpUrl);
         if (results == null)
@@ -264,7 +269,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     };
 
     var coincidesWithFilter = function (filter) {
-        var hash = ASC.Controls.AnchorController.getAnchor();
+        var hash = location.hash.substring(1);
 
         var sortOrder = getUrlParam(sortOrderFilter, hash);
         var sortBy = getUrlParam(sortByFilter, hash);
@@ -284,9 +289,9 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     };
 
     function setFilterByUrl() {
-        var hash = ASC.Controls.AnchorController.getAnchor();
+        var hash = location.hash.substring(1);
         if (hash === "") {
-            location.hash = basePath;
+            ASC.Projects.Common.setHash("");
             return;
         }
         var sortBy = getUrlParam(sortByFilter),
@@ -330,7 +335,10 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                         break;
                     case typeCombobox:
                     case "text":
-                        currentFilter.params = { value: (selectedFilter || groupBy).toLowerCase() };
+                        var newParamValue =(selectedFilter || groupBy).toLowerCase();
+                        if (currentFilter.options.some(function (f) { return f.value == newParamValue; })) {
+                            currentFilter.params = { value: newParamValue };
+                        }
                         break;
                     case typeFlag:
                         currentFilter.params = {};
@@ -363,10 +371,12 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         self.baseFilter = filtersLength === 1 && filters[0].id === "sorter";
 
         for (var filterInd = 0; filterInd < filtersLength; filterInd++) {
-            var params = filters[filterInd].params;
+            var filtersI = filters[filterInd];
+            var params = filtersI.params;
+            var options = filtersI.options;
             var id = params.id;
             var val = params.value;
-            var filterid = filters[filterInd].id;
+            var filterid = filtersI.id;
 
             if (filterid !== "sorter" && filterid !== "text") {
                 filterid = filterid.substring(2);
@@ -425,6 +435,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     anchor = changeParamValue(anchor, mymilestonesFilter, trueString);
                     break;
                 case milestoneFilter:
+                    if (val === null) continue;
                     data.milestone = val;
                     anchor = changeParamValue(anchor, milestoneFilter, data.milestone);
                     break;
@@ -437,6 +448,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     anchor = changeParamValue(anchor, myprojectsFilter, trueString);
                     break;
                 case projectFilter:
+                    if (val === null) continue;
                     data.projectId = val;
                     anchor = changeParamValue(anchor, projectFilter, data.projectId);
                     break;
@@ -452,6 +464,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     anchor = jq.changeParamValue(anchor, followedFilter, trueString);
                     break;
                 case tagFilter:
+                    if (val === null) continue;
                     data.tag = val;
                     anchor = changeParamValue(anchor, tagFilter, data.tag);
                     break;
@@ -467,8 +480,15 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                 case notChargeableFilter:
                 case notBilledFilter:
                 case billedFilter:
-                    data.status = val;
-                    anchor = changeParamValue(anchor, statusFilter, data.status);
+                    if (val === null) continue;
+                    var option = options.find(function (item) { return item.value == val });
+                    if (option && typeof (option.sub) === "boolean" && option.sub) {
+                        data.substatus = option.value;
+                        anchor = changeParamValue(anchor, substatusFilter, data.substatus);
+                    } else {
+                        data.status = val;
+                        anchor = changeParamValue(anchor, statusFilter, data.status);
+                    }
                     break;
                 case overdueFilter:
                     data.status = "open";
@@ -527,6 +547,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                 case timeEntityFilter:
                 case commentEntityFilter:
                 case entityFilter:
+                    if (val === null) continue;
                     data.entity = val;
                     anchor = changeParamValue(anchor, entityFilter, data.entity);
                     break;
@@ -587,7 +608,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
 
     function onSetFilter(evt, $container) {
         var path = makeData($container, 'anchor');
-        var hash = ASC.Controls.AnchorController.getAnchor();
+        var hash = location.hash.substring(1);
         if (firstload && hash.length) {
             if (!coincidesWithFilter(path)) {
                 firstload = false;
@@ -604,14 +625,14 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         obj.currentFilter = makeData($container, 'data');
         obj.getData();
         if (path !== hash) {
-            location.hash = path;
+            ASC.Projects.Common.setHash(path);
         }
     };
 
     function onResetFilter(evt, $container) {
         ASC.Projects.PageNavigator.reset();
         var path = makeData($container, 'anchor');
-        ASC.Controls.AnchorController.move(path);
+        ASC.Projects.Common.setHash(path);
         obj.currentFilter = makeData($container, 'data');
         obj.getData();
     };
@@ -1132,11 +1153,79 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             null,
             projectsFilterResource.Select);
         // Status
-        pushFilterItemsWithFixedOptions(visible, filters,
-        [
-            { value: openFilter, title: projectsFilterResource.StatusOpenTask },
-            { value: closedFilter, title: projectsFilterResource.StatusClosedTask }
-        ]);
+        function getSub(statusType) {
+            if (!customStatuses) return;
+            
+            return customStatuses.filter(function(item) {
+                return item.statusType === statusType;
+            }).map(function(item) {
+                return {
+                    value: item.id,
+                    title: item.title,
+                    sub: true,
+                    statusType: statusType
+                };
+            });
+        }
+
+        var openSub = getSub(1);
+        var closedSub = getSub(2);
+
+        var filterStatuses = [];
+
+        if (openSub) {
+            if (openSub.length === 1) {
+                filterStatuses.push(
+                    {
+                        value: openFilter,
+                        title: openSub[0].title
+                    }
+                );
+            } else if (openSub.length > 1) {
+                filterStatuses.push(
+                    {
+                        value: openFilter,
+                        title: projectsFilterResource.StatusAllOpenTask,
+                        sub: [{ value: openFilter, title: projectsFilterResource.StatusAllOpenTask }].concat(openSub)
+                    }
+                );
+            }
+        } else {
+            filterStatuses.push(
+                {
+                    value: openFilter,
+                    title: projectsFilterResource.StatusOpenTask
+                }
+            );
+        }
+
+        if (closedSub) {
+            if (closedSub.length === 1) {
+                filterStatuses.push(
+                    {
+                        value: closedFilter,
+                        title: closedSub[0].title
+                    }
+                );
+            } else if (closedSub.length > 1) {
+                filterStatuses.push(
+                    {
+                        value: closedFilter,
+                        title: projectsFilterResource.StatusAllClosedTask,
+                        sub: [{ value: closedFilter, title: projectsFilterResource.StatusAllClosedTask }].concat(closedSub)
+                    }
+                );
+            }
+        } else {
+            filterStatuses.push(
+                {
+                    value: closedFilter,
+                    title: projectsFilterResource.StatusClosedTask
+                }
+            );
+        }
+
+        pushFilterItemsWithFixedOptions(visible, filters, filterStatuses);
 
         //Due date
         pushFilterItem(visible, filters,
@@ -1386,7 +1475,8 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         init.call(this, projectsAdditionalFilterId, prj, createAdvansedFilter(true, false, false, false, false));
     };
 
-    var createAdvansedFilterForTasks = function (task) {
+    var createAdvansedFilterForTasks = function (task, cs) {
+        customStatuses = cs;
         init.call(this, tasksAdditionalFilterId, task, createAdvansedFilter(false, false, true, false, false));
     };
 
@@ -1448,19 +1538,34 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     }
 
     function pushFilterItemsWithFixedOptions(visible, filters, options) {
+        var anysub = options.some(function (o) { return typeof o.sub !== "undefined"; });
         for (var i = 0, j = options.length; i < j; i++) {
             var copyOptions = options.map(function (item) { return jq.extend({}, item); });
             copyOptions[i].def = true;
 
-            pushFilterItem(visible, filters,
-                typeCombobox,
-                copyOptions[i].value,
-                copyOptions[i].title,
-                projectsFilterResource.ByStatus + ":",
-                projectsFilterResource.ByStatus,
-                comboboxHashmark,
-                statusGroup,
-                copyOptions);
+            if (copyOptions[i].sub) {
+                pushFilterItem(visible,
+                    filters,
+                    typeCombobox,
+                    copyOptions[i].value,
+                    copyOptions[i].title,
+                    projectsFilterResource.ByStatus + ":",
+                    projectsFilterResource.ByStatus,
+                    comboboxHashmark,
+                    statusGroup,
+                    copyOptions[i].sub);
+            } else {
+                pushFilterItem(visible,
+                    filters,
+                    typeCombobox,
+                    copyOptions[i].value,
+                    copyOptions[i].title,
+                    projectsFilterResource.ByStatus + ":",
+                    projectsFilterResource.ByStatus,
+                    comboboxHashmark,
+                    statusGroup,
+                    anysub ? [copyOptions[i]] : copyOptions);
+            }
         }
     }
 
@@ -1565,7 +1670,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     }
 
     function add(name, value, removeParams) {
-        var path = jq.changeParamValue(anchor.getAnchor(), name, value);
+        var path = jq.changeParamValue(location.hash.substring(1), name, value);
 
         if (removeParams) {
             for (var i = 0, j = removeParams.length; i < j; i++) {
@@ -1573,7 +1678,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             }
         }
 
-        anchor.move(path);
+        ASC.Projects.Common.setHash(path);
         setFilterByUrl();
     }
 

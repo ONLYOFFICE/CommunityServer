@@ -35,6 +35,7 @@
         window.MailActionCompleteResource = ASC.Mail.Resources.MailActionCompleteResource;
         window.MailAdministrationResource = ASC.Mail.Resources.MailAdministrationResource;
         window.MailApiErrorsResource = ASC.Mail.Resources.MailApiErrorsResource;
+        window.MailApiResource = ASC.Mail.Resources.MailApiResource;
 
         folderPanel.init();
 
@@ -116,6 +117,7 @@
         foldersContainer.find('a[folderid="3"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "drafts");
         foldersContainer.find('a[folderid="4"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "trash");
         foldersContainer.find('a[folderid="5"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "spam");
+        foldersContainer.find('a[folderid="7"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "templates");
         $('#teamlab').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "teamlab-contacts");
         $('#crm').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "crm-contacts");
         $('#accountsSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "accounts-settings");

@@ -95,14 +95,14 @@
         <li id="menuSettings" class="menu-item sub-list add-block">
             <div class="category-wrapper">
                 <span class="expander"></span>
-                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) %>">
+                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) %>" title="<%= PeopleResource.Settings %>">
                     <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenusettings"></use></svg></span>
                     <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
                 </a>
             </div>
             <ul class="menu-sub-list">
                 <li id="menuAccessRights" class="menu-sub-item filter">
-                    <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) +"#people" %>">
+                    <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) +"#people" %>" title="<%= PeopleResource.AccessRightsSettings %>">
                         <%= PeopleResource.AccessRightsSettings %>
                     </a>
                 </li>

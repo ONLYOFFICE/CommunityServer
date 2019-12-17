@@ -112,7 +112,7 @@ namespace ASC.Core
                     }
 
                     var settingsTenant = TenantCookieSettings.GetForTenant(tenant);
-                    if (!settingsTenant.IsDefault() && indexTenant != settingsTenant.Index)
+                    if (indexTenant != settingsTenant.Index)
                     {
                         return false;
                     }
@@ -127,7 +127,7 @@ namespace ASC.Core
                         if (userid != Guid.Empty)
                         {
                             var settingsUser = TenantCookieSettings.GetForUser(userid);
-                            if (!settingsUser.IsDefault() && indexUser != settingsUser.Index)
+                            if (indexUser != settingsUser.Index)
                             {
                                 return false;
                             }

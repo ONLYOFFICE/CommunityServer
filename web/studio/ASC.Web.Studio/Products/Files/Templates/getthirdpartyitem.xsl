@@ -57,8 +57,6 @@
           </xsl:if>
         </div>
         <xsl:if test="canEdit = 'true'">
-          <input class="display-none" type="text" name="fakeusernameremembered" />
-          <input class="display-none" type="password" name="fakepasswordremembered"/>
           <div class="account-settings-container">
             <div class="account-log-pass-container">
               <div class="account-field-url account-field-row">
@@ -66,7 +64,7 @@
                   <resource name="fres.ConnectionUrl" />
                 </div>
                 <div class="account-field-body">
-                  <input type="url" class="textEdit account-input-url" autocomplete="off">
+                  <input type="url" class="textEdit account-input-url" name="account-field" autocomplete="off">
                     <xsl:if test="isNew != 'true'">
                       <xsl:attribute name="placeholder">
                         <resource name="fres.ThirdPartyCorrect"/>
@@ -81,7 +79,7 @@
                     <resource name="fres.Login" />
                   </div>
                   <div class="account-field-body">
-                    <input type="text" class="textEdit account-input-login" autocomplete="off"/>
+                    <input type="text" class="textEdit account-input-login" name="account-field" autocomplete="off"/>
                   </div>
                 </div>
               </xsl:if>
@@ -90,7 +88,7 @@
                   <resource name="fres.Password" />
                 </div>
                 <div class="account-field-body">
-                  <input type="password" class="textEdit account-input-pass" autocomplete="off">
+                  <input type="password" class="textEdit account-input-pass" name="account-field" autocomplete="new-password">
                     <xsl:if test="isNew != 'true'">
                       <xsl:attribute name="placeholder">
                         <resource name="fres.ThirdPartyCorrect"/>

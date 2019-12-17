@@ -1024,6 +1024,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who&apos;s responsible, manage team work..
+        /// </summary>
+        public static string TasksHelpTheManageVisitor {
+            get {
+                return ResourceManager.GetString("TasksHelpTheManageVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start date.
         /// </summary>
         public static string TaskStartDate {

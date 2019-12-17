@@ -80,6 +80,7 @@ span.phoneControlContainer .phoneControlInput {
     border: none;
     padding: 7px 10px 7px 5px;
     margin-left: 0;
+    max-height: 20px;
     width: 250px;
 }
 span.phoneControlContainer .phoneControlInput {

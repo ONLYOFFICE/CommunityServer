@@ -339,4 +339,7 @@
   <data name="VisibleList" xml:space="preserve">
     <value>The visible list</value>
   </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  </data>
 </root>

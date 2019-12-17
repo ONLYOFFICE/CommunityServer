@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthorizeDocs.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.AuthorizeDocs.AuthorizeDocs" %>
 <%@ Import Namespace="System.Globalization" %>
 
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -193,7 +194,7 @@
         </div>
         <div class="default-personal-popup_form-i">
             <label class="default-personal-popup_label password"><%= CustomModeResource.PasswordCustomMode %></label>
-            <input class="default-personal-popup_field password" id="pwd" name="pwd" maxlength="64"  type="password" />
+            <input class="default-personal-popup_field password" id="pwd" name="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
             
             <%if (Request.DesktopApp()){ %>
                 <span class="desktop-personal-popup_check">

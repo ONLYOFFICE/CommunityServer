@@ -25,12 +25,14 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Routing;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Security.Cryptography;
 
@@ -130,7 +132,7 @@ namespace ASC.Data.Storage.DiscStorage
 
             var headers = header.Length > 0 ? header.Split('&').Select(HttpUtility.UrlDecode) : new string[] { };
 
-            const int bigSize = 5*1024*1024;
+            const int bigSize = 5 * 1024 * 1024;
             if (storage.IsSupportInternalUri && bigSize < storage.GetFileSize(_domain, path))
             {
                 var uri = storage.GetInternalUri(_domain, path, TimeSpan.FromMinutes(15), headers);
@@ -148,24 +150,93 @@ namespace ASC.Data.Storage.DiscStorage
                 path += ".gz";
                 encoding = "gzip";
             }
-            using (var stream = storage.GetReadStream(_domain, path))
-            {
-                stream.StreamCopyTo(context.Response.OutputStream);
-            }
 
+            var headersToCopy = new List<string> { "Content-Disposition", "Cache-Control", "Content-Encoding", "Content-Language", "Content-Type", "Expires" };
             foreach (var h in headers)
             {
-                if (h.StartsWith("Content-Disposition")) context.Response.Headers["Content-Disposition"] = h.Substring("Content-Disposition".Length + 1);
-                else if (h.StartsWith("Cache-Control")) context.Response.Headers["Cache-Control"] = h.Substring("Cache-Control".Length + 1);
-                else if (h.StartsWith("Content-Encoding")) context.Response.Headers["Content-Encoding"] = h.Substring("Content-Encoding".Length + 1);
-                else if (h.StartsWith("Content-Language")) context.Response.Headers["Content-Language"] = h.Substring("Content-Language".Length + 1);
-                else if (h.StartsWith("Content-Type")) context.Response.Headers["Content-Type"] = h.Substring("Content-Type".Length + 1);
-                else if (h.StartsWith("Expires")) context.Response.Headers["Expires"] = h.Substring("Expires".Length + 1);
+                var toCopy = headersToCopy.Find(x => h.StartsWith(x));
+                if (string.IsNullOrEmpty(toCopy)) continue;
+                context.Response.Headers[toCopy] = h.Substring(toCopy.Length + 1);
             }
 
             context.Response.ContentType = MimeMapping.GetMimeMapping(path);
             if (encoding != null)
                 context.Response.Headers["Content-Encoding"] = encoding;
+
+            using (var stream = storage.GetReadStream(_domain, path))
+            {
+                context.Response.Buffer = false;
+
+                long offset = 0;
+                long length = stream.Length;
+                if (stream.CanSeek)
+                {
+                    length = ProcessRangeHeader(context, stream.Length, ref offset);
+                    stream.Seek(offset, SeekOrigin.Begin);
+                }
+
+                context.Response.AddHeader("Connection", "Keep-Alive");
+                context.Response.AddHeader("Content-Length", length.ToString(CultureInfo.InvariantCulture));
+
+                const int bufferSize = 32 * 1024; // 32KB
+                var buffer = new byte[bufferSize];
+                var toRead = length;
+
+                while (toRead > 0)
+                {
+                    int read;
+
+                    try
+                    {
+                        read = stream.Read(buffer, 0, bufferSize);
+
+                        if (!context.Response.IsClientConnected) throw new Exception("StorageHandler: ProcessRequest failed: client disconnected");
+
+                        context.Response.OutputStream.Write(buffer, 0, read);
+                        context.Response.Flush();
+                        toRead -= read;
+                    }
+                    catch (Exception e)
+                    {
+                        LogManager.GetLogger("ASC").Error("storage", e);
+
+                        throw;
+                    }
+                }
+            }
+        }
+
+        // \web\studio\ASC.Web.Studio\Products\Files\HttpHandlers\FileHandler.ashx.cs ProcessRangeHeader()
+        private static long ProcessRangeHeader(HttpContext context, long fullLength, ref long offset)
+        {
+            if (context == null) throw new ArgumentNullException();
+            if (context.Request.Headers["Range"] == null) return fullLength;
+
+            long endOffset = -1;
+
+            var range = context.Request.Headers["Range"].Split(new[] { '=', '-' });
+            offset = Convert.ToInt64(range[1]);
+            if (range.Count() > 2 && !string.IsNullOrEmpty(range[2]))
+            {
+                endOffset = Convert.ToInt64(range[2]);
+            }
+            if (endOffset < 0 || endOffset >= fullLength)
+            {
+                endOffset = fullLength - 1;
+            }
+
+            var length = endOffset - offset + 1;
+
+            if (length <= 0) throw new HttpException("Wrong Range header");
+
+            if (length < fullLength)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.PartialContent;
+            }
+            context.Response.AddHeader("Accept-Ranges", "bytes");
+            context.Response.AddHeader("Content-Range", string.Format(" bytes {0}-{1}/{2}", offset, endOffset, fullLength));
+
+            return length;
         }
     }
 

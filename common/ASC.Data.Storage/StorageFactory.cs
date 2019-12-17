@@ -59,7 +59,7 @@ namespace ASC.Data.Storage
         {
             int tenantId;
             int.TryParse(tenant, out tenantId);
-            return GetStorage(configpath, tenant, module, new TennantQuotaController(tenantId));
+            return GetStorage(configpath, tenant, module, new TenantQuotaController(tenantId));
         }
 
         public static IDataStore GetStorage(string configpath, string tenant, string module, IQuotaController controller)
@@ -74,8 +74,8 @@ namespace ASC.Data.Storage
                 tenantId = Convert.ToInt32(tenant);
             }
 
-            //Make tennant path
-            tenant = TennantPath.CreatePath(tenant);
+            //Make tenant path
+            tenant = TenantPath.CreatePath(tenant);
 
             var store = DataStoreCache.Get(tenant, module);
             if (store == null)
@@ -97,8 +97,8 @@ namespace ASC.Data.Storage
         {
             if (tenant == null) tenant = DefaultTenantName;
 
-            //Make tennant path
-            tenant = TennantPath.CreatePath(tenant);
+            //Make tenant path
+            tenant = TenantPath.CreatePath(tenant);
 
             var section = GetSection(configpath);
             if (section == null)
@@ -108,7 +108,7 @@ namespace ASC.Data.Storage
 
             int tenantId;
             int.TryParse(tenant, out tenantId);
-            return GetDataStore(tenant, module, section, consumer, new TennantQuotaController(tenantId));
+            return GetDataStore(tenant, module, section, consumer, new TenantQuotaController(tenantId));
         }
 
         public static IEnumerable<string> GetModuleList(string configpath, bool exceptDisabledMigration = false)
@@ -194,7 +194,7 @@ namespace ASC.Data.Storage
         internal static void ClearCache()
         {
             var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString();
-            var path = TennantPath.CreatePath(tenantId);
+            var path = TenantPath.CreatePath(tenantId);
             foreach (var module in GetModuleList("", true))
             {
                 Cache.Publish(DataStoreCacheItem.Create(path, module), CacheNotifyAction.Remove);

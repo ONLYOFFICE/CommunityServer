@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.IO;
 using System.Web;
 
@@ -35,6 +36,7 @@ namespace ASC.Web.Studio.Controls.FileUploader
         public Stream InputStream { get; private set; }
         public string FileContentType { get; private set; }
         public long ContentLength { get; private set; }
+        public bool NeedSaveToTemp { get; private set; }
 
         public FileToUpload(HttpContext context)
         {
@@ -53,6 +55,9 @@ namespace ASC.Web.Studio.Controls.FileUploader
                 FileContentType = file.ContentType;
                 ContentLength = file.ContentLength;
             }
+
+            NeedSaveToTemp = Convert.ToBoolean(GetNeedSaveToTemp(context));
+
             if (string.IsNullOrEmpty(FileContentType))
             {
                 FileContentType = MimeMapping.GetMimeMapping(FileName) ?? string.Empty;
@@ -68,6 +73,11 @@ namespace ASC.Web.Studio.Controls.FileUploader
         private static string GetFileName(HttpContext context)
         {
             return context.Request["fileName"];
+        }
+
+        private static string GetNeedSaveToTemp(HttpContext context)
+        {
+            return context.Request["needSaveToTemp"];
         }
 
         private static string GetFileContentType(HttpContext context)

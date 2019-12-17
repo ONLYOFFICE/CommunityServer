@@ -36,6 +36,7 @@ using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Mail;
 using ASC.Mail.Core;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
@@ -169,6 +170,14 @@ namespace ASC.Web.Mail
             return WebConfigurationManager.AppSettings["mail.check-news-timeout"] == null ? 30000 : Convert.ToInt32(WebConfigurationManager.AppSettings["ServiceCheckTimeout"]);
         }
 
+        public static int GetMaximumMessageBodySize()
+        {
+            return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.maximum-message-body-size"] ?? "524288");
+        }
+
+        private const string MAIL_TROUBLESHOOTING = "troubleshooting/mail.aspx";
+        private const string DEFAULT_FAQ_URL = "http://helpcenter.onlyoffice.com/" + MAIL_TROUBLESHOOTING;
+
         public static string GetMailFaqUri()
         {
             var baseHelpLink = CommonLinkUtility.GetHelpLink();
@@ -191,7 +200,7 @@ namespace ASC.Web.Mail
 
         public static bool IsTurnOnAttachmentsGroupOperations()
         {
-            return Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.attachments-group-operations"] ?? "false");
+            return Defines.IsAttachmentsGroupOperationsAvailable;
         }
 
         public static bool IsCrmAvailable()
@@ -222,11 +231,6 @@ namespace ASC.Web.Mail
         public static string GetMailDownloadHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.download-handler-url"] ?? "/addons/mail/httphandlers/download.ashx?attachid={0}";
-        }
-
-        public static string GetMailDownloadAllHandlerUri()
-        {
-            return WebConfigurationManager.AppSettings["mail.download-all-handler-url"] ?? "/addons/mail/httphandlers/downloadall.ashx?messageid={0}";
         }
 
         public static string GetMailViewDocumentHandlerUri()
@@ -393,8 +397,6 @@ namespace ASC.Web.Mail
                     JsonConvert.SerializeObject(GetMailSupportUri()))
                 .AppendFormat("ASC.Mail.Constants.DOWNLOAD_HANDLER_URL = {0};\r\n",
                     JsonConvert.SerializeObject(GetMailDownloadHandlerUri()))
-                .AppendFormat("ASC.Mail.Constants.DOWNLOAD_ALL_HANDLER_URL = {0};\r\n",
-                    JsonConvert.SerializeObject(GetMailDownloadAllHandlerUri()))
                 .AppendFormat("ASC.Mail.Constants.VIEW_DOCUMENT_HANDLER_URL = {0};\r\n",
                     JsonConvert.SerializeObject(GetMailViewDocumentHandlerUri()))
                 .AppendFormat("ASC.Mail.Constants.EDIT_DOCUMENT_HANDLER_URL = {0};\r\n",
@@ -414,7 +416,9 @@ namespace ASC.Web.Mail
                 .AppendFormat("ASC.Mail.Constants.PROXY_HTTP_URL = {0};\r\n",
                     JsonConvert.SerializeObject(GetProxyHttpUrl()))
                 .AppendFormat("ASC.Mail.Constants.PASSWORD_SETTINGS = {0};\r\n",
-                    JsonConvert.SerializeObject(PasswordSettings.Load()));
+                    JsonConvert.SerializeObject(PasswordSettings.Load()))
+                .AppendFormat("ASC.Mail.Constants.MAXIMUM_MESSAGE_BODY_SIZE = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMaximumMessageBodySize()));
 
             return sbScript.ToString();
         }
@@ -480,6 +484,7 @@ namespace ASC.Web.Mail
                         "~/js/third-party/nlp.js",
                         "~/js/third-party/jquery/jstree.min.js",
                         "~/js/third-party/jquery/jquery.mousewheel.js",
+                        "~/js/asc/plugins/progressdialog.js",
                         "~/addons/mail/js/userfolders/plugins/jstree.counters.plugin.js",
                         "~/addons/mail/js/third-party/jquery.dotdotdot.min.js",
                         "~/addons/mail/js/third-party/jquery.textchange.min.js",
@@ -558,7 +563,8 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/filters/page.js",
                         "~/addons/mail/js/filters/edit.js",
                         "~/addons/mail/js/filters/manager.js",
-                        "~/addons/mail/js/filters/modal.js");
+                        "~/addons/mail/js/filters/modal.js",
+                        "~/addons/mail/js/templates/plugin/jquery-mailtemplateadvansedselector.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()

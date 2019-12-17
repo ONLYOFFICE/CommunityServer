@@ -100,14 +100,24 @@ window.ASC.Files.Tree = (function () {
 
     var resetFolder = function (folderId) {
         if (!ASC.Files.Common.isCorrectId(folderId)) {
-            return;
+            return false;
         }
 
-        treeViewContainer.resetFolder(folderId);
+        var beOpened = treeViewContainer.resetFolder(folderId);
         treeViewSelector.resetFolder(folderId);
 
         if (ASC.Files.ThirdParty) {
             ASC.Files.ThirdParty.docuSignFolderSelectorReset(folderId);
+        }
+
+        return beOpened;
+    };
+
+    var reloadFolder = function (folderId) {
+        var beOpened = ASC.Files.Tree.resetFolder(folderId);
+
+        if (beOpened) {
+            treeViewContainer.expandFolder(folderId);
         }
     };
 
@@ -169,6 +179,7 @@ window.ASC.Files.Tree = (function () {
     return {
         init: init,
         resetFolder: resetFolder,
+        reloadFolder: reloadFolder,
 
         getFolderTitle: getFolderTitle,
         getParentId: getParentId,

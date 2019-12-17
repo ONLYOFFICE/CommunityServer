@@ -205,10 +205,20 @@ BEGIN
 		UNIQUE INDEX `UNIQUE` (`short`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    SET @id_provider = (SELECT id_provider FROM mail_mailbox_domain WHERE name = 'rambler.ru');
-    UPDATE mail_mailbox_server SET hostname = 'imap.rambler.ru' WHERE id_provider = @id_provider AND hostname = 'mail.rambler.ru' AND `type` = 'imap';
-    UPDATE mail_mailbox_server SET hostname = 'smtp.rambler.ru' WHERE id_provider = @id_provider AND hostname = 'mail.rambler.ru' AND `type` = 'smtp';
-    UPDATE mail_mailbox_server SET hostname = 'pop.rambler.ru' WHERE id_provider = @id_provider AND hostname = 'mail.rambler.ru' AND `type` = 'pop3';
+    UPDATE mail_mailbox_server s
+    INNER JOIN mail_mailbox_domain d ON s.id_provider = d.id_provider 
+    SET s.hostname = 'imap.rambler.ru'
+    WHERE d.name = 'rambler.ru' AND s.hostname = 'mail.rambler.ru' AND s.`type` = 'imap';
+
+    UPDATE mail_mailbox_server s
+    INNER JOIN mail_mailbox_domain d ON s.id_provider = d.id_provider
+    SET s.hostname = 'smtp.rambler.ru'
+    WHERE d.name = 'rambler.ru' AND s.hostname = 'mail.rambler.ru' AND s.`type` = 'smtp';
+
+    UPDATE mail_mailbox_server s
+    INNER JOIN mail_mailbox_domain d ON s.id_provider = d.id_provider
+    SET s.hostname = 'pop.rambler.ru'
+    WHERE d.name = 'rambler.ru' AND s.hostname = 'mail.rambler.ru' AND s.`type` = 'pop3';
 
     IF (SELECT DATA_TYPE FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'calendar_event_history' AND COLUMN_NAME = 'ics') <> 'mediumtext' THEN
         ALTER TABLE `calendar_event_history` CHANGE COLUMN `ics` `ics` mediumtext NULL AFTER `event_id`;

@@ -72,7 +72,8 @@ namespace ASC.Api.Settings
                 {
                     Name = r.Key,
                     Value = r.Value,
-                    Title = consumer.GetResourceString(consumer.Name + r.Key) ?? r.Key
+                    Title = consumer.GetResourceString(consumer.Name + r.Key) ?? r.Key,
+                    Description = consumer.GetResourceString(consumer.Name + r.Key + "Description"),
                 }).ToList();
         }
     }

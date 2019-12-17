@@ -592,6 +592,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All closed.
+        /// </summary>
+        public static string StatusAllClosedTask {
+            get {
+                return ResourceManager.GetString("StatusAllClosedTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All open.
+        /// </summary>
+        public static string StatusAllOpenTask {
+            get {
+                return ResourceManager.GetString("StatusAllOpenTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archived.
         /// </summary>
         public static string StatusArchivedDiscussion {

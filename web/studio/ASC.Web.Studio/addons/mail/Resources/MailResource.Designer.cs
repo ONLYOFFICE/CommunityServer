@@ -19,7 +19,7 @@ namespace ASC.Web.Mail.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MailResource {
@@ -291,6 +291,15 @@ namespace ASC.Web.Mail.Resources {
         public static string AddTag {
             get {
                 return ResourceManager.GetString("AddTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add template.
+        /// </summary>
+        public static string AddTemplate {
+            get {
+                return ResourceManager.GetString("AddTemplate", resourceCulture);
             }
         }
         
@@ -2104,6 +2113,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Templates.
+        /// </summary>
+        public static string FolderNameTemplates {
+            get {
+                return ResourceManager.GetString("FolderNameTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trash.
         /// </summary>
         public static string FolderNameTrash {
@@ -3148,6 +3166,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completely replace text of the email when you insert a template.
+        /// </summary>
+        public static string ReplaceMessageBody {
+            get {
+                return ResourceManager.GetString("ReplaceMessageBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reply All.
         /// </summary>
         public static string ReplyAllBtnLabel {
@@ -3324,6 +3351,15 @@ namespace ASC.Web.Mail.Resources {
         public static string SaveFilterBtnLabel {
             get {
                 return ResourceManager.GetString("SaveFilterBtnLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save template.
+        /// </summary>
+        public static string SaveTemplate {
+            get {
+                return ResourceManager.GetString("SaveTemplate", resourceCulture);
             }
         }
         

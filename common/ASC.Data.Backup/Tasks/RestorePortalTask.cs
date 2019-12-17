@@ -26,11 +26,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ASC.Common.Caching;
@@ -85,7 +82,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 using (var entry = dataReader.GetEntry(KeyHelper.GetDumpKey()))
                 {
-                    Dump = entry != null;
+                    Dump = entry != null && CoreContext.Configuration.Standalone;
                 }
 
                 var dbFactory = new DbFactory(ConfigPath);
@@ -152,7 +149,7 @@ namespace ASC.Data.Backup.Tasks
                 upgrades = Directory.GetFiles(UpgradesPath).ToList();
             }
 
-            var stepscount = keys.Count*2 + upgrades.Count;
+            var stepscount = keys.Count * 2 + upgrades.Count;
 
             SetStepsCount(ProcessStorage ? stepscount + 1 : stepscount);
 
@@ -160,7 +157,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 var tasks = new List<Task>(TasksLimit * 2);
 
-                for (var j = 0; j < TasksLimit && i+j < keys.Count; j++)
+                for (var j = 0; j < TasksLimit && i + j < keys.Count; j++)
                 {
                     var key1 = keys[i + j];
                     tasks.Add(RestoreFromDumpFile(dataReader, key1).ContinueWith(r => RestoreFromDumpFile(dataReader, KeyHelper.GetDatabaseData(key1.Substring(keyBase.Length + 1)))));
@@ -270,7 +267,7 @@ namespace ASC.Data.Backup.Tasks
                     }
                 }
 
-                SetCurrentStepProgress((int)(++groupsProcessed*100/(double)fileGroups.Count));
+                SetCurrentStepProgress((int)(++groupsProcessed * 100 / (double)fileGroups.Count));
             }
 
             if (fileGroups.Count == 0)

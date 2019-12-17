@@ -270,5 +270,22 @@ namespace ASC.Mail
                 return ttl != null ? Convert.ToInt32(ttl) : 300;
             }
         }
+
+        public static int MaximumMessageBodySize
+        {
+            get
+            {
+                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.maximum-message-body-size"] ?? "524288");
+            }
+        }
+
+        public static bool IsAttachmentsGroupOperationsAvailable
+        {
+            get
+            {
+                var operations = ConfigurationManager.AppSettings["mail.attachments-group-operations"];
+                return operations != null ? Convert.ToBoolean(operations) : true;
+            }
+        }
     }
 }

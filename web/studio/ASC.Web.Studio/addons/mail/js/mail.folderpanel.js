@@ -234,7 +234,9 @@ window.folderPanel = (function($) {
         }
 
         var html = $.tmpl('foldersTmpl', newFolders, { marked: marked });
-        $('#foldersContainer').html(html);
+        var newHtml = [];
+        newHtml.push(html[0], html[1], html[2], html[5], html[3], html[4]);
+        $('#foldersContainer').html(newHtml);
 
         initFolders();
 

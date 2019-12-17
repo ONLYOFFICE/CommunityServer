@@ -141,7 +141,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void ActivateMail(UserInfo user)
         {
-            if (user.ActivationStatus == EmployeeActivationStatus.Activated) return;
+            if (user.ActivationStatus.HasFlag(EmployeeActivationStatus.Activated)) return;
 
             user.ActivationStatus = EmployeeActivationStatus.Activated;
             CoreContext.UserManager.SaveUserInfo(user);

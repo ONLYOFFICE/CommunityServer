@@ -241,6 +241,15 @@ namespace ASC.Web.Community.News.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your own events, post important announcements, share the latest news and add polls to collect your colleagues&apos; opinions directly on your portal..
+        /// </summary>
+        public static string EmptyScreenTextVisitor {
+            get {
+                return ResourceManager.GetString("EmptyScreenTextVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied.
         /// </summary>
         public static string ErrorAccessDenied {

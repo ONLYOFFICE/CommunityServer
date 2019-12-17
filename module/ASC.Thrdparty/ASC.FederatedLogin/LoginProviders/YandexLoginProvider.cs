@@ -26,6 +26,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Web;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
 using Newtonsoft.Json.Linq;
@@ -69,6 +71,29 @@ namespace ASC.FederatedLogin.LoginProviders
         public YandexLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
             : base(name, order, props, additional)
         {
+        }
+
+        public override LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
+        {
+            try
+            {
+                var token = Auth(context, Scopes, (context.Request["access_type"] ?? "") == "offline"
+                                                      ? new Dictionary<string, string>
+                                                          {
+                                                              { "force_confirm", "true" }
+                                                          }
+                                                      : null);
+
+                return GetLoginProfile(token == null ? null : token.AccessToken);
+            }
+            catch (ThreadAbortException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                return LoginProfile.FromError(ex);
+            }
         }
 
         public override LoginProfile GetLoginProfile(string accessToken)

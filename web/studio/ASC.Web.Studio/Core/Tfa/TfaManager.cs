@@ -71,12 +71,12 @@ namespace ASC.Web.Studio.Core.TFA
         private static readonly TwoFactorAuthenticator Tfa = new TwoFactorAuthenticator();
         private static readonly ICache Cache = AscCache.Memory;
 
-        internal static SetupCode GenerateSetupCode(this UserInfo user, int size)
+        public static SetupCode GenerateSetupCode(this UserInfo user, int size)
         {
             return Tfa.GenerateSetupCode(SetupInfo.TfaAppSender, user.Email, GenerateAccessToken(user), size, size, true);
         }
 
-        internal static bool ValidateAuthCode(this UserInfo user, string code, bool checkBackup = true)
+        public static bool ValidateAuthCode(this UserInfo user, string code, bool checkBackup = true)
         {
             if (!TfaAppAuthSettings.IsVisibleSettings
                 || !TfaAppAuthSettings.Enable)
@@ -92,7 +92,7 @@ namespace ASC.Web.Studio.Core.TFA
 
             int counter;
             int.TryParse(Cache.Get<string>("tfa/" + user.ID), out counter);
-            if (++counter > 5)
+            if (++counter > SetupInfo.LoginThreshold)
             {
                 throw new Authorize.BruteForceCredentialException(Resource.TfaTooMuchError);
             }

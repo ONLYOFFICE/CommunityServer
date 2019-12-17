@@ -459,4 +459,7 @@
   <data name="ReportBuildingProgress" xml:space="preserve">
     <value>Report building ({0}% complete)</value>
   </data>
+  <data name="ProjectsRemoved" xml:space="preserve">
+    <value>Projects Removed</value>
+  </data>
 </root>

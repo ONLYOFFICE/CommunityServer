@@ -25,10 +25,10 @@
 
 
 using System;
+using System.Collections;
 using System.Diagnostics;
 using ASC.Core;
 using ASC.Core.Users;
-using System.Collections;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -58,6 +58,8 @@ namespace ASC.Projects.Core.Domain
         public bool IsAdmin { get; set; }
 
         public bool IsManager { get; set; }
+
+        public bool IsRemovedFromTeam { get; set; }
 
         public ProjectTeamSecurity ProjectTeamSecurity
         {
@@ -103,7 +105,7 @@ namespace ASC.Projects.Core.Domain
 
         public Participant()
         {
-            
+
         }
 
         public Participant(Guid userID)

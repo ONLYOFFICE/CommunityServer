@@ -727,6 +727,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projects Removed.
+        /// </summary>
+        public static string ProjectsRemoved {
+            get {
+                return ResourceManager.GetString("ProjectsRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to end-end.
         /// </summary>
         public static string RelatedLinkTypeEE {

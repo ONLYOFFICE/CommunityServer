@@ -313,7 +313,7 @@ namespace ASC.Core.Billing
                 }
                 catch (Exception ex)
                 {
-                    LogManager.GetLogger("WebStudio").Error("VersionReleaseDate", ex);
+                    LogManager.GetLogger("ASC").Error("VersionReleaseDate", ex);
                 }
                 return _date;
             }

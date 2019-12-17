@@ -97,11 +97,29 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add filter.
+        /// </summary>
+        public static string AddFilter {
+            get {
+                return ResourceManager.GetString("AddFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the exact phrase use the quotation marks.{2}Learn more...{3}.
         /// </summary>
         public static string AdvansedFilterInfoText {
             get {
                 return ResourceManager.GetString("AdvansedFilterInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ascending/descending.
+        /// </summary>
+        public static string AscOrDesc {
+            get {
+                return ResourceManager.GetString("AscOrDesc", resourceCulture);
             }
         }
         
@@ -754,24 +772,6 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}The content{1} could not be loaded..
-        /// </summary>
-        public static string MagnificContentError {
-            get {
-                return ResourceManager.GetString("MagnificContentError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}The image{1} could not be loaded..
-        /// </summary>
-        public static string MagnificImageError {
-            get {
-                return ResourceManager.GetString("MagnificImageError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to all day.
         /// </summary>
         public static string MailIcsCalendarAllDayEventLabel {
@@ -1204,6 +1204,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to no subject.
+        /// </summary>
+        public static string MailNoSubject {
+            get {
+                return ResourceManager.GetString("MailNoSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A problem has occurred while trying to send this message..
         /// </summary>
         public static string MailSendMessageError {
@@ -1353,6 +1362,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string NeverShow {
             get {
                 return ResourceManager.GetString("NeverShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not added any templates.
+        /// </summary>
+        public static string NotAddedAnyTemplates {
+            get {
+                return ResourceManager.GetString("NotAddedAnyTemplates", resourceCulture);
             }
         }
         
@@ -1753,6 +1771,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start filter.
+        /// </summary>
+        public static string StartFilter {
+            get {
+                return ResourceManager.GetString("StartFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подключить.
         /// </summary>
         public static string StorageButtonEnable {
@@ -1803,6 +1830,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string SuccessfullySaveSettingsMessage {
             get {
                 return ResourceManager.GetString("SuccessfullySaveSettingsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template not found.
+        /// </summary>
+        public static string TemplateNotFound {
+            get {
+                return ResourceManager.GetString("TemplateNotFound", resourceCulture);
             }
         }
         

@@ -79,8 +79,6 @@
     <Compile Include="TextileStyler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\master.htm">
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\style.css">
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\NotifyTemplateResource.resx">

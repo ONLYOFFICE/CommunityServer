@@ -90,8 +90,10 @@
 
             var dataItems = window.UserManager.getAllUsers(!that.options.showDisabled);
 
-            for (var i = 0, length = dataItems.length; i < length; i++) {
-                var dataItem = dataItems[i];
+            for (var dataItemId in dataItems) {
+                if (!dataItems.hasOwnProperty(dataItemId)) continue;
+
+                var dataItem = dataItems[dataItemId];
                 
                 if(!that.options.withGuests && dataItem.isVisitor)
                     continue;
@@ -267,6 +269,10 @@
                                 status: ASC.Resources.Master.Resource.UserPending,
                                 groups: []
                             };
+
+                            var copy = Object.assign({}, profile);
+                            copy.groups = (profile.groups || []).map(function (group) { return group.id; });
+                            UserManager.addNewUser(copy);
 
                             toastr.success(resources.UserSelectorAddSuccess.format("<b>" + newuser.title + "</b>"));
                             that.actionsAfterCreateItem.call(that, { newitem: newuser, response: profile, nameProperty: "groups" });

@@ -37,7 +37,7 @@ namespace ASC.Core.Data
     public class DbQuotaService : DbBaseService, IQuotaService
     {
         private const string tenants_quota = "tenants_quota";
-        internal const string tenants_quotarow = "tenants_quotarow";
+        public const string tenants_quotarow = "tenants_quotarow";
 
 
         public DbQuotaService(ConnectionStringSettings connectionString)

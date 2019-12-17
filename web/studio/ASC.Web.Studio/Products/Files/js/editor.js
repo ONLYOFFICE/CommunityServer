@@ -56,6 +56,8 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetMails, completeGetMails);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartMailMerge, completeStartMailMerge);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, completeRename);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetUsers, completeGetUsers);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SendEditorNotify, completeSendEditorNotify);
     };
 
     var createFrameEditor = function (configuration) {
@@ -100,11 +102,13 @@ window.ASC.Files.Editor = (function () {
                 eventsConfig.onRequestEditRights = ASC.Files.Editor.requestEditRightsEditor;
             }
             eventsConfig.onError = ASC.Files.Editor.errorEditor;
+            eventsConfig.onDocumentReady = ASC.Files.Editor.readyDocument;
             eventsConfig.onOutdatedVersion = ASC.Files.Editor.reloadPage;
             eventsConfig.onInfo = ASC.Files.Editor.infoEditor;
             eventsConfig.onRequestRename = ASC.Files.Editor.rename;
             eventsConfig.onMetaChange = ASC.Files.Editor.metaChange;
             eventsConfig.onRequestClose = ASC.Files.Editor.requestClose;
+            eventsConfig.onMakeActionLink = ASC.Files.Editor.makeActionLink;
 
             if (ASC.Files.Constants.URL_MAIL_ACCOUNTS) {
                 eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
@@ -118,9 +122,17 @@ window.ASC.Files.Editor = (function () {
                 ASC.Files.Editor.canShowHistory = true;
                 eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
                 eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
-                eventsConfig.onRequestHistoryClose = ASC.Files.Editor.reloadPage;
-                eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
+                eventsConfig.onRequestHistoryClose = ASC.Files.Editor.historyClose;
+                if (!!documentConfig.permissions.changeHistory) {
+                    eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
+                }
             }
+
+            if (ASC.Files.Editor.docServiceParams.canGetUsers) {
+                eventsConfig.onRequestUsers = ASC.Files.Editor.requestUsers;
+                eventsConfig.onRequestSendNotify = ASC.Files.Editor.requestSendNotify;
+            }
+
             var token = configuration.token;
         }
 
@@ -139,7 +151,7 @@ window.ASC.Files.Editor = (function () {
 
     var getOptions = function () {
         try {
-            var param = /(?:\?|\&)options=([^&]*)/g.exec(location.href);
+            var param = /(?:\?|\&)options=([^&]*)/g.exec(location.search);
             if (param && param[1]) {
                 return jq.parseJSON(decodeURIComponent(param[1]));
             }
@@ -170,6 +182,13 @@ window.ASC.Files.Editor = (function () {
 
         if (ASC.Files.Editor.configurationParams && ASC.Files.Editor.configurationParams.editorConfig.mode === "edit") {
             ASC.Files.Editor.trackEdit();
+        }
+    };
+
+    var readyDocument = function () {
+        if (ASC.Files.Editor.canShowHistory
+            && ASC.Files.Editor.docServiceParams.openHistory) {
+            ASC.Files.Editor.requestHistory();
         }
     };
 
@@ -231,6 +250,29 @@ window.ASC.Files.Editor = (function () {
             });
     };
 
+    var historyClose = function () {
+        if (location.search.indexOf("action=view") == -1) {
+            ASC.Files.Editor.reloadPage();
+            return;
+        }
+
+        var url = location.href;
+        var indexAnchor = url.indexOf("#");
+        if (indexAnchor != -1) {
+            url = url.substring(0, indexAnchor);
+        }
+
+        if (/[\?\&]history=close/g.test(location.search)) {
+            ASC.Files.Editor.reloadPage();
+            return;
+        }
+
+        url += (url.indexOf("?") == -1) ? "?" : "&";
+        url += "history=close";
+
+        location.href = url;
+    };
+
     var getDiffUrl = function (versionData) {
         if (!ASC.Files.Editor.canShowHistory) {
             return;
@@ -273,6 +315,23 @@ window.ASC.Files.Editor = (function () {
         }
     };
 
+    var requestUsers = function () {
+        ASC.Files.ServiceManager.getUsers(ASC.Files.ServiceManager.events.GetUsers, {
+            fileId: ASC.Files.Editor.docServiceParams.fileId
+        });
+    };
+
+    var requestSendNotify = function (event) {
+        var message = event.data;
+
+        ASC.Files.ServiceManager.sendEditorNotify(ASC.Files.ServiceManager.events.SendEditorNotify,
+            {
+                ajaxcontentType: "application/json",
+                fileId: ASC.Files.Editor.docServiceParams.fileId
+            },
+            message);
+    };
+
     var rename = function (event) {
         ASC.Files.ServiceManager.renameFile(ASC.Files.ServiceManager.events.FileRename,
             {
@@ -297,6 +356,29 @@ window.ASC.Files.Editor = (function () {
             return;
         }
         window.close();
+    };
+
+    var makeActionLink = function (event) {
+        var url = location.href;
+        if (event && event.data) {
+            var indexAnchor = url.indexOf("#");
+            if (indexAnchor != -1) {
+                url = url.substring(0, indexAnchor);
+            }
+
+            var data = JSON.stringify(event.data);
+            data = "anchor=" + encodeURIComponent(data);
+
+            var anchorRegex = /anchor=([^&]*)/g;
+            if (anchorRegex.test(location.search)) {
+                url = url.replace(anchorRegex, data);
+            } else {
+                url += (url.indexOf("?") == -1) ? "?" : "&";
+                url += data;
+            }
+        }
+
+        ASC.Files.Editor.docEditor.setActionLink(url);
     };
 
     var reloadPage = function () {
@@ -466,6 +548,14 @@ window.ASC.Files.Editor = (function () {
                 ? jsonData.length
                 : ASC.Files.Editor.docServiceParams.fileVersion;
 
+            jq.each(jsonData, function (i, fileVersion) {
+                if (fileVersion.version >= currentVersion) {
+                    currentVersion = fileVersion.version;
+                    return false;
+                }
+                return true;
+            });
+
             data = {
                 currentVersion: currentVersion,
                 history: jsonData,
@@ -542,6 +632,26 @@ window.ASC.Files.Editor = (function () {
         return;
     };
 
+    var completeGetUsers = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
+        }
+
+        ASC.Files.Editor.docEditor.setUsers({users: jsonData});
+    };
+
+    var completeSendEditorNotify = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
+        }
+
+        if (jsonData) {
+            ASC.Files.Editor.docEditor.setSharingSettings({sharingSettings: jsonData});
+
+            ASC.Files.Editor.docEditor.showSharingSettings();
+        }
+    };
+
     return {
         init: init,
         createFrameEditor: createFrameEditor,
@@ -558,11 +668,13 @@ window.ASC.Files.Editor = (function () {
 
         //event
         readyEditor: readyEditor,
+        readyDocument: readyDocument,
         documentStateChangeEditor: documentStateChangeEditor,
         requestEditRightsEditor: requestEditRightsEditor,
         errorEditor: errorEditor,
         reloadPage: reloadPage,
         requestHistory: requestHistory,
+        historyClose: historyClose,
         getDiffUrl: getDiffUrl,
         restoreVersion: restoreVersion,
         getMails: getMails,
@@ -571,6 +683,9 @@ window.ASC.Files.Editor = (function () {
         rename: rename,
         metaChange: metaChange,
         requestClose: requestClose,
+        makeActionLink: makeActionLink,
+        requestUsers: requestUsers,
+        requestSendNotify: requestSendNotify,
 
         canShowHistory: canShowHistory,
     };

@@ -213,4 +213,7 @@
   <data name="TitleErrorTemplate" xml:space="preserve">
     <value>Each template must have a title</value>
   </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Notify Responsibles</value>
+  </data>
 </root>

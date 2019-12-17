@@ -66,9 +66,7 @@ namespace ASC.Web.Community.Birthdays.Resources {
         ///The following &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal user has the birthday $BirthdayDate
         ///$BirthdayUserName
         ///
-        ///Visit the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal to view the event or send your birthday greetings.
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the new events on the [rest of string was truncated]&quot;;.
+        ///Visit the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal to view the event or send your birthday greetings..
         /// </summary>
         public static string pattern_BirthdayReminder {
             get {
@@ -92,7 +90,7 @@ namespace ASC.Web.Community.Birthdays.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $BirthdayUserName has the Birthday $BirthdayDate.
+        ///   Looks up a localized string similar to $BirthdayUserName has the birthday $BirthdayDate.
         /// </summary>
         public static string subject_BirthdayReminder {
             get {

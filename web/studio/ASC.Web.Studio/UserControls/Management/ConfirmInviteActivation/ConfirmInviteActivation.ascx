@@ -69,7 +69,7 @@
                         <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'InvitePasswordHelp'});"></span>
                     </div>
                     <div class="value">
-                        <input type="password" maxlength="<%= PasswordSettings.MaxLength %>" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
+                        <input type="password" data-maxlength="<%= PasswordSettings.MaxLength %>" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
                     </div>
                     <div class="popup_helper" id="InvitePasswordHelp">
                         <%= UserManagerWrapper.GetPasswordHelpMessage() %>

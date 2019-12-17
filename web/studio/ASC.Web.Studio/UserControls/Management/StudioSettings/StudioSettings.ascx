@@ -13,7 +13,7 @@
         <p><%= String.Format(Resource.HelpAnswerLngTimeSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
         <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>

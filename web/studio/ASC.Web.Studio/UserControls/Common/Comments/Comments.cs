@@ -247,7 +247,6 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             confirm = (Confirm)Page.LoadControl(Confirm.Location);
             confirm.Title = Resource.ConfirmRemoveCommentTitle;
             confirm.SelectTitle = ConfirmRemoveCommentMessage;
-            //confirm.SelectJSCallback = JavaScriptRemoveCommentFunctionName;
             Controls.Add(confirm);
         }
 

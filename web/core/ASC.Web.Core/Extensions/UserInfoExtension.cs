@@ -99,9 +99,9 @@ namespace ASC.Core.Users
             var sb = new StringBuilder();
 
             //check for removed users
-            if (userInfo == null || !CoreContext.UserManager.UserExists(userInfo.ID))
+            if (userInfo.ID == Constants.LostUser.ID)
             {
-                sb.Append("<span class='userLink text-medium-describe' style='white-space:nowrap;'>profile removed</span>");
+                sb.AppendFormat("<span class='userLink text-medium-describe' style='white-space:nowrap;'>{0}</span>", userInfo.DisplayUserName());
             }
             else
             {

@@ -239,8 +239,6 @@
         }
     }
 
-
-
     function onSearchReset() {
         var that = this,
             $resetBtn = that.$advancedSelector.find(".advanced-selector-search .advanced-selector-reset-btn"),
@@ -842,9 +840,9 @@
             groupCurrent = groupCurrent.item.find("div");
 
             groupSelectedItems = getItemsForGroup.call(that, itemSelectedGroup);
-            groupSelectedItems = $.grep(groupSelectedItems, function (el) {
-                return $.inArray(el, that.options.itemsDisabledIds) == -1;
-            });
+            //groupSelectedItems = $.grep(groupSelectedItems, function (el) {
+            //    return $.inArray(el, that.options.itemsDisabledIds) == -1;
+            //});
 
             if (check) {
                 if (selectedAllForGroup.call(that, groupSelectedItems)) {
@@ -873,7 +871,7 @@
         if (!arrayToSearch.length) return false;
         for (var i = 0, j = arrayToSearch.length; i < j; i++) {
             var arrayToSearchI = arrayToSearch[i];
-            if (this.options.itemsDisabledIds.hasOwnProperty(arrayToSearchI)) continue;
+            if (this.options.itemsDisabledIds.indexOf(arrayToSearchI) > -1) continue;
 
             if (!this.itemsSelectedIds.hasOwnProperty(arrayToSearchI)) {
                 return false;
@@ -994,7 +992,7 @@
             selectedItems = [],
             result;
 
-        that.options.itemsSelectedIds = Object.extend({}, that.itemsSelectedIds);
+        that.options.itemsSelectedIds = jq.extend({}, that.itemsSelectedIds);
         for (var sil in selectedItemsList) {
             if (selectedItemsList.hasOwnProperty(sil)) {
                 var item = getItemById(sil, that.items);
@@ -1228,7 +1226,7 @@
             ul.style.height = height + "px";
         }
 
-        list.replaceWith(ul);
+        jq(list).replaceWith(ul);
 
         list.style.display = "";
     };

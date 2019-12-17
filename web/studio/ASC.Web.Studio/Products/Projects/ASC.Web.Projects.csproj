@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\NotifyHelper.cs" />
+    <Compile Include="Classes\ProjectsCommonSettings.cs" />
     <Compile Include="Classes\ProjectSecurityInfo.cs" />
     <Compile Include="Classes\ResultsView.cs" />
     <Compile Include="Classes\ReportHelper.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Core\Dao\ProjectDao.cs" />
     <Compile Include="Core\Dao\ReportDao.cs" />
     <Compile Include="Core\Dao\SearchDao.cs" />
+    <Compile Include="Core\Dao\StatusDao.cs" />
     <Compile Include="Core\Dao\SubtaskDao.cs" />
     <Compile Include="Core\Dao\TagDao.cs" />
     <Compile Include="Core\Dao\TaskDao.cs" />
@@ -233,6 +235,7 @@
     <Compile Include="Core\Engine\SearchEngine.cs" />
     <Compile Include="Core\Engine\SecurityAdapter.cs" />
     <Compile Include="Core\Engine\SecurityAdapterProvider.cs" />
+    <Compile Include="Core\Engine\StatusEngine.cs" />
     <Compile Include="Core\Engine\SubtaskEngine.cs" />
     <Compile Include="Core\Engine\TagEngine.cs" />
     <Compile Include="Core\Engine\TaskEngine.cs" />
@@ -246,11 +249,13 @@
     <Compile Include="Core\Model\DataInterfaces\IProjectDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\IReportDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ISearchDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IStatusDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ISubtaskDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ITagDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ITaskDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ITemplateDao.cs" />
     <Compile Include="Core\Model\DataInterfaces\ITimeSpendDao.cs" />
+    <Compile Include="Core\Model\Domain\CustomStatus.cs" />
     <Compile Include="Core\Model\Domain\DomainObject.cs" />
     <Compile Include="Core\Model\Domain\Entities\Comment.cs" />
     <Compile Include="Core\Model\Domain\Entities\Enums\EntityTypeEnum.cs" />

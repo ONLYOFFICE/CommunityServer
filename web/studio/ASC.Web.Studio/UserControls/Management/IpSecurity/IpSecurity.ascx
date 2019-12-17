@@ -10,7 +10,7 @@
                 <input value="${ip}" class="ip textEdit" />
                 <% if (!TenantAccessAnyone)
                    { %>
-                    <span class="menu-item-icon trash delete-btn"></span>
+                    <span class="menu-item-icon trash delete-btn icon-link"></span>
                 <% } %>
             </div>
         </div>
@@ -25,11 +25,11 @@
             <div class="clearFix">
                 <div class="clearFix">
                     <input id="ipsecurityOff" type="radio" name="ipsecuritySwitch" <%= !RestrictionsSettings.Enable || TenantAccessAnyone ? "checked=\"checked\"" : "" %> <%= TenantAccessAnyone ? "disabled=\"disabled\"" : "" %>/>
-                    <label class="header-base-small" for="ipsecurityOff"><%= Resource.IPSecurityDisable %></label>
+                    <label for="ipsecurityOff"><%= Resource.IPSecurityDisable %></label>
                 </div>
                 <div class="clearFix">
                     <input id="ipsecurityOn" type="radio" name="ipsecuritySwitch" <%= RestrictionsSettings.Enable && !TenantAccessAnyone ? "checked=\"checked\"" : "" %> <%= TenantAccessAnyone ? "disabled=\"disabled\"" : "" %>/>
-                    <label class="header-base-small" for="ipsecurityOn"><%= Resource.IPSecurityEnable %></label>
+                    <label for="ipsecurityOn"><%= Resource.IPSecurityEnable %></label>
                 </div>
             </div>
 

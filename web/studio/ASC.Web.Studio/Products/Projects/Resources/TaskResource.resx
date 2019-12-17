@@ -468,4 +468,7 @@
   <data name="TryingToCloseTasks" xml:space="preserve">
     <value>You're trying to close tasks with open subtasks</value>
   </data>
+  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
+    <value>Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who's responsible, manage team work.</value>
+  </data>
 </root>

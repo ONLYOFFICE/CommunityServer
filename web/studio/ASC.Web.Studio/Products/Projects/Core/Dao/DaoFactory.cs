@@ -82,5 +82,8 @@ namespace ASC.Projects.Data
         private ITagDao tagDao;
         public ITagDao TagDao { get { return tagDao ?? (tagDao = Container.Resolve<ITagDao>(Tenant)); } }
 
+        private IStatusDao statusDao;
+        public IStatusDao StatusDao { get { return statusDao ?? (statusDao = Container.Resolve<IStatusDao>(Tenant)); } }
+
     }
 }

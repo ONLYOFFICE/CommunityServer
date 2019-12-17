@@ -604,7 +604,7 @@ namespace ASC.Api.CRM
         /// 
         /// ]]>
         /// </example>
-        [Update(@"invoice/{invoiceid:[0-9]+}")]
+        [Update(@"invoice/{id:[0-9]+}")]
         public InvoiceWrapper UpdateInvoice(
             int id,
             ApiDateTime issueDate,
@@ -962,7 +962,7 @@ namespace ASC.Api.CRM
         /// <short>Update invoice line</short>
         /// <category>Invoices</category>
         /// <returns>InvoiceLine</returns>
-        [Update(@"invoiceline/{invoicelineid:[0-9]+}")]
+        [Update(@"invoiceline/{id:[0-9]+}")]
         public InvoiceLineWrapper UpdateInvoiceLine(
             int id,
             int invoiceId,
@@ -1014,12 +1014,12 @@ namespace ASC.Api.CRM
         /// <short>Delete invoice line</short> 
         /// <category>Invoices</category>
         /// <returns>Line ID</returns>
-        [Delete(@"invoiceline/{invoicelineid:[0-9]+}")]
+        [Delete(@"invoiceline/{id:[0-9]+}")]
         public int DeleteInvoiceLine(int id)
         {
             var invoiceLine = DaoFactory.InvoiceLineDao.GetByID(id);
             if (invoiceLine == null) throw new ItemNotFoundException();
-            if (!DaoFactory.InvoiceLineDao.CanDelete(invoiceLine.ID)) throw new ArgumentException();
+            if (!DaoFactory.InvoiceLineDao.CanDelete(invoiceLine.ID)) throw new Exception("Can't delete invoice line");
 
             var invoice = DaoFactory.InvoiceDao.GetByID(invoiceLine.InvoiceID);
             if (invoice == null) throw new ItemNotFoundException();

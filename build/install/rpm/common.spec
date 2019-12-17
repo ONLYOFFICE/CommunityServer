@@ -125,6 +125,7 @@ sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/'
 sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 
 %triggerin -- elasticsearch
+
 ELASTIC_SEARCH_CONF_PATH="/etc/elasticsearch/elasticsearch.yml"
 DIR=/var/www/%{package_sysname}
 APP_DATA_DIR="${DIR}/Data"
@@ -172,8 +173,12 @@ if ! grep -q "thread_pool.write.queue_size" ${ELASTIC_SEARCH_CONF_PATH}; then
 else
 	sed -i "s/thread_pool.write.queue_size.*/thread_pool.write.queue_size: 250/" ${ELASTIC_SEARCH_CONF_PATH} 
 fi
-	
-CORE_COUNT=$(expr $(cat /proc/cpuinfo | grep processor | wc -l) / 2)
+
+export LC_ALL=C
+
+CORE_COUNT=$(( $(lscpu | awk '/^Socket\(s\)/{ print $2 }') * $(lscpu | awk '/^Core\(s\) per socket/{ print $4 }') ));
+
+unset LC_ALL
 
 if [ "$CORE_COUNT" -eq "0" ]; then
 	CORE_COUNT=1;
@@ -216,6 +221,7 @@ python3 -m pip install --upgrade requests
 python3 -m pip install --upgrade radicale
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
+python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
 
 %triggerin -- %{package_sysname}-documentserver, %{package_sysname}-documentserver-ie
 

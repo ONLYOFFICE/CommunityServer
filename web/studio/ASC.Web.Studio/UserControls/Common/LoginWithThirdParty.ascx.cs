@@ -128,24 +128,15 @@ namespace ASC.Web.Studio.UserControls.Common
                     {
                         throw new Exception(loginProfile.AuthorizationError);
                     }
-                    return ASC.Core.Users.Constants.LostUser;
+                    return Constants.LostUser;
                 }
 
-                var userInfo = new UserInfo();
+                var userInfo = Constants.LostUser;
 
                 Guid userId;
                 if (TryGetUserByHash(loginProfile.HashId, out userId))
                 {
                     userInfo = CoreContext.UserManager.GetUsers(userId);
-                }
-
-                if (!CoreContext.UserManager.UserExists(userInfo.ID))
-                {
-                    if (string.IsNullOrEmpty(loginProfile.EMail))
-                    {
-                        throw new Exception(Resource.ErrorNotCorrectEmail);
-                    }
-                    userInfo = CoreContext.UserManager.GetUserByEmail(loginProfile.EMail);
                 }
 
                 var isNew = false;
@@ -157,7 +148,7 @@ namespace ASC.Web.Studio.UserControls.Common
                         {
                             SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
                             CoreContext.UserManager.DeleteUser(userInfo.ID);
-                            userInfo = ASC.Core.Users.Constants.LostUser;
+                            userInfo = Constants.LostUser;
                         }
                         finally
                         {
@@ -184,8 +175,8 @@ namespace ASC.Web.Studio.UserControls.Common
                             using (var db = DbManager.FromHttpContext(_databaseID))
                             {
                                 db.ExecuteNonQuery(new SqlInsert("template_unsubscribe", false)
-                                        .InColumnValue("email",userInfo.Email.ToLowerInvariant())
-                                        .InColumnValue("reason", "personal")
+                                                       .InColumnValue("email", userInfo.Email.ToLowerInvariant())
+                                                       .InColumnValue("reason", "personal")
                                     );
                                 LogManager.GetLogger("ASC.Web").Debug(String.Format("Write to template_unsubscribe {0}", userInfo.Email.ToLowerInvariant()));
                             }
@@ -256,23 +247,31 @@ namespace ASC.Web.Studio.UserControls.Common
 
         private static UserInfo JoinByThirdPartyAccount(LoginProfile loginProfile)
         {
-            var userInfo = ProfileToUserInfo(loginProfile);
-
-            UserInfo newUserInfo;
-            try
+            if (string.IsNullOrEmpty(loginProfile.EMail))
             {
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                newUserInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
+                throw new Exception(Resource.ErrorNotCorrectEmail);
             }
-            finally
+
+            var userInfo = CoreContext.UserManager.GetUserByEmail(loginProfile.EMail);
+            if (!CoreContext.UserManager.UserExists(userInfo.ID))
             {
-                SecurityContext.Logout();
+                var newUserInfo = ProfileToUserInfo(loginProfile);
+
+                try
+                {
+                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    userInfo = UserManagerWrapper.AddUser(newUserInfo, UserManagerWrapper.GeneratePassword());
+                }
+                finally
+                {
+                    SecurityContext.Logout();
+                }
             }
 
             var linker = new AccountLinker("webstudio");
-            linker.AddLink(newUserInfo.ID.ToString(), loginProfile);
+            linker.AddLink(userInfo.ID.ToString(), loginProfile);
 
-            return newUserInfo;
+            return userInfo;
         }
     }
 }

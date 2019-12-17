@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
@@ -39,9 +39,6 @@ using ASC.Notify.Cron;
 using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
 using Resources;
-
-using AjaxPro;
-using Amazon;
 
 namespace ASC.Web.Studio.Core.Backup
 {
@@ -57,13 +54,13 @@ namespace ASC.Web.Studio.Core.Backup
             DemandSize();
 
             var backupRequest = new StartBackupRequest
-                {
-                    TenantId = GetCurrentTenantId(),
-                    UserId = SecurityContext.CurrentAccount.ID,
-                    BackupMail = backupMail,
-                    StorageType = storageType,
-                    StorageParams = storageParams
-                };
+            {
+                TenantId = GetCurrentTenantId(),
+                UserId = SecurityContext.CurrentAccount.ID,
+                BackupMail = backupMail,
+                StorageType = storageType,
+                StorageParams = storageParams
+            };
 
             switch (storageType)
             {
@@ -143,14 +140,14 @@ namespace ASC.Web.Studio.Core.Backup
             ValidateCronSettings(cronParams);
 
             var scheduleRequest = new CreateScheduleRequest
-                {
-                    TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
-                    BackupMail = backupMail,
-                    Cron = cronParams.ToString(),
-                    NumberOfBackupsStored = backupsStored,
-                    StorageType = storageType,
-                    StorageParams = storageParams
-                };
+            {
+                TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                BackupMail = backupMail,
+                Cron = cronParams.ToString(),
+                NumberOfBackupsStored = backupsStored,
+                StorageType = storageType,
+                StorageParams = storageParams
+            };
 
             switch (storageType)
             {
@@ -368,7 +365,7 @@ namespace ASC.Web.Studio.Core.Backup
 
         private static void DemandSize()
         {
-            if (BackupHelper.ExceedsMaxAvailableSize)
+            if (BackupHelper.ExceedsMaxAvailableSize(TenantProvider.CurrentTenantID))
                 throw new InvalidOperationException(string.Format(UserControlsCommonResource.BackupSpaceExceed,
                     FileSizeComment.FilesSizeToString(BackupHelper.AvailableZipSize),
                     "",

@@ -916,6 +916,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Templates and drafts you can reassign to another account..
+        /// </summary>
+        public static string DeleteAccountOptionHead {
+            get {
+                return ResourceManager.GetString("DeleteAccountOptionHead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to reassign to account.
+        /// </summary>
+        public static string DeleteAccountOptionText {
+            get {
+                return ResourceManager.GetString("DeleteAccountOptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete %1?.
         /// </summary>
         public static string DeleteAccountShure {
@@ -1020,6 +1038,15 @@ namespace ASC.Web.Mail.Resources {
         public static string DoneLabel {
             get {
                 return ResourceManager.GetString("DoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not save.
+        /// </summary>
+        public static string DoNotSave {
+            get {
+                return ResourceManager.GetString("DoNotSave", resourceCulture);
             }
         }
         
@@ -1312,6 +1339,33 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compose the first template.
+        /// </summary>
+        public static string EmptyTemplatesButton {
+            get {
+                return ResourceManager.GetString("EmptyTemplatesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Template section allows you to create and sort messages which you can send to different people later. Here you can tick the most important messages or delete the unnecessary ones..
+        /// </summary>
+        public static string EmptyTemplatesDescription {
+            get {
+                return ResourceManager.GetString("EmptyTemplatesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No templates to be displayed in this folder.
+        /// </summary>
+        public static string EmptyTemplatesHeader {
+            get {
+                return ResourceManager.GetString("EmptyTemplatesHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Trash section contains messages which were deleted. Here you can recover some emails or delete them permanently..
         /// </summary>
         public static string EmptyTrashDescription {
@@ -1416,6 +1470,24 @@ namespace ASC.Web.Mail.Resources {
         public static string ErrorLostInternetConnection {
             get {
                 return ResourceManager.GetString("ErrorLostInternetConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reduce size of body of letter to continue.
+        /// </summary>
+        public static string ErrorMailMessageSizeBody {
+            get {
+                return ResourceManager.GetString("ErrorMailMessageSizeBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message body exceeded limit ({0} KB).
+        /// </summary>
+        public static string ErrorMailMessageSizeHead {
+            get {
+                return ResourceManager.GetString("ErrorMailMessageSizeHead", resourceCulture);
             }
         }
         
@@ -2482,11 +2554,29 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drafts reassigned.
+        /// </summary>
+        public static string MailDraftsReassigned {
+            get {
+                return ResourceManager.GetString("MailDraftsReassigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message filtering.
         /// </summary>
         public static string MailFilters {
             get {
                 return ResourceManager.GetString("MailFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Templates reassigned.
+        /// </summary>
+        public static string MailTemplatesReassigned {
+            get {
+                return ResourceManager.GetString("MailTemplatesReassigned", resourceCulture);
             }
         }
         
@@ -2631,6 +2721,15 @@ namespace ASC.Web.Mail.Resources {
         public static string MovingMessages {
             get {
                 return ResourceManager.GetString("MovingMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For this operation, you must save message. Save current changes as?.
+        /// </summary>
+        public static string NeedSaveMessageText {
+            get {
+                return ResourceManager.GetString("NeedSaveMessageText", resourceCulture);
             }
         }
         
@@ -2784,6 +2883,15 @@ namespace ASC.Web.Mail.Resources {
         public static string PageHeaderReply {
             get {
                 return ResourceManager.GetString("PageHeaderReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template.
+        /// </summary>
+        public static string PageHeaderTemplate {
+            get {
+                return ResourceManager.GetString("PageHeaderTemplate", resourceCulture);
             }
         }
         
@@ -3018,6 +3126,42 @@ namespace ASC.Web.Mail.Resources {
         public static string SaveAttachmentToMyDocsSuccess {
             get {
                 return ResourceManager.GetString("SaveAttachmentToMyDocsSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save draft.
+        /// </summary>
+        public static string SaveDraft {
+            get {
+                return ResourceManager.GetString("SaveDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save template.
+        /// </summary>
+        public static string SaveTemplate {
+            get {
+                return ResourceManager.GetString("SaveTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save template changes?.
+        /// </summary>
+        public static string SaveTemplateChanges {
+            get {
+                return ResourceManager.GetString("SaveTemplateChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have changed template but did not save it. If you close the page, all changes will be lost. Save changes?.
+        /// </summary>
+        public static string SaveTemplateText {
+            get {
+                return ResourceManager.GetString("SaveTemplateText", resourceCulture);
             }
         }
         
@@ -3360,6 +3504,15 @@ namespace ASC.Web.Mail.Resources {
         public static string WithTags {
             get {
                 return ResourceManager.GetString("WithTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zipping attachments.
+        /// </summary>
+        public static string ZippingAttachmentsHeader {
+            get {
+                return ResourceManager.GetString("ZippingAttachmentsHeader", resourceCulture);
             }
         }
     }

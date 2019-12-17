@@ -178,12 +178,12 @@ window.userFoldersManager = (function($) {
                                     });
                                 }
 
-                                window.toastr.success(MailScriptResource.InfoCreateFolder.format(newFolder.name));
+                                window.toastr.success(MailScriptResource.InfoCreateFolder.format(Encoder.htmlEncode(newFolder.name)));
 
                                 eventsHandler.trigger(supportedCustomEvents.OnCreate, newFolder);
                             },
                             error: function (params, errors) {
-                                window.toastr.error(errors[0]);
+                                window.toastr.error(Encoder.htmlEncode(errors[0]));
                                 eventsHandler.trigger(supportedCustomEvents.OnError, errors[0]);
                             }
                         });
@@ -243,7 +243,7 @@ window.userFoldersManager = (function($) {
                     }
 
                     if (initFolder.name !== newFolder.name) {
-                        window.toastr.success(MailScriptResource.InfoRenameFolder.format(initFolder.name, newFolder.name));
+                        window.toastr.success(MailScriptResource.InfoRenameFolder.format(Encoder.htmlEncode(initFolder.name), Encoder.htmlEncode(newFolder.name)));
                     }
 
                     if (initFolder.parent !== newFolder.parent) {
@@ -287,10 +287,10 @@ window.userFoldersManager = (function($) {
                         try {
                             if (newFolder.parent > 0) {
                                 window.toastr.success(MailScriptResource.InfoMoveFolder
-                                    .format(newFolder.name, get(newFolder.parent).name));
+                                    .format(Encoder.htmlEncode(newFolder.name), Encoder.htmlEncode(get(newFolder.parent).name)));
                             } else {
                                 window.toastr.success(MailScriptResource.InfoMoveFolderToRoot
-                                    .format(newFolder.name));
+                                    .format(Encoder.htmlEncode(newFolder.name)));
                             }
                         } catch (e) {
                             console.error(e);
@@ -322,7 +322,7 @@ window.userFoldersManager = (function($) {
                     }
                 },
                 error: function(params, errors) {
-                    window.toastr.error(errors[0]);
+                    window.toastr.error(Encoder.htmlEncode(errors[0]));
                     eventsHandler.trigger(supportedCustomEvents.OnError, errors[0]);
                 }
             });
@@ -399,7 +399,7 @@ window.userFoldersManager = (function($) {
                                                     }
                                                 }
 
-                                                window.toastr.success(MailScriptResource.InfoRemoveFolder.format(removeFolder.name));
+                                                window.toastr.success(MailScriptResource.InfoRemoveFolder.format(Encoder.htmlEncode(removeFolder.name)));
 
                                                 eventsHandler.trigger(supportedCustomEvents.OnDelete, removeFolder);
                                             },

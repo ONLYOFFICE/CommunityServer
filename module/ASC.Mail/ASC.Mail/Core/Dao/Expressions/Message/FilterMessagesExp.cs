@@ -163,8 +163,16 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                                 Exp.Or(
                                     Exp.Like(MailTable.Columns.Bcc.Prefix(MM_ALIAS), Filter.SearchText,
                                         SqlLike.AnyWhere),
-                                    Exp.Like(MailTable.Columns.Subject.Prefix(MM_ALIAS), Filter.SearchText,
-                                        SqlLike.AnyWhere)))));
+                                    Exp.Or(
+                                        Exp.Like(MailTable.Columns.Subject.Prefix(MM_ALIAS), Filter.SearchText,
+                                            SqlLike.AnyWhere),
+                                        Exp.Like(MailTable.Columns.Introduction.Prefix(MM_ALIAS), Filter.SearchText,
+                                            SqlLike.AnyWhere)
+                                        )
+                                    )
+                                )
+                            )
+                        );
             }
 
             if (Ids != null && Ids.Any())
@@ -181,12 +189,20 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             return exp;
         }
 
-        public static bool TryGetFullTextSearchIds(MailSearchFilterData filter, string user, out List<int> ids, DateTime? dateSend = null)
+        public static bool TryGetFullTextSearchIds(MailSearchFilterData filter, string user, out List<int> ids, out long total, DateTime? dateSend = null)
         {
             ids = new List<int>();
 
             if (!FactoryIndexer<MailWrapper>.Support)
+            {
+                total = 0;
                 return false;
+            }
+
+            if (filter.Page.HasValue && filter.Page.Value < 0) {
+                total = 0;
+                return true;
+            }
 
             var userId = new Guid(user);
 
@@ -303,7 +319,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
 
             if (filter.Page.HasValue && filter.Page.Value > 0)
             {
-                selector.Limit((filter.Page.Value - 1) * pageSize, pageSize);
+                selector.Limit(filter.Page.Value * pageSize, pageSize);
             }
             else if (filter.PageSize.HasValue)
             {
@@ -313,7 +329,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             selector.Where(r => r.UserId, userId)
                 .Sort(r => r.DateSent, filter.SortOrder == Defines.ASCENDING);
 
-            return FactoryIndexer<MailWrapper>.TrySelectIds(s => selector, out ids);
+            return FactoryIndexer<MailWrapper>.TrySelectIds(s => selector, out ids, out total);
         }
     }
 }

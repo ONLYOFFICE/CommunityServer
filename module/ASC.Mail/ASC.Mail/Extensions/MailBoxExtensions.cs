@@ -131,7 +131,7 @@ namespace ASC.Mail.Extensions
 
             try
             {
-                var quotaController = new TennantQuotaController(mailbox.TenantId);
+                var quotaController = new TenantQuotaController(mailbox.TenantId);
                 var quota = CoreContext.TenantManager.GetTenantQuota(mailbox.TenantId);
                 var usedQuota = quotaController.QuotaCurrentGet();
                 quotaEnded = quota.MaxTotalSize - usedQuota < minBalance;

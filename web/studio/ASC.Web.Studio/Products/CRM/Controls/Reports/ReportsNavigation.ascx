@@ -4,6 +4,7 @@
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ReportsNavigation.ascx.cs" Inherits="ASC.Web.CRM.Controls.Reports.ReportsNavigation" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <td class="reports-menu-container display-none">          
@@ -44,11 +45,13 @@
                 <%= CRMReportResource.WorkloadByInvoicesReport %>
             </a>
         </li>
+        <% if (!CoreContext.Configuration.CustomMode) { %>
         <li>
             <a href="reports.aspx?reportType=<%= (int)ReportType.WorkloadByVoip %>" class="menu-report-name <%= !ViewFiles && CurrentReportType == ReportType.WorkloadByVoip ? "active" : string.Empty %>">
                 <%= CRMReportResource.WorkloadByVoipReport %>
             </a>
         </li>
+        <% } %>
         <li>
             <a href="reports.aspx?reportType=<%= (int)ReportType.SummaryForThePeriod %>" class="menu-report-name <%= !ViewFiles && CurrentReportType == ReportType.SummaryForThePeriod ? "active" : string.Empty %>">
                 <%= CRMReportResource.SummaryForThePeriodReport %>

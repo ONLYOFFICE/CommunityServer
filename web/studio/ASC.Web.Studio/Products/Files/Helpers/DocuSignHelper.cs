@@ -219,7 +219,7 @@ namespace ASC.Web.Files.Helpers
                                 new NameValue {Name = FilesLinkUtility.FolderId, Value = folderId},
                                 new NameValue {Name = FilesLinkUtility.FileTitle, Value = file.Title},
                             },
-                        DocumentId = file.ID.ToString(),
+                        DocumentId = "1", //file.ID.ToString(),
                         FileExtension = FileUtility.GetFileExtension(file.Title),
                         Name = documentName,
                     };

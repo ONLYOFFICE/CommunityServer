@@ -119,10 +119,10 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Sample\ASC.Api.Sample.csproj"/>
 
     <!-- Talk -->
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\talk\ASC.Web.Talk.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Server\ASC.Xmpp.Server.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\talk\ASC.Web.Talk.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Studio\addons\talk\' )"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Jabber\' )"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Server\ASC.Xmpp.Server.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Jabber\' )"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Jabber\' )"/>
 
     <!-- Calendar -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\calendar\ASC.Web.Calendar.csproj"/>

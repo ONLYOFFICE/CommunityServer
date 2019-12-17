@@ -570,4 +570,37 @@
   <data name="ReportFolder" xml:space="preserve">
     <value>Report Folder</value>
   </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Change Color</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Change Icon</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>New Status</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Each status must have a title</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Set necessary order for the task statuses. Each category must have at least one status.</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Task Statuses</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Статусы доступны только постановщику задачи</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Build teams and assign tasks. Schedule project milestones, track project activity and generate reports.</value>
+  </data>
 </root>

@@ -33,7 +33,7 @@ using ASC.Core.Tenants;
 
 namespace ASC.Core.Security.Authentication
 {
-    class CookieStorage
+    public class CookieStorage
     {
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss,fff";
 

@@ -94,13 +94,18 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
-        [DataMember(Order = 55)]
+        [DataMember(Order = 55, EmitDefaultValue = false)]
         public bool ProviderItem { get; set; }
 
         /// <summary>
         /// </summary>
         [DataMember(Order = 56, EmitDefaultValue = false)]
         public string ProviderKey { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(Order = 57, EmitDefaultValue = false)]
+        public int ProviderId { get; set; }
 
 
         /// <summary>
@@ -120,6 +125,7 @@ namespace ASC.Api.Documents
             RootFolderType = entry.RootFolderType;
             ProviderItem = entry.ProviderEntry;
             ProviderKey = entry.ProviderKey;
+            ProviderId = entry.ProviderId;
         }
 
         /// <summary>

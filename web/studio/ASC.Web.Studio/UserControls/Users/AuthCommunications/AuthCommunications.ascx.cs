@@ -137,7 +137,7 @@ namespace ASC.Web.Studio.UserControls
                     throw new Exception(Resource.ErrorNotCorrectEmail);
 
                 var user = CoreContext.UserManager.GetUserByEmail(email);
-                if (!user.ID.Equals(ASC.Core.Users.Constants.LostUser.ID))
+                if (!user.ID.Equals(Constants.LostUser.ID))
                     throw new Exception(CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists"));
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
@@ -163,7 +163,7 @@ namespace ASC.Web.Studio.UserControls
                                 tenant.TrustedDomains.Any(
                                     d => address.Address.EndsWith("@" + d, StringComparison.InvariantCultureIgnoreCase)))
                             {
-                                StudioNotifyService.Instance.InviteUsers(email, string.Empty, true, emplType);
+                                StudioNotifyService.Instance.SendJoinMsg(email, emplType);
                                 MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
                                                     MessageAction.SentInviteInstructions, email);
                                 return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};
@@ -173,7 +173,7 @@ namespace ASC.Web.Studio.UserControls
                         }
                     case TenantTrustedDomainsType.All:
                         {
-                            StudioNotifyService.Instance.InviteUsers(email, string.Empty, true, emplType);
+                            StudioNotifyService.Instance.SendJoinMsg(email, emplType);
                             MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
                                                 MessageAction.SentInviteInstructions, email);
                             return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};

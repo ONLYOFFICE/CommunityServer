@@ -1024,7 +1024,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Делать все то же, что и пользователь|Создавать профили и отделы|Импортировать профили|Приглашвть пользователей.
+        ///   Looks up a localized string similar to Do the same as a user|Create profiles and groups|Import profiles|Invite users.
         /// </summary>
         public static string ProductAdminOpportunities {
             get {
@@ -1042,6 +1042,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new users, invite or import them. Manage users and view their detailed information..
+        /// </summary>
+        public static string ProductDescriptionEx {
+            get {
+                return ResourceManager.GetString("ProductDescriptionEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to People.
         /// </summary>
         public static string ProductName {
@@ -1051,7 +1060,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Просматривать профили и отделы.
+        ///   Looks up a localized string similar to View profiles and groups.
         /// </summary>
         public static string ProductUserOpportunities {
             get {

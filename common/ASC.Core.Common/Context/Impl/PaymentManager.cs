@@ -24,38 +24,31 @@
 */
 
 
-using ASC.Core.Billing;
-using ASC.Core.Users;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Xml.Linq;
+using ASC.Core.Billing;
+using Newtonsoft.Json;
 
 
 namespace ASC.Core
 {
     public class PaymentManager
     {
-        private readonly CoreConfiguration config;
-        private readonly IQuotaService quotaService;
         private readonly ITariffService tariffService;
         private readonly string partnerUrl;
         private readonly string partnerKey;
 
 
-        public PaymentManager(CoreConfiguration config, IQuotaService quotaService, ITariffService tariffService)
+        public PaymentManager(ITariffService tariffService)
         {
-            this.config = config;
-            this.quotaService = quotaService;
             this.tariffService = tariffService;
             partnerUrl = (ConfigurationManager.AppSettings["core.payment-partners"] ?? "https://partners.onlyoffice.com/api").TrimEnd('/');
             partnerKey = (ConfigurationManager.AppSettings["core.machinekey"] ?? "C5C1F4E85A3A43F5B3202C24D97351DF");
@@ -105,41 +98,6 @@ namespace ASC.Core
         public Uri GetShoppingUri(int quotaId, string affiliateId, string currency = null, string language = null, string customerId = null)
         {
             return tariffService.GetShoppingUri(null, quotaId, affiliateId, currency, language, customerId);
-        }
-
-        public void SendTrialRequest(int tenant, UserInfo user)
-        {
-            var trial = quotaService.GetTenantQuotas().FirstOrDefault(q => q.Trial);
-            if (trial != null)
-            {
-                var uri = ConfigurationManager.AppSettings["core.payment-request"] ?? "http://billing.onlyoffice.com/avangate/requestatrialversion.aspx";
-                uri += uri.Contains('?') ? "&" : "?";
-                uri += "FIRSTNAME=" + HttpUtility.UrlEncode(user.FirstName) +
-                    "&LASTNAME=" + HttpUtility.UrlEncode(user.FirstName) +
-                    "&CUSTOMEREMAIL=" + HttpUtility.UrlEncode(user.Email) +
-                    "&PORTALID=" + HttpUtility.UrlEncode(config.GetKey(tenant)) +
-                    "&PRODUCTID=" + HttpUtility.UrlEncode(trial.AvangateId);
-
-                using (var webClient = new WebClient())
-                {
-                    var result = webClient.DownloadString(uri);
-                    var element = XElement.Parse(result);
-                    if (element.Value != null &&
-                        (element.Value.StartsWith("error:", StringComparison.InvariantCultureIgnoreCase) ||
-                        element.Value.StartsWith("warning:", StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        throw new BillingException(element.Value, new { Tenant = tenant, User = user.ID });
-                    }
-                    var tariff = new Tariff
-                    {
-                        QuotaId = trial.Id,
-                        State = TariffState.Trial,
-                        DueDate = DateTime.UtcNow.Date.AddMonths(1),
-                    };
-                    tariffService.SetTariff(tenant, tariff);
-                    tariffService.GetTariff(tenant);
-                }
-            }
         }
 
 

@@ -1,0 +1,14 @@
+[admin]
+user: admin@ascsystem@.+
+collection: .*
+permission: rw
+
+[allow-shared-read]
+user: .+
+collection: %(login)s/.+-shared$
+permission: r
+
+[owner-write]
+user: .+
+collection: %(login)s.*$
+permission: rw

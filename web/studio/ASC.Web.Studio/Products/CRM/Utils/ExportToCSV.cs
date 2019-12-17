@@ -115,7 +115,7 @@ namespace ASC.Web.CRM.Classes
             Error = null;
             Percentage = 0;
             IsCompleted = false;
-            FileName = fileName ?? (filterObject == null ? "data.zip" : "data.csv");
+            FileName = fileName ?? CRMSettingResource.Export + (filterObject == null ? ".zip" : ".csv");
             FileUrl = null;
         }
 
@@ -317,7 +317,10 @@ namespace ASC.Web.CRM.Classes
 
                 using (var zipStream = new ZipOutputStream(stream, true))
                 {
-                    zipStream.PutNextEntry("contacts.csv");
+                    zipStream.AlternateEncoding = Encoding.UTF8;
+                    zipStream.AlternateEncodingUsage = ZipOption.Always;
+
+                    zipStream.PutNextEntry(CRMContactResource.Contacts + ".csv");
                     var contactData = contactDao.GetAllContacts();
                     var contactInfos = new StringDictionary();
                     contactInfoDao.GetAll()
@@ -339,35 +342,35 @@ namespace ASC.Web.CRM.Classes
                         zipEntryData.StreamCopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry("oppotunities.csv");
+                    zipStream.PutNextEntry(CRMCommonResource.DealModuleName + ".csv");
                     var dealData = dealDao.GetAllDeals();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCsv(dealData, daoFactory))))
                     {
                         zipEntryData.StreamCopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry("cases.csv");
+                    zipStream.PutNextEntry(CRMCommonResource.CasesModuleName + ".csv");
                     var casesData = casesDao.GetAllCases();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCsv(casesData, daoFactory))))
                     {
                         zipEntryData.StreamCopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry("tasks.csv");
+                    zipStream.PutNextEntry(CRMCommonResource.TaskModuleName + ".csv");
                     var taskData = taskDao.GetAllTasks();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCsv(taskData, daoFactory))))
                     {
                         zipEntryData.StreamCopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry("history.csv");
+                    zipStream.PutNextEntry(CRMCommonResource.History + ".csv");
                     var historyData = historyDao.GetAllItems();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCsv(historyData, daoFactory))))
                     {
                         zipEntryData.StreamCopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry("products_services.csv");
+                    zipStream.PutNextEntry(CRMCommonResource.ProductsAndServices + ".csv");
                     var invoiceItemData = invoiceItemDao.GetAll();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCsv(invoiceItemData, daoFactory))))
                     {
@@ -382,7 +385,7 @@ namespace ASC.Web.CRM.Classes
 
                 FileUrl = CommonLinkUtility.GetFullAbsolutePath(_dataStore.SavePrivate(String.Empty, FileName, stream, DateTime.Now.AddDays(1)));
 
-                _notifyClient.SendAboutExportCompleted(_author.ID, FileUrl);
+                _notifyClient.SendAboutExportCompleted(_author.ID, FileName, FileUrl);
             }
         }
 

@@ -238,11 +238,11 @@ window.ServiceFactory = (function() {
             apiHandler('prj-projectpersons', /project\/[\w\d-]+\/team\.json/, get),
             apiHandler('prj-projectpersons', /project\/[\w\d-]+\/teamExcluded\.json/, get),
             apiHandler('prj-timespend', /project\/time\/[\w\d-]+\.json/),
+            apiHandler('prj-timespends', /project\/time\/times\/status\.json/, put),
             apiHandler('prj-timespends', /project\/time\/filter\.json/, get),
             apiHandler('prj-timespends', /project\/task\/[\w\d-]+\/time\.json/, get),
             apiHandler('prj-activities', /project\/activities\/filter\.json/),
             apiHandler('prj-project', /project\.json/, post),
-            apiHandler('doc-miss', /files\/fileops.json/),
             apiHandler('doc-folder', /files\/[@\w\d-]+\.json/),
             apiHandler('doc-folder', /files\/[\w\d-]+\/[text|html|file]+\.json/),
             apiHandler('doc-folder', /project\/[\w\d-]+\/files\.json/),
@@ -258,6 +258,8 @@ window.ServiceFactory = (function() {
             apiHandler('doc-file', /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.json/),
             apiHandler('doc-file', /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/text\.json/),
             apiHandler('doc-miss', /files\/fileops.json/),
+            apiHandler('doc-miss', /files\/storeoriginal.json/),
+            apiHandler('doc-miss', /files\/hideconfirmconvert.json/),
             apiHandler('doc-check', /files\/docservice.json/),
             apiHandler('crm-addresses', /crm\/contact\/[\w\d-]+\/data\.json/, get),
             apiHandler('crm-address', /crm\/contact\/[\w\d-]+\/data\/[\w\d-]+\.json/),
@@ -331,7 +333,7 @@ window.ServiceFactory = (function() {
             apiHandler('crm-contacts', /crm\/contact\/company\/[\w\d-]+\/person\.json/, get),
             apiHandler('crm-contacts', /crm\/[case|opportunity]+\/[\w\d-]+\/contact\.json/, get),
             apiHandler('crm-contacts', /crm\/contact\/access\.json/),
-            apiHandler('crm-contacts', /crm\/contact\/[\w\d-]+\/access\.json/),
+            apiHandler('crm-contacts', /crm\/contact\/[\w\d-]+\/access\.json/, put),
             apiHandler('crm-cases', /crm\/case\/access\.json/),
             apiHandler('crm-cases', /crm\/case\/[\w\d-]+\/access\.json/),
             apiHandler('crm-opportunities', /crm\/opportunity\/access\.json/),
@@ -1645,7 +1647,8 @@ window.ServiceFactory = (function() {
                 project: response.project,
                 timeSpend: response.timeSpend,
                 comments: response.comments ? response.comments : [],
-                canCreateComment: response.canCreateComment
+                canCreateComment: response.canCreateComment,
+                customTaskStatus: response.customTaskStatus
             });
         },
 
@@ -1676,6 +1679,7 @@ window.ServiceFactory = (function() {
                 displayDateStart: getDisplayDate(startdate),
                 responsibles: response.responsibles,
                 status: response.status > 2 ? 1 : response.status,
+                customTaskStatus: response.customTaskStatus,
                 statusname: getTaskStatusName(response.status > 2 ? 1 : response.status),
                 priority: response.priority,
                 subtasksCount: response.subtasksCount,
@@ -1888,6 +1892,7 @@ window.ServiceFactory = (function() {
             person.isAdministrator = response.isAdministrator;
             person.isManager = response.isManager;
             person.department = response.department || "";
+            person.isRemovedFromTeam = response.isRemovedFromTeam;
             return person;
         },
 
@@ -1923,6 +1928,7 @@ window.ServiceFactory = (function() {
                 displayTimeCreation: getDisplayTime(creationdate),
                 hours: response.hours,
                 note: response.note,
+                status: response.paymentStatus,
                 paymentStatus: response.paymentStatus,
                 statusChanged: getDisplayDate(statusChangedDate),
                 canEditPaymentStatus: response.canEditPaymentStatus,
@@ -2128,7 +2134,9 @@ window.ServiceFactory = (function() {
             });
         },
 
-        file: function(response) {
+        file: function (response) {
+            if (!response) return undefined;
+
             var title = response.title ? response.title : '';
 
             var filename = title.substring(0, title.lastIndexOf('.'));
@@ -2289,6 +2297,7 @@ window.ServiceFactory = (function() {
                 displayName: response.displayName,
                 isCompany: response.isCompany,
                 isPrivate: response.isPrivate,
+                accessList: response.accessList,
                 isShared: response.isShared,
                 shareType: response.shareType,
                 smallFotoUrl: response.smallFotoUrl,

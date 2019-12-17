@@ -260,12 +260,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         internal DriveFile GetDriveEntry(string driveId)
         {
-            var entry = CacheEntry.Get<DriveFile>("drive-" + ID + driveId);
+            var entry = CacheEntry.Get<DriveFile>("drive-" + ID + "-" + driveId);
             if (entry == null)
             {
                 entry = Storage.GetEntry(driveId);
                 if (entry != null)
-                    CacheEntry.Insert("drive-" + ID + driveId, entry, DateTime.UtcNow.Add(CacheExpiration));
+                    CacheEntry.Insert("drive-" + ID + "-" + driveId, entry, DateTime.UtcNow.Add(CacheExpiration));
             }
             return entry;
         }

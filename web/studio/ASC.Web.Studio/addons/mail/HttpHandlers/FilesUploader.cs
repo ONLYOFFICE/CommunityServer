@@ -91,6 +91,7 @@ namespace ASC.Web.Mail.HttpHandlers
 
                 var mailId = Convert.ToInt32(context.Request["messageId"]);
                 var copyToMy = Convert.ToInt32(context.Request["copyToMy"]);
+                var needSaveToTemp = Convert.ToBoolean(context.Request["needSaveToTemp"]);
 
                 if (mailId < 1)
                     throw new AttachmentsException(AttachmentsException.Types.MessageNotFound,
@@ -137,7 +138,7 @@ namespace ASC.Web.Mail.HttpHandlers
 
                 mailAttachmentData = engine.AttachmentEngine
                     .AttachFileToDraft(TenantId, Username, mailId, fileName, postedFile.InputStream,
-                        postedFile.ContentLength);
+                        postedFile.ContentLength, null, postedFile.NeedSaveToTemp);
 
                 return new FileUploadResult
                 {

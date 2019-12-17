@@ -78,7 +78,7 @@ namespace ASC.Web.Files.HttpHandlers
                         return;
 
                     case ChunkedRequestType.Initiate:
-                        var createdSession = FileUploader.InitiateUpload(request.FolderId, request.FileId, request.FileName, request.FileSize);
+                        var createdSession = FileUploader.InitiateUpload(request.FolderId, request.FileId, request.FileName, request.FileSize, request.Encrypted);
                         WriteSuccess(context, ToResponseObject(createdSession, true));
                         return;
 
@@ -318,6 +318,11 @@ namespace ASC.Web.Files.HttpHandlers
 
                     return _cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, culture, StringComparison.InvariantCultureIgnoreCase));
                 }
+            }
+
+            public bool Encrypted
+            {
+                get { return _request["encrypted"] == "true"; }
             }
 
             private HttpPostedFileBase File

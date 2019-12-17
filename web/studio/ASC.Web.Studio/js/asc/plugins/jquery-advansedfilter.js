@@ -791,6 +791,33 @@
         }
     }
 
+    function resetTextFilter($container) {
+        var
+            $this = $container.find('input.advansed-filter-input:first'),
+            filtervalue = null,
+            filtervalues = $container.data('filtervalues'),
+            filtervaluesInd = 0;
+
+        if (!filtervalues || filtervalues.length === 0) {
+            return undefined;
+        }
+
+        filtervaluesInd = filtervalues.length;
+        while (filtervaluesInd--) {
+            if (filtervalues[filtervaluesInd].id === 'text') {
+                break;
+            }
+        }
+
+        $this.val('');
+
+        if (filtervaluesInd !== -1) {
+            filtervalue = filtervalues[filtervaluesInd];
+            filtervalue.params = null;
+            filtervalue.isset = false; 
+        }
+        $container.data('filtervalues', filtervalues);
+    }
     /* <flag> */
 
     function onUserFilterFlagSelectValue($container, $filteritem, filtervalue, nonetrigger) {
@@ -1529,7 +1556,7 @@
         if ($sortercontainer.length > 0) {
             $sortercontainer.addClass('sorter-isset');
             if (title) {
-                $sortercontainer.find('span.value:first').text(title);
+                $sortercontainer.find('span.value:first').text(title).attr("title", title);
             }
             sortercontainerWidth = $container.hasClass('disable-sorter-block') ? 0 : $sortercontainer.width();
             $filtercontainer.css('margin-right', (sortercontainerWidth > 0 ? sortercontainerWidth + 38 : 0) + 22 + 'px');
@@ -2592,6 +2619,8 @@
                     return getStorageHash($container);
                 case 'storage':
                     return getLocalStorageFilters();
+                case 'resetText':
+                    return resetTextFilter($container);
                 case 'resize':
                     if ($container.is(":visible")) {
                         onBodyClick();

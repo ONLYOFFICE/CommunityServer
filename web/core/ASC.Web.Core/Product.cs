@@ -55,8 +55,6 @@ namespace ASC.Web.Core
 
         public virtual void Shutdown() { }
 
-        public virtual string ExtendedDescription { get { return Description; } }
-
         WebItemContext IWebItem.Context { get { return ((IProduct)this).Context; } }
 
         Guid IWebItem.ID { get { return ProductID; } }

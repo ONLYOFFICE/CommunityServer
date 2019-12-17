@@ -465,10 +465,6 @@
       }
     }
 
-    if (jq.browser.mobile === true) {
-      return $selects;
-    }
-
     selectsInd = $selects.length;
     while (selectsInd--) {
       select = $selects[selectsInd];

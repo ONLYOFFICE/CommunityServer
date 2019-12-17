@@ -211,16 +211,17 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         }
 
-        public void SendAboutExportCompleted(Guid recipientID, String filePath)
+        public void SendAboutExportCompleted(Guid recipientID, String fileName, String filePath)
         {
             if (recipientID == Guid.Empty) return;
 
             var recipient = ToRecipient(recipientID);
 
-            client.SendNoticeToAsync(NotifyConstants.Event_ExportCompleted,
+            client.SendNoticeToAsync(CoreContext.Configuration.CustomMode ? NotifyConstants.Event_ExportCompletedCustomMode : NotifyConstants.Event_ExportCompleted,
                null,
                new[] { recipient },
                true,
+               new TagValue(NotifyConstants.Tag_EntityTitle, fileName),
                new TagValue(NotifyConstants.Tag_EntityRelativeURL, filePath));
 
         }
@@ -256,7 +257,7 @@ namespace ASC.Web.CRM.Services.NotifyService
             }
 
             client.SendNoticeToAsync(
-                NotifyConstants.Event_ImportCompleted,
+                CoreContext.Configuration.CustomMode ? NotifyConstants.Event_ImportCompletedCustomMode : NotifyConstants.Event_ImportCompleted,
                 null,
                 new[] { recipient },
                 true,

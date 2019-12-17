@@ -61,7 +61,7 @@ namespace ASC.Api.Impl.Routing
                     //Access-Control-Max-Age: 1728000  
                     //context.Response.Headers["Access-Control-Allow-Origin"] = "*";
                     context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE";
-                    context.Response.Headers["Access-Control-Allow-Headers"] = "origin, authorization, accept";
+                    context.Response.Headers["Access-Control-Allow-Headers"] = "origin, authorization, accept, content-type";
                     context.Response.Headers["Access-Control-Max-Age"] = "1728000";
 
                 }

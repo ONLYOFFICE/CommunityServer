@@ -59,7 +59,10 @@ window.userFoldersDropdown = (function($) {
                     "check_callback": true,
                     "multiple": false,
                     "force_text": true,
-                    'data': loadTree
+                    'data': loadTree,
+                    "keyboard": {
+                        "f2": false
+                    }
                 },
                 "themes": {
                     "theme": "default",
@@ -80,6 +83,11 @@ window.userFoldersDropdown = (function($) {
                     "draft": {
                         "valid_children": ["none"],
                         "icon": "menu-item-icon drafts",
+                        "max_depth": 1
+                    },
+                    "template": {
+                        "valid_children": ["none"],
+                        "icon": "menu-item-icon templates",
                         "max_depth": 1
                     },
                     "spam": {
@@ -229,6 +237,18 @@ window.userFoldersDropdown = (function($) {
                     selected: false
                 },
                 a_attr: { href: "#drafts" },
+                children: false
+            },
+            {
+                id: idPrefixDefault + TMMail.sysfolders.templates.id,
+                parent: "#",
+                text: TMMail.sysfolders.templates.displayName,
+                type: "template",
+                state: {
+                    opened: false,
+                    disabled: false,
+                    selected: false
+                },
                 children: false
             },
             {

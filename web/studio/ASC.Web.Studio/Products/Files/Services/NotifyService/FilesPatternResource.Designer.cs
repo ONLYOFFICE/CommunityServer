@@ -87,6 +87,21 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1. &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
+        ///
+        ///This is a mail message to notify you that you have mentioned by &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot;.
+        ///
+        ///$Message
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.^.
+        /// </summary>
+        public static string pattern_EditorMentions {
+            get {
+                return ResourceManager.GetString("pattern_EditorMentions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1. Mailing completed
         ///
         ///This is a mail message to notify you that you have requested the mailing of $MailsCount messages and the process is now complete. $Message
@@ -106,9 +121,7 @@ namespace ASC.Web.Files.Services.NotifyService {
         ///
         ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot; document with the following access rights: &quot;$AccessRights&quot;. 
         ///
-        ///$Message 
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the shared documents, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionCo [rest of string was truncated]&quot;;.
+        ///$Message.
         /// </summary>
         public static string pattern_ShareDocument {
             get {
@@ -121,9 +134,7 @@ namespace ASC.Web.Files.Services.NotifyService {
         ///
         ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentTitle&quot;:&quot;$__VirtualRootPath/products/files/#$FolderID&quot; folder with the following access rights: &quot;$AccessRights&quot;. 
         ///
-        ///$Message 
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the shared folders, please man [rest of string was truncated]&quot;;.
+        ///$Message.
         /// </summary>
         public static string pattern_ShareFolder {
             get {
@@ -162,6 +173,15 @@ namespace ASC.Web.Files.Services.NotifyService {
         public static string subject_DocuSignStatus {
             get {
                 return ResourceManager.GetString("subject_DocuSignStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents. Mentioned in document.
+        /// </summary>
+        public static string subject_EditorMentions {
+            get {
+                return ResourceManager.GetString("subject_EditorMentions", resourceCulture);
             }
         }
         

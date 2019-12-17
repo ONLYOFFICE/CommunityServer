@@ -111,6 +111,7 @@ ASC.People.Import = (function () {
         separator = 0,
         delimiter = 0,
         resources,
+        userNameRegExp,
         uploadFile,
         maxFileSize = 512000,
         saveResponse,
@@ -157,7 +158,6 @@ ASC.People.Import = (function () {
         $errorBox,
         $errorBubble,
         $okImportUsers,
-        $importAreaBlock,
         $saveSettingsBtn,
         $importAsCollaborators,
         $importBtn,
@@ -167,8 +167,6 @@ ASC.People.Import = (function () {
         $infoMessage,
         $fromHand,
         $addDefaultHeader,
-        $userList,
-        $deleteUserButton,
         $importUsers,
         $mainPageContent,
         $restr;
@@ -178,6 +176,7 @@ ASC.People.Import = (function () {
         teamlab = Teamlab;
         isValidEmail = ASC.Mail.Utility.IsValidEmail;
         resources = ASC.People.Resources.Import;
+        userNameRegExp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
         flatUploader = initUploader('import_flatUploader',
             'ajaxupload.ashx?type=ASC.Web.People.Core.Import.ContactsUploader,ASC.Web.People&obj=txt');
         msUploader = initUploader('import_msUploader',
@@ -502,16 +501,15 @@ ASC.People.Import = (function () {
             $lastName.val('').blur();
             $email.val('').blur();
             $firstName.focus();
-
         } else {
             checkValuesBeforeAdd(address, !isValidEmail(address), $email, $eaError);
-            checkValuesBeforeAdd(lastName, lastName == lName, $lastName, $lnError);
-            checkValuesBeforeAdd(firstName, firstName == fName, $firstName, $fnError);
+            checkValuesBeforeAdd(lastName, lastName == lName || !userNameRegExp.test(lastName), $lastName, $lnError);
+            checkValuesBeforeAdd(firstName, firstName == fName || !userNameRegExp.test(firstName), $firstName, $fnError);
         }
     };
 
-    function checkValuesBeforeAdd(currentVal, equalState, $inputControl, $errorControl) {
-        if (currentVal == '' || equalState) {
+    function checkValuesBeforeAdd(currentVal, hasError, $inputControl, $errorControl) {
+        if (currentVal == '' || hasError) {
             $inputControl.addClass(classIncorrectBox);
             makeVisible($errorControl);
             $inputControl.focus();
@@ -524,12 +522,14 @@ ASC.People.Import = (function () {
     function isContainErrors(items, firstName, lastName, address) {
         return isExists(items, address, true)
             || address == ''
+            || address == email
+            || !isValidEmail(address)
             || firstName == ''
             || firstName == fName
+            || !userNameRegExp.test(firstName)
             || lastName == ''
             || lastName == lName
-            || !isValidEmail(address)
-            || address == email;
+            || !userNameRegExp.test(lastName);
     };
 
     function wasFocused($elementName) {
@@ -697,7 +697,6 @@ ASC.People.Import = (function () {
         var users = getUsers();
         var importUsersAsCollaborators = $importAsCollaborators.is(':checked');
         var inputUsers = $userList.find(classUserItem);
-        var regexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
         var error = 0;
 
         if (users.length > 0) {
@@ -709,8 +708,8 @@ ASC.People.Import = (function () {
                     isEmptyInputFirst = users[i].FirstName.trim() === '',
                     isEmptyInputLast = users[i].LastName.trim() === '',
                     isEmptyInputEmail = users[i].Email.trim() === '',
-                    isFirstValid = regexp.test(users[i].FirstName),
-                    isLastValid = regexp.test(users[i].LastName),
+                    isFirstValid = userNameRegExp.test(users[i].FirstName),
+                    isLastValid = userNameRegExp.test(users[i].LastName),
                     isEmailValid = isValidEmail(users[i].Email);
 
                 if (isEmptyInputFirst || isEmptyInputLast || isEmptyInputEmail || !isFirstValid || !isLastValid || !isEmailValid) {
@@ -983,7 +982,12 @@ ASC.People.Import = (function () {
         jq('#upload').hide();
         $userList.html('');
         saveResponse = response;
-        var result = JSON.parse(response);
+        try {
+            var result = JSON.parse(response);
+        } catch (e) {
+            console.log(e);
+            result = {Success: false};
+        }
 
         if (result.Success) {
             var extractedUsers = JSON.parse(result.Message);

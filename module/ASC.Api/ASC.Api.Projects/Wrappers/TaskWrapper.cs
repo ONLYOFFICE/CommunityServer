@@ -30,7 +30,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -86,6 +85,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 54, EmitDefaultValue = false)]
         public SimpleMilestoneWrapper Milestone { get; set; }
 
+        [DataMember(Order = 55, EmitDefaultValue = false)]
+        public int? CustomTaskStatus { get; set; }
+
         private TaskWrapper()
         {
         }
@@ -102,6 +104,7 @@ namespace ASC.Api.Projects.Wrappers
                 Status = 1;
             }
 
+            CustomTaskStatus = task.CustomTaskStatus;
 
             Deadline = (task.Deadline == DateTime.MinValue ? null : new ApiDateTime(task.Deadline, TimeZoneInfo.Local));
             Priority = task.Priority;

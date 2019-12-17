@@ -34,16 +34,16 @@
    BreadCrumbs
 *************************************************************/
 #filesBreadCrumbs {
-    border-bottom: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1;
     display: none;
     height: 33px;
 }
 .to-parent-folder {
     display: inline-block;
     cursor: pointer;
-    margin: 1px 4px 0 1px;
+    margin: 0 4px 0 0;
     outline: none;
-    padding-left: 5px;
+    padding-left: 6px;
     width: 70px;
 }
 .to-parent-folder .up {
@@ -81,15 +81,18 @@
 body.media-width-0-1200 .files-content-panel {
     padding-bottom: 28px;
 }
-
+.contentMenu {
+    border-bottom: none;
+    margin-bottom: 0;
+}
 #mainContent {
-    border: 1px solid transparent;
     min-height: 450px;
     min-width: 660px;
     overflow: hidden;
 }
 #mainContent.selected {
     border: 1px dashed #bbb;
+    margin: -1px;
 }
 #filesMainContent {
     display: none;
@@ -102,6 +105,9 @@ body.media-width-0-1200 .files-content-panel {
     list-style: none outside none;
     padding: 6px 0 5px;
     z-index: 98;
+}
+.file-row:first-child {
+    border-top: 1px solid #d1d1d1;
 }
 .file-row div {
     float: left;
@@ -218,6 +224,7 @@ body.media-width-0-1200 .files-content-panel {
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
+    line-height: 22px;
     outline: none;
 }
 .file-row .entry-title .name a .file-extension {
@@ -225,6 +232,7 @@ body.media-width-0-1200 .files-content-panel {
     display: inline;
     font-size: 14px;
     font-weight: normal;
+    line-height: 19px;
 }
 .file-row.row-hover:hover .entry-title .name a {
     text-decoration: underline;
@@ -440,9 +448,11 @@ ul.without-share .btn-row {
 }
 #filesMainContent.compact .file-row .entry-title .name a {
     font-size: 12px;
+    line-height: 17px;
 }
 #filesMainContent.compact .file-row .entry-title .name a .file-extension {
     font-size: 11px;
+    line-height: 15px;
 }
 #filesMainContent.compact .thumb-file
 #filesMainContent.compact .thumb-folder {

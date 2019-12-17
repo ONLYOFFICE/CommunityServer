@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Projects.Core.Domain;
@@ -98,32 +97,32 @@ namespace ASC.Web.Projects.Classes
                 var projectSecurity = scope.Resolve<ProjectSecurity>();
                 if (!projectSecurity.CanReadFiles(project, userId)) return false;
 
-            if (project.Status == ProjectStatus.Closed
-                && action != SecurityAction.Read)
-                return false;
+                if (project.Status == ProjectStatus.Closed
+                    && action != SecurityAction.Read)
+                    return false;
 
                 if (projectSecurity.IsAdministrator(userId)) return true;
 
                 var projectEngine = scope.Resolve<EngineFactory>().ProjectEngine;
 
-                var folder = entry as Folder;
-                if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId)
-                    return true;
-
-                var file = entry as File;
-                if (file != null && file.CreateBy == userId) return true;
+                var inTeam = projectEngine.IsInTeam(project.ID, userId);
 
                 switch (action)
                 {
                     case SecurityAction.Read:
-                        return !project.Private || projectEngine.IsInTeam(project.ID, userId);
+                        return !project.Private || inTeam;
                     case SecurityAction.Create:
                     case SecurityAction.Edit:
-                        return projectEngine.IsInTeam(project.ID, userId) &&
-                               (!projectSecurity.IsVisitor(userId) ||
-                                folder != null && folder.FolderType == FolderType.BUNCH);
+                        Folder folder;
+                        return inTeam
+                               && (!projectSecurity.IsVisitor(userId)
+                                   || (folder = entry as Folder) != null && folder.FolderType == FolderType.BUNCH);
                     case SecurityAction.Delete:
-                        return !projectSecurity.IsVisitor(userId) && project.Responsible == userId;
+                        return inTeam
+                               && !projectSecurity.IsVisitor(userId)
+                               && (project.Responsible == userId ||
+                                   (entry.CreateBy == userId
+                                    && ((folder = entry as Folder) == null || folder.FolderType == FolderType.DEFAULT)));
                     default:
                         return false;
                 }

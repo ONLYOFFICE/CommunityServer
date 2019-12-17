@@ -48,14 +48,6 @@
 
     <div id="settingCommon">
         <span class="header-base"><%= FilesUCResource.SettingUpdateIfExist %></span>
-
-        <br />
-        <br />
-        <input type="checkbox" id="cbxUpdateIfExist" class="update-if-exist on-off-checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
-        <label for="cbxUpdateIfExist">
-            <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>") %>
-        </label>
-
         <% if (FileConverter.EnableAsUploaded)
            { %>
         <br />
@@ -65,13 +57,38 @@
             <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
         </label>
         <% } %>
-
         <br />
         <br />
         <input type="checkbox" id="cbxDeleteConfirm" class="on-off-checkbox" <%= FilesSettings.ConfirmDelete ? "checked=\"checked\"" : string.Empty %> />
         <label for="cbxDeleteConfirm">
             <%= FilesUCResource.ConfirmDelete %>
         </label>
+
+        <br />
+        <br />
+        <br />
+        <span class="header-base"><%= FilesUCResource.SettingVersions %></span>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxUpdateIfExist" class="update-if-exist on-off-checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxUpdateIfExist">
+            <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>") %>
+        </label>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxForcesave" class="on-off-checkbox" <%= FilesSettings.Forcesave ? "checked='checked'" : "" %> />
+        <label for="cbxForcesave">
+            <%= FilesUCResource.SettingForcesave %>
+        </label>
+        <% if (Global.IsAdministrator) 
+           { %>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxStoreForcesave" class="on-off-checkbox" <%= FilesSettings.StoreForcesave ? "checked='checked'" : "" %> />
+        <label for="cbxStoreForcesave">
+            <%= FilesUCResource.SettingStoreForcesave %>
+        </label>
+        <% } %>
 
         <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop) 
            { %>

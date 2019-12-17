@@ -34,7 +34,18 @@ namespace ASC.Mail.Core.Engine.Operations.Base
         CheckDomainDns,
         RemoveUserFolder,
         ApplyFilter,
-        ApplyAnyFilters
+        ApplyAnyFilters,
+        DownloadAllAttachments
+    }
+
+    public enum MailOperationDownloadAllAttachmentsProgress
+    {
+        Init = 1,
+        GetAttachments = 5,
+        Zipping = 10,
+        ArchivePreparation = 85,
+        CreateLink = 90,
+        Finished = 100
     }
 
     public enum MailOperationRemoveMailboxProgress

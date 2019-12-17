@@ -31,7 +31,7 @@ using ASC.Notify.Recipients;
 
 namespace ASC.Core.Notify
 {
-    class DirectSubscriptionProvider : ISubscriptionProvider
+    public class DirectSubscriptionProvider : ISubscriptionProvider
     {
         private readonly IRecipientProvider recipientProvider;
         private readonly SubscriptionManager subscriptionManager;

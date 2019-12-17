@@ -28,8 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
 using System.Threading;
+
+using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
@@ -222,11 +223,11 @@ namespace ASC.Data.Backup.Service
             }
 
             var progress = new BackupProgress
-                {
-                    IsCompleted = progressItem.IsCompleted,
-                    Progress = (int)progressItem.Percentage,
-                    Error = progressItem.Error != null ? ((Exception)progressItem.Error).Message : null
-                };
+            {
+                IsCompleted = progressItem.IsCompleted,
+                Progress = (int)progressItem.Percentage,
+                Error = progressItem.Error != null ? ((Exception)progressItem.Error).Message : null
+            };
 
             var backupProgressItem = progressItem as BackupProgressItem;
             if (backupProgressItem != null)
@@ -284,6 +285,7 @@ namespace ASC.Data.Backup.Service
 
                 var backupName = string.Format("{0}_{1:yyyy-MM-dd_HH-mm-ss}.{2}", CoreContext.TenantManager.GetTenant(TenantId).TenantAlias, DateTime.UtcNow, ArchiveFormat);
                 var tempFile = Path.Combine(TempFolder, backupName);
+                var storagePath = tempFile;
                 try
                 {
                     var backupTask = new BackupPortalTask(Log, TenantId, configPaths[currentRegion], tempFile, limit);
@@ -296,7 +298,6 @@ namespace ASC.Data.Backup.Service
                     backupTask.RunJob();
 
                     var backupStorage = BackupStorageFactory.GetBackupStorage(StorageType, TenantId, StorageParams);
-                    var storagePath = tempFile;
                     if (backupStorage != null)
                     {
                         storagePath = backupStorage.Upload(StorageBasePath, tempFile, UserId);
@@ -306,18 +307,18 @@ namespace ASC.Data.Backup.Service
                     var repo = BackupStorageFactory.GetBackupRepository();
                     repo.SaveBackupRecord(
                         new BackupRecord
-                            {
-                                Id = (Guid)Id,
-                                TenantId = TenantId,
-                                IsScheduled = IsScheduled,
-                                FileName = Path.GetFileName(tempFile),
-                                StorageType = StorageType,
-                                StorageBasePath = StorageBasePath,
-                                StoragePath = storagePath,
-                                CreatedOn = DateTime.UtcNow,
-                                ExpiresOn = StorageType == BackupStorageType.DataStore ? DateTime.UtcNow.AddDays(1) : DateTime.MinValue,
-                                StorageParams = StorageParams
-                            });
+                        {
+                            Id = (Guid)Id,
+                            TenantId = TenantId,
+                            IsScheduled = IsScheduled,
+                            FileName = Path.GetFileName(tempFile),
+                            StorageType = StorageType,
+                            StorageBasePath = StorageBasePath,
+                            StoragePath = storagePath,
+                            CreatedOn = DateTime.UtcNow,
+                            ExpiresOn = StorageType == BackupStorageType.DataStore ? DateTime.UtcNow.AddDays(1) : DateTime.MinValue,
+                            StorageParams = StorageParams
+                        });
 
                     Percentage = 100;
 
@@ -338,7 +339,10 @@ namespace ASC.Data.Backup.Service
                 {
                     try
                     {
-                        File.Delete(tempFile);
+                        if (!(storagePath == tempFile && StorageType == BackupStorageType.Local))
+                        {
+                            File.Delete(tempFile);
+                        }
                     }
                     catch (Exception error)
                     {
@@ -407,18 +411,15 @@ namespace ASC.Data.Backup.Service
 
                     if (restoreTask.Dump)
                     {
-                        var tenants = CoreContext.TenantManager.GetTenants();
-                        tenants.Add(tenant);
-
-                        foreach (var t in tenants)
+                        if (Notify)
                         {
-                            t.SetStatus(TenantStatus.Active);
-                            CoreContext.TenantManager.SaveTenant(t);
+                            AscCache.OnClearCache();
+                            var tenants = CoreContext.TenantManager.GetTenants();
+                            foreach (var t in tenants)
+                            {
+                                NotifyHelper.SendAboutRestoreCompleted(t.TenantId, Notify);
+                            }
                         }
-
-                        CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                        restoredTenant = tenant;
                     }
                     else
                     {
@@ -433,21 +434,18 @@ namespace ASC.Data.Backup.Service
                             restoredTenant.MappedDomain = tenant.MappedDomain;
                         }
                         CoreContext.TenantManager.SaveTenant(restoredTenant);
+
+                        // sleep until tenants cache expires
+                        Thread.Sleep(TimeSpan.FromMinutes(2));
+
+                        NotifyHelper.SendAboutRestoreCompleted(restoredTenant.TenantId, Notify);
                     }
 
                     Percentage = 75;
 
                     File.Delete(tempFile);
 
-                    if (!restoreTask.Dump)
-                    {
-                        // sleep until tenants cache expires
-                        Thread.Sleep(TimeSpan.FromMinutes(2));
-                    }
-
                     Percentage = 100;
-
-                    NotifyHelper.SendAboutRestoreCompleted(restoredTenant.TenantId, Notify);
                 }
                 catch (Exception error)
                 {

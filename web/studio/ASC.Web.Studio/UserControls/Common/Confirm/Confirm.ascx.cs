@@ -46,12 +46,11 @@ namespace ASC.Web.Studio.UserControls.Common
         public string Value { get; set; }
         public string SelectTitle { get; set; }
         public string AdditionalID { get; set; }
-        public string SelectJSCallback { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             _studioConfirm.Options.IsPopup = true;
-            _confirmEnterCode.Value = String.Format("StudioConfirm.Select('{0}',{1});", AdditionalID, SelectJSCallback);
+            _confirmEnterCode.Value = String.Format("StudioConfirm.Select('{0}');", AdditionalID);
 
             Page.RegisterBodyScripts("~/UserControls/Common/Confirm/js/confirm.js");
         }

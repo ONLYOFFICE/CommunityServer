@@ -238,6 +238,16 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             return eventId == 0 ? null : GetEventById(eventId);
         }
+        public Event GetEventIdOnlyByUid(string uid)
+        {
+            var sql = new SqlQuery("calendar_events")
+                .Select("id")
+                .Where(Exp.Like("uid", uid));
+
+            var eventId = db.ExecuteScalar<int>(sql);
+
+            return eventId == 0 ? null : GetEventById(eventId);
+        }
         public List<Calendar> GetCalendarsByIds(object[] calIds)
         {
             var cc = new ColumnCollection();
@@ -664,7 +674,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                         string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
                         var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + ":" + currentAccountPaswd));
 
-                        var caldavTask = new Task(() => RemoveCaldavCalendar(currentUserName, _email, currentAccountPaswd, encoded, caldavGuid, myUri));
+                        var caldavTask = new Task(() => RemoveCaldavCalendar(currentUserName, _email, currentAccountPaswd, encoded, caldavGuid.ToString(), myUri));
                         caldavTask.Start();
                     }
                 }
@@ -696,11 +706,11 @@ namespace ASC.Api.Calendar.BusinessObjects
             }
         }
 
-        private void RemoveCaldavCalendar(string currentUserName, string email, string currentAccountPaswd, string encoded, Guid calDavGuid, Uri myUri)
+        public void RemoveCaldavCalendar(string currentUserName, string email, string currentAccountPaswd, string encoded, string calDavGuid, Uri myUri, bool isShared = false)
         {
             var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
             var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + HttpUtility.UrlEncode(currentAccountPaswd) + "@");
-            var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + calDavGuid;
+            var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + (isShared ? calDavGuid + "-shared" : calDavGuid);
 
             try
             {
@@ -1075,6 +1085,17 @@ namespace ASC.Api.Calendar.BusinessObjects
                 .Where("e.owner_id", SecurityContext.CurrentAccount.ID)
                 .Where("c.owner_id", SecurityContext.CurrentAccount.ID)
                 .Where("c.ical_url", null);
+
+            var eventId = db.ExecuteScalar<int>(sql);
+
+            return eventId == 0 ? null : GetEventById(eventId);
+        }
+        public Event GetEventOnlyByUid(string eventUid)
+        {
+            var sql = new SqlQuery("calendar_events e")
+                .Select("e.id")
+                .Where("e.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
+                .Where("e.uid", eventUid);
 
             var eventId = db.ExecuteScalar<int>(sql);
 

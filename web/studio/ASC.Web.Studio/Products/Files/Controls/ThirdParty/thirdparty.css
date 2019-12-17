@@ -303,13 +303,6 @@ only screen and (                min-resolution: 2dppx)
 /*******************************************************************************
     Third Party editor dialog
 *******************************************************************************/
-.empty-login-data {
-    left: -10000px;
-    height: 0;
-    position: absolute;
-    width: 0;
-}
-
 #thirdPartyPanel {
     margin-top: -10px;
 }

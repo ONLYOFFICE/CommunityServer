@@ -6,7 +6,6 @@
 
 <script language="javascript" type="text/javascript">
     var WikiPlugName = 'fck_wysiwyg';
-    var WikiMobile = '<%= ASC.Web.Core.Mobile.MobileDetector.IsMobile %>';
     function WikiConfigAdditionalInfo(config) {
         config.Plugins.Add(WikiPlugName, 'en,ru,fr,es,de,lv,it');
         config.WikiSignature = '--~~~~';

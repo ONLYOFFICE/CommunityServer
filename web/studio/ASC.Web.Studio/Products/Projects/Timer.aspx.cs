@@ -26,16 +26,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Resources;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects
 {
@@ -85,20 +85,24 @@ namespace ASC.Web.Projects
 
             UserProjects = EngineFactory.ProjectEngine.GetByFilter(new TaskFilter
             {
-                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open},
+                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open },
                 SortBy = "title",
                 SortOrder = true
-            }).Where(r=> r.TaskCountTotal > 0).ToList();
+            }).Where(r => r.TaskCountTotal > 0).ToList();
 
             if (UserProjects.Any() && (Project == null || !UserProjects.Contains(Project)))
                 Project = UserProjects.First();
 
-            var tasks = EngineFactory.TaskEngine.GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty).Where(r=> ProjectSecurity.CanCreateTimeSpend(r)).ToList();
+            var tasks = EngineFactory.TaskEngine.GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty).Where(r => ProjectSecurity.CanCreateTimeSpend(r)).ToList();
 
             OpenUserTasks = tasks.Where(r => r.Status == TaskStatus.Open).OrderBy(r => r.Title);
             ClosedUserTasks = tasks.Where(r => r.Status == TaskStatus.Closed).OrderBy(r => r.Title);
 
-            Users = EngineFactory.ProjectEngine.GetProjectTeamExcluded(Project.ID).OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo)).Where(r => !r.UserInfo.IsVisitor()).ToList();
+            Users = EngineFactory.ProjectEngine.GetProjectTeamExcluded(Project.ID)
+                .OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo))
+                .Where(r => !r.UserInfo.IsVisitor())
+                .Where(r => !r.IsRemovedFromTeam || tasks.Any(t => t.Responsibles.Contains(r.ID)))
+                .ToList();
 
             if (!string.IsNullOrEmpty(Request.QueryString["taskId"]))
             {

@@ -24,21 +24,18 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Notify;
 using ASC.Notify.Patterns;
-using ASC.Notify.Recipients;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
-using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace ASC.Web.Files.Services.NotifyService
 {
@@ -103,13 +100,9 @@ namespace ASC.Web.Files.Services.NotifyService
                 if (fileEntry.FileEntryType == FileEntryType.File
                     && folderDao.GetFolder(((File)fileEntry).FolderID) == null) return;
 
-                String url;
-                if (fileEntry.FileEntryType == FileEntryType.File)
-                {
-                    url = FilesLinkUtility.GetFileWebPreviewUrl(fileEntry.Title, fileEntry.ID);
-                }
-                else
-                    url = PathProvider.GetFolderUrl(((Folder)fileEntry));
+                var url = fileEntry.FileEntryType == FileEntryType.File
+                              ? FilesLinkUtility.GetFileWebPreviewUrl(fileEntry.Title, fileEntry.ID)
+                              : PathProvider.GetFolderUrl(((Folder)fileEntry));
 
                 var recipientsProvider = NotifySource.Instance.GetRecipientsProvider();
 
@@ -135,6 +128,30 @@ namespace ASC.Web.Files.Services.NotifyService
                         new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode())
                         );
                 }
+            }
+        }
+
+        public static void SendEditorMentions(FileEntry file, string documentUrl, List<Guid> recipientIds, string message)
+        {
+            if (file == null || recipientIds.Count == 0) return;
+
+            var recipientsProvider = NotifySource.Instance.GetRecipientsProvider();
+
+            foreach (var recipientId in recipientIds)
+            {
+                var u = CoreContext.UserManager.GetUsers(recipientId);
+
+                var recipient = recipientsProvider.GetRecipient(u.ID.ToString());
+
+                Instance.SendNoticeAsync(
+                    NotifyConstants.Event_EditorMentions,
+                    file.UniqID,
+                    recipient,
+                    true,
+                    new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title),
+                    new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(documentUrl)),
+                    new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode())
+                    );
             }
         }
 

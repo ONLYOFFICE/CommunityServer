@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -41,16 +40,19 @@ namespace ASC.Api.Projects.Wrappers
         public int ID { get; set; }
 
         [DataMember(Name = "title")]
-        public String Title { get; set; }
+        public string Title { get; set; }
 
         [DataMember(Name = "description")]
-        public String Description { get; set; }
+        public string Description { get; set; }
 
         [DataMember(Name = "deadline")]
         public ApiDateTime Deadline { get; set; }
 
         [DataMember(Order = 20)]
         public int Status { get; set; }
+
+        [DataMember(Order = 55, EmitDefaultValue = false)]
+        public int? CustomTaskStatus { get; set; }
 
         [DataMember(Order = 50)]
         public ApiDateTime Created { get; set; }
@@ -106,12 +108,13 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool CanDelete { get; set; }
 
-        public SimpleTaskWrapper(ProjectApiBase projectApiBase,Task task)
+        public SimpleTaskWrapper(ProjectApiBase projectApiBase, Task task)
         {
             ID = task.ID;
             Title = task.Title;
             Description = task.Description;
             Status = (int)task.Status;
+            CustomTaskStatus = task.CustomTaskStatus;
 
             if (task.Responsibles != null)
             {

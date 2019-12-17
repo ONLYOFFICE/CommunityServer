@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Mail;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.FederatedLogin.LoginProviders;
@@ -107,7 +108,7 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     file_xlt_21 = CommonLinkUtility.GetFullAbsolutePath("~/UserControls/Common/ckeditor/plugins/filetype/images/file_xlt_21.png"),
                     file_xltm_21 = CommonLinkUtility.GetFullAbsolutePath("~/UserControls/Common/ckeditor/plugins/filetype/images/file_xltm_21.png"),
                     file_xltx_21 = CommonLinkUtility.GetFullAbsolutePath("~/UserControls/Common/ckeditor/plugins/filetype/images/file_xltx_21.png"),
-                    IsTurnOnAttachmentsGroupOperations = Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.attachments-group-operations"] ?? "false"),
+                    IsTurnOnAttachmentsGroupOperations = Defines.IsAttachmentsGroupOperationsAvailable,
                     IsTurnOnOAuth = GoogleLoginProvider.Instance.IsEnabled && Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.google-oauth"] ?? "true"),
                     OAuthLocation = VirtualPathUtility.ToAbsolute(OAuth.Location),
                     userDisplayFormat = (int) UserFormatter.GetUserDisplayDefaultOrder()

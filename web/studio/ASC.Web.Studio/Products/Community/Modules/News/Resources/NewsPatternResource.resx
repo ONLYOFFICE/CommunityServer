@@ -140,9 +140,7 @@ $Date "$UserName":"$UserURL" has added a new poll: "$Caption":"$URL"
 
 "Vote":"$URL"
 
-#end
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new added events, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+#end</value>
   </data>
   <data name="pattern_new_text_comment" xml:space="preserve">
     <value>h1.#if($FEED_TYPE == "poll")New Comment to Poll#end#if($FEED_TYPE == "feed")New Comment to Event#end: "$Caption":"$URL"
@@ -151,9 +149,7 @@ $Date "$UserName":"$UserURL" has added a new comment to the "$Caption":"$URL" #i
 
 $CommentBody
 
-"Read More":"$CommentURL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this event, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$CommentURL"</value>
   </data>
   <data name="subject_new_text" xml:space="preserve">
     <value>Community. #if($FEED_TYPE == "poll")New poll added#end#if($FEED_TYPE == "feed")New event added#end: $Caption</value>

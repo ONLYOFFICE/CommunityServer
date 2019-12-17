@@ -31,6 +31,8 @@ using ASC.Api.Attributes;
 using ASC.Mail.Core.Engine;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Utils;
+using ASC.Mail.Core.Engine.Operations.Base;
+using System.Threading;
 
 // ReSharper disable InconsistentNaming
 
@@ -135,6 +137,23 @@ namespace ASC.Api.Mail
                     return attachment;
                 }
             }
+        }
+
+        /// <summary>
+        /// Download all attachments from message
+        /// </summary>
+        /// <short>
+        /// Download all attachments from message
+        /// </short>
+        /// <param name="messageId">Id of message</param>
+        /// <returns>Attachment Archive</returns>
+        [Update(@"messages/attachment/downloadall/{messageId}")]
+        public MailOperationStatus DownloadAllAttachments(int messageId)
+        {
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+            return MailEngineFactory.OperationEngine.DownloadAllAttachments(messageId, TranslateMailOperationStatus);
         }
     }
 }

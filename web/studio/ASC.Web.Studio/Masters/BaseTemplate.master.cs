@@ -49,6 +49,7 @@ using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
+using ASC.Web.Core.Utility.Skins;
 
 namespace ASC.Web.Studio.Masters
 {
@@ -83,8 +84,8 @@ namespace ASC.Web.Studio.Masters
             MetaDescription.Content = Resource.MetaDescription.HtmlEncode();
             MetaDescriptionOG.Content = Resource.MetaDescription.HtmlEncode();
             MetaTitleOG.Content = (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode();
-            CanonicalURLOG.Content = HttpContext.Current.Request.Url.Scheme +"://"+ HttpContext.Current.Request.Url.Host;
-            MetaImageOG.Content = SetupInfo.MetaImageURL;
+            CanonicalURLOG.Content = HttpContext.Current.Request.Url.Scheme + "://" + Request.GetUrlRewriter().Host;
+            MetaImageOG.Content = WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/fb_icon_325x325.jpg");
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -167,7 +168,6 @@ namespace ASC.Web.Studio.Masters
                     {
                         if (TenantAnalyticsSettings.LoadForCurrentUser().Analytics)
                         {
-                            GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
                             GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptPersonal.ascx"));
                         }
                     }
@@ -175,7 +175,6 @@ namespace ASC.Web.Studio.Masters
                     {
                         if (TenantAnalyticsSettings.Load().Analytics)
                         {
-                            GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
                             GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx"));
                         }
                     }
@@ -185,7 +184,6 @@ namespace ASC.Web.Studio.Masters
                      && WizardSettings.Load().Analytics
                      && SecurityContext.IsAuthenticated)
             {
-                GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
                 GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptOpenSource.ascx"));
             }
 

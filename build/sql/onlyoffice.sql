@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `calendar_events` (
   `repeat_type` smallint(6) NOT NULL DEFAULT '0',
   `owner_id` char(38) NOT NULL,
   `alert_type` smallint(6) NOT NULL DEFAULT '0',
-  `rrule` varchar(255) DEFAULT NULL,
+  `rrule` text NOT NULL,
   `uid` varchar(255) DEFAULT NULL,
   `status` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -808,6 +808,38 @@ CREATE TABLE IF NOT EXISTS `crm_voip_number` (
   KEY `tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `encrypted_data` (
+	`public_key` VARCHAR(512) NOT NULL,
+	`file_hash` VARCHAR(512) NOT NULL,
+	`data` VARCHAR(512) NOT NULL,
+	`create_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`tenant_id` INT(10) NOT NULL,
+	PRIMARY KEY (`public_key`, `file_hash`),
+	INDEX `tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `dbip_location` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`addr_type` ENUM('ipv4','ipv6') NOT NULL,
+	`ip_start` VARCHAR(39) NOT NULL,
+	`ip_end` VARCHAR(39) NOT NULL,
+	`country` VARCHAR(2) NOT NULL,
+	`stateprov` VARCHAR(255) NOT NULL,
+	`district` VARCHAR(255) NULL DEFAULT NULL,
+	`city` VARCHAR(255) NOT NULL,
+	`zipcode` VARCHAR(255) NULL DEFAULT NULL,
+	`latitude` FLOAT NULL DEFAULT NULL,
+	`longitude` FLOAT NULL DEFAULT NULL,
+	`geoname_id` INT(11) NULL DEFAULT NULL,
+	`timezone_offset` INT(10) NULL DEFAULT NULL,
+	`timezone_name` VARCHAR(255) NULL DEFAULT NULL,
+	`processed` INT(11) NOT NULL DEFAULT '1',
+	PRIMARY KEY (`id`),
+	INDEX `ip_start` (`ip_start`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS `dbsync_last` (
   `last_key` varchar(128) NOT NULL,
   `last_date` datetime NOT NULL,
@@ -950,6 +982,7 @@ CREATE TABLE IF NOT EXISTS `files_file` (
   `comment` varchar(255) DEFAULT NULL,
   `changes` mediumtext,
   `encrypted` int(1) NOT NULL DEFAULT '0',
+  `forcesave` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`tenant_id`,`id`,`version`),
   KEY `modified_on` (`modified_on`),
   KEY `folder_id` (`folder_id`),
@@ -1983,6 +2016,23 @@ CREATE TABLE IF NOT EXISTS `projects_subtasks` (
   KEY `task_id` (`tenant_id`,`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE  IF NOT EXISTS `projects_status` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`description` VARCHAR(255) NOT NULL,
+	`statusType` TINYINT(2) NOT NULL,
+	`image` TEXT NOT NULL,
+	`imageType` VARCHAR(50) NOT NULL,
+	`color` CHAR(7) NOT NULL,
+	`order` TINYINT(3) UNSIGNED NOT NULL,
+	`isDefault` TINYINT(1) NOT NULL,
+	`available` TINYINT(1) NOT NULL,
+	`tenant_id` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `tenant` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE IF NOT EXISTS `projects_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
@@ -2002,6 +2052,7 @@ CREATE TABLE IF NOT EXISTS `projects_tasks` (
   `responsible_id` char(38) DEFAULT '00000000-0000-0000-0000-000000000000',
   `priority` int(11) NOT NULL,
   `status` int(11) NOT NULL,
+  `status_id` SMALLINT(6) NULL DEFAULT NULL,
   `status_changed` datetime NOT NULL DEFAULT '2000-01-01 00:00:00',
   `project_id` int(11) NOT NULL,
   `milestone_id` int(11) DEFAULT NULL,

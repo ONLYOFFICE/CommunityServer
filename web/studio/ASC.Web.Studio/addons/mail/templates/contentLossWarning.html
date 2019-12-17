@@ -1,0 +1,18 @@
+﻿<script id="contentLossWarning" type="text/x-jquery-tmpl">
+    <div id="content-loss" class="popup">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="body">
+                        <p class="question">${ASC.Mail.Resources.MailScriptResource.SaveTemplateText}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="buttons">
+            <a class="button blue middle ok" onclick="messagePage.saveMessageTemplate();popup.hide();window.location.href = '#templates';">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</a>
+            <a class="button gray middle ok" onclick="window.location.href = '#templates';popup.hide();">${ASC.Mail.Resources.MailScriptResource.DoNotSave}</a>
+            <a class="button gray middle cancel">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</a>
+        </div>
+    </div>
+</script>

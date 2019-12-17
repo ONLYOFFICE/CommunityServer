@@ -5,8 +5,13 @@
                 <li class="menuAction blue btnSend unlockAction">
                     <span title="${ASC.Mail.Resources.MailResource.SendBtnLabel}">${ASC.Mail.Resources.MailResource.SendBtnLabel}</span>
                 </li>
-                <li class="menuAction btnSave unlockAction">
-                    <span title="${ASC.Mail.Resources.MailResource.SaveBtnLabel}">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</span>
+                <li class="menuAction btnSaveDropdown unlockAction openDropdown">
+                    {{if $item.data.folder != 7}}
+                    <div class="btnSave buttonDropdown bodyDropdown" title="${ASC.Mail.Resources.MailResource.SaveBtnLabel}">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</div>
+                    {{else}}
+                    <div class="btnSaveTemplate buttonDropdown bodyDropdown" title="${ASC.Mail.Resources.MailResource.SaveTemplate}">${ASC.Mail.Resources.MailResource.SaveTemplate}</div>
+                    {{/if}}
+                    <span class="arrowDropdown" title="Dropdown" onselectstart="return false" onmousedown="return false">&nbsp</span>
                 </li>
                 <li class="menuAction btnDelete unlockAction">
                     <span title="${ASC.Mail.Resources.MailResource.DeleteBtnLabel}">${ASC.Mail.Resources.MailResource.DeleteBtnLabel}</span>
@@ -15,11 +20,15 @@
                     <span title="${ASC.Mail.Resources.MailResource.AddTag}">${ASC.Mail.Resources.MailResource.AddTag}</span>
                     <div class="down_arrow"></div>
                 </li>
+                <li class="menuAction btnAddTemplate unlockAction">
+                    <span title="${ASC.Mail.Resources.MailResource.FolderNameTemplates}">${ASC.Mail.Resources.MailResource.FolderNameTemplates}</span>
+                    <div class="down_arrow"></div>
+                </li>
                 <li style="float: left; padding: 1px 5px 1px;">
                     <span id="newMessageSaveMarker"></span>
                 </li>
                 <li class="menu-action-on-close pull-right">
-                    <a class="on-close-link" onclick="javascript:window.messagePage.closeCompose();">
+                    <a class="on-close-link">
                         ×
                     </a>
                 </li>
@@ -128,7 +137,8 @@
             <a {{if handlerUrl == ''}} 
                     href="javascript: void(0)" onclick="return false" class="unloded" 
                {{else}} 
-                    href="${handlerUrl}" target="_blank"
+                    href="${handlerUrl}" 
+                    {{if handlerUrl.slice(0, 11) !== 'javascript:'}} target="_blank"{{/if}}
                {{/if}} 
                     title="${fileName}"
                {{if isImage == true}}
@@ -173,7 +183,7 @@
                         <span class="file-load-result uploaded-text" title="${ASC.Mail.Resources.MailAttachmentsResource.UploadedLabel} (${ASC.Mail.Resources.MailAttachmentsResource.WarningLabel}: ${warn})">${ASC.Mail.Resources.MailAttachmentsResource.UploadedLabel} (${ASC.Mail.Resources.MailAttachmentsResource.WarningLabel}: ${warn})</span>
                     {{/if}}
                 {{else}}
-                    {{if fileId > 0}}
+                    {{if fileId > 0 }}
                         <span class="file-load-result uploaded-text" title="${ASC.Mail.Resources.MailAttachmentsResource.UploadedLabel}">${ASC.Mail.Resources.MailAttachmentsResource.UploadedLabel}</span>
                     {{/if}}
                 {{/if}}
@@ -181,7 +191,7 @@
             {{if attachAsLinkOffer}}
                 <span class="attach-filelink-btn red-text" onclick="AttachmentManager.AttachFileLink('${docId}', '${orderNumber}')">${ASC.Mail.Resources.MailAttachmentsResource.AttachViaLinkBtn}</span>
             {{/if}}
-            <div id="item_progress_${orderNumber}" class="attachment-progress" {{if fileId > 0 || error != ''}} style="display:none;" {{/if}}>
+            <div id="item_progress_${orderNumber}" class="attachment-progress" {{if fileId > 0 || $item.isTempAttach || error != ''}} style="display:none;" {{/if}}>
                 <div class="fu-progress-cell">
                     <div class="upload-progress">
                         <span class="progress-slider progress-color" style="width:0;">&nbsp;</span>
@@ -233,7 +243,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <span id="documents_browse_btn" class="attachLink" onclick="javascript:DocumentsPopup.showPortalDocUploader();return false;">
+                                        <span id="documents_browse_btn" class="attachLink" onclick="javascript:if(messagePage.isMessageDirty() && AttachmentManager.NeedShowSavingPopup && TMMail.isTemplate()) {popup.addBig(window.MailScriptResource.SavingMessage, jq.tmpl('needSaveFirst'));return false;} else {DocumentsPopup.showPortalDocUploader();return false;}">
                                             <a class="link dotline plus" >${ASC.Mail.Resources.MailResource.AttachFilesFromDocsLabel}</a>
                                         </span>
                                     </td>

@@ -141,7 +141,7 @@ var DepartmentManagement = new function () {
         var $headAdvancedSelector = jq("#headAdvancedSelector"),
             $membersAdvancedSelector = jq("#membersAdvancedSelector");
 
-        if (gOwner && gOwner.id && gOwner.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// profile removed
+        if (gOwner && gOwner.id && gOwner.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// LostUser
             var $headCnt = jq("#departmentManager");
             $headCnt.find(".result-name").attr("data-id", gOwner.id).html(gOwner.displayName);
             $headCnt.removeClass("display-none");

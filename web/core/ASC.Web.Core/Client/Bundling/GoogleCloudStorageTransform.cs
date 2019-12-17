@@ -56,7 +56,7 @@ namespace ASC.Web.Core.Client.Bundling
         private static bool successInitialized = false;
 
         private static string _bucket = "";
-        private static string _jsonPath = "";
+        private static string _json = "";
         private static string _region = "";
 
         static GoogleCloudStorageTransform()
@@ -89,7 +89,7 @@ namespace ASC.Web.Core.Client.Bundling
                 {
                     if (h.Name == "cdn")
                     {
-                        _jsonPath = h.HandlerProperties["jsonPath"].Value;
+                        _json = h.HandlerProperties["json"].Value;
                         _bucket = h.HandlerProperties["bucket"].Value;
                         _region = h.HandlerProperties["region"].Value;
                         break;
@@ -106,13 +106,7 @@ namespace ASC.Web.Core.Client.Bundling
 
         private StorageClient GetStorage()
         {
-            GoogleCredential credential = null;
-
-            using (var jsonStream = new FileStream(_jsonPath, FileMode.Open,
-                FileAccess.Read, FileShare.Read))
-            {
-                credential = GoogleCredential.FromStream(jsonStream);
-            }
+            var credential = GoogleCredential.FromJson(_json);
 
             return StorageClient.Create(credential);
         }
@@ -182,7 +176,7 @@ namespace ASC.Web.Core.Client.Bundling
                             {
                                 objInfo = storage.GetObject(_bucket, key);
                             }
-                            catch(GoogleApiException  ex)
+                            catch (GoogleApiException ex)
                             {
                                 if (ex.HttpStatusCode == HttpStatusCode.NotFound)
                                 {
@@ -193,7 +187,7 @@ namespace ASC.Web.Core.Client.Bundling
                                     throw;
                                 }
                             }
-                        
+
                             if (objInfo != null)
                             {
                                 String contentMd5Hash = String.Empty;
@@ -213,7 +207,7 @@ namespace ASC.Web.Core.Client.Bundling
                                     upload = true;
                             }
 
-                          
+
                             if (upload)
                             {
 

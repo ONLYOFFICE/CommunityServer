@@ -49,25 +49,25 @@
 
     <div class="source-text"><%= Resource.ImportWizardSecondStep %></div>
     <div id="importUsers">
-    <div class="blockUI blockMsg blockElement" id="upload"><img /></div>
+        <div class="blockUI blockMsg blockElement" id="upload"><img /></div>
         <div class="clearFix importUsers" id="panel">
             <div class="selectSource"><span><%= Resource.SelectDataSource %></span></div>
             <div class="import-from-file" id="import_flatUploader">
                 <div class="filetemp">
-                <%= Resource.ImportContactsFromFile %>
+                    <%= Resource.ImportContactsFromFile %>
                 </div>
-                 <p><%= string.Format(Resource.ImportFileCSV.HtmlEncode(), "<span class=\"swgIcons outlook\"><span>","<span class=\"swgIcons google\"><span>","<span class=\"swgIcons thunderbird\"><span>")%></p>
+                <p><%= string.Format(Resource.ImportFileCSV.HtmlEncode(), "<span class=\"swgIcons outlook\"><span>","<span class=\"swgIcons google\"><span>","<span class=\"swgIcons thunderbird\"><span>")%></p>
             </div>
-            <div style="z-index:1;" class="frame">
+            <div id="fromHand" class="file" title="<%= Resource.ImportContactsFromFile %>">
+                <p><%= Resource.ImportButtonManually %></p>
+            </div>
+            <div style="z-index: 1;" class="frame">
                 <% if (Import.Enable)
-                   { %>
+                    { %>
                 <iframe src="<%= Import.Location %>" style="border: none; height: 64px; width: 382px; overflow: hidden; filter: alpha(opacity=100); float: left;" frameborder="0" scrolling="no" id="ifr"></iframe>
                 <% } %>
             </div>
-        <div id="fromHand" class="file" title="<%= Resource.ImportContactsFromFile %>">
-            <p><%= Resource.ImportButtonManually %></p>
         </div>
-    </div>
 
     <div id="wizard_users">
         <div id="deleteUserBlock">

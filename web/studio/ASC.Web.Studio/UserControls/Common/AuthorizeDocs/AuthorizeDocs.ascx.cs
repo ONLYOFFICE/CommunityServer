@@ -49,10 +49,17 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             get { return "~/UserControls/Common/AuthorizeDocs/AuthorizeDocs.ascx"; }
         }
+
         public static string LocationCustomMode
         {
             get { return "~/UserControls/Common/AuthorizeDocs/AuthorizeDocsCustomMode.ascx"; }
         }
+
+        protected bool RecaptchaEnable
+        {
+            get { return !string.IsNullOrEmpty(SetupInfo.RecaptchaPublicKey) && !string.IsNullOrEmpty(SetupInfo.RecaptchaPrivateKey); }
+        }
+        protected bool ShowRecaptcha;
 
         private readonly ICache cache = AscCache.Memory;
         protected string Login;
@@ -79,8 +86,8 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             HelpLink = GetHelpLink();
 
             PersonalFooterHolder.Controls.Add(LoadControl(CoreContext.Configuration.CustomMode
-                                                   ? PersonalFooter.PersonalFooter.LocationCustomMode
-                                                   : PersonalFooter.PersonalFooter.Location));
+                                                              ? PersonalFooter.PersonalFooter.LocationCustomMode
+                                                              : PersonalFooter.PersonalFooter.Location));
 
             if (AccountLinkControl.IsNotEmpty)
             {
@@ -91,10 +98,13 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
             if (IsPostBack)
             {
+                var loginCounter = 0;
+                ShowRecaptcha = false;
                 try
                 {
                     Login = Request["login"].Trim();
                     var password = Request["pwd"];
+
                     if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(password))
                     {
                         if (AccountLinkControl.IsNotEmpty
@@ -106,13 +116,40 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                         throw new InvalidCredentialException(Resource.InvalidUsernameOrPassword);
                     }
 
-                    int counter;
-                    int.TryParse(cache.Get<string>("loginsec/" + Login), out counter);
-                    if (++counter > 5 && !SetupInfo.IsSecretEmail(Login))
+                    if (!SetupInfo.IsSecretEmail(Login))
                     {
-                        throw new Authorize.BruteForceCredentialException();
+                        int.TryParse(cache.Get<string>("loginsec/" + Login), out loginCounter);
+
+                        loginCounter++;
+
+                        if (!RecaptchaEnable)
+                        {
+                            if (loginCounter > SetupInfo.LoginThreshold)
+                            {
+                                throw new Authorize.BruteForceCredentialException();
+                            }
+                        }
+                        else
+                        {
+                            if (loginCounter > SetupInfo.LoginThreshold - 1)
+                            {
+                                ShowRecaptcha = true;
+                            }
+                            if (loginCounter > SetupInfo.LoginThreshold)
+                            {
+                                var ip = Request.Headers["X-Forwarded-For"] ?? Request.UserHostAddress;
+
+                                var recaptchaResponse = Request["g-recaptcha-response"];
+                                if (String.IsNullOrEmpty(recaptchaResponse)
+                                    || !Authorize.ValidateRecaptcha(recaptchaResponse, ip))
+                                {
+                                    throw new Authorize.RecaptchaException();
+                                }
+                            }
+                        }
+
+                        cache.Insert("loginsec/" + Login, loginCounter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                     }
-                    cache.Insert("loginsec/" + Login, counter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
 
@@ -120,21 +157,30 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
                     MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
 
-                    cache.Insert("loginsec/" + Login, (--counter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
                 catch (InvalidCredentialException ex)
                 {
                     Auth.ProcessLogout();
-                    var isBruteForce = (ex is Authorize.BruteForceCredentialException);
-                    LoginMessage = isBruteForce
-                                       ? Resource.LoginWithBruteForce
-                                       : Resource.InvalidUsernameOrPassword;
+                    MessageAction messageAction;
+
+                    if (ex is Authorize.BruteForceCredentialException)
+                    {
+                        LoginMessage = Resource.LoginWithBruteForce;
+                        messageAction = MessageAction.LoginFailBruteForce;
+                    }
+                    else if (ex is Authorize.RecaptchaException)
+                    {
+                        LoginMessage = Resource.RecaptchaInvalid;
+                        messageAction = MessageAction.LoginFailRecaptcha;
+                    }
+                    else
+                    {
+                        LoginMessage = Resource.InvalidUsernameOrPassword;
+                        messageAction = MessageAction.LoginFailInvalidCombination;
+                    }
 
                     var loginName = string.IsNullOrWhiteSpace(Login) ? AuditResource.EmailNotSpecified : Login;
-
-                    var messageAction = isBruteForce
-                                            ? MessageAction.LoginFailBruteForce
-                                            : MessageAction.LoginFailInvalidCombination;
 
                     MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
 
@@ -153,6 +199,11 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     LoginMessage = ex.Message;
                     MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFail);
                     return;
+                }
+
+                if (loginCounter > 0)
+                {
+                    cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
                 var refererURL = (string)Session["refererURL"];

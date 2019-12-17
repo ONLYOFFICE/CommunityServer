@@ -25,11 +25,13 @@
 
 
 using System;
+using System.Security;
 using System.Web;
-using System.Linq;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Web.Studio.Utility;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Core
 {
@@ -133,15 +135,24 @@ namespace ASC.Web.Core
 
         public static void SetLifeTime(int lifeTime)
         {
+            if (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID))
+            {
+                throw new SecurityException();
+            }
+
             var tenant = TenantProvider.CurrentTenantID;
-            TenantCookieSettings settings = null;
+            var settings = TenantCookieSettings.GetForTenant(tenant);
 
             if (lifeTime > 0)
             {
-                settings = TenantCookieSettings.GetForTenant(tenant);
                 settings.Index = settings.Index + 1;
                 settings.LifeTime = lifeTime;
             }
+            else
+            {
+                settings.LifeTime = 0;
+            }
+
             TenantCookieSettings.SetForTenant(tenant, settings);
 
             var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
@@ -166,6 +177,22 @@ namespace ASC.Web.Core
 
                 SetCookies(CookiesType.AuthKey, cookie);
             }
+        }
+
+        public static void ResetTenantCookie()
+        {
+            if (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID))
+            {
+                throw new SecurityException();
+            }
+
+            var tenant = TenantProvider.CurrentTenantID;
+            var settings = TenantCookieSettings.GetForTenant(tenant);
+            settings.Index = settings.Index + 1;
+            TenantCookieSettings.SetForTenant(tenant, settings);
+
+            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
+            SetCookies(CookiesType.AuthKey, cookie);
         }
     }
 }

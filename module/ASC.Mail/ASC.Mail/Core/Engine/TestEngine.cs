@@ -90,7 +90,8 @@ namespace ASC.Mail.Core.Engine
             DateTime? date = null,
             List<int> tagIds = null,
             string fromAddress = null,
-            bool add2Index = false)
+            bool add2Index = false,
+            string mimeMessageId = null)
         {
             var folder = folderId.HasValue ? (FolderType) folderId.Value : FolderType.Inbox;
 
@@ -115,7 +116,7 @@ namespace ASC.Mail.Core.Engine
             if (mbox == null)
                 throw new ArgumentException("no such mailbox");
 
-            var mimeMessageId = MailUtil.CreateMessageId();
+            var internalId = string.IsNullOrEmpty(mimeMessageId) ? MailUtil.CreateMessageId() : mimeMessageId;
 
             var restoreFolder = folder == FolderType.Spam || folder == FolderType.Trash
                 ? FolderType.Inbox
@@ -143,9 +144,9 @@ namespace ASC.Mail.Core.Engine
             var sampleMessage = new MailMessage
             {
                 Date = date ?? DateTime.UtcNow,
-                MimeMessageId = mimeMessageId,
+                MimeMessageId = internalId,
                 MimeReplyToId = null,
-                ChainId = mimeMessageId,
+                ChainId = internalId,
                 ReplyTo = "",
                 To = string.Join(", ", to.ToArray()),
                 Cc = cc.Any() ? string.Join(", ", cc.ToArray()) : "",
@@ -192,6 +193,8 @@ namespace ASC.Mail.Core.Engine
                 return id;
 
             var message = _engineFactory.MessageEngine.GetMessage(id, new MailMessageData.Options());
+
+            message.IsNew = unread;
 
             var wrapper = message.ToMailWrapper(mbox.TenantId, new Guid(mbox.UserId));
 

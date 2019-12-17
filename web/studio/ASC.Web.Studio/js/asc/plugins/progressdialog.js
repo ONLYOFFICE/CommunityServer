@@ -38,7 +38,7 @@ ProgressDialog = (function () {
 
     var resources, methods;
 
-    function init(res, jqElement, met) {
+    function init(res, jqElement, met, mode) {
 
         if (jq("#progressDialog").length) return;
         loadingBanner = LoadingBanner;
@@ -46,11 +46,19 @@ ProgressDialog = (function () {
         resources = res;
         methods = met;
 
-        jqElement.append(
-            jq.tmpl("progressDialogTmpl", {
-                header: resources.header || "",
-                footer: resources.footer || ""
-            }));
+        if (mode && mode === 1) {
+            jqElement.append(
+                jq.tmpl("progressBarTmpl", {
+                    header: resources.header || "",
+                    percentage: resources.percentage || 0
+                }));
+        } else { // Default mode
+            jqElement.append(
+                jq.tmpl("progressDialogTmpl", {
+                    header: resources.header || "",
+                    footer: resources.footer || ""
+                }));
+        }
 
         jq("#bottomLoaderPanel").draggable(
             {
@@ -64,7 +72,9 @@ ProgressDialog = (function () {
 
         jq("#progressDialog").off("click").on("click", ".progress-error", showErrorText);
 
-        getStatus();
+        if (methods !== null) {
+            getStatus();
+        }
     }
 
     function showErrorText() {
@@ -115,6 +125,11 @@ ProgressDialog = (function () {
         }
 
         progressBar.next().text(value + "%");
+    }
+
+    function setProgress(percentage, status) {
+        setProgressValue("#progressDialog progress", percentage);
+        jq('#progressDialog').find('#progressDialogHeader').text(status);
     }
 
     function show() {
@@ -176,6 +191,8 @@ ProgressDialog = (function () {
 
 
     function terminate() {
+        if (methods === null)  return close();
+
         if (methods.terminate) {
             methods.terminate(
             {
@@ -260,7 +277,9 @@ ProgressDialog = (function () {
 
     return {
         init: init,
+        show: show,
         close: close,
-        generate: generate
+        generate: generate,
+        setProgress: setProgress
     };
 })();

@@ -54,7 +54,7 @@
                         <span class="gray-text"><%=NewsResource.Total%>: </span>
                         <span class="gray-text" style="margin-right: 20px;"><%=FeedsCount%></span>
                         <span class="gray-text"><%=NewsResource.ShowOnPage%>: </span>
-                        <select class="top-align">
+                        <select class="<%= FeedsCount > 1 ? "top-align display-none" : "display-none" %>">
                             <option value="20">20</option>
                             <option value="50">50</option>
                             <option value="75">75</option>

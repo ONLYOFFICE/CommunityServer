@@ -71,7 +71,7 @@ namespace ASC.Core.Tenants
         {
             var defaultSettings = GetInstance();
 
-            return Index == defaultSettings.Index && LifeTime == defaultSettings.LifeTime;
+            return LifeTime == defaultSettings.LifeTime;
         }
 
 

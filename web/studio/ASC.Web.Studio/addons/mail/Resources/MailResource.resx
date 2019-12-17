@@ -1408,6 +1408,18 @@ All messages which were received before, will be left in the CRM mailing history
   <data name="MailBoxSelectorNoResult" xml:space="preserve">
     <value>No such mailbox</value>
   </data>
+  <data name="FolderNameTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="AddTemplate" xml:space="preserve">
+    <value>Add template</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Save template</value>
+  </data>
+  <data name="ReplaceMessageBody" xml:space="preserve">
+    <value>Completely replace text of the email when you insert a template</value>
+  </data>
   <data name="RequestNotificationHint" xml:space="preserve">
     <value>Request notification</value>
   </data>

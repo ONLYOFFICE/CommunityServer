@@ -153,7 +153,7 @@ ASC.Projects.PageNavigator = (function () {
 
         if (!data || !data.hasOwnProperty(paginationKey)) {
             pagination = {
-                entryCountOnPage: paginationKey === "discussionsKeyForPagination" ? 10 : ASC.Projects.Master.EntryCountOnPage,
+                entryCountOnPage: paginationKey.startsWith("discussionsKeyForPagination") ? 10 : ASC.Projects.Master.EntryCountOnPage,
                 currentPage: 0
             };
         } else {
@@ -277,6 +277,7 @@ ASC.Projects.Base = (function () {
         templatesResource = resources.ProjectTemplatesResource,
         popup = {
             projectRemoveWarning: createPopupData([projectResource.DeleteProjectPopup, commonResource.PopupNoteUndone], projectResource.DeleteProject, projectResource.DeleteProject),
+            projectsRemoveWarning: createPopupData([projectResource.DeleteProjectsPopup, commonResource.PopupNoteUndone], projectResource.DeleteProjects, projectResource.DeleteProjects),
             taskRemoveWarning: createPopupData([tasksResource.RemoveTaskPopup, commonResource.PopupNoteUndone], tasksResource.RemoveTask, tasksResource.RemoveTask),
             tasksRemoveWarning: createPopupData([tasksResource.RemoveTasksPopup, commonResource.PopupNoteUndone], tasksResource.RemoveTasks, tasksResource.RemoveTasks),
             milestoneRemoveWarning: createPopupData([milestoneResource.DeleteMilestonePopup, commonResource.PopupNoteUndone], milestoneResource.DeleteMilestone, milestoneResource.DeleteMilestone),
@@ -431,29 +432,29 @@ ASC.Projects.Base = (function () {
             }
 
             selfGetFunc({}, {
-                filter: {Count: 0, StartIndex: 0},
+                filter: { Count: 0, StartIndex: 0 },
                 success: function (params) {
-            var emptyScreen;
+                    var emptyScreen;
                     if (filter.baseFilter || !params.__total) {
-                filter.hide();
-                emptyScreen = settings.baseEmptyScreen;
-            } else {
+                        filter.hide();
+                        emptyScreen = settings.baseEmptyScreen;
+                    } else {
                         filter.show();
-                emptyScreen = jq.extend(
-                {
-                    img: "filter",
-                    button: {
-                        title: ASC.Projects.Resources.ProjectsFilterResource.ClearFilter,
-                        clear: true,
-                                canCreate: function () { return true; }
+                        emptyScreen = jq.extend(
+                            {
+                                img: "filter",
+                                button: {
+                                    title: ASC.Projects.Resources.ProjectsFilterResource.ClearFilter,
+                                    clear: true,
+                                    canCreate: function () { return true; }
+                                }
+                            }, settings.filterEmptyScreen);
                     }
-                }, settings.filterEmptyScreen);
-            }
 
-            jq("#emptyScrCtrlPrj").html(jq.tmpl("projects_emptyScreen", emptyScreen)).show();
-            jq("#emptyScrCtrlPrj .addFirstElement").off(clickEvent).on(clickEvent, emptyScreen.button.onclick);
+                    jq("#emptyScrCtrlPrj").html(jq.tmpl("projects_emptyScreen", emptyScreen)).show();
+                    jq("#emptyScrCtrlPrj .addFirstElement").off(clickEvent).on(clickEvent, emptyScreen.button.onclick);
 
-            hideLoader();
+                    hideLoader();
                 }
             });
 
@@ -576,8 +577,8 @@ ASC.Projects.Base = (function () {
     function showActionsPanel() {
         var self = jq(this),
             offset = self.offset(),
-            x = offset.left - $actionPanel.outerWidth() + self.outerWidth(true),
-            y = calculateTopPosition(offset.top + self.outerHeight(), self);
+            x = calculateLeftPosition(offset, self),
+            y = calculateTopPosition(offset, self);
 
         $actionPanel.find('.dropdown-item').show();
         self.addClass(activeClass);
@@ -585,8 +586,9 @@ ASC.Projects.Base = (function () {
         $actionPanel.css({ left: x, top: y }).show();
     };
 
-    function calculateTopPosition(y, self) {
-        var panelHeight = $actionPanel.innerHeight(),
+    function calculateTopPosition(offset, self) {
+        var y = offset.top + self.outerHeight(),
+            panelHeight = $actionPanel.innerHeight(),
             w = jq(window),
             scrScrollTop = w.scrollTop(),
             scrHeight = w.height();
@@ -601,6 +603,17 @@ ASC.Projects.Base = (function () {
         }
 
         return y;
+    }
+
+    function calculateLeftPosition(offset, self) {
+        var $w = jq(window),
+            windowWidth = $w.width(),
+            leftPadding = $w.scrollLeft();
+        var x = offset.left;
+        if (offset.left + self.width() + $actionPanel.outerWidth() > leftPadding + windowWidth) {
+            x = x - $actionPanel.outerWidth() + self.outerWidth(true);
+        }
+        return x;
     }
 
     function unbindEvents() {

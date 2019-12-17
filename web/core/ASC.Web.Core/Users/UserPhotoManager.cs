@@ -162,7 +162,7 @@ namespace ASC.Web.Core.Users
                             }
                             var storage = GetDataStore();
                             storage.DeleteFiles("", data.UserID.ToString() + "*.*", false);
-                            SetCacheLoadedForTennant(false);
+                            SetCacheLoadedForTenant(false);
                         }
                         catch { }
                     }
@@ -377,12 +377,12 @@ namespace ASC.Web.Core.Users
         private static readonly HashSet<int> TenantDiskCache = new HashSet<int>();
         private static readonly object DiskCacheLoaderLock = new object();
 
-        private static bool IsCacheLoadedForTennant()
+        private static bool IsCacheLoadedForTenant()
         {
             return TenantDiskCache.Contains(TenantProvider.CurrentTenantID);
         }
 
-        private static bool SetCacheLoadedForTennant(bool isLoaded)
+        private static bool SetCacheLoadedForTenant(bool isLoaded)
         {
             return isLoaded ? TenantDiskCache.Add(TenantProvider.CurrentTenantID) : TenantDiskCache.Remove(TenantProvider.CurrentTenantID);
         }
@@ -390,7 +390,7 @@ namespace ASC.Web.Core.Users
 
         private static string SearchInCache(Guid userId, Size size)
         {
-            if (!IsCacheLoadedForTennant())
+            if (!IsCacheLoadedForTenant())
                 LoadDiskCache();
 
             string fileName;
@@ -422,7 +422,7 @@ namespace ASC.Web.Core.Users
         {
             lock (DiskCacheLoaderLock)
             {
-                if (!IsCacheLoadedForTennant())
+                if (!IsCacheLoadedForTenant())
                 {
                     try
                     {
@@ -446,7 +446,7 @@ namespace ASC.Web.Core.Users
                                 }
                             }
                         }
-                        SetCacheLoadedForTennant(true);
+                        SetCacheLoadedForTenant(true);
                     }
                     catch (Exception err)
                     {

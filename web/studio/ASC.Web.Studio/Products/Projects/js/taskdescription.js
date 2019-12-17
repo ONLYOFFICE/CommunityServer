@@ -25,8 +25,7 @@
 
 
 ASC.Projects.TaskDescriptionPage = (function() {
-    var isInit = false,
-        currentTask = {},
+    var currentTask = {},
         tasks = [],
         taskId = undefined,
         projId = undefined,
@@ -58,7 +57,6 @@ ASC.Projects.TaskDescriptionPage = (function() {
         $addTaskLinkButton,
         $createAddTaskLinkButton,
         $hintInvalidLink,
-        $followTaskActionTop,
         $subtaskContainer,
         $filesContainer,
         $commentContainer,
@@ -72,6 +70,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         projectsJsResource = resources.ProjectsJSResource,
         tasksResource = resources.TasksResource,
         common = baseObject.Common,
+        master = baseObject.Master,
         teamlab,
         attachments,
         loadingBanner,
@@ -80,11 +79,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
     var displayNoneClass = "display-none",
         clickEventName = "click";
 
-    var init = function() {
-        if (isInit === false) {
-            isInit = true;
-        }
-
+    var init = function () {
+        baseObject.Base.clearTables();
+        jq("#filterContainer").hide();
         $subtaskContainer = jq("#subtaskContainer");
         $filesContainer = jq("#filesContainer");
         $commentContainer = jq("#commonCommentsContainer");
@@ -128,20 +125,23 @@ ASC.Projects.TaskDescriptionPage = (function() {
         projId = jq.getURLParam("prjID");
 
         var id = jq.getURLParam("id");
-        if (id != null) {
-            teamlab.getPrjTask({}, id,
-                {
-                    success: onGetTaskDescription,
-                    error: function (params, errors) {
-                        if (errors[0] === "Item not found") {
-                            ASC.Projects.Base.setElementNotFound();
+
+        common.initCustomStatuses(function () {
+            if (id != null) {
+                teamlab.getPrjTask({},
+                    id,
+                    {
+                        success: onGetTaskDescription,
+                        error: function (params, errors) {
+                            if (errors[0] === "Item not found") {
+                                ASC.Projects.Base.setElementNotFound();
+                            }
                         }
-                    }
-            });
-        } else {
-            $followTaskActionTop.remove();
-            loadingBanner.hideLoading();
-        }
+                    });
+            } else {
+                loadingBanner.hideLoading();
+            }
+        });
     };
 
     function initAttachmentsControl() {
@@ -323,17 +323,17 @@ ASC.Projects.TaskDescriptionPage = (function() {
     // task actions
     function taCloseHandler() {
         if ($subtasks.find(".subtask").length != $subtasks.find(".subtask.closed").length) {
-            showQuestionWindow();
+            showQuestionWindow.call(this);
         }
         else {
-            closeTask();
+            closeTask.call(this);
         }
     };
 
     function taResumeHandler() {
         jq("body").css("cursor", "wait");
 
-        teamlab.updatePrjTask({}, taskId, { 'status': 1 }, { success: onChangeTaskStatus });
+        teamlab.updatePrjTask({}, taskId, { 'status': 1, "statusId": this.id }, { success: onChangeTaskStatus });
 
         jq(".pm_taskTitleClosedByPanel").hide();
     };
@@ -376,6 +376,30 @@ ASC.Projects.TaskDescriptionPage = (function() {
             else
                 closedBy = task.createdBy.displayName;
         }
+
+        var statusAvailable = task.createdBy.id === currentUserId ||
+            master.IsModuleAdmin ||
+            task.project.responsible.id === currentUserId;
+
+        var statuses = master.customStatuses
+            .filter(function (item) {
+                return statusAvailable || item.available;
+            })
+            .map(function(item) {
+                return {
+                    title: item.title,
+                    handler: item.statusType === 1 ? taResumeHandler : taCloseHandler,
+                    id: (Math.abs(item.id)).toString()
+                };
+            });
+
+        var currentStatus = master.customStatuses.find(function (item) {
+            if (task.customTaskStatus) {
+                return item.id === task.customTaskStatus;
+            }
+
+            return item.statusType === task.status;
+        });
         var descriptionTab = ASC.Projects.DescriptionTab;
         
         descriptionTab.init()
@@ -391,9 +415,8 @@ ASC.Projects.TaskDescriptionPage = (function() {
             .push(tasksResource.ClosingDate, task.status === 2 ? task.displayDateUptdate : '')
             .push(tasksResource.ClosedBy, closedBy)
             .push(resources.CommonResource.Description, jq.linksParser(formatDescription(task.description)))
-            .pushStatus(tasksResource.Open, 1, taResumeHandler)
-            .pushStatus(tasksResource.Closed, 2, taCloseHandler)
-            .setCurrentStatus(task.status)
+            .setStatuses(statuses)
+            .setCurrentStatus(currentStatus)
             .setStatusRight(currentTask.canEdit)
             .tmpl();
 
@@ -682,7 +705,11 @@ ASC.Projects.TaskDescriptionPage = (function() {
                 //linkTypeSelector.prop("disabled", false);
             }
         });
-    };
+
+        if (linksTab.selected) {
+            linksTab.select();
+        }
+    }
 
 
     function displayNewRelatedTask(link, element){
@@ -706,31 +733,21 @@ ASC.Projects.TaskDescriptionPage = (function() {
             jq.tmpl("projects_taskLinks", [taskForTmpl]).prependTo($relatedTasksCont);
         }
         $taskSelector.find("option[value=" + linkTaskId + "]").addClass(displayNoneClass);
-    };
+    }
 
     function displayTaskDescription(task) {
         displayTotalInfo(task);
         displaySubtasks(task);
         initCommentsBlock(task);
-    };
+    }
 
     function showQuestionWindow() {
-        ASC.Projects.Base.showCommonPopup("closedTaskQuestion", closeTask, cancelCloseTask);
-    };
+        ASC.Projects.Base.showCommonPopup("closedTaskQuestion", closeTask.bind(this), cancelCloseTask);
+    }
 
     function subscribeTask() {
         teamlab.subscribeToPrjTask({}, taskId, { success: function() {
             currentTask.isSubscribed = !currentTask.isSubscribed;
-
-            var subscribedClass = "subscribed", unsubscribedClass = "unsubscribed";
-
-            if (currentTask.isSubscribed) {
-                $followTaskActionTop.attr('title', tasksResource.UnfollowTask);
-                $followTaskActionTop.removeClass(unsubscribedClass).addClass(subscribedClass);
-            } else {
-                $followTaskActionTop.attr('title', tasksResource.FollowTask);
-                $followTaskActionTop.removeClass(subscribedClass).addClass(unsubscribedClass);
-            }
         }});
     };
 
@@ -761,6 +778,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
 
         if (currentTask.canCreateTimeSpend) {
             menuItems.push(new ActionMenuItem("ta_startTimer", resources.CommonResource.AutoTimer, taStartTimerHandler));
+        }
+
+        if (typeof (currentTask.isSubscribed) !== "undefined") {
+            menuItems.push(new ActionMenuItem("ta_follow", currentTask.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask, subscribeTask));
         }
 
         return { menuItems: menuItems };
@@ -860,7 +881,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
             button: {
                 title: tasksResource.CreateNewLink,
                 onclick: function () {
-                    $createAddTaskLinkButton.click();
+                    if (!$editLinkBox.is(":visible")) {
+                        $createAddTaskLinkButton.click();
+                    }
                 },
                 canCreate: function () {
                     return currentTask.status === 1 && currentTask.canEdit && listValidTaskForLink.length;
@@ -943,17 +966,11 @@ ASC.Projects.TaskDescriptionPage = (function() {
         timeTrackingTab.href = "timetracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id;
 
         var data = {
-            uplink: ASC.Projects.Common.UpLink || "tasks.aspx?prjID=" + task.projectId,
             icon: "tasks",
-            title: task.title,
-            subscribed: task.isSubscribed,
-            subscribedTitle: task.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask
+            title: task.title
         };
 
         baseObject.InfoContainer.init(data, showEntityMenu, [overViewTab, subtaskTab, documentsTab, linksTab, commentsTab, timeTrackingTab, ganttTab]);
-
-        $followTaskActionTop = jq('#subscribe');
-        $followTaskActionTop.on(clickEventName, subscribeTask);
 
         jq("#descriptionTab").show();
         loadingBanner.hideLoading();
@@ -1013,7 +1030,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         jq("body").css("cursor", "default");
         disableCreateLinkButton();
         jq.unblockUI();
-    };
+    }
 
     function onGetRelatedTasks(params, tasks){
         var taskCount = tasks.length;
@@ -1069,7 +1086,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
     function closeTask() {
         jq("body").css("cursor", "wait");
 
-        teamlab.updatePrjTask({}, taskId, { 'status': 2 }, { success: onChangeTaskStatus });
+        teamlab.updatePrjTask({}, taskId, { 'status': 2, 'statusId': this.id }, { success: onChangeTaskStatus });
     };
 
     function cancelCloseTask() {

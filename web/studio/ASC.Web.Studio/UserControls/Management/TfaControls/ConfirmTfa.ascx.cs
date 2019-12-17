@@ -69,7 +69,16 @@ namespace ASC.Web.Studio.UserControls.Management
             if (SecurityContext.IsAuthenticated && User.ID != SecurityContext.CurrentAccount.ID)
             {
                 Response.Redirect(GetRefererURL(), true);
-
+                return;
+            }
+            if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppAuthSettings.Enable)
+            {
+                Response.Redirect(GetRefererURL(), true);
+                return;
+            }
+            if (!Activation && !TfaAppUserSettings.EnableForUser(User.ID))
+            {
+                Response.Redirect(GetRefererURL(), true);
                 return;
             }
 

@@ -29,7 +29,6 @@ using System.Linq;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.Backup
 {
@@ -38,20 +37,20 @@ namespace ASC.Web.Studio.Core.Backup
         public const long AvailableZipSize = 10 * 1024 * 1024 * 1024L;
         private static readonly Guid mailStorageTag = new Guid("666ceac1-4532-4f8c-9cba-8f510eca2fd1");
 
-        public static BackupAvailableSize GetAvailableSize()
+        public static BackupAvailableSize GetAvailableSize(int tenantId)
         {
             if (CoreContext.Configuration.Standalone)
                 return BackupAvailableSize.Available;
 
-            var size = CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(TenantProvider.CurrentTenantID))
+            var size = CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(tenantId))
                       .Where(r => !string.IsNullOrEmpty(r.Tag) && new Guid(r.Tag) != Guid.Empty && !new Guid(r.Tag).Equals(mailStorageTag))
                       .Sum(r => r.Counter);
             if (size > AvailableZipSize)
             {
                 return BackupAvailableSize.NotAvailable;
             }
-            
-            size = TenantStatisticsProvider.GetUsedSize();
+
+            size = TenantStatisticsProvider.GetUsedSize(tenantId);
             if (size > AvailableZipSize)
             {
                 return BackupAvailableSize.WithoutMail;
@@ -60,12 +59,9 @@ namespace ASC.Web.Studio.Core.Backup
             return BackupAvailableSize.Available;
         }
 
-        public static bool ExceedsMaxAvailableSize
+        public static bool ExceedsMaxAvailableSize(int tenantId)
         {
-            get
-            {
-                return GetAvailableSize() != BackupAvailableSize.Available;
-            }
+            return GetAvailableSize(tenantId) != BackupAvailableSize.Available;
         }
     }
 

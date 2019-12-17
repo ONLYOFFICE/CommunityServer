@@ -41,7 +41,7 @@
             <ul id="shareViaSocPanel">
                 <% if (!Request.DesktopApp())
                    { %>
-                <li><a class="mail" title="<%= FilesUCResource.LinkViaMail %>"><span></span></a></li>
+                <li><a class="mail" title="<%= FilesUCResource.LinkViaMail %>" target="_blank"><span></span></a></li>
                 <% } %>
                 <% if (!CoreContext.Configuration.CustomMode)
                    { %>

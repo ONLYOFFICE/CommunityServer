@@ -241,6 +241,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notify Responsibles.
+        /// </summary>
+        public static string NotifyResponsibles {
+            get {
+                return ResourceManager.GetString("NotifyResponsibles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Manager.
         /// </summary>
         public static string ProjectLeader {

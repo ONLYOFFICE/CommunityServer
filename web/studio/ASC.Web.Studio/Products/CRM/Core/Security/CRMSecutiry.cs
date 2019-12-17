@@ -523,7 +523,7 @@ namespace ASC.CRM.Core
 
         public static bool IsPrivate(Contact contact)
         {
-            return !CanAccessTo(contact);
+            return contact.ShareType == ShareType.None;
         }
 
         #endregion

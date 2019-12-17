@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2018
  *
@@ -174,7 +174,7 @@ ASC.Projects.GantChart = (function (window) {
         kHandlerBeforeMenuAddTaskLink = '350',
         kHandlerBeforeChangeResponsibles = '360',
         kHanderShowTaskPopUpWindow = '500',
-        kHanderShowAddPopUpMenuWindow = '501',
+        kHanderShowTaskPopUpCustomWindow = '501',
         kHanderShowEditPopUpMenuWindow = '502',
         kHanderShowRespPopUpMenuWindow = '503',
         kHanderShowEditElemPopUpMenuWindow = '504',
@@ -272,6 +272,10 @@ ASC.Projects.GantChart = (function (window) {
 
         kDetailsWidgetSettings = { backgroundColor: '#ffffff', titleColor: '#999999', descriptionColor: '#666666', width: 170, maxWidth: 300 },
         lockImg = new Image();
+
+    function findCustomStatus(fn) {
+        return ASC.Projects.Master.customStatuses.find(fn);
+    }
 
     function deepCopy(obj) {
         if (!obj) { return obj; } // null, undefined values check
@@ -4959,11 +4963,17 @@ ASC.Projects.GantChart = (function (window) {
                             domLine.childNodes[5].style.left = statusX;
                             //domLine.childNodes[5].style.color = color;
 
-                            if (kElementCompleted === task._status) {
-                                domLine.childNodes[5].textContent = closeStatus;
-                            } else {
-                                domLine.childNodes[5].textContent = openStatus;
+                            var cs = findCustomStatus(function (item) {
+                                return task._customTaskStatus == item.id;
+                            });
+
+                            if (!cs) {
+                                cs = findCustomStatus(function (item) {
+                                    return task._status == item.statusType && item.isDefault;
+                                });
                             }
+
+                            domLine.childNodes[5].textContent = cs.title;
                         }
 
                         if (task._priority && showRowPrior) {
@@ -5695,6 +5705,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (undefined !== select.t && undefined !== select.m && undefined !== select.p) {
                 task = this.timeline.storage.getTask(select.p, select.m, select.t);
+                task.project = this.timeline.storage.getProject(select.p);
 
                 this.timeline._modelController.statusElement = {
                     p: select.p, m: select.m, t: select.t,
@@ -5702,12 +5713,15 @@ ASC.Projects.GantChart = (function (window) {
                     ids: this.timeline.storage.taskIds(select.p, select.m, select.t)
                 };
 
+                handler = this.timeline.handlers[kHanderShowTaskPopUpCustomWindow];
                 handler(task, coords, true);
+                delete task.project;
                 return true;
             }
 
             if (undefined !== select.t && undefined === select.m && undefined !== select.p) {
                 task = this.timeline.storage.getTask(select.p, undefined, select.t);
+                task.project = this.timeline.storage.getProject(select.p);
 
                 this.timeline._modelController.statusElement = {
                     p: select.p, m: select.m, t: select.t,
@@ -5715,7 +5729,9 @@ ASC.Projects.GantChart = (function (window) {
                     ids: this.timeline.storage.taskIds(select.p, select.m, select.t)
                 };
 
+                handler = this.timeline.handlers[kHanderShowTaskPopUpCustomWindow];
                 handler(task, coords, true);
+                delete task.project;
                 return true;
             }
 
@@ -8614,7 +8630,7 @@ ASC.Projects.GantChart = (function (window) {
         }
     };
 
-    function Task(id, owner, title, performer, description, begin, end, status, milestone, priority, subtasks, responsibles, links, beginFail) {
+    function Task(id, owner, title, performer, description, begin, end, status, customTaskStatus, milestone, priority, subtasks, responsibles, links, beginFail, createdBy) {
         this._id = parseInt(id);
         this._owner = parseInt(owner) || -1;
         this._title = title;
@@ -8624,6 +8640,7 @@ ASC.Projects.GantChart = (function (window) {
         this._beginDate = begin;
         this._endDate = end;
         this._status = status || kElementActive;
+        this._customTaskStatus = customTaskStatus;
         this.milestone = (undefined !== milestone) ? parseInt(milestone) : -1;
         this._priority = parseInt(priority) || 0;
         this._subtasks = subtasks || 0;
@@ -8649,6 +8666,7 @@ ASC.Projects.GantChart = (function (window) {
         // test time
         this.duration = Math.max(this.duration, 24);
         this.endTime = Math.max(this.endTime, this.beginTime + this.duration);
+        this.createdBy = createdBy;
 
         this._isMilestone = false;
 
@@ -8910,6 +8928,9 @@ ASC.Projects.GantChart = (function (window) {
         status: function () {
             return this._status;
         },
+        customTaskStatus: function () {
+            return this._customTaskStatus;
+        },
         subtasks: function () {
             return this._subtasks;
         },
@@ -8925,7 +8946,7 @@ ASC.Projects.GantChart = (function (window) {
     };
 
     function taskWithIds(p, m, t) { // p, m, t - id
-        return new Task(t, p, '', '', '', new Date(), new Date(), kElementActive, m);
+        return new Task(t, p, '', '', '', new Date(), new Date(), kElementActive, undefined, m);
     }
 
     function Milestone(id, owner, title, description, responsible, deadline, status, isKey) {
@@ -9924,7 +9945,7 @@ ASC.Projects.GantChart = (function (window) {
                 }
             }
         },
-        addTaskOperation: function (id, p, m, t) {
+        addTaskOperation: function (id, p, m, t, cs) {
             var tr = this.delegate;
             if (tr) {
 
@@ -9945,7 +9966,7 @@ ASC.Projects.GantChart = (function (window) {
                         tr.handlers[id](p, p['task'], p['parent']);    //  p - linkLineEdit
                     }
 
-                    return
+                    return;
                 } else if (kHandlerBeforeMoveTaskWithLinks === id) {
                     this.top = { id: id, move: p };
                     if (tr.handlers[id]) {
@@ -9978,7 +9999,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     case kHandlerBeforeChangeTaskStatus: {
                         if (tr.handlers[id]) {
-                            tr.handlers[id](ids.p, ids.m, ids.t, taskRef);
+                            tr.handlers[id](ids.p, ids.m, ids.t, taskRef, cs);
                         } else {
                             this.completeElement(this.top);
                         }
@@ -10002,7 +10023,7 @@ ASC.Projects.GantChart = (function (window) {
                         { this.completeElement(this.top); } break;
 
                     case kHandlerBeforeChangeTaskStatus:
-                        { this.completeElement(this.top); } break;
+                        { this.completeElement(this.top, arg); } break;
 
                     case kHandlerBeforeAddTaskLink:
                         { this.addLink(this.top.link); } break;
@@ -10147,7 +10168,7 @@ ASC.Projects.GantChart = (function (window) {
                 t.update();
             }
         },
-        completeElement: function (element) {
+        completeElement: function (element, cs) {
             var t = this.delegate, ref = null, oldStatus, newStatus;
             if (t) {
                 if (element.p === undefined) element.p = -1;
@@ -10195,13 +10216,8 @@ ASC.Projects.GantChart = (function (window) {
                     ref = t.storage.getTask(element.p, undefined, element.t);
                     if (ref) {
 
-                        newStatus = ref._status;
+                        newStatus = cs;
                         oldStatus = ref._status;
-
-                        if (newStatus != kElementCompleted)
-                            newStatus = kElementCompleted;
-                        else
-                            newStatus = kElementActive;
 
                         // undo
 
@@ -10212,7 +10228,12 @@ ASC.Projects.GantChart = (function (window) {
                                 taskId: element.ids.t, milestoneId: element.ids.m, projectId: element.ids.m
                             });
 
-                        ref._status = newStatus;
+                        var cs1 = findCustomStatus(function (item) {
+                            return item.id === newStatus;
+                        });
+
+                        ref._status = cs1.statusType;
+                        ref._customTaskStatus = newStatus;
 
                         //
 
@@ -10545,13 +10566,13 @@ ASC.Projects.GantChart = (function (window) {
 
         // create chart items
 
-        addTask: function (id, owner, title, performer, description, begin, end, status, milestone, priority, subtasks, responsibles, links, isUndoOperation, beginFail) {
+        addTask: function (id, owner, title, performer, description, begin, end, status, customTaskStatus, milestone, priority, subtasks, responsibles, links, isUndoOperation, beginFail, createdBy) {
             var t = this.delegate,
                 task = null,
                 element = null;
 
             if (t) {
-                task = new Task(id, owner, title, performer, description, begin, end, status, milestone, priority, subtasks, responsibles, links, beginFail);
+                task = new Task(id, owner, title, performer, description, begin, end, status, customTaskStatus, milestone, priority, subtasks, responsibles, links, beginFail, createdBy);
                 t.storage.addTask(task);
 
                 // undo
@@ -11607,13 +11628,8 @@ ASC.Projects.GantChart = (function (window) {
         finalizeStatus: function (status) {
             if (this.statusElement) {
                 if (undefined !== this.statusElement.t) {
-                    if (status) {
-                        status = kElementCompleted;
-                    } else {
-                        status = kElementActive;
-                    }
                     if (status !== this.statusElement.status) {
-                        this.addTaskOperation(kHandlerBeforeChangeTaskStatus, this.statusElement.p, this.statusElement.m, this.statusElement.t);
+                        this.addTaskOperation(kHandlerBeforeChangeTaskStatus, this.statusElement.p, this.statusElement.m, this.statusElement.t, status);
                     }
                 } else {
                     if (status) {
@@ -11638,19 +11654,12 @@ ASC.Projects.GantChart = (function (window) {
                             t.editElementTitle(this.statusElement.p, this.statusElement.m === undefined ? -1 : this.statusElement.m, this.statusElement.t);
                         } else if ('delete' === type) {
                             this.addTaskOperation(kHandlerBeforeDeleteTask, this.statusElement.p, this.statusElement.m, this.statusElement.t);
-                        } else if ('open' === type) {
+                        } else if (typeof(type) === "number") {
                             if (this.statusElement.ref) {
-                                if (kElementCompleted === this.statusElement.ref.status()) {
-                                    this.addTaskOperation(kHandlerBeforeChangeTaskStatus, this.statusElement.p, this.statusElement.m, this.statusElement.t);
+                                if (type !== this.statusElement.ref.customTaskStatus()) {
+                                    this.addTaskOperation(kHandlerBeforeChangeTaskStatus, this.statusElement.p, this.statusElement.m, this.statusElement.t, type);
                                 }
                             }
-                        } else if ('closed' === type) {
-                            if (this.statusElement.ref) {
-                                if (kElementCompleted !== this.statusElement.ref.status()) {
-                                    this.addTaskOperation(kHandlerBeforeChangeTaskStatus, this.statusElement.p, this.statusElement.m, this.statusElement.t);
-                                }
-                            }
-
                         } else if ('addlink' === type) {
                             if (kElementCompleted !== this.statusElement.task._status) {
                                 if (t.handlers[kHandlerBeforeMenuAddTaskLink]) {
@@ -14237,7 +14246,10 @@ ASC.Projects.GantChart = (function (window) {
             this.menuTask.addHandler(function () {
                 if (kElementCompleted === t.menuTask.ref._status) {
                     //if (t._modelController.checkStatus({p: t.menuTask.p, m: t.menuTask.m, t: t.menuTask.t})) {
-                    t._modelController.addTaskOperation(kHandlerBeforeChangeTaskStatus, t.menuTask.p, t.menuTask.m == -1 ? undefined : t.menuTask.m, t.menuTask.t);
+                    var cs = findCustomStatus(function (item) {
+                        return item.statusType === 1 && item.isDefault;
+                    });
+                    t._modelController.addTaskOperation(kHandlerBeforeChangeTaskStatus, t.menuTask.p, t.menuTask.m == -1 ? undefined : t.menuTask.m, t.menuTask.t, cs.id);
                     //}
                     t.menuTask.reset();
                 } else {
@@ -14271,7 +14283,10 @@ ASC.Projects.GantChart = (function (window) {
                 t.isLBMDown = false;
             });
             this.menuTask.addHandler(function () {
-                t._modelController.addTaskOperation(kHandlerBeforeChangeTaskStatus, t.menuTask.p, t.menuTask.m == -1 ? undefined : t.menuTask.m, t.menuTask.t);
+                var cs = findCustomStatus(function (item) {
+                    return item.statusType === 2 && item.isDefault;
+                });
+                t._modelController.addTaskOperation(kHandlerBeforeChangeTaskStatus, t.menuTask.p, t.menuTask.m == -1 ? undefined : t.menuTask.m, t.menuTask.t, cs.id);
                 t.menuTask.reset();
             });
             this.menuTask.addHandler(function () {

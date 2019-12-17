@@ -249,9 +249,9 @@ namespace ASC.Files.Thirdparty.Box
             return _boxClient.FilesManager.UpdateInformationAsync(boxFileRequest, null, _boxFields).Result;
         }
 
-        public BoxFile SaveStream(string fileId, Stream fileStream, string fileTitle)
+        public BoxFile SaveStream(string fileId, Stream fileStream)
         {
-            return _boxClient.FilesManager.UploadNewVersionAsync(fileTitle, fileId, fileStream, fields: _boxFields, setStreamPositionToZero: false).Result;
+            return _boxClient.FilesManager.UploadNewVersionAsync(null, fileId, fileStream, fields: _boxFields, setStreamPositionToZero: false).Result;
         }
 
         public long GetMaxUploadSize()

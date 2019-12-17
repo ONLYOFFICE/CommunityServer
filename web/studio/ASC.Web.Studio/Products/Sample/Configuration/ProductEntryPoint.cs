@@ -52,14 +52,17 @@ namespace ASC.Web.Sample.Configuration
             get { return SampleResource.ProductName; }
         }
 
-        public override string ExtendedDescription
-        {
-            get { return SampleResource.ExtendedProductDescription; }
-        }
-
         public override string Description
         {
-            get { return SampleResource.ProductDescription; }
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, Id))
+                    return SampleResource.ExtendedProductDescription;
+
+                return SampleResource.ProductDescription;
+            }
         }
 
         public override string StartURL
@@ -97,7 +100,7 @@ namespace ASC.Web.Sample.Configuration
                     MasterPageFile = String.Concat(PathProvider.BaseVirtualPath, "Masters/BasicTemplate.Master"),
                     DisabledIconFileName = "product_logo_disabled.png",
                     IconFileName = "product_logo.png",
-                    LargeIconFileName = "product_logo_large.png",
+                    LargeIconFileName = "product_logo_large.svg",
                     DefaultSortOrder = 100,
                     SubscriptionManager = null,
                     SpaceUsageStatManager = null,

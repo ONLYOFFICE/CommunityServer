@@ -14,16 +14,16 @@
 <div id="chunkUploadDialog" class="progress-dialog">
 
     <div class="progress-dialog-header menu-upload-icon">
-        <a class="actions-container close">&times;</a>
-        <a class="actions-container minimize"></a>
-        <a class="actions-container maximize"></a>
+        <a class="actions-container close" title="<%= FilesUCResource.ButtonUploadCancelAndClose %>" >&times;</a>
+        <a class="actions-container minimize" title="<%= FilesUCResource.ButtonUploadMinimize %>" ></a>
+        <a class="actions-container maximize" title="<%= FilesUCResource.ButtonUploadMaximize %>" ></a>
         <span id="chunkUploadDialogHeader"></span>
     </div>
 
     <div class="progress-dialog-body">
         <div class="settings-container">
             <span id="uploadSettingsSwitcher">
-                <a class="baseLinkAction gray-text"><%=FilesUCResource.SideCaptionSettings%></a>
+                <a class="baseLinkAction gray-text"><%= FilesUCResource.SideCaptionSettings %></a>
                 <span class="sort-down-gray"></span>
             </span>
             <a id="abortUploadigBtn" class="linkMedium gray-text">
@@ -41,20 +41,7 @@
                 <tbody></tbody>
             </table>
         </div>
-        <% if (FileConverter.EnableAsUploaded) %>
-        <% { %>
-        <label class="gray-text">
-            <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
-            <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
-        </label>
-        <% } %>
         <div class="upload-info-container">
-            <% if (FileConverter.EnableAsUploaded) %>
-            <% { %>
-            <div class="info-content">
-                <%= FilesUCResource.ConfirmStoreOriginalUploadTitle %>
-            </div>
-            <% } %>
             <% if (!CoreContext.Configuration.Standalone)
                { %>
             <% if (CoreContext.Configuration.Personal)
@@ -79,9 +66,18 @@
                 <li>
                     <label class="gray-text">
                         <input type="checkbox" class="update-if-exist checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %>>
-                        <%= FilesUCResource.UpdateIfExist%>
+                        <%= FilesUCResource.UpdateIfExist %>
                     </label>
                 </li>
+                <% if (FileConverter.EnableAsUploaded) %>
+                <% { %>
+                <li>
+                    <label class="gray-text">
+                        <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
+                        <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
+                    </label>
+                </li>
+                <% } %>
                 <li>
                     <label class="gray-text">
                         <input type="checkbox" id="uploadCompactViewCbx" class="checkbox">
@@ -133,4 +129,3 @@
         </td>
     </tr>
 </script>
-

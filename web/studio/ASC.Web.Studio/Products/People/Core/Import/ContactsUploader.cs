@@ -26,15 +26,13 @@
 
 using System;
 using System.Collections;
-using System.Text;
-using System.IO;
 using System.Web;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
-using Resources;
 using Newtonsoft.Json;
-using Constants = ASC.Core.Users.Constants;
+using Resources;
 
 namespace ASC.Web.People.Core.Import
 {
@@ -47,12 +45,32 @@ namespace ASC.Web.People.Core.Import
             {
                 SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser);
 
-                if (context.Request.Files.Count != 0)
+                if (context.Request.Files.Count == 0)
                 {
-                    var maxFileSize = 512000;
-                    var logo = context.Request.Files[0];
-                    var ext = FileUtility.GetFileExtension(logo.FileName);
-                    var param = new FileParameters()
+                    result.Success = false;
+                    result.Message = Resource.ErrorEmptyUploadFileSelected;
+                    return result;
+                }
+
+                var file = context.Request.Files[0];
+
+                const int maxFileSize = 512000;
+                if (file.ContentLength > maxFileSize)
+                {
+                    result.Success = false;
+                    result.Message = String.Format(Resource.ImportContactsFromFileErrorTooLarge, (maxFileSize/1024));
+                    return result;
+                }
+
+                var ext = FileUtility.GetFileExtension(file.FileName);
+                if (ext != ".csv")
+                {
+                    result.Success = false;
+                    result.Message = Resource.ErrorEmptyUploadFileSelected;
+                    return result;
+                }
+
+                var param = new FileParameters
                     {
                         Encode = Convert.ToInt32(context.Request["enc"]),
                         Separator = Convert.ToInt32(context.Request["sep"]),
@@ -62,35 +80,15 @@ namespace ASC.Web.People.Core.Import
                         UserHeader = context.Request["head"]
                     };
 
-                    if (ext != ".csv")
-                    {
-                        result.Success = false;
-                        result.Message = Resource.ErrorEmptyUploadFileSelected;
-                        return result;
-                    }
+                IUserImporter importer = new TextFileUserImporter(file.InputStream, param);
 
-                    if (logo.ContentLength > maxFileSize)
-                    {
-                        result.Success = false;
-                        result.Message = String.Format(Resource.ImportContactsFromFileErrorTooLarge, (maxFileSize/1024));
-                        return result;
-                    }
+                var users = (param.IsRaw)
+                                ? (IEnumerable)importer.GetRawUsers()
+                                : importer.GetDiscoveredUsers();
 
-                    IUserImporter importer = new TextFileUserImporter(logo.InputStream, param);
-
-                    var users = (param.IsRaw)
-                        ? (IEnumerable) importer.GetRawUsers()
-                        : importer.GetDiscoveredUsers();
-
-                    result.Success = true;
-                    result.Message = JsonConvert.SerializeObject(users);
-                    result.Columns = JsonConvert.SerializeObject(ContactInfo.GetColumns());
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Message = Resource.ErrorEmptyUploadFileSelected;
-                }
+                result.Message = JsonConvert.SerializeObject(users);
+                result.Columns = JsonConvert.SerializeObject(ContactInfo.GetColumns());
+                result.Success = true;
             }
             catch (Exception ex)
             {

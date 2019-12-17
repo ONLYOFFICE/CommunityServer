@@ -196,6 +196,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discussions are used to find the right solution with your project team to any sort of problems which may occur once the project is underway. Discuss all the issues with your colleagues, invite users from other projects to join your discussion..
+        /// </summary>
+        public static string DiscussionNotFound_DescribeVisitor {
+            get {
+                return ResourceManager.GetString("DiscussionNotFound_DescribeVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No discussions have been started yet.
         /// </summary>
         public static string DiscussionNotFound_Header {

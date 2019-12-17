@@ -163,8 +163,16 @@ ASC.InvitePanel = (function () {
             link = encodeURIComponent(url),
             text = encodeURIComponent(jq.format(ASC.Resources.Master.Resource.ShareInviteLinkDscr, url));
 
-        linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, "", "", ""));
-        linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(text));
+        if (!!ASC.Resources.Master.UrlShareFacebook) {
+            linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, "", "", ""));
+        } else {
+            linkPanel.find(".facebook").remove();
+        }
+        if (!!ASC.Resources.Master.UrlShareTwitter) {
+            linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(text));
+        } else {
+            linkPanel.find(".twitter").remove();
+        }
     };
 
 

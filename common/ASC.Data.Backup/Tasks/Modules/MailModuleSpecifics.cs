@@ -279,7 +279,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             {
                 var data = streamReader.ReadToEnd();
                 data = Regex.Replace(data, @"(htmleditorfiles|aggregator)(\/0\/|\/[\d]+\/\d\d\/\d\d\/)([-\w]+(?=/))", 
-                    match => "/" + TennantPath.CreatePath(columnMapper.GetTenantMapping().ToString()) + "/" + columnMapper.GetUserMapping(match.Groups[3].Value));
+                    match => "/" + TenantPath.CreatePath(columnMapper.GetTenantMapping().ToString()) + "/" + columnMapper.GetUserMapping(match.Groups[3].Value));
 
                 var content = Encoding.UTF8.GetBytes(data);
 

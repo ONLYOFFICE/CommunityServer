@@ -92,6 +92,21 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
+        public File GetFileStable(object fileId, int fileVersion = -1)
+        {
+            var selector = GetSelector(fileId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                var result = fileDao.GetFileStable(selector.ConvertId(fileId), fileVersion);
+
+                if (result != null && !Default.IsMatch(fileId))
+                    SetSharedProperty(new[] { result });
+
+                return result;
+            }
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             var selector = GetSelector(fileId);
@@ -274,6 +289,26 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 return fileSaved;
             }
             throw new ArgumentException("No file id or folder id toFolderId determine provider");
+        }
+
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            if (file == null) throw new ArgumentNullException("file");
+            if (file.ID == null) throw new ArgumentException("No file id or folder id toFolderId determine provider");
+
+            var fileId = file.ID;
+            var folderId = file.FolderID;
+
+            //Convert
+            var selector = GetSelector(fileId);
+
+            file.ID = selector.ConvertId(fileId);
+            if (folderId != null) file.FolderID = selector.ConvertId(folderId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                return fileDao.ReplaceFileVersion(file, fileStream);
+            }
         }
 
         public void DeleteFile(object fileId)

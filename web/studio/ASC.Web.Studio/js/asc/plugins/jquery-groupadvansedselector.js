@@ -184,7 +184,7 @@
                         title: group.name,
                         head: group.manager
                     }
-                    toastr.success(resources.GroupSelectorAddSuccess.format("<b>" + newgroup.title + "</b>"));
+                    toastr.success(resources.GroupSelectorAddSuccess.format("<b>" + Encoder.htmlEncode(newgroup.title) + "</b>"));
                     that.actionsAfterCreateItem.call(that, { newitem: newgroup, response: group });
                 }
             })  

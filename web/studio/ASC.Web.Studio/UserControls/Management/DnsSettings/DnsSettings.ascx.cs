@@ -133,6 +133,17 @@ namespace ASC.Web.Studio.UserControls.Management.DnsSettings
                 {
                     CoreContext.TenantManager.CheckTenantAddress(test.Host);
                 }
+                catch (TenantTooShortException ex)
+                {
+                    var minLength = ex.MinLength;
+                    var maxLength = ex.MaxLength;
+                    if (minLength > 0 && maxLength > 0)
+                    {
+                        throw new TenantTooShortException(string.Format(Resource.ErrorTenantTooShortFormat, minLength, maxLength));
+                    }
+
+                    throw new TenantTooShortException(Resource.ErrorTenantTooShort);
+                }
                 catch (TenantIncorrectCharsException)
                 {
                 }

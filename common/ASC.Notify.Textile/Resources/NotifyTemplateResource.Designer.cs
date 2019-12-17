@@ -64,11 +64,11 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
+        ///              &lt;img src=&quot;%IMAGEPATH%/tech-100.png&quot; style=&quot;width:  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string FooterCommon {
+        public static string FooterCommonV10 {
             get {
-                return ResourceManager.GetString("FooterCommon", resourceCulture);
+                return ResourceManager.GetString("FooterCommonV10", resourceCulture);
             }
         }
         
@@ -76,38 +76,11 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
+        ///              &lt;img src=&quot;%IMAGEPATH%/tech-100.png&quot; style=&quot;width:  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string FooterFreeCloud {
+        public static string FooterOpensourceV10 {
             get {
-                return ResourceManager.GetString("FooterFreeCloud", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-        ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
-        ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FooterOpensource {
-            get {
-                return ResourceManager.GetString("FooterOpensource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
-        ///          &lt;td style=&quot;width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;&quot;&gt;
-        ///              &lt;a href=&quot;https://www.facebook.com/pages/OnlyOffice/833032526736775&quot; style=&quot;width: 40px; height: 40px; display: block; margin: 0; padding: 0;&quot; target=&quot;_blank&quot;&gt;
-        ///                  &lt;img src=&quot;https://static.onlyoffice.com/media/newsletters/images/social-fb-40.png&quot; alt=&quot;Facebook&quot; style=&quot;width: 40px; height: 40px;&quot; /&gt;
-        ///              &lt;/a&gt;
-        ///          &lt;/td&gt;
-        ///  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FooterSocial {
-            get {
-                return ResourceManager.GetString("FooterSocial", resourceCulture);
+                return ResourceManager.GetString("FooterOpensourceV10", resourceCulture);
             }
         }
         
@@ -140,19 +113,22 @@ namespace ASC.Notify.Textile.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
+        ///          &lt;td style=&quot;width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;&quot;&gt;
+        ///              &lt;a href=&quot;https://www.facebook.com/pages/OnlyOffice/833032526736775&quot; style=&quot;width: 40px; height: 40px; display: block; margin: 0; padding: 0;&quot; target=&quot;_blank&quot;&gt;
+        ///                  &lt;img src=&quot;%IMAGEPATH%/social-fb-40.png&quot; alt=&quot;Facebook&quot; style=&quot;width: 40px; height: 40px;&quot; /&gt;
+        ///              &lt;/a&gt;
+        ///          &lt;/td&gt;
+        ///          &lt;td style=&quot;width: 40px; vertical-a [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string TextForFooter {
+        public static string SocialNetworksFooterV10 {
             get {
-                return ResourceManager.GetString("TextForFooter", resourceCulture);
+                return ResourceManager.GetString("SocialNetworksFooterV10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email is generated automatically and you do not need to answer it.
-        ///&lt;br /&gt;You receive this email because you are a registered user of &lt;a href=&quot;{0}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;{0}&lt;/a&gt;
-        ///&lt;br /&gt;If you no longer wish to receive these emails, click on the following link: &lt;a href=&quot;{1}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;Unsubscribe&lt;/a&gt;
-        ///&lt;br /&gt;.
+        ///   Looks up a localized string similar to You received this message because  you are a registered user of the &lt;a href=&quot;{0}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;{0}&lt;/a&gt;. &lt;a href=&quot;{1}&quot; style=&quot;color: #7b7b7b;&quot; target=&quot;_blank&quot;&gt;Unsubscribe&lt;/a&gt;.
         /// </summary>
         public static string TextForFooterWithUnsubscribeLink {
             get {

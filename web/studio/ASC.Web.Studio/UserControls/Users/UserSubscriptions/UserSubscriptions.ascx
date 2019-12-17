@@ -179,13 +179,13 @@
             </div>
             <% } %>
             <br/>
-            <div class="<%= IsAdmin() ? "clearFix" : "" %>">
+            <div class="<%= IsAdmin ? "clearFix" : "" %>">
                 <span id="studio_newSubscriptionButton" class="sub-button"><%=RenderWhatsNewSubscriptionState()%></span>
                 <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionDailyNews%></span>
                 <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%></span>
                 <%=RenderWhatsNewNotifyByCombobox() %>
             </div>
-            <% if (IsAdmin()) { %> 
+            <% if (IsAdmin) { %> 
             <div>
                 <span id="studio_adminSubscriptionButton" class="sub-button"><%=RenderAdminNotifySubscriptionState()%></span>
                 <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionAdminNotifications%></span>

@@ -43,8 +43,11 @@ window.ASC.Controls.SmsValidationSettings = (function () {
             var tfaAppEnable = jq("#chk2FactorAppAuthEnable").is(":checked");
 
             var callback = {
-                success: function () {
+                success: function (_, data) {
                     LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                    if (data) {
+                        window.location.reload(true);
+                    }
                 },
                 error: function (params, error) {
                     LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", error[0], "error");

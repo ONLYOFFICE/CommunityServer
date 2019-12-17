@@ -1,17 +1,16 @@
-The data contained in regexes.yaml is Copyright 2009 Google Inc. and available under the Apache License, Version 2.0.
+Apache License, Version 2.0
+===========================
 
-The original python code is Copyright 2008 Google Inc. and is available under the Apache License, Version 2.0.
+Copyright 2012 Søren Enemærke
 
-The JS port is Copyright 2010 Tobie Langel and is available under your choice of MIT or Apache Version 2.0 license.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-The PHP port is Copyright (c) 2011-2012 Dave Olsen and is available under the MIT license.
+    http://www.apache.org/licenses/LICENSE-2.0
 
-The Java port is Copyright (c) 2012 Twitter, Inc and is available under the Apache License, Version 2.0.
-
-The D port is Copyright (c) 2012 Shripad K and is available under the MIT license.
-
-The C# port is Copyright (c) 2012 Soren Enem?rke and is available under the Apache License, Version 2.0.
-
-The Perl port is Copyright (c) 2012 Mamod Mehyar and is available under the Perl License, Version 5.10.1.
-
-The Pig port is Copyright (c) 2013 Niels Basjes and is available under the Apache License, Version 2.0.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

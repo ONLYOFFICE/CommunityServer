@@ -389,12 +389,6 @@
   <data name="AuthDocsCheckEmail" xml:space="preserve">
     <value>Check your email inbox to confirm the account.</value>
   </data>
-  <data name="AuthDocsChromebook" xml:space="preserve">
-    <value>on your {0}Chromebook{1}.</value>
-  </data>
-  <data name="AuthDocsChromeStore" xml:space="preserve">
-    <value>Chrome Web Store Rating</value>
-  </data>
   <data name="AuthDocsEditText" xml:space="preserve">
     <value>Edit word docs, spreadsheets and presentations online</value>
   </data>
@@ -406,9 +400,6 @@
   </data>
   <data name="AuthDocsForgotPswd" xml:space="preserve">
     <value>Forgot password?</value>
-  </data>
-  <data name="AuthDocsItsFree" xml:space="preserve">
-    <value>It is Free</value>
   </data>
   <data name="AuthDocsMetaDescription" xml:space="preserve">
     <value>ONLYOFFICE Personal is a free online editing suite for text documents, spreadsheets and presentations with an individual cloud storage.</value>
@@ -1174,6 +1165,9 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="EmailActivationTitle" xml:space="preserve">
     <value>Email activation</value>
   </data>
+  <data name="EmailAndPasswordAmiId" xml:space="preserve">
+    <value>Type your Instance id</value>
+  </data>
   <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
   </data>
@@ -1182,6 +1176,9 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
     <value>Wrong password</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectAmiId" xml:space="preserve">
+    <value>Incorrect Instance id.</value>
   </data>
   <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
     <value>Incorrect email address</value>
@@ -1380,6 +1377,12 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="ErrorPasswordLength" xml:space="preserve">
     <value>from {0} to {1} characters</value>
+  </data>
+  <data name="ErrorTenantTooShort" xml:space="preserve">
+    <value>Tenant domain can not be empty.</value>
+  </data>
+  <data name="ErrorTenantTooShortFormat" xml:space="preserve">
+    <value>The domain name must be between {0} and {1} characters long.</value>
   </data>
   <data name="ErrorUnknownFileImageType" xml:space="preserve">
     <value>Unknown image file type</value>
@@ -2603,9 +2606,6 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="RegistrationLoginWatermark" xml:space="preserve">
     <value>Your registration login</value>
   </data>
-  <data name="RegistryButton" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
   <data name="RejectCallBtn" xml:space="preserve">
     <value>Reject</value>
   </data>
@@ -3529,9 +3529,6 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
     <value>Successful connection</value>
   </data>
-  <data name="MailServiceCouldNotGetErrorMsg" xml:space="preserve">
-    <value>Error: Сould not get hostname or auth token</value>
-  </data>
   <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
     <value>Service successfully connected</value>
   </data>
@@ -4162,8 +4159,8 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="ConsumersGoogleCloudInstruction" xml:space="preserve">
     <value>GoogleCloud Instruction</value>
   </data>
-  <data name="ConsumersGoogleCloudjsonPath" xml:space="preserve">
-    <value>GoogleCloud jsonPath</value>
+  <data name="ConsumersGoogleCloudjson" xml:space="preserve">
+    <value>GoogleCloud json</value>
   </data>
   <data name="ConsumersRackspace" xml:space="preserve">
     <value>Rackspace</value>
@@ -4203,6 +4200,9 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="LdapSettingsErrorRemovedYourself" xml:space="preserve">
     <value>Your account is not linked to the LDAP directory and your LDAP password is no longer active. Please change or set the password to your account at the profile settings page.</value>
+  </data>
+  <data name="MessageAuthorizeLdap" xml:space="preserve">
+    <value>Please sign in to:</value>
   </data>
   <data name="LdapSettingsStatusGivingRights" xml:space="preserve">
     <value>Setting user {0} as {1} admin</value>
@@ -4266,5 +4266,65 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="ErrorRequestLimitExceeded" xml:space="preserve">
     <value>Request limit is exceeded</value>
+  </data>
+  <data name="RecaptchaInvalid" xml:space="preserve">
+    <value>Invalid Recaptcha</value>
+  </data>
+  <data name="StatisticsDescriptionStandalone" xml:space="preserve">
+    <value>To free the storage space, you can delete the personal data of the disabled users. To do this, go to the user profile and select the "Delete personal data" action from the drop-down menu to the right of the name.</value>
+  </data>
+  <data name="MailServiceCouldNotGetHostnameErrorMsg" xml:space="preserve">
+    <value>Error: Сould not get hostname</value>
+  </data>
+  <data name="MailServiceCouldNotGetTokenErrorMsg" xml:space="preserve">
+    <value>Error: Сould not get auth token</value>
+  </data>
+  <data name="ConsumersS3bucket" xml:space="preserve">
+    <value>Bucket</value>
+  </data>
+  <data name="ConsumersS3bucketDescription" xml:space="preserve">
+    <value>Enter the unique name of the Amazon bucket where you want to store your backups.</value>
+  </data>
+  <data name="ConsumersS3region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="ConsumersS3regionDescription" xml:space="preserve">
+    <value>Enter the AWS region where your Amazon bucket resides.</value>
+  </data>
+  <data name="ConsumersGoogleCloudbucket" xml:space="preserve">
+    <value>Bucket</value>
+  </data>
+  <data name="ConsumersGoogleCloudbucketDescription" xml:space="preserve">
+    <value>Enter the URL address of the Google Cloud bucket where you want to store your backups.</value>
+  </data>
+  <data name="ConsumersRackspacepublic_container" xml:space="preserve">
+    <value>Public container</value>
+  </data>
+  <data name="ConsumersRackspacepublic_containerDescription" xml:space="preserve">
+    <value>Enter the URL address of the Rackspace public container where you want to store your backups.</value>
+  </data>
+  <data name="ConsumersRackspaceprivate_container" xml:space="preserve">
+    <value>Private container</value>
+  </data>
+  <data name="ConsumersRackspaceprivate_containerDescription" xml:space="preserve">
+    <value>Enter the URL address of the Rackspace private container where you want to store your backups.</value>
+  </data>
+  <data name="ConsumersRackspaceregion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="ConsumersRackspaceregionDescription" xml:space="preserve">
+    <value>Enter the region where your Rackspace containers are located.</value>
+  </data>
+  <data name="ConsumersSelectelprivate_container" xml:space="preserve">
+    <value>Private container</value>
+  </data>
+  <data name="ConsumersSelectelprivate_containerDescription" xml:space="preserve">
+    <value>Enter the URL address of the Selectel private container where you want to store your backups.</value>
+  </data>
+  <data name="ConsumersSelectelpublic_container" xml:space="preserve">
+    <value>Public container</value>
+  </data>
+  <data name="ConsumersSelectelpublic_containerDescription" xml:space="preserve">
+    <value>Enter the URL address of the Selectel public container where you want to store your backups.</value>  
   </data>
 </root>

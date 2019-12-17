@@ -102,6 +102,7 @@
     cursor: pointer;
     font-size: 14px;
     margin-left: 5px;
+    width: 231px;
 }
 .cnvrt-tooltip-content {
     color: #808080;
@@ -154,21 +155,9 @@
 /***********************************\
     Convert and Open
 \***********************************/
-#copyConvertDescript {
-    background: url("images/convert_alert.png") no-repeat center left transparent;
-    font-size: 14px;
-    min-height: 100px;
-    padding-left: 120px;
-}
 #confirmCopyConvert .files-progress-box {
     border: none;
     display: block;
     margin-left: auto;
     padding: 0;
-}
-#confirmCopyConvert .confirm-store-panel {
-    font-size: 12px;
-    margin: 0;
-    padding-top: 16px;
-    background-color: inherit;
 }

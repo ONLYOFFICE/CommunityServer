@@ -504,7 +504,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         height = height || 470;
 
         if (!asFlat) {
-            StudioBlockUIManager.blockUI("#studio_sharingSettingsDialog", width, 0, -height/2, "absolute");
+            StudioBlockUIManager.blockUI("#studio_sharingSettingsDialog", width, 0, -height/2);
         } else {
             jq("#studio_sharingSettingsDialog").show()
                 .css({

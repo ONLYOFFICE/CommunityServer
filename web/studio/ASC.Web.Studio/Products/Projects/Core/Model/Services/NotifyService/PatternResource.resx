@@ -124,9 +124,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the discussio
 
 $AdditionalData 
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_EditedCommentForTask" xml:space="preserve">
     <value>h1.Comment edited for task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -158,84 +156,61 @@ $AdditionalData.get_item("MessagePreview")
 
 #end
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
-
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_ImportData" xml:space="preserve">
     <value>h1.Projects. Import of the data from Basecamp
 
-The new data has been successfully imported.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+The new data has been successfully imported.</value>
   </data>
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.You have been added to the project team: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"] 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"]</value>
   </data>
   <data name="pattern_LateMilestone" xml:space="preserve">
     <value>h1.Overdue milestone notification: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
 
-The "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" is overdue. 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+The "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" is overdue.</value>
   </data>
   <data name="pattern_MessageDeleted" xml:space="preserve">
     <value>h1.Discussion deleted: "$EntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the discussion "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
-
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the discussion "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneClosed" xml:space="preserve">
     <value>h1.Milestone closed: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
-
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneCreated" xml:space="preserve">
     <value>h1.Milestone created: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" to the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project. 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" to the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneDeadline" xml:space="preserve">
     <value>h1.Milestone due date notification: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
 
-Less than 48 hours is left till the due date of the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+Less than 48 hours is left till the due date of the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneDeleted" xml:space="preserve">
     <value>h1.Milestone deleted: "$EntityTitle" 
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the milestone "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project:
 
-$AdditionalData 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$AdditionalData</value>
   </data>
   <data name="pattern_MilestoneEdited" xml:space="preserve">
     <value>h1.Milestone edited: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project. 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneResumed" xml:space="preserve">
     <value>h1.Milestone resumed:  "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" 
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the milestone "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
 
-$AdditionalData
-
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$AdditionalData</value>
   </data>
   <data name="pattern_NewCommentForMessage" xml:space="preserve">
     <value>h1.New comment to discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -244,9 +219,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the discus
 
 $AdditionalData 
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_NewCommentForTask" xml:space="preserve">
     <value>h1.New comment to task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -294,16 +267,12 @@ $AdditionalData.get_item("MessagePreview")
 
 #end
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_ProjectDeleted" xml:space="preserve">
     <value>h1.Project deleted: "$EntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the project "$EntityTitle" 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the project "$EntityTitle"</value>
   </data>
   <data name="pattern_push_InviteToProject" xml:space="preserve">
     <value>Projects [$ProjectTitle]. You have been added to the project team</value>
@@ -368,48 +337,36 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the project "$EntityTitle
   <data name="pattern_ReminderAboutTask" xml:space="preserve">
     <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
     <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-Today is the deadline for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+Today is the deadline for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_RemoveFromProject" xml:space="preserve">
     <value>h1.You have been removed from the project team: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"
 
- $__DateTime "$__AuthorName":"$__AuthorUrl" has removed you from the team of the project: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"
-
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has removed you from the team of the project: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"</value>
   </data>
   <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
     <value>h1.Task no longer assigned to you: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
 $__DateTime you are no longer responsible for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
 
-$AdditionalData.get_item("TaskDescription")
-
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
     <value>h1.Milestone assigned to you: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project. 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_ResponsibleForProject" xml:space="preserve">
     <value>h1.You were appointed project manager: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" 
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you manager of the project "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID": 
 
-$AdditionalData 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$AdditionalData</value>
   </data>
   <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
     <value>h1.Subtask assigned to you: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -425,9 +382,7 @@ $AdditionalData.get_item("TaskDescription")
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" project: 
 
-$AdditionalData.get_item("TaskDescription") 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^ </value>
+$AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_SubTaskClosed" xml:space="preserve">
     <value>h1.Subtask closed: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -493,32 +448,24 @@ The task is assigned to "$Responsible"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the task "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project:
 
-$AdditionalData 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$AdditionalData</value>
   </data>
   <data name="pattern_TaskEdited" xml:space="preserve">
     <value>h1.Task edited: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
     <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has removed the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task from the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
 
-The "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task is not a part of any milestone now.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+The "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task is not a part of any milestone now.</value>
   </data>
   <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
     <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task to the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project. 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task to the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_TaskResumed" xml:space="preserve">
     <value>h1.Task resumed:  "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 

@@ -26,6 +26,8 @@
 
 using System;
 using System.Globalization;
+using System.IO;
+using System.Net;
 using System.Security;
 using System.Security.Authentication;
 using System.Web;
@@ -49,6 +51,7 @@ using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
+using Newtonsoft.Json.Linq;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
 using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
@@ -61,6 +64,8 @@ namespace ASC.Web.Studio.UserControls.Common
         protected string LoginMessage;
         private string _errorMessage;
         private readonly ICache cache = AscCache.Memory;
+        protected bool ShowRecaptcha;
+        protected string Culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
         protected bool EnableLdap
         {
@@ -127,6 +132,11 @@ namespace ASC.Web.Studio.UserControls.Common
             get { return TenantCookieSettings.Load().IsDefault(); }
         }
 
+        protected bool RecaptchaEnable
+        {
+            get { return !string.IsNullOrEmpty(SetupInfo.RecaptchaPublicKey) && !string.IsNullOrEmpty(SetupInfo.RecaptchaPrivateKey); }
+        }
+
         protected string ErrorMessage
         {
             get
@@ -158,6 +168,12 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             Page.RegisterStyle("~/UserControls/Common/Authorize/css/authorize.less")
                 .RegisterBodyScripts("~/UserControls/Common/Authorize/js/authorize.js");
+
+            if (RecaptchaEnable)
+            {
+                Page
+                    .RegisterBodyScripts("~/usercontrols/common/authorize/js/recaptchacontroller.js");
+            }
 
             Login = "";
             Password = "";
@@ -219,6 +235,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
             }
             ProcessConfirmedEmailCondition();
+            ProcessConfirmedEmailLdap();
         }
 
         private bool AuthProcess(LoginProfile thirdPartyProfile, bool withAccountLink)
@@ -226,6 +243,7 @@ namespace ASC.Web.Studio.UserControls.Common
             var authMethod = AuthMethod.Login;
             var tfaLoginUrl = string.Empty;
             var loginCounter = 0;
+            ShowRecaptcha = false;
             try
             {
                 if (thirdPartyProfile != null)
@@ -272,13 +290,38 @@ namespace ASC.Web.Studio.UserControls.Common
                     throw new InvalidCredentialException("password");
                 }
 
-                if (string.IsNullOrEmpty(HashId))
+                if (string.IsNullOrEmpty(HashId) && !SetupInfo.IsSecretEmail(Login))
                 {
                     int.TryParse(cache.Get<String>("loginsec/" + Login), out loginCounter);
-                    if (++loginCounter > 5 && !SetupInfo.IsSecretEmail(Login))
+
+                    loginCounter++;
+
+                    if (!RecaptchaEnable)
                     {
-                        throw new BruteForceCredentialException();
+                        if (loginCounter > SetupInfo.LoginThreshold)
+                        {
+                            throw new BruteForceCredentialException();
+                        }
                     }
+                    else
+                    {
+                        if (loginCounter > SetupInfo.LoginThreshold - 1)
+                        {
+                            ShowRecaptcha = true;
+                        }
+                        if (loginCounter > SetupInfo.LoginThreshold)
+                        {
+                            var ip = Request.Headers["X-Forwarded-For"] ?? Request.UserHostAddress;
+
+                            var recaptchaResponse = Request["g-recaptcha-response"];
+                            if (String.IsNullOrEmpty(recaptchaResponse)
+                                || !ValidateRecaptcha(recaptchaResponse, ip))
+                            {
+                                throw new RecaptchaException();
+                            }
+                        }
+                    }
+
                     cache.Insert("loginsec/" + Login, loginCounter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
@@ -323,11 +366,28 @@ namespace ASC.Web.Studio.UserControls.Common
             catch (InvalidCredentialException ex)
             {
                 Auth.ProcessLogout();
-                var isBruteForce = (ex is BruteForceCredentialException);
+                MessageAction messageAction;
 
-                ErrorMessage = isBruteForce
-                                   ? Resource.LoginWithBruteForce
-                                   : authMethod == AuthMethod.ThirdParty ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
+                if (ex is BruteForceCredentialException)
+                {
+                    ErrorMessage = Resource.LoginWithBruteForce;
+                    messageAction = MessageAction.LoginFailBruteForce;
+                }
+                else if (ex is RecaptchaException)
+                {
+                    ErrorMessage = Resource.RecaptchaInvalid;
+                    messageAction = MessageAction.LoginFailRecaptcha;
+                }
+                else if (authMethod == AuthMethod.ThirdParty)
+                {
+                    ErrorMessage = Resource.LoginWithAccountNotFound;
+                    messageAction = MessageAction.LoginFailSocialAccountNotFound;
+                }
+                else
+                {
+                    ErrorMessage = Resource.InvalidUsernameOrPassword;
+                    messageAction = MessageAction.LoginFailInvalidCombination;
+                }
 
                 var loginName = !string.IsNullOrWhiteSpace(Login)
                                     ? Login
@@ -335,15 +395,11 @@ namespace ASC.Web.Studio.UserControls.Common
                                           ? HashId
                                           : AuditResource.EmailNotSpecified;
 
-                var messageAction = isBruteForce
-                                        ? MessageAction.LoginFailBruteForce
-                                        : authMethod == AuthMethod.ThirdParty
-                                              ? MessageAction.LoginFailSocialAccountNotFound
-                                              : MessageAction.LoginFailInvalidCombination;
-
                 MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
 
-                if (authMethod == AuthMethod.ThirdParty && thirdPartyProfile != null) Response.Redirect("~/auth.aspx?m=" + HttpUtility.UrlEncode(_errorMessage), true);
+                if (authMethod == AuthMethod.ThirdParty && thirdPartyProfile != null)
+                    Response.Redirect("~/auth.aspx?m=" + HttpUtility.UrlEncode(_errorMessage), true);
+
                 return false;
             }
             catch (SecurityException)
@@ -377,6 +433,7 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 Response.Redirect(tfaLoginUrl, true);
             }
+
             return true;
         }
 
@@ -425,6 +482,21 @@ namespace ASC.Web.Studio.UserControls.Common
             LoginMessage = String.Format("<div class=\"confirmBox\">{0} {1}</div>", Resource.MessageEmailConfirmed, Resource.MessageAuthorize);
         }
 
+        private void ProcessConfirmedEmailLdap()
+        {
+            if (IsPostBack) return;
+
+            var login = (Request.QueryString["ldap-login"] ?? "").Trim();
+
+            if (String.IsNullOrEmpty(login)) return;
+
+            Login = login;
+            LoginMessage = String.Format("<div class=\"confirmBox\">{0}<br>{1} {2}</div>",
+                                         Resource.MessageEmailConfirmed,
+                                         Resource.MessageAuthorizeLdap,
+                                         LdapCurrentDomain.Load().CurrentDomain);
+        }
+
 
         public class BruteForceCredentialException : InvalidCredentialException
         {
@@ -432,9 +504,60 @@ namespace ASC.Web.Studio.UserControls.Common
             {
             }
 
-            public BruteForceCredentialException(string message) : base(message)
+            public BruteForceCredentialException(string message)
+                : base(message)
             {
             }
+        }
+
+        public class RecaptchaException : InvalidCredentialException
+        {
+            public RecaptchaException()
+            {
+            }
+
+            public RecaptchaException(string message)
+                : base(message)
+            {
+            }
+        }
+
+        public static bool ValidateRecaptcha(string response, string ip)
+        {
+            try
+            {
+                var data = string.Format("secret={0}&remoteip={1}&response={2}", SetupInfo.RecaptchaPrivateKey, ip, response);
+
+                var webRequest = (HttpWebRequest)WebRequest.Create(SetupInfo.RecaptchaVerifyUrl);
+                webRequest.Method = WebRequestMethods.Http.Post;
+                webRequest.ContentType = "application/x-www-form-urlencoded";
+                webRequest.ContentLength = data.Length;
+                using (var writer = new StreamWriter(webRequest.GetRequestStream()))
+                {
+                    writer.Write(data);
+                }
+
+                using (var webResponse = webRequest.GetResponse())
+                using (var reader = new StreamReader(webResponse.GetResponseStream()))
+                {
+                    var resp = reader.ReadToEnd();
+                    var resObj = JObject.Parse(resp);
+
+                    if (resObj["success"] != null && resObj.Value<bool>("success"))
+                    {
+                        return true;
+                    }
+                    if (resObj["error-codes"] != null && resObj["error-codes"].HasValues)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return false;
         }
     }
 }

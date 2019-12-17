@@ -50,12 +50,14 @@ using ASC.Web.Core.Sms;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.Utility;
 using Resources;
 using Constants = ASC.Core.Configuration.Constants;
 using SecurityContext = ASC.Core.SecurityContext;
+using ASC.ActiveDirectory.Base.Settings;
 
 namespace ASC.Specific.AuthorizationApi
 {
@@ -98,48 +100,63 @@ namespace ASC.Specific.AuthorizationApi
             bool viaEmail;
             var user = GetUser(userName, password, provider, accessToken, out viaEmail);
 
-            if (!StudioSmsNotificationSettings.IsVisibleSettings || !StudioSmsNotificationSettings.Enable)
+            if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
             {
-                try
-                {
-                    var token = SecurityContext.AuthenticateMe(user.ID);
-
-                    MessageService.Send(Request, viaEmail ? MessageAction.LoginSuccessViaApi : MessageAction.LoginSuccessViaApiSocialAccount);
-
-                    var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-                    var expires = TenantCookieSettings.GetExpiresTime(tenant);
-
+                if (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)
                     return new AuthenticationTokenData
                         {
-                            Token = token,
-                            Expires = new ApiDateTime(expires)
+                            Sms = true
                         };
-                }
-                catch
-                {
-                    MessageService.Send(Request, user.DisplayUserName(false), viaEmail ? MessageAction.LoginFailViaApi : MessageAction.LoginFailViaApiSocialAccount);
-                    throw new AuthenticationException("User authentication failed");
-                }
-                finally
-                {
-                    SecurityContext.Logout();
-                }
-            }
 
-            if (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)
+                SmsManager.PutAuthCode(user, false);
+
                 return new AuthenticationTokenData
                     {
-                        Sms = true
+                        Sms = true,
+                        PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
+                        Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
                     };
+            }
 
-            SmsManager.PutAuthCode(user, false);
+            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+            {
+                if (!TfaAppUserSettings.EnableForUser(user.ID))
+                    return new AuthenticationTokenData
+                        {
+                            Tfa = true,
+                            TfaKey = user.GenerateSetupCode(300).ManualEntryKey
+                        };
 
-            return new AuthenticationTokenData
-                {
-                    Sms = true,
-                    PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
-                    Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
-                };
+                return new AuthenticationTokenData
+                    {
+                        Tfa = true
+                    };
+            }
+
+            try
+            {
+                var token = SecurityContext.AuthenticateMe(user.ID);
+
+                MessageService.Send(Request, viaEmail ? MessageAction.LoginSuccessViaApi : MessageAction.LoginSuccessViaApiSocialAccount);
+
+                var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+                var expires = TenantCookieSettings.GetExpiresTime(tenant);
+
+                return new AuthenticationTokenData
+                    {
+                        Token = token,
+                        Expires = new ApiDateTime(expires)
+                    };
+            }
+            catch
+            {
+                MessageService.Send(Request, user.DisplayUserName(false), viaEmail ? MessageAction.LoginFailViaApi : MessageAction.LoginFailViaApiSocialAccount);
+                throw new AuthenticationException("User authentication failed");
+            }
+            finally
+            {
+                SecurityContext.Logout();
+            }
         }
 
         /// <summary>
@@ -200,7 +217,7 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="password">password</param>
         /// <param name="provider">social media provider type</param>
         /// <param name="accessToken">provider token</param>
-        /// <param name="code">sms code</param>
+        /// <param name="code">two-factor authentication code</param>
         /// <returns>tokent to use in 'Authorization' header when calling API methods</returns>
         [Create(@"{code}", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string code)
@@ -208,28 +225,57 @@ namespace ASC.Specific.AuthorizationApi
             bool viaEmail;
             var user = GetUser(userName, password, provider, accessToken, out viaEmail);
 
+            var sms = false;
             try
             {
-                SmsManager.ValidateSmsCode(user, code);
+                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+                {
+                    sms = true;
+                    SmsManager.ValidateSmsCode(user, code);
+                }
+                else if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                {
+                    if (user.ValidateAuthCode(code))
+                    {
+                        MessageService.Send(HttpContext.Current.Request, MessageAction.UserConnectedTfaApp, MessageTarget.Create(user.ID));
+                    }
+                }
+                else
+                {
+                    throw new SecurityException("Auth code is not available");
+                }
 
                 var token = SecurityContext.AuthenticateMe(user.ID);
 
-                MessageService.Send(Request, MessageAction.LoginSuccessViaApiSms);
+                MessageService.Send(Request, sms ? MessageAction.LoginSuccessViaApiSms : MessageAction.LoginSuccessViaApiTfa);
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 var expires = TenantCookieSettings.GetExpiresTime(tenant);
 
-                return new AuthenticationTokenData
+                var result = new AuthenticationTokenData
                     {
                         Token = token,
-                        Expires = new ApiDateTime(expires),
-                        Sms = true,
-                        PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone)
+                        Expires = new ApiDateTime(expires)
                     };
+
+                if (sms)
+                {
+                    result.Sms = true;
+                    result.PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone);
+                }
+                else
+                {
+                    result.Tfa = true;
+                }
+
+                return result;
             }
             catch
             {
-                MessageService.Send(Request, user.DisplayUserName(false), MessageAction.LoginFailViaApiSms, MessageTarget.Create(user.ID));
+                MessageService.Send(Request, user.DisplayUserName(false), sms
+                                                                              ? MessageAction.LoginFailViaApiSms
+                                                                              : MessageAction.LoginFailViaApiTfa,
+                                    MessageTarget.Create(user.ID));
                 throw new AuthenticationException("User authentication failed");
             }
             finally
@@ -245,9 +291,10 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="lang">Culture</param>
         /// <param name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
         /// <param name="analytics">Track analytics</param>
+        /// <param name="recaptchaResponse">recaptcha token</param>
         /// <visible>false</visible>
         [Create(@"register", false)] //NOTE: this method doesn't requires auth!!!
-        public string RegisterUserOnPersonal(string email, string lang, bool spam, bool analytics)
+        public string RegisterUserOnPersonal(string email, string lang, bool spam, bool analytics, string recaptchaResponse)
         {
             if (!CoreContext.Configuration.Personal) throw new MethodAccessException("Method is only available on personal.onlyoffice.com");
 
@@ -264,6 +311,18 @@ namespace ASC.Specific.AuthorizationApi
                 email.ThrowIfNull(new ArgumentException(Resource.ErrorEmailEmpty, "email"));
 
                 if (!email.TestEmailRegex()) throw new ArgumentException(Resource.ErrorNotCorrectEmail, "email");
+
+                if (!SetupInfo.IsSecretEmail(email)
+                    && !string.IsNullOrEmpty(SetupInfo.RecaptchaPublicKey) && !string.IsNullOrEmpty(SetupInfo.RecaptchaPrivateKey))
+                {
+                    var ip = Request.Headers["X-Forwarded-For"] ?? Request.UserHostAddress;
+
+                    if (String.IsNullOrEmpty(recaptchaResponse)
+                        || !Authorize.ValidateRecaptcha(recaptchaResponse, ip))
+                    {
+                        throw new Authorize.RecaptchaException(Resource.RecaptchaInvalid);
+                    }
+                }
 
                 var newUserInfo = CoreContext.UserManager.GetUserByEmail(email);
 
@@ -336,7 +395,7 @@ namespace ASC.Specific.AuthorizationApi
         {
             viaEmail = true;
             var action = MessageAction.LoginFailViaApi;
-            UserInfo user;
+            UserInfo user = null;
             try
             {
                 if (string.IsNullOrEmpty(provider) || provider == "email")
@@ -346,16 +405,20 @@ namespace ASC.Specific.AuthorizationApi
 
                     int counter;
                     int.TryParse(Cache.Get<String>("loginsec/" + userName), out counter);
-                    if (++counter > 5 && !SetupInfo.IsSecretEmail(userName))
+                    if (++counter > SetupInfo.LoginThreshold && !SetupInfo.IsSecretEmail(userName))
                     {
                         throw new Authorize.BruteForceCredentialException();
                     }
                     Cache.Insert("loginsec/" + userName, counter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
-                    var localization = new LdapLocalization(Resource.ResourceManager);
-                    var ldapUserManager = new LdapUserManager(localization);
+                    if (EnableLdap) {
+                        var localization = new LdapLocalization(Resource.ResourceManager);
+                        var ldapUserManager = new LdapUserManager(localization);
 
-                    if (!ldapUserManager.TryGetAndSyncLdapUserInfo(userName, password, out user))
+                        ldapUserManager.TryGetAndSyncLdapUserInfo(userName, password, out user);
+                    }
+
+                    if (user == null || !CoreContext.UserManager.UserExists(user.ID))
                     {
                         user = CoreContext.UserManager.GetUsers(
                             CoreContext.TenantManager.GetCurrentTenant().TenantId,
@@ -400,6 +463,23 @@ namespace ASC.Specific.AuthorizationApi
             }
 
             return user;
+        }
+
+        protected static bool EnableLdap
+        {
+            get
+            {
+                if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
+                    (CoreContext.Configuration.Standalone &&
+                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                {
+                    return false;
+                }
+
+                var enabled = LdapSettings.Load().EnableLdapAuthentication;
+
+                return enabled;
+            }
         }
     }
 }

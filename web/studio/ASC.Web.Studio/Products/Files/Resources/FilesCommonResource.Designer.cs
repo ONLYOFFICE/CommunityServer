@@ -295,6 +295,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autosaved.
+        /// </summary>
+        public static string CommentAutosave {
+            get {
+                return ResourceManager.GetString("CommentAutosave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changed owner.
         /// </summary>
         public static string CommentChangeOwner {
@@ -358,6 +367,24 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encrypted.
+        /// </summary>
+        public static string CommentEncrypted {
+            get {
+                return ResourceManager.GetString("CommentEncrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        public static string CommentForcesave {
+            get {
+                return ResourceManager.GetString("CommentForcesave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overwrited.
         /// </summary>
         public static string CommentOverwrite {
@@ -412,20 +439,20 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The document converted to {0} to allow its editing.
+        /// </summary>
+        public static string ConvertForEdit {
+            get {
+                return ResourceManager.GetString("ConvertForEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert into.
         /// </summary>
         public static string ConvertTo {
             get {
                 return ResourceManager.GetString("ConvertTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The document converted copy has been created in folder {0} to allow its editing.
-        /// </summary>
-        public static string CopyToForEdit {
-            get {
-                return ResourceManager.GetString("CopyToForEdit", resourceCulture);
             }
         }
         
@@ -516,6 +543,15 @@ namespace ASC.Web.Files.Resources {
         public static string DocuSignStatusVoided {
             get {
                 return ResourceManager.GetString("DocuSignStatusVoided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notify when mentioned in document.
+        /// </summary>
+        public static string EditorMentions {
+            get {
+                return ResourceManager.GetString("EditorMentions", resourceCulture);
             }
         }
         
@@ -1155,6 +1191,15 @@ namespace ASC.Web.Files.Resources {
         public static string ProductDescriptionEx {
             get {
                 return ResourceManager.GetString("ProductDescriptionEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place..
+        /// </summary>
+        public static string ProductDescriptionShort {
+            get {
+                return ResourceManager.GetString("ProductDescriptionShort", resourceCulture);
             }
         }
         

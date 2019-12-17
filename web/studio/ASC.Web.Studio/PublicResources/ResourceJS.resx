@@ -318,12 +318,6 @@
   <data name="LoadingProcessing" xml:space="preserve">
     <value>Loading...</value>
   </data>
-  <data name="MagnificContentError" xml:space="preserve">
-    <value>{0}The content{1} could not be loaded.</value>
-  </data>
-  <data name="MagnificImageError" xml:space="preserve">
-    <value>{0}The image{1} could not be loaded.</value>
-  </data>
   <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
     <value>all day</value>
   </data>
@@ -762,6 +756,12 @@
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="NotAddedAnyTemplates" xml:space="preserve">
+    <value>You have not added any templates</value>
+  </data>
+  <data name="TemplateNotFound" xml:space="preserve">
+    <value>Template not found</value>
+  </data>
   <data name="UserPending" xml:space="preserve">
     <value>pending</value>
   </data>
@@ -771,10 +771,22 @@
   <data name="OpenTalk" xml:space="preserve">
     <value>Open Talk</value>
   </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>no subject</value>
+  </data>
   <data name="ErrorInvalidUserFirstName" xml:space="preserve">
     <value>Invalid first name</value>
   </data>
   <data name="ErrorInvalidUserLastName" xml:space="preserve">
     <value>Invalid last name</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Add filter</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>Ascending/descending</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>Start filter</value>
   </data>
 </root>

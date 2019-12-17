@@ -42,6 +42,7 @@
     <ServiceFiles Include="$(RootDir)module\ASC.Radicale\bin\$(Configuration)\ASC.Radicale.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.Radicale\radicale.config" />
     <ServiceFiles Include="$(RootDir)module\ASC.Radicale\radicale.log.config" />
+    <ServiceFiles Include="$(RootDir)module\ASC.Radicale\radicale.rights" />
     <ServiceFiles Include="$(RootDir)module\ASC.TeamLabSvc\ASC.TeamLabSvc\bin\$(Configuration)\TeamLabSvc.exe" />
     <ServiceFiles Include="$(RootDir)packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll" />
     <ServiceFiles Include="$(RootDir)packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll" />
@@ -54,7 +55,7 @@
     <ServiceFiles Include="$(RootDir)packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll" />
     <ServiceFiles Include="$(RootDir)packages\AWSSDK.SimpleEmail.3.3.7.2\lib\net45\AWSSDK.SimpleEmail.dll" />
     <ServiceFiles Include="$(RootDir)packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Box.V2.3.7.0\lib\net45\Box.V2.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Box.V2.3.11.0\lib\net45\Box.V2.dll" />
     <ServiceFiles Include="$(RootDir)packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll" />
     <ServiceFiles Include="$(RootDir)packages\NodaTime.2.0.2\lib\net45\NodaTime.dll" />
     <ServiceFiles Include="$(RootDir)packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll" />
@@ -99,8 +100,8 @@
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.SharePoint.Client.dll.15.0.4420.1017\Microsoft.SharePoint.Client.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.SharePoint.Client.dll.15.0.4420.1017\Microsoft.SharePoint.Client.Runtime.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
     <ServiceFiles Include="$(RootDir)packages\MimeKit.2.0.4\lib\net45\MimeKit.dll" />
     <ServiceFiles Include="$(RootDir)packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll" />
     <ServiceFiles Include="$(RootDir)packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll" />
@@ -122,6 +123,7 @@
     <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll" />
     <ServiceFiles Include="$(RootDir)packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll" />
     <ServiceFiles Include="$(RootDir)packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll" />
+    <ServiceFiles Include="$(RootDir)packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll" />
     <ServiceFiles Include="$(RootDir)packages\System.IO.Pipelines.4.5.3\lib\netstandard2.0\System.IO.Pipelines.dll" />
     <ServiceFiles Include="$(RootDir)packages\System.Memory.4.5.2\lib\netstandard1.1\System.Memory.dll" />
     <ServiceFiles Include="$(RootDir)packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
@@ -216,6 +218,7 @@
     <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll" />
     <MailFiles Include="$(RootDir)packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll" />
     <MailFiles Include="$(RootDir)packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll" />
+    <MailFiles Include="$(RootDir)packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll" />
     <MailFiles Include="$(RootDir)packages\System.IO.Pipelines.4.5.3\lib\netstandard2.0\System.IO.Pipelines.dll" />
     <MailFiles Include="$(RootDir)packages\System.Memory.4.5.2\lib\netstandard1.1\System.Memory.dll" />
     <MailFiles Include="$(RootDir)packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />

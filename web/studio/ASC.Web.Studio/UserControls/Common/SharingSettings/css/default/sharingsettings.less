@@ -135,6 +135,9 @@ body.mobile #sharingSettingsItems {
             background: @shareDefaultActionImage no-repeat 0 20px transparent;
             margin-left: -14px;
             padding: 0 0 0 24px;
+            background-position-y: 50%;
+            background-size: 16px;
+            background-repeat: no-repeat
         }
 
         &::after {
@@ -150,27 +153,27 @@ body.mobile #sharingSettingsItems {
         }
 
         &.share-def-action-read span {
-            background-position-y: 1px;
+            background-image: @viewsIcon
         }
 
         &.share-def-action-comment span {
-            background-position-y: -159px;
+            background-image: @accessForCommentIcon
         }
 
         &.share-def-action-review span {
-            background-position-y: -39px;
+            background-image: @reviewIcon
         }
 
         &.share-def-action-restrictedEditing span {
-            background-position-y: -199px;
+            background-image: @fillFormIcon
         }
 
         &.share-def-action-full span {
-            background-position-y: -79px;
+            background-image: @pencilIcon
         }
 
         &.share-def-action-restrict span {
-            background-position-y: -119px;
+            background-image: @accessDenyIcon
         }
     }
 
@@ -181,65 +184,68 @@ body.mobile #sharingSettingsItems {
             background: url("images/default-action.png") no-repeat 0 20px transparent;
             margin-left: -26px;
             padding-left: 26px;
+            background-size: 16px;
+            background-repeat: no-repeat;
+            background-position-y: 50%;
         }
 
         &.share-def-action-read {
             span {
-                background-position-y: 0px;
+                background-image: url("images/views.svg");
             }
 
             &.active span {
-                background-position-y: -20px;
+                background-image: url("images/views-blue.svg");
             }
         }
 
         &.share-def-action-comment {
             span {
-                background-position-y: -160px;
+                background-image: url("images/access-for-comment.svg");
             }
 
             &.active span {
-                background-position-y: -180px;
+                background-image: url("images/access-for-comment-blue.svg");
             }
         }
 
         &.share-def-action-restrictedEditing {
             span {
-                background-position-y: -200px;
+                background-image: url("images/fill-form.svg");
             }
-
+            
             &.active span {
-                background-position-y: -220px;
+                background-image: url("images/fill-form-blue.svg");
             }
         }
 
         &.share-def-action-review {
             span {
-                background-position-y: -40px;
+                background-image: url("images/review.svg");
             }
 
             &.active span {
-                background-position-y: -60px;
+                background-image: url("images/review-blue.svg");
             }
         }
 
         &.share-def-action-full {
             span {
-                background-position-y: -80px;
+                 background-image: url("images/pencil.svg");
             }
 
             &.active span {
-                background-position-y: -100px;
+                background-image: url("images/pencilblue.svg");
             }
         }
 
         &.share-def-action-restrict {
             span {
-                background-position-y: -120px;
+                background-image: url("images/access-deny.svg");
             }
 
             &.active span {
-                background-position-y: -140px;
+                background-image: url("images/access-deny-blue.svg");
             }
         }
     }
@@ -321,4 +327,6 @@ body.mobile #sharingSettingsItems {
     position: absolute;
     top: -1px;
     width: 24px;
+    background-size: 16px;
+    background-position: 50%;
 }

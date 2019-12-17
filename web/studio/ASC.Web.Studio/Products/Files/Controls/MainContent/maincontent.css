@@ -41,10 +41,7 @@
 /*******************************************************************************
     Content Menu
 *******************************************************************************/
-/*content border 1px for dragdrop*/
 ul.contentMenu {
-    margin-right: 1px;
-    margin-left: 1px;
     padding-top: 8px;
 }
 .advansed-filter {

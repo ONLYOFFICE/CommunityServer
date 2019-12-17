@@ -193,18 +193,17 @@ window.accountsPanel = (function($) {
                 var folder = TMMail.getSysFolderNameById(MailFilter.getFolder());
                 var sysfolderAnchor = folder +
                     (TMMail.pageIs("userfolder") ? "=" + TMMail.extractUserFolderIdFromAnchor() : "") +
-                     MailFilter.toAnchor(false, { to: filterTo == account.email.toLowerCase() ? '' : account.email }, true);;
+                     MailFilter.toAnchor(false, { to: filterTo == account.email.toLowerCase() ? '' : account.email }, true);
 
                 ASC.Controls.AnchorController.move(sysfolderAnchor);
             } else if (TMMail.pageIs('writemessage')) {
                 messagePage.selectFromAccount({}, {
                     account: account
                 });
+                TMMail.scrollTop();
             } else {
                 ASC.Controls.AnchorController.move('#inbox/to=' + encodeURIComponent(account.email) + '/');
             }
-
-            TMMail.scrollTop();
         });
     }
 

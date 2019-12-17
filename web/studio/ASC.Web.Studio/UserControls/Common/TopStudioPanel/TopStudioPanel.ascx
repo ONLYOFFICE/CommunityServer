@@ -16,7 +16,7 @@
                                                 { %>try-welcome-top<% } %>">
     <ul>
         <li class="studio-top-logo">
-            <a class="top-logo" title="<%= GetAbsoluteCompanyTopLogoTitle() %>" href="<%= CommonLinkUtility.GetDefault() %>">
+            <a class="top-logo" title="<%: GetAbsoluteCompanyTopLogoTitle() %>" href="<%= CommonLinkUtility.GetDefault() %>">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
             </a>
         </li>
@@ -51,7 +51,7 @@
            { %>
             <li class="product-menu with-subitem">
            <span class="active-icon-svg">
-               <svg class="active-icon"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= CurrentProductClassName %>"></use></svg>
+               <svg class="active-icon"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenu<%= CurrentProductClassName + (CurrentProductClassNamePostfix ?? "") %>"></use></svg>
            </span>
                 <a class="product-cur-link" title="<%= CurrentProductName %>">
                     <%: CurrentProductName %>

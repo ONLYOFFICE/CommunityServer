@@ -1025,7 +1025,8 @@ textarea {
 
 .containerBodyBlock {
     color: #333;
-    input[type="email"], 
+
+    input[type="email"],
     input[type="password"] {
         &:focus {
             outline: none;
@@ -1035,6 +1036,7 @@ textarea {
 
     .mail-confirmationAction {
         margin-top: 10px;
+
         p {
             margin-top: 1px !important;
         }
@@ -1049,21 +1051,41 @@ textarea {
             word-break: break-all;
         }
     }
+
+    .reassignOption {
+        margin-bottom: 10px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+
+        &.disabled {
+            color: gray;
+        }
+    }
+
+    .needReassign {
+        margin-left: 0px;
+    }
+
     .hint {
         font-size: 14px;
         color: #999999;
         margin-bottom: 9px;
     }
+
     div.del {
         margin-bottom: 27px;
     }
+
     .error-popup {
         margin: 16px 0;
     }
+
     div.buttons {
         clear: both;
         margin-top: 29px;
     }
+
     .markAllLabel {
         display: block;
         font-family: 'Open Sans';

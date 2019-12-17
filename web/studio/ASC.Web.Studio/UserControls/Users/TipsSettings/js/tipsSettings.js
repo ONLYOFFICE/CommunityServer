@@ -57,6 +57,9 @@ window.TipsSettings = new function() {
         Teamlab.updateTipsSettings({ show: show }, {
             success: function() {
                 $updateTipsSettingsBtn.removeClass('on off').addClass(show ? 'on' : 'off');
+                if (show && window.sessionStorage) {
+                    window.sessionStorage.removeItem("tipsWasClosed");
+                }
             },
             error: function() {
                 toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);

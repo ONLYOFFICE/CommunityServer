@@ -37,6 +37,7 @@ namespace ASC.FederatedLogin.LoginProviders
     {
         public const string GoogleScopeContacts = "https://www.googleapis.com/auth/contacts.readonly";
         public const string GoogleScopeDrive = "https://www.googleapis.com/auth/drive";
+        //https://developers.google.com/gmail/imap/xoauth2-protocol
         public const string GoogleScopeMail = "https://mail.google.com/";
 
         public const string GoogleUrlContacts = "https://www.google.com/m8/feeds/contacts/default/full/";

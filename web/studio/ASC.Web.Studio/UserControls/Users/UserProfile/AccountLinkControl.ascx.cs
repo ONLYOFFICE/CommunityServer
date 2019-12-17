@@ -45,18 +45,25 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             get { return "~/UserControls/Users/UserProfile/AccountLinkControl.ascx"; }
         }
 
+        public static List<string> AuthProviders = new List<string>
+            {
+                ProviderConstants.Google,
+                ProviderConstants.Facebook,
+                ProviderConstants.Twitter,
+                ProviderConstants.LinkedIn,
+                ProviderConstants.MailRu,
+                ProviderConstants.VK,
+                ProviderConstants.Yandex,
+                ProviderConstants.GosUslugi
+            };
+
         public static bool IsNotEmpty
         {
             get
             {
-                return GoogleLoginProvider.Instance.IsEnabled
-                    || FacebookLoginProvider.Instance.IsEnabled
-                    || TwitterLoginProvider.Instance.IsEnabled
-                    || LinkedInLoginProvider.Instance.IsEnabled
-                    || MailRuLoginProvider.Instance.IsEnabled
-                    || VKLoginProvider.Instance.IsEnabled
-                    || YandexLoginProvider.Instance.IsEnabled
-                    || GosUslugiLoginProvider.Instance.IsEnabled;
+                return AuthProviders
+                    .Select(ProviderManager.GetLoginProvider)
+                    .Any(loginProvider => loginProvider!= null && loginProvider.IsEnabled);
             }
         }
 
@@ -97,19 +104,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             var fromOnly = string.IsNullOrWhiteSpace(HttpContext.Current.Request["fromonly"]) ? string.Empty : HttpContext.Current.Request["fromonly"].ToLower();
 
-            var providers = new List<string>
-            {
-                ProviderConstants.Google,
-                ProviderConstants.Facebook,
-                ProviderConstants.Twitter,
-                ProviderConstants.LinkedIn,
-                ProviderConstants.MailRu,
-                ProviderConstants.VK,
-                ProviderConstants.Yandex,
-                ProviderConstants.GosUslugi
-            };
-
-            foreach (var provider in providers.Where(provider => string.IsNullOrEmpty(fromOnly) || fromOnly == provider || (provider == "google" && fromOnly == "openid")))
+            foreach (var provider in AuthProviders.Where(provider => string.IsNullOrEmpty(fromOnly) || fromOnly == provider || (provider == "google" && fromOnly == "openid")))
             {
                 if (InviteView && provider.ToLower() == "twitter") continue;
 

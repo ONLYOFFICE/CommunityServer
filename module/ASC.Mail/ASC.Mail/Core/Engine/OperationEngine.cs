@@ -102,6 +102,45 @@ namespace ASC.Mail.Core.Engine
             return QueueTask(op, translateMailOperationStatus);
         }
 
+        public MailOperationStatus DownloadAllAttachments(int messageId,
+            Func<DistributedTask, string> translateMailOperationStatus = null)
+        {
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var user = SecurityContext.CurrentAccount;
+
+            var operations = MailOperations.GetTasks()
+                .Where(o =>
+                {
+                    var oTenant = o.GetProperty<int>(MailOperation.TENANT);
+                    var oUser = o.GetProperty<string>(MailOperation.OWNER);
+                    var oType = o.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);
+                    return oTenant == tenant.TenantId &&
+                           oUser == user.ID.ToString() &&
+                           oType == MailOperationType.DownloadAllAttachments;
+                })
+                .ToList();
+
+            var sameOperation = operations.FirstOrDefault(o =>
+            {
+                var oSource = o.GetProperty<string>(MailOperation.SOURCE);
+                return oSource == messageId.ToString();
+            });
+
+            if (sameOperation != null)
+            {
+                return GetMailOperationStatus(sameOperation.Id, translateMailOperationStatus);
+            }
+
+            var runningOperation = operations.FirstOrDefault(o => o.Status <= DistributedTaskStatus.Running);
+
+            if (runningOperation != null)
+                throw new MailOperationAlreadyRunningException("Download all attachments operation already running.");
+
+            var op = new MailDownloadAllAttachmentsOperation(tenant, user, messageId);
+
+            return QueueTask(op, translateMailOperationStatus);
+        }
+
         public MailOperationStatus RecalculateFolders(Func<DistributedTask, string> translateMailOperationStatus = null)
         {
             var tenant = CoreContext.TenantManager.GetCurrentTenant();

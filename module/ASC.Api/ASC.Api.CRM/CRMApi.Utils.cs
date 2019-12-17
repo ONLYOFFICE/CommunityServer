@@ -34,6 +34,7 @@ using ASC.CRM.Core.Entities;
 using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
+using ASC.Web.CRM.Resources;
 using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Classes;
 
@@ -472,7 +473,7 @@ namespace ASC.Api.CRM
 
             MessageService.Send(Request, MessageAction.CrmAllDataExported);
 
-            return ExportToCsv.Start(null, "exportdata.zip");
+            return ExportToCsv.Start(null, CRMSettingResource.Export + ".zip");
         }
 
         /// <visible>false</visible>
@@ -503,26 +504,26 @@ namespace ASC.Api.CRM
             {
                 case "contact":
                     filterObject = new ContactFilterObject(base64FilterString);
-                    fileName = "contacts.csv";
+                    fileName = CRMContactResource.Contacts + ".csv";
                     MessageService.Send(Request, MessageAction.ContactsExportedToCsv);
                     break;
                 case "opportunity":
                     filterObject = new DealFilterObject(base64FilterString);
-                    fileName = "opportunity.csv";
+                    fileName = CRMCommonResource.DealModuleName + ".csv";
                     MessageService.Send(Request, MessageAction.OpportunitiesExportedToCsv);
                     break;
                 case "case":
                     filterObject = new CasesFilterObject(base64FilterString);
-                    fileName = "cases.csv";
+                    fileName = CRMCommonResource.CasesModuleName + ".csv";
                     MessageService.Send(Request, MessageAction.CasesExportedToCsv);
                     break;
                 case "task":
                     filterObject = new TaskFilterObject(base64FilterString);
-                    fileName = "tasks.csv";
+                    fileName = CRMCommonResource.TaskModuleName + ".csv";
                     MessageService.Send(Request, MessageAction.CrmTasksExportedToCsv);
                     break;
                 case "invoiceitem":
-                    fileName = "products_services.csv";
+                    fileName = CRMCommonResource.ProductsAndServices + ".csv";
                     filterObject = new InvoiceItemFilterObject(base64FilterString);
                     break;
                 default:

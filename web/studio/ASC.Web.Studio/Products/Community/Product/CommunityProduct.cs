@@ -26,6 +26,7 @@
 
 using System;
 using System.Linq;
+using ASC.Core;
 using ASC.Web.Community.Resources;
 using ASC.Web.Core;
 
@@ -51,14 +52,20 @@ namespace ASC.Web.Community.Product
             get { return CommunityResource.ProductName; }
         }
 
-        public override string ExtendedDescription
-        {
-            get { return string.Format(CommunityResource.ProductDescriptionExt, "<span style='display:none'>", "</span>"); }
-        }
-
         public override string Description
         {
-            get { return CommunityResource.ProductDescription; }
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupVisitor.ID))
+                    return CommunityResource.ProductDescriptionShort;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, ID))
+                    return CommunityResource.ProductDescriptionExt;
+
+                return CommunityResource.ProductDescription;
+            }
         }
 
         public override string StartURL
@@ -91,7 +98,7 @@ namespace ASC.Web.Community.Product
                 MasterPageFile = "~/Products/Community/Master/Community.master",
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
-                LargeIconFileName = "product_logolarge.png",
+                LargeIconFileName = "product_logolarge.svg",
                 DefaultSortOrder = 40,
 
                 SubscriptionManager = new CommunitySubscriptionManager(),

@@ -110,24 +110,7 @@ namespace ASC.Web.Studio
                 }
                 else
                 {
-                    Response.Redirect(TenantExtra.GetTariffPageLink(), true);
-                }
-            }
-
-            if (!MayPhoneNotActivate
-                && SecurityContext.IsAuthenticated
-                && !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID))
-            {
-                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable
-                    && (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))
-                {
-                    Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.PhoneActivation), true);
-                }
-
-                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable
-                    && !TfaAppUserSettings.EnableForUser(user.ID))
-                {
-                    Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.TfaActivation), true);
+                    Response.Redirect(TenantExtra.GetTariffPageLink() + (Request.DesktopApp() ? "?desktop=true" : ""), true);
                 }
             }
 

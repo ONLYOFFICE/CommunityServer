@@ -174,6 +174,11 @@ window.blankPages = (function($) {
             description = MailScriptResource.EmptyDraftsDescription;
             imgClass = 'drafts';
             buttons[0].text = MailScriptResource.EmptyDraftsButton;
+        } else if (TMMail.pageIs('templates')) {
+            header = MailScriptResource.EmptyTemplatesHeader;
+            description = MailScriptResource.EmptyTemplatesDescription;
+            imgClass = 'drafts';
+            buttons[0].text = MailScriptResource.EmptyTemplatesButton;
         } else if (TMMail.pageIs('trash')) {
             header = MailScriptResource.EmptyTrashHeader;
             description = MailScriptResource.EmptyTrashDescription;
@@ -184,8 +189,7 @@ window.blankPages = (function($) {
             description = MailScriptResource.EmptySpamDescription;
             imgClass = 'spam';
             buttons = [];
-        }
-        else if (TMMail.pageIs('userfolder')) { 
+        } else if (TMMail.pageIs('userfolder')) { 
             header = MailScriptResource.EmptyUserFolderHeader; 
             description = MailScriptResource.EmptyUserFolderDescription;
             imgClass = 'inbox'; // TODO: Change to userfolder

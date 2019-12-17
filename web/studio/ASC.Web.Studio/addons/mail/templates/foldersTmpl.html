@@ -1,14 +1,14 @@
 ﻿<script id="foldersTmpl" type="text/x-jquery-tmpl">
-    <li class="menu-item none-sub-list{{if $item.marked==id}} active{{/if}}" folderid="${id}" {{if id==1 || id==3 || id==5}}unread="{{if id==3}}${total_count}{{else}}${unread}{{/if}}"{{/if}}>
+    <li class="menu-item none-sub-list{{if $item.marked==id}} active{{/if}}" folderid="${id}" {{if id==1 || id==3 || id==7 || id==5}}unread="{{if id==3}}${total_count}{{else}}${unread}{{/if}}"{{/if}}>
         <table>
             <tr>
                 <td width="100%">
-                    <a class="menu-item-label outer-text text-overflow" href="#" folderid="${id}">
-                        <span class="menu-item-icon {{if id==1}}inbox{{else id==2}}sent{{else id==3}}blogs{{else id==4}}trash{{else id==5}}spam{{/if}}">
-                            <svg class="menu-item-svg"><use xlink:href="/skins/default/images/svg/mail-icons.svg#mailIcons{{if id==1}}inbox{{else id==2}}sent{{else id==3}}blogs{{else id==4}}trash{{else id==5}}spam{{/if}}"></use></svg>
+                    <a class="menu-item-label outer-text text-overflow" href="#" folderid="${id}" title="{{if id==1}}${ASC.Mail.Resources.MailResource.FolderNameInbox}{{else id==2}}${ASC.Mail.Resources.MailResource.FolderNameSent}{{else id==3}}${ASC.Mail.Resources.MailResource.FolderNameDrafts}{{else id==4}}${ASC.Mail.Resources.MailResource.FolderNameTrash}{{else id==5}}${ASC.Mail.Resources.MailResource.FolderNameSpam}{{else id==7}}${ASC.Mail.Resources.MailResource.FolderNameTemplates}{{/if}}">
+                        <span class="menu-item-icon {{if id==1}}inbox{{else id==2}}sent{{else id==3 || id==7}}blogs{{else id==4}}trash{{else id==5}}spam{{/if}}">
+                            <svg class="menu-item-svg"><use xlink:href="/skins/default/images/svg/mail-icons.svg#mailIcons{{if id==1}}inbox{{else id==2}}sent{{else id==3}}blogs{{else id==7}}templates{{else id==4}}trash{{else id==5}}spam{{/if}}"></use></svg>
                         </span>
                         <span class="menu-item-label inner-text">
-                          {{if id==1}}${ASC.Mail.Resources.MailResource.FolderNameInbox}{{else id==2}}${ASC.Mail.Resources.MailResource.FolderNameSent}{{else id==3}}${ASC.Mail.Resources.MailResource.FolderNameDrafts}{{else id==4}}${ASC.Mail.Resources.MailResource.FolderNameTrash}{{else id==5}}${ASC.Mail.Resources.MailResource.FolderNameSpam}{{/if}}
+                          {{if id==1}}${ASC.Mail.Resources.MailResource.FolderNameInbox}{{else id==2}}${ASC.Mail.Resources.MailResource.FolderNameSent}{{else id==3}}${ASC.Mail.Resources.MailResource.FolderNameDrafts}{{else id==4}}${ASC.Mail.Resources.MailResource.FolderNameTrash}{{else id==5}}${ASC.Mail.Resources.MailResource.FolderNameSpam}{{else id==7}}${ASC.Mail.Resources.MailResource.FolderNameTemplates}{{/if}}
                         </span>
                     </a>
                 </td>

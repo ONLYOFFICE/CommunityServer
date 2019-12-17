@@ -131,6 +131,15 @@ Watch your DocuSign account for more information.
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
   </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$DocumentTitle":"$DocumentURL"
+
+This is a mail message to notify you that you have mentioned by "$__AuthorName":"$__AuthorUrl".
+
+$Message
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
   <data name="pattern_MailMergeEnd" xml:space="preserve">
     <value>h1. Mailing completed
 
@@ -145,24 +154,23 @@ The successfully sent mail messages can be found in your "Sent":"$__VirtualRootP
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$DocumentURL" document with the following access rights: "$AccessRights". 
 
-$Message 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the shared documents, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$Message</value>
   </data>
   <data name="pattern_ShareFolder" xml:space="preserve">
     <value>h1. Access granted to folder: "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID" folder with the following access rights: "$AccessRights". 
 
-$Message 
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the shared folders, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$Message</value>
   </data>
   <data name="subject_DocuSignComplete" xml:space="preserve">
     <value>Documents. All signers completed $DocumentTitle</value>
   </data>
   <data name="subject_DocuSignStatus" xml:space="preserve">
     <value>Documents. Sign status changed</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Documents. Mentioned in document</value>
   </data>
   <data name="subject_MailMergeEnd" xml:space="preserve">
     <value>Documents. Mailing is complete.</value>

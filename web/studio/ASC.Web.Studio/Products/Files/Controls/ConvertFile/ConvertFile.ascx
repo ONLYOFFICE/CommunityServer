@@ -12,19 +12,24 @@
             <%= FilesUCResource.CaptionCopyConvertOpen %>
         </header>
         <body>
-            <div id="copyConvertDescript">
-                <div class="confirm-store-panel">
-                    <%= FilesUCResource.ConfirmStoreOriginalOpenTitle %>
-                    <br/>
-                    <br/>
-                    <label id="confirmCopyConvertLabelText">
-                        <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
-                        <%= FilesUCResource.ConfirmStoreOriginalOpenCbxLabelText %>
-                    </label>
-                    <div id="confirmCopyConvertToMyText">
-                        <%= string.Format(FilesUCResource.ConfirmStoreOriginalOpenToMyText, "<b>", "</b>")%>
-                    </div>
+            <div id="copyConvertDescript" class="confirm-convert-panel">
+                <%= FilesUCResource.ConfirmStoreOriginalOpenTitle %>
+                <br/>
+                <br/>
+                <label id="confirmCopyConvertLabelText">
+                    <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
+                    <%= FilesUCResource.ConfirmStoreOriginalOpenCbxLabelText %>
+                </label>
+                <div id="confirmCopyConvertToMyText">
+                    <%= string.Format(FilesUCResource.ConfirmStoreOriginalOpenToMyText, "<b>", "</b>")%>
                 </div>
+            </div>
+
+            <div id="convertPasswordPanel" class="confirm-convert-panel">
+                <%= FilesUCResource.CaptionConvertPassword %>
+                <br/>
+                <br/>
+                <input type="text" id="convertPassword" class="textEdit" />
             </div>
 
             <div id="progressCopyConvert">

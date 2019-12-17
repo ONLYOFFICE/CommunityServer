@@ -66,6 +66,14 @@ namespace ASC.Files.Core
         File GetFile(object parentId, String title);
 
         /// <summary>
+        ///     Receive last file without forcesave
+        /// </summary>
+        /// <param name="fileId">file id</param>
+        /// <param name="fileVersion"></param>
+        /// <returns></returns>
+        File GetFileStable(object fileId, int fileVersion = -1);
+
+        /// <summary>
         ///  Returns all versions of the file
         /// </summary>
         /// <param name="fileId"></param>
@@ -160,6 +168,14 @@ namespace ASC.Files.Core
         /// Save in all other cases
         /// </remarks>
         File SaveFile(File file, Stream fileStream);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="fileStream"></param>
+        /// <returns></returns>
+        File ReplaceFileVersion(File file, Stream fileStream);
 
         /// <summary>
         ///   Deletes a file including all previous versions

@@ -165,7 +165,7 @@ only screen and (                min-resolution: 2dppx)
 .ft_Potm{background-image:url('images/filetype/retina/file_potm.png');}
 .ft_Rtf{background-image:url('images/filetype/retina/file_rtf.png');}
 .ft_Sound{background-image:url('images/filetype/retina/file_sound.png');}
-.ft_Sound{background-image:url('images/filetype/retina/file_soundunk.png');}
+.ft_SoundUnk{background-image:url('images/filetype/retina/file_soundunk.png');}
 .ft_Svg{background-image:url('images/filetype/retina/file_svg.png');}
 .ft_Txt{background-image:url('images/filetype/retina/file_txt.png');}
 .ft_Video{background-image:url('images/filetype/retina/file_video.png');}

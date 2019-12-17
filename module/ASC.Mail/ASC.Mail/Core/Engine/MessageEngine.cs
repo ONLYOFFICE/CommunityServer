@@ -154,16 +154,14 @@ namespace ASC.Mail.Core.Engine
 
             var ids = new List<int>();
 
+            long total = 0;
+
             if (filter.UserFolderId.HasValue && Factory.UserFolderEngine.Get((uint)filter.UserFolderId.Value) == null)
                 throw new ArgumentException("Folder not found");
 
             if (!filter.IsDefault() && FactoryIndexer<MailWrapper>.Support && FactoryIndexer.CheckState(false))
             {
-                var pageCount = filter.PageSize;
-
-                filter.PageSize += 1;
-
-                if (FilterMessagesExp.TryGetFullTextSearchIds(filter, User, out ids))
+                if (FilterMessagesExp.TryGetFullTextSearchIds(filter, User, out ids, out total))
                 {
                     if (!ids.Any())
                     {
@@ -171,8 +169,6 @@ namespace ASC.Mail.Core.Engine
                         return res;
                     }
                 }
-
-                filter.PageSize = pageCount;
             }
 
             using (var daoFactory = new DaoFactory())
@@ -199,9 +195,9 @@ namespace ASC.Mail.Core.Engine
                     var list = daoMailInfo.GetMailInfoList(exp)
                         .ConvertAll(m => ToMailMessage(m, tenantInfo, utcNow));
 
-                    totalMessagesCount = ids.Count <= pageSize
-                        ? ids.Count
-                        : page * pageSize + 1;
+                    var pagedCount = (list.Count + page * pageSize);
+
+                    totalMessagesCount = page == 0 ? total : total - pagedCount;
 
                     return list;
                 }
@@ -253,13 +249,14 @@ namespace ASC.Mail.Core.Engine
                 throw new ArgumentNullException("filter");
 
             var res = new List<MailMessageData>();
+            long total = 0;
 
             using (var daoFactory = new DaoFactory())
             {
                 var daoMailInfo = daoFactory.CreateMailInfoDao(Tenant, User);
 
                 List<int> ids;
-                if (FilterSieveMessagesExp.TryGetFullTextSearchIds(filter, User, out ids))
+                if (FilterSieveMessagesExp.TryGetFullTextSearchIds(filter, User, out ids, out total))
                 {
                     if (!ids.Any())
                     {
@@ -270,11 +267,10 @@ namespace ASC.Mail.Core.Engine
 
                 var exp = new FilterSieveMessagesExp(ids, Tenant, User, filter, page, pageSize);
 
-                totalMessagesCount = ids.Any() ? ids.Count : daoMailInfo.GetMailInfoTotal(exp);
+                totalMessagesCount = ids.Any() ? total : daoMailInfo.GetMailInfoTotal(exp);
 
                 if (totalMessagesCount == 0)
                 {
-                    totalMessagesCount = 0;
                     return res;
                 }
 
@@ -304,7 +300,8 @@ namespace ASC.Mail.Core.Engine
                 if (FactoryIndexer<MailWrapper>.Support && FactoryIndexer.CheckState(false))
                 {
                     List<int> ids;
-                    if (FilterMessagesExp.TryGetFullTextSearchIds(filter, User, out ids, mail.DateSent))
+                    long total = 0;
+                    if (FilterMessagesExp.TryGetFullTextSearchIds(filter, User, out ids, out total, mail.DateSent))
                     {
                         if (!ids.Any())
                             return -1;
@@ -363,7 +360,7 @@ namespace ASC.Mail.Core.Engine
 
                     var folderConvMessCounters = new List<Tuple<FolderType, int, int>>();
 
-                    var fGroupedChains = chainedMessages.GroupBy(m => new {m.ChainId, m.Folder});
+                    var fGroupedChains = chainedMessages.GroupBy(m => new {m.ChainId, m.Folder, m.MailboxId});
 
                     uint? userFolder = null;
 
@@ -1769,7 +1766,8 @@ namespace ASC.Mail.Core.Engine
                 IsToday = isToday,
                 IsYesterday = isYesterday,
                 MailboxId = mailInfo.MailboxId,
-                CalendarUid = mailInfo.CalendarUid
+                CalendarUid = mailInfo.CalendarUid,
+                Introduction = mailInfo.Intoduction
             };
         }
 
@@ -1807,7 +1805,7 @@ namespace ASC.Mail.Core.Engine
                 WasNew = mail.Unread,
                 IsToday = isToday,
                 IsYesterday = isYesterday,
-                Introduction = mail.Introduction,
+                Introduction = !string.IsNullOrEmpty(mail.Introduction) ? mail.Introduction.Trim() : "",
                 TextBodyOnly = mail.IsTextBodyOnly,
                 MailboxId = mail.MailboxId,
                 RestoreFolderId = mail.FolderRestore,

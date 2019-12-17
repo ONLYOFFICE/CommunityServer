@@ -197,6 +197,7 @@ BEGIN
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_PakistaniRupee', 'PKR', 'Rp.', 'PK', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_PhilippinePeso', 'PHP', 'P', 'PH', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_PolishZloty', 'PLN', 'zł', 'PL', 1, 0);
+	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_QatariRiyal', 'QAR', 'ر.ق.‏', 'QA', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_PoundSterling', 'GBP', '£', 'GB', 1, 1);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_RomanianLeu', 'RON', 'lei', 'RO', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_Rouble', 'RUB', '₽', 'RU', 1, 0);
@@ -209,6 +210,7 @@ BEGIN
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_SwissFranc', 'CHF', 'Fr', 'CH', 1, 1);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_ThaiBaht', 'THB', '฿', 'TH', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_TrinidadAndTobagoDollar', 'TTD', 'TT$', 'TT', 0, 0);
+	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_TunisianDinar', 'TND', 'DT', 'TN', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_TurkishNewLira', 'TRY', 'YTL', 'TR', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_UkraineHryvnia', 'UAH', 'грн.', 'UA', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_UnitedArabEmiratesDirham', 'AED', 'د.إ', 'AE', 1, 0);

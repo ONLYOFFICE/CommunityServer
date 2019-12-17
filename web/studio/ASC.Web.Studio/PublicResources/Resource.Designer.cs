@@ -1038,24 +1038,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to on your {0}Chromebook{1}..
-        /// </summary>
-        public static string AuthDocsChromebook {
-            get {
-                return ResourceManager.GetString("AuthDocsChromebook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chrome Web Store Rating.
-        /// </summary>
-        public static string AuthDocsChromeStore {
-            get {
-                return ResourceManager.GetString("AuthDocsChromeStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 100% compatible with Microsoft Office formats.
         /// </summary>
         public static string AuthDocsCompatibleText {
@@ -1205,15 +1187,6 @@ namespace Resources {
         public static string AuthDocsFreeChargeText {
             get {
                 return ResourceManager.GetString("AuthDocsFreeChargeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It is Free.
-        /// </summary>
-        public static string AuthDocsItsFree {
-            get {
-                return ResourceManager.GetString("AuthDocsItsFree", resourceCulture);
             }
         }
         
@@ -2705,6 +2678,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the URL address of the Google Cloud bucket where you want to store your backups..
+        /// </summary>
+        public static string ConsumersGoogleCloudbucketDescription {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleCloudbucketDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GoogleCloud Description.
         /// </summary>
         public static string ConsumersGoogleCloudDescription {
@@ -2723,11 +2705,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoogleCloud jsonPath.
+        ///   Looks up a localized string similar to GoogleCloud json.
         /// </summary>
-        public static string ConsumersGoogleCloudjsonPath {
+        public static string ConsumersGoogleCloudjson {
             get {
-                return ResourceManager.GetString("ConsumersGoogleCloudjsonPath", resourceCulture);
+                return ResourceManager.GetString("ConsumersGoogleCloudjson", resourceCulture);
             }
         }
         
@@ -2822,7 +2804,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Private Container.
+        ///   Looks up a localized string similar to Private container.
         /// </summary>
         public static string ConsumersRackspaceprivate_container {
             get {
@@ -2831,11 +2813,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Public Container.
+        ///   Looks up a localized string similar to Enter the URL address of the Rackspace private container where you want to store your backups..
+        /// </summary>
+        public static string ConsumersRackspaceprivate_containerDescription {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceprivate_containerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public container.
         /// </summary>
         public static string ConsumersRackspacepublic_container {
             get {
                 return ResourceManager.GetString("ConsumersRackspacepublic_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the URL address of the Rackspace public container where you want to store your backups..
+        /// </summary>
+        public static string ConsumersRackspacepublic_containerDescription {
+            get {
+                return ResourceManager.GetString("ConsumersRackspacepublic_containerDescription", resourceCulture);
             }
         }
         
@@ -2849,11 +2849,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the region where your Rackspace containers are located..
+        /// </summary>
+        public static string ConsumersRackspaceregionDescription {
+            get {
+                return ResourceManager.GetString("ConsumersRackspaceregionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S3.
         /// </summary>
         public static string ConsumersS3 {
             get {
                 return ResourceManager.GetString("ConsumersS3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bucket.
+        /// </summary>
+        public static string ConsumersS3bucket {
+            get {
+                return ResourceManager.GetString("ConsumersS3bucket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the unique name of the Amazon bucket where you want to store your backups..
+        /// </summary>
+        public static string ConsumersS3bucketDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3bucketDescription", resourceCulture);
             }
         }
         
@@ -2872,6 +2899,24 @@ namespace Resources {
         public static string ConsumersS3Instruction {
             get {
                 return ResourceManager.GetString("ConsumersS3Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        public static string ConsumersS3region {
+            get {
+                return ResourceManager.GetString("ConsumersS3region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the AWS region where your Amazon bucket resides..
+        /// </summary>
+        public static string ConsumersS3regionDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3regionDescription", resourceCulture);
             }
         }
         
@@ -2939,11 +2984,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the URL address of the Selectel private container where you want to store your backups..
+        /// </summary>
+        public static string ConsumersSelectelprivate_containerDescription {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelprivate_containerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public container.
         /// </summary>
         public static string ConsumersSelectelpublic_container {
             get {
                 return ResourceManager.GetString("ConsumersSelectelpublic_container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the URL address of the Selectel public container where you want to store your backups..
+        /// </summary>
+        public static string ConsumersSelectelpublic_containerDescription {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelpublic_containerDescription", resourceCulture);
             }
         }
         
@@ -4436,6 +4499,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type your Instance id.
+        /// </summary>
+        public static string EmailAndPasswordAmiId {
+            get {
+                return ResourceManager.GetString("EmailAndPasswordAmiId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string EmailAndPasswordConfirmPassword {
@@ -4468,6 +4540,15 @@ namespace Resources {
         public static string EmailAndPasswordEmptyPassword {
             get {
                 return ResourceManager.GetString("EmailAndPasswordEmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect Instance id..
+        /// </summary>
+        public static string EmailAndPasswordIncorrectAmiId {
+            get {
+                return ResourceManager.GetString("EmailAndPasswordIncorrectAmiId", resourceCulture);
             }
         }
         
@@ -5125,6 +5206,24 @@ namespace Resources {
         public static string ErrorRequestLimitExceeded {
             get {
                 return ResourceManager.GetString("ErrorRequestLimitExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tenant domain can not be empty..
+        /// </summary>
+        public static string ErrorTenantTooShort {
+            get {
+                return ResourceManager.GetString("ErrorTenantTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The domain name must be between {0} and {1} characters long..
+        /// </summary>
+        public static string ErrorTenantTooShortFormat {
+            get {
+                return ResourceManager.GetString("ErrorTenantTooShortFormat", resourceCulture);
             }
         }
         
@@ -7983,11 +8082,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: Сould not get hostname or auth token.
+        ///   Looks up a localized string similar to Error: Сould not get hostname.
         /// </summary>
-        public static string MailServiceCouldNotGetErrorMsg {
+        public static string MailServiceCouldNotGetHostnameErrorMsg {
             get {
-                return ResourceManager.GetString("MailServiceCouldNotGetErrorMsg", resourceCulture);
+                return ResourceManager.GetString("MailServiceCouldNotGetHostnameErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Сould not get auth token.
+        /// </summary>
+        public static string MailServiceCouldNotGetTokenErrorMsg {
+            get {
+                return ResourceManager.GetString("MailServiceCouldNotGetTokenErrorMsg", resourceCulture);
             }
         }
         
@@ -8285,6 +8393,15 @@ namespace Resources {
         public static string MessageAuthorize {
             get {
                 return ResourceManager.GetString("MessageAuthorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please sign in to:.
+        /// </summary>
+        public static string MessageAuthorizeLdap {
+            get {
+                return ResourceManager.GetString("MessageAuthorizeLdap", resourceCulture);
             }
         }
         
@@ -9441,6 +9558,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Recaptcha.
+        /// </summary>
+        public static string RecaptchaInvalid {
+            get {
+                return ResourceManager.GetString("RecaptchaInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Redirect.
         /// </summary>
         public static string RedirectCallBtn {
@@ -9482,15 +9608,6 @@ namespace Resources {
         public static string RegistrationLoginWatermark {
             get {
                 return ResourceManager.GetString("RegistrationLoginWatermark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign Up.
-        /// </summary>
-        public static string RegistryButton {
-            get {
-                return ResourceManager.GetString("RegistryButton", resourceCulture);
             }
         }
         
@@ -10882,6 +10999,15 @@ namespace Resources {
         public static string StatisticsDescription {
             get {
                 return ResourceManager.GetString("StatisticsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To free the storage space, you can delete the personal data of the disabled users. To do this, go to the user profile and select the &quot;Delete personal data&quot; action from the drop-down menu to the right of the name..
+        /// </summary>
+        public static string StatisticsDescriptionStandalone {
+            get {
+                return ResourceManager.GetString("StatisticsDescriptionStandalone", resourceCulture);
             }
         }
         

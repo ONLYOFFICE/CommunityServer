@@ -31,7 +31,7 @@ using ASC.Core;
 
 namespace ASC.Projects.Data
 {
-    abstract class BaseDao
+    public abstract class BaseDao
     {
         protected static readonly string CommentsTable = "projects_comments";
         protected static readonly string FollowingProjectTable = "projects_following_project_participant";
@@ -50,6 +50,7 @@ namespace ASC.Projects.Data
         protected static readonly string TimeTrackingTable = "projects_time_tracking";
         protected static readonly string TasksLinksTable = "projects_tasks_links";
         protected static readonly string TasksOrderTable = "projects_tasks_order";
+        protected static readonly string StatusTable = "projects_status";
 
         protected int Tenant { get; private set; }
 

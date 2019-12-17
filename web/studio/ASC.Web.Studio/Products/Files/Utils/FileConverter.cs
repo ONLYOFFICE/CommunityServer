@@ -128,7 +128,7 @@ namespace ASC.Web.Files.Utils
             var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, false, out convertUri);
 
             if (WorkContext.IsMono && ServicePointManager.ServerCertificateValidationCallback == null)
             {
@@ -137,12 +137,9 @@ namespace ASC.Web.Files.Utils
             return new ResponseStream(((HttpWebRequest)WebRequest.Create(convertUri)).GetResponse());
         }
 
-        public static File ExecDuplicate(File file, string doc, out Folder toFolder)
+        public static File ExecSync(File file, string doc)
         {
-            var toFolderId = file.FolderID;
-
             using (var fileDao = Global.DaoFactory.GetFileDao())
-            using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
                 var fileSecurity = Global.GetFilesSecurity();
                 if (!fileSecurity.CanRead(file))
@@ -156,58 +153,22 @@ namespace ASC.Web.Files.Utils
                     {
                         throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
                     }
-                    toFolderId = Global.FolderMy;
                 }
-                if (Global.EnableUploadFilter && !FileUtility.ExtsUploadable.Contains(FileUtility.GetFileExtension(file.Title)))
-                {
-                    throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
-                }
-                toFolder = folderDao.GetFolder(toFolderId);
-                if (toFolder == null)
-                {
-                    throw new DirectoryNotFoundException(FilesCommonResource.ErrorMassage_FolderNotFound);
-                }
-                if (!fileSecurity.CanCreate(toFolder))
-                {
-                    throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
-                }
-
-                var fileUri = PathProvider.GetFileStreamUrl(file);
-                var fileExtension = file.ConvertedExtension;
-                var toExtension = FileUtility.GetInternalExtension(file.Title);
-                var docKey = DocumentServiceHelper.GetDocKey(file);
-
-                string convertUri;
-                fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, false, out convertUri);
-
-                var newFile = new File
-                {
-                    FolderID = toFolder.ID,
-                    Title = FileUtility.ReplaceFileExtension(file.Title, toExtension),
-                    Comment = string.Format(FilesCommonResource.CommentConvert, file.Title),
-                };
-
-                var req = (HttpWebRequest)WebRequest.Create(convertUri);
-
-                // hack. http://ubuntuforums.org/showthread.php?t=1841740
-                if (WorkContext.IsMono)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
-                }
-
-                using (var editedFileStream = new ResponseStream(req.GetResponse()))
-                {
-                    newFile.ContentLength = editedFileStream.Length;
-                    newFile = fileDao.SaveFile(newFile, editedFileStream);
-                }
-
-                FileMarker.MarkAsNew(newFile);
-                return newFile;
             }
+
+            var fileUri = PathProvider.GetFileStreamUrl(file);
+            var fileExtension = file.ConvertedExtension;
+            var toExtension = FileUtility.GetInternalExtension(file.Title);
+            var docKey = DocumentServiceHelper.GetDocKey(file);
+
+            string convertUri;
+            fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, false, out convertUri);
+
+            return SaveConvertedFile(file, convertUri);
         }
 
-        public static void ExecAsync(File file, bool deleteAfter)
+        public static void ExecAsync(File file, bool deleteAfter, string password = null)
         {
             if (!MustConvert(file))
             {
@@ -240,7 +201,8 @@ namespace ASC.Web.Files.Utils
                         Account = SecurityContext.CurrentAccount,
                         Delete = deleteAfter,
                         StartDateTime = DateTime.Now,
-                        Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
+                        Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null,
+                        Password = password
                     };
                 conversionQueue.Add(file, queueResult);
                 cache.Insert(GetKey(file), queueResult, TimeSpan.FromMinutes(10));
@@ -356,6 +318,7 @@ namespace ASC.Web.Files.Utils
                         {
                             int tenantId;
                             IAccount account;
+                            string password;
 
                             lock (locker)
                             {
@@ -367,6 +330,7 @@ namespace ASC.Web.Files.Utils
                                 operationResult.Processed = "1";
                                 tenantId = operationResult.TenantId;
                                 account = operationResult.Account;
+                                password = operationResult.Password;
 
                                 if (HttpContext.Current == null && !WorkContext.IsMono)
                                 {
@@ -403,10 +367,15 @@ namespace ASC.Web.Files.Utils
                             var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, true, out convertedFileUrl);
+                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, true, out convertedFileUrl);
                         }
                         catch (Exception exception)
                         {
+                            DocumentService.DocumentServiceException documentServiceException;
+                            var password = exception.InnerException != null
+                                           && ((documentServiceException = exception.InnerException as DocumentService.DocumentServiceException) != null)
+                                           && documentServiceException.Code == DocumentService.DocumentServiceException.ErrorCode.ConvertPassword;
+
                             Global.Logger.Error(string.Format("Error convert {0} with url {1}", file.ID, fileUri), exception);
                             lock (locker)
                             {
@@ -423,6 +392,7 @@ namespace ASC.Web.Files.Utils
                                         operationResult.Progress = 100;
                                         operationResult.StopDateTime = DateTime.UtcNow;
                                         operationResult.Error = exception.Message;
+                                        if (password) operationResult.Result = "password";
                                         cache.Insert(GetKey(file), operationResult, TimeSpan.FromMinutes(10));
                                     }
                                 }
@@ -668,6 +638,7 @@ namespace ASC.Web.Files.Utils
             public IAccount Account { get; set; }
             public bool Delete { get; set; }
             public string Url { get; set; }
+            public string Password { get; set; }
         }
     }
 }

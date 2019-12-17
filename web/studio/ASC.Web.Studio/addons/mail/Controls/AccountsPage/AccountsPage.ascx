@@ -24,7 +24,7 @@
 
 <div class="popup_helper" id="AccountsHelperBlock">
     <p><%=MailResource.AccountsCommonInformationText%></p>
-    <p><%=MailResource.AccountsCommonNotificationText%></p>
+    <%--<p><%=MailResource.AccountsCommonNotificationText%></p>--%>
     <div class="cornerHelpBlock pos_top"></div>
 </div>
 
@@ -54,6 +54,7 @@
                 <p class="attentionText remove"><%=MailResource.DeleteAccountAttention%></p>
                 <p class="attentionText activate"><%=MailResource.ActivateAccountAttention%></p>
                 <p class="attentionText deactivate"><%=MailResource.DeactivateAccountAttention%></p>
+                <div class="optionText remove"></div>
                 <p class="questionText"></p>
             </div>
             <div class="buttons">

@@ -65,7 +65,9 @@ namespace ASC.Web.Community.Wiki
             UploadFileContainer.Options.IsPopup = true;
             UploadFileContainer.Options.OnCancelButtonClick = "javascript:HideUploadFileBox();";
 
-            CanUpload = CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_UploadFile) && !MobileDetector.IsMobile;
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            CanUpload = CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_UploadFile) && !currentUser.IsVisitor();
 
             if (IsPostBack) return;
 

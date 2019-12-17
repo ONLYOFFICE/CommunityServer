@@ -10,17 +10,18 @@
     <div id="GreetingBlock" class="<%= (7 <= ProductsCount && ProductsCount <= 10) ? "five-column-block" : "greating-block" %>">
         <div class="greating-modules-block">
             <% if (_showDocs != null) { %>
-            <div class="docs-default-page">
-                <a class="docs-default-logo" href="<%= VirtualPathUtility.ToAbsolute(_showDocs.StartURL) %>"></a>
-                <h2 class="title">
-                    <a class="link header" href="<%= VirtualPathUtility.ToAbsolute(_showDocs.StartURL) %>">
-                        <%=_showDocs.Name %></a>
-                </h2>
-                <span class="description">
-                    <%= (CurrentUser.IsAdmin()) ? _showDocs.ExtendedDescription : _showDocs.Description %>
-                </span>
+            <div class="docs-default-page clearFix">
+                <a class="link docs-default-logo" href="<%= VirtualPathUtility.ToAbsolute(_showDocs.StartURL) %>">
+                    <span class="inner">
+                        <span class="title">
+                            <%=_showDocs.Name %>
+                        </span>
+                        <span class="description">
+                            <%= _showDocs.Description %>
+                        </span>
+                    </span>
+                </a>
             </div>
-            <div class="clearFix"></div>
             <% } %>
 
             <div class="default-list-products">
@@ -29,34 +30,29 @@
                    var productStartUrl = VirtualPathUtility.ToAbsolute(product.StartURL);
                    var productLabel = HttpUtility.HtmlEncode(product.Name);
                 %>
-                <div class="product clearFix">
-                        <a class="image-link" href="<%= productStartUrl %>">
-                            <img alt="<%= productLabel %>" src="<%= product.GetLargeIconAbsoluteURL() %>" /></a>
-                        <h2 class="title">
-                            <a class="link header" href="<%= productStartUrl %>"><%= productLabel %></a>
-                        </h2>
-                    </div>
+                <a class="link header product" href="<%= productStartUrl %>">
+                    <img alt="<%= productLabel %>" src="<%= product.GetLargeIconAbsoluteURL() %>" />
+                    <span class="title">
+                        <%= productLabel %>
+                    </span>
+                </a>
             <% } %>
             <% if (TenantExtra.EnableControlPanel)
                { %>
-                <div class="product clearFix">
-                    <a class="image-link" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
-                        <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.png") %>" />
-                    </a>
-                    <h2 class="title">
-                        <a class="link header" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank"><%= Resource.ControlPanelLabel %></a>
-                    </h2>
-                </div>
+                <a class="link header product" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
+                    <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.svg") %>" />
+                    <span class="title">
+                        <%= Resource.ControlPanelLabel %>
+                    </span>
+                </a>
             <% } %>
             <% foreach (var item in CustomNavigationItems) { %>
-                <div class="product clearFix">
-                    <a class="image-link" href="<%= item.Url.HtmlEncode() %>" target="_blank">
-                        <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg %>" />
-                    </a>
-                    <h2 class="title">
-                        <a class="link header" href="<%= item.Url.HtmlEncode() %>" target="_blank"><%= item.Label.HtmlEncode() %></a>
-                    </h2>
-                </div>
+                <a class="link header product" href="<%= item.Url.HtmlEncode() %>" target="_blank">
+                    <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg %>" />
+                    <span class="title">
+                        <%= item.Label.HtmlEncode() %>
+                    </span>
+                </a>
             <% } %>
             </div>
         </div>

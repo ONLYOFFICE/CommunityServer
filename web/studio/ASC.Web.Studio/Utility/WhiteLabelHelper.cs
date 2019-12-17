@@ -55,7 +55,7 @@ namespace ASC.Web.Studio.Utility
 
         public static void ApplyPartnerWhiteLableSettings()
         {
-            if (!TenantExtra.Enterprise && !TenantExtra.Hosted && !CoreContext.Configuration.CustomMode) return;
+            if (!TenantExtra.Enterprise && !CoreContext.Configuration.CustomMode) return;
 
             var firstVisit = CompanyWhiteLabelSettings.Instance.IsDefault &&
                              AdditionalWhiteLabelSettings.Instance.IsDefault &&

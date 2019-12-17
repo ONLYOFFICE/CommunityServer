@@ -82,10 +82,10 @@ function customizeWorksheet() {
     oWorksheet.SetName(reportData.resource.sheetName);
     oWorksheet.SetDisplayGridlines(false);
     oWorksheet.SetColumnWidth(0, 6);
-    oWorksheet.SetColumnWidth(1, 26);
+    oWorksheet.SetColumnWidth(1, 30);
 
     for (var i = 2; i < 35; i++) {
-        oWorksheet.SetColumnWidth(i, 12);
+        oWorksheet.SetColumnWidth(i, 15);
     }
 }
 

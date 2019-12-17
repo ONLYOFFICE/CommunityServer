@@ -96,7 +96,7 @@ namespace ASC.Data.Storage
                 {
                     currentTenantId = currentTenant.TenantId;
                 }
-                else if (!TennantPath.TryGetTenant(_tenant, out currentTenantId))
+                else if (!TenantPath.TryGetTenant(_tenant, out currentTenantId))
                 {
                     currentTenantId = 0;
                 }

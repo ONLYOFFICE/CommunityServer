@@ -276,15 +276,34 @@ ASC.Projects.TaskAction = (function () {
         });
 
         teamlab.bind(events.updatePrjProjectStatus, function (params, project) {
+            prjOnChange(function () {
+                return selectedPrjId === project.id && project.status === 1;
+            });
+        });
+
+        teamlab.bind(events.removePrjProjects, function (params, projects) {
+            prjOnChange(function () {
+                var remPrj = projects.find(function (item) { return item.id === selectedPrjId; });
+                return typeof remPrj !== "undefined";
+            });
+        });
+
+        teamlab.bind(events.removePrjProject, function (params, project) {
+            prjOnChange(function () {
+                return project.id === selectedPrjId;
+            });
+        });
+
+        function prjOnChange(condition) {
             if (!isInitData) return;
             var sortedProjects = common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
             $taskProjectSelector.projectadvancedSelector("rewriteItemList", sortedProjects, []);
 
-            if (selectedPrjId === project.id && project.status === 1 && sortedProjects.length) {
+            if (condition() && sortedProjects.length) {
                 $taskProjectSelector.projectadvancedSelector("reset");
                 $taskProjectSelector.projectadvancedSelector("selectBeforeShow", sortedProjects[0]);
             }
-        });
+        }
     };
 
     function showOrHideNotifyCheckbox() {
@@ -595,7 +614,7 @@ ASC.Projects.TaskAction = (function () {
     };
 
     function updateTaskResponsibleSelector() {
-        if (currentTask && currentTask.responsibles.length && currentTask.projectId === selectedPrjId && teamWithoutVisitors) {
+        if (currentTask && currentTask.responsibles.length && currentTask.projectId == selectedPrjId && teamWithoutVisitors) {
             $taskResponsiblesSelector.advancedSelector("select", currentTask.responsibles.map(function (item) { return item.id; }));
             $taskResponsiblesSelector.trigger("showList", [currentTask.responsibles.map(function(item){ return {id: item.id, title: item.displayName}})]);
         }

@@ -371,6 +371,14 @@ namespace ASC.Web.Core.Files
             return result;
         }
 
+        public static readonly bool CanForcesave = GetCanForcesave();
+
+        private static bool GetCanForcesave()
+        {
+            bool canForcesave;
+            return !bool.TryParse(WebConfigurationManager.AppSettings["files.docservice.forcesave"] ?? "", out canForcesave) || canForcesave;
+        }
+
         #endregion
     }
 }

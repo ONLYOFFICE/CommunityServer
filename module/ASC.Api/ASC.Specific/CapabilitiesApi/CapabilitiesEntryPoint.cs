@@ -26,6 +26,7 @@
 
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.Api.Attributes;
@@ -33,8 +34,10 @@ using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Common.Logging;
 using ASC.Core;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
+using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Specific.CapabilitiesApi
@@ -70,34 +73,50 @@ namespace ASC.Specific.CapabilitiesApi
         [Read("", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public CapabilitiesData GetPortalCapabilities()
         {
+            var result = new CapabilitiesData
+                {
+                    LdapEnabled = false,
+                    Providers = null,
+                    SsoLabel = string.Empty,
+                    SsoUrl = string.Empty
+                };
+
             try
             {
-                bool ldapEnabled;
-
-                if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                    (CoreContext.Configuration.Standalone &&
-                     !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
-                {
-                    ldapEnabled = false;
-                }
-                else
+                if (SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString())
+                    && (!CoreContext.Configuration.Standalone
+                        || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
                 {
                     var settings = LdapSettings.Load();
 
-                    ldapEnabled = settings.EnableLdapAuthentication;
+                    result.LdapEnabled = settings.EnableLdapAuthentication;
                 }
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC").Error(ex.Message);
+            }
 
-                string ssoUrl = string.Empty;
-                string ssoLabel = string.Empty;
+            try
+            {
+                result.Providers = AccountLinkControl.AuthProviders
+                                                     .Where(loginProvider =>
+                                                         {
+                                                             var provider = ProviderManager.GetLoginProvider(loginProvider);
+                                                             return provider != null && provider.IsEnabled;
+                                                         })
+                                                     .ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC").Error(ex.Message);
+            }
 
-                if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
-                    (CoreContext.Configuration.Standalone &&
-                     !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
-                {
-                    ssoUrl = string.Empty;
-                    ssoLabel = string.Empty;
-                }
-                else
+            try
+            {
+                if (SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString())
+                    && (!CoreContext.Configuration.Standalone
+                        || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
                 {
                     var settings = SsoSettingsV2.Load();
 
@@ -107,28 +126,19 @@ namespace ASC.Specific.CapabilitiesApi
 
                         var configUrl = GetAppSettings("web.sso.saml.login.url", "");
 
-                        ssoUrl = string.Format("{0}://{1}{2}{3}", uri.Scheme, uri.Host,
-                            (uri.Port == 80 || uri.Port == 443) ? "" : ":" + uri.Port, configUrl);
+                        result.SsoUrl = string.Format("{0}://{1}{2}{3}", uri.Scheme, uri.Host,
+                                                      (uri.Port == 80 || uri.Port == 443) ? "" : ":" + uri.Port, configUrl);
 
-                        ssoLabel = settings.SpLoginLabel;
+                        result.SsoLabel = settings.SpLoginLabel;
                     }
                 }
-
-                var capa = new CapabilitiesData
-                {
-                    LdapEnabled = ldapEnabled,
-                    SsoUrl = ssoUrl,
-                    SsoLabel = ssoLabel
-                };
-
-                return capa;
             }
             catch (Exception ex)
             {
                 LogManager.GetLogger("ASC").Error(ex.Message);
             }
 
-            return CapabilitiesData.GetSample();
+            return result;
         }
 
         private static string GetAppSettings(string key, string defaultValue)
@@ -139,7 +149,6 @@ namespace ASC.Specific.CapabilitiesApi
                 result = result.Trim();
 
             return result;
-
         }
     }
 }

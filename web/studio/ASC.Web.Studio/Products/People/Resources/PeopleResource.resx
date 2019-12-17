@@ -340,7 +340,7 @@
     <value>On top</value>
   </data>
   <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>Делать все то же, что и пользователь|Создавать профили и отделы|Импортировать профили|Приглашвть пользователей</value>
+    <value>Do the same as a user|Create profiles and groups|Import profiles|Invite users</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
     <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
@@ -349,7 +349,7 @@
     <value>People</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Просматривать профили и отделы</value>
+    <value>View profiles and groups</value>
   </data>
   <data name="ReadAboutNonProfit" xml:space="preserve">
     <value>Or {0}read about non-profit usage{1}.</value>
@@ -629,5 +629,8 @@
   </data>
   <data name="ImportColumn" xml:space="preserve">
     <value>Column</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
   </data>
 </root>

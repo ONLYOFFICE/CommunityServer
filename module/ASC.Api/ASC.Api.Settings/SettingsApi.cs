@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -54,8 +55,8 @@ using ASC.Web.Core;
 using ASC.Web.Core.Sms;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.WebZones;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Core.Notify;
@@ -67,7 +68,6 @@ using ASC.Web.Studio.Utility;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
 using StorageHelper = ASC.Web.Studio.UserControls.CustomNavigation.StorageHelper;
-
 
 namespace ASC.Api.Settings
 {
@@ -258,13 +258,13 @@ namespace ASC.Api.Settings
 
             return ids.Select(WebItemSecurity.GetSecurityInfo)
                       .Select(i => new SecurityWrapper
-                          {
-                              WebItemId = i.WebItemId,
-                              Enabled = i.Enabled,
-                              Users = i.Users.Select(EmployeeWraper.Get),
-                              Groups = i.Groups.Select(g => new GroupWrapperSummary(g)),
-                              IsSubItem = subItemList.Contains(i.WebItemId),
-                          }).ToList();
+                      {
+                          WebItemId = i.WebItemId,
+                          Enabled = i.Enabled,
+                          Users = i.Users.Select(EmployeeWraper.Get),
+                          Groups = i.Groups.Select(g => new GroupWrapperSummary(g)),
+                          IsSubItem = subItemList.Contains(i.WebItemId),
+                      }).ToList();
         }
 
         [Read("security/{id}")]
@@ -675,11 +675,7 @@ namespace ASC.Api.Settings
         [Update("tips/change/subscription")]
         public bool UpdateTipsSubscription()
         {
-            var isSubscribe = StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID);
-
-            StudioNotifyService.Instance.SubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID, !isSubscribe);
-
-            return !isSubscribe;
+            return StudioPeriodicNotify.ChangeSubscription(SecurityContext.CurrentAccount.ID);
         }
 
         /// <summary>
@@ -713,6 +709,8 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
+            var result = false;
+
             MessageAction action;
             switch (type)
             {
@@ -726,15 +724,18 @@ namespace ASC.Api.Settings
                     StudioSmsNotificationSettings.Enable = true;
                     action = MessageAction.TwoFactorAuthenticationEnabledBySms;
 
-                    if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                    if (TfaAppAuthSettings.Enable)
                     {
                         TfaAppAuthSettings.Enable = false;
                     }
 
+                    result = true;
+
                     break;
 
                 case "app":
-                    if (!TfaAppAuthSettings.IsVisibleSettings) {
+                    if (!TfaAppAuthSettings.IsVisibleSettings)
+                    {
                         throw new Exception(Resource.TfaAppNotAvailable);
                     }
 
@@ -746,10 +747,12 @@ namespace ASC.Api.Settings
                         StudioSmsNotificationSettings.Enable = false;
                     }
 
+                    result = true;
+
                     break;
 
-                case "none":
-                    if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                default:
+                    if (TfaAppAuthSettings.Enable)
                     {
                         TfaAppAuthSettings.Enable = false;
                     }
@@ -762,12 +765,15 @@ namespace ASC.Api.Settings
                     action = MessageAction.TwoFactorAuthenticationDisabled;
 
                     break;
-                default:
-                    return false;
+            }
+
+            if (result)
+            {
+                CookiesManager.ResetTenantCookie();
             }
 
             MessageService.Send(Request, action);
-            return true;
+            return result;
         }
 
         ///<visible>false</visible>
@@ -782,7 +788,7 @@ namespace ASC.Api.Settings
             if (currentUser.IsVisitor() || currentUser.IsOutsider())
                 throw new NotSupportedException("Not available.");
 
-            return TfaAppUserSettings.LoadForCurrentUser().CodesSetting.Select(r => new {r.IsUsed, r.Code }).ToList();
+            return TfaAppUserSettings.LoadForCurrentUser().CodesSetting.Select(r => new { r.IsUsed, r.Code }).ToList();
         }
 
         /// <summary>
@@ -836,7 +842,9 @@ namespace ASC.Api.Settings
             return string.Empty;
         }
 
-        ///<visible>false</visible>
+        /// <summary>
+        /// 
+        /// </summary>
         [Update("welcome/close")]
         public void CloseWelcomePopup()
         {
@@ -920,7 +928,7 @@ namespace ASC.Api.Settings
 
         private static string GetProductName(Guid productId)
         {
-            var product = WebItemManager.Instance[productId] as IProduct;
+            var product = WebItemManager.Instance[productId];
             return productId == Guid.Empty ? "All" : product != null ? product.Name : productId.ToString();
         }
 
@@ -1101,13 +1109,13 @@ namespace ASC.Api.Settings
 
             return webtem.Context.SpaceUsageStatManager.GetStatData()
                          .ConvertAll(it => new UsageSpaceStatItemWrapper
-                             {
-                                 Name = it.Name.HtmlEncode(),
-                                 Icon = it.ImgUrl,
-                                 Disabled = it.Disabled,
-                                 Size = FileSizeComment.FilesSizeToString(it.SpaceUsage),
-                                 Url = it.Url
-                             });
+                         {
+                             Name = it.Name.HtmlEncode(),
+                             Icon = it.ImgUrl,
+                             Disabled = it.Disabled,
+                             Size = FileSizeComment.FilesSizeToString(it.SpaceUsage),
+                             Url = it.Url
+                         });
         }
 
         /// <summary>
@@ -1131,12 +1139,12 @@ namespace ASC.Api.Settings
             for (var d = new DateTime(from.Ticks); d.Date.CompareTo(to.Date) <= 0; d = d.AddDays(1))
             {
                 points.Add(new ChartPointWrapper
-                    {
-                        DisplayDate = d.Date.ToShortDateString(),
-                        Date = d.Date,
-                        Hosts = 0,
-                        Hits = 0
-                    });
+                {
+                    DisplayDate = d.Date.ToShortDateString(),
+                    Date = d.Date,
+                    Hosts = 0,
+                    Hits = 0
+                });
             }
 
             var hits = StatisticManager.GetHitsByPeriod(TenantProvider.CurrentTenantID, from, to);
@@ -1202,45 +1210,48 @@ namespace ASC.Api.Settings
         [Update("storage")]
         public StorageSettings UpdateStorage(string module, IEnumerable<ItemKeyValuePair<string, string>> props)
         {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            if (!CoreContext.Configuration.Standalone) return null;
-
-            var consumer = ConsumerFactory.GetByName(module);
-            if (!consumer.IsSet)
-                throw new ArgumentException("module");
-
-            var settings = StorageSettings.Load();
-            if (settings.Module == module) return settings;
-
-            settings.Module = module;
-            settings.Props = props.ToDictionary(r => r.Key, b => b.Value);
 
             try
             {
+                LogManager.GetLogger("ASC").Debug("UpdateStorage");
+                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+                if (!CoreContext.Configuration.Standalone) return null;
+
+                var consumer = ConsumerFactory.GetByName(module);
+                if (!consumer.IsSet)
+                    throw new ArgumentException("module");
+
+                var settings = StorageSettings.Load();
+                if (settings.Module == module) return settings;
+
+                settings.Module = module;
+                settings.Props = props.ToDictionary(r => r.Key, b => b.Value);
+
                 StartMigrate(settings);
+                return settings;
             }
             catch (Exception e)
             {
                 LogManager.GetLogger("ASC").Error("UpdateStorage", e);
                 throw;
             }
-
-            return settings;
         }
 
         [Delete("storage")]
         public void ResetStorageToDefault()
         {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            if (!CoreContext.Configuration.Standalone) return;
-
-            var settings = StorageSettings.Load();
-
-            settings.Module = null;
-            settings.Props = null;
-
             try
             {
+                LogManager.GetLogger("ASC").Debug("ResetStorageToDefault");
+                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+                if (!CoreContext.Configuration.Standalone) return;
+
+                var settings = StorageSettings.Load();
+
+                settings.Module = null;
+                settings.Props = null;
+
+
                 StartMigrate(settings);
             }
             catch (Exception e)
@@ -1346,6 +1357,23 @@ namespace ASC.Api.Settings
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             tenant.SetStatus(TenantStatus.Migrating);
+            CoreContext.TenantManager.SaveTenant(tenant);
+        }
+
+
+        [Read("socket")]
+        public object GetSocketSettings()
+        {
+            var hubUrl = ConfigurationManager.AppSettings["web.hub"] ?? string.Empty;
+            if (hubUrl != string.Empty)
+            {
+                if (!hubUrl.EndsWith("/"))
+                {
+                    hubUrl += "/";
+                }
+            }
+
+            return new { Url = hubUrl };
         }
     }
 }

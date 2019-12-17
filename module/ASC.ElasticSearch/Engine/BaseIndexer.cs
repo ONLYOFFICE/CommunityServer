@@ -380,6 +380,16 @@ namespace ASC.ElasticSearch
             return Client.Instance.Search(descriptor.GetDescriptor(this, onlyId)).Documents;
         }
 
+        internal IReadOnlyCollection<T> Select(Expression<Func<Selector<T>, Selector<T>>> expression, bool onlyId, out long total)
+        {
+            var func = expression.Compile();
+            var selector = new Selector<T>();
+            var descriptor = func(selector).Where(r => r.TenantId, CoreContext.TenantManager.GetCurrentTenant().TenantId);
+            var result = Client.Instance.Search(descriptor.GetDescriptor(this, onlyId));
+            total = result.Total;
+            return result.Documents;
+        }
+
         private void BeforeIndex(T data)
         {
             CreateIfNotExist(data);

@@ -202,7 +202,7 @@ namespace ASC.Api.Documents
         [Create("@my/upload")]
         public object UploadFileToMy(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
         {
-            return UploadFile(Global.FolderMy.ToString(), file, contentType, contentDisposition, files, false, true);
+            return UploadFile(Global.FolderMy.ToString(), file, contentType, contentDisposition, files, false, null);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace ASC.Api.Documents
         [Create("@common/upload")]
         public object UploadFileToCommon(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
         {
-            return UploadFile(Global.FolderCommon.ToString(), file, contentType, contentDisposition, files, false, true);
+            return UploadFile(Global.FolderCommon.ToString(), file, contentType, contentDisposition, files, false, null);
         }
 
 
@@ -253,9 +253,12 @@ namespace ASC.Api.Documents
         /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <returns>Uploaded file</returns>
         [Create("{folderId}/upload")]
-        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool? createNewIfExist, bool storeOriginalFileFlag, bool keepConvertStatus = false)
+        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool? createNewIfExist, bool? storeOriginalFileFlag, bool keepConvertStatus = false)
         {
-            FilesSettings.StoreOriginalFiles = storeOriginalFileFlag;
+            if (storeOriginalFileFlag.HasValue)
+            {
+                FilesSettings.StoreOriginalFiles = storeOriginalFileFlag.Value;
+            }
 
             if (files != null && files.Any())
             {
@@ -339,6 +342,28 @@ namespace ASC.Api.Documents
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="fileId"></param>
+        /// <param name="encrypted"></param>
+        /// <returns></returns>
+        /// <visible>false</visible>
+        [Update("{fileId}/update")]
+        public FileWrapper UpdateFileStream(Stream file, string fileId, bool encrypted = false)
+        {
+            try
+            {
+                var resultFile = _fileStorageService.UpdateFileStream(fileId, file, encrypted);
+                return new FileWrapper(resultFile);
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new ItemNotFoundException("File not found", e);
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -348,12 +373,13 @@ namespace ASC.Api.Documents
         /// <param name="downloadUri"></param>
         /// <param name="stream"></param>
         /// <param name="doc"></param>
+        /// <param name="forcesave"></param>
         /// <category>Files</category>
         /// <returns></returns>
         [Update("file/{fileId}/saveediting")]
-        public FileWrapper SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc)
+        public FileWrapper SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, bool forcesave)
         {
-            return new FileWrapper(_fileStorageService.SaveEditing(fileId, fileExtension, downloadUri, stream, doc));
+            return new FileWrapper(_fileStorageService.SaveEditing(fileId, fileExtension, downloadUri, stream, doc, forcesave));
         }
 
         /// <summary>
@@ -415,6 +441,7 @@ namespace ASC.Api.Documents
         /// <param name="fileName">Name of file which has to be uploaded</param>
         /// <param name="fileSize">Length in bytes of file which has to be uploaded</param>
         /// <param name="relativePath">Relative folder from folderId</param>
+        /// <param name="encrypted" visible="false"></param>
         /// <remarks>
         /// <![CDATA[
         /// Each chunk can have different length but its important what length is multiple of <b>512</b> and greater or equal than <b>5 mb</b>. Last chunk can have any size.
@@ -438,13 +465,13 @@ namespace ASC.Api.Documents
         /// ]]>
         /// </returns>
         [Create("{folderId}/upload/create_session")]
-        public object CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath)
+        public object CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath, bool encrypted)
         {
             var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist, relativePath);
 
             if (FilesLinkUtility.IsLocalFileUploader)
             {
-                var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength);
+                var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength, encrypted);
 
                 var response = ChunkedUploaderHandler.ToResponseObject(session, true);
                 return new
@@ -454,7 +481,7 @@ namespace ASC.Api.Documents
                     };
             }
 
-            var createSessionUrl = FilesLinkUtility.GetInitiateUploadSessionUrl(file.FolderID, file.ID, file.Title, file.ContentLength);
+            var createSessionUrl = FilesLinkUtility.GetInitiateUploadSessionUrl(file.FolderID, file.ID, file.Title, file.ContentLength, encrypted);
             var request = (HttpWebRequest)WebRequest.Create(createSessionUrl);
             request.Method = "POST";
             request.ContentLength = 0;
@@ -1314,6 +1341,18 @@ namespace ASC.Api.Documents
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="save"></param>
+        /// <visible>false</visible>
+        /// <returns></returns>
+        [Update(@"hideconfirmconvert")]
+        public bool HideConfirmConvert(bool save)
+        {
+            return _fileStorageService.HideConfirmConvert(save);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="set"></param>
         /// <returns></returns>
         [Update(@"updateifexist")]
@@ -1372,47 +1411,6 @@ namespace ASC.Api.Documents
                     version = dsVersion,
                     docServiceUrlApi = url,
                 };
-        }
-
-        /// <visible>false</visible>
-        [Read("provider")]
-        public IEnumerable<string> GetThirdpartyProvider()
-        {
-            var providers = new List<string>();
-
-            if (ThirdpartyConfiguration.SupportGoogleDriveInclusion)
-            {
-                providers.Add("GoogleDrive");
-            }
-            if (ThirdpartyConfiguration.SupportBoxInclusion)
-            {
-                providers.Add("Box");
-            }
-            if (ThirdpartyConfiguration.SupportDropboxInclusion)
-            {
-                providers.Add("DropboxV2");
-            }
-            if (ThirdpartyConfiguration.SupportSharePointInclusion)
-            {
-                providers.Add("SharePoint");
-            }
-            if (ThirdpartyConfiguration.SupportOneDriveInclusion)
-            {
-                providers.Add("OneDrive");
-            }
-            if (ThirdpartyConfiguration.SupportSharePointInclusion)
-            {
-                providers.Add("SkyDrive");
-            }
-            if (ThirdpartyConfiguration.SupportYandexInclusion)
-            {
-                providers.Add("Yandex");
-            }
-            if (ThirdpartyConfiguration.SupportWebDavInclusion)
-            {
-                providers.Add("WebDav");
-            }
-            return providers;
         }
 
 

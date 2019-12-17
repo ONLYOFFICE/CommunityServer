@@ -10,8 +10,10 @@
     <RootNamespace>ASC.Core.Common</RootNamespace>
     <AssemblyName>ASC.Core.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -56,9 +58,6 @@
     </Reference>
     <Reference Include="MailKit">
       <HintPath>..\..\packages\MailKit.2.0.4\lib\net45\MailKit.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-      <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
       <HintPath>..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
@@ -215,24 +214,6 @@
     <Compile Include="Tenants\TenantRegistrationInfo.cs" />
     <Compile Include="Tenants\TenantUtil.cs" />
     <Compile Include="Tenants\TenantVersion.cs" />
-    <Compile Include="Tests\CachedSubscriptionServiceTest.cs" />
-    <Compile Include="Tests\ClientPaymentManagerTest.cs" />
-    <Compile Include="Tests\CookieStorageTest.cs" />
-    <None Include="Tests\App.config"></None>
-    <Compile Include="Tests\BillingClientTest.cs" />
-    <Compile Include="Tests\SignatureTest.cs" />
-    <Compile Include="Tests\TariffSyncServiceTest.cs" />
-    <Compile Include="Tests\HostedSolutionTest.cs" />
-    <Compile Include="Tests\EmailValidationKeyPairProvider_Test.cs" />
-    <Compile Include="Tests\TariffServiceTest.cs" />
-    <Compile Include="Tests\DbAzServiceTest.cs" />
-    <Compile Include="Tests\DbBaseTest.cs" />
-    <Compile Include="Tests\DbQuotaServiceTest.cs" />
-    <Compile Include="Tests\DbSubscriptionServiceTest.cs" />
-    <Compile Include="Tests\DbTenantServiceTest.cs" />
-    <Compile Include="Tests\DbUserServiceTest.cs" />
-    <Compile Include="Tests\TopSubscriptionProviderTest.cs" />
-    <Compile Include="Tests\UserManagerTest.cs" />
     <Compile Include="Users\DisplayUserNameFormat.cs" />
     <Compile Include="Core\EmployeeStatus.cs" />
     <Compile Include="Security\UserSecurityProvider.cs" />

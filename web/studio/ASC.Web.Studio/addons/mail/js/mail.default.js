@@ -48,7 +48,8 @@ window.TMMail = (function($) {
             drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts },
             trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash },
             spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam },
-            userfolder: { id: 6, name: 'userfolder', displayName: '' }
+            userfolder: { id: 6, name: 'userfolder', displayName: '' },
+            templates: { id: 7, name: 'templates', displayName: ASC.Mail.Resources.MailResource.FolderNameTemplates }
         },
         actionTypes = {
             'move': 1,
@@ -60,21 +61,22 @@ window.TMMail = (function($) {
             'delete_filtered': 7
         },
         anchorRegExp = {
-            sysfolders: /^$|^(inbox|sent|drafts|trash|spam|userfolder)\/?(.+)*/,
+            sysfolders: /^$|^(inbox|sent|drafts|trash|spam|userfolder|templates)\/?(.+)*/,
 
             inbox: /^$|^inbox\/?(.+)*/,
             sent: /^sent\/?(.+)*/,
             drafts: /^drafts\/?(.+)*/,
+            templates: /^templates\/?(.+)*/,
             trash: /^trash\/?(.+)*/,
             spam: /^spam\/?(.+)*/,
             userfolder: /^userfolder(?:=(\d+))?/,
 
             reply: /^reply\/(\d+)\/?$/,
             forward: /^forward\/(\d+)\/?$/,
-            compose: /^compose\/?$/,
+            compose: /^compose\/?(.+)*/,
             composeto: /^composeto\/?(.+)*/,
             replyAll: /^replyAll\/(\d+)$/,
-            writemessage: /^(compose|composeto|draftitem|forward|reply|replyAll)\/?(.+)*/,
+            writemessage: /^(compose|composeto|draftitem|templateitem|forward|reply|replyAll)\/?(.+)*/,
             composenewmessage: /^(compose|composeto|forward|reply|replyAll)\/?(.+)*/,
             viewmessage: /^(message|conversation)\/?(.+)*/,
 
@@ -87,6 +89,7 @@ window.TMMail = (function($) {
             prev_conversation: /^conversation\/(\d+)\/prev\/?$/,
 
             draftitem: /^draftitem\/(\d+)\/?$/,
+            templateitem: /^templateitem\/(\d+)\/?$/,
 
             accounts: /^accounts\/?(.+)*/,
 
@@ -318,6 +321,11 @@ window.TMMail = (function($) {
                     return true;
                 }
                 break;
+            case 'templates':
+                if (anchorRegExp.templates.test(anchor)) {
+                    return true;
+                }
+                break;
             case 'trash':
                 if (anchorRegExp.trash.test(anchor)) {
                     return true;
@@ -340,6 +348,11 @@ window.TMMail = (function($) {
                 break;
             case 'draftitem':
                 if (anchorRegExp.draftitem.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'templateitem':
+                if (anchorRegExp.templateitem.test(anchor)) {
                     return true;
                 }
                 break;
@@ -526,6 +539,26 @@ window.TMMail = (function($) {
         return 0;
     }
 
+    function extractFileIdsFromAnchor() {
+        var anchor = ASC.Controls.AnchorController.getAnchor();
+
+        if (anchor !== "") {
+            try {
+                var files = getParamsValue(anchor, /files=([^\/]+)/);
+
+                if (!files) return undefined;
+
+                var fileIds = JSON.parse(decodeURIComponent(files));
+
+                return jq.isArray(fileIds) ? fileIds : undefined;
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        return undefined;
+    }
+
     function getAccountErrorFooter(address) {
         return window.MailScriptResource.AccountCreationErrorGmailFooter
             .format('<a target="blank" class="linkDescribe" href="' + getFaqLink(address) + '">', '</a>');
@@ -619,6 +652,10 @@ window.TMMail = (function($) {
         window.open('#draftitem/' + id, '_blank');
     }
 
+    function openTemplateItem(id) {
+        window.open('#templateitem/' + id, '_blank');
+    }
+
     function moveToConversation(id, safe) {
         var anchor = '#conversation/' + id;
         if (safe) {
@@ -639,6 +676,15 @@ window.TMMail = (function($) {
 
     function moveToDraftItem(id, safe) {
         var anchor = '#draftitem/' + id;
+        if (safe) {
+            ASC.Controls.AnchorController.safemove(anchor);
+        } else {
+            ASC.Controls.AnchorController.move(anchor);
+        }
+    }
+
+    function moveToTemplateItem(id, safe) {
+        var anchor = '#templateitem/' + id;
         if (safe) {
             ASC.Controls.AnchorController.safemove(anchor);
         } else {
@@ -793,10 +839,6 @@ window.TMMail = (function($) {
         return ASC.Mail.Constants.DOWNLOAD_HANDLER_URL.format(attachmentId);
     }
 
-    function getAttachmentsDownloadAllUrl(messageId) {
-        return ASC.Mail.Constants.DOWNLOAD_ALL_HANDLER_URL.format(messageId);
-    }
-
     function getViewDocumentUrl(attachmentId) {
         return ASC.Mail.Constants.VIEW_DOCUMENT_HANDLER_URL.format(attachmentId);
     }
@@ -837,8 +879,13 @@ window.TMMail = (function($) {
     }
 
     // checks current page anchor and change it to inbox folder if required
+    // close viewers on page change
 
     function checkAnchor() {
+        if (ASC.Files && ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.isView) {
+            ASC.Files.MediaPlayer.closePlayer();
+        }
+
         if (isInvalidPage()) {
             moveToInbox();
         }
@@ -1018,6 +1065,10 @@ window.TMMail = (function($) {
         window.scrollTo(0, 0);
     }
 
+    function isTemplate() {
+        return pageIs('templateitem');
+    }
+
     return {
         sysfolders: systemFolders,
         action_types: actionTypes,
@@ -1044,6 +1095,7 @@ window.TMMail = (function($) {
         extractFolderIdFromAnchor: extractFolderIdFromAnchor,
         extractConversationIdFromAnchor: extractConversationIdFromAnchor,
         extractUserFolderIdFromAnchor: extractUserFolderIdFromAnchor,
+        extractFileIdsFromAnchor: extractFileIdsFromAnchor,
 
         getFaqLink: getFaqLink,
         getSupportLink: getSupportLink,
@@ -1056,9 +1108,11 @@ window.TMMail = (function($) {
         openMessage: openMessage,
         openConversation: openConversation,
         openDraftItem: openDraftItem,
+        openTemplateItem: openTemplateItem,
         moveToConversation: moveToConversation,
         moveToMessage: moveToMessage,
         moveToDraftItem: moveToDraftItem,
+        moveToTemplateItem: moveToTemplateItem,
         moveToInbox: moveToInbox,
 
         getParamsValue: getParamsValue,
@@ -1072,7 +1126,6 @@ window.TMMail = (function($) {
         fixMailtoLinks: fixMailtoLinks,
         isIe: isIe,
         getAttachmentDownloadUrl: getAttachmentDownloadUrl,
-        getAttachmentsDownloadAllUrl: getAttachmentsDownloadAllUrl,
         getViewDocumentUrl: getViewDocumentUrl,
         getEditDocumentUrl: getEditDocumentUrl,
         getContactPhototUrl: getContactPhototUrl,
@@ -1101,6 +1154,8 @@ window.TMMail = (function($) {
         hideAllActionPanels: hideAllActionPanels,
 
         getRandomId: getRandomId,
-        scrollTop: scrollTop
+        scrollTop: scrollTop,
+
+        isTemplate: isTemplate
     };
 })(jQuery);

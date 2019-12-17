@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserProfileEditControl.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserProfile.UserProfileEditControl" %>
 <%@ Import Namespace="ASC.ActiveDirectory.Base.Settings" %>
 <%@ Import Namespace="ASC.Web.Core.Sms" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 
@@ -50,7 +51,7 @@
                         </tr>
                         </table>
                         <% if (!string.IsNullOrEmpty(HelpLink)) { %>
-                        <a class="link underline blue" href="<%= HelpLink + "/gettingstarted/people.aspx#ManagingAccessRights_block" %>"><%= Resource.TermsOfUsePopupHelperLink %></a>
+                        <a class="link underline blue" href="<%= HelpLink + "/gettingstarted/people.aspx#ManagingAccessRights_block" %>" target="_blank"><%= Resource.TermsOfUsePopupHelperLink %></a>
                         <% } %>
                     </div>
                 </td>
@@ -93,11 +94,11 @@
                     <div id="inputUserEmail">
                         <input type="text" id="profileEmail" value="<%= Email %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag || ProfileIsLdap ? "disabled" : "" %> <%= ProfileIsLdap ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (ProfileIsSso ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : " title=\"" + Resource.Email + "\"") %>/>
                         <span class="emailInfo"></span>
-                        <% if (!IsPageEditProfileFlag) { %>
+                        <% if (!IsPageEditProfileFlag  && !IsTrial) { %>
                         <a id="createEmailOnDomain" class="link dotline" style="display:none;"><%= Resource.CreateEmailOnDomain %></a>
                         <% } %>
                     </div>
-                    <% if (!IsPageEditProfileFlag && CurrentUserIsMailAdmin) { %>
+                    <% if (!IsPageEditProfileFlag && CurrentUserIsMailAdmin  && !IsTrial) { %>
                     <div id="inputPortalEmail" style="display:none;">
                         <input type="text" autocomplete="off" class="textEdit portalEmail" maxlength="30" size="30" />
                         @<select id="domainSelector"></select>
@@ -140,17 +141,17 @@
                         <p class="gray-text" style="margin-top: 2px;"><%= Resource.TemporaryPasswordToAccess %></p>
                     </div>
                     <div class="validationBlock">
-                        <input id="password" autocomplete="off" class="textEdit" type="password" maxlength="30" size="10" title="<%= Resource.Password %>"/>
+                        <input id="password" autocomplete="off" class="textEdit" type="password" maxlength="<%= PasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
                         <a class="infoChecking" id="passwordGen">&nbsp;</a>
                         <div id="bubleBlock">
                         <div id="passwordInfo" style="display:none;"><%= Resource.ErrorPasswordMessage %>:
-                            <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(),UserPasswordMinLength,30)  %></span>
+                            <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(), UserPasswordMinLength, PasswordSettings.MaxLength) %></span>
                             <% if (UserPasswordDigits) { %>
                             <br /><span id="passDigits" class="infoItem"><%= Resource.ErrorPasswordNoDigits %></span>
                             <% } if (UserPasswordUpperCase) { %>
                             <br /><span id="passUpper" class="infoItem"><%= Resource.ErrorPasswordNoUpperCase %></span>
                             <% } if (UserPasswordSpecSymbols) { %>
-                            <br /><span id="passSpecial" class="infoItem"><%= Resource.ErrorPasswordNoSpecialSymbols %> (!@#$%^&*)</span>
+                            <br /><span id="passSpecial" class="infoItem"><%= Resource.ErrorPasswordNoSpecialSymbols %> (!@#$%^&*_\-()=)</span>
                             <% } %>
                         </div>
                         </div>
@@ -196,7 +197,7 @@
                     <div><span id="chooseGroupsSelector" class="link dotline plus"><%= CustomNamingPeople.Substitute<Resource>("BindDepartmentButton").HtmlEncode() %></span></div>
                     <% } else { %>
                     <% foreach (var department in Departments) { %>
-                    <div class="field-value"><%= department.Name %></div>
+                    <div class="field-value"><%= department.Name.HtmlEncode() %></div>
                     <% } %>
                     <% } %>
                 </td>

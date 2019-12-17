@@ -326,6 +326,19 @@ namespace ASC.Projects.Core.Domain.Reports
             p = GetParameterFromUri(uri, "fts");
             if (!string.IsNullOrEmpty(p)) filter.TaskStatuses = ToEnumsArray<TaskStatus>(p);
 
+            p = GetParameterFromUri(uri, "ftss");
+            if (!string.IsNullOrEmpty(p))
+            {
+                if (p.StartsWith("all"))
+                {
+                    filter.Substatus = int.Parse(p.Substring(3));
+                }
+                else
+                {
+                    filter.Substatus = int.Parse(p);
+                }
+            }
+
             p = GetParameterFromUri(uri, "fv");
             if (!string.IsNullOrEmpty(p)) filter.ViewType = int.Parse(p);
 

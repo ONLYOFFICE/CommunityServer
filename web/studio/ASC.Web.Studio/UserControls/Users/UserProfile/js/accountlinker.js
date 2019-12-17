@@ -25,11 +25,7 @@
 
 
 jq(function () {
-    if (window.AccountLinkControl_SettingsView === true) {
-        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
-    }
-
-    jq(".account-links").delegate('.popup', 'click', function () {
+    jq("#accountLinks, .account-links").delegate(".popup", "click", function () {
         var obj = jq(this);
         if (obj.hasClass('linked')) {
             //unlink
@@ -54,6 +50,10 @@ jq(function () {
         }
         return false;
     });
+
+    if (window.AccountLinkControl_SettingsView === true) {
+        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+    }
 });
 
 function loginCallback(profile) {

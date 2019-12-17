@@ -31,10 +31,12 @@ namespace ASC.ActiveDirectory.ComplexOperations
     public class LdapLocalization
     {
         private readonly ResourceManager _resourceManager;
+        private readonly ResourceManager _notifyResourceManager;
 
-        public LdapLocalization(ResourceManager resourceManager = null)
+        public LdapLocalization(ResourceManager resourceManager = null, ResourceManager notifyResourceManager = null)
         {
             _resourceManager = resourceManager;
+            _notifyResourceManager = notifyResourceManager;
         }
 
         public string FirstName
@@ -580,11 +582,28 @@ namespace ASC.ActiveDirectory.ComplexOperations
             }
         }
 
+        public string NotifyButtonJoin
+        {
+            get
+            {
+                const string def_key = "ButtonAccessYourPortal";
+                const string def_val = "Click here to join the portal";
+
+                return GetValueOrDefault(def_key, def_val);
+            }
+        }
+
         private string GetValueOrDefault(string key, string defaultValue)
         {
             try
             {
-                return _resourceManager != null ? _resourceManager.GetString(key) : defaultValue;
+                var val = _resourceManager != null ? _resourceManager.GetString(key) : null;
+                if (val == null && _notifyResourceManager != null)
+                {
+                    val = _notifyResourceManager.GetString(key);
+                }
+
+                return val != null ? val : defaultValue;
             }
             catch
             {

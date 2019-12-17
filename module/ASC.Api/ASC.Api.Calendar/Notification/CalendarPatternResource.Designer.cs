@@ -66,11 +66,15 @@ namespace ASC.Api.Calendar.Notification {
         /// 
         /// 
         ///&quot;$UserName&quot;:&quot;$UserLink&quot; has granted you the access to the calendar: $CalendarName 
-        /// 
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the calendars shared with you, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^
+        ///
         ///#end
         ///#if($SharingType == &quot;event&quot;)
-        ///h1.Access Granted to Event: $ [rest of string was truncated]&quot;;.
+        ///h1.Access Granted to Event: $EventName
+        /// 
+        /// 
+        ///&quot;$UserName&quot;:&quot;$UserLink&quot; has granted you the access to the event: $EventName
+        ///
+        ///#end.
         /// </summary>
         public static string CalendarSharingEmailPattern {
             get {
@@ -116,10 +120,7 @@ namespace ASC.Api.Calendar.Notification {
         /// Event Description:
         /// 
         ///$EventDescription
-        ///#end
-        /// 
-        /// 
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the event reminders, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///#end.
         /// </summary>
         public static string EventAlertEmailPattern {
             get {

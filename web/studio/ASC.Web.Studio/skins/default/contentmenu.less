@@ -82,6 +82,11 @@ li.menuActionSelectAll
         cursor: pointer;
         color: @grayButtonTextColor;
 
+        &.openDropdown {
+            padding: 1px 0;
+            border-right-width: 0;
+        }
+
         &.menuActionSelectAll {
             cursor: default;
         }
@@ -89,6 +94,43 @@ li.menuActionSelectAll
         .down_arrow {
             border-color: @grayButtonTextColor transparent transparent transparent;
             cursor: pointer;
+        }
+    }
+
+    .buttonDropdown {
+        .bg-button-default();
+        .border-button-default();
+        border-radius: 3px 0 0 3px;
+        margin-top: -2px;
+        margin-left: -6px;
+        height: 17px;
+
+        &.bodyDropdown {
+            padding: 1px 8px 1px 12px;
+            border-width: 1px 0px 1px 1px;
+            float: left;
+        }
+    }
+
+    .arrowDropdown {
+        .bg-button-default();
+        .border-button-default();
+        position: relative;
+        margin-top: -2px;
+        height: 17px;
+        padding: 1px 6px;
+        border-radius: 0 3px 3px 0;
+
+        &:after {
+            border-color: @grayButtonTextColor transparent transparent;
+            border-style: solid solid outset;
+            border-width: 4px 4px 0;
+            content: "";
+            height: 0;
+            position: absolute;
+            right: 4px;
+            top: 40%;
+            width: 0;
         }
     }
 

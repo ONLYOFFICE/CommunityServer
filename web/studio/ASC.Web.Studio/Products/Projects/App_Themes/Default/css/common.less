@@ -372,7 +372,6 @@ body.media-width-0-1200 {
 
 /*--projects info---*/
 .project-info-container {
-    padding-top: 8px;
     overflow: hidden;
     margin-bottom: 16px;
     position: relative;
@@ -380,18 +379,16 @@ body.media-width-0-1200 {
     display: none;
 
     .count {
-        margin-left:2px;
+        margin-left: 2px;
     }
 
     .project-total-info {
-        max-height: 30px;
-
         .additional-info {
             color: #666;
             font-size: 12px;
         }
 
-        .header-with-menu {
+        &.header-with-menu {
             overflow: visible;
         }
 
@@ -399,9 +396,9 @@ body.media-width-0-1200 {
             margin-top: 8px;
         }
 
-        .project-title {
+        &.project-title {
             display: inline-block;
-            max-width: 100%;
+            max-width: 1100px;
 
             span.private {
                 background: url('../../../../../skins/default/images/svg/projects/lockorange.svg') no-repeat;
@@ -412,13 +409,13 @@ body.media-width-0-1200 {
                 width: 16px;
             }
 
-            #subscribe {
-                float: left;
+            .entity-menu {
+                display: inline-block;
+                margin: 5px 0 0 7px;
             }
 
-            .entity-menu {
-                float: left;
-                margin: 5px 0 0 7px;
+            #essenceTitle {
+                overflow-wrap: break-word;
             }
         }
     }
@@ -428,28 +425,21 @@ body.media-width-0-1200 {
     }
 }
 
-#essenceTitle.truncated-text {
-    float: left;
-    overflow: hidden;
-    white-space: nowrap;
+
+body.media-width-0-1575 .project-info-container .project-title {
     max-width: 1000px;
 }
 
-
-body.media-width-0-1575 #essenceTitle.truncated-text {
-    max-width: 1000px;
+body.media-width-0-1500 .project-info-container .project-title {
+    max-width: 950px;
 }
 
-body.media-width-0-1500 #essenceTitle.truncated-text {
+body.media-width-0-1350 .project-info-container .project-title {
     max-width: 900px;
 }
 
-body.media-width-0-1350 #essenceTitle.truncated-text {
-    max-width: 800px;
-}
-
-body.media-width-0-1150 #essenceTitle.truncated-text {
-    max-width: 600px;
+body.media-width-0-1150 .project-info-container .project-title {
+    max-width: 850px;
 }
 
 /*--- project navigation-----*/
@@ -954,7 +944,8 @@ table.table-list {
 #groupActionContainer {
     display: none;
 
-    #groupActionMenuSelector {
+    .studio-action-panel {
+        text-align:left;
         margin-top: 24px;
     }
 }

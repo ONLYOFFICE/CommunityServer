@@ -117,17 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FooterCommon" xml:space="preserve">
+  <data name="FooterCommonV10" xml:space="preserve">
     <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
@@ -147,47 +147,17 @@
             &lt;/td&gt;
         &lt;/tr&gt;</value>
   </data>
-  <data name="FooterFreeCloud" xml:space="preserve">
+  <data name="FooterOpensourceV10" xml:space="preserve">
     <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Need tech help?&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Sales Questions&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Order Demo&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
-              &lt;a href="http://cloud.onlyoffice.org/" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
-              &lt;a href="mailto:sales@onlyoffice.com" style="color: #333;"&gt;Email us&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
-              &lt;a href="http://www.onlyoffice.com/demo-order.aspx" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;</value>
-  </data>
-  <data name="FooterOpensource" xml:space="preserve">
-    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
-              &lt;img src="https://static.onlyoffice.com/media/newsletters/images/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
@@ -205,40 +175,6 @@
             &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
               &lt;a href="http://www.onlyoffice.com/demo-order.aspx" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
             &lt;/td&gt;
-        &lt;/tr&gt;</value>
-  </data>
-  <data name="FooterSocial" xml:space="preserve">
-    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;"&gt;
-              &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-fb-40.png" alt="Facebook" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://twitter.com/ONLY_OFFICE" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-tw-40.png" alt="Twitter" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://plus.google.com/+Onlyoffice_Community" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-gplus-40.png" alt="Google+" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="http://www.youtube.com/user/onlyofficeTV" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-youtube-40.png" alt="YouTube" style="width: 40px; height: 40x;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="http://vk.com/onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-vk-40.png" alt="VK" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 155px 0 5px;"&gt;
-              &lt;a href="http://www.instagram.com/the_onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="https://static.onlyoffice.com/media/newsletters/images/social-inst-40.png" alt="Instagram" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
         &lt;/tr&gt;</value>
   </data>
   <data name="HtmlMaster" xml:space="preserve">
@@ -299,7 +235,7 @@
         &lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
           &lt;td colspan="3" style="margin: 0; padding: 0; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"&gt;
-            &lt;div style="width: 600px; height: 340px; background: url('https://d2nlctn12v279m.cloudfront.net/media/newsletters/images/personal-wellcome-bg.png') 0 0 no-repeat; margin: 0; padding: 0;  border: 0 none;"&gt;&lt;/div&gt;
+            &lt;div style="width: 600px; height: 340px; background: url('%IMAGEPATH%/personal-wellcome-bg.png') 0 0 no-repeat; margin: 0; padding: 0;  border: 0 none;"&gt;&lt;/div&gt;
 &lt;div style="font-family: Arial; font-size: 14px; color: #333; margin: 0; padding: 15px 30px 15px; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;"&gt;
               %CONTENT%
             &lt;/div&gt;
@@ -324,13 +260,41 @@
 &lt;/div&gt;
 &lt;/body&gt;</value>
   </data>
-  <data name="TextForFooter" xml:space="preserve">
-    <value />
+  <data name="SocialNetworksFooterV10" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;"&gt;
+              &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-fb-40.png" alt="Facebook" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://twitter.com/ONLY_OFFICE" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-tw-40.png" alt="Twitter" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://www.onlyoffice.com/blog" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-blog-40.png" alt="ONLYOFFICE" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://www.youtube.com/user/onlyofficeTV" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-youtube-40.png" alt="YouTube" style="width: 40px; height: 40x;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://vk.com/onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-vk-40.png" alt="VK" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 155px 0 5px;"&gt;
+              &lt;a href="https://www.instagram.com/the_onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-inst-40.png" alt="Instagram" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;</value>
   </data>
   <data name="TextForFooterWithUnsubscribeLink" xml:space="preserve">
-    <value>This email is generated automatically and you do not need to answer it.
-&lt;br /&gt;You receive this email because you are a registered user of &lt;a href="{0}" style="color: #7b7b7b;" target="_blank"&gt;{0}&lt;/a&gt;
-&lt;br /&gt;If you no longer wish to receive these emails, click on the following link: &lt;a href="{1}" style="color: #7b7b7b;" target="_blank"&gt;Unsubscribe&lt;/a&gt;
-&lt;br /&gt;</value>
+    <value>You received this message because  you are a registered user of the &lt;a href="{0}" style="color: #7b7b7b;" target="_blank"&gt;{0}&lt;/a&gt;. &lt;a href="{1}" style="color: #7b7b7b;" target="_blank"&gt;Unsubscribe&lt;/a&gt;</value>
   </data>
 </root>

@@ -51,14 +51,14 @@ namespace ASC.Common.Caching
         {
             Memory = new AscCache();
             Default = ConfigurationManager.GetSection("redisCacheClient") != null ? new RedisCache() : Memory;
-            Notify = (ICacheNotify) Default;
+            Notify = (ICacheNotify)Default;
             try
             {
                 Notify.Subscribe<AscCacheItem>((item, action) => { OnClearCache(); });
             }
             catch (Exception)
             {
-                
+
             }
         }
 
@@ -75,7 +75,7 @@ namespace ASC.Common.Caching
         public void Insert(string key, object value, TimeSpan sligingExpiration)
         {
             var cache = GetCache();
-            cache.Set(key, value, new CacheItemPolicy {SlidingExpiration = sligingExpiration});
+            cache.Set(key, value, new CacheItemPolicy { SlidingExpiration = sligingExpiration });
         }
 
         public void Insert(string key, object value, DateTime absolutExpiration)
@@ -108,7 +108,7 @@ namespace ASC.Common.Caching
         public IDictionary<string, T> HashGetAll<T>(string key)
         {
             var cache = GetCache();
-            var dic = (IDictionary<string, T>) cache.Get(key);
+            var dic = (IDictionary<string, T>)cache.Get(key);
             return dic != null ? new Dictionary<string, T>(dic) : new Dictionary<string, T>();
         }
 
@@ -116,7 +116,7 @@ namespace ASC.Common.Caching
         {
             var cache = GetCache();
             T value;
-            var dic = (IDictionary<string, T>) cache.Get(key);
+            var dic = (IDictionary<string, T>)cache.Get(key);
             if (dic != null && dic.TryGetValue(field, out value))
             {
                 return value;
@@ -127,7 +127,7 @@ namespace ASC.Common.Caching
         public void HashSet<T>(string key, string field, T value)
         {
             var cache = GetCache();
-            var dic = (IDictionary<string, T>) cache.Get(key);
+            var dic = (IDictionary<string, T>)cache.Get(key);
             if (value != null)
             {
                 if (dic == null)
@@ -156,8 +156,8 @@ namespace ASC.Common.Caching
         {
             if (onchange != null)
             {
-                Action<object, CacheNotifyAction> action = (o, a) => onchange((T) o, a);
-                actions.AddOrUpdate(typeof(T), 
+                Action<object, CacheNotifyAction> action = (o, a) => onchange((T)o, a);
+                actions.AddOrUpdate(typeof(T),
                     new ConcurrentBag<Action<object, CacheNotifyAction>> { action },
                     (type, bag) =>
                     {
@@ -193,7 +193,7 @@ namespace ASC.Common.Caching
             return MemoryCache.Default;
         }
 
-        private static void OnClearCache()
+        public static void OnClearCache()
         {
             Default.Remove(new Regex(".*"));
             var keys = MemoryCache.Default.Select(r => r.Key).ToList();

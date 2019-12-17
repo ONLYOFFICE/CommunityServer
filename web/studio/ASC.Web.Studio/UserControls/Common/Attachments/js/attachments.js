@@ -337,12 +337,12 @@ window.Attachments = (function () {
         var ext = jq(".createFile").attr("id");
         title = replaceSpecCharacter(title) + ext;
         Teamlab.addDocFile(
-            { handler: hWindow },
+            {},
             rootFolderId,
             "file",
             { title: title, content: '', createNewIfExist: true },
-            function() { onCreateFile(arguments); },
-            { error: function(params) { params.handler.close(); } }
+            function() { onCreateFile(arguments, hWindow); },
+            { error: function() { hWindow.close(); } }
         );
         removeNewDocument();
     };
@@ -559,7 +559,7 @@ window.Attachments = (function () {
         }
     };
 
-    var onCreateFile = function(response) {
+    var onCreateFile = function(response, hWindow) {
         var file = response[1];
 
         file.fileStatus = 1;
@@ -575,8 +575,8 @@ window.Attachments = (function () {
         }
         jq(".containerAction").show();
 
-        if (response[0].handler.location) {
-            response[0].handler.location.href = ASC.Files.Utility.GetFileWebEditorUrl(file.id);
+        if (hWindow.location) {
+            hWindow.location.href = ASC.Files.Utility.GetFileWebEditorUrl(file.id);
         }
     };
 

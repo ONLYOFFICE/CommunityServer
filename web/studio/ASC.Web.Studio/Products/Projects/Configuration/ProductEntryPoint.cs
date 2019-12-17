@@ -66,14 +66,20 @@ namespace ASC.Web.Projects.Configuration
             get { return ProjectsCommonResource.ProductName; }
         }
 
-        public override string ExtendedDescription
-        {
-            get { return string.Format(ProjectsCommonResource.ProductDescriptionEx, "<span style='display:none'>", "</span>"); }
-        }
-
         public override string Description
         {
-            get { return ProjectsCommonResource.ProductDescription; }
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupVisitor.ID))
+                    return ProjectsCommonResource.ProductDescriptionShort;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, ID))
+                    return ProjectsCommonResource.ProductDescriptionEx;
+
+                return ProjectsCommonResource.ProductDescription;
+            }
         }
 
         public override string StartURL
@@ -105,7 +111,7 @@ namespace ASC.Web.Projects.Configuration
                               MasterPageFile = String.Concat(PathProvider.BaseVirtualPath, "Masters/BasicTemplate.Master"),
                               DisabledIconFileName = "product_disabled_logo.png",
                               IconFileName = "product_logo.png",
-                              LargeIconFileName = "product_logolarge.png",
+                              LargeIconFileName = "product_logolarge.svg",
                               SubscriptionManager = new ProductSubscriptionManager(),
                               DefaultSortOrder = 20,
                               SpaceUsageStatManager = new ProjectsSpaceUsageStatManager(),

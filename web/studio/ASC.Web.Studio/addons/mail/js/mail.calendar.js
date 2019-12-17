@@ -137,7 +137,9 @@ window.mailCalendar = (function ($) {
             fromOrganizer: false,
             fromAttendee: false,
             alienEvent: true,
-            timeZone: calendarEventInfo && calendarEventInfo.timeZone ? calendarEventInfo.timeZone : null,
+            timeZone: calendarEventInfo && calendarEventInfo.timeZone ? calendarEventInfo.timeZone : {
+                offset: ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset
+            },
             calendarName: calendarEventInfo && calendarEventInfo.calendarName ? calendarEventInfo.calendarName : null,
             calendarId: calendarEventInfo && calendarEventInfo.calendarId ? calendarEventInfo.calendarId : -1,
             eventId: calendarEventInfo && calendarEventInfo.eventId ? calendarEventInfo.eventId : null

@@ -64,45 +64,45 @@
     </div>
     <ul class="menu-list">
         <li class="menu-item  none-sub-list<% if (CurrentPage == "default") { %> active<% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="default.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="default.aspx" title="<%= SampleResource.CreateModule %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.CreateModule %></span>
             </a>
             <span id="feed-new-cases-count" class="feed-new-count"></span>
         </li>
         <li class="menu-item  none-sub-list<% if (CurrentPage == "styles") { %> active<% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="styles.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="styles.aspx" title="<%= SampleResource.Styles %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Styles %></span>
             </a>
             <span id="Span1" class="feed-new-count"></span>
         </li>
         <li class="menu-item  none-sub-list <% if (CurrentPage == "elements") { %> active <% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="elements.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="elements.aspx" title="<%= SampleResource.Elements %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Elements %></span>
             </a>
         </li>
         <li class="menu-item  none-sub-list <% if (CurrentPage == "usercontrols") { %> active <% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="usercontrols.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="usercontrols.aspx" title="<%= SampleResource.Controls %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Controls %></span>
             </a>
         </li>
         <li class="menu-item  none-sub-list <% if (CurrentPage == "database") { %> active <% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="database.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="database.aspx" title="<%= SampleResource.Database %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Database %></span>
             </a>
         </li>
         <li class="menu-item  none-sub-list <% if (CurrentPage == "api") { %> active <% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="api.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="api.aspx" title="<%= SampleResource.Api %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Api %></span>
             </a>
         </li>
         <li class="menu-item  none-sub-list <% if (CurrentPage == "help") { %> active <% } %>">
-            <a class="menu-item-label outer-text text-overflow" href="help.aspx">
+            <a class="menu-item-label outer-text text-overflow" href="help.aspx" title="<%= SampleResource.Help %>">
                 <span class="menu-item-icon sample"></span>
                 <span class="menu-item-label inner-text"><%= SampleResource.Help %></span>
             </a>

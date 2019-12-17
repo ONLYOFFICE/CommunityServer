@@ -20,10 +20,125 @@
             <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.StartPage}</div>
             <span id="startModule" class="top-align link dotline">${startModuleTitle}</span>
         </div>
+        {{if !Teamlab.profile.isVisitor}}
         <div class="settings-box folderSelectorBox">
             <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.ReportFolder}</div>
             <input type="text" class="folderSelector textEdit" readonly="readonly"/>
             <div class="button gray middle">${ASC.Resources.Master.TemplateResource.Choose}</div>
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+<script id="projects_settings_custom_statuses_box" type="text/x-jquery-tmpl">
+    <div>${ASC.Projects.Resources.CommonResource.CustomStatusDescriptionBox}</div>
+    <div class="settings-box">
+        <a id="newStatus" class="button gray">
+            <span class="plus">${ASC.Projects.Resources.CommonResource.CustomStatusNew}</span>
+        </a>
+        {{each customStatuses}}
+        {{tmpl($item.data.customStatuses[$index]) 'projects_settings_custom_statuses'}}
+        {{/each}}
+    </div>
+</script>
+
+<script id="projects_settings_custom_statuses" type="text/x-jquery-tmpl">
+    <div class="custom-status" data-type="${id}">
+        <div class="header-base-small headerPanelSmall">${title}</div>
+        {{if state.can}}
+        <div class="settings-box">
+            <input id="cbxAvailable${id}" class="on-off-checkbox" {{if state.on}} checked="checked" {{/if}} {{if !state.enabled}} disabled="disabled" {{/if}} type="checkbox">
+            <label for="cbxAvailable${id}">${ASC.Projects.Resources.CommonResource.ChangeCustomStatusAvailable}</label>
+        </div>
+        {{/if}}
+        <div class="settings-box">
+        {{each $item.data.sub}}
+        {{tmpl($item.data.sub[$index]) 'projects_settings_custom_status'}}
+        {{/each}}
+        </div>
+    </div>
+</script>
+
+<script id="projects_settings_custom_status" type="text/x-jquery-tmpl">
+    <div class="grid-page" data-id="${id}">
+        <div class="sort_drag_handle borderBase">&nbsp;</div>
+        <div>
+            <img src="data:${imageType};base64,${image}"/>
+        </div>
+        <div>
+            <span>${title}</span>
+        </div>
+        <div>
+            <span>${description}</span>
+        </div>
+        <div class="with-entity-menu">
+            <div class="entity-menu ">
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="projects_settings_status_edit" type="text/x-jquery-tmpl">
+    <div class="commonActionPanel">
+        <div class="block-cnt-splitter">
+            <div id="changeIcon">
+                <img src="data:${imageType};base64,${image}"/>
+                <span class="baseLinkAction">${ASC.Projects.Resources.CommonResource.ChangeIconCustomStatus}</span>
+            </div>
+            <div id="changeColor">
+                <div style="background-color:${color}"></div>
+                <span class="baseLinkAction">${ASC.Projects.Resources.CommonResource.ChangeColorCustomStatus}</span>
+            </div>
+        </div>
+        <div class="block-cnt-splitter titlePanel requiredField">
+            <span class="requiredErrorText title">${ASC.Projects.Resources.CommonResource.EmptyStatusTitle}</span>
+            <div class="headerPanelSmall">
+                ${ASC.Projects.Resources.CommonResource.CustomStatusTitle}:
+            </div>
+            <input class="textEdit" maxlength="250" value="${title}"/>
+        </div>
+        <div class="block-cnt-splitter">
+            <div class="headerPanelSmall">
+                ${ASC.Projects.Resources.CommonResource.CustomStatusDescription}:
+            </div>
+            <textarea cols="22" rows="3">${description}</textarea>
+        </div>
+        {{if !isDefault }}
+        <div class="block-cnt-splitter">
+            <span>${ASC.Projects.Resources.CommonResource.CustomStatusCategory}:</span>
+            <span id="changeCategory" class="baseLinkAction">${category}</span>
+        </div>
+        {{/if}}
+        <div class="errorBox display-none"></div>
+        <div class="middle-button-container">
+            <a class="button blue middle">${ASC.Projects.Resources.CommonResource.Save}</a>
+            <span class="splitter-buttons"></span>
+            <a class="button gray middle cancel">${ASC.Projects.Resources.CommonResource.Cancel}</a>
+        </div>
+    </div>
+    <div id="popup_iconPanel" class="studio-action-panel">
+        <div>
+            {{each ASC.Projects.Master.Settings.icons}}
+            <img src="data:image/svg+xml;base64,${$value}"/>
+            {{/each}}
+            <div>
+                <input type="file" id="imageUpload" accept="image/svg+xml"/>
+                <a id="uploadButton" class="button gray">Upload</a>
+            </div>
+        </div>
+    </div>
+    <div id="popup_colorPanel" class="studio-action-panel">
+        <div>
+            {{each ASC.Projects.Master.Settings.colors}}
+            <div style="background-color:${$value}"></div>
+            {{/each}}
+        </div>
+    </div>
+    <div id="popup_categoryPanel" class="studio-action-panel">
+        <div>
+            {{each ASC.Projects.Resources.Statuses}}
+            <div data-id="${-ASC.Projects.Resources.Statuses[$index].id}">${ASC.Projects.Resources.Statuses[$index].title}</div>
+            {{/each}}
         </div>
     </div>
 </script>

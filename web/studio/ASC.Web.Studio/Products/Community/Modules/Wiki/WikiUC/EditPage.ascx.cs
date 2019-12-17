@@ -204,7 +204,6 @@ namespace ASC.Web.UserControls.Wiki.UC
             get { return ViewState["mainPath"] == null ? string.Empty : ViewState["mainPath"].ToString().ToLower(); }
             set { ViewState["mainPath"] = value; }
         }
-        protected bool _mobileVer = false;
         private void SetWikiFCKEditorValue(string pageName, string pageBody)
         {
             Wiki_FCKEditor.Value = IsWysiwygDefault ? RenderPageContent(pageName, pageBody) : pageBody;
@@ -213,20 +212,6 @@ namespace ASC.Web.UserControls.Wiki.UC
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Page.IsPostBack) return;
-
-            _mobileVer = MobileDetector.IsMobile;
-
-
-            //fix for IE 10
-            var browser = HttpContext.Current.Request.Browser.Browser;
-
-            var userAgent = Context.Request.Headers["User-Agent"];
-            var regExp = new Regex("MSIE 10.0", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            var regExpIe11 = new Regex("(?=.*Trident.*rv:11.0).+", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            if (browser == "IE" && regExp.Match(userAgent).Success || regExpIe11.Match(userAgent).Success)
-            {
-                _mobileVer = true;
-            }
 
             Wiki_FCKEditor.BasePath = VirtualPathUtility.ToAbsolute(BaseFCKRelPath);
             Wiki_FCKEditor.ToolbarSet = "WikiPanel";

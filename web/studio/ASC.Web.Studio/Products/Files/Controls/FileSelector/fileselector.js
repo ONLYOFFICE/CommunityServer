@@ -192,18 +192,27 @@ window.ASC.Files.FileSelector = (function () {
         folderId = folderId || ASC.Files.FileSelector.fileSelectorTree.getDefaultFolderId();
         ASC.Files.FileSelector.fileSelectorTree.setCurrent(folderId);
 
+        ASC.Files.FileSelector.fileSelectorTree.clickOnFolder(folderId);
+
         if (!isFolderSelector) {
             ASC.Files.UI.filesSelectedHandler = selectFile;
 
-            selectFolder(folderId);
+            jq("#submitFileSelector").toggleClass("disable",
+                !isFolderSelector || !ASC.Files.Common.isCorrectId(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId));
         }
-
-        jq("#submitFileSelector").toggleClass("disable",
-            !isFolderSelector || !ASC.Files.Common.isCorrectId(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId));
     };
 
     var setTitle = function (newTitle) {
         jq("#fileSelectorTitle").text((newTitle || "").trim());
+    };
+
+    var showThirdPartyOnly = function (providerKey) {
+        jq("#fileSelectorTree>ul>li.third-party-entry").each(function(i, treeNode) {
+            var entryData = ASC.Files.UI.getObjectData(treeNode);
+            if (entryData.provider_key != providerKey) {
+                jq(treeNode).hide();
+            }
+        });
     };
 
     var createThirdPartyTree = function (callback) {
@@ -251,6 +260,7 @@ window.ASC.Files.FileSelector = (function () {
 
         toggleThirdParty: toggleThirdParty,
         createThirdPartyTree: createThirdPartyTree,
+        showThirdPartyOnly: showThirdPartyOnly,
 
         fileSelectorTree: fileSelectorTree,
         filesFilter: filesFilter,

@@ -74,6 +74,11 @@ namespace ASC.Files.Thirdparty.Dropbox
                        : ToFile(metadata.AsFile);
         }
 
+        public File GetFileStable(object fileId, int fileVersion)
+        {
+            return ToFile(GetDropboxFile(fileId));
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             return new List<File> { GetFile(fileId) };
@@ -275,6 +280,11 @@ namespace ASC.Files.Thirdparty.Dropbox
             if (parentPath != null) DropboxProviderInfo.CacheReset(parentPath);
 
             return ToFile(newDropboxFile);
+        }
+
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            return SaveFile(file, fileStream);
         }
 
         public void DeleteFile(object fileId)

@@ -38,6 +38,8 @@ namespace ASC.Files.Core
 
         public File File { get; set; }
 
+        public bool Encrypted { get; set; }
+
         public ChunkedUploadSession(File file, long bytesTotal) : base(bytesTotal)
         {
             File = file;

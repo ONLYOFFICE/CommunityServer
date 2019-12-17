@@ -90,6 +90,9 @@ window.userFoldersPage = (function($) {
                             return false;
                         }
                         return true;
+                    },
+                    "keyboard": {
+                        "f2": false
                     }
                 },
                 "state": { "key": stateId }
@@ -156,6 +159,7 @@ window.userFoldersPage = (function($) {
                                 selected: false
                             },
                             li_attr: { unread: v.unread_count },
+                            a_attr: { folderid: v.id, href: "#userfolder={0}".format(v.id) },
                             children: v.folder_count > 0 ? true : false
                         };
                     });

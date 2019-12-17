@@ -27,7 +27,7 @@
                     <span class="expander"></span>
                     <%} %>
                     <a class="menu-item-label outer-text text-overflow"
-                        href="<%= category.GetNavigationUrl() %>">
+                        href="<%= category.GetNavigationUrl() %>" title="<%= category.Title %>">
                         <span class="menu-item-icon"> <svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/management-icons.svg#managementIcons<%= category.ClassName %>"></use></svg>  </span>
                         <span class="menu-item-label"><%= category.Title %></span>
                     </a>
@@ -55,7 +55,7 @@
                { %>
             <li class="menu-item none-sub-list">
                 <div class="category-wrapper">
-                    <a class="menu-item-label outer-text text-overflow" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
+                    <a class="menu-item-label outer-text text-overflow" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank" title="<%= Resource.ControlPanelSettings %>">
                         <span class="menu-item-icon controlpanel">
                             <svg class="menu-item-svg">
                                 <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenucontrolpanel"></use>
@@ -75,7 +75,7 @@
                { %>
             <li class="menu-item none-sub-list add-block">
                 <div class="category-wrapper">
-                    <a class="menu-item-label outer-text text-overflow" href="<%= TenantExtra.GetTariffPageLink() %>" >
+                    <a class="menu-item-label outer-text text-overflow" href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>">
                         <span class="menu-item-icon">
                             <svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use>
                             </svg>

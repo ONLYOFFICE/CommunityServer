@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmMobileActivation.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ConfirmMobileActivation" %>
 <%@ Import Namespace="ASC.Web.Core.Sms" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="mobilephone-panel">
@@ -14,7 +15,9 @@
             <%= string.IsNullOrEmpty(User.MobilePhone)
                     ? string.Empty
                     : (string.Format(UserControlsCommonResource.MobileCurrentNumber, "<b>" + "+" + SmsSender.GetPhoneValueDigits(User.MobilePhone) + "</b>") + "<br/>") %>
-            <%= String.Format(UserControlsCommonResource.MobilePhoneDescription, "<br />") %>
+            <%= StudioSmsNotificationSettings.Enable
+                    ? String.Format(UserControlsCommonResource.MobilePhoneDescription, "<br />")
+                    : string.Empty %>
         </div>
         <br />
         <input type="tel" id="primaryPhone" placeholder="<%= Resource.MobileNewNumber %>" pattern="\+?\d{4,63}" maxlength="64"

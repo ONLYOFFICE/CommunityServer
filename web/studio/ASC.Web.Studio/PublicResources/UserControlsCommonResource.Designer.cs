@@ -2131,6 +2131,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}The portal payment is overdue.{1} {2}To continue using ONLYOFFICE collaboration features, {2}prolong the existing pricing plan or select another one..
+        /// </summary>
+        public static string TariffOverdueDesktop {
+            get {
+                return ResourceManager.GetString("TariffOverdueDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your portal payment has expired..
         /// </summary>
         public static string TariffOverdueHosted {

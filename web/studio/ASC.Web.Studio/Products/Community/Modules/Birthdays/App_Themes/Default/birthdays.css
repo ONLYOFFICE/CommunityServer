@@ -69,13 +69,15 @@
     width: 260px;
     overflow: hidden;
 }
+.small-user-card .user-info .link {
+    white-space: nowrap;
+}
 .small-user-card .user-info-title {
     margin-top: 6px;
 }
 .birthday-remind {
-    display: inline-block;
+    display: none;
     padding-top: 2px;
-    visibility: hidden;
 }
 .birthday-remind-active {
     background-color: #F7E3AC;
@@ -95,7 +97,7 @@
     width: 8px;
 }
 .tableBase tr:hover .small-user-card:not(.active) .birthday-remind {
-    visibility: visible;
+    display: inline-block;
 }
 .small-user-card.active .birthday-remind-active {
     display: inline-block;

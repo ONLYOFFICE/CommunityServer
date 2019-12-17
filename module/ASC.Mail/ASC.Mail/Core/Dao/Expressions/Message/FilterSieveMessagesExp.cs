@@ -184,12 +184,13 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             return exp;
         }
 
-        public static bool TryGetFullTextSearchIds(MailSieveFilterData filter, string user, out List<int> ids)
+        public static bool TryGetFullTextSearchIds(MailSieveFilterData filter, string user, out List<int> ids, out long total)
         {
             ids = new List<int>();
 
             if (!FactoryIndexer<MailWrapper>.Support)
             {
+                total = 0;
                 return false;
             }
 
@@ -212,15 +213,29 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                 }
             };
 
+            Func<MailSieveFilterConditionData, string> getValue = (c) =>
+            {
+                return c.Operation == ConditionOperationType.Matches || c.Operation == ConditionOperationType.NotMatches
+                    ? string.Format("\"{0}\"", c.Value)
+                    : c.Value;
+            };
+
             Func<MailSieveFilterConditionData, Selector<MailWrapper>> setSelector = (c) =>
             {
-                var sel = new Selector<MailWrapper>().Match(
-                    c.Key == ConditionKeyType.ToOrCc
-                        ? w => new object[] {w.ToText, w.Cc}
-                        : getExp(c.Key),
-                    c.Operation == ConditionOperationType.Matches || c.Operation == ConditionOperationType.NotMatches
-                        ? "\"" + c.Value + "\""
-                        : c.Value);
+                Selector<MailWrapper> sel;
+
+                var value = getValue(c);
+
+                if (c.Key == ConditionKeyType.ToOrCc)
+                {
+                    sel = new Selector<MailWrapper>().Or(
+                        s => s.Match(w => w.ToText, value), 
+                        s => s.Match(w => w.Cc, value));
+                }
+                else
+                {
+                    sel = new Selector<MailWrapper>().Match(getExp(c.Key), value);
+                }
 
                 if (c.Operation == ConditionOperationType.NotMatches ||
                     c.Operation == ConditionOperationType.NotContains)
@@ -267,7 +282,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                 .Sort(r => r.DateSent, true);
 
             List<int> mailIds;
-            if (!FactoryIndexer<MailWrapper>.TrySelectIds(s => selector, out mailIds))
+            if (!FactoryIndexer<MailWrapper>.TrySelectIds(s => selector, out mailIds, out total))
                 return false;
 
             ids = mailIds;

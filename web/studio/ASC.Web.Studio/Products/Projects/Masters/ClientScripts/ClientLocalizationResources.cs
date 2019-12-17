@@ -89,7 +89,20 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                             StartModule.ProjectsModule,
                             StartModule.DiscussionModule,
                             StartModule.TimeTrackingModule
-                        }.Select(r=> new {r.Page, r.StartModuleType, Title = r.Title()})
+                        }.Select(r=> new {r.Page, r.StartModuleType, Title = r.Title()}),
+                        Statuses = CustomTaskStatus.GetDefaults().Select(r=> new
+                        {
+                            id = r.Id,
+                            image = r.Image,
+                            imageType = r.ImageType,
+                            title = r.Title,
+                            description = r.Description,
+                            color = r.Color,
+                            statusType = r.StatusType,
+                            isDefault = r.IsDefault,
+                            available = r.Available,
+                            canChangeAvailable = r.CanChangeAvailable
+                        })
                     })
             };
         }

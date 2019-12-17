@@ -137,8 +137,16 @@ window.ASC.Files.Share = (function () {
         var linkPanel = jq("#shareViaSocPanel");
         var link = encodeURIComponent(url);
 
-        linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, encodeURIComponent(objectTitle), "", ""));
-        linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(link));
+        if (!!ASC.Resources.Master.UrlShareFacebook) {
+            linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, encodeURIComponent(objectTitle), "", ""));
+        } else {
+            linkPanel.find(".facebook").remove();
+        }
+        if (!!ASC.Resources.Master.UrlShareTwitter) {
+            linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(link));
+        } else {
+            linkPanel.find(".twitter").remove();
+        }
 
         var urlShareMail = "mailto:?subject={1}&body={0}";
         var subject = ASC.Files.FilesJSResources.shareLinkMailSubject.format(objectTitle);
@@ -425,7 +433,7 @@ window.ASC.Files.Share = (function () {
             var entryData = ASC.Files.UI.getObjectData(entryObject);
             if (entryData) {
                 encrypted = entryData.encrypted;
-            } else if (asFlat === true && ASC.Desktop && ASC.Desktop.blockchainSupport()) {
+            } else if (asFlat === true && ASC.Desktop && ASC.Desktop.encryptionSupport()) {
                 encrypted = true;
             }
         }
@@ -917,7 +925,7 @@ window.ASC.Files.Share = (function () {
         });
 
         if (foldersCountChange && ASC.Files.Tree) {
-            ASC.Files.Tree.resetFolder(params.parentFolderID);
+            ASC.Files.Tree.reloadFolder(params.parentFolderID);
         }
 
         ASC.Files.UI.checkEmptyContent();
@@ -1028,7 +1036,7 @@ jq(document).ready(function () {
             });
 
             jq("#shareLink, #shareEmbedded").on("keypress", function (e) {
-                return e.ctrlKey && (e.charCode === ASC.Files.Common.keyCode.c || e.charCode === ASC.Files.Common.keyCode.C || e.keyCode === ASC.Files.Common.keyCode.insertKey);
+                return e.ctrlKey && (e.charCode === ASC.Files.Common.keyCode.C || e.keyCode === ASC.Files.Common.keyCode.insertKey);
             });
         });
     })(jQuery);

@@ -13,8 +13,10 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -96,9 +98,6 @@
     <Reference Include="Marvin.JsonPatch">
       <HintPath>..\..\packages\Marvin.JsonPatch.Signed.0.9.0\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-      <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
-    </Reference>
     <Reference Include="openstacknet">
       <HintPath>..\..\packages\openstack.net.1.7.7\lib\net45\openstacknet.dll</HintPath>
     </Reference>
@@ -111,6 +110,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Interactive.Async">
+      <HintPath>..\..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
@@ -163,15 +165,11 @@
     <Compile Include="StorageHandler.cs" />
     <Compile Include="Selectel\SelectelStorage.cs" />
     <Compile Include="StorageUploader.cs" />
-    <Compile Include="TennantPath.cs" />
-    <Compile Include="TennantQuotaController.cs" />
-    <Compile Include="Tests\DataStorageTest.cs" />
+    <Compile Include="TenantPath.cs" />
+    <Compile Include="TenantQuotaController.cs" />
     <Compile Include="Wildcard.cs" />
     <Compile Include="StorageFactory.cs" />
     <Compile Include="WebPath.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Tests\App.config"></None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

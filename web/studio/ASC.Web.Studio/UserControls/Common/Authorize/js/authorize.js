@@ -25,7 +25,13 @@
 
 
 var Authorize = new function () {
+
     jq(document).ready(function () {
+
+        if (jq("#recaptchaHiddenContainer").is(":visible")) {
+            RecaptchaController.InitRecaptcha(jq("#recaptchaHiddenContainer").attr("data-hl"));
+        }
+
         jq(jq("#login").val().length ? "#pwd" : "#login").focus();
 
         jq("#login,#pwd").keyup(function (event) {

@@ -2884,6 +2884,50 @@ ASC.CRM.ContactSelector = new function() {
     };
 };
 
+ASC.CRM.UpdateCRMCaldavCalendar = function (task, action, oldResponsibleId) {
+    var postData = {
+        calendarId: "crm_calendar",
+        uid: "crm_" + task.type + "_" + task.id,
+        responsibles: [task.responsible.id]
+    };
+
+    var url = ASC.Resources.Master.ApiPath + "calendar/caldavevent.json";
+    switch (action) {
+        case 0: //new
+        case 1: //update
+            postData.alert = task.alertValue || 0;
+            jq.ajax({
+                type: 'put',
+                url: url,
+                data: postData,
+                complete: function (d) {
+
+                }
+            });
+            if (task.responsible.id !== oldResponsibleId && oldResponsibleId !== undefined) {
+                jq.ajax({
+                    type: 'delete',
+                    url: url,
+                    data: {
+                        calendarId: "crm_calendar",
+                        uid: "crm_" + task.type + "_" + task.id,
+                        responsibles: [oldResponsibleId]
+                    },
+                    complete: function (d) {}
+                });
+            }
+            break;
+        case 2:
+            jq.ajax({
+                type: 'delete',
+                url: url,
+                data: postData,
+                complete: function (d) {}
+            });
+            break;
+    }
+};
+
 ASC.CRM.CategorySelector = function (objName, currentCategory) {
     this.ObjName = objName;
     this.Me = function() { return jq("#" + this.ObjName); };

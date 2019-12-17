@@ -67,9 +67,7 @@ namespace ASC.Web.Community.Blogs.Core.Service {
         ///
         ///$CommentBody
         ///
-        ///&quot;Read More&quot;:&quot;$CommentURL&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new comments added to this blog post, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///&quot;Read More&quot;:&quot;$CommentURL&quot;.
         /// </summary>
         public static string pattern_new_comment {
             get {
@@ -84,9 +82,7 @@ namespace ASC.Web.Community.Blogs.Core.Service {
         ///
         ///$PostPreview
         ///
-        ///&quot;Read More&quot;:&quot;$URL&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new posts in blogs, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///&quot;Read More&quot;:&quot;$URL&quot;.
         /// </summary>
         public static string pattern_new_post {
             get {

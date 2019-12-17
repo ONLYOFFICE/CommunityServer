@@ -48,13 +48,23 @@ window.wysiwygEditor = (function ($) {
 
         var body = editorInstance.document.getBody().$;
         var $body = $(body);
-
         var button = $body.find(".tl-controll-blockquote")[0];
         if (button) {
             var $button = $(button);
+
             $button.unbind("click").bind("click", function () {
                 showQuote(this);
             });
+
+            var blockquote = $body.find('blockquote');
+
+            if (blockquote.length > 1 && $(blockquote[0]).is(':hidden')) {
+                $(blockquote[0]).show();
+                $(blockquote[1]).before(button);
+                $(blockquote[1]).hide();
+            } else if ($(blockquote[0]).is(':hidden')) {
+                showQuote($button);
+            }
 
             $button.unbind("contextmenu").bind("contextmenu", function (event) {
                 event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
@@ -74,6 +84,43 @@ window.wysiwygEditor = (function ($) {
         });
 
         $body.off("click", "a").on("click", "a", function () {
+            var el = $(this);
+
+            var title = el.attr("title");
+            var fId = el.attr("data-fileid");
+
+            if (ASC.Files.MediaPlayer && title && fId
+                && (ASC.Files.MediaPlayer.canPlay(title) || ASC.Files.MediaPlayer.canViewImage(title))) {
+
+                var playlist = [];
+                var selIndex = 0;
+
+                $body.find(".mailmessage-filelink-link").each(function (i, v) {
+                    var attachTitle = v.title;
+                    var attachId = $(v).attr("data-fileid");
+
+                    if (attachTitle && attachId
+                        && (ASC.Files.MediaPlayer.canPlay(attachTitle) || ASC.Files.MediaPlayer.canViewImage(attachTitle))) {
+
+                        playlist.push({ title: attachTitle, id: i, src: ASC.Files.Utility.GetFileDownloadUrl(attachId) });
+                        if (attachId == fId)
+                            selIndex = i;
+                    }
+                });
+
+                if (playlist.length) {
+                    ASC.Files.MediaPlayer.init(-1, {
+                        playlist: playlist,
+                        playlistPos: selIndex,
+                        downloadAction: function (fileId) {
+                            return playlist[fileId].src;
+                        }
+                    });
+
+                    return;
+                }
+            }
+
             window.open($(this).attr("href"));
         });
 
@@ -125,7 +172,7 @@ window.wysiwygEditor = (function ($) {
     }
 
     function showQuote(control) {
-        $(control).parents().find("blockquote").first().show();
+        $(control).parents().find("blockquote:hidden").show();
         $(control).remove();
     }
 
@@ -247,13 +294,12 @@ window.wysiwygEditor = (function ($) {
         if (foundSignatures.length === 0) {
             var htmlSignature = $.tmpl("composeSignatureTmpl", signature);
             htmlSignature.data("signature", signature);
-            var blockquote = editorBody.find("> .reply-text");
+            var blockquote = editorBody.find(".reply-text").first();
             if (blockquote.length === 0) {
-                blockquote = editorBody.find("> .forward-text");
+                blockquote = editorBody.find(".forward-text").first();
             }
 
             if (blockquote.length === 0) {
-                editorBody.append(newCkParagraph);
                 editorBody.append(htmlSignature);
             } else {
                 $(newCkParagraph).insertBefore(blockquote.first());
@@ -356,8 +402,9 @@ window.wysiwygEditor = (function ($) {
                 return false;
             });
         }
-
-        window.messagePage.saveMessage();
+        if (!TMMail.isTemplate()) {
+            window.messagePage.saveMessage();
+        }
     }
 
     return {

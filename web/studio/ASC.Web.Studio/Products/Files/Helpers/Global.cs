@@ -324,6 +324,11 @@ namespace ASC.Web.Files.Classes
 
         public static IDaoFactory DaoFactory { get; private set; }
 
+        public static EncryptedDataDao DaoEncryptedData
+        {
+            get { return new EncryptedDataDao(TenantProvider.CurrentTenantID, FileConstant.DatabaseId); }
+        }
+
         public static IFileStorageService FileStorageService { get; private set; }
 
         public static SocketManager SocketManager { get; private set; }

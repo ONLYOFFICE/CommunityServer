@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Notify.Model;
@@ -98,7 +99,7 @@ namespace ASC.Web.CRM
                            {
                                ID = _exportCompleted,
                                Name = CRMCommonResource.SubscriptionType_ExportCompleted,
-                               NotifyAction = NotifyConstants.Event_ExportCompleted,
+                               NotifyAction = CoreContext.Configuration.CustomMode ? NotifyConstants.Event_ExportCompletedCustomMode : NotifyConstants.Event_ExportCompleted,
                                Single = true,
                                CanSubscribe = true
                            },
@@ -106,7 +107,7 @@ namespace ASC.Web.CRM
                            {
                                ID = _importCompleted,
                                Name = CRMCommonResource.SubscriptionType_ImportCompleted,
-                               NotifyAction = NotifyConstants.Event_ImportCompleted,
+                               NotifyAction = CoreContext.Configuration.CustomMode ? NotifyConstants.Event_ImportCompletedCustomMode : NotifyConstants.Event_ImportCompleted,
                                Single = true,
                                CanSubscribe = true
                            },

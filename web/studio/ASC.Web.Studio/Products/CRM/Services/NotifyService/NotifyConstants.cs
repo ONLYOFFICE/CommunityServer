@@ -58,10 +58,14 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         public static readonly INotifyAction Event_ExportCompleted = new NotifyAction("ExportCompleted", "export is completed");
 
+        public static readonly INotifyAction Event_ExportCompletedCustomMode = new NotifyAction("ExportCompletedCustomMode", "export is completed");
+
         public static readonly INotifyAction Event_ImportCompleted = new NotifyAction("ImportCompleted", "import is completed");
-      
+
+        public static readonly INotifyAction Event_ImportCompletedCustomMode = new NotifyAction("ImportCompletedCustomMode", "import is completed");
+
         public static readonly INotifyAction Event_CreateNewContact = new NotifyAction("CreateNewContact", "create new contact");
-        
+
         public static readonly string Tag_AdditionalData = "AdditionalData";
 
         public static readonly string Tag_EntityID = "EntityID";

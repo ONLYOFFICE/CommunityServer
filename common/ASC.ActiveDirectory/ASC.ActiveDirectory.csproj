@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
     </Reference>
@@ -53,6 +57,7 @@
     <Compile Include="Base\LdapNotifySource.cs" />
     <Compile Include="Base\LdapUserImporter.cs" />
     <Compile Include="Base\LdapNotifyHelper.cs" />
+    <Compile Include="Base\LdapNotifyConstants.cs" />
     <Compile Include="Base\Settings\LdapSettingsChecker.cs" />
     <Compile Include="Base\Settings\LdapSettingsStatus.cs" />
     <Compile Include="Base\Settings\LdapSettings.cs" />

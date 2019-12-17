@@ -351,6 +351,24 @@ namespace ASC.AuditTrail.Mappers
                             }
                     },
                     {
+                        MessageAction.DocumentsForcesave, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "DocumentsForcesave",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "DocumentsSettingsModule"
+                            }
+                    },
+                    {
+                        MessageAction.DocumentsStoreForcesave, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "DocumentsStoreForcesave",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "DocumentsSettingsModule"
+                            }
+                    },
+                    {
                         MessageAction.DocumentsUploadingFormatsSettingsUpdated, new MessageMaps
                             {
                                 ActionTypeTextResourceName = "UpdateActionType",

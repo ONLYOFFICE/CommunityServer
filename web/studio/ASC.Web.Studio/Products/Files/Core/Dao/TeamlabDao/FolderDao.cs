@@ -667,6 +667,7 @@ namespace ASC.Files.Core.Data
                     case my:
                         folder.FolderType = FolderType.USER;
                         folder.Title = my;
+                        folder.CreateBy = new Guid(data);
                         break;
                     case common:
                         folder.FolderType = FolderType.COMMON;
@@ -675,6 +676,7 @@ namespace ASC.Files.Core.Data
                     case trash:
                         folder.FolderType = FolderType.TRASH;
                         folder.Title = trash;
+                        folder.CreateBy = new Guid(data);
                         break;
                     case share:
                         folder.FolderType = FolderType.SHARE;

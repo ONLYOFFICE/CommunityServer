@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileNotFoundOrDamaged" xml:space="preserve">
+    <value>File '{0}' not found</value>
+  </data>
+  <data name="FilesNotFound" xml:space="preserve">
+    <value>{0} files not found</value>
+  </data>
   <data name="IndexTitle" xml:space="preserve">
     <value>Search by contents of mails</value>
+  </data>
+  <data name="NoAttachmentsInMessage" xml:space="preserve">
+    <value>No attachments in message</value>
+  </data>
+  <data name="OperationCreatingLink" xml:space="preserve">
+    <value>Creating link</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="OperationGetAttachments" xml:space="preserve">
+    <value>Get attachments</value>
+  </data>
+  <data name="OperationPreparationArchive" xml:space="preserve">
+    <value>Preparation archive</value>
+  </data>
+  <data name="OperationSetupTenantAndUser" xml:space="preserve">
+    <value>Setup tenant and user</value>
+  </data>
+  <data name="OperationZippingAttachments" xml:space="preserve">
+    <value>Zipping attachments</value>
   </data>
 </root>

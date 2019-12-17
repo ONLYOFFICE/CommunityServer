@@ -69,7 +69,6 @@
     <%= CoreContext.Configuration.CustomMode ? "custom-mode" : "" %>"
     >
 
-    <asp:ContentPlaceHolder ID="GoogleTagManagerPlaceHolder" runat="server" />
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
 
     <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">

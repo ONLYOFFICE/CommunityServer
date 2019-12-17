@@ -15,6 +15,6 @@ sed '/certificate"/s!\(value\s*=\s*\"\).*\"!\1\"!' -i ${APP_SERVICES_ROOT_DIR}/T
 sed '/certificatePassword/s/\(value\s*=\s*\"\).*\"/\1\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config
 sed '/startTls/s/\(value\s*=\s*\"\).*\"/\1none\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 
-service onlyofficeJabber restart
-service onlyofficeMailAggregator restart
-service nginx reload
+systemctl restart onlyofficeMailAggregator
+systemctl restart onlyofficeJabber
+systemctl restart nginx

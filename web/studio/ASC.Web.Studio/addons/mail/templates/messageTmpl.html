@@ -214,17 +214,21 @@
                             <span class="fullSizeLabel">
                                 ${ASC.Mail.Resources.MailResource.FullSize}: ${$item.fileSizeToStr(full_size)}
                             </span>
-                        </div>
-                         {{if ASC.Mail.Master.IsTurnOnAttachmentsGroupOperations == true}}
+                            {{if ASC.Mail.Master.IsTurnOnAttachmentsGroupOperations == true}}
                                 {{if attachments.length > 1}}
                                     <div class="attachments-buttons">
                                         <i class="icon-download-all" />
-                                        <a href="${download_all_url}" target="_blank" class="baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.AttachDownloadAll}</a>
+                                        <a class="downloadAllAttachments baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.AttachDownloadAll}</a>
+                                        <a href="javascript:void(0);" id="bufferLink" download></a>
+                                        {{if false }}
+                                        <!-- TODO: make on operations -->
                                         <i class="icon-save-all-to-teamlab" />
                                         <a href="javascript:void(0);" class="exportAttachemntsToMyDocs baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.ExportAttachmentsToMyDocuments}</a>
+                                        {{/if}}
                                     </div>
                                 {{/if}}
-                        {{/if}}
+                            {{/if}}
+                        </div>
                     {{/if}}
                     <table class="attachments_list" 
                         save_to_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToMyDocs}"

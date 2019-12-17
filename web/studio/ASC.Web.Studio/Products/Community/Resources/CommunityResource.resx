@@ -318,4 +318,7 @@
   <data name="WikiModuleTitle" xml:space="preserve">
     <value>Bookmarks</value>
   </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Create events and posts in blogs. Organize polls. Make bookmarks and share them with other users.</value>
+  </data>
 </root>

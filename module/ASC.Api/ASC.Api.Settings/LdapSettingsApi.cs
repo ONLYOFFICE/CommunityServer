@@ -181,7 +181,7 @@ namespace ASC.Api.Settings
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
 
-            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.Sync, ldapLocalization);
+            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.Sync, ldapLocalization, CurrentUser.ToString());
 
             return QueueTask(op);
         }
@@ -263,7 +263,12 @@ namespace ASC.Api.Settings
             //ToDo
             ldapSettings.AccessRights.Clear();
 
-            var ldapLocalization = new LdapLocalization(Resource.ResourceManager);
+            if (!ldapSettings.LdapMapping.ContainsKey(LdapSettings.MappingFields.MailAttribute) || string.IsNullOrEmpty(ldapSettings.LdapMapping[LdapSettings.MappingFields.MailAttribute]))
+            {
+                ldapSettings.SendWelcomeEmail = false;
+            }
+
+            var ldapLocalization = new LdapLocalization(Resource.ResourceManager, ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource.ResourceManager);
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
 

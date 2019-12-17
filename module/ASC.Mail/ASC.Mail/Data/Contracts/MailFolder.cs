@@ -33,7 +33,7 @@ namespace ASC.Mail.Data.Contracts
     {
         public static bool IsIdOk(FolderType folderType)
         {
-            return folderType >= FolderType.Inbox && folderType <= FolderType.UserFolder;
+            return folderType >= FolderType.Inbox && folderType <= FolderType.Templates;
         }
 
         public FolderType Folder { get; private set; }

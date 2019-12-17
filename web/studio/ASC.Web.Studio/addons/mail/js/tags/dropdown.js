@@ -228,7 +228,7 @@ window.tagsDropdown = (function($) {
         popup.find('.entertag_button')
             .unbind('click')
             .bind('click',
-                function() {
+                function () {
                     createLabel(options);
                 });
     }

@@ -21,7 +21,7 @@
     <ul class="menu-list">
         <li id="feed-menu-item" class="menu-item sub-list active open currentCategory">
             <div class="category-wrapper">
-                <a id="feed-all-products-nav" class="menu-item-label outer-text text-overflow" href="feed.aspx">
+                <a id="feed-all-products-nav" class="menu-item-label outer-text text-overflow" href="feed.aspx" title="<%= UserControlsCommonResource.WhatsNew %>">
                     <%= UserControlsCommonResource.WhatsNew %>
                 </a>
             </div>
@@ -30,7 +30,7 @@
                    { %>
                     <li class="menu-sub-item filter">
                         <span class="menu-item-icon community"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconscommunity"></use></svg></span>
-                        <a id="feed-community-product-nav" class="menu-item-label outer-text text-overflow" href="#">
+                        <a id="feed-community-product-nav" class="menu-item-label outer-text text-overflow" href="#" title="<%= FeedResource.CommunityProduct %>">
                             <%= FeedResource.CommunityProduct %>
                         </a>
                     </li>
@@ -39,7 +39,7 @@
                    { %>
                     <li class="menu-sub-item filter">
                         <span class="menu-item-icon company"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconscrm"></use></svg></span>
-                        <a id="feed-crm-product-nav" class="menu-item-label outer-text text-overflow" href="#">
+                        <a id="feed-crm-product-nav" class="menu-item-label outer-text text-overflow" href="#" title="<%= FeedResource.CrmProduct %>">
                             <%= FeedResource.CrmProduct %>
                         </a>
                     </li>
@@ -48,7 +48,7 @@
                    { %>
                     <li class="menu-sub-item filter">
                         <span class="menu-item-icon projects"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconsprojects"></use></svg></span>
-                        <a id="feed-projects-product-nav" class="menu-item-label outer-text text-overflow" href="#">
+                        <a id="feed-projects-product-nav" class="menu-item-label outer-text text-overflow" href="#" title="<%= FeedResource.ProjectsProduct %>">
                             <%= FeedResource.ProjectsProduct %>
                         </a>
                     </li>
@@ -58,7 +58,7 @@
                    { %>
                     <li class="menu-sub-item filter">
                         <span class="menu-item-icon documents"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/feed-icons.svg#feedIconsdocuments"></use></svg></span>
-                        <a id="feed-documents-product-nav" class="menu-item-label outer-text text-overflow" href="#">
+                        <a id="feed-documents-product-nav" class="menu-item-label outer-text text-overflow" href="#" title="<%= FeedResource.DocumentsProduct %>">
                             <%= FeedResource.DocumentsProduct %>
                         </a>
                     </li>

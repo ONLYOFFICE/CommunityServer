@@ -57,7 +57,7 @@ namespace ASC.Web.Studio.Core.Notify
             {
                 ID = new Guid("{148B5E30-C81A-4ff8-B749-C46BAE340093}"),
                 Name = Resources.Resource.WhatsNewSubscriptionName,
-                NotifyAction = Constants.ActionSendWhatsNew,
+                NotifyAction = Actions.SendWhatsNew,
                 Single = true
             });
 
@@ -65,7 +65,7 @@ namespace ASC.Web.Studio.Core.Notify
             {
                 ID = new Guid("{A4FFC01F-BDB5-450e-88C4-03FED17D67C5}"),
                 Name = Resources.Resource.AdministratorNotifySenderTypeName,
-                NotifyAction = Constants.ActionSendWhatsNew,
+                NotifyAction = Actions.SendWhatsNew,
                 Single = false
             };
             
@@ -76,7 +76,7 @@ namespace ASC.Web.Studio.Core.Notify
 
         public ISubscriptionProvider SubscriptionProvider
         {
-            get { return StudioNotifyService.Instance.source.GetSubscriptionProvider(); }
+            get { return StudioNotifyHelper.SubscriptionProvider; }
         }
 
         #endregion

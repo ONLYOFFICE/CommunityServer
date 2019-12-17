@@ -42,7 +42,7 @@
             border-radius: 3px;
             display: block;
             float: left;
-            margin-right: 20px;
+            margin-left: 20px;
             width: 168px;
             height: 58px;
             cursor: pointer;

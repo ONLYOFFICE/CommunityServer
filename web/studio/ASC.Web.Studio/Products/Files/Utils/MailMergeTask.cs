@@ -77,7 +77,7 @@ namespace ASC.Web.Files.Utils
 
         private void CreateDraftMail()
         {
-            var apiUrlCreate = String.Format("{0}mail/messages/save.json", SetupInfo.WebApiBaseUrl);
+            var apiUrlCreate = String.Format("{0}mail/drafts/save.json", SetupInfo.WebApiBaseUrl);
             var bodyCreate =
                 string.Format(
                     MessageBodyFormat,

@@ -213,4 +213,37 @@
   <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
     <value>Folder %1 already exists</value>
   </data>
+  <data name="CreatingLinkHeader" xml:space="preserve">
+    <value>Creating link</value>
+  </data>
+  <data name="FinishedHeader" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="GetAttachmentsHeader" xml:space="preserve">
+    <value>Get attachments</value>
+  </data>
+  <data name="PreparationArchiveHeader" xml:space="preserve">
+    <value>Preparation archive</value>
+  </data>
+  <data name="SetupTenantAndUserHeader" xml:space="preserve">
+    <value>Setup tenant and user</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>Zipping attachments</value>
+  </data>
+  <data name="ClearAccountsCacheHeader" xml:space="preserve">
+    <value>Clear accounts cache</value>
+  </data>
+  <data name="DecreaseQuotaSpaceHeader" xml:space="preserve">
+    <value>Decrease newly freed quota space</value>
+  </data>
+  <data name="RecalculateFoldersCountersHeader" xml:space="preserve">
+    <value>Recalculate folders counters</value>
+  </data>
+  <data name="RemoveElasticSearchIndexMessagesHeader" xml:space="preserve">
+    <value>Remove Elastic Search index by messages</value>
+  </data>
+  <data name="RemoveMailboxFromDbHeader" xml:space="preserve">
+    <value>Remove mailbox from Db</value>
+  </data>
 </root>

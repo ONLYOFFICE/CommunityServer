@@ -524,7 +524,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can upload an image not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}..
+        ///   Looks up a localized string similar to You can upload an image file in PNG or JPG format not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}..
         /// </summary>
         public static string ContactPhotoInfo {
             get {

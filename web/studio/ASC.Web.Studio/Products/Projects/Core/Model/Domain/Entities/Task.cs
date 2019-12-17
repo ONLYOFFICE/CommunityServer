@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ASC.Projects.Engine;
+using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
 using Autofac;
@@ -44,6 +45,8 @@ namespace ASC.Projects.Core.Domain
         public TaskPriority Priority { get; set; }
 
         public TaskStatus Status { get; set; }
+
+        public int? CustomTaskStatus { get; set; }
 
         public int Milestone { get; set; }
 

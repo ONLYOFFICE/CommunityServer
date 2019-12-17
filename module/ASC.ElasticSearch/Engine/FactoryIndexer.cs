@@ -128,6 +128,30 @@ namespace ASC.ElasticSearch
             return true;
         }
 
+        public static bool TrySelectIds(Expression<Func<Selector<T>, Selector<T>>> expression, out List<int> result, out long total)
+        {
+            if (!Support || !Indexer.CheckExist(new T()))
+            {
+                result = new List<int>();
+                total = 0;
+                return false;
+            }
+
+            try
+            {
+                result = Indexer.Select(expression, true, out total).Select(r => r.Id).ToList();
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Select", e);
+                total = 0;
+                result = new List<int>();
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool CanSearchByContent()
         {
             return SearchSettings.Load().CanSearchByContent<T>();

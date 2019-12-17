@@ -264,7 +264,7 @@ namespace ASC.Web.Community.Wiki
 
             var mainStudioCss = WebSkin.BaseCSSFileAbsoluteWebPath;
 
-            wikiEditPage.CanUploadFiles = CommunitySecurity.CheckPermissions(Common.Constants.Action_UploadFile) && !MobileDetector.IsMobile;
+            wikiEditPage.CanUploadFiles = CommunitySecurity.CheckPermissions(Common.Constants.Action_UploadFile);
             wikiEditPage.MainCssFile = mainStudioCss;
 
             if (Action == ActionOnPage.CategoryView)
@@ -505,7 +505,7 @@ namespace ASC.Web.Community.Wiki
             {
                 if (isFile)
                 {
-                    if (CommunitySecurity.CheckPermissions(Common.Constants.Action_UploadFile) && !MobileDetector.IsMobile)
+                    if (CommunitySecurity.CheckPermissions(Common.Constants.Action_UploadFile))
                     {
                         result = result.Replace(match.Value, string.Format(@"<a href=""{0}"">{1}</a>", ActionHelper.GetEditFilePath(this.ResolveUrlLC("Default.aspx"), PageNameUtil.Decode(WikiPage)), match.Groups[1].Value));
                     }

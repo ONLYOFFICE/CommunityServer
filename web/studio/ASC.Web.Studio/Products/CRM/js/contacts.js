@@ -1562,9 +1562,11 @@ ASC.CRM.ListContactView = (function() {
 
             add_new_task: function(params, task) {
                 if (!ASC.CRM.Common.isArray(task)) {
+                    ASC.CRM.UpdateCRMCaldavCalendar(task, 0);
                     _add_new_task_render(task);
                 } else {
                     for (var i = 0, n = task.length; i < n; i++) {
+                        ASC.CRM.UpdateCRMCaldavCalendar(task[i], 0);
                         _add_new_task_render(task[i]);
                     }
                 }
@@ -3295,16 +3297,29 @@ ASC.CRM.ContactFullCardView = (function () {
                 }
                 toID = window.contactToMergeSelector.SelectedContacts[0] * 1;
             }
-            LoadingBanner.strLoading = ASC.CRM.Resources.CRMContactResource.MergePanelProgress;
-            LoadingBanner.showLoaderBtn("#mergePanel");
 
-            Teamlab.mergeCrmContacts({ isCompany: ASC.CRM.ContactFullCardView.isCompany },
+            Teamlab.mergeCrmContacts(
+                {
+                    isCompany: ASC.CRM.ContactFullCardView.isCompany
+                },
                 {
                     fromcontactid: fromID,
                     tocontactid: toID
                 },
-                function(params, contact) {
-                    location.href = ["default.aspx?id=", contact.id, params.isCompany === true ? "" : "&type=people"].join("");
+                {
+                    before: function () {
+                        LoadingBanner.strLoading = ASC.CRM.Resources.CRMContactResource.MergePanelProgress;
+                        LoadingBanner.showLoaderBtn("#mergePanel");
+                    },
+                    success: function (params, contact) {
+                        location.href = ["default.aspx?id=", contact.id, params.isCompany === true ? "" : "&type=people"].join("");
+                    },
+                    error: function (params, error) {
+                        toastr.error(error[0]);
+                    },
+                    after: function () {
+                        LoadingBanner.hideLoaderBtn("#mergePanel");
+                    }
                 });
         }
     };

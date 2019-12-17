@@ -112,6 +112,9 @@ window.ASC.Files.Folders = (function () {
         }
 
         if (ASC.Files.Utility.CanWebView(fileTitle)) {
+            if (ASC.Files.Utility.MustConvert(fileTitle) && fileData.encrypted) {
+                forEdit = false;
+            }
             return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
         }
 
@@ -121,7 +124,7 @@ window.ASC.Files.Folders = (function () {
             return false;
         }
 
-        if (typeof ASC.Files.MediaPlayer != "undefined" && ASC.Files.MediaPlayer.canPlay(fileTitle)) {
+        if (typeof ASC.Files.MediaPlayer != "undefined" && ASC.Files.MediaPlayer.canPlay(fileTitle, true)) {
             hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
             ASC.Files.Anchor.move(hash);
             return false;
@@ -209,6 +212,9 @@ window.ASC.Files.Folders = (function () {
             entryObject
                 .removeClass("row-rename")
                 .find("#promptRename, .rename-action").remove();
+
+            ASC.Files.UI.selectRow(entryObject, true);
+            ASC.Files.UI.updateMainContentHeader();
         } else {
             entryObject.remove();
             if (jq("#filesMainContent .file-row").length == 0) {
@@ -488,8 +494,55 @@ window.ASC.Files.Folders = (function () {
         });
     };
 
+    var replaceFileStream = function (fileData, file, winEditor) {
+        var fileId = fileData.entryId;
+
+        Teamlab.updateFileStream({
+                fileId: fileId,
+                encrypted: true
+            },
+            file,
+            {
+                success: function () {
+                    var fileTitle = fileData.title;
+                    ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFile.format(fileTitle));
+
+                    ASC.Files.ServiceManager.getFile(ASC.Files.ServiceManager.events.ReplaceVersion,
+                        {
+                            fileId: fileId,
+                            show: true,
+                            isStringXml: false
+                        }
+                    );
+
+                    ASC.Files.Actions.checkEditFile(fileId, winEditor);
+                },
+                error: function (params, error) {
+                    if (winEditor) {
+                        winEditor.close();
+                    }
+                    ASC.Files.UI.displayInfoPanel(error[0], true);
+                },
+                after: function () {
+                    if (ASC.Desktop && ASC.Desktop.encryptionSupport() && ASC.Desktop.encryptionUploadEnd) {
+                        ASC.Desktop.encryptionUploadEnd();
+                    }
+                }
+            }
+        );
+    };
+
     var rename = function (entryType, entryId) {
         var entryObj = ASC.Files.UI.getEntryObject(entryType, entryId);
+
+        if (ASC.Files.Folders.folderContainer == "trash"
+            || !ASC.Files.UI.accessEdit(null, entryObj)
+            || ASC.Files.UI.lockedForMe(entryObj)
+            || !ASC.Files.UI.accessDelete(entryObj) && Teamlab.profile.isVisitor === true
+            || ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PROJECT
+            || entryType === "file" && ASC.Files.UI.editingFile(entryObj) && ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty()) {
+            return;
+        }
 
         var lenExt = 0;
 
@@ -539,6 +592,8 @@ window.ASC.Files.Folders = (function () {
 
             var newName = ASC.Files.Common.replaceSpecCharacter(jq("#promptRename").val().trim());
             if (newName == "" || newName == null || ASC.Resources.Master.CustomMode && newName === "...") {
+                ASC.Files.UI.selectRow(entryRenameObj, true);
+                ASC.Files.UI.updateMainContentHeader();
                 return;
             }
 
@@ -551,21 +606,25 @@ window.ASC.Files.Folders = (function () {
                 newName += oldName.substring(oldName.length - lenExtRename);
             }
 
-            if (newName != oldName) {
-                entryRenameObj.find(".entry-title .name a").show().text(newName);
+            if (newName == oldName) {
+                ASC.Files.UI.selectRow(entryRenameObj, true);
+                ASC.Files.UI.updateMainContentHeader();
+                return;
+            }
 
-                if (entryRenameType == "file") {
-                    var rowLink = entryRenameObj.find(".entry-title .name a");
-                    ASC.Files.UI.highlightExtension(rowLink, newName);
-                }
+            entryRenameObj.find(".entry-title .name a").show().text(newName);
 
-                ASC.Files.UI.blockObject(entryRenameObj, true, ASC.Files.FilesJSResources.DescriptRename);
+            if (entryRenameType == "file") {
+                var rowLink = entryRenameObj.find(".entry-title .name a");
+                ASC.Files.UI.highlightExtension(rowLink, newName);
+            }
 
-                if (entryRenameType == "file") {
-                    ASC.Files.ServiceManager.renameFile(ASC.Files.ServiceManager.events.FileRename, { fileId: entryRenameId, name: oldName, newname: newName, show: true });
-                } else {
-                    ASC.Files.ServiceManager.renameFolder(ASC.Files.ServiceManager.events.FolderRename, { parentFolderID: ASC.Files.Folders.currentFolder.id, folderId: entryRenameId, name: oldName, newname: newName });
-                }
+            ASC.Files.UI.blockObject(entryRenameObj, true, ASC.Files.FilesJSResources.DescriptRename);
+
+            if (entryRenameType == "file") {
+                ASC.Files.ServiceManager.renameFile(ASC.Files.ServiceManager.events.FileRename, { fileId: entryRenameId, name: oldName, newname: newName, show: true });
+            } else {
+                ASC.Files.ServiceManager.renameFolder(ASC.Files.ServiceManager.events.FolderRename, { parentFolderID: ASC.Files.Folders.currentFolder.id, folderId: entryRenameId, name: oldName, newname: newName });
             }
         };
 
@@ -1206,6 +1265,7 @@ window.ASC.Files.Folders = (function () {
 
         createNewDoc: createNewDoc,
         typeNewDoc: typeNewDoc,
+        replaceFileStream: replaceFileStream,
 
         download: download,
         bulkDownload: bulkDownload,
@@ -1372,7 +1432,10 @@ window.ASC.Files.Folders = (function () {
 
         jq("#filesMainContent").on("click", ".version-comment .name-cancel", ASC.Files.Folders.eraseComment);
 
-        jq("#filesMainContent").on("click", ".file-row > .rename-action > .name-cancel", ASC.Files.Folders.cancelEnter);
+        jq("#filesMainContent").on("click", ".file-row > .rename-action > .name-cancel", function (event) {
+            ASC.Files.Folders.cancelEnter(event, this);
+            return false;
+        });
 
         jq(".overwrite-resolve").on("click", "input", function () {
             jq(".overwrite-resolve.selected").removeClass("selected");
@@ -1417,6 +1480,20 @@ window.ASC.Files.Folders = (function () {
 
         jq(".update-if-exist").change(function () {
             ASC.Files.Folders.updateIfExist(this);
+        });
+
+        jq("#cbxForcesave").on("change", function () {
+            var forcesave = jq(this).prop("checked") == true;
+            ASC.Files.ServiceManager.forcesave(ASC.Files.ServiceManager.events.Forcesave, { value: forcesave === true });
+
+            return false;
+        });
+
+        jq("#cbxStoreForcesave").on("change", function () {
+            var replace = jq(this).prop("checked") == true;
+            ASC.Files.ServiceManager.storeForcesave(ASC.Files.ServiceManager.events.StoreForcesave, { value: replace === true });
+
+            return false;
         });
 
         if (typeof ASC.Files.Share == "undefined") {

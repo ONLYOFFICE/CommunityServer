@@ -29,7 +29,6 @@ using System.Linq;
 using System.Web.Http;
 using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Configuration;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
@@ -42,7 +41,6 @@ using ASC.Web.CRM.Masters.ClientScripts;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.Files.Api;
-using ASC.Web.Studio.Utility;
 using Autofac;
 
 
@@ -62,9 +60,18 @@ namespace ASC.Web.CRM.Configuration
 
         public override string Name { get { return CRMCommonResource.ProductName; } }
 
-        public override string ExtendedDescription { get { return string.Format(CRMCommonResource.ProductDescriptionEx, "<span style='display:none'>", "</span>"); } }
+        public override string Description
+        {
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
 
-        public override string Description { get { return CRMCommonResource.ProductDescription; } }
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, ID))
+                    return CRMCommonResource.ProductDescriptionEx;
+
+                return CRMCommonResource.ProductDescription;
+            }
+        }
 
         public override string StartURL { get { return PathProvider.StartURL(); } }
 
@@ -72,7 +79,7 @@ namespace ASC.Web.CRM.Configuration
 
         public override string ProductClassName { get { return "crm"; } }
 
-        public override bool Visible { get { return !CoreContext.Configuration.CustomMode; } }
+        public override bool Visible { get { return true; } }
 
         public override ProductContext Context { get { return context; } }
 
@@ -86,7 +93,7 @@ namespace ASC.Web.CRM.Configuration
                 MasterPageFile = String.Concat(PathProvider.BaseVirtualPath, "Masters/BasicTemplate.Master"),
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
-                LargeIconFileName = "product_logolarge.png",
+                LargeIconFileName = "product_logolarge.svg",
                 DefaultSortOrder = 30,
                 SubscriptionManager = new ProductSubscriptionManager(),
                 SpaceUsageStatManager = new CRMSpaceUsageStatManager(),

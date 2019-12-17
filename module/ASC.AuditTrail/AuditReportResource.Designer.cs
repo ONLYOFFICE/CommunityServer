@@ -1375,6 +1375,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forcesave settings Updated.
+        /// </summary>
+        public static string DocumentsForcesave {
+            get {
+                return ResourceManager.GetString("DocumentsForcesave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string DocumentsModule {
@@ -1384,7 +1393,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Overwriting Settings Updated.
+        ///   Looks up a localized string similar to Overwriting Settings Updated.
         /// </summary>
         public static string DocumentsOverwritingSettingsUpdated {
             get {
@@ -1407,6 +1416,15 @@ namespace ASC.AuditTrail {
         public static string DocumentsSettingsModule {
             get {
                 return ResourceManager.GetString("DocumentsSettingsModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store forcesave settings Updated.
+        /// </summary>
+        public static string DocumentsStoreForcesave {
+            get {
+                return ResourceManager.GetString("DocumentsStoreForcesave", resourceCulture);
             }
         }
         
@@ -2185,6 +2203,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login Fail. Recaptcha is invalid.
+        /// </summary>
+        public static string LoginFailRecaptcha {
+            get {
+                return ResourceManager.GetString("LoginFailRecaptcha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login Fail. Associated Social Account Not Found.
         /// </summary>
         public static string LoginFailSocialAccountNotFound {
@@ -2217,6 +2244,15 @@ namespace ASC.AuditTrail {
         public static string LoginFailViaApiSocialAccount {
             get {
                 return ResourceManager.GetString("LoginFailViaApiSocialAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed Login via API &amp; authenticator application.
+        /// </summary>
+        public static string LoginFailViaApiTfa {
+            get {
+                return ResourceManager.GetString("LoginFailViaApiTfa", resourceCulture);
             }
         }
         
@@ -2307,6 +2343,15 @@ namespace ASC.AuditTrail {
         public static string LoginSuccessViaApiSms {
             get {
                 return ResourceManager.GetString("LoginSuccessViaApiSms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful Login via API &amp; authenticator application.
+        /// </summary>
+        public static string LoginSuccessViaApiTfa {
+            get {
+                return ResourceManager.GetString("LoginSuccessViaApiTfa", resourceCulture);
             }
         }
         

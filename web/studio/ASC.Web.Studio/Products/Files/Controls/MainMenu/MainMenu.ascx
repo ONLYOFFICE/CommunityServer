@@ -2,6 +2,7 @@
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainMenu.ascx.cs" Inherits="ASC.Web.Files.Controls.MainMenu" %>
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
@@ -14,10 +15,20 @@
         <span class="main-button-text"><%= FilesUCResource.ButtonCreate %></span>
         <span class="white-combobox">&nbsp;</span>
     </li>
-    <li id="buttonUpload" class="menu-upload-button disable not-ready" title="<%= FilesUCResource.ButtonUpload %>">
-        <span class="menu-upload-icon"><svg class="upload-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsupload"></use></svg></span>
+    <li id="menuUploadActionsButton" class="menu-upload-button menu-gray-button disable" title="<%= FilesUCResource.ButtonUpload %>">
+        <span class="menu-upload-icon btn_other-actions"><svg class="upload-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsupload"></use></svg></span>
     </li>
 </ul>
+
+<div id="uploadActions" class="studio-action-panel">
+    <ul class="dropdown-content">
+        <li><a id="buttonUpload" class="dropdown-item disable not-ready"><%= FilesUCResource.ButtonUploadFiles %></a></li>
+        <% if (!MobileDetector.IsMobile)
+           { %>
+            <li><a id="buttonFolderUpload" class="dropdown-item disable not-ready"><%= FilesUCResource.ButtonUploadFolder %></a></li>
+        <% } %>
+    </ul>
+</div>
 <% } %>
 
 <asp:PlaceHolder runat="server" ID="ControlHolder"></asp:PlaceHolder>

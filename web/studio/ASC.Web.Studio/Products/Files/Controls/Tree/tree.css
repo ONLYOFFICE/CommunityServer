@@ -26,7 +26,8 @@
 
 .jstree {
     background-color: transparent;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding: 5px 20px 5px 5px;
     margin-top: -1px;
     position: relative;
@@ -56,7 +57,7 @@
 
 .jstree-wholerow {
     left: 0;
-    line-height: 31px;
+    line-height: 29px;
     position: absolute;
     width: 100%;
 }

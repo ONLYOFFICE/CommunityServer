@@ -26,15 +26,15 @@
 
 using System;
 using System.Web;
+using System.Web.UI;
 using ASC.Web.Files.Controls;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
-//using ASC.Web.Studio.UserControls.Common.DocumentsPopup;
 
 namespace ASC.Web.Mail.Controls
 {
-  public partial class MailBox : System.Web.UI.UserControl
+  public partial class MailBox : UserControl
   {
     public static string Location { get { return "~/addons/mail/Controls/MailBox/MailBox.ascx"; } }
     public const int EntryCountOnPage_def = 25;
@@ -51,13 +51,15 @@ namespace ASC.Web.Mail.Controls
                                  "~/Products/Files/js/eventhandler.js",
                                  "~/Products/Files/Controls/EmptyFolder/emptyfolder.js",
                                  "~/Products/Files/Controls/FileSelector/fileselector.js",
-                                 "~/Products/Files/Controls/Tree/tree.js"
+                                 "~/Products/Files/Controls/Tree/tree.js",
+                                 "~/Products/Files/Controls/ConvertFile/confirmconvert.js"
             )
             .RegisterStyle("~/Products/Files/Controls/FileSelector/fileselector.css",
                            "~/Products/Files/Controls/ThirdParty/thirdparty.css",
                            "~/Products/Files/Controls/ContentList/contentlist.css",
                            "~/Products/Files/Controls/EmptyFolder/emptyfolder.css",
-                           "~/Products/Files/Controls/Tree/tree.css"
+                           "~/Products/Files/Controls/Tree/tree.css",
+                           "~/Products/Files/Controls/ConvertFile/confirmconvert.css"
             );
 
         ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
@@ -91,6 +93,8 @@ namespace ASC.Web.Mail.Controls
         fileSelector.DialogTitle = MailResource.SelectFolderDialogTitle;
         fileSelector.OnlyFolder = true;
         fileholder.Controls.Add(fileSelector);
+
+        fileholder.Controls.Add(LoadControl(ConfirmConvert.Location));
     }
 
     protected String RenderRedirectUpload()

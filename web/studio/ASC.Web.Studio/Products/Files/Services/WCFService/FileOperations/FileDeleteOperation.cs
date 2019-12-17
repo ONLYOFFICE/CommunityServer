@@ -148,7 +148,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 }
                                 else
                                 {
-                                    FolderDao.MoveFolder(folder.ID, _trashId, null);
+                                    FolderDao.MoveFolder(folder.ID, _trashId, CancellationToken);
                                     FilesMessageService.Send(folder, _headers, MessageAction.FolderMovedToTrash, folder.Title);
                                 }
 

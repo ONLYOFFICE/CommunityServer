@@ -1,0 +1,35 @@
+﻿<script id="mail-template-selector-container" type="text/x-jquery-tmpl">
+        <div class="advanced-selector-container onechosen">
+            <div class="advanced-selector-list-block">
+                <div class="advanced-selector-block clearFix">
+                    <div class="advanced-selector-block-list">
+                        <div class="advanced-selector-search">
+                            <input class="advanced-selector-search-field" type="text" autocomplete="search"/>
+                            <div class="advanced-selector-search-btn"></div>
+                            <div class="advanced-selector-reset-btn"></div>
+                        </div>
+                        <div class="advanced-selector-list-items">
+                            <div class="advanced-selector-no-results">${opts.noresults}</div>
+                            <div class="advanced-selector-empty-list">${opts.emptylist}</div>
+                            <ul class="advanced-selector-list webkit-scrollbar"></ul>
+                            <div class="moreBtn" style="text-align:center; cursor:pointer; display:none;"><span class="link dotline">${ASC.Resources.Master.UserControlsCommonResource.More}</span></div>
+                            {{if (opts.showSaveButton === true)}}
+                        <div class="advanced-selector-btn-cnt" style="position: relative; bottom: 0;">
+                            <span id="spacer" style="margin:6px 0 0; ">&nbsp;</span>
+                            <input type="button" class="button gray" style="width: 195px" value="${ASC.Mail.Resources.MailResource.SaveTemplate}" onclick="messagePage.saveTemplateAction();" />
+                        </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>
+
+<script id="mail-template-selector-items-list" type="text/x-jquery-tmpl">
+    {{each(i, item) Items}}
+        <li title="${item.title}" data-id="${item.id}" {{if (item.data==true)}} data-cnt="${item.data}" {{/if}} style="color: #333333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            ${item.title}
+       </li>
+    {{/each}}
+</script>

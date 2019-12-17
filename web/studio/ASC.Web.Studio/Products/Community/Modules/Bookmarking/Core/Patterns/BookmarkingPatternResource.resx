@@ -124,18 +124,14 @@ $Date "$__AuthorName":"$__AuthorUrl" has added a comment to the bookmark:"$Bookm
 
 $CommentBody
 
-"Read More":"$BookmarkUrl"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this bookmark, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$BookmarkUrl"</value>
   </data>
   <data name="pattern_BookmarkCreatedID" xml:space="preserve">
     <value>h1.New Bookmark Added: "$BookmarkTitle":"$BookmarkUrl"
 
 $Date "$__AuthorName":"$__AuthorUrl" has added a new bookmark:"$BookmarkTitle":"$BookmarkUrl"
 
-$BookmarkDescription
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new bookmarks added, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$BookmarkDescription</value>
   </data>
   <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
     <value>Community. New comment to bookmark: $BookmarkTitle</value>

@@ -81,6 +81,7 @@ window.ASC.Files.MediaPlayer = (function () {
         ".mp4": { supply: "m4v", type: video },
         ".ogv": { supply: "ogv", type: video },
         ".webm": { supply: "webmv", type: video },
+        ".wmv": { supply: "m4v", type: video, convertable: true },
         ".avi": { supply: "m4v", type: video, convertable: true },
         ".mpeg": { supply: "m4v", type: video, convertable: true },
         ".mpg": { supply: "m4v", type: video, convertable: true }
@@ -244,10 +245,15 @@ window.ASC.Files.MediaPlayer = (function () {
         return "preview/" + fileId;
     };
 
-    var canPlay = function (fileTitle) {
+    var canPlay = function (fileTitle, allowConvert) {
         var ext = fileTitle[0] === "." ? fileTitle : ASC.Files.Utility.GetFileExtension(fileTitle);
 
-        return !!mapSupplied[ext] && jq.inArray(ext, ASC.Files.Utility.Resource.ExtsMediaPreviewed) != -1;
+        var supply = mapSupplied[ext];
+
+        var canConv = allowConvert || (options && options.allowConvert);
+
+        return !!supply && jq.inArray(ext, ASC.Files.Utility.Resource.ExtsMediaPreviewed) != -1
+            && (!supply.convertable || canConv);
     };
 
     var canViewImage = function (fileTitle) {
@@ -663,6 +669,9 @@ window.ASC.Files.MediaPlayer = (function () {
             playlist.splice(playlistPos, 1);
 
             if (playlist.length > 0) {
+                if (playlist.length == playlistPos) {
+                    playlistPos = 0;
+                }
                 nextMedia(true);
             } else {
                 closePlayer();
@@ -684,8 +693,9 @@ window.ASC.Files.MediaPlayer = (function () {
 
         if (errorMessage || !jsonData) {
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
-            var url = ASC.Files.Utility.GetFileDownloadUrl(params.fileId);
-            location.href = url;
+            //var url = ASC.Files.Utility.GetFileDownloadUrl(params.fileId);
+            //location.href = url;
+            ASC.Files.Anchor.defaultFolderSet();
             return;
         }
 
@@ -698,7 +708,10 @@ window.ASC.Files.MediaPlayer = (function () {
     var onGetSiblingsImage = function (jsonData, params, errorMessage) {
         hideLoading();
 
+        playlist = [];
+
         if (errorMessage || !jsonData || !jsonData.length) {
+            jq("#mediaPrev,#mediaNext").toggleClass("inactive", !playlist.length);
             return;
         }
 

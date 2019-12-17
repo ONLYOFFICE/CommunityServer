@@ -35,7 +35,7 @@ namespace ASC.Web.Studio.Core.Backup
 {
     internal class BackupFileUploadHandler : IFileUploadHandler
     {
-        private const long MaxBackupFileSize = 1024L*1024L*1024L;
+        private const long MaxBackupFileSize = 1024L * 1024L * 1024L;
 
         public FileUploadResult ProcessUpload(HttpContext context)
         {
@@ -44,7 +44,7 @@ namespace ASC.Web.Studio.Core.Backup
                 return Error("No files.");
             }
 
-            if (BackupHelper.ExceedsMaxAvailableSize)
+            if (BackupHelper.ExceedsMaxAvailableSize(TenantProvider.CurrentTenantID))
             {
                 return Error("Backup not allowed.");
             }
@@ -61,7 +61,7 @@ namespace ASC.Web.Studio.Core.Backup
                 return Error("File size must be greater than 0 and less than {0} bytes", MaxBackupFileSize);
             }
 
-            
+
             try
             {
                 var filePath = GetFilePath();
@@ -77,19 +77,19 @@ namespace ASC.Web.Studio.Core.Backup
         private static FileUploadResult Success(string filePath)
         {
             return new FileUploadResult
-                {
-                    Success = true,
-                    Data = filePath
-                };
+            {
+                Success = true,
+                Data = filePath
+            };
         }
 
         private static FileUploadResult Error(string messageFormat, params object[] args)
         {
             return new FileUploadResult
-                {
-                    Success = false,
-                    Message = string.Format(messageFormat, args)
-                };
+            {
+                Success = false,
+                Message = string.Format(messageFormat, args)
+            };
         }
 
         private static string GetFilePath()

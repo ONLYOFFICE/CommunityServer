@@ -60,7 +60,10 @@ namespace ASC.Mail.Data.Contracts
         
         [DataMember(Name = "contentType", EmitDefaultValue = false)]
         public string contentType { get; set; }
-        
+
+        [DataMember(Name = "needSaveToTemp", EmitDefaultValue = false)]
+        public bool needSaveToTemp { get; set; }
+
         [DataMember(Name = "contentId", EmitDefaultValue = false)]
         public string contentId {
             get { return string.IsNullOrEmpty(_contentId) ? null : _contentId; }
@@ -78,6 +81,15 @@ namespace ASC.Mail.Data.Contracts
 
         [DataMember(Name = "savedToMyDocuments", EmitDefaultValue = false)]
         public bool attachedAsLink { get; set; }
+
+        [DataMember(Name = "tempStoredUrl", EmitDefaultValue = false)]
+        public string tempStoredUrl { get; set; }
+
+        [IgnoreDataMember]
+        [AjaxNonSerializable]
+        public bool isTemp {
+            get { return !string.IsNullOrEmpty(tempStoredUrl); }
+        }
 
         [IgnoreDataMember]
         [AjaxNonSerializable]

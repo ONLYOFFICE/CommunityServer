@@ -26,6 +26,8 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Core;
+using ASC.Core.Users;
 using ASC.Forum;
 using ASC.Web.Community.Forum.Resources;
 using ASC.Web.Core.Utility.Skins;
@@ -61,11 +63,13 @@ namespace ASC.Web.Community.Forum
             {
                 _headerHolder.Visible = false;
 
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
                 var emptyScreenControl = new EmptyScreenControl
                     {
                         ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
                         Header = ForumResource.EmptyScreenForumCaption,
-                        Describe = ForumResource.EmptyScreenForumText,
+                        Describe = currentUser.IsVisitor() ? ForumResource.EmptyScreenForumTextVisitor : ForumResource.EmptyScreenForumText,
                         ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null) ? String.Format("<a class='link underline blue plus' href='NewForum.aspx'>{0}</a>", ForumResource.EmptyScreenForumLink) : String.Empty
                     };
                 forumListHolder.Controls.Add(emptyScreenControl);

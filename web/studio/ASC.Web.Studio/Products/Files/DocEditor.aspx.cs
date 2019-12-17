@@ -30,6 +30,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
@@ -111,6 +112,11 @@ namespace ASC.Web.Files
             get { return (Request[FilesLinkUtility.Action] ?? "").Equals("view", StringComparison.InvariantCultureIgnoreCase); }
         }
 
+        private int RequestVersion
+        {
+            get { return string.IsNullOrEmpty(Request[FilesLinkUtility.Version]) ? -1 : Convert.ToInt32(Request[FilesLinkUtility.Version]); }
+        }
+
         private bool RequestEmbedded
         {
             get
@@ -119,6 +125,11 @@ namespace ASC.Web.Files
                     (Request[FilesLinkUtility.Action] ?? "").Equals("embedded", StringComparison.InvariantCultureIgnoreCase)
                     && !string.IsNullOrEmpty(RequestShareLinkKey);
             }
+        }
+
+        private bool RequestHistoryClose
+        {
+            get { return (Request["history"] ?? "").Equals("close", StringComparison.InvariantCultureIgnoreCase); }
         }
 
         private bool _thirdPartyApp;
@@ -177,11 +188,18 @@ namespace ASC.Web.Files
                     var app = ThirdPartySelector.GetAppByFileId(RequestFileId);
                     if (app == null)
                     {
-                        var ver = string.IsNullOrEmpty(Request[FilesLinkUtility.Version]) ? -1 : Convert.ToInt32(Request[FilesLinkUtility.Version]);
-                        file = DocumentServiceHelper.GetParams(RequestFileId, ver, RequestShareLinkKey, editPossible, !RequestView, true, out _configuration);
+                        file = DocumentServiceHelper.GetParams(RequestFileId, RequestVersion, RequestShareLinkKey, editPossible, !RequestView, true, out _configuration);
                         if (_valideShareLink)
                         {
                             _configuration.Document.SharedLinkKey += RequestShareLinkKey;
+
+                            if (CoreContext.Configuration.Personal && !SecurityContext.IsAuthenticated)
+                            {
+                                var user = CoreContext.UserManager.GetUsers(file.CreateBy);
+                                var culture = CultureInfo.GetCultureInfo(user.CultureName);
+                                Thread.CurrentThread.CurrentCulture = culture;
+                                Thread.CurrentThread.CurrentUICulture = culture;
+                            }
                         }
                     }
                     else
@@ -233,10 +251,9 @@ namespace ASC.Web.Files
 
             if (_configuration.EditorConfig.ModeWrite && FileConverter.MustConvert(file))
             {
-                Folder folder;
                 try
                 {
-                    file = FileConverter.ExecDuplicate(file, RequestShareLinkKey, out folder);
+                    file = FileConverter.ExecSync(file, RequestShareLinkKey);
                 }
                 catch (Exception ex)
                 {
@@ -246,7 +263,7 @@ namespace ASC.Web.Files
                     return;
                 }
 
-                var comment = "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.CopyToForEdit, folder.Title));
+                var comment = "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.ConvertForEdit, file.Title));
 
                 Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
                 return;
@@ -314,6 +331,12 @@ namespace ASC.Web.Files
 
                 if (FileConverter.MustConvert(_configuration.Document.Info.File)) _editByUrl = true;
             }
+
+            var actionAnchor = Request[FilesLinkUtility.Anchor];
+            if (!string.IsNullOrEmpty(actionAnchor))
+            {
+                _configuration.EditorConfig.ActionLinkString = actionAnchor;
+            }
         }
 
         private void InitScript()
@@ -336,11 +359,13 @@ namespace ASC.Web.Files
                     DocKeyForTrack = _docKeyForTrack,
                     EditByUrl = _editByUrl,
                     LinkToEdit = _linkToEdit,
+                    OpenHistory = RequestVersion != -1 && RequestView && !RequestHistoryClose && _configuration.Document.Info.File.Forcesave == ForcesaveType.None && !_configuration.Document.Info.File.Encrypted,
                     OpeninigDate = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
                     ShareLinkParam = string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
                     ServerErrorMessage = ErrorMessage,
                     TabId = _tabId.ToString(),
                     ThirdPartyApp = _thirdPartyApp,
+                    CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal
                 };
 
             if (_configuration != null)
@@ -357,24 +382,19 @@ namespace ASC.Web.Files
                 }
             }
 
+            if (Request.DesktopApp() && SecurityContext.IsAuthenticated)
+            {
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                docServiceParams.DisplayName = DisplayUserSettings.GetFullUserName(user);
+                docServiceParams.Email = user.Email;
+            }
+
             inlineScript.AppendFormat("\nASC.Files.Editor.docServiceParams = {0};",
                                       DocumentServiceParams.Serialize(docServiceParams));
 
             inlineScript.AppendFormat("\nASC.Files.Editor.configurationParams = {0};",
                                       Services.DocumentService.Configuration.Serialize(_configuration));
-
-            if (Request.DesktopApp() && SecurityContext.IsAuthenticated)
-            {
-                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                
-                var displayName = DisplayUserSettings.GetFullUserName(user);
-                var email = user.Email;
-
-                inlineScript.AppendFormat("\nASC.displayName = \"{0}\";" +
-                                          "\nASC.email = \"{1}\";",
-                                          displayName,
-                                          email);
-            }
 
             InlineScripts.Scripts.Add(new Tuple<string, bool>(inlineScript.ToString(), false));
         }

@@ -25,6 +25,8 @@
 
 
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using AjaxPro;
@@ -65,6 +67,11 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SecurityContext.IsAuthenticated && User.ID != SecurityContext.CurrentAccount.ID)
+            {
+                Response.Redirect(GetRefererURL(), true);
+                return;
+            }
+            if (!Activation && (!StudioSmsNotificationSettings.IsVisibleSettings || !StudioSmsNotificationSettings.Enable))
             {
                 Response.Redirect(GetRefererURL(), true);
                 return;
@@ -111,6 +118,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             if (Activation)
             {
+                Country = new RegionInfo(Thread.CurrentThread.CurrentCulture.LCID).TwoLetterISORegionName;
+
                 if (!CoreContext.Configuration.Standalone)
                 {
                     var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();

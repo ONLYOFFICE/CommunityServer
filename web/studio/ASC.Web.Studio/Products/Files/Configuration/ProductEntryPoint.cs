@@ -60,13 +60,13 @@ namespace ASC.Web.Files.Configuration
         {
             Global.Init();
 
-            var adminOpportunities = CoreContext.Configuration.CustomMode
-                                         ? CustomModeResource.ProductAdminOpportunitiesCustomMode
-                                         : FilesCommonResource.ProductAdminOpportunities;
+            Func<List<string>> adminOpportunities = () => (CoreContext.Configuration.CustomMode
+                                                               ? CustomModeResource.ProductAdminOpportunitiesCustomMode
+                                                               : FilesCommonResource.ProductAdminOpportunities).Split('|').ToList();
 
-            var userOpportunities = CoreContext.Configuration.CustomMode
+            Func<List<string>> userOpportunities = () => (CoreContext.Configuration.CustomMode
                                          ? CustomModeResource.ProductUserOpportunitiesCustomMode
-                                         : FilesCommonResource.ProductUserOpportunities;
+                                         : FilesCommonResource.ProductUserOpportunities).Split('|').ToList();
 
             _productContext =
                 new ProductContext
@@ -74,12 +74,12 @@ namespace ASC.Web.Files.Configuration
                         MasterPageFile = FilesLinkUtility.FilesBaseVirtualPath + "Masters/BasicTemplate.master",
                         DisabledIconFileName = "product_disabled_logo.png",
                         IconFileName = "product_logo.png",
-                        LargeIconFileName = "product_logolarge.png",
+                        LargeIconFileName = "product_logolarge.svg",
                         DefaultSortOrder = 10,
                         SubscriptionManager = new SubscriptionManager(),
                         SpaceUsageStatManager = new FilesSpaceUsageStatManager(),
-                        AdminOpportunities = () => adminOpportunities.Split('|').ToList(),
-                        UserOpportunities = () => userOpportunities.Split('|').ToList(),
+                        AdminOpportunities = adminOpportunities,
+                        UserOpportunities = userOpportunities,
                         CanNotBeDisabled = true,
                     };
             SearchHandlerManager.Registry(new SearchHandler());
@@ -173,15 +173,20 @@ namespace ASC.Web.Files.Configuration
             get { return FilesCommonResource.ProductName; }
         }
 
-
-        public override string ExtendedDescription
-        {
-            get { return FilesCommonResource.ProductDescriptionEx; }
-        }
-
         public override string Description
         {
-            get { return FilesCommonResource.ProductDescription; }
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupVisitor.ID))
+                    return FilesCommonResource.ProductDescriptionShort;
+
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, ID))
+                    return FilesCommonResource.ProductDescriptionEx;
+
+                return FilesCommonResource.ProductDescription;
+            }
         }
 
         public override string StartURL

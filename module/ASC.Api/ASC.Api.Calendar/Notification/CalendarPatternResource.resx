@@ -123,17 +123,14 @@ h1.Access Granted to Calendar: $CalendarName
  
  
 "$UserName":"$UserLink" has granted you the access to the calendar: $CalendarName 
- 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the calendars shared with you, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^
+
 #end
 #if($SharingType == "event")
 h1.Access Granted to Event: $EventName
  
  
 "$UserName":"$UserLink" has granted you the access to the event: $EventName
- 
- 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the events shared with you, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^
+
 #end</value>
   </data>
   <data name="CalendarSharingJabberPattern" xml:space="preserve">
@@ -162,10 +159,7 @@ The $EventName event is appointed for $EventStartDate #if($EventEndDate!="")- $E
  Event Description:
  
 $EventDescription
-#end
- 
- 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the event reminders, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+#end</value>
   </data>
   <data name="EventAlertJabberPattern" xml:space="preserve">
     <value>The $EventName event is appointed for $EventStartDate #if($EventEndDate!="")- $EventEndDate #end

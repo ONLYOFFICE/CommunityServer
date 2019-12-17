@@ -25,75 +25,73 @@
 
 
 .greating-modules-block {
-    text-align: center;
 
     .docs-default-page {
-	    display: inline-block;
-	    margin: 38px 55px 55px;
-	    text-align: left;
-	    width: 600px;
+        margin: 60px auto;
+        width: 600px;
 
-		.title {
-		    display: block;
-		    margin: 0 0 11px 0;
-		    padding: 60px 0 0 15px;
+        .docs-default-logo {
+            background: no-repeat url('default/images/documents280.svg') top left transparent;
+            height: 280px;
+            display: flex;
+            padding-left: 320px;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
 
-		    a {
-		    	font-size: 36px;
-		    }
-		}
-		.description {
-			display: block;
-		    line-height: 20px;
-		    padding-left: 15px;
-		}
-		.docs-default-logo {
-		    background: no-repeat url('default/images/documents240.png') top center transparent;
-		    height: 240px;
-		    float: left;
-		    width: 280px;
+            .inner {
 
-		    &:hover + .title a {
-			    font-weight: normal;
-			    text-decoration: underline;
-			}
-		}
-	}
+                .title {
+                    display: block;
+                    margin: 0 0 12px 0;
+                    font-size: 36px;
+                }
 
-	.default-list-products {
-	    display: inline-block;
+                .description {
+                    display: block;
+                    line-height: 20px;
+                }
+            }
 
-	    .product {
-		    float: left;
-		    margin: 0 0 24px 0;
-		    width: 164px;
-		
-			.image-link:hover + h2 a {
-			    text-decoration: underline;
-			}
+            &:hover .title {
+                text-decoration: underline;
+                color: #1A6DB3;
+            }
+        }
+    }
 
-			img {
-			    border: none;
-			    display: block;
-			    width: 100px;
+    .default-list-products {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .product {
+            margin: 0 0 24px 0;
+            width: 164px;
+            display: block;
+
+            img {
+                border: none;
+                display: block;
+                width: 100px;
                 margin: 0 32px;
-			}
-			.title {
-			    text-align: center;
-				height: 26px;
-			}
+            }
 
-			.description {
-				clear: right;
-			    display: block;
-			    line-height: 20px;
-			    margin: 10px 0 0 136px;
-			}
-			.links {
-			    color: #333;
-			    display: inline-block;			    
-			    margin: 5px 0;
-		    }
-		}
-	}
+            .title {
+                display: block;
+                text-align: center;
+                margin: 16px 0;
+                height: 26px;
+                font-size: 18px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &:hover .title {
+                text-decoration: underline;
+                color: #1A6DB3;
+            }
+        }
+    }
 }

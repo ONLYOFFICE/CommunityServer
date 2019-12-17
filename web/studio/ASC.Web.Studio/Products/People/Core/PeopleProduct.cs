@@ -26,6 +26,7 @@
 
 using System;
 using System.Linq;
+using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.People.Resources;
@@ -57,12 +58,15 @@ namespace ASC.Web.People.Core
 
         public override string Description
         {
-            get { return PeopleResource.ProductDescription; }
-        }
+            get
+            {
+                var id = SecurityContext.CurrentAccount.ID;
 
-        public override string ExtendedDescription
-        {
-            get { return PeopleResource.ProductDescription; }
+                if (CoreContext.UserManager.IsUserInGroup(id, ASC.Core.Users.Constants.GroupAdmin.ID) || CoreContext.UserManager.IsUserInGroup(id, ID))
+                    return PeopleResource.ProductDescriptionEx;
+
+                return PeopleResource.ProductDescription;
+            }
         }
 
         public override Guid ProductID
@@ -97,7 +101,7 @@ namespace ASC.Web.People.Core
                     MasterPageFile = "~/Products/People/PeopleBaseTemplate.Master",
                     DisabledIconFileName = "product_disabled_logo.png",
                     IconFileName = "product_logo.png",
-                    LargeIconFileName = "product_logolarge.png",
+                    LargeIconFileName = "product_logolarge.svg",
                     DefaultSortOrder = 50,
                     AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
                     UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList()

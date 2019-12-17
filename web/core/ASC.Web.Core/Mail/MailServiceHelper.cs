@@ -41,7 +41,7 @@ namespace ASC.Web.Core.Mail
 {
     public static class MailServiceHelper
     {
-        public const string ConnectionStringFormat = "Server={0};Database={1};User ID={2};Password={3};Pooling=True;Character Set=utf8";
+        public static readonly string ConnectionStringFormat = GetConnectionStringFormat();
         public const string MailServiceDbId = "mailservice";
         public static readonly string DefaultDatabase = GetDefaultDatabase();
         public const string DefaultUser = "mail_admin";
@@ -52,6 +52,12 @@ namespace ASC.Web.Core.Mail
 
         private static readonly ICache Cache = AscCache.Default;
         private const string CacheKey = "mailserverinfo";
+
+        private static string GetConnectionStringFormat()
+        {
+            var value = ConfigurationManager.AppSettings["mailservice.connection-string-format"];
+            return string.IsNullOrEmpty(value) ? "Server={0};Database={1};User ID={2};Password={3};Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=true" : value;
+        }
 
         private static string GetDefaultDatabase()
         {
@@ -131,7 +137,7 @@ namespace ASC.Web.Core.Mail
         }
 
 
-        public static string[] GetDataFromExternalDatabase(string dbid, string connectionString, string ip)
+        public static string GetTokenFromExternalDatabase(string dbid, string connectionString)
         {
             DemandPermission();
 
@@ -147,32 +153,35 @@ namespace ASC.Web.Core.Mail
                     .Select(r => Convert.ToString(r[0]))
                     .FirstOrDefault();
 
-                IPAddress ipAddress;
-                string hostname;
+                return token;
+            }
+        }
 
-                if (IPAddress.TryParse(ip, out ipAddress))
-                {
-                    selectQuery = new SqlQuery("greylisting_whitelist")
+        public static string GetHostnameFromExternalDatabase(string dbid, string connectionString, string ip)
+        {
+            DemandPermission();
+
+            IPAddress ipAddress;
+            if (!IPAddress.TryParse(ip, out ipAddress))
+                return ip;
+
+            using (var dbManager = GetDb(dbid, connectionString))
+            {
+                var selectQuery = new SqlQuery("greylisting_whitelist")
                         .Select("Comment")
                         .Where(Exp.Eq("Source", "SenderIP:" + ip))
                         .SetMaxResults(1);
 
-                    hostname = dbManager
+                var hostname = dbManager
                         .ExecuteList(selectQuery)
                         .Select(r => Convert.ToString(r[0]))
                         .FirstOrDefault();
-                }
-                else
-                {
-                    hostname = ip;
-                }
 
-                return new[] { token, hostname };
+                return hostname;
             }
         }
 
-
-        public static void UpdateDataFromInternalDatabase(string hostname, MailServerInfo mailServer)
+        public static void UpdateInternalDatabase(string hostname, MailServerInfo mailServer)
         {
             DemandPermission();
 

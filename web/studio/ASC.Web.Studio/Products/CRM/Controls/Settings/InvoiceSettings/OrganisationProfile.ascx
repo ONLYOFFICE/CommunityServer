@@ -42,7 +42,7 @@
                    OrganisationLogoManager.OrganisationLogoSize.Width,
                    OrganisationLogoManager.OrganisationLogoSize.Height)%></p>
                 <% if (!string.IsNullOrEmpty(HelpLink)) { %>
-                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx#MakingInvoices_block" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
                 <% } %>
             </div>
         </div>
@@ -117,7 +117,7 @@
                    "<strong>",
                    "</strong>")%></p>
                 <% if (!string.IsNullOrEmpty(HelpLink)) { %>
-                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
+                <a target="_blank" href="<%= HelpLink + "/gettingstarted/crm.aspx#MakingInvoices_block" %>" class="linkAction"><%= CRMCommonResource.LearnMore %></a>
                 <% } %>
             </div>
         </div>

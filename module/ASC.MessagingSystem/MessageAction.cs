@@ -38,6 +38,7 @@ namespace ASC.MessagingSystem
         LoginSuccessViaApi = 1010,
         LoginSuccessViaSocialApp = 1011,
         LoginSuccessViaApiSms = 1012,
+        LoginSuccessViaApiTfa = 1024,
         LoginSuccessViaApiSocialAccount = 1019,
         LoginSuccessViaSSO = 1015,
         LoginSuccesViaTfaApp = 1021,
@@ -49,10 +50,12 @@ namespace ASC.MessagingSystem
         LoginFailViaSms = 1008,
         LoginFailViaApi = 1013,
         LoginFailViaApiSms = 1014,
+        LoginFailViaApiTfa = 1025,
         LoginFailViaApiSocialAccount = 1020,
         LoginFailViaTfaApp = 1022,
         LoginFailIpSecurity = 1009,
-        LoginFailBruteForce = 1023,  // last login
+        LoginFailBruteForce = 1023,
+        LoginFailRecaptcha = 1026,  // last login
         Logout = 1006,
 
         SessionStarted = 1016,
@@ -356,7 +359,7 @@ namespace ASC.MessagingSystem
         UserSentPasswordChangeInstructions = 4015,
         UserSentDeleteInstructions = 4016,
 
-        UserUpdatedEmail = 5047, // last
+        UserUpdatedEmail = 5047,
         UserUpdatedPassword = 4017,
         UserDeleted = 4018,
 
@@ -423,6 +426,8 @@ namespace ASC.MessagingSystem
 
         DocumentsThirdPartySettingsUpdated = 5031,
         DocumentsOverwritingSettingsUpdated = 5032,
+        DocumentsForcesave = 5049, // last
+        DocumentsStoreForcesave = 5048,
         DocumentsUploadingFormatsSettingsUpdated = 5033,
 
         FileConverted = 5035,

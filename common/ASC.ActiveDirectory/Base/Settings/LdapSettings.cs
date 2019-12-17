@@ -127,7 +127,8 @@ namespace ASC.ActiveDirectory.Base.Settings
                 AcceptCertificate = false,
                 AcceptCertificateHash = null,
                 StartTls = false,
-                Ssl = false
+                Ssl = false,
+                SendWelcomeEmail = false
             };
 
             return settings;
@@ -143,6 +144,7 @@ namespace ASC.ActiveDirectory.Base.Settings
                    && EnableLdapAuthentication == settings.EnableLdapAuthentication
                    && StartTls == settings.StartTls
                    && Ssl == settings.Ssl
+                   && SendWelcomeEmail == settings.SendWelcomeEmail
                    && (string.IsNullOrEmpty(Server)
                        && string.IsNullOrEmpty(settings.Server)
                        || Server == settings.Server)
@@ -177,6 +179,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             hash = (hash * 2) + EnableLdapAuthentication.GetHashCode();
             hash = (hash * 2) + StartTls.GetHashCode();
             hash = (hash * 2) + Ssl.GetHashCode();
+            hash = (hash * 2) + SendWelcomeEmail.GetHashCode();
             hash = (hash * 2) + Server.GetHashCode();
             hash = (hash * 2) + UserDN.GetHashCode();
             hash = (hash * 2) + PortNumber.GetHashCode();
@@ -213,6 +216,9 @@ namespace ASC.ActiveDirectory.Base.Settings
 
         [DataMember]
         public bool Ssl { get; set; }
+
+        [DataMember]
+        public bool SendWelcomeEmail { get; set; }
 
         [DataMember]
         public string Server { get; set; }
@@ -461,5 +467,23 @@ namespace ASC.ActiveDirectory.Base.Settings
 
         [DataMember]
         public Dictionary<Guid, string> CurrentPhotos { get; set; }
+    }
+
+    [Serializable]
+    [DataContract]
+    public class LdapCurrentDomain : BaseSettings<LdapCurrentDomain>
+    {
+        public override Guid ID
+        {
+            get { return new Guid("{75A5F745-F697-4418-B38D-0FE0D277E258}"); }
+        }
+
+        public override ISettings GetDefault()
+        {
+            return new LdapCurrentDomain() { CurrentDomain = null };
+        }
+
+        [DataMember]
+        public string CurrentDomain { get; set; }
     }
 }

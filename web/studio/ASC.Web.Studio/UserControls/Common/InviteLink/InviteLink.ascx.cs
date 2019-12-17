@@ -24,23 +24,16 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Core.Users;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 
 namespace ASC.Web.Studio.UserControls.Common.InviteLink
 {
     public partial class InviteLink : System.Web.UI.UserControl
     {
+        protected string LinkText;
+
         public static string Location
         {
             get { return "~/UserControls/Common/InviteLink/InviteLink.ascx"; }
@@ -48,8 +41,7 @@ namespace ASC.Web.Studio.UserControls.Common.InviteLink
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Move to CommonBodyScripts
-            // Page.RegisterBodyScripts("~/UserControls/Common/InviteLink/js/invitelink.js");
+            LinkText = CustomNamingPeople.Substitute<Resources.Resource>("InviteUsersToPortalLink").HtmlEncode();
         }
     }
 }

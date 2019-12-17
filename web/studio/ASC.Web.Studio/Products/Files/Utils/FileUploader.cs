@@ -91,6 +91,7 @@ namespace ASC.Web.Files.Utils
                     file.ConvertedType = null;
                     file.Comment = FilesCommonResource.CommentUpload;
                     file.Version++;
+                    file.VersionGroup++;
                     file.Encrypted = false;
 
                     return file;
@@ -122,7 +123,8 @@ namespace ASC.Web.Files.Utils
                    && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
                    && !EntryManager.FileLockedForMe(file.ID)
                    && !FileTracker.IsEditing(file.ID)
-                   && file.RootFolderType != FolderType.TRASH;
+                   && file.RootFolderType != FolderType.TRASH
+                   && !file.Encrypted;
         }
 
         private static string GetFolderId(object folderId, IList<string> relativePath)
@@ -179,7 +181,7 @@ namespace ASC.Web.Files.Utils
             return file;
         }
 
-        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength)
+        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength, bool encrypted)
         {
             if (string.IsNullOrEmpty(folderId))
                 folderId = null;
@@ -187,7 +189,13 @@ namespace ASC.Web.Files.Utils
             if (string.IsNullOrEmpty(fileId))
                 fileId = null;
 
-            var file = new File {ID = fileId, FolderID = folderId, Title = fileName, ContentLength = contentLength};
+            var file = new File
+                {
+                    ID = fileId,
+                    FolderID = folderId,
+                    Title = fileName,
+                    ContentLength = contentLength
+                };
 
             using (var dao = Global.DaoFactory.GetFileDao())
             {
@@ -199,6 +207,7 @@ namespace ASC.Web.Files.Utils
                 uploadSession.UserId = SecurityContext.CurrentAccount.ID;
                 uploadSession.FolderId = folderId;
                 uploadSession.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
+                uploadSession.Encrypted = encrypted;
 
                 ChunkedUploadSessionHolder.StoreSession(uploadSession);
 

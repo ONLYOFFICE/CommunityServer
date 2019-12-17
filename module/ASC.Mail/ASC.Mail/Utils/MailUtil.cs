@@ -400,7 +400,7 @@ namespace ASC.Mail.Utils
             doc.LoadHtml(html);
             var outText = new StringBuilder(limit);
             ConvertTo(doc.DocumentNode, outText, limit);
-            return outText.ToString();
+            return outText.ToString().Trim();
         }
 
         private static void ConvertTo(HtmlNode node, StringBuilder outText, int limitLength)

@@ -46,6 +46,9 @@ window.ASC.Files.FileChoice = (function () {
 
             var callback = function () {
                 ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);
+                if (onlyFolder) {
+                    ASC.Files.FileChoice.eventAfter();
+                }
             };
 
             if (thirdParty) {

@@ -22,6 +22,13 @@
         </div>
 
         <div class="sms-validation-settings">
+            <div class="clearFix">
+                <input type="radio" id="chk2FactorAuthDisable" name="chk2FactorAuth" <%= !StudioSmsNotificationSettings.Enable 
+                                                                                        && !TfaAppAuthSettings.Enable ? "checked=\"checked\"" : "" %> />
+                <label for="chk2FactorAuthDisable">
+                    <%= Resource.ButtonSmsDisable %></label>
+            </div>
+
             <% if (SmsEnable)
                { %>
 
@@ -60,12 +67,6 @@
                 <input type="radio" id="chk2FactorAppAuthEnable" name="chk2FactorAuth" <%= TfaAppAuthSettings.Enable ? "checked=\"checked\"" : "" %>  <%= TfaAppEnable ? "" : "disabled='disabled'" %>  />
                 <label for="chk2FactorAppAuthEnable">
                     <%= Resource.ButtonTfaAppEnable %></label>
-            </div>
-            <div class="clearFix">
-                <input type="radio" id="chk2FactorAuthDisable" name="chk2FactorAuth" <%= !StudioSmsNotificationSettings.Enable 
-                                                                                        && !TfaAppAuthSettings.Enable ? "checked=\"checked\"" : "" %> />
-                <label for="chk2FactorAuthDisable">
-                    <%= Resource.ButtonSmsDisable %></label>
             </div>
             <div class="middle-button-container">
                 <a id="chk2FactorAuthSave" class="button blue disable">

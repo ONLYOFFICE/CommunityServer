@@ -521,8 +521,14 @@ window.ASC.Files.ThirdParty = (function () {
         titleObj.attr("title", fileData.title).attr("placeholder", fileData.title).val(fileData.title);
         ASC.Files.UI.checkCharacter(titleObj);
 
-        docuSignFolderSelect(ASC.Files.Folders.currentFolder.id);
-        docuSignFolderSelector.setCurrent(ASC.Files.Folders.currentFolder.id);
+        var folderId = ASC.Files.Folders.currentFolder.id;
+        var folderData = docuSignFolderSelector.getFolderData(folderId);
+        if (!ASC.Files.UI.accessEdit(folderData)) {
+            folderId = ASC.Files.Constants.FOLDER_ID_MY_FILES;
+        }
+
+        docuSignFolderSelect(folderId);
+        docuSignFolderSelector.setCurrent(folderId);
 
         jq("#thirdpartyToDocuSignRecipientsList").hide();
 
@@ -534,7 +540,7 @@ window.ASC.Files.ThirdParty = (function () {
                 titleObj.focus();
                 return false;
             }
-            var folderId = jq("#thirdpartyToDocuSignFolder").attr("data-id");
+            folderId = jq("#thirdpartyToDocuSignFolder").attr("data-id");
             var message = jq("#thirdpartyToDocuSignMessage:visible").val();
             var users = jq("#thirdpartyToDocuSignRecipientsList .userLink").map(function (i, item) {
                 return jq(item).attr("data-uid");
@@ -939,8 +945,17 @@ window.ASC.Files.ThirdParty = (function () {
             }
         }
 
-        ASC.Files.Tree.resetFolder(ASC.Files.Constants.FOLDER_ID_COMMON_FILES);
-        ASC.Files.Tree.resetFolder(ASC.Files.Constants.FOLDER_ID_MY_FILES);
+        var fromFolderid = ASC.Files.Tree.getParentId(jsonData.id);
+        ASC.Files.Tree.reloadFolder(fromFolderid);
+        if (params.corporate) {
+            if (fromFolderid != ASC.Files.Constants.FOLDER_ID_COMMON_FILES) {
+                ASC.Files.Tree.reloadFolder(ASC.Files.Constants.FOLDER_ID_COMMON_FILES);
+            }
+        } else {
+            if (fromFolderid != ASC.Files.Constants.FOLDER_ID_MY_FILES) {
+                ASC.Files.Tree.reloadFolder(ASC.Files.Constants.FOLDER_ID_MY_FILES);
+            }
+        }
 
         ASC.Files.UI.displayInfoPanel(
             folderId
@@ -974,7 +989,8 @@ window.ASC.Files.ThirdParty = (function () {
             ASC.Files.ThirdParty.docuSignAttached(false);
         }
 
-        var accountPanel = jq("#account_" + providerId);
+        var entryId = providerKey == ASC.Files.ThirdParty.thirdPartyList.DocuSign.key ? providerKey : providerId;
+        var accountPanel = jq("#account_" + entryId);
         if (accountPanel.length > 0) {
             jq(accountPanel).remove();
             if (jq("#thirdPartyAccountList .account-row").length == 0) {
@@ -984,7 +1000,7 @@ window.ASC.Files.ThirdParty = (function () {
         }
 
         var parentId = ASC.Files.Tree.getParentId(folderId);
-        ASC.Files.Tree.resetFolder(parentId);
+        ASC.Files.Tree.reloadFolder(parentId);
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoRemoveThirdParty.format(folderTitle));
     };

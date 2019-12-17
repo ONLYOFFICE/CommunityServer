@@ -213,6 +213,11 @@ namespace ASC.Core
                 }
             }
 
+            if (u.Status == EmployeeStatus.Terminated && u.ID == CoreContext.TenantManager.GetCurrentTenant().OwnerId)
+            {
+                throw new InvalidOperationException("Can not disable tenant owner.");
+            }
+
             var newUser = userService.SaveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u);
 
             return newUser;

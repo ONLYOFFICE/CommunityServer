@@ -79,7 +79,7 @@ namespace ASC.Web.Calendar
                                DefaultSortOrder = 80,
                                DisabledIconFileName = "disabledlogo.png",
                                IconFileName = "logo.png",
-                               LargeIconFileName = "product_logolarge.png",
+                               LargeIconFileName = "product_logolarge.svg",
                                SubscriptionManager = new CalendarSubscriptionManager(),
                            };
         }

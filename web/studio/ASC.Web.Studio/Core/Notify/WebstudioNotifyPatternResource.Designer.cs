@@ -214,29 +214,20 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string ButtonAccept {
+            get {
+                return ResourceManager.GetString("ButtonAccept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access Control Panel.
         /// </summary>
         public static string ButtonAccessControlPanel {
             get {
                 return ResourceManager.GetString("ButtonAccessControlPanel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access CRM System.
-        /// </summary>
-        public static string ButtonAccessCRMSystem {
-            get {
-                return ResourceManager.GetString("ButtonAccessCRMSystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access Your Mail.
-        /// </summary>
-        public static string ButtonAccessMail {
-            get {
-                return ResourceManager.GetString("ButtonAccessMail", resourceCulture);
             }
         }
         
@@ -264,6 +255,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ButtonActivateEmail {
             get {
                 return ResourceManager.GetString("ButtonActivateEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy now.
+        /// </summary>
+        public static string ButtonBuyNow {
+            get {
+                return ResourceManager.GetString("ButtonBuyNow", resourceCulture);
             }
         }
         
@@ -309,6 +309,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ButtonConfigureRightNow {
             get {
                 return ResourceManager.GetString("ButtonConfigureRightNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string ButtonConfirm {
+            get {
+                return ResourceManager.GetString("ButtonConfirm", resourceCulture);
             }
         }
         
@@ -367,24 +376,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extend Your ONLYOFFICE Trial Now.
-        /// </summary>
-        public static string ButtonExtendTrialButton {
-            get {
-                return ResourceManager.GetString("ButtonExtendTrialButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Click here for confirmation.
-        /// </summary>
-        public static string ButtonForConfirmation {
-            get {
-                return ResourceManager.GetString("ButtonForConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Go to the App Store &gt;&gt;.
         /// </summary>
         public static string ButtonGoToAppStore {
@@ -439,6 +430,15 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Renew now.
+        /// </summary>
+        public static string ButtonRenewNow {
+            get {
+                return ResourceManager.GetString("ButtonRenewNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request a Call.
         /// </summary>
         public static string ButtonRequestCallButton {
@@ -466,15 +466,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign Up to ONLYOFFICE Personal.
-        /// </summary>
-        public static string ButtonSignUpPersonal {
-            get {
-                return ResourceManager.GetString("ButtonSignUpPersonal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Start free trial.
         /// </summary>
         public static string ButtonStartFreeTrial {
@@ -484,20 +475,20 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tip #5:  Connect your portal with the 3rd-party services.
+        ///   Looks up a localized string similar to Start now.
         /// </summary>
-        public static string Item3rdParty {
+        public static string ButtonStartNow {
             get {
-                return ResourceManager.GetString("Item3rdParty", resourceCulture);
+                return ResourceManager.GetString("ButtonStartNow", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Let your team members use Facebook, Twitter, Google or LinkedIn to sign in. Link up your portal  with Box, Dropbox, OneDrive and Google to transfer your documents. Connect DocuSign to use  e-signature, Twilio - for VoIP, Bitly - to shorten links and Firebase to get notifications when you&apos;re offline..
+        ///   Looks up a localized string similar to Use discount.
         /// </summary>
-        public static string Item3rdPartyText {
+        public static string ButtonUseDiscount {
             get {
-                return ResourceManager.GetString("Item3rdPartyText", resourceCulture);
+                return ResourceManager.GetString("ButtonUseDiscount", resourceCulture);
             }
         }
         
@@ -529,60 +520,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tip #2: Adjust the regional settings.
-        /// </summary>
-        public static string ItemAdjustRegionalSettings {
-            get {
-                return ResourceManager.GetString("ItemAdjustRegionalSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose the language for your web-office interface and set the correct time zone. It&apos;s particularly important for the notifications and the correct calendar work. Go to Settings &gt;&gt; Common &gt;&gt; Customization..
-        /// </summary>
-        public static string ItemAdjustRegionalSettingsText {
-            get {
-                return ResourceManager.GetString("ItemAdjustRegionalSettingsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ARM.
-        /// </summary>
-        public static string ItemARM {
-            get {
-                return ResourceManager.GetString("ItemARM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set up individual access rights for each contact - person or company..
-        /// </summary>
-        public static string ItemARMText {
-            get {
-                return ResourceManager.GetString("ItemARMText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tip #1: Brand your web-office.
-        /// </summary>
-        public static string ItemBrandYourWebOffice {
-            get {
-                return ResourceManager.GetString("ItemBrandYourWebOffice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change the portal logo settings following Settings &gt;&gt; Common &gt;&gt; White Label and uploading your company&apos;s logos of the specified sizes. To change the default portal title displayed on the Welcome page, go to Settings &gt;&gt; Common &gt;&gt; Customization &gt;&gt; Welcome Page Settings..
-        /// </summary>
-        public static string ItemBrandYourWebOfficeText {
-            get {
-                return ResourceManager.GetString("ItemBrandYourWebOfficeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Explore different ways of co-authoring documents - real-time co-editing, chat, comments, review..
         /// </summary>
         public static string ItemCoAuthoringDocuments {
@@ -597,285 +534,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ItemCreateWorkspaceDocs {
             get {
                 return ResourceManager.GetString("ItemCreateWorkspaceDocs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Customization.
-        /// </summary>
-        public static string ItemCustomization {
-            get {
-                return ResourceManager.GetString("ItemCustomization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set up CRM system according to your company needs. Customize user fields, set opportunity stages and task categories, create the company profile to include this information into invoices, etc..
-        /// </summary>
-        public static string ItemCustomizationText {
-            get {
-                return ResourceManager.GetString("ItemCustomizationText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tip #3: Customize your web-office interface.
-        /// </summary>
-        public static string ItemCustomizeWebOfficeInterface {
-            get {
-                return ResourceManager.GetString("ItemCustomizeWebOfficeInterface", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name the portal groups, its members and their activities following Settings &gt;&gt; Common &gt;&gt; Customization &gt;&gt; Team Template. Select the color theme that best suits your company brand..
-        /// </summary>
-        public static string ItemCustomizeWebOfficeInterfaceText {
-            get {
-                return ResourceManager.GetString("ItemCustomizeWebOfficeInterfaceText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #1.&lt;/b&gt; Use the &lt;b&gt;Real-time co-editing&lt;/b&gt; feature to  speed up the interaction process when specifying details or proofreading a document. Choose between two co-editing modes - &lt;b&gt;Fast&lt;/b&gt; when you see changes as your co-author is typing or &lt;b&gt;Strict&lt;/b&gt; when the changes are shown only after saving the document..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips1 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #2.&lt;/b&gt; Use the &lt;b&gt;Version History&lt;/b&gt; option to check the changes made to a file by you and your teammates or see who made the specific edits..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips2 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #3.&lt;/b&gt; Use the &lt;b&gt;Review&lt;/b&gt; feature to avoid manual tracking changes and merging. Grant a quick access to your document for reviewing and let others suggest changes without actually editing the document. Easily accept or reject suggested changes..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips3 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #4.&lt;/b&gt; Share documents with other users or people. Attach documents as links to your email to reduce the mail traffic..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips4 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #5.&lt;/b&gt; Use the &lt;b&gt;Mail Merge&lt;/b&gt; function to create a set of personalized messages or a templates and save time you usually spend on writing the same text several times..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips5 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #6.&lt;/b&gt; Download free ONLYOFFICE Desktop Editors to work on documents without Internet connection. Note that the app can be connected to your ONLYOFFICE portal to access documents stored there..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips6 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #7.&lt;/b&gt; Download &lt;b&gt;ONLYOFFICE Documents app&lt;/b&gt; and install it on your iOS device to work with documents anywhere, anytime, even on the go..
-        /// </summary>
-        public static string ItemEnterpriseDocsTips7 {
-            get {
-                return ResourceManager.GetString("ItemEnterpriseDocsTips7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Community.
-        /// </summary>
-        public static string ItemFeatureCommunity {
-            get {
-                return ResourceManager.GetString("ItemFeatureCommunity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Create an internal social network&lt;/b&gt; with blogs, forums, polls, etc. to organize an efficient two-way communication. Moreover it allows you to discover hidden talents, creative persons, able to organize and lead..
-        /// </summary>
-        public static string ItemFeatureCommunityText {
-            get {
-                return ResourceManager.GetString("ItemFeatureCommunityText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document Co-authoring.
-        /// </summary>
-        public static string ItemFeatureDocCoAuthoring {
-            get {
-                return ResourceManager.GetString("ItemFeatureDocCoAuthoring", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share docs with your team and edit them together in real time. Add comments and interact with your co-authors using the integrated chat..
-        /// </summary>
-        public static string ItemFeatureDocCoAuthoringText {
-            get {
-                return ResourceManager.GetString("ItemFeatureDocCoAuthoringText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email Signature.
-        /// </summary>
-        public static string ItemFeatureEmailSignature {
-            get {
-                return ResourceManager.GetString("ItemFeatureEmailSignature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create an effective email signature using text, picture, link or even generated HTML code..
-        /// </summary>
-        public static string ItemFeatureEmailSignatureText {
-            get {
-                return ResourceManager.GetString("ItemFeatureEmailSignatureText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Folder for Attachments.
-        /// </summary>
-        public static string ItemFeatureFolderForAtts {
-            get {
-                return ResourceManager.GetString("ItemFeatureFolderForAtts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set up a folder to automatically save all the future attachments into it..
-        /// </summary>
-        public static string ItemFeatureFolderForAttsText {
-            get {
-                return ResourceManager.GetString("ItemFeatureFolderForAttsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gantt Chart.
-        /// </summary>
-        public static string ItemFeatureGanttChart {
-            get {
-                return ResourceManager.GetString("ItemFeatureGanttChart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Define processes, priorities and dependencies&lt;/b&gt; to help your team to better perform tasks. Monitor progress and perform changes in time using a visualized picture of your project..
-        /// </summary>
-        public static string ItemFeatureGanttChartText {
-            get {
-                return ResourceManager.GetString("ItemFeatureGanttChartText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Links Instead of Attachments.
-        /// </summary>
-        public static string ItemFeatureLinksVSAttachments {
-            get {
-                return ResourceManager.GetString("ItemFeatureLinksVSAttachments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert a link to a file instead of attaching it and manage access rights to it to reduce the mail traffic and send a large file..
-        /// </summary>
-        public static string ItemFeatureLinksVSAttachmentsText {
-            get {
-                return ResourceManager.GetString("ItemFeatureLinksVSAttachmentsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mailbox Aliases.
-        /// </summary>
-        public static string ItemFeatureMailboxAliases {
-            get {
-                return ResourceManager.GetString("ItemFeatureMailboxAliases", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use the aliases if you need to change your email address without creating a new mailbox..
-        /// </summary>
-        public static string ItemFeatureMailboxAliasesText {
-            get {
-                return ResourceManager.GetString("ItemFeatureMailboxAliasesText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mail Groups.
-        /// </summary>
-        public static string ItemFeatureMailGroups {
-            get {
-                return ResourceManager.GetString("ItemFeatureMailGroups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating a mail group is a great way to make certain emails available for a group of users. No need to duplicate messages, which incredibly reduces the mail storage space..
-        /// </summary>
-        public static string ItemFeatureMailGroupsText {
-            get {
-                return ResourceManager.GetString("ItemFeatureMailGroupsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project Discussions.
-        /// </summary>
-        public static string ItemFeatureProjectDiscussions {
-            get {
-                return ResourceManager.GetString("ItemFeatureProjectDiscussions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Discuss issues&lt;/b&gt; - any sort of problems and outstanding questions that occur - with your team to find a better solution together..
-        /// </summary>
-        public static string ItemFeatureProjectDiscussionsText {
-            get {
-                return ResourceManager.GetString("ItemFeatureProjectDiscussionsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Talk.
-        /// </summary>
-        public static string ItemFeatureTalk {
-            get {
-                return ResourceManager.GetString("ItemFeatureTalk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use &lt;b&gt;chat rooms&lt;/b&gt; to create a conference in real time, &lt;b&gt;mailing lists&lt;/b&gt; to send a message to many people at once, &lt;b&gt;notifications&lt;/b&gt; to follow news..
-        /// </summary>
-        public static string ItemFeatureTalkText {
-            get {
-                return ResourceManager.GetString("ItemFeatureTalkText", resourceCulture);
             }
         }
         
@@ -912,60 +570,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ItemIntegrateIM {
             get {
                 return ResourceManager.GetString("ItemIntegrateIM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Link with projects.
-        /// </summary>
-        public static string ItemLinkWithProjects {
-            get {
-                return ResourceManager.GetString("ItemLinkWithProjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Working on an opportunity might require the involvement of the whole team of the specialists. Create a project and link it with the opportunity to coordinate the work more efficiently..
-        /// </summary>
-        public static string ItemLinkWithProjectsText {
-            get {
-                return ResourceManager.GetString("ItemLinkWithProjectsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mail Integration.
-        /// </summary>
-        public static string ItemMailIntegration {
-            get {
-                return ResourceManager.GetString("ItemMailIntegration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keep all the information about contacts, opportunities and cases in one place including email correspondence. Link a conversation or a single message with a necessary CRM element..
-        /// </summary>
-        public static string ItemMailIntegrationText {
-            get {
-                return ResourceManager.GetString("ItemMailIntegrationText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tip #4: Select necessary modules and tools.
-        /// </summary>
-        public static string ItemModulesAndTools {
-            get {
-                return ResourceManager.GetString("ItemModulesAndTools", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to From now on you get access to a complete set of tools for office collaboration. Enable those you need for your work following Settings &gt;&gt; Common &gt;&gt; Modules &amp; Tools. The disabled ones will be hidden.
-        /// </summary>
-        public static string ItemModulesAndToolsText {
-            get {
-                return ResourceManager.GetString("ItemModulesAndToolsText", resourceCulture);
             }
         }
         
@@ -1033,87 +637,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #1.&lt;/b&gt; Use the &lt;b&gt;Real-time Co-editing&lt;/b&gt; feature to  speed up the interaction process when specifying details or proofreading a document. Choose between two co-editing modes - &lt;b&gt;Fast&lt;/b&gt; when you see changes as your co-author is typing or &lt;b&gt;Strict&lt;/b&gt; when the changes are shown only after saving the document..
-        /// </summary>
-        public static string ItemSaasDocsTips1 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #2.&lt;/b&gt; Use the &lt;b&gt;Version History&lt;/b&gt; option to check the changes made to a file by you and your teammates or see who made the specific edits..
-        /// </summary>
-        public static string ItemSaasDocsTips2 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #3.&lt;/b&gt; Use the &lt;b&gt;Review&lt;/b&gt; feature to avoid manual tracking changes and merging. Grant a quick access to your document for reviewing and let others suggest changes without actually editing the document. Easily accept or reject suggested changes..
-        /// </summary>
-        public static string ItemSaasDocsTips3 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #4.&lt;/b&gt; Share documents with other users or people outside your cloud office. Attach documents as links to your email to reduce the mail traffic..
-        /// </summary>
-        public static string ItemSaasDocsTips4 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #5.&lt;/b&gt; Integrate your web-office with different Cloud Storages to manage all your documents inside the portal..
-        /// </summary>
-        public static string ItemSaasDocsTips5 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #6.&lt;/b&gt; Download free ONLYOFFICE Desktop Editors to work on documents without Internet connection. Note that the app can be connected to your ONLYOFFICE portal to access documents stored there..
-        /// </summary>
-        public static string ItemSaasDocsTips6 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #7.&lt;/b&gt; Download &lt;b&gt;ONLYOFFICE Documents app&lt;/b&gt; and install it on your iOS device to work with documents anywhere, anytime, even on the go..
-        /// </summary>
-        public static string ItemSaasDocsTips7 {
-            get {
-                return ResourceManager.GetString("ItemSaasDocsTips7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tip #5: Secure the access to your web-office.
-        /// </summary>
-        public static string ItemSecureAccess {
-            get {
-                return ResourceManager.GetString("ItemSecureAccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ${LetterLogoText} portals are hosted on Amazon Web Services, one of the most protected cloud computing platforms today, but you can always add an extra security layer. Set the password strength and enable 2-factor authentication to protect your data. To do so, go to Settings &gt;&gt; Security &gt;&gt; Portal Access.
-        /// </summary>
-        public static string ItemSecureAccessText {
-            get {
-                return ResourceManager.GetString("ItemSecureAccessText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Share documents with your teammates..
         /// </summary>
         public static string ItemShareDocuments {
@@ -1155,42 +678,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ItemUploadCrmContactsCsv {
             get {
                 return ResourceManager.GetString("ItemUploadCrmContactsCsv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VoIP.
-        /// </summary>
-        public static string ItemVoIP {
-            get {
-                return ResourceManager.GetString("ItemVoIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Receive incoming calls from your customers and make outgoing calls right from a web browser using virtual numbers provided by the Twilio service..
-        /// </summary>
-        public static string ItemVoIPText {
-            get {
-                return ResourceManager.GetString("ItemVoIPText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Web-to-Lead.
-        /// </summary>
-        public static string ItemWebToLead {
-            get {
-                return ResourceManager.GetString("ItemWebToLead", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create and embed the contact form into your company website. Gather new lead information automatically and gain more prospective customers effortlessly..
-        /// </summary>
-        public static string ItemWebToLeadText {
-            get {
-                return ResourceManager.GetString("ItemWebToLeadText", resourceCulture);
             }
         }
         
@@ -1376,491 +863,480 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///You have just created the ONLYOFFICE portal, safe and secure web-office that would enhance your company collaboration. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
+        ///You have just created the ONLYOFFICE portal, your team&apos;s cloud office that would enhance internal cooperation. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///
+        ///Please, confirm your email:
         ///
         ///$GreenButton
         ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
+        ///You may change your email or password in your &quot;personal profile page&quot;:&quot;$MyStaffLink&quot;.
         ///
-        ///Note: we do not send out confidential inf [rest of string was truncated]&quot;;.
+        ///To send notifications, we use the SMTP settings of ONLYOFFICE mail server. To change them, please follow the instructions &quot;here&quot;:&quot;${__HelpLink}/server/windows/community/smtp-setti [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_enterprise_admin_activation {
+        public static string pattern_enterprise_admin_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///It’s likely that ONLYOFFICE is a new experience for you so we figured that you might like some tips and tricks to get you started.
+        ///You can customize ONLYOFFICE for your needs, for example:
+        ///
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+        ///
         ///$GreenButton
         ///   
         ///Done. It&apos;s time to invite teammates to your web-office!
         ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The appli [rest of string was truncated]&quot;;.
+        ///More information in our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;..
         /// </summary>
-        public static string pattern_enterprise_admin_customize_portal {
+        public static string pattern_enterprise_admin_customize_portal_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///The cloud office for your team is already created at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. It&apos;s time to invite your teammates to join it. 
-        ///The easiest way to do that is to distribute the invitation link using the *Invite users to portal* option.
-        ///
-        ///$GreenButton
-        ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Let your team members use Facebook, Twitter, Google or LinkedIn to sign in. Link up your portal with Box, Dropbox, OneDrive and Google to transfer your documents. Connect DocuSign to use e-signature, Twilio - for VoIP, Bitly - to shorten links and Firebase to get notifications when you&apos;re offline..
         /// </summary>
-        public static string pattern_enterprise_admin_invite_teammates {
+        public static string pattern_enterprise_admin_customize_portal_v10_item_3rdparty {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_invite_teammates", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_3rdparty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Tip #5: Connect 3rd-party services.
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_3rdparty_hdr {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_3rdparty_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading your company&apos;s logos in the Control Panel. To change the default portal title displayed on the Welcome page, go to Settings &gt;&gt; Common &gt;&gt; Customization &gt;&gt; Welcome Page Settings..
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_brand {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip #1: Brand it.
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_brand_hdr {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_brand_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name the portal groups, its members and their activities following Settings &gt;&gt; Common &gt;&gt; Customization &gt;&gt; Team Template. Select the color theme that best suits your company brand..
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_customize {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_customize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip #3: Customize interface.
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_customize_hdr {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_customize_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable instruments you need for work following Settings &gt;&gt; Common &gt;&gt; Modules &amp; Tools. The disabled ones will be hidden..
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_modules {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_modules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip #4: Select your tools.
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_modules_hdr {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_modules_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the language and set the correct time zone. It&apos;s particularly important for the notifications and the correct calendar work. Go to Settings &gt;&gt; Common &gt;&gt; Customization..
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_regional {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_regional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip #2: Adjust the regional settings.
+        /// </summary>
+        public static string pattern_enterprise_admin_customize_portal_v10_item_regional_hdr {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_customize_portal_v10_item_regional_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription is due to expire today.
+        ///Your cloud office is ready at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. It&apos;s time to invite your teammates!
         ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
+        ///The easiest way to add your team is to import the necessary users and groups from an LDAP Server (e.g. OpenLDAP Server or Microsoft Active Directory). The LDAP settings are available in your Control Panel. Instructions are available in our &quot;Help Center&quot;:&quot;${__HelpLink}/server/windows/community/ldap-settings.aspx&quot;.
+        ///
+        ///You can also distribute the invitation link using the Inv [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_enterprise_admin_invite_teammates_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_invite_teammates_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///Please note that your ONLYOFFICE subscription is about to expire in a week. To extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
         ///
         ///Click on the link below to start the renewal process:
         ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
         ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with payment details for th [rest of string was truncated]&quot;;.
+        ///For any further ONLYOFFICE installation, activation and technical support issues, please contact our support team  at &quot;https://support.onlyoffice.com/&quot;:&quot;https://support.onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_enterprise_admin_payment_warning {
+        public static string pattern_enterprise_admin_payment_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_payment_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription is about to expire in a week.
-        ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
+        ///Please note that your ONLYOFFICE subscription expires today. To extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
         ///
         ///Click on the link below to start the renewal process:
         ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
         ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with payment details  [rest of string was truncated]&quot;;.
+        ///For any further product installation, activation and technical support issues, please contact our support team at &quot;https://support.onlyoffice.com/&quot;:&quot;https://support.onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_enterprise_admin_payment_warning_before7 {
+        public static string pattern_enterprise_admin_payment_warning_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_payment_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Thank you for having given ONLYOFFICE a try. Your trial version of Enterprise Edition is due to expire today.
+        ///Thanks for choosing ONLYOFFICE. We just want to remind you that the trial period for your Enterprise Edition will be over in seven days.
         ///
-        ///To continue using it please visit our &quot;Server pricing page&quot;:&quot;http://www.onlyoffice.com/enterprise-edition.aspx&quot; where you can check out all the pricing plans and choose the most suitable one for you or buy the Enterprise Edition Standard &quot;right now&quot;:&quot;$PricingPage&quot;.
-        ///
-        ///If any questions related to our pricing and payment policy arise, please, contact us at &quot;sales@onlyoffice.com&quot;: [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_trial_warning {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_trial_warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Thank  you for checking out ONLYOFFICE service. Hope, everything&apos;s  going fine. We just want to remind you that the trial period for your Enterprise Edition will be over in seven days. 
-        ///
-        ///Please, check all the available pricing plans for Enterprise Edition and choose the most suitable rate for your business.
+        ///Please, check all the available pricing plans for Enterprise Edition and choose the most suitable one for your business.
         ///
         ///$GreenButton
         ///
         ///$BlueButton
         ///
-        ///If any questions related to our pricing and payment policy arise, please, contact us at &quot;sales@onlyoffice.com&quot;:&quot;mailto:sales@onlyoffice.com&quot;. For so [rest of string was truncated]&quot;;.
+        ///For any purchase questions, contact us at &quot;sales@onlyoffice.com&quot;:&quot;mailto:sales@onlyoffice.com&quot;. For solving any technical problems, write to &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_enterprise_admin_trial_warning_before7 {
+        public static string pattern_enterprise_admin_trial_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_trial_warning_before7", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_admin_trial_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Sometimes the most useful tools are not the most obvious. There is always much to be discovered, so we do our best to guide you through the every single corner of your office. 
+        ///Thanks for choosing ONLYOFFICE. You trial expires today. To continue using it, purchase the full license.
         ///
-        ///Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
+        ///Buy now: &quot;https://www.onlyoffice.com/enterprise-edition.aspx&quot;:&quot;https://www.onlyoffice.com/enterprise-edition.aspx&quot;
         ///
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
+        ///For any purchase questions, contact us at &quot;sales@onlyoffice.com&quot;:&quot;mailto:sales@onlyoffice.com&quot;. For solving any technical problems, write to &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com&quot;.
+        /// </summary>
+        public static string pattern_enterprise_admin_trial_warning_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_trial_warning_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///Get free ONLYOFFICE apps to work on documents and projects from any of your devices.
+        ///
+        ///# To work on documents offline on Windows, Linux and Mac, download &quot;ONLYOFFICE Desktop Editors&quot;:&quot;https://www.onlyoffice.com/apps.aspx&quot;.
+        ///# To edit documents on mobile devices, ONLYOFFICE Documents app for &quot;iOS&quot;:&quot;https://itunes.apple.com/us/app/onlyoffice-documents/id944896972&quot; or &quot;Android&quot;:&quot;https://play.google.com/store/apps/details?id=com.onlyoffice.documents&quot;.
+        ///# To manage your team performance on  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_enterprise_admin_user_apps_tips_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_user_apps_tips_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///We hope you enjoy using document editors available in your web-office. Here are some tips on how to make it more effective.
+        ///
+        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm.
+        /// </summary>
+        public static string pattern_enterprise_admin_user_docs_tips_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_user_docs_tips_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///Here’s what you can do to make your web-office even more secure:
+        ///
+        ///*Get an SSL certificate* if you are going to provide not only local but also external portal access for your users. Generate a new signed certificate in the Control Panel or purchase one from the provider you trust.
+        ///
+        ///*Enable automatic backups* in the Control Panel. We also recommend that you use third-party services and make a backup copy of the server with ONLYOFFICE installed from time to time. Instructions in our &quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_enterprise_admin_welcome_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_welcome_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///We hope you enjoy using ONLYOFFICE. How everything is going with your trial? We would really appreciate you feedback!
+        ///
+        ///Please, don’t hesitate to contact us at &quot;support.onlyoffice.com&quot;:&quot;https://support.onlyoffice.com&quot; whenever you have questions or ideas..
+        /// </summary>
+        public static string pattern_enterprise_admin_without_activity_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_admin_without_activity_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///$__AuthorName has invited you as a guest user to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Accept the invitation by clicking the link:
+        ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
+        ///The link is only valid for 7 days.
         ///
-        ///Truly yours,
-        ///ONLYOFFIC [rest of string was truncated]&quot;;.
+        ///You will get more tips on how to use your web-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
         /// </summary>
-        public static string pattern_enterprise_admin_user_crm_tips {
+        public static string pattern_enterprise_guest_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_user_crm_tips", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_guest_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///In almost every business we are to deal with documents every day - contracts, reports, white papers, invoices, etc. - and waste a lot of time moving it around. To help you work more efficiently and reduce time and efforts spent on paperwork, make use of these 7 simple tips and tricks.
+        ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
+        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_enterprise_guest_welcome_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_guest_welcome_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///$__AuthorName has invited you to join your company&apos;s safe and secure web-office that would enhance your collaboration. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///
+        ///Accept the invitation by clicking the link:
+        ///
         ///$GreenButton
         ///
-        ///Do you know that you&apos;re using the most powerful online editors in the wor [rest of string was truncated]&quot;;.
+        ///The link is only valid for 7 days.
+        ///
+        ///You will get more tips on how to use your we-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
         /// </summary>
-        public static string pattern_enterprise_admin_user_docs_tips {
+        public static string pattern_enterprise_user_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_admin_user_docs_tips", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email is still the best and most popular way to communicate with customers and partners. Every day we receive a great amount of messages using multiple email accounts from different services and it may seem impossible not to miss anything important.
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Make use of these 5 tips and tricks to get organized and improve your email experience:
+        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
+        ///
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_enterprise_user_welcome_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_user_welcome_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///You have just created your corporate web-office, your team&apos;s cloud office that would enhance internal cooperation.  Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///
+        ///Please, confirm your email:
+        ///
+        ///$GreenButton
+        ///
+        ///You may change your email or password in your &quot;personal profile page&quot;:&quot;$MyStaffLink&quot;..
+        /// </summary>
+        public static string pattern_enterprise_whitelabel_admin_activation_v10 {
+            get {
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_activation_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///You can customize your web-office, for example:
+        ///
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
-        ///$GreenButton
-        ///
-        ///Still not yet configured the mail server using your own domain  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_user_mail_tips {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_user_mail_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Do you know that ONLYOFFICE has the most powerful online editors in the world? Having combined the best from Microsoft Office and Google Docs, we managed to achieve these goals:
-        ///
-        ///# Support for all popular formats. 100% compatibility with MS Office;
-        ///# Complex formatting available online;
-        ///# 100% view, conversion and pagination fidelity in any browser/OS.
-        ///# More collaboration capabilities: two real-time co-editing modes, review, comments, chat. 
-        ///
-        ///Have a look at the &quot;comparison with di [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_user_powerful_tips {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_user_powerful_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Collaboration is the most effective way to solve a problem. But working as a team is not always easy. ONLYOFFICE offers you a set of tools designed to help you to improve your team collaboration:
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
-        ///$GreenButton
-        ///
-        ///Do you know that you&apos;re using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? &quot;Look here&quot;:&quot;https://www.onlyoffice.com/docu [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_user_team_tips {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_user_team_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///ONLYOFFICE provides you with security tools that allows you to:
-        ///
-        ///- Turn on HTTPS to keep your portal data secure;
-        ///
-        ///- Backup your portal data on a regular basis to avoid any data-loss;
-        ///
-        ///- Track login history and receive the audit trail data;
-        ///
-        ///- Enable two-factor authentication. 
-        ///
-        ///To turn on two-factor authentication, connect one of the service providers in Settings &gt;&gt; Integration &gt;&gt;Third Party Authorization, and then go to Settings &gt;&gt; Security &gt;&gt; Two-factor authentication to enab [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_welcome {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hello $UserName,
-        ///
-        ///My name is Katarina and I work for ONLYOFFICE. I started my work here long time ago, at the very beginning of the project. Believe me, I know everything about this application!
-        ///
-        ///How is it going there? Is everything clear? Please share with me your impression. The feedback is the best contribution!
-        ///
-        ///If you have questions regarding how to use ONLYOFFICE or need help to start using it, just let me know. You can also send me feedback or ideas to help improve ONLYOFFICE.
-        ///
-        ///Be productive  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_admin_without_activity {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_admin_without_activity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
         ///
         ///$GreenButton
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///Truly yours,
-        ///ONLYOFFICE Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
+        ///Done. It&apos;s time to invite teammates to your web-office!.
         /// </summary>
-        public static string pattern_enterprise_guest_activation {
+        public static string pattern_enterprise_whitelabel_admin_customize_portal_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_guest_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_customize_portal_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualR [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_guest_welcome {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///$__AuthorName has invited you to join ONLYOFFICE - your company&apos;s portal, safe and secure web-office that would enhance your company collaboration. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_user_activation {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///With ONLYOFFICE you have all your data stored in one place available from the cloud. Be productive and access your web-office at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; from anywhere! 
-        ///
-        ///Start now:
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///Do you know that you&apos;re using the most powerful online editors in the [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_user_organize_workplace {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_user_organize_workplace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Get started with it today!
-        ///
-        ///h3.Start working with Documents:
-        ///
-        ///# Create and edit text documents, spreadsheet and presentations.
-        ///# Connect cloud storages you use to create a single workspace for all of your docs.
-        ///# Share documents with your team members.
-        ///# Explore different ways of working on docs together: two real-time co-editing modes, review, comments, chat.
-        ///
-        ///h3.Try add [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_user_welcome {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have just created the ${LetterLogoText} portal, safe and secure web-office that would enhance your company collaboration. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address: 
-        ///
-        ///$GreenButton
-        ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
-        ///
-        ///Note: we do not send out confiden [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_enterprise_whitelabel_admin_activation {
-            get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Please note that your ${LetterLogoText} subscription is due to expire today.
-        ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ${LetterLogoText}.
+        ///Please note that your web-office subscription is about to expire in a week. To extend your subscription, you need to purchase a product renewal.
         ///
         ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with payment  [rest of string was truncated]&quot;;.
+        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;.
         /// </summary>
-        public static string pattern_enterprise_whitelabel_admin_payment_warning {
+        public static string pattern_enterprise_whitelabel_admin_payment_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_payment_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ${LetterLogoText} subscription is about to expire in a week.
-        ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ${LetterLogoText}.
+        ///Please note that your your web-office subscription expires today. To extend your subscription, you need to purchase a product renewal.
         ///
         ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with pa [rest of string was truncated]&quot;;.
+        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;.
         /// </summary>
-        public static string pattern_enterprise_whitelabel_admin_payment_warning_before7 {
+        public static string pattern_enterprise_whitelabel_admin_payment_warning_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_payment_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///${LetterLogoText} provides you with security tools that allows you to:
+        ///Here’s what you can do to make your web-office even more secure:
         ///
-        ///- Turn on HTTPS to keep your portal data secure;
+        ///*Get an SSL certificate* if you are going to provide not only local but also external portal access for your users. Generate a new signed certificate in the Control Panel or purchase one from the provider you trust.
         ///
-        ///- Backup your portal data on a regular basis to avoid any data-loss;
+        ///*Enable automatic backups* in the Control Panel. We also recommend that you use third-party services and make a backup copy of the server from time to time.
         ///
-        ///- Track login history and receive the audit trail data;
-        ///
-        ///- Enable two-factor authentication. 
-        ///
-        ///To turn on two-factor authentication, connect one of the service providers in Settings &gt;&gt; Integration &gt;&gt;Third Party Authorization, and then go to Settings &gt;&gt; Security &gt;&gt; Two-factor authentication  [rest of string was truncated]&quot;;.
+        ///*Adjust portal security settings*: restrict  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_enterprise_whitelabel_admin_welcome {
+        public static string pattern_enterprise_whitelabel_admin_welcome_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_welcome", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_admin_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
+        ///$__AuthorName has invited you as a guest user to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Accept the invitation by clicking the link:
         ///
         ///$GreenButton
         ///
-        ///Truly yours,
-        ///${LetterLogoText} Team.
+        ///The link is only valid for 7 days.
+        ///
+        ///You will get more tips on how to use your web-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
         /// </summary>
-        public static string pattern_enterprise_whitelabel_guest_activation {
+        public static string pattern_enterprise_whitelabel_guest_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_guest_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_guest_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///h3.Get started with your portal
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRo [rest of string was truncated]&quot;;.
+        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_enterprise_whitelabel_guest_welcome {
+        public static string pattern_enterprise_whitelabel_guest_welcome_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_guest_welcome", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_guest_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///$__AuthorName has invited you to join ${LetterLogoText} - your company&apos;s portal, safe and secure web-office that would enhance your company collaboration. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+        ///$__AuthorName has invited you to join your company&apos;s safe and secure web-office that would enhance your collaboration. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
         ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
+        ///Accept the invitation by clicking the link:
         ///
         ///$GreenButton
         ///
-        ///Truly yours,
-        ///${LetterLogoText} Team.
+        ///The link is only valid for 7 days.
+        ///
+        ///You will get more tips on how to use your we-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
         /// </summary>
-        public static string pattern_enterprise_whitelabel_user_activation {
+        public static string pattern_enterprise_whitelabel_user_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_user_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Get started with it today!
+        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///h3.Start working with Documents:
-        ///
-        ///# Create and edit text documents, spreadsheet and presentations.
-        ///# Connect cloud storages you use to create a single workspace for all of your docs.
-        ///# Share documents with your team members.
-        ///# Explore different ways of working on docs together: two real-time co-editing modes, review, comments, chat.
-        ///
-        ///h3.Try add [rest of string was truncated]&quot;;.
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_enterprise_whitelabel_user_welcome {
+        public static string pattern_enterprise_whitelabel_user_welcome_v10 {
             get {
-                return ResourceManager.GetString("pattern_enterprise_whitelabel_user_welcome", resourceCulture);
+                return ResourceManager.GetString("pattern_enterprise_whitelabel_user_welcome_v10", resourceCulture);
             }
         }
         
@@ -1874,336 +1350,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_for_admin_notify {
             get {
                 return ResourceManager.GetString("pattern_for_admin_notify", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have just created your ${LetterLogoText} portal at  &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Starting from now you will have an opportunity to explore ${LetterLogoText} Free Cloud without any time limitations. Follow the link below to confirm your email address:
-        ///
-        ///$GreenButton
-        ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
-        ///
-        ///Note: we do not send out confidential information (like your password) in emails for safety reasons. You ma [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_freecloud_admin_activation {
-            get {
-                return ResourceManager.GetString("pattern_freecloud_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
-        ///
-        ///Best regards,
-        ///ONLYOFFICE Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://www.onlyoffice.com/&quot;.
-        /// </summary>
-        public static string pattern_freecloud_guest_activation {
-            get {
-                return ResourceManager.GetString("pattern_freecloud_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have been invited as guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/pr [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_freecloud_guest_welcome {
-            get {
-                return ResourceManager.GetString("pattern_freecloud_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///$__AuthorName has invited you to join ${LetterLogoText} Free Cloud - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton.
-        /// </summary>
-        public static string pattern_freecloud_user_activation {
-            get {
-                return ResourceManager.GetString("pattern_freecloud_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# Use &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; to start your blogs, forums, add events, and more.
-        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milestones and tasks.
-        ///# Upload, edit and organize &quot;Document [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_freecloud_user_welcome {
-            get {
-                return ResourceManager.GetString("pattern_freecloud_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have just created the ONLYOFFICE portal, your team&apos;s portal that would enhance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
-        ///
-        ///$GreenButton
-        ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
-        ///
-        ///Note: we do not send out confidential information (like  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_admin_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///The cloud office for your team is already created at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. It&apos;s time to invite your teammates to join it. 
-        ///The easiest way to do that is to distribute the invitation link using the *Invite users to portal* option.
-        ///
-        ///$GreenButton
-        ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_admin_invite_teammates {
-            get {
-                return ResourceManager.GetString("pattern_hosted_admin_invite_teammates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///It’s likely that configuring your web-office is a new experience for you so you might like some tips and tricks to get started. 
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItemsBtm
-        ///$GreenButton
-        ///   
-        ///Done. It&apos;s time to invite teammates to your web-office!
-        ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_admin_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///Truly yours,
-        ///ONLYOFFICE Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
-        /// </summary>
-        public static string pattern_hosted_guest_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualR [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_guest_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///$__AuthorName has invited you to join ONLYOFFICE - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_user_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# Create, edit and organize &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
-        ///# Add your email account to &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milestones and tas [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_user_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have just created your team&apos;s portal that would enhance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
-        ///
-        ///$GreenButton
-        ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
-        ///
-        ///Note: we do not send out confidential information (like your password) in email [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_admin_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///It’s likely that ${LetterLogoText} is a new experience for you so we figured that you might like some tips and tricks to get you started.
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItemsBtm
-        ///$GreenButton
-        ///   
-        ///Done. It&apos;s time to invite teammates to your web-office!
-        ///
-        ///Truly yours,
-        ///${LetterLogoText} Team.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_admin_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///Truly yours,
-        ///${LetterLogoText} Team.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_guest_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRo [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_guest_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///$__AuthorName has invited you to join your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///Truly yours,
-        ///${LetterLogoText} Team.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_user_activation {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# Create, edit and organize &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
-        ///# Add your email account to &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milestones and tas [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_hosted_whitelabel_user_welcome {
-            get {
-                return ResourceManager.GetString("pattern_hosted_whitelabel_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h1.Invitation to join ${LetterLogoText} portal
-        ///
-        ///Hello!
-        ///
-        ///You are invited to join ${LetterLogoText} - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;$InviteLink&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton.
-        /// </summary>
-        public static string pattern_invite {
-            get {
-                return ResourceManager.GetString("pattern_invite", resourceCulture);
             }
         }
         
@@ -2292,9 +1438,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot; [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_migration_error {
             get {
@@ -2312,9 +1456,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__Virt [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_migration_server_failure {
             get {
@@ -2633,45 +1775,21 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $OwnerName,
+        ///   Looks up a localized string similar to Your ONLYOFFICE has been successfully deactivated. Please note that all of your data will be deleted in accordance with &quot;our Privacy statement&quot;:&quot;https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&quot;. 
         ///
-        ///Your portal &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; has been successfully deleted but we would highly appreciate your feedback. Please share your experience of using ${LetterLogoText} and give us a hint on how could we make it better. Your opinion is very impotant for us!
-        ///
-        ///Please, fill this form to leave your feedback:
+        ///Why have you decided to leave? Share your experience with us.
         ///
         ///$GreenButton
         ///
-        ///It will take you just a minute.
-        ///
-        ///Thank you and good luck!
+        ///Thank you and good luck! 
         ///
         ///Truly yours,
         ///ONLYOFFICE Team
         ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_portal_delete_success {
+        public static string pattern_portal_delete_success_v10 {
             get {
-                return ResourceManager.GetString("pattern_portal_delete_success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear  $OwnerName,
-        ///
-        ///Thank you for giving ${LetterLogoText} Free Cloud a try. Your portal &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; has been successfully deactivated and we would highly appreciate your feedback. Please share your experience of using ${LetterLogoText} Office and give us a hint on how could we make it better. Your opinion is very important for us!
-        ///
-        ///Please, fill this form to leave your feedback:
-        ///
-        ///$GreenButton
-        ///
-        ///It will take you just a minute.
-        ///
-        ///Thank you and good luck!
-        ///ONLYOFFICE Te [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_portal_delete_success_freecloud {
-            get {
-                return ResourceManager.GetString("pattern_portal_delete_success_freecloud", resourceCulture);
+                return ResourceManager.GetString("pattern_portal_delete_success_v10", resourceCulture);
             }
         }
         
@@ -2706,6 +1824,19 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_profile_delete {
             get {
                 return ResourceManager.GetString("pattern_profile_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User &quot;$FromUserName&quot;:&quot;$FromUserLink&quot; has deleted his/her profile, and this profile is now blocked. All user’s files are still assigned to him/her and occupy disk space. 
+        ///
+        ///You can reassign the user’s documents shared with others to another active user or remove them to free up the portal disk space.
+        ///
+        ///Please go to the user profile using &quot;this link&quot;:&quot;$FromUserLink&quot; to reassign documents to another user or remove the data..
+        /// </summary>
+        public static string pattern_profile_has_deleted_itself {
+            get {
+                return ResourceManager.GetString("pattern_profile_has_deleted_itself", resourceCulture);
             }
         }
         
@@ -2868,9 +1999,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRoot [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_restore_started {
             get {
@@ -2879,453 +2008,548 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///You have just created the ONLYOFFICE portal, your team&apos;s portal that would enhance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
+        ///You have just created the ONLYOFFICE portal, your team&apos;s cloud office that would enhance internal cooperation. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. 
+        ///
+        ///Please, confirm your email: 
         ///
         ///$GreenButton
         ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
+        ///The link will be valid for 7 days.
         ///
-        ///Note: we do not send out confidential information (like  [rest of string was truncated]&quot;;.
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_saas_admin_activation {
+        public static string pattern_saas_admin_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///The cloud office for your team is already created at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. It&apos;s time to invite your teammates to join it. 
+        ///The cloud office is ready at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. It&apos;s time to invite your teammates! 
+        ///
         ///The easiest way to do that is to distribute the invitation link using the *Invite users to portal* option.
         ///
         ///$GreenButton
         ///
-        ///If you have access to the detailed contact information of the people, add your teammates manually one by one using the *Create New...* button in the *People* module. &quot;Learn more &gt;&gt;&quot;:&quot;${__HelpLink}/gettingstarted/people [rest of string was truncated]&quot;;.
+        ///You can also add your teammates manually one by one using the *Create New...* button in the *People* module or export users from:
+        ///    &quot;your Yahoo or Google account&quot;:&quot;${__HelpLink}/administratorguides/import-contacts-from-web.aspx&quot;,
+        ///    &quot;your mail  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_admin_invite_teammates {
+        public static string pattern_saas_admin_invite_teammates_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_invite_teammates", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_invite_teammates_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hi $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///You selected a monthly ONLYOFFICE subscription for the third time already.
+        ///Earlier you have paid for a monthly subscription. If you are planning to continue using ONLYOFFICE, we recommend you purchasing longer subscriptions. 
         ///
-        ///Why pay more? As you are our returning customer, we would like to offer you the 10% for the 1 year pricing plan.
+        ///Here’s our special offer - use this coupon *10%discountyear* to get 10% discount on 1-year subscription or this one *upgradethreeyears20%* to buy 3-year subscription with 20% off.
         ///
-        ///To pay with the discount please apply the coupon at the payment page: ==&lt;b&gt;10%yearlysubsc2015 &lt;/b&gt;==
+        ///$GreenButton
         ///
-        ///If you have any questions feel free to contact us at &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com&quot;. We will be glad to help you!
+        ///If you need assistance, contact us at &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com&quot;. We will be happy to help!
         /// 
+        ///Truly yours, [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_payment_after_monthly_subscriptions_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_payment_after_monthly_subscriptions_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your ONLYOFFICE subscription has expired. Renew your ONLYOFFICE subscription to continue using it.
+        ///    
+        ///$GreenButton
+        ///
+        ///Enable the &quot;Auto-renew&quot; license option to automatically renew your license at expiration time and never worry about your payment time again. You can disable it any time &quot;here&quot;:&quot;https://secure.avangate.com/myaccount/?lang=en&amp;e=example@customer-email.com&amp;k=xxxxxxxxxx&quot;
+        ///
+        ///For payment related issues, contact Avangate at &quot;support@avangate.com&quot;:&quot;mailto:support@avangate.com&quot;
+        ///
+        ///Truly yours,
+        ///ON [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_payment_warning_after1_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_payment_warning_after1_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your ONLYOFFICE subscription is about to expire in 5 days. Renew your ONLYOFFICE subscription to continue using it.
+        ///
+        ///$GreenButton
+        ///
+        ///Enable the &quot;Auto-renew&quot; license option to automatically renew your license at expiration time and never worry about your payment time again. You can disable it any time &quot;here&quot;:&quot;https://secure.avangate.com/myaccount/?lang=en&amp;e=example@customer-email.com&amp;k=xxxxxxxxxx&quot;:&quot;https://secure.avangate.com/myaccount/?lang=en&amp;e=example@customer-email.com&amp;k=xxxxxxxxxx&quot;. 
+        ///
+        ///For payment re [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_payment_warning_before5_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_payment_warning_before5_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t entered your ONLYOFFICE &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; for more than half a year. Since you have decided not to use it anymore, your web-office and all the data will be deleted in accordance with &quot;our Privacy statement&quot;:&quot;https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&quot;.
+        ///
+        ///We would appreciate your feedback. Why have you decided to stop using ONLYOFFICE?
+        ///
+        ///$GreenButton
+        ///
+        ///If you  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_trial_warning_after_half_year_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after_half_year_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///You haven’t added any teammates, so maybe ONLYOFFICE Personal suits you more? It free and you will be able to:
+        ///
+        ///# Work with text documents, spreadsheets, and presentations.
+        ///# Share docs with your friends and collaborate on them in real-time.
+        ///# Embed documents to your web page.
+        ///# Connect 3rd party cloud storage like Dropbox or Google Drive to manage docs from one place.
+        ///
+        ///To get a quick start, sign up via your Facebook or Google account.
+        ///
+        ///$GreenButton
+        ///
+        ///You can also install this [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_trial_warning_after30_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after30_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///Didn’t manage to have a closer look at ONLYOFFICE? Extend your trial today! Even more - pay less if your decision is quick and positive!
+        ///
+        ///Get 20 additional days of the trial or a 20% discount on 1 or 3-year subscription. You will be able to use the discount within 5 days after receiving this message.
+        ///
+        ///$GreenButton
+        ///
+        ///You can also deploy ONLYOFFICE on your private network to get full control over your data. &quot;Learn more&quot;:&quot;https://www.onlyoffice.com/server-solutions.aspx&quot;
+        ///
+        ///Truly your [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_trial_warning_after5_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after5_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The trial period for your account at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; will be over in 5 days.
+        ///
+        ///*Buy a subscription today with 10% off!*
+        ///
+        ///Just use this coupon code while purchasing: *$Coupon*
+        ///
+        ///It will be valid within the next 10 days. At this moment the number of active users in the portal is $ActiveUsers.
+        ///
+        ///We recommend you a $$Price/$PricePeriod plan.
+        ///
+        ///$GreenButton
+        ///
         ///Truly yours,
         ///ONLYOFFICE Team
-        ///&quot;www.onlyoffice.com&quot;:&quot; [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_saas_admin_payment_after_monthly_subscriptions {
+        public static string pattern_saas_admin_trial_warning_before5_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_payment_after_monthly_subscriptions", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_before5_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription is due to expire today.
+        ///The trial period for your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; is due to expire today. To continue using it &quot;buy subscription&quot;:&quot;$PricingPage&quot;.
         ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
+        ///*Note*: you can deploy ONLYOFFICE on your private network to get full control over your data. &quot;Learn more&quot;:&quot;https://www.onlyoffice.com/server-solutions.aspx&quot;
         ///
-        ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with payment details for th [rest of string was truncated]&quot;;.
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_saas_admin_payment_warning {
+        public static string pattern_saas_admin_trial_warning_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription has expired on $DueDate.
+        ///Get free ONLYOFFICE apps to work on documents and projects from any of your devices.
         ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
-        ///
-        ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///Please renew your license till $DelayDueDate, otherwise, you will not be able to access your web-office data. 
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which  [rest of string was truncated]&quot;;.
+        ///# To work on documents offline on Windows, Linux and Mac, download &quot;ONLYOFFICE Desktop Editors&quot;:&quot;https://www.onlyoffice.com/apps.aspx&quot;.
+        ///# To edit documents on mobile devices, ONLYOFFICE Documents app for &quot;iOS&quot;:&quot;https://itunes.apple.com/us/app/onlyoffice-documents/id944896972&quot; or &quot;Android&quot;:&quot;https://play.google.com/store/apps/details?id=com.onlyoffice.documents&quot;.
+        ///# To manage your team performance on  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_admin_payment_warning_after3 {
+        public static string pattern_saas_admin_user_apps_tips_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_payment_warning_after3", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_user_apps_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription is about to expire in a week.
+        ///We have prepared several tips to make your work with ONLYOFFICE  more comfortable.
         ///
-        ///In order to extend your subscription, you need to purchase a product renewal for ONLYOFFICE.
+        ///*#1 Find quick answers about ONLYOFFICE functionality*
         ///
-        ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license will be renewed automatically at expiration time.
-        ///
-        ///A separate email with payment details  [rest of string was truncated]&quot;;.
+        ///Browse &quot;Help Center&quot;:&quot;${__HelpLink}&quot; when you are not sure how to perform your task. The answers to the most popular question like &quot;how to import contacts to CRM&quot;:&quot;${__HelpLink}/guides/import-contacts.aspx&quot; or &quot;how to export data from CRM&quot;:&quot;${__HelpLink}/tipstricks/crm-export.aspx&quot;, or &quot;how to add a recurring event&quot;:&quot;${__HelpLink}/guides/add-rec [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_admin_payment_warning_before7 {
+        public static string pattern_saas_admin_user_comfort_tips_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_user_comfort_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Please note that your ONLYOFFICE subscription has expired on $DelayDueDate and the access to your web-office is currently blocked.
-        ///
-        ///In order to extend your subscription and continue to use your web-office, you need to purchase a product renewal for ONLYOFFICE.
-        ///
-        ///Click on the link below to start the renewal process:
-        ///&quot;Pricing page&quot;:&quot;$PricingPage&quot;
-        ///
-        ///For your convenience, when you purchase your next renewal, you can also enable the &quot;auto-renew&quot; license option, in which case your license  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_payment_warning_delaydue {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_payment_warning_delaydue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Thank you for having given ONLYOFFICE a try. The free plan for your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; is due to expire today.
-        ///
-        ///To continue using your account, proceed to the &quot;Pricing page&quot;:&quot;$PricingPage&quot;, where you can check out all the models and choose the most suitable for you.
-        ///
-        ///And just a quick reminder: you may as well deploy ONLYOFFICE on your private network if you are looking for enhanced security options. &quot;Learn more&quot;:&quot;https://www.onlyoffice.com/server-s [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///You haven&apos;t entered your ONLYOFFICE &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal for more than half a year. Since you have decided not to use it anymore, your web-office will be deleted. Please note that after the portal deletion all the data stored there will be fully deleted.
-        ///
-        ///We would appreciate if you take the time &quot;to tell us&quot;:&quot;$FeedBackUrl&quot; why you decided to stop using ONLYOFFICE. It will help us to improve our services.
-        ///
-        ///If you think this is a mistake and want to conti [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning_after_half_year {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after_half_year", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Even if you have no team or project to manage, ONLYOFFICE still has a lot to offer! 
-        ///
-        ///We&apos;d like to invite you to ONLYOFFICE Personal, a *free workspace to manage your documents*, combining the convenience and mobility of online apps with the rich toolset of desktop solutions.
-        ///
-        ///To get a quick start all you do is sign up via your Facebook or Google account. As soon as you&apos;re there you&apos;ll be able to:
-        ///
-        ///# Connect your favorite cloud storage: Dropbox, Google Drive, OneDrive or Box.
-        ///# Wor [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning_after30 {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after30", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///We know, business days can be crazy sometimes. If you didn&apos;t have an opportunity to take a closer look at ONLYOFFICE and would like to get a little bit more of your trial period at, we&apos;re in! Even more - if you are quick with your decision, you&apos;ll pay less!
-        ///
-        ///Today you have a chance to get 20 additional days of the trial or a 20% discount on 1 or 3-year subscription to ONLYOFFICE portal. You will be able to use the discount within 5 days after receiving this message.
-        ///
-        ///$GreenButton
-        ///
-        ///$ [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning_after5 {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning_after5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Thank you for checking out ONLYOFFICE service. Hope, everything&apos;s going fine. We just want to remind you that the trial period for your account at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; will be over in five days.
-        ///
-        ///At the moment the number of active users at the portal is $ActiveUsers.
-        ///
-        ///If you&apos;re not going to increase it considerably, we can recommend you a $$Price/$PricePeriod plan.
-        ///
-        ///Please, check all the available options and choose the most suitable rate for your business.        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning_before5 {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning_before5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Thanks for using ONLYOFFICE. Hope,  everything&apos;s  OK. We just want to remind you that the trial period for your account at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; will be over in 5 days. And some good news:  you can *buy a subscription with 5% off*!
-        ///
-        ///Just use this coupon code while purchasing: *$Coupon*. It will be valid within the next 10 days after you receive this letter. 
-        ///
-        ///At this moment the number of active users in the portal is $ActiveUsers.
-        ///
-        ///If you&apos;re not going to incr [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_trial_warning_before5_coupon {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_trial_warning_before5_coupon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///Sometimes the most useful tools are not the most obvious. There is always much to be discovered, so we do our best to guide you through the every single corner of your cloud office. 
-        ///
-        ///Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
-        ///
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;: [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_user_crm_tips {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_user_crm_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///In almost every business we are to deal with documents every day - contracts, reports, white papers, invoices, etc. - and waste a lot of time moving it around. To help you work more efficiently and reduce time and efforts spent on paperwork, make use of these 7 simple tips and tricks.
+        ///We hope you enjoy using ONLYOFFICE editors. Here are some tips on how to make it more effective.
         ///
         ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
+        ///
         ///$GreenButton
         ///
-        ///Want to know why ONLYOFFICE is better than MS Office Online, Google Docs  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_user_docs_tips {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email is still the best and most popular way to communicate with customers and partners. Every day we receive a great amount of messages using multiple email accounts from different services and it may seem impossible not to miss anything important.
-        ///
-        ///Make use of these 5 tips and tricks to get organized and improve your email experience:
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
-        ///$GreenButton
-        ///
-        ///Still not yet configured the mail server using your own domain  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_user_mail_tips {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_user_mail_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName!
-        ///
-        ///Do you know that ONLYOFFICE has the most powerful online editors in the world? Working on them we managed to achieve these goals:
-        ///
-        ///# Support for all popular formats. 100% compatibility with MS Office;
-        ///# Complex formatting available online;
-        ///# 100% view, conversion and pagination fidelity in any browser/OS.
-        ///
-        ///Have a look at the comparison with different online office suites and find out for yourself. &quot;Watch presentations&quot;:&quot;https://www.onlyoffice.com/document-editor-comparison.aspx&quot;
-        ///
-        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_admin_user_powerful_tips {
-            get {
-                return ResourceManager.GetString("pattern_saas_admin_user_powerful_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Collaboration is the most effective way to solve a problem. But working as a team is not always easy. ONLYOFFICE offers you a set of tools designed to help you to improve your team collaboration:
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
+        ///By the way, have you noticed using the most powerful editors in the cloud? Compare to other online editors to &quot;learn more&quot;:&quot;https://www.onlyoffice.com/document-editor-comparison.aspx&quot;.
         ///
         ///Truly yours,
         ///ONLYOFFICE Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http:// [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_admin_user_team_tips {
+        public static string pattern_saas_admin_user_docs_tips_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_user_team_tips", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Connect Dropbox, Google Drive or other services to manage your files in one place..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_3rdparty {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_3rdparty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect 3rd party clouds.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_3rdparty_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_3rdparty_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download the apps to work on docs &lt;a target=&quot;_blank&quot; style=&quot;color: #0078bd; font-family: Arial; font-size: 14px;&quot; href=&quot;https://www.onlyoffice.com/apps.aspx&quot;&gt;offline&lt;/a&gt; as well as on &lt;a target=&quot;_blank&quot; style=&quot;color: #0078bd; font-family: Arial; font-size: 14px;&quot; href=&quot;https://itunes.apple.com/us/app/onlyoffice-documents/id944896972&quot;&gt;iOS&lt;/a&gt; and &lt;a target=&quot;_blank&quot; style=&quot;color: #0078bd; font-family: Arial; font-size: 14px;&quot; href=&quot;https://play.google.com/store/apps/details?id=com.onlyoffice.documents&quot;&gt;Androi [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_apps {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_apps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get the apps.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_apps_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_apps_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents are integrated with all the other ONLYOFFICE modules, so you’ll forget about downloading docs and uploading them somewhere else forever..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_attach {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_attach", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attach docs to projects and emails.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_attach_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_attach_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While co-editing a doc with your team in real time, switch to Fast mode to see changes as your co-author is typing or to Strict mode to get more privacy..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_coediting {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_coediting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose co-editing mode.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_coediting_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_coediting_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE provides you with the most complete set of styling and formatting tools..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_formatting {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_formatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explore advanced formatting.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_formatting_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_formatting_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Review to suggest changes without modifying the original doc, add Comments to share your thoughts on a specific extract, or chat inside your doc via instant messages..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_review {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review, comment, and chat.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_review_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_review_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share docs to individuals or user groups. Choose their access level - Read Only, Comment, Form Filling, Review or Full Access..
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_share {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share documents.
+        /// </summary>
+        public static string pattern_saas_admin_user_docs_tips_v10_item_share_hdr {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_user_docs_tips_v10_item_share_hdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///It’s likely that ONLYOFFICE is a new experience for you so we figured that you might like some tips and tricks to get you started.
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+        ///Customize and manage your ONLYOFFICE to make it more comfortable and secure:
+        ///
+        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
+        ///
+        ///And that’s not the full list of what you can do! 
+        ///
         ///$GreenButton
         ///   
-        ///Done. It&apos;s time to invite teammates to your web-office!
+        ///Visit our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; to learn more about customizing your office. Always consult it when you have questions about the functionality and encourage your users to do so.
         ///
-        ///For more information we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot;.
-        ///
-        ///One more tip: all of your users can edit documents offline using &quot;ONLYOFFICE Desktop Editors&quot;:&quot;http://www.onl [rest of string was truncated]&quot;;.
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;w [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_admin_welcome {
+        public static string pattern_saas_admin_welcome_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_welcome", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello $UserName,
-        ///
-        ///My name is Katarina and I work for ONLYOFFICE. I started my work here long time ago, at the very beginning of the project. Believe me, I know everything about this application!
-        ///
-        ///How is it going there? Is everything clear? Please share with me your impression. The feedback is the best contribution!
-        ///
-        ///If you have questions regarding how to use ONLYOFFICE or need help to start using it, just let me know. You can also send me feedback or ideas to help improve ONLYOFFICE.
-        ///
-        ///Be productive  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Do data backups..
         /// </summary>
-        public static string pattern_saas_admin_without_activity {
+        public static string pattern_saas_admin_welcome_v10_item_backup {
             get {
-                return ResourceManager.GetString("pattern_saas_admin_without_activity", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_backup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize ONLYOFFICE with your team name and logo, select a color theme, set an alternative URL..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_brand {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which modules your users need, add your own links to the navigation menu, select a default start page..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_customize {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_customize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the language and time zone..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_regional {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_regional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Determine security settings, like the password strength and trusted mail domains, and set up access rights..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_security {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect 3rd-party services - Twilio for VoIP, DocuSign for e-signatures, and many others..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_telephony {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_telephony", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track user logins and other actions..
+        /// </summary>
+        public static string pattern_saas_admin_welcome_v10_item_usertrack {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_welcome_v10_item_usertrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///We hope you enjoy using ONLYOFFICE. How everything is going with your trial? We would really appreciate you feedback!
+        ///
+        ///Please, don’t hesitate to contact us at &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com&quot; whenever you have questions or ideas.
+        ///
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
+        /// </summary>
+        public static string pattern_saas_admin_without_activity_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_without_activity_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hello!
         ///
-        ///You have been invited as a guest user to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Please accept the invitation by following the link below, it is only valid for 7 days:
+        ///You are invited to join &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; as a guest user. Accept the invitation by clicking the link:
+        ///
+        ///$GreenButton
+        ///
+        ///We will also send you useful tips, latest ONLYOFFICE news, and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
+        ///
+        ///Truly yours,
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
+        /// </summary>
+        public static string pattern_saas_guest_activation_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_guest_activation_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello!
+        ///
+        ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.  Now you can:
+        ///
+        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath}/addons/c [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_guest_welcome_v10 {
+            get {
+                return ResourceManager.GetString("pattern_saas_guest_welcome_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello!
+        ///
+        ///You are invited to join ONLYOFFICE at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Accept the invitation by clicking the link:
         ///
         ///$GreenButton
         ///
         ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them.
         ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_guest_activation {
-            get {
-                return ResourceManager.GetString("pattern_saas_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hello!
-        ///
-        ///Your guest profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# View and comment the content open available for all portal users in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot;, &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; modules.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/ [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_guest_welcome {
-            get {
-                return ResourceManager.GetString("pattern_saas_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hello!
-        ///
-        ///You are invited to join ONLYOFFICE - your team&apos;s portal that would enchance internal cooperation. Your portal address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
-        ///
-        ///You can accept the invitation by following the link below, it is only valid for 7 days:
-        ///
-        ///$GreenButton
-        ///
-        ///We will also send you useful tips, latest ONLYOFFICE news and special offers once in a while. You can cancel the subscriptions o [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string pattern_saas_user_activation {
-            get {
-                return ResourceManager.GetString("pattern_saas_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
-        ///
-        ///With ONLYOFFICE you have all your data stored in one place available from the cloud. Be productive and access your web-office at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; from anywhere!
-        ///
-        ///Start now:
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
-        ///
-        ///$GreenButton
-        ///
-        ///If you need help with your portal, we invite you to browse our &quot;Help Center&quot;:&quot;${__HelpLink}&quot; or visit our &quot;Forum&quot;:&quot;http://cloud.onlyoffice.org&quot;.
-        ///
         ///Truly yours,
-        ///ONLYO [rest of string was truncated]&quot;;.
+        ///ONLYOFFICE Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
-        public static string pattern_saas_user_organize_workplace {
+        public static string pattern_saas_user_activation_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_user_organize_workplace", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hello!
         ///
-        ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///Welcome to ONLYOFFICE! Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///h3.Get started with your portal:
-        ///
-        ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot; to add personal and contact details.
-        ///# Create, edit and organize &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
-        ///# Add your email account to &quot;ONLYOFFICE Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Create &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and manage your workflow by adding milestones and t [rest of string was truncated]&quot;;.
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relatio [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_saas_user_welcome {
+        public static string pattern_saas_user_welcome_v10 {
             get {
-                return ResourceManager.GetString("pattern_saas_user_welcome", resourceCulture);
+                return ResourceManager.GetString("pattern_saas_user_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to h1.&quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal profile change notification
         ///
-        ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has changed his/her profile details at the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
-        ///
-        ///^You receive this email because you are an administrator of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about profile updates, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has changed his/her profile details at the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal..
         /// </summary>
         public static string pattern_self_profile_updated {
             get {
@@ -3348,10 +2572,7 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///#end
         ///
-        ///#end
-        ///
-        ///
-        ///^You receive this email because you are a regi [rest of string was truncated]&quot;;.
+        ///#end.
         /// </summary>
         public static string pattern_send_whats_new {
             get {
@@ -3377,13 +2598,28 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to h1.New user added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal
         ///
-        ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has joined your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
-        ///
-        ///^You receive this email because you are an administrator user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new users, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has joined your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;..
         /// </summary>
         public static string pattern_user_has_join {
             get {
                 return ResourceManager.GetString("pattern_user_has_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dear $UserName,
+        ///
+        ///You have been invited to join your company&apos;s safe and secure web-office that would enhance your collaboration. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Adding this link to your bookmarks is a good idea, you are likely to use it a lot.
+        ///
+        ///Accept the invitation by following the link below and use your login and password from the corporate account to sign in. 
+        ///
+        ///$GreenButton
+        ///
+        ///The link is only valid for 7 days..
+        /// </summary>
+        public static string pattern_user_ldap_activation {
+            get {
+                return ResourceManager.GetString("pattern_user_ldap_activation", resourceCulture);
             }
         }
         
@@ -3478,245 +2714,218 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to ONLYOFFICE Portal!.
+        ///   Looks up a localized string similar to Confirm your email.
         /// </summary>
-        public static string subject_enterprise_admin_activation {
+        public static string subject_enterprise_admin_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_activation", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customize Your ONLYOFFICE Portal.
+        ///   Looks up a localized string similar to Customize ONLYOFFICE.
         /// </summary>
-        public static string subject_enterprise_admin_customize_portal {
+        public static string subject_enterprise_admin_customize_portal_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_customize_portal", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_customize_portal_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite Teammates to Your Portal.
+        ///   Looks up a localized string similar to Invite your teammates.
         /// </summary>
-        public static string subject_enterprise_admin_invite_teammates {
+        public static string subject_enterprise_admin_invite_teammates_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_invite_teammates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Renewal Notification.
-        /// </summary>
-        public static string subject_enterprise_admin_payment_warning {
-            get {
-                return ResourceManager.GetString("subject_enterprise_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_invite_teammates_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ONLYOFFICE Renewal Notification.
         /// </summary>
-        public static string subject_enterprise_admin_payment_warning_before7 {
+        public static string subject_enterprise_admin_payment_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_payment_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Enterprise Edition trial expires today.
+        ///   Looks up a localized string similar to ONLYOFFICE Renewal Notification.
         /// </summary>
-        public static string subject_enterprise_admin_trial_warning {
+        public static string subject_enterprise_admin_payment_warning_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_trial_warning", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_payment_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to How is your trial going so far?.
         /// </summary>
-        public static string subject_enterprise_admin_trial_warning_before7 {
+        public static string subject_enterprise_admin_trial_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_trial_warning_before7", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_trial_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Features you might have missed in ONLYOFFICE CRM.
+        ///   Looks up a localized string similar to Your Enterprise Edition trial expires today.
         /// </summary>
-        public static string subject_enterprise_admin_user_crm_tips {
+        public static string subject_enterprise_admin_trial_warning_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_user_crm_tips", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_trial_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 7 Tips and Tricks to Work More Effectively in ONLYOFFICE Documents.
+        ///   Looks up a localized string similar to Get free ONLYOFFICE apps.
         /// </summary>
-        public static string subject_enterprise_admin_user_docs_tips {
+        public static string subject_enterprise_admin_user_apps_tips_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_user_docs_tips", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_user_apps_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 Tips to Improve Your Mail Experience.
+        ///   Looks up a localized string similar to 7 tips for effective work on your docs.
         /// </summary>
-        public static string subject_enterprise_admin_user_mail_tips {
+        public static string subject_enterprise_admin_user_docs_tips_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_user_mail_tips", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_user_docs_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why ONLYOFFICE is better than MS Office Online or Google Docs?.
+        ///   Looks up a localized string similar to Make your ONLYOFFICE more secure.
         /// </summary>
-        public static string subject_enterprise_admin_user_powerful_tips {
+        public static string subject_enterprise_admin_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_user_powerful_tips", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 Tools to Encourage Collaboration in Your Team.
+        ///   Looks up a localized string similar to Follow up from ONLYOFFICE team.
         /// </summary>
-        public static string subject_enterprise_admin_user_team_tips {
+        public static string subject_enterprise_admin_without_activity_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_user_team_tips", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_admin_without_activity_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Easy Way to Make Your Portal More Secure.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_enterprise_admin_welcome {
+        public static string subject_enterprise_guest_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_guest_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hey, how is it going with ONLYOFFICE?.
+        ///   Looks up a localized string similar to Welcome to your web-office.
         /// </summary>
-        public static string subject_enterprise_admin_without_activity {
+        public static string subject_enterprise_guest_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_admin_without_activity", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_guest_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_enterprise_guest_activation {
+        public static string subject_enterprise_user_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_guest_activation", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
+        ///   Looks up a localized string similar to Welcome to your web-office.
         /// </summary>
-        public static string subject_enterprise_guest_welcome {
+        public static string subject_enterprise_user_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_guest_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_user_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
+        ///   Looks up a localized string similar to Confirm your email.
         /// </summary>
-        public static string subject_enterprise_user_activation {
+        public static string subject_enterprise_whitelabel_admin_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_user_activation", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 5 Steps to Organize Your Workplace.
+        ///   Looks up a localized string similar to Customize your web-office.
         /// </summary>
-        public static string subject_enterprise_user_organize_workplace {
+        public static string subject_enterprise_whitelabel_admin_customize_portal_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_user_organize_workplace", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_customize_portal_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
+        ///   Looks up a localized string similar to Your web-office renewal notification.
         /// </summary>
-        public static string subject_enterprise_user_welcome {
+        public static string subject_enterprise_whitelabel_admin_payment_warning_before7_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_user_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_payment_warning_before7_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to ${LetterLogoText} Portal!.
+        ///   Looks up a localized string similar to Your web-office renewal notification.
         /// </summary>
-        public static string subject_enterprise_whitelabel_admin_activation {
+        public static string subject_enterprise_whitelabel_admin_payment_warning_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_activation", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_payment_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ${LetterLogoText} Renewal Notification.
+        ///   Looks up a localized string similar to Make your online office more secure.
         /// </summary>
-        public static string subject_enterprise_whitelabel_admin_payment_warning {
+        public static string subject_enterprise_whitelabel_admin_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ${LetterLogoText} Renewal Notification.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_enterprise_whitelabel_admin_payment_warning_before7 {
+        public static string subject_enterprise_whitelabel_guest_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_guest_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Easy Way to Make Your Portal More Secure.
+        ///   Looks up a localized string similar to Welcome to your web-office.
         /// </summary>
-        public static string subject_enterprise_whitelabel_admin_welcome {
+        public static string subject_enterprise_whitelabel_guest_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_admin_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_guest_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_enterprise_whitelabel_guest_activation {
+        public static string subject_enterprise_whitelabel_user_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_guest_activation", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ${LetterLogoText} Portal!.
+        ///   Looks up a localized string similar to Welcome to your web-office.
         /// </summary>
-        public static string subject_enterprise_whitelabel_guest_welcome {
+        public static string subject_enterprise_whitelabel_user_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_enterprise_whitelabel_user_activation {
-            get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ${LetterLogoText} Portal!.
-        /// </summary>
-        public static string subject_enterprise_whitelabel_user_welcome {
-            get {
-                return ResourceManager.GetString("subject_enterprise_whitelabel_user_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_enterprise_whitelabel_user_welcome_v10", resourceCulture);
             }
         }
         
@@ -3726,177 +2935,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_for_admin_notify {
             get {
                 return ResourceManager.GetString("subject_for_admin_notify", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to ${LetterLogoText} Portal!.
-        /// </summary>
-        public static string subject_freecloud_admin_activation {
-            get {
-                return ResourceManager.GetString("subject_freecloud_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_freecloud_guest_activation {
-            get {
-                return ResourceManager.GetString("subject_freecloud_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ${LetterLogoText} Portal!.
-        /// </summary>
-        public static string subject_freecloud_guest_welcome {
-            get {
-                return ResourceManager.GetString("subject_freecloud_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_freecloud_user_activation {
-            get {
-                return ResourceManager.GetString("subject_freecloud_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to ${LetterLogoText} Free Cloud.
-        /// </summary>
-        public static string subject_freecloud_user_welcome {
-            get {
-                return ResourceManager.GetString("subject_freecloud_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to ONLYOFFICE Portal!.
-        /// </summary>
-        public static string subject_hosted_admin_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invite your teammates to the cloud office.
-        /// </summary>
-        public static string subject_hosted_admin_invite_teammates {
-            get {
-                return ResourceManager.GetString("subject_hosted_admin_invite_teammates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configuring Your Cloud Office for the First Time.
-        /// </summary>
-        public static string subject_hosted_admin_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_hosted_guest_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
-        /// </summary>
-        public static string subject_hosted_guest_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_hosted_user_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
-        /// </summary>
-        public static string subject_hosted_user_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to ${LetterLogoText} Portal!.
-        /// </summary>
-        public static string subject_hosted_whitelabel_admin_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_admin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configuring Your Cloud Office for the First Time.
-        /// </summary>
-        public static string subject_hosted_whitelabel_admin_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_hosted_whitelabel_guest_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_guest_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your Portal!.
-        /// </summary>
-        public static string subject_hosted_whitelabel_guest_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_guest_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation from $__AuthorName to Join ${__VirtualRootPath}.
-        /// </summary>
-        public static string subject_hosted_whitelabel_user_activation {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_user_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your Portal!.
-        /// </summary>
-        public static string subject_hosted_whitelabel_user_welcome {
-            get {
-                return ResourceManager.GetString("subject_hosted_whitelabel_user_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invitation to join ${LetterLogoText} portal.
-        /// </summary>
-        public static string subject_invite {
-            get {
-                return ResourceManager.GetString("subject_invite", resourceCulture);
             }
         }
         
@@ -4090,11 +3128,11 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successful deletion of the ${__VirtualRootPath} portal.
+        ///   Looks up a localized string similar to ONLYOFFICE has been deactivated.
         /// </summary>
-        public static string subject_portal_delete_success {
+        public static string subject_portal_delete_success_v10 {
             get {
-                return ResourceManager.GetString("subject_portal_delete_success", resourceCulture);
+                return ResourceManager.GetString("subject_portal_delete_success_v10", resourceCulture);
             }
         }
         
@@ -4113,6 +3151,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_profile_delete {
             get {
                 return ResourceManager.GetString("subject_profile_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User has deleted his/her profile.
+        /// </summary>
+        public static string subject_profile_has_deleted_itself {
+            get {
+                return ResourceManager.GetString("subject_profile_has_deleted_itself", resourceCulture);
             }
         }
         
@@ -4198,227 +3245,173 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to ONLYOFFICE Portal!.
+        ///   Looks up a localized string similar to Welcome to ONLYOFFICE cloud!.
         /// </summary>
-        public static string subject_saas_admin_activation {
+        public static string subject_saas_admin_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_activation", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your teammates to the cloud office.
+        ///   Looks up a localized string similar to Invite people to the cloud office.
         /// </summary>
-        public static string subject_saas_admin_invite_teammates {
+        public static string subject_saas_admin_invite_teammates_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_invite_teammates", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_invite_teammates_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Your special offer for ONLYOFFICE.
         /// </summary>
-        public static string subject_saas_admin_payment_after_monthly_subscriptions {
+        public static string subject_saas_admin_payment_after_monthly_subscriptions_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_payment_after_monthly_subscriptions", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_payment_after_monthly_subscriptions_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ONLYOFFICE renewal notification.
         /// </summary>
-        public static string subject_saas_admin_payment_warning {
+        public static string subject_saas_admin_payment_warning_after1_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_payment_warning", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_payment_warning_after1_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE renewal notification.
+        ///   Looks up a localized string similar to Renew ONLYOFFICE subscription.
         /// </summary>
-        public static string subject_saas_admin_payment_warning_after3 {
+        public static string subject_saas_admin_payment_warning_before5_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_payment_warning_after3", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_payment_warning_before5_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE renewal notification.
+        ///   Looks up a localized string similar to Your ONLYOFFICE will be deleted.
         /// </summary>
-        public static string subject_saas_admin_payment_warning_before7 {
+        public static string subject_saas_admin_trial_warning_after_half_year_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_payment_warning_before7", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_after_half_year_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE renewal notification.
+        ///   Looks up a localized string similar to Switch to free ONLYOFFICE Personal.
         /// </summary>
-        public static string subject_saas_admin_payment_warning_delaydue {
+        public static string subject_saas_admin_trial_warning_after30_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_payment_warning_delaydue", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_after30_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extend your ONLYOFFICE trial and get discounts.
+        /// </summary>
+        public static string subject_saas_admin_trial_warning_after5_v10 {
+            get {
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_after5_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use this discount before your trial ends.
+        /// </summary>
+        public static string subject_saas_admin_trial_warning_before5_v10 {
+            get {
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_before5_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Your ONLYOFFICE Trial Expires Today.
         /// </summary>
-        public static string subject_saas_admin_trial_warning {
+        public static string subject_saas_admin_trial_warning_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Portal Deletion.
+        ///   Looks up a localized string similar to Get free ONLYOFFICE apps.
         /// </summary>
-        public static string subject_saas_admin_trial_warning_after_half_year {
+        public static string subject_saas_admin_user_apps_tips_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning_after_half_year", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_user_apps_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use ONLYOFFICE Personal for Free! Cloud Workspace for Your Documents.
+        ///   Looks up a localized string similar to Tips for comfortable work.
         /// </summary>
-        public static string subject_saas_admin_trial_warning_after30 {
+        public static string subject_saas_admin_user_comfort_tips_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning_after30", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_user_comfort_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Need to Extend Your ONLYOFFICE Trial?.
+        ///   Looks up a localized string similar to 7 tips for effective work on your docs.
         /// </summary>
-        public static string subject_saas_admin_trial_warning_after5 {
+        public static string subject_saas_admin_user_docs_tips_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning_after5", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_user_docs_tips_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How is Your Trial Going So Far?.
+        ///   Looks up a localized string similar to Configure your ONLYOFFICE.
         /// </summary>
-        public static string subject_saas_admin_trial_warning_before5 {
+        public static string subject_saas_admin_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning_before5", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Trial is Almost Over: Use Our Special Discounts.
+        ///   Looks up a localized string similar to Follow up from ONLYOFFICE Team.
         /// </summary>
-        public static string subject_saas_admin_trial_warning_before5_coupon {
+        public static string subject_saas_admin_without_activity_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_admin_trial_warning_before5_coupon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Features You Might Have Missed in ONLYOFFICE CRM.
-        /// </summary>
-        public static string subject_saas_admin_user_crm_tips {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_user_crm_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 7 Tips and Tricks to Work More Effectively in ONLYOFFICE Documents.
-        /// </summary>
-        public static string subject_saas_admin_user_docs_tips {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_user_docs_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 5 Tips to Improve Your Mail Experience.
-        /// </summary>
-        public static string subject_saas_admin_user_mail_tips {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_user_mail_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use the most powerful office suite in the cloud or on your private network.
-        /// </summary>
-        public static string subject_saas_admin_user_powerful_tips {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_user_powerful_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 5 Tools to Encourage Collaboration in Your Team.
-        /// </summary>
-        public static string subject_saas_admin_user_team_tips {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_user_team_tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configuring Your ONLYOFFICE Portal for the First Time.
-        /// </summary>
-        public static string subject_saas_admin_welcome {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hey, how is it going with ONLYOFFICE?.
-        /// </summary>
-        public static string subject_saas_admin_without_activity {
-            get {
-                return ResourceManager.GetString("subject_saas_admin_without_activity", resourceCulture);
+                return ResourceManager.GetString("subject_saas_admin_without_activity_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_saas_guest_activation {
+        public static string subject_saas_guest_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_guest_activation", resourceCulture);
+                return ResourceManager.GetString("subject_saas_guest_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
+        ///   Looks up a localized string similar to Welcome to your ONLYOFFICE.
         /// </summary>
-        public static string subject_saas_guest_welcome {
+        public static string subject_saas_guest_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_guest_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_saas_guest_welcome_v10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
         /// </summary>
-        public static string subject_saas_user_activation {
+        public static string subject_saas_user_activation_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_user_activation", resourceCulture);
+                return ResourceManager.GetString("subject_saas_user_activation_v10", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move your office to the cloud. What to start with?.
+        ///   Looks up a localized string similar to Welcome to your ONLYOFFICE.
         /// </summary>
-        public static string subject_saas_user_organize_workplace {
+        public static string subject_saas_user_welcome_v10 {
             get {
-                return ResourceManager.GetString("subject_saas_user_organize_workplace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE Portal!.
-        /// </summary>
-        public static string subject_saas_user_welcome {
-            get {
-                return ResourceManager.GetString("subject_saas_user_welcome", resourceCulture);
+                return ResourceManager.GetString("subject_saas_user_welcome_v10", resourceCulture);
             }
         }
         
@@ -4455,6 +3448,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_user_has_join {
             get {
                 return ResourceManager.GetString("subject_user_has_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re invited to join ${__VirtualRootPath}.
+        /// </summary>
+        public static string subject_user_ldap_activation {
+            get {
+                return ResourceManager.GetString("subject_user_ldap_activation", resourceCulture);
             }
         }
     }

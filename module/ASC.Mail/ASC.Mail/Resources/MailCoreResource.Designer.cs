@@ -61,11 +61,92 @@ namespace ASC.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File &apos;{0}&apos; not found.
+        /// </summary>
+        internal static string FileNotFoundOrDamaged {
+            get {
+                return ResourceManager.GetString("FileNotFoundOrDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} files not found.
+        /// </summary>
+        internal static string FilesNotFound {
+            get {
+                return ResourceManager.GetString("FilesNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by contents of mails.
         /// </summary>
         internal static string IndexTitle {
             get {
                 return ResourceManager.GetString("IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No attachments in message.
+        /// </summary>
+        internal static string NoAttachmentsInMessage {
+            get {
+                return ResourceManager.GetString("NoAttachmentsInMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating link.
+        /// </summary>
+        internal static string OperationCreatingLink {
+            get {
+                return ResourceManager.GetString("OperationCreatingLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished.
+        /// </summary>
+        internal static string OperationFinished {
+            get {
+                return ResourceManager.GetString("OperationFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get attachments.
+        /// </summary>
+        internal static string OperationGetAttachments {
+            get {
+                return ResourceManager.GetString("OperationGetAttachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preparation archive.
+        /// </summary>
+        internal static string OperationPreparationArchive {
+            get {
+                return ResourceManager.GetString("OperationPreparationArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup tenant and user.
+        /// </summary>
+        internal static string OperationSetupTenantAndUser {
+            get {
+                return ResourceManager.GetString("OperationSetupTenantAndUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zipping attachments.
+        /// </summary>
+        internal static string OperationZippingAttachments {
+            get {
+                return ResourceManager.GetString("OperationZippingAttachments", resourceCulture);
             }
         }
     }

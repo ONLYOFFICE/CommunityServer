@@ -71,6 +71,11 @@ namespace ASC.Files.Thirdparty.Box
                               .FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)) as BoxFile);
         }
 
+        public File GetFileStable(object fileId, int fileVersion)
+        {
+            return ToFile(GetBoxFile(fileId));
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             return new List<File> { GetFile(fileId) };
@@ -252,9 +257,8 @@ namespace ASC.Files.Thirdparty.Box
             if (file.ID != null)
             {
                 var fileId = MakeBoxId(file.ID);
-                newBoxFile = BoxProviderInfo.Storage.SaveStream(fileId, fileStream, file.Title);
+                newBoxFile = BoxProviderInfo.Storage.SaveStream(fileId, fileStream);
 
-                //https://github.com/box/box-windows-sdk-v2/issues/496
                 if (!newBoxFile.Name.Equals(file.Title))
                 {
                     var folderId = GetParentFolderId(GetBoxFile(fileId));
@@ -274,6 +278,11 @@ namespace ASC.Files.Thirdparty.Box
             if (parentId != null) BoxProviderInfo.CacheReset(parentId);
 
             return ToFile(newBoxFile);
+        }
+
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            return SaveFile(file, fileStream);
         }
 
         public void DeleteFile(object fileId)

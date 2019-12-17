@@ -46,6 +46,9 @@ namespace ASC.Mail.Data.Contracts
         [DataMember(Name = "EnableGoNextAfterMove")]
         public bool EnableGoNextAfterMoveSetting { get; set; }
 
+        [DataMember(Name = "ReplaceMessageBody")]
+        public bool ReplaceMessageBodySetting { get; set; }
+
         public override ISettings GetDefault()
         {
             return new MailCommonSettings
@@ -53,7 +56,8 @@ namespace ASC.Mail.Data.Contracts
                 EnableConversationsSetting = true,
                 AlwaysDisplayImagesSetting = false,
                 CacheUnreadMessagesSetting = false, //TODO: Change cache algoritnm and restore it back
-                EnableGoNextAfterMoveSetting = false
+                EnableGoNextAfterMoveSetting = false,
+                ReplaceMessageBodySetting = false
             };
         }
 
@@ -114,6 +118,20 @@ namespace ASC.Mail.Data.Contracts
             get
             {
                 return LoadForCurrentUser().EnableGoNextAfterMoveSetting;
+            }
+        }
+
+        public static bool ReplaceMessageBody
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.ReplaceMessageBodySetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get
+            {
+                return LoadForCurrentUser().ReplaceMessageBodySetting;
             }
         }
     }

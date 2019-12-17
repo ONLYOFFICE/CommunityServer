@@ -142,11 +142,14 @@ namespace ASC.Projects.Data.DAO
         {
             using (var tx = Db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
-                var tagsToDelete = Db.ExecuteList(
-                new SqlQuery(ProjectTagTable).Select("tag_id").Where("project_id", projectId),
-                r => (int)r[0]);
-
                 Db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
+
+                var query = new SqlQuery(TagsTable + " pt")
+                    .Select("DISTINCT(pt.id)")
+                    .LeftOuterJoin(ProjectTagTable + " ppt", Exp.EqColumns("ppt.tag_id", "pt.id"))
+                    .Where("ppt.tag_id", null);
+
+                var tagsToDelete = Db.ExecuteList(query, r => (int)r[0]);
 
                 foreach (var tag in tagsToDelete.Except(tags))
                 {

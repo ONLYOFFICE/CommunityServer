@@ -35,6 +35,12 @@
     </label>
     <br />
     <br />
+    <input type="checkbox" id="cbxReplaceMessageBody" class="on-off-checkbox" <%= MailCommonSettings.ReplaceMessageBody ? "checked='checked'" : "" %> />
+    <label for="cbxReplaceMessageBody">
+            <%= MailResource.ReplaceMessageBody %>
+    </label>
+    <br />
+    <br />
 </div>
 
 <div class="popup_helper" id="CacheUnreadMessagesHelperBlock">

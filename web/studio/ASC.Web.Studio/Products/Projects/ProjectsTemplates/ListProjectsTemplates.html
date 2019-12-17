@@ -2,6 +2,9 @@
 
     <tr {{if status !== 0}} class="noActiveProj" {{/if}} id="${id}">
         {{if !isSimpleView}}
+        <td class="checkbox">
+            <input type="checkbox"/>
+        </td>
         <td class="status">
             {{tmpl({canEdit: $item.data.canEdit, status: ASC.Projects.StatusList.getById($item.data.status)}) 'projects_statusChangeContainer'}}
         </td>
@@ -39,7 +42,7 @@
     <table class="listContainer">
         <tbody>
         {{each team}}
-        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdmin || isManager}} disable{{/if}}" data-partisipantId="${id}">
+        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isProjectAdmin || isAdmin || isManager}} disable{{/if}}" data-partisipantId="${id}">
             <td style="" class="user-info">
                 <div class="pm-projectTeam-userPhotoContainer {{if $data.isRetina}}retina{{/if}}">
                     <img src="{{if $data.isRetina}}${avatar}{{else}}${avatarSmall}{{/if}}"/>

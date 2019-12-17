@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -49,7 +48,9 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.ElasticSearch;
 using ASC.ElasticSearch.Core;
+using ASC.Geolocation;
 using ASC.Security.Cryptography;
+using ASC.Web.Core;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility.Settings;
@@ -139,6 +140,10 @@ namespace ASC.Api.Portal
         [Read("users/invite/{employeeType}")]
         public string GeInviteLink(EmployeeType employeeType)
         {
+            if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin()
+                && !WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID))
+                throw new SecurityException("Method not available");
+
             return CommonLinkUtility.GetConfirmationUrl(string.Empty, ConfirmType.LinkInvite, (int)employeeType, SecurityContext.CurrentAccount.ID)
                    + String.Format("&emplType={0}", (int)employeeType);
         }
@@ -940,6 +945,19 @@ namespace ASC.Api.Portal
         {
             var password = UserManagerWrapper.GeneratePassword();
             return password;
+        }
+
+        /// <summary>
+        ///    Get information by IP address
+        /// </summary>
+        /// <short>Get information by IP address</short>
+        ///<visible>false</visible>
+        [Read("ip/{ipAddress}")]
+        public object GetIPInformation(string ipAddress)
+        {
+            GeolocationHelper helper = new GeolocationHelper("teamlabsite");
+            return helper.GetIPGeolocation(ipAddress);
+   
         }
     }
 }

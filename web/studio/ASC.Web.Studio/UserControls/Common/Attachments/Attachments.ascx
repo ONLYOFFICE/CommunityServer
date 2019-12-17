@@ -79,7 +79,7 @@
     <%= string.Format(UserControlsCommonResource.TooltipEdit, ExtsWebEdited) %>
 </div>
 <% } %>
-<div class="wrapperFilesContainer" moduleName="<%= ModuleName %>" entityType=<%= EntityType %>>
+<div class="wrapperFilesContainer" moduleName="<%= ModuleName %>" entityType="<%= EntityType %>" >
     <% if (EmptyScreenVisible)
        { %>
     <div id="emptyDocumentPanel" class="display-none">

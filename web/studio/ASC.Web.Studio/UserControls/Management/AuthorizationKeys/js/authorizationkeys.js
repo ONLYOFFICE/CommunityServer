@@ -83,7 +83,7 @@ ASC.AuthorizationKeysManager = (function () {
         var keys = jq("#popupDialog" + itemName + " .auth-service-key");
         for (var i = 0; i < keys.length; i++) {
             //if (keys[i].value == "") return; //todo: need to create not required fields
-            props.push({ Name: keys[i].id, Value: enable ? keys[i].value : null });
+            props.push({ Name: keys[i].id, Value: enable ? keys[i].value.trim() : null });
         }
 
         jq("#popupDialog" + itemName).block();

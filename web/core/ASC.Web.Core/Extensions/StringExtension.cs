@@ -97,21 +97,13 @@ namespace System
                     }
 
                     long xValue;
-                    try
-                    {
-                        xValue = Convert.ToInt64(xBuilder.ToString());
-                    }
-                    catch (OverflowException)
+                    if (!long.TryParse(xBuilder.ToString(), out xValue))
                     {
                         xValue = Int64.MaxValue;
                     }
 
                     long yValue;
-                    try
-                    {
-                        yValue = Convert.ToInt64(yBuilder.ToString());
-                    }
-                    catch (OverflowException)
+                    if (!long.TryParse(yBuilder.ToString(), out yValue))
                     {
                         yValue = Int64.MaxValue;
                     }

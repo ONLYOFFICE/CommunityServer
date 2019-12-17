@@ -37,6 +37,8 @@ using ASC.Bookmarking;
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Pojo;
+using ASC.Core;
+using ASC.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
@@ -103,10 +105,13 @@ namespace ASC.Web.UserControls.Bookmarking
             if (Bookmarks == null || Bookmarks.Count == 0)
             {
                 var hidePanelsFlag = false;
+
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
                 var emptyScreenControl = new EmptyScreenControl
                     {
                         ImgSrc = WebImageSupplier.GetAbsoluteWebPath("bookmarks_icon.png", BookmarkingSettings.ModuleId),
-                        Describe = BookmarkingUCResource.EmptyScreenText
+                        Describe = currentUser.IsVisitor() ? BookmarkingUCResource.EmptyScreenTextVisitor : BookmarkingUCResource.EmptyScreenText
                     };
 
                 var displayMode = BookmarkingBusinessFactory.GetDisplayMode();

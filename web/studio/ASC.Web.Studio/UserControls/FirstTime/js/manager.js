@@ -81,7 +81,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
                     result = {Success: false};
                 }
 
-                jq("#licenseKeyText").text(result.Message);
+                jq("#licenseKeyText").html(result.Message);
                 if (!result.Success) {
                     jq("#licenseKeyText").addClass("error");
                 }
@@ -118,6 +118,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         var pwd = jq('.passwordBlock .pwd #newPwd').val();
         var cpwd = jq('.passwordBlock .pwd #confPwd').val();
         var promocode = jq('.passwordBlock .promocode #promocode_input').val();
+        var amiid = jq("#amiid").val();
 
         if (email == '' || !jq.isValidEmail(email)) {
             var res = { "Status": 0, "Message": ASC.Controls.EmailAndPasswordManager.wrongEmail };
@@ -158,7 +159,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
 
         window.onbeforeunload = null;
         AjaxPro.timeoutPeriod = 1800000;
-        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val() || jq('#studio_lng').data('default'), promocode, analytics, function (result) {
+        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val() || jq('#studio_lng').data('default'), promocode, amiid, analytics, function (result) {
 
             if (parentCallback != null)
                 parentCallback(result.value);

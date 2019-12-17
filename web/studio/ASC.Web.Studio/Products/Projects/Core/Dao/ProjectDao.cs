@@ -151,7 +151,7 @@ namespace ASC.Projects.Data.DAO
                     .Where("ppp.participant_id", participantId);
 
             }
-            
+
             return Db.ExecuteList(query).ConvertAll(converter);
         }
 
@@ -369,7 +369,7 @@ namespace ASC.Projects.Data.DAO
                 .ExecuteList(Query("crm_projects").Select("project_id").Where("contact_id", contactId))
                 .ConvertAll(r => Convert.ToInt32(r[0]));
 
-            if(!projectIds.Any()) return new List<Project>(0);
+            if (!projectIds.Any()) return new List<Project>(0);
 
             var milestoneCountQuery =
                 new SqlQuery(MilestonesTable + " m").SelectCount()
@@ -518,9 +518,9 @@ namespace ASC.Projects.Data.DAO
         public virtual Project Update(Project project)
         {
             var update = Update(ProjectsTable)
-                .Set("title" ,project.Title)
-                .Set("description" ,project.Description)
-                .Set("status" ,project.Status)
+                .Set("title", project.Title)
+                .Set("description", project.Description)
+                .Set("status", project.Status)
                 .Set("status_changed", project.StatusChangedOn)
                 .Set("responsible_id", project.Responsible.ToString())
                 .Set("private", project.Private)
@@ -537,36 +537,36 @@ namespace ASC.Projects.Data.DAO
         {
             using (var tx = Db.BeginTransaction())
             {
-                    messages = Db.ExecuteList(Query(MessagesTable)
-                                .Select("id")
-                                .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
+                messages = Db.ExecuteList(Query(MessagesTable)
+                            .Select("id")
+                            .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    var milestones = Db.ExecuteList(Query(MilestonesTable)
-                                                        .Select("id")
-                                                        .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
+                var milestones = Db.ExecuteList(Query(MilestonesTable)
+                                                    .Select("id")
+                                                    .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    tasks = Db.ExecuteList(Query(TasksTable)
-                                                   .Select("id")
-                                                   .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
+                tasks = Db.ExecuteList(Query(TasksTable)
+                                               .Select("id")
+                                               .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    if (messages.Any())
-                    {
-                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages.Select(r => "Message_" + r).ToList())));
-                        Db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
-                    }
-                    if (milestones.Any())
-                    {
-                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones.Select(r => "Milestone_" + r).ToList())));
-                        Db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
-                    }
-                    if (tasks.Any())
-                    {
-                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", tasks.Select(r => "Task_" + r).ToList())));
-                        Db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
-                        Db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
-                        Db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
-                        Db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
-                    }
+                if (messages.Any())
+                {
+                    Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages.Select(r => "Message_" + r).ToList())));
+                    Db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
+                }
+                if (milestones.Any())
+                {
+                    Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones.Select(r => "Milestone_" + r).ToList())));
+                    Db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
+                }
+                if (tasks.Any())
+                {
+                    Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", tasks.Select(r => "Task_" + r).ToList())));
+                    Db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
+                    Db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
+                    Db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
+                    Db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
+                }
 
                 Db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId).Where("tenant", Tenant));
                 Db.ExecuteNonQuery(new SqlDelete(FollowingProjectTable).Where("project_id", projectId));
@@ -629,6 +629,7 @@ namespace ASC.Projects.Data.DAO
                     Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
                 .Select("pp.participant_id, pp.security, pp.project_id")
                 .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                .Select("pp.removed")
                 .Where("pp.tenant", Tenant)
                 .Where("pp.project_id", project.ID);
 
@@ -647,6 +648,7 @@ namespace ASC.Projects.Data.DAO
                     .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
                     .Select("distinct pp.participant_id, pp.security, pp.project_id")
                     .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                    .Select("pp.removed")
                     .Where("pp.tenant", Tenant)
                     .Where(Exp.In("pp.project_id", projects.Select(r => r.ID).ToArray()))
                     .Where("pp.removed", false))
@@ -731,7 +733,7 @@ namespace ASC.Projects.Data.DAO
 
         public void SetTaskOrder(int projectID, string order)
         {
-            using(var tr = Db.BeginTransaction())
+            using (var tr = Db.BeginTransaction())
             {
                 var query = Insert(TasksOrderTable)
                   .InColumnValue("project_id", projectID)
@@ -742,9 +744,9 @@ namespace ASC.Projects.Data.DAO
                 try
                 {
                     var orderJson = JObject.Parse(order);
-                    var newTaskOrder = orderJson["tasks"].Select(r=> r.Value<int>()).ToList();
+                    var newTaskOrder = orderJson["tasks"].Select(r => r.Value<int>()).ToList();
 
-                    for(var i = 0; i < newTaskOrder.Count; i++)
+                    for (var i = 0; i < newTaskOrder.Count; i++)
                     {
                         Db.ExecuteNonQuery(Update(TasksTable)
                             .Where("project_id", projectID)
@@ -815,7 +817,8 @@ namespace ASC.Projects.Data.DAO
             {
                 ProjectTeamSecurity = (ProjectTeamSecurity)Convert.ToInt32(r[1]),
                 ProjectID = Convert.ToInt32(r[2]),
-                IsManager = Convert.ToBoolean(r[3])
+                IsManager = Convert.ToBoolean(r[3]),
+                IsRemovedFromTeam = Convert.ToBoolean(r[4])
             };
         }
 

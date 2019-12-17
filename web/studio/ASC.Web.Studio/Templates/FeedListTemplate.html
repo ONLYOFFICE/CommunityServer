@@ -20,6 +20,8 @@
         <div class="avatar">
             {{if !isGuest}}
             <a href="${author.profileUrl}" target="_blank"><img src="${author.avatarBig}"/></a>
+            {{else}}
+            <img src="${ASC.Resources.Master.UserDefaultBigPhotoURL}"/>
             {{/if}}
         </div>
         <div class="content-box">

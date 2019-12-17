@@ -113,7 +113,7 @@ namespace ASC.Mail.Core.Engine
             }
         }
 
-        public MailAttachmentData AttachFileFromDocuments(int tenant, string user, int messageId, string fileId, string version)
+        public MailAttachmentData AttachFileFromDocuments(int tenant, string user, int messageId, string fileId, string version, bool needSaveToTemp = false)
         {
             MailAttachmentData result;
 
@@ -189,7 +189,7 @@ namespace ASC.Mail.Core.Engine
                         using (var memStream = new MemoryStream())
                         {
                             readStream.StreamCopyTo(memStream);
-                            result = AttachFileToDraft(tenant, user, messageId, fileName, memStream, memStream.Length);
+                            result = AttachFileToDraft(tenant, user, messageId, fileName, memStream, memStream.Length, null, needSaveToTemp);
                             Log.InfoFormat("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName, result.fileName, result.storedFileUrl);
                         }
                     }
@@ -201,7 +201,7 @@ namespace ASC.Mail.Core.Engine
                         if (readStream == null)
                             throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied, "Access denied.");
 
-                        result = AttachFileToDraft(tenant, user, messageId, file.Title, readStream, readStream.CanSeek ? readStream.Length : file.ContentLength);
+                        result = AttachFileToDraft(tenant, user, messageId, file.Title, readStream, readStream.CanSeek ? readStream.Length : file.ContentLength, null, needSaveToTemp);
                         Log.InfoFormat("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName, result.fileName, result.storedFileUrl);
                     }
                 }
@@ -211,7 +211,7 @@ namespace ASC.Mail.Core.Engine
         }
 
         public MailAttachmentData AttachFile(int tenant, string user, MailMessageData message,
-            string name, Stream inputStream, long contentLength, string contentType = null)
+            string name, Stream inputStream, long contentLength, string contentType = null, bool needSaveToTemp = false)
         {
             if (message == null)
                 throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
@@ -240,6 +240,7 @@ namespace ASC.Mail.Core.Engine
             {
                 fileName = name,
                 contentType = string.IsNullOrEmpty(contentType) ? MimeMapping.GetMimeMapping(name) : contentType,
+                needSaveToTemp = needSaveToTemp,
                 fileNumber = fileNumber,
                 size = contentLength,
                 data = inputStream.ReadToEnd(),
@@ -262,51 +263,54 @@ namespace ASC.Mail.Core.Engine
                 throw;
             }
 
-            int attachCount;
-
-            using (var daoFactory = new DaoFactory())
+            if (!needSaveToTemp)
             {
-                var db = daoFactory.DbManager;
+                int attachCount;
 
-                using (var tx = db.BeginTransaction())
+                using (var daoFactory = new DaoFactory())
                 {
-                    var daoAttachment = daoFactory.CreateAttachmentDao(tenant, user);
+                    var db = daoFactory.DbManager;
 
-                    attachment.fileId = daoAttachment.SaveAttachment(attachment.ToAttachmnet(messageId));
+                    using (var tx = db.BeginTransaction())
+                    {
+                        var daoAttachment = daoFactory.CreateAttachmentDao(tenant, user);
 
-                    attachCount = daoAttachment.GetAttachmentsCount(
-                        new ConcreteMessageAttachmentsExp(messageId, tenant, user));
+                        attachment.fileId = daoAttachment.SaveAttachment(attachment.ToAttachmnet(messageId));
 
-                    var daoMailInfo = daoFactory.CreateMailInfoDao(tenant, user);
+                        attachCount = daoAttachment.GetAttachmentsCount(
+                            new ConcreteMessageAttachmentsExp(messageId, tenant, user));
 
-                    daoMailInfo.SetFieldValue(
-                        SimpleMessagesExp.CreateBuilder(tenant, user)
-                            .SetMessageId(messageId)
-                            .Build(),
-                        MailTable.Columns.AttachCount,
-                        attachCount);
+                        var daoMailInfo = daoFactory.CreateMailInfoDao(tenant, user);
 
-                    engine.ChainEngine.UpdateMessageChainAttachmentsFlag(daoFactory, tenant, user, messageId);
+                        daoMailInfo.SetFieldValue(
+                            SimpleMessagesExp.CreateBuilder(tenant, user)
+                                .SetMessageId(messageId)
+                                .Build(),
+                            MailTable.Columns.AttachCount,
+                            attachCount);
 
-                    tx.Commit();
+                        engine.ChainEngine.UpdateMessageChainAttachmentsFlag(daoFactory, tenant, user, messageId);
+
+                        tx.Commit();
+                    }
                 }
-            }
 
-            if (attachCount == 1)
-            {
-                var data = new MailWrapper
+                if (attachCount == 1)
                 {
-                    HasAttachments = true
-                };
+                    var data = new MailWrapper
+                    {
+                        HasAttachments = true
+                    };
 
-                engine.IndexEngine.Update(data, s => s.Where(m => m.Id, messageId), wrapper => wrapper.HasAttachments);
+                    engine.IndexEngine.Update(data, s => s.Where(m => m.Id, messageId), wrapper => wrapper.HasAttachments);
+                }
             }
 
             return attachment;
         }
 
         public MailAttachmentData AttachFileToDraft(int tenant, string user, int messageId,
-            string name, Stream inputStream, long contentLength, string contentType = null)
+            string name, Stream inputStream, long contentLength, string contentType = null, bool needSaveToTemp = false)
         {
             if (messageId < 1)
                 throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
@@ -324,46 +328,57 @@ namespace ASC.Mail.Core.Engine
 
             var message = engine.MessageEngine.GetMessage(messageId, new MailMessageData.Options());
 
-            if (message.Folder != FolderType.Draft && message.Folder != FolderType.Sending)
-                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft.");
+            if (message.Folder != FolderType.Draft && message.Folder != FolderType.Templates && message.Folder != FolderType.Sending)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft or templates.");
 
-            return AttachFile(tenant, user, message, name, inputStream, contentLength, contentType);
+            return AttachFile(tenant, user, message, name, inputStream, contentLength, contentType, needSaveToTemp);
         }
 
-        public void StoreAttachmentCopy(int tenant, string user, MailAttachmentData mailAttachmentData, string streamId)
+        public void StoreAttachmentCopy(int tenant, string user, MailAttachmentData attachment, string streamId)
         {
             try
             {
-                if (mailAttachmentData.streamId.Equals(streamId)) return;
+                if (attachment.streamId.Equals(streamId) && !attachment.isTemp) return;
 
-                var s3Key = MailStoragePathCombiner.GerStoredFilePath(mailAttachmentData);
+                string s3Key;
 
                 var dataClient = MailDataStore.GetDataStore(tenant);
 
+                if (attachment.needSaveToTemp || attachment.isTemp)
+                {
+                    s3Key = MailStoragePathCombiner.GetTempStoredFilePath(attachment);
+                }
+                else
+                {
+                    s3Key = MailStoragePathCombiner.GerStoredFilePath(attachment);
+                }
+
                 if (!dataClient.IsFile(s3Key)) return;
 
-                mailAttachmentData.fileNumber =
-                    !string.IsNullOrEmpty(mailAttachmentData.contentId) //Upload hack: embedded attachment have to be saved in 0 folder
+                attachment.fileNumber =
+                    !string.IsNullOrEmpty(attachment.contentId) //Upload hack: embedded attachment have to be saved in 0 folder
                         ? 0
-                        : mailAttachmentData.fileNumber;
+                        : attachment.fileNumber;
 
-                var newS3Key = MailStoragePathCombiner.GetFileKey(user, streamId, mailAttachmentData.fileNumber,
-                                                                    mailAttachmentData.storedName);
+                var newS3Key = MailStoragePathCombiner.GetFileKey(user, streamId, attachment.fileNumber,
+                                                                    attachment.storedName);
 
                 var copyS3Url = dataClient.Copy(s3Key, string.Empty, newS3Key);
 
-                mailAttachmentData.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(copyS3Url);
+                attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(copyS3Url);
 
-                mailAttachmentData.streamId = streamId;
+                attachment.streamId = streamId;
+
+                attachment.tempStoredUrl = null;
 
                 Log.DebugFormat("StoreAttachmentCopy() tenant='{0}', user_id='{1}', stream_id='{2}', new_s3_key='{3}', copy_s3_url='{4}', storedFileUrl='{5}',  filename='{6}'",
-                    tenant, user, streamId, newS3Key, copyS3Url, mailAttachmentData.storedFileUrl, mailAttachmentData.fileName);
+                    tenant, user, streamId, newS3Key, copyS3Url, attachment.storedFileUrl, attachment.fileName);
             }
             catch (Exception ex)
             {
                 Log.ErrorFormat("CopyAttachment(). filename='{0}', ctype='{1}' Exception:\r\n{2}\r\n",
-                           mailAttachmentData.fileName,
-                           mailAttachmentData.contentType,
+                           attachment.fileName,
+                           attachment.contentType,
                     ex.ToString());
 
                 throw;

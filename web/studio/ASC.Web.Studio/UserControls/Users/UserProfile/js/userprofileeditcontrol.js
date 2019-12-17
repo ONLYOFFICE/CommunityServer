@@ -344,6 +344,14 @@ window.EditProfileManager = (function () {
                 (isUserEmail)
                     ? checkEmptyField(email, $profileEmail)
                     : checkEmptyField(localPart, $portalEmail);
+
+                (isUserEmail)
+                    ? ((checkUserEmailExist(email))
+                        ? showRequiredError($profileEmail)
+                        : null)
+                    : ((checkEmailExistOnDomain())
+                        ? showRequiredError($portalEmail)
+                        : null);
             }
 
             if (!ASC.Mail.Utility.IsValidEmail(email)) {
@@ -721,7 +729,6 @@ window.EditProfileManager = (function () {
             teamlab.getMailServer(null, {
                 success: function (params, res) {
                     fillDomainSelector();
-                    $createEmailOnDomain.show();
                 },
                 error: function () {
                     $createEmailOnDomain.hide();
@@ -745,17 +752,24 @@ window.EditProfileManager = (function () {
     function fillDomainSelector() {
         teamlab.getMailDomains(null, {
             success: function (params, domains) {
+                if (!domains.length) return;
+
                 domainsList = domains;
                 $domainSelector.empty();
                 for (var i = 0; i < domains.length; i++) {
                     $domainSelector.append('<option class="optionItem" value="' + domains[i].name + '">' + domains[i].name + '</option>');
                 }
                 $domainSelector.tlcombobox();
-                jq('.tl-combobox').css('top', '3px');
+
+                jq('.tl-combobox').css({ 'top': '3px', 'width': '120px' });
+                jq('.combobox-title-inner-text').css('width', 'max-content');
+                jq('.combobox-title').css('width', '128px');
 
                 if (jq.browser.mobile) {
                     $domainSelector.css('max-width', '116px');
                 }
+
+                $createEmailOnDomain.show();
             }
         });
     };
@@ -812,12 +826,19 @@ window.EditProfileManager = (function () {
 
     function checkUserEmailExist(userEmail) {
         var allUsers = UserManager.getAllUsers(),
-            userEmail = userEmail.toLowerCase();
-        if (allUsers.length > 0) {
-            for (var i = 0; i < allUsers.length; i++) {
-                exep = userEmail === allUsers[i].email;
+            userEmail = userEmail.toLowerCase(),
+            exep;
+
+        if (Object.keys(allUsers).length > 0) {
+            for (var userId in allUsers) {
+                if (!allUsers.hasOwnProperty(userId)) continue;
+                var user = allUsers[userId];
+                exep = userEmail === user.email;
                 existingEmail(exep, $profileEmail);
-                if (exep) { return };
+                if (exep) {
+                    isError = true;
+                    return;
+                };
             }
         } else {
             existingEmail(false, $profileEmail);
@@ -835,6 +856,9 @@ window.EditProfileManager = (function () {
             teamlab.isMailServerAddressValid(null, localpart, domain, {
                 success: function (params, isValid) {
                     validationEmail(null, isValid, $portalEmail);
+                },
+                error: function () {
+                    validationEmail('error', false, $portalEmail);
                 }
             });
         } else {
@@ -863,10 +887,16 @@ window.EditProfileManager = (function () {
                 ? checkUserEmailExist(param)
                 : checkEmailExistOnDomain();
         } else {
+            var infoText = ASC.Resources.Master.EmailAndPasswordIncorrectEmail;
+
+            if (param === 'error') {
+                infoText = ASC.Resources.Master.Resource.Error;
+            }
+
             showRequiredError(control, true, true);
             isError = true;
             $emailInfo.empty();
-            jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.EmailAndPasswordIncorrectEmail, color: redTextColor }).appendTo(classEmailInfo);
+            jq.tmpl(tmplCheckEmail, { text: infoText, color: redTextColor }).appendTo(classEmailInfo);
             isEmailApprove = false;
             undisableCopyToClipboard();
         }
@@ -879,6 +909,7 @@ window.EditProfileManager = (function () {
             $emailInfo.empty();
             jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.ErrorEmailAlreadyExists, color: redTextColor }).appendTo(classEmailInfo);
             isEmailApprove = false;
+            isError = true;
         } else {
             $emailInfo.empty();
             jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.EmailIsAvailable, color: greenTextColor }).appendTo(classEmailInfo);
@@ -947,7 +978,7 @@ window.EditProfileManager = (function () {
 
     function cutDomainInSelector() {
         var domainText = $inputPortalEmail.find('.combobox-title-inner-text'),
-            cutDomainText = domainText.text().slice(0, 10);
+            cutDomainText = domainText.text().slice(0, 14);
 
         if (cutDomainText.length < domainText.text().length) {
             cutDomainText += '...';
@@ -1113,7 +1144,7 @@ window.EditProfileManager = (function () {
             : digits = true;
 
         (passwordSettings.specSymbols)
-            ? special = /[!@#$%^&*]/.test(inputValues)
+            ? special = /[!@#$%^&*_\-()=]/.test(inputValues)
             : special = true;
 
         checkPasswordInfoColor(upper, digits, special, inputValues);
@@ -1148,40 +1179,34 @@ window.EditProfileManager = (function () {
     };
 
     function fillModulesName() {
-        for (var i = 0; i < enabledModulesList.length; i++) {
-            if (enabledModulesList[i].id != 'crm' && enabledModulesList[i].id != 'voip') {
-                jq('.moduleInfo').append('<tr id=' + enabledModulesList[i].id + '><td>' + jq.trim(enabledModulesList[i].title) + '</td></tr>');
-            }
-        }
-        fillAccessForModules();
-    };
+        var read = '<td><div class="access read">&nbsp;</div></td>',
+            check = '<td><div class="access check">&nbsp;</div></td>';
 
-    function fillAccessForModules() {
-        var full = '<div class="access full">&nbsp;</div>',
-            read = '<div class="access read">&nbsp;</div>',
-            write = '<div class="access write">&nbsp;</div>',
-            check = '<div class="access check">&nbsp;</div>';
+        var listModules = [
+            {id: "documents", value: check + read},
+            {id: "projects", value: check + read},
+            {id: "crm", value: check},
+            {id: "mail", value: check},
+            {id: "people", value: check},
+            {id: "community", value: check + read},
+            {id: "talk", value: check + check},
+            {id: "calendar", value: check + check}
+        ];
+        
+        var enabledModulesId = enabledModulesList.map(function (m) {
+             return m.id;
+        });
+        var moduleInfo = jq(".moduleInfo");
 
-        for (var i = 0; i < enabledModulesList.length; i++) {
-            var item = jq('.moduleInfo').find('#' + enabledModulesList[i].id);
-            switch (enabledModulesList[i].id) {
-                case 'documents':
-                    item.append('<td>' + full + read + write + '</td><td>' + write + '</td>');
-                    break;
-                case 'community':
-                    item.append('<td>' + full + write + '</td><td>' + write + '</td>');
-                    break;
-                case 'projects':
-                case 'people':
-                case 'mail':
-                    item.append('<td>' + check + '</td>');
-                    break;
-                case 'talk':
-                case 'calendar':
-                    item.append('<td>' + check + '</td><td>' + check + '</td>');
-                    break;
+        jq.each(listModules, function (_, module) {
+            var enabledModuleIndex = enabledModulesId.indexOf(module.id);
+            if (enabledModuleIndex >= 0) {
+                moduleInfo.append("<tr>"
+                    + "<td>" + jq.trim(enabledModulesList[enabledModuleIndex].title) + "</td>"
+                    + module.value
+                    + "</tr>");
             }
-        }
+        });
     };
 
     function changeBlockPosition() {

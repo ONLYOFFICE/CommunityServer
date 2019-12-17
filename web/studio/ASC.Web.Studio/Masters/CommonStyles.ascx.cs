@@ -56,7 +56,6 @@ namespace ASC.Web.Studio.Masters
                         "~/skins/default/helper.less",
                         "~/skins/default/comments-container.less",
                         "~/skins/default/filetype_style.css",
-                        "~/skins/default/magnific-popup.less",
                         "~/skins/default/toastr.less",
                         "~/skins/default/groupselector.css",
                         "~/skins/default/jquery-advansedfilter.css",

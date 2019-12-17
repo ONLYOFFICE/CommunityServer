@@ -96,6 +96,9 @@ namespace ASC.Mail.Data.Search
         [Join(JoinTypeEnum.Sub, "id:id_mail")]
         public List<TagWrapper> Tags { get; set; }
 
+        [Column("introduction", 17)]
+        public string Introduction { get; set; }
+
         protected override string Table
         {
             get { return "mail_mail"; }

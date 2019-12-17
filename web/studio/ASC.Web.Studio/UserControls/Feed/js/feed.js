@@ -784,7 +784,7 @@ ASC.Feed = (function() {
                 return;
             }
 
-            commentText = commentText.replace(/\n/g, '<br />');
+            commentText = Encoder.htmlEncode(commentText).replace(/&#10;/g, '<br />');
 
             var itemId = $(this).attr('data-id');
             var entity = $(this).attr('data-entity');

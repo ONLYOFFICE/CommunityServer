@@ -53,3 +53,20 @@
         </td>
     </tr>
 </script>
+
+<script id="progressBarTmpl" type="text/x-jquery-tmpl">
+    <div id="progressDialog" class="progress-dialog">
+        <div class="progress-dialog-header">
+            <a class="actions-container close" title="${ASC.Resources.Master.Resource.CancelButton}">&times;</a>
+            <span id="progressDialogHeader">${header}</span>
+        </div>
+        <div class="progress-dialog-body files-progress-box">
+            <progress max="100" value="0">
+                <div class="asc-progress-wrapper">
+                    <div class="asc-progress-value"></div>
+                </div>
+            </progress>
+            <div class="asc-progress-percent">${percentage}</div>
+        </div>
+    </div>
+</script>

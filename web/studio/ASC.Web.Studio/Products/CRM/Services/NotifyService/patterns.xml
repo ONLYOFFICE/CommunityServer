@@ -12,6 +12,16 @@
         ${EntityRelativeURL}
     </body>
   </pattern>
+  <pattern id="ExportCompletedCustomMode" sender="email.sender">
+    <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ExportCompletedCustomMode|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ExportCompletedCustomMode" sender="messanger.sender">
+    <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+      ${EntityRelativeURL}
+    </body>
+  </pattern>
 
   <!--Import is completed-->
   <pattern id="ImportCompleted" sender="email.sender">
@@ -20,9 +30,15 @@
   </pattern>
   <pattern id="ImportCompleted" sender="messanger.sender">
     <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-     
-    </body>
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile"></body>
+  </pattern>
+  <pattern id="ImportCompletedCustomMode" sender="email.sender">
+    <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ImportCompletedCustomMode|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ImportCompletedCustomMode" sender="messanger.sender">
+    <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile"></body>
   </pattern>
 
   <!--Responsible for task-->

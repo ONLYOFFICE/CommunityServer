@@ -513,4 +513,13 @@
   <data name="SelectTags" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Delete projects</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Are you sure you want to delete these projects?</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Create the projects and work effectively</value>
+  </data>
 </root>

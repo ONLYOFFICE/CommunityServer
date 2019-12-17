@@ -45,6 +45,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
 using File = ASC.Files.Core.File;
@@ -218,6 +219,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 private string _breadCrumbs;
 
 
+                [Obsolete("Use owner (since v5.4)")]
                 [DataMember(Name = "author")]
                 public string Aouthor
                 {
@@ -225,6 +227,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     get { return File.CreateByString; }
                 }
 
+                [Obsolete("Use uploaded (since v5.4)")]
                 [DataMember(Name = "created")]
                 public string Created
                 {
@@ -249,6 +252,20 @@ namespace ASC.Web.Files.Services.DocumentService
 
                         return _breadCrumbs;
                     }
+                }
+
+                [DataMember(Name = "owner")]
+                public string Owner
+                {
+                    set { }
+                    get { return File.CreateByString; }
+                }
+
+                [DataMember(Name = "uploaded")]
+                public string Uploaded
+                {
+                    set { }
+                    get { return File.CreateOnString; }
                 }
 
                 [DataMember(Name = "sharingSettings", EmitDefaultValue = false)]
@@ -276,6 +293,7 @@ namespace ASC.Web.Files.Services.DocumentService
             [DataContract(Name = "permissions", Namespace = "")]
             public class PermissionsConfig
             {
+                [Obsolete("Since DS v5.5")]
                 [DataMember(Name = "changeHistory")]
                 public bool ChangeHistory = false;
 
@@ -334,6 +352,29 @@ namespace ASC.Web.Files.Services.DocumentService
             private readonly Configuration _configuration;
             private readonly UserInfo _userInfo;
             private EmbeddedConfig _embeddedConfig;
+
+            [DataMember(Name = "actionLink", EmitDefaultValue = false)]
+            public ActionLinkConfig ActionLink;
+
+            public string ActionLinkString
+            {
+                get { return null; }
+                set
+                {
+                    try
+                    {
+                        using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(value)))
+                        {
+                            var serializer = new DataContractJsonSerializer(typeof (ActionLinkConfig));
+                            ActionLink = (ActionLinkConfig)serializer.ReadObject(ms);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ActionLink = null;
+                    }
+                }
+            }
 
             [DataMember(Name = "callbackUrl", EmitDefaultValue = false)]
             public string CallbackUrl;
@@ -422,6 +463,36 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             #region Nested Classes
+
+            [DataContract(Name = "actionLink", Namespace = "")]
+            public class ActionLinkConfig
+            {
+                [DataMember(Name = "action", EmitDefaultValue = false)]
+                public ActionConfig Action;
+
+
+                [DataContract(Name = "action", Namespace = "")]
+                public class ActionConfig
+                {
+                    [DataMember(Name = "type", EmitDefaultValue = false)]
+                    public string Type;
+
+                    [DataMember(Name = "data", EmitDefaultValue = false)]
+                    public string Data;
+                }
+
+
+                public static string Serialize(ActionLinkConfig actionLinkConfig)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        var serializer = new DataContractJsonSerializer(typeof (ActionLinkConfig));
+                        serializer.WriteObject(ms, actionLinkConfig);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+                    }
+                }
+            }
 
             [DataContract(Name = "embedded", Namespace = "")]
             public class EmbeddedConfig
@@ -527,6 +598,19 @@ namespace ASC.Web.Files.Services.DocumentService
                     }
                 }
 
+                [DataMember(Name = "forcesave", EmitDefaultValue = false)]
+                public bool Forcesave
+                {
+                    set { }
+                    get
+                    {
+                        return FileUtility.CanForcesave
+                               && !_configuration.Document.Info.File.ProviderEntry
+                               && ThirdPartySelector.GetAppByFileId(_configuration.Document.Info.File.ID.ToString()) == null
+                               && FilesSettings.Forcesave;
+                    }
+                }
+
                 [DataMember(Name = "goback", EmitDefaultValue = false)]
                 public GobackConfig Goback
                 {
@@ -602,6 +686,13 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 [DataMember(Name = "logo")]
                 public LogoConfig Logo;
+
+                [DataMember(Name = "reviewDisplay", EmitDefaultValue = false)]
+                public string ReviewDisplay
+                {
+                    set { }
+                    get { return _configuration.EditorConfig.ModeWrite ? null : "markup"; }
+                }
 
 
                 [DataContract(Name = "customer", Namespace = "")]

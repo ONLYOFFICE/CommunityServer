@@ -13,8 +13,8 @@
 
     <div class="gantt-chart-top-panel mainPageLayout page-menu">
         <ul id="mainActionButtons" class="menu-actions">
-            <li id="menuCreateNewButton" class="menu-main-button without-separator middle disable">
-                <span class="main-button-text" ><%= ProjectsCommonResource.CreateNewButton %></span>
+            <li id="menuCreateNewButton" class="menu-main-button without-separator middle disable" title="<%= ProjectsCommonResource.CreateNewButton %>">
+                <span class="main-button-text"><%= ProjectsCommonResource.CreateNewButton %></span>
                 <span class="white-combobox">&nbsp;</span>
             </li>
             <li id="undoButton" class="menu-upload-button disable" title="<%=ProjectResource.GanttUndo %>">
@@ -77,9 +77,9 @@
     </div>
 
     <div id="ganttHelpPanel" class="studio-action-panel gantt-legend gantt-context-menu">
-         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+         <% if (!string.IsNullOrEmpty(HelpLink))
              { %>
-        <a class="link underline blue to-full-help" href="<%= CommonLinkUtility.GetHelpLink() + "projects.aspx" %>" target="_blank"><%=ProjectResource.GanttSeeFullGuide %></a>
+        <a class="link underline blue to-full-help" href="<%= HelpLink %>" target="_blank"><%=ProjectResource.GanttSeeFullGuide %></a>
          <% } %>
         <div class="header-base middle"><%=ProjectResource.GanttLegend %>:</div>
         <i class="gray-text"><%=ProjectResource.GanttLegendSimbDesc %></i>
@@ -290,6 +290,14 @@
         <ul id="statusList" class="dropdown-content">
             <li class="open dropdown-item"><%= TaskResource.Open%></li>
             <li class="closed dropdown-item"><%= TaskResource.Closed%></li>
+        </ul>
+    </div>
+
+    <div id="statusListTaskContainer" class="studio-action-panel gantt-context-menu">
+        <ul id="statusListTask" class="dropdown-content">
+            <% foreach(var s in Statuses) {  %>
+            <li data-id="<%= s.Id %>" class="<%= s.Id %> dropdown-item" style="background: url('data:<%= s.ImageType %>;base64,<%= s.Image %>') no-repeat 2px 4px"><%= s.Title %></li>
+            <%} %>
         </ul>
     </div>
 

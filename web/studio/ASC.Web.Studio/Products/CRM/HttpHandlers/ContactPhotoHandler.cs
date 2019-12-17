@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;

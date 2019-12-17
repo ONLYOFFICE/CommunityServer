@@ -179,6 +179,7 @@ var defaults = function defaultsModule() {return {
             dialogButton_delete:                    "Delete",
 
             dialogErrorMassageSpecCharacter:        "The title cannot contain any of the following characters: {0}",
+            dialogCopyMessage:                      "Link has been copied to the clipboard",
 			// list of subscriptions
 			subscriptionsTitle:                     "Subscriptions",
 			subscriptionsDialog:                    "",
@@ -424,7 +425,7 @@ var defaults = function defaultsModule() {return {
 			dialogStreamLink:                     "Export events from ONLYOFFICE calendar",
 			dialogImportLabel:                    "Import events into ONLYOFFICE calendar",
 			dialogImportLabelNew:                 "Select iCal file",
-			
+			dialogExportLink:                     "Export and Sync",
 			dialogButton_fileSelected:            "file is selected",
 			dialogButton_fileNotSelected:         "no file is selected",
 			dialog_incorrectFormat:               "Wrong format of the iCal file",
@@ -531,10 +532,10 @@ var fcMenus = function fcMenusModule() {
 			arrowPosition: "50%",
 			showArrow: false,
 			cssClassName: "asc-popupmenu",
-			items: [
-				(year - 3).toString(), (year - 2).toString(), (year - 1).toString(),
-				"divider",
-				(year + 1).toString(), (year + 2).toString(), (year + 3).toString()
+            items: [
+                (year + 3).toString(), (year + 2).toString(), (year + 1).toString(),
+                "divider",
+                (year - 1).toString(), (year - 2).toString(), (year - 3).toString()
 			],
 			itemClick: function(event, data) {
 				var d = calendar.getDate();
@@ -1081,6 +1082,7 @@ var fcDatepicker = function fcDPModule() {
 	};
 
 	_this.close = function() {
+		isOpenCommonDatePicker = false;
 		if (_frame && _frame.length > 0) {
 			_frame.popupFrame("close");
 		}
@@ -1198,6 +1200,7 @@ function initTemplates(options) {
         dialogImportLabelNew: htmlEscape(ic.dialogImportLabelNew),
         fileNotSelected: htmlEscape(ic.dialogButton_fileNotSelected),
         dialogStreamLink: htmlEscape(ic.dialogStreamLink),
+        dialogExportLink: htmlEscape(ic.dialogExportLink),
         dialogButtonSave: c.dialogButton_save,
         dialogButtonCancel: c.dialogButton_cancel,
         dialogButtonDelete: c.dialogButton_delete,
@@ -1580,9 +1583,6 @@ function Calendar(element, options, eventSources) {
 
 		eventEditor = new EventEditor(t, content.children(".fc-modal"));
 
-	    eventPage = new EventPage(t);
-
-	   
 		fc_container.appendTo(element);
 
 		var targetView = defaults.defaultView;
@@ -1673,7 +1673,7 @@ function Calendar(element, options, eventSources) {
 
 
 	function elementVisible() {
-		return _element.offsetWidth !== 0;
+		return _element.style.display != "none";
 	}
 
 
@@ -1717,8 +1717,8 @@ function Calendar(element, options, eventSources) {
 				currentView.element.show();
 			}else{
 				currentView = viewInstances[newViewName] = new fcViews[newViewName](
-					newViewElement = absoluteViewElement =
-						$("<div class='fc-view fc-view-" + newViewName + "' style='position:absolute'/>")
+					newViewElement =
+						$("<div class='fc-view fc-view-" + newViewName + "'/>")
 							.appendTo(content),
 					t // the calendar object
 				);
@@ -1731,7 +1731,7 @@ function Calendar(element, options, eventSources) {
 			header.activateButton(newViewName);
 			header.resize();
 
-			renderView(); // after height has been set, will make absoluteViewElement's position=relative, then set to null
+			renderView();
 
 			content.css('overflow', '');
 			if (oldView) {
@@ -1866,8 +1866,7 @@ function Calendar(element, options, eventSources) {
 		}
 		else if (options.height) {
 			if ($.isFunction(options.onHeightChange)) {options.onHeightChange();}
-			suggestedViewHeight = Math.max(options.height, options.minHeight || 0) -
-					(headerElement ? headerElement.height() : 0) - vsides(content);
+			suggestedViewHeight = Math.max(options.height, options.minHeight || 0) - ASC.CalendarSizeManager.cache.fcHeaderHeight;
 		}
 		else {
 			suggestedViewHeight = Math.max(
@@ -1879,14 +1878,11 @@ function Calendar(element, options, eventSources) {
 	function setSize(dateChanged, bResize) { // todo: dateChanged?
 		ignoreWindowResize++;
 		currentView.setHeight(suggestedViewHeight, dateChanged);
-		if (absoluteViewElement) {
-			absoluteViewElement.css('position', 'relative');
-			absoluteViewElement = null;
-		}
-		currentView.setWidth(content.width(), dateChanged);
-		ignoreWindowResize--;
 
 		var oldWidth = content.width();
+
+		currentView.setWidth(oldWidth, dateChanged);
+		ignoreWindowResize--;
 
 		var paddingStudioPageContent = jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").outerHeight(true) - jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").height();
 		var paddingmainPageTable = jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").outerHeight(true) - jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").height();
@@ -1903,43 +1899,46 @@ function Calendar(element, options, eventSources) {
 	}
 
 	function updateFcHeader() {
-        var fcHeaderWidth = $('.fc-header').width(),
-            fcHeaderLeft = $('.fc-header-left').width(),
-            fcHeaderRight = $('.fc-header-right').width();
+		var fcHeader = document.querySelector('.fc-header');
 
-        var diff = fcHeaderWidth - fcHeaderLeft - fcHeaderRight;
-        if (diff > 0 && $(window).width() <= '1200') {
-            $('.fc-header-center').width(diff);
+		if (!fcHeader || window.innerWidth > 1200) return;
+
+		var left = fcHeader.querySelector('.fc-header-left');
+		var center = fcHeader.querySelector('.fc-header-center');
+		var right = fcHeader.querySelector('.fc-header-right');
+		var diff = fcHeader.clientWidth - left.clientWidth - right.clientWidth;
+		center.style.width = diff + "px";
+	}
+
+    function windowResize() {
+        if (!ignoreWindowResize) {
+            //eventEditor.closePopupEvent();
+            if (currentView.start) { // view has already been rendered
+                var uid = ++resizeUID;
+                setTimeout(function () { // add a delay
+                    if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
+                        if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
+                            ignoreWindowResize++; // in case the windowResize callback changes the height
+                            updateSize();
+                            currentView.trigger('windowResize', _element);
+                            setTimeout(function () {
+                                updateEventWin();
+                                ignoreWindowResize--;
+                            }, 200);
+                        } else {
+                            updateEventWin();
+                        }
+                    }
+                }, 200);
+            } else {
+                // calendar must have been initialized in a 0x0 iframe that has just been resized
+                lateRender();
+            }
+        } else {
+            setTimeout(function () {
+                $(window).resize();
+            }, 200);
         }
-    }
-
-	function windowResize() {
-	    if (!ignoreWindowResize) {
-	        
-	        //eventEditor.closePopupEvent();    
-
-			if (currentView.start) { // view has already been rendered
-				var uid = ++resizeUID;
-				setTimeout(function() { // add a delay
-					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
-						if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
-						    ignoreWindowResize++; // in case the windowResize callback changes the height
-						    updateSize();
-						    currentView.trigger('windowResize', _element);
-						    setTimeout(function() {
-						        updateEventWin();
-						        ignoreWindowResize--;
-						    }, 200);
-						} else {
-						    updateEventWin();
-						}
-					}
-				}, 200);
-			}else{
-				// calendar must have been initialized in a 0x0 iframe that has just been resized
-				lateRender();
-			}
-		}
 	}
 
 
@@ -2188,17 +2187,24 @@ function Calendar(element, options, eventSources) {
 		return false;
 	}
 
-	function showEventPageEditor() {
-	    if (jq("#asc_event .event-editor .editor").is(":visible")) {
-	        if(confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload))
-	            eventPage.addEvent();
-	    } else {
-	        eventPage.addEvent();
-	    }
+	function initEventPage() {
+		if (eventPage) return;
+		eventPage = new EventPage(t);
 	}
-    
+
+	function showEventPageEditor() {
+		initEventPage();
+		if (jq("#asc_event .event-editor .editor").is(":visible")) {
+			if(confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload))
+				eventPage.addEvent();
+		} else {
+			eventPage.addEvent();
+		}
+	}
+
 	function showEventPageViewer(canEdit, elem, event) {
-	    eventPage.openEvent(canEdit, elem, event);
+		initEventPage();
+		eventPage.openEvent(canEdit, elem, event);
 	}
 
 
@@ -2474,9 +2480,11 @@ function Header(calendar, options) {
 	}
 
 	function _renderNewSelectorLabel(elem) {
-		$('<ul class="menu-actions">'+
-        '<li class="menu-main-button without-separator big">'+
-            '<span class="main-button-text">'+ htmlEscape(calendar.options.addNewLabel) + '</span>'+
+	    var mainButtonText = htmlEscape(calendar.options.addNewLabel);
+
+	    $('<ul class="menu-actions">' +
+        '<li class="menu-main-button without-separator big" title="' + mainButtonText + '">' +
+            '<span class="main-button-text">' + mainButtonText + '</span>' +
             '<span class="white-combobox">&nbsp;</span>'+
         '</li>'+
         '</ul>').appendTo(elem);
@@ -2575,15 +2583,16 @@ function Header(calendar, options) {
 	}
 
 	function _updateFcHeader() {
-	    setTimeout(function() {
-	        var fcHeaderWidth = $('.fc-header').width(),
-	            fcHeaderLeft = $('.fc-header-left').width(),
-	            fcHeaderRight = $('.fc-header-right').width();
+	    var header = document.querySelector('.fc-header');
 
-	        var diff = fcHeaderWidth - fcHeaderLeft - fcHeaderRight;
-	        if (diff > 0 && $(window).width() <= '1200') {
-	            $('.fc-header-center').width(diff);
-	        }
+	    if (!header || window.innerWidth > 1200) return;
+
+	    setTimeout(function () {
+	        var left = header.querySelector('.fc-header-left');
+	        var center = header.querySelector('.fc-header-center');
+	        var right = header.querySelector('.fc-header-right');
+	        var diff = header.clientWidth - left.clientWidth - right.clientWidth;
+	        center.style.width = diff + "px";
 	    },100);
 	}
 
@@ -2754,20 +2763,8 @@ function Header(calendar, options) {
 	};
 
 	this.resize = function() {
-		var h = element.find(".fc-header"),
-				hw = h.width(),
-				l = element.find(".fc-header-left").css("width", ""),
-				lo = l.offset(),
-				c = element.find(".fc-header-center").css("width", ""),
-				co = c.offset(),
-				r = element.find(".fc-header-right"),
-				ro = r.offset();
-
-		//if (co.left + c.outerWidth(true) > ro.left) {
-		//	l.css( "width", "auto" );
-		//	c.css( "width",
-		//	       Math.round( 100 * (ro.left - lo.left - l.outerWidth(true)) / hw ) + "%" );
-		//}
+		element.find(".fc-header-left")[0].style.width = "";
+		element.find(".fc-header-center")[0].style.width = "";
 	};
 
 }
@@ -2892,6 +2889,7 @@ function PermissionsList(calendar, container, linkText) {
 		_moreLink.unbind("click");
 
 		if (permissions && permissions.users && permissions.users.length > 0) {
+			container.show();
 			container.addClass("has-users");
 			var list = "";
 			var otherList = "";
@@ -3067,6 +3065,7 @@ function CategoryDialog(calendar) {
                 control.find('input').select();
                 try {
                     document.execCommand('copy');
+                    ASC.CalendarController.displayInfoPanel(calendar.options.categories.dialogCopyMessage, false);
                 } catch (err) { }
             }
         });
@@ -3304,7 +3303,7 @@ function CategoryDialog(calendar) {
 		        }
 		        configuration.isNewCalendar = 0;
 		        _source = calendar.getEventSources()[i];
-		        _elem = $('.categories .content-li')[i-2];
+                _elem = s[1].isTodo === 0 ? $('.categories .content-li')[(i - 1)] : $('.categories .content-li')[(i - 2)];
 		        _updateConfiguration();
 		        _dialog.find(".calendar .bullet").css("background", s[i].backgroundColor);
                 return;
@@ -3771,7 +3770,8 @@ function SubscriptionDialog(calendar) {
 				});
 		
 		_dialog.find(".ical-export .ical-link").click(function() {
-			_openIcalStream.call(_this, {pageX: "center", pageY: "center"});
+		    _openIcalStream.call(_this, { pageX: "center", pageY: "center" });
+		    _dialog.popupFrame('hide');
 		});
 				
 		_dialog.find(".buttons .save-btn").click(function() {
@@ -3816,8 +3816,23 @@ function SubscriptionDialog(calendar) {
 					showArrow: false
 				});
 		
-		_icalStream.find(".buttons .cancel-btn, .header .close-btn").click(function() {
-			_closeIcalStream.call(_this, false);
+		_icalStream.find(".buttons .cancel-btn, .header .close-btn").click(function () {
+		    _closeIcalStream.call(_this, false);
+		    _icalStream.popupFrame("close");
+		    if (_dialog.popupFrame('isVisible')) _dialog.popupFrame('show');
+		});
+	    
+
+		_icalStream.find((".url-link .control input")).click(function () {
+		    $(this).select();
+		});
+		_icalStream.find((".url-link .control .button.copy")).click(function () {
+		    var control = $($(this)[0].parentNode);
+		    control.find('input').select();
+		    try {
+		        document.execCommand('copy');
+                ASC.CalendarController.displayInfoPanel(calendar.options.categories.dialogCopyMessage, false);
+		    } catch (err) { }
 		});
 		
 	}());
@@ -3931,18 +3946,53 @@ function SubscriptionDialog(calendar) {
 				}
 			});
 	}
-	
+	var timerId;
+	function getCaldavLink() {
+	    clearInterval(timerId);
+	    var linkContainer = _icalStream.find(".url-link.caldav");
+	    linkContainer.find(".control").removeClass('success').removeClass('failure').addClass('disabled').addClass('processing');
+	    linkContainer.find(".control input").attr('disabled', 'disabled');
+
+	    linkContainer.show();
+
+	    var counter = 0, preparingMessage = ic.dialogPreparingMessage, preparingErrorMessage = ic.dialogPreparingErrorMessage;
+	    timerId = setInterval(function () {
+	        preparingMessage = preparingMessage + ".";
+	        if (counter == 4) {
+	            preparingMessage = ic.dialogPreparingMessage;
+	            counter = 0;
+	        }
+	        linkContainer.find(".control input").val(preparingMessage);
+	        counter++;
+	    }, 500);
+
+	    calendar.trigger("getCaldavUrl", _this, _source.objectId, function (response) {
+	        clearInterval(timerId);
+	        if (response.result) {
+	            if (response.url != "") {
+	                linkContainer.find(".control input").val(response.url);
+	                linkContainer.find(".control input").removeAttr("disabled");
+	                linkContainer.find(".control").removeClass("disabled").removeClass('processing').addClass('success');
+	            } else {
+	                linkContainer.find(".control input").val(preparingErrorMessage);
+	                linkContainer.find(".control").removeClass('processing').addClass('failure');
+	            }
+	        }
+	    });
+	}
 	function _openIcalStream(anchor) {
 		$(document).bind("keyup", _checkEscKeyIcalStream);
-		
-		calendar.trigger("getiCalUrl", _this, _source.objectId, function(response){
-			if (response.result) {
-				var link = "<a href=" + response.url + " target='_blank'>" + response.url + "</a>";
-				_icalStream.find(".saved-url-link").html(link);
-			}
+
+		calendar.trigger("getiCalUrl", _this, _source.objectId, function (response) {
+		    if (response.result) {
+		        var linkContainer = _icalStream.find(".url-link.ical");
+		        linkContainer.show();
+		        linkContainer.find(".control input").val(response.url);
+		        getCaldavLink();
+		    }
 		});
 		
-		_icalStream.width(_dialog.width() + 160);
+		_icalStream.width(_dialog.width());
 		_icalStream.popupFrame("open", anchor);
 	}
 
@@ -4063,7 +4113,7 @@ function SubscriptionDialog(calendar) {
 				_dialog.find(".timezone-desc").html(htmlEscape(_source.timeZone.name));
 			}
 
-			if (_source.owner && _source.owner.name && _source.owner.name.length > 0) {
+			if (_source.objectId !== "shared_events" && _source.owner && _source.owner.name && _source.owner.name.length > 0) {
 				dlg.owner.html(htmlEscape(_source.owner.name));
 				_dialog.find(".owner").removeClass("hidden");
 			} else {
@@ -4083,11 +4133,14 @@ function SubscriptionDialog(calendar) {
 					list += _permissions.users[i].name;
 				}
 				if (list.length > 0) {
+                    _dialog.find(".shared-list").show();
 					_dialog.find(".shared-list").addClass("has-users").append(
 							'<div class="users-list">' +
 								'<div class="label">' + htmlEscape(calendar.options.sharedList.title) + '</div>' +
 								'<div class="short-list">' + htmlEscape(list) + '</div>' +
 							'</div>');
+				} else {
+				    _dialog.find(".shared-list").hide();
 				}
 			}
 
@@ -4329,6 +4382,8 @@ function CategoriesList(calendar) {
 
 	var _datepicker;
 	var _dpVisibleDate;
+	var _dpCommonVisibleDate = new Date();
+	var isOpenCommonDatePicker = false;
 	var _dpickerIsVisible = true;
 	var _dpIgnoreUpdate = false;
 	var _dpSettingDate = false;
@@ -4413,7 +4468,6 @@ function CategoriesList(calendar) {
 								AjaxUploader.submit();
 							}
 							calendar.addEventSource(response.source);
-							_rerenderList.call(_this, kCategoriesOnly, true);
 							_rerenderList.call(_this, kSubscriptionsOnly, true);
 							calendar.refetchEvents();
 
@@ -4538,11 +4592,15 @@ function CategoriesList(calendar) {
 	}
 
 	function _ellipsisLongItem() {
-		var li = $(this);
-		var label = li.find(".label")
-				.css("right", "")
-				.removeClass("show-tooltip")
-				.unbind("mouseenter");
+        var li = $(this);
+        var label = li.find(".label");
+        label.attr("title", label.text());
+
+        //TODO: remove this function! use css!
+        return;
+        label.css("right", "")
+            .removeClass("show-tooltip")
+            .unbind("mouseenter");
 		var dots = li.find(".dots");
 		if (label.position().left + label.width() >= li.width() - 3/*paddind*/) {
 			if (dots.length < 1) {dots = $('<div class="dots">&#8230;</div>').appendTo(li);}
@@ -4613,7 +4671,7 @@ function CategoriesList(calendar) {
 				cal.isHidden = cal.isHidden == true ? true : false; // convert to boolean
 
 				var li = _renderListItem.call(_this, i, cal);
-				li.find(".bullet").click(function () {
+				li.find(".bullet, .label").click(function () {
 					_toggleListItem.call(_this, $(this).parent().get(0));
 				});
 				li.find(".edit-icon").click(function () {
@@ -4645,7 +4703,7 @@ function CategoriesList(calendar) {
 				sub.isHidden = sub.isHidden == true ? true : false; // convert to boolean
 
 				var li = _renderListItem.call(_this, i, sub);
-				li.find(".bullet").click(function () {
+				li.find(".bullet, .label").click(function () {
 					_toggleListItem.call(_this, $(this).parent().get(0));
 				});
 				li.find(".edit-icon").click(function () {
@@ -4766,6 +4824,9 @@ function CategoriesList(calendar) {
 		    var resultCategH = categHeight ? categHeight : newCategH - categSpace;
 		    categ.css("height", resultCategH + "px");
 		} else {
+			if ((newCategH + _list.find(".content-h").outerHeight(true))> _list.height()) {
+				newCategH = _list.height() - subscr.outerHeight(true) - _list.find(".content-h").outerHeight(true);
+			}
 		    categ.css("height", (newCategH - categSpace) + "px");
 		}
 	   
@@ -4855,8 +4916,12 @@ function CategoriesList(calendar) {
 			}
 		});
 
-		function initMonthMenu (directionUp) {
-		    fcMenus.dpMonthMenu = $("#fc_datepicker_mmenu").length ? $("#fc_datepicker_mmenu") : $("<div id='fc_datepicker_mmenu'/>");
+        function initMonthMenu(directionUp) {
+            fcMenus.dpMonthMenu = $("#fc_datepicker_mmenu").length ? $("#fc_datepicker_mmenu") : $("<div id='fc_datepicker_mmenu'/>");
+            if (isOpenCommonDatePicker) {
+                fcMenus.dpMonthMenu.css('z-index', 2001);
+            }
+
 			fcMenus.dpMonthMenu.popupMenu({
 				anchor: directionUp ? "left,top" : "right,bottom",
 				direction: directionUp ? "right,up" : "left,down",
@@ -4865,14 +4930,18 @@ function CategoriesList(calendar) {
 				showArrow: false,
 				cssClassName: "asc-popupmenu",
 				items: calendar.options.monthNames,
-				itemClick: function (event, data) {
-					var delta = data.itemIndex - _dpVisibleDate.getMonth();
+                itemClick: function (event, data) {
+                    _dpCommonVisibleDate = isOpenCommonDatePicker ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") !== null ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") : _dpCommonVisibleDate : _dpCommonVisibleDate;
+                    var delta = isOpenCommonDatePicker ? data.itemIndex - _dpCommonVisibleDate.getMonth() : data.itemIndex - _dpVisibleDate.getMonth();
 					adjustDatepickerDate(delta, "M");
 				}
 			});
 		}
 
-		function initYearMenu (y, directionUp) {
+        function initYearMenu(y, directionUp) {
+            if (isOpenCommonDatePicker) {
+                fcMenus.dpYearMenu.css('z-index', 2001);
+            }
 			fcMenus.dpYearMenu.popupMenu({
 				anchor: directionUp ? "left,top" : "right,bottom",
 				direction: directionUp ? "right,up" : "left,down",
@@ -4880,51 +4949,68 @@ function CategoriesList(calendar) {
 				arrowPosition: "50%",
 				showArrow: false,
 				cssClassName: "asc-popupmenu",
-				items: [
-					(y - 2).toString(),
-					(y - 1).toString(),
-					"divider",
-					(y + 1).toString(),
-					(y + 2).toString()
+                items: [
+                    (y + 3).toString(),
+                    (y + 2).toString(),
+                    (y + 1).toString(),
+                    "divider",
+                    (y - 1).toString(),
+                    (y - 2).toString(),
+                    (y - 3).toString()
 				],
-				itemClick: function(event, data) {
-					var delta = parseInt(data.item, 10) - y;
+                itemClick: function (event, data) {
+                    _dpCommonVisibleDate = isOpenCommonDatePicker ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") !== null ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") : _dpCommonVisibleDate : _dpCommonVisibleDate;
+                    var delta = isOpenCommonDatePicker ? parseInt(data.item, 10) - _dpCommonVisibleDate.getFullYear()  : parseInt(data.item, 10) - y;
 					adjustDatepickerDate(delta, "Y");
 				}
 			});
 		}
 
-		function adjustDatepickerDate(delta, period) {
-			if (delta != 0) {
-				if (period === "M") {
-					_dpVisibleDate = addMonths(_dpVisibleDate, delta);
-				} else if (period === "Y") {
-					_dpVisibleDate = addYears(_dpVisibleDate, delta);
-				} else {
-					return;
-				}
-				_dpSettingDate = true;
-				$.datepicker._adjustDate("#fc_datepicker", delta, period);
-				_dpSettingDate = false;
-				_updateDatepickerCells.call(_this, _dpVisibleDate);
+        function adjustDatepickerDate(delta, period) {
+            if (delta != 0) {
+                if (isOpenCommonDatePicker) {
+                    if (period === "M") {
+                        _dpCommonVisibleDate = addMonths(_dpCommonVisibleDate, delta);
+                    } else if (period === "Y") {
+                        _dpCommonVisibleDate = addYears(_dpCommonVisibleDate, delta);
+                    } else {
+                        return;
+                    }
+                    $('#fc_common_dp .asc-datepicker').datepicker("setDate", _dpCommonVisibleDate);
+                } else {
+                    if (period === "M") {
+                        _dpVisibleDate = addMonths(_dpVisibleDate, delta);
+                    } else if (period === "Y") {
+                        _dpVisibleDate = addYears(_dpVisibleDate, delta);
+                    } else {
+                        return;
+                    }
+                    _dpSettingDate = true;
+                    $.datepicker._adjustDate("#fc_datepicker", delta, period);
+                    _dpSettingDate = false;
+                    _updateDatepickerCells.call(_this, _dpVisibleDate);
+                }
 			}
 		}
 
 		initMonthMenu(true);
 
-		$(document).on("click", "#fc_datepicker .ui-datepicker-title", function(e) {
-			var directionUp = $(e.target).offset().top > fcMenus.dpMonthMenu.outerHeight(true) + 10;
-			if (e.target.className == "ui-datepicker-month") {
+        $(document).on("click", "#fc_datepicker .ui-datepicker-title , #fc_common_dp .ui-datepicker-title", function(e) {
+            var directionUp = $(e.target).offset().top > fcMenus.dpMonthMenu.outerHeight(true) + 10;
+
+            isOpenCommonDatePicker = $("div").is("#fc_common_dp") && $("#fc_common_dp").is(':visible');
+
+            if (e.target.className == "ui-datepicker-month") {
 				initMonthMenu(directionUp);
 				fcMenus.hideMenus(fcMenus.dpMonthMenu);
 				fcMenus.dpMonthMenu.popupMenu("open", e.target);
 				return;
 			}
 			if (e.target.className == "ui-datepicker-year") {
-				//always render YearMenu
-				//if (!_dpYearMenuCaller || _dpYearMenuCaller != e.target) {
-					_dpYearMenuCaller = e.target;
-					var y = _dpVisibleDate.getFullYear();
+				if (!_dpYearMenuCaller || _dpYearMenuCaller != e.target) {
+                    _dpYearMenuCaller = e.target;
+                    _dpCommonVisibleDate = isOpenCommonDatePicker ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") !== null ? $('#fc_common_dp .asc-datepicker').datepicker("getDate") : _dpCommonVisibleDate : _dpCommonVisibleDate;
+					var y = isOpenCommonDatePicker ? _dpCommonVisibleDate.getFullYear() : _dpVisibleDate.getFullYear();
 					if (!fcMenus.dpYearMenu || fcMenus.dpYearMenu.length < 1) {
 						fcMenus.dpYearMenu = $("#fc_datepicker_ymenu").length ? $("#fc_datepicker_ymenu") : $("<div id='fc_datepicker_ymenu'/>");
 					} else {
@@ -4932,7 +5018,7 @@ function CategoriesList(calendar) {
 						fcMenus.dpYearMenu.popupMenu("destroy");
 					}
 					initYearMenu(y, directionUp);
-				//}
+				}
 				fcMenus.hideMenus(fcMenus.dpYearMenu);
 				fcMenus.dpYearMenu.popupMenu("open", e.target);
 				return;
@@ -5085,18 +5171,18 @@ function CategoriesList(calendar) {
 	};
 
 	this.rerenderList = function() {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		_rerenderList.call(_this);
 	};
 
 	this.resize = function(newHeight) {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		_content.css("height", newHeight + "px");
 		_resizeList.call(_this);
 	};
 
 	this.updateDatepicker = function(newDate) {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		if (_datepicker.length < 1 || _dpIgnoreUpdate) {return;}
 
 		_dpSettingDate = true;
@@ -5108,17 +5194,17 @@ function CategoriesList(calendar) {
 	};
 
 	this.updateDatepickerSize = function() {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		_updateDatepickerSize.call(_this);
 	};
 
 	this.updateDatepickerCells = function() {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		_updateDatepickerCells.call(_this);
 	};
 
 	this.showMiniCalendar = function(show) {
-		if (!_content.is(":visible")) {return;}
+		//if (!_content.is(":visible")) {return;}
 		_showDatepicker.call(_this, show);
 	};
 	
@@ -5301,7 +5387,8 @@ function TodoList(calendar) {
 	        var control = $($(this)[0].parentNode);
 	        control.find('input').select();
 	        try {
-	            document.execCommand('copy');
+                document.execCommand('copy');
+                ASC.CalendarController.displayInfoPanel(calendar.options.categories.dialogCopyMessage, false);
 	        } catch (err) { }
 	    });
 
@@ -5582,8 +5669,8 @@ function TodoList(calendar) {
 	    var containerDate = resolve.containerDate;
 	    newTodoItemList(containerDate);
     };
-    var newTodoItemList = function(date) {
-        var _date = date;
+    var newTodoItemList = function (date) {
+        var _date = Date.parse(date) != 0 ? date : null;
         var id = _addNewTodo.call(_this, _date);
         if (id) {
             _curTodoElem = undefined;
@@ -5761,36 +5848,47 @@ function TodoList(calendar) {
 	                containerTitle = getDisplayDate(todo.start);
 	            }
 
-	            if (container == null) {
-	                container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
-	                container.data({ "date": containerClass == "overdue" || containerClass == "no_due_date" ? null : todoDate });
-	                container.appendTo(items);
-	            } else {
-	                container.appendTo(items);
-	                container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
-	                container.data({ "date": containerClass == "overdue" || containerClass == "no_due_date" ? null : todoDate });
-	            }
-	            if (_listStates[todoDate] != undefined) {
-	                container.addClass(_listStates[todoDate] ? 'close' : '');
-	            }
-	            _listStates[todoDate] = container.hasClass('close');
-	            container.find(".title").click(function () {
-	                _openTodoContainer(this);
-	            });
- 
-	            container.find(".add-todo").click(function () {
-	                var containerDate = $($(this).parent()[0]).data("date");
+                if (container == null) {
+                    container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
+                    container.data({ "date": containerClass == "no_due_date" ? 0 : containerClass == "overdue" ? -1 : todoDate });
+                    container.appendTo(items);
+                } else {
+                    container.appendTo(items);
+                    container = $('<div class="todo-container ' + containerClass + '"><span class="title">' + containerTitle + '</span><span class="add-todo"></span></div>');
+                    container.data({ "date": containerClass == "no_due_date" ? 0 : containerClass == "overdue" ? -1 : todoDate });
+                }
 
-	                _date = containerDate != null ? new Date(containerDate) : null;
-	                var id = _addNewTodo.call(_this, _date);
-	                if (id) {
-	                    _curTodoElem = undefined;
-	                    _renderList.call(_this);
-	                    
-	                    var newElem = _findTodoElement.call(_this, id.sourceIndex, id.todoId);
-	                    newElem.find(".label").val('');
-	                    newElem.find(".label").click();
-	                }
+                if (containerClass == "no_due_date" && _listStates['0'] != undefined) {
+                    container.addClass(_listStates['0'] ? 'close' : '');
+                } else if (containerClass == "overdue" && _listStates['-1'] != undefined) {
+                    container.addClass(_listStates['-1'] ? 'close' : '');
+                } else if (_listStates[todoDate] != undefined) {
+                    container.addClass(_listStates[todoDate] ? 'close' : '');
+                }
+                _listStates[todoDate] = container.hasClass('close');
+                container.find(".title").click(function () {
+                    _openTodoContainer(this);
+                });
+
+                container.find(".add-todo").click(function () {
+                    var containerDate = $($(this).parent()[0]).data("date");
+
+                    _date = containerDate != null && containerDate != 0 && containerDate != -1 ? new Date(containerDate) : null;
+                    var id = _addNewTodo.call(_this, _date);
+                    if (id) {
+                        _curTodoElem = undefined;
+                        _renderList.call(_this);
+
+                        var todoContainers = _list.find(".todo-container");
+                        for (var i = 0; i < todoContainers.length; i++) {
+                            if ($(todoContainers[i]).data("date") == containerDate) {
+                                if ($(todoContainers[i]).hasClass("close")) _openTodoContainer($(todoContainers[i]).find(".title"));
+                            }
+                        }
+                        var newElem = _findTodoElement.call(_this, id.sourceIndex, id.todoId);
+                        newElem.find(".label").val('');
+                        newElem.find(".label").click();
+                    }
 	            });
 
 	            li.appendTo(container);
@@ -6142,11 +6240,11 @@ function TodoList(calendar) {
 	}
 	function _hideCompletedTodos() {
 	    calendar.hideCompletedTodos = !calendar.hideCompletedTodos;
-	    localStorageManager.setItem("hideCompletedTodos", calendar.hideCompletedTodos);
-	    if (!calendar.hideCompletedTodos) {
-	        _renderList.call(_this);
-	        calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd);
-	    }
+        localStorageManager.setItem("hideCompletedTodos", calendar.hideCompletedTodos);
+	    
+	    _renderList.call(_this);
+	    calendar.fetchEvents(calendar.getView().visStart, calendar.getView().visEnd);
+	    
 	}
 
 	function _completeTodo(todoElem) {
@@ -7753,7 +7851,8 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _closeDialog() {
-	    _dialog.popupFrame("close");
+		fcDatepicker.close();
+		_dialog.popupFrame("close");
 		uiBlocker.hide();
 	}
     
@@ -7948,7 +8047,7 @@ function EventEditor(calendar, uiBlocker) {
 	        frc = "";
 	    } else {
 	        r = false;
-	        frc = todoDate.date.isValid ? "" : "#cc3300";
+            frc = todoDate.date.isValid ? "" : dlg.date.val() === "" ? "" : "#cc3300";
 	    }
 	    dlg.date.css("color", "").css("border-color", frc);
 	 
@@ -9060,8 +9159,17 @@ function EventPage(calendar) {
     (function _createPage() {
         _dialog = jq("#asc_event").empty();
         
-        jq("#eventPageTemplate").tmpl({maxlength: defaults.eventMaxTitleLength}).appendTo(_dialog);
-        
+        jq("#eventPageTemplate").tmpl({ maxlength: defaults.eventMaxTitleLength }).appendTo(_dialog);
+
+        var selector = jq("#asc_event .editor .owner select");
+        jq.each(ASC.Mail.Accounts, function (index, item) {
+            var name = item.name ? Encoder.htmlEncode(item.name) : Teamlab.profile.displayName;
+            var option = jq("<option/>").attr("value", item.email).attr("data-name", Encoder.htmlDecode(name)).html("{0} &lt;{1}&gt;".format(name, item.email));
+            selector.append(option);
+        });
+
+        selector.tlcombobox();
+
         uiBlocker = _dialog.find(".fc-modal");
 
         _dialog.find(".buttons .save-btn").click(function() {
@@ -9093,6 +9201,8 @@ function EventPage(calendar) {
                         if (compareResult.differentsList.length == 1 && compareResult.differentsList.indexOf("attendees") != -1) {
                             if (confirmViewMode) {
                                 _openConfirmPopup.call(_this);
+                            } else {
+                                _close.call(_this, true);
                             }
                         } else if (compareResult.differentsList.length >= 1) {
                             if (confirmViewMode) {
@@ -11037,6 +11147,7 @@ function EventPage(calendar) {
         dlg.editor.title.css("color", "").css("border-color", "");
         dlg.editor.title.val(_eventObj.title || "");
         dlg.viewer.title.text(_eventObj.title || "");
+        dlg.editor.attendeesInputContainer.find('input')[0].value = "";
 
         dlg.editor.sent_invitations.prop("checked", true);
 
@@ -11096,6 +11207,8 @@ function EventPage(calendar) {
                     }
                     return true;
                 });
+            } else if (_eventObj.owner && _eventObj.owner.objectId === Teamlab.profile.id) {
+                isOrganizer = true;
             }
             
             if (hasAccounts) {
@@ -11239,8 +11352,12 @@ function EventPage(calendar) {
             dlg.editor.to.val(formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat));
             dlg.editor.to_t.val(_eventObj.allDay ? "" : formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat));
         } else {
-            dlg.editor.to.val("");
-            dlg.editor.to_t.val("");
+            if (_eventObj.allDay && _eventObj.start instanceof Date) {
+                dlg.editor.to.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+            } else {
+                dlg.editor.to.val("");
+                dlg.editor.to_t.val("");
+            }
         }
             
         dlg.viewer.to.text(dlg.editor.to.val());
@@ -11388,7 +11505,7 @@ function EventPage(calendar) {
     function _createEvent(startDate, endDate, allDay) {
         changeTimeFrom = null;
         var evt = {
-            title:           calendar.options.eventEditor.newEventTitle,
+            title:           "",
             description:     "",
             allDay:          allDay,
             start:           startDate,
@@ -12133,10 +12250,7 @@ function addMinutes(d, n) {
 }
 
 function clearTime(d) {
-	d.setHours(0);
-	d.setMinutes(0);
-	d.setSeconds(0);
-	d.setMilliseconds(0);
+	d.setHours(0, 0, 0, 0);
 	return d;
 }
 
@@ -12475,7 +12589,7 @@ function segsCollide(seg1, seg2) {
 -----------------------------------------------------------------------------*/
 
 // event rendering utilities
-function sliceSegs(events, visEventEnds, start, end) {
+function sliceSegs(events, fixEventEndFunc, start, end) {
 	var segs = [],
 		i, len=events.length, event,
 		eventStart, eventEnd,
@@ -12484,7 +12598,7 @@ function sliceSegs(events, visEventEnds, start, end) {
 	for (i=0; i<len; i++) {
 		event = events[i];
 		eventStart = event.start;
-		eventEnd = visEventEnds[i];
+		eventEnd = fixEventEndFunc(event);
 		if ((!event.source || !event.source.isHidden) && eventEnd > start && eventStart < end && ASC.Api.iCal.RecurrenceRule.isVisibleYearlyEvent(event)) {
 			if (eventStart < start) {
 				segStart = cloneDate(start);
@@ -12590,41 +12704,37 @@ function setOuterHeight(element, height, includeMargins) {
 // TODO: curCSS has been deprecated (jQuery 1.4.3 - 10/16/2010)
 
 function hsides(element, includeMargins) {
-	return hpadding(element) + hborders(element) + (includeMargins ? hmargins(element) : 0);
+    var styles = window.getComputedStyle(element[0]);
+    return hpadding(styles) + hborders(styles) + (includeMargins ? hmargins(styles) : 0);
 }
 
-function hpadding(element) {
-	return (parseFloat($(element[0]).css('padding-left')) || 0) +
-				 (parseFloat($(element[0]).css('padding-right')) || 0);
+function hpadding(styles) {
+    return (parseFloat(styles.paddingLeft) || 0) + (parseFloat(styles.paddingRight) || 0);
 }
 
-function hmargins(element) {
-	return (parseFloat($(element[0]).css('margin-left')) || 0) +
-				 (parseFloat($(element[0]).css('margin-right')) || 0);
+function hmargins(styles) {
+    return (parseFloat(styles.marginLeft) || 0) + (parseFloat(styles.marginRight) || 0);
 }
 
-function hborders(element) {
-	return (parseFloat($(element[0]).css('border-left-width')) || 0) +
-				 (parseFloat($(element[0]).css('border-right-width')) || 0);
+function hborders(styles) {
+    return (parseFloat(styles.borderLeftWidth) || 0) + (parseFloat(styles.borderRightWidth) || 0);
 }
 
 function vsides(element, includeMargins) {
-	return vpadding(element) +  vborders(element) + (includeMargins ? vmargins(element) : 0);
+    var styles = window.getComputedStyle(element[0]);
+    return vpadding(styles) + vborders(styles) + (includeMargins ? vmargins(styles) : 0);
 }
 
-function vpadding(element) {
-	return (parseFloat($(element[0]).css('padding-top')) || 0) +
-				 (parseFloat($(element[0]).css('padding-bottom')) || 0);
+function vpadding(styles) {
+    return (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
 }
 
-function vmargins(element) {
-	return (parseFloat($(element[0]).css('margin-top')) || 0) +
-				 (parseFloat($(element[0]).css('margin-bottom')) || 0);
+function vmargins(styles) {
+    return (parseFloat(styles.marginTop) || 0) + (parseFloat(styles.marginBottom) || 0);
 }
 
-function vborders(element) {
-	return (parseFloat($(element[0]).css('border-top-width')) || 0) +
-				 (parseFloat($(element[0]).css('border-bottom-width')) || 0);
+function vborders(styles) {
+    return (parseFloat(styles.borderTopWidth) || 0) + (parseFloat(styles.borderBottomWidth) || 0);
 }
 
 function setMinHeight(element, height, bSetHeight) {
@@ -12724,10 +12834,8 @@ function markFirstLast(e) {
 }
 
 function setDayID(cell, date) {
-	cell.each(function(i, _cell) {
-		_cell.className = _cell.className.replace(/^fc-\w*/, 'fc-' + dayIDs[date.getDay()]);
-		// TODO: make a way that doesn't rely on order of classes
-	});
+	cell.className = cell.className.replace(/^fc-\w*/, 'fc-' + dayIDs[date.getDay()]);
+	// TODO: make a way that doesn't rely on order of classes
 }
 
 function getSkinCss(event, opt, curView) {
@@ -13258,65 +13366,55 @@ function BasicView(element, calendar, viewName) {
 		var dowDirty = firstTime || rowCnt == 1; // could the cells' day-of-weeks need updating?
 		var month = t.start.getMonth();
 		var today = clearTime(new Date());
-		var cell;
 		var date;
-		var row;
 		var todayIndex;
 		var topRow;
 		var leftCell;
 
 		if (dowDirty) {
-			headCells.each(function(i, _cell) {
-				cell = $(_cell);
+			headCells.each(function(i, cell) {
 				date = indexDate(i);
-				cell.html(formatDate(date, colFormat));
-				setDayID(cell, date);
+				cell.innerHTML = formatDate(date, colFormat);
+			    setDayID(cell, date);
 			});
 		}
 
-		bodyCells.each(function(i, _cell) {
-			cell = $(_cell);
+		bodyCells.each(function(i, cell) {
 			date = indexDate(i);
 			if (date.getMonth() == month) {
-				cell.removeClass('fc-other-month');
+				cell.classList.remove('fc-other-month');
 			} else {
-				cell.addClass('fc-other-month');
+				cell.classList.add('fc-other-month');
 			}
 			if (+date == +today) {
-				cell.addClass(tm + '-state-highlight fc-today');
-				leftCell = cell.prev();
-				if (leftCell.length > 0) {
-					leftCell.addClass("fc-today-left");
+				cell.classList.add(tm + '-state-highlight', 'fc-today');
+				leftCell = cell.previousSibling;
+				if (leftCell) {
+					leftCell.classList.add("fc-today-left");
 				}
-				topRow = cell.closest("tr").prev();
-				if (topRow.length > 0) {
-					topRow.children().eq(cell.index()).addClass("fc-today-top");
+				topRow = cell.parentElement.previousSibling;
+				if (topRow) {
+					topRow.childNodes[cell.cellIndex].classList.add("fc-today-top");
 				}
 				todayIndex = i;
 			} else {
-				cell.removeClass(tm + '-state-highlight fc-today');
-				cell.removeClass('fc-today-left');
-				cell.removeClass('fc-today-top');
+				cell.classList.remove(tm + '-state-highlight', 'fc-today', 'fc-today-left', 'fc-today-top');
 			}
-			cell.find('div.fc-day-number').html('<span>' + date.getDate() + '</span>');
-			//--diabled big day numbers--
-			//cell.find('div.fc-day-number-big').text(date.getDate());
+			cell.querySelector(".fc-day-number").innerHTML ='<span>' + date.getDate() + '</span>';
 			if (dowDirty) {
-				setDayID(cell, date);
+			    setDayID(cell, date);
 			}
 		});
 
-		bodyRows.each(function(i, _row) {
-			row = $(_row);
+		bodyRows.each(function(i, row) {
 			if (i < rowCnt) {
-				row.show();
 				if (i == rowCnt-1) {
-					row.addClass('fc-last');
+					row.classList.add('fc-last');
 				}else{
-					row.removeClass('fc-last');
+					row.classList.remove('fc-last');
 				}
 			}else{
-				row.hide();
+				row.style.display = 'none';
 			}
 		});
 
@@ -13355,7 +13453,8 @@ function BasicView(element, calendar, viewName) {
 	function setHeight(height) {
 		viewHeight = height;
 
-		var bodyHeight = viewHeight - head.height();
+		var sizeManager = ASC.CalendarSizeManager.cache;
+		var bodyHeight = viewHeight - sizeManager.fcMonthContentTheadHeight;
 		var rowHeight;
 		var rowHeightLast;
 
@@ -13366,22 +13465,13 @@ function BasicView(element, calendar, viewName) {
 			rowHeightLast = bodyHeight - rowHeight * (rowCnt-1);
 		}
 
-		bodyCells.each(function(i, _cell) {
-			var cell = $(_cell);
-			var h = (Math.floor(i/7) == rowCnt-1 ? rowHeightLast : rowHeight) - vsides(cell);
-			var innerDiv = cell.find('> div');
-			setMinHeight(innerDiv, h, true);
-			var dc = cell.find(".fc-day-content");
-			var hdc = h - cell.find(".fc-day-number").outerHeight();
-			setMinHeight(dc, hdc, true);
-			var hspace = dc.outerHeight() - hdc;
-			if (hspace > 0) {
-				setMinHeight(dc, hdc - hspace, true);
-			}
-			var bigDayNum = cell.find(".fc-day-number-big")
-					.css("top", innerDiv.position().top)
-					.css("line-height", h + "px");
-			setMinHeight(bigDayNum, h, true);
+		bodyCells.each(function(i, cell) {
+			var h = (Math.floor(i / 7) == rowCnt - 1 ? rowHeightLast : rowHeight) - sizeManager.fcMonthContentCellVSides + 1;
+			var innerDiv = cell.querySelector("div");
+			innerDiv.style.cssText = ';min-height:' + h + 'px;height:' + h + 'px;';
+			var dc = innerDiv.querySelector(".fc-day-content");
+			h = h - sizeManager.fcMonthContentCellNumberHeight - sizeManager.fcMonthContentCellNumberVSides;
+			dc.style.cssText += ';min-height:' + h + 'px;height:' + h + 'px;';
 		});
 
 	}
@@ -13390,22 +13480,10 @@ function BasicView(element, calendar, viewName) {
 	function setWidth(width) {
 		viewWidth = width;
 		colContentPositions.clear();
-		var rem = viewWidth % colCnt;
-		colWidth = Math.floor(viewWidth / colCnt);
-		if (rem == 0) {
-			setOuterWidth(headCells, colWidth);
-		} else {
-			setOuterWidth(headCells.filter(":even"), colWidth);
-			setOuterWidth(headCells.filter(":odd"), colWidth + 1);
-			setOuterWidth(headCells.last(), viewWidth - colWidth * (colCnt-1) - Math.floor(colCnt/2));
+		colWidth = Math.floor(viewWidth / colCnt) - hsides($(headCells[0]));
+		for (var i = 0, e; i < headCells.length; i++) {
+		    headCells[i].style.width = colWidth + "px";
 		}
-		bodyCells.each(function(i, _cell) {
-			var cell = $(_cell);
-			var innerDiv = cell.find('> div');
-			var bigDayNum = cell.find(".fc-day-number-big")
-					.css("left", innerDiv.position().left)
-			setOuterWidth(bigDayNum, innerDiv.outerWidth());
-		});
 	}
 
 
@@ -13685,7 +13763,10 @@ function BasicEventRenderer() {
 
 	function clearEvents() {
 		reportEventClear();
-		getDaySegmentContainer().empty();
+		var node = getDaySegmentContainer()[0];
+		var last;
+		while (last = node.lastChild)
+			node.removeChild(last);
 	}
 
 
@@ -13694,13 +13775,12 @@ function BasicEventRenderer() {
 			colCnt = getColCnt(),
 			d1 = cloneDate(t.visStart),
 			d2 = addDays(cloneDate(d1), colCnt),
-			visEventsEnds = $.map(events, exclEndDay),
 			i, row,
 			j, level,
 			k, seg,
 			segs=[];
 		for (i=0; i<rowCnt; i++) {
-			row = stackSegs(sliceSegs(events, visEventsEnds, d1, d2));
+			row = stackSegs(sliceSegs(events, exclEndDay, d1, d2));
 			for (j=0; j<row.length; j++) {
 				level = row[j];
 				for (k=0; k<level.length; k++) {
@@ -14423,7 +14503,8 @@ function AgendaView(element, calendar, viewName) {
 				bodyCell.removeClass('fc-today-left');
 				headCell.removeClass('fc-today');
 			}
-			setDayID(headCell.add(bodyCell), date);
+			setDayID(headCell[0], date);
+			setDayID(bodyCell[0], date);
 		}
 
 		if (dayList != undefined) {
@@ -15049,7 +15130,7 @@ function AgendaEventRenderer() {
 
 
 	function compileDaySegs(events) {
-		var levels = stackSegs(sliceSegs(events, $.map(events, exclEndDay), t.visStart, t.visEnd)),
+		var levels = stackSegs(sliceSegs(events, exclEndDay, t.visStart, t.visEnd)),
 			i, levelCnt=levels.length, level,
 			j, seg,
 			segs=[];
@@ -15088,13 +15169,12 @@ function AgendaEventRenderer() {
 			minMinute = getMinMinute(),
 			maxMinute = getMaxMinute(),
 			d = addMinutes(cloneDate(t.visStart), minMinute),
-			visEventEnds = $.map(events, slotEventEnd),
 			i, col,
 			j, level,
 			k, seg,
 			segs=[];
 		for (i=0; i<colCnt; i++) {
-			col = stackSegs(sliceSegs(events, visEventEnds, d, addMinutes(cloneDate(d), maxMinute-minMinute)));
+		    col = stackSegs(sliceSegs(events, slotEventEnd, d, addMinutes(cloneDate(d), maxMinute-minMinute)));
 			countForwardSegs(col);
 			for (j=0; j<col.length; j++) {
 				level = col[j];
@@ -15126,7 +15206,6 @@ function AgendaEventRenderer() {
 
 		var i, segCnt=segs.length, seg,
 			event,
-			classes,
 			top, bottom,
 			colI, levelI, forward,
 			leftmost,
@@ -15138,7 +15217,6 @@ function AgendaEventRenderer() {
 			eventElement,
 			titleElement,
 			timeElement,
-			headElement,
 			triggerRes,
 			vsideCache={},
 			hsideCache={},
@@ -15256,30 +15334,9 @@ function AgendaEventRenderer() {
 			}
 		}
 
-		// set all positions/dimensions at once
-		var vr = t.getViewRect();
-		function activateTooltip(elem, maxWidth, maxHeight, elemContainer, elemContainerH) {
-			elem.css("position", "absolute");
-			var elemW = elem.width();
-			var elemH = elem.height();
-			if (maxWidth < elemW || maxHeight > 0 && maxHeight < elemH) {
-				var to = elem.offset();
-				if (to.left + elemW > vr.right - 20 &&
-						to.left + maxWidth - elemW >= vr.left) {
-					elemContainer.addClass("fc-tooltip right");
-				} else {
-					elemContainer.addClass("fc-tooltip");
-				}
-				if (elemContainerH != undefined) {elemContainer.css("height", hh + "px");}
-			} else {
-				elemContainer.removeClass("fc-tooltip right");
-				if (elemContainerH != undefined) {elemContainer.css("height", "");}
-			}
-			elem.css("position", "");
-		}
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
-			eventElement = seg.element
+			eventElement = seg.element;
 			if (eventElement) {
 				width = Math.max(0, seg.outerWidth - seg.hsides);
 				height = Math.max(0, seg.outerHeight - seg.vsides);
@@ -15287,23 +15344,16 @@ function AgendaEventRenderer() {
 				eventElement[0].style.height = height + 'px';
 				// set height of event-content
 				contentElement = eventElement.find('.fc-event-content');
-			    cheight = height -
-			        eventElement.find(".fc-event-head").outerHeight(true);
+				cheight = height -
+					eventElement.find(".fc-event-head").outerHeight(true);
 				contentElement.css("height", cheight + "px");
-				// activate tooltip for event-content
 				titleElement = eventElement.find(".fc-event-title");
-				activateTooltip(titleElement, width, cheight, contentElement);
-				// activate tooltip for event-time
-				headElement = eventElement.find('.fc-event-head');
-				var hh = headElement.outerHeight(true);
 				timeElement = eventElement.find('.fc-event-time');
-				activateTooltip(timeElement, width, 0, headElement, hh);
-				//
 				event = seg.event;
 				if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
 					// not enough room for title, put it in the time header
 					timeElement
-						.html(timeElement.html() + ' ' + htmlEscape( titleElement.text() ));
+						.html(timeElement.html() + ' ' + htmlEscape(titleElement.text()));
 
 					if (titleElement.hasClass("fc-event-cancelled"))
 						timeElement.addClass("fc-event-cancelled");
@@ -15312,7 +15362,6 @@ function AgendaEventRenderer() {
 
 					titleElement
 						.remove();
-					activateTooltip(timeElement, width, 0, headElement, hh);
 				}
 				trigger('eventAfterRender', event, event, eventElement);
 			}
@@ -15346,6 +15395,9 @@ function AgendaEventRenderer() {
 		//}else{
 			html += 'div';
 		//}
+
+		var title = htmlEscape(event.title);
+
 		html +=
 			' class="' + classes.join(" ") + '"' +
 			' style="position:absolute;z-index:8;top:' + seg.top + 'px;left:' + seg.left + 'px;' + skinCss + '"' +
@@ -15361,9 +15413,9 @@ function AgendaEventRenderer() {
 								'<span class="fc-event-alert"></span>' : '') +
 					'</div>' +
 				'</div>' +
-				'<div class="fc-event-content">' +
-					'<div class="fc-event-title' + (event.status == 2 ? " fc-event-cancelled" : "") +'">' +
-						htmlEscape(event.title) +
+				'<div class="fc-event-content" title="' + title + '">' +
+					'<div class="fc-event-title' + (event.status == 2 ? " fc-event-cancelled" : "") + '">' +
+						title +
 						//'<div class="fc-event-tooltip">' + htmlEscape(event.title) + '</div>' +
 					'</div>' +
 				'</div>' +
@@ -15688,8 +15740,7 @@ function BasicListView(element, calendar, viewName) {
 	}
 
 	function _compileSegs(events) {
-		var visEventEnds = $.map(events, exclEndDay);
-		return sliceSegs(events, visEventEnds, _this.start, _this.end).sort(
+	    return sliceSegs(events, exclEndDay, _this.start, _this.end).sort(
 				function(left, right) {
 					var d1 = cloneDate(left.event.start, left.event.allDay);
 					var d2 = cloneDate(right.event.start, right.event.allDay);
@@ -15706,7 +15757,7 @@ function BasicListView(element, calendar, viewName) {
 		var now = new Date();
 		var i, j, k;
 		var list, monthTitle, dayTitle, mt, dt;
-		var event, start, end, eventTitle, eventNote, eventRow;
+		var seg, event, start, end, eventTitle, eventNote, eventRow;
 		var html;
 		var first;
 		var timeFormat = lv.timeFormat;
@@ -15718,9 +15769,10 @@ function BasicListView(element, calendar, viewName) {
 
 		list = {};
 		for (i = 0; i < segs.length; ++i) {
-			event = segs[i].event;
-			start = cloneDate(segs[i].start, true);
-			end = segs[i].end != undefined ? cloneDate(segs[i].end, true) : cloneDate(start);
+		    seg = segs[i];
+		    event = seg.event;
+			start = cloneDate(seg.start, true);
+			end = seg.end != undefined ? cloneDate(seg.end, true) : cloneDate(start);
 
 			eventTitle =
 					typeof event.title == "string" ? event.title.replace(/(.+)\.?\s*$/i, "$1") : "";
@@ -15850,7 +15902,10 @@ function BasicListView(element, calendar, viewName) {
 	}
 
 	function _clearEvents() {
-		_eventsList.empty();
+		var node = _eventsList[0];
+		var last;
+		while (last = node.lastChild)
+			node.removeChild(last);
 	}
 
 
@@ -16427,7 +16482,6 @@ function DayEventRenderer() {
 	// exports
 	t.renderDaySegs = renderDaySegs;
 	t.resizableDayEvent = resizableDayEvent;
-	t.ellipsisEventsTitles = ellipsisEventsTitles;
 
 
 	// imports
@@ -16464,130 +16518,80 @@ function DayEventRenderer() {
 	/* Rendering
 	-----------------------------------------------------------------------------*/
 
+	function calcDaySegs(segs, segmentContainer, modifiedEventId) {
+		var i,
+			l = segs.length,
+			seg,
+			element,
+			elements = segmentContainer.children();
 
-	function ellipsisEventsTitles(eventElem) {
-		eventElem.find(".fc-event-title").each(function() {
-			var title = $(this);
-			if (!title.is(":visible")) {return;}
+		for (i = 0; i < l; i++) {
+			seg = segs[i];
+			element = $(elements[i]);
+			daySegElementResolve(seg, element);
+			daySegElementReport(seg);
+			daySegHandlers(seg, i, modifiedEventId);
 
-			var inner = title.find(".inner");
-			var text = inner.length > 0 ? inner.text() : title.text();
+			trigger('eventAfterRender', seg.event, seg.event, element);
+		}
 
-			title.css("right", "auto");
-			title.html( htmlEscape(text) );
+		for (i = 0, l = elements.length; i < l; i++) {
+			element = elements[i];
+			if (element.className != "fc-event-info") continue;
+			var array = element.id.split('_');
+			$(element).click({ row: array[1], col: array[2], segs: segs }, showHiddenEvents);
+		}
 
-			var elem  = title.parent();
-			var elemW = elem.width();
-			var tm    = elem.find(".fc-event-time");
-			var img   = elem.find(".bullet");
-			var left  = (tm.length > 0 ? tm.width() : 0) +
-					(img.length > 0 ? img.width() : 0);
-			var right = 0;
-			var tw    = title.outerWidth(true);
-			var overlapped = left + tw >= elemW;
-
-			title
-					.css("left", left + "px")
-					.css("right", right + "px");
-
-			if (overlapped) {
-				title.html('<div class="inner">' + htmlEscape(text) + '</div>' +
-				           '<div class="dots">&#8230;</div>');
-				var bgc = elem.css("background-color");
-				title.find(".dots").css(
-						"background-color",
-						(bgc == "transparent" || bgc.indexOf("rgba") != -1)? "" : bgc);
-				var vr = t.getViewRect();
-				var to = title.offset();
-				if (to.left + tw > vr.right &&
-				    to.left + title.outerWidth(true) - tw >= vr.left) {
-					title.find(".inner").addClass("tooltip-right");
-				} else {
-					title.find(".inner").removeClass("tooltip-right");
-				}
-			}
-		});
+		lazySegBind(segmentContainer, segs, bindDaySeg);
 	}
-
 
 	function renderDaySegs(segs, modifiedEventId) {
 		var segmentContainer = getDaySegmentContainer();
-		var rowDivs;
-		var rowCnt = getRowCnt();
-		var colCnt = getColCnt();
-		var i = 0;
-		var rowI;
-		var levelI;
-		var colHeights;
-		var j;
-		var segCnt = segs.length;
-		var seg;
-		var top;
-		var k;
+
 		segmentContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
-		daySegElementResolve(segs, segmentContainer.children());
-		daySegElementReport(segs);
-		daySegHandlers(segs, segmentContainer, modifiedEventId);
-		daySegCalcHSides(segs);
-		daySegSetWidths(segs);
-		daySegCalcHeights(segs);
-		rowDivs = getRowDivs();
-		// set row heights, calculate event tops (in relation to row top)
-		for (rowI=0; rowI<rowCnt; rowI++) {
-			levelI = 0;
-			colHeights = [];
-			for (j=0; j<colCnt; j++) {colHeights[j] = 0;}
-			while (i<segCnt && (seg = segs[i]).row == rowI) {
-				// loop through segs in a row
-				top = arrayMax(colHeights.slice(seg.startCol, seg.endCol));
-				seg.top = top;
-				top += seg.outerHeight;
-				for (k=seg.startCol; k<seg.endCol; k++) {
-					colHeights[k] = top;
-				}
-				i++;
-			}
-			if (t.name != "month") {
-				rowDivs[rowI].height(arrayMax(colHeights) + (seg ? seg.outerHeight : 0));
-			}
-		}
-		daySegSetTops(segs, getRowTops(rowDivs));
-		ellipsisEventsTitles(getDaySegmentContainer());
+
+		calcDaySegs(segs, segmentContainer, modifiedEventId);
 
 		if ($.isFunction(t._afterRenderDaySegs)) {
-		    t._afterRenderDaySegs(segs);
+			t._afterRenderDaySegs(segs);
 		}
 	}
 
 
-	function renderTempDaySegs(segs, adjustRow, adjustTop) {
-		var tempContainer = $("<div/>");
-		var elements;
-		var segmentContainer = getDaySegmentContainer();
-		var i;
-		var segCnt = segs.length;
-		var element;
-		tempContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
-		elements = tempContainer.children();
-		segmentContainer.append(elements);
-		daySegElementResolve(segs, elements);
-		daySegCalcHSides(segs);
-		daySegSetWidths(segs);
-		daySegCalcHeights(segs);
-		daySegSetTops(segs, getRowTops(getRowDivs()));
-		elements = [];
-		for (i=0; i<segCnt; i++) {
+	function calcTempDaySegs(segs, segmentContainer, adjustRow, adjustTop) {
+		var i,
+			l = segs.length,
+			seg,
+		    element,
+			elements = segmentContainer.children(),
+			result = [];
+
+		for (i = 0; i < l; i++) {
+			seg = segs[i];
+			element = $(elements[i]);
+			daySegElementResolve(seg, element);
+
+			trigger('eventAfterRender', seg.event, seg.event, element);
+
 			element = segs[i].element;
 			if (element) {
 				if (segs[i].row === adjustRow) {
 					element.css('top', adjustTop);
 				}
-				elements.push(element[0]);
+				result.push(element[0]);
 			}
 		}
-		return $(elements);
+
+		return $(result);
 	}
 
+	function renderTempDaySegs(segs, adjustRow, adjustTop) {
+		var segmentContainer = getDaySegmentContainer();
+
+		segmentContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
+
+		return calcTempDaySegs(segs, segmentContainer, adjustRow, adjustTop);
+	}
 
 	function daySegHTML(segs) { // also sets seg.left and seg.outerWidth
 		var rtl = opt('isRTL');
@@ -16595,7 +16599,6 @@ function DayEventRenderer() {
 		var segCnt=segs.length;
 		var seg;
 		var event;
-		var url;
 		var classes;
 		var bounds = allDayBounds();
 		var minLeft = bounds.left;
@@ -16606,23 +16609,52 @@ function DayEventRenderer() {
 		var right;
 		var skinCss;
 		var html = '';
-		// calculate desired position/dimensions, create html
+
+		var sizeManager = ASC.CalendarSizeManager.cache;
+		var widgetHeaderHeight = 0;
+		var dayNumberElementHeight = 0;
+		var dayContentElement;
+		var dayContentElementHeight;
+		var dayContentElementVsides = sizeManager.fcMonthContentCellContentVSides;
+		var segHsides = sizeManager.fcMonthContentCellContentSegmentHSides;
+		var segHeight = sizeManager.fcMonthContentCellContentSegmentHeight + segHsides;
+		var infoBoxes = {};
+		var maxLevel = 0;
+
+		if (t.name == "month") {
+			widgetHeaderHeight = sizeManager.fcMonthContentTheadHeight;
+			dayNumberElementHeight = sizeManager.fcMonthContentCellNumberHeight;
+			dayContentElement = document.querySelector(".fc-content .fc-view-month .fc-day-content");
+			dayContentElementHeight = parseFloat(dayContentElement.style.height) + dayContentElementVsides;
+		} else if (t.name == "agendaWeek") {
+			dayContentElement = document.querySelector(".fc-content .fc-view-agendaWeek .fc-agenda-allday .fc-day-content");
+			dayContentElementHeight = sizeManager.fcMonthContentCellContentMaxHeight;
+		} else if (t.name == "agendaDay") {
+			dayContentElement = document.querySelector(".fc-content .fc-view-agendaDay .fc-agenda-allday .fc-day-content");
+			dayContentElementHeight = sizeManager.fcMonthContentCellContentMaxHeight;
+		}
+
+
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
 			event = seg.event;
-		    
+
 			var isOpened = false;
 			if (t.calendar.openEventWin) {
-			    if (event.objectId == t.calendar.openEventWin.objectId) {
-			        isOpened = true;
-			    }
-		    }
-			
-			classes = [
-					'fc-event', event.allDay ? 'fc-event-skin-day' : 'fc-event-skin', event.isTodo && event.completed ? 'fc-todo-completed' : ' ', isOpened ? event.isTodo ? 'fc-todo-open' : 'fc-event-open' : '', 'fc-event-hori'];
-			if (isEventDraggable(event)) {
-				classes.push('fc-event-draggable');
+				if (event.objectId == t.calendar.openEventWin.objectId) {
+					isOpened = true;
+				}
 			}
+
+			classes = [
+				'fc-event',
+				event.allDay ? 'fc-event-skin-day' : 'fc-event-skin',
+				event.isTodo && event.completed ? 'fc-todo-completed' : '',
+				isOpened ? event.isTodo ? 'fc-todo-open' : 'fc-event-open' : '',
+				'fc-event-hori',
+				isEventDraggable(event) ? 'fc-event-draggable' : ''
+			];
+
 			if (rtl) {
 				if (seg.isStart) {
 					classes.push('fc-corner-right');
@@ -16646,275 +16678,157 @@ function DayEventRenderer() {
 				left = seg.isStart ? colContentLeft(leftCol) : minLeft;
 				right = seg.isEnd ? colContentRight(rightCol) : maxLeft;
 			}
+
 			classes = classes.concat(event.className);
 			if (event.source) {
 				classes = classes.concat(event.source.className || []);
 			}
+
+			seg.left = left;
+			seg.outerWidth = right - left;
+			seg.startCol = leftCol;
+			seg.endCol = rightCol + 1; // needs to be exclusive
+			seg.hsides = segHsides;
+			seg.outerHeight = segHeight;
+			seg.top = (seg.outerHeight * seg.level) + (seg.row * (dayNumberElementHeight + dayContentElementHeight) + dayNumberElementHeight + sizeManager.fcMonthContentCellVBorders * seg.row) + widgetHeaderHeight;
+
+			if (maxLevel < seg.level)
+				maxLevel = seg.level;
+
 			skinCss = getSkinCss(event, opt, t.name);
-			
-			// tag <a> is not supported now
-			//url = event.url;
-			//if (url) {
-			//	html += "<a href='" + htmlEscape(url) + "'";
-			//}else{
-				html += "<div";
-			//}
-			
+
+			var styles = "";
+
+			if (seg.isStart == false && seg.isEnd == true) {
+				classes.push('fc-segm-right');
+				styles = 'width:' + (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px;';
+			} else if (seg.isStart == true && seg.isEnd == false) {
+				classes.push('fc-segm-left');
+				styles = 'width:' + (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px;';
+			} else if (seg.isStart == false && seg.isEnd == false) {
+				classes.push('fc-segm-right');
+				classes.push('fc-segm-left');
+				styles = 'width:' + (Math.max(0, seg.outerWidth - seg.hsides) - 20) + 'px;';
+			} else {
+				styles = 'width:' + Math.max(0, seg.outerWidth - seg.hsides) + 'px;';
+			}
+
+			styles += 'top:' + seg.top + 'px;';
+
+			var rowBottom;
+			if (t.name == "month") {
+				rowBottom = (seg.row + 1) * (dayNumberElementHeight + dayContentElementHeight) + widgetHeaderHeight;
+			} else if (t.name == "agendaWeek") {
+				rowBottom = dayContentElementHeight + widgetHeaderHeight;
+			} else if (t.name == "agendaDay") {
+				rowBottom = dayContentElementHeight + widgetHeaderHeight;
+			}
+
+			if (seg.top + seg.outerHeight > rowBottom - seg.outerHeight) {
+
+				styles += "display: none;";
+
+				var cellId = "cell_" + seg.row + "_" + seg.startCol;
+
+				if (!infoBoxes[cellId])
+					infoBoxes[cellId] = { seg: seg, text: "" };
+
+				var s = infoBoxes[cellId].text.match(/(\d+)/);
+				var cnt = parseInt((s ? s[1] : 0), 10) || 0;
+				infoBoxes[cellId].text = t.calendar.options.moreEventsLabel.replace("%d", cnt + 1);
+			}
+
 			html +=
-				" class='" + classes.join(' ') + "'" +
-				" style='position:absolute;z-index:7;left:"+left+"px;" + skinCss + "'" +
+				"<div class='" + classes.join(' ') + "'" +
+				" style='position:absolute;z-index:7;left:" + left + "px;" + styles + skinCss + "'" +
 				">" +
 				"<div" + (event.allDay ?
 					" class='fc-event-inner fc-event-skin-day'" :
 					" class='fc-event-inner fc-event-skin'") +
 					(skinCss ? " style='" + skinCss + "'" : '') +
 				">";
+
 			if (!event.allDay && seg.isStart) {
 				html +=
 					"<span class='fc-event-time'>" +
 						htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 						"&nbsp;" +
 					"</span>";
-			}
-			if (seg.isStart && !event.allDay) {
-				html += '<span class="bullet" style="color:' + htmlEscape(event.source ?
+
+				html += "<span class='bullet' style='color:" + htmlEscape(event.source ?
 						event.source.backgroundColor : t.calendar.options.eventBackgroundColor) +
-						';">' + htmlEscape(t.calendar.options.categories.itemBullet) + '&nbsp;</span>';
+						";'>" + htmlEscape(t.calendar.options.categories.itemBullet) + "&nbsp;</span>";
 			} else {
 				html += '<span>&nbsp;</span>';      // to prevent collapsing
 			}
+
+			var title = htmlEscape(event.title);
+
 			html +=
-				"<div class='fc-event-title" + (event.status == 2 ? " fc-event-cancelled" : "") +"'>" + htmlEscape(event.title) + "</div>" +
+				"<span class='fc-event-title" + (event.status == 2 ? " fc-event-cancelled" : "") + "' title='" + title + "'>" + title + "</span>" +
 				"</div>";
 			if (seg.isEnd && isEventResizable(event) && event.allDay) {
-			    html +=  event.isTodo == true ? "" :
+				html +=  event.isTodo == true ? "" :
 					"<div class='ui-resizable-handle ui-resizable-" + (rtl ? 'w' : 'e') + "'>" +
 					"&nbsp;&nbsp;&nbsp;" + // makes hit area a lot better for IE6/7
 					"</div>";
 			}
-			html +=
-				"</div>";//"</" + (url ? "a" : "div" ) + ">";
-			seg.left = left;
-			seg.outerWidth = right - left;
-			seg.startCol = leftCol;
-			seg.endCol = rightCol + 1; // needs to be exclusive
+			html += "</div>";
 		}
+
+		for (var name in infoBoxes) {
+			var item = infoBoxes[name];
+			html += "<div id='" + name + "' style='width:" + item.seg.outerWidth + "px;top:" + item.seg.top + "px;left:" + item.seg.left + "px;height:" + item.seg.outerHeight + "px;line-height:" + item.seg.outerHeight + "px;' class='fc-event-info'>" + item.text + "</div>";
+		}
+
+		if (t.name == "agendaWeek" || t.name == "agendaDay") {
+			dayContentElement.style.height = Math.min(segHeight * (maxLevel + 2), dayContentElementHeight) + "px";
+		}
+
 		return html;
-		
 	}
 
 
-	function daySegElementResolve(segs, elements) { // sets seg.element
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var event;
-		var element;
-		var triggerRes;
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			event = seg.event;
-			element = $(elements[i]); // faster than .eq()
-			triggerRes = trigger('eventRender', event, event, element);
-			if (triggerRes === false) {
-				element.remove();
-			}else{
-				if (triggerRes && triggerRes !== true) {
-					triggerRes = $(triggerRes)
-						.css({
-							position: 'absolute',
-							left: seg.left
-						});
-					element.replaceWith(triggerRes);
-					element = triggerRes;
-				}
-				seg.element = element;
-			}
-		}
-	}
+    function daySegElementResolve(seg, element) { // sets seg.element
+        var event = seg.event;
+        var triggerRes = trigger('eventRender', event, event, element);
+
+        if (triggerRes === false) {
+            element.remove();
+        } else {
+            if (triggerRes && triggerRes !== true) {
+                triggerRes = $(triggerRes)
+                    .css({
+                        position: 'absolute',
+                        left: seg.left
+                    });
+                element.replaceWith(triggerRes);
+                element = triggerRes;
+            }
+            seg.element = element;
+        }
+    }
 
 
-	function daySegElementReport(segs) {
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-				reportEventElement(seg.event, element);
-			}
-		}
-	}
+    function daySegElementReport(seg) {
+        if (seg.element) {
+            reportEventElement(seg.event, seg.element);
+        }
+    }
 
 
-	function daySegHandlers(segs, segmentContainer, modifiedEventId) {
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		var event;
-		// retrieve elements, run through eventRender callback, bind handlers
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-				event = seg.event;
-				if (event._id === modifiedEventId) {
-					bindDaySeg(event, element, seg);
-				}else{
-					element[0]._fci = i; // for lazySegBind
-				}
-			}
-		}
-		lazySegBind(segmentContainer, segs, bindDaySeg);
-	}
+    function daySegHandlers(seg, index, modifiedEventId) {
+        var element = seg.element;
 
-
-	function daySegCalcHSides(segs) { // also sets seg.key
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		var key, val;
-		var hsideCache = {};
-		// record event horizontal sides
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-				key = seg.key = cssKey(element[0]);
-				val = hsideCache[key];
-				if (val === undefined) {
-					val = hsideCache[key] = hsides(element, true);
-				}
-				seg.hsides = val;
-			}
-		}
-	}
-
-
-	function daySegSetWidths(segs) {
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-			    if (seg.isStart == false && seg.isEnd == true) {
-			        element[0].classList.add('fc-segm-right');
-			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px';
-			    }else if (seg.isStart == true && seg.isEnd == false) {
-			        element[0].classList.add('fc-segm-left');
-			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 10) + 'px';
-			    }else if (seg.isStart == false && seg.isEnd == false) {
-			        element[0].classList.add('fc-segm-right');
-			        element[0].classList.add('fc-segm-left');
-			        element[0].style.width = (Math.max(0, seg.outerWidth - seg.hsides) - 20) + 'px';
-			    } else {
-			        element[0].style.width = Math.max(0, seg.outerWidth - seg.hsides) + 'px';
-			    }
-			}
-		}
-	}
-
-
-	function daySegCalcHeights(segs) {
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		var key, val;
-		var vmarginCache = {};
-		// record event heights
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-				key = seg.key; // created in daySegCalcHSides
-				val = vmarginCache[key];
-				if (val === undefined) {
-					val = vmarginCache[key] = vmargins(element);
-				}
-				seg.outerHeight = element[0].scrollHeight + val;
-			}
-		}
-	}
-
-
-	function getRowDivs() {
-		var i;
-		var rowCnt = getRowCnt();
-		var rowDivs = [];
-		for (i=0; i<rowCnt; i++) {
-			rowDivs[i] = allDayRow(i)
-				.find('td:not(.fc-today):first div.fc-day-content > div'); // optimal selector?
-		}
-		return rowDivs;
-	}
-
-
-	function getRowTops(rowDivs) {
-		var i;
-		var rowCnt = rowDivs.length;
-		var tops = [];
-		if (rowCnt == 1 && t.name != "month") {
-			rowDivs[0] = rowDivs[0].closest('div.fc-day-content');
-		}
-		for (i=0; i<rowCnt; i++) {
-			tops[i] = {};
-			tops[i].top = rowDivs[i][0].offsetTop; // !!?? but this means the element needs position:relative if in a table cell!!!!
-			tops[i].bottom = tops[i].top + rowDivs[i][0].offsetHeight - 1;
-		}
-		return tops;
-	}
-
-
-	function daySegSetTops(segs, rowTops) { // also triggers eventAfterRender
-		var co = t.calendar.options;
-		var segmentContainer = getDaySegmentContainer();
-		var i;
-		var segCnt = segs.length;
-		var seg;
-		var element;
-		var event;
-		var tmpInfo = $("<div id='tmp_info' class='fc-event-info'>1</div>").appendTo(segmentContainer);
-		var infoH = tmpInfo.outerHeight();
-		tmpInfo.remove();
-		for (i=0; i<segCnt; i++) {
-			seg = segs[i];
-			element = seg.element;
-			if (element) {
-				var elTop = rowTops[seg.row].top + (seg.top||0);
-				element[0].style.top = elTop + 'px';
-				if (true) {
-					if (elTop + seg.outerHeight > rowTops[seg.row].bottom - infoH) {
-						element.hide();
-						var cellId = "cell_" + seg.row + "_" + seg.startCol;
-						var info = segmentContainer.find("#" + cellId);
-						if (info.length < 1) {
-							info = $("<div id='" + cellId + "' class='fc-event-info'/>").appendTo(segmentContainer);
-						}
-						var s = info.text().match(/(\d+)/);
-						var cnt = parseInt((s ? s[1] : 0), 10) || 0;
-						info
-								.text(co.moreEventsLabel.replace("%d", cnt + 1))
-								.css("left", (seg.left+ Math.round(seg.outerWidth/(2*(seg.endCol-seg.startCol)) - info.width()/2)-2/*parent's left padding*/) + "px")
-								.css("bottom", 0 - rowTops[seg.row].bottom + "px")
-								.unbind()
-								.click({row: seg.row, col: seg.startCol, segs: segs}, showHiddenEvents);
-					} else {
-						element.show();
-					}
-				}
-				event = seg.event;
-				trigger('eventAfterRender', event, event, element);
-			}
-		}
-	}
+        if (element) {
+            var event = seg.event;
+            if (event._id === modifiedEventId) {
+                bindDaySeg(event, element, seg);
+            } else {
+                element[0]._fci = index; // for lazySegBind
+            }
+        }
+    }
 
 
 	function showHiddenEvents(evData) {
@@ -16925,11 +16839,24 @@ function DayEventRenderer() {
 		
 		if (popup.length < 1) {
 			popup = $("<div id='cell_popup' class='fc-event-popup'/>");
-			popup.mouseleave(function() {
-				if (!t.calendar.isEditingEvent()){
-					$(this).hide();}
-			});
-			popup.appendTo(parent);
+            $(document).mouseup(function (e) {
+                if (popup.has(e.target).length === 0 && $(e.target)[0].id != popup[0].id) {
+                    if (!t.calendar.isEditingEvent()) {
+                        popup.hide();
+                    }
+                }
+            });
+            document.onkeydown = function (e) {
+                e = e || window.event;
+                if (e.keyCode === 27) {
+                    if (popup.has(e.target).length === 0 && $(e.target)[0].id !== popup[0].id) {
+                        if (!t.calendar.isEditingEvent()) {
+                            popup.hide();
+                        }
+                    }
+                }
+            };
+            popup.appendTo(parent);
 		}
 		
 		var cb = getCellBounds(evData.data.row, evData.data.col);
@@ -16966,7 +16893,6 @@ function DayEventRenderer() {
 			}
 		}
 		popup.find(".ui-resizable-e").remove();
-		ellipsisEventsTitles(popup);
 
 		var h1 = Math.floor(ch * hratio);
 		var h2 = popup.height();
@@ -16983,6 +16909,7 @@ function DayEventRenderer() {
 		var ph = popup.outerHeight(true);
 		if (ph > 190) {
 			popup.css("overflow-y", "auto").css("overflow-x", "hidden").css("max-height", "190px");
+			ph = 190;
 		}
 		else {
 			popup.css("overflow-y", "hidden");

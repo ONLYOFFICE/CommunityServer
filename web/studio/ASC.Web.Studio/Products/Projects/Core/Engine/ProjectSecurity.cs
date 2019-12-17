@@ -743,6 +743,11 @@ namespace ASC.Projects.Engine
             return Scope.Resolve<ProjectSecurityTask>().CanCreateTimeSpend(task);
         }
 
+        public bool CanEditTemplate(Template template)
+        {
+            return CurrentUserAdministrator || template.CreateBy.Equals(SecurityContext.CurrentAccount.ID);
+        }
+
         public bool CanGoToFeed<T>(T entity, Guid userId) where T : DomainObject<int>
         {
             return Scope.Resolve<ProjectSecurityTemplate<T>>().CanGoToFeed(entity, userId);

@@ -190,41 +190,43 @@ namespace ASC.Files.Thirdparty.ProviderDao
             {
                 var fromFileShareRecords = securityDao.GetPureShareRecords(fromFile).Where(x => x.EntryType == FileEntryType.File);
                 var fromFileNewTags = tagDao.GetNewTags(Guid.Empty, fromFile).ToList();
+                var fromFileLockTag = tagDao.GetTags(fromFile.ID, FileEntryType.File, TagType.Locked).FirstOrDefault();
 
-                var toFile = toFileDao.GetFile(toSelector.ConvertId(toFolderId), fromFile.Title);
-
-                if (toFile == null || deleteSourceFile)
-                {
-                    fromFile.ID = fromSelector.ConvertId(fromFile.ID);
-
-                    var mustConvert = !string.IsNullOrEmpty(fromFile.ConvertedType);
-                    using (var fromFileStream = mustConvert
-                        ? FileConverter.Exec(fromFile)
-                        : fromFileDao.GetFileStream(fromFile))
+                var toFile = new File
                     {
-                        toFile = toFileDao.SaveFile(new File
-                        {
-                            Title = fromFile.Title,
-                            FolderID = toSelector.ConvertId(toFolderId),
-                            ContentLength = fromFile.ContentLength,
-                        }, fromFileStream);
-                    }
+                        Title = fromFile.Title,
+                        Encrypted = fromFile.Encrypted,
+                        FolderID = toSelector.ConvertId(toFolderId)
+                    };
+
+                fromFile.ID = fromSelector.ConvertId(fromFile.ID);
+
+                var mustConvert = !string.IsNullOrEmpty(fromFile.ConvertedType);
+                using (var fromFileStream = mustConvert
+                                                ? FileConverter.Exec(fromFile)
+                                                : fromFileDao.GetFileStream(fromFile))
+                {
+                    toFile.ContentLength = fromFileStream.CanSeek ? fromFileStream.Length : fromFile.ContentLength;
+                    toFile = toFileDao.SaveFile(toFile, fromFileStream);
                 }
 
                 if (deleteSourceFile)
                 {
                     if (fromFileShareRecords.Any())
                         fromFileShareRecords.ToList().ForEach(x =>
-                        {
-                            x.EntryId = toFile.ID;
-                            securityDao.SetShare(x);
-                        });
+                            {
+                                x.EntryId = toFile.ID;
+                                securityDao.SetShare(x);
+                            });
 
-                    if (fromFileNewTags.Any())
+                    var fromFileTags = fromFileNewTags;
+                    if (fromFileLockTag != null) fromFileTags.Add(fromFileLockTag);
+
+                    if (fromFileTags.Any())
                     {
-                        fromFileNewTags.ForEach(x => x.EntryId = toFile.ID);
+                        fromFileTags.ForEach(x => x.EntryId = toFile.ID);
 
-                        tagDao.SaveTags(fromFileNewTags);
+                        tagDao.SaveTags(fromFileTags);
                     }
 
                     //Delete source file if needed

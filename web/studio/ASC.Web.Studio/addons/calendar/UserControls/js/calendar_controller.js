@@ -52,7 +52,7 @@ ASC.Api.TypeConverter = new function() {
         var min = date.getMinutes();
 
         var str = date.getFullYear() + '-' + (m > 9 ? m : ('0' + m)) + '-' + (d > 9 ? d : ('0' + d))
-                    + 'T' + (h > 9 ? h : ('0' + h)) + '-' + (min > 9 ? min : ('0' + min)) + "-00.000Z";
+            + 'T' + (h > 9 ? h : ('0' + h)) + '-' + (min > 9 ? min : ('0' + min)) + "-00.000Z";
 
         return str;
     }
@@ -65,6 +65,114 @@ ASC.Api.TypeConverter = new function() {
         return new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2]);
     }
 }
+
+ASC.CalendarSizeManager = new function() {
+
+    var cache = {
+        topPanelHeight: 48,
+        fcHeaderHeight: 36,
+        fcMonthContentTheadHeight: 18,
+
+        fcMonthContentCellVPaddings: 0,
+        fcMonthContentCellVBorders: 2,
+        fcMonthContentCellVMargins: 0,
+        fcMonthContentCellVSides: 2,
+
+        fcMonthContentCellNumberHeight: 22,
+        fcMonthContentCellNumberVPaddings: 3,
+        fcMonthContentCellNumberVBorders: 0,
+        fcMonthContentCellNumberVMargins: 0,
+        fcMonthContentCellNumberVSides: 3,
+
+        fcMonthContentCellContentMaxHeight: 150,
+        fcMonthContentCellContentVPaddings: 3,
+        fcMonthContentCellContentVBorders: 0,
+        fcMonthContentCellContentVMargins: 0,
+        fcMonthContentCellContentVSides: 3,
+
+        fcMonthContentCellContentSegmentHeight: 18,
+        fcMonthContentCellContentSegmentVPaddings: 0,
+        fcMonthContentCellContentSegmentVBorders: 2,
+        fcMonthContentCellContentSegmentVMargins: 3,
+        fcMonthContentCellContentSegmentVSides: 5,
+        fcMonthContentCellContentSegmentHPaddings: 0,
+        fcMonthContentCellContentSegmentHBorders: 0,
+        fcMonthContentCellContentSegmentHMargins: 2,
+        fcMonthContentCellContentSegmentHSides: 2,
+    };
+
+    function vpadding(styles) {
+        return (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
+    }
+
+    function vborders(styles) {
+        return (parseFloat(styles.borderTopWidth) || 0) + (parseFloat(styles.borderBottomWidth) || 0);
+    }
+
+    function vmargins(styles) {
+        return (parseFloat(styles.marginTop) || 0) + (parseFloat(styles.marginBottom) || 0);
+    }
+
+    function hpadding(styles) {
+        return (parseFloat(styles.paddingLeft) || 0) + (parseFloat(styles.paddingRight) || 0);
+    }
+
+    function hborders(styles) {
+        return (parseFloat(styles.borderLeftWidth) || 0) + (parseFloat(styles.borderRightWidth) || 0);
+    }
+
+    function hmargins(styles) {
+        return (parseFloat(styles.marginLeft) || 0) + (parseFloat(styles.marginRight) || 0);
+    }
+
+    function refresh() {
+        cache = {};
+
+        cache.topPanelHeight = document.querySelector("#studioPageContent .studio-top-panel").clientHeight;
+        cache.fcHeaderHeight = document.querySelector(".fc-header-outer").clientHeight;
+        cache.fcMonthContentTheadHeight = document.querySelector(".fc-border-separate thead").clientHeight;
+
+        var cell = document.querySelector(".fc-border-separate tbody td.fc-widget-content.fc-day0");
+        var cellStyles = window.getComputedStyle(cell);
+        cache.fcMonthContentCellVPaddings = vpadding(cellStyles);
+        cache.fcMonthContentCellVBorders = vborders(cellStyles);
+        cache.fcMonthContentCellVMargins = vmargins(cellStyles);
+        cache.fcMonthContentCellVSides = cache.fcMonthContentCellVPaddings + cache.fcMonthContentCellVBorders + cache.fcMonthContentCellVMargins;
+
+        var cellNumber = cell.querySelector(".fc-day-number");
+        cache.fcMonthContentCellNumberHeight = cell.clientHeight;
+        var cellNumberStyles = window.getComputedStyle(cellNumber);
+        cache.fcMonthContentCellNumberVPaddings = vpadding(cellNumberStyles);
+        cache.fcMonthContentCellNumberVBorders = vborders(cellNumberStyles);
+        cache.fcMonthContentCellNumberVMargins = vmargins(cellNumberStyles);
+        cache.fcMonthContentCellNumberVSides = cache.fcMonthContentCellNumberVPaddings + cache.fcMonthContentCellNumberVBorders + cache.fcMonthContentCellNumberVMargins;
+
+        var cellContent = cell.querySelector(".fc-day-number");
+        cache.fcMonthContentCellContentMaxHeight = 150;
+        var cellContentStyles = window.getComputedStyle(cellContent);
+        cache.fcMonthContentCellContentVPaddings = vpadding(cellContentStyles);
+        cache.fcMonthContentCellContentVBorders = vborders(cellContentStyles);
+        cache.fcMonthContentCellContentVMargins = vmargins(cellContentStyles);
+        cache.fcMonthContentCellContentVSides = cache.fcMonthContentCellContentVPaddings + cache.fcMonthContentCellContentVBorders + cache.fcMonthContentCellContentVMargins;
+
+        var segment = document.querySelector(".fc-event-skin-day");
+        cache.fcMonthContentCellContentSegmentHeight = segment.clientHeight;
+        var segmentStyles = window.getComputedStyle(segment);
+        cache.fcMonthContentCellContentSegmentVPaddings = vpadding(segmentStyles);
+        cache.fcMonthContentCellContentSegmentVBorders = vborders(segmentStyles);
+        cache.fcMonthContentCellContentSegmentVMargins = vmargins(segmentStyles);
+        cache.fcMonthContentCellContentSegmentVSides = cache.fcMonthContentCellContentSegmentVPaddings + cache.fcMonthContentCellContentSegmentVBorders + cache.fcMonthContentCellContentSegmentVMargins;
+        cache.fcMonthContentCellContentSegmentHPaddings = hpadding(segmentStyles);
+        cache.fcMonthContentCellContentSegmentHBorders = hborders(segmentStyles);
+        cache.fcMonthContentCellContentSegmentHMargins = hmargins(segmentStyles);
+        cache.fcMonthContentCellContentSegmentHSides = cache.fcMonthContentCellContentSegmentHPaddings + cache.fcMonthContentCellContentSegmentHBorders + cache.fcMonthContentCellContentSegmentHMargins;
+    }
+
+    return {
+        refresh: refresh,
+        cache: cache
+    };
+};
 
 ASC.CalendarController = new function() {
 
@@ -262,7 +370,6 @@ ASC.CalendarController = new function() {
         if (window.moment) {
             window.moment.locale(ASC.Resources.Master.TwoLetterISOLanguageName);
         }
-        sharingManager = new SharingSettingsManager(undefined, null);
 
         jq(document).ajaxStart(function() {
             if (!ASC.CalendarController.Search)
@@ -359,8 +466,8 @@ ASC.CalendarController = new function() {
             height: calHeight,
 
             onHeightChange: function() {
-                var h = jq(window).height();
-                this.height = h - jq("#studioPageContent .studio-top-panel").outerHeight(true) - jq(".fc-header-outer").outerHeight(true);
+                var sizeManager = ASC.CalendarSizeManager.cache;
+                this.height = window.innerHeight - sizeManager.topPanelHeight - sizeManager.fcHeaderHeight;
             },
 
             characterRegExp: ASC.CalendarController.characterRegExp,
@@ -390,7 +497,10 @@ ASC.CalendarController = new function() {
         ASC.Mail.DefaultAccount = null;
         ASC.Mail.Initialized = false;
 
-        if (Teamlab.profile.isVisitor) return;
+        if (Teamlab.profile.isVisitor) {
+            ASC.Mail.Enabled = false;
+            return;
+        }
 
         window.Teamlab.getAccounts({}, {
             success: function(params, res) {
@@ -1081,16 +1191,12 @@ ASC.CalendarController = new function() {
         callback({ result: false });
     }
 
-
-    this.EditPermissions = function(param, callback) {
-        callbackFunc = callback;
-        oldPermissions = param.permissions;
-        //oldPermissions = clone(param.permissions);
+    var wrapperShowDialog = function (param) {
         if (param.permissions.data == undefined) {
-
-            jq.ajax({ type: 'get',
+            jq.ajax({
+                type: 'get',
                 url: _controller.ApiUrl + "/sharing.json",
-                complete: function(d) {
+                complete: function (d) {
                     var data = jq.evalJSON(d.responseText);
                     if (data.status === 0) {
                         sharingManager.OnSave = SetAccessForCalendar;
@@ -1113,6 +1219,19 @@ ASC.CalendarController = new function() {
             //shareUserSelector.HideUser(ASC.Resources.Master.ApiResponsesMyProfile.response.id, true);
             return;
         }
+    }
+
+    this.EditPermissions = function (param, callback) {
+        if (!sharingManager)
+            sharingManager = new SharingSettingsManager(undefined, null);
+
+        callbackFunc = callback;
+        oldPermissions = param.permissions;
+        //oldPermissions = clone(param.permissions);
+
+        setTimeout(function () {
+            wrapperShowDialog(param);
+        }, 0);
     }
     
     this.GetPermissions = function (param, callback) {

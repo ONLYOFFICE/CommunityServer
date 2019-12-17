@@ -12,11 +12,11 @@
             <div class="clearFix">
                 <div class="clearFix">
                     <input id="cookieSettingsOff" type="radio" name="cookieSettingsSwitch" <%= LifeTime > 0 ? "" : "checked=\"checked\"" %> />
-                    <label class="header-base-small" for="cookieSettingsOff"><%= Resource.IPSecurityDisable %></label>
+                    <label for="cookieSettingsOff"><%= Resource.IPSecurityDisable %></label>
                 </div>
                 <div class="clearFix">
                     <input id="cookieSettingsOn" type="radio" name="cookieSettingsSwitch" <%= LifeTime > 0 ? "checked=\"checked\"" : "" %> />
-                    <label class="header-base-small" for="cookieSettingsOn"><%= Resource.IPSecurityEnable %></label>
+                    <label for="cookieSettingsOn"><%= Resource.IPSecurityEnable %></label>
                 </div>
             </div>
 

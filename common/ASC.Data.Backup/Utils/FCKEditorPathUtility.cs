@@ -40,7 +40,7 @@ namespace ASC.Data.Backup.Utils
             {
                 return content;
             }
-            var tenantPath = "/" + TennantPath.CreatePath(tenant.ToString()) + "/";
+            var tenantPath = "/" + TenantPath.CreatePath(tenant.ToString()) + "/";
             return regex.Replace(content, (m) => m.Success ? m.Groups["start"] + tenantPath : string.Empty);
         }
     }

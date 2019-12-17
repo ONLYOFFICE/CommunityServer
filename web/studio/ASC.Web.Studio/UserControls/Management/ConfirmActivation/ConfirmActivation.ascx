@@ -14,7 +14,7 @@
         <% if (isPersonal){ %>
         <label class="default-personal-popup_label"><%= Resource.Password %></label>
         <% } %>
-        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" :Resource.InvitePassword %>" value="" name="pwdInput" class="pwdLoginTextbox" maxlength="<%= PasswordSettings.MaxLength %>" autofocus/>
+        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" :Resource.InvitePassword %>" value="" name="pwdInput" class="pwdLoginTextbox" data-maxlength="<%= PasswordSettings.MaxLength %>" autofocus/>
     </div>
     <asp:Button runat="server" ID="ButtonEmailAndPasswordOK"
         CssClass="button blue big" OnClick="LoginToPortal" />

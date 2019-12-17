@@ -362,6 +362,7 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         protected String GetAvailableTitle(String requestTitle, string parentFolderId, Func<string, string, bool> isExist)
         {
+            requestTitle = new Regex("\\.$").Replace(requestTitle, "_");
             if (!isExist(requestTitle, parentFolderId)) return requestTitle;
 
             var re = new Regex(@"( \(((?<index>[0-9])+)\)(\.[^\.]*)?)$");

@@ -38,7 +38,6 @@ ASC.Projects.projectNavPanel = (function() {
 
     var currentProjectId,
         isInit,
-        $followLink,
         teamlab,
         loadingBanner,
         resources,
@@ -126,30 +125,15 @@ ASC.Projects.projectNavPanel = (function() {
             null,
             function() { return !jq.browser.mobile && project.status === 0 && project.security.canReadTasks && project.security.canReadMilestones; });
 
-        var isInTeam = ASC.Projects.Master.Team.some(function(item) {
-            return item.id === Teamlab.profile.id;
-        });
-
         var data = {
             icon: "projects",
             title: project.title,
             private: project.isPrivate
         };
 
-        if (!Teamlab.profile.isOutsider && !isInTeam) {
-            data.subscribed = project.isFollow;
-            data.subscribedTitle = project.isFollow ? commonResource.Unfollow : commonResource.Follow;
-        }
-
         ASC.Projects.InfoContainer.init(data, showEntityMenu, [overViewTab, taskTab, milestoneTab, messageTab, timeTrakingTab, docsTab, contactsTab, teamTab, ganttChartTab]);
 
         $projectInfoContainer = jq(projectInfoContainerClass);
-
-        $followLink = jq("#subscribe");
-        $followLink.click(function () {
-            teamlab.subscribeProject({ followed: !project.isFollow }, currentProjectId, { success: onSubscribeProject });
-            return false;
-        });
 
         jq("#projectTabs").removeClass("display-none");
         jq("#CommonListContainer").show();
@@ -167,6 +151,14 @@ ASC.Projects.projectNavPanel = (function() {
             menuItems.push(new ASC.Projects.ActionMenuItem("pa_delete", commonResource.Delete, paDeleteHandler));
         }
 
+        var isInTeam = ASC.Projects.Master.Team.some(function (item) {
+            return item.id === Teamlab.profile.id;
+        });
+
+        if (!Teamlab.profile.isOutsider && !isInTeam) {
+            menuItems.push(new ASC.Projects.ActionMenuItem("pa_follow", project.isFollow ? commonResource.Unfollow : commonResource.Follow, paSubscribeHandler));
+        }
+
         return { menuItems: menuItems };
     }
 
@@ -177,9 +169,13 @@ ASC.Projects.projectNavPanel = (function() {
     function paDeleteHandler() {
         ASC.Projects.Base.showCommonPopup("projectRemoveWarning",
             function() {
-                teamlab.removePrjProject({}, project.id, { success: onDeleteProject, error: onDeleteProjectError });
+                teamlab.removePrjProject(project.id, { success: onDeleteProject, error: onDeleteProjectError });
             });
     };
+
+    function paSubscribeHandler() {
+        teamlab.subscribeProject({ followed: !project.isFollow }, currentProjectId, { success: onSubscribeProject });
+    }
 
     function initTabs() {
         var events = teamlab.events;
@@ -295,23 +291,13 @@ ASC.Projects.projectNavPanel = (function() {
     }
 
     function onSubscribeProject(params) {
-        var unsubscribedClass = "unsubscribed",
-            subscribedClass = "subscribed",
-            titleAttr = "title";
-
-        if (params.followed) {
-            $followLink.attr(titleAttr, commonResource.Unfollow);
-            $followLink.removeClass(unsubscribedClass).addClass(subscribedClass);
-        } else {
-            $followLink.attr(titleAttr, commonResource.Follow);
-            $followLink.removeClass(subscribedClass).addClass(unsubscribedClass);
-        }
         project.isFollow = params.followed;
     };
 
 
     function onDeleteProject() {
-        document.location.replace("projects.aspx");
+        jq.unblockUI();
+        ASC.Projects.Common.goToHrefWithoutReload("/products/projects/");
     };
 
     function onDeleteProjectError() {

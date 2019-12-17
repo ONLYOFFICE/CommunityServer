@@ -147,7 +147,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 profileUrl = CommonLinkUtility.ToAbsolute(CommonLinkUtility.GetUserProfile(userInfo.ID.ToString(), false)),
                 groups = CoreContext.UserManager.GetUserGroupsId(userInfo.ID),
                 isPending = userInfo.ActivationStatus == EmployeeActivationStatus.Pending,
-                isActivated = userInfo.ActivationStatus == EmployeeActivationStatus.Activated,
+                isActivated = userInfo.ActivationStatus.HasFlag(EmployeeActivationStatus.Activated),
                 isVisitor = userInfo.IsVisitor(),
                 isOutsider = userInfo.IsOutsider(),
                 isAdmin = userInfo.IsAdmin(),

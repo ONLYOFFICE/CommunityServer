@@ -151,6 +151,12 @@ namespace ASC.Mail.Core
             get { return _draftEngine ?? (_draftEngine = new DraftEngine(Tenant, UserId, log: Log)); }
         }
 
+        private TemplateEngine _templateEngine;
+        public TemplateEngine TemplateEngine
+        {
+            get { return _templateEngine ?? (_templateEngine = new TemplateEngine(Tenant, UserId, log: Log)); }
+        }
+
         private ChainEngine _chainEngine;
         public ChainEngine ChainEngine
         {

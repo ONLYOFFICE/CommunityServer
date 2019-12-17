@@ -26,6 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Users;
@@ -36,6 +37,8 @@ namespace ASC.Web.Core.Users
     [DataContract]
     public class DisplayUserSettings : BaseSettings<DisplayUserSettings>
     {
+        private static readonly string RemovedProfileName = WebConfigurationManager.AppSettings["web.removed-profile-name"] ?? "profile removed";
+
         public override Guid ID
         {
             get { return new Guid("2EF59652-E1A7-4814-BF71-FEB990149428"); }
@@ -71,7 +74,7 @@ namespace ASC.Web.Core.Users
             }
             if (!userInfo.ID.Equals(Guid.Empty) && !CoreContext.UserManager.UserExists(userInfo.ID))
             {
-                return "profile removed";
+                return RemovedProfileName;
             }
             var result = UserFormatter.GetUserName(userInfo, format);
             return withHtmlEncode ? result.HtmlEncode() : result;

@@ -59,7 +59,7 @@ ASC.Projects.Discussions = (function($) {
                 baseEmptyScreen: {
                     img: "discussions",
                     header: messageResource.DiscussionNotFound_Header,
-                    description: messageResource.DiscussionNotFound_Describe,
+                    description: teamlab.profile.isVisitor ? messageResource.DiscussionNotFound_DescribeVisitor : messageResource.DiscussionNotFound_Describe,
                     button: {
                         title: messageResource.StartFirstDiscussion,
                         onclick: function () {
@@ -188,15 +188,12 @@ ASC.Projects.Discussions = (function($) {
 
 ASC.Projects.DiscussionDetails = (function ($) {
     var projectFolderId, $fileContainer, projectTeam, currentUserId, isCommentEdit = false,
-        marginTopClass = "marginTop", itemDisplayListClass = ".items-display-list_i", grayClass = "gray",
-        subscribedAttrClass = "subscribed", unsubscribedAttrClass = "unsubscribed";
+        marginTopClass = "marginTop", itemDisplayListClass = ".items-display-list_i", grayClass = "gray";
 
     var discussionId, projId, discussion, clickEventName = "click";
     var attachments, teamlab, loadingBanner, common, subscribers;
-    var $subscribeButton,
-        $commentsContainer,
+    var $commentsContainer,
         $discussionCommentsContainer,
-        $mainCommentsContainer,
         $manageParticipantsSelector,
         $discussionParticipantsContainer,
         $discussionParticipantsTable,
@@ -220,6 +217,8 @@ ASC.Projects.DiscussionDetails = (function ($) {
         projectTeam = ASC.Projects.Master.Team;
 
         showLoading();
+        ASC.Projects.Base.clearTables();
+        jq("#filterContainer").hide();
         teamlab.getPrjDiscussion({}, discussionId,
         {
             success: onGetDiscussion,
@@ -242,10 +241,26 @@ ASC.Projects.DiscussionDetails = (function ($) {
 
         initCommentsControl();
 
-        var hash = ASC.Controls.AnchorController.getAnchor();
+        var hash = location.hash.substring(1);
         var isAddCommentHash = hash === ASC.Projects.Discussions.addCommentHash;
 
         var messageResource = resources.MessageResource;
+
+        var statuses = [
+            {
+                title: messageResource.OpenDiscussion,
+                id: 0,
+                handler: daStatusHandler
+            },
+            {
+                title: messageResource.ArchiveDiscussion,
+                id: 1,
+                handler: daStatusHandler
+            }
+        ];
+
+        var currentStatusId = discussion.status;
+        var currentStatus = statuses.find(function (item) { return item.id === currentStatusId });
 
         ASC.Projects.DescriptionTab
             .init()
@@ -253,9 +268,8 @@ ASC.Projects.DiscussionDetails = (function ($) {
             .push(messageResource.AuthorTitle, discussion.createdBy.displayName)
             .push(resources.ProjectsFilterResource.ByCreateDate, discussion.displayDateTimeCrtdate)
             .push(messageResource.Description, discussion.text)
-            .pushStatus(messageResource.OpenDiscussion, 0, daStatusHandler)
-            .pushStatus(messageResource.ArchiveDiscussion, 1, daStatusHandler)
-            .setCurrentStatus(discussion.status)
+            .setStatuses(statuses)
+            .setCurrentStatus(currentStatus)
             .setStatusRight(discussion.canEdit)
             .tmpl();
 
@@ -287,14 +301,9 @@ ASC.Projects.DiscussionDetails = (function ($) {
             jq(".tab"),
             '#');
 
-        var isSubscibed = discussion.subscribers.some(function (item) { return item.id === teamlab.profile.id; });
-
         var data = {
-            uplink: ASC.Projects.Common.UpLink || "messages.aspx?prjID=" + discussion.projectId,
             icon: "messages",
-            title: discussion.title,
-            subscribed: isSubscibed,
-            subscribedTitle: isSubscibed ? resources.CommonResource.UnSubscribeOnNewComment : resources.CommonResource.SubscribeOnNewComment
+            title: discussion.title
         };
 
         var tabs = [];
@@ -305,12 +314,6 @@ ASC.Projects.DiscussionDetails = (function ($) {
         }
 
         ASC.Projects.InfoContainer.init(data, showEntityMenu, tabs);
-
-        $subscribeButton = $('#subscribe');
-
-        $subscribeButton.on(clickEventName, function () {
-            teamlab.subscribeToPrjDiscussion({}, discussionId, { success: onChangeDiscussionParticipants, error: onDiscussionError });
-        });
 
         jq("#CommonListContainer").show();
 
@@ -350,7 +353,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         $discussionParticipantsContainer = jq("#discussionParticipantsContainer");
         $manageParticipantsSelector = $("#manageParticipantsSelector");
         $discussionParticipantsTable = $("#discussionParticipantsTable");
-
+        
         if (discussion.status === 1) {
             $manageParticipantsSelector.hide();
         }
@@ -485,7 +488,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         }
         $commentsContainer.show();
 
-        var hash = ASC.Controls.AnchorController.getAnchor();
+        var hash = location.hash.substring(1);
         if (hash === ASC.Projects.Discussions.addCommentHash && CommentsManagerObj) {
             ckeditorConnector.load(CommentsManagerObj.AddNewComment);
         }
@@ -527,6 +530,9 @@ ASC.Projects.DiscussionDetails = (function ($) {
             menuItems.push(new ActionMenuItem("da_createTask", resources.MessageResource.CreateTaskOnDiscussion, daCreateTaskHandler));
         }
 
+        var isSubscribed = subscribers.some(function (item) { return item.id === teamlab.profile.id; });
+        menuItems.push(new ActionMenuItem("da_follow", isSubscribed ? resources.CommonResource.UnSubscribeOnNewComment : resources.CommonResource.SubscribeOnNewComment, daSubscribeHandler));
+
         return { menuItems: menuItems };
     }
 
@@ -565,6 +571,10 @@ ASC.Projects.DiscussionDetails = (function ($) {
             });
     };
 
+    function daSubscribeHandler() {
+        teamlab.subscribeToPrjDiscussion({}, discussionId, { success: onChangeDiscussionParticipants, error: onDiscussionError });
+    }
+
     var onDeleteComment = function () {
         discussion.commentsCount--;
         commentsTab.rewrite();
@@ -589,10 +599,8 @@ ASC.Projects.DiscussionDetails = (function ($) {
         var isSubscibed = subscribers.some(function (item) { return item.id === teamlab.profile.id; });
 
         if (!isSubscibed) {
-            $subscribeButton.removeClass(subscribedAttrClass).addClass(unsubscribedAttrClass);
             $manageParticipantsSelector.useradvancedSelector("disable", [currentUserId]);
         } else {
-            $subscribeButton.removeClass(unsubscribedAttrClass).addClass(subscribedAttrClass);
             $manageParticipantsSelector.useradvancedSelector("select", [currentUserId]);
         }
         subscribersTab.rewrite();

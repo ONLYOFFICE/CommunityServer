@@ -67,16 +67,6 @@ namespace ASC.Web.Studio.Utility
             get { return CoreContext.Configuration.Standalone && String.IsNullOrEmpty(SetupInfo.ControlPanelUrl); }
         }
 
-        public static bool Hosted
-        {
-            get
-            {
-                return !CoreContext.Configuration.Standalone
-                       && !CoreContext.Configuration.Personal
-                       && !SetupInfo.IsVisibleSettings<TariffSettings>();
-            }
-        }
-
         public static bool EnterprisePaid
         {
             get { return Enterprise && GetTenantQuota().Id != Tenant.DEFAULT_TENANT && GetCurrentTariff().State < TariffState.NotPaid; }
@@ -157,13 +147,6 @@ namespace ASC.Web.Studio.Utility
                                          && q.MaxTotalSize > usedSpace
                                          && !q.Free
                                          && !q.Trial);
-        }
-
-        public static void TrialRequest()
-        {
-            CoreContext.PaymentManager.SendTrialRequest(
-                TenantProvider.CurrentTenantID,
-                CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID));
         }
 
         public static int GetRemainingCountUsers()

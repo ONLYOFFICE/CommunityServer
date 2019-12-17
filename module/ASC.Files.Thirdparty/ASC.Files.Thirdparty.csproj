@@ -33,7 +33,7 @@
       <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.450\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Box.V2">
-      <HintPath>..\..\packages\Box.V2.3.7.0\lib\net45\Box.V2.dll</HintPath>
+      <HintPath>..\..\packages\Box.V2.3.11.0\lib\net45\Box.V2.dll</HintPath>
     </Reference>
     <Reference Include="Dropbox.Api">
       <HintPath>..\..\packages\Dropbox.Api.4.8.0\lib\net45\Dropbox.Api.dll</HintPath>

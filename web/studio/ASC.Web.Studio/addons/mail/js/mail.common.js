@@ -243,7 +243,6 @@
         });
     };
 
-
 })(jQuery);
 
 // Google Analytics const

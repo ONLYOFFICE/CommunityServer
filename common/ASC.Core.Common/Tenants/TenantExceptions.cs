@@ -34,9 +34,19 @@ namespace ASC.Core.Tenants
     [Serializable]
     public class TenantTooShortException : Exception
     {
+        public int MinLength = 0;
+        public int MaxLength = 0;
+
         public TenantTooShortException(string message)
             : base(message)
         {
+        }
+
+        public TenantTooShortException(string message, int minLength, int maxLength)
+            : base(message)
+        {
+            MinLength = minLength;
+            MaxLength = maxLength;
         }
 
         protected TenantTooShortException(SerializationInfo info, StreamingContext context)

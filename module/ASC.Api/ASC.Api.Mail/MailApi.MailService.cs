@@ -71,7 +71,9 @@ namespace ASC.Api.Mail
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, MailServiceHelper.DefaultDatabase, user, password);
 
-                var data = GetAuthData(connectionString, ip);
+                var token = GetToken(connectionString);
+
+                var hostname = GetHostname(connectionString, ip);
 
                 return new
                 {
@@ -81,8 +83,8 @@ namespace ASC.Api.Mail
                     sqlip,
                     user,
                     password,
-                    token = data[0],
-                    host = data[1]
+                    token,
+                    host = hostname
                 };
             }
             catch (Exception exception)
@@ -171,9 +173,11 @@ namespace ASC.Api.Mail
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
 
-                var data = GetAuthData(connectionString, ip);
+                var token = GetToken(connectionString);
 
-                Save(connectionString, ip, data[0], data[1]);
+                var hostname = GetHostname(connectionString, ip);
+
+                Save(connectionString, ip, token, hostname);
 
                 return new
                 {
@@ -229,9 +233,11 @@ namespace ASC.Api.Mail
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, mysqlIp, MailServiceHelper.DefaultDatabase, mysqlUser, mysqlPassword);
 
-                var data = GetAuthData(connectionString, mailIp);
+                var token = GetToken(connectionString);
 
-                Save(connectionString, mailIp, data[0], data[1]);
+                var hostname = GetHostname(connectionString, mailIp);
+
+                Save(connectionString, mailIp, token, hostname);
 
                 return new
                 {
@@ -279,14 +285,24 @@ namespace ASC.Api.Mail
             }
         }
 
-        private static string[] GetAuthData(string connectionString, string ip)
+        private static string GetToken(string connectionString)
         {
-            var data = MailServiceHelper.GetDataFromExternalDatabase(MailServiceHelper.MailServiceDbId, connectionString, ip);
+            var token = MailServiceHelper.GetTokenFromExternalDatabase(MailServiceHelper.MailServiceDbId, connectionString);
 
-            if (data == null || data.Length < 2 || string.IsNullOrEmpty(data[0]) || string.IsNullOrEmpty(data[1]))
-                throw new Exception(Resource.MailServiceCouldNotGetErrorMsg);
+            if (string.IsNullOrEmpty(token))
+                throw new Exception(Resource.MailServiceCouldNotGetTokenErrorMsg);
 
-            return data;
+            return token;
+        }
+
+        private static string GetHostname(string connectionString, string ip)
+        {
+            var hostname = MailServiceHelper.GetHostnameFromExternalDatabase(MailServiceHelper.MailServiceDbId, connectionString, ip);
+
+            if (string.IsNullOrEmpty(hostname))
+                throw new Exception(Resource.MailServiceCouldNotGetHostnameErrorMsg);
+
+            return hostname;
         }
 
         private static void Save(string connectionString, string ip, string token, string host)
@@ -304,7 +320,7 @@ namespace ASC.Api.Mail
                 }
             };
 
-            MailServiceHelper.UpdateDataFromInternalDatabase(host, mailServer);
+            MailServiceHelper.UpdateInternalDatabase(host, mailServer);
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.MailServiceSettingsUpdated);
         }

@@ -251,7 +251,7 @@ namespace ASC.Web.Studio
             {
                 if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
                 {
-                    Response.StatusCode = (int) HttpStatusCode.NotFound;
+                    Response.StatusCode = (int)HttpStatusCode.NotFound;
                     Response.End();
                 }
                 else
@@ -268,7 +268,7 @@ namespace ASC.Web.Studio
             {
                 return;
             }
-            
+
             var passthroughtRequestEndings = new[] { ".js", ".css", ".less", "confirm.aspx" };
             if (tenant.Status == TenantStatus.Suspended && passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
@@ -277,7 +277,7 @@ namespace ASC.Web.Studio
 
             if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
             {
-                Response.StatusCode = (int) HttpStatusCode.NotFound;
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
                 Response.End();
             }
             else
@@ -298,7 +298,7 @@ namespace ASC.Web.Studio
             var handlerType = typeof(BackupAjaxHandler);
             var backupHandler = handlerType.FullName + "," + handlerType.Assembly.GetName().Name + ".ashx";
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json",  };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json", };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -314,8 +314,8 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png","MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "settings/storage/progress.json" };
-            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)) || Request.Url.AbsoluteUri.Contains("settings/storage/progress.json"))
             {
                 return;
             }
@@ -327,7 +327,7 @@ namespace ASC.Web.Studio
         {
             if (tenant == null) return;
 
-            var passthroughtRequestEndings = new[] {".htm", ".ashx", ".png", ".ico", ".less", ".css", ".js"};
+            var passthroughtRequestEndings = new[] { ".htm", ".ashx", ".png", ".ico", ".less", ".css", ".js" };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -339,7 +339,7 @@ namespace ASC.Web.Studio
                     || AdditionalWhiteLabelSettings.Instance.BuyUrl == AdditionalWhiteLabelSettings.DefaultBuyUrl)
                 {
                     LogManager.GetLogger("ASC").WarnFormat("Tenant {0} is not paid", tenant.TenantId);
-                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    Response.StatusCode = (int)HttpStatusCode.PaymentRequired;
                     Response.End();
                 }
                 else if (!Request.Url.AbsolutePath.EndsWith(CommonLinkUtility.ToAbsolute(PaymentRequired.Location)))

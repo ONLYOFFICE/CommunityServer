@@ -79,7 +79,7 @@ namespace ASC.FederatedLogin.LoginProviders
         public override string CodeUrl
         {
             get { return "https://public-api.wordpress.com/oauth2/authorize"; }
-    }
+        }
 
         public override string AccessTokenUrl
         {

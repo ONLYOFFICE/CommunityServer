@@ -556,6 +556,33 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preparing file for encryption.
+        /// </summary>
+        public static string DesktopMessageDownloading {
+            get {
+                return ResourceManager.GetString("DesktopMessageDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypting file.
+        /// </summary>
+        public static string DesktopMessageEncrypting {
+            get {
+                return ResourceManager.GetString("DesktopMessageEncrypting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving encrypted file.
+        /// </summary>
+        public static string DesktopMessageStoring {
+            get {
+                return ResourceManager.GetString("DesktopMessageStoring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string Documents {
@@ -642,6 +669,15 @@ namespace ASC.Web.Files.Resources {
         public static string ErrorMassage_NotSupportedFormat {
             get {
                 return ResourceManager.GetString("ErrorMassage_NotSupportedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password you entered is incorrect. Please try again..
+        /// </summary>
+        public static string ErrorMassage_PasswordFile {
+            get {
+                return ResourceManager.GetString("ErrorMassage_PasswordFile", resourceCulture);
             }
         }
         
@@ -1245,15 +1281,6 @@ namespace ASC.Web.Files.Resources {
         public static string RevisionCount {
             get {
                 return ResourceManager.GetString("RevisionCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to current.
-        /// </summary>
-        public static string RevisionCurrent {
-            get {
-                return ResourceManager.GetString("RevisionCurrent", resourceCulture);
             }
         }
         

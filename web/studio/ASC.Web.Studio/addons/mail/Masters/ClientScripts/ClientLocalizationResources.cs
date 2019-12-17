@@ -54,6 +54,7 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                 RegisterResourceSet("MailActionCompleteResource", MailActionCompleteResource.ResourceManager),
                 RegisterResourceSet("MailAdministrationResource", MailAdministrationResource.ResourceManager),
                 RegisterResourceSet("MailApiErrorsResource", MailApiErrorsResource.ResourceManager),
+                RegisterResourceSet("MailApiResource",MailApiResource.ResourceManager),
                 RegisterObject(new
                 {
                     ErrorOpenMessageHelp = string.Format(MailScriptResource.ErrorOpenMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),

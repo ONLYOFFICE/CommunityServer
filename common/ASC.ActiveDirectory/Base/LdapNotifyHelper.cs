@@ -5,8 +5,12 @@ using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.Common.DependencyInjection;
 using ASC.Common.Threading;
 using ASC.Notify;
+using ASC.Notify.Model;
+
+using Autofac;
 
 namespace ASC.ActiveDirectory.Base
 {
@@ -15,8 +19,36 @@ namespace ASC.ActiveDirectory.Base
         private static readonly Dictionary<int, Tuple<INotifyClient, LdapNotifySource>> clients;
         private static readonly DistributedTaskQueue ldapTasks;
 
+        private static IContainer Builder { get; set; }
+        private static INotifySource studioNotify;
+        private static INotifyClient notifyClient;
+
+        public static INotifyClient StudioNotifyClient
+        {
+            get
+            {
+                if (studioNotify == null)
+                {
+                    studioNotify = Builder.Resolve<INotifySource>();
+                }
+
+                if (notifyClient == null)
+                {
+                    notifyClient = WorkContext.NotifyContext.NotifyService.RegisterClient(studioNotify);
+                }
+
+                return notifyClient;
+            }
+        }
+
         static LdapNotifyHelper()
         {
+            var container = AutofacConfigLoader.Load("ldap");
+            if (container != null)
+            {
+                Builder = container.Build();
+            }
+
             clients = new Dictionary<int, Tuple<INotifyClient, LdapNotifySource>>();
             ldapTasks = new DistributedTaskQueue("ldapAutoSyncOperations");
         }

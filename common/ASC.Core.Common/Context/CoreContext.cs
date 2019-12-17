@@ -54,7 +54,7 @@ namespace ASC.Core
 
         public static PaymentManager PaymentManager { get; private set; }
 
-        internal static SubscriptionManager SubscriptionManager { get; private set; }
+        public static SubscriptionManager SubscriptionManager { get; private set; }
 
         private static bool QuotaCacheEnabled
         {
@@ -86,7 +86,7 @@ namespace ASC.Core
 
             Configuration = new CoreConfiguration(tenantService);
             TenantManager = new TenantManager(tenantService, quotaService, tariffService);
-            PaymentManager = new PaymentManager(Configuration, quotaService, tariffService);
+            PaymentManager = new PaymentManager(tariffService);
             UserManager = new UserManager(userService);
             Authentication = new AuthManager(userService);
             AuthorizationManager = new AuthorizationManager(azService);

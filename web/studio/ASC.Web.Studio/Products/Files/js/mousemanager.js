@@ -147,13 +147,15 @@ window.ASC.Files.Mouse = (function () {
         }
 
         if (jq(target)
-            .is(".folder-row:not(.error-entry) .entry-title .name a," +
-                ".folder-row:not(.error-entry) .thumb-folder," +
-                ".file-row:not(.folder-row):not(.error-entry) .entry-title .name a," +
-                ".file-row:not(.folder-row):not(.error-entry) .thumb-file")) {
-            ASC.Files.UI.clickRow(e, jq(target).closest(".file-row"));
+            .is(".folder-row:not(.error-entry) .thumb-folder," +
+                ".file-row:not(.error-entry) .thumb-file," +
+                ".file-row:not(.error-entry) .entry-title .name a," +
+                ".file-row:not(.error-entry) .entry-title .name span")) {
+            if (ASC.Files.Folders.folderContainer !== "trash") {
+                ASC.Files.UI.clickRow(e, jq(target).closest(".file-row"));
 
-            ASC.Files.Mouse.preparingMoveTo(e);
+                ASC.Files.Mouse.preparingMoveTo(e);
+            }
 
             return true;
         }
@@ -324,10 +326,10 @@ window.ASC.Files.Mouse = (function () {
         }
 
         var folderToId;
-        var entryObj = ASC.Files.UI.getObjectData(entry);
+        var entryData = ASC.Files.UI.getObjectData(entry);
 
-        if (entryObj) {
-            folderToId = entryObj.entryId;
+        if (entryData) {
+            folderToId = entryData.entryId;
         } else {
             folderToId = jq(entry).attr("data-id");
         }
@@ -415,7 +417,7 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        if (!ASC.Files.UI.accessEdit() || e.ctrlKey) {
+        if (!ASC.Files.UI.accessEdit() || !ASC.Files.UI.accessDelete() || e.ctrlKey) {
             var textFormat = ASC.Files.FilesJSResources.InfoCopyDescribe;
             jq("body").addClass("file-mouse-copy");
         } else {
@@ -496,7 +498,7 @@ window.ASC.Files.Mouse = (function () {
             if (folderToId == ASC.Files.Constants.FOLDER_ID_TRASH) {
                 ASC.Files.Folders.deleteItem();
             } else {
-                ASC.Files.Folders.isCopyTo = !ASC.Files.UI.accessEdit() || e && e.ctrlKey === true;
+                ASC.Files.Folders.isCopyTo = !ASC.Files.UI.accessEdit() || !ASC.Files.UI.accessDelete() || e && e.ctrlKey === true;
 
                 var folderToTitle = ASC.Files.UI.getEntryTitle("folder", folderToId);
 

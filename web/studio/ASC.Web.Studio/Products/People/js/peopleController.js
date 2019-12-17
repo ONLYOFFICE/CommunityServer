@@ -131,8 +131,11 @@ ASC.People.PeopleController = (function() {
                     case "group":
                         filter.groupId = anchor[fld];
                         break;
-                    case "status":
-                        filter.status = anchor[fld];
+                    case "employeestatus":
+                        filter.employeestatus = anchor[fld];
+                        break;
+                    case "activationstatus":
+                        filter.activationstatus = anchor[fld];
                         break;
                     case "type":
                         filter.type = anchor[fld];
@@ -141,23 +144,36 @@ ASC.People.PeopleController = (function() {
             }
         }
 
-        if (filter.hasOwnProperty("status")) {
-            switch (filter.status) {
+        if (filter.hasOwnProperty("employeestatus")) {
+            switch (filter.employeestatus) {
                 case "active":
                     //EmployeeStatus.Active
                     filter.employeestatus = 1;
-                    filter.activationstatus = 1;
                     break;
                 case "disabled":
                     //EmployeeStatus.Terminated
                     filter.employeestatus = 2;
                     break;
+                default:
+                    delete filter.employeestatus;
+                    break;
+            }
+        }
+
+        if (filter.hasOwnProperty("activationstatus")) {
+            switch (filter.activationstatus) {
+                case "active":
+                    //EmployeeActivationStatus.Activated
+                    filter.activationstatus = 1;
+                    break;
                 case "pending":
                     //EmployeeActivationStatus.Pending
                     filter.activationstatus = 2;
                     break;
+                default:
+                    delete filter.activationstatus;
+                    break;
             }
-            delete filter.status;
         }
 
         if (filter.hasOwnProperty("type")) {
@@ -342,15 +358,17 @@ ASC.People.PeopleController = (function() {
                         //check if active users exist
                         var needActiveFilterAsDefault = false;
                         var users = window.UserManager.getAllUsers(true);
-                        for (var i = 0, n = users.length; i < n; i++) {
-                            if (users[i].isActivated === true && users[i].isOwner === false) {
+                        for (var userId in users) {
+                            if (!users.hasOwnProperty(users)) continue;
+                            var user = users[userId];
+                            if (user.isActivated === true && user.isOwner === false) {
                                 needActiveFilterAsDefault = true;
                                 break;
                             }
                         }
 
                         if (needActiveFilterAsDefault) {
-                            newAnchorObj["status"] = "active";
+                            newAnchorObj["employeestatus"] = "active";
                         }
                     }
                 }
@@ -684,10 +702,13 @@ ASC.People.PeopleController = (function() {
                 case "text":
                     newAnchor.query = encodeURIComponent(filter.params.value);
                     break;
-                case "selected-status-active":
-                case "selected-status-disabled":
-                case "selected-status-pending":
-                    newAnchor.status = filter.params.value;
+                case "selected-employee-status-active":
+                case "selected-employee-status-disabled":
+                    newAnchor.employeestatus = filter.params.value;
+                    break;
+                case "selected-activation-status-active":
+                case "selected-activation-status-pending":
+                    newAnchor.activationstatus = filter.params.value;
                     break;
                 case "selected-type-admin":
                 case "selected-type-user":
@@ -756,7 +777,8 @@ ASC.People.PeopleController = (function() {
             pageCount = pageNavigator.EntryCountOnPage,
             page = pageNavigator.CurrentPageNumber,
             type = jq.getAnchorParam("type") || null,
-            status = jq.getAnchorParam("status") || null,
+            employeestatus = jq.getAnchorParam("employeestatus") || null,
+            activationstatus = jq.getAnchorParam("activationstatus") || null,
             groupId = jq.getAnchorParam("group") || null,
             sortby = jq.getAnchorParam("sortby") || ASC.People.Data.userDisplayFormat == 1 ? "firstname" : "lastname",
             sortorder = jq.getAnchorParam("sortorder") == "descending" || false,
@@ -770,7 +792,8 @@ ASC.People.PeopleController = (function() {
             sortorder: sortorder,
             page: page,
             type: type,
-            status: status,
+            employeestatus: employeestatus,
+            activationstatus: activationstatus,
             groupId: groupId,
             query: search
         };
@@ -780,7 +803,8 @@ ASC.People.PeopleController = (function() {
             Count: pageCount,
             sortby: sortby,
             sortorder: sortorder,
-            status: status
+            employeestatus: employeestatus,
+            activationstatus: activationstatus
         });
 
         Teamlab.getProfilesByFilter(params, {
@@ -1708,78 +1732,60 @@ ASC.People.PeopleController = (function() {
         if (Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin) {
             filters.push({
                     type: "combobox",
-                    id: "selected-status-active",
+                    id: "selected-employee-status-active",
                     title: ASC.People.Resources.PeopleJSResource.LblActive,
                     filtertitle: ASC.People.Resources.PeopleJSResource.LblStatus,
                     group: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    groupby: "selected-profile-status-value",
+                    groupby: "selected-employee-status-value",
                     options: [
                         { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive, def: true },
-                        { value: "disabled", classname: "disabled", title: ASC.People.Resources.PeopleJSResource.LblTerminated },
-                        { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending }
+                        { value: "disabled", classname: "disabled", title: ASC.People.Resources.PeopleJSResource.LblTerminated }
                     ],
                     hashmask: "type/{0}"
                 },
                 {
                     type: "combobox",
-                    id: "selected-status-disabled",
+                    id: "selected-employee-status-disabled",
                     title: ASC.People.Resources.PeopleJSResource.LblTerminated,
                     filtertitle: ASC.People.Resources.PeopleJSResource.LblStatus,
                     group: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    groupby: "selected-profile-status-value",
+                    groupby: "selected-employee-status-value",
                     options: [
                         { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive },
-                        { value: "disabled", classname: "disabled", title: ASC.People.Resources.PeopleJSResource.LblTerminated, def: true },
-                        { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending }
-                    ],
-                    hashmask: "type/{0}"
-                },
-                {
-                    type: "combobox",
-                    id: "selected-status-pending",
-                    title: ASC.People.Resources.PeopleJSResource.LblPending,
-                    filtertitle: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    group: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    groupby: "selected-profile-status-value",
-                    options: [
-                        { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive },
-                        { value: "disabled", classname: "disabled", title: ASC.People.Resources.PeopleJSResource.LblTerminated },
-                        { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending, def: true }
+                        { value: "disabled", classname: "disabled", title: ASC.People.Resources.PeopleJSResource.LblTerminated, def: true }
                     ],
                     hashmask: "type/{0}"
                 }
             );
-        } else {
-            filters.push(
-                {
-                    type: "combobox",
-                    id: "selected-status-active",
-                    title: ASC.People.Resources.PeopleJSResource.LblActive,
-                    filtertitle: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    group: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    groupby: "selected-profile-status-value",
-                    options: [
-                        { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive, def: true },
-                        { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending }
-                    ],
-                    hashmask: "type/{0}"
-                },
-                {
-                    type: "combobox",
-                    id: "selected-status-pending",
-                    title: ASC.People.Resources.PeopleJSResource.LblPending,
-                    filtertitle: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    group: ASC.People.Resources.PeopleJSResource.LblStatus,
-                    groupby: "selected-profile-status-value",
-                    options: [
-                        { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive },
-                        { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending, def: true }
-                    ],
-                    hashmask: "type/{0}"
-                });
-        }
-        
+        } 
+
         filters.push(
+            {
+                type: "combobox",
+                id: "selected-activation-status-active",
+                title: ASC.People.Resources.PeopleJSResource.LblActive,
+                filtertitle: ASC.People.Resources.PeopleResource.Email,
+                group: ASC.People.Resources.PeopleResource.Email,
+                groupby: "selected-activation-status-value",
+                options: [
+                    { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive, def: true },
+                    { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending }
+                ],
+                hashmask: "type/{0}"
+            },
+            {
+                type: "combobox",
+                id: "selected-activation-status-pending",
+                title: ASC.People.Resources.PeopleJSResource.LblPending,
+                filtertitle: ASC.People.Resources.PeopleResource.Email,
+                group: ASC.People.Resources.PeopleResource.Email,
+                groupby: "selected-activation-status-value",
+                options: [
+                    { value: "active", classname: "active", title: ASC.People.Resources.PeopleJSResource.LblActive },
+                    { value: "pending", classname: "pending", title: ASC.People.Resources.PeopleJSResource.LblPending, def: true }
+                ],
+                hashmask: "type/{0}"
+            },
             {
                 type: "combobox",
                 id: "selected-type-admin",

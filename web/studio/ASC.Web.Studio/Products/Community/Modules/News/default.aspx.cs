@@ -30,6 +30,7 @@ using System.Globalization;
 using System.Text;
 using System.Web;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Notify.Model;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code;
@@ -256,7 +257,9 @@ namespace ASC.Web.Community.News
 
                 string buttonLink;
                 string buttonName;
-                var emptyScreenControl = new EmptyScreenControl { Describe = NewsResource.EmptyScreenText };
+
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                var emptyScreenControl = new EmptyScreenControl { Describe = currentUser.IsVisitor() ? NewsResource.EmptyScreenTextVisitor : NewsResource.EmptyScreenText };
 
                 switch (feedType)
                 {

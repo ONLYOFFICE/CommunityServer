@@ -45,11 +45,15 @@ ASC.Projects.Common = (function () {
         master = baseObject.Master;
 
     var init = function () {
+        window.onpopstate = null;
+
         initMobileBanner();
         initApiData();
         bindCommonEvents();
         initPages();
         showEmptyScreen();
+
+        setTimeout(function() { window.onpopstate = init; }, 200);
     };
 
     function initMobileBanner() {
@@ -195,6 +199,9 @@ ASC.Projects.Common = (function () {
             case "ganttchart.aspx":
                 cPage = baseObject.GantChartPage;
                 break;
+            case "settings.aspx":
+                cPage = baseObject.SettingsManager;
+                break;
         }
 
         if (cPage && cPage.hasOwnProperty("init")) {
@@ -249,6 +256,31 @@ ASC.Projects.Common = (function () {
 
             projectCache[project.id] = project;
         }));
+
+        function onRemoveProjects(params, projects) {
+            projectsForFilter = [];
+
+            function filterProject(project) {
+                return function(item) {
+                    return item.id !== project.id;
+                }
+            }
+
+            for (var i = 0; i < projects.length; i++) {
+                var project = projects[i];
+
+                master.Projects = master.Projects.filter(filterProject(project));
+
+                delete projectCache[project.id];
+            }
+        }
+
+
+        handlers.push(teamlab.bind(teamlab.events.removePrjProjects, onRemoveProjects));
+
+        handlers.push(teamlab.bind(teamlab.events.removePrjProject, function (params, project) {
+            onRemoveProjects(null, [project]);
+        }));
     };
     
     function showEmptyScreen() {
@@ -264,7 +296,7 @@ ASC.Projects.Common = (function () {
             return { image: image, title: title, ul: ul };
         }
 
-        if (!ASC.Projects.Master.CanCreateProject) return;
+        if (!master.CanCreateProject) return;
         var commonResource = baseObject.Resources.CommonResource;
 
         var tmplObj = {
@@ -495,13 +527,25 @@ ASC.Projects.Common = (function () {
 
     function getProjectById(projectId) {
         for (var i = 0, max = master.Projects.length; i < max; i++) {
-            if (master.Projects[i].id == projectId) {
-                return master.Projects[i];
+            var prj = master.Projects[i];
+            if (prj.id == projectId) {
+                return prj;
             }
         }
 
         return undefined;
-    };
+    }
+
+    function getMilestoneById(milestoneId) {
+        for (var i = 0, max = master.Milestones.length; i < max; i++) {
+            var ms = master.Milestones[i];
+            if (ms.id == milestoneId) {
+                return ms;
+            }
+        }
+
+        return undefined;
+    }
 
     function getProjectByIdFromCache(projectId) {
         return projectCache[projectId];
@@ -609,20 +653,71 @@ ASC.Projects.Common = (function () {
 
         var $self = jq(this);
         var href = $self.attr("href");
-        ASC.Projects.Common.UpLink = location.href;
+        goToHrefWithoutReload(href);
+
+        return false;
+    }
+
+    function goToHrefWithoutReload(href) {
         history.pushState({ href: href }, { href: href }, href);
-        ASC.Controls.AnchorController.historyCheck();
 
         var prjid = jq.getURLParam("prjID");
-        teamlab.getPrjTeam({}, prjid, function (params, team) {
-            master.TeamWithBlockedUsers = team;
-            master.Team = removeBlockedUsersFromTeam(team);
+        if (prjid) {
+            teamlab.getPrjTeam({}, prjid,
+                function(params, team) {
+                    master.TeamWithBlockedUsers = team;
+                    master.Team = removeBlockedUsersFromTeam(team);
+                    baseObject.Base.clearTables();
+                    jq("#filterContainer").hide();
+                    init();
+                });
+        } else {
             baseObject.Base.clearTables();
             jq("#filterContainer").hide();
             init();
-        });
-
+        }
         return false;
+    }
+
+    function initCustomStatuses(callBack) {
+        if (master.customStatuses) {
+            callBack();
+            return;
+        }
+
+        teamlab.getPrjStatuses({
+            success: function (params, data) {
+                master.customStatuses = data.sort(function (a, b) {
+                    if (a.statusType < b.statusType) {
+                        return -1;
+                    } else if (a.statusType > b.statusType) {
+                        return 1;
+                    }
+
+                    if (a.order < b.order) {
+                        return -1;
+                    } else if (a.order > b.order) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+
+                callBack();
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function setHash(newHash) {
+        var basePath = location.hash === "" ? location.href : location.href.substring(0, location.href.indexOf("#"));
+        if (newHash.indexOf("#") !== 0) {
+            newHash = "#" + newHash;
+        }
+        var newPath = basePath + newHash;
+        history.replaceState({ href: newPath }, { href: newPath }, newPath);
     }
 
     return {
@@ -646,15 +741,18 @@ ASC.Projects.Common = (function () {
         filterParamsForListTasks: { sortBy: "deadline", sortOrder: "ascending" },
         
         goToWithoutReload: goToWithoutReload,
+        goToHrefWithoutReload: goToHrefWithoutReload,
         getPossibleTypeLink: getPossibleTypeLink,
         getProjectsForFilter: getProjectsForFilter,
         getProjectById: getProjectById,
+        getMilestoneById: getMilestoneById,
         getProjectByIdFromCache: getProjectByIdFromCache,
         changeTaskCountInProjectsCache: changeTaskCountInProjectsCache,
         changeMilestoneCountInProjectsCache: changeMilestoneCountInProjectsCache,
 
         baseInit: init,
         
+        initCustomStatuses: initCustomStatuses,
         linkTypeEnum: linkTypeEnum,
         milestoneSort: milestoneSort,
 
@@ -662,6 +760,8 @@ ASC.Projects.Common = (function () {
         removeComment: removeComment,
 
         showTimer: showTimer,
+
+        setHash: setHash,
 
         userInProjectTeam: userInProjectTeam
     };

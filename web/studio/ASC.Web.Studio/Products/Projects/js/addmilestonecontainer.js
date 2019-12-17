@@ -609,11 +609,17 @@ ASC.Projects.CreateProjectStructure = (function () {
         var pmName = jq("#projectManagerSelector").attr("data-id") ? jq("#projectManagerSelector").html() : "";
         var listEntities = jq(".milestone .mainInfo .chooseResponsible .link.dotline, .task .chooseResponsible .link[guid], #addTaskContainer .chooseResponsible .link[guid], #addMilestoneContainer .chooseResponsible .link");
 
+        var check = false;
+
         for (var i = 0; i < listEntities.length; i++) {
-            if (!responsibleInTeam(jq(listEntities[i]), selectedTeam)) {
+            var $listEntity = jq(listEntities[i]);
+            if (!responsibleInTeam($listEntity, selectedTeam)) {
                 if (pmId) {
-                    jq(listEntities[i]).attr("guid", pmId);
-                    jq(listEntities[i]).html(pmName);
+                    $listEntity.attr("guid", pmId);
+                    $listEntity.html(pmName);
+                    if (jq(listEntities[i]).parents("#addMilestoneContainer").length === 0) {
+                        check = true;
+                    }
                 }
                 else {
                     var resp = selectedTeam.find(function (item) { return !item.isVisitor; });
@@ -626,6 +632,10 @@ ASC.Projects.CreateProjectStructure = (function () {
                 }
                 jq(listEntities[i]).parent().css("display", "inline-block");
             }
+        }
+
+        if (check) {
+            jq(document).trigger("chooseResp");
         }
     };
     var $projectManagerSelector,
@@ -754,6 +764,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             var member = jq(target).find(".link.dotline");
 
             if (guid !== "nobody" && guid !== "") {
+                jq(document).trigger("chooseResp");
                 jq(member).attr("guid", guid);
             } else {
                 jq(member).removeAttr("guid");
@@ -896,6 +907,10 @@ ASC.Projects.CreateProjectStructure = (function () {
                 jq.tmpl("projects_templatesCreateMilestoneTmpl", milestone).appendTo("#listAddedMilestone");
                 milestoneTitle.val("");
                 milestoneTitle.focus();
+
+                if (milestone.chooseRep.id) {
+                    jq(document).trigger("chooseResp");
+                }
             }
             return true;
         });
@@ -928,6 +943,9 @@ ASC.Projects.CreateProjectStructure = (function () {
             var target = jq(this).parents('.studio-action-panel').attr('target');
             jq("#" + target).removeClass("open");
             jq("#" + target).remove();
+            if (jq("#listAddedMilestone .milestone").length == 0 && jq("#listNoAssignListTask .task").length == 0 && selectedTeam.length === 0) {
+                jq(document).trigger("unchooseResp");
+            }
         });
 
         jq("#milestoneActions .actionList #addTaskInMilestone").bind('click', function () {
@@ -1059,6 +1077,10 @@ ASC.Projects.CreateProjectStructure = (function () {
 
                 taskTitle.val("");
                 taskTitle.focus();
+
+                if (task.chooseRep && task.chooseRep.id) {
+                    jq(document).trigger("chooseResp");
+                }
             }
 
         });
@@ -1076,6 +1098,10 @@ ASC.Projects.CreateProjectStructure = (function () {
                     jq(targetParent).parents('.milestone').children('.milestoneTasksContainer').hide();
                     jq(targetParent).closest(".milestone").find(".addTask").removeClass("hide");
                 }
+            }
+
+            if (jq("#listAddedMilestone .milestone").length == 0 && jq("#listNoAssignListTask .task").length == 0 && selectedTeam.length === 0) {
+                jq(document).trigger("unchooseResp");
             }
         });
 

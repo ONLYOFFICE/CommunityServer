@@ -102,6 +102,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.13.2.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
@@ -201,6 +205,7 @@
     <Compile Include="Core\DbSchema\Tables\UserFoldertXMailTable.cs" />
     <Compile Include="Core\DbSchema\Tables\UserFolderTable.cs" />
     <Compile Include="Core\Engine\CacheEngine.cs" />
+    <Compile Include="Core\Engine\Base\ComposeEngineBase.cs" />
     <Compile Include="Core\Engine\FilterEngine.cs" />
     <Compile Include="Core\Engine\MailGarbageEngine.cs" />
     <Compile Include="Core\Engine\Operations\Base\MailOperationException.cs" />
@@ -208,6 +213,7 @@
     <Compile Include="Core\Engine\Operations\Base\MailOperationType.cs" />
     <Compile Include="Core\Engine\Operations\ApplyFilterOperation.cs" />
     <Compile Include="Core\Engine\Operations\ApplyFiltersOperation.cs" />
+    <Compile Include="Core\Engine\Operations\MailDownloadAllAttachmentsOperation.cs" />
     <Compile Include="Core\Engine\Operations\MailRemoveUserFolderOperation.cs" />
     <Compile Include="Core\Engine\Operations\MailCheckMailserverDomainsDnsOperation.cs" />
     <Compile Include="Core\Engine\Operations\MailRemoveMailserverDomainOperation.cs" />
@@ -260,6 +266,7 @@
     <Compile Include="Core\Engine\ServerMailgroupEngine.cs" />
     <Compile Include="Core\Engine\SignatureEngine.cs" />
     <Compile Include="Core\Engine\SpamEngine.cs" />
+    <Compile Include="Core\Engine\TemplateEngine.cs" />
     <Compile Include="Core\Engine\TestEngine.cs" />
     <Compile Include="Core\Engine\UserFolderEngine.cs" />
     <Compile Include="Core\Entities\Chain.cs" />
@@ -418,6 +425,7 @@
     <Compile Include="Data\Contracts\Base\MailComposeBase.cs" />
     <Compile Include="Data\Contracts\MailSieveFilterOptionsData.cs" />
     <Compile Include="Data\Contracts\MailSieveFilterApplyToFolderData.cs" />
+    <Compile Include="Data\Contracts\MailTemplateData.cs" />
     <Compile Include="Data\Contracts\MailSieveFilterActionData.cs" />
     <Compile Include="Data\Contracts\MailSieveFilterConditionData.cs" />
     <Compile Include="Data\Contracts\MailSieveFilterData.cs" />
@@ -572,6 +580,7 @@
     <EmbeddedResource Include="Resources\MailCoreResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MailCoreResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

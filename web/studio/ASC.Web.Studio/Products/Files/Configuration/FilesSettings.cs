@@ -26,6 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Files.Core;
 
@@ -56,6 +57,18 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "SortedAsc")]
         public bool DefaultSortedAscSetting { get; set; }
 
+        [DataMember(Name = "HideConfirmConvertSave")]
+        public bool HideConfirmConvertSaveSetting { get; set; }
+
+        [DataMember(Name = "HideConfirmConvertOpen")]
+        public bool HideConfirmConvertOpenSetting { get; set; }
+
+        [DataMember(Name = "Forcesave")]
+        public bool ForcesaveSetting { get; set; }
+
+        [DataMember(Name = "StoreForcesave")]
+        public bool StoreForcesaveSetting { get; set; }
+
         public override ISettings GetDefault()
         {
             return new FilesSettings
@@ -66,7 +79,11 @@ namespace ASC.Web.Files.Classes
                     UpdateIfExistSetting = false,
                     ConvertNotifySetting = true,
                     DefaultSortedBySetting = SortedByType.DateAndTime,
-                    DefaultSortedAscSetting = false
+                    DefaultSortedAscSetting = false,
+                    HideConfirmConvertSaveSetting = false,
+                    HideConfirmConvertOpenSetting = false,
+                    ForcesaveSetting = false,
+                    StoreForcesaveSetting = false
                 };
         }
 
@@ -88,7 +105,12 @@ namespace ASC.Web.Files.Classes
 
         public static bool EnableThirdParty
         {
-            set { new FilesSettings { EnableThirdpartySetting = value }.Save(); }
+            set
+            {
+                var setting = Load();
+                setting.EnableThirdpartySetting = value;
+                setting.Save();
+            }
             get { return Load().EnableThirdpartySetting; }
         }
 
@@ -125,6 +147,28 @@ namespace ASC.Web.Files.Classes
             get { return LoadForCurrentUser().ConvertNotifySetting; }
         }
 
+        public static bool HideConfirmConvertSave
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.HideConfirmConvertSaveSetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get { return LoadForCurrentUser().HideConfirmConvertSaveSetting; }
+        }
+
+        public static bool HideConfirmConvertOpen
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.HideConfirmConvertOpenSetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get { return LoadForCurrentUser().HideConfirmConvertOpenSetting; }
+        }
+
         public static OrderBy DefaultOrder
         {
             set
@@ -139,6 +183,29 @@ namespace ASC.Web.Files.Classes
                 var setting = LoadForCurrentUser();
                 return new OrderBy(setting.DefaultSortedBySetting, setting.DefaultSortedAscSetting);
             }
+        }
+
+        public static bool Forcesave
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.ForcesaveSetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get { return LoadForCurrentUser().ForcesaveSetting; }
+        }
+
+        public static bool StoreForcesave
+        {
+            set
+            {
+                if (CoreContext.Configuration.Personal) throw new NotSupportedException();
+                var setting = Load();
+                setting.StoreForcesaveSetting = value;
+                setting.Save();
+            }
+            get { return !CoreContext.Configuration.Personal && Load().StoreForcesaveSetting; }
         }
     }
 }

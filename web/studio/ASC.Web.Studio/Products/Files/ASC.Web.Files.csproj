@@ -107,6 +107,13 @@
     <Compile Include="Controls\ContentList\ContentList.ascx.designer.cs">
       <DependentUpon>ContentList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ConvertFile\ConfirmConvert.ascx.cs">
+      <DependentUpon>ConfirmConvert.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ConvertFile\ConfirmConvert.ascx.designer.cs">
+      <DependentUpon>ConfirmConvert.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Sailfish\Sailfish.ascx.cs">
       <DependentUpon>Sailfish.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,7 +149,10 @@
     <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Core\Entries\BlockchainAddress.cs" />
+    <Compile Include="Core\Dao\EncryptedDataDao.cs" />
+    <Compile Include="Core\Entries\EncryptedData.cs" />
+    <Compile Include="Core\Entries\EncryptionAddress.cs" />
+    <Compile Include="Core\Entries\ForcesaveType.cs" />
     <Compile Include="Helpers\EasyBibHelper.cs" />
     <Compile Include="Core\DIHelper.cs" />
     <Compile Include="Core\Search\FilesWrapper.cs" />
@@ -173,6 +183,7 @@
     <Compile Include="Services\WCFService\FileExceptionFilterAttribute.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileOperationsManager.cs" />
     <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
+    <Compile Include="Services\WCFService\Wrappers\MentionWrapper.cs" />
     <Compile Include="ThirdPartyApp\BoxApp.cs" />
     <Compile Include="ThirdPartyApp\IThirdPartyApp.cs" />
     <Compile Include="ThirdPartyApp\GoogleDriveApp.cs" />
@@ -254,6 +265,9 @@
     <Content Include="Controls\ContentList\images\retina\encrypted.png" />
     <Content Include="Controls\ContentList\images\throbber.gif" />
     <Content Include="Controls\ContentList\images\version_operation.png" />
+    <Content Include="Controls\ConvertFile\ConfirmConvert.ascx" />
+    <Content Include="Controls\ConvertFile\confirmconvert.js" />
+    <Content Include="Controls\ConvertFile\confirmconvert.css" />
     <Content Include="Controls\Sailfish\Sailfish.ascx" />
     <Content Include="Controls\Sailfish\sailfish.js" />
     <Content Include="Controls\Sailfish\sailfish.css" />

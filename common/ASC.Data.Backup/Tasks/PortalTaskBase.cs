@@ -141,7 +141,7 @@ namespace ASC.Data.Backup.Tasks
 
         #region Progress
 
-        public event EventHandler<ProgressChangedEventArgs> ProgressChanged; 
+        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
 
         private int stepsCount = 1;
         private volatile int stepsCompleted;
@@ -218,6 +218,7 @@ namespace ASC.Data.Backup.Tasks
 
             foreach (var p in parsed)
             {
+                if (string.IsNullOrEmpty(p.Trim())) continue;
                 var keyValue = p.Split('=');
                 result.Add(keyValue[0].ToLowerInvariant(), keyValue[1]);
             }

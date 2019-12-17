@@ -69,6 +69,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return ToFile(GetFolderFiles(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
+        public File GetFileStable(object fileId, int fileVersion)
+        {
+            return ToFile(GetFileById(fileId));
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             return new List<File> { GetFile(fileId) };
@@ -308,6 +313,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
 
             return ToFile(entry);
+        }
+
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            return SaveFile(file, fileStream);
         }
 
         public void DeleteFile(object fileId)

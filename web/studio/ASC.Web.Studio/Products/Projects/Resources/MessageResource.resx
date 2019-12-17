@@ -219,4 +219,7 @@
   <data name="CommentsEmptyScreen_Header" xml:space="preserve">
     <value>No comments found</value>
   </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Discussions are used to find the right solution with your project team to any sort of problems which may occur once the project is underway. Discuss all the issues with your colleagues, invite users from other projects to join your discussion.</value>
+  </data>
 </root>

@@ -717,6 +717,9 @@
   <data name="TariffNonProfit" xml:space="preserve">
     <value>You are using a plan for nonprofit organization.</value>
   </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0}The portal payment is overdue.{1} {2}To continue using ONLYOFFICE collaboration features, {2}prolong the existing pricing plan or select another one.</value>
+  </data>
   <data name="TariffOverdueHosted" xml:space="preserve">
     <value>Your portal payment has expired.</value>
   </data>

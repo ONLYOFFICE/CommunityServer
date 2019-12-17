@@ -745,4 +745,7 @@ portal users or use any other email to invite people to your event.</value>
   <data name="icalStream_export_help_center" xml:space="preserve">
     <value>Help Center</value>
   </data>
+  <data name="dialogCopyMessage" xml:space="preserve">
+    <value>Link has been copied to the clipboard</value>
+  </data>
 </root>

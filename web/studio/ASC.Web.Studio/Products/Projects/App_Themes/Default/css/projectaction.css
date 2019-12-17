@@ -119,8 +119,7 @@
     margin-bottom: 12px;
 }
 
-#projectVisibilityContainer,
-#projectFollowContainer,
+.checkboxContainer,
 #projectTagsContainer {
     margin-bottom: 22px;
 }
@@ -130,15 +129,13 @@
     display: block;
 }
 
-#projectPrivacyCkeckbox,
-#followingProjectCheckbox {
+.checkboxContainer input[type='checkbox'] {
     margin: 3px 0px 0px;
     padding: 0px;
     float: left;
 }
 
-#projectVisibilityContainer label,
-#projectFollowContainer label {
+.checkboxContainer label {
     padding-left: 5px;
 }
 
@@ -146,10 +143,6 @@
     margin-right: 0px;
     float: right;
     line-height: 17px;
-}
-
-.checkboxPrivateProj {
-    margin-top: 15px;
 }
 
 .HelpCenterSwitcher {

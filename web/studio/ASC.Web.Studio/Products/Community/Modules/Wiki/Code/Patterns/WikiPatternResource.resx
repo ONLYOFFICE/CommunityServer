@@ -124,9 +124,7 @@ $Date "$UserName":"$UserURL" has created a new Wiki page: "$PageName":"$URL"
 
 $PagePreview
 
-"Read More":"$URL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new Wiki pages created, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$URL"</value>
   </data>
   <data name="pattern_2" xml:space="preserve">
     <value>h1.Wiki Page Edited: "$PageName":"$URL"
@@ -135,9 +133,7 @@ $Date "$UserName":"$UserURL" has edited the Wiki page: "$PageName":"$URL"
 
 $PagePreview
 
-"Read More":"$URL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the changes of this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$URL"</value>
   </data>
   <data name="pattern_3" xml:space="preserve">
     <value>h1.New Comment to Wiki Page "$PageName":"$URL"
@@ -146,9 +142,7 @@ $Date "$UserName":"$UserURL" has added a new comment to the "$PageName":"$URL" W
 
 $CommentBody
 
-"Read More":"$URL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^ </value>
+"Read More":"$URL"</value>
   </data>
   <data name="subject_1" xml:space="preserve">
     <value>Community. New Wiki page added: $PageName</value>

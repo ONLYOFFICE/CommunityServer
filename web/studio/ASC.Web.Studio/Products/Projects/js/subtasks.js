@@ -280,7 +280,7 @@ ASC.Projects.SubtasksManager = (function () {
             return { id: item.id, title: item.displayName };
         }
 
-        var choose = allUsers.find(function (item) { return item.id === subtaskResponsible });
+        var choose = allUsers[subtaskResponsible];
         if (!choose) {
             choose = nobody;
         }

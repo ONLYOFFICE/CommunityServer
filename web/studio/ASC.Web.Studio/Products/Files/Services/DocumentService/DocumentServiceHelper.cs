@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -119,16 +118,16 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             rightToFillForms = rightToFillForms
-                            && (linkRight == FileShare.FillForms || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
-                                || fileSecurity.CanFillForms(file));
+                               && (linkRight == FileShare.FillForms || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
+                                   || fileSecurity.CanFillForms(file));
             if (fillFormsPossible && !rightToFillForms)
             {
                 fillFormsPossible = false;
             }
 
             rightToComment = rightToComment
-                            && (linkRight == FileShare.Comment || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
-                                || fileSecurity.CanComment(file));
+                             && (linkRight == FileShare.Comment || linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
+                                 || fileSecurity.CanComment(file));
             if (commentPossible && !rightToComment)
             {
                 commentPossible = false;
@@ -148,7 +147,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 if (tryEdit)
                 {
-                strError = FilesCommonResource.ErrorMassage_LockedFile;
+                    strError = FilesCommonResource.ErrorMassage_LockedFile;
                 }
                 rightToRename = false;
                 rightToEdit = editPossible = false;
@@ -206,7 +205,16 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
             }
 
-            var docKey = GetDocKey(file);
+            var fileStable = file;
+            if (lastVersion && file.Forcesave != ForcesaveType.None && tryEdit)
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    fileStable = fileDao.GetFileStable(file.ID, file.Version);
+                }
+            }
+
+            var docKey = GetDocKey(fileStable);
             var modeWrite = (editPossible || reviewPossible || fillFormsPossible || commentPossible) && tryEdit;
 
             configuration = new Configuration(file)
@@ -219,7 +227,7 @@ namespace ASC.Web.Files.Services.DocumentService
                                     Edit = rightToEdit && lastVersion,
                                     Rename = rightToRename && lastVersion && !file.ProviderEntry,
                                     Review = rightToReview && lastVersion,
-                                    FillForms= rightToFillForms && lastVersion,
+                                    FillForms = rightToFillForms && lastVersion,
                                     Comment = rightToComment && lastVersion,
                                     ChangeHistory = rightChangeHistory,
                                 }
@@ -292,7 +300,17 @@ namespace ASC.Web.Files.Services.DocumentService
                                        .Select(u => u.ToString()).ToArray();
 
             if (!usersDrop.Any()) return;
-            var docKey = GetDocKey(file);
+
+            var fileStable = file;
+            if (file.Forcesave != ForcesaveType.None)
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    fileStable = fileDao.GetFileStable(file.ID, file.Version);
+                }
+            }
+
+            var docKey = GetDocKey(fileStable);
             DropUser(docKey, usersDrop, file.ID);
         }
 
@@ -301,10 +319,18 @@ namespace ASC.Web.Files.Services.DocumentService
             return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Drop, docKeyForTrack, fileId, null, users);
         }
 
-        public static bool RenameFile(File file)
+        public static bool RenameFile(File file, IFileDao fileDao)
         {
-            if (!FileUtility.CanWebView(file.Title) && !FileUtility.CanWebEdit(file.Title) && !FileUtility.CanWebReview(file.Title) && !FileUtility.CanWebRestrictedEditing(file.Title) && !FileUtility.CanWebComment(file.Title)) return true;
-            var docKeyForTrack = GetDocKey(file);
+            if (!FileUtility.CanWebView(file.Title)
+                && !FileUtility.CanWebEdit(file.Title)
+                && !FileUtility.CanWebReview(file.Title)
+                && !FileUtility.CanWebRestrictedEditing(file.Title)
+                && !FileUtility.CanWebComment(file.Title))
+                return true;
+
+            var fileStable = file.Forcesave == ForcesaveType.None ? file : fileDao.GetFileStable(file.ID, file.Version);
+            var docKeyForTrack = GetDocKey(fileStable);
+
             var meta = new Web.Core.Files.DocumentService.MetaData { Title = file.Title };
             return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Meta, docKeyForTrack, file.ID, meta: meta);
         }

@@ -1069,6 +1069,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Qatari Riyal.
+        /// </summary>
+        public static string Currency_QatariRiyal {
+            get {
+                return ResourceManager.GetString("Currency_QatariRiyal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Romanian Leu.
         /// </summary>
         public static string Currency_RomanianLeu {
@@ -1164,6 +1173,15 @@ namespace ASC.Web.CRM.Resources {
         public static string Currency_TrinidadAndTobagoDollar {
             get {
                 return ResourceManager.GetString("Currency_TrinidadAndTobagoDollar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tunisian Dinar.
+        /// </summary>
+        public static string Currency_TunisianDinar {
+            get {
+                return ResourceManager.GetString("Currency_TunisianDinar", resourceCulture);
             }
         }
         

@@ -294,6 +294,12 @@
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>All closed</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>All open</value>
+  </data>
   <data name="StatusArchivedDiscussion" xml:space="preserve">
     <value>Archived</value>
   </data>

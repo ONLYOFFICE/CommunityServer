@@ -30,8 +30,10 @@ jq(document).ready(function () {
 
         if (Teamlab.profile.isPortalOwner === true) {
             var users = window.UserManager.getAllUsers(true);
-            for (var i = 0, n = users.length; i < n; i++) {
-                if (users[i].isActivated === true && users[i].isOwner === false) {
+            for (var userId in users) {
+                if (!users.hasOwnProperty(userId)) continue;
+                var user = users[userId];
+                if (user.isActivated === true && user.isOwner === false) {
                     inviteLinkShow = false;
                     break;
                 }

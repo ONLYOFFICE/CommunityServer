@@ -83,9 +83,7 @@ namespace ASC.Web.Community.News.Resources {
         ///
         ///&quot;Vote&quot;:&quot;$URL&quot;
         ///
-        ///#end
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to [rest of string was truncated]&quot;;.
+        ///#end.
         /// </summary>
         public static string pattern_new_text {
             get {
@@ -100,9 +98,7 @@ namespace ASC.Web.Community.News.Resources {
         ///
         ///$CommentBody
         ///
-        ///&quot;Read More&quot;:&quot;$CommentURL&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new comments added to this ev [rest of string was truncated]&quot;;.
+        ///&quot;Read More&quot;:&quot;$CommentURL&quot;.
         /// </summary>
         public static string pattern_new_text_comment {
             get {

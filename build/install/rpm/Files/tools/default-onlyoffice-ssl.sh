@@ -11,7 +11,7 @@ SSL_DHPARAM_PATH="${ROOT_DIR}/dhparam.pem";
 mkdir -p ${ROOT_DIR}
 
 if [ ! -f ${SSL_DHPARAM_PATH} ]; then
-        sudo openssl dhparam -out dhparam.pem 2048
+        openssl dhparam -out dhparam.pem 4096
 
         mv dhparam.pem ${SSL_DHPARAM_PATH};
 fi
@@ -70,6 +70,6 @@ sed '/mail\.default-api-scheme/s/\(value\s*=\s*\"\).*\"/\1https\"/' -i ${APP_SER
 
 mv -f default-onlyoffice-ssl.conf ${NGINX_CONF_DIR}/onlyoffice.conf
 
-service onlyofficeMailAggregator restart
-service onlyofficeJabber restart
-service nginx restart
+systemctl restart onlyofficeMailAggregator
+systemctl restart onlyofficeJabber
+systemctl restart nginx

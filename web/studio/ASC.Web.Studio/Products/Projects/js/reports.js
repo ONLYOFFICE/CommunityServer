@@ -288,7 +288,7 @@ ASC.Projects.ReportView = (function() {
 
 ASC.Projects.Reports = (function () {
     var allProjectList,
-        allusers,
+        allusers = [],
         filter = {},
         defaultFilter,
         defaultFilterDate,
@@ -430,7 +430,7 @@ ASC.Projects.Reports = (function () {
         this.title = title;
     }
 
-    var mapAdvancedSelectorItem = function (item) { return item.id.toString() };
+    var mapAdvancedSelectorItem = function (item) { return item.id.toString(); };
 
     var onGetUsers = function (params, users) {
         userFilter.disable(allusers.map(mapAdvancedSelectorItem));
@@ -467,7 +467,7 @@ ASC.Projects.Reports = (function () {
             commonResource = resources.CommonResource,
             reportResource = resources.ReportResource;
 
-        defaultFilter = new AdvancedSelectorItem(-1, commonResource.All);
+        defaultFilter = new AdvancedSelectorItem("default", commonResource.All);
         defaultFilterDate = new AdvancedSelectorItem(-1, reportResource.AnyDate);
         defaultFilterInterval = new AdvancedSelectorItem(-1, reportResource.AnyInterval);
 
@@ -482,7 +482,7 @@ ASC.Projects.Reports = (function () {
         departmentFilter = new FilterCombo("Departments", 0, resources.ViewByDepartments, { id: "departament", param: "fd" }),
         userFilter = new FilterCombo("Users", 0, resources.ViewByUsers, { id: "userId", param: "fu" }),
         paymentFilter = new FilterCombo("PaymentsStatuses", 0, reportResource.PaymentStatuses, { id: "paymentStatus", param: "fpays" }),
-        taskStatusFilter = new FilterCombo("TaskStatuses", 0, reportResource.ShowTasks, { id: "status", param: "fts" });
+        taskStatusFilter = new FilterCombo("TaskStatuses", 0, reportResource.ShowTasks, { id: "status", param: "ftss" });
 
         var departmentRadio = new FilterRadio("departmentReport", "reportType", resources.ViewByDepartments, 0),
         userRadio = new FilterRadio("byUsers", "type_rbl", resources.ViewByUsers, 0),
@@ -666,9 +666,13 @@ ASC.Projects.Reports = (function () {
 
         if (userFilter.isVisible()) {
             var defaultFilterUser = 0;
-            allusers = window.UserManager.getAllUsers(true).map(function (item) {
-                return new AdvancedSelectorItem(item.id, item.displayName);
-            });
+            var users = window.UserManager.getAllUsers(true);
+
+            for (var userId in users) {
+                if(!users.hasOwnProperty(userId)) continue;
+                var item = users[userId];
+                allusers.push(new AdvancedSelectorItem(item.id, item.displayName));
+            }
 
             if (reportType === "5") {
                 defaultFilterUser = allusers.findIndex(function(r) { return r.id === Teamlab.profile.id; }) + 1;
@@ -710,12 +714,59 @@ ASC.Projects.Reports = (function () {
         }
 
         if (taskStatusFilter.isVisible()) {
-            var taskStatuses = [
-                new AdvancedSelectorItem(1, reportResource.ActiveTaskStatus),
-                new AdvancedSelectorItem(2, reportResource.ClosedTaskStatus)
-            ];
+            ASC.Projects.Common.initCustomStatuses(function () {
+                var customStatuses = ASC.Projects.Master.customStatuses;
 
-            taskStatusFilter.init(taskStatuses, 0);
+                function getSub(statusType) {
+                    if (!customStatuses) return;
+
+                    return customStatuses.filter(function (item) {
+                        return item.statusType === statusType;
+                    });
+                }
+
+                var openSub = getSub(1);
+                var closedSub = getSub(2);
+
+                var filterStatuses = [];
+
+                if (openSub) {
+                    if (openSub.length === 1) {
+                        filterStatuses.push(openSub[0]);
+                    } else if (openSub.length > 1) {
+                        filterStatuses = [{ id: "all-1", val: -1,  title: resources.ProjectsFilterResource.StatusAllOpenTask }].concat(openSub);
+                    }
+                } else {
+                    filterStatuses.push(
+                        {
+                            id: -1,
+                            title: resources.ProjectsFilterResource.StatusOpenTask
+                        }
+                    );
+                }
+
+                if (closedSub) {
+                    if (closedSub.length === 1) {
+                        filterStatuses.push(closedSub[0]);
+                    } else if (closedSub.length > 1) {
+                        filterStatuses.push({ id: "all-2", val: -2, title: resources.ProjectsFilterResource.StatusAllClosedTask });
+                        filterStatuses = filterStatuses.concat(closedSub);
+                    }
+                } else {
+                    filterStatuses.push(
+                        {
+                            id: 2,
+                            title: resources.ProjectsFilterResource.StatusClosedTask
+                        }
+                    );
+                }
+
+                filterStatuses = filterStatuses.map(function (item) {
+                    return new AdvancedSelectorItem(item.id, item.title, item.val);
+                });
+
+                taskStatusFilter.init(filterStatuses, 0);
+            });
         }
 
         jq("#reportFilters").removeClass("display-none");

@@ -339,6 +339,15 @@
   <data name="ButtonDuplicate" xml:space="preserve">
     <value>Create file copy</value>
   </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>Cancel uploading and close</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>Minimize dialog</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>Maximize dialog</value>
+  </data>
   <data name="ButtonVersion" xml:space="preserve">
     <value>Version history</value>
   </data>
@@ -402,6 +411,15 @@
   <data name="CaptionCopyConvertOpen" xml:space="preserve">
     <value>Convert and open document</value>
   </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Document saving</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Document uploading</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>The file is password protected. Enter the password for conversion.</value>
+  </data>
   <data name="ChooseFormatToDownload" xml:space="preserve">
     <value>Choose format for each file to be downloaded</value>
   </data>
@@ -410,6 +428,9 @@
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Confirmation dialog for deletion to recycle bin</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>Do not show this message again</value>
   </data>
   <data name="ConfirmOverwrite" xml:space="preserve">
     <value>Overwrite confirmation</value>
@@ -427,7 +448,10 @@
     <value>Save the file copy in the original format as well</value>
   </data>
   <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
-    <value>The document file you open will be converted to the Office Open XML format for faster viewing and editing.</value>
+    <value>To edit the file its copy in the Office Open XML format (docx, xlsx or pptx) will be created on the portal. The source file will not be changed.</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>All the documents you upload will be converted into the corresponding Office Open XML format (docx, xlsx or pptx) for faster editing.</value>
   </data>
   <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
     <value>The file copy will be created in the {0}My documents{1} folder</value>
@@ -542,6 +566,9 @@
   </data>
   <data name="EmptyScreenDescrProject" xml:space="preserve">
     <value>The documents and image files you create or upload for your project are kept in this section. You can open and edit them using the ONLYOFFICE™ portal editor, organize into folders.</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>The documents and image files uploaded for the project are kept in this section. You can view them using the ONLYOFFICE portal editor.</value>
   </data>
   <data name="EmptyScreenDescrTrash" xml:space="preserve">
     <value>The 'Recycle Bin' section is where all the deleted files are moved. You can either restore them in case they are deleted by mistake or delete them permanently. Please note, that when you delete the files from the 'Recycle Bin' they cannot be restored any longer.</value>
@@ -705,8 +732,17 @@
   <data name="SendShareNotify" xml:space="preserve">
     <value>Send notification</value>
   </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>Keep intermediate versions when editing</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>Keep all saved intermediate versions</value>
+  </data>
   <data name="SettingUpdateIfExist" xml:space="preserve">
     <value>Common Settings</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>Storing file versions</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
@@ -875,5 +911,11 @@
   </data>
   <data name="DesktopSales" xml:space="preserve">
     <value>For any purchase questions, email us at {0}.</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Upload folder</value>
   </data>
 </root>

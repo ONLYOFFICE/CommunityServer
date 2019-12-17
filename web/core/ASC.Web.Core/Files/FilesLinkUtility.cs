@@ -57,6 +57,7 @@ namespace ASC.Web.Core.Files
         public const string FolderUrl = "folderurl";
         public const string OutType = "outputtype";
         public const string AuthKey = "stream_auth";
+        public const string Anchor = "anchor";
 
         public static string FileHandlerPath
         {
@@ -335,15 +336,16 @@ namespace ASC.Web.Core.Files
             return FileRedirectPreviewUrlString + "&" + (isFile ? FileId : FolderId) + "=" + HttpUtility.UrlEncode(enrtyId.ToString());
         }
 
-        public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength)
+        public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength, bool encrypted)
         {
-            var queryString = string.Format("?initiate=true&{0}={1}&fileSize={2}&tid={3}&userid={4}&culture={5}",
+            var queryString = string.Format("?initiate=true&{0}={1}&fileSize={2}&tid={3}&userid={4}&culture={5}&encrypted={6}",
                                             FileTitle,
                                             HttpUtility.UrlEncode(fileName),
                                             contentLength,
                                             TenantProvider.CurrentTenantID,
                                             HttpUtility.UrlEncode(InstanceCrypto.Encrypt(SecurityContext.CurrentAccount.ID.ToString())),
-                                            Thread.CurrentThread.CurrentUICulture.Name);
+                                            Thread.CurrentThread.CurrentUICulture.Name,
+                                            encrypted.ToString().ToLower());
 
             if (fileId != null)
                 queryString = queryString + "&" + FileId + "=" + HttpUtility.UrlEncode(fileId.ToString());

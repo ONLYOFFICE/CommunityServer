@@ -276,4 +276,7 @@
   <data name="YearLabel" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>Create your bookmarks, store and share useful information with your colleagues directly on your portal saving links to web resources which allow you to easily get back to your favorite place.</value>
+  </data>
 </root>

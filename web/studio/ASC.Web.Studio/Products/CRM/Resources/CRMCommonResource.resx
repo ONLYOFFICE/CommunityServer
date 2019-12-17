@@ -1117,4 +1117,10 @@
   <data name="Currency_SerbianDinar" xml:space="preserve">
     <value>Serbian Dinar</value>
   </data>
+  <data name="Currency_TunisianDinar" xml:space="preserve">
+    <value>Tunisian Dinar</value>
+  </data>
+  <data name="Currency_QatariRiyal" xml:space="preserve">
+    <value>Qatari Riyal</value>
+  </data>
 </root>

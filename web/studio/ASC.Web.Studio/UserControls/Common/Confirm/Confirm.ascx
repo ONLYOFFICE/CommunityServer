@@ -23,7 +23,7 @@
                 <% } %>
             </div>
             <div class="clearFix" style="margin-top: 16px;">
-                <a id="studio_confirmOk" class="button middle blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('<%=AdditionalID%>',<%=SelectJSCallback%>);"><%= !string.IsNullOrEmpty(Value) ? Resources.Resource.SaveButton : Resources.Resource.OKButton%></a> 
+                <a id="studio_confirmOk" class="button middle blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('<%=AdditionalID%>');"><%= !string.IsNullOrEmpty(Value) ? Resources.Resource.SaveButton : Resources.Resource.OKButton%></a> 
                 <a id="studio_confirmCancel" class="button middle gray" href="javascript:void(0);" onclick="StudioConfirm.Cancel();" style="float: left;margin-left: 8px;"><%=Resources.Resource.CancelButton%></a>
             </div>
         </Body>

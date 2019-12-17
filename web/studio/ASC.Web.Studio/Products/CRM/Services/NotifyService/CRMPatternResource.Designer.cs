@@ -93,10 +93,7 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///$contactInfo: $AdditionalData.get_item($contactInfo)
         ///
-        ///#end
-        ///
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRoot [rest of string was truncated]&quot;;.
+        ///#end.
         /// </summary>
         public static string pattern_CreateNewContact {
             get {
@@ -115,13 +112,24 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPa [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_ExportCompleted {
             get {
                 return ResourceManager.GetString("pattern_ExportCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1. CRM. Data export successfully completed
+        ///
+        ///Please, follow this link to download the archive: &quot;${EntityTitle}&quot;:&quot;${EntityRelativeURL}&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        /// </summary>
+        public static string pattern_ExportCompletedCustomMode {
+            get {
+                return ResourceManager.GetString("pattern_ExportCompletedCustomMode", resourceCulture);
             }
         }
         
@@ -134,13 +142,24 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscript [rest of string was truncated]&quot;;.
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_ImportCompleted {
             get {
                 return ResourceManager.GetString("pattern_ImportCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1. CRM. Data import successfully completed
+        ///
+        ///Go to the &quot;${Tag_EntityListTitle}&quot;:&quot;$__VirtualRootPath/${Tag_EntityListRelativeURL}&quot; list.
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        /// </summary>
+        public static string pattern_ImportCompletedCustomMode {
+            get {
+                return ResourceManager.GetString("pattern_ImportCompletedCustomMode", resourceCulture);
             }
         }
         
@@ -153,9 +172,7 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///Opportunity description:
         ///$AdditionalData.get_item(&quot;OpportunityDescription&quot;)
-        ///#end
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__Virtua [rest of string was truncated]&quot;;.
+        ///#end.
         /// </summary>
         public static string pattern_ResponsibleForOpportunity {
             get {
@@ -188,10 +205,7 @@ namespace ASC.Web.CRM.Services.NotifyService {
         /// <summary>
         ///   Looks up a localized string similar to h1.Access granted to &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/${EntityRelativeURL}&quot;
         ///
-        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has granted you the access to &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/${EntityRelativeURL}&quot;.
-        ///
-        ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you don&apos;t want to receive the notifications about the access granted to the CRM items, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has granted you the access to &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/${EntityRelativeURL}&quot;..
         /// </summary>
         public static string pattern_SetAccess {
             get {
@@ -235,7 +249,7 @@ namespace ASC.Web.CRM.Services.NotifyService {
                 return ResourceManager.GetString("patterns", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to CRM. New event added to $EntityTitle.
         /// </summary>

@@ -65,13 +65,16 @@ window.ASC.Files.FileChoice = (function () {
                     window.open(createFileUrl, "_blank");
                     finishSubmit({});
                 } else {
+                    jq("#submitFileSelector").addClass("disable");
+
                     createFileUrl += "&response=message";
                     jq.ajax({
                         url: createFileUrl,
                         success: function (response) {
-                            var data = {};
                             if (response && response.indexOf("error: ") == 0) {
-                                data = {error: response.replace("error: ", "")};
+                                var data = {error: response.replace("error: ", "")};
+                            } else {
+                                data = {message: response.replace("ok: ", "")};
                             }
                             finishSubmit(data);
                         },

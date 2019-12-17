@@ -162,7 +162,7 @@ window.tagsManager = (function($) {
         var newTag = convertServerTag(tag);
 
         if (getTagByName(newTag.name)) {
-            var error = MailScriptResource.ErrorTagNameAlreadyExists.replace('%1', '\"' + newTag.name + '\"');
+            var error = MailScriptResource.ErrorTagNameAlreadyExists.replace('%1', '\"' + Encoder.htmlEncode(newTag.name) + '\"');
             return d.reject(onError({}, [error]))
         }
 
@@ -192,7 +192,7 @@ window.tagsManager = (function($) {
 
         var foundTag = getTagByName(newTag.name);
         if (foundTag && newTag.id !== foundTag.id) {
-            var error = MailScriptResource.ErrorTagNameAlreadyExists.replace('%1', '\"' + newTag.name + '\"');
+            var error = MailScriptResource.ErrorTagNameAlreadyExists.replace('%1', '\"' + Encoder.htmlEncode(newTag.name) + '\"');
             return d.reject(onError({}, [error]));
         }
 

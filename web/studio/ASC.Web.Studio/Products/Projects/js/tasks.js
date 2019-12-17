@@ -33,7 +33,8 @@ ASC.Projects.TasksManager = (function () {
         common = baseObject.Common,
         subtaskManager = baseObject.SubtasksManager,
         master = baseObject.Master,
-        groupActionPanel = baseObject.GroupActionPanel;
+        groupActionPanel = baseObject.GroupActionPanel,
+        statusList = baseObject.StatusList;
 
     var isInit = false,
         currentUserId,
@@ -55,16 +56,51 @@ ASC.Projects.TasksManager = (function () {
         taskidAttr = 'taskid',
         divTaskProcessList = '<div class="taskProcess"></div>';
 
-    var showMoveToMilestonePanelTaskItems;
+    var showMoveToMilestonePanelTaskItems, statuses = [];
 
     function init() {
         teamlab = Teamlab;
+
+        if (isInit === false) {
+            self = this;
+
+            common.initCustomStatuses(function() {
+                if (master.customStatuses.length) {
+                    var styleNode = document.createElement("style");
+                    var html = "";
+                    for (var i = 0; i < master.customStatuses.length; i++) {
+                        var status = master.customStatuses[i];
+                        var cssClass = "custom-task-status-" + status.id;
+                        html += jq.format("#CommonListContainer .{0} { background: url('data:{1};base64,{2}') }",
+                            cssClass,
+                            status.imageType,
+                            status.image);
+                        statuses.push({
+                            cssClass: cssClass,
+                            text: status.title,
+                            id: status.id,
+                            statusType: status.statusType,
+                            isDefault: status.isDefault,
+                            available: status.available
+                        });
+                    }
+                    styleNode.innerHTML = html;
+                    document.body.appendChild(styleNode);
+                }
+
+                initAfterSettings();
+            });
+        } else {
+            initAfterSettings();
+        }
+    }
+
+    function initAfterSettings() {
         currentUserId = teamlab.profile.id;
         currentProjectId = jq.getURLParam('prjID');
         loadingBanner = LoadingBanner;
 
         if (isInit === false) {
-            self = this;
             isInit = true;
 
             function canCreateTask(prj) {
@@ -73,12 +109,18 @@ ASC.Projects.TasksManager = (function () {
 
             var actions = [
                 {
-                    id: "gaClose",
-                    title: tasksResource.CloseTask,
-                    handler: gaCloseHandler,
-                    checker: function (task) {
-                        return task.canEdit && task.status === 1;
-                    }
+                    id: "gaChangeStatus",
+                    title: tasksResource.ChangeStatus,
+                    multi: master.customStatuses.map(function(item){
+                            return {
+                                id: "ga" + item.id,
+                                title: item.title,
+                                handler: gaChangeStatusHandler.bind(null, item),
+                                checker: function (task) {
+                                    return task.canEdit && statusList.getByData(task).id !== item.id;
+                                }
+                            }
+                        })
                 },
                 {
                     id: "gaMove",
@@ -109,11 +151,15 @@ ASC.Projects.TasksManager = (function () {
                 baseEmptyScreen: {
                     img: "tasks",
                     header: tasksResource.NoTasksCreated,
-                    description: jq.format(tasksResource.TasksHelpTheManage, tasksResource.DescrEmptyListTaskFilter),
+                    description: jq.format(teamlab.profile.isVisitor ? tasksResource.TasksHelpTheManageVisitor : tasksResource.TasksHelpTheManage, tasksResource.DescrEmptyListTaskFilter),
                     button: {
                         title: tasksResource.AddFirstTask,
                         onclick: showNewTaskPopup,
                         canCreate: function () {
+                            if (currentProjectId && !currentProject) {
+                                currentProject = common.getProjectByIdFromCache(currentProjectId);
+                            }
+
                             return currentProjectId ?
                                 canCreateTask(currentProject) :
                                 master.Projects.some(canCreateTask);
@@ -134,21 +180,15 @@ ASC.Projects.TasksManager = (function () {
                                 return $taskListContainer.find("[taskid=" + item.id + "]");
                             });
                     },
-                    multiSelector: [
-                    {
-                        id: "gasOpen",
-                        title: tasksResource.Open,
-                        condition: function (item) {
-                            return item.status === 1;
-                        }
-                    },
-                    {
-                        id: "gasClosed",
-                        title: tasksResource.Closed,
-                        condition: function (item) {
-                            return item.status === 2;
-                        }
-                    }]
+                    multiSelector: master.customStatuses.map(function (item) {
+                        return {
+                            id: "gas" + item.id,
+                            title: item.title,
+                            condition: function (taskItem) {
+                                return statusList.getByData(taskItem).id === item.id;
+                            }
+                        };
+                    })
                 }
             });
 
@@ -168,10 +208,7 @@ ASC.Projects.TasksManager = (function () {
             {
                 handler: changeStatusHandler,
                 getItem: getFilteredTaskByTarget,
-                statuses: [
-                    { cssClass: "open", text: tasksResource.Open, id: 1 },
-                    { cssClass: "closed", text: tasksResource.Closed, id: 2 }
-                ]
+                statuses: statuses
             },
             showEntityMenu,
             [
@@ -195,7 +232,7 @@ ASC.Projects.TasksManager = (function () {
         subtaskManager.init();
 
         // waiting data from api
-        filter.createAdvansedFilterForTasks(self);
+        filter.createAdvansedFilterForTasks(self, master.customStatuses);
 
         if (currentProjectId) {
             projectParticipants = master.Team;
@@ -279,7 +316,9 @@ ASC.Projects.TasksManager = (function () {
             if (task.canEdit) {
                 menuItems.push(new ActionMenuItem("ta_edit", tasksResource.Edit, taEditHandler.bind(null, task)));
                 menuItems.push(new ActionMenuItem("ta_move", tasksResource.MoveToMilestone, taMoveHandler.bind(null, task)));
-                menuItems.push(new ActionMenuItem("ta_mesres", tasksResource.MessageResponsible, taMesresHandler.bind(null, taskid)));
+                if (task.responsibles && task.responsibles.some(function (item) { return item.id != currentUserId; })) {
+                    menuItems.push(new ActionMenuItem("ta_mesres", tasksResource.MessageResponsible, taMesresHandler.bind(null, taskid)));
+                }
             }
 
             if (!task.responsible) {
@@ -362,10 +401,9 @@ ASC.Projects.TasksManager = (function () {
         return false;
     };
 
-    function gaCloseHandler(taskids) {
+    function gaChangeStatusHandler(status, taskids) {
         var tasks = taskids.map(getFilteredTaskById),
             openedSubtasks = false;
-
 
         for (var i = 0; i < tasks.length; i++) {
             var task = tasks[i];
@@ -377,21 +415,21 @@ ASC.Projects.TasksManager = (function () {
             if (openedSubtasks) break;
         }
 
-        if (openedSubtasks) {
+        if (status.statusType === 2 && openedSubtasks) {
             self.showCommonPopup("closedTasksQuestion", function () {
-                closeMultipleTasks(taskids);
+                changeStatusMultipleTasks(status, taskids);
                 jq.unblockUI();
             });
         } else {
-            closeMultipleTasks(taskids);
+            changeStatusMultipleTasks(status, taskids);
         }
 
 
         return false;
     };
 
-    function closeMultipleTasks(taskids) {
-        teamlab.updatePrjTasksStatus({ taskids: taskids, status: 2 },
+    function changeStatusMultipleTasks(status, taskids) {
+        teamlab.updatePrjTasksStatus({ taskids: taskids,  status: status.statusType, statusId: status.id },
         {
             before: function () {
                 loadingBanner.displayLoading();
@@ -529,22 +567,22 @@ ASC.Projects.TasksManager = (function () {
             });
     };
 
-    function changeStatusHandler(id, status) {
+    function changeStatusHandler(id, statusId, status) {
         if (status === 2) {
             var task = getFilteredTaskById(id);
             var openedSubtasks = task.subtasks.some(function(item) {
                     return item.status === 1;
                 });
             if (openedSubtasks) {
-                popupWindow(id);
+                popupWindow(id, statusId);
             } else {
-                closeTask(id);
+                closeTask(id, statusId);
             }
         } else {
             var $task = getTaskItem(id);
             $task.find(".check div").hide();
             $task.find(".check").append(divTaskProcessList);
-            updateTaskStatus({}, id, 1);
+            updateTaskStatus({}, id, 1, statusId);
         }
     };
 
@@ -604,15 +642,15 @@ ASC.Projects.TasksManager = (function () {
         }
     };
     
-    function closeTask(taskId) {
+    function closeTask(taskId, statusId) {
         jq('.taskProcess').remove();
         getTaskItem(taskId).find(".check").html(divTaskProcessList);
 
-        updateTaskStatus({}, taskId, 2);
+        updateTaskStatus({}, taskId, 2, statusId);
     };
 
-    function updateTaskStatus(params, taskId, status) {
-        teamlab.updatePrjTask(params, taskId, { "status": status }, {
+    function updateTaskStatus(params, taskId, status, statusId) {
+        teamlab.updatePrjTask(params, taskId, { "status": status, "statusId": statusId }, {
             error: function(filter, response) {
                 var task = getTaskItem(taskId);
                 task.find(".taskProcess").remove();
@@ -647,9 +685,9 @@ ASC.Projects.TasksManager = (function () {
 
     // show popup methods
 
-    function popupWindow(taskId) {
+    function popupWindow(taskId, statusId) {
         self.showCommonPopup("closedTaskQuestion", function () {
-            closeTask(taskId);
+            closeTask(taskId, statusId);
             jq.unblockUI();
         });
     };
@@ -749,6 +787,45 @@ ASC.Projects.TasksManager = (function () {
         $taskListContainer.unbind();
     };
 
+    function updateCaldavEvent(task, action) {
+        var url = ASC.Resources.Master.ApiPath + "calendar/caldavevent.json";
+        var postData = {
+            calendarId: "Project_" + task.projectId,
+            uid: "Task_" + task.id,
+            responsibles: task.responsibles.map(user => user.id)
+        };
+        jq.ajax({
+            type: action === 0 || action === 1 ? 'put' : 'delete',
+            url: url,
+            data: postData,
+            complete: function (d) {}
+        });
+        if (action === 0 || action === 1) {
+            Teamlab.getPrjTeam({}, task.projectId, (p, t) => {
+                var team = t.map(user => user.id);
+                var responsibles = task.responsibles.map(user => user.id);
+
+                var needDelete = team.filter(function (userId) {
+                    return responsibles.indexOf(userId) < 0;
+                });
+
+                if (needDelete.length > 0) {
+                    var deleteData = {
+                        calendarId: "Project_" + task.projectId,
+                        uid: "Task_" + task.id,
+                        responsibles: needDelete
+                    };
+                    jq.ajax({
+                        type: 'delete',
+                        url: url,
+                        data: deleteData,
+                        complete: function (d) { }
+                    });
+                }
+            });
+        }
+        
+    }
 
     //api callback
     function onGetTasks(params, tasks) {
@@ -765,6 +842,7 @@ ASC.Projects.TasksManager = (function () {
     };
 
     function onAddTask(params, task) {
+        updateCaldavEvent(task, 0);
         currentProjectId = jq.getURLParam("prjId");
 
         if (currentProjectId && currentProjectId != task.projectId || jq.getURLParam("id") !== null) return;
@@ -777,6 +855,7 @@ ASC.Projects.TasksManager = (function () {
     };
 
     function onUpdateTask(params, task) {
+        updateCaldavEvent(task, task.status);
         var taskId = task.id;
         getSubTasksItem(taskId).remove();
         getTaskItem(taskId).replaceWith(jq.tmpl(projectsTaskListItemTmplName, task));
@@ -789,6 +868,7 @@ ASC.Projects.TasksManager = (function () {
     };
     
     function onRemoveTask(params, task) {
+        updateCaldavEvent(task, 2);
         var taskId = task.id;
         getTaskItem(taskId).remove();
         getSubTasksItem(taskId).remove();
@@ -839,7 +919,10 @@ ASC.Projects.TasksManager = (function () {
     };
     
     function onUpdateTaskStatus(params, task) {
-        common.changeTaskCountInProjectsCache(task, 1);
+        var oldTask = getFilteredTaskById(task.id);
+        if (oldTask.status !== task.status) {
+            common.changeTaskCountInProjectsCache(task, 1);
+        }
         groupActionPanel.deselectAll();
         onUpdateTask(params, task);
         setTimeout(function () { getTaskItem(task.Id).yellowFade(); }, 0);

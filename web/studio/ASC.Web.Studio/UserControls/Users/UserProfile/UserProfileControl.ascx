@@ -33,23 +33,14 @@
                 </div>
             </div>
 
-            <% if (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending || UserInfo.ActivationStatus == EmployeeActivationStatus.NotActivated)
+            <% if (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending)
                { %>
 
             <div class="profile-status pending" data-visible="<%= UserInfo.Status == EmployeeStatus.Terminated ? "hidden" : "" %>">
-                <% if (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending)
-                   { %>
                 <div id="imagePendingActivation">
                     <%= Resource.PendingTitle %>
                 </div>
-                <% }
-                   else if (UserInfo.ActivationStatus == EmployeeActivationStatus.NotActivated)
-                   { %>
-                <div id="imageNotActivatedActivation">
-                    <%= Resource.PendingTitle %>
                 </div>
-                <% } %>
-            </div>
 
             <% } %>
             <% if (Role != null)
@@ -174,7 +165,7 @@
                                 <span class="birthday-fest">
                                     <%= BirthDayText %>
                                 </span>
-                                <% if ((HappyBirthday == 0) && !UserInfo.IsMe() && (UserInfo.ActivationStatus == EmployeeActivationStatus.Activated) && (UserInfo.Status == EmployeeStatus.Active))
+                                <% if ((HappyBirthday == 0) && !UserInfo.IsMe() && (UserInfo.ActivationStatus.HasFlag(EmployeeActivationStatus.Activated)) && (UserInfo.Status == EmployeeStatus.Active))
                                    { %>
                                 <a target="_blank" href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + UserInfo.Email.ToLower()) %>"
                                     class="button gray"><%= Resource.CongratulateBirthday %></a>

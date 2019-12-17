@@ -13,8 +13,6 @@
 <%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<input class="display-none" type="text" name="fakeusernameremembered" />
-<input class="display-none" type="password" name="fakepasswordremembered" />
 
 <div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>" data-deleteConfirm="<%= FilesSettings.ConfirmDelete ? "true" : null %>">
     <%-- Advansed Filter --%>
@@ -120,6 +118,12 @@
         <li id="buttonShare"><a class="dropdown-item">
             <%= FilesUCResource.ButtonShareAccess %>
             (<span></span>)</a></li>
+        <% if (!CoreContext.Configuration.Personal && ProductMailAvailable)
+           { %>
+        <li id="buttonSendInEmail"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonSendInEmail %>
+            (<span></span>)</a></li>
+        <% } %>
         <% } %>
         <li id="buttonDownload"><a class="dropdown-item">
             <%= FilesUCResource.ButtonDownload %>

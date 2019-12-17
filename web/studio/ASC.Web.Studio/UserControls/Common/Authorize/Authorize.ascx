@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Authorize.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.Authorize" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Settings" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Users.UserProfile" %>
@@ -28,7 +29,7 @@
 
     <%--password--%>
     <div class="auth-form_password">
-        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" name="pwd" maxlength="64" placeholder="<%= Resource.Password %>" />
+        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" name="pwd" maxlength="<%= PasswordSettings.MaxLength %>" placeholder="<%= Resource.Password %>" />
     </div>
     <%--buttons--%>
     <div class="auth-form_submenu clearFix">
@@ -55,6 +56,13 @@
                 <%= Resource.LoginButton %>
             </a>
         </div>
+        <% if (RecaptchaEnable && ShowRecaptcha)
+           { %>
+        <div id="recaptchaHiddenContainer" class="captchaContainer g-recaptcha"
+            data-sitekey="<%= SetupInfo.RecaptchaPublicKey %>"
+            data-hl="<%= Culture %>">&nbsp;
+        </div>
+        <% } %>
         <div id="authMessage" class="auth-form_message"><%= ErrorMessage + LoginMessage %></div>
         <% if (AccountLinkControl.IsNotEmpty && SetupInfo.ThirdPartyAuthEnabled)
             { %>

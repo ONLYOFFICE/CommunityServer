@@ -140,6 +140,43 @@ if (typeof ASC.Mail.Utility === "undefined") {
             return d.promise();
         }
 
+        function saveTemplate(params) {
+            var d = jq.Deferred();
+
+            if (params.skipSave) {
+                d.resolve(params, { messageUrl: null, saveSkipped: true });
+                return d.promise();
+            }
+
+            var message = params.message;
+
+            window.Teamlab.saveMailTemplate(
+                params,
+                message,
+                {
+                    success: d.resolve,
+                    error: d.reject
+                });
+
+            return d.promise();
+        }
+
+        function afterTemplateSave(params, savedMessage) {
+            var d = jq.Deferred();
+
+            if (params.skipSave) {
+                d.resolve(params, { messageUrl: null, saveSkipped: true });
+                return d.promise();
+            }
+
+            var message = params.message;
+            message.id = savedMessage.id;
+
+            d.resolve(params, { messageUrl: "/addons/mail/#templateitem/" + message.id });
+
+            return d.promise();
+        }
+
         function afterSave(params, savedMessage) {
             var d = jq.Deferred();
 
@@ -891,6 +928,10 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         throw "Unsupported message format";
                     }
 
+                    if (message.body.length > ASC.Resources.Master.MailMaximumMessageBodySize) {
+                        throw "Message body exceeded limit";
+                    }
+
                     if (!params.hasOwnProperty("skipAccountsCheck") || !message.from)
                         params.skipAccountsCheck = false;
 
@@ -900,6 +941,45 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         .then(checkAccounts, d.reject)
                         .then(saveDraft, d.reject)
                         .then(afterSave, d.reject)
+                        .then(addDocuments, d.reject)
+                        .then(d.resolve, d.reject);
+
+                } catch (e) {
+                    d.reject(params, e);
+                }
+
+                return d.promise();
+            },
+            /**
+            * Save message to Mail Templates
+            * @param {ASC.Mail.Message} message
+            * @param {Object} params (Example: { skipAccountsCheck: true, skipSave: true });
+            * @return {Object} result with messageUrl;
+            */
+            SaveMessageInTemplates: function (message, params) {
+                var d = jq.Deferred();
+
+                params = params || { skipAccountsCheck: true };
+
+                try {
+
+                    if (!(message instanceof ASC.Mail.Message)) {
+                        throw "Unsupported message format";
+                    }
+
+                    if (message.body.length > ASC.Resources.Master.MailMaximumMessageBodySize) {
+                        throw "Message body exceeded limit";
+                    }
+
+                    if (!params.hasOwnProperty("skipAccountsCheck") || !message.from)
+                        params.skipAccountsCheck = false;
+
+                    params.message = message;
+
+                    getAccounts(params)
+                        .then(checkAccounts, d.reject)
+                        .then(saveTemplate, d.reject)
+                        .then(afterTemplateSave, d.reject)
                         .then(addDocuments, d.reject)
                         .then(d.resolve, d.reject);
 
@@ -1204,7 +1284,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     strEnd = dtEnd.format("ddd, DD MMM YYYY"),
                     strStartTime = allDayStart ? "" : dtStart.format("LT"),
                     strEndTime = allDayEnd ? "" : dtEnd.format("LT"),
-                    strTz = "(GMT{0})".format(dtStart.format("Z"));
+                    strTz = "(UTC{0})".format(dtStart.format("Z"));
 
                 if (dtStart.isSame(dtEnd, 'day')) {
                     if (allDayStart)
@@ -1398,16 +1478,16 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 return str;
             },
 
-            GetDraftUrl: function(fileId, fileVersion) {
-                var url = "/ComposeDraft.ashx";
+            GetDraftUrl: function(fileIds) {
+                var url = "/addons/mail/#compose";
 
-                if (fileId) {
-                    url += "?fileId={0}".format(encodeURIComponent(fileId));
+                if (!fileIds) return url;
 
-                    if (fileVersion) {
-                        return url + "&version={0}".format(encodeURIComponent(fileVersion));
-                    }
+                if (!(fileIds instanceof Array)) {
+                    fileIds = [fileIds];
                 }
+
+                url += "?files={0}".format(encodeURIComponent(JSON.stringify(fileIds)));
 
                 return url;
             }

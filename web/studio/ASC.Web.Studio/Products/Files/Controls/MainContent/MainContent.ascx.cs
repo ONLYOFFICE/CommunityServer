@@ -75,6 +75,7 @@ namespace ASC.Web.Files.Controls
             ListHolder.Controls.Add(contenList);
 
             ControlPlaceHolder.Controls.Add(LoadControl(ConvertFile.Location));
+            ControlPlaceHolder.Controls.Add(LoadControl(ConfirmConvert.Location));
 
             ControlPlaceHolder.Controls.Add(LoadControl(TariffLimitExceed.Location));
 

@@ -262,22 +262,22 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 var curTenant = CoreContext.TenantManager.GetCurrentTenant();
                 var owner = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
+                var newOwner = CoreContext.UserManager.GetUsers(ownerId);
 
-                if (owner.IsVisitor())
-                    throw new System.Security.SecurityException("Collaborator can not be an owner");
+                if (newOwner.IsVisitor()) throw new System.Security.SecurityException("Collaborator can not be an owner");
 
-                if (curTenant.OwnerId.Equals(SecurityContext.CurrentAccount.ID) && !Guid.Empty.Equals(ownerId))
+                if (!owner.ID.Equals(SecurityContext.CurrentAccount.ID) || Guid.Empty.Equals(newOwner.ID))
                 {
-                    var confirmLink = CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalOwnerChange, ownerId, ownerId);
-                    StudioNotifyService.Instance.SendMsgConfirmChangeOwner(curTenant, CoreContext.UserManager.GetUsers(ownerId).DisplayUserName(), confirmLink);
-
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentChangeOwnerInstructions, MessageTarget.Create(owner.ID), owner.DisplayUserName(false));
-
-                    var emailLink = string.Format("<a href=\"mailto:{0}\">{0}</a>", owner.Email);
-                    return new { Status = 1, Message = Resource.ChangePortalOwnerMsg.Replace(":email", emailLink) };
+                    return new { Status = 0, Message = Resource.ErrorAccessDenied };
                 }
 
-                return new { Status = 0, Message = Resource.ErrorAccessDenied };
+                var confirmLink = CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalOwnerChange, newOwner.ID, newOwner.ID);
+                StudioNotifyService.Instance.SendMsgConfirmChangeOwner(owner, newOwner, confirmLink);
+
+                MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentChangeOwnerInstructions, MessageTarget.Create(owner.ID), owner.DisplayUserName(false));
+
+                var emailLink = string.Format("<a href=\"mailto:{0}\">{0}</a>", owner.Email);
+                return new { Status = 1, Message = Resource.ChangePortalOwnerMsg.Replace(":email", emailLink) };
             }
             catch (Exception e)
             {

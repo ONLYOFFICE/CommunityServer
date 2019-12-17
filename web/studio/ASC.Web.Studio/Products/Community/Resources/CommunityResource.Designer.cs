@@ -556,6 +556,15 @@ namespace ASC.Web.Community.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create events and posts in blogs. Organize polls. Make bookmarks and share them with other users..
+        /// </summary>
+        public static string ProductDescriptionShort {
+            get {
+                return ResourceManager.GetString("ProductDescriptionShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community.
         /// </summary>
         public static string ProductName {

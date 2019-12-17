@@ -357,6 +357,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 {
                                     var newFile = conflict;
                                     newFile.Version++;
+                                    newFile.VersionGroup++;
                                     newFile.PureTitle = file.PureTitle;
                                     newFile.ConvertedType = file.ConvertedType;
                                     newFile.Comment = FilesCommonResource.CommentOverwrite;

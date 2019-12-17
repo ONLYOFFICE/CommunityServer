@@ -214,6 +214,15 @@ namespace ASC.Blogs.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users&apos; comments..
+        /// </summary>
+        public static string EmptyScreenBlogTextVisitor {
+            get {
+                return ResourceManager.GetString("EmptyScreenBlogTextVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the needed tags separating them with commas.
         /// </summary>
         public static string EnterTagsMessage {

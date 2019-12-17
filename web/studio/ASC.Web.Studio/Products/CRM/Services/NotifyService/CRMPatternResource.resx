@@ -132,9 +132,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has added a new event to "$EntityTitl
 
           "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
 
-          #end
-
-          ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about new events added within the CRM module, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+          #end</value>
   </data>
   <data name="pattern_CreateNewContact" xml:space="preserve">
     <value>h1. CRM. New contact created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
@@ -148,10 +146,7 @@ Contact information:
 
 $contactInfo: $AdditionalData.get_item($contactInfo)
 
-#end
-
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+#end</value>
   </data>
   <data name="pattern_ExportCompleted" xml:space="preserve">
     <value>h1. CRM. Data export successfully completed
@@ -164,9 +159,7 @@ If you have any questions or need assistance please feel free to contact us at "
 
 Best regards,
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>h1. CRM. Data import successfully completed
@@ -177,9 +170,7 @@ If you have any questions or need assistance please feel free to contact us at "
 
 Best regards,
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
     <value>h1.You were appointed responsible for the opportunity: "$EntityTitle":"${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID"
@@ -190,9 +181,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the
 
 Opportunity description:
 $AdditionalData.get_item("OpportunityDescription")
-#end
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+#end</value>
   </data>
   <data name="pattern_ResponsibleForTask" xml:space="preserve">
     <value>h1.Task assigned to you: $EntityTitle
@@ -235,19 +224,14 @@ Due date: $AdditionalData.get_item("DueDate")
 
 #end
 
-Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.</value>
   </data>
   <data name="pattern_SetAccess" xml:space="preserve">
     <value>h1.Access granted to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
-
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about the access granted to the CRM items, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".</value>
   </data>
-    <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="patterns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>patterns.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -304,5 +288,19 @@ Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
   </data>
   <data name="subject_TaskReminder" xml:space="preserve">
     <value>CRM. Reminder about the task: $EntityTitle</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Data export successfully completed
+
+Please, follow this link to download the archive: "${EntityTitle}":"${EntityRelativeURL}"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Data import successfully completed
+
+Go to the "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
 </root>

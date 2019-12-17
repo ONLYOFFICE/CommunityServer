@@ -124,9 +124,7 @@ $Date "$UserName":"$UserURL" has created a new post in the "$TopicTitle":"$PostU
 
 $PostText
 
-"Read More":"$PostURL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new posts in this forum topic, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$PostURL"</value>
   </data>
   <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
     <value>h1.New Topic in Forums: "$TopicTitle":"$TopicURL"
@@ -135,9 +133,7 @@ $Date "$UserName":"$UserURL" has created a new topic: "$TopicTitle":"$TopicURL"
 
 $PostText
 
-"Read More":"$PostURL"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new topics created in forums, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+"Read More":"$PostURL"</value>
   </data>
   <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
     <value>Community. New post in forum topic: $TopicTitle</value>

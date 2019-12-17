@@ -555,6 +555,10 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getMailOperationStatus(params, id, options);
         });
 
+        var setEnableReplaceMessageBody = wrapper(3, function (enabled, params, options) {
+            window.Teamlab.setMailEnableReplaceMessageBody(params, enabled, options);
+        });
+
         return {
             init: init,
 
@@ -658,6 +662,7 @@ if (typeof window.serviceManager === 'undefined') {
             setAlwaysDisplayImagesFlag: setAlwaysDisplayImagesFlag,
             setCacheUnreadMessagesFlag: setCacheUnreadMessagesFlag,
             setEnableGoNextAfterMove: setEnableGoNextAfterMove,
+            setEnableReplaceMessageBody: setEnableReplaceMessageBody,
 
             getMailOperationStatus: getMailOperationStatus
         };

@@ -199,11 +199,14 @@ ASC.Feed.Reader = (function() {
             dropFeedsList = $dropFeedsBox.find('.list');
 
         if (!feeds.length) {
+            dropFeedsList.addClass("display-none");
             $loader.hide();
             $feedsReadedMsg.show();
             $seeAllBtn.css('display', 'inline-block');
             return;
         }
+
+        $feedsReadedMsg.hide();
 
         dropFeedsList.empty();
 

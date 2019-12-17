@@ -405,14 +405,9 @@ namespace ASC.Mail.Core.Engine
         {
             get
             {
-                return new List<FolderType>
-                {
-                    FolderType.Inbox,
-                    FolderType.Sent,
-                    FolderType.Draft,
-                    FolderType.Trash,
-                    FolderType.Spam
-                };
+                return ((FolderType[]) Enum.GetValues(typeof(FolderType)))
+                    .Where(folderType => folderType != FolderType.Sending && folderType != FolderType.UserFolder)
+                    .ToList();
             }
         }
     }

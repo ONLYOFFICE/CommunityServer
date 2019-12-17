@@ -31,7 +31,7 @@ window.ASC.Desktop = (function () {
 
     var isInit = false;
     var domain = null;
-    var isBlockchainSupport = typeof window.AscDesktopEditor.isBlockchainSupport === "function" && window.AscDesktopEditor.isBlockchainSupport();
+    var isEncryptionSupport = typeof window.AscDesktopEditor.isBlockchainSupport === "function" && window.AscDesktopEditor.isBlockchainSupport();
 
     var init = function () {
         if (isInit === false) {
@@ -45,23 +45,23 @@ window.ASC.Desktop = (function () {
 
             regDesktop();
 
-            if (ASC.Desktop.blockchainSupport()) {
+            if (ASC.Desktop.encryptionSupport()) {
                 if (typeof StudioManager !== "undefined" && typeof Teamlab !== "undefined") {
-                    StudioManager.addPendingRequest(requestBlockchainData);
+                    StudioManager.addPendingRequest(requestEncryptionData);
                 }
             }
         }
     };
 
-    var blockchainSupport = function () {
-        return isBlockchainSupport;
+    var encryptionSupport = function () {
+        return isEncryptionSupport;
     };
 
     var regDesktop = function () {
         var data = {
-            displayName: ASC.displayName || Teamlab.profile.displayName,
+            displayName: ASC.Files.Editor ? ASC.Files.Editor.docServiceParams.displayName : Teamlab.profile.displayName,
             domain: domain,
-            email: ASC.email || Teamlab.profile.email,
+            email: ASC.Files.Editor ? ASC.Files.Editor.docServiceParams.email : Teamlab.profile.email,
             provider: "onlyoffice",
         };
 
@@ -71,7 +71,7 @@ window.ASC.Desktop = (function () {
             switch (e.type) {
                 case "user":
                     {
-                        setBlockchainData(e.account);
+                        setEncryptionData(e.account);
                         break;
                     }
                 case "share":
@@ -85,6 +85,27 @@ window.ASC.Desktop = (function () {
                         }
                         break;
                     }
+                case "operation":
+                    {
+                        if (LoadingBanner) {
+                            LoadingBanner.displayLoading();
+                        }
+                        var message = e.opMessage;
+                        if (!message) {
+                            switch (e.opType) {
+                                case 0:
+                                    message = ASC.Files.FilesJSResources.DesktopMessageDownloading;
+                                    break;
+                                case 1:
+                                    message = ASC.Files.FilesJSResources.DesktopMessageEncrypting;
+                                    break;
+                                default:
+                                    message = ASC.Resources.Master.Resource.LoadingProcessing;
+                            }
+                        }
+                        //var modal = e.block === true;
+                        ASC.Files.UI.displayInfoPanel(message);
+                    }
                 default:
                     break;
             }
@@ -97,9 +118,9 @@ window.ASC.Desktop = (function () {
         };
 
         window.onChangeCryptoMode = function (mode) {
-            isBlockchainSupport = (mode > 0);
+            isEncryptionSupport = (mode > 0);
 
-            requestBlockchainData();
+            requestEncryptionData();
 
             if (ASC.Files.Folders) {
                 ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, false);
@@ -107,25 +128,76 @@ window.ASC.Desktop = (function () {
         };
     };
 
+    var encryptionUploadDialog = (typeof window.AscDesktopEditor.CloudCryptUpload !== "function"
+        ? null
+        : function (callback) {
+            window.AscDesktopEditor.CloudCryptUpload(null, function (tmpFilePath, encrypted) {
+                encrypted = encrypted !== false;
+
+                window.AscDesktopEditor.loadLocalFile(tmpFilePath, function (bytes) {
+                    if (LoadingBanner) {
+                        LoadingBanner.hideLoading();
+                    }
+
+                    var filename = tmpFilePath.split("\\").pop().split("/").pop();
+                    var file = new File([bytes], filename);
+
+                    callback(file, encrypted);
+                });
+            });
+        }
+    );
+
+    var encryptionUploadEnd = (typeof window.AscDesktopEditor.CloudCryptUploadEnd !== "function"
+        ? null
+        : function () {
+            window.AscDesktopEditor.CloudCryptUploadEnd();
+        }
+    );
+
+    var encryptFileByUrl = (typeof window.AscDesktopEditor.CloudCryptFile !== "function"
+        ? null
+        : function (fileUrl, callback) {
+            if (fileUrl.indexOf("http") != 0) {
+                fileUrl = domain + fileUrl;
+            }
+            fileUrl = fileUrl.replace(/action=download/, "action=stream");
+
+            window.AscDesktopEditor.CloudCryptFile(fileUrl, function (tmpFilePath, encrypted) {
+                encrypted = encrypted !== false;
+
+                window.AscDesktopEditor.loadLocalFile(tmpFilePath, function (bytes) {
+                    if (LoadingBanner) {
+                        LoadingBanner.hideLoading();
+                    }
+
+                    var filename = tmpFilePath.split("\\").pop().split("/").pop();
+                    var file = new File([bytes], filename);
+
+                    callback(file, encrypted);
+                });
+            });
+        }
+    );
 
     //request
 
-    var requestBlockchainData = function () {
-        if (!ASC.Desktop.blockchainSupport()) {
+    var requestEncryptionData = function () {
+        if (!ASC.Desktop.encryptionSupport()) {
             return;
         }
 
         window.AscDesktopEditor.sendSystemMessage({type: "user"});
     };
 
-    var setBlockchainData = function (account) {
+    var setEncryptionData = function (account) {
         if (!account.address || !account.publicKey) {
-            ASC.Files.UI.displayInfoPanel("Empty blockchain address", true);
+            ASC.Files.UI.displayInfoPanel("Empty encryption address", true);
             return;
         }
 
         if (typeof Teamlab !== "undefined") {
-            Teamlab.setBlockchainData({},
+            Teamlab.updateEncryptionAddress({},
                 {
                     address: account.address,
                     publicKey: account.publicKey
@@ -139,22 +211,22 @@ window.ASC.Desktop = (function () {
     };
 
     var setAccess = function (fileId, callback) {
-        if (!ASC.Desktop.blockchainSupport()) {
+        if (!ASC.Desktop.encryptionSupport()) {
             return;
         }
 
-        Teamlab.getBlockchainAccess({}, fileId, {
+        Teamlab.getEncryptionAccess({}, fileId, {
             success: function (params, addresses) {
 
                 var downloadLink = domain + ASC.Files.Utility.GetFileDownloadUrl(fileId);
 
                 window.AscDesktopEditor.GetHash(downloadLink,
-                     function (hash, docinfo) {
+                    function (hash, docinfo) {
                         var data =
                         {
                             accounts: { "addresses" : addresses },
                             hash: hash,
-							docinfo: (typeof docinfo === "object" ? docinfo.docinfo : null),
+                            docinfo: (typeof docinfo === "object" ? docinfo.docinfo : null),
                             type: "share",
                         };
 
@@ -179,9 +251,13 @@ window.ASC.Desktop = (function () {
     return {
         init: init,
 
-        blockchainSupport: blockchainSupport,
+        encryptionSupport: encryptionSupport,
 
         setAccess: setAccess,
+
+        encryptionUploadDialog: encryptionUploadDialog,
+        encryptionUploadEnd: encryptionUploadEnd,
+        encryptFileByUrl: encryptFileByUrl,
     };
 })();
 

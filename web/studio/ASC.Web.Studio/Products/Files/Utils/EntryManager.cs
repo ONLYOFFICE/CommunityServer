@@ -31,6 +31,7 @@ using System.Linq;
 using System.Net;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Caching;
 using ASC.Common.Caching;
@@ -148,7 +149,8 @@ namespace ASC.Web.Files.Utils
                         {
                             var projectFolderIds =
                                 folderIDProjectTitle
-                                    .Where(projectFolder => (projectFolder.Value.Value ?? "").ToLower().Trim().Contains(searchText.ToLower().Trim()))
+                                    .Where(projectFolder => string.IsNullOrEmpty(searchText)
+                                                            || (projectFolder.Value.Value ?? "").ToLower().Trim().Contains(searchText.ToLower().Trim()))
                                     .Select(projectFolder => projectFolder.Key);
 
                             folders.RemoveAll(folder => rootKeys.Contains(folder.ID));
@@ -554,7 +556,7 @@ namespace ASC.Web.Files.Utils
         }
 
 
-        public static File SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, string comment = null, bool checkRight = true, bool encrypted = false)
+        public static File SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, string comment = null, bool checkRight = true, bool encrypted = false, ForcesaveType? forcesave = null)
         {
             var newExtension = string.IsNullOrEmpty(fileExtension)
                               ? FileUtility.GetFileExtension(downloadUri)
@@ -586,7 +588,45 @@ namespace ASC.Web.Files.Utils
                 var currentExt = file.ConvertedExtension;
                 if (string.IsNullOrEmpty(newExtension)) newExtension = FileUtility.GetInternalExtension(file.Title);
 
-                file.Version++;
+                var replaceVersion = false;
+                if (file.Forcesave != ForcesaveType.None)
+                {
+                    if (file.Forcesave == ForcesaveType.User && FilesSettings.StoreForcesave)
+                    {
+                        file.Version++;
+                    }
+                    else
+                    {
+                        replaceVersion = true;
+                    }
+                }
+                else
+                {
+                    if (file.Version != 1)
+                    {
+                        file.VersionGroup++;
+                    }
+                    else
+                    {
+                        var storeTemplate = Global.GetStoreTemplate();
+
+                        var path = FileConstant.NewDocPath + Thread.CurrentThread.CurrentCulture + "/";
+                        if (!storeTemplate.IsDirectory(path))
+                        {
+                            path = FileConstant.NewDocPath + "default/";
+                        }
+                        path += "new" + FileUtility.GetInternalExtension(file.Title);
+
+                        //todo: think about the criteria for saving after creation
+                        if (file.ContentLength != storeTemplate.GetFileSize("", path))
+                        {
+                            file.VersionGroup++;
+                        }
+                    }
+                    file.Version++;
+                }
+                file.Forcesave = forcesave.HasValue ? forcesave.Value : ForcesaveType.None;
+
                 if (string.IsNullOrEmpty(comment))
                     comment = FilesCommonResource.CommentEdit;
 
@@ -606,7 +646,7 @@ namespace ASC.Web.Files.Utils
                         }
 
                         var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
-                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, false, out downloadUri);
+                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, false, out downloadUri);
 
                         stream = null;
                     }
@@ -643,7 +683,14 @@ namespace ASC.Web.Files.Utils
 
                     file.ContentLength = tmpStream.Length;
                     file.Comment = string.IsNullOrEmpty(comment) ? null : comment;
-                    file = fileDao.SaveFile(file, tmpStream);
+                    if (replaceVersion)
+                    {
+                        file = fileDao.ReplaceFileVersion(file, tmpStream);
+                    }
+                    else
+                    {
+                        file = fileDao.SaveFile(file, tmpStream);
+                    }
                 }
             }
 
@@ -835,7 +882,7 @@ namespace ASC.Web.Files.Utils
                     file = fileDao.GetFile(newFileID);
                     file.Access = fileAccess;
 
-                    DocumentServiceHelper.RenameFile(file);
+                    DocumentServiceHelper.RenameFile(file, fileDao);
 
                     renamed = true;
                 }

@@ -36,6 +36,7 @@ using ASC.Api.Documents;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
+using ASC.Common.Logging;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.CRM.Core.Entities;
@@ -218,24 +219,25 @@ namespace ASC.Api.Projects
 
         #region Create
 
-        ///<summary>
-        ///Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
-        ///</summary>
-        ///<short>
-        ///Create project
-        ///</short>
-        /// <category>Projects</category>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="responsibleId">Responsible ID</param>
-        ///<param name="tags">Tags</param>
-        ///<param name="private">Is project private</param>
-        ///<param name="participants" optional="true">Project participants</param>
-        ///<param name="notify" optional="true">Notify project manager</param>
-        ///<param name="tasks"></param>
-        ///<param name="milestones"></param>
-        ///<returns>Newly created project</returns>
-        ///<exception cref="ArgumentException"></exception>
+        /// <summary>
+        /// Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
+        /// </summary>
+        /// <short>
+        /// Create project
+        /// </short>
+        ///  <category>Projects</category>
+        /// <param name="title">Title</param>
+        /// <param name="description">Description</param>
+        /// <param name="responsibleId">Responsible ID</param>
+        /// <param name="tags">Tags</param>
+        /// <param name="private">Is project private</param>
+        /// <param name="participants" optional="true">Project participants</param>
+        /// <param name="notify" optional="true">Notify project manager</param>
+        /// <param name="tasks"></param>
+        /// <param name="milestones"></param>
+        /// <param name="notifyResponsibles"></param>
+        /// <returns>Newly created project</returns>
+        /// <exception cref="ArgumentException"></exception>
         [Create("")]
         public ProjectWrapperFull CreateProject(string title,
             string description,
@@ -245,7 +247,8 @@ namespace ASC.Api.Projects
             IEnumerable<Guid> participants,
             bool? notify,
             IEnumerable<Task> tasks,
-            IEnumerable<Milestone> milestones)
+            IEnumerable<Milestone> milestones,
+            bool? notifyResponsibles)
         {
             if (responsibleId == Guid.Empty) throw new ArgumentException(@"responsible can't be empty", "responsibleId");
             if (string.IsNullOrEmpty(title)) throw new ArgumentException(@"title can't be empty", "title");
@@ -260,13 +263,13 @@ namespace ASC.Api.Projects
             var milestoneEngine = EngineFactory.MilestoneEngine;
 
             var project = new Project
-                {
-                    Title = title,
-                    Status = ProjectStatus.Open,
-                    Responsible = responsibleId,
-                    Description = description,
-                    Private = @private
-                };
+            {
+                Title = title,
+                Status = ProjectStatus.Open,
+                Responsible = responsibleId,
+                Description = description,
+                Private = @private
+            };
 
             //hack: fix bug 37888
             if (!ProjectSecurity.IsAdministrator())
@@ -274,21 +277,22 @@ namespace ASC.Api.Projects
                 project.Responsible = Core.SecurityContext.CurrentAccount.ID;
             }
 
-            projectEngine.SaveOrUpdate(project, true);
-            projectEngine.AddToTeam(project, participantEngine.GetByID(responsibleId), notify.HasValue ? notify.Value : true);
+            projectEngine.SaveOrUpdate(project, notify ?? true);
+            projectEngine.AddToTeam(project, participantEngine.GetByID(responsibleId), notify ?? true);
             EngineFactory.TagEngine.SetProjectTags(project.ID, tags);
+
 
             var participantsList = participants.ToList();
             foreach (var participant in participantsList)
             {
-                projectEngine.AddToTeam(project, participantEngine.GetByID(participant), true);
+                projectEngine.AddToTeam(project, participantEngine.GetByID(participant), notifyResponsibles ?? false);
             }
 
             foreach (var milestone in milestones)
             {
                 milestone.Description = string.Empty;
                 milestone.Project = project;
-                milestoneEngine.SaveOrUpdate(milestone, false);
+                milestoneEngine.SaveOrUpdate(milestone, notifyResponsibles ?? false);
             }
             var ml = milestones.ToArray();
             foreach (var task in tasks)
@@ -300,14 +304,14 @@ namespace ASC.Api.Projects
                 {
                     task.Milestone = ml[task.Milestone - 1].ID;
                 }
-                taskEngine.SaveOrUpdate(task, null, false);
+                taskEngine.SaveOrUpdate(task, null, notifyResponsibles ?? false);
             }
 
             //hack: fix bug 37888
             if (!ProjectSecurity.IsAdministrator())
             {
                 project.Responsible = responsibleId;
-                projectEngine.SaveOrUpdate(project, true);
+                projectEngine.SaveOrUpdate(project, notify ?? true);
             }
 
             if (tasks.Any() || milestones.Any())
@@ -324,7 +328,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.ProjectCreated, MessageTarget.Create(project.ID), project.Title);
 
-            return new ProjectWrapperFull(this, project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
+            return new ProjectWrapperFull(this, project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1 };
         }
 
         [Create("withSecurity")]
@@ -336,12 +340,13 @@ namespace ASC.Api.Projects
             IEnumerable<Participant> participants,
             bool? notify,
             IEnumerable<Task> tasks,
-            IEnumerable<Milestone> milestones)
+            IEnumerable<Milestone> milestones,
+            bool? notifyResponsibles)
         {
             var project = CreateProject(title, description, responsibleId, tags, @private,
-                participants.Select(r => r.ID).ToList(), notify, tasks, milestones);
+                participants.Select(r => r.ID).ToList(), notify, tasks, milestones, notifyResponsibles);
 
-            foreach (var participant in participants)
+            foreach (var participant in participants.Where(r => !ProjectSecurity.IsAdministrator(r.ID)))
             {
                 EngineFactory.ProjectEngine.SetTeamSecurity(project.Id, participant);
             }
@@ -424,7 +429,7 @@ namespace ASC.Api.Projects
             string tags, IEnumerable<Participant> participants, ProjectStatus? status, bool? @private, bool notify)
         {
             var project = UpdateProject(id, title, description, responsibleId, tags,
-                participants.Select(r=> r.ID),
+                participants.Select(r => r.ID),
                 status,
                 @private,
                 notify);
@@ -487,6 +492,36 @@ namespace ASC.Api.Projects
             MessageService.Send(Request, MessageAction.ProjectDeleted, MessageTarget.Create(project.ID), project.Title);
 
             return ProjectWrapperFullSelector(project, folderId);
+        }
+
+        ///<summary>
+        ///Deletes the project with the ID specified in the request from the portal
+        ///</summary>
+        ///<short>
+        ///Delete project
+        ///</short>
+        ///<category>Projects</category>
+        ///<param name="projectids">Project IDs</param>
+        ///<returns>Deleted project</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Delete(@"")]
+        public IEnumerable<ProjectWrapperFull> DeleteProjects(int[] projectids)
+        {
+            var result = new List<ProjectWrapperFull>(projectids.Length);
+
+            foreach (var id in projectids)
+            {
+                try
+                {
+                    result.Add(DeleteProject(id));
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger("ASC").Error("DeleteProjects " + id, e);
+                }
+            }
+
+            return result;
         }
 
         #endregion
@@ -633,16 +668,16 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandCreate<Milestone>(project);
 
             var milestone = new Milestone
-                {
-                    Description = description ?? "",
-                    Project = project,
-                    Title = title.Trim(),
-                    DeadLine = deadline,
-                    IsKey = isKey,
-                    Status = MilestoneStatus.Open,
-                    IsNotify = isNotify,
-                    Responsible = responsible
-                };
+            {
+                Description = description ?? "",
+                Project = project,
+                Title = title.Trim(),
+                DeadLine = deadline,
+                IsKey = isKey,
+                Status = MilestoneStatus.Open,
+                IsNotify = isNotify,
+                Responsible = responsible
+            };
             EngineFactory.MilestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
             MessageService.Send(Request, MessageAction.MilestoneCreated, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
@@ -935,19 +970,19 @@ namespace ASC.Api.Projects
             }
 
             var task = new Task
-                {
-                    CreateBy = CurrentUserId,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    Deadline = deadline,
-                    Description = description ?? "",
-                    Priority = priority,
-                    Status = TaskStatus.Open,
-                    Title = title,
-                    Project = project,
-                    Milestone = milestoneid,
-                    Responsibles = new List<Guid>(responsibles.Distinct()),
-                    StartDate = startDate
-                };
+            {
+                CreateBy = CurrentUserId,
+                CreateOn = TenantUtil.DateTimeNow(),
+                Deadline = deadline,
+                Description = description ?? "",
+                Priority = priority,
+                Status = TaskStatus.Open,
+                Title = title,
+                Project = project,
+                Milestone = milestoneid,
+                Responsibles = new List<Guid>(responsibles.Distinct()),
+                StartDate = startDate
+            };
             EngineFactory.TaskEngine.SaveOrUpdate(task, null, notify);
 
             MessageService.Send(Request, MessageAction.TaskCreated, MessageTarget.Create(task.ID), project.Title, task.Title);
@@ -980,22 +1015,22 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandCreate<Task>(project);
 
             var task = new Task
-                {
-                    CreateBy = CurrentUserId,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    Status = TaskStatus.Open,
-                    Title = discussion.Title,
-                    Project = project
-                };
+            {
+                CreateBy = CurrentUserId,
+                CreateOn = TenantUtil.DateTimeNow(),
+                Status = TaskStatus.Open,
+                Title = discussion.Title,
+                Project = project
+            };
 
             taskEngine.SaveOrUpdate(task, null, true);
 
             commentEngine.SaveOrUpdate(new Comment
-                {
-                    OldGuidId = Guid.NewGuid(),
-                    TargetUniqID = ProjectEntity.BuildUniqId<Task>(task.ID),
-                    Content = discussion.Description
-                });
+            {
+                OldGuidId = Guid.NewGuid(),
+                TargetUniqID = ProjectEntity.BuildUniqId<Task>(task.ID),
+                Content = discussion.Description
+            });
             //copy comments
             var comments = commentEngine.GetComments(discussion);
             var newOldComments = new Dictionary<Guid, Guid>();
@@ -1265,13 +1300,13 @@ namespace ASC.Api.Projects
             var wrappers = fileWrappers as IEnumerable<FileWrapper>;
             if (wrappers != null)
             {
-                fileIDs.AddRange(wrappers.Select(r => (int) r.Id));
+                fileIDs.AddRange(wrappers.Select(r => (int)r.Id));
             }
 
             var fileWrapper = fileWrappers as FileWrapper;
             if (fileWrapper != null)
             {
-                fileIDs.Add((int) fileWrapper.Id);
+                fileIDs.Add((int)fileWrapper.Id);
             }
 
             switch (entityType)
@@ -1382,9 +1417,9 @@ namespace ASC.Api.Projects
         ///<category>Template</category>
         ///<returns>List of templates</returns>
         [Read("template")]
-        public IEnumerable<ObjectWrapperBase> GetAllTemplates()
+        public IEnumerable<object> GetAllTemplates()
         {
-            return EngineFactory.TemplateEngine.GetAll().Select(x => new ObjectWrapperBase {Id = x.Id, Title = x.Title, Description = x.Description});
+            return EngineFactory.TemplateEngine.GetAll().Select(x => new { x.Id, x.Title, x.Description, CanEdit = ProjectSecurity.CanEditTemplate(x) });
         }
 
         ///<summary>
@@ -1401,7 +1436,7 @@ namespace ASC.Api.Projects
         public ObjectWrapperBase GetTemplate(int id)
         {
             var template = EngineFactory.TemplateEngine.GetByID(id).NotFoundIfNull();
-            return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
+            return new ObjectWrapperBase { Id = template.Id, Title = template.Title, Description = template.Description };
         }
 
         ///<summary>
@@ -1423,15 +1458,15 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandCreate<Project>(null);
 
             var template = new Template
-                {
-                    Title = title,
-                    Description = description
-                };
+            {
+                Title = title,
+                Description = description
+            };
 
             template = EngineFactory.TemplateEngine.SaveOrUpdate(template).NotFoundIfNull();
             MessageService.Send(Request, MessageAction.ProjectTemplateCreated, MessageTarget.Create(template.Id), template.Title);
 
-            return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
+            return new ObjectWrapperBase { Id = template.Id, Title = template.Title, Description = template.Description };
         }
 
         ///<summary>
@@ -1462,7 +1497,7 @@ namespace ASC.Api.Projects
             templateEngine.SaveOrUpdate(template);
             MessageService.Send(Request, MessageAction.ProjectTemplateUpdated, MessageTarget.Create(template.Id), template.Title);
 
-            return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
+            return new ObjectWrapperBase { Id = template.Id, Title = template.Title, Description = template.Description };
         }
 
         ///<summary>
@@ -1484,7 +1519,7 @@ namespace ASC.Api.Projects
             templateEngine.Delete(id);
             MessageService.Send(Request, MessageAction.ProjectTemplateDeleted, MessageTarget.Create(template.Id), template.Title);
 
-            return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
+            return new ObjectWrapperBase { Id = template.Id, Title = template.Title, Description = template.Description };
         }
 
         #endregion

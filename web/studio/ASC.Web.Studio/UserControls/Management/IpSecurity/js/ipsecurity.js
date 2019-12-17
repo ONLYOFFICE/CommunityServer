@@ -37,6 +37,10 @@ window.IpSecurity = new function() {
     var $restrictionsList = $view.find('#restrictions-list');
     var $addRestrictionBtn = $restrictionsList.find('#add-restriction-btn');
 
+    var $ipsecurityOff = $view.find('#ipsecurityOff');
+    var $ipsecurityOn = $view.find('#ipsecurityOn');
+    var $saveRestrictionBtn = $view.find('#save-restriction-btn');
+
     var restrictions = [];
 
     function init() {
@@ -48,12 +52,12 @@ window.IpSecurity = new function() {
     }
 
     function getRestrictions(callback) {
-        var ipsecurityDisable = $view.find('#ipsecurityOn').is(':disabled');
+        var ipsecurityDisable = $ipsecurityOn.is(':disabled');
         if (ipsecurityDisable) {
             return;
         }
 
-        var ipsecurityOn = $view.find('#ipsecurityOn').is(':checked');
+        var ipsecurityOn = $ipsecurityOn.is(':checked');
         if (ipsecurityOn) {
             showLoader();
         }
@@ -76,11 +80,11 @@ window.IpSecurity = new function() {
     }
 
     function bind$Events() {
-        $('#ipsecurityOff').on('click', hideRestrictionsList);
-        $('#ipsecurityOn').on('click', showRestrictionsList);
+        $ipsecurityOff.on('click', hideRestrictionsList);
+        $ipsecurityOn.on('click', showRestrictionsList);
 
-        $('#add-restriction-btn').on('click', addRestriction);
-        $('#save-restriction-btn').on('click', saveRestriction);
+        $addRestrictionBtn.on('click', addRestriction);
+        $saveRestrictionBtn.on('click', saveRestriction);
 
         $restrictionsList.on('click', '.restriction .delete-btn', deleteRestriction);
     }
@@ -103,7 +107,7 @@ window.IpSecurity = new function() {
             return;
         }
 
-        var ipsecurityOff = $view.find('#ipsecurityOff').is(':checked');
+        var ipsecurityOff = $ipsecurityOff.is(':checked');
         if (ipsecurityOff) {
             showLoader();
             Teamlab.updateIpRestrictionsSettings({ enable: false }, {
@@ -145,6 +149,8 @@ window.IpSecurity = new function() {
             }
         }
 
+        var enabled = restrictionsToSave.length > 0;
+
         showLoader();
         async.parallel([
                 function(cb) {
@@ -158,7 +164,7 @@ window.IpSecurity = new function() {
                     });
                 },
                 function(cb) {
-                    Teamlab.updateIpRestrictionsSettings({ enable: true }, {
+                    Teamlab.updateIpRestrictionsSettings({ enable: enabled }, {
                         success: function(params, data) {
                             cb(null, data);
                         },
@@ -171,6 +177,9 @@ window.IpSecurity = new function() {
                     if (err) {
                         showErrorMessage();
                     } else {
+                        if (!enabled) {
+                            $ipsecurityOff.click();
+                        }
                         LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
                     }
                 });

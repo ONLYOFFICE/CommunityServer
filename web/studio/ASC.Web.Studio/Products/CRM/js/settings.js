@@ -705,7 +705,7 @@ ASC.CRM.SettingsPage = (function() {
                         } else {
                             if (response.isCompleted) {
                                 $edt.find("#exportLinkBox span").html(
-                                    jq("<a></a>").attr("href", response.fileUrl).text("exportdata.zip")
+                                    jq("<a></a>").attr("href", response.fileUrl).text(response.fileName)
                                 );
                                 $edt.find("p.header-base-small").hide();
                                 $edt.find("#exportLinkBox").show();

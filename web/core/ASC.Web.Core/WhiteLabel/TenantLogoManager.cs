@@ -116,8 +116,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.LoadForDefaultTenant();
-
+                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
                 return tenantWhiteLabelSettings.LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
             }
             return TenantWhiteLabelSettings.DefaultLogoText;
@@ -125,7 +124,6 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static bool IsRetina(HttpRequest request)
         {
-            var isRetina = false;
             if (request != null)
             {
                 var cookie = request.Cookies["is_retina"];
@@ -134,11 +132,12 @@ namespace ASC.Web.Core.WhiteLabel
                     bool result;
                     if (Boolean.TryParse(cookie.Value, out result))
                     {
-                        isRetina = result;
+                        return result;
                     }
                 }
             }
-            return isRetina;
+
+            return !SecurityContext.IsAuthenticated;
         }
 
          public static bool WhiteLabelPaid

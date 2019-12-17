@@ -74,7 +74,7 @@ namespace ASC.Api.Calendar.ExternalCalendars
         {
             get { return Resources.CalendarApiResource.SharedEventsCalendarDescription; }
         }
-        
+
         public override Guid OwnerId
         {
             get

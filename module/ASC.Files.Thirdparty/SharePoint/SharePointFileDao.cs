@@ -67,6 +67,11 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.ToFile(ProviderInfo.GetFolderFiles(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
+        public File GetFileStable(object fileId, int fileVersion)
+        {
+            return ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId));
+        }
+
         public List<File> GetFileHistory(object fileId)
         {
             return new List<File> { GetFile(fileId) };
@@ -262,6 +267,11 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
 
             return null;
+        }
+
+        public File ReplaceFileVersion(File file, Stream fileStream)
+        {
+            return SaveFile(file, fileStream);
         }
 
         public void DeleteFile(object fileId)

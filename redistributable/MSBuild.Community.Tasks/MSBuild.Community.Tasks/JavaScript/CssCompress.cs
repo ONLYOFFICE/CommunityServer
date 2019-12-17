@@ -220,8 +220,8 @@ namespace MSBuild.Community.Tasks
             body = body.Replace(", ", ",");
             body = body.Replace("; ", ";");
             body = body.Replace(";}", "}");
-            body = Regex.Replace(body, @"/\*[^\*]*\*+([^/\*]*\*+)*/", string.Empty);
-            body = Regex.Replace(body, @"(?<=[>])\s{2,}(?=[<])|(?<=[>])\s{2,}(?=&nbsp;)|(?<=&ndsp;)\s{2,}(?=[<])", string.Empty);
+            body = Regex.Replace(body, @"/\*(.|\n)*?\*/", string.Empty);
+            //body = Regex.Replace(body, @"(?<=[>])\s{2,}(?=[<])|(?<=[>])\s{2,}(?=&nbsp;)|(?<=&nbsp;)\s{2,}(?=[<])", string.Empty);
 
             return body;
         }

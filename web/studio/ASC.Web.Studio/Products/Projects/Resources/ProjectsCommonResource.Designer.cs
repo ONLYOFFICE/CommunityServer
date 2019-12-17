@@ -214,6 +214,33 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Color.
+        /// </summary>
+        public static string ChangeColorCustomStatus {
+            get {
+                return ResourceManager.GetString("ChangeColorCustomStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статусы доступны только постановщику задачи.
+        /// </summary>
+        public static string ChangeCustomStatusAvailable {
+            get {
+                return ResourceManager.GetString("ChangeCustomStatusAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Icon.
+        /// </summary>
+        public static string ChangeIconCustomStatus {
+            get {
+                return ResourceManager.GetString("ChangeIconCustomStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide.
         /// </summary>
         public static string Collapse {
@@ -264,6 +291,51 @@ namespace ASC.Web.Projects.Resources {
         public static string CreateProjectButtonText {
             get {
                 return ResourceManager.GetString("CreateProjectButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string CustomStatusCategory {
+            get {
+                return ResourceManager.GetString("CustomStatusCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string CustomStatusDescription {
+            get {
+                return ResourceManager.GetString("CustomStatusDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set necessary order for the task statuses. Each category must have at least one status..
+        /// </summary>
+        public static string CustomStatusDescriptionBox {
+            get {
+                return ResourceManager.GetString("CustomStatusDescriptionBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Status.
+        /// </summary>
+        public static string CustomStatusNew {
+            get {
+                return ResourceManager.GetString("CustomStatusNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string CustomStatusTitle {
+            get {
+                return ResourceManager.GetString("CustomStatusTitle", resourceCulture);
             }
         }
         
@@ -426,6 +498,15 @@ namespace ASC.Web.Projects.Resources {
         public static string EmptyScreenContasctsHeader {
             get {
                 return ResourceManager.GetString("EmptyScreenContasctsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each status must have a title.
+        /// </summary>
+        public static string EmptyStatusTitle {
+            get {
+                return ResourceManager.GetString("EmptyStatusTitle", resourceCulture);
             }
         }
         
@@ -871,6 +952,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build teams and assign tasks. Schedule project milestones, track project activity and generate reports..
+        /// </summary>
+        public static string ProductDescriptionShort {
+            get {
+                return ResourceManager.GetString("ProductDescriptionShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
         public static string ProductName {
@@ -1218,6 +1308,15 @@ namespace ASC.Web.Projects.Resources {
         public static string TasksModuleTitle {
             get {
                 return ResourceManager.GetString("TasksModuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task Statuses.
+        /// </summary>
+        public static string TaskStatusesSettings {
+            get {
+                return ResourceManager.GetString("TaskStatusesSettings", resourceCulture);
             }
         }
         

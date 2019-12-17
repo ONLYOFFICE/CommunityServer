@@ -239,6 +239,7 @@ body.media-width-0-1100 #addTaskContainer #newTaskTitle {
 
 .milestone .mainInfo .title {
 	color: #333;
+    word-break: break-all;
 }
 
 
@@ -281,6 +282,9 @@ body.media-width-0-1200 .task .title
 }
 .task:hover .title {
 	border-bottom: 1px dotted #333;
+}
+.task .title{
+    word-break: break-all;
 }
 .addTaskContainer {
 	padding-left: 35px;

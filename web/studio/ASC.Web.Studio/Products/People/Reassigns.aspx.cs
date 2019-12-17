@@ -54,8 +54,6 @@ namespace ASC.Web.People
             return WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
 
-        protected bool CustomMode { get; private set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             var username = Request["user"];
@@ -85,8 +83,6 @@ namespace ASC.Web.People
             HelpLink = CommonLinkUtility.GetHelpLink();
 
             ProfileLink = CommonLinkUtility.GetUserProfile(UserInfo.ID);
-
-            CustomMode = CoreContext.Configuration.CustomMode;
 
             Page.RegisterInlineScript(string.Format("ASC.People.Reassigns.init(\"{0}\", {1});", UserInfo.ID, RemoveData.ToString().ToLowerInvariant()));
         }

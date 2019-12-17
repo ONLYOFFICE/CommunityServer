@@ -177,7 +177,7 @@ window.ASC.Files.UI = (function () {
                 entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
             } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
                 entryUrl = "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(entryId));
-            } else if (typeof ASC.Files.MediaPlayer != "undefined" && ASC.Files.MediaPlayer.canPlay(entryTitle)) {
+            } else if (typeof ASC.Files.MediaPlayer != "undefined" && ASC.Files.MediaPlayer.canPlay(entryTitle, true)) {
                 entryUrl = "#" + ASC.Files.Common.getCorrectHash(ASC.Files.MediaPlayer.getPlayHash(entryId));
             }
         } else {
@@ -245,83 +245,60 @@ window.ASC.Files.UI = (function () {
         if (!boxTop.length) {
             return;
         }
-        var movingPopupShift = boxTop.offset().top + boxTop.outerHeight();
-        var movingPopupObj = jq("#filesSelectorPanel:visible");
 
-        ASC.Files.UI.stickMovingPanel("mainContentHeader", movingPopupObj, movingPopupShift, false);
+        ASC.Files.UI.stickMovingPanel("mainContentHeader", jq("#filesSelectorPanel:visible"));
 
         ASC.Files.UI.fixContentHeaderWidth();
     };
 
-    var stickMovingPanel = function (toggleObjId, movingPopupObj, movingPopupShift, fixBigHeight) {
+    var stickMovingPanel = function (toggleObjId, hideObj) {
         var toggleObj = jq("#" + toggleObjId);
         if (!toggleObj.is(":visible")) {
             return;
         }
-        var spacerName = "Spacer";
 
-        var toggleObjSpacer = jq("#" + toggleObjId + spacerName);
-        var absTop;
+        if (hideObj) {
+            hideObj.hide();
+        }
 
-        if (jq("#" + toggleObjId + spacerName + ":visible").length == 0) {
-            absTop = toggleObj.offset().top;
+        var spacerName = toggleObjId + "Spacer";
+        var toggleObjSpacer = jq("#" + spacerName);
+
+        if (jq("#" + spacerName + ":visible").length == 0) {
+            var absTop = toggleObj.offset().top;
         } else {
             absTop = toggleObjSpacer.offset().top;
         }
 
-        movingPopupShift = movingPopupShift || 0;
         var jqWindow = jq(window);
         var winScroll = jqWindow.scrollTop();
 
         if (winScroll >= absTop) {
-            var toggleObjHeight = toggleObj.outerHeight();
-            var parentObj = toggleObj.parent();
-            var parentHeight = parentObj.innerHeight() - parseInt(parentObj.css("padding-top")) - parseInt(parentObj.css("padding-bottom"));
-
             if (!toggleObj.hasClass("stick-panel")) {
-                if (!fixBigHeight || (winScroll - absTop < parentHeight - toggleObjHeight)) {
-                    if (toggleObjSpacer.length == 0) {
-                        var createToggleObjSpacer = document.createElement("div");
-                        createToggleObjSpacer.id = toggleObjId + spacerName;
-                        document.body.appendChild(createToggleObjSpacer);
-                        toggleObjSpacer = jq("#" + toggleObjId + spacerName);
-                        toggleObjSpacer.insertAfter(toggleObj);
-                        toggleObjSpacer.css(
-                            {
-                                "height": toggleObj.css("height"),
-                                "padding-top": toggleObj.css("padding-top"),
-                                "padding-bottom": toggleObj.css("padding-bottom")
-                            });
-                    }
-                    toggleObjSpacer.show();
-
-                    toggleObj.addClass("stick-panel");
-
-                    if (movingPopupObj) {
-                        movingPopupObj.css({
-                            "position": "fixed",
-                            "top": movingPopupShift - winScroll
+                if (toggleObjSpacer.length == 0) {
+                    var createToggleObjSpacer = document.createElement("div");
+                    createToggleObjSpacer.id = spacerName;
+                    document.body.appendChild(createToggleObjSpacer);
+                    toggleObjSpacer = jq("#" + spacerName);
+                    toggleObjSpacer.insertAfter(toggleObj);
+                    toggleObjSpacer.css(
+                        {
+                            "height": toggleObj.css("height"),
+                            "padding-bottom": toggleObj.css("padding-bottom"),
+                            "padding-top": toggleObj.css("padding-top")
                         });
-                    }
                 }
-            }
-            if (fixBigHeight && toggleObj.hasClass("stick-panel")) {
-                toggleObj.css("top", -Math.max(0, (winScroll - absTop - (parentHeight - toggleObjHeight))));
+                toggleObjSpacer.show();
+
+                toggleObj.addClass("stick-panel");
             }
 
-            toggleObj.css("left", (parentObj.offset().left - jqWindow.scrollLeft()));
+            toggleObj.css("left", (toggleObj.parent().offset().left - jqWindow.scrollLeft()));
         } else {
             if (toggleObj.hasClass("stick-panel")) {
                 toggleObjSpacer.hide();
                 toggleObj.removeClass("stick-panel");
                 jq("#mainContentHeader").css("width", "auto");
-
-                if (movingPopupObj) {
-                    movingPopupObj.css({
-                        "position": "absolute",
-                        "top": movingPopupShift
-                    });
-                }
             }
         }
     };
@@ -448,7 +425,7 @@ window.ASC.Files.UI = (function () {
                         }
                     }
 
-                    if (ASC.Files.Utility.MustConvert(entryTitle)) {
+                    if (ASC.Files.Utility.MustConvert(entryTitle) && !entryData.encrypted) {
                         entryObj.find(".pencil:not(.convert-action)").remove();
                         if (Teamlab.profile.isVisitor && !ASC.Files.UI.accessEdit()
                             || ASC.Files.Folders.folderContainer == "trash") {
@@ -463,7 +440,7 @@ window.ASC.Files.UI = (function () {
                             entryObj.find(".file-edit").attr("href", entryUrl);
                         }
 
-                        if (ASC.Files.UI.editableFile(entryData) && (!entryData.encrypted || ASC.Files.Utility.CanWebEncrypt(entryTitle) && ASC.Desktop && ASC.Desktop.blockchainSupport())) {
+                        if (ASC.Files.UI.editableFile(entryData) && (!entryData.encrypted || ASC.Files.Utility.CanWebEncrypt(entryTitle) && ASC.Desktop && ASC.Desktop.encryptionSupport())) {
                             ASC.Files.UI.lockEditFile(entryObj, ASC.Files.UI.editingFile(entryObj));
                             entryObj.find(".convert-action").remove();
                             if (ASC.Files.Utility.CanCoAuhtoring(entryTitle) && !entryObj.hasClass("on-edit-alone")) {
@@ -483,7 +460,7 @@ window.ASC.Files.UI = (function () {
 
                     if (entryData.encrypted
                         && (!ASC.Desktop
-                            || !ASC.Desktop.blockchainSupport()
+                            || !ASC.Desktop.encryptionSupport()
                             || ASC.Resources.Master.Personal)) {
                         entryObj.addClass("without-share");
                     }
@@ -1029,7 +1006,7 @@ window.ASC.Files.UI = (function () {
             ASC.Files.Mouse.finishMoveTo();
             ASC.Files.Mouse.finishSelecting();
         }
-        return StudioBlockUIManager.blockUI(obj, width, height, top, "absolute");
+        return StudioBlockUIManager.blockUI(obj, width, height, top);
     };
 
     var setProgressValue = function (progressBar, value) {
@@ -1228,7 +1205,7 @@ window.ASC.Files.UI = (function () {
 
             var code = e.keyCode || e.which;
 
-            if ((code == ASC.Files.Common.keyCode.a || code == ASC.Files.Common.keyCode.A) && e.ctrlKey) {
+            if (code == ASC.Files.Common.keyCode.A && e.ctrlKey) {
                 if (jq.browser.opera) {
                     setTimeout(function () {
                         jq("#filesSelectAllCheck").focus();
@@ -1244,7 +1221,6 @@ window.ASC.Files.UI = (function () {
         jq(document).keyup(function (event) {
             if (jq(".blockUI:visible").length != 0 ||
                 jq("#fileViewerDialog:visible,#mediaPlayer:visible").length != 0 ||
-                jq(".studio-action-panel:visible").length != 0 ||
                 jq("#promptRename").length != 0 ||
                 jq("#promptCreateFolder").length != 0 ||
                 jq("#promptCreateFile").length != 0) {
@@ -1274,17 +1250,24 @@ window.ASC.Files.UI = (function () {
                     return false;
                 }
 
-                if ((code == ASC.Files.Common.keyCode.f || code == ASC.Files.Common.keyCode.F) && e.shiftKey) {
+                if (code == ASC.Files.Common.keyCode.F && e.shiftKey) {
                     ASC.Files.Folders.createFolder();
                     return false;
                 }
 
-                if ((code == ASC.Files.Common.keyCode.n || code == ASC.Files.Common.keyCode.N)  && e.shiftKey) {
+                if (code == ASC.Files.Common.keyCode.N && e.shiftKey) {
                     if (ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Document)) {
                         ASC.Files.Folders.typeNewDoc = "document";
                         ASC.Files.Folders.createNewDoc();
                     }
                     return false;
+                }
+
+                if (code == ASC.Files.Common.keyCode.F2 && jq("#filesMainContent .file-row.row-selected:visible").length == 1) {
+                    var entryData = ASC.Files.UI.getObjectData(jq("#filesMainContent .file-row.row-selected"));
+
+                    ASC.Files.Actions.hideAllActionPanels();
+                    ASC.Files.Folders.rename(entryData.entryType, entryData.id);
                 }
             }
 

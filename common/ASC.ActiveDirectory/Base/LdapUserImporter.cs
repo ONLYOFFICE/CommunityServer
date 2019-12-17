@@ -48,7 +48,7 @@ namespace ASC.ActiveDirectory.Base
         public Dictionary<LdapObject, LdapSettingsStatus> AllSkipedDomainGroups { get; private set; }
 
         private string _ldapDomain;
-        private static readonly string UnknownDomain = ConfigurationManager.AppSettings["ldap.domain"] ?? "unknown";
+        private static readonly string UnknownDomain = ConfigurationManager.AppSettings["ldap.domain"] ?? "LDAP";
 
         public string LDAPDomain {
             get
@@ -321,7 +321,10 @@ namespace ASC.ActiveDirectory.Base
             List<LdapObject> ldapUserGroupList;
 
             if (!TryGetLdapUserGroups(ldapUser, out ldapUserGroupList))
+            {
+                _log.DebugFormat("TrySyncUserGroupMembership(username: '{0}' sid: '{1}') no ldap groups found", userInfo.UserName, ldapUser.Sid);
                 return false;
+            }
 
             if (!LdapHelper.IsConnected)
                 LdapHelper.Connect();
@@ -339,27 +342,26 @@ namespace ASC.ActiveDirectory.Base
 
                 if (Equals(groupInfo, Constants.LostGroupInfo))
                 {
+                    _log.DebugFormat("TrySyncUserGroupMembership(groupname: '{0}' sid: '{1}') no portal group found, creating", ldapUserGroup.DistinguishedName, ldapUserGroup.Sid);
                     groupInfo = CoreContext.UserManager.SaveGroupInfo(ldapUserGroup.ToGroupInfo(Settings, _log));
 
+                    _log.DebugFormat("TrySyncUserGroupMembership(username: '{0}' sid: '{1}') adding user to group (groupname: '{2}' sid: '{3}')", userInfo.UserName, ldapUser.Sid, groupInfo.Name, groupInfo.Sid);
                     CoreContext.UserManager.AddUserIntoGroup(userInfo.ID, groupInfo.ID);
-
-                    actualPortalLdapGroups.Add(groupInfo);
                 }
                 else if (!portalUserLdapGroups.Contains(groupInfo))
                 {
+                    _log.DebugFormat("TrySyncUserGroupMembership(username: '{0}' sid: '{1}') adding user to group (groupname: '{2}' sid: '{3}')", userInfo.UserName, ldapUser.Sid, groupInfo.Name, groupInfo.Sid);
                     CoreContext.UserManager.AddUserIntoGroup(userInfo.ID, groupInfo.ID);
-
-                    actualPortalLdapGroups.Add(groupInfo);
                 }
-            }
 
-            if (!actualPortalLdapGroups.Any())
-                return true;
+                actualPortalLdapGroups.Add(groupInfo);
+            }
 
             foreach (var portalUserLdapGroup in portalUserLdapGroups)
             {
                 if (!actualPortalLdapGroups.Contains(portalUserLdapGroup))
                 {
+                    _log.DebugFormat("TrySyncUserGroupMembership(username: '{0}' sid: '{1}') removing user from group (groupname: '{2}' sid: '{3}')", userInfo.UserName, ldapUser.Sid, portalUserLdapGroup.Name, portalUserLdapGroup.Sid);
                     CoreContext.UserManager.RemoveUserFromGroup(userInfo.ID, portalUserLdapGroup.ID);
                 }
             }

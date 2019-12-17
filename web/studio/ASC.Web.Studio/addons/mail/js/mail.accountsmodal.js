@@ -30,7 +30,7 @@ window.accountsModal = (function($) {
         wndQuestion = undefined,
         onSuccessOperationCallback,
         progressBarIntervalId = null,
-        GET_STATUS_TIMEOUT = 10000,
+        GET_STATUS_TIMEOUT = 1000,
         oauthMailboxId = -1,
         redTextColor = '#B40404',
         greenTextColor = '#44BB00',
@@ -90,7 +90,7 @@ window.accountsModal = (function($) {
                 return false;
             });
 
-            wndQuestion.find('.buttons .remove').bind('click', function() {
+            wndQuestion.find('.buttons .remove').bind('click', function () {
                 hide();
 
                 if (!accountEmail)
@@ -98,15 +98,34 @@ window.accountsModal = (function($) {
 
                 var account = accountsManager.getAccountByAddress(accountEmail);
 
+                if ($('.needReassign').prop('checked')) {
+                    var reassignEmail = $('#reassignMessagesSelector').attr('mailbox_email');
+
+                    Teamlab.reassignMailMessages({}, 3, reassignEmail, function (params, data) {
+                        window.toastr.success(window.MailScriptResource.MailDraftsReassigned);
+                    });
+
+                    Teamlab.reassignMailMessages({}, 7, reassignEmail, function (params, data) {
+                        window.toastr.success(window.MailScriptResource.MailTemplatesReassigned);
+                    });
+                }
+
                 if (account.is_teamlab && (account.is_shared_domain || Teamlab.profile.isAdmin)) {
                     serviceManager.removeMailbox(account.mailbox_id, { account: account }, {
-                        success: function(params, data) {
+                        success: function (params, data) {
                             window.LoadingBanner.displayMailLoading();
 
-                            progressBarIntervalId = setInterval(function() {
-                                    return checkRemoveMailboxStatus(data, params.account);
-                                },
-                                GET_STATUS_TIMEOUT);
+                            ProgressDialog.init({
+                                header: ASC.Resources.Master.Resource.LoadingDescription,
+                                percentage: 0
+                            }, jq("#bottomLoaderPanel"), null, 1);
+
+                            ProgressDialog.show();
+
+                            progressBarIntervalId = setInterval(function () {
+                                return checkRemoveMailboxStatus(data, params.account);
+                            },
+                            GET_STATUS_TIMEOUT);
                         },
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
@@ -115,13 +134,20 @@ window.accountsModal = (function($) {
 
                 } else {
                     serviceManager.removeBox(account.email, { account: account }, {
-                        success: function(params, data) {
+                        success: function (params, data) {
                             window.LoadingBanner.displayMailLoading();
 
-                            progressBarIntervalId = setInterval(function() {
-                                    return checkRemoveMailboxStatus(data, params.account);
-                                },
-                                GET_STATUS_TIMEOUT);
+                            ProgressDialog.init({
+                                header: ASC.Resources.Master.Resource.LoadingDescription,
+                                percentage: 0
+                            }, jq("#bottomLoaderPanel"), null, 1);
+
+                            ProgressDialog.show();
+
+                            progressBarIntervalId = setInterval(function () {
+                                return checkRemoveMailboxStatus(data, params.account)
+                            },
+                            GET_STATUS_TIMEOUT);
                         },
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
@@ -169,7 +195,9 @@ window.accountsModal = (function($) {
         serviceManager.getMailOperationStatus(operation.id,
         null,
         {
-            success: function(params, data) {
+            success: function (params, data) {
+                var status = translateOperationStatus(data.percents);
+
                 if (data.completed) {
                     clearInterval(progressBarIntervalId);
                     progressBarIntervalId = null;
@@ -178,6 +206,13 @@ window.accountsModal = (function($) {
                     serviceManager.getTags();
                     serviceManager.getAccounts();
                     window.LoadingBanner.hideLoading();
+                    ProgressDialog.setProgress(data.percents, status);
+
+                    setTimeout(function () {
+                        ProgressDialog.close();
+                    }, 1000);
+                } else {
+                    ProgressDialog.setProgress(data.percents, status);
                 }
             },
             error: function (e, error) {
@@ -187,6 +222,18 @@ window.accountsModal = (function($) {
                 window.LoadingBanner.hideLoading();
             }
         });
+    }
+
+    function translateOperationStatus(percent) {
+        var resource = ASC.Mail.Resources.MailApiResource;
+
+        if (percent === 1) return resource.SetupTenantAndUserHeader;
+        if (percent === 20) return resource.RemoveMailboxFromDbHeader;
+        if (percent === 40) return resource.DecreaseQuotaSpaceHeader;
+        if (percent === 50) return resource.RecalculateFoldersCountersHeader;
+        if (percent === 60) return resource.ClearAccountsCacheHeader;
+        if (percent === 70) return resource.RemoveElasticSearchIndexMessagesHeader;
+        if (percent === 100) return resource.FinishedHeader;
     }
 
     function activateAccountWithoutQuestion(email) {
@@ -1331,16 +1378,24 @@ window.accountsModal = (function($) {
     }
 
     function questionBox(operation) {
-        var header = '';
+        var header = '',
+            question = '',
+            option = '',
+            accounts = accountsManager.getAccountList();
+
         wndQuestion.find('.activate').hide();
         wndQuestion.find('.deactivate').hide();
         wndQuestion.find('.remove').hide();
-        var question = '';
+
         switch (operation) {
             case 'remove':
                 header = wndQuestion.attr('delete_header');
                 wndQuestion.find('.remove').show();
                 question = window.MailScriptResource.DeleteAccountShure;
+                option = '<p>' + window.MailScriptResource.DeleteAccountOptionHead + '</p>\
+                        <div class="reassignOption disabled"><input type="checkbox" class="needReassign"/> \
+                        ' + window.MailScriptResource.DeleteAccountOptionText + ': <span id="reassignMessagesSelector" class="pointer">\
+                        <span class="baseLinkAction"></span><div class="baseLinkArrowDown"></div></span></div>';
                 break;
             case 'activate':
                 header = wndQuestion.attr('activate_header');
@@ -1358,9 +1413,58 @@ window.accountsModal = (function($) {
         question = question.replace(/%1/g, accountEmail);
         wndQuestion.find('.mail-confirmationAction p.questionText').text(question);
 
+        if (accounts.filter(function (account) { return !(account.is_alias || account.is_group); }).length > 1) {
+            wndQuestion.find('.mail-confirmationAction .optionText').html(option);
+
+            createSetMailBoxSelector(accounts);
+        }
+
         blockUi(523, wndQuestion);
 
+        $('.needReassign').on('click', function () {
+            ($(this).prop('checked'))
+                ? $('.reassignOption').removeClass('disabled')
+                : $('.reassignOption').addClass('disabled');
+        });
+
         window.PopupKeyUpActionProvider.EnterAction = "jq('#questionWnd .containerBodyBlock .buttons .button.blue:visible').click();";
+    }
+
+    function createSetMailBoxSelector(accounts) {
+        var complitedAccounts = [],
+            $selector = $('#reassignMessagesSelector');
+
+        complitedAccounts = accounts
+            .filter(function (account) {
+                return !(account.is_alias || account.is_group || account.email === accountEmail);
+            })
+            .map(function (account) {
+                return {
+                    text: (new ASC.Mail.Address(TMMail.htmlDecode(account.name), account.email)).ToString(true),
+                    explanation: "",
+                    handler: selectBoxForReassign,
+                    account: account
+                };
+            });
+
+        if (!complitedAccounts.length) return;
+
+        $selector.actionPanel({ buttons: complitedAccounts, css: 'stick-over' });
+        $selector.find('.baseLinkArrowDown').show();
+        $selector.addClass('pointer');
+        $selector.find('.baseLinkAction').addClass('baseLinkAction');
+
+        selectBoxForReassign({}, {
+            account: complitedAccounts[0].account
+        });
+    }
+
+    function selectBoxForReassign(e, params) {
+        var $selector = $('#reassignMessagesSelector'),
+            text = (new ASC.Mail.Address(TMMail.htmlDecode(params.account.name), params.account.email)).ToString(true);
+
+        $selector.attr('mailbox_email', params.account.email);
+        $selector.find('span').text(text);
     }
 
     function informationBox(params) {

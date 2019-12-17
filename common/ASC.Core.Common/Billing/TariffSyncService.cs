@@ -36,7 +36,7 @@ using ASC.Core.Tenants;
 
 namespace ASC.Core.Billing
 {
-    class TariffSyncService : ITariffSyncService, IServiceController
+    public class TariffSyncService : ITariffSyncService, IServiceController
     {
         private readonly static ILog log = LogManager.GetLogger("ASC");
         private readonly TariffSyncServiceSection config;

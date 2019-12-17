@@ -205,6 +205,15 @@ namespace ASC.Web.Community.Forum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive..
+        /// </summary>
+        public static string EmptyScreenForumTextVisitor {
+            get {
+                return ResourceManager.GetString("EmptyScreenForumTextVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Topics not found.
         /// </summary>
         public static string EmptyScreenSearchCaption {

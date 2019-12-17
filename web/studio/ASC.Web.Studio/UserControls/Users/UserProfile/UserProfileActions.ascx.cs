@@ -63,9 +63,13 @@ namespace ASC.Web.Studio.UserControls.Users
             Actions = new AllowedActions(ProfileHelper.UserInfo);
             MyStaff = ProfileHelper.UserInfo.IsMe();
             HasActions = Actions.AllowEdit || Actions.AllowAddOrDelete;
-            IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            IsAdmin = currentUser.IsAdmin();
+
             SubscribeBtnText =
-                StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID)
+                StudioNotifyHelper.IsSubscribedToNotify(currentUser, Core.Notify.Actions.PeriodicNotify)
                     ? ResourceJS.TipsAndTricksUnsubscribeBtn
                     : ResourceJS.TipsAndTricksSubscribeBtn;
 

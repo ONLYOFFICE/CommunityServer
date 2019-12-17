@@ -33,7 +33,6 @@ using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Services;
-using ASC.Common.Logging;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Files.Core;
@@ -146,23 +145,31 @@ namespace ASC.Web.Files
             }
 
             context.Response.Clear();
-            context.Response.ContentType = "application/zip";
-            context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(FileConstant.DownloadTitle + ".zip"));
 
-            using (var readStream = store.GetReadStream(FileConstant.StorageDomainTmp, path))
-            {
-                context.Response.AddHeader("Content-Length", readStream.Length.ToString(CultureInfo.InvariantCulture));
-                readStream.StreamCopyTo(context.Response.OutputStream);
-            }
             try
             {
+                bool flushed = false;
+                using (var readStream = store.GetReadStream(FileConstant.StorageDomainTmp, path))
+                {
+                    long offset = 0;
+                    long length = readStream.Length;
+                    if (readStream.CanSeek)
+                    {
+                        length = ProcessRangeHeader(context, readStream.Length, ref offset);
+                        readStream.Seek(offset, SeekOrigin.Begin);
+                    }
+
+                    SendStreamByChunks(context, length, FileConstant.DownloadTitle + ".zip", readStream, ref flushed);
+                }
+
                 context.Response.Flush();
                 context.Response.SuppressContent = true;
                 context.ApplicationInstance.CompleteRequest();
             }
-            catch (HttpException he)
+            catch (Exception e)
             {
-                Global.Logger.ErrorFormat("BulkDownloadFile", he);
+                Global.Logger.ErrorFormat("BulkDownloadFile failed for user {0} with error: ", SecurityContext.CurrentAccount.ID, e.Message);
+                throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
             }
         }
 
@@ -232,7 +239,6 @@ namespace ASC.Web.Files
                         context.Response.Cache.SetCacheability(HttpCacheability.Public);
 
                         Stream fileStream = null;
-
                         try
                         {
                             var title = file.Title;
@@ -242,15 +248,15 @@ namespace ASC.Web.Files
                                 var ext = FileUtility.GetFileExtension(file.Title);
 
                                 var outType = (context.Request[FilesLinkUtility.OutType] ?? "").Trim();
-                                if (!string.IsNullOrEmpty(outType) && FileUtility.ExtsConvertible[ext].Contains(outType))
+                                if (!string.IsNullOrEmpty(outType)
+                                    && FileUtility.ExtsConvertible.Keys.Contains(ext)
+                                    && FileUtility.ExtsConvertible[ext].Contains(outType))
                                 {
                                     ext = outType;
                                 }
 
                                 long offset = 0;
-                                long endOffset = -1;
-                                long length = file.ContentLength;
-                                long fullLength = file.ContentLength;
+                                long length;
                                 if (!file.ProviderEntry
                                     && string.Equals(context.Request["convpreview"], "true", StringComparison.InvariantCultureIgnoreCase)
                                     && FFmpegService.IsConvertable(ext))
@@ -260,15 +266,16 @@ namespace ASC.Web.Files
                                     var store = Global.GetStore();
                                     if (!store.IsFile(mp4Path))
                                     {
-                                        fileStream =  fileDao.GetFileStream(file);
+                                        fileStream = fileDao.GetFileStream(file);
+
                                         Global.Logger.InfoFormat("Converting {0} (fileId: {1}) to mp4", file.Title, file.ID);
                                         var stream = FFmpegService.Convert(fileStream, ext);
                                         store.Save(string.Empty, mp4Path, stream, mp4Name);
                                     }
 
-                                    fullLength = store.GetFileSize(string.Empty, mp4Path);
+                                    var fullLength = store.GetFileSize(string.Empty, mp4Path);
 
-                                    length = ProcessRangeHeader(context, fullLength, ref offset, ref endOffset);
+                                    length = ProcessRangeHeader(context, fullLength, ref offset);
                                     fileStream = store.GetReadStream(string.Empty, mp4Path, (int)offset);
 
                                     title = FileUtility.ReplaceFileExtension(title, ".mp4");
@@ -284,38 +291,29 @@ namespace ASC.Web.Files
                                             return;
                                         }
 
-                                        length = ProcessRangeHeader(context, fullLength, ref offset, ref endOffset);
-                                        fileStream = fileDao.GetFileStream(file, offset);
+                                        fileStream = fileDao.GetFileStream(file); // getStream to fix file.ContentLength
+
+                                        if (fileStream.CanSeek)
+                                        {
+                                            var fullLength = file.ContentLength;
+                                            length = ProcessRangeHeader(context, fullLength, ref offset);
+                                            fileStream.Seek(offset, SeekOrigin.Begin);
+                                        }
+                                        else
+                                        {
+                                            length = file.ContentLength;
+                                        }
                                     }
                                     else
                                     {
                                         title = FileUtility.ReplaceFileExtension(title, ext);
                                         fileStream = FileConverter.Exec(file, ext);
 
-                                        length = fullLength = fileStream.Length;
+                                        length = fileStream.Length;
                                     }
                                 }
 
-                                context.Response.AddHeader("Content-Length", length.ToString(CultureInfo.InvariantCulture));
-                                context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title));
-                                context.Response.ContentType = MimeMapping.GetMimeMapping(title);
-
-                                if (endOffset >= 0 && endOffset != fullLength - 1)
-                                {
-                                    fileStream.StreamCopyTo(context.Response.OutputStream, (int)length);
-                                }
-                                else
-                                {
-                                    fileStream.StreamCopyTo(context.Response.OutputStream);
-                                }
-
-                                if (!context.Response.IsClientConnected)
-                                {
-                                    Global.Logger.Warn(String.Format("Download file error {0} {1} Connection is lost. Too long to buffer the file", file.Title, file.ID));
-                                }
-
-                                context.Response.Flush();
-                                flushed = true;
+                                SendStreamByChunks(context, length, title, fileStream, ref flushed);
                             }
                             else
                             {
@@ -326,66 +324,17 @@ namespace ASC.Web.Files
                                     return;
                                 }
 
-                                context.Response.Buffer = false;
-
-                                context.Response.AddHeader("Connection", "Keep-Alive");
-                                context.Response.AddHeader("Accept-Ranges", "bytes");
-                                context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title));
-                                context.Response.ContentType = "application/octet-stream";
+                                fileStream = fileDao.GetFileStream(file); // getStream to fix file.ContentLength
 
                                 long offset = 0;
-                                if (context.Request.Headers["Range"] != null)
+                                var length = file.ContentLength;
+                                if (fileStream.CanSeek)
                                 {
-                                    var range = context.Request.Headers["Range"].Split(new[] { '=', '-' });
-                                    offset = Convert.ToInt64(range[1]);
+                                    length = ProcessRangeHeader(context, file.ContentLength, ref offset);
+                                    fileStream.Seek(offset, SeekOrigin.Begin);
                                 }
 
-                                if (offset > 0)
-                                {
-                                    Global.Logger.Info("Starting file download offset is " + offset);
-                                    context.Response.StatusCode = 206;
-                                    context.Response.AddHeader("Content-Range", String.Format(" bytes {0}-{1}/{2}", offset, file.ContentLength - 1, file.ContentLength));
-                                }
-
-                                fileStream = fileDao.GetFileStream(file, offset);
-                                context.Response.AddHeader("Content-Length", (file.ContentLength - offset).ToString(CultureInfo.InvariantCulture));
-
-                                var dataToRead = file.ContentLength;
-                                const int bufferSize = 8*1024; // 8KB
-                                var buffer = new Byte[bufferSize];
-                                while (dataToRead > 0)
-                                {
-                                    int length;
-
-                                    try
-                                    {
-                                        length = fileStream.Read(buffer, 0, bufferSize);
-                                    }
-                                    catch (HttpException exception)
-                                    {
-                                        Global.Logger.Error(
-                                            String.Format("Read from stream is error. Download file {0} {1}. Maybe Connection is lost.?? Error is {2} ",
-                                                          file.Title,
-                                                          file.ID,
-                                                          exception
-                                                ));
-
-                                        throw;
-                                    }
-
-                                    if (context.Response.IsClientConnected)
-                                    {
-                                        context.Response.OutputStream.Write(buffer, 0, length);
-                                        context.Response.Flush();
-                                        flushed = true;
-                                        dataToRead = dataToRead - length;
-                                    }
-                                    else
-                                    {
-                                        dataToRead = -1;
-                                        Global.Logger.Warn(String.Format("IsClientConnected is false. Why? Download file {0} {1} Connection is lost. ", file.Title, file.ID));
-                                    }
-                                }
+                                SendStreamByChunks(context, length, title, fileStream, ref flushed);
                             }
                         }
                         catch (ThreadAbortException tae)
@@ -442,10 +391,12 @@ namespace ASC.Web.Files
             }
         }
 
-        private static long ProcessRangeHeader(HttpContext context, long fullLength, ref long offset, ref long endOffset)
+        private static long ProcessRangeHeader(HttpContext context, long fullLength, ref long offset)
         {
             if (context == null) throw new ArgumentNullException();
             if (context.Request.Headers["Range"] == null) return fullLength;
+
+            long endOffset = -1;
 
             var range = context.Request.Headers["Range"].Split(new[] { '=', '-' });
             offset = Convert.ToInt64(range[1]);
@@ -463,11 +414,43 @@ namespace ASC.Web.Files
             if (length <= 0) throw new HttpException("Wrong Range header");
 
             Global.Logger.InfoFormat("Starting file download (chunk {0}-{1})", offset, endOffset);
-            context.Response.StatusCode = 206;
+            if (length < fullLength)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.PartialContent;
+            }
             context.Response.AddHeader("Accept-Ranges", "bytes");
-            context.Response.AddHeader("Content-Range", String.Format(" bytes {0}-{1}/{2}", offset, endOffset, fullLength));
+            context.Response.AddHeader("Content-Range", string.Format(" bytes {0}-{1}/{2}", offset, endOffset, fullLength));
 
             return length;
+        }
+
+        private static void SendStreamByChunks(HttpContext context, long toRead, string title, Stream fileStream, ref bool flushed)
+        {
+            context.Response.Buffer = false;
+            context.Response.AddHeader("Connection", "Keep-Alive");
+            context.Response.AddHeader("Content-Length", toRead.ToString(CultureInfo.InvariantCulture));
+            context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title));
+            context.Response.ContentType = MimeMapping.GetMimeMapping(title);
+
+            const int bufferSize = 32 * 1024; // 32KB
+            var buffer = new byte[bufferSize];
+            while (toRead > 0)
+            {
+                var length = fileStream.Read(buffer, 0, bufferSize);
+
+                if (context.Response.IsClientConnected)
+                {
+                    context.Response.OutputStream.Write(buffer, 0, length);
+                    context.Response.Flush();
+                    flushed = true;
+                    toRead -= length;
+                }
+                else
+                {
+                    toRead = -1;
+                    Global.Logger.Warn(string.Format("IsClientConnected is false. Why? Download file {0} Connection is lost. ", title));
+                }
+            }
         }
 
         private static void StreamFile(HttpContext context)
@@ -519,27 +502,23 @@ namespace ASC.Web.Files
                                 var stringPayload = JsonWebToken.Decode(header, FileUtility.SignatureSecret);
 
                                 Global.Logger.Debug("DocService StreamFile payload: " + stringPayload);
-                                ////todo: remove old scheme 5.0
-                                //if (!stringPayload.Equals("{}"))
+                                //var data = JObject.Parse(stringPayload);
+                                //if (data == null)
                                 //{
-                                //    var data = JObject.Parse(stringPayload);
-                                //    if (data == null)
-                                //    {
-                                //        throw new ArgumentException("DocService StreamFile header is incorrect");
-                                //    }
+                                //    throw new ArgumentException("DocService StreamFile header is incorrect");
+                                //}
 
-                                //    var signedStringUrl = data["url"] ?? (data["payload"] != null ? data["payload"]["url"] : null);
-                                //    if (signedStringUrl == null)
-                                //    {
-                                //        throw new ArgumentException("DocService StreamFile header url is incorrect");
-                                //    }
-                                //    var signedUrl = new Uri(signedStringUrl.ToString());
+                                //var signedStringUrl = data["url"] ?? (data["payload"] != null ? data["payload"]["url"] : null);
+                                //if (signedStringUrl == null)
+                                //{
+                                //    throw new ArgumentException("DocService StreamFile header url is incorrect");
+                                //}
+                                //var signedUrl = new Uri(signedStringUrl.ToString());
 
-                                //    var signedQuery = signedUrl.Query;
-                                //    if (!context.Request.Url.Query.Equals(signedQuery))
-                                //    {
-                                //        throw new SecurityException(string.Format("DocService StreamFile header id not equals: {0} and {1}", context.Request.Url.Query, signedQuery));
-                                //    }
+                                //var signedQuery = signedUrl.Query;
+                                //if (!context.Request.Url.Query.Equals(signedQuery))
+                                //{
+                                //    throw new SecurityException(string.Format("DocService StreamFile header id not equals: {0} and {1}", context.Request.Url.Query, signedQuery));
                                 //}
                             }
                             catch (Exception ex)
@@ -633,27 +612,23 @@ namespace ASC.Web.Files
                         var stringPayload = JsonWebToken.Decode(header, FileUtility.SignatureSecret);
 
                         Global.Logger.Debug("DocService EmptyFile payload: " + stringPayload);
-                        ////todo: remove old scheme 5.0
-                        //if (!stringPayload.Equals("{}"))
+                        //var data = JObject.Parse(stringPayload);
+                        //if (data == null)
                         //{
-                        //    var data = JObject.Parse(stringPayload);
-                        //    if (data == null)
-                        //    {
-                        //        throw new ArgumentException("DocService EmptyFile header is incorrect");
-                        //    }
+                        //    throw new ArgumentException("DocService EmptyFile header is incorrect");
+                        //}
 
-                        //    var signedStringUrl = data["url"] ?? (data["payload"] != null ? data["payload"]["url"] : null);
-                        //    if (signedStringUrl == null)
-                        //    {
-                        //        throw new ArgumentException("DocService EmptyFile header url is incorrect");
-                        //    }
-                        //    var signedUrl = new Uri(signedStringUrl.ToString());
+                        //var signedStringUrl = data["url"] ?? (data["payload"] != null ? data["payload"]["url"] : null);
+                        //if (signedStringUrl == null)
+                        //{
+                        //    throw new ArgumentException("DocService EmptyFile header url is incorrect");
+                        //}
+                        //var signedUrl = new Uri(signedStringUrl.ToString());
 
-                        //    var signedQuery = signedUrl.Query;
-                        //    if (!context.Request.Url.Query.Equals(signedQuery))
-                        //    {
-                        //        throw new SecurityException(string.Format("DocService EmptyFile header id not equals: {0} and {1}", context.Request.Url.Query, signedQuery));
-                        //    }
+                        //var signedQuery = signedUrl.Query;
+                        //if (!context.Request.Url.Query.Equals(signedQuery))
+                        //{
+                        //    throw new SecurityException(string.Format("DocService EmptyFile header id not equals: {0} and {1}", context.Request.Url.Query, signedQuery));
                         //}
                     }
                     catch (Exception ex)
@@ -668,7 +643,9 @@ namespace ASC.Web.Files
                 var toExtension = FileUtility.GetFileExtension(fileName);
                 var fileExtension = FileUtility.GetInternalExtension(toExtension);
                 fileName = "new" + fileExtension;
-                var path = FileConstant.NewDocPath + "default/" + fileName;
+                var path = FileConstant.NewDocPath
+                           + (CoreContext.Configuration.CustomMode ? "ru-RU/" : "default/")
+                           + fileName;
 
                 var storeTemplate = Global.GetStoreTemplate();
                 if (!storeTemplate.IsFile("", path))
@@ -901,8 +878,10 @@ namespace ASC.Web.Files
 
             if (responseMessage)
             {
+                context.Response.Write("ok: " + string.Format(FilesCommonResource.MessageFileCreated, folder.Title));
                 return;
             }
+
             context.Response.Redirect(
                 (context.Request["openfolder"] ?? "").Equals("true")
                     ? PathProvider.GetFolderUrl(file.FolderID)
@@ -1123,7 +1102,7 @@ namespace ASC.Web.Files
                 }
             }
 
-            string result;
+            DocumentServiceTracker.TrackResponse result;
             try
             {
                 result = DocumentServiceTracker.ProcessData(fileId, fileData);
@@ -1133,8 +1112,9 @@ namespace ASC.Web.Files
                 Global.Logger.Error("DocService track:", e);
                 throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
             }
+            result = result ?? new DocumentServiceTracker.TrackResponse();
 
-            context.Response.Write(result ?? "{\"error\":0}");
+            context.Response.Write(DocumentServiceTracker.TrackResponse.Serialize(result));
         }
     }
 }

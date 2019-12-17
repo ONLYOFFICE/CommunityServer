@@ -15,9 +15,7 @@
             <div class="headerPanelSmall header-base-small"><%= PeopleResource.RemovingListHdr %></div>
             <ul>
                 <li><%= PeopleResource.RemovingListItem1 %></li>
-                <% if (!CustomMode) { %>
                 <li><%= PeopleResource.RemovingListItem2 %></li>
-                <% } %>
                 <li><%= PeopleResource.RemovingListItem3 %></li>
                 <li><%= PeopleResource.RemovingListItem4 %></li>
             </ul>
@@ -54,12 +52,10 @@
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignDocumentsModule %></div>
                 <div class="progress-desc" data-step="25"></div>
             </div>
-            <% if (!CustomMode) { %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignCrmModule %></div>
                 <div class="progress-desc" data-step="50"></div>
             </div>
-            <% } %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignMailModule %></div>
                 <div class="progress-desc" data-step="75"></div>
@@ -89,9 +85,7 @@
             <ul>
                 <li><%= PeopleResource.ReassignsTransferedListItem1 %></li>
                 <li><%= PeopleResource.ReassignsTransferedListItem2 %></li>
-                <% if (!CustomMode) { %>
                 <li><%= PeopleResource.ReassignsTransferedListItem3 %></li>
-                <% } %>
             </ul>
         </div>
         <p><%= UserControlsCommonResource.NotBeUndone %></p>
@@ -132,12 +126,10 @@
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignProjectsModule %></div>
                 <div class="progress-desc" data-step="66"></div>
             </div>
-            <% if (!CustomMode) { %>
             <div class="progress-row clearFix">
                 <div class="progress-title header-base-small"><%= PeopleResource.ReassignCrmModule %></div>
                 <div class="progress-desc" data-step="99"></div>
             </div>
-            <% } %>
         </div>
 
         <div class="big-button-container">

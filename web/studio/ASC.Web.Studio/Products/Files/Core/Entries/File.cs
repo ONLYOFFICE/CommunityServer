@@ -176,6 +176,8 @@ namespace ASC.Files.Core
         [DataMember(EmitDefaultValue = false, Name = "encrypted")]
         public bool Encrypted { get; set; }
 
+        public ForcesaveType Forcesave { get; set; }
+
         public String DownloadUrl
         {
             get { return FilesLinkUtility.GetFileDownloadUrl(ID); }

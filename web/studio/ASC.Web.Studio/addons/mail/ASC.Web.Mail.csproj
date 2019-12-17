@@ -126,6 +126,7 @@
     <Content Include="js\filters\manager.js" />
     <Content Include="js\filters\modal.js" />
     <Content Include="js\filters\page.js" />
+    <Content Include="js\templates\plugin\jquery-mailtemplateadvansedselector.js" />
     <Content Include="js\userfolders\dropdown.js" />
     <Content Include="js\userfolders\manager.js" />
     <Content Include="js\userfolders\modal.js" />
@@ -222,6 +223,7 @@
     <Content Include="templates\composeMessageBodyTmpl.html" />
     <Content Include="templates\contactEditTmpl.html" />
     <Content Include="templates\contactsTmpl.html" />
+    <Content Include="templates\contentLossWarning.html" />
     <Content Include="templates\crmIntegrationPopupTmpl.html" />
     <Content Include="templates\docAttachmentsTmpl.html" />
     <Content Include="templates\editMessageTmpl.html" />
@@ -230,6 +232,7 @@
     <Content Include="templates\filters\editFilterTmpl.html" />
     <Content Include="templates\foldersTmpl.html" />
     <Content Include="templates\mailAutoreplyTmpl.html" />
+    <Content Include="templates\mailTemplateAdvansedSelectorTmpl.html" />
     <Content Include="templates\messagePrintTmpl.html" />
     <Content Include="templates\messagesTmpl.html" />
     <Content Include="templates\messageTmpl.html" />
@@ -324,9 +327,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\ComposeDraft.ashx.cs">
-      <DependentUpon>ComposeDraft.ashx</DependentUpon>
-    </Compile>
     <Compile Include="OAuth.aspx.cs">
       <DependentUpon>OAuth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,9 +346,6 @@
     <Compile Include="HttpHandlers\FilesUploader.cs" />
     <Compile Include="HttpHandlers\ViewDocument.ashx.cs">
       <DependentUpon>ViewDocument.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="HttpHandlers\DownloadAll.ashx.cs">
-      <DependentUpon>DownloadAll.ashx</DependentUpon>
     </Compile>
     <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
@@ -451,13 +448,11 @@
     <None Include="App_Themes\default\less\popup.less" />
     <None Include="App_Themes\default\less\settings.less" />
     <None Include="App_Themes\default\less\tags.less" />
-    <Content Include="HttpHandlers\DownloadAll.ashx" />
     <Content Include="HttpHandlers\ViewDocument.ashx" />
     <Content Include="HttpHandlers\EditDocument.ashx" />
     <Content Include="HttpHandlers\Download.ashx" />
     <Content Include="HttpHandlers\ContactPhoto.ashx" />
     <Content Include="js\userfolders\plugins\jstree.counters.plugin.js" />
-    <Content Include="HttpHandlers\ComposeDraft.ashx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">

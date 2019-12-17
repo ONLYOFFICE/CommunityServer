@@ -165,6 +165,9 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
                     ).ToList();
                 foreach (var htmlAttribute in toRemove)
                 {
+                    if (node.Name == "img" && htmlAttribute.Name == "src")
+                        continue;
+
                     node.Attributes.Remove(htmlAttribute);
                 }
             }

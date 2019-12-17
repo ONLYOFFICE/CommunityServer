@@ -526,7 +526,8 @@
     }
 
     .attachments-buttons {
-        padding: @message-spliter-width 0 18px @message-spliter-width;
+        padding: @message-spliter-width 0 0 @message-spliter-width;
+        display: inline;
 
         .icon-download-all {
             background: url("@{base-icon-sprite-url}") -20px -40px no-repeat;
@@ -544,6 +545,8 @@
 
         .baseLinkAction {
             margin-right: 8px;
+            height: @row-height;
+            line-height: @row-height;
         }
     }
 

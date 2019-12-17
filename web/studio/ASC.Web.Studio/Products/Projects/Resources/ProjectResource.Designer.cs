@@ -286,6 +286,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete projects.
+        /// </summary>
+        public static string DeleteProjects {
+            get {
+                return ResourceManager.GetString("DeleteProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete these projects?.
+        /// </summary>
+        public static string DeleteProjectsPopup {
+            get {
+                return ResourceManager.GetString("DeleteProjectsPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No projects matching your filter can be displayed in this section.
         /// </summary>
         public static string DescrEmptyListProjFilter {
@@ -309,6 +327,15 @@ namespace ASC.Web.Projects.Resources {
         public static string EmptyListProjDescribe {
             get {
                 return ResourceManager.GetString("EmptyListProjDescribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create the projects and work effectively.
+        /// </summary>
+        public static string EmptyListProjDescribeVisitor {
+            get {
+                return ResourceManager.GetString("EmptyListProjDescribeVisitor", resourceCulture);
             }
         }
         

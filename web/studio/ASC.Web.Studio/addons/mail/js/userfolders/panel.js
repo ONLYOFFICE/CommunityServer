@@ -72,7 +72,10 @@ window.userFoldersPanel = (function($) {
                     "check_callback": true,
                     "multiple": false,
                     "force_text": true,
-                    'data': loadTree
+                    'data': loadTree,
+                    "keyboard": {
+                        "f2":  false
+                    }
                 },
                 "state": { "key": stateId }
             });
@@ -99,7 +102,6 @@ window.userFoldersPanel = (function($) {
     function onSelectNode(e, data) {
         var href = "#userfolder={0}".format(data.node.id.replace(idPrefix, ""));
         ASC.Controls.AnchorController.move(href);
-        TMMail.scrollTop();
         markSelectedPath();
     }
 

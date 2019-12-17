@@ -25,6 +25,9 @@
 
 
 jq(function () {
+    var recaptchaEmail = null;
+    var recaptchaLogin = null;
+
     jq('#login').blur();
     
     if (jq.cookies.get('onluoffice_personal_cookie') == null || jq.cookies.get('onluoffice_personal_cookie') == false) {
@@ -82,12 +85,17 @@ jq(function () {
                     "lang": jq(".personal-languages_select").attr("data-lang"),
                     "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
                     "spam": spam,
-                    "analytics": analytics
+                    "analytics": analytics,
+                    "recaptchaResponse": recaptchaEmail != null ? window.grecaptcha.getResponse(recaptchaEmail) : ""
                 };
 
                 var onError = function (error) {
                     $error.html(error);
                     $email.addClass("error");
+
+                    if (recaptchaEmail != null) {
+                        window.grecaptcha.reset(recaptchaEmail);
+                    }
                 };
 
                 Teamlab.registerUserOnPersonal(data, {
@@ -119,11 +127,6 @@ jq(function () {
                 jq("#confirmEmail").focus();
             });
         });
-
-        var ua = window.navigator.userAgent;
-        if (ua.indexOf("CrOS") != -1) {
-            jq("#chromebookText").show();
-        }
         
         jq('.create-link').on("click", function () {
             jq('html, body').animate({ scrollTop: 0 }, 300);
@@ -243,6 +246,7 @@ jq(function () {
             }
             $body.css('overflow-y', 'auto');
         }
+
         // Login
         jq("#personalLogin a").on("click", function () {
             jq(".auth-form-with_form_w").fadeOut(200, function () { });
@@ -251,20 +255,43 @@ jq(function () {
             jq("#loginPopup").show();
             jq('#login').focus();
             disableScroll();
+
+            if (jq("#recaptchaLogin").length) {
+                if (recaptchaLogin != null) {
+                    window.grecaptcha.reset(recaptchaLogin);
+                } else {
+                    var recaptchaLoginRender = function () {
+                        recaptchaLogin = window.grecaptcha.render("recaptchaLogin", {"sitekey": jq("#recaptchaData").val()});
+                    };
+                    
+                    if (window.grecaptcha && window.grecaptcha.render) {
+                        recaptchaLoginRender();
+                    } else {
+                        jq(document).ready(recaptchaLoginRender);
+                    }
+                }
+            }
         });
+
         // open form
         jq(".open-form").on("click", function () {
             jq(".auth-form-with_form_w").show();
             jq("#confirmEmail").focus();
             //disableScroll();
+
+            if (jq("#recaptchaEmail").length) {
+                if (recaptchaEmail != null) {
+                    window.grecaptcha.reset(recaptchaEmail);
+                } else {
+                    recaptchaEmail = window.grecaptcha.render("recaptchaEmail", {"sitekey": jq("#recaptchaData").val()});
+                }
+            }
         });
 
         var loginMessage = jq(".login-message[value!='']").val();
         if (loginMessage && loginMessage.length) {
-            jq('.auth-form-with_form_btn').removeClass('disabled').unbind('click');
-            jq("#loginPopup").show();
-            showAccountLinks();
-            disableScroll();
+            jq("#personalLogin a").click();
+
             var type = jq(".login-message[value!='']").attr("data-type");
             if (type | 0) {
                 toastr.success(loginMessage);

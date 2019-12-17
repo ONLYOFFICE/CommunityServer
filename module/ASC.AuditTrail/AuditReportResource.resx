@@ -547,7 +547,13 @@
     <value>Documents</value>
   </data>
   <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
-    <value> Overwriting Settings Updated</value>
+    <value>Overwriting Settings Updated</value>
+  </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>Forcesave settings Updated</value>
+  </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>Store forcesave settings Updated</value>
   </data>
   <data name="DocumentsProduct" xml:space="preserve">
     <value>Documents</value>
@@ -813,6 +819,9 @@
   <data name="LoginFailIpSecurity" xml:space="preserve">
     <value>IP Security: Login Failed</value>
   </data>
+  <data name="LoginFailRecaptcha" xml:space="preserve">
+    <value>Login Fail. Recaptcha is invalid</value>
+  </data>
   <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
     <value>Login Fail. Associated Social Account Not Found</value>
   </data>
@@ -821,6 +830,9 @@
   </data>
   <data name="LoginFailViaApiSms" xml:space="preserve">
     <value>Failed Login via API &amp; SMS Code</value>
+  </data>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>Failed Login via API &amp; authenticator application</value>
   </data>
   <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
     <value>Login via API &amp; Social Media Failed</value>
@@ -851,6 +863,9 @@
   </data>
   <data name="LoginSuccessViaApiSms" xml:space="preserve">
     <value>Successful Login via API &amp; SMS Code</value>
+  </data>
+  <data name="LoginSuccessViaApiTfa" xml:space="preserve">
+    <value>Successful Login via API &amp; authenticator application</value>
   </data>
   <data name="LoginSuccessViaSms" xml:space="preserve">
     <value>Login via SMS successful</value>

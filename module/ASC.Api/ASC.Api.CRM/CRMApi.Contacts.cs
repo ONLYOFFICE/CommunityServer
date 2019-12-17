@@ -32,6 +32,7 @@ using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.CRM.Wrappers;
+using ASC.Api.Employee;
 using ASC.Api.Exceptions;
 using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
@@ -47,6 +48,7 @@ using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.SocialMedia;
 using ASC.Web.Projects.Core;
+using ASC.Web.Studio.Core;
 using Autofac;
 using Contact = ASC.CRM.Core.Entities.Contact;
 
@@ -244,7 +246,7 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <param name="opportunityid">Opportunity ID</param>
         /// <param name="contactid">Contact ID</param>
-        /// <short>Add contact opportunity</short> 
+        /// <short>Delete contact opportunity</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
@@ -754,16 +756,25 @@ namespace ASC.Api.CRM
         [Update(@"contact/{contactid:[0-9]+}/changephoto")]
         public string ChangeContactPhoto(int contactid, IEnumerable<HttpPostedFileBase> photo)
         {
-            if (contactid <= 0) throw new ArgumentException();
+            if (contactid <= 0)
+                throw new ArgumentException();
 
             var contact = DaoFactory.ContactDao.GetByID(contactid);
-            if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
+            if (contact == null || !CRMSecurity.CanAccessTo(contact))
+                throw new ItemNotFoundException();
 
             var firstPhoto = photo != null ? photo.FirstOrDefault() : null;
+            if (firstPhoto == null)
+                throw new ArgumentException();
 
-            if (firstPhoto == null) return string.Empty;
-            if (!(firstPhoto.ContentType.StartsWith("image/") && firstPhoto.ContentLength > 0)) return string.Empty;
-            if (!firstPhoto.InputStream.CanRead) return string.Empty;
+            if (firstPhoto.ContentLength == 0 ||
+                !firstPhoto.ContentType.StartsWith("image/") || 
+                !firstPhoto.InputStream.CanRead)
+                throw new InvalidOperationException(CRMErrorsResource.InvalidFile);
+
+            if (SetupInfo.MaxImageUploadSize > 0 &&
+                SetupInfo.MaxImageUploadSize < firstPhoto.ContentLength)
+                throw new Exception(FileSizeComment.GetFileImageSizeNote(CRMCommonResource.ErrorMessage_UploadFileSize, false));
 
             return ContactPhotoManager.UploadPhoto(firstPhoto.InputStream, contactid, false).Url;
         }
@@ -798,10 +809,11 @@ namespace ASC.Api.CRM
         /// <short>Merge contacts</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <exception cref="SecurityException"></exception>
         /// <returns>
         ///    Contact
         /// </returns>
-        /// <exception cref="ArgumentException"></exception>
         [Update(@"contact/merge")]
         public ContactWrapper MergeContacts(int fromcontactid, int tocontactid)
         {
@@ -810,7 +822,9 @@ namespace ASC.Api.CRM
             var fromContact = DaoFactory.ContactDao.GetByID(fromcontactid);
             var toContact = DaoFactory.ContactDao.GetByID(tocontactid);
 
-            if (fromContact == null || toContact == null || !CRMSecurity.CanEdit(fromContact) || !CRMSecurity.CanEdit(toContact)) throw new ItemNotFoundException();
+            if (fromContact == null || toContact == null) throw new ItemNotFoundException();
+
+            if (!CRMSecurity.CanEdit(fromContact) || !CRMSecurity.CanEdit(toContact)) throw CRMSecurity.CreateSecurityException();
 
             DaoFactory.ContactDao.MergeDublicate(fromcontactid, tocontactid);
             var resultContact = DaoFactory.ContactDao.GetByID(tocontactid);
@@ -1288,6 +1302,32 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
+        ///   Get access rights to the contact with the ID specified in the request
+        /// </summary>
+        /// <short>Get contact access rights</short> 
+        /// <category>Contacts</category>
+        ///<exception cref="ArgumentException"></exception>
+        ///<exception cref="ItemNotFoundException"></exception>
+        ///<exception cref="SecurityException"></exception>
+        /// <returns>User list</returns>
+        [Read(@"contact/{contactid:[0-9]+}/access")]
+        public IEnumerable<EmployeeWraper> GetContactAccessList(int contactid)
+        {
+            if (contactid <= 0) throw new ArgumentException();
+
+            var contact = DaoFactory.ContactDao.GetByID(contactid);
+
+            if (contact == null) throw new ItemNotFoundException();
+
+            if (!CRMSecurity.CanAccessTo(contact)) throw CRMSecurity.CreateSecurityException();
+
+            return CRMSecurity.IsPrivate(contact)
+                       ? CRMSecurity.GetAccessSubjectTo(contact)
+                                    .Select(item => EmployeeWraper.Get(item.Key))
+                       : new List<EmployeeWraper>();
+        }
+
+        /// <summary>
         ///   Sets access rights for other users to the contact with the ID specified in the request
         /// </summary>
         /// <param name="contactid">Contact ID</param>
@@ -1757,7 +1797,7 @@ namespace ASC.Api.CRM
             {
                 var provider = new TwitterDataProvider(TwitterApiHelper.GetTwitterApiInfoForCurrentUser());
                 var imageUrl = provider.GetUrlOfUserImage(userIdentity, TwitterDataProvider.ImageSize.Original);
-                return UploadAvatar(contactId, imageUrl, uploadOnly, tmpDirName);
+                return UploadAvatar(contactId, imageUrl, uploadOnly, tmpDirName, false);
             }
 
             return null;
@@ -1829,15 +1869,15 @@ namespace ASC.Api.CRM
         }
         
 
-        private static ContactPhotoManager.PhotoData UploadAvatar(int contactID, string imageUrl, bool uploadOnly, string tmpDirName)
+        private static ContactPhotoManager.PhotoData UploadAvatar(int contactID, string imageUrl, bool uploadOnly, string tmpDirName, bool checkFormat = true)
         {
             if (contactID != 0)
             {
-                return ContactPhotoManager.UploadPhoto(imageUrl, contactID, uploadOnly);
+                return ContactPhotoManager.UploadPhoto(imageUrl, contactID, uploadOnly, checkFormat);
             }
 
             if (string.IsNullOrEmpty(tmpDirName) || tmpDirName == "null") tmpDirName = null;
-            return ContactPhotoManager.UploadPhotoToTemp(imageUrl, tmpDirName);
+            return ContactPhotoManager.UploadPhotoToTemp(imageUrl, tmpDirName, checkFormat);
         }
 
         private IEnumerable<ContactWithTaskWrapper> ToSimpleListContactWrapper(IReadOnlyList<Contact> itemList)

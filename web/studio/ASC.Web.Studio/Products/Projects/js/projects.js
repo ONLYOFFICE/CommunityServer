@@ -85,6 +85,27 @@ ASC.Projects.Description = (function () {
                 return previousValue + ", " + currentValue;
             }) : "";
 
+        var statuses = [
+            {
+                title: projectsJSResource.StatusOpenProject,
+                id: 0,
+                handler: onChangeStatus.bind(null, 0)
+            },
+            {
+                title: projectsJSResource.StatusSuspendProject,
+                id: 2,
+                handler: onChangeStatus.bind(null, 2)
+            },
+            {
+                title: projectsJSResource.StatusClosedProject,
+                id: 1,
+                handler: onChangeStatus.bind(null, 1)
+            }
+        ];
+
+        var currentStatusId = project.status;
+        var currentStatus = statuses.find(function (item) { return item.id === currentStatusId });
+
         baseProjects.DescriptionTab
             .init()
             .push(resources.CommonResource.ProjectName, formatDescription(project.title))
@@ -92,10 +113,8 @@ ASC.Projects.Description = (function () {
             .push(resources.ProjectsFilterResource.ByCreateDate, project.displayDateCrtdate)
             .push(resources.CommonResource.Description, jq.linksParser(formatDescription(project.description)))
             .push(projectResource.Tags, tags)
-            .pushStatus(projectsJSResource.StatusOpenProject, 0, onChangeStatus.bind(null, 0))
-            .pushStatus(projectsJSResource.StatusSuspendProject, 2, onChangeStatus.bind(null, 2))
-            .pushStatus(projectsJSResource.StatusClosedProject, 1, onChangeStatus.bind(null, 1))
-            .setCurrentStatus(project.status)
+            .setStatuses(statuses)
+            .setCurrentStatus(currentStatus)
             .setStatusRight(project.canEdit)
             .tmpl();
 
@@ -125,7 +144,8 @@ ASC.Projects.AllProject = (function () {
         currentUserId,
         isSimpleView,
         filterProjCount = 0,
-        currentListProjects;
+        currentListProjects,
+        loadingBanner;
 
     var clickEvent = "click",
         clickProjectsInitEvent = "click.projectsInit",
@@ -133,13 +153,64 @@ ASC.Projects.AllProject = (function () {
         teamlab;
     
     var init = function (isSimpleViewFlag) {
+        isSimpleView = isSimpleViewFlag;
+
         if (isInit === false) {
             isInit = true;
 
             var res = ASC.Projects.Resources;
             teamlab = Teamlab;
+            loadingBanner = LoadingBanner;
 
             $projectsTable = jq("#tableListProjects");
+            var groupMenu;
+
+            if (!isSimpleView) {
+                var actions = [
+                    {
+                        id: "gaDelete",
+                        title: res.CommonResource.Delete,
+                        handler: gaRemoveHandler,
+                        checker: function(project) {
+                            return project.canDelete;
+                        }
+                    }
+                ];
+                var projectsFilterResource = res.ProjectsFilterResource;
+                groupMenu = {
+                    actions: actions,
+                    getItemByCheckbox: getProjectByTarget,
+                    getLineByCondition: function (condition) {
+                        return currentListProjects
+                            .filter(condition)
+                            .map(function (item) {
+                                return $projectsTableBody.find("tr[id=" + item.id + "]");
+                            });
+                    },
+                    multiSelector: [
+                    {
+                        id: "gasOpen",
+                        title: projectsFilterResource.StatusOpenProject,
+                        condition: function (item) {
+                            return item.status === 0;
+                        }
+                    },
+                    {
+                        id: "gasPaused",
+                        title: projectsFilterResource.StatusSuspend,
+                        condition: function (item) {
+                            return item.status === 2;
+                        }
+                    },
+                    {
+                        id: "gasClosed",
+                        title: projectsFilterResource.StatusClosedProject,
+                        condition: function (item) {
+                            return item.status === 1;
+                        }
+                    }]
+                }
+            }
 
             self = this;
             self.showOrHideData = self.showOrHideData.bind(self, {
@@ -148,7 +219,11 @@ ASC.Projects.AllProject = (function () {
                 baseEmptyScreen: {
                     img: "projects",
                     header: res ? res.ProjectResource.EmptyListProjHeader : "",
-                    description: res ? res.ProjectResource.EmptyListProjDescribe : "",
+                    description: res
+                                    ? teamlab.profile.isVisitor
+                                        ? res.ProjectResource.EmptyListProjDescribeVisitor
+                                        : res.ProjectResource.EmptyListProjDescribe
+                                    : "",
                     button: {
                         title: res ? res.ProjectResource.CreateFirstProject : "",
                         onclick: function () {
@@ -162,13 +237,14 @@ ASC.Projects.AllProject = (function () {
                 filterEmptyScreen: {
                     header: res ? res.CommonResource.Filter_NoProjects : "",
                     description: res ? res.ProjectResource.DescrEmptyListProjFilter : ""
-                }
+                },
+                groupMenu: groupMenu
             });
 
             self.getData = self.getData.bind(self, teamlab.getPrjProjects, onGetListProject);
         }
 
-        isSimpleView = isSimpleViewFlag;
+        
         currentUserId = teamlab.profile.id;
         
         if (!isSimpleView) {
@@ -220,6 +296,27 @@ ASC.Projects.AllProject = (function () {
         }
     };
 
+    function gaRemoveHandler(projectids) {
+        self.showCommonPopup("projectsRemoveWarning", function () {
+            teamlab.removePrjProjects({ projectids: projectids },
+            {
+                before: function () {
+                    loadingBanner.displayLoading();
+                },
+                success: function (params, data) {
+                    for (var i = 0; i < data.length; i++) {
+                        onRemovePrj(data[i]);
+                    }
+                    self.showOrHideData(currentListProjects, filterProjCount);
+                    loadingBanner.hideLoading();
+                    baseObject.Common.displayInfoPanel(prjResources.ProjectsRemoved);
+                }
+            });
+            jq.unblockUI();
+        });
+        return false;
+    }
+
     var unbindListEvents = function () {
         if (!isInit) return;
         $projectsTable.unbind();
@@ -261,6 +358,16 @@ ASC.Projects.AllProject = (function () {
 
         self.showOrHideData(currentListProjects.map(getProjTmpl), filterProjCount);
     };
+
+    function onRemovePrj(project) {
+        var projectId = project.id;
+        var removedProject = $projectsTableBody.find("tr[id=" + projectId + "]");
+        removedProject.yellowFade();
+        removedProject.remove();
+
+        filterProjCount--;
+        currentListProjects = currentListProjects.filter(function (item) { return item.id !== project.id });
+    }
 
     function onAddTask(params, task) {
         var project = getProjectById(task.projectOwner.id);
@@ -305,7 +412,7 @@ ASC.Projects.AllProject = (function () {
 
     function showQuestionWindow(projId, cancel) {
         self = typeof self === "undefined" ? this : self;
-        var project = typeof projId === "number" ? getProjectById(projId) : getProjTmpl(projId);
+        var project = typeof projId === "number" ? getProjTmpl(getProjectById(projId)) : getProjTmpl(projId);
 
         if (project.taskCount) {
             self.showCommonPopup("projectOpenTaskWarning", function () {

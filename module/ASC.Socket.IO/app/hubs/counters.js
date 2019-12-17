@@ -3,29 +3,50 @@
     const co = require('co');
     const counters = io.of('/counters');
     const onlineUsers = [];
+    const uaParser = require('ua-parser-js');
 
     counters.on('connection', (socket) => {
         const request = socket.client.request;
         if(!request.user || !request.user.id) return;
         const userId = request.user.id;
         const tenantId = request.portal.tenantId;
-        const userName = (request.user.userName || "").toLowerCase();
+        const clientId = socket.client.request.id;
+        let ipAddress = socket.handshake.headers['x-forwarded-for'];
+        const userAgent = socket.request.headers['user-agent'];
+        const parser = new uaParser();
+        parser.setUA(userAgent);
+        
+        const [os, browser] = [parser.getOS(), parser.getBrowser()];
+        let operationSystem;
+        os.version === undefined ?  operationSystem = `${os.name}` : operationSystem = `${os.name} ${os.version}`;  
+        const browserVersion = browser.version;
+        const indexOfDot = browserVersion.indexOf('.');
+        let getCleanIP = (ipAddress) => {
+                        const indexOfColon = ipAddress.indexOf(':');
+                        if (indexOfColon === -1){
+                            return ipAddress;
+                        } else if (indexOfColon > 3){
+                            ipAddress = ipAddress.substring(0, indexOfColon);
+                        }
+                        else {
+                            ipAddress = "127.0.0.1";
+                        }
+                        return ipAddress;
+                }
 
-        console.log(`a user ${userName} in portal ${tenantId} connected`);
+        ipAddress = getCleanIP(ipAddress);
+        let browserVersionShort;
+        if (indexOfDot > 0) {
+            browserVersionShort = browserVersion.substring(0, indexOfDot + 2);
+        }
+        else {
+            browserVersionShort = parser.getBrowser().major;
+        }
+        const browserName = `${browser.name} ${browserVersionShort}`;
+        const userName = (request.user.userName || "").toLowerCase();
+        getCityByIP(ipAddress);
 
         socket.join([tenantId, `${tenantId}-${userId}`, `${tenantId}-${userName}`]);
-
-        if (!onlineUsers[tenantId]) {
-            onlineUsers[tenantId] = {};
-        }
-        if (!onlineUsers[tenantId][userId]) {
-            onlineUsers[tenantId][userId] = { counter: 1, FirstConnection: new Date(), LastConnection: new Date() };
-            socket.broadcast.to(tenantId).emit('renderOnlineUser', userId);
-            updateMailUserActivity(socket.client.request);
-        } else {
-            onlineUsers[tenantId][userId].counter++;
-            onlineUsers[tenantId][userId].LastConnection = new Date();
-        }
 
         getNewMessagesCount();
 
@@ -33,9 +54,14 @@
             .on('disconnect', () => {
                 if (!onlineUsers[tenantId]) return;
                 if (!onlineUsers[tenantId][userId]) return;
+                if (!onlineUsers[tenantId][userId].browsers) return;
+                if (!onlineUsers[tenantId][userId].browsers[browserName]) return;
 
-                onlineUsers[tenantId][userId].counter--;
-                if (onlineUsers[tenantId][userId].counter === 0) {
+                onlineUsers[tenantId][userId].browsers[browserName].counter--;
+                if (onlineUsers[tenantId][userId].browsers[browserName].counter === 0) {
+                    delete onlineUsers[tenantId][userId].browsers[browserName];
+                }
+                if (Object.keys(onlineUsers[tenantId][userId].browsers).length === 0) {
                     delete onlineUsers[tenantId][userId];
                     counters.to(tenantId).emit('renderOfflineUser', userId);
                     updateMailUserActivity(socket.client.request, false);
@@ -103,6 +129,35 @@
         function getMessageCount() {
             if(!request.mailEnabled) return new Promise((resolve) => { resolve(0)});
             return apiRequestManager.get("mail/folders.json", request).then(getInreadMessageCount);
+        }
+
+        function getCityByIP (ip){
+            apiRequestManager.get("portal/ip/" + ip, request, false)
+                    .then((result) => {
+                        const city = result.city;
+                        console.log(`a user ${userName} in portal ${tenantId} connected, IP ${ipAddress}, city ${city}, OS ${operationSystem}, browser ${browserName}`);
+                        console.log("-----");
+                        if (!onlineUsers[tenantId]) {
+                            onlineUsers[tenantId] = {};
+                        }
+                        if (!onlineUsers[tenantId][userId]) {
+                            onlineUsers[tenantId][userId] = {browsers: {},FirstConnection: new Date(), LastConnection: new Date() };
+                            socket.broadcast.to(tenantId).emit('renderOnlineUser', userId);
+                            updateMailUserActivity(socket.client.request);
+                        }
+                        else {
+                            onlineUsers[tenantId][userId].LastConnection = new Date();
+                        }
+                    
+                        if (!onlineUsers[tenantId][userId].browsers[browserName]) {
+                            onlineUsers[tenantId][userId].browsers[browserName] = {counter:1, ipAddress: ipAddress, city: city, operationSystem: operationSystem };
+                        } else {
+                            onlineUsers[tenantId][userId].browsers[browserName].counter++;
+                        } 
+                            })
+                    .catch((err) => {
+                        console.log(err);
+                    });
         }
     });
 

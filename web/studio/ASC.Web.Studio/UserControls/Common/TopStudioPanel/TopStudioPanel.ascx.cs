@@ -123,6 +123,7 @@ namespace ASC.Web.Studio.UserControls.Common
         protected CompanyWhiteLabelSettings Settings { get; set; }
         protected string CurrentProductName { get; set; }
         protected string CurrentProductClassName { get; set; }
+        protected string CurrentProductClassNamePostfix { get; set; }
 
         private List<AuthService> _authServiceList;
         protected List<AuthService> AuthServiceList
@@ -313,6 +314,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (Page is Studio.Tariffs)
             {
+                CurrentProductClassNamePostfix = CoreContext.Configuration.CustomMode ? "Rub" : "";
                 CurrentProductClassName = "payments";
                 CurrentProductName = Resource.Payments;
                 return;

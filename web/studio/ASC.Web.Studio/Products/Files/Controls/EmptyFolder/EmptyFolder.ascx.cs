@@ -164,7 +164,10 @@ namespace ASC.Web.Files.Controls
                         ImgSrc = PathProvider.GetImagePath("empty_screen_project.png"),
                         Header = FilesUCResource.ProjectFiles,
                         HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                        Describe = FilesUCResource.EmptyScreenDescrProject.HtmlEncode() + strDragDrop
+                        Describe = (!isVisitor
+                                        ? FilesUCResource.EmptyScreenDescrProject.HtmlEncode()
+                                        : FilesUCResource.EmptyScreenDescrProjectVisitor.HtmlEncode())
+                                   + strDragDrop
                     });
             }
 

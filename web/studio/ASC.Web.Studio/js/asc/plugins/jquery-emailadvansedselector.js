@@ -595,6 +595,7 @@
                 open: function () {
                     var e = jq.Event("keydown", { keyCode: 40 });
                     jq(self.input).trigger(e);
+                    jq(this).autocomplete('widget').css('z-index', 100);
                     return false;
                 }
             });

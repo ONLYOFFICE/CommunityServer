@@ -1,3 +1,9 @@
+https://downloads.mysql.com/docs/licenses/connector-net-8.0-gpl-en.pdf
+
+Licensing Information
+
+This is a release of MySQL Connector/NET 8.0, brought to you by the MySQL team at Oracle. Thissoftware is released under version 2 of the GNU General Public License (GPLv2), as set forth below, withthe following additional permissions:This distribution of MySQL Connector/NET 8.0 is distributed with certain software that is licensed underseparate terms, as designated in a particular file or component or in the license documentation. Withoutlimiting your rights under the GPLv2, the authors of MySQL hereby grant you an additional permission tolink the program and your derivative works with the separately licensed software that they have includedwith the program.Without limiting the foregoing grant of rights under the GPLv2 and additional permission as to separatelylicensed software, this Connector is also subject to the Universal FOSS Exception, version 1.0, a copyof which is reproduced below and can also be found along with its FAQ at http://oss.oracle.com/licenses/universal-foss-exception.Copyright (c) 2004, 2019, Oracle and/or its affiliates. All rights reserved.
+
 GNU GENERAL PUBLIC LICENSE
 
 Version 2, June 1991

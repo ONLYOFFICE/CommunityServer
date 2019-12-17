@@ -25,16 +25,199 @@
 
 
 #settings {
+    @border-width: 1px;
+    @border: @border-width solid #d1d1d1;
+
     .settings-box {
         margin-top: 16px;
+
+        [id^=state] {
+            img {
+                margin: 0 8px;
+                vertical-align: middle;
+            }
+        }
+
+        .custom-status {
+            .header-base-small {
+                font-size: 16px;
+                margin-top: 12px;
+            }
+        }
+
+        .grid-page {
+            display: -ms-grid;
+            display: grid;
+            grid-template-columns: 16px 32px 1fr 2fr 32px;
+            grid-template-rows: 40px;
+            margin-left: -16px;
+
+            & > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:not(:first-child) {
+                    border-bottom: @border;
+                }
+
+                &:first-child {
+                    background-color: #fff;
+                    background-image: url("/Products/CRM/App_Themes/default/images/drag.png");
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    border-left: 1px solid #D1D1D1;
+                    border-bottom-left-radius: 3px;
+                    border-top-left-radius: 3px;
+                    -moz-border-radius-bottomleft: 3px;
+                    -moz-border-radius-topleft: 3px;
+                    -webkit-border-top-left-radius: 3px;
+                    -webkit-border-bottom-left-radius: 3px;
+                    cursor: move;
+                    visibility: hidden;
+                }
+
+                &:nth-child(3), &:nth-child(4) {
+                    font-size: 12px;
+                    justify-content: flex-start;
+
+                    span {
+                        margin-left: 4px;
+                    }
+                }
+
+                &:nth-child(3) {
+                    font-weight: bold;
+                }
+            }
+
+            & ~ .grid-page:not(.ui-sortable-helper) {
+                & > div:not(:first-child) {
+                    border-top: none;
+                }
+
+                &:hover > div:first-child {
+                    margin-top: -@border-width/2;
+                }
+            }
+
+            &, &.ui-sortable-placeholder + .grid-page:not(.ui-sortable-helper), &.ui-sortable-helper + .grid-page {
+                & > div:not(:first-child) {
+                    border-top: @border;
+
+                    img {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+
+            &.ui-sortable-placeholder + .grid-page:not(.ui-sortable-helper), &.ui-sortable-helper + .grid-page {
+                & > div:not(:first-child) {
+                    margin-top: -@border-width/2;
+                }
+            }
+
+            &:hover {
+                background-color: #f2f2f2;
+
+                & > div:first-child {
+                    visibility: visible;
+                }
+            }
+        }
     }
 
     .folderSelectorBox {
         input {
-            margin-right: 4px;
             height: 20px;
-            vertical-align:middle;
+            margin-right: 4px;
+            vertical-align: middle;
             width: 400px;
+        }
+    }
+}
+
+.editStatus {
+    .color {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .commonActionPanel {
+        display: block;
+
+        & > div:first-child {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            div {
+                display: flex;
+
+                span {
+                    margin-left: 4px;
+                }
+
+                img {
+                    height: 16px;
+                    width: 16px;
+                }
+            }
+
+            #changeColor div {
+                .color()
+            }
+        }
+
+        & > div:nth-child(4) {
+            span {
+                margin-left: 4px;
+            }
+        }
+    }
+
+    #popup_colorPanel > div:first-child {
+        display: grid;
+        grid-gap: 4px;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(2, 16px);
+        margin: 4px;
+
+        div {
+            .color();
+        }
+    }
+
+    #popup_iconPanel > div:first-child {
+        display: grid;
+        grid-gap: 8px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 16px 16px 20px;
+        margin: 4px;
+
+        img {
+            .color();
+        }
+
+        div:last-child {
+            grid-column-start: 1;
+            grid-column-end: -1;
+
+            [type^=file] {
+                display: none;
+            }
+        }
+    }
+
+    #popup_categoryPanel > div:first-child {
+        display: grid;
+        grid-gap: 8px;
+        grid-template-rows: 16px;
+        margin: 4px;
+
+        div {
+            cursor: pointer;
         }
     }
 }

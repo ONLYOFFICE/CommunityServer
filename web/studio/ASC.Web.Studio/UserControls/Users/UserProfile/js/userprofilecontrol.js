@@ -49,14 +49,14 @@ jq(function () {
     if (jq("#studio_emailChangeDialog").length == 0) {
         jq(".profile-status.pending div").css("cursor", "default");
     } else {
-        jq("#imageNotActivatedActivation, #linkNotActivatedActivation").on("click", function() {
+        jq("#linkNotActivatedActivation").on("click", function() {
             var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
             var userId = jq("#studio_userProfileCardInfo").attr("data-id");
             ASC.EmailOperationManager.sendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
             return false;
         });
 
-        jq("#imagePendingActivation, #linkPendingActivation").on("click", function() {
+        jq("#imagePendingActivation, #linkPendingActivation, #linkPendingEmailChange").on("click", function () {
             var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
             var userId = jq("#studio_userProfileCardInfo").attr("data-id");
             ASC.EmailOperationManager.showResendInviteWindow(userEmail, userId, Teamlab.profile.isAdmin, onActivateEmail.bind(null, userEmail));

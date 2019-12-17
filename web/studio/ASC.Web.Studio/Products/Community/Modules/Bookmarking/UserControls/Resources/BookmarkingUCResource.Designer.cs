@@ -341,6 +341,15 @@ namespace ASC.Web.UserControls.Bookmarking.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create your bookmarks, store and share useful information with your colleagues directly on your portal saving links to web resources which allow you to easily get back to your favorite place..
+        /// </summary>
+        public static string EmptyScreenTextVisitor {
+            get {
+                return ResourceManager.GetString("EmptyScreenTextVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Favorites.
         /// </summary>
         public static string FavouritesNavigationItem {

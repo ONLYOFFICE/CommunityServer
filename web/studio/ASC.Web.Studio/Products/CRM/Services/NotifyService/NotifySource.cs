@@ -66,7 +66,9 @@ namespace ASC.Web.CRM.Services.NotifyService
                 NotifyConstants.Event_TaskReminder,
                 NotifyConstants.Event_SetAccess,
                 NotifyConstants.Event_ExportCompleted,
+                NotifyConstants.Event_ExportCompletedCustomMode,
                 NotifyConstants.Event_ImportCompleted,
+                NotifyConstants.Event_ImportCompletedCustomMode,
                 NotifyConstants.Event_CreateNewContact);
         }
 

@@ -548,7 +548,7 @@ namespace ASC.Web.Core.WhiteLabel
         private void SetNewLogoText(int tenantId, bool restore = false)
         {
             WhiteLabelHelper.DefaultLogoText = DefaultLogoText;
-            if (restore)
+            if (restore && !ASC.Core.CoreContext.Configuration.CustomMode)
             {
                 WhiteLabelHelper.RestoreOldText(tenantId);
             }

@@ -120,6 +120,10 @@ ASC.Projects.ProjectTeam = (function() {
                     return item !== managerId;
                 });
 
+            if (teamUserIds.indexOf(managerId) < 0) {
+                teamUserIds.push(managerId);
+            }
+
             // userselector for the team
 
             jq("#pm-projectTeam-Selector").useradvancedSelector({
@@ -310,7 +314,9 @@ ASC.Projects.ProjectTeam = (function() {
 
     function mapTeamMember(item) {
         var resources = ASC.Projects.Resources;
+        item = jq.extend({}, item, window.UserManager.getUser(item.id));
         item.isManager = managerId === item.id;
+        item.isProjectAdmin = item.groups && item.groups.indexOf(master.ProjectsProductID) > -1;
         return jq.extend({
             security: [
                 security(item.canReadMessages, "Messages", resources.MessageResource.Messages),

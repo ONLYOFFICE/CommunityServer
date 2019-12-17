@@ -52,7 +52,6 @@ namespace ASC.Web.Studio.Masters
                         "~/js/third-party/jquery/jquery.mask.js",
                         "~/js/third-party/jquery/jquery.scrollto.js",
                         "~/js/third-party/jquery/jquery.colors.js",
-                        "~/js/third-party/jquery/jquery.magnific-popup.js",
                         "~/js/third-party/jquery/toastr.js",
                         "~/js/third-party/jquery/jquery.caret.1.02.min.js",
                         "~/js/asc/plugins/jquery.helper.js",

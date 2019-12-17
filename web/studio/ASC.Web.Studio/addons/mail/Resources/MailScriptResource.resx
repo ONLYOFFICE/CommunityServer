@@ -1173,6 +1173,24 @@
   <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
     <value>All the selected accounts have been deleted</value>
   </data>
+  <data name="SaveDraft" xml:space="preserve">
+    <value>Save draft</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Save template</value>
+  </data>
+  <data name="DoNotSave" xml:space="preserve">
+    <value>Do not save</value>
+  </data>
+  <data name="SaveTemplateChanges" xml:space="preserve">
+    <value>Save template changes?</value>
+  </data>
+  <data name="SaveTemplateText" xml:space="preserve">
+    <value>You have changed template but did not save it. If you close the page, all changes will be lost. Save changes?</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
   <data name="InfoCreateFolder" xml:space="preserve">
     <value>New folder '{0}' is created</value>
   </data>
@@ -1215,7 +1233,40 @@
   <data name="UserFolderNotFoundError" xml:space="preserve">
     <value>The required folder was not found</value>
   </data>
+  <data name="ErrorMailMessageSizeBody" xml:space="preserve">
+    <value>Reduce size of body of letter to continue</value>
+  </data>
+  <data name="ErrorMailMessageSizeHead" xml:space="preserve">
+    <value>Message body exceeded limit ({0} KB)</value>
+  </data>
+  <data name="EmptyTemplatesButton" xml:space="preserve">
+    <value>Compose the first template</value>
+  </data>
+  <data name="EmptyTemplatesDescription" xml:space="preserve">
+    <value>The Template section allows you to create and sort messages which you can send to different people later. Here you can tick the most important messages or delete the unnecessary ones.</value>
+  </data>
+  <data name="EmptyTemplatesHeader" xml:space="preserve">
+    <value>No templates to be displayed in this folder</value>
+  </data>
+  <data name="DeleteAccountOptionHead" xml:space="preserve">
+    <value>Templates and drafts you can reassign to another account.</value>
+  </data>
+  <data name="DeleteAccountOptionText" xml:space="preserve">
+    <value>reassign to account</value>
+  </data>
+  <data name="MailDraftsReassigned" xml:space="preserve">
+    <value>Drafts reassigned</value>
+  </data>
+  <data name="MailTemplatesReassigned" xml:space="preserve">
+    <value>Templates reassigned</value>
+  </data>
   <data name="UserFilterNotFound" xml:space="preserve">
     <value>The filter was not found</value>
+  </data>
+  <data name="NeedSaveMessageText" xml:space="preserve">
+    <value>For this operation, you must save message. Save current changes as?</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>Zipping attachments</value>
   </data>
 </root>

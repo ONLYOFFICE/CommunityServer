@@ -52,6 +52,7 @@ namespace ASC.Web.Files.Services.DocumentService
                                           string fromExtension,
                                           string toExtension,
                                           string documentRevisionId,
+                                          string password,
                                           bool isAsync,
                                           out string convertedDocumentUri)
         {
@@ -64,6 +65,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     fromExtension,
                     toExtension,
                     GenerateRevisionId(documentRevisionId),
+                    password,
                     isAsync,
                     FileUtility.SignatureSecret,
                     out convertedDocumentUri);
@@ -206,7 +208,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     var fileUri = ReplaceCommunityAdress(url);
 
                     var key = GenerateRevisionId(Guid.NewGuid().ToString());
-                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, false, FileUtility.SignatureSecret, out convertedFileUri);
+                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, null, false, FileUtility.SignatureSecret, out convertedFileUri);
                 }
                 catch (Exception ex)
                 {
@@ -335,7 +337,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 error += string.Format(" ({0})", ex.Message);
 
             Global.Logger.Error("DocService error", ex);
-            return new Exception(error);
+            return new Exception(error, ex);
         }
     }
 }

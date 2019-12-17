@@ -110,21 +110,14 @@ namespace ASC.Data.Reassigns
                 Percentage = 25;
                 _docService.DeleteStorage(_userId);
 
-                if (!CoreContext.Configuration.CustomMode)
-                {
-                    logger.Info("deleting of data from crm");
+                logger.Info("deleting of data from crm");
 
-                    Percentage = 50;
-                    using (var scope = DIHelper.Resolve(_tenantId))
-                    {
-                        var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
-                        crmSpace = crmDaoFactory.ReportDao.GetFiles(_userId).Sum(file => file.ContentLength);
-                        crmDaoFactory.ReportDao.DeleteFiles(_userId);
-                    }
-                }
-                else
+                Percentage = 50;
+                using (var scope = DIHelper.Resolve(_tenantId))
                 {
-                    crmSpace = 0;
+                    var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
+                    crmSpace = crmDaoFactory.ReportDao.GetFiles(_userId).Sum(file => file.ContentLength);
+                    crmDaoFactory.ReportDao.DeleteFiles(_userId);
                 }
 
                 logger.Info("deleting of data from mail");

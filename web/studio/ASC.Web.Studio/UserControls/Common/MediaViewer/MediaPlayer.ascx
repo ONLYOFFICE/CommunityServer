@@ -51,6 +51,10 @@
                 </div>
             </div>
         </div>
+        <div id="mediaScroll">
+            <div id="mediaPrev" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerPrevious %>"></div>
+            <div id="mediaNext" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerNext %>"></div>
+        </div>
         <div id="mediaViewerToolbox">
             <span id="imageToolbox">
                 <div id="imageZoomIn" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerZoomIn %>"></div>
@@ -59,8 +63,6 @@
                 <div id="imageRotateLeft" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerRotateLeft %>"></div>
                 <div id="imageRotateRight" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerRotateRight %>"></div>
             </span>
-            <div id="mediaPrev" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerPrevious %>"></div>
-            <div id="mediaNext" class="videoControlBtn" title="<%= UserControlsCommonResource.MediaViewerNext %>"></div>
             <span>
                 <div id="videoDownload" class="videoControlBtn" title="<%= UserControlsCommonResource.DownloadFile %>"></div>
                 <div id="videoDelete" class="videoControlBtn" title="<%= UserControlsCommonResource.DeleteFile %>"></div>

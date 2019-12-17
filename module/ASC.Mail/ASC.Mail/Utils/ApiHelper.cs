@@ -37,6 +37,7 @@ using System.Web.Configuration;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Users;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Exceptions;
 using ASC.Mail.Extensions;
@@ -473,8 +474,7 @@ namespace ASC.Mail.Utils
             var request = new RestRequest("files/{folderId}/upload.json", Method.POST);
 
             request.AddUrlSegment("folderId", folderId)
-                   .AddParameter("createNewIfExist", createNewIfExist)
-                   .AddParameter("storeOriginalFileFlag", true);
+                   .AddParameter("createNewIfExist", createNewIfExist);
 
             request.AddFile(filename, fileStream.CopyTo, filename, fileStream.Length, contentType);
 
@@ -549,6 +549,41 @@ namespace ASC.Mail.Utils
             {
                 _log.WarnFormat("Upload ics-file to calendar failed. No count number.", BaseUrl.ToString(), response.StatusCode, response.Content);
             }
+        }
+
+        public UserInfo CreateEmployee(bool isVisitor, string email, string firstname, string lastname, string password)
+        {
+            var request = new RestRequest("people.json", Method.POST);
+
+            request.AddParameter("isVisitor", isVisitor)
+                .AddParameter("email", email)
+                .AddParameter("firstname", firstname)
+                .AddParameter("lastname", lastname)
+                .AddParameter("password", password);
+
+            var response = Execute(request);
+
+            if (response.ResponseStatus != ResponseStatus.Completed ||
+                (response.StatusCode != HttpStatusCode.Created &&
+                 response.StatusCode != HttpStatusCode.OK))
+            {
+                throw new ApiHelperException("ApiHelper->CreateEmployee() failed.", response.StatusCode, response.Content);
+            }
+
+            var json = JObject.Parse(response.Content);
+
+            _log.Debug(json["response"].ToString());
+
+            var userInfo = new UserInfo
+            {
+                ID = Guid.Parse(json["response"]["id"].ToString()),
+                Email = json["response"]["email"].ToString(),
+                FirstName = json["response"]["firstName"].ToString(),
+                LastName = json["response"]["lastName"].ToString(),
+                UserName = json["response"]["userName"].ToString(),
+            };
+
+            return userInfo;
         }
 
         public JObject GetPortalSettings()

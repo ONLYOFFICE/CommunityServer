@@ -824,7 +824,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 log.Debug("GetMailBoxState()");
 
                 var engine = new EngineFactory(-1);
-                var status = engine.MailboxEngine.GetMailboxStatus(new СoncreteUserMailboxExp(mailbox.MailBoxId, mailbox.TenantId, mailbox.UserId));
+                var status = engine.MailboxEngine.GetMailboxStatus(new СoncreteUserMailboxExp(mailbox.MailBoxId, mailbox.TenantId, mailbox.UserId, null));
 
                 if (mailbox.BeginDate != status.BeginDate)
                 {

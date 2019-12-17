@@ -68,7 +68,7 @@ namespace ASC.Web.Core.Files
         public static string GenerateRevisionId(string expectedKey)
         {
             expectedKey = expectedKey ?? "";
-            const int maxLength = 20;
+            const int maxLength = 128;
             if (expectedKey.Length > maxLength) expectedKey = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(expectedKey)));
             var key = Regex.Replace(expectedKey, "[^0-9a-zA-Z_]", "_");
             return key.Substring(key.Length - Math.Min(key.Length, maxLength));
@@ -82,6 +82,7 @@ namespace ASC.Web.Core.Files
         /// <param name="fromExtension">Document extension</param>
         /// <param name="toExtension">Extension to which to convert</param>
         /// <param name="documentRevisionId">Key for caching on service</param>
+        /// <param name="password">Password</param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
@@ -98,6 +99,7 @@ namespace ASC.Web.Core.Files
             string fromExtension,
             string toExtension,
             string documentRevisionId,
+            string password,
             bool isAsync,
             string signatureSecret,
             out string convertedDocumentUri)
@@ -129,6 +131,11 @@ namespace ASC.Web.Core.Files
                     Title = title,
                     Url = documentUri,
                 };
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                body.Password = password;
+            }
 
             if (!string.IsNullOrEmpty(signatureSecret))
             {
@@ -374,7 +381,7 @@ namespace ASC.Web.Core.Files
             if (responseFromService == null) throw new Exception("Invalid answer format");
 
             var errorElement = responseFromService.Value<string>("error");
-            if (!string.IsNullOrEmpty(errorElement)) ProcessResponseError(Convert.ToInt32(errorElement));
+            if (!string.IsNullOrEmpty(errorElement)) DocumentServiceException.ProcessResponseError(errorElement);
 
             var isEnd = responseFromService.Value<bool>("end");
 
@@ -459,7 +466,7 @@ namespace ASC.Web.Core.Files
             [DataMember(Name = "users", IsRequired = false, EmitDefaultValue = false)]
             public string[] Users { get; set; }
 
-            [DataMember(Name = "token")]
+            [DataMember(Name = "token", EmitDefaultValue = false)]
             public string Token { get; set; }
 
             //not used
@@ -493,13 +500,16 @@ namespace ASC.Web.Core.Files
             [DataMember(Name = "outputtype", IsRequired = true)]
             public string OutputType { get; set; }
 
+            [DataMember(Name = "password", EmitDefaultValue = false)]
+            public string Password { get; set; }
+
             [DataMember(Name = "title")]
             public string Title { get; set; }
 
             [DataMember(Name = "url", IsRequired = true)]
             public string Url { get; set; }
 
-            [DataMember(Name = "token")]
+            [DataMember(Name = "token", EmitDefaultValue = false)]
             public string Token { get; set; }
         }
 
@@ -517,7 +527,7 @@ namespace ASC.Web.Core.Files
             [DataMember(Name = "url", IsRequired = true)]
             public string Url { get; set; }
 
-            [DataMember(Name = "token")]
+            [DataMember(Name = "token", EmitDefaultValue = false)]
             public string Token { get; set; }
         }
 
@@ -537,9 +547,88 @@ namespace ASC.Web.Core.Files
 
         public class DocumentServiceException : Exception
         {
-            public DocumentServiceException(string message)
+            public ErrorCode Code;
+
+            public DocumentServiceException(ErrorCode errorCode, string message)
                 : base(message)
             {
+                Code = errorCode;
+            }
+
+
+            public static void ProcessResponseError(string errorCode)
+            {
+                ErrorCode code;
+                if (!Enum.TryParse(errorCode, true, out code))
+                {
+                    code = ErrorCode.Unknown;
+                }
+
+                string errorMessage;
+                switch (code)
+                {
+                    case ErrorCode.VkeyUserCountExceed:
+                        errorMessage = "user count exceed";
+                        break;
+                    case ErrorCode.VkeyKeyExpire:
+                        errorMessage = "signature expire";
+                        break;
+                    case ErrorCode.VkeyEncrypt:
+                        errorMessage = "encrypt signature";
+                        break;
+                    case ErrorCode.UploadCountFiles:
+                        errorMessage = "count files";
+                        break;
+                    case ErrorCode.UploadExtension:
+                        errorMessage = "extension";
+                        break;
+                    case ErrorCode.UploadContentLength:
+                        errorMessage = "upload length";
+                        break;
+                    case ErrorCode.Vkey:
+                        errorMessage = "document signature";
+                        break;
+                    case ErrorCode.TaskQueue:
+                        errorMessage = "database";
+                        break;
+                    case ErrorCode.ConvertPassword:
+                        errorMessage = "password";
+                        break;
+                    case ErrorCode.ConvertDownload:
+                        errorMessage = "download";
+                        break;
+                    case ErrorCode.Convert:
+                        errorMessage = "convertation";
+                        break;
+                    case ErrorCode.ConvertTimeout:
+                        errorMessage = "convertation timeout";
+                        break;
+                    case ErrorCode.Unknown:
+                        errorMessage = "unknown error";
+                        break;
+                    default:
+                        errorMessage = "errorCode = " + errorCode;
+                        break;
+                }
+
+                throw new DocumentServiceException(code, errorMessage);
+            }
+
+            public enum ErrorCode
+            {
+                VkeyUserCountExceed = -22,
+                VkeyKeyExpire = -21,
+                VkeyEncrypt = -20,
+                UploadCountFiles = -11,
+                UploadExtension = -10,
+                UploadContentLength = -9,
+                Vkey = -8,
+                TaskQueue = -6,
+                ConvertPassword = -5,
+                ConvertDownload = -4,
+                Convert = -3,
+                ConvertTimeout = -2,
+                Unknown = -1
             }
         }
 
@@ -557,7 +646,7 @@ namespace ASC.Web.Core.Files
             if (responseFromService == null) throw new WebException("Invalid answer format");
 
             var errorElement = responseFromService.Value<string>("error");
-            if (!string.IsNullOrEmpty(errorElement)) ProcessResponseError(Convert.ToInt32(errorElement));
+            if (!string.IsNullOrEmpty(errorElement)) DocumentServiceException.ProcessResponseError(errorElement);
 
             var isEndConvert = responseFromService.Value<bool>("endConvert");
 
@@ -575,62 +664,6 @@ namespace ASC.Web.Core.Files
             }
 
             return resultPercent;
-        }
-
-        /// <summary>
-        /// Generate an error code table
-        /// </summary>
-        /// <param name="errorCode">Error code</param>
-        private static void ProcessResponseError(int errorCode)
-        {
-            string errorMessage;
-            switch (errorCode)
-            {
-                case -22: // VKEY_USER_COUNT_EXCEED
-                    errorMessage = "user count exceed";
-                    break;
-                case -21: // VKEY_KEY_EXPIRE
-                    errorMessage = "signature expire";
-                    break;
-                case -20: // VKEY_ENCRYPT
-                    errorMessage = "encrypt signature";
-                    break;
-                case -11: // UPLOAD_COUNT_FILES
-                    errorMessage = "count files";
-                    break;
-                case -10: // UPLOAD_EXTENSION
-                    errorMessage = "extension";
-                    break;
-                case -9: // UPLOAD_CONTENT_LENGTH
-                    errorMessage = "upload length";
-                    break;
-                case -8: // VKEY
-                    errorMessage = "document signature";
-                    break;
-                case -6: // TASK_QUEUE
-                    errorMessage = "database";
-                    break;
-                case -5: // CONVERT_PASSWORD
-                    errorMessage = "password";
-                    break;
-                case -4: // CONVERT_DOWNLOAD
-                    errorMessage = "download";
-                    break;
-                case -3: // CONVERT
-                    errorMessage = "convertation";
-                    break;
-                case -2: // CONVERT_TIMEOUT
-                    errorMessage = "convertation timeout";
-                    break;
-                case -1: // UNKNOWN;
-                    errorMessage = "unknown error";
-                    break;
-                default:
-                    errorMessage = "errorCode = " + errorCode;
-                    break;
-            }
-
-            throw new DocumentServiceException(errorMessage);
         }
 
 

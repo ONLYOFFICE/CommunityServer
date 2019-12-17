@@ -419,6 +419,9 @@ window.ASC.Files.ServiceManager = (function () {
         GetShortenLink: "getshortenlink",
         GetPresignedUri: "getpresigneduri",
 
+        GetUsers: "getusers",
+        SendEditorNotify: "sendeditornotify",
+
         MarkAsRead: "markasread",
         GetNews: "getnews",
 
@@ -453,10 +456,12 @@ window.ASC.Files.ServiceManager = (function () {
         SendDocuSign: "senddocusign",
 
         UpdateIfExist: "updateifexist",
+        Forcesave: "forcesave",
+        StoreForcesave: "storeforcesave",
+
         GetHelpCenter: "gethelpcenter",
         ChangeDeleteConfrim: "changedeleteconfrim",
 
-        StoreOriginalFiles: "storeoriginalfiles",
         ConvertCurrentFile: "convertcurrentfile",
         ChunkUploadCheckConversion: "chunkuploadcheckconversion",
         ChunkUploadGetFileFromServer: "chunkuploadgetfilefromserver",
@@ -608,16 +613,28 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "shorten?fileId=" + encodeURIComponent(params.fileId));
     };
 
+    var getUsers = function (eventType, params) {
+        request("get", "json", eventType, params, "sharedusers?fileId=" + encodeURIComponent(params.fileId));
+    };
+
+    var sendEditorNotify = function (eventType, params, data) {
+        request("post", "json", eventType, params, data, "sendeditornotify?fileId=" + encodeURIComponent(params.fileId));
+    };
+
     var checkConversion = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "checkconversion");
     };
 
-    var storeOriginalFiles = function (eventType, params) {
-        request("get", "json", eventType, params, "storeoriginal?set=" + params.value);
-    };
-
     var updateIfExist = function (eventType, params) {
         request("get", "json", eventType, params, "updateifexist?set=" + params.value);
+    };
+
+    var forcesave = function (eventType, params) {
+        request("get", "json", eventType, params, "forcesave?set=" + params.value);
+    };
+
+    var storeForcesave = function (eventType, params) {
+        request("get", "json", eventType, params, "storeforcesave?set=" + params.value);
     };
 
     var changeDeleteConfrim = function (eventType, params) {
@@ -738,9 +755,13 @@ window.ASC.Files.ServiceManager = (function () {
         unSubscribeMe: unSubscribeMe,
         getShortenLink: getShortenLink,
 
+        getUsers: getUsers,
+        sendEditorNotify: sendEditorNotify,
+
         checkConversion: checkConversion,
-        storeOriginalFiles: storeOriginalFiles,
         updateIfExist: updateIfExist,
+        forcesave: forcesave,
+        storeForcesave: storeForcesave,
         changeDeleteConfrim: changeDeleteConfrim,
 
         getThirdParty: getThirdParty,

@@ -102,6 +102,7 @@ namespace ASC.Files.Core.Data
                 .Select("converted_type")
                 .Select("f.comment")
                 .Select("f.encrypted")
+                .Select("f.forcesave")
                 .Where(where);
         }
 

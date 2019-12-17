@@ -36,7 +36,7 @@ using ASC.Core.Tenants;
 
 namespace ASC.Projects.Core.Domain.Reports
 {
-    public class ReportFilter 
+    public class ReportFilter
     {
         public ReportTimeInterval TimeInterval { get; set; }
 
@@ -91,11 +91,12 @@ namespace ASC.Projects.Core.Domain.Reports
             get { return 0 < MilestoneStatuses.Count; }
         }
 
-        public bool HasTaskStatuses
+        public virtual bool HasTaskStatuses
         {
-            get { return 0 < TaskStatuses.Count; }
+            get { return 0 < TaskStatuses.Count && Substatus.HasValue; }
         }
 
+        public int? Substatus { get; set; }
 
         public ReportFilter()
         {

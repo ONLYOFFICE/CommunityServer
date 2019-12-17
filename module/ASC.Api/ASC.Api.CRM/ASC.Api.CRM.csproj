@@ -142,6 +142,10 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
       <Name>ASC.Web.CRM</Name>

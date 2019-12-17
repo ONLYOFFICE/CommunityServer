@@ -781,6 +781,51 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel uploading and close.
+        /// </summary>
+        public static string ButtonUploadCancelAndClose {
+            get {
+                return ResourceManager.GetString("ButtonUploadCancelAndClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload files.
+        /// </summary>
+        public static string ButtonUploadFiles {
+            get {
+                return ResourceManager.GetString("ButtonUploadFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload folder.
+        /// </summary>
+        public static string ButtonUploadFolder {
+            get {
+                return ResourceManager.GetString("ButtonUploadFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximize dialog.
+        /// </summary>
+        public static string ButtonUploadMaximize {
+            get {
+                return ResourceManager.GetString("ButtonUploadMaximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize dialog.
+        /// </summary>
+        public static string ButtonUploadMinimize {
+            get {
+                return ResourceManager.GetString("ButtonUploadMinimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version history.
         /// </summary>
         public static string ButtonVersion {
@@ -844,11 +889,38 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file is password protected. Enter the password for conversion..
+        /// </summary>
+        public static string CaptionConvertPassword {
+            get {
+                return ResourceManager.GetString("CaptionConvertPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert and open document.
         /// </summary>
         public static string CaptionCopyConvertOpen {
             get {
                 return ResourceManager.GetString("CaptionCopyConvertOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document saving.
+        /// </summary>
+        public static string CaptionCopyConvertOpen2 {
+            get {
+                return ResourceManager.GetString("CaptionCopyConvertOpen2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document uploading.
+        /// </summary>
+        public static string CaptionCopyConvertSave {
+            get {
+                return ResourceManager.GetString("CaptionCopyConvertSave", resourceCulture);
             }
         }
         
@@ -894,6 +966,15 @@ namespace ASC.Web.Files.Resources {
         public static string ConfirmDelete {
             get {
                 return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not show this message again.
+        /// </summary>
+        public static string ConfirmDontShow {
+            get {
+                return ResourceManager.GetString("ConfirmDontShow", resourceCulture);
             }
         }
         
@@ -970,7 +1051,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The document file you open will be converted to the Office Open XML format for faster viewing and editing..
+        ///   Looks up a localized string similar to To edit the file its copy in the Office Open XML format (docx, xlsx or pptx) will be created on the portal. The source file will not be changed..
         /// </summary>
         public static string ConfirmStoreOriginalOpenTitle {
             get {
@@ -984,6 +1065,15 @@ namespace ASC.Web.Files.Resources {
         public static string ConfirmStoreOriginalOpenToMyText {
             get {
                 return ResourceManager.GetString("ConfirmStoreOriginalOpenToMyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All the documents you upload will be converted into the corresponding Office Open XML format (docx, xlsx or pptx) for faster editing..
+        /// </summary>
+        public static string ConfirmStoreOriginalSaveTitle {
+            get {
+                return ResourceManager.GetString("ConfirmStoreOriginalSaveTitle", resourceCulture);
             }
         }
         
@@ -1380,6 +1470,15 @@ namespace ASC.Web.Files.Resources {
         public static string EmptyScreenDescrProject {
             get {
                 return ResourceManager.GetString("EmptyScreenDescrProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The documents and image files uploaded for the project are kept in this section. You can view them using the ONLYOFFICE portal editor..
+        /// </summary>
+        public static string EmptyScreenDescrProjectVisitor {
+            get {
+                return ResourceManager.GetString("EmptyScreenDescrProjectVisitor", resourceCulture);
             }
         }
         
@@ -1897,11 +1996,38 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep intermediate versions when editing.
+        /// </summary>
+        public static string SettingForcesave {
+            get {
+                return ResourceManager.GetString("SettingForcesave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep all saved intermediate versions.
+        /// </summary>
+        public static string SettingStoreForcesave {
+            get {
+                return ResourceManager.GetString("SettingStoreForcesave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Settings.
         /// </summary>
         public static string SettingUpdateIfExist {
             get {
                 return ResourceManager.GetString("SettingUpdateIfExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storing file versions.
+        /// </summary>
+        public static string SettingVersions {
+            get {
+                return ResourceManager.GetString("SettingVersions", resourceCulture);
             }
         }
         

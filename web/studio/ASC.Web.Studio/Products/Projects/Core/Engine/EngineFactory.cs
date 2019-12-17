@@ -82,5 +82,8 @@ namespace ASC.Projects.Engine
 
         private TemplateEngine templateEngine;
         public TemplateEngine TemplateEngine { get { return templateEngine ?? (templateEngine = Container.Resolve<TemplateEngine>()); } }
+
+        private StatusEngine statusEngine;
+        public StatusEngine StatusEngine { get { return statusEngine ?? (statusEngine = Container.Resolve<StatusEngine>()); } }
     }
 }

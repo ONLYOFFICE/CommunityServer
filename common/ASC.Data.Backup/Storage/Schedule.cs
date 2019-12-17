@@ -26,11 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
 using ASC.Notify.Cron;
+using ASC.Web.Studio.Core.Backup;
 
 namespace ASC.Data.Backup.Storage
 {
@@ -54,8 +56,14 @@ namespace ASC.Data.Backup.Storage
         {
             try
             {
+                if (BackupHelper.ExceedsMaxAvailableSize(TenantId)) throw new Exception("Backup file exceed " + TenantId);
+
                 var cron = new CronExpression(Cron);
-                var tenantTimeZone = CoreContext.TenantManager.GetTenant(TenantId).TimeZone;
+                var tenant = CoreContext.TenantManager.GetTenant(TenantId);
+                var tenantTimeZone = tenant.TimeZone;
+                var culture = tenant.GetCulture();
+                Thread.CurrentThread.CurrentCulture = culture;
+
                 var lastBackupTime = LastBackupTime.Equals(default(DateTime))
                     ? DateTime.UtcNow.Date.AddSeconds(-1)
                     : TenantUtil.DateTimeFromUtc(tenantTimeZone, LastBackupTime);

@@ -27,7 +27,6 @@
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 
 namespace ASC.Api.Projects.Wrappers
 {
@@ -52,6 +51,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool IsAdministrator { get; set; }
 
+        [DataMember]
+        public bool IsRemovedFromTeam { get; set; }
+
         public ParticipantWrapper(ProjectApiBase projectApiBase, Participant participant)
             : base(participant.UserInfo)
         {
@@ -61,6 +63,7 @@ namespace ASC.Api.Projects.Wrappers
             CanReadTasks = participant.CanReadTasks;
             CanReadContacts = participant.CanReadContacts;
             IsAdministrator = projectApiBase.ProjectSecurity.IsAdministrator(participant.ID);
+            IsRemovedFromTeam = participant.IsRemovedFromTeam;
         }
     }
 }

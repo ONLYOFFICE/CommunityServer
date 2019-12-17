@@ -229,15 +229,34 @@ ASC.Projects.MilestoneAction = (function() {
         });
 
         teamlab.bind(teamlab.events.updatePrjProjectStatus, function (params, project) {
+            prjOnChange(function () {
+                return selectedPrjId === project.id && project.status === 1;
+            });
+        });
+
+        teamlab.bind(teamlab.events.removePrjProjects, function (params, projects) {
+            prjOnChange(function() {
+                var remPrj = projects.find(function (item) { return item.id === selectedPrjId; });
+                return typeof remPrj !== "undefined";
+            });
+        });
+
+        teamlab.bind(teamlab.events.removePrjProject, function (params, project) {
+            prjOnChange(function() {
+                return project.id === selectedPrjId;
+            });
+        });
+
+        function prjOnChange(condition) {
             if (!isInitData) return;
             var sortedProjects = common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
             $milestoneProject.projectadvancedSelector("rewriteItemList", sortedProjects, []);
 
-            if (selectedPrjId === project.id && project.status === 1 && sortedProjects.length) {
+            if (condition() && sortedProjects.length) {
                 $milestoneProject.projectadvancedSelector("reset");
                 $milestoneProject.projectadvancedSelector("selectBeforeShow", sortedProjects[0]);
             }
-        });
+        }
     }
 
     function getMilestoneDate() {
@@ -308,7 +327,7 @@ ASC.Projects.MilestoneAction = (function() {
             setResponsibleCombobox(milestone);
         }
         currentProjectId = jq.getURLParam('prjID');
-        var anchor = ASC.Controls.AnchorController.getAnchor();
+        var anchor = location.hash.substring(1);
         var curPrjId = currentProjectId || jq.getAnchorParam('project', anchor);
         var selectedPrj = projectItems.find(function (item) { return item.id == curPrjId; });
         
@@ -360,6 +379,7 @@ ASC.Projects.MilestoneAction = (function() {
         teamlab.updatePrjMilestone(params, milestoneId, milestone,
             {
                 success: function (params, milestone) {
+                    updateCaldavMilestone(milestoneId, milestone.projectId, 0);
                     for (var i = 0; i < ASC.Projects.Master.Milestones.length; i++) {
                         if (ASC.Projects.Master.Milestones[i].id == milestone.id) {
                             ASC.Projects.Master.Milestones[i] = milestone;
@@ -450,6 +470,7 @@ ASC.Projects.MilestoneAction = (function() {
         $milestoneDeadlineInputBox.unmask();
 
         common.changeMilestoneCountInProjectsCache(milestone, 0);
+        updateCaldavMilestone(milestone.id, milestone.projectId, 0);
     };
 
     var onAddMilestoneError = function(params, error) {
@@ -533,7 +554,23 @@ ASC.Projects.MilestoneAction = (function() {
             $milestoneResponsibleContainer.show();
         }
     };
-
+    var updateCaldavMilestone = function (id, prjId, action) {
+        teamlab.getPrjTeam({}, prjId, (p, t) => {
+            var url = ASC.Resources.Master.ApiPath + "calendar/caldavevent.json";
+            var postData = {
+                calendarId: "Project_" + prjId,
+                uid: "Milestone_" + id,
+                responsibles: t.map(user => user.id)
+            };
+            jq.ajax({
+                type: action === 0 || action === 1 ? 'put' : 'delete',
+                url: url,
+                data: postData,
+                complete: function (d) { }
+            });
+        });
+        
+    };
     var onGetMilestoneBeforeUpdate = function (milestone) {
         initMilestoneFormElementsAndConstants();
         initData(milestone);
@@ -647,6 +684,7 @@ ASC.Projects.MilestoneAction = (function() {
         init: init,
         showNewMilestonePopup: showNewMilestonePopup,
         onGetMilestoneBeforeUpdate: onGetMilestoneBeforeUpdate,
+        updateCaldavMilestone: updateCaldavMilestone,
         unlockMilestoneActionPage: unlockMilestoneActionPage,
         filterProjectsByIdInCombobox: filterProjectsByIdInCombobox
     };
