@@ -6,7 +6,7 @@
   <a href="https://www.onlyoffice.com/">Website</a> |
   <a href="https://www.onlyoffice.com/server-solutions.aspx">Products</a> |
   <a href="https://helpcenter.onlyoffice.com/">Documentation</a> |
-  <a href="https://api.onlyoffice.com/">Api</a> |
+  <a href="https://api.onlyoffice.com/">API</a> |
   <a href="https://www.onlyoffice.com/about.aspx">About</a>
 </p>
 <p align="center">
