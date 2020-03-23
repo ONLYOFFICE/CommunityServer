@@ -53,7 +53,7 @@ To compile source, follow this [instruction](https://helpcenter.onlyoffice.com/s
 
 ## Connecting your own modules
 
-You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this repository](https://github.com/ONLYOFFICE/CommunityServer-CustomModules "https://github.com/ONLYOFFICE/CommunityServer-CustomModules") for more details.
+You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this instruction](https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx "https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx") for more details.
 
 ## Project Information
 
