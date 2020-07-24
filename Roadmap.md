@@ -1,61 +1,52 @@
-## Overview
+# ONLYOFFICE Community Server roadmap
 
-**ONLYOFFICE Community Server** is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place. This document provides the roadmap of the planned **ONLYOFFICE Community Server** changes 
+This document provides the roadmap of the planned ONLYOFFICE Community Server changes.
 
-Version 11.0
-------------
+This is an updated and corrected version of the roadmap. We also reserve the right to change it when necessary.
+
+## Version 11.0
 
 ### General
 
--   Portal registration via email
--   Wiki update
--   Two-factor authentication using disposable password generation
--   PostgreSQL database support
--   MS SQL Server support
--   Blockchain portal version
--   Interface adaptation for mobile devices
+* Portal notifications via Telegram
+* Ability to make an addon (Mail, Chat, Calendar) a default portal page
+* Two scrolling areas on the page: navingation and content
+* New version of Elasticsearch - v.7.4
+* New mechanics for displaying messages on authorization page
+* Update to Mono v6.10
 
-### Documents module
+### Security
 
--   Integration with Moodle
--   Sharing the document with a password
--   Sharing the document limited in time
--   Adding watermarks to the document
--   Integration with SyncThing
--   Support of the document digital signature
+* File encryption at rest
+* ONLYOFFICE Private Rooms support
+* Updates for password security (min length = 8 characters, complexity check on client-side, hashing when transmitting to server)
 
-### CRM module
+### Documents
 
--   Task templates
--   Integration with accounting software
--   Extended search
--   Mobile application
--   Generator of any user reports
--   Enhancements and customization of the invoice editors
--   Integration with MailChimp, SendPlus mail services
--   SMS distribution to the contacts
+* Favorites folder, ability to add files to favorites
+* Recent folder
+* Custom Filter access rights for spreadsheets
+* Connecting kDrive via WebDav
+* Support for .webp images
+* New MailMerge API for the editors 
+* Separate section for quick access to admin settings on the left panel 
 
-### Mail module
+### CRM
 
--   Possibility to create mailboxes at the custom domain when creating the user
--   Message read notification
--   Support of IMAP synchronization in mail server
--   Possibility to create own folders
--   Possibility to create own rules/filters for the mail automatic filtering
--   Migration to Mail Server access via API (instead of the base)
-
-### Calendar
-
--   Settings for notifications about birthdays
+* `Make a VoIP call` action in the contact context menu
+* Bug fixes
 
 ### Control Panel
 
--   HealthCheck
+* Control Panel is available in Community Edition
+* Advanced rebranding settings
+* Reindexing full-text search via Elasticsearch
+* Private Rooms enabling page
+* New Encryption block in the Storage section 
 
-Project Information
--------------------
+## Project information
 
-Official website: [http://www.onlyoffice.org](http://onlyoffice.org)
+Official website: [https://www.onlyoffice.com/](https://www.onlyoffice.com/)
 
 Code repository: <https://github.com/ONLYOFFICE/CommunityServer>
 
@@ -63,21 +54,9 @@ Docker Image: <https://github.com/ONLYOFFICE/Docker-CommunityServer>
 
 License: [GNU GPL v3.0](https://www.gnu.org/copyleft/gpl.html)
 
-SaaS version: <http://www.onlyoffice.com>
+SaaS version: <https://www.onlyoffice.com/cloud-office.aspx>
 
-ONLYOFFICE Community Edition
-----------------------------
+## Support
 
-**ONLYOFFICE Community Server** is a part of **ONLYOFFICE Community Edition**
-that comprises also **Document Server** and **Mail Server**. To install
-**ONLYOFFICE Community Edition**, make use of the
-[Docker](https://github.com/ONLYOFFICE/Docker-CommunityServer#installing-onlyoffice-community-server-integrated-with-document-and-mail-servers)
-or one of the available [virtual
-machines](http://www.onlyoffice.com/download.aspx) with **ONLYOFFICE Community
-Edition** pre-installed.
+If you have any problems with ONLYOFFICE, please contact us [developers' forum](https://dev.onlyoffice.org/).
 
-User Feedback and Support
--------------------------
-
-If you have any problems with or questions about ONLYOFFICE, please contact us
-through [dev.onlyoffice.org](http://dev.onlyoffice.org).
