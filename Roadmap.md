@@ -58,5 +58,5 @@ SaaS version: <https://www.onlyoffice.com/cloud-office.aspx>
 
 ## Support
 
-If you have any problems with ONLYOFFICE, please contact us [developers' forum](https://dev.onlyoffice.org/).
+If you have any problems with ONLYOFFICE, please contact us on [developers' forum](https://dev.onlyoffice.org/).
 
