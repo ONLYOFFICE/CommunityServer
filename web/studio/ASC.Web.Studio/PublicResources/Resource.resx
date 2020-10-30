@@ -544,9 +544,6 @@
   <data name="CancelConfirmMessage" xml:space="preserve">
     <value>All the data you entered will be lost. Are you sure you want to continue?</value>
   </data>
-  <data name="ChangeEmail" xml:space="preserve">
-    <value>Change the email</value>
-  </data>
   <data name="ChangeEmailSuccess" xml:space="preserve">
     <value>Mail has been successfully changed</value>
   </data>
@@ -579,9 +576,6 @@
   </data>
   <data name="ChooseUser" xml:space="preserve">
     <value>Choose {!user}</value>
-  </data>
-  <data name="ChromeStoreBannerTitle" xml:space="preserve">
-    <value>Rate and review us in Chrome Store</value>
   </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Clear</value>
@@ -671,10 +665,10 @@
     <value>Bitly</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
-    <value>Подключить сервис Bitly для сокращения пригласительных ссылок на портал и расшаренных ссылок в Документах.</value>
+    <value>Enable this application to shorten portal invitation links and shared links in the Documents module with the Bitly service.</value>
   </data>
-  <data name="ConsumersBitlyInstruction" xml:space="preserve">
-    <value>Добавив сервис Bitly Вы будуте получать сокращенные ссылки для приглашения новых пользователей на портал ONLYOFFICE™ и сокращённые ссылки для расшаренных на внешний доступ документов в модуле Документы.</value>
+  <data name="ConsumersBitlyInstructionV11" xml:space="preserve">
+    <value>Enable this app to shorten the invitation and document links. {0}Insert your Bitly login and API key below:</value>
   </data>
   <data name="ConsumersbitlyClientId" xml:space="preserve">
     <value>login</value>
@@ -686,10 +680,10 @@
     <value>Box</value>
   </data>
   <data name="ConsumersBoxDescription" xml:space="preserve">
-    <value>Подключить приложение для управления файлами и папками Box.</value>
+    <value>Enable the application to manage Box files and folders.</value>
   </data>
-  <data name="ConsumersBoxInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Box Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Box, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™.</value>
+  <data name="ConsumersBoxInstructionV11" xml:space="preserve">
+    <value>Enable this app to connect your Box account to the Documents module. You’ll be able to manage, edit, and share files from Box with ONLYOFFICE users. {0}Sign in to your account on the Box developers page and create a new app for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersboxClientId" xml:space="preserve">
     <value>Box ID</value>
@@ -701,10 +695,10 @@
     <value>Clickatell</value>
   </data>
   <data name="ConsumersClickatellDescription" xml:space="preserve">
-    <value>Подключить приложение для включения двухфакторной авторизации через Clickatell.</value>
+    <value>Enable the application for the two-factor authentication via Clickatell.</value>
   </data>
-  <data name="ConsumersClickatellInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Clickatell Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE.</value>
+  <data name="ConsumersClickatellInstructionV11" xml:space="preserve">
+    <value>Use this app to enable two-factor authentication with Clickatell service. {0}Sign in to your SMS Platform account and create a new integration for ONLYOFFICE. Copy an apiKey and insert it below:</value>
   </data>
   <data name="ConsumersclickatellapiKey" xml:space="preserve">
     <value>apiKey</value>
@@ -713,10 +707,10 @@
     <value>DocuSign</value>
   </data>
   <data name="ConsumersDocuSignDescription" xml:space="preserve">
-    <value>Подключить приложение для добавления электронной подписи DocuSign к документам.</value>
+    <value>Enable the application to digitally sign your documents with DocuSign.</value>
   </data>
-  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса DocuSign Вы сможете подписывать файлы модуля Документы. Это позволит вам отправлять файл на получение электронной подписи сотрудникам портала ONLYOFFICE™ средствами сервиса DocuSugn. Подписанный файл будет сохранён в Документах порала ONLYOFFICE™.</value>
+  <data name="ConsumersDocuSignInstructionV11" xml:space="preserve">
+    <value>Enable this app to digitally sign documents using DocuSign. {0}Go to your DocuSign Admin Console and add ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersdocuSignClientId" xml:space="preserve">
     <value>DocuSign Key</value>
@@ -731,10 +725,10 @@
     <value>DropBox</value>
   </data>
   <data name="ConsumersDropBoxDescription" xml:space="preserve">
-    <value>Подключить приложение для управления файлами и папками Dropbox.</value>
+    <value>Enable the application to manage Dropbox files and folders.</value>
   </data>
-  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Dropbox Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Dropbox, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™.</value>
+  <data name="ConsumersDropBoxInstructionV11" xml:space="preserve">
+    <value>Enable this app to connect your Dropbox account to the Documents module. You’ll be able to manage, edit, and share files from Dropbox with ONLYOFFICE users. {0}Sign in to your account on the Dropbox Developers website and create a new app for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersDropBoxKey" xml:space="preserve">
     <value>App key</value>
@@ -746,10 +740,10 @@
     <value>Facebook</value>
   </data>
   <data name="ConsumersFacebookDescription" xml:space="preserve">
-    <value>Подключить приложение для входа на портал по учетной записи Facebook и поиска контактов.</value>
+    <value>Enable the application to sign in to the portal using a Facebook account and search for contacts.</value>
   </data>
-  <data name="ConsumersFacebookInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Facebook Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Facebook. Так же Вы сможете на странице редактирования персоны CRM находить и привязывать аккаунт Facebook.</value>
+  <data name="ConsumersFacebookInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using Facebook and link their customers’ Facebook accounts to the CRM module. {0}Go to Facebook Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersfacebookClientId" xml:space="preserve">
     <value>Facebook ID</value>
@@ -764,10 +758,10 @@
     <value>Google</value>
   </data>
   <data name="ConsumersGoogleDescription" xml:space="preserve">
-    <value>Подключить проект для входа на портал по учетной записи Google и для управления файлами и папками Google Drive.</value>
+    <value>Connect the project to sign in to the portal using a Google account and manage Google Drive files and folders.</value>
   </data>
-  <data name="ConsumersGoogleInstruction" xml:space="preserve">
-    <value>Добавив проект сервиса Google Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Google и подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Google Drive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™.</value>
+  <data name="ConsumersGoogleInstructionV11" xml:space="preserve">
+    <value>Enable this app to connect your Google Drive account to the Documents module. You’ll be able to manage, edit, and share files from Google Drive with ONLYOFFICE users. {0}Go to Google APIs console and create a new project for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersgoogleClientId" xml:space="preserve">
     <value>Google ID</value>
@@ -779,10 +773,10 @@
     <value>Linkedin</value>
   </data>
   <data name="ConsumersLinkedInDescription" xml:space="preserve">
-    <value>Подключить приложение для входа на портал по учетной записи LinkedIn.</value>
+    <value>Enable the application to sign in to the portal using a LinkedIn account.</value>
   </data>
-  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса LinkeIn Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт LinkedIn.</value>
+  <data name="ConsumersLinkedInInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their LinkedIn accounts. {0}Go to the  LinkedIn Developers website and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersLinkedInKey" xml:space="preserve">
     <value>API key</value>
@@ -794,10 +788,10 @@
     <value>OneDrive</value>
   </data>
   <data name="ConsumersSkyDriveDescription" xml:space="preserve">
-    <value>Подключить приложение для управления файлами и папками OneDrive.</value>
+    <value>Enable the application to manage OneDrive files and folders.</value>
   </data>
-  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса OneDrive Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в OneDrive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™.</value>
+  <data name="ConsumersSkyDriveInstructionV11" xml:space="preserve">
+    <value>Enable this app to connect your OneDrive account to the Documents module. You’ll be able to manage, edit, and share files from OneDrive with ONLYOFFICE users. {0}Sign in to your account on Live Connect Developer Center and create a new app for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="Consumersskydriveappkey" xml:space="preserve">
     <value>OneDrive ID</value>
@@ -806,13 +800,13 @@
     <value>OneDrive Key</value>
   </data>
   <data name="ConsumersSmsc" xml:space="preserve">
-    <value>SMS-центр</value>
+    <value>SMS Center</value>
   </data>
   <data name="ConsumersSmscDescription" xml:space="preserve">
-    <value>Подключить приложение для включения двухфакторной авторизации через SMS-центр.</value>
+    <value>Enable the application for the two-factor authentication via SMS Center.</value>
   </data>
-  <data name="ConsumersSmscInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса SMS-центр Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE. SMS-центр удобно использовать как sms провайдер для стран СНГ.</value>
+  <data name="ConsumersSmscInstructionV11" xml:space="preserve">
+    <value>Use this app to enable two-factor authentication with SMS Center service. {0}Insert your smsc account login and your password (or password MD5 hash) in lower case:</value>
   </data>
   <data name="Consumerssmsclogin" xml:space="preserve">
     <value>Login</value>
@@ -824,10 +818,10 @@
     <value>Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Подключить приложение для входа на портал по учетной записи Twitter и поиска контактов.</value>
+    <value>Enable the application to sign in to the portal using a Twitter account and search for contacts.</value>
   </data>
-  <data name="ConsumersTwitterInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Twitter Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Twitter. Так же Вы сможете на странице персоны CRM привязывать аккаунт и читать новости Twitter.</value>
+  <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their Twitter and link their customers’ Twitter accounts to the CRM module. {0}Go to Twitter Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
     <value>API key</value>
@@ -845,10 +839,10 @@
     <value>Twilio</value>
   </data>
   <data name="ConsumersTwilioDescription" xml:space="preserve">
-    <value>Подключить Twilio для совершения вызовов контактов CRM прямо из браузера или для включения двухфакторной авторизации.</value>
+    <value>Enable this application to call CRM contacts with Twilio.</value>
   </data>
-  <data name="ConsumersTwilioInstruction" xml:space="preserve">
-    <value>Добавив Twilio Вы сможете звонить любому контакту из CRM прямо из браузера и включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE.</value>
+  <data name="ConsumersTwilioInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to call their contacts from the CRM module using Twilio. {0}Go to Twilio Console and paste the following data below:</value>
   </data>
   <data name="ConsumerstwilioAccountSid" xml:space="preserve">
     <value>Account Sid</value>
@@ -863,10 +857,10 @@
     <value>Yahoo</value>
   </data>
   <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Подключить приложение для импорта контактов Yahoo.</value>
+    <value>Enable the application to import users from the Yahoo service.</value>
   </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Yahoo Вы сможете из списка контактов добавлять новых пользователей портала ONLYOFFICE™.</value>
+  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
+    <value>Enable this app to add new portal users from your Yahoo contact list. {0}Go to the Create Application page in the Yahoo Developer Network and create a new app for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersyahooClientId" xml:space="preserve">
     <value>Client ID</value>
@@ -1204,8 +1198,8 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="EmailAndPasswordTypePassword" xml:space="preserve">
     <value>Type password</value>
   </data>
-  <data name="EmailAndPasswordTypePasswordRecommendations" xml:space="preserve">
-    <value>(minimum 6 characters)</value>
+  <data name="EmailAndPasswordTypePasswordRecommendation" xml:space="preserve">
+    <value>(minimum {0} characters)</value>
   </data>
   <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
     <value>Password and its confirmation do not match</value>
@@ -1248,6 +1242,15 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="EnableUserHelp" xml:space="preserve">
     <value>The {!user} will be displayed as active again</value>
+  </data>
+  <data name="Encryption" xml:space="preserve">
+    <value>Privacy Room</value>
+  </data>
+  <data name="EncryptionOff" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="EncryptionOn" xml:space="preserve">
+    <value>Enable</value>
   </data>
   <data name="EnterEmail" xml:space="preserve">
     <value>Enter a new email address</value>
@@ -1377,6 +1380,9 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="ErrorPasswordLength" xml:space="preserve">
     <value>from {0} to {1} characters</value>
+  </data>
+  <data name="ErrorPasswordRechange" xml:space="preserve">
+    <value>A new password must be used</value>
   </data>
   <data name="ErrorTenantTooShort" xml:space="preserve">
     <value>Tenant domain can not be empty.</value>
@@ -1567,6 +1573,9 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="HelpCenter" xml:space="preserve">
     <value>Help Center</value>
+  </data>
+  <data name="HelpPrivacyRoomSettings" xml:space="preserve">
+    <value>Enable this option to create a secure environment for document editing and co-authoring. All documents stored within Private Room as well as data transfer while co-editing documents will be encrypted using the AES-256 encryption algorithm to prevent from accessing your data.{0} Private Room is available through {3}ONLYOFFICE Desktop Editors{4}. To start, users must log in to ONLYOFFICE cloud in its Connect to cloud section. Once connected, they automatically obtain a pair of encryption keys. Learn how it works {5}here{6}.</value>
   </data>
   <data name="HelpJoinToAffilliate" xml:space="preserve">
     <value>The program purpose is to legally advertise ONLYOFFICE™ to receive a commission on subscriptions purchased by referred individuals.</value>
@@ -1828,9 +1837,6 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>You can keep adding the users as {!guests} or change the pricing plan for the one with a larger number of users.</value>
-  </data>
-  <data name="LabelDontShowMessage" xml:space="preserve">
-    <value>Do not show this message</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -2150,6 +2156,9 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="LicenseUploadedOverdue" xml:space="preserve">
     <value>Uploaded successfully. {0}Support and updates are not available for this license since {2}.{1}</value>
   </data>
+  <data name="LicenseUploadedOverdueSupport" xml:space="preserve">
+    <value>Uploaded successfully. {0}Support are not available for this license since {2}.{1}</value>
+  </data>
   <data name="Link" xml:space="preserve">
     <value>link</value>
   </data>
@@ -2228,6 +2237,9 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
     <value>Who</value>
   </data>
+  <data name="MailIcsCalendarDescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="MailReadedMsg" xml:space="preserve">
     <value>There is no unread mail. Please go to the Mail to read all your messages.</value>
   </data>
@@ -2288,14 +2300,8 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="MessageAuthorize" xml:space="preserve">
     <value>Please authorize yourself.</value>
   </data>
-  <data name="MessageCurrentEmailAddressIs" xml:space="preserve">
-    <value>Your current email address is</value>
-  </data>
   <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
     <value>The email activation instructions have been sent to the {0} email address</value>
-  </data>
-  <data name="MessageEmailAddressChanging" xml:space="preserve">
-    <value>You are changing your email address</value>
   </data>
   <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
     <value>The email change instructions have been successfuly sent</value>
@@ -2324,8 +2330,8 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="MessageTitle" xml:space="preserve">
     <value>Messages</value>
   </data>
-  <data name="MessageYourPasswordSuccessfullySendedToEmail" xml:space="preserve">
-    <value>The password change instructions have been sent to the {0} email address.</value>
+  <data name="MessageYourPasswordSendedToEmail" xml:space="preserve">
+    <value>If a user with the {0} email exists, the password change instruction has been sent to this email address.</value>
   </data>
   <data name="MetaDescription" xml:space="preserve">
     <value>ONLYOFFICE™ is a cloud office that enables you to manage documents, projects, team and customer relations in one place.</value>
@@ -2395,9 +2401,6 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="NeverShow" xml:space="preserve">
     <value>Never Show</value>
-  </data>
-  <data name="NewEmail" xml:space="preserve">
-    <value>New Email</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>New Password</value>
@@ -2795,6 +2798,12 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="SingleSignOnSettings" xml:space="preserve">
     <value>Single Sign-on</value>
   </data>
+  <data name="SignInLDAP" xml:space="preserve">
+    <value>Sign in to: {0}</value>
+  </data>
+  <data name="SignInLDAPHelper" xml:space="preserve">
+    <value>Use credentials for the corporate domain</value>
+  </data>
   <data name="SloEndpointURL" xml:space="preserve">
     <value>SLO Endpoint URL</value>
   </data>
@@ -2918,8 +2927,17 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="Source" xml:space="preserve">
     <value>Source</value>
   </data>
+  <data name="SsoAttributesNotFound" xml:space="preserve">
+    <value>Authentication failed (assertion attributes not found)</value>
+  </data>
+  <data name="SsoAuthFailed" xml:space="preserve">
+    <value>Authentication failed</value>
+  </data>
   <data name="SsoEndpointURL" xml:space="preserve">
     <value>SSO Endpoint URL</value>
+  </data>
+  <data name="SsoError" xml:space="preserve">
+    <value>Internal server error</value>
   </data>
   <data name="SsoSettingsAreEmpty" xml:space="preserve">
     <value>Blank settings have been transferred</value>
@@ -3021,6 +3039,9 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="StudioDomainSettings" xml:space="preserve">
     <value>Trusted Mail Domain Settings</value>
   </data>
+  <data name="StudioEncryptionSettings" xml:space="preserve">
+    <value>Privacy Room</value>
+  </data>
   <data name="StudioPasswordSettings" xml:space="preserve">
     <value>Password Strength Settings</value>
   </data>
@@ -3072,17 +3093,11 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
   </data>
-  <data name="SupportBlockChatBtn" xml:space="preserve">
-    <value>Chat now</value>
-  </data>
   <data name="SupportBlockEmailBth" xml:space="preserve">
     <value>Send email</value>
   </data>
   <data name="SupportBlockTitle" xml:space="preserve">
     <value>Contact us to find about special offers</value>
-  </data>
-  <data name="SupportByChat" xml:space="preserve">
-    <value>Support via chat</value>
   </data>
   <data name="TarffDowngradeErrorDescription" xml:space="preserve">
     <value>Reduce the required parameter or select another pricing plan.</value>
@@ -3092,12 +3107,6 @@ We recommend that you use SAML protocol as more secure.</value>
   </data>
   <data name="TariffButtonExtend" xml:space="preserve">
     <value>Prolong</value>
-  </data>
-  <data name="TariffBuyRecommendation" xml:space="preserve">
-    <value>We recommend you to select the Recurring payments option during the payment process. It will guarantee you the invariable price according to the chosen plan.</value>
-  </data>
-  <data name="TariffBuyRecommendationTitle" xml:space="preserve">
-    <value>Buy</value>
   </data>
   <data name="TariffCanProlong" xml:space="preserve">
     <value>You can prolong the current plan or change it using the table below.</value>
@@ -3129,8 +3138,8 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="TariffExpiredDate" xml:space="preserve">
     <value>It will expire on {0}.</value>
   </data>
-  <data name="TariffExpiredDateStandalone" xml:space="preserve">
-    <value>It will expire on {0}.</value>
+  <data name="TariffExpiredDateStandaloneV11" xml:space="preserve">
+    <value>Your subscription for support and updates expires on {0}.</value>
   </data>
   <data name="TariffFree" xml:space="preserve">
     <value>You are using Free Plan.</value>
@@ -3303,6 +3312,9 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="TransferPortalWarning" xml:space="preserve">
     <value>The portal will not be available during the migration process. After the migration is complete the portal URL will be changed and all the shared documents links will be inaccessible.</value>
   </data>
+  <data name="Trial" xml:space="preserve">
+    <value>Триал</value>
+  </data>
   <data name="TrialPeriod" xml:space="preserve">
     <value>Trial period: {0} {1}</value>
   </data>
@@ -3321,9 +3333,6 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="TrustedDomainsInviteTitle" xml:space="preserve">
     <value>Registration is available to users with an email account at {0}. 
 To register, enter your email and click on Send Invitation.  An email message with a link to activate your ONLYOFFICE™ account will be sent to the specified email.</value>
-  </data>
-  <data name="TypeNewEmail" xml:space="preserve">
-    <value>Enter a new email address</value>
   </data>
   <data name="UnknownError" xml:space="preserve">
     <value>An unknown error occurred</value>
@@ -3454,9 +3463,6 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="WelcomeUserMessage" xml:space="preserve">
     <value>Welcome, {0}</value>
   </data>
-  <data name="WeUseTeamLabOnlineOffice" xml:space="preserve">
-    <value>We use ONLYOFFICE™ Online Office</value>
-  </data>
   <data name="WhatsNewSubscriptionName" xml:space="preserve">
     <value>What's New</value>
   </data>
@@ -3571,14 +3577,11 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="AuthorizationKeysEnableButton" xml:space="preserve">
     <value>Enable</value>
   </data>
-  <data name="AuthorizationKeysHelpHeader" xml:space="preserve">
-    <value>How It Works?</value>
+  <data name="AuthorizationKeysHelpTextV11" xml:space="preserve">
+    <value>Detailed instructions in our {0}Help Center{1}.</value>
   </data>
-  <data name="AuthorizationKeysHelpText" xml:space="preserve">
-    <value>For more detailed instructions about connecting this service, please refer to our {0}Help Center{1} that provides all the necessary information.</value>
-  </data>
-  <data name="AuthorizationKeysSupportText" xml:space="preserve">
-    <value>If you still have some questions on how to connect this service or need technical assistance, please feel free to contact our {0}Support Team{1}.</value>
+  <data name="AuthorizationKeysSupportTextV11" xml:space="preserve">
+    <value>Got any problems? Contact our {0}support team{1}.</value>
   </data>
   <data name="LdapSettingsTooManyOperations" xml:space="preserve">
     <value>Too many LDAP operations.</value>
@@ -3626,10 +3629,10 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Server key</value>
   </data>
   <data name="ConsumersFirebaseDescription" xml:space="preserve">
-    <value>Подключить сервис Firebase Cloud Messaging для получения уведомлений о полученных сообщениях.</value>
+    <value>Enable this application to receive notifications about the messages sent to you with Firebase Cloud Messaging.</value>
   </data>
-  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
-    <value>Добавив Firebase Cloud Messaging Вы сможете получать уведомлений о полученных сообщениях, находясь не в сети.</value>
+  <data name="ConsumersFirebaseInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to receive notifications about the messages even offline. {0}Go to Firebase console and add a new project for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Import from Google</value>
@@ -3725,10 +3728,10 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>WordPress</value>
   </data>
   <data name="ConsumersWordpressDescription" xml:space="preserve">
-    <value>Подключить приложение для публикации документов в WordPress.</value>
+    <value>Enable the application to publish documents directly in WordPress.</value>
   </data>
-  <data name="ConsumersWordpressInstruction" xml:space="preserve">
-    <value>Добавив приложение WordPress Вы сможете легко, сохраняя форматирование, публиковать документы на своем сайте WordPress.</value>
+  <data name="ConsumersWordpressInstructionV11" xml:space="preserve">
+    <value>Enable the application to easily publish documents to your WordPress website. {0}On the Wordpress Developers page, create a new app for ONLYOFFICE integration. Paste the data you received below:</value>
   </data>
   <data name="ConsumerswpClientId" xml:space="preserve">
     <value>WordPress Key</value>
@@ -3740,10 +3743,10 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>EasyBib</value>
   </data>
   <data name="ConsumersEasyBibDescription" xml:space="preserve">
-    <value>Подключить приложение EasyBib для создания библиографических списков.</value>
+    <value>Enable this application to create bibliographic lists in documents with EasyBib.</value>
   </data>
-  <data name="ConsumersEasyBibInstruction" xml:space="preserve">
-    <value>Добавив приложение EasyBib Вы сможете легко создавать библиографические списки в своих документах.</value>
+  <data name="ConsumersEasyBibInstructionV11" xml:space="preserve">
+    <value>Enable this app to create bibliographies in ONLYOFFICE editors. {0}Go to the EasyBib signup page and fill in the form to add ONLYOFFICE integration. After you get an app key, paste it below:</value>
   </data>
   <data name="ConsumerseasyBibappkey" xml:space="preserve">
     <value>App key</value>
@@ -3800,7 +3803,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Professional spreadsheets</value>
   </data>
   <data name="AuthDocsCreateProfSpreadsheetsText" xml:space="preserve">
-    <value>Organize your data with multiple cell and row actions and perform complex calculations with Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches.</value>
+    <value>Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches.</value>
   </data>
   <data name="AuthDocsCreateSterlingDocuments" xml:space="preserve">
     <value>Sterling documents</value>
@@ -4154,31 +4157,46 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>GoogleCloud</value>
   </data>
   <data name="ConsumersGoogleCloudDescription" xml:space="preserve">
-    <value>GoogleCloud Description</value>
+    <value>Connect Google Cloud Storage service to backup and store data from your portal.</value>
   </data>
-  <data name="ConsumersGoogleCloudInstruction" xml:space="preserve">
-    <value>GoogleCloud Instruction</value>
+  <data name="ConsumersGoogleCloudInstructionV11" xml:space="preserve">
+    <value>Connect Google Cloud Storage service to backup and store data from your portal. {0}Go to Google Cloud Platform Console and create a new service account for ONLYOFFICE. Paste the data you received  below:</value>
   </data>
   <data name="ConsumersGoogleCloudjson" xml:space="preserve">
     <value>GoogleCloud json</value>
+  </data>
+  <data name="ConsumersMailru" xml:space="preserve">
+    <value>Mail.ru</value>
+  </data>
+  <data name="ConsumersMailruDescription" xml:space="preserve">
+    <value>Enable the application to sign in to the portal using a Mail.ru account.</value>
+  </data>
+  <data name="ConsumersMailruInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their mail.ru accounts. {0}Connect ONLYOFFICE as a new website on https://api.mail.ru/sites/my/. Paste the data you received below:</value>
+  </data>
+  <data name="ConsumersMailruClientId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ConsumersMailruClientSecret" xml:space="preserve">
+    <value>Secret key</value>
   </data>
   <data name="ConsumersRackspace" xml:space="preserve">
     <value>Rackspace</value>
   </data>
   <data name="ConsumersRackspaceDescription" xml:space="preserve">
-    <value>Rackspace Description</value>
+    <value>Connect Rackspace Cloud Storage service to backup and store data from your portal.</value>
   </data>
-  <data name="ConsumersRackspaceInstruction" xml:space="preserve">
-    <value>Rackspace Instruction</value>
+  <data name="ConsumersRackspaceInstructionV11" xml:space="preserve">
+    <value>Connect Rackspace Cloud Storage service to backup and store data from your portal. {0}In the security settings of  Rackspace Cloud Control Panel, click the Show link next to Rackspace API Key. Paste the data you received below:</value>
   </data>
   <data name="ConsumersS3" xml:space="preserve">
     <value>S3</value>
   </data>
   <data name="ConsumersS3Description" xml:space="preserve">
-    <value>S3 Description</value>
+    <value>Connect Amazon AWS S3 to backup and store data from your portal.</value>
   </data>
-  <data name="ConsumersS3Instruction" xml:space="preserve">
-    <value>S3 Instruction</value>
+  <data name="ConsumersS3InstructionV11" xml:space="preserve">
+    <value>Connect Amazon AWS S3 to backup and store data from your portal. {0}Go to the AWS Management Console and create access keys for ONLYOFFICE. Paste the data you received below:</value>
   </data>
   <data name="Consumerssecretaccesskey" xml:space="preserve">
     <value>S3 secret access key</value>
@@ -4186,11 +4204,41 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="ConsumersSelectel" xml:space="preserve">
     <value>Selectel</value>
   </data>
-  <data name="ConsumersSelectelCloudInstruction" xml:space="preserve">
-    <value>Selectel Instruction</value>
+  <data name="ConsumersSelectelInstructionV11" xml:space="preserve">
+    <value>Connect Selectel Cloud Storage service to backup and store data from your portal. {0}Get the access data for a user with Read/Write rights for containers where you plan to store your backups and paste it below:</value>
   </data>
   <data name="ConsumersSelectelDescription" xml:space="preserve">
-    <value>Selectel Description</value>
+    <value>Connect Selectel Cloud Storage service to backup and store data from your portal.</value>
+  </data>
+  <data name="ConsumersVk" xml:space="preserve">
+    <value>VK</value>
+  </data>
+  <data name="ConsumersVkDescription" xml:space="preserve">
+    <value>Enable the application to sign in to the portal using a VK account.</value>
+  </data>
+  <data name="ConsumersVkInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their VK accounts. {0}Create a new VK app for ONLYOFFICE. Paste the data you received below:</value>
+  </data>
+  <data name="ConsumersVkClientId" xml:space="preserve">
+    <value>Application ID</value>
+  </data>
+  <data name="ConsumersVkClientSecret" xml:space="preserve">
+    <value>Secure key</value>
+  </data>
+  <data name="ConsumersYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="ConsumersYandexDescription" xml:space="preserve">
+    <value>Enable the application to sign in to the portal using a Yandex account.</value>
+  </data>
+  <data name="ConsumersYandexInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their Yandex accounts. {0}Register ONLYOFFICE as a new app on the Yandex OAuth server. Paste the data you received below:</value>
+  </data>
+  <data name="ConsumersYandexClientId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ConsumersYandexClientSecret" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="Consumersusername" xml:space="preserve">
     <value>Rackspace username</value>
@@ -4229,10 +4277,10 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Bucket</value>
   </data>
   <data name="ConsumersRackspaceprivate_container" xml:space="preserve">
-    <value>Private Container</value>
+    <value>Private container</value>
   </data>
   <data name="ConsumersRackspacepublic_container" xml:space="preserve">
-    <value>Public Container</value>
+    <value>Public container</value>
   </data>
   <data name="ConsumersRackspaceregion" xml:space="preserve">
     <value>Region</value>
@@ -4291,40 +4339,127 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="ConsumersS3regionDescription" xml:space="preserve">
     <value>Enter the AWS region where your Amazon bucket resides.</value>
   </data>
-  <data name="ConsumersGoogleCloudbucket" xml:space="preserve">
-    <value>Bucket</value>
-  </data>
   <data name="ConsumersGoogleCloudbucketDescription" xml:space="preserve">
     <value>Enter the URL address of the Google Cloud bucket where you want to store your backups.</value>
-  </data>
-  <data name="ConsumersRackspacepublic_container" xml:space="preserve">
-    <value>Public container</value>
   </data>
   <data name="ConsumersRackspacepublic_containerDescription" xml:space="preserve">
     <value>Enter the URL address of the Rackspace public container where you want to store your backups.</value>
   </data>
-  <data name="ConsumersRackspaceprivate_container" xml:space="preserve">
-    <value>Private container</value>
-  </data>
   <data name="ConsumersRackspaceprivate_containerDescription" xml:space="preserve">
     <value>Enter the URL address of the Rackspace private container where you want to store your backups.</value>
-  </data>
-  <data name="ConsumersRackspaceregion" xml:space="preserve">
-    <value>Region</value>
   </data>
   <data name="ConsumersRackspaceregionDescription" xml:space="preserve">
     <value>Enter the region where your Rackspace containers are located.</value>
   </data>
-  <data name="ConsumersSelectelprivate_container" xml:space="preserve">
-    <value>Private container</value>
-  </data>
   <data name="ConsumersSelectelprivate_containerDescription" xml:space="preserve">
     <value>Enter the URL address of the Selectel private container where you want to store your backups.</value>
   </data>
-  <data name="ConsumersSelectelpublic_container" xml:space="preserve">
-    <value>Public container</value>
-  </data>
   <data name="ConsumersSelectelpublic_containerDescription" xml:space="preserve">
-    <value>Enter the URL address of the Selectel public container where you want to store your backups.</value>  
+    <value>Enter the URL address of the Selectel public container where you want to store your backups.</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>Copyright © {0} {1}. All rights reserved.</value>
+  </data>
+  <data name="ConsumersTelegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="ConsumersTelegramBotName" xml:space="preserve">
+    <value>Bot name</value>
+  </data>
+  <data name="ConsumersTelegramBotToken" xml:space="preserve">
+    <value>Bot token</value>
+  </data>
+  <data name="ConsumersTelegramDescription" xml:space="preserve">
+    <value>Connect Telegram account to receive portal notifications via Telegram.</value>
+  </data>
+  <data name="NotifyByTelegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="TelegramHowToConnect" xml:space="preserve">
+    <value>To connect TelegramBot to your account follow secret link:</value>
+  </data>
+  <data name="TelegramConnected" xml:space="preserve">
+    <value>Telegram account connected</value>
+  </data>
+  <data name="ConsumersS3forcepathstyle" xml:space="preserve">
+    <value>Force Path Style</value>
+  </data>
+  <data name="ConsumersS3forcepathstyleDescription" xml:space="preserve">
+    <value>Force Path Style Description</value>
+  </data>
+  <data name="ConsumersS3serviceurl" xml:space="preserve">
+    <value>Service Url</value>
+  </data>
+  <data name="ConsumersS3serviceurlDescription" xml:space="preserve">
+    <value>Service Url</value>
+  </data>
+  <data name="ConsumersS3sse" xml:space="preserve">
+    <value>Server Side Encryption Method</value>
+  </data>
+  <data name="ConsumersS3sseDescription" xml:space="preserve">
+    <value>Server Side Encryption Method</value>
+  </data>
+  <data name="ConsumersS3usehttp" xml:space="preserve">
+    <value>Use Http</value>
+  </data>
+  <data name="ConsumersS3usehttpDescription" xml:space="preserve">
+    <value>Use Http</value>
+  </data>
+  <data name="CustomNavigationLabelPlaceholder" xml:space="preserve">
+    <value>Пример</value>
+  </data>
+  <data name="CustomNavigationURLPlaceholder" xml:space="preserve">
+    <value>http://example.com</value>
+  </data>
+  <data name="PortalEncryptionProcessTitle" xml:space="preserve">
+    <value>The encryption process in progress</value>
+  </data>
+  <data name="PortalEncryptionText" xml:space="preserve">
+    <value>As soon as the process is over, the portal data will be available for work.</value>
+  </data>
+  <data name="ErrorDefaultStorageMethod" xml:space="preserve">
+    <value>Method for default disk storage only. Please, turn off all third-party storages before continue.</value>
+  </data>
+  <data name="ErrorServerEditionMethod" xml:space="preserve">
+    <value>Method for server edition only.</value>
+  </data>
+  <data name="ErrorWaitForBackupProcessComplete" xml:space="preserve">
+    <value>Backup in progress! Complete it before you proceed.</value>
+  </data>
+  <data name="ConsumersTelegramInstructionV11" xml:space="preserve">
+    <value>To receive portal notifications via Telegram, enable Telegram bot. You can create a new bot using BotFather in Telegram Desktop. To use this bot, portal users need to enable Telegram notifications on their Profile Page. {0}Paste bot’s username and the token you received in the fields below.</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="PresentAdminHdr" xml:space="preserve">
+    <value>Enable free access to enterprise features in Control Panel:</value>
+  </data>
+  <data name="PresentAdminHideBtn" xml:space="preserve">
+    <value>Not now</value>
+  </data>
+  <data name="PresentAdminOkBtn" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="PresentItemMobile" xml:space="preserve">
+    <value>Editing docs, sheets, and slides in mobile browser</value>
+  </data>
+  <data name="PresentItemPrivate" xml:space="preserve">
+    <value>Encrypted collaboration on office docs</value>
+  </data>
+  <data name="PresentItemPro" xml:space="preserve">
+    <value>Document comparison, content controls</value>
+  </data>
+  <data name="PresentUserHdr" xml:space="preserve">
+    <value>Ask your portal admin to enable free access to pro features for 30 days:</value>
+  </data>
+  <data name="PresentUserHideBtn" xml:space="preserve">
+    <value>Hide this offer</value>
+  </data>
+  <data name="PresentUserOkBtn" xml:space="preserve">
+    <value>Ok, thanks</value>
+  </data>
+  <data name="MailServiceDatabase" xml:space="preserve">
+    <value>Mail Server database</value>
   </data>
 </root>

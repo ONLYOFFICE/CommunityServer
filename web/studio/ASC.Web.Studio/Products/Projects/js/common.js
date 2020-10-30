@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -110,11 +101,11 @@ ASC.Projects.Common = (function () {
                     return item.StartModuleType === master.StartModuleType;
             }) || startModules[0];
 
-            currentPage = master.Projects.length !== 0 ? startModule.Page : "projects.aspx";
+            currentPage = master.Projects.length !== 0 ? startModule.Page : "Projects.aspx";
             href = document.location.pathname + currentPage;
             history.pushState({ href: href }, { href: href }, href);
         } else {
-            currentPage = currentPage[0].toLowerCase();
+            currentPage = currentPage[0];
         }
 
         unbindEvents(); // remove events handlers for previos pages
@@ -123,6 +114,8 @@ ASC.Projects.Common = (function () {
         initControl(baseObject.MilestoneAction);
 
         //init projNavPanel
+        href = href.toLowerCase();
+
         if (jq.getURLParam('prjId') && href.indexOf("ganttchart.aspx") === -1 && href.indexOf("timer.aspx") === -1) {
             baseObject.projectNavPanel.init();
         } else {
@@ -131,6 +124,7 @@ ASC.Projects.Common = (function () {
 
         initControl(baseObject.navSidePanel);
 
+        currentPage = currentPage.toLowerCase();
 
         switch (currentPage) {
             case "tasks.aspx":
@@ -222,7 +216,7 @@ ASC.Projects.Common = (function () {
     };
 
     function unbindEvents() {
-        if (location.href.indexOf("ganttchart.aspx") > 0) return;
+        if (location.href.toLowerCase().indexOf("ganttchart.aspx") > 0) return;
         if (typeof cPage !== "undefined" && typeof cPage.unbindListEvents === "function") {
             cPage.unbindListEvents();
         }
@@ -238,7 +232,7 @@ ASC.Projects.Common = (function () {
         if (handlers.length) return;
         handlers.push(teamlab.bind(teamlab.events.getException, function (params, errors) {
             if (errors && errors[0] === "unauthorized request") {
-                window.location = "/auth.aspx";
+                window.location = "/Auth.aspx";
             }
         }));
 
@@ -292,8 +286,8 @@ ASC.Projects.Common = (function () {
             cPage === baseObject.Templates 
             ) return;
 
-        function newBlock(image, title, ul) {
-            return { image: image, title: title, ul: ul };
+        function newBlock(image, title, text) {
+            return { image: image, title: title, text: text };
         }
 
         if (!master.CanCreateProject) return;
@@ -301,35 +295,29 @@ ASC.Projects.Common = (function () {
 
         var tmplObj = {
             blocks: [
-                newBlock("icon-tasks.png", commonResource.TasksModuleTitle,
+                newBlock("design-project-hierarchy.png", commonResource.DashboardDesignProjectHierarchy,
                     [
-                        commonResource.TasksModuleFirstLine,
-                        commonResource.TasksModuleSecondLine,
-                        commonResource.TasksModuleThirdLine
+                        commonResource.DashboardDesignProjectHierarchyFirstLine,
+                        commonResource.DashboardDesignProjectHierarchySecondLine,
+                        commonResource.DashboardDesignProjectHierarchyThirdLine
                     ]),
-                newBlock("icon-milestones.png", commonResource.MilestonesModuleTitle,
+                newBlock("track-time-and-progress.png", commonResource.DashboardTrackTimeAndProgress,
                     [
-                        commonResource.MilestonesModuleFirstLine,
-                        commonResource.MilestonesModuleSecondLine,
-                        commonResource.MilestonesModuleThirdLine
+                        commonResource.DashboardTrackTimeAndProgressFirstLine,
+                        commonResource.DashboardTrackTimeAndProgressSecondLine,
+                        commonResource.DashboardTrackTimeAndProgressThirdLine
                     ]),
-                newBlock("icon-document.png", commonResource.DocsModuleTitle,
+                newBlock("manage-access-rights.png", commonResource.DashboardManageAccessRights,
                     [
-                        commonResource.DocsModuleFirstLine,
-                        commonResource.DocsModuleSecondLine,
-                        commonResource.DocsModuleThirdLine
+                        commonResource.DashboardManageAccessRightsFirstLine,
+                        commonResource.DashboardManageAccessRightsSecondLine,
+                        commonResource.DashboardManageAccessRightsThirdLine
                     ]),
-                newBlock("icon-discussion.png", commonResource.DiscussionModuleTitle,
+                newBlock("use-more-tools.png", commonResource.DashboardUseMoreTools,
                     [
-                        commonResource.DiscussionModuleFirstLine,
-                        commonResource.DiscussionModuleSecondLine,
-                        commonResource.DiscussionModuleThirdLine
-                    ]),
-                newBlock("icon-report.png", commonResource.ReportsModuleTitle,
-                    [
-                        commonResource.ReportsModuleFirstLine,
-                        commonResource.ReportsModuleSecondLine,
-                        commonResource.ReportsModuleThirdLine
+                        commonResource.DashboardUseMoreToolsFirstLine,
+                        commonResource.DashboardUseMoreToolsSecondLine,
+                        commonResource.DashboardUseMoreToolsThirdLine
                     ])
             ]
         };
@@ -338,6 +326,31 @@ ASC.Projects.Common = (function () {
         $emptyScreenContainer.on("click", ".close", function () {
             $emptyScreenContainer.remove();
         });
+
+        jq(document).keyup(function (event) {
+            var code;
+
+            if (event.keyCode) {
+                code = event.keyCode;
+            } else if (event.which) {
+                code = event.which;
+            }
+
+            if (code == 27) {
+                $emptyScreenContainer.remove();
+            }
+        });
+
+        $emptyScreenContainer.find(".slick-carousel").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: true,
+            fade: true,
+            centerMode: true
+        });
+
+        $emptyScreenContainer.find(".slick-next").focus();
 
         emptyScreenShowed = true;
     }
@@ -353,8 +366,8 @@ ASC.Projects.Common = (function () {
     };
 
     var showTimer = function (projectId, taskId, userId) {
-        var width = 288;
-        var height = 638;
+        var width = 290;
+        var height = 660;
         var jqbrowser = jq.browser;
 
         if (jqbrowser.safari) {
@@ -364,15 +377,15 @@ ASC.Projects.Common = (function () {
         }
 
         if (jqbrowser.msie) {
-            width = 284;
-            height = 614;
+            width = 290;
+            height = 660;
         }
         
         if (navigator.userAgent.indexOf("OPR/") > 0) {
             height = 738;
         }
 
-        var params = "width=" + width + ",height=" + height + ",resizable=yes";
+        var params = "width=" + width + ",height=" + height + ",resizable=yes,scrollbars=yes";
         var windowName = "displayTimerWindow";
         var hWnd = null;
         var isExist;
@@ -388,7 +401,7 @@ ASC.Projects.Common = (function () {
             isExist = true;
         }
 
-        var url = "timer.aspx";
+        var url = "Timer.aspx";
 
         if (projectId) {
             url += "?prjID=" + projectId;
@@ -712,7 +725,7 @@ ASC.Projects.Common = (function () {
     }
 
     function setHash(newHash) {
-        var basePath = location.hash === "" ? location.href : location.href.substring(0, location.href.indexOf("#"));
+        var basePath = location.hash === "" ? location.href.replace("#", "") : location.href.substring(0, location.href.indexOf("#"));
         if (newHash.indexOf("#") !== 0) {
             newHash = "#" + newHash;
         }
@@ -784,7 +797,7 @@ ASC.Projects.ReportGenerator = (function() {
         progressDialog.init(
             {
                 header: resources.ReportBuilding,
-                footer: resources.ReportBuildingInfo.format("<a class='link underline' href='/products/files/'>", "</a>"),
+                footer: resources.ReportBuildingInfo.format("<a class='link underline' href='/Products/Files/'>", "</a>"),
                 progress: resources.ReportBuildingProgress
             },
             jq("#studioPageContent .mainPageContent"),

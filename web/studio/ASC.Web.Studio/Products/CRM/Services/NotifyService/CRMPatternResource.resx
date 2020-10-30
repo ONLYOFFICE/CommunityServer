@@ -135,9 +135,9 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has added a new event to "$EntityTitl
           #end</value>
   </data>
   <data name="pattern_CreateNewContact" xml:space="preserve">
-    <value>h1. CRM. New contact created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
+    <value>h1. CRM. New contact created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
 
-$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
+$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
 
 Contact information:
 
@@ -164,7 +164,7 @@ ONLYOFFICE™ Support Team
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>h1. CRM. Data import successfully completed
 
-Go to the "Contacts":"$__VirtualRootPath/products/crm/" list.
+Go to the "Contacts":"$__VirtualRootPath/Products/CRM/" list.
 
 If you have any questions or need assistance please feel free to contact us at "support.onlyoffice.com":"http://support.onlyoffice.com"
 
@@ -173,7 +173,7 @@ ONLYOFFICE™ Support Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
-    <value>h1.You were appointed responsible for the opportunity: "$EntityTitle":"${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID"
+    <value>h1.You were appointed responsible for the opportunity: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the opportunity: $EntityTitle .
 
@@ -224,7 +224,7 @@ Due date: $AdditionalData.get_item("DueDate")
 
 #end
 
-Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.</value>
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.</value>
   </data>
   <data name="pattern_SetAccess" xml:space="preserve">
     <value>h1.Access granted to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
@@ -261,7 +261,7 @@ $AdditionalData.get_item("TaskDescription")
 
 Due date: $AdditionalData.get_item("DueDate")
 
-Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
   </data>
@@ -289,18 +289,22 @@ Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
   <data name="subject_TaskReminder" xml:space="preserve">
     <value>CRM. Reminder about the task: $EntityTitle</value>
   </data>
-  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
-    <value>h1. CRM. Data export successfully completed
-
-Please, follow this link to download the archive: "${EntityTitle}":"${EntityRelativeURL}"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  <data name="subject_AddRelationshipEvent_tg" xml:space="preserve">
+    <value>CRM. New event added to [$EntityTitle](${__VirtualRootPath}/${EntityRelativeURL})</value>
   </data>
-  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
-    <value>h1. CRM. Data import successfully completed
-
-Go to the "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" list.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  <data name="subject_CreateNewContact_tg" xml:space="preserve">
+    <value>CRM. [New contact created](${__VirtualRootPath}/Products/CRM/Default.aspx?id=$EntityID) using 'Website Contact Form'</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity_tg" xml:space="preserve">
+    <value>CRM. You were appointed as a responsible person for the opportunity: [$EntityTitle](${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID)</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>CRM. Task assigned to you: [$EntityTitle](${__VirtualRootPath}/Products/CRM/Tasks.aspx)</value>
+  </data>
+  <data name="subject_SetAccess_tg" xml:space="preserve">
+    <value>CRM. Access granted to [$EntityTitle](${__VirtualRootPath}/${EntityRelativeURL})</value>
+  </data>
+  <data name="subject_TaskReminder_tg" xml:space="preserve">
+    <value>CRM. Reminder about the task: [$EntityTitle](${__VirtualRootPath}/Products/CRM/Tasks.aspx)</value>
   </data>
 </root>

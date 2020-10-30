@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -68,6 +59,8 @@ namespace ASC.Mail.Data.Contracts
         public string ProtocolLogPath { get; set; }
         public bool CollectStatistics { get; set; }
 
+        public bool UseDump { get; set; }
+
         public static readonly TasksConfig Default = new TasksConfig
         {
             CheckTimerInterval = TimeSpan.FromSeconds(10),
@@ -89,7 +82,7 @@ namespace ASC.Mail.Data.Contracts
             TenantMinQuotaBalance = 26214400,
             SaveOriginalMessage = false,
             ImapFlags = new Dictionary<string, int>(),
-            SkipImapFlags = new string[] {},
+            SkipImapFlags = new string[] { },
             SpecialDomainFolders = new Dictionary<string, Dictionary<string, MailBoxData.MailboxInfo>>(),
             DefaultFolders = new Dictionary<string, int>(),
             DefaultApiSchema = Uri.UriSchemeHttp,
@@ -97,7 +90,8 @@ namespace ASC.Mail.Data.Contracts
             SslCertificateErrorsPermit = false,
             TcpTimeout = 30000,
             ProtocolLogPath = "",
-            CollectStatistics = true
+            CollectStatistics = true,
+            UseDump = false
         };
 
         public static TasksConfig FromConfig
@@ -106,30 +100,30 @@ namespace ASC.Mail.Data.Contracts
             {
                 var config = Default;
 
-                if (ConfigurationManager.AppSettings["mail.check-work-timer-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.check-work-timer-seconds"] != null)
                 {
                     config.CheckTimerInterval = TimeSpan.FromSeconds(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.check-work-timer-seconds"]));
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.check-work-timer-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.activity-timeout-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.activity-timeout-seconds"] != null)
                 {
                     config.ActiveInterval = TimeSpan.FromSeconds(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.activity-timeout-seconds"]));
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.activity-timeout-seconds"]));
                 }
 
                 Guid userId;
-                if (ConfigurationManager.AppSettings["mail.one-user-mode"] != null &&
-                    Guid.TryParse(ConfigurationManager.AppSettings["mail.one-user-mode"], out userId))
+                if (ConfigurationManagerExtension.AppSettings["mail.one-user-mode"] != null &&
+                    Guid.TryParse(ConfigurationManagerExtension.AppSettings["mail.one-user-mode"], out userId))
                 {
-                    config.WorkOnUsersOnly.Add(ConfigurationManager.AppSettings["mail.one-user-mode"]);
+                    config.WorkOnUsersOnly.Add(ConfigurationManagerExtension.AppSettings["mail.one-user-mode"]);
                 }
 
-                if (ConfigurationManager.AppSettings["mail.aggregate-mode"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.aggregate-mode"] != null)
                 {
                     AggregateModeType aggregateMode;
 
-                    switch (ConfigurationManager.AppSettings["mail.aggregate-mode"])
+                    switch (ConfigurationManagerExtension.AppSettings["mail.aggregate-mode"])
                     {
                         case "external":
                             aggregateMode = AggregateModeType.External;
@@ -145,66 +139,66 @@ namespace ASC.Mail.Data.Contracts
                     config.AggregateMode = aggregateMode;
                 }
 
-                if (ConfigurationManager.AppSettings["web.enable-signalr"] != null)
+                if (ConfigurationManagerExtension.AppSettings["web.enable-signalr"] != null)
                 {
-                    config.EnableSignalr = Convert.ToBoolean(ConfigurationManager.AppSettings["web.enable-signalr"]);
+                    config.EnableSignalr = Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["web.enable-signalr"]);
                 }
 
-                if (ConfigurationManager.AppSettings["mail.check-pop3-uidl-chunk"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.check-pop3-uidl-chunk"] != null)
                 {
                     config.ChunkOfPop3Uidl =
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.check-pop3-uidl-chunk"]);
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.check-pop3-uidl-chunk"]);
 
                     if (config.ChunkOfPop3Uidl < 1 || config.ChunkOfPop3Uidl > 100)
                         config.ChunkOfPop3Uidl = 100;
                 }
 
-                if (ConfigurationManager.AppSettings["mail.max-messages-per-mailbox"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.max-messages-per-mailbox"] != null)
                 {
                     config.MaxMessagesPerSession =
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.max-messages-per-mailbox"]);
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.max-messages-per-mailbox"]);
 
                     if (config.MaxMessagesPerSession < 1)
                         config.MaxMessagesPerSession = -1;
                 }
 
-                if (ConfigurationManager.AppSettings["mail.max-tasks-count"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.max-tasks-count"] != null)
                 {
-                    config.MaxTasksAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["mail.max-tasks-count"]);
+                    config.MaxTasksAtOnce = Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.max-tasks-count"]);
 
                     if (config.MaxTasksAtOnce < 1)
                         config.MaxTasksAtOnce = 1;
                 }
 
-                if (ConfigurationManager.AppSettings["mail.overdue-account-delay-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.overdue-account-delay-seconds"] != null)
                 {
                     config.OverdueAccountDelay = TimeSpan.FromSeconds(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.overdue-account-delay-seconds"]));
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.overdue-account-delay-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.quota-ended-delay-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.quota-ended-delay-seconds"] != null)
                 {
                     config.QuotaEndedDelay = TimeSpan.FromSeconds(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.quota-ended-delay-seconds"]));
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.quota-ended-delay-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.tenant-cache-lifetime-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.tenant-cache-lifetime-seconds"] != null)
                 {
                     config.TenantCachingPeriod = TimeSpan.FromSeconds(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.tenant-cache-lifetime-seconds"]));
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.tenant-cache-lifetime-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.queue-lifetime-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.queue-lifetime-seconds"] != null)
                 {
                     config.QueueLifetime =
                         TimeSpan.FromSeconds(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.queue-lifetime-seconds"]));
+                            Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.queue-lifetime-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.inactive-mailboxes-ratio"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.inactive-mailboxes-ratio"] != null)
                 {
                     config.InactiveMailboxesRatio =
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.inactive-mailboxes-ratio"]);
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.inactive-mailboxes-ratio"]);
 
                     if (config.InactiveMailboxesRatio < 0)
                         config.InactiveMailboxesRatio = 0;
@@ -215,41 +209,46 @@ namespace ASC.Mail.Data.Contracts
                 config.AuthErrorWarningTimeout = Defines.AuthErrorWarningTimeout;
                 config.AuthErrorDisableMailboxTimeout = Defines.AuthErrorDisableTimeout;
 
-                if (ConfigurationManager.AppSettings["mail.tenant-overdue-days"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.tenant-overdue-days"] != null)
                 {
                     config.TenantOverdueDays =
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.tenant-overdue-days"]);
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.tenant-overdue-days"]);
                 }
 
-                if (ConfigurationManager.AppSettings["mail.tenant-min-quota-balance"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.tenant-min-quota-balance"] != null)
                 {
                     config.TenantMinQuotaBalance =
-                        Convert.ToInt32(ConfigurationManager.AppSettings["mail.tenant-min-quota-balance"]);
+                        Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.tenant-min-quota-balance"]);
                 }
 
                 config.SaveOriginalMessage = Defines.SaveOriginalMessage;
 
                 config.DefaultApiSchema = Defines.DefaultApiSchema;
 
-                if (ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.task-process-lifetime-seconds"] != null)
                 {
                     config.TaskLifetime =
                         TimeSpan.FromSeconds(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"]));
+                            Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.task-process-lifetime-seconds"]));
                 }
 
                 config.SslCertificateErrorsPermit = Defines.SslCertificatesErrorPermit;
 
                 config.TcpTimeout = Default.TcpTimeout;
 
-                if (ConfigurationManager.AppSettings["mail.protocol-log-path"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.protocol-log-path"] != null)
                 {
-                    config.ProtocolLogPath = ConfigurationManager.AppSettings["mail.protocol-log-path"] ?? "";
+                    config.ProtocolLogPath = ConfigurationManagerExtension.AppSettings["mail.protocol-log-path"] ?? "";
                 }
 
-                if (ConfigurationManager.AppSettings["mail.collect-statistics"] != null)
+                if (ConfigurationManagerExtension.AppSettings["mail.collect-statistics"] != null)
                 {
-                    config.CollectStatistics = Convert.ToBoolean(ConfigurationManager.AppSettings["mail.collect-statistics"] ?? "true");
+                    config.CollectStatistics = Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.collect-statistics"] ?? "true");
+                }
+
+                if (ConfigurationManagerExtension.AppSettings["mail.use-damp"] != null)
+                {
+                    config.UseDump = Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.use-damp"] ?? "false");
                 }
 
                 return config;

@@ -19,7 +19,7 @@ namespace ASC.Web.CRM.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CRMInvoiceResource {
@@ -844,15 +844,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantity.
-        /// </summary>
-        public static string FormInvoiceItemQuantity {
-            get {
-                return ResourceManager.GetString("FormInvoiceItemQuantity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stock quantity.
         /// </summary>
         public static string FormInvoiceItemStockQuantity {
@@ -916,7 +907,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href=&quot;settings.aspx?type=common&quot; target=&quot;_blank&quot;&gt;Common Settings&lt;/a&gt;.
+        ///   Looks up a localized string similar to Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href=&quot;Settings.aspx?type=common&quot; target=&quot;_blank&quot;&gt;Common Settings&lt;/a&gt;.
         /// </summary>
         public static string InvoiceCurrencyHelpInfo {
             get {

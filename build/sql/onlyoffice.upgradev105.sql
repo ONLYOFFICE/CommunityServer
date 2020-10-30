@@ -1,8 +1,8 @@
 DELIMITER DLM00
 
-DROP PROCEDURE IF EXISTS upgrade10 DLM00
+DROP PROCEDURE IF EXISTS upgrade105 DLM00
 
-CREATE PROCEDURE upgrade10()
+CREATE PROCEDURE upgrade105()
 BEGIN
 	CREATE TABLE  IF NOT EXISTS `projects_status` (
 		`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -35,15 +35,15 @@ BEGIN
         ALTER TABLE `calendar_events` CHANGE COLUMN `rrule` `rrule` text NOT NULL AFTER `alert_type`;
     END IF;
 
-    CREATE TABLE IF NOT EXISTS `encrypted_data` (
-      `public_key` varchar(512) NOT NULL,
-      `file_hash` varchar(512) NOT NULL,
-      `data` varchar(512) NOT NULL,
-      `create_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      `tenant_id` int(10) NOT NULL,
-      PRIMARY KEY (`public_key`, `file_hash`),
-      KEY `tenant_id` (`tenant_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `encrypted_data` (
+	`public_key` CHAR(64) NOT NULL,
+	`file_hash` CHAR(66) NOT NULL,
+	`data` CHAR(112) NOT NULL,
+	`create_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`tenant_id` INT(10) NOT NULL,
+	PRIMARY KEY (`public_key`, `file_hash`),
+	INDEX `tenant_id` (`tenant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `dbip_location` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
@@ -69,6 +69,6 @@ ENGINE=InnoDB;
 
 END DLM00
 
-CALL upgrade10() DLM00
+CALL upgrade105() DLM00
 
 DELIMITER ;

@@ -16,32 +16,32 @@
     
     <div id="main-container">
         <div class="buttons-container">
-            <button id="bookButton" class="source-button active-button">Book</button>
-            <button id="journalButton" class="source-button book-active-button">Journal Article</button>
-            <button id="websiteButton" class="source-button">Website</button>
+            <button id="bookButton" class="source-button active-button i18n">Book</button>
+            <button id="journalButton" class="source-button book-active-button i18n">Journal Article</button>
+            <button id="websiteButton" class="source-button i18n">Website</button>
         </div>
         <div class="search-container">
             <input type="text" id="search" />
-            <button id="searchButton" class="search-button">Search</button>
+            <button id="searchButton" class="search-button i18n">Search</button>
         </div>
         <div class="result-container">
             <div class="search-title">
-                <span class="result">Search result</span>
-                <span class="back-to-bib" onclick="backToBibliography()">Back to bibliography</span>
+                <span class="result i18n">Search result</span>
+                <span class="back-to-bib i18n" onclick="backToBibliography()">Back to bibliography</span>
             </div>
-            <div class="bibliography-title">Bibliography</div>
+            <div class="bibliography-title i18n">Bibliography</div>
         </div>
         <div id="search_result" class="webkit-scrollbar"></div>
         <div id="bib" class="webkit-scrollbar"></div>
     
     <div class="add-bibl-container">
         <div class="bib-style">
-            <label>Style</label>
+            <label class="i18n">Style</label>
         </div>
         <select id="styles" class="style-list combo" size="1" disabled="disabled">
             <option>Loading...</option>
         </select>
-        <button class="add-button">Add Bibliography to Doc</button>
+        <button class="add-button i18n">Add Bibliography to Doc</button>
     </div>
         <div class="clear_float"></div>
     </div>

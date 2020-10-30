@@ -1,14 +1,13 @@
 <%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Master Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true"
+<%@ Master Language="C#" MasterPageFile="~/Products/Community/Master/Community.Master" AutoEventWireup="true"
     CodeBehind="Wiki.Master.cs" Inherits="ASC.Web.Community.Wiki.WikiMaster" %>
 
 <%@ Assembly Name="ASC.Web.Community" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<asp:Content ID="ContentHeader" ContentPlaceHolderID="CommunityPageHeader" runat="server">    
-
+<asp:Content ContentPlaceHolderID="CommunityPageHeader" runat="server">
 
     <script language="javascript">
         function FCKConfig_OnLoad(config) {
@@ -42,18 +41,18 @@
         
     </script>
 
-    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"/>
 </asp:Content>
-<asp:Content ID="SideContent" ContentPlaceHolderID="CommunitySidePanel" runat="server">
+
+<asp:Content ContentPlaceHolderID="CommunityTitleContent" runat="server">
+    <asp:ContentPlaceHolder ID="WikiTitleContent" runat="server"/>
 </asp:Content>
-<asp:Content ID="PageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="CommunityPageContent" runat="server">
     <sc:Container ID="MainWikiContainer" runat="server">
         <header></header>
         <body>
-            <asp:ContentPlaceHolder ID="WikiContents" runat="server">
-            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="WikiContents" runat="server"/>
         </body>
-        
     </sc:Container>
 </asp:Content>

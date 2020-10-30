@@ -70,11 +70,11 @@
                 <div class="elements-container">
                     <div class="header-base-small"><%= Resource.CustomNavigationLabelHeader %></div>
                     <div class="element-container">
-                        <input id="labelText" type="text" class="textEdit" maxlength="25" placeholder="Example" />
+                        <input id="labelText" type="text" class="textEdit" maxlength="25" placeholder="<%= Resource.CustomNavigationLabelPlaceholder %>" />
                     </div>
                     <div class="header-base-small"><%= Resource.CustomNavigationURLHeader %></div>
                     <div class="element-container">
-                        <input id="urlText" type="text" class="textEdit" maxlength="255" placeholder="http://example.com" />
+                        <input id="urlText" type="text" class="textEdit" maxlength="255" placeholder="<%= Resource.CustomNavigationURLPlaceholder %>" />
                     </div>
                 </div>
                 <div class="elements-container">

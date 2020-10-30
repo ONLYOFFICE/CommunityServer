@@ -1,38 +1,30 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.Configuration;
+
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Core.Client;
@@ -42,6 +34,7 @@ using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.ThirdPartyApp;
@@ -49,6 +42,9 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
+using Resources;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using Global = ASC.Web.Files.Classes.Global;
@@ -58,7 +54,7 @@ namespace ASC.Web.Files
 {
     public partial class DocEditor : MainPage
     {
-        private static readonly string ResetCacheKey = WebConfigurationManager.AppSettings["web.client.cache.resetkey.ds"];
+        private static readonly string ResetCacheKey = ConfigurationManagerExtension.AppSettings["web.client.cache.resetkey.ds"];
 
         protected override bool MayNotAuth
         {
@@ -155,7 +151,7 @@ namespace ASC.Web.Files
 
             var refererURL = Request.GetUrlRewriter().AbsoluteUri;
             Session["refererURL"] = refererURL;
-            Response.Redirect("~/auth.aspx");
+            Response.Redirect("~/Auth.aspx");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -225,10 +221,10 @@ namespace ASC.Web.Files
                         fileTitle = Path.GetFileName(HttpUtility.UrlDecode(fileUri)) ?? "";
 
                     file = new File
-                        {
-                            ID = RequestFileUrl,
-                            Title = Global.ReplaceInvalidCharsAndTruncate(fileTitle)
-                        };
+                    {
+                        ID = RequestFileUrl,
+                        Title = Global.ReplaceInvalidCharsAndTruncate(fileTitle)
+                    };
 
                     file = DocumentServiceHelper.GetParams(file, true, FileShare.Read, false, false, false, false, false, out _configuration);
                     _configuration.Document.Permissions.Edit = editPossible && !CoreContext.Configuration.Standalone;
@@ -236,6 +232,7 @@ namespace ASC.Web.Files
                     _configuration.Document.Permissions.Review = false;
                     _configuration.Document.Permissions.FillForms = false;
                     _configuration.Document.Permissions.ChangeHistory = false;
+                    _configuration.Document.Permissions.ModifyFilter = false;
                     _editByUrl = true;
 
                     _configuration.Document.Url = fileUri;
@@ -269,7 +266,7 @@ namespace ASC.Web.Files
                 return;
             }
 
-            Title = file.Title;
+            Title = file.Title + GetPageTitlePostfix();
 
             if (_configuration.EditorConfig.Customization.Goback == null || string.IsNullOrEmpty(_configuration.EditorConfig.Customization.Goback.Url))
             {
@@ -298,6 +295,31 @@ namespace ASC.Web.Files
                         + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString())
                         + (Request.DesktopApp() ? "&desktop=true" : string.Empty));
                 }
+
+                if (file.RootFolderType == FolderType.Privacy)
+                {
+                    if (!PrivacyRoomSettings.Enabled)
+                    {
+                        _configuration = null;
+                        ErrorMessage = FilesCommonResource.ErrorMassage_FileNotFound;
+                        return;
+                    }
+                    else
+                    {
+                        if (Request.DesktopApp())
+                        {
+                            var keyPair = EncryptionKeyPair.GetKeyPair();
+                            if (keyPair != null)
+                            {
+                                _configuration.EditorConfig.EncryptionKeys = new Services.DocumentService.Configuration.EditorConfiguration.EncryptionKeysConfig
+                                {
+                                    PrivateKeyEnc = keyPair.PrivateKeyEnc,
+                                    PublicKey = keyPair.PublicKey,
+                                };
+                            }
+                        }
+                    }
+                }
             }
 
             if (!isExtenral)
@@ -305,11 +327,12 @@ namespace ASC.Web.Files
                 _docKeyForTrack = DocumentServiceHelper.GetDocKey(file.ID, -1, DateTime.MinValue);
 
                 FileMarker.RemoveMarkAsNew(file);
+                if (!file.Encrypted && !file.ProviderEntry) EntryManager.MarkAsRecent(file);
             }
 
             if (SecurityContext.IsAuthenticated)
             {
-                _configuration.EditorConfig.SaveAsUrl = _configuration.EditorConfig.MergeFolderUrl = CommonLinkUtility.GetFullAbsolutePath(SaveAs.GetUrl);
+                _configuration.EditorConfig.SaveAsUrl = CommonLinkUtility.GetFullAbsolutePath(SaveAs.GetUrl);
             }
 
             if (_configuration.EditorConfig.ModeWrite)
@@ -328,6 +351,7 @@ namespace ASC.Web.Files
                 _linkToEdit = _editByUrl
                                   ? CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorExternalUrl(fileUri, file.Title))
                                   : CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID));
+                if (Request.DesktopApp()) _linkToEdit += "&desktop=true";
 
                 if (FileConverter.MustConvert(_configuration.Document.Info.File)) _editByUrl = true;
             }
@@ -355,18 +379,19 @@ namespace ASC.Web.Files
             }
 
             var docServiceParams = new DocumentServiceParams
-                {
-                    DocKeyForTrack = _docKeyForTrack,
-                    EditByUrl = _editByUrl,
-                    LinkToEdit = _linkToEdit,
-                    OpenHistory = RequestVersion != -1 && RequestView && !RequestHistoryClose && _configuration.Document.Info.File.Forcesave == ForcesaveType.None && !_configuration.Document.Info.File.Encrypted,
-                    OpeninigDate = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
-                    ShareLinkParam = string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
-                    ServerErrorMessage = ErrorMessage,
-                    TabId = _tabId.ToString(),
-                    ThirdPartyApp = _thirdPartyApp,
-                    CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal
-                };
+            {
+                DocKeyForTrack = _docKeyForTrack,
+                EditByUrl = _editByUrl,
+                LinkToEdit = _linkToEdit,
+                OpenHistory = RequestVersion != -1 && RequestView && !RequestHistoryClose && _configuration.Document.Info.File.Forcesave == ForcesaveType.None && !_configuration.Document.Info.File.Encrypted,
+                OpeninigDate = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
+                ShareLinkParam = string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
+                ServerErrorMessage = ErrorMessage,
+                TabId = _tabId.ToString(),
+                ThirdPartyApp = _thirdPartyApp,
+                CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal,
+                PageTitlePostfix = GetPageTitlePostfix()
+            };
 
             if (_configuration != null)
             {
@@ -409,6 +434,11 @@ namespace ASC.Web.Files
             }
 
             return sb.ToString();
+        }
+
+        private string GetPageTitlePostfix()
+        {
+            return Request.DesktopApp() ? string.Empty : string.Format(" - {0}", Resource.WebStudioName);
         }
 
         #endregion

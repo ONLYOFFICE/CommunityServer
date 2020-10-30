@@ -33,13 +33,7 @@
             </div>
         </div>
 
-        <div class="headerPanelSmall-splitter totalQuantity">
-            <span class="requiredErrorText"><%= CRMInvoiceResource.ErrorIncorrectQuantity %></span>
-            <div class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.FormInvoiceItemQuantity %>:</div>
-            <input type="text" class="textEdit invoiceItemQuantity"  maxlength="10" value="" /> 
-        </div>
-
-         <div class="headerPanelSmall-splitter">
+        <div class="headerPanelSmall-splitter">
             <div class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.FormInvoiceItemTaxes %>:</div>
             <table cellspacing="0" cellpadding="0" class="invoiceItemTaxesTable">
                 <colgroup>
@@ -58,6 +52,7 @@
                 </tbody>
             </table>
         </div>
+
         <div class="headerPanelSmall-splitter">
             <div class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.FormInvoiceItemInventoryStock %>:
                 <div class="HelpCenterSwitcher" id="iventoryStockHelpSwitcher"></div>
@@ -84,6 +79,6 @@
         <a id="saveAndCreateItemButton" class="button gray big"><%= CRMInvoiceResource.AddThisAndCreateInvoiceItemButton %></a>
         <span class="splitter-buttons"></span>
         <% } %>
-        <a id="cancelButton" class="button gray big" href="settings.aspx?type=invoice_items"> <%= CRMCommonResource.Cancel%></a>
+        <a id="cancelButton" class="button gray big" href="Settings.aspx?type=invoice_items"> <%= CRMCommonResource.Cancel%></a>
     </div>
 </div>

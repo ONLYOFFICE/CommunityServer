@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Projects/Masters/BasicTemplate.Master"
-    CodeBehind="reports.aspx.cs" Inherits="ASC.Web.Projects.Reports" %>
+    CodeBehind="Reports.aspx.cs" Inherits="ASC.Web.Projects.Reports" %>
 <%@ MasterType TypeName="ASC.Web.Projects.Masters.BasicTemplate" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Projects.Core.Domain.Reports" %>
@@ -9,7 +9,7 @@
 
 
 <asp:Content ID="ListReports" runat="server" ContentPlaceHolderID="AdditionalColumns">
-    <td class="reports-menu-container">          
+    <div class="reports-menu-container">
         <span class="reports-category"><%= ReportResource.Reports %></span>
         <ul>
             <% var repType = Request["reportType"];
@@ -23,7 +23,7 @@
               <% }
                    else
                    {%>
-                <li><a class="menu-report-name" href="reports.aspx?reportType=<%= (int)report.ReportType %>"><%= report.ReportInfo.Title %></a></li>  
+                <li><a class="menu-report-name" href="Reports.aspx?reportType=<%= (int)report.ReportType %>"><%= report.ReportInfo.Title %></a></li>  
               <% }
                } %>
         </ul>
@@ -38,7 +38,7 @@
                <% }
                    else
                    { %>
-                  <li id="<%=tmpl.Id %>"><a class="menu-report-name" href="reports.aspx?tmplId=<%= tmpl.Id %>&reportType=<%=(int) tmpl.ReportType %>" title="<%= tmpl.Name %>"><%= tmpl.Name %></a></li> 
+                  <li id="<%=tmpl.Id %>"><a class="menu-report-name" href="Reports.aspx?tmplId=<%= tmpl.Id %>&reportType=<%=(int) tmpl.ReportType %>" title="<%= tmpl.Name %>"><%= tmpl.Name %></a></li> 
                <% }
                } %>
         </ul>
@@ -49,9 +49,9 @@
         <%}%>
         <% if (ReportsCount > 0)
            { %>
-        <a class="reports-category generated <%= string.IsNullOrEmpty(repType) ? "active" : "" %>" href="reports.aspx" title="<%= ReportResource.GeneratedReports %>"><%= ReportResource.GeneratedReports %></a>
+        <a class="reports-category generated <%= string.IsNullOrEmpty(repType) ? "active" : "" %>" href="Reports.aspx" title="<%= ReportResource.GeneratedReports %>"><%= ReportResource.GeneratedReports %></a>
         <% } %>
-     </td>
+     </div>
 </asp:Content>
 
 

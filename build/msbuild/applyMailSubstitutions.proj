@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
 
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />

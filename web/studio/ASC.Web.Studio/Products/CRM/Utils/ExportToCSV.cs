@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -115,7 +106,7 @@ namespace ASC.Web.CRM.Classes
             Error = null;
             Percentage = 0;
             IsCompleted = false;
-            FileName = fileName ?? CRMSettingResource.Export + (filterObject == null ? ".zip" : ".csv");
+            FileName = fileName ?? string.Format("{0}_{1}.{2}", CRMSettingResource.Export, DateTime.UtcNow.Ticks, filterObject == null ? "zip" : "csv");
             FileUrl = null;
         }
 
@@ -268,10 +259,10 @@ namespace ASC.Web.CRM.Classes
 
                 _log.Debug("Export is completed");
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException ocex)
             {
-                Complete(0, ProgressStatus.Done, null);
-                
+                Complete(0, ProgressStatus.Failed, ocex.Message);
+
                 _log.Debug("Export is cancel");
             }
             catch (Exception ex)
@@ -383,7 +374,12 @@ namespace ASC.Web.CRM.Classes
                     stream.Position = 0;
                 }
 
-                FileUrl = CommonLinkUtility.GetFullAbsolutePath(_dataStore.SavePrivate(String.Empty, FileName, stream, DateTime.Now.AddDays(1)));
+                if (_dataStore.IsDirectory("temp", "export"))
+                {
+                    _dataStore.DeleteFiles("temp", "export", "*.*", true);
+                }
+
+                FileUrl = CommonLinkUtility.GetFullAbsolutePath(_dataStore.SavePrivate("temp", Path.Combine("export", FileName), stream, DateTime.Now.AddDays(1)));
 
                 _notifyClient.SendAboutExportCompleted(_author.ID, FileName, FileUrl);
             }
@@ -1241,11 +1237,6 @@ namespace ASC.Web.CRM.Classes
                         },
                     new DataColumn
                         {
-                            Caption = (CRMInvoiceResource.FormInvoiceItemQuantity),
-                            ColumnName = "quantity"
-                        },
-                    new DataColumn
-                        {
                             Caption = (CRMInvoiceResource.FormInvoiceItemStockQuantity),
                             ColumnName = "stock_quantity"
                         },
@@ -1306,7 +1297,6 @@ namespace ASC.Web.CRM.Classes
                         item.Description,
                         item.StockKeepingUnit,
                         item.Price.ToString(CultureInfo.InvariantCulture),
-                        item.Quantity.ToString(CultureInfo.InvariantCulture),
                         item.StockQuantity.ToString(CultureInfo.InvariantCulture),
                         item.TrackInventory.ToString(),
                         item.Currency,
@@ -1382,6 +1372,8 @@ namespace ASC.Web.CRM.Classes
 
                 if (operation == null)
                 {
+                    ExportDataCache.ResetAll(key);
+
                     operation = new ExportDataOperation(filterObject, fileName);
 
                     Queue.Add(operation);

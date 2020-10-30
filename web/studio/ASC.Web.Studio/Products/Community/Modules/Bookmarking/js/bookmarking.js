@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -88,7 +79,7 @@ function createNewBookmarkButtonClick() {
 	disableFieldsForSaveBookmarkAjaxRequest(true, null);
 	BookmarkPage.SaveBookmark(url, name, description, tags,
 								function(result) {
-									document.location.href = "default.aspx";
+									document.location.href = "Default.aspx";
 								}
 				 );
 }
@@ -167,14 +158,14 @@ function showHideRemoveButton(removeButton, flag) {
 ///////			Remove Bookmark start
 ///////////////////////////////////////////////////////////////
 function removeBookmark(userBookmarkID) {
-    StudioBlockUIManager.blockUI('#removeBookmarkDialog', 400, 300, 0);
+    StudioBlockUIManager.blockUI('#removeBookmarkDialog', 400);
     jq(".studio-action-panel").hide();
     jq("#deleteBookmark").removeClass("active");
     var removeButton = jq("#BookmarkingRemoveLink");
     removeButton.off("click");
     removeButton.on("click", function () {
         BookmarkPage.RemoveBookmark(userBookmarkID, function() {
-            window.location.href = "default.aspx";
+            window.location.href = "Default.aspx";
         });
     });
 }
@@ -198,7 +189,7 @@ function removeBookmarkFromFavourite(userBookmarkID, singleBookmarkDivID, favour
 											 	disableFieldForDeleteAjaxRequest(false);
 											 	var v = result.value;
 											 	if (v == null) {
-											 		document.location.href = "default.aspx";
+											 		document.location.href = "Default.aspx";
 											 		return;
 											 	}
 											 	if (v == '') {
@@ -223,29 +214,7 @@ function removeBookmarkFromFavouriteConfirmDialog(	userBookmarkID,
 													favouriteBookmarksMode, uniqueID) {
 	try {
 
-		jq.blockUI({ message: jq("#removeBookmarkConfirmDialog"),
-			css: {
-				opacity: '1',
-				border: 'none',
-				padding: '0px',
-				width: '400px',
-				height: '300px',
-				cursor: 'default',
-				textAlign: 'left',
-				'background-color': 'Transparent',
-				'margin-left': '-200px',
-				'top': '25%'
-			},
-
-			overlayCSS: {
-				backgroundColor: '#aaaaaa',
-				cursor: 'default',
-				opacity: '0.3'
-			},
-			focusInput: false,
-			fadeIn: 0,
-			fadeOut: 0
-		});
+		StudioBlockUIManager.blockUI("#removeBookmarkConfirmDialog", 400);
 
         jq("#BookmarkingRemoveFromFavouriteLink").attr('href', "javascript: removeBookmarkFromFavourite('" + userBookmarkID +
 				"', '" + singleBookmarkDivID + "', " + favouriteBookmarksMode + ", '" + uniqueID + "');");

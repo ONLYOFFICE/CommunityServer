@@ -13,7 +13,7 @@
         </span>
     </div>
     <div id="feedPrevDiv_Body" class="feedPrevBody clearFix longWordsBreak">
-        <asp:PlaceHolder runat="server" ID="pollHolder"></asp:PlaceHolder>
+        <asp:PlaceHolder runat="server" ID="pollHolder"/>
         <asp:Literal runat="server" ID="newsText"></asp:Literal>
     </div>
 </div>

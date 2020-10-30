@@ -1,41 +1,34 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Web.Configuration;
-using ASC.CRM.Core;
+
 using ASC.Common.Logging;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
+
 using Autofac;
 
 namespace ASC.Web.CRM.Classes
@@ -82,9 +75,11 @@ namespace ASC.Web.CRM.Classes
 
         public static DateTime GetPublisherDate
         {
-            get {
+            get
+            {
                 TryToReadPublisherDate(GetExchangesTempPath());
-                return _publisherDate; }
+                return _publisherDate;
+            }
         }
 
         #endregion
@@ -179,7 +174,8 @@ namespace ASC.Web.CRM.Classes
             return _exchangeRates == null || (DateTime.UtcNow.Date.Subtract(_publisherDate.Date).Days > 0);
         }
 
-        private static string GetExchangesTempPath() {
+        private static string GetExchangesTempPath()
+        {
             return Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
         }
 
@@ -202,7 +198,7 @@ namespace ASC.Web.CRM.Classes
                             TryToReadPublisherDate(tmppath);
 
 
-                            var updateEnable = WebConfigurationManager.AppSettings["crm.update.currency.info.enable"] != "false";
+                            var updateEnable = ConfigurationManagerExtension.AppSettings["crm.update.currency.info.enable"] != "false";
                             var ratesUpdatedFlag = false;
 
                             foreach (var ci in _currencies.Values.Where(c => c.IsConvertable))

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,28 +19,30 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Data.Backup.Exceptions;
+using ASC.Data.Backup.Extensions;
 using ASC.Data.Backup.Tasks.Data;
 using ASC.Data.Backup.Tasks.Modules;
-using ASC.Data.Backup.Extensions;
 using ASC.Data.Storage;
-using ASC.Data.Backup.Exceptions;
+
 using Newtonsoft.Json;
 
 namespace ASC.Data.Backup.Tasks
 {
     public class BackupPortalTask : PortalTaskBase
     {
+        private const int MaxLength = 250;
         private const int BatchLimit = 5000;
         public string BackupFilePath { get; private set; }
         public int Limit { get; private set; }
@@ -243,7 +236,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 using (var dbManager = new DbManager("default", 100000))
                 {
-                    dbManager.ExecuteNonQuery("analyze table " +  t);
+                    dbManager.ExecuteNonQuery("analyze table " + t);
                     return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t));
                 }
             }
@@ -288,7 +281,7 @@ namespace ASC.Data.Backup.Tasks
                             .Where("TABLE_NAME", t)
                             .Where("COLUMN_KEY", "PRI")
                             .Where("DATA_TYPE", "int"))
-                        .ConvertAll(r=> Convert.ToString(r[0]))
+                        .ConvertAll(r => Convert.ToString(r[0]))
                         .FirstOrDefault();
 
                     var isLeft = dbManager.ExecuteList(string.Format("SHOW INDEXES FROM {0} WHERE COLUMN_NAME='{1}' AND seq_in_index=1", t, primaryIndex));
@@ -305,7 +298,7 @@ namespace ASC.Data.Backup.Tasks
                         primaryIndexStart = minMax.Item2;
                         primaryIndexStep = (minMax.Item1 - minMax.Item2) / count;
 
-                        if(primaryIndexStep < Limit)
+                        if (primaryIndexStep < Limit)
                         {
                             primaryIndexStep = Limit;
                         }
@@ -315,36 +308,33 @@ namespace ASC.Data.Backup.Tasks
 
                 var path = Path.Combine(dir, t);
 
-                using (var fs = File.OpenWrite(path))
+                var offset = 0;
+
+                do
                 {
-                    var offset = 0;
+                    List<object[]> result;
 
-                    do
+                    if (searchWithPrimary)
                     {
-                        List<object[]> result;
+                        result = GetDataWithPrimary(t, columns, primaryIndex, primaryIndexStart, primaryIndexStep);
+                        primaryIndexStart += primaryIndexStep;
+                    }
+                    else
+                    {
+                        result = GetData(t, columns, offset);
+                    }
 
-                        if (searchWithPrimary)
-                        {
-                            result = GetDataWithPrimary(t, columns, primaryIndex, primaryIndexStart, primaryIndexStep);
-                            primaryIndexStart += primaryIndexStep;
-                        }
-                        else
-                        {
-                            result = GetData(t, columns, offset);
-                        }
+                    offset += Limit;
 
-                        offset += Limit;
+                    var resultCount = result.Count;
 
-                        var resultCount = result.Count;
+                    if (resultCount == 0) break;
 
-                        if (resultCount == 0) break;
+                    SaveToFile(path, t, columns, result);
 
-                        SaveToFile(fs, t, columns, result);
+                    if (resultCount < Limit) break;
 
-                        if (resultCount < Limit) break;
-
-                    } while (true);
-                }
+                } while (true);
 
 
                 SetStepCompleted();
@@ -380,14 +370,13 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        private void SaveToFile(Stream fs, string t, IReadOnlyCollection<string> columns, List<object[]> data)
+        private void SaveToFile(string path, string t, IReadOnlyCollection<string> columns, List<object[]> data)
         {
             Logger.DebugFormat("save to file {0}", t);
             List<object[]> portion;
             while ((portion = data.Take(BatchLimit).ToList()).Any())
             {
-                var creates = new StringBuilder();
-                using (var sw = new StringWriter(creates))
+                using (var sw = new StreamWriter(path, true))
                 using (var writer = new JsonTextWriter(sw))
                 {
                     writer.QuoteChar = '\'';
@@ -431,10 +420,6 @@ namespace ASC.Data.Backup.Tasks
                         }
                         sw.WriteLine();
                     }
-
-                    var fileData = creates.ToString();
-                    var bytes = Encoding.UTF8.GetBytes(fileData);
-                    fs.Write(bytes, 0, bytes.Length);
                 }
                 data = data.Skip(BatchLimit).ToList();
             }
@@ -501,6 +486,12 @@ namespace ASC.Data.Backup.Tasks
             {
                 Directory.CreateDirectory(dirName);
             }
+
+            if (!WorkContext.IsMono && filePath.Length > MaxLength)
+            {
+                filePath = @"\\?\" + filePath;
+            }
+
             using (var fileStream = storage.GetReadStream(file.Domain, file.Path))
             using (var tmpFile = File.OpenWrite(filePath))
             {
@@ -515,8 +506,13 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat("archive dir start {0}", subDir);
             foreach (var enumerateFile in Directory.EnumerateFiles(subDir, "*", SearchOption.AllDirectories))
             {
-                writer.WriteEntry(enumerateFile.Substring(subDir.Length), enumerateFile);
-                File.Delete(enumerateFile);
+                var f = enumerateFile;
+                if (!WorkContext.IsMono && enumerateFile.Length > MaxLength)
+                {
+                    f = @"\\?\" + f;
+                }
+                writer.WriteEntry(enumerateFile.Substring(subDir.Length), f);
+                File.Delete(f);
                 SetStepCompleted();
             }
             Logger.DebugFormat("archive dir end {0}", subDir);

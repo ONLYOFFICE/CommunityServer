@@ -1,7 +1,6 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Studio._Default" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Studio._Default" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -31,7 +30,7 @@
                    var productLabel = HttpUtility.HtmlEncode(product.Name);
                 %>
                 <a class="link header product" href="<%= productStartUrl %>">
-                    <img alt="<%= productLabel %>" src="<%= product.GetLargeIconAbsoluteURL() %>" />
+                    <img alt="<%= productLabel %>" src="<%= product.GetLargeIconAbsoluteURL() + "?" + ResetCacheKey %>" />
                     <span class="title">
                         <%= productLabel %>
                     </span>
@@ -40,7 +39,7 @@
             <% if (TenantExtra.EnableControlPanel)
                { %>
                 <a class="link header product" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
-                    <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.svg") %>" />
+                    <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.svg") + "?" + ResetCacheKey %>" />
                     <span class="title">
                         <%= Resource.ControlPanelLabel %>
                     </span>
@@ -48,7 +47,7 @@
             <% } %>
             <% foreach (var item in CustomNavigationItems) { %>
                 <a class="link header product" href="<%= item.Url.HtmlEncode() %>" target="_blank">
-                    <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg %>" />
+                    <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg + "?" + ResetCacheKey %>" />
                     <span class="title">
                         <%= item.Label.HtmlEncode() %>
                     </span>

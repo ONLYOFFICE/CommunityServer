@@ -12,7 +12,7 @@
         
 <div id="actionMenu" class="studio-action-panel"
     data-id="<%= ProfileHelper.UserInfo.ID %>"
-    data-email="<%= ProfileHelper.UserInfo.Email %>" 
+    data-email="<%= ProfileHelper.UserInfo.Email.HtmlEncode() %>" 
     data-admin="<%= IsAdmin.ToString().ToLower()%>"
     data-displayname="<%= ProfileHelper.UserInfo.DisplayUserName() %>"
     data-username="<%= ProfileHelper.UserInfo.UserName %>"

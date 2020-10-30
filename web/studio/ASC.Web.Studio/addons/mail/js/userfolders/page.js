@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,10 +18,8 @@
 window.userFoldersPage = (function($) {
     var isInit = false,
         page,
+        header,
         container,
-        btnCreate,
-        btnEdit,
-        btnDelete,
         idPrefix = "uf_page_",
         idRoot = "v_root",
         isLoading = false,
@@ -41,32 +30,34 @@ window.userFoldersPage = (function($) {
         isInit = true;
 
         page = $('#user_folders_page');
+        
+        header = $('#pageActionContainer');
 
-        btnCreate = page.find('#createUserFolder');
-
-        btnCreate.click(function() {
+        header.on('click','#createUserFolder', function() {
             if (!$(this).hasClass('disable')) {
                 createFolder();
             }
             return false;
         });
 
-        btnEdit = page.find('#editUserFolder');
-
-        btnEdit.click(function() {
+        header.on('click', '#editUserFolder', function () {
             if (!$(this).hasClass('disable')) {
                 editFolder();
             }
             return false;
         });
 
-        btnDelete = page.find('#deleteUserFolder');
-
-        btnDelete.click(function() {
+        header.on('click', '#deleteUserFolder', function () {
             if (!$(this).hasClass('disable')) {
                 deleteFolder();
             }
             return false;
+        });
+        
+        header.on('click', '#userFoldersHelpCenterSwitcher', function (e) {
+            jq('#userFoldersHelpCenterSwitcher').helper({ BlockHelperID: 'UserFoldersHelperBlock' });
+            e.preventDefault();
+            e.stopPropagation();
         });
 
         container = $('#userFolderTree .userFolders')
@@ -93,6 +84,9 @@ window.userFoldersPage = (function($) {
                     },
                     "keyboard": {
                         "f2": false
+                    },
+                    "themes": {
+                        "ellipsis": true
                     }
                 },
                 "state": { "key": stateId }
@@ -394,11 +388,10 @@ window.userFoldersPage = (function($) {
 
     function disableButtons(disable, all) {
         if (all) {
-            btnCreate.toggleClass("disable", disable);
+            header.find('#createUserFolder').toggleClass("disable", disable);
         }
 
-        btnEdit.toggleClass("disable", disable);
-        btnDelete.toggleClass("disable", disable);
+        header.find('#editUserFolder, #deleteUserFolder').toggleClass("disable", disable);
     }
 
     function refresh() {
@@ -423,6 +416,7 @@ window.userFoldersPage = (function($) {
             blankPages.showEmptyUserFolders();
         } else {
             blankPages.hide();
+            header.html($.tmpl('userFoldersPageHeaderTmpl'));
             page.show();
         }
     }
@@ -431,6 +425,7 @@ window.userFoldersPage = (function($) {
         if (!page) return;
 
         page.hide();
+        header.empty();
     }
 
     return {

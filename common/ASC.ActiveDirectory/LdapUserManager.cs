@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -29,7 +20,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
-using System.Web;
 
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
@@ -38,15 +28,15 @@ using ASC.ActiveDirectory.ComplexOperations;
 using ASC.ActiveDirectory.ComplexOperations.Data;
 using ASC.ActiveDirectory.Novell;
 using ASC.Common.Logging;
-using ASC.Common.Security.Authentication;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-using ASC.Web.Core.Users;
-using ASC.Web.Core.Utility;
+using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
+
+using Mapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
 namespace ASC.ActiveDirectory
 {
@@ -55,8 +45,6 @@ namespace ASC.ActiveDirectory
         private readonly ILog _log = LogManager.GetLogger("ASC");
 
         public LdapLocalization Resource { get; private set; }
-
-        public PasswordSettings PasswordSettings { get; private set; }
 
         public LdapUserManager(LdapLocalization resource = null)
         {
@@ -132,18 +120,11 @@ namespace ASC.ActiveDirectory
 
                 portalUserInfo = CoreContext.UserManager.SaveUserInfo(ldapUserInfo);
 
-                if (PasswordSettings == null)
-                {
-                    _log.DebugFormat("PasswordSettings.Load()");
-
-                    PasswordSettings = PasswordSettings.Load();
-                }
-
-                var password = LdapUtils.GeneratePassword(PasswordSettings);
+                var passwordHash = LdapUtils.GeneratePassword();
 
                 _log.DebugFormat("SecurityContext.SetUserPassword(ID:{0})", portalUserInfo.ID);
 
-                SecurityContext.SetUserPassword(portalUserInfo.ID, password);
+                SecurityContext.SetUserPasswordHash(portalUserInfo.ID, passwordHash);
 
                 return true;
             }
@@ -349,6 +330,8 @@ namespace ASC.ActiveDirectory
 
             try
             {
+                var settings = LdapSettings.Load();
+
                 Func<string, string, bool> notEqual =
                     (f1, f2) =>
                         f1 == null && f2 != null ||
@@ -396,7 +379,7 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (notEqual(portalUser.Title, ldapUser.Title))
+                if (settings.LdapMapping.ContainsKey(Mapping.TitleAttribute) && notEqual(portalUser.Title, ldapUser.Title))
                 {
                     _log.DebugFormat("NeedUpdateUser by Title -> portal: '{0}', ldap: '{1}'",
                         portalUser.Title ?? "NULL",
@@ -404,7 +387,7 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (notEqual(portalUser.Location, ldapUser.Location))
+                if (settings.LdapMapping.ContainsKey(Mapping.LocationAttribute) && notEqual(portalUser.Location, ldapUser.Location))
                 {
                     _log.DebugFormat("NeedUpdateUser by Location -> portal: '{0}', ldap: '{1}'",
                         portalUser.Location ?? "NULL",
@@ -439,7 +422,7 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (notEqual(portalUser.MobilePhone, ldapUser.MobilePhone))
+                if (settings.LdapMapping.ContainsKey(Mapping.MobilePhoneAttribute) && notEqual(portalUser.MobilePhone, ldapUser.MobilePhone))
                 {
                     _log.DebugFormat("NeedUpdateUser by PrimaryPhone -> portal: '{0}', ldap: '{1}'",
                         portalUser.MobilePhone ?? "NULL",
@@ -447,7 +430,7 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (!portalUser.BirthDate.Equals(ldapUser.BirthDate))
+                if (settings.LdapMapping.ContainsKey(Mapping.BirthDayAttribute) &&  portalUser.BirthDate == null && ldapUser.BirthDate != null || portalUser.BirthDate != null && !portalUser.BirthDate.Equals(ldapUser.BirthDate))
                 {
                     _log.DebugFormat("NeedUpdateUser by BirthDate -> portal: '{0}', ldap: '{1}'",
                         portalUser.BirthDate.ToString() ?? "NULL",
@@ -455,7 +438,7 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (portalUser.Sex != ldapUser.Sex)
+                if (settings.LdapMapping.ContainsKey(Mapping.GenderAttribute) && portalUser.Sex == null && ldapUser.Sex != null || portalUser.Sex != null && !portalUser.Sex.Equals(ldapUser.Sex))
                 {
                     _log.DebugFormat("NeedUpdateUser by Sex -> portal: '{0}', ldap: '{1}'",
                         portalUser.Sex.ToString() ?? "NULL",
@@ -479,6 +462,8 @@ namespace ASC.ActiveDirectory
             {
                 _log.Debug("TryUpdateUserWithLDAPInfo()");
 
+                var settings = LdapSettings.Load();
+
                 if (!userToUpdate.UserName.Equals(updateInfo.UserName, StringComparison.InvariantCultureIgnoreCase)
                     && !TryChangeExistingUserName(updateInfo.UserName, onlyGetChanges))
                 {
@@ -499,9 +484,8 @@ namespace ASC.ActiveDirectory
                     return false;
                 }
 
-                if (!(updateInfo.ActivationStatus == EmployeeActivationStatus.AutoGenerated &&
+                if (userToUpdate.Email != updateInfo.Email && !(updateInfo.ActivationStatus == EmployeeActivationStatus.AutoGenerated &&
                     userToUpdate.ActivationStatus == (EmployeeActivationStatus.AutoGenerated | EmployeeActivationStatus.Activated))) {
-
                     userToUpdate.ActivationStatus = updateInfo.ActivationStatus;
                     userToUpdate.Email = updateInfo.Email;
                 }
@@ -511,11 +495,12 @@ namespace ASC.ActiveDirectory
                 userToUpdate.LastName = updateInfo.LastName;
                 userToUpdate.Sid = updateInfo.Sid;
                 userToUpdate.Contacts = updateInfo.Contacts;
-                userToUpdate.Title = updateInfo.Title;
-                userToUpdate.Location = updateInfo.Location;
-                userToUpdate.Sex = updateInfo.Sex;
-                userToUpdate.BirthDate = updateInfo.BirthDate;
-                userToUpdate.MobilePhone = updateInfo.MobilePhone;
+
+                if (settings.LdapMapping.ContainsKey(Mapping.TitleAttribute)) userToUpdate.Title = updateInfo.Title;
+                if (settings.LdapMapping.ContainsKey(Mapping.LocationAttribute)) userToUpdate.Location = updateInfo.Location;
+                if (settings.LdapMapping.ContainsKey(Mapping.GenderAttribute)) userToUpdate.Sex = updateInfo.Sex;
+                if (settings.LdapMapping.ContainsKey(Mapping.BirthDayAttribute)) userToUpdate.BirthDate = updateInfo.BirthDate;
+                if (settings.LdapMapping.ContainsKey(Mapping.MobilePhoneAttribute)) userToUpdate.MobilePhone = updateInfo.MobilePhone;
 
                 if (!userToUpdate.IsOwner()) // Owner must never be terminated by LDAP!
                 {
@@ -609,7 +594,14 @@ namespace ASC.ActiveDirectory
 
                             if (importer.Settings.GroupMembership)
                             {
-                                importer.TrySyncUserGroupMembership(newLdapUserInfo);
+                                if (!importer.TrySyncUserGroupMembership(newLdapUserInfo))
+                                {
+                                    _log.DebugFormat("TryGetAndSyncLdapUserInfo(login: \"{0}\") disabling user {1} due to not being included in any ldap group", login, uInfo);
+                                    uInfo.Status = EmployeeStatus.Terminated;
+                                    uInfo.Sid = null;
+                                    CoreContext.UserManager.SaveUserInfo(uInfo);
+                                    CookiesManager.ResetUserCookie(uInfo.ID);
+                                }
                             }
                         }
                         finally
@@ -667,6 +659,9 @@ namespace ASC.ActiveDirectory
 
                 if (!importer.TrySyncUserGroupMembership(newLdapUserInfo))
                 {
+                    userInfo.Sid = null;
+                    userInfo.Status = EmployeeStatus.Terminated;
+                    CoreContext.UserManager.SaveUserInfo(userInfo);
                     throw new Exception("The user did not pass the configuration check by ldap group settings");
                 }
 

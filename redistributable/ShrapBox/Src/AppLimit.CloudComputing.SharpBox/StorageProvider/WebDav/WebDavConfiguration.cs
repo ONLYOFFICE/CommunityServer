@@ -137,6 +137,17 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav
             return config;
         }
 
+        //test server: https://connect.preprod.drive.infomaniak.com
+        public const string kDriveUrl = "https://connect.drive.infomaniak.com";
+        public static WebDavConfiguration GetkDriveConfiguration()
+        {
+            var config = new WebDavConfiguration(new Uri(kDriveUrl))
+            {
+                TrustUnsecureSSLConnections = false
+            };
+            return config;
+        }
+
         public const string YaUrl = "https://webdav.yandex.ru";
         public static WebDavConfiguration GetYandexConfiguration()
         {

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ASC.Files.Core;
+using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using File = ASC.Files.Core.File;
@@ -71,7 +63,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         File GetFile(String fileId, int version);
 
-        File CreateNewFile(String parentId, String fileTitle);
+        File CreateNewFile(String parentId, String fileTitle, string templateId);
 
         File FileRename(String fileId, String title);
 
@@ -91,7 +83,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         File SaveEditing(String fileId, string fileExtension, string fileuri, Stream stream, String doc, bool forcesave);
 
-        File UpdateFileStream(String fileId, Stream stream, bool encrypted);
+        File UpdateFileStream(String fileId, Stream stream, bool encrypted, bool forcesave);
 
         string StartEdit(String fileId, bool editingAlone, String doc);
 
@@ -106,6 +98,24 @@ namespace ASC.Web.Files.Services.WCFService
         ItemList<EditHistory> RestoreVersion(String fileId, int version, String url, String doc = null);
 
         Web.Core.Files.DocumentService.FileLink GetPresignedUri(String fileId);
+
+        #endregion
+
+        #region Favorites Manager
+
+        ItemList<FileEntry> AddToFavorites(ItemList<String> foldersId, ItemList<String> filesId);
+
+        ItemList<FileEntry> DeleteFavorites(ItemList<String> foldersId, ItemList<String> filesId);
+
+        #endregion
+
+        #region Templates Manager
+
+        ItemList<FileEntry> AddToTemplates(ItemList<String> filesId);
+
+        ItemList<FileEntry> DeleteTemplates(ItemList<String> filesId);
+
+        object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String ssubject, String searchText, bool searchInContent);
 
         #endregion
 
@@ -133,6 +143,12 @@ namespace ASC.Web.Files.Services.WCFService
 
         bool StoreForcesave(bool value);
 
+        bool DisplayRecent(bool value);
+
+        bool DisplayFavorite(bool value);
+
+        bool DisplayTemplates(bool value);
+
         bool ChangeDeleteConfrim(bool update);
 
         String GetHelpCenter();
@@ -158,6 +174,8 @@ namespace ASC.Web.Files.Services.WCFService
         ItemList<MentionWrapper> SharedUsers(String fileId);
 
         ItemList<AceShortWrapper> SendEditorNotify(String fileId, MentionMessageWrapper mentionMessage);
+
+        ItemList<EncryptionKeyPair> GetEncryptionAccess(String fileId);
 
         #endregion
 

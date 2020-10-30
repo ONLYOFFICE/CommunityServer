@@ -1,811 +1,1206 @@
-ONLYOFFICE Community Server uses code from the following 3rd party projects:
+Community Server uses code from the following 3rd party projects:
 
 ====================================================================================================
-C# Dynamic Link Libraries
-source: .nuget\packages.config
+nuget packages
 ====================================================================================================
 
-AjaxMin - JavaScript and CSS minification Library for use in .NET applications that want to provide minification or parsing functionality. (https://www.nuget.org/packages/AjaxMin/)
-License:        Apache 2.0 license
+AjaxMin - JavaScript and CSS minification Library for use in .NET applications that want to provide minification or parsing functionality. (http://www.apache.org/licenses/LICENSE-2.0)
+License:        Apache License 2.0
 License File:   AjaxMin.license
 
-AjaxPro - Ajax.NET Professional (AjaxPro) is one of the first AJAX frameworks available for Microsoft ASP.NET and is working with .NET 1.1 and 2.0. (http://www.ajaxpro.info/)
+AjaxPro.2 - .NET Library that provides AJAX related methods to simplify the communication between server and client. (https://github.com/michaelschwarz/Ajax.NET-Professional/blob/master/LICENS)
 License:        MIT License
 License File:   AjaxPro.2.license
 
-AntiXSS - AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools. (https://www.nuget.org/packages/AntiXSS/)
-License:        Microsoft Public License (Ms-PL)
+AntiXSS - AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools. (http://wpl.codeplex.com/license)
+License:        MS-PL License
 License File:   AntiXSS.license
 
-Antlr - ANother Tool for Language Recognition, is a language tool that provides a framework for constructing recognizers, interpreters, compilers, and translators from grammatical descriptions containing actions in a variety of target languages. (https://www.nuget.org/packages/Antlr/)
+Antlr - ANother Tool for Language Recognition, is a language tool that provides a framework for constructing recognizers, interpreters, compilers, and translators from grammatical descriptions containing actions in a variety of target languages. (https://www.antlr3.org/license.html)
 License:        BSD-3-Clause License 
 License File:   Antlr.license
 
-AppLimit.CloudComputing.SharpBox - A Cloud Storage Programming Interface - Store everything (https://www.nuget.org/packages/AppLimit.CloudComputing.SharpBox/)
-License:        MIT License
+AppLimit.CloudComputing.SharpBox - SharpBox abstracts existing proprietary technologies under a clear, easy to use and reliable API available on the most important platforms in the industry (Windows, Linux, MAC, Windows Phone 7, Android and iOS) (https://sharpbox.codeplex.com/license)
+License:        MIT License 
 License File:   AppLimit.CloudComputing.SharpBox.license
 
-ARSoft.Tools.Net - This project contains a complete managed .Net DNS and DNSSEC client, a DNS server and SPF and SenderID validation. (https://www.nuget.org/packages/ARSoft.Tools.Net/)
-License:        Apache 2.0 license
+ARSoft.Tools.Net - This project contains a complete managed .Net DNS and DNSSEC client, a DNS server and SPF and SenderID validation. (https://github.com/alexreinert/ARSoft.Tools.Net/blob/master/LICENSE)
+License:        Apache License 2.0
 License File:   ARSoft.Tools.Net.license
 
-Autofac - Autofac is an IoC container for Microsoft .NET. It manages the dependencies between classes so that applications stay easy to change as they grow in size and complexity. (https://www.nuget.org/packages/Autofac/)
+Autofac - Autofac is an IoC container for Microsoft .NET. It manages the dependencies between classes so that applications stay easy to change as they grow in size and complexity. (https://licenses.nuget.org/MIT)
 License:        MIT License
 License File:   Autofac.license
 
-AutoFixture - AutoFixture makes it easier for developers to do Test-Driven Development by automating non-relevant Test Fixture Setup, allowing the Test Developer to focus on the essentials of each test case. (https://www.nuget.org/packages/AutoFixture)
+AutoFixture - AutoFixture makes it easier for developers to do Test-Driven Development by automating non-relevant Test Fixture Setup, allowing the Test Developer to focus on the essentials of each test case. (https://github.com/AutoFixture/AutoFixture/blob/master/LICENCE.txt)
 License:        MIT License
 License File:   AutoFixture.license
 
-AutoMapper - A convention-based object-object mapper. (https://www.nuget.org/packages/AutoMapper/)
+AutoMapper - A convention-based object-object mapper. (https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt)
 License:        MIT License
 License File:   AutoMapper.license
 
-AWSSDK.*** - Amazon Web Services SDK for .NET. (https://www.nuget.org/packages/AWSSDK.***, https://github.com/aws/aws-sdk-net)
-License:        Apache 2.0 license
-License File:   AWSSDK.license
+AWSSDK.CloudFront - Amazon CloudFront is a content delivery web service. It integrates with other Amazon Web Services products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments. (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.CloudFront.license
 
-BouncyCastle - The Bouncy Castle Crypto package is a C# implementation of cryptographic algorithms and protocols (https://www.nuget.org/packages/BouncyCastle/) 
+AWSSDK.Core - The Amazon Web Services SDK for .NET - Core Runtime (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.Core.license
+
+AWSSDK.S3 - Amazon Simple Storage Service (Amazon S3), provides developers and IT teams with secure, durable, highly-scalable object storage. (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.S3.license
+
+AWSSDK.SecurityToken - The AWS Security Token Service (AWS STS) enables you to provide trusted users with temporary credentials that provide controlled access to your AWS resources. (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.SecurityToken.license
+
+AWSSDK.SimpleEmail - Amazon SES is an outbound-only email-sending service that provides an easy, cost-effective way for you to send email. (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.SimpleEmail.license
+
+AWSSDK.SimpleNotificationService - Amazon Simple Notification Service (Amazon SNS) is a fast, flexible, fully managed push messaging service. Amazon SNS makes it simple and cost-effective to push notifications to Apple, Google, Fire OS, and Windows devices, as well as Android devices in China with Baidu Cloud Push.  You can also use SNS to push notifications to internet connected smart devices, as well as other distributed services. (https://aws.amazon.com/ru/apache-2-0/)
+License:        Apache License 2.0
+License File:   AWSSDK.SimpleNotificationService.license
+
+BouncyCastle - The Bouncy Castle Crypto package is a C# implementation of cryptographic algorithms and protocols, it was developed by the Legion of the Bouncy Castle, a registered Australian Charity, with a little help! The Legion, and the latest goings on with this package, can be found at [http://www.bouncycastle.org/](http://www.bouncycastle.org/). In addition to providing basic cryptography algorithms, the package also provides support for CMS, TSP, X.509 certificate generation and a variety of other standards such as OpenPGP. (http://www.bouncycastle.org/licence.html)
 License:        MIT License
 License File:   BouncyCastle.license
 
-Box.V2 - Windows SDK for v2 of the Box API. The SDK is built upon .NET Framework 4.5 (https://github.com/box/box-windows-sdk-v2)
-License:        Apache 2.0 license
-License File:   Box.V2.license 
+BouncyCastle-PCL - HMACSHA1 and HMACSHA256 implementation for PCL .NET 4.0, Silverlight5, Windows Phone 8.0, Windows Store Apps. (http://opensource.org/licenses/mit-license.php)
+License:        MIT License 
+License File:   BouncyCastle-PCL.license
 
-Code.Contract - Code Contracts provide a language-agnostic way to express coding assumptions in .NET programs (https://www.nuget.org/packages/Code.Contract/)
-License:        Unknown
+Box.V2 - Windows SDK for v2 of the Box API. The SDK is built upon the Portable Class Library and targets the following frameworks: .NET for Windows Store apps, .NET Framework 4.0, Silverlight 4 and higher, Windows Phone 7.5 and higher (https://github.com/box/box-windows-sdk-v2/blob/master/LICENSE)
+License:        Apache License 2.0
+License File:   Box.V2.license
 
-CommandLineParser - Terse syntax C# command line parser for .NET (https://www.nuget.org/packages/CommandLineParser/)
+CommandLineParser - The Command Line Parser Library offers to CLR applications a clean and concise API for manipulating command line arguments and related tasks. (https://github.com/commandlineparser/commandline/blob/master/License.md)
 License:        MIT License
 License File:   CommandLineParser.license
 
-CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects. (https://www.nuget.org/packages/CsvHelper/, https://github.com/JoshClose/CsvHelper)
-License:        Microsoft Public License (Ms-PL) and Apache 2.0 license
+CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects. (https://licenses.nuget.org/MS-PL, или https://licenses.nuget.org/Apache-2.0)
+License:        MS-PL or Apache License 2.0
 License File:   CsvHelper.license
 
-DocuSign.eSign - The DocuSign NuGet Package makes integrating DocuSign into your apps and websites a super fast and painless process. (https://github.com/docusign/docusign-csharp-client)
-License:        The MIT License (MIT)
-License File:   DocuSign.eSign.license
+DocuSign.eSign.dll - The DocuSign NuGet Package makes integrating DocuSign into your apps and websites a super fast and painless process.The library is open sourced on GitHub, look for the docusign-csharp-client repository. Join the eSign revolution! (https://raw.githubusercontent.com/docusign/docusign-csharp-client/master/LICENSE)
+License:        MIT License
+License File:   DocuSign.eSign.dll.license
 
-dotless - .NET Port of the ruby Less CSS lib (https://www.nuget.org/packages/dotless/)
-License:        Apache 2.0 license
+dotless - Meta package to provide backward compatibility. Please choose either dotless.AspNet or dotless.Core. (https://github.com/dotless/dotless/blob/master/license.txt)
+License:        Apache License 2.0
 License File:   dotless.license
 
-DotNetOpenAuth.Ultimate - A single assembly that adds OpenID 1.1/2.0, OAuth 1.0(a)/2.0, & InfoCard authentication and authorization functionality for client and server applications. (https://www.nuget.org/packages/DotNetOpenAuth.Ultimate/)
-License:        Microsoft Public License (Ms-PL)
+dotless - This is a project to port the hugely useful Less libary to the .NET world. It give variables, nested rules and operators to CSS. (https://github.com/dotless/dotless/blob/master/license.txt)
+License:        Apache License 2.0
+License File:   dotless.license
+
+dotless.AspNetHandler - Adds HTTPHandler for ASP.NET to compile LESS files on demand. This is a project to port the hugely useful Less libary to the .NET world. It give variables, nested rules and operators to CSS. (https://github.com/dotless/dotless/blob/master/license.txt)
+License:        Apache License 2.0
+License File:   dotless.AspNetHandler.license
+
+dotless.Core - Core features to compile LESS files to CSS. (https://github.com/dotless/dotless/blob/master/license.txt)
+License:        Apache License 2.0
+License File:   dotless.Core.license
+
+DotNetOpenAuth.Ultimate - A single assembly that adds OpenID 1.1/2.0, OAuth 1.0(a)/2.0, & InfoCard authentication and authorization functionality for client and server applications. This allows your (web) application to issue identities or accept issued identites from other web applications, and even access your users' data on other services. (https://github.com/DotNetOpenAuth/DotNetOpenAuth/blob/develop/LICENSE.txt)
+License:        MS-PL
 License File:   DotNetOpenAuth.Ultimate.license
 
-DotNetZip - A fork of the DotNetZip project without signing with a solution that compiles cleanly (https://www.nuget.org/packages/DotNetZip/)
-License:        Microsoft Public License (Ms-PL) ,BSD, Apache, and zlib
+DotNetZip - A fork of the DotNetZip project without signing with a solution that compiles cleanly. This project aims to follow semver to avoid versioning conflicts. DotNetZip is a FAST, FREE class library and toolset for manipulating zip files. Use VB, C# or any .NET language to easily create, extract, or update zip files. (https://raw.githubusercontent.com/haf/DotNetZip.Semverd/master/LICENSE)
+License:        Ms-PL , BSD-style (3 clause), Apache 2 license ???
 License File:   DotNetZip.license
 
-Dropbox.Api - .NET SDK for the Dropbox API v2.  (https://www.nuget.org/packages/Dropbox.Api/)
-License:        MIT License
-License File:   Dropbox.Api.license 
+Dropbox.Api - Portable class library for accessing the Dropbox v2 API (https://github.com/dropbox/dropbox-sdk-dotnet/blob/master/LICENSE)
+License:        MIT License 
+License File:   Dropbox.Api.license
 
-Elasticsearch.Net - Exposes all the elasticsearch API endpoints but leaves you in control of building the request and response bodies. Comes with built in cluster failover/connection pooling support. (https://github.com/elastic/elasticsearch-net)
-License:        Apache 2.0 license
+Elasticsearch.Net - Elasticsearch.Net (https://github.com/elastic/elasticsearch-net/blob/master/license.txt)
+License:        Apache License 2.0
 License File:   Elasticsearch.Net.license
 
-EntityFramework - Entity Framework is Microsoft's recommended data access technology for new applications. (https://www.nuget.org/packages/EntityFramework/)
-License:        MICROSOFT SOFTWARE SUPPLEMENTAL LICENSE TERMS, MICROSOFT SOFTWARE LICENSE TERMS
-License File:   EntityFramework5.license, EntityFramework6.license
-
-FluentAssertions - A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit test. (https://www.nuget.org/packages/FluentAssertions/)
-License:        Apache 2.0 license
-License File:   FluentAssertions.license
-
-Flurl - This is the Flurl package, repackaged with strongly named assemblies. (https://github.com/carolynvs/Flurl.Signed)
+Fare - .NET port of dk.brics.automaton - Project Fare is an effort to bring a DFA/NFA (finite-state automata) implementation from Java to .NET. There are quite a few implementations available in other languages today. This project aims to fill the gap in .NET. (https://github.com/moodmosaic/Fare/blob/master/LICENSE)
 License:        MIT License
-License File:   Flurl.license
+License File:   Fare.license
 
-FredCK.FCKeditor V4 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor)
-License:        GNU General Public License Version 2 or later, GNU Lesser General Public License Version 2.1 or later, Mozilla Public License Version 1.1 or later
-License File:   FCKeditor.license
+Flurl.Http.Signed - A fluent, portable, testable HTTP client library that extends Flurl's URL builder chain. (https://raw.githubusercontent.com/tmenier/Flurl/master/LICENSE)
+License:        MIT License
+License File:   Flurl.Http.Signed.license
 
-FSharp.Compiler.CodeDom - A limited CodeDom implementation for F#(https://www.nuget.org/packages/FSharp.Compiler.CodeDom/)
-License:        The Unlicense
-License File:   FSharp.Compiler.CodeDom.license
+Flurl.Signed - A fluent, portable URL builder. To make HTTP calls off the fluent chain, check out Flurl.Http. (https://raw.githubusercontent.com/tmenier/Flurl/master/LICENSE)
+License:        MIT License
+License File:   Flurl.Signed.license
 
-Google.Api.Gax - Support classes for Google API client libraries. (https://www.nuget.org/packages/Google.Api.Gax)
-License:        BSD License
+FredCK.FCKeditorV2 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor) (https://download.cksource.com/FCKeditor/FCKeditor/2.6.3/)
+License:        GPL 2 (or later) or LGPL 2.1 (or later) or MPL 1.1 (or later)
+License File:   FredCK.FCKeditorV2.license
+
+Google.Api.Gax - Support classes for Google API client libraries (https://www.nuget.org/packages/Google.Api.Gax/3.0.0/License)
+License:        Google License (BSD?)
 License File:   Google.Api.Gax.license
 
-Google.Api.Gax.Rest - Common Protocol Buffer messages for Google APIs (https://www.nuget.org/packages/Google.Api.Gax.Rest)
-License:        BSD License
+Google.Api.Gax.Rest - Common Protocol Buffer messages for Google APIs (https://www.nuget.org/packages/Google.Api.Gax.Rest/3.0.0/License)
+License:        Google License (BSD?)
 License File:   Google.Api.Gax.Rest.license
 
-Google.Apis - The Google APIs Client Library is a runtime client for working with Google services.
-License:        Apache 2.0 license
-License File:   Google.Apis.license, Google.Apis.Auth.license, Google.Apis.Core.license, Google.Apis.Drive.v3.license, Google.Apis.Storage.v1.license
+Google.Apis - The Google APIs Client Library is a runtime client for working with Google services. The library supports service requests, media upload and download, etc. (https://www.nuget.org/packages/Google.Apis/1.45.0/License)
+License:        Apache License 2.0
+License File:   Google.Apis.license
 
-Google.Cloud.Storage.V1 - Recommended Google client library to access the Google Cloud Storage API. It wraps the Google.Apis.Storage.v1 client library, making common operations simpler in client code. Google Cloud Storage stores and retrieves potentially large, immutable data objects. (https://github.com/GoogleCloudPlatform/google-cloud-dotnet)
-License:        Apache 2.0 license
+Google.Apis.Auth - The Google APIs Client Library is a runtime client for working with Google services. This package includes auth components like user-credential, authorization code flow, etc. for making authenticated calls using the OAuth2 spec. (https://www.nuget.org/packages/Google.Apis.Auth/1.45.0/License)
+License:        Apache License 2.0
+License File:   Google.Apis.Auth.license
+
+Google.Apis.Core - The Google APIs Core Library contains the Google APIs HTTP layer, JSON support, Data-store, logging and so on. (https://www.nuget.org/packages/Google.Apis.Core/1.45.0/License)
+License:        Apache License 2.0
+License File:   Google.Apis.Core.license
+
+Google.Apis.Drive.v3 - Google APIs Client Library for working with Drive v3. (https://www.nuget.org/packages/Google.Apis.Drive.v3/1.45.0.1911/License)
+License:        Apache License 2.0
+License File:   Google.Apis.Drive.v3.license
+
+Google.Apis.Storage.v1 - This is not the recommended package for working with Storage, please use the Google.Cloud.Storage.V1 package.      This Google APIs Client Library for working with Storage v1 uses older code generation, and is harder to use. (https://www.nuget.org/packages/Google.Apis.Storage.v1/1.45.0.1911/License)
+License:        Apache License 2.0
+License File:   Google.Apis.Storage.v1.license
+
+Google.Cloud.Storage.V1 - Recommended Google client library to access the Google Cloud Storage API. It wraps the Google.Apis.Storage.v1 client library, making common operations simpler in client code. Google Cloud Storage stores and retrieves potentially large, immutable data objects.  There is a newer prerelease version of this package available.  (https://www.nuget.org/packages/Google.Cloud.Storage.V1/2.5.0/License)
+License:        Apache License 2.0
 License File:   Google.Cloud.Storage.V1.license
 
-Google.Protobuf - C# runtime library for Protocol Buffers - Google's data interchange format. (https://github.com/google/protobuf)
-License:        AS IS
+Google.Protobuf - C# runtime library for Protocol Buffers - Google's data interchange format. (https://github.com/protocolbuffers/protobuf/blob/master/LICENSE)
+License:        Google License (BSD?)
 License File:   Google.Protobuf.license
 
-GoogleAuthenticator - Google Authenticator Two-Factor Authentication Library (http://github.com/brandonpotter/GoogleAuthenticator)
-License:        Apache 2.0 license
+Google.Protobuf - C# runtime library for Protocol Buffers - Google's data interchange format. (https://github.com/protocolbuffers/protobuf/blob/master/LICENSE)
+License:        Google License (BSD?)
+License File:   Google.Protobuf.license
+
+GoogleAuthenticator - Provides an easy-to-use library for implementing Two-Factor Authentication with Google Authenticator or Authy. (https://github.com/BrandonPotter/GoogleAuthenticator/blob/master/LICENSE)
+License:        Apache License 2.0
 License File:   GoogleAuthenticator.license
 
-HtmlAgilityPack - This is an agile HTML parser that builds a read/write DOM and supports plain XPATH or XSLT. (http://htmlagilitypack.codeplex.com/)
-License:        Microsoft Public License (Ms-PL)
+HtmlAgilityPack - This is an agile HTML parser that builds a read/write DOM and supports plain XPATH or XSLT (https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE)
+License:        MIT License
 License File:   HtmlAgilityPack.license
 
-Ical.Net - An iCalendar (RFC 5545) control library for .NET. A fork and continuation of the original dday.ical library including bug fixes and many performance enhancements. (https://github.com/rianjs/ical.net)
-License:        The MIT License (MIT)
-License File:   Ical.Net.license 
+Ical.Net - An iCalendar (RFC 5545) control library for .NET. (https://github.com/rianjs/ical.net/blob/master/license.md)
+License:        MIT License
+License File:   Ical.Net.license
 
-JWT - JWT (JSON Web Token) implementation for .NET 3.5+ (Public Domain) Install-Package JWT (https://www.nuget.org/packages/JWT/1.3.4, https://github.com/jwt-dotnet/jwt/)
-License:        AS-IS
+jQuery - jQuery is a new kind of JavaScript Library.        jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.        NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at https://nugetpackages.codeplex.com/ (https://jquery.org/license/)
+License:        MIT License
+License File:   jQuery.license
+
+jQuery.BlockUI - The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser. (https://github.com/malsup/blockui/)
+License:        MIT License, GPL licenses
+License File:   jQuery.BlockUI.license
+
+jQuery.FileUpload - File Upload widget with multiple file selection, drag&drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads. (https://github.com/blueimp/jQuery-File-Upload/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jQuery.FileUpload.license
+
+jquery.mousewheel - Adds mouse wheel support for your application! Just call mousewheel to add the event and call unmousewheel to remove the event. (https://github.com/brandonaaron/jquery-mousewheel/blob/master/LICENSE.txt)
+License:        MIT License 
+License File:   jquery.mousewheel.license
+
+jQuery.UI.Combined - jQuery UI is an open source library of interface components — interactions, full-featured widgets, and animation effects — based on the stellar jQuery javascript library . Each component is built according to jQuery's event-driven architecture (find something, manipulate it) and is themeable, making it easy for developers of any skill level to integrate and extend into their own code. (https://jquery.org/license/)
+License:        MIT License
+License File:   jQuery.UI.Combined.license
+
+JWT - JWT (JSON Web Token) Implementation for .NET (Public Domain) (https://github.com/jwt-dotnet/jwt/blob/master/LICENSE.md)
+License:        MIT License
 License File:   JWT.license
 
-libphonenumber-csharp - C# port of Google's common Java, C++ and Javascript library for parsing, formatting, storing and validating international phone numbers. (https://www.nuget.org/packages/libphonenumber-csharp)
-License:        Apache 2.0 license
+libphonenumber-csharp - C# port of Google's common Java, C++ and Javascript library for parsing, formatting, storing and validating international phone numbers. http://code.google.com/p/libphonenumber/ (http://www.apache.org/licenses/LICENSE-2.0)
+License:        Apache License 2.0
 License File:   libphonenumber-csharp.license
 
-LiteDB - Embedded .NET NoSQL Document Store in a single data file (https://www.nuget.org/packages/LiteDB)
-License:        The MIT License
+LiteDB - Embedded .NET NoSQL Document Store in a single data file (https://github.com/mbdavid/LiteDB/blob/master/LICENSE)
+License:        MIT License
 License File:   LiteDB.license
 
-log4net - log4net is a tool to help the programmer output log statements to a variety of output targets. (https://www.nuget.org/packages/log4net)
-License:        Apache 2.0 license
+log4net - log4net is a tool to help the programmer output log statements to a variety of output targets. In case of problems with an application, it is helpful to enable logging so that the problem can be located. With log4net it is possible to enable logging at runtime without modifying the application binary. The log4net package is designed so that log statements can remain in shipped code without incurring a high performance cost. It follows that the speed of logging (or rather not logging) is crucial.  (http://logging.apache.org/log4net/license.html)
+License:        Apache License 2.0
 License File:   log4net.license
 
-LumenWorksCsvReader - An extended version of LumenWorks.Frameworks.IO (https://www.nuget.org/packages/LumenWorksCsvReader)
-License:        The MIT License
-License File:   LumenWorksCsvReader.license 
+LumenWorksCsvReader - An extended version of LumenWorks.Frameworks.IO (https://github.com/phatcher/CsvReader/blob/master/License.md)
+License:        MIT License
+License File:   LumenWorksCsvReader.license
 
-MailKit - MailKit is an Open Source cross-platform .NET mail-client library that is based on MimeKit and optimized for mobile devices. (https://www.nuget.org/packages/MailKit)
-License:        The MIT License
+MailKit - MailKit is an Open Source cross-platform .NET mail-client library that is based on MimeKit and optimized for mobile devices. (https://licenses.nuget.org/MIT)
+License:        MIT License
 License File:   MailKit.license
 
-Marvin.JsonPatch.Signed - JSON Patch (RFC 6902) support for .NET to easily allow and apply partial REST-ful service (through Web API) updates from any client. (https://www.nuget.org/packages/Marvin.JsonPatch.Signed)
+Marvin.JsonPatch.Signed - JSON Patch (https://tools.ietf.org/html/rfc6902) defines a JSON document structure for expressing a sequence of operations to apply to a JavaScript Object Notation (JSON) document; it is suitable for use with the HTTP PATCH method. The "application/json-patch+json" media type is used to identify such patch documents. (https://github.com/KevinDockx/JsonPatch/blob/master/LICENSE)
 License:        MIT License
 License File:   Marvin.JsonPatch.Signed.license
 
-Microsoft.AspNet.Cors - This package contains the core components to enable Cross-Origin Resource Sharing (CORS) in ASP.NET. (https://www.nuget.org/packages/Microsoft.AspNet.Cors)
-License:        MS-.NET-Library License 
+Microsoft.AspNetCore.Cryptography.Internal - Infrastructure for ASP.NET Core cryptographic packages. (https://github.com/dotnet/aspnetcore/blob/master/LICENSE.txt)
+License:        Apache License 2.0
+License File:   Microsoft.AspNetCore.Cryptography.Internal.license
+
+Microsoft.AspNetCore.Cryptography.KeyDerivation - ASP.NET Core utilities for key derivation. (https://github.com/dotnet/aspnetcore/blob/master/LICENSE.txt)
+License:        Apache License 2.0
+License File:   Microsoft.AspNetCore.Cryptography.KeyDerivation.license
+
+Microsoft.AspNet.Cors - This package contains the core components to enable Cross-Origin Resource Sharing (CORS) in ASP.NET. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.AspNet.Cors.license
 
-Microsoft.AspNet.Mvc - This package contains the runtime assemblies for ASP.NET MVC. ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that enables a clean separation of concerns and that gives you full control over markup. (https://www.nuget.org/packages/Microsoft.AspNet.Mvc)
-License:        MS-.NET-Library License 
+Microsoft.AspNet.Mvc - This package contains the runtime assemblies for ASP.NET MVC. ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that enables a clean separation of concerns and that gives you full control over markup. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.AspNet.Mvc.license
 
-Microsoft.AspNet.Mvc.FixedDisplayModes - The previous version of this package contained a workaround for a bug affecting mobile view caching in ASP.NET MVC 4. As of ASP.NET MVC 5 this workaround is no longer needed. (https://www.nuget.org/packages/Microsoft.AspNet.Mvc.FixedDisplayModes)
-License:        MS-.NET-Library License  
-License File:   Microsoft.AspNet.Mvc.FixedDisplayModes.license
-
-Microsoft.AspNet.Providers.Core - ASP.NET Universal Providers add provider support in ASP.NET 4 for all editions of SQL Server 2005 and later and to SQL Azure. (https://www.nuget.org/packages/Microsoft.AspNet.Providers.Core)
-License:        MS-.NET-Library License 
-License File:   Microsoft.AspNet.Providers.Core.license
-
-Microsoft.AspNet.Razor - This package contains the runtime assemblies for ASP.NET Web Pages. ASP.NET Web Pages and the new Razor syntax provide a fast, terse, clean and lightweight way to combine server code with HTML to create dynamic web content. (https://www.nuget.org/packages/Microsoft.AspNet.Razor)
-License:        MS-.NET-Library License
+Microsoft.AspNet.Razor - This package contains the runtime assemblies for ASP.NET Web Pages. ASP.NET Web Pages and the new Razor syntax provide a fast, terse, clean and lightweight way to combine server code with HTML to create dynamic web content. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.AspNet.Razor.license
 
-Microsoft.AspNet.Web.Optimization - ASP.NET Optimization introduces a way to bundle and optimize CSS and JavaScript files. (https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization)
-License:        MS-.NET-Library License 
+Microsoft.AspNet.Web.Optimization - ASP.NET Optimization introduces a way to bundle and optimize CSS and JavaScript files. (https://www.microsoft.com/web/webpi/eula/aspnetcomponent_rtw_enu.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.AspNet.Web.Optimization.license
 
-Microsoft.AspNet.WebApi - This package contains everything you need to host ASP.NET Web API on IIS. ASP.NET Web API is a framework that makes it easy to build HTTP services that reach a broad range of clients, including browsers and mobile devices. ASP.NET Web API is an ideal platform for building RESTful applications on the .NET Framework. (https://www.nuget.org/packages/Microsoft.AspNet.WebApi***)
-License:        MS-.NET-Library License 
-License File:	Microsoft.AspNet.WebApi.license, Microsoft.AspNet.WebApi.Client.license, Microsoft.AspNet.WebApi.Core.license, Microsoft.AspNet.WebApi.Cors.license, Microsoft.AspNet.WebApi.OData.license, Microsoft.AspNet.WebApi.Owin.license, Microsoft.AspNet.WebApi.Tracing.license, Microsoft.AspNet.WebApi.WebHost.license
+Microsoft.AspNet.WebApi - This package adds support for formatting and content negotiation to System.Net.Http. It includes support for JSON, XML, and form URL encoded data. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.license
 
-Microsoft.AspNet.WebPages - This package contains core runtime assemblies shared between ASP.NET MVC and ASP.NET Web Pages. (https://www.nuget.org/packages/Microsoft.AspNet.WebPages)
-License:        MS-.NET-Library License
+Microsoft.AspNet.WebApi.Client - This package adds support for formatting and content negotiation to System.Net.Http. It includes support for JSON, XML, and form URL encoded data. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Client.license
+
+Microsoft.AspNet.WebApi.Client - This package adds support for formatting and content negotiation to System.Net.Http. It includes support for JSON, XML, and form URL encoded data. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Client.license
+
+Microsoft.AspNet.WebApi.Core - This package contains the core runtime assemblies for ASP.NET Web API. This package is used by hosts of the ASP.NET Web API runtime. To host a Web API in IIS use the Microsoft.AspNet.WebApi.WebHost package. To host a Web API in your own process use the Microsoft.AspNet.WebApi.SelfHost package. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Core.license
+
+Microsoft.AspNet.WebApi.Core - This package contains the core runtime assemblies for ASP.NET Web API. This package is used by hosts of the ASP.NET Web API runtime. To host a Web API in IIS use the Microsoft.AspNet.WebApi.WebHost package. To host a Web API in your own process use the Microsoft.AspNet.WebApi.SelfHost package. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Core.license
+
+Microsoft.AspNet.WebApi.Cors - This package contains the components to enable Cross-Origin Resource Sharing (CORS) in ASP.NET Web API. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Cors.license
+
+Microsoft.AspNet.WebApi.Owin - This package allows you to host ASP.NET Web API within an OWIN server and provides access to additional OWIN features. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.Owin.license
+
+Microsoft.AspNet.WebApi.WebHost - This package contains everything you need to host ASP.NET Web API on IIS. ASP.NET Web API is a framework that makes it easy to build HTTP services that reach a broad range of clients, including browsers and mobile devices. ASP.NET Web API is an ideal platform for building RESTful applications on the .NET Framework. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.WebHost.license
+
+Microsoft.AspNet.WebApi.WebHost - This package contains everything you need to host ASP.NET Web API on IIS. ASP.NET Web API is a framework that makes it easy to build HTTP services that reach a broad range of clients, including browsers and mobile devices. ASP.NET Web API is an ideal platform for building RESTful applications on the .NET Framework. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.AspNet.WebApi.WebHost.license
+
+Microsoft.AspNet.WebPages - This package contains core runtime assemblies shared between ASP.NET MVC and ASP.NET Web Pages. (https://www.microsoft.com/web/webpi/eula/net_library_eula_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.AspNet.WebPages.license
 
-<package id="Microsoft.Bcl.Async" version="1.0.168" />
-Microsoft.Bcl.Async - This packages enables projects targeting down-level platforms to use some of the types added in later versions. (https://www.nuget.org/packages/Microsoft.Bcl.Async)
-License:        MS-.NET-Library License
+Microsoft.Bcl - This packages enables projects targeting down-level platforms to use some of the types added in later versions including:  - CallerMemberNameAttribute - CallerLineNumberAttribute - CallerFilePathAttribute - Tuple<T1, T2, ...> - IProgress<T> - IStructuralComparable - IStructuralEquatable - Task - InvalidDataException  (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.Bcl.license
+
+Microsoft.Bcl.Async - This package enables Visual Studio 2012 projects to use the new 'async' and 'await' keywords. This package also includes Task-based extension methods that allow using some of the existing asynchronous APIs with the new language keywords. Windows Phone Silverlight 8 projects can use this package to get access to async extension methods for the networking types. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.Bcl.Async.license
 
-Microsoft.Data.Edm - Classes to represent, construct, parse, serialize and validate entity data models. Targets .NET 4.0, Silverlight 4.0, or .NET Portable Lib with support for .NET 4.0, SL 5.0, Win Phone 8, Win Phone 8.1, and Win 8. Localized for CHS, CHT, DEU, ESN, FRA, ITA, JPN, KOR and RUS. (https://www.nuget.org/packages/Microsoft.Data.Edm)
-License:        MS-.NET-Library License
-License File:   Microsoft.Data.Edm.license
+Microsoft.Bcl.AsyncInterfaces - Provides the IAsyncEnumerable<T> and IAsyncDisposable interfaces and helper types for .NET Standard 2.0. This package is not required starting with .NET Standard 2.1 and .NET Core 3.0. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   Microsoft.Bcl.AsyncInterfaces.license
 
-Microsoft.Graph.Core - Microsoft Graph Core Client Library implements core functionality used by Microsoft Graph client libraries. (https://www.nuget.org/packages/Microsoft.Graph.Core)
+Microsoft.Bcl.Build - This package provides build infrastructure components so that projects referencing specific Microsoft packages can successfully build. Do not directly reference this packages unless you receive a build warning that instructs you to add a reference. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.Bcl.Build.license
+
+Microsoft.CSharp - Provides support for compilation and code generation, including dynamic, using the C# language. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   Microsoft.CSharp.license
+
+Microsoft.Extensions.DependencyInjection - Default implementation of dependency injection for Microsoft.Extensions.DependencyInjection. (https://licenses.nuget.org/Apache-2.0)
+License:        Apache License 2.0
+License File:   Microsoft.Extensions.DependencyInjection.license
+
+Microsoft.Extensions.DependencyInjection.Abstractions - Abstractions for dependency injection. Commonly used types: Microsoft.Extensions.DependencyInjection.IServiceCollection (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   Microsoft.Extensions.DependencyInjection.Abstractions.license
+
+Microsoft.Graph.Core - Microsoft Graph Core Client Library implements core functionality used by Microsoft Graph client libraries. (https://www.nuget.org/packages/Microsoft.Graph.Core/1.20.1/License)
 License:        MIT License
 License File:   Microsoft.Graph.Core.license
 
-Microsoft.IdentityModel.Logging - Includes Event Source based logging support. (https://www.nuget.org/packages/Microsoft.IdentityModel.Logging)
+Microsoft.IdentityModel.Logging - Includes Event Source based logging support. (https://licenses.nuget.org/MIT)
 License:        MIT License
 License File:   Microsoft.IdentityModel.Logging.license
 
-Microsoft.IdentityModel.Tokens - Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption. (https://www.nuget.org/packages/Microsoft.IdentityModel.Tokens)
+Microsoft.IdentityModel.Tokens - Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption. (https://licenses.nuget.org/MIT)
 License:        MIT License
 License File:   Microsoft.IdentityModel.Tokens.license
 
-Microsoft.Net.Http - This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages. (https://www.nuget.org/packages/Microsoft.Net.Http)
-License:        MS-.NET-Library License
+Microsoft.Net.Http - This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.Net.Http.license
 
-Microsoft.OneDriveSDK - Integrate the OneDrive API into your .NET App! (https://www.nuget.org/packages/Microsoft.OneDriveSDK)
-License:        Microsoft Developer Agreement
+Microsoft.NETCore.Platforms - Provides runtime information required to resolve target framework, platform, and runtime specific implementations of .NETCore packages.  When using NuGet 3.x this package requires at least version 3.4.   (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   Microsoft.NETCore.Platforms.license
+
+Microsoft.OneDriveSDK - Integrate the OneDrive API into your .NET App! (https://github.com/OneDrive/onedrive-sdk-csharp/blob/master/LICENSE.txt)
+License:        MIT License
 License File:   Microsoft.OneDriveSDK.license
 
-Microsoft.Owin - Provides a set of helper types and abstractions for simplifying the creation of OWIN components. (https://www.nuget.org/packages/Microsoft.Owin***/3.0.1)
-License:        MS-.NET-Library-JS License 
-License File:   Microsoft.Owin.license, Microsoft.Owin.Cors.license, Microsoft.Owin.Diagnostics.license, Microsoft.Owin.Host.HttpListener.license, Microsoft.Owin.Host.SystemWeb.license, Microsoft.Owin.Hosting.license, Microsoft.Owin.Security.license
+Microsoft.Owin - Provides a set of helper types and abstractions for simplifying the creation of OWIN components. (https://raw.githubusercontent.com/aspnet/AspNetKatana/v4.0.1/LICENSE.txt)
+License:        Apache License 2.0
+License File:   Microsoft.Owin.license
 
-Microsoft.ServiceModel.Web - WCF REST Starter Kit (It's officially deprecated) (https://www.nuget.org/packages/Microsoft.ServiceModel.Web)
-License:        unknown
-License File:   Microsoft.ServiceModel.Web.license 
+Microsoft.Owin.Hosting - Provides default infrastructure types for hosting and running OWIN-based applications. (https://raw.githubusercontent.com/aspnet/AspNetKatana/v4.0.1/LICENSE.txt)
+License:        Apache License 2.0
+License File:   Microsoft.Owin.Hosting.license
 
-Microsoft.SharePoint.Client - This easy-to-use, redistributable package of the Microsoft Silverlight and Microsoft .NET managed client object models in Microsoft SharePoint 2013 enables developers to reference the client object model.? The package includes a comprehensive collection of client-side object model (CSOM) DLLs. (https://www.nuget.org/packages/Microsoft.SharePoint.Client)
-License:        unknown
-License File:   Microsoft.SharePoint.Client.license
+Microsoft.SharePointOnline.CSOM - This package contains SharePoint and Project Client Object Model libraries (https://www.nuget.org/packages/Microsoft.SharePointOnline.CSOM/16.1.20122.12000)
+License:        MICROSOFT SOFTWARE LICENSE TERMS
+License File:   Microsoft.SharePointOnline.CSOM.license
 
-Microsoft.VisualStudio.QualityTools.UnitTestFramework - Visual Studio Unit Test Framework (https://www.nuget.org/packages/Microsoft.VisualStudio.QualityTools.UnitTestFramework)
-License:        unknown
-License File:   Microsoft.VisualStudio.QualityTools.UnitTestFramework.license
-
-Microsoft.Web.Administration - The Microsoft.Web.Administration namespace contains classes that a developer can use to administer IIS Manager. (https://www.nuget.org/packages/Microsoft.Web.Administration)
-License:        MS-.NET-Library-JS License
-License File:   Microsoft.Web.Administration.license
-
-Microsoft.Web.Infrastructure - This package contains the Microsoft.Web.Infrastructure assembly that lets you dynamically register HTTP modules at run time. (Microsoft.Web.Infrastructure.license)
-License:        MS-EULA License 
+Microsoft.Web.Infrastructure - This package contains the Microsoft.Web.Infrastructure assembly that lets you dynamically register HTTP modules at run time. (https://www.microsoft.com/web/webpi/eula/aspnetmvc3update-eula.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.Web.Infrastructure.license
 
-MimeKit - MimeKit is an Open Source library for creating and parsing MIME, S/MIME and PGP messages on desktop and mobile platforms. It also supports parsing of Unix mbox files. (https://www.nuget.org/packages/MimeKit)
+Microsoft.Win32.Primitives - Provides common types for Win32-based libraries. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   Microsoft.Win32.Primitives.license
+
+MimeKit - MimeKit is an Open Source library for creating and parsing MIME, S/MIME and PGP messages on desktop and mobile platforms. It also supports parsing of Unix mbox files. (https://licenses.nuget.org/MIT)
 License:        MIT License
 License File:   MimeKit.license
 
-Mono.Security - Mono.Security containing utilities like Authenticode. (https://www.nuget.org/packages/Mono.Security)
+Mono.Security - Mono.Security containing utilities like Authenticode. (https://github.com/mono/mono/blob/master/LICENSE)
 License:        MIT License
 License File:   Mono.Security.license
 
-MySql.Data - MySql.Data.MySqlClient .Net Core Class Library (https://www.nuget.org/packages/MySql.Data)
-License:        GNU General Public License (GPLv2) +
+MSTest.TestAdapter - The adapter to discover and execute MSTest Framework based tests.  (https://www.nuget.org/packages/MSTest.TestAdapter/2.1.0/License)
+License:        MIT License
+License File:   MSTest.TestAdapter.license
+
+MSTest.TestFramework - This is MSTest V2, the evolution of Microsoft's Test Framework. (https://www.nuget.org/packages/MSTest.TestFramework/2.1.0/License)
+License:        MIT License
+License File:   MSTest.TestFramework.license
+
+MySql.Data - MySql.Data.MySqlClient .Net Core Class Library (https://downloads.mysql.com/docs/licenses/connector-net-8.0-gpl-en.pdf)
+License:        MySQL License
 License File:   MySql.Data.license
 
-NEST - Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net. (https://www.nuget.org/packages/NEST)
-License:        Apache 2.0 license
-License File:   NEST.license 
+NEST - Strongly typed interface to Elasticsearch. Fluent and classic object initializer mappings of requests and responses. Uses and exposes Elasticsearch.Net (https://github.com/elastic/elasticsearch-net/blob/master/license.txt)
+License:        Apache License 2.0
+License File:   NEST.license
 
-Newtonsoft.Json - Newtonsoft.Json is a popular high-performance JSON framework for .NET (https://www.nuget.org/packages/Newtonsoft.Json)
+NETStandard.Library - A set of standard .NET APIs that are prescribed to be used and supported together.   (https://github.com/dotnet/standard/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   NETStandard.Library.license
+
+Newtonsoft.Json - Json.NET is a popular high-performance JSON framework for .NET (https://licenses.nuget.org/MIT)
 License:        MIT License
 License File:   Newtonsoft.Json.license
 
-NLog - NLog is a logging platform for .NET with rich log routing and management capabilities. It can help you produce and manage high-quality logs for your application regardless of its size or complexity. (https://www.nuget.org/packages/NLog/4.5.8)
+Newtonsoft.Json - Json.NET is a popular high-performance JSON framework for .NET (https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md)
+License:        MIT License
+License File:   Newtonsoft.Json.license
+
+Nito.AsyncEx - A helper library for the Task-Based Asynchronous Pattern (TAP). (https://github.com/StephenCleary/AsyncEx/blob/master/LICENSE)
+License:        MIT License
+License File:   Nito.AsyncEx.license
+
+NLog - NLog is a logging platform for .NET with rich log routing and management capabilities. NLog supports traditional logging, structured logging and the combination of both. (https://github.com/NLog/NLog/blob/master/LICENSE.txt)
 License:        BSD 3-Clause "New" or "Revised" License
 License File:   NLog.license
 
-NodaTime - Noda Time is a date and time API acting as an alternative to the built-in DateTime/DateTimeOffset etc types built into the .NET framework. (https://www.nuget.org/packages/NodaTime/2.0.2)
-License:        Apache 2.0 license
+NodaTime - Noda Time is a date and time API acting as an alternative to the built-in DateTime/DateTimeOffset etc types built into the .NET framework. (http://www.apache.org/licenses/LICENSE-2.0)
+License:        Apache License 2.0
 License File:   NodaTime.license
 
-Novell.Directory.LDAP - LDAP Libraries for C# enables you to write applications that access, manage, and update information stored in Novell eDirectory� or other LDAP-aware directories.
+Novell.Directory.LDAP - LDAP client library (https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard/blob/master/LICENSE)
 License:        MIT License
 License File:   Novell.Directory.LDAP.license
 
-NuGet - NuGet client library. (https://www.nuget.org/packages/NuGet.***/4.3.0)
-License:        Apache 2.0 license
-License File:   NuGet.Common.license, NuGet.Frameworks.license, NuGet.Packaging.license, NuGet.Packaging.Core.license
-
-NUnit - NUnit is a unit-testing framework for all .Net languages. (https://www.nuget.org/packages/NUnit/3.11.0)
+NUnit - NUnit features a fluent assert syntax, parameterized, generic and theory tests and is user-extensible. (https://github.com/nunit/nunit/blob/master/LICENSE.txt)
 License:        MIT License
 License File:   NUnit.license
 
-NVelocity - NVelocity is a port of the excellent Apache Jakarta Velocity project. (https://www.nuget.org/packages/NVelocity)
-License:        Apache 2.0 license
+NVelocity - NVelocity is a port of the excellent Apache Jakarta Velocity project. It is a very simple, easy to learn and extensible template engine. (http://www.apache.org/licenses/LICENSE-2.0.html)
+License:        Apache License 2.0
 License File:   NVelocity.license
 
-openstack.net - An OpenStack SDK for Microsoft .NET (https://www.nuget.org/packages/openstack.net)
+openstack.net - An OpenStack SDK for Microsoft .NET (http://www.openstacknetsdk.org/docs/html/8b286b82-7aaf-4e45-9ffc-adbd7dbcfaa6.htm)
 License:        MIT License, Open Source Licenses
 License File:   openstack.net.license
 
-Owin - OWIN IAppBuilder startup interface (https://www.nuget.org/packages/Owin)
-License:        Apache 2.0 license
+Owin - OWIN IAppBuilder startup interface (https://github.com/owin-contrib/owin-hosting/blob/master/LICENSE.txt)
+License:        Apache License 2.0
 License File:   Owin.license
 
-Pipelines.Sockets.Unofficial - Package Description (https://www.nuget.org/packages/Pipelines.Sockets.Unofficial/1.0.9)
-License:        MIT License + Third Party Licenses
+Pipelines.Sockets.Unofficial - Package Description (https://raw.githubusercontent.com/mgravell/Pipelines.Sockets.Unofficial/master/LICENSE)
+License:        MIT License
 License File:   Pipelines.Sockets.Unofficial.license
 
-Rackspace - Automating all things Rackspace (https://www.nuget.org/packages/Rackspace)
-License:        Apache 2.0 license
+Portable.BouncyCastle - BouncyCastle portable version with support for .NET 4, .NET Standard 2.0 (https://www.bouncycastle.org/csharp/licence.html)
+License:        MIT X11 License 
+License File:   Portable.BouncyCastle.license
+
+Rackspace - Automating all things Rackspace (https://github.com/rackspace/rackspace-net-sdk/blob/master/LICENSE)
+License:        Apache License 2.0
 License File:   Rackspace.license
 
-RedisSessionProvider - A configurable SessionStateStoreProvider that persists data to a Redis server (https://www.nuget.org/packages/RedisSessionProvider/)
-License:        Apache 2.0 license
+RedisSessionProvider - A configurable SessionStateStoreProvider that persists data to a Redis server (https://github.com/welegan/RedisSessionProvider/blob/master/LICENSE)
+License:        Apache License 2.0
 License File:   RedisSessionProvider.license
 
-RestSharp - Simple REST and HTTP API Client (https://www.nuget.org/packages/RestSharp)
-License:        Apache 2.0 license
+RestSharp - Simple REST and HTTP API Client (https://github.com/restsharp/RestSharp/blob/master/LICENSE.txt)
+License:        Apache License 2.0
 License File:   RestSharp.license
 
-SelectelSharp - .NET Selectel Cloud Storage sdk.  (https://github.com/yakovlevga/selectel-sharp)
+SelectelSharp - The Selectel Cloud Storage SDK for .NET (https://github.com/yakovlevga/selectel-sharp/blob/master/LICENSE)
 License:        MIT License
 License File:   SelectelSharp.license
 
-SharpCompress - SharpCompress is a compression library for .NET/Mono/Silverlight/WP7/WindowsStore that can unrar, decompress 7zip, zip/unzip, tar/untar bzip2/unbzip2 and gzip/ungzip with forward-only reading and file random access APIs. Write support for zip/tar/bzip2/gzip is implemented. (https://www.nuget.org/packages/sharpcompress/0.22.0)
+SharpCompress - SharpCompress is a compression library for NET Standard 1.3/2.0 that can unrar, decompress 7zip, decompress xz, zip/unzip, tar/untar lzip/unlzip, bzip2/unbzip2 and gzip/ungzip with forward-only reading and file random access APIs. Write support for zip/tar/bzip2/gzip is implemented. (https://github.com/adamhathcock/sharpcompress/blob/master/LICENSE.txt)
 License:        MIT License
 License File:   SharpCompress.license
 
-StackExchange.Redis - is a library that extends StackExchange.Redis allowing you a set of functionality needed by common applications. (https://www.nuget.org/packages/StackExchange.Redis***)
+SSH.NET - SSH.NET is a Secure Shell (SSH) library for .NET, optimized for parallelism and with broad framework support. (https://github.com/sshnet/SSH.NET/blob/master/LICENSE)
 License:        MIT License
-License File:   StackExchange.Redis.license, StackExchange.Redis.Extensions.Core.license, StackExchange.Redis.Extensions.LegacyConfiguration.license
+License File:   SSH.NET.license
 
-Textile - Textile.NET is, surprisingly, a textile formatter for .NET projects. (http://textilenet.codeplex.com/)
-License:        Apache 2.0 license
+StackExchange.Redis - High performance Redis client, incorporating both synchronous and asynchronous usage. (https://raw.githubusercontent.com/StackExchange/StackExchange.Redis/master/LICENSE)
+License:        MIT License
+License File:   StackExchange.Redis.license
+
+StackExchange.Redis.Extensions.Core - StackExchange.Redis.Extensions is a library that extends StackExchange.Redis allowing you a set of functionality needed by common applications. (https://github.com/imperugo/StackExchange.Redis.Extensions/blob/master/LICENSE)
+License:        MIT License
+License File:   StackExchange.Redis.Extensions.Core.license
+
+StackExchange.Redis.Extensions.LegacyConfiguration - StackExchange.Redis.Extensions.LegacyConfiguration is a library that allows you to use App.Config or WebConfig with StackExchange.Redis.Extensions (https://github.com/imperugo/StackExchange.Redis.Extensions/blob/master/LICENSE)
+License:        MIT License
+License File:   StackExchange.Redis.Extensions.LegacyConfiguration.license
+
+System.AppContext - Provides the System.AppContext class, which allows access to the BaseDirectory property and other application specific data. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.AppContext.license
+
+System.Buffers - Provides resource pooling of any type for performance-critical applications that allocate and deallocate objects frequently. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Buffers.license
+
+System.Collections - Provides classes that define generic collections, which allow developers to create strongly typed collections that provide better type safety and performance than non-generic strongly typed collections. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Collections.license
+
+System.Collections.Concurrent - Provides several thread-safe collection classes that should be used in place of the corresponding types in the System.Collections.NonGeneric and System.Collections packages whenever multiple threads are accessing the collection concurrently. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Collections.Concurrent.license
+
+System.Collections.Immutable - This package provides collections that are thread safe and guaranteed to never change their contents, also known as immutable collections. Like strings, any methods that perform modifications will not change the existing instance but instead return a new instance. For efficiency reasons, the implementation uses a sharing mechanism to ensure that newly created instances share as much data as possible with the previous instance while ensuring that operations have a predictable time complexity. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Collections.Immutable.license
+
+System.Console - Provides the System.Console class, which represents the standard input, output and error streams for console applications (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Console.license
+
+System.Data.SQLite.Core - The official SQLite database engine for both x86 and x64 along with the ADO.NET provider. (https://www.sqlite.org/copyright.html)
+License:        Public Domain
+License File:   System.Data.SQLite.Core.license
+
+System.Diagnostics.Debug - Provides classes and attributes that allows basic interaction with a debugger. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Diagnostics.Debug.license
+
+System.Diagnostics.DiagnosticSource - Provides Classes that allow you to decouple code logging rich (unserializable) diagnostics/telemetry (e.g. framework) from code that consumes it (e.g. tools) (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Diagnostics.DiagnosticSource.license
+
+System.Diagnostics.PerformanceCounter - Provides the System.Diagnostics.PerformanceCounter class, which allows access to Windows performance counters. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Diagnostics.PerformanceCounter.license
+
+System.Diagnostics.Tools - Provides attributes, such as GeneratedCodeAttribute and SuppresMessageAttribute, that are emitted or consumed by analysis tools. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Diagnostics.Tools.license
+
+System.Diagnostics.Tracing - Provides class that enable you to create high performance tracing events to be captured by event tracing for Windows (ETW). (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Diagnostics.Tracing.license
+
+System.Globalization - Provides classes that define culture-related information, including language, country/region, calendars in use, format patterns for dates, currency, and numbers, and sort order for strings. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Globalization.license
+
+System.Globalization.Calendars - Provides classes for performing date calculations using specific calendars, including the Gregorian, Julian, Hijri and Korean calendars. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Globalization.Calendars.license
+
+System.IdentityModel.Tokens.Jwt - Includes types that provide support for creating, serializing and validating JWT tokens. (https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   System.IdentityModel.Tokens.Jwt.license
+
+System.Interactive.Async - Interactive Extensions Async Library used to express queries over asynchronous enumerable sequences. (https://github.com/dotnet/reactive/blob/master/LICENSE)
+License:        MIT License
+License File:   System.Interactive.Async.license
+
+System.IO - Provides classes that support the compression and decompression of streams. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.IO.license
+
+System.IO.Compression - Provides classes that support the compression and decompression of streams. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.IO.Compression.license
+
+System.IO.Compression.ZipFile - Provides classes that support the compression and decompression of streams using file system paths. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.IO.Compression.ZipFile.license
+
+System.IO.FileSystem - Provides types that allow reading and writing to files and types that provide basic file and directory support. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.IO.FileSystem.license
+
+System.IO.FileSystem.Primitives - Provides common enumerations and exceptions for path-based I/O libraries. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.IO.FileSystem.Primitives.license
+
+System.IO.Pipelines - Single producer single consumer byte buffer management. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.IO.Pipelines.license
+
+System.Linq - Provides classes and interfaces that supports queries that use Language-Integrated Query (LINQ). (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Linq.license
+
+System.Linq.Expressions - Provides classes, interfaces and enumerations that enable language-level code expressions to be represented as objects in the form of expression trees. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Linq.Expressions.license
+
+System.Memory - Provides types for efficient representation and pooling of managed, stack, and native memory segments and sequences of such segments, along with primitives to parse and format UTF-8 encoded text stored in those memory segments. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Memory.license
+
+System.Net.Http - Provides a programming interface for modern HTTP applications, including HTTP client components that allow applications to consume web services over HTTP and HTTP components that can be used by both clients and servers for parsing HTTP headers. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Net.Http.license
+
+System.Net.Primitives - Provides common types for network-based libraries, including System.Net.IPAddress, System.Net.IPEndPoint, and System.Net.CookieContainer. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Net.Primitives.license
+
+System.Net.Sockets - Provides classes such as Socket, TcpClient and UdpClient, which enable developers to send and receive data over the network. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Net.Sockets.license
+
+System.Numerics.Vectors - Provides hardware-accelerated numeric types, suitable for high-performance processing and graphics applications. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Numerics.Vectors.license
+
+System.ObjectModel - Provides types and interfaces that allow the creation of observable types that provide notifications to clients when changes are made to it. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.ObjectModel.license
+
+System.Reflection - Provides types that retrieve information about assemblies, modules, members, parameters, and other entities in managed code by examining their metadata. These types also can be used to manipulate instances of loaded types, for example to hook up events or to invoke methods. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Reflection.license
+
+System.Reflection.Extensions - Provides custom attribute extension methods for System.Reflection types. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Reflection.Extensions.license
+
+System.Reflection.Primitives - Provides common enumerations for reflection-based libraries. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Reflection.Primitives.license
+
+System.Reflection.TypeExtensions - Provides extensions methods for System.Type that are designed to be source-compatible with older framework reflection-based APIs. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Reflection.TypeExtensions.license
+
+System.Resources.ResourceManager - Provides classes and attributes that allow developers to create, store, and manage various culture-specific resources used in an application. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Resources.ResourceManager.license
+
+System.Runtime - Provides the fundamental primitives, classes and base classes that define commonly-used value and reference data types, events and event handlers, interfaces, attributes, and exceptions. This packages represents the core package, and provides the minimal set of types required to build a managed application. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.license
+
+System.Runtime.CompilerServices.Unsafe - Provides the System.Runtime.CompilerServices.Unsafe class, which provides generic, low-level functionality for manipulating pointers. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Runtime.CompilerServices.Unsafe.license
+
+System.Runtime.CompilerServices.Unsafe - Provides the System.Runtime.CompilerServices.Unsafe class, which provides generic, low-level functionality for manipulating pointers. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Runtime.CompilerServices.Unsafe.license
+
+System.Runtime.Extensions - Provides commonly-used classes for performing mathematical functions, conversions, string comparisons and querying environment information. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.Extensions.license
+
+System.Runtime.Handles - Provides base classes, including System.Runtime.InteropServices.CriticalHandle and System.Runtime.InteropServices.SafeHandle, for types that represent operating system handles. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.Handles.license
+
+System.Runtime.InteropServices - Provides types that support COM interop and platform invoke services. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.InteropServices.license
+
+System.Runtime.InteropServices.RuntimeInformation - Provides APIs to query about runtime and OS information. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.InteropServices.RuntimeInformation.license
+
+System.Runtime.Numerics - Provides the numeric types System.Numerics.BigInteger and System.Numerics.Complex, which complement the numeric primitives, such as System.Byte, System.Double and System.Int32. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.Numerics.license
+
+System.Runtime.Serialization.Primitives - Provides common types, including System.Runtime.Serialization.DataContractAttribute, for libraries that support data contract serialization. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Runtime.Serialization.Primitives.license
+
+System.Security.Cryptography.Algorithms - Provides base types for cryptographic algorithms, including hashing, encryption, and signing operations. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Security.Cryptography.Algorithms.license
+
+System.Security.Cryptography.Encoding - Provides types for representing Abstract Syntax Notation One (ASN.1)-encoded data. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Security.Cryptography.Encoding.license
+
+System.Security.Cryptography.Primitives - Provides common types for the cryptographic libraries. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Security.Cryptography.Primitives.license
+
+System.Security.Cryptography.X509Certificates - Provides types for reading, exporting and verifying Authenticode X.509 v3 certificates. These certificates are signed with a private key that uniquely and positively identifies the holder of the certificate. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Security.Cryptography.X509Certificates.license
+
+System.Text.Encoding - Provides base abstract encoding classes for converting blocks of characters to and from blocks of bytes. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Text.Encoding.license
+
+System.Text.Encoding.CodePages - Provides support for code-page based encodings, including Windows-1252, Shift-JIS, and GB2312. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Text.Encoding.CodePages.license
+
+System.Text.Encoding.Extensions - Provides support for specific encodings, including ASCII, UTF-7, UTF-8, UTF-16, and UTF-32. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Text.Encoding.Extensions.license
+
+System.Text.RegularExpressions - Provides the System.Text.RegularExpressions.Regex class, an implementation of a regular expression engine. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Text.RegularExpressions.license
+
+System.Threading - Provides the fundamental synchronization primitives, including System.Threading.Monitor and System.Threading.Mutex, that are required when writing asynchronous code. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Threading.license
+
+System.Threading.Channels - Provides types for passing data between producers and consumers. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   System.Threading.Channels.license
+
+System.Threading.Tasks - Provides types that simplify the work of writing concurrent and asynchronous code. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Threading.Tasks.license
+
+System.Threading.Tasks.Extensions - Provides additional types that simplify the work of writing concurrent and asynchronous code. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Threading.Tasks.Extensions.license
+
+System.Threading.Tasks.Extensions - Provides additional types that simplify the work of writing concurrent and asynchronous code. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.Threading.Tasks.Extensions.license
+
+System.Threading.Timer - Provides the System.Threading.Timer class, which is a mechanism for executing a method at specified intervals. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Threading.Timer.license
+
+System.ValueTuple - Provides the System.ValueTuple structs, which implement the underlying types for tuples in C# and Visual Basic. (https://github.com/dotnet/corefx/blob/master/LICENSE.TXT)
+License:        MIT License
+License File:   System.ValueTuple.license
+
+System.Xml.ReaderWriter - Provides provides a fast, non-cached, forward-only way to read and write Extensible Markup Language (XML) data. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Xml.ReaderWriter.license
+
+System.Xml.XDocument - Provides the classes for Language-Integrated Query (LINQ) to Extensible Markup Language (XML). LINQ to XML is an in-memory XML programming interface that enables you to modify XML documents efficiently and easily. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
+License File:   System.Xml.XDocument.license
+
+Telegram.Bot - The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram
+License:        MIT License
+License File    Telegram.Bot.license
+
+Textile - Textile.NET is, surprisingly, a textile formatter for .NET projects. (https://textilenet.codeplex.com/license)
+License:        Apache License 2.0
 License File:   Textile.license
 
-Twilio - Twilio REST API helper library (https://www.nuget.org/packages/Twilio)
+Twilio - Twilio REST API helper library (https://github.com/twilio/twilio-csharp/blob/master/LICENSE.md)
 License:        MIT License
 License File:   Twilio.license
 
-Twilio.AspNet.Mvc - Twilio helpers for ASP.NET MVC versions 3 through 5. (https://www.nuget.org/packages/Twilio.AspNet.Mvc)
-License:        Apache 2.0 license
+Twilio.AspNet.Mvc - Twilio helpers for ASP.NET MVC versions 3 through 5. (https://github.com/twilio/twilio-aspnet/blob/master/LICENSE)
+License:        Apache License 2.0
 License File:   Twilio.AspNet.Mvc.license
 
-Twitterizer - http://www.twitterizer.net/
+twitterizer - Twitter integration library (http://www.twitterizer.net/license/)
 License:        AS-IS
-License File:   Twitterizer.license
+License File:   twitterizer.license
 
-UAParser -  A .net wrapper for the ua-parser library (https://www.nuget.org/packages/UAParser/3.0.0)
-License:        Apache 2.0 license
+UAParser - A .net wrapper for the ua-parser library (https://licenses.nuget.org/Apache-2.0)
+License:        Apache License 2.0
 License File:   UAParser.license
 
-UDE.CSharp - Compiled version of "C# port of Mozilla Universal Charset Detector" (https://www.nuget.org/packages/UDE.CSharp)
+Ubiety.Dns.Core - Flexible DNS library for .NET (https://licenses.nuget.org/MIT)
+License:        MIT License (version 2.4.1)
+License File:   Ubiety.Dns.Core.license
+
+UDE.CSharp - Compiled version of "C# port of Mozilla Universal Charset Detector" (https://github.com/errepi/ude/tree/master/license)
 License:        MPL 1.1, GPL 2.0, LGPL 2.1
 License File:   UDE.CSharp.license
 
-WebGrease - Web Grease is a suite of tools for optimizing javascript, css files and images. (https://www.nuget.org/packages/WebGrease)
-License:        MS-.NET-Library License 
+WebGrease - Web Grease is a suite of tools for optimizing javascript, css files and images. (https://www.microsoft.com/web/webpi/eula/aspnetcomponent_rtw_ENU.htm)
+License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   WebGrease.license
 
-WebSocketSharp - websocket-sharp provides the WebSocket protocol client and server. (https://www.nuget.org/packages/WebSocketSharp)
+WebSocketSharp - websocket-sharp provides the WebSocket protocol client and server. (https://raw.githubusercontent.com/sta/websocket-sharp/master/LICENSE.txt)
 License:        MIT License
 License File:   WebSocketSharp.license
 
 ====================================================================================================
-JavaScript Plugins
+npm packages
 ====================================================================================================
 
-web\studio\ASC.Web.Studio\addons\calendar\UserControls\fullcalendar\fullcalendar.js
-fullcalendar.js - A full-sized, drag and drop calendar for jQuery (https://www.nuget.org/packages/jQuery.Fullcalendar)
-License:        MIT, GPL  
-License File:   fullcalendar.license
-
-web\studio\ASC.Web.Studio\addons\calendar\UserControls\js\bluebird.min.js
-bluebird.js - Bluebird is a fully featured promise library with focus on innovative features and performance. (https://github.com/petkaantonov/bluebird)
-License:        MIT
-License File:   bluebird.license
-
-web\studio\ASC.Web.Studio\addons\calendar\UserControls\js\jquery.cookie.js
-jquery.cookie.js - Javascript Cookie Library with jQuery bindings and JSON support. (http://stilbuero.de)
-License:        MIT, GPL
-License File:   jquery.cookies.license
-
-web\studio\ASC.Web.Studio\addons\calendar\UserControls\js\jquery.jscrollpane.min.js
-jquery.jscrollpane.js - jScrollPane is a cross-browser jQuery plugin by Kelvin Luck which converts a browser's default scrollbars (http://jscrollpane.kelvinluck.com/)
-License:        MIT, GPL 
-License File:   jquery.jscrollpane.license
-
-web\studio\ASC.Web.Studio\addons\calendar\UserControls\js\jquery.mousewheel.js
-jquery.mousewheel.js - A jQuery plugin that adds cross-browser mouse wheel support. (http://brandonaaron.net)
-License:        MIT
-License File:   jquery.mousewheel.license
-
-web\studio\ASC.Web.Studio\addons\mail\js\third-party\jquery.dotdotdot.min.js
-jquery.dotdotdot.js - Dotdotdot is a javascript plugin for truncating multiple line content (http://dotdotdot.frebsite.nl)
-License:        MIT
-License File:   jquery.dotdotdot.license
-
-web\studio\ASC.Web.Studio\addons\mail\js\third-party\jquery.textchange.min.js
-jquery.textchange.js - Simple cross browser detection of text changes for input and textarea elements using a jQuery custom event plugin by ZURB. (http://zurb.com/playground/jquery-text-change-custom-event)
-License:        MIT
-License File:   jquery.textchange.license
-
-web\studio\ASC.Web.Studio\addons\mail\js\third-party\linkify-string.min.js
-web\studio\ASC.Web.Studio\addons\mail\js\third-party\linkify.min.js
-linkify.js - Find URLs in plain text and return HTML for discovered links. (https://github.com/SoapBox/linkifyjs)
-License:        MIT
-License File:   jquery.linkify.license
-
-web\studio\ASC.Web.Studio\addons\mail\js\third-party\placeholder.js
-placeholder.js - Placeholder plugin for jQuery (http://www.xiper.net/examples/js-plugins/html5-and-css3/placeholder/js/jquery.placeholder.js)
-License:        MIT, BSD, GPL
-License File:   jquery.placeholder.license
-
-web\studio\ASC.Web.Studio\addons\talk\js\gears.init.js
-gears.js - Google Gears 
-License:        AS IS
-License File:   gears.license
-
-web\studio\ASC.Web.Studio\addons\talk\js\iscroll.js
-iscroll.js - iScroll Lite Edition based on iScroll v4.0 Beta 4
-License:        MIT
-License File:   iscroll.license
-
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\flxhr\checkplayer.js
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\flxhr\flensed.js
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\flxhr\flxhr.js
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\flxhr\swfobject.js
-flxhr.js - This plugin implements cross-domain XmlHttpRequests via an invisible Flash plugin.
-License:        MIT
-License File:   flxhr.license
-
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\plugins\strophe.flxhr.js
-strophe.flxhr.js - This plugin implements cross-domain XmlHttpRequests via an invisible Flash plugin. (https://github.com/strophe/strophejs-plugin-flxhr)
-License:        Unknown
-
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\strophe\base64.js
-base64.js - Base64 code from Tyler Akins (http://rumkin.com)
-License:        Unknown
-
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\strophe\core.js
-core.js - A JavaScript library for XMPP BOSH
-License:        MIT
-License File:   strophe.license
-
-web\studio\ASC.Web.Studio\addons\talk\js\jlib\strophe\md5.js
-md5.js - A JavaScript implementation of the RSA Data Security
-License:        BSD
-License File:   md5.license
-
-web\studio\ASC.Web.Studio\js\asc\plugins\svg4everybody.js
-svg4everybody.js - Use external SVG spritemaps in any browser (https://github.com/jonathantneal/svg4everybody)
-License:        CC0 1.0 Universal License
-License File:   svg4everybody.license
-
-web\studio\ASC.Web.Studio\js\third-party\ajaxpro.core.js
-ajaxpro.core.js - Ajax.NET Professional (AjaxPro) for Microsoft ASP.NET  (http://www.ajaxpro.info)
-License:        MIT
-License File:   ajaxpro.core.license
-
-web\studio\ASC.Web.Studio\js\third-party\async.js
-async.js - Async utilities for node and the browser (https://github.com/caolan/async)
-License:        MIT
-License File:   async.license
-
-web\studio\ASC.Web.Studio\js\third-party\autosize.js
-autosize.js - Autosize is a small, stand-alone script to automatically adjust textarea height to fit text.  (https://github.com/jackmoore/autosize)
-License:        MIT
-License File:   autosize.license
-
-web\studio\ASC.Web.Studio\js\third-party\clipboard.js
-clipboard.js - A modern approach to copy text to clipboard (https://zenorocha.github.io/clipboard.js)
-License:        MIT
-License File:   clipboard.license
-
-web\studio\ASC.Web.Studio\js\third-party\email-addresses.js
-email-addresses.js - An RFC 5322 email address parser. (https://github.com/jackbearheart/email-addresses)
-License:        MIT
-License File:   email-addresses.license
-
-web\studio\ASC.Web.Studio\js\third-party\firebase-app.js
-web\studio\ASC.Web.Studio\js\third-party\firebase-auth.js
-web\studio\ASC.Web.Studio\js\third-party\firebase-database.js
-web\studio\ASC.Web.Studio\js\third-party\firebase-messaging.js
-web\studio\ASC.Web.Studio\js\third-party\firebase.js
-firebase.js - Firebase helps you build better mobile apps and grow your business. (https://firebase.google.com/terms/)
-License:        Apache 2.0 license
-License File:   firebase.license
-
-web\studio\ASC.Web.Studio\js\third-party\head.load.js
-head.load.js - The only script in your <HEAD> (http://headjs.com)
-License:        MIT
-License File:   head.load.license
-
-web\studio\ASC.Web.Studio\js\third-party\highlight.pack.js
-highlight.js - Syntax highlighting for the Web (https://highlightjs.org)
-License:        BSD
-License File:   highlight.license
-
-web\studio\ASC.Web.Studio\js\third-party\ical.js
-ical.js - javascript ICAL
-License:        MPL 2.0
-License File:   ical.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.caret.1.02.min.js
-jquery.caret.js - Manipulate the caret's position in a text box or content-editable element. 
-License:        MIT
-License File:   jquery.caret.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.colors.js
-jquery.colors.js - jQuery plugin for color manipulation and animation support. (http://github.com/jquery/jquery-color)
-License:        jquery.org/license
-License File:   jquery.colors.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.cookies.js
-jquery.cookie.js - Javascript library for accessing and manipulating HTTP cookies in the web browser. (https://github.com/JAAulde/cookies)
-License:        MIT
-License File:   jquery.cookies(JAAulde).license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.cssemoticons.js
-jquery.cssemoticons.js - jQuery plugin to style emoticons with pure CSS3 properties (no images) (https://github.com/JangoSteve/jQuery-CSSEmoticons)
-License:        MIT, GPL
-License File:   jquery.cssemoticons.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.jplayer.js
-jPlayer - is the completely free and open source (MIT) media library written in JavaScript. (https://github.com/jplayer/jPlayer)
-License:        MIT
-License File:   jplayer.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.json.js
-jquery.json.js - jQuery JSON plugin (https://github.com/Krinkle/jquery-json)
-License:        MIT
-License File:   jquery.json.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.linkify.js
-linkify.js - Find URLs in plain text and return HTML for discovered links. (https://github.com/SoapBox/linkifyjs)
-License:        MIT
-License File:   jquery.linkify.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.mask.js
-jquery.mask.js - A jQuery Plugin to make masks on form fields and HTML elements. (https://github.com/igorescobar/jQuery-Mask-Plugin)
-License:        MIT
-License File:   jquery.mask.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.notification.js
-jquery.notification.js - Webkit Notification API jQuery Wrapper (https://github.com/azproduction/jquery.notification)
-License:        MIT
-License File:   jquery.notification.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.scrollto.js
-jquery.scrollTo.js - Easy element scrolling using jQuery. (http://flesler.blogspot.com/2007/10/jqueryscrollto.html)
-License:        MIT
-License File:   jquery.scrollto.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.tmpl.js
-jquery.tmpl.js - jQuery Templates plugin
-License:        MIT, GPL, jquery.org/license
-License File:   jquery.tmpl.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.ui.js
-jquery.ui.js - jQuery  UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library. Whether you're  building highly interactive web applications or you just need to add a date picker to a form control, jQuery UI is the perfect choice.  (http://jqueryui.com/)
-License:        jquery license
-License File:   jquery.ui.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jquery.uri.js
-jquery.uri.js - Mutating URLs
-License:        jquery license
-License File:   jquery.uri.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\jstree.min.js
-jstree.js - jsTree is jquery plugin, that provides interactive trees. (https://www.jstree.com/)
-License:        MIT
-License File:   jstree.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\noty\bottomright.js
-web\studio\ASC.Web.Studio\js\third-party\jquery\noty\default.js
-web\studio\ASC.Web.Studio\js\third-party\jquery\noty\jquery.noty.js
-jquery.noty.js - NOTY is a notification library that makes it easy to create messages as an alternative the standard alert dialog. (https://github.com/needim/noty)
-License:        MIT
-License File:   jquery.noty.license
-
-web\studio\ASC.Web.Studio\js\third-party\jquery\toastr.js
-toastr.js - Simple javascript toast notifications. (https://github.com/CodeSeven/toastr)
-License:        MIT
-License File:   toastr.license
-
-web\studio\ASC.Web.Studio\js\third-party\moment-timezone.min.js
-moment-timezone.js - Timezone support for moment.js (github.com/moment/moment-timezone)
-License:        MIT
-License File:   moment-timezone.license
-
-web\studio\ASC.Web.Studio\js\third-party\moment.min.js
-moment.js - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://www.npmjs.com/package/moment)
-License:        MIT
-License File:   moment.license
-
-web\studio\ASC.Web.Studio\js\third-party\nlp.js
-rrule.js - Library for working with recurrence rules for calendar dates. (https://github.com/jkbrzt/rrule)
-License:        BSD
-License File:   rrule.license
-
-web\studio\ASC.Web.Studio\js\third-party\punycode.js
-punycode.js - A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms. (https://mths.be/punycode)
-License:        MIT
-License File:   punycode.license
-
-web\studio\ASC.Web.Studio\js\third-party\purify.min.js
-DOMPurify - a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. (https://github.com/cure53/DOMPurify)
-License:        Apache 2.0 License or MPL 2.0
-License File:   dompurify.license
-
-web\studio\ASC.Web.Studio\js\third-party\rrule.js
-rrule.js - Library for working with recurrence rules for calendar dates. (https://github.com/jkbrzt/rrule)
-License:        BSD
-License File:   rrule.license
-
-web\studio\ASC.Web.Studio\js\third-party\setimmediate.js
-setImmediate.js - A cross-browser implementation of the new setImmediate API. (https://github.com/NobleJS/setImmediate)
-License:        MIT
-License File:   setimmediate.license
-
-web\studio\ASC.Web.Studio\js\third-party\slick.min.js
-slick - the last carousel you'll ever need http://kenwheeler.github.io/slick
-License:        MIT
-License File:   slick.license
-
-web\studio\ASC.Web.Studio\js\third-party\socket.io.js
-socket.io - Realtime application framework (client) (https://github.com/socketio/socket.io-client)
-License:        MIT
-License File:   socket.io.license
-
-web\studio\ASC.Web.Studio\js\third-party\sorttable.js
-sorttable.js - Make all your tables sortable (http://www.kryogenix.org/code/browser/sorttable/)
-License:        MIT
-License File:   sorttable.license
-
-web\studio\ASC.Web.Studio\js\third-party\xregexp.js
-xregexp - XRegExp provides augmented (and extensible) JavaScript regular expressions (http://xregexp.com/)
-License:        MIT License
-License File:   xregexp.license
-
-web\studio\ASC.Web.Studio\js\uploader\ajaxupload.js
-AjaxUpload - Ajax file upload (http://valums.com/ajax-upload/)
-License:        MIT
-License File:   ajaxupload.license
-
-web\studio\ASC.Web.Studio\ThirdParty\plugin\easyBib\select2.min.js
-Select2 - jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results. (https://select2.org/)
-License:        MIT
-License File:   select2.license
-
-web\studio\ASC.Web.Studio\UserControls\Common\ckeditor\ckeditor.js
-ckeditor - Smart WYSIWYG editor components with collaborative editing. (https://ckeditor.com/)
-License:        GNU General Public License Version 2 or later, GNU Lesser General Public License Version 2.1 or later, Mozilla Public License Version 1.1 or later
-License File:   ckeditor.license
-
-web\studio\ASC.Web.Studio\UserControls\Common\ckeditor\plugins\codemirror\plugin.js
-codemirror - Syntax Highlighting for the CKEditor (https://github.com/w8tcha/CKEditor-CodeMirror-Plugin)
-License:        MIT
-License File:   codemirror.license
-
-web\studio\ASC.Web.Studio\UserControls\Common\ckeditor\plugins\oembed\plugin.js
-oembed - oEmbed Plugin for CKEditor (https://github.com/w8tcha/CKEditor-oEmbed-Plugin)
-License:        MIT
-License File:   oembed.license 
-
-web\studio\ASC.Web.Studio\UserControls\Common\MediaViewer\tiff.min.js
-tiff.js - port of LibTIFF by compiling the LibTIFF C code with Emscripten. (https://github.com/seikichi/tiff.js)
-License:        AS-IS
-License File:   tiff.license
-
-web\studio\ASC.Web.Studio\UserControls\Statistics\VisitorsChart\js\excanvas.min.js
-excanvas - Canvas for IE8 and older (https://github.com/arv/explorercanvas)
-License:        Apache 2.0 License
-License File:   excanvas.license
-
-web\studio\ASC.Web.Studio\UserControls\Statistics\VisitorsChart\js\jquery.flot.js
-flot - Attractive JavaScript charts for jQuery (http://www.flotcharts.org/)
-License:        MIT
-License File:   flot.license
-
-web\studio\ASC.Web.Studio\UserControls\Users\UserProfile\js\jquery.jcrop.js
-jquery.jcrop.js - Jcrop is the quick and easy way to add image cropping functionality to your web application (https://github.com/tapmodo/Jcrop)
-License:        MIT
-License File:   jcrop.license
-
-====================================================================================================
-NodeJS Packages
-source: module\ASC.Socket.IO\package.json, module\ASC.Thumbnails\package.json, module\ASC.UrlShortener\package.json
-====================================================================================================
-
-connect-redis - connect-redis is a Redis session store backed by node_redis, and is insanely fast :) (https://www.npmjs.com/package/connect-redis)
-License:        MIT
-License File:   connect-redis.license
-
-body-parser - Node.js body parsing middleware. (https://www.npmjs.com/package/body-parser)
+body-parser - Node.js body parsing middleware. (https://github.com/expressjs/body-parser/blob/master/LICENSE)
 License:        MIT
 License File:   body-parser.license
 
-co - Generator based control flow goodness for nodejs and the browser, using promises, letting you write non-blocking code in a nice-ish way. (https://www.npmjs.com/package/co)
+body-parser - Node.js body parsing middleware. (https://github.com/expressjs/body-parser/blob/master/LICENSE)
+License:        MIT
+License File:   body-parser.license
+
+co - Generator based control flow goodness for nodejs and the browser, using promises, letting you write non-blocking code in a nice-ish way. (https://github.com/tj/co/blob/master/LICENSE)
 License:        MIT
 License File:   co.license
 
-cookie-parser - Parse Cookie header and populate req.cookies with an object keyed by the cookie names. (https://www.npmjs.com/package/cookie-parser)
+config - Node-config organizes hierarchical configurations for your app deployments. (https://github.com/lorenwest/node-config/blob/master/LICENSE)
+License:        MIT
+License File:   config.license
+
+connect-redis - connect-redis is a Redis session store backed by node_redis, and is insanely fast :). Requires redis >= 2.0.0 for the SETEX command. (https://github.com/tj/connect-redis)
+License:        MIT
+License File:   connect-redis.license
+
+cookie-parser - Parse Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware. (https://github.com/expressjs/cookie-parser/blob/master/LICENSE)
 License:        MIT
 License File:   cookie-parser.license
 
-debug - A tiny JavaScript debugging utility modelled after Node.js core's debugging technique. (https://www.npmjs.com/package/debug)
-License:        MIT
-License File:   debug.license
-
-express - Fast, unopinionated, minimalist web framework for node. (https://www.npmjs.com/package/express)
-License:        MIT
-License File:   express.license
-
-express-session - This is a Node.js module available through the npm registry. (https://www.npmjs.com/package/express-session)
-License:        MIT
-License File:   express-session.license
-
-express-socket.io-session - Share a cookie-based express-session middleware with socket.io. (https://www.npmjs.com/package/express-socket.io-session)
-License:        MIT
-License File:   express-socket.io-session.license
-
-memorystore - A session store implementation for Express using lru-cache. (https://www.npmjs.com/package/memorystore)
-License:        MIT
-License File:   memorystore.license
-
-moment - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://www.npmjs.com/package/moment)
-License:        MIT
-License File:   moment.license
-
-morgan - HTTP request logger middleware for node.js (https://www.npmjs.com/package/morgan)
-License:        MIT
-License File:   morgan.license
-
-nconf - Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging. (https://www.npmjs.com/package/nconf)
-License:        MIT
-License File:   nconf.license
-
-redis - This is a complete and feature rich Redis client for node.js (https://www.npmjs.com/package/redis)
-License:        MIT
-License File:   redis.license
-
-request - Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default. (https://www.npmjs.com/package/request)
-License:        Apache-2.0
-License File:   request.license
-
-socket.io - Socket.IO enables real-time bidirectional event-based communication (https://www.npmjs.com/package/socket.io)
-License:        MIT
-License File:   socket.io_.license
-
-ua-parser-js - A JavaScript-based User-Agent string parser (https://www.npmjs.com/package/ua-parser-js)
-License:        MIT
-License File:   ua-parser-js.license
-
-winston - A logger for just about everything. (https://www.npmjs.com/package/winston)
-License:        MIT
-License File:   winston.license
-
-winston-daily-rotate-file - A transport for winston which logs to a rotating file. (https://www.npmjs.com/package/winston-daily-rotate-file)
-License:        MIT
-License File:   winston-daily-rotate-file.license
-
-mysql - A pure node.js JavaScript Client implementing the MySql protocol. (https://www.npmjs.com/package/mysql)
-License:        MIT
-License File:   mysql.license
-
-filenamify-url - Convert a URL to a valid filename (https://www.npmjs.com/package/filenamify-url)
-License:        MIT
-License File:   filenamify-url.license
-
-node-cache - Simple and fast NodeJS internal caching (https://www.npmjs.com/package/node-cache)
-License:        MIT
-License File:   node-cache.license
-
-graceful-fs - functions as a drop-in replacement for the fs module, making various improvements. (https://www.npmjs.com/package/graceful-fs)
-License:        ISC
-License File:   graceful-fs.license
-
-cross-spawn - A cross platform solution to node's spawn and spawnSync. (https://www.npmjs.com/package/cross-spawn)
+cross-spawn - A cross platform solution to node's spawn. (https://github.com/moxystudio/node-cross-spawn/blob/master/LICENSE)
 License:        MIT
 License File:   cross-spawn.license
 
-tmp - A simple temporary file and directory creator for node.js (https://www.npmjs.com/package/tmp)
+debug - A tiny JavaScript debugging utility modelled after Node.js core's debugging technique. Works in Node.js and web browsers. (https://github.com/visionmedia/debug/blob/master/LICENSE)
 License:        MIT
-License File:   tmp.license
+License File:   debug.license
 
-phantomjs-prebuilt - An NPM installer for PhantomJS, headless webkit with JS API. (https://www.npmjs.com/package/phantomjs-prebuilt2)
+express - Fast, unopinionated, minimalist web framework for node. (https://github.com/expressjs/express/blob/master/LICENSE)
+License:        MIT
+License File:   express.license
+
+express - Fast, unopinionated, minimalist web framework for node. (https://github.com/expressjs/express/blob/master/LICENSE)
+License:        MIT
+License File:   express.license
+
+express - Fast, unopinionated, minimalist web framework for node. (https://github.com/expressjs/express/blob/master/LICENSE)
+License:        MIT
+License File:   express.license
+
+express-session - Node.js session middleware. (https://github.com/expressjs/session/blob/master/LICENSE)
+License:        MIT
+License File:   express-session.license
+
+express-socket.io-session - Share a cookie-based express-session middleware with socket.io. Works with express > 4.0.0and socket.io > 1.0.0 and won't be backward compatible. (https://github.com/oskosk/express-socket.io-session/blob/master/LICENSE)
+License:        MIT
+License File:   express-socket.io-session.license
+
+filenamify-url - Convert a URL to a valid filename (https://github.com/sindresorhus/filenamify-url/blob/master/license)
+License:        MIT
+License File:   filenamify-url.license
+
+graceful-fs - graceful-fs functions as a drop-in replacement for the fs module, making various improvements. (https://github.com/isaacs/node-graceful-fs)
+License:        ISC License
+License File:   graceful-fs.license
+
+log4js - This is a conversion of the log4js framework to work with node. I've mainly stripped out the browser-specific code and tidied up some of the javascript. (https://github.com/log4js-node/log4js-node/blob/master/LICENSE)
+License:        Apache-2.0
+License File:   log4js.license
+
+memorystore - A session store implementation for Express using lru-cache. (https://github.com/roccomuso/memorystore/blob/master/LICENSE)
+License:        MIT
+License File:   memorystore.license
+
+moment - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://github.com/moment/moment/blob/develop/LICENSE)
+License:        MIT
+License File:   moment.license
+
+moment - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://github.com/moment/moment/blob/develop/LICENSE)
+License:        MIT
+License File:   moment.license
+
+moment - A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates. (https://github.com/moment/moment/blob/develop/LICENSE)
+License:        MIT
+License File:   moment.license
+
+morgan - HTTP request logger middleware for node.js (https://github.com/expressjs/morgan/blob/master/LICENSE)
+License:        MIT
+License File:   morgan.license
+
+mysql2 - MySQL client for Node.js with focus on performance. Supports prepared statements, non-utf8 encodings, binary log protocol, compression, ssl much more (https://github.com/sidorares/node-mysql2/blob/master/License)
+License:        MIT
+License File:   mysql2.license
+
+nconf - Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging. (https://github.com/indexzero/nconf/blob/master/LICENSE)
+License:        MIT
+License File:   nconf.license
+
+node-cache - A simple caching module that has set, get and delete methods and works a little bit like memcached. Keys can have a timeout (ttl) after which they expire and are deleted from the cache. All keys are stored in a single object so the practical limit is at around 1m keys. (https://github.com/node-cache/node-cache/blob/master/LICENSE)
+License:        MIT
+License File:   node-cache.license
+
+phantomjs-prebuilt - An NPM installer for PhantomJS, headless webkit with JS API. (https://github.com/Medium/phantomjs)
 License:        Apache-2.0
 License File:   phantomjs-prebuilt.license
 
+redis - This is a complete and feature rich Redis client for node.js. It supports all Redis commands and focuses on high performance. (https://github.com/NodeRedis/node-redis/blob/master/LICENSE)
+License:        MIT
+License File:   redis.license
+
+request - Simplified HTTP request client.  (https://github.com/request/request)
+License:        Apache-2.0
+License File:   request.license
+
+request - Simplified HTTP request client.  (https://github.com/request/request)
+License:        Apache-2.0
+License File:   request.license
+
+socket.io - Socket.IO enables real-time bidirectional event-based communication.  (https://github.com/socketio/socket.io/blob/master/LICENSE)
+License:        MIT
+License File:   socket.io.license
+
+tmp - A simple temporary file and directory creator for node.js. (https://github.com/raszi/node-tmp/blob/master/LICENSE)
+License:        MIT
+License File:   tmp.license
+
+ua-parser-js - A JavaScript-based User-Agent string parser. Can be used either in browser (client-side) or in node.js (server-side) environment. Also available as jQuery/Zepto plugin, Bower/Meteor package, & RequireJS/AMD module.  (https://github.com/faisalman/ua-parser-js/blob/master/license.md)
+License:        MIT
+License File:   ua-parser-js.license
+
+winston - A multi-transport async logging library for node.js. "CHILL WINSTON! ... I put it in the logs." (https://github.com/winstonjs/winston/blob/master/LICENSE)
+License:        MIT
+License File:   winston.license
+
+winston - A logger for just about everything. (https://github.com/winstonjs/winston/blob/master/LICENSE)
+License:        MIT
+License File:   winston.license
+
+winston-daily-rotate-file - A transport for winston which logs to a rotating file. Logs can be rotated based on a date, size limit, and old logs can be removed based on count or elapsed days. (https://github.com/winstonjs/winston-daily-rotate-file/blob/master/LICENSE)
+License:        MIT
+License File:   winston-daily-rotate-file.license
+
+winston-daily-rotate-file - A transport for winston which logs to a rotating file. Logs can be rotated based on a date, size limit, and old logs can be removed based on count or elapsed days. (https://github.com/winstonjs/winston-daily-rotate-file/blob/master/LICENSE)
+License:        MIT
+License File:   winston-daily-rotate-file.license
+
 ====================================================================================================
-Media files
-source: web\studio\ASC.Web.Studio\Products\Files\DocStore\startdocuments\default\my\ONLYOFFICE Sample Audio.mp3
+javascript plugins
 ====================================================================================================
 
-ONLYOFFICE Sample Audio.mp3 - Deep and confident corporate track. Perfect for all kind of medias (https://audiojungle.net/item/motivate/18201911?s_rank=60)
+ajaxpro.core.js - Ajax.NET Professional (AjaxPro) for Microsoft ASP.NET  (https://github.com/michaelschwarz/Ajax.NET-Professional/blob/master/LICENSE)
+License:        MIT License
+License File:   ajaxpro.core.license
+
+ajaxupload.js - Ajax file upload (http://valums.com/ajax-upload/) (http://valums.com/mit-license/)
+License:        MIT License
+License File:   ajaxupload.license
+
+async.js - Async utilities for node and the browser  (https://github.com/caolan/async/blob/master/LICENSE)
+License:        MIT License
+License File:   async.license
+
+autosize.js - Autosize is a small, stand-alone script to automatically adjust textarea height to fit text. (https://github.com/jackmoore/autosize/blob/master/LICENSE.md)
+License:        MIT License
+License File:   autosize.license
+
+base64.js - Base64 code from Tyler Akins (http://rumkin.com) (http://rumkin.com/tools/cipher/base64.php)
+License:        Public domain
+License File:   base64.license
+
+bluebird.min.js - Bluebird is a full featured promise library with unmatched performance. (https://github.com/petkaantonov/bluebird/blob/master/LICENSE)
+License:        MIT License
+License File:   bluebird.license
+
+ckeditor.js - Smart WYSIWYG editor components with collaborative editing. (https://ckeditor.com/) (http://ckeditor.com/license)
+License:        GPL 2 (or later) or LGPL 2.1 (or later) or MPL 1.1 (or later)
+License File:   ckeditor.license
+
+clipboard.js - A modern approach to copy text to clipboard (https://zenorocha.mit-license.org/)
+License:        MIT License
+License File:   clipboard.license
+
+codemirror - Syntax Highlighting for the CKEditor (https://github.com/w8tcha/CKEditor-CodeMirror-Plugin/blob/master/LICENSE.md)
+License:        MIT License
+License File:   codemirror.license
+
+email-addresses.js - An RFC 5322 email address parser. (https://github.com/jackbearheart/email-addresses/blob/master/LICENSE)
+License:        MIT License
+License File:   email-addresses.license
+
+excanvas.min.js - Canvas for IE8 and older (https://github.com/arv/ExplorerCanvas/blob/master/COPYING)
+License:        Apache 2.0 License
+License File:   excanvas.license
+
+fckeditor.js - FCKeditor - The text editor for Internet (https://download.cksource.com/FCKeditor/FCKeditor/2.6.3/)
+License:        GPL 2 (or later) or LGPL 2.1 (or later) or MPL 1.1 (or later)
+License File:   fckeditor.license
+
+firebase.js - Firebase helps you build better mobile apps and grow your business. (https://firebase.google.com/terms/)
+License:        Apache 2.0 License
+License File:   firebase.license
+
+flxhr.js - cross-domain Ajax shim using flash+js  (https://github.com/flensed/flXHR/blob/master/license.md)
+License:        MIT License
+License File:   flxhr.license
+
+fullcalendar.js - Full-sized drag & drop event calendar (https://github.com/fullcalendar/fullcalendar/blob/master/LICENSE.txt)
+License:        MIT and GPL licenses
+License File:   fullcalendar.license
+
+gears.init.js - Google Gears (https://yui.github.io/yui2/docs/yui_2.8.0/docs/gears_init.js.html) (https://code.google.com/apis/gears/gears_init.js)
+License:        Google Licencs (BSD?)
+License File:   gears.license
+
+head.load.js - The only script in your <HEAD> (https://github.com/headjs/headjs/blob/master/LICENSE)
+License:        MIT License
+License File:   head.load.license
+
+highlight.pack.js - Syntax highlighting for the Web (https://highlightjs.org)
+License:        BSD 3-Clause "New" or "Revised" License
+License File:   highlight.license
+
+ical.js - Javascript parser for ics files (rfc5545) (https://github.com/kewisch/ical.js)
+License:        MPL 2.0
+License File:   ical.license
+
+iscroll.js - Smooth scrolling for the web (https://github.com/cubiq/iscroll/blob/master/LICENSE)
+License:        MIT License
+License File:   iscroll.license
+
+jquery.blockUI.min.js - jQuery BlockUI Plugin (https://github.com/malsup/blockui)
+License:        MIT and GPL licenses
+License File:   jquery.blockUI.license
+
+jquery.caret.1.02.min.js - Manipulate the caret's position in a text box or content-editable element. (http://cloudgen.w0ng.hk) (http://www.opensource.org/licenses/mit-license.php)
+License:        MIT License
+License File:   jquery.caret.license
+
+jquery.colors.js - jQuery plugin for color manipulation and animation support. (https://github.com/jquery/jquery-color/blob/master/LICENSE.txt)
+License:        jquery license
+License File:   jquery.colors.license
+
+jquery.cookies.js - Javascript library for accessing and manipulating HTTP cookies in the web browser.  (https://github.com/JAAulde/cookies/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.cookies.license
+
+jquery.cron.js - Cron jQuery plugin  (https://github.com/arnapou/jqcron/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.cron.license
+
+jquery.cssemoticons.js - jQuery plugin to style emoticons with pure CSS3 properties (no images) (https://github.com/JangoSteve/jQuery-CSSEmoticons)
+License:        MIT and GPL licenses
+License File:   jquery.cssemoticons.license
+
+jquery.dotdotdot.min.js - dotdotdot.js, advanced cross-browser ellipsis for multiple line content.  (https://github.com/FrDH/dotdotdot-js/blob/v1.7.4/LICENSE.txt)
+License:        MIT License (version 1.7.4)
+License File:   jquery.dotdotdot.license
+
+jquery.fileupload.js - File Upload widget with multiple file selection, drag&drop support, progress bar, validation and preview images, audio and video for jQuery. (https://github.com/blueimp/jQuery-File-Upload/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jquery.fileupload.license
+
+jquery.flot.js - Attractive JavaScript charts for jQuery (https://github.com/flot/flot/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jquery.flot.license
+
+jquery.jcrop.js - Jcrop is the quick and easy way to add image cropping functionality to your web application (https://github.com/tapmodo/Jcrop/blob/master/MIT-LICENSE.txt)
+License:        MIT License
+License File:   jquery.jcrop.license
+
+jquery.jplayer.js - is the completely free and open source (MIT) media library written in JavaScript. (https://github.com/jplayer/jPlayer/blob/master/MIT-LICENSE.txt)
+License:        MIT License
+License File:   jquery.jplayer.license
+
+jquery.jscrollpane.min.js - Pretty, customisable, cross browser replacement scrollbars  (https://github.com/vitch/jScrollPane)
+License:        MIT and GPL licenses
+License File:   jquery.jscrollpane.license
+
+jquery.json.js - Use native JSON.stringify and JSON.parse (https://github.com/Krinkle/jquery-json/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jquery.json.license
+
+jquery.linkify.js - Find URLs in plain text and return HTML for discovered links. (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.linkify.license
+
+jquery.mask.js - A jQuery Plugin to make masks on form fields and HTML elements. (https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.mask.license
+
+jquery.mousewheel.js - A jQuery plugin that adds cross-browser mouse wheel support.  (https://github.com/jquery/jquery-mousewheel/blob/3.1.x/LICENSE.txt)
+License:        MIT License
+License File:   jquery.mousewheel.license
+
+jquery.notification.js - Webkit Notification API jQuery Wrapper (https://github.com/azproduction/jquery.notification/blob/master/LICENCE)
+License:        MIT License
+License File:   jquery.notification.license
+
+jquery.noty.js - NOTY is a notification library that makes it easy to create messages as an alternative the standard alert dialog. (https://github.com/needim/noty/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jquery.noty.license
+
+jquery.scrollTo.js - Lightweight, cross-browser and highly customizable animated scrolling with jQuery  (https://github.com/flesler/jquery.scrollTo/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.scrollTo.license
+
+jquery.textchange.min.js - Simple cross browser detection of text changes for input and textarea  (https://gist.github.com/mkelly12/424774)
+License:        MIT License
+License File:   jquery.textchange.license
+
+jquery.tmpl.js - The original official jQuery Templates plugin. (https://jquery.org/license/)
+License:        MIT License
+License File:   jquery.tmpl.license
+
+jquery.uri.js - A JS utility for for parsing URLs and extracting information out of them.  (https://github.com/allmarkedup/purl/blob/master/LICENSE)
+License:        MIT License
+License File:   jquery.uri.license
+
+jquery-1.8.2.min.js - The purpose of jQuery is to make it much easier to use JavaScript on your website. (https://jquery.org/license/)
+License:        MIT License
+License File:   jquery-1.8.2.license
+
+jquery-ui-1.9.0.min.js - The official jQuery user interface library.  (https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   jquery-ui-1.9.0.license
+
+jstree.min.js - jsTree is jquery plugin, that provides interactive trees (https://github.com/vakata/jstree/blob/master/LICENSE-MIT)
+License:        MIT License
+License File:   jstree.license
+
+linkify.min.js - Linkify is a zero-dependency JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+License:        MIT License
+License File:   linkify.license
+
+linkify-string.min.js - Linkify is a zero-dependency JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+License:        MIT License
+License File:   linkify-string.license
+
+md5.js - JavaScript MD5 (http://pajhome.org.uk/site/legal.html#bsdlicense)
+License:        BSD License
+License File:   md5.license
+
+moment.js - Parse, validate, manipulate, and display dates in javascript.  (https://github.com/moment/moment/blob/develop/LICENSE)
+License:        MIT License
+License File:   moment.license
+
+moment-timezone.min.js - Timezone support for moment.js (https://github.com/moment/moment-timezone/blob/develop/LICENSE)
+License:        MIT License
+License File:   moment-timezone.license
+
+nlp.js - Library for working with recurrence rules for calendar dates. (https://github.com/jakubroztocil/rrule/blob/master/LICENCE)
+License:        BSD licence
+License File:   nlp.license
+
+oembed - oEmbed Plugin for CKEditor (https://github.com/w8tcha/CKEditor-oEmbed-Plugin/blob/master/LICENSE.md)
+License:        MIT License
+License File:   oembed.license
+
+placeholder.js - Fixes the placeholder attribute on non-supported browsers.  (http://www.xiper.net/examples/js-plugins/html5-and-css3/placeholder/js/jquery.placeholder.js)
+License:        MIT, BSD, and GPL Licenses
+License File:   placeholder.license
+
+punycode.js - A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms. (https://github.com/bestiejs/punycode.js/blob/master/LICENSE-MIT.txt)
+License:        MIT License
+License File:   punycode.license
+
+purify.min.js - a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, MathML and SVG. (https://github.com/cure53/DOMPurify/blob/master/LICENSE)
+License:        Apache 2.0 License or MPL 2.0
+License File:   purify.license
+
+rrule.js - Library for working with recurrence rules for calendar dates. (https://github.com/jakubroztocil/rrule/blob/master/LICENCE)
+License:        BSD licence
+License File:   rrule.license
+
+setimmediate.js - A cross-browser implementation of the new setImmediate API. (https://github.com/YuzuJS/setImmediate/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   setimmediate.license
+
+sjcl.js - Stanford Javascript Crypto Library (https://github.com/bitwiseshiftleft/sjcl/blob/master/LICENSE.txt)
+License:        BSD license or GPL version 2.0
+License File:   sjcl.license
+
+slick.min.js - the last carousel you'll ever need http://kenwheeler.github.io/slick (https://github.com/kenwheeler/slick/blob/master/LICENSE)
+License:        MIT License
+License File:   slick.license
+
+socket.io.js - Realtime application framework (client) (https://github.com/socketio/socket.io-client/blob/master/LICENSE)
+License:        MIT License
+License File:   socket.io.license
+
+sorttable.js - Make all your tables sortable (https://kryogenix.org/code/browser/licence.html)
+License:        MIT X11 License
+License File:   sorttable.license
+
+strophe.core.js - Strophe.js is an XMPP library for JavaScript (https://github.com/metajack/strophejs/blob/master/LICENSE.txt)
+License:        MIT License
+License File:   strophe.core.license
+
+strophe.flxhr.js - Strophe.js is an XMPP library for JavaScript (https://github.com/strophe/strophejs-plugin-flxhr)
+License:        MIT License
+License File:   strophe.flxhr.license
+
+svg4everybody.js - Use external SVG spritemaps today (https://github.com/jonathantneal/svg4everybody/blob/master/LICENSE.md)
+License:        CC0 1.0 Universal License
+License File:   svg4everybody.license
+
+swfobject.js - An open source Javascript framework for detecting the Adobe Flash Player plugin and embedding Flash (swf) files.  (https://github.com/swfobject/swfobject/blob/master/LICENSE)
+License:        MIT License
+License File:   swfobject.license
+
+tiff.min.js - port of LibTIFF by compiling the LibTIFF C code with Emscripten. (https://github.com/seikichi/tiff.js/blob/master/LICENSE)
+License:        AS-IS
+License File:   tiff.license
+
+toastr.min.js - Simple javascript toast notifications  (https://github.com/CodeSeven/toastr/blob/master/LICENSE)
+License:        MIT License
+License File:   toastr.license
+
+xregexp.js - XRegExp provides augmented (and extensible) JavaScript regular expressions (https://github.com/slevithan/xregexp/blob/master/LICENSE)
+License:        MIT License
+License File:   xregexp.license
+
+====================================================================================================
+media
+====================================================================================================
+
+ONLYOFFICE Sample Audio - Deep and confident corporate track. Perfect for all kind of medias (https://audiojungle.net/item/motivate/18201911?s_rank=60) (https://audiojungle.net/licenses/terms/music_broadcast_and_film)
 License:        Music Broadcast & Film License
 License File:   ONLYOFFICE Sample Audio.license
 
 ====================================================================================================
-Fonts
-source: web\studio\ASC.Web.Studio\skins\default\opensansoffline\fonts
+fonts
 ====================================================================================================
 
-OpenSans - Google Fonts
+OpenSans - Open Sans is a humanist sans serif typeface designed by Steve Matteson, Type Director of Ascender Corp. (https://fonts.google.com/specimen/Open+Sans)
 License:        Apache 2.0 license
 License File:   OpenSans.license
+

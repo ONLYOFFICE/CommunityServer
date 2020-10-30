@@ -1,25 +1,16 @@
 ﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -31,6 +22,7 @@ window.contactsPage = (function($) {
         isCustomFilterInit = false,
         filter = new Object,
         page,
+        pageActionContainer,
         keepSelectionOnReload = false,
         buttons = [],
         totalCount = 0;
@@ -65,6 +57,7 @@ window.contactsPage = (function($) {
             customFilter.init();
 
             page = $('#id_contacts_page');
+            pageActionContainer = $('#pageActionContainer');
 
             buttons = [
                 { selector: "#contactActionMenu .viewContact", handler: viewContact },
@@ -333,7 +326,7 @@ window.contactsPage = (function($) {
         mailBox.unmarkAllPanels();
         blankPages.hide();
         contactsPanel.selectContact(filter.ContactsStore);
-        page.find('.contentMenuWrapper').remove();
+        pageActionContainer.empty();
         page.find('#ContactsList').remove();
 
         switch (filter.ContactsStore) {
@@ -470,7 +463,9 @@ window.contactsPage = (function($) {
     }
 
     function showEmptyScreen() {
-        page.find('.containerBodyBlock').hide();
+        page.find('.containerBodyBlock').toggleClass('hidden', true);
+        pageActionContainer.empty();
+        $('#bottomNavigationBar').hide();
         switch(filter.ContactsStore) {
             case 'crm':
                 if (isFilterEmpty()) {
@@ -496,6 +491,9 @@ window.contactsPage = (function($) {
 
     function showContacts(params, data) {
 
+        var contactsActionsHtml = $.tmpl("contactsActionsTmpl", {}, { htmlEncode: TMMail.htmlEncode });
+        pageActionContainer.append(contactsActionsHtml);
+
         var contactListHtml = $.tmpl("contactsTmpl", { contacts: data.contacts }, { htmlEncode: TMMail.htmlEncode });
         page.find('.containerBodyBlock').append(contactListHtml);
         page.find('#ContactsList .contact_avatar').each(function () {
@@ -506,7 +504,7 @@ window.contactsPage = (function($) {
 
         createSelectActionPandel();
 
-        page.find('#SelectAllContactsCB').bind('click', function(e) {
+        pageActionContainer.find('#SelectAllContactsCB').bind('click', function (e) {
             if (e.target.checked) {
                 actionPanelSelectAll();
             } else {
@@ -516,7 +514,7 @@ window.contactsPage = (function($) {
             $('#SelectAllContactsDropdown').parent().actionPanel('hide');
         });
 
-        page.find('.menuActionSendEmail').click(function() {
+        pageActionContainer.find('.menuActionSendEmail').click(function () {
             if ($(this).hasClass('unlockAction')) {
                 massMailing();
 
@@ -532,19 +530,19 @@ window.contactsPage = (function($) {
         });
 
         if (TMMail.pageIs('personalContact')) {
-            page.find('.menuActionDelete').click(function () {
+            pageActionContainer.find('.menuActionDelete').click(function () {
                 if (!$(this).hasClass('unlockAction')) {
                     return false;
                 }
 
                 deleteContacts();
             });
-            page.find('.menuActionCreate').click(function() {
+            pageActionContainer.find('.menuActionCreate').click(function () {
                 editContactModal.show(null, true);
             });
         } else {
-            page.find('.menuActionDelete').hide();
-            page.find('.menuActionCreate').hide();
+            pageActionContainer.find('.menuActionDelete').hide();
+            pageActionContainer.find('.menuActionCreate').hide();
         }
 
         // _Selection checkbox clicked
@@ -556,7 +554,7 @@ window.contactsPage = (function($) {
         totalCount = params.__total || data.contacts.length;
         redrawNavigation(params.Page, totalCount, params.ContactsStore);
 
-        page.find('.containerBodyBlock').show();
+        page.find('.containerBodyBlock').toggleClass('hidden', false);
     }
 
     function onClickCheckbox()
@@ -705,7 +703,7 @@ window.contactsPage = (function($) {
 
     function createSelectActionPandel() {
         if (filter.ContactsStore == 'crm') {
-            page.find('#SelectAllContactsDropdown').parent().actionPanel({
+            $('#SelectAllContactsDropdown').parent().actionPanel({
                 buttons: [
                     { text: window.MailScriptResource.AllLabel, handler: actionPanelSelectAll },
                     { text: window.MailScriptResource.WithTags, handler: actionPanelSelectWithTags },
@@ -715,7 +713,7 @@ window.contactsPage = (function($) {
                 css: 'stick-over'
             });
         } else {
-            page.find('#SelectAllContactsDropdown').parent().actionPanel({
+            $('#SelectAllContactsDropdown').parent().actionPanel({
                 buttons: [
                     { text: window.MailScriptResource.AllLabel, handler: actionPanelSelectAll },
                     { text: window.MailScriptResource.NoneLabel, handler: actionPanelSelectNone }
@@ -1016,9 +1014,9 @@ window.contactsPage = (function($) {
 
     function viewContact(id) {
         if (filter.ContactsStore == 'crm') {
-            window.open('../../products/crm/default.aspx?id=' + id, "_blank");
+            window.open('../../Products/CRM/Default.aspx?id=' + id, "_blank");
         } else if (filter.ContactsStore == 'teamlab') {
-            window.open('../../products/people/profile.aspx?user=' + id, "_blank");
+            window.open('../../Products/People/Profile.aspx?user=' + id, "_blank");
         }
     }
 
@@ -1187,6 +1185,7 @@ window.contactsPage = (function($) {
             !(TMMail.pageIs('personalContact') && filter.ContactsStore == 'custom')) {
             page.hide();
         }
+        pageActionContainer.empty();
     }
 
     function toAnchor(pageParam) {

@@ -1,11 +1,11 @@
-%global package_header_tag_summary Office suite and business productivity tools
+%global package_header_tag_summary "Business productivity tools."
 %global package_header_tag_name onlyoffice-communityserver
 %global package_header_tag_url http://onlyoffice.com/
 %global package_header_tag_vendor Ascensio System SIA
 %global package_header_tag_packager Ascensio System SIA <support@onlyoffice.com>
-%global package_header_tag_requires mono-complete >= 5.0.0, nginx >= 0.8.21, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi, nodejs >= 6.11.4, redis >= 3.0.0, elasticsearch = 6.5.0, python36, python36-setuptools, ffmpeg
-%global package_section_description Free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
-%global package_services monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeThumb onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog onlyofficeMailCleaner onlyofficeStorageMigrate onlyofficeUrlShortener onlyofficeRadicale
+%global package_header_tag_requires mono-complete >= 6.8.0, nginx >= 1.9.5, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi, nodejs >= 12.0.0, redis >= 3.0.0, elasticsearch = 7.4.0-1, python36, ffmpeg, jq
+%global package_section_description "Community Server is a free open-source collaborative system developed to manage documents, projects, customer relationship and emails, all in one place."
+%global package_services god monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeThumb onlyofficeTelegram onlyofficeBackup onlyofficeFeed onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog onlyofficeMailCleaner onlyofficeStorageMigrate onlyofficeStorageEncryption onlyofficeUrlShortener onlyofficeRadicale
 
 %global package_sysname onlyoffice
 

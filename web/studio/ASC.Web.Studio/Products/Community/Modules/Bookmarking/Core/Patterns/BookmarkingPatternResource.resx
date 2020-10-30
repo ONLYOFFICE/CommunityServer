@@ -136,7 +136,13 @@ $BookmarkDescription</value>
   <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
     <value>Community. New comment to bookmark: $BookmarkTitle</value>
   </data>
+  <data name="subject_BookmarkCommentCreatedID_tg" xml:space="preserve">
+    <value>Community. New comment to bookmark: [$BookmarkTitle]($BookmarkUrl)</value>
+  </data>
   <data name="subject_BookmarkCreatedID" xml:space="preserve">
     <value>Community. New bookmark added: $BookmarkTitle</value>
+  </data>
+  <data name="subject_BookmarkCreatedID_tg" xml:space="preserve">
+    <value>Community. New bookmark added: [$BookmarkTitle]($BookmarkUrl)</value>
   </data>
 </root>

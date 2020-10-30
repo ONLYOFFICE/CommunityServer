@@ -22,6 +22,15 @@ namespace ASC.Web.Community.News {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
         
         /// <summary>
+        /// NewsTitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder NewsTitleContent;
+        
+        /// <summary>
         /// MainNewsContainer control.
         /// </summary>
         /// <remarks>
@@ -38,5 +47,14 @@ namespace ASC.Web.Community.News {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder NewsContents;
+        
+        /// <summary>
+        /// NewsPagingContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder NewsPagingContent;
     }
 }

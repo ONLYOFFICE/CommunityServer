@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -34,13 +25,13 @@ window.EditProfileManager = (function () {
         isUserPassword = false,
         isPasswordApprove = false,
         isEmailApprove = false,
-        requirePassword,
         passwordSettings,
         enabledModulesList,
         domainsList,
         localPart,
         selectedDomain,
         isError,
+        isEmailExist,
         edit,
         savedUserDomain = '',
         classActive = 'active',
@@ -49,7 +40,8 @@ window.EditProfileManager = (function () {
         redTextColor = '#B40404',
         greenTextColor = '#44BB00',
         requiredErrorText = '.requiredErrorText',
-        profileURL = 'profile.aspx?user=';
+        profileURL = 'Profile.aspx?user=',
+        dateFormatErrorMsg = '';
 
     var $setPassword,
         $createEmailOnDomain,
@@ -126,8 +118,6 @@ window.EditProfileManager = (function () {
         $advancedUserType = jq('#advancedUserType');
         $popupHelperCreateEmailString = jq('#AnswerForEmail p:eq(1)');
 
-        jq(document).on('load', changeBlockPosition);
-        jq(window).on('resize', changeBlockPosition);
         $setPassword.on('click', showSettingPassword);
         $createEmailOnDomain.on('click', showCreateEmailOnDomain);
         $setExistingEmail.on('click', showUseExistingEmail);
@@ -143,8 +133,8 @@ window.EditProfileManager = (function () {
         $profileSecondName.on('input', function () { validateLastName(false, true, true); });
         $portalEmail.on('input', $emailInfo.empty);
         $profileEmail.on('input', function () { $emailInfo.empty; savedUserDomain = ''; });
-        $portalEmail.on('keyup', function () { delayedCheck($portalEmail); });
-        $profileEmail.on('keyup', function () { delayedCheck($profileEmail); });
+        $portalEmail.on('keyup paste input', function () { delayedCheck($portalEmail); });
+        $profileEmail.on('keyup paste input', function () { delayedCheck($profileEmail); });
         $inputPortalEmail.on('click', '.optionItem', function () { delayedCheck($portalEmail); cutDomainInSelector(); });
 
         edit = jq.getURLParam("action") == "edit";
@@ -246,7 +236,7 @@ window.EditProfileManager = (function () {
             if (groupList.length) {
                 groupList.prepend("<li class=\"menu-sub-item\" data-id=\"" + item.id
                     + "\"><a class=\"menu-item-label outer-text text-overflow\" title=\""
-                    + Encoder.htmlEncode(item.title) + "\"" + " href=\"/products/people/#group=" + item.id + "\">"
+                    + Encoder.htmlEncode(item.title) + "\"" + " href=\"Products/People/#group=" + item.id + "\">"
                     + Encoder.htmlEncode(item.title)
                     + "</a></li>");
                 if (groupList.parents("li").hasClass("none-sub-list")) {
@@ -335,7 +325,10 @@ window.EditProfileManager = (function () {
                 comment = '';
             }
 
-            if (isUserPassword && requirePassword && (!passwordValidation($password.val()) || password === '')) {
+            if (password == "") {
+                isUserPassword = false;
+            }
+            if (isUserPassword && !passwordValidation(password)) {
                 showRequiredError($password);
                 isError = true;
             }
@@ -376,25 +369,11 @@ window.EditProfileManager = (function () {
             checkFieldLength(position, 64, $profilePosition, false);
             checkFieldLength(location, 255, $profilePlace, false);
 
-            if (workFromDate && !jq.isDateFormat(workFromDate)) {
-                showRequiredError($profileRegistrationDate);
-                isError = true;
-            }
-            if (birthDate && !jq.isDateFormat(birthDate)) {
-                showRequiredError($profileBirthDate);
-                isError = true;
-            }
-            if (birthDate && workFromDate && $profileRegistrationDate.datepicker('getDate').getTime() < $profileBirthDate.datepicker('getDate').getTime()) {
-                $profileRegistrationDate.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
-                showRequiredError($profileRegistrationDate);
-                isError = true;
-            }
-            if (birthDate && !isValidBithday()) {
-                showRequiredError($profileBirthDate);
+            if (!validateDateFields()) {
                 isError = true;
             }
 
-            if (isError) {
+            if (isError || isEmailExist) {
                 return;
             }
 
@@ -481,9 +460,6 @@ window.EditProfileManager = (function () {
                     department: departments
                 };
 
-            if (isUserPassword) {
-                profile.password = password;
-            }
 
             if (!edit) {
                 profile.email = email;
@@ -493,7 +469,15 @@ window.EditProfileManager = (function () {
             if (edit && typeof (window.userId) != "undefined") {
                 updateProfile(window.userId, profile);
             } else {
-                addProfile(profile);
+                if (isUserPassword) {
+                    window.hashPassword(password, function (passwordHash) {
+                        profile.passwordHash = passwordHash;
+
+                        addProfile(profile);
+                    });
+                } else {
+                    addProfile(profile);
+                }
             }
         });
 
@@ -553,8 +537,8 @@ window.EditProfileManager = (function () {
 
     var onUpdateProfile = function (params, profile) {
         window.onbeforeunload = null;
-        if (document.location.href.indexOf("my.aspx") > 0) {
-            document.location.replace("/my.aspx");
+        if (document.location.href.toLowerCase().indexOf("my.aspx") > 0) {
+            document.location.replace("/My.aspx");
         } else {
             document.location.replace(profileURL + encodeURIComponent(profile.userName));
         }
@@ -565,7 +549,7 @@ window.EditProfileManager = (function () {
     var InitDatePicker = function () {
         var fromDateInp = jq("#profileRegistrationDate"),
             birthDateInp = jq("#profileBirthDate"),
-            maxBirthDate = null;
+            now = new Date();
 
         if (!IsInitDatePicker) {
             fromDateInp.mask(ASC.Resources.Master.DatePatternJQ);
@@ -574,7 +558,7 @@ window.EditProfileManager = (function () {
             fromDateInp.datepicker({
                 onSelect: function() {
                     var date = jq(this).blur().datepicker("getDate");
-                    birthDateInp.datepicker("option", "maxDate", date || null);
+                    birthDateInp.datepicker("option", "maxDate", date);
                     jQuery.datepicker._hideDatepicker();
                 }
             }).val(fromDateInp.attr("data-value"));
@@ -582,25 +566,79 @@ window.EditProfileManager = (function () {
             birthDateInp.datepicker({
                 onSelect: function() {
                     var date = jq(this).blur().datepicker("getDate");
-                    fromDateInp.datepicker("option", "minDate", date || null);
+                    fromDateInp.datepicker("option", "minDate", date);
                     jQuery.datepicker._hideDatepicker();
                 }
             }).val(birthDateInp.attr("data-value"));
 
             IsInitDatePicker = true;
         };
-        fromDateInp.datepicker("option", "minDate", birthDateInp.datepicker("getDate") || null);
-        maxBirthDate = fromDateInp.datepicker("getDate") || "";
-        birthDateInp.datepicker("option", "maxDate", maxBirthDate.length ? maxBirthDate : null);
+
+        var maxBirthDate = now;
+        var birthDate = birthDateInp.datepicker("getDate");
+        var fromDate = fromDateInp.datepicker("getDate");
+
+        fromDateInp.datepicker("option", "maxDate", now);
+        fromDateInp.datepicker("option", "minDate", birthDate);
+
+        if (fromDate && fromDate < maxBirthDate) {
+            maxBirthDate = fromDate;
+        }
+
+        birthDateInp.datepicker("option", "maxDate", maxBirthDate);
     };
 
-    var isValidBithday = function () {
+    var validateDateFields = function () {
         var fromDateInp = $profileRegistrationDate,
-            birthDateInp = $profileBirthDate;
-        return !fromDateInp.length
-            || fromDateInp.datepicker("getDate") === null
-            || birthDateInp.datepicker("getDate") === null
-            || fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime();
+            fromDateStr = fromDateInp.length ? fromDateInp.val().trim() : null,
+            fromDate = fromDateInp.length ? fromDateInp.datepicker("getDate") : null,
+
+            birthDateInp = $profileBirthDate,
+            birthDateStr = birthDateInp.length ? birthDateInp.val().trim() : null,
+            birthDate = birthDateInp.length ? birthDateInp.datepicker("getDate") : null,
+
+            maxDate = new Date(),
+            isValid = true;
+
+        if (!dateFormatErrorMsg) {
+            dateFormatErrorMsg = fromDateInp.siblings(requiredErrorText).text();
+        }
+
+        if (!fromDateStr && !birthDateStr) {
+            return isValid;
+        }
+
+        if (fromDateStr && !jq.isDateFormat(fromDateStr)) {
+            fromDateInp.siblings(requiredErrorText).text(dateFormatErrorMsg);
+            showRequiredError(fromDateInp);
+            isValid = false;
+        }
+
+        if (fromDate && fromDate > maxDate) {
+            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.Error);
+            showRequiredError(fromDateInp);
+            isValid = false;
+        }
+
+        if (birthDateStr && !jq.isDateFormat(birthDateStr)) {
+            birthDateInp.siblings(requiredErrorText).text(dateFormatErrorMsg);
+            showRequiredError(birthDateInp);
+            isValid = false;
+        }
+
+        if (birthDate && birthDate > maxDate) {
+            birthDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.Error);
+            showRequiredError(birthDateInp);
+            isValid = false;
+        }
+
+        if (birthDate && fromDate && fromDate < birthDate) {
+            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
+            showRequiredError(fromDateInp);
+            isValid = false;
+        }
+
+        return isValid;
     };
 
     var initBorderPhoto = function () {
@@ -905,7 +943,7 @@ window.EditProfileManager = (function () {
     function existingEmail(expression, control) {
         if (expression) {
             showRequiredError(control, true, true);
-            isError = true;
+            isEmailExist = true;
             $emailInfo.empty();
             jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.ErrorEmailAlreadyExists, color: redTextColor }).appendTo(classEmailInfo);
             isEmailApprove = false;
@@ -915,6 +953,7 @@ window.EditProfileManager = (function () {
             jq.tmpl(tmplCheckEmail, { text: ASC.Resources.Master.EmailIsAvailable, color: greenTextColor }).appendTo(classEmailInfo);
             removeRequiredErrorClass(control);
             isEmailApprove = true;
+            isEmailExist = false;
         }
 
         undisableCopyToClipboard();
@@ -1043,7 +1082,6 @@ window.EditProfileManager = (function () {
         $generatedPassword.hide();
         jq('.validationBlock').show();
         if (!isUserEmail) {
-            requirePassword = true;
             $tablePassword.addClass('requiredField');
             $titlePassword.addClass('requiredTitle');
         }
@@ -1051,7 +1089,6 @@ window.EditProfileManager = (function () {
 
     function hideSettingPassword() {
         isUserPassword = false;
-        requirePassword = false;
         $generatedPassword.show();
         jq('.validationBlock').hide();
         $tablePassword.removeClass('requiredField');
@@ -1096,11 +1133,8 @@ window.EditProfileManager = (function () {
                 $passwordShowLabel.removeClass('show').addClass('hide'));
     };
 
-    function undisableCopyToClipboard(condition) {
-        var passwordVisible = $password.val().length,
-            emailVisible = getEmail().length;
-        
-        if (passwordVisible && emailVisible && isPasswordApprove && isEmailApprove) {
+    function undisableCopyToClipboard() {
+        if ($copyValues.length && $password.length && $profileEmail.length && isPasswordApprove && isEmailApprove) {
             $copyValues.removeClass('disabled');
         } else {
             $copyValues.addClass('disabled');
@@ -1122,9 +1156,9 @@ window.EditProfileManager = (function () {
 
     function getEmail() {
         if (isUserEmail) {
-            return $profileEmail.val() ? $profileEmail.val().trim() : "";
+            return $profileEmail.length ? $profileEmail.val().trim() : "";
         } else {
-            localPart = $portalEmail.val() ? $portalEmail.val().trim() : "";
+            localPart = $portalEmail.length ? $portalEmail.val().trim() : "";
             var domain = jq('span.tl-combobox:first').attr('data-value') || jq('#domainSelector').val();
             return localPart + '@' + domain;
         }
@@ -1207,12 +1241,6 @@ window.EditProfileManager = (function () {
                     + "</tr>");
             }
         });
-    };
-
-    function changeBlockPosition() {
-        (jq('body').hasClass('media-width-0-1080') || jq.browser.mobile)
-                ? $profilePhotoBlock.addClass('small-window')
-                : $profilePhotoBlock.removeClass('small-window');
     };
 
     return {

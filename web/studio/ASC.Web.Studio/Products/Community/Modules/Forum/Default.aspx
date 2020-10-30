@@ -2,7 +2,8 @@
     EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Forum.Default" Title="Untitled Page" %>
 
 <%@ Import Namespace="ASC.Web.Community.Forum.Resources" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ForumPageContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="ForumPageContent" runat="server">
     <asp:PlaceHolder ID="_headerHolder" runat="server">
         <div class="forum_columnHeader">
             <table width="100%" style="height: 100%" border="0" cellpadding="0" cellspacing="0">
@@ -25,5 +26,5 @@
             </table>
         </div>
     </asp:PlaceHolder>
-    <asp:PlaceHolder ID="forumListHolder" runat="server"></asp:PlaceHolder>
+    <asp:PlaceHolder ID="forumListHolder" runat="server"/>
 </asp:Content>

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -39,6 +30,7 @@ using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.AuthorizeDocs;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
+using Resources;
 
 namespace ASC.Web.Studio
 {
@@ -77,7 +69,7 @@ namespace ASC.Web.Studio
                     CookiesManager.SetCookies(CookiesType.AuthKey, token);
 
                     var refererURL = Request["refererURL"];
-                    if (string.IsNullOrEmpty(refererURL)) refererURL = "~/auth.aspx";
+                    if (string.IsNullOrEmpty(refererURL)) refererURL = "~/Auth.aspx";
 
                     Response.Redirect(refererURL, true);
                 }
@@ -109,7 +101,7 @@ namespace ASC.Web.Studio
                     }
                 }
 
-                Response.Redirect("~/auth.aspx", true);
+                Response.Redirect("~/Auth.aspx", true);
             }
             else
             {
@@ -131,6 +123,7 @@ namespace ASC.Web.Studio
             withHelpBlock = false;
             if (CoreContext.Configuration.Personal)
             {
+                Master.DisabledLayoutMedia = true;
                 Master.TopStudioPanel.TopLogo = TenantLogoManager.IsRetina(Request)
                                                         ? WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth-@2x.png") 
                                                         : WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth.png");
@@ -185,7 +178,7 @@ namespace ASC.Web.Studio
             if (string.Equals(social, "facebook", StringComparison.InvariantCultureIgnoreCase)
                 || string.Equals(social, "google", StringComparison.InvariantCultureIgnoreCase))
             {
-                var returnUrl = new Uri(Request.GetUrlRewriter(), "auth.aspx");
+                var returnUrl = new Uri(Request.GetUrlRewriter(), "Auth.aspx");
                 loginUrl = "~/login.ashx?auth=" + social
                            + "&mode=Redirect&returnurl=" + HttpUtility.UrlEncode(returnUrl.ToString());
             }
@@ -194,6 +187,84 @@ namespace ASC.Web.Studio
             {
                 Response.Redirect(loginUrl, true);
             }
+        }
+
+
+        public static string GetAuthMessage(string messageKey)
+        {
+            MessageKey authMessage;
+            if (!Enum.TryParse(messageKey, out authMessage)) return null;
+            return GetAuthMessage(authMessage);
+        }
+        
+        public static string GetAuthMessage(MessageKey messageKey)
+        {
+            switch (messageKey)
+            {
+                case MessageKey.Error:
+                    return Resource.ErrorBadRequest;
+                case MessageKey.ErrorUserNotFound:
+                    return Resource.ErrorUserNotFound;
+                case MessageKey.ErrorExpiredActivationLink:
+                    return Resource.ErrorExpiredActivationLink;
+                case MessageKey.ErrorInvalidActivationLink:
+                    return Resource.ErrorInvalidActivationLink;
+                case MessageKey.ErrorConfirmURLError:
+                    return Resource.ErrorConfirmURLError;
+                case MessageKey.ErrorNotCorrectEmail:
+                    return Resource.ErrorNotCorrectEmail;
+                case MessageKey.LoginWithBruteForce:
+                    return Resource.LoginWithBruteForce;
+                case MessageKey.RecaptchaInvalid:
+                    return Resource.RecaptchaInvalid;
+                case MessageKey.LoginWithAccountNotFound:
+                    return Resource.LoginWithAccountNotFound;
+                case MessageKey.InvalidUsernameOrPassword:
+                    return Resource.InvalidUsernameOrPassword;
+                case MessageKey.SsoSettingsDisabled:
+                    return Resource.SsoSettingsDisabled;
+                case MessageKey.ErrorNotAllowedOption:
+                    return Resource.ErrorNotAllowedOption;
+                case MessageKey.SsoSettingsEmptyToken:
+                    return Resource.SsoSettingsEmptyToken;
+                case MessageKey.SsoSettingsNotValidToken:
+                    return Resource.SsoSettingsNotValidToken;
+                case MessageKey.SsoSettingsCantCreateUser:
+                    return Resource.SsoSettingsCantCreateUser;
+                case MessageKey.SsoSettingsUserTerminated:
+                    return Resource.SsoSettingsUserTerminated;
+                case MessageKey.SsoError:
+                    return Resource.SsoError;
+                case MessageKey.SsoAuthFailed:
+                    return Resource.SsoAuthFailed;
+                case MessageKey.SsoAttributesNotFound:
+                    return Resource.SsoAttributesNotFound;
+                default: return null;
+            }
+        }
+
+        public enum MessageKey
+        {
+            None,
+            Error,
+            ErrorUserNotFound,
+            ErrorExpiredActivationLink,
+            ErrorInvalidActivationLink,
+            ErrorConfirmURLError,
+            ErrorNotCorrectEmail,
+            LoginWithBruteForce,
+            RecaptchaInvalid,
+            LoginWithAccountNotFound,
+            InvalidUsernameOrPassword,
+            SsoSettingsDisabled,
+            ErrorNotAllowedOption,
+            SsoSettingsEmptyToken,
+            SsoSettingsNotValidToken,
+            SsoSettingsCantCreateUser,
+            SsoSettingsUserTerminated,
+            SsoError,
+            SsoAuthFailed,
+            SsoAttributesNotFound,
         }
     }
 }

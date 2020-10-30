@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Files {
-    
-    
-    public partial class _Default {
-        
+namespace ASC.Web.Files
+{
+
+
+    public partial class _Default
+    {
+
+        /// <summary>
+        /// CreateButtonHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder CreateButtonHolder;
+
         /// <summary>
         /// CommonSideHolder control.
         /// </summary>
@@ -20,7 +31,25 @@ namespace ASC.Web.Files {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder CommonSideHolder;
-        
+
+        /// <summary>
+        /// AppBannerHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AppBannerHolder;
+
+        /// <summary>
+        /// FilterHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder FilterHolder;
+
         /// <summary>
         /// loaderHolder control.
         /// </summary>
@@ -29,7 +58,7 @@ namespace ASC.Web.Files {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder loaderHolder;
-        
+
         /// <summary>
         /// CommonContainerHolder control.
         /// </summary>
@@ -38,7 +67,7 @@ namespace ASC.Web.Files {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder CommonContainerHolder;
-        
+
         /// <summary>
         /// SettingPanelHolder control.
         /// </summary>
@@ -47,7 +76,7 @@ namespace ASC.Web.Files {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder SettingPanelHolder;
-        
+
         /// <summary>
         /// ThirdPartyScriptsPlaceHolder control.
         /// </summary>
@@ -56,15 +85,17 @@ namespace ASC.Web.Files {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ThirdPartyScriptsPlaceHolder;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new ASC.Web.Files.Masters.BasicTemplate Master {
-            get {
+        public new ASC.Web.Files.Masters.BasicTemplate Master
+        {
+            get
+            {
                 return ((ASC.Web.Files.Masters.BasicTemplate)(base.Master));
             }
         }

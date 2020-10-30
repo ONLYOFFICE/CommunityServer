@@ -1,25 +1,16 @@
 ﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -66,6 +57,16 @@ if (typeof ASC.Mail.Utility === "undefined") {
         }
 
         function checkAccounts(params, accounts) {
+            function getDefaultAccount(accs) {
+                var def = jq.grep(accs, function (a) { return a.is_default === true }),
+                    acc = (def.length > 0 ? def[0] : accs[0]);
+
+                return new ASC.Mail.Address(
+                    acc.name,
+                    acc.email,
+                    true);
+            }
+
             var d = jq.Deferred();
 
             try {
@@ -78,16 +79,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 if (accounts.length === 0) {
                     throw "No accounts.";
-                }
-
-                function getDefaultAccount(accs) {
-                    var def = jq.grep(accs, function(a) { return a.is_default === true }),
-                        acc = (def.length > 0 ? def[0] : accs[0]);
-
-                    return new ASC.Mail.Address(
-                        acc.name,
-                        acc.email,
-                        true);
                 }
 
                 if (!message.from) {
@@ -194,6 +185,34 @@ if (typeof ASC.Mail.Utility === "undefined") {
         }
 
         function addDocuments(params, saveResult) {
+            function addDoc(fileId) {
+                var dfd = jq.Deferred();
+
+                var data = {
+                    fileId: fileId,
+                    version: ""
+                };
+
+                window.Teamlab.addMailDocument(
+                    {
+                        message: message,
+                        documentId: fileId,
+                        sendImmediately: params.sendImmediately
+                    },
+                    message.id,
+                    data,
+                    {
+                        success: function (params, attachedDocument) {
+                            message.attachments.push(attachedDocument);
+                            message.RemoveDocumentAfterSave(params.documentId);
+                            dfd.resolve(params, saveResult);
+                        },
+                        error: dfd.reject
+                    });
+
+                return dfd.promise();
+            }
+
             var d = jq.Deferred();
 
             if (params.skipSave) {
@@ -205,34 +224,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
             if (message.HasDocumentsForSave()) {
                 var documentIds = message.GetDocumentsForSave();
-
-                function addDoc(fileId) {
-                    var dfd = jq.Deferred();
-
-                    var data = {
-                        fileId: fileId,
-                        version: ""
-                    };
-
-                    window.Teamlab.addMailDocument(
-                        {
-                            message: message,
-                            documentId: fileId,
-                            sendImmediately: params.sendImmediately
-                        },
-                        message.id,
-                        data,
-                        {
-                            success: function (params, attachedDocument) {
-                                message.attachments.push(attachedDocument);
-                                message.RemoveDocumentAfterSave(params.documentId);
-                                dfd.resolve(params, saveResult);
-                            },
-                            error: dfd.reject
-                        });
-
-                    return dfd.promise();
-                }
 
                 var addarray = [];
                 for (var i = 0, len = documentIds.length; i < len; i++) {
@@ -384,10 +375,11 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 switch (params.method) {
                     case "REQUEST":
                     case "REPLY":
-                        if (comp.getFirstPropertyValue("method") !== "REQUEST" && 
+                        if (comp.getFirstPropertyValue("method") !== "REQUEST" &&
                             comp.getFirstPropertyValue("method") !== "REPLY" &&
                             comp.getFirstPropertyValue("method") !== "PUBLISH")
                             throw "Allow only REQUEST";
+                        break;
                     case "CANCEL":
                         break;
 
@@ -425,7 +417,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     var cancelAttendees = jq.grep(event.attendees, function (a) {
                         var exists = false;
                         for (var i = 0, len = params.attendeesEmails.length; i < len; i++) {
-                            if (ASC.Mail.Utility.IsEqualEmail(a.getFirstValue().toLowerCase().replace("mailto:", ""), params.attendeesEmails[i])) {
+                            if (ASC.Mail.Utility.IsEqualEmail(a.getFirstValue().toLowerCase().replace("mailto:", ""), params.attendeesEmails[i].toLowerCase())) {
                                 exists = true;
                                 break;
                             }
@@ -481,7 +473,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 orgName: iCalInfo.organizerAddress.name,
                 orgEmail: iCalInfo.organizerAddress.email,
                 mailToHref: "mailto:" + iCalInfo.organizerAddress.email,
-                mapUrl: iCalInfo.event.location ? getMapUrl(iCalInfo.event.location) : null
+                mapUrl: iCalInfo.event.location ? getMapUrl(iCalInfo.event.location) : null,
+                description: iCalInfo.event.description
             };
 
             info.dateEvent = ASC.Mail.Utility.ToCalendarDateString(dtStart, dtEnd, dateStartAllDay, dateEndAllDay);
@@ -996,6 +989,33 @@ if (typeof ASC.Mail.Utility === "undefined") {
              * @return {Object} result with messageUrl;
              */
             SendMessage: function (message, params) {
+                function improveAddresses(addresses) {
+                    var result = { addresses: [], hasBad: false };
+
+                    if (!addresses || !addresses.length)
+                        return result;
+
+                    if (!jq.isArray(addresses) && ("string" === typeof addresses)) {
+                        var p = ASC.Mail.Utility.ParseAddresses(addresses);
+                        result.addresses = p.addresses;
+                        result.hasBad = p.errors.length > 0;
+                        return result;
+                    }
+
+                    for (var i = 0, len = addresses.length; i < len; i++) {
+                        var a = !(addresses[i] instanceof ASC.Mail.Address)
+                            ? ASC.Mail.Utility.ParseAddress(addresses[i])
+                            : addresses[i];
+
+                        result.addresses.push(a);
+
+                        if (!a.isValid)
+                            result.hasBad = true;
+                    }
+
+                    return result;
+                }
+
                 var d = jq.Deferred();
 
                 params = params || { skipAccountsCheck: true };
@@ -1008,33 +1028,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                     if (!params.hasOwnProperty("skipAccountsCheck") || !message.from)
                         params.skipAccountsCheck = false;
-
-                    function improveAddresses(addresses) {
-                        var result = { addresses: [], hasBad: false };
-
-                        if (!addresses || !addresses.length)
-                            return result;
-
-                        if (!jq.isArray(addresses) && ("string" === typeof addresses)) {
-                            var p = ASC.Mail.Utility.ParseAddresses(addresses);
-                            result.addresses = p.addresses;
-                            result.hasBad = p.errors.length > 0;
-                            return result;
-                        }
-
-                        for (var i = 0, len = addresses.length; i < len; i++) {
-                            var a = !(addresses[i] instanceof ASC.Mail.Address)
-                                ? ASC.Mail.Utility.ParseAddress(addresses[i])
-                                : addresses[i];
-
-                            result.addresses.push(a);
-
-                            if (!a.isValid)
-                                result.hasBad = true;
-                        }
-
-                        return result;
-                    }
 
                     var t = improveAddresses(message.to);
                     message.to = t.addresses;
@@ -1311,7 +1304,76 @@ if (typeof ASC.Mail.Utility === "undefined") {
              * @param {Moment DateTime} dtStart
              * @return {String} user-friedndly string;
              */
-            ToCalendarRRuleString: function(rruleRfc2445, dtStart, notLocalize) {
+            ToCalendarRRuleString: function (rruleRfc2445, dtStart, notLocalize) {
+                function getText(id) {
+                    switch (id.toLowerCase()) {
+                        case "every":
+                            return resources.MailIcsRRuleEveryLabel;
+                        case "until":
+                            return resources.MailIcsRRuleUntilLabel;
+                        case "for":
+                            return resources.MailIcsRRuleForLabel;
+                        case "times":
+                            return resources.MailIcsRRuleTimesLabel;
+                        case "time":
+                            return resources.MailIcsRRuleTimeLabel;
+                        case "(~ approximate)":
+                            return "(~ {0})".format(resources.MailIcsRRuleApproximateLabel);
+                        case "hours":
+                            return resources.MailIcsRRuleHoursLabel;
+                        case "hour":
+                            return resources.MailIcsRRuleHourLabel;
+                        case "weekdays":
+                            return resources.MailIcsRRuleWeekdaysLabel;
+                        case "weekday":
+                            return resources.MailIcsRRuleWeekdayLabel;
+                        case "days":
+                            return resources.MailIcsRRuleDaysLabel;
+                        case "day":
+                            return resources.MailIcsRRuleDayLabel;
+                        case "weeks":
+                            return resources.MailIcsRRuleWeeksLabel;
+                        case "week":
+                            return resources.MailIcsRRuleWeekLabel;
+                        case "months":
+                            return resources.MailIcsRRuleMonthsLabel;
+                        case "month":
+                            return resources.MailIcsRRuleMonthLabel;
+                        case "years":
+                            return resources.MailIcsRRuleYearsLabel;
+                        case "year":
+                            return resources.MailIcsRRuleYearLabel;
+                        case "on":
+                            return resources.MailIcsRRuleOnLabel;
+                        case "on the":
+                            return resources.MailIcsRRuleOnTheLabel;
+                        case "in":
+                            return resources.MailIcsRRuleInLabel;
+                        case "at":
+                            return resources.MailIcsRRuleAtLabel;
+                        case "the":
+                            return resources.MailIcsRRuleTheLabel;
+                        case "and":
+                            return resources.MailIcsRRuleAndLabel;
+                        case "or":
+                            return resources.MailIcsRRuleOrLabel;
+                        case "last":
+                            return resources.MailIcsRRuleLastLabel;
+                        case "st":
+                            return resources.MailIcsRRuleStLabel;
+                        case "nd":
+                            return resources.MailIcsRRuleNdLabel;
+                        case "rd":
+                            return resources.MailIcsRRuleRdLabel;
+                        case "th":
+                            return resources.MailIcsRRuleThLabel;
+                        case "rrule error: unable to fully convert this rrule to text":
+                            return resources.MailIcsRRuleParseErrorLabel;
+                        default:
+                            return id;
+                    }
+                }
+
                 checkCalendarRequirements();
 
                 if (!dtStart)
@@ -1369,75 +1431,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
                             'comma': /^(,\s*|(and|or)\s*)+/i
                         }
                     };
-
-                    function getText(id) {
-                        switch (id.toLowerCase()) {
-                            case "every":
-                                return resources.MailIcsRRuleEveryLabel;
-                            case "until":
-                                return resources.MailIcsRRuleUntilLabel;
-                            case "for":
-                                return resources.MailIcsRRuleForLabel;
-                            case "times":
-                                return resources.MailIcsRRuleTimesLabel;
-                            case "time":
-                                return resources.MailIcsRRuleTimeLabel;
-                            case "(~ approximate)":
-                                return "(~ {0})".format(resources.MailIcsRRuleApproximateLabel);
-                            case "hours":
-                                return resources.MailIcsRRuleHoursLabel;
-                            case "hour":
-                                return resources.MailIcsRRuleHourLabel;
-                            case "weekdays":
-                                return resources.MailIcsRRuleWeekdaysLabel;
-                            case "weekday":
-                                return resources.MailIcsRRuleWeekdayLabel;
-                            case "days":
-                                return resources.MailIcsRRuleDaysLabel;
-                            case "day":
-                                return resources.MailIcsRRuleDayLabel;
-                            case "weeks":
-                                return resources.MailIcsRRuleWeeksLabel;
-                            case "week":
-                                return resources.MailIcsRRuleWeekLabel;
-                            case "months":
-                                return resources.MailIcsRRuleMonthsLabel;
-                            case "month":
-                                return resources.MailIcsRRuleMonthLabel;
-                            case "years":
-                                return resources.MailIcsRRuleYearsLabel;
-                            case "year":
-                                return resources.MailIcsRRuleYearLabel;
-                            case "on":
-                                return resources.MailIcsRRuleOnLabel;
-                            case "on the":
-                                return resources.MailIcsRRuleOnTheLabel;
-                            case "in":
-                                return resources.MailIcsRRuleInLabel;
-                            case "at":
-                                return resources.MailIcsRRuleAtLabel;
-                            case "the":
-                                return resources.MailIcsRRuleTheLabel;
-                            case "and":
-                                return resources.MailIcsRRuleAndLabel;
-                            case "or":
-                                return resources.MailIcsRRuleOrLabel;
-                            case "last":
-                                return resources.MailIcsRRuleLastLabel;
-                            case "st":
-                                return resources.MailIcsRRuleStLabel;
-                            case "nd":
-                                return resources.MailIcsRRuleNdLabel;
-                            case "rd":
-                                return resources.MailIcsRRuleRdLabel;
-                            case "th":
-                                return resources.MailIcsRRuleThLabel;
-                            case "rrule error: unable to fully convert this rrule to text":
-                                return resources.MailIcsRRuleParseErrorLabel;
-                            default:
-                                return id;
-                        }
-                    }
 
                     return notLocalize ? rule.toText() : rule.toText(getText, language);
                 } catch (e) {
@@ -1539,7 +1532,12 @@ if (typeof ASC.Mail.Message === "undefined") {
         this.ToData = function () {
 
             function convertAddress(addr) {
-                if (typeof (addr) === "object" && !(addr instanceof ASC.Mail.Address) && addr.hasOwnProperty("name") && addr.hasOwnProperty("email") && addr.hasOwnProperty("isValid")) {
+                if (typeof (addr) === "object" &&
+                    !(addr instanceof ASC.Mail.Address) &&
+                    addr.hasOwnProperty("name") &&
+                    addr.hasOwnProperty("email") &&
+                    addr.hasOwnProperty("isValid"))
+                {
                     addr = new ASC.Mail.Address(addr.name, addr.email, addr.isValid);
                 }
 
@@ -1765,7 +1763,9 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             window.DOMPurify.addHook("uponSanitizeElement", function (node, data) {
                 if (data.tagName === "style") {
                     var output = [];
-                    addCssRules(output, node.sheet.cssRules, options);
+                    if (node && node.sheet && node.sheet.cssRules) {
+                        addCssRules(output, node.sheet.cssRules, options);
+                    }
                     node.textContent = output.join("\n");
                 }
                 else if (node.className === "MsoNormal") {

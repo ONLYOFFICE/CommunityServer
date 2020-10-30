@@ -52,6 +52,11 @@ namespace AppLimit.CloudComputing.SharpBox
         Google,
 
         /// <summary>
+        /// kDrive
+        /// </summary>
+        kDrive,
+
+        /// <summary>
         /// Yandex.Disk
         /// </summary>
         Yandex,

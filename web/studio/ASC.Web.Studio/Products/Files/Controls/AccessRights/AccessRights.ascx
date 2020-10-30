@@ -19,6 +19,7 @@
         <div id="sharingLinkAce">
             <select>
                 <option value="<%= (int) FileShare.ReadWrite %>"><%= FilesUCResource.AceStatusEnum_ReadWrite %></option>
+                <option value="<%= (int) FileShare.CustomFilter %>"><%= FilesUCResource.AceStatusEnum_CustomFilter %></option>
                 <option value="<%= (int) FileShare.Review %>"><%= FilesUCResource.AceStatusEnum_Review %></option>
                 <option value="<%= (int) FileShare.FillForms %>"><%= FilesUCResource.AceStatusEnum_FillForms %></option>
                 <option value="<%= (int) FileShare.Comment %>"><%= FilesUCResource.AceStatusEnum_Comment %></option>

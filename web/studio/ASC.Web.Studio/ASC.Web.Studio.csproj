@@ -3,8 +3,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <WebGreaseLibPath>..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,7 +18,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Studio</RootNamespace>
     <AssemblyName>ASC.Web.Studio</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
     <FileUpgradeFlags>
@@ -38,7 +39,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;$(Constants)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -46,128 +47,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\ASC.Core.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\ASC.Web.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>..\..\..\packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.SecurityToken">
-      <HintPath>..\..\..\packages\AWSSDK.SecurityToken.3.3.4.22\lib\net45\AWSSDK.SecurityToken.dll</HintPath>
-    </Reference>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="dotless.Core">
-      <HintPath>..\..\..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Authenticator">
-      <HintPath>..\..\..\packages\GoogleAuthenticator.1.2.1\lib\net45\Google.Authenticator.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure">
-      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PhoneNumbers">
-      <HintPath>..\..\..\packages\libphonenumber-csharp.7.0.11\lib\PhoneNumbers.dll</HintPath>
-    </Reference>
-    <Reference Include="RedisSessionProvider">
-      <HintPath>..\..\..\packages\RedisSessionProvider.10.0.1\lib\net472\RedisSessionProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis.Extensions.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis.Extensions.LegacyConfiguration">
-      <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.LegacyConfiguration.4.0.5\lib\net461\StackExchange.Redis.Extensions.LegacyConfiguration.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Routing">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebGrease">
-      <HintPath>..\..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="DotNetZip">
-      <HintPath>..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\..\..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInstall.aspx.cs">
@@ -184,6 +72,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Notify\SpamEmailSettings.cs" />
+    <Compile Include="Core\OpensourceGiftSettings.cs" />
+    <Compile Include="Core\PrivacyRoomSettings.cs" />
+    <Compile Include="Core\WarmUp.cs" />
+    <Compile Include="Masters\BaseTemplate.master.cs">
+      <DependentUpon>BaseTemplate.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BaseTemplate.master.designer.cs">
+      <DependentUpon>BaseTemplate.master</DependentUpon>
+    </Compile>
+    <Compile Include="PortalEncryption.aspx.cs">
+      <DependentUpon>PortalEncryption.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PortalEncryption.aspx.designer.cs">
+      <DependentUpon>PortalEncryption.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PublicResources\CustomModeResource.Designer.cs">
       <DependentUpon>CustomModeResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -434,6 +339,13 @@
     </Compile>
     <Compile Include="UserControls\Common\Comments\CommentInfo.cs" />
     <Compile Include="UserControls\Common\Comments\Comments.cs" />
+    <Compile Include="UserControls\Common\PortalEncryption\PortalEncryption.ascx.cs">
+      <DependentUpon>PortalEncryption.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\PortalEncryption\PortalEncryption.ascx.designer.cs">
+      <DependentUpon>PortalEncryption.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\MigrationPortal\MigrationPortal.ascx.cs">
       <DependentUpon>MigrationPortal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -525,6 +437,13 @@
     <Compile Include="UserControls\EmptyScreens\CommunityDashboardEmptyScreen.ascx.designer.cs">
       <DependentUpon>CommunityDashboardEmptyScreen.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\EmptyScreens\FilesDashboardEmptyScreen.ascx.cs">
+      <DependentUpon>FilesDashboardEmptyScreen.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\EmptyScreens\FilesDashboardEmptyScreen.ascx.designer.cs">
+      <DependentUpon>FilesDashboardEmptyScreen.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\EmptyScreens\CRMDashboardEmptyScreen.ascx.cs">
       <DependentUpon>CRMDashboardEmptyScreen.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -604,6 +523,13 @@
     <Compile Include="UserControls\Management\PortalRename\PortalRename.ascx.designer.cs">
       <DependentUpon>PortalRename.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Management\PrivacyRoom\PrivacyRoom.ascx.cs">
+      <DependentUpon>PrivacyRoom.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\PrivacyRoom\PrivacyRoom.ascx.designer.cs">
+      <DependentUpon>PrivacyRoom.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Management\SingleSignOnSettings\SsoSettingsV2.cs" />
     <Compile Include="UserControls\Management\SingleSignOnSettings\SsoUserData.cs" />
     <Compile Include="UserControls\Management\StorageSettings\StorageSettings.ascx.cs" Condition="Exists('UserControls\Management\StorageSettings\StorageSettings.ascx.cs')">
@@ -612,6 +538,13 @@
     </Compile>
     <Compile Include="UserControls\Management\StorageSettings\StorageSettings.ascx.designer.cs" Condition="Exists('UserControls\Management\StorageSettings\StorageSettings.ascx.designer.cs')">
       <DependentUpon>StorageSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffCustom.ascx.cs">
+      <DependentUpon>TariffCustom.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffCustom.ascx.designer.cs">
+      <DependentUpon>TariffCustom.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffDesktop.ascx.cs">
       <DependentUpon>TariffDesktop.ascx</DependentUpon>
@@ -1071,13 +1004,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\BaseTemplate.master.cs">
-      <DependentUpon>BaseTemplate.master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Masters\BaseTemplate.master.designer.cs">
-      <DependentUpon>BaseTemplate.master</DependentUpon>
-    </Compile>
     <Compile Include="Masters\MainPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -1158,6 +1084,13 @@
     <Compile Include="VoipClient.aspx.designer.cs">
       <DependentUpon>VoipClient.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Warmup.aspx.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Warmup.aspx.designer.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Wizard.aspx.cs">
       <DependentUpon>Wizard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1166,8 +1099,99 @@
       <DependentUpon>Wizard.aspx</DependentUpon>
     </Compile>
     <Content Include="AppInstall.aspx" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload.css" />
+    <Content Include="Content\jQuery.FileUpload\img\loading.gif" />
+    <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="js\asc\core\headscript.js" />
     <Content Include="js\asc\plugins\svg4everybody.js" />
+    <Content Include="js\third-party\sjcl.js" />
     <Content Include="js\third-party\xregexp.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="PortalEncryption.aspx" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.9.0.js" />
+    <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
+    <Content Include="Scripts\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-angular.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-audio.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-image.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-process.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-video.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Scripts\jquery.mousewheel.js" />
+    <Content Include="Scripts\jquery.mousewheel.min.js" />
     <Content Include="skins\bright-blue\img\rotate.svg" />
     <Content Include="skins\bright-blue\img\up.svg" />
     <Content Include="skins\dark-green\img\rotate.svg" />
@@ -1176,6 +1200,17 @@
     <Content Include="skins\deep-blue\img\up.svg" />
     <Content Include="skins\default\imagescss\rotate.svg" />
     <Content Include="skins\default\imagescss\up.svg" />
+    <Content Include="skins\default\images\dashboard\communicate-with-clients.png" />
+    <Content Include="skins\default\images\dashboard\create-clients-database.png" />
+    <Content Include="skins\default\images\dashboard\customize-your-crm.png" />
+    <Content Include="skins\default\images\dashboard\discuss-with-team.png" />
+    <Content Include="skins\default\images\dashboard\keep-your-team-posted.png" />
+    <Content Include="skins\default\images\dashboard\make-co-editing-comfy.png" />
+    <Content Include="skins\default\images\dashboard\share-files.png" />
+    <Content Include="skins\default\images\dashboard\share-news-and-knowledge.png" />
+    <Content Include="skins\default\images\dashboard\track-sales.png" />
+    <Content Include="skins\default\images\dashboard\use-more-collaboration-tools.png" />
+    <Content Include="skins\default\images\dashboard\work-with-office-docs.png" />
     <Content Include="skins\default\images\notification\demo-100.png" />
     <Content Include="skins\default\images\notification\mailus-100.png" />
     <Content Include="skins\default\images\notification\mail_logo.png" />
@@ -1214,10 +1249,66 @@
     <Content Include="skins\default\images\notification\tips-welcome-telephony-50.png" />
     <Content Include="skins\default\images\notification\tips-welcome-usertrack-50.png" />
     <Content Include="skins\default\images\onlyoffice_logo\light_small_general.svg" />
+    <Content Include="skins\default\images\svg\documents\favorite.svg" />
+    <Content Include="skins\default\images\svg\documents\recent.svg" />
+    <Content Include="skins\default\images\svg\documents\templateblue.svg" />
+    <Content Include="skins\default\images\svg\documents\templategray.svg" />
+    <Content Include="skins\default\images\svg\people\mailru.png" />
+    <Content Include="skins\default\images\svg\people\vk.png" />
+    <Content Include="skins\default\images\svg\people\vk_ru.png" />
+    <Content Include="skins\default\images\svg\people\yandex.png" />
+    <Content Include="skins\default\images\svg\people\yandex_ru.png" />
+    <Content Include="skins\default\images\svg\gift\mobile.svg" />
+    <Content Include="skins\default\images\svg\gift\private.svg" />
+    <Content Include="skins\default\images\svg\gift\pro.svg" />
+    <Content Include="skins\default\layout-desktop.css" />
+    <Content Include="skins\default\layout-media.css" />
+    <Content Include="skins\default\layout.css" />
     <Content Include="skins\pure-orange\img\rotate.svg" />
     <Content Include="skins\pure-orange\img\up.svg" />
     <Content Include="skins\wild-pink\img\rotate.svg" />
     <Content Include="skins\wild-pink\img\up.svg" />
+    <Content Include="UserControls\Common\Authorize\js\desktop.js" />
+    <Content Include="ThirdParty\plugin\easyBib\add.png" />
+    <Content Include="ThirdParty\plugin\easyBib\bibliography.js" />
+    <Content Include="ThirdParty\plugin\easyBib\config.json" />
+    <Content Include="ThirdParty\plugin\easyBib\easybib.js" />
+    <Content Include="ThirdParty\plugin\easyBib\easybib.png" />
+    <Content Include="ThirdParty\plugin\easyBib\index.html" />
+    <Content Include="ThirdParty\plugin\easyBib\logo%402x.png" />
+    <Content Include="ThirdParty\plugin\easyBib\logo.png" />
+    <Content Include="ThirdParty\plugin\easyBib\select2.min.css" />
+    <Content Include="ThirdParty\plugin\easyBib\select2.min.js" />
+    <Content Include="ThirdParty\plugin\easyBib\style.css" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\br-BR.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\ch-CH.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\cz-CZ.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\de-DE.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\es-ES.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\fr-FR.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\it-IT.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\jp-JP.json" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\nl-NL.json" />
+    <Content Include="ThirdParty\plugin\easyBib\trash.png" />
+    <Content Include="ThirdParty\plugin\pluginBase.js" />
+    <Content Include="ThirdParty\plugin\plugins.css" />
+    <Content Include="ThirdParty\plugin\wordpress\config.json" />
+    <Content Include="ThirdParty\plugin\wordpress\icon.png" />
+    <Content Include="ThirdParty\plugin\wordpress\index.html" />
+    <Content Include="ThirdParty\plugin\wordpress\style.css" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\br-BR.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\ch-CH.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\cz-CZ.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\de-DE.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\es-ES.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\fr-FR.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\it-IT.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\jp-JP.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\nl-NL.json" />
+    <Content Include="ThirdParty\plugin\wordpress\trash.png" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress.js" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white%402x.png" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white.png" />
     <Content Include="UserControls\Common\Authorize\js\recaptchacontroller.js" />
     <Content Include="UserControls\Common\MediaViewer\imageviewer.js" />
     <Content Include="UserControls\Common\MediaViewer\tiff.min.js" />
@@ -1507,25 +1598,9 @@
     <Content Include="skins\default\common_style.it-it.css" />
     <Content Include="skins\default\common_style.ru-ru.css" />
     <Content Include="skins\default\imagescss\mail.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_de.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_en.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_es.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_fr.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_it.png" />
-    <Content Include="skins\default\images\banner\banner_chrome_store_ru.png" />
-    <Content Include="skins\default\images\banner\banner_portal_de.png" />
-    <Content Include="skins\default\images\banner\banner_portal_en.png" />
-    <Content Include="skins\default\images\banner\banner_portal_es.png" />
-    <Content Include="skins\default\images\banner\banner_portal_fr.png" />
-    <Content Include="skins\default\images\banner\banner_portal_it.png" />
-    <Content Include="skins\default\images\banner\banner_portal_lv.png" />
-    <Content Include="skins\default\images\banner\banner_portal_ru.png" />
-    <Content Include="skins\default\images\chat.png" />
     <Content Include="skins\default\images\clear_16.png" />
     <Content Include="skins\default\images\close.png" />
-    <Content Include="skins\default\images\contacts.png" />
     <Content Include="skins\default\images\crm.png" />
-    <Content Include="skins\default\images\customize.png" />
     <Content Include="skins\default\images\default_user_photo_size_200-200.png" />
     <Content Include="skins\default\images\default_user_photo_size_32-32.png" />
     <Content Include="skins\default\images\default_user_photo_size_48-48.png" />
@@ -1535,14 +1610,7 @@
     <Content Include="skins\default\images\dropdown-corner-bottom.gif" />
     <Content Include="skins\default\images\empty_search.png" />
     <Content Include="skins\default\images\folders.png" />
-    <Content Include="skins\default\images\icon-blogs.png" />
-    <Content Include="skins\default\images\icon-bookmarks.png" />
-    <Content Include="skins\default\images\icon-employees.png" />
-    <Content Include="skins\default\images\icon-events.png" />
-    <Content Include="skins\default\images\icon-helpcenter.png" />
     <Content Include="skins\default\images\info.png" />
-    <Content Include="skins\default\images\integration.png" />
-    <Content Include="skins\default\images\invoice.png" />
     <Content Include="skins\default\images\link_16.png" />
     <Content Include="skins\default\images\loader_12.gif" />
     <Content Include="skins\default\images\loader_16.gif" />
@@ -1561,18 +1629,9 @@
     <Content Include="skins\default\images\product_logo.png" />
     <Content Include="skins\default\images\projects.png" />
     <Content Include="skins\default\images\quickview.png" />
-    <Content Include="skins\default\images\sales.png" />
     <Content Include="skins\default\images\status_away.png" />
     <Content Include="skins\default\images\status_na.png" />
     <Content Include="skins\default\images\support.png" />
-    <Content Include="skins\default\images\support\live_support_banner.png" />
-    <Content Include="skins\default\images\support\live_support_banner_de.png" />
-    <Content Include="skins\default\images\support\live_support_banner_es.png" />
-    <Content Include="skins\default\images\support\live_support_banner_fr.png" />
-    <Content Include="skins\default\images\support\live_support_banner_it.png" />
-    <Content Include="skins\default\images\support\live_support_banner_lv.png" />
-    <Content Include="skins\default\images\support\live_support_banner_ru.png" />
-    <Content Include="skins\default\images\support\offline.gif" />
     <Content Include="skins\default\images\trash_16.png" />
     <Content Include="skins\default\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="skins\default\images\ui-bg_flat_100_ffffff_40x100.png" />
@@ -1634,19 +1693,6 @@
     <Content Include="ThirdParty\Login.Master" />
     <Content Include="ThirdParty\oauth2.html" />
     <Content Include="ThirdParty\OneDrive.aspx" />
-    <Content Include="ThirdParty\plugin\easyBib\easybib.js" />
-    <Content Include="ThirdParty\plugin\easyBib\index.html" />
-    <Content Include="ThirdParty\plugin\easyBib\style.css" />
-    <Content Include="ThirdParty\plugin\easyBib\config.json" />
-    <Content Include="ThirdParty\plugin\pluginBase.js" />
-    <Content Include="ThirdParty\plugin\wordpress\config.json" />
-    <Content Include="ThirdParty\plugin\wordpress\trash.png" />
-    <Content Include="ThirdParty\plugin\wordpress\icon.png" />
-    <Content Include="ThirdParty\plugin\wordpress\index.html" />
-    <Content Include="ThirdParty\plugin\wordpress\style.css" />
-    <Content Include="ThirdParty\plugin\wordpress\wordpress.js" />
-    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white%402x.png" />
-    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white.png" />
     <Content Include="ThirdParty\Wordpress.aspx" />
     <Content Include="UserControls\Common\AuthorizeDocs\AuthorizeDocsCustomMode.ascx" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\1px_image_background.png" />
@@ -1729,6 +1775,8 @@
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\spreadsheets.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc.png" />
     <Content Include="UserControls\Common\ckeditor\contents.css" />
+    <Content Include="UserControls\Common\PortalEncryption\js\portalencryption.js" />
+    <Content Include="UserControls\Common\PortalEncryption\PortalEncryption.ascx" />
     <Content Include="UserControls\Common\MigrationPortal\js\migrationportal.js" />
     <Content Include="UserControls\Common\MigrationPortal\MigrationPortal.ascx" />
     <Content Include="UserControls\Common\PersonalFooter\PersonalFooterCustomMode.ascx" />
@@ -1749,6 +1797,8 @@
     <Content Include="UserControls\Common\SharingSettings\css\default\images\access-deny.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\access-for-comment-blue.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\access-for-comment.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\customfilter-blue.svg" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\customfilter.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\default-action.png" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\fill-form-blue.svg" />
     <Content Include="UserControls\Common\SharingSettings\css\default\images\fill-form.svg" />
@@ -1779,15 +1829,14 @@
     <Content Include="UserControls\Common\SmallChat\css\images\talk.svg" />
     <Content Include="UserControls\Common\SmallChat\css\images\talk_green.svg" />
     <Content Include="UserControls\Common\ThirdPartyBanner\css\img\bitly.png" />
-    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\docusign.png" />
     <Content Include="UserControls\Common\ThirdPartyBanner\css\img\social.png" />
     <Content Include="UserControls\Common\ThirdPartyBanner\css\img\storage.png" />
-    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\twilio.png" />
     <Content Include="UserControls\Common\ThirdPartyBanner\css\img\twilio2.png" />
     <Content Include="UserControls\Common\ThirdPartyBanner\ThirdPartyBanner.ascx" />
     <Content Include="UserControls\Common\InviteLink\InviteLink.ascx" />
     <Content Include="UserControls\Common\InviteLink\js\invitelink.js" />
     <Content Include="UserControls\Common\LoaderPage\css\loaderpage.less" />
+    <Content Include="UserControls\Common\PortalEncryption\css\portalencryption.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
@@ -1800,7 +1849,6 @@
     <Content Include="js\third-party\jquery\noty\bottomright.js" />
     <Content Include="js\third-party\jquery\noty\default.js" />
     <Content Include="js\third-party\jquery\noty\jquery.noty.js" />
-    <Content Include="Masters\BaseTemplate.master" />
     <Content Include="Masters\BodyScripts.ascx" />
     <Content Include="Masters\CommonBodyScripts.ascx" />
     <Content Include="Masters\CommonStyles.ascx" />
@@ -1872,7 +1920,6 @@
     <Content Include="skins\default\imagescss\js_28.png" />
     <Content Include="skins\default\imagescss\lock.png" />
     <Content Include="skins\default\imagescss\mainmenu_upload.png" />
-    <Content Include="skins\default\imagescss\markers.gif" />
     <Content Include="skins\default\imagescss\move.gif" />
     <Content Include="skins\default\imagescss\name_action.png" />
     <Content Include="skins\default\imagescss\printer.gif" />
@@ -1958,7 +2005,9 @@
     <Content Include="UserControls\Common\ViewSwitcher\css\viewswitcher.css" />
     <Content Include="UserControls\Common\ViewSwitcher\js\viewswitcher.js" />
     <Content Include="UserControls\EmptyScreens\CommunityDashboardEmptyScreen.ascx" />
+    <Content Include="UserControls\EmptyScreens\FilesDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\EmptyScreens\CRMDashboardEmptyScreen.ascx" />
+    <Content Include="UserControls\EmptyScreens\js\dashboard.js" />
     <Content Include="UserControls\EmptyScreens\ManagerDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\FirstTime\css\images\clouds.png" />
     <Content Include="UserControls\FirstTime\css\images\clouds_fond.png" />
@@ -1989,6 +2038,7 @@
     <Content Include="UserControls\Management\AuthorizationKeys\img\google.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\googlecloud.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\linkedin.svg" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\mailru.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\rackspace.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\s3.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\selectel.svg" />
@@ -1996,8 +2046,10 @@
     <Content Include="UserControls\Management\AuthorizationKeys\img\smsc.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\twilio.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\twitter.svg" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\vk.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\wordpress.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\yahoo.svg" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\yandex.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\js\authorizationkeys.js" />
     <Content Include="UserControls\Management\Backup\Backup.ascx" />
     <Content Include="UserControls\Management\Backup\css\backup.less" />
@@ -2016,9 +2068,19 @@
     <Content Include="UserControls\Management\DnsSettings\dnssettings.js" />
     <Content Include="UserControls\Management\PortalRename\js\portalrename.js" />
     <Content Include="UserControls\Management\PortalRename\PortalRename.ascx" />
+    <Content Include="UserControls\Management\PrivacyRoom\css\privacyroom.less" />
+    <Content Include="UserControls\Management\PrivacyRoom\js\privacyroom.js" />
+    <Content Include="UserControls\Management\PrivacyRoom\PrivacyRoom.ascx" />
     <Content Include="UserControls\Management\StorageSettings\css\storagesettings.less" />
     <Content Include="UserControls\Management\StorageSettings\js\storagesettings.js" />
     <Content Include="UserControls\Management\StorageSettings\StorageSettings.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\mobile.svg" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\private.svg" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\pro.svg" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\support.svg" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\update.svg" />
+    <Content Include="UserControls\Management\TariffSettings\TariffCustom.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\js\tariffcustom.js" />
     <Content Include="UserControls\Management\TariffSettings\js\tariffdesktop.js" />
     <Content Include="UserControls\Management\TariffSettings\TariffDesktop.ascx" />
     <Content Include="UserControls\Management\TariffSettings\css\img\close.png" />
@@ -2068,6 +2130,9 @@
     <Content Include="skins\default\jstree\themes\mixins.less" />
     <Content Include="skins\default\jstree\themes\responsive.less" />
     <Content Include="skins\default\app_install.less" />
+    <Content Include="Masters\BaseTemplate.master" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="skins\default\whitelabel.less" />
     <Content Include="UserControls\Management\WhiteLabel\js\whitelabel.js" />
     <Content Include="UserControls\Management\ColorThemes\ColorThemes.ascx" />
@@ -2165,6 +2230,7 @@
     <Content Include="UserControls\Users\UserProfile\css\accountlink_style.less" />
     <Content Include="UserControls\Users\UserProfile\css\images\vk.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\yandex.svg" />
+    <Content Include="UserControls\Users\UserProfile\css\images\yandex_ru.svg" />
     <Content Include="UserControls\Users\UserProfile\css\profileeditcontrol_style.less" />
     <Content Include="UserControls\Users\UserProfile\css\userprofilecontrol_style.less" />
     <Content Include="UserControls\Users\UserProfile\css\loadphoto_style.less" />
@@ -2193,6 +2259,7 @@
     <Content Include="skins\default\wizard.less" />
     <Content Include="UserControls\Common\Comments\css\codehighlighter\vs.less" />
     <Content Include="UserControls\Common\ThirdPartyBanner\css\thirdpartybanner.css" />
+    <Content Include="Warmup.aspx" />
     <Content Include="web.autofac.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2207,6 +2274,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="UserControls\Common\AuthorizeDocs\css\custom-mode.less" />
+    <Content Include="ThirdParty\plugin\easyBib\translations\ru-RU.json" />
+    <Content Include="ThirdParty\plugin\wordpress\translations\ru-RU.json" />
+    <Content Include="UserControls\Management\TariffSettings\css\tariffcustom.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -2556,8 +2626,6 @@
     <Content Include="skins\default\jquery_style.css" />
     <Content Include="Tariffs.aspx" />
     <Content Include="UserControls\Common\ActivateEmailPanel.ascx" />
-    <Content Include="UserControls\Common\Banner\Banner.ascx" />
-    <Content Include="UserControls\Common\Banner\js\banner.js" />
     <Content Include="UserControls\Common\HelpCenter\HelpCenter.ascx" />
     <Content Include="UserControls\Common\HelpCenter\js\help-center.js" />
     <Content Include="UserControls\Common\LoginWithThirdParty.ascx" />
@@ -2628,13 +2696,6 @@
     </Compile>
     <Compile Include="UserControls\Common\ActivateEmailPanel.ascx.designer.cs">
       <DependentUpon>ActivateEmailPanel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Common\Banner\Banner.ascx.cs">
-      <DependentUpon>Banner.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\Common\Banner\Banner.ascx.designer.cs">
-      <DependentUpon>Banner.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Common\HelpCenter\HelpCenter.ascx.cs">
       <DependentUpon>HelpCenter.ascx</DependentUpon>
@@ -2796,6 +2857,10 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\common\ASC.Data.Storage.Migration\ASC.Data.Storage.Migration.csproj">
       <Project>{43B9FADB-AB2B-4810-9353-E23C6E45C6A3}</Project>
       <Name>ASC.Data.Storage.Migration</Name>
@@ -2836,17 +2901,83 @@
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
       <Name>ASC.VoipService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AjaxPro.2">
+      <Version>2.9.17.2</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.SecurityToken">
+      <Version>3.3.104.58</Version>
+    </PackageReference>
+    <PackageReference Include="dotless">
+      <Version>1.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="dotless.AspNetHandler">
+      <Version>1.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="dotless.Core">
+      <Version>1.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.7</Version>
+    </PackageReference>
+    <PackageReference Include="GoogleAuthenticator">
+      <Version>1.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="jQuery">
+      <Version>3.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="jQuery.BlockUI">
+      <Version>2.70</Version>
+    </PackageReference>
+    <PackageReference Include="jQuery.FileUpload">
+      <Version>9.22.0</Version>
+    </PackageReference>
+    <PackageReference Include="jquery.mousewheel">
+      <Version>3.1.13</Version>
+    </PackageReference>
+    <PackageReference Include="jQuery.UI.Combined">
+      <Version>1.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="libphonenumber-csharp">
+      <Version>8.12.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost">
+      <Version>4.0.20505</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="RedisSessionProvider">
+      <Version>10.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis.Extensions.LegacyConfiguration">
+      <Version>4.0.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'AjaxMin'">
+        <Aliases>ajaxmin</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
-    <Copy SourceFiles="$(TrunkDir)packages\jQuery.3.3.1\Content\Scripts\jquery-3.3.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)packages\jQuery.BlockUI.2.70\Content\Scripts\jquery.blockUI.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.blockUI.js" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)packages\jquery.mousewheel.3.1.13\Content\Scripts\jquery.mousewheel.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.mousewheel.js" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)packages\jQuery.FileUpload.9.22.0\content\Scripts\jQuery.FileUpload\jquery.fileupload.js" DestinationFiles="$(MSBuildProjectDirectory)\js\uploader\jquery.fileupload.js" ContinueOnError="true" />
-  </Target>
-  <Target Name="AfterBuild">
-    <!-- Copy Mail third-party -->
-    <Copy SourceFiles="$(TrunkDir)packages\UDE.CSharp.1.0.0\lib\Ude.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
+    <Copy SourceFiles="$(NuGetPackageRoot)jquery\3.3.1\Content\Scripts\jquery-3.3.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(NuGetPackageRoot)jquery.blockui\2.70.0\Content\Scripts\jquery.blockUI.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.blockUI.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(NuGetPackageRoot)jquery.mousewheel\3.1.13\Content\Scripts\jquery.mousewheel.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.mousewheel.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(NuGetPackageRoot)jquery.fileupload\9.22.0\content\Scripts\jQuery.FileUpload\jquery.fileupload.js" DestinationFiles="$(MSBuildProjectDirectory)\js\uploader\jquery.fileupload.js" ContinueOnError="true" />
   </Target>
   <Target Name="Clean" Condition=" false " DependsOnTargets="$(CleanDependsOn)" />
   <ProjectExtensions>

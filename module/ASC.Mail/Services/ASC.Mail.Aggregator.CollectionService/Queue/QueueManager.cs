@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -81,12 +72,15 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
             _engineFactory = new EngineFactory(-1);
 
-            _dbcFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dump.db");
-            _dbcJournalFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dump-journal.db");
+            if (_tasksConfig.UseDump)
+            {
+                _dbcFile = Path.Combine(Environment.CurrentDirectory, "dump.db");
+                _dbcJournalFile = Path.Combine(Environment.CurrentDirectory, "dump-journal.db");
 
-            _log.DebugFormat("Dump file path: {0}", _dbcFile);
+                _log.DebugFormat("Dump file path: {0}", _dbcFile);
 
-            LoadDump();
+                LoadDump();
+            }
         }
 
         #region - public methods -
@@ -179,6 +173,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         public void LoadMailboxesFromDump()
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             if (_lockedMailBoxList.Any())
                 return;
 
@@ -203,6 +200,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         public void LoadTenantsFromDump()
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 _log.Debug("LoadTenantsFromDump()");
@@ -232,6 +232,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void ReCreateDump()
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 if (File.Exists(_dbcFile))
@@ -268,6 +271,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void AddMailboxToDumpDb(MailboxData mailboxData)
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 lock (_locker)
@@ -293,6 +299,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void DeleteMailboxFromDumpDb(int mailBoxId)
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 lock (_locker)
@@ -315,6 +324,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void LoadDump()
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 if (File.Exists(_dbcJournalFile))
@@ -338,6 +350,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void AddTenantToDumpDb(TenantData tenantData)
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 lock (_locker)
@@ -363,6 +378,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void DeleteTenantFromDumpDb(int tenantId)
         {
+            if (!_tasksConfig.UseDump)
+                return;
+
             try
             {
                 lock (_locker)
@@ -602,8 +620,11 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             _tenantMemCache.Dispose();
             _tenantMemCache = null;
 
-            _db.Dispose();
-            _db = null;
+            if (_tasksConfig.UseDump)
+            {
+                _db.Dispose();
+                _db = null;
+            }
         }
     }
 

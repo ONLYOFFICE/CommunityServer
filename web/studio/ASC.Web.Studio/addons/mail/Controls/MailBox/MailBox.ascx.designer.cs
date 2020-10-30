@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Mail.Controls {
-    
-    
-    public partial class MailBox {
-        
+namespace ASC.Web.Mail.Controls
+{
+
+
+    public partial class MailBox
+    {
+
+        /// <summary>
+        /// OutContentPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder OutContentPlaceHolder;
+
         /// <summary>
         /// ControlPlaceHolder control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace ASC.Web.Mail.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ControlPlaceHolder;
-        
+
         /// <summary>
         /// TagsPageHolder control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace ASC.Web.Mail.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder TagsPageHolder;
-        
+
         /// <summary>
         /// _phDocUploader control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace ASC.Web.Mail.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder _phDocUploader;
-        
+
         /// <summary>
         /// fileholder control.
         /// </summary>
@@ -47,16 +58,7 @@ namespace ASC.Web.Mail.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder fileholder;
-        
-        /// <summary>
-        /// _phPagerContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _phPagerContent;
-        
+
         /// <summary>
         /// QuestionPopup control.
         /// </summary>

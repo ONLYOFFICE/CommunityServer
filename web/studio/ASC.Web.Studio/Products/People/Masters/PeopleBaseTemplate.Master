@@ -1,25 +1,34 @@
 ﻿<%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.People" %>
 <%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master" CodeBehind="PeopleBaseTemplate.master.cs" Inherits="ASC.Web.People.Masters.PeopleBaseTemplate" %>
-<%@ Import Namespace="ASC.Data.Storage" %>
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 
-<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeaderContent" runat="server">
+<asp:Content ContentPlaceHolderID="HeaderContent" runat="server"/>
+
+<asp:Content ContentPlaceHolderID="CreateButtonContent" runat="server">
+    <asp:PlaceHolder ID="CreateButtonContent" runat="server" />
 </asp:Content>
 
-<asp:Content ID="_PageContent" ContentPlaceHolderID="PageContent" runat="server">
+<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
+    <div id="peopleSidepanel">
+        <asp:PlaceHolder ID="SidePanel" runat="server" />
+    </div>
+    <asp:PlaceHolder ID="ControlHolder" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
+      <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="FilterContent" runat="server">
+      <asp:ContentPlaceHolder ID="FilterContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
       <asp:ContentPlaceHolder ID="PeoplePageContent" runat="server" />
 </asp:Content>
 
-<asp:Content ID="_sidePanel" ContentPlaceHolderID="SidePanel" runat="server">
-    <asp:PlaceHolder ID="_sideHolder" runat="server" />
-    <div id="peopleSidepanel">
-        <asp:PlaceHolder ID="_sidepanelHolder" runat="server" />
-    </div>
-    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
-    <div class="display-block">
-        <asp:PlaceHolder ID="ControlHolder" runat="server" />
-    </div>
+<asp:Content ContentPlaceHolderID="PagingContent" runat="server">
+      <asp:ContentPlaceHolder ID="PagingContent" runat="server" />
 </asp:Content>

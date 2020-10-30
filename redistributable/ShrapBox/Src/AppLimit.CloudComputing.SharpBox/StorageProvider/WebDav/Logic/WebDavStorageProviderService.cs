@@ -531,13 +531,17 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
                     NetworkCredential networkCredential;
                     if (code == HttpStatusCode.Unauthorized && (networkCredential = creds as NetworkCredential) != null)
                     {
-                        var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                         // get authentication method
-                        var authMethod = search.Match(e.Response.Headers["WWW-Authenticate"]).Value;
-                        var newCredentials = new CredentialCache { { new Uri((new Uri(resourceUrl)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
+                        var headers = e.Response.Headers["WWW-Authenticate"];
+                        if (!string.IsNullOrEmpty(headers))
+                        {
+                            var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                            var authMethod = search.Match(headers).Value;
+                            var newCredentials = new CredentialCache { { new Uri((new Uri(resourceUrl)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
 
-                        // redo it
-                        return RequestResourceFromWebDavShare(session, newCredentials, resourceUrl, out childs);
+                            // redo it
+                            return RequestResourceFromWebDavShare(session, newCredentials, resourceUrl, out childs);
+                        }
                     }
                 }
 

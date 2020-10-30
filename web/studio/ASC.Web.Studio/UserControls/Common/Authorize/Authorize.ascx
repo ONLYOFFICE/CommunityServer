@@ -10,8 +10,7 @@
     <% if (EnableSso)
     { %>
     <div class="auth-form_sso clearFix">
-        <a id="ssoButton" class="button blue big singleSignOn"
-            <% if (IsSaml) { %> href="<%= SetupInfo.SsoSamlLoginUrl %>" <% } else { %> href="jwtlogin.ashx?auth=true" <%} %>><%: SsoLabel %></a>
+        <a id="ssoButton" class="button blue big singleSignOn" href="<%= SsoUrl %>"><%: SsoLabel %></a>
     </div>
     <div class="auth-form_splitter clearFix">
         <span><%= Resource.Or.ToLowerInvariant() %></span>
@@ -29,7 +28,8 @@
 
     <%--password--%>
     <div class="auth-form_password">
-        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" name="pwd" maxlength="<%= PasswordSettings.MaxLength %>" placeholder="<%= Resource.Password %>" />
+        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" maxlength="<%= PasswordSettings.MaxLength %>" placeholder="<%= Resource.Password %>" />
+        <input type="hidden" id="passwordHash" name="passwordHash" />
     </div>
     <%--buttons--%>
     <div class="auth-form_submenu clearFix">
@@ -39,7 +39,7 @@
             </span>
             <% if (EnableSession && !Request.DesktopApp()) { %>
             <div>
-                <input type="checkbox" id="remember" name="remember" checked />
+                <input type="checkbox" id="remember" name="remember"/>
                 <label for="remember">
                     <%= Resource.Remember%>
                 </label>
@@ -49,10 +49,23 @@
                 </div>
             </div>
             <% } %>
+            <% if (EnableLdap)
+               { %>
+            <div class="auth-ldap-checkbox">
+                <input type="checkbox" id="ldapPassword" checked="checked" />
+                <label for="ldapPassword">
+                    <%= string.Format(Resource.SignInLDAP, ASC.ActiveDirectory.Base.Settings.LdapCurrentDomain.Load().CurrentDomain) %>
+                </label>
+                <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'ldapPasswordHelper'});"></span>
+                <div class="popup_helper" id="ldapPasswordHelper">
+                    <p><%= Resource.SignInLDAPHelper %></p>
+                </div>
+            </div>
+            <% } %>
         </div>
         <div class="auth-form_submenu_login clearFix">
             <asp:PlaceHolder ID="pwdReminderHolder" runat="server" />
-            <a id="loginButton" class="button blue big signIn" onclick="jQuery('#authMessage').hide(); jQuery('.pwdLoginTextbox').removeClass('error'); Authorize.Login(); return false;">
+            <a id="loginButton" class="button blue big signIn" onclick="Authorize.Submit(); return false;">
                 <%= Resource.LoginButton %>
             </a>
         </div>
@@ -64,8 +77,8 @@
         </div>
         <% } %>
         <div id="authMessage" class="auth-form_message"><%= ErrorMessage + LoginMessage %></div>
-        <% if (AccountLinkControl.IsNotEmpty && SetupInfo.ThirdPartyAuthEnabled)
-            { %>
+        <% if (ThirdpartyEnable)
+           { %>
         <div id="social">
             <div><%= Resource.LoginWithAccount %></div>
             <asp:PlaceHolder ID="signInPlaceholder" runat="server" />

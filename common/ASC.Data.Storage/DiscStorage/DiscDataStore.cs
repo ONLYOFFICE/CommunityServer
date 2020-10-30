@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -31,6 +22,7 @@ using System.Linq;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Data.Storage.Configuration;
+using ASC.Data.Storage.Encryption;
 
 namespace ASC.Data.Storage.DiscStorage
 {
@@ -39,7 +31,7 @@ namespace ASC.Data.Storage.DiscStorage
         private const int BufferSize = 8192;
         private readonly Dictionary<string, MappedPath> _mappedPaths = new Dictionary<string, MappedPath>();
 
-      
+        private readonly ICrypt crypt;
 
         public DiscDataStore(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
@@ -60,6 +52,10 @@ namespace ASC.Data.Storage.DiscStorage
                     ToDictionary(x => x.Name,
                                  y => y.Expires);
             _domainsExpires.Add(string.Empty, moduleConfig.Expires);
+
+            var settings = moduleConfig.DisabledEncryption ? new EncryptionSettings() : EncryptionSettings.Load();
+
+            crypt = EncryptionFactory.GetCrypt(moduleConfig.Name, settings);
         }
 
         public String GetPhysicalPath(string domain, string path)
@@ -81,12 +77,17 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Stream GetReadStream(string domain, string path)
         {
+            return GetReadStream(domain, path, true);
+        }
+
+        public Stream GetReadStream(string domain, string path, bool withDecription)
+        {
             if (path == null) throw new ArgumentNullException("path");
             var target = GetTarget(domain, path);
 
             if (File.Exists(target))
             {
-                return File.OpenRead(target);
+                return withDecription ? crypt.GetReadStream(target) : File.OpenRead(target);
             }
             throw new FileNotFoundException("File not found", Path.GetFullPath(target));
         }
@@ -99,8 +100,8 @@ namespace ASC.Data.Storage.DiscStorage
 
             if (File.Exists(target))
             {
-                FileStream stream = File.OpenRead(target);
-                if (0 < offset) stream.Seek(offset, SeekOrigin.Begin);
+                var stream = crypt.GetReadStream(target);
+                if (0 < offset && stream.CanSeek) stream.Seek(offset, SeekOrigin.Begin);
                 return stream;
             }
             throw new FileNotFoundException("File not found", Path.GetFullPath(target));
@@ -119,7 +120,6 @@ namespace ASC.Data.Storage.DiscStorage
         public override Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays)
         {
             return Save(domain, path, stream);
-
         }
 
         public override Uri Save(string domain, string path, Stream stream)
@@ -146,8 +146,10 @@ namespace ASC.Data.Storage.DiscStorage
 
             //optimaze disk file copy
             var fileStream = buffered as FileStream;
+
             long fslen;
-            if (fileStream != null && WorkContext.IsMono && false) // false, because Mono 6.0 throw System.IO.IOException: Sharing violation on path /tmp/...
+
+            if (fileStream != null && WorkContext.IsMono)
             {
                 File.Copy(fileStream.Name, target, true);
                 fslen = fileStream.Length;
@@ -167,6 +169,8 @@ namespace ASC.Data.Storage.DiscStorage
             }
 
             QuotaUsedAdd(domain, fslen);
+
+            crypt.EncryptFile(target);
 
             return GetUri(domain, path);
         }
@@ -211,11 +215,21 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Uri FinalizeChunkedUpload(string domain, string path, string uploadId, Dictionary<int, string> eTags)
         {
+            var target = GetTarget(domain, path);
+
             if (QuotaController != null)
             {
-                var size = GetFileSize(domain, path);
+                if (!File.Exists(target))
+                {
+                    throw new FileNotFoundException("file not found " + target);
+                }
+
+                var size = new FileInfo(target).Length;
                 QuotaUsedAdd(domain, size);
             }
+
+            crypt.EncryptFile(target);
+
             return GetUri(domain, path);
         }
 
@@ -242,7 +256,7 @@ namespace ASC.Data.Storage.DiscStorage
 
             if (File.Exists(target))
             {
-                var size = new FileInfo(target).Length;
+                var size = crypt.GetFileSize(target);
                 File.Delete(target);
 
                 QuotaUsedDelete(domain, size);
@@ -264,7 +278,7 @@ namespace ASC.Data.Storage.DiscStorage
                 if (!File.Exists(target))
                     continue;
 
-                var size = new FileInfo(target).Length;
+                var size = crypt.GetFileSize(target);
                 File.Delete(target);
 
                 QuotaUsedDelete(domain, size);
@@ -282,7 +296,7 @@ namespace ASC.Data.Storage.DiscStorage
                 var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 foreach (var entry in entries)
                 {
-                    var size = new FileInfo(entry).Length;
+                    var size = crypt.GetFileSize(entry);
                     File.Delete(entry);
                     QuotaUsedDelete(domain, size);
                 }
@@ -307,8 +321,9 @@ namespace ASC.Data.Storage.DiscStorage
                     var fileInfo = new FileInfo(entry);
                     if (fileInfo.LastWriteTime >= fromDate && fileInfo.LastWriteTime <= toDate)
                     {
+                        var size = crypt.GetFileSize(entry);
                         File.Delete(entry);
-                        QuotaUsedDelete(domain, fileInfo.Length);
+                        QuotaUsedDelete(domain, size);
                     }
                 }
             }
@@ -345,7 +360,7 @@ namespace ASC.Data.Storage.DiscStorage
                     Directory.CreateDirectory(Path.GetDirectoryName(newtarget));
                 }
 
-                var flength = new FileInfo(target).Length;
+                var flength = crypt.GetFileSize(target);
 
                 //Delete file if exists
                 if (File.Exists(newtarget))
@@ -394,7 +409,7 @@ namespace ASC.Data.Storage.DiscStorage
             if (!Directory.Exists(targetDir)) return;
 
             var entries = Directory.GetFiles(targetDir, "*.*", SearchOption.AllDirectories);
-            var size = entries.Select(entry => new FileInfo(entry)).Select(info => info.Length).Sum();
+            var size = entries.Select(entry => crypt.GetFileSize(entry)).Sum();
 
             var subDirs = Directory.GetDirectories(targetDir, "*", SearchOption.AllDirectories).ToList();
             subDirs.Reverse();
@@ -411,7 +426,7 @@ namespace ASC.Data.Storage.DiscStorage
 
             if (File.Exists(target))
             {
-                return new FileInfo(target).Length;
+                return crypt.GetFileSize(target);
             }
             throw new FileNotFoundException("file not found " + target);
         }
@@ -423,8 +438,8 @@ namespace ASC.Data.Storage.DiscStorage
             if (Directory.Exists(target))
             {
                 return Directory.GetFiles(target, "*.*", SearchOption.AllDirectories)
-                    .Select(entry => new FileInfo(entry))
-                    .Sum(info => info.Length);
+                    .Select(entry => crypt.GetFileSize(entry))
+                    .Sum();
             }
 
             throw new FileNotFoundException("directory not found " + target);
@@ -459,9 +474,10 @@ namespace ASC.Data.Storage.DiscStorage
                 var finfo = new FileInfo(entry);
                 if ((DateTime.UtcNow - finfo.CreationTimeUtc) > oldThreshold)
                 {
+                    var size = crypt.GetFileSize(entry);
                     File.Delete(entry);
 
-                    QuotaUsedDelete(domain, finfo.Length);
+                    QuotaUsedDelete(domain, size);
                 }
             }
         }
@@ -548,7 +564,7 @@ namespace ASC.Data.Storage.DiscStorage
             if (Directory.Exists(target))
             {
                 var entries = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
-                size = entries.Select(entry => new FileInfo(entry)).Select(info => info.Length).Sum();
+                size = entries.Select(entry => crypt.GetFileSize(entry)).Sum();
             }
             return size;
         }
@@ -569,7 +585,7 @@ namespace ASC.Data.Storage.DiscStorage
 
                 File.Copy(target, newtarget, true);
 
-                var flength = new FileInfo(target).Length;
+                var flength = crypt.GetFileSize(target);
                 QuotaUsedAdd(newdomain, flength);
             }
             else
@@ -601,8 +617,10 @@ namespace ASC.Data.Storage.DiscStorage
             // Copy each file into it's new directory.
             foreach (var fi in source.GetFiles())
             {
-                fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
-                QuotaUsedAdd(newdomain, fi.Length);
+                var fp = Path.Combine(target.ToString(), fi.Name);
+                fi.CopyTo(fp, true);
+                var size = crypt.GetFileSize(fp);
+                QuotaUsedAdd(newdomain, size);
             }
 
             // Copy each subdirectory using recursion.
@@ -626,10 +644,15 @@ namespace ASC.Data.Storage.DiscStorage
 
         public Stream GetWriteStream(string domain, string path)
         {
+            return GetWriteStream(domain, path, FileMode.Create);
+        }
+
+        public Stream GetWriteStream(string domain, string path, FileMode fileMode)
+        {
             if (path == null) throw new ArgumentNullException("path");
             var target = GetTarget(domain, path);
             CreateDirectory(target);
-            return File.Open(target, FileMode.Create);
+            return File.Open(target, fileMode);
         }
 
         private static void CreateDirectory(string target)
@@ -659,5 +682,38 @@ namespace ASC.Data.Storage.DiscStorage
                 throw new ArgumentException("bad path");
             }
         }
+
+
+        public void Encrypt(string domain, string path)
+        {
+            if (path == null) throw new ArgumentNullException("path");
+
+            var target = GetTarget(domain, path);
+
+            if (File.Exists(target))
+            {
+                crypt.EncryptFile(target);
+            }
+            else
+            {
+                throw new FileNotFoundException("file not found", target);
+            }
         }
+
+        public void Decrypt(string domain, string path)
+        {
+            if (path == null) throw new ArgumentNullException("path");
+
+            var target = GetTarget(domain, path);
+
+            if (File.Exists(target))
+            {
+                crypt.DecryptFile(target);
+            }
+            else
+            {
+                throw new FileNotFoundException("file not found", target);
+            }
+        }
+    }
 }

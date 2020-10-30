@@ -1,29 +1,31 @@
 ﻿<script id="userActionMenuTemplate" type="text/x-jquery-tmpl">
     <ul class="dropdown-content">
         {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true ) && (user.status !== "blocked")}}
-        <li><a class="edit-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblEdit}</a></li>
+        <li><a class="edit-profile dropdown-item with-icon edit">${ASC.People.Resources.PeopleResource.LblEdit}</a></li>
         {{/if}}
         {{if ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")}}
-        <li><a class="enable-profile dropdown-item">${ASC.People.Resources.PeopleResource.EnableUserButton}</a></li>
+        <li><a class="enable-profile dropdown-item with-icon enable-item">${ASC.People.Resources.PeopleResource.EnableUserButton}</a></li>
         {{/if}}
         {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
-        <li><a class="change-password dropdown-item">${ASC.People.Resources.PeopleResource.LblChangePassword}</a></li>
+        <li><a class="change-password dropdown-item with-icon block">${ASC.People.Resources.PeopleResource.LblChangePassword}</a></li>
         {{/if}}
         {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
-        <li><a class="change-email dropdown-item">${ASC.People.Resources.PeopleResource.LblChangeEmail}</a></li>
+        <li><a class="change-email dropdown-item with-icon add-email">${ASC.People.Resources.PeopleResource.LblChangeEmail}</a></li>
         {{/if}}
         {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
-        <li><a class="email-activation dropdown-item">${ASC.People.Resources.PeopleResource.LblSendActivation}</a></li>
+        <li><a class="email-activation dropdown-item with-icon email">${ASC.People.Resources.PeopleResource.LblSendActivation}</a></li>
         {{/if}}
         {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked") && (user.isLDAP === "false")}}
-        <li><a class="block-profile dropdown-item">${ASC.People.Resources.PeopleResource.DisableUserButton}</a></li>
+        <li><a class="block-profile dropdown-item with-icon disable-item">${ASC.People.Resources.PeopleResource.DisableUserButton}</a></li>
         {{/if}}
         {{if (user.isOwner !== "true") && ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")}}
-            <li><a class="reassign-data dropdown-item">${ASC.People.Resources.PeopleResource.LblReassignData}</a></li>
-            <li><a class="remove-data dropdown-item">${ASC.People.Resources.PeopleResource.LblRemoveData}</a></li>
+        <li class="dropdown-item-seporator"></li>
+        <li><a class="reassign-data dropdown-item with-icon reassign-data">${ASC.People.Resources.PeopleResource.LblReassignData}</a></li>
+        <li><a class="remove-data dropdown-item with-icon delete">${ASC.People.Resources.PeopleResource.LblRemoveData}</a></li>
         {{/if}}
         {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")) || ($data.isMe === true) && (user.isLDAP === "false"))}}
-            <li><a class="delete-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblDeleteProfile}</a></li>
+        <li class="dropdown-item-seporator"></li>
+        <li><a class="delete-profile dropdown-item with-icon delete">${ASC.People.Resources.PeopleResource.LblDeleteProfile}</a></li>
         {{/if}}
     </ul>
 </script>
@@ -50,7 +52,7 @@
         {{/if}}
         <td class="icon-list">
             <a class="ava" href="${user.link}">
-                <img src="{{if $data.isRetina}}${user.avatar}{{else}}${user.avatarSmall}{{/if}}" title="${user.displayName}"/>
+                <img src="{{if $data.isRetina}}${user.avatar}{{else}}${user.avatarSmall}{{/if}}" title="${user.displayName}" alt=""/>
 
                 {{if (user.isVisitor)}}<span class="role collaborator" title="${ASC.Resources.Master.Guest}"></span>{{/if}}
                 {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="${ASC.Resources.Master.TemplateResource.Administrator}"></span>{{/if}}
@@ -198,7 +200,7 @@
 <script id="groupListTemplate" type="text/x-jquery-tmpl">
     {{each(i, group) groups}}
     <li class="menu-sub-item" data-id="${group.id}">
-        <a class="menu-item-label outer-text text-overflow" title="${group.name}" href="/products/people/#sortorder=ascending&status=active&group=${group.id}">${group.name}</a>
+        <a class="menu-item-label outer-text text-overflow" title="${group.name}" href="/Products/People/#sortorder=ascending&status=active&group=${group.id}">${group.name}</a>
     </li>
     {{/each}}
 </script>

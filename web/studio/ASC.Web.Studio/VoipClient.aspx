@@ -7,5 +7,5 @@
             overflow:hidden;
         }
     </style>
-    <asp:PlaceHolder runat="server" ID="PhoneControl"></asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" ID="PhoneControl"/>
 </asp:Content>

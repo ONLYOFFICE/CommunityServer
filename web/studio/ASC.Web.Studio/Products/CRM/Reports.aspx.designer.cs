@@ -13,15 +13,6 @@ namespace ASC.Web.CRM {
     public partial class Reports {
         
         /// <summary>
-        /// _navigationPanelContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _navigationPanelContent;
-        
-        /// <summary>
         /// AdditionalContainerHolder control.
         /// </summary>
         /// <remarks>

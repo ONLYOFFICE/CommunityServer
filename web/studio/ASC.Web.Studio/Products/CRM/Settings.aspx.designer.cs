@@ -13,22 +13,13 @@ namespace ASC.Web.CRM {
     public partial class Settings {
         
         /// <summary>
-        /// _navigationPanelContent control.
+        /// TitleContentHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _navigationPanelContent;
-        
-        /// <summary>
-        /// AdditionalContainerHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AdditionalContainerHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder TitleContentHolder;
         
         /// <summary>
         /// CommonContainerHolder control.

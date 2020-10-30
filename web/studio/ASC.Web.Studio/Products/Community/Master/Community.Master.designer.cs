@@ -22,13 +22,13 @@ namespace ASC.Web.Community {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunityPageHeader;
         
         /// <summary>
-        /// CommunityPageContent control.
+        /// CommunityCreateButtonContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunityPageContent;
+        protected global::System.Web.UI.WebControls.PlaceHolder CommunityCreateButtonContent;
         
         /// <summary>
         /// _sideNavigation control.
@@ -47,6 +47,33 @@ namespace ASC.Web.Community {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunitySidePanel;
+        
+        /// <summary>
+        /// CommunityTitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunityTitleContent;
+        
+        /// <summary>
+        /// CommunityPageContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunityPageContent;
+        
+        /// <summary>
+        /// CommunityPagingContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CommunityPagingContent;
         
         /// <summary>
         /// Master property.

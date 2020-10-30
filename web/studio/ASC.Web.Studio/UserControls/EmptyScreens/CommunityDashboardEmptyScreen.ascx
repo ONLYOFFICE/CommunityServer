@@ -1,79 +1,48 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommunityDashboardEmptyScreen.ascx.cs" Inherits="ASC.Web.Studio.UserControls.EmptyScreens.CommunityDashboardEmptyScreen" %>
 <%@ Import Namespace="ASC.Web.Community.Resources" %>
 
-<% if (!UseStaticPosition)
-   { %>
-    <div class="backdrop" blank-page=""></div>
-<% } %>
 
-<div id="content" blank-page="" class="dashboard-center-box community <%= UseStaticPosition ? "static" : "" %>">
-    <div class="header">
-        <% if (!UseStaticPosition)
-           { %>
-            <a href="<%= ProductStartUrl %>">
-                <span class="close">&times;</span>
-            </a>
-        <% } %>
-        <%= CommunityResource.DashboardTitle %>
+<div id="dashboardBackdrop" class="backdrop display-none" blank-page=""></div>
+
+<div id="dashboardContent" blank-page="" class="dashboard-center-box community display-none">
+    <a href="<%= ProductStartUrl %>" class="close">&times;</a>
+    <div class="content">
+        <div class="slick-carousel">
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img share-news-and-knowledge"></div>
+                <div class="text">
+                    <div class="title"><%= CommunityResource.DashboardShareNewsAndKnowledge %></div>
+                    <p><%= CommunityResource.DashboardShareNewsAndKnowledgeFirstLine %></p>
+                    <p><%= CommunityResource.DashboardShareNewsAndKnowledgeSecondLine %></p>
+                    <p><%= CommunityResource.DashboardShareNewsAndKnowledgeThirdLine %></p>
+                </div>
+            </div>
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img discuss-with-team"></div>
+                <div class="text">
+                    <div class="title"><%= CommunityResource.DashboardDiscussWithTeam %></div>
+                    <p><%= CommunityResource.DashboardDiscussWithTeamFirstLine %></p>
+                    <p><%= CommunityResource.DashboardDiscussWithTeamSecondLine %></p>
+                    <p><%= CommunityResource.DashboardDiscussWithTeamThirdLine %></p>
+                </div>
+            </div>
+            <div class="module-block wiki slick-carousel-item clearFix">
+                <div class="img keep-your-team-posted"></div>
+                <div class="text">
+                    <div class="title"><%= CommunityResource.DashboardKeepYourTeamPosted %></div>
+                    <p><%= CommunityResource.DashboardKeepYourTeamPostedFirstLine %></p>
+                    <p><%= CommunityResource.DashboardKeepYourTeamPostedSecondLine %></p>
+                    <p><%= CommunityResource.DashboardKeepYourTeamPostedThirdLine %></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="content clearFix">
-
-        <% if (IsBlogsAvailable) %>
-        <% { %>
-
-        <div class="module-block">
-            <div class="img blogs"></div>
-            <div class="title"><%= CommunityResource.BlogsModuleTitle %></div>
-            <ul>
-                <li><%= CommunityResource.BlogsModuleFirstLine %></li>
-                <li><%= CommunityResource.BlogsModuleSecondLine %></li>
-            </ul>
-            <a href="<%= VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/addblog.aspx") %>" class="link underline">
-                <%= CommunityResource.BlogsModuleLink1 %>
-            </a>
-        </div>
-        <% } %>
-        <% if (IsEventsAvailable) %>
-        <% { %>
-        <div class="module-block">
-            <div class="img events"></div>
-            <div class="title"><%= CommunityResource.EventsModuleTitle %></div>
-            <ul>
-                <li><%= CommunityResource.EventsModuleFirstLine %></li>
-                <li><%= CommunityResource.EventsModuleSecondLine %></li>
-            </ul>
-            <a href="<%= VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editnews.aspx") %>" class="link underline">
-                <%= CommunityResource.EventsModuleLink %>
-            </a>
-        </div>
-        <% } %>
-        <% if (IsBookmarksAvailable) %>
-        <% { %>
-        <div class="module-block wiki">
-            <div class="img bookmarks"></div>
-            <div class="title"><%= CommunityResource.WikiModuleTitle %></div>
-            <ul>
-                <li><%= CommunityResource.WikiModuleFirstLine %></li>
-                <li><%= CommunityResource.WikiModuleSecondLine %></li>
-            </ul>
-            <a href="<%= VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/createbookmark.aspx") %>" class="link underline">
-                <%= CommunityResource.WikiModuleLink2 %>
-            </a>
-        </div>
-        <% } %>
-        <% if (!string.IsNullOrEmpty(HelpLink)) %>
-        <% { %>
-        <div class="module-block">
-            <div class="img helpcenter"></div>
-            <div class="title"><%= CommunityResource.HelpModuleTitle %></div>
-            <ul>
-                <li><%= CommunityResource.HelpModuleFirstLine %></li>
-                <li><%= CommunityResource.HelpModuleSecondLine %></li>
-            </ul>
-            <a href="<%= HelpLink %>" target="_blank" class="link underline">
-                <%= CommunityResource.HelpModuleLink %>
-            </a>
-        </div>
-        <% } %>
+    <% if (IsBlogsAvailable) %>
+    <% { %>
+    <div class="dashboard-buttons">
+        <a class="button huge create-button" href="<%= VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Blogs/AddBlog.aspx") %>">
+            <%= CommunityResource.DashboardCreateWelcomePost %>
+        </a>
     </div>
+    <% } %>
 </div>

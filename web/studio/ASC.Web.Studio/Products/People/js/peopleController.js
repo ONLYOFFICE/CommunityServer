@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -62,47 +53,90 @@ ASC.People.PeopleController = (function() {
     function hideFirstLoader() {
         isFirstLoad = false;
         jq(".mainPageContent").children(".loader-page").remove();
-        jq(".profile-title, #filterContainer, #tableForPeopleNavigation").show();
+        jq(".profile-title, #filterContainer, #tableForPeopleNavigation").removeClass("display-none");
         jq('#peopleFilter').advansedFilter("resize");
     };
 
     function performProfiles(profiles) {
-        var data = [],
-            msPerDay = 24 * 60 * 60 * 1000,
-            today = new Date(),
-            currentTimeZoneOffsetInSeconds = -today.getTimezoneOffset() * 60 * 1000,
-            daysLeft;
-
-            today.setHours(00);
-            today.setMinutes(00);
-            today.setSeconds(00);
+        var data = [];
 
         for (var i = 0, n = profiles.length; i < n; i++) {
             var profile = profiles[i];
-            profile.groups = window.GroupManager.getGroups(window.UserManager.getUser(profile.id).groups);
-            profile.link = "profile.aspx?user=" + encodeURIComponent(profile.userName);
 
-            var date = profile.birthday;
-            if ((date != null) && (date.getFullYear() <= today.getFullYear())) {
-                                            
-                date = new Date(date.getTime() + currentTimeZoneOffsetInSeconds);
-                var daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-                if (daysInMonth >= date.getDate()) {
-                    date.setFullYear(today.getFullYear());
-                    daysLeft = Math.round((date.getTime() - today.getTime()) / msPerDay);
-                    if (daysLeft < 0) {
-                        date.setFullYear(today.getFullYear() + 1);
-                    }
-                    if ((daysLeft >= 0) && (daysLeft < 4)) {
-                        profile.bithdayDaysLeft = Math.round((date.getTime() - today.getTime()) / msPerDay);
-                    }
-                }
+            profile.groups = window.GroupManager.getGroups(window.UserManager.getUser(profile.id).groups);
+            profile.link = "Profile.aspx?user=" + encodeURIComponent(profile.userName);
+
+            var daysLeft = getBithdayDaysLeft(profile.birthdayApiString);
+
+            if ((daysLeft >= 0) && (daysLeft < 4)) {
+                profile.bithdayDaysLeft = daysLeft;
             }
 
             data.push(profile);
-
         }
         return data;
+    };
+
+    function getBithdayDaysLeft(birthdayApiString) {
+
+        function stringToDate(dateString) {
+            var offset = 0;
+
+            if (dateString.indexOf('Z') === -1) {
+                offset = dateString.substring(dateString.length - 5).split(':');
+                offset = (+offset[0] * 60 + +offset[1]) * (dateString.charAt(dateString.length - 6, 1) === '+' ? 1 : -1);
+            }
+
+            var parts = dateString.split('.')[0].split('T');
+            parts[0] = parts[0].split('-');
+            parts[1] = parts[1].split(':');
+
+            var date = new Date(parts[0][0], parts[0][1] - 1, parts[0][2], parts[1][0], parts[1][1], parts[1][2], 0);
+            date = new Date(date.getTime() - (offset * 60 * 1000));
+
+            return date;
+        }
+
+        function isLeapYear(year) {
+            if (year < 1 || year > 9999) {
+                throw new Error("ArgumentOutOfRange_Year");
+            }
+
+            if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                    return year % 400 == 0;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        function getDaysLeft(birthday) {
+            var oneDay = 24 * 60 * 60 * 1000;
+
+            var now = new Date();
+
+            var today = new Date(now.getTime() + ((now.getTimezoneOffset() + ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset) * 60 * 1000));
+
+            var checkYear = (isLeapYear(today.getFullYear()) || birthday.getMonth() == 1 && birthday.getDate() == 29) ? 2000 : 2001;
+
+            var checkToday = new Date(checkYear, today.getMonth(), today.getDate());
+            var checkBirthday = new Date(checkYear, birthday.getMonth(), birthday.getDate());
+
+            var days = Math.round((checkBirthday - checkToday) / oneDay);
+
+            if (days < 0) days += 365;
+
+            return days;
+        }
+
+        if (!birthdayApiString) return -1;
+
+        var birthdayDate = stringToDate(birthdayApiString);
+
+        return getDaysLeft(birthdayDate);
     };
 
     function getRequestFilter(filter) {
@@ -300,11 +334,11 @@ ASC.People.PeopleController = (function() {
         if (profiles != null && profiles.length > 0) {
             renderProfiles(params, profiles);
             jq("#emptyContentForPeopleFilter").addClass("display-none");
-            jq("#peopleContent").removeClass("display-none");
+            jq(".people-content").removeClass("display-none");
             showGroupActionMenu();
         } else {
             jq(window).trigger('people-render-profiles', [params, profiles]);
-            jq("#peopleContent").addClass("display-none");
+            jq(".people-content").addClass("display-none");
             jq("#emptyContentForPeopleFilter").removeClass("display-none");
         }
         //scroll on top
@@ -479,7 +513,7 @@ ASC.People.PeopleController = (function() {
             jq("#peopleMenu_" + personId).removeClass("active");
 
             if (jq(this).hasClass("edit-profile")) {
-                window.location.replace("profileaction.aspx?action=edit&user=" + encodeURIComponent(username));
+                window.location.replace("ProfileAction.aspx?action=edit&user=" + encodeURIComponent(username));
             }
             else if (jq(this).hasClass("change-password")) {
                 PasswordTool.ShowPwdReminderDialog("1", email);
@@ -499,15 +533,15 @@ ASC.People.PeopleController = (function() {
                 changeUserStatusAction(personId, 1, isVisitor);
             }
             else if (jq(this).hasClass("reassign-data")) {
-                window.location.replace("reassigns.aspx?user=" + encodeURIComponent(username));
+                window.location.replace("Reassigns.aspx?user=" + encodeURIComponent(username));
             }
             else if (jq(this).hasClass("remove-data")) {
-                window.location.replace("reassigns.aspx?remove=true&user=" + encodeURIComponent(username));
+                window.location.replace("Reassigns.aspx?remove=true&user=" + encodeURIComponent(username));
             }
             else if (jq(this).hasClass("delete-profile")) {
                 if (personId == Teamlab.profile.id) {
                     jq("#studio_deleteProfileDialog").find(".email").attr("href", "../../addons/mail/#composeto/email=" + email).html(email);
-                    StudioBlockUIManager.blockUI("#studio_deleteProfileDialog", 400, 300, 0);
+                    StudioBlockUIManager.blockUI("#studio_deleteProfileDialog", 400);
                 } else {
                     ProfileManager.RemoveUser(personId, displayname, username);
                 }
@@ -1141,7 +1175,7 @@ ASC.People.PeopleController = (function() {
         jq("#changeTypePanel").hide();
         var type = parseInt(jq(obj).attr("data-type"));
         initChangeTypeDialog(type);
-        StudioBlockUIManager.blockUI("#changeTypeDialog", 500, 220, 0);
+        StudioBlockUIManager.blockUI("#changeTypeDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#changeTypeDialogOk\").click();";
     };
@@ -1317,7 +1351,7 @@ ASC.People.PeopleController = (function() {
         jq("#changeStatusPanel").hide();
         var status = parseInt(jq(obj).attr("data-status"));
         initChangeStatusDialog(status);
-        StudioBlockUIManager.blockUI("#changeStatusDialog", 650, 300, 0);
+        StudioBlockUIManager.blockUI("#changeStatusDialog", 650);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusOkBtn\").click();";
     };
@@ -1491,7 +1525,7 @@ ASC.People.PeopleController = (function() {
     var showResendInviteDialog = function () {
         jq("#changeTypePanel, #changeStatusPanel, #otherFunctionCnt").hide();
         initResendInviteDialog();
-        StudioBlockUIManager.blockUI("#resendInviteDialog", 500, 350, 0);
+        StudioBlockUIManager.blockUI("#resendInviteDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#resendInviteDialog .button.blue\").click();";
     };
@@ -1552,7 +1586,7 @@ ASC.People.PeopleController = (function() {
     var showRemoveUsersDialog = function () {
         jq("#changeTypePanel, #changeStatusPanel, #otherFunctionCnt").hide();
         initRemoveUsersDialog();
-        StudioBlockUIManager.blockUI("#deleteUsersDialog", 500, 200, 0);
+        StudioBlockUIManager.blockUI("#deleteUsersDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#deleteUsersDialog .button.blue\").click();";
     };
@@ -1887,7 +1921,7 @@ ASC.People.PeopleController = (function() {
         ScrolledGroupMenu.init({
             menuSelector: "#peopleHeaderMenu",
             menuAnchorSelector: "#mainSelectAll",
-            menuSpacerSelector: "#peopleContent .header-menu-spacer",
+            menuSpacerSelector: ".people-content .header-menu-spacer",
             userFuncInTop: function() { jq("#peopleHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function() { jq("#peopleHeaderMenu .menu-action-on-top").show(); }
         });
@@ -2015,32 +2049,36 @@ ASC.People.PeopleController = (function() {
         });        
 
         // right mouse button click
-         {
-             jq("#peopleData").unbind("contextmenu").bind("contextmenu", function(event) {
-                 var e = jq.fixEvent(event);
+        jq("body").unbind("contextmenu").bind("contextmenu", function (event) {
+            var e = jq.fixEvent(event);
 
-                 if (typeof e == "undefined" || !e) {
-                     return true;
-                 }
+            if (typeof e == "undefined" || !e) {
+                return true;
+            }
 
-                 var target = jq(e.srcElement || e.target),
-                     userField = target.closest("tr.with-entity-menu");
-                 if (userField.length) {
-                     var userId = userField.attr("id").split('_')[1];
-                     showUserActionMenu(userId);
-                     jq("#peopleData .entity-menu.active").removeClass("active");
+            var target = jq(e.srcElement || e.target);
+            var $dropdownItem = jq("#peopleActionMenu");
 
-                     var $dropdownItem = jq("#peopleActionMenu");
-                     $dropdownItem.show();
-                     $dropdownItem.hide();
+            if (!target.parents("#peopleData").length) {
+                $dropdownItem.hide();
+                return true;
+            }
 
-                     jq.showDropDownByContext(e, target, $dropdownItem)
+            var userField = target.closest("tr.with-entity-menu");
+            if (userField.length) {
+                var userId = userField.attr("id").split('_')[1];
+                showUserActionMenu(userId);
+                jq("#peopleData .entity-menu.active").removeClass("active");
 
-                     return false;
-                 }
-                 return true;
-             });
-        }
+                $dropdownItem.show();
+                $dropdownItem.hide();
+
+                jq.showDropDownByContext(e, target, $dropdownItem);
+
+                return false;
+            }
+            return true;
+        });
 
          jq.dropdownToggle({
              dropdownID: "otherFunctionCnt",

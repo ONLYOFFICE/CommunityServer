@@ -1,25 +1,16 @@
 ﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -66,6 +57,19 @@ namespace ASC.Mail.Core.Engine
             Log = log ?? LogManager.GetLogger("ASC.Mail.ChainEngine");
 
             Factory = new EngineFactory(Tenant, User, Log);
+        }
+
+        public List<Chain> GetChainsById(string id) {
+            using (var daoFactory = new DaoFactory())
+            {
+                var daoChain = daoFactory.CreateChainDao(Tenant, User);
+
+                var exp = SimpleConversationsExp.CreateBuilder(Tenant, User)
+                    .SetChainIds(new List<string> { id })
+                    .Build();
+
+                return daoChain.GetChains(exp);
+            }
         }
 
         public long GetNextConversationId(int id, MailSearchFilterData filter)
@@ -158,7 +162,7 @@ namespace ASC.Mail.Core.Engine
                 if (messageInfo == null)
                     throw new ArgumentException("Message Id not found");
 
-                var searchFolders = new List<int>();
+                var searchFolders = new List<int>(); 
 
                 if (messageInfo.Folder == FolderType.Inbox || messageInfo.Folder == FolderType.Sent)
                     searchFolders.AddRange(new[] {(int) FolderType.Inbox, (int) FolderType.Sent});
@@ -207,11 +211,12 @@ namespace ASC.Mail.Core.Engine
                         unreadMessagesCountByFolder.Add(message.Folder, 1);
                 }
 
+                var userFolderXmailDao = daoFactory.CreateUserFolderXMailDao(tenant, user);
+
                 uint? userFolder = null;
 
                 if (unreadMessagesCountByFolder.Keys.Any(k => k == FolderType.UserFolder))
                 {
-                    var userFolderXmailDao = daoFactory.CreateUserFolderXMailDao(tenant, user);
                     var item = userFolderXmailDao.Get(ids.First());
                     userFolder = item == null ? (uint?)null : item.FolderId;
                 }
@@ -248,6 +253,16 @@ namespace ASC.Mail.Core.Engine
                                 .Build(),
                             ChainTable.Columns.Unread,
                             false);
+                    }
+
+                    if (userFolder.HasValue)
+                    {
+                        var userFoldersIds = userFolderXmailDao.GetList(mailIds: ids)
+                            .Select(ufxm => (int)ufxm.FolderId)
+                            .Distinct()
+                            .ToList();
+
+                        engine.UserFolderEngine.RecalculateCounters(daoFactory, userFoldersIds);
                     }
 
                     tx.Commit();
@@ -464,8 +479,19 @@ namespace ASC.Mail.Core.Engine
                     var daoMailInfo = daoFactory.CreateMailInfoDao(tenant, user);
 
                     var exp = Exp.Empty;
+                    var сhains = new List<Tuple<int, string>>();
+
                     foreach (var chain in chainsInfo)
                     {
+                        var key = new Tuple<int, string>(chain.MailboxId, chain.ChainId);
+
+                        if (сhains.Any() &&
+                            сhains.Contains(key) &&
+                            (chain.Folder == FolderType.Inbox || chain.Folder == FolderType.Sent))
+                        {
+                            continue;
+                        }
+
                         var innerWhere = Exp.And(
                             Exp.Eq(MailTable.Columns.ChainId.Prefix(MM_ALIAS), chain.ChainId),
                             Exp.Eq(MailTable.Columns.MailboxId.Prefix(MM_ALIAS), chain.MailboxId));
@@ -473,12 +499,14 @@ namespace ASC.Mail.Core.Engine
                         if (chain.Folder == FolderType.Inbox || chain.Folder == FolderType.Sent)
                         {
                             innerWhere &= Exp.Or(
-                                Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int) FolderType.Inbox),
-                                Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int) FolderType.Sent));
+                                Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int)FolderType.Inbox),
+                                Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int)FolderType.Sent));
+
+                            сhains.Add(key);
                         }
                         else
                         {
-                            innerWhere &= Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int) chain.Folder);
+                            innerWhere &= Exp.Eq(MailTable.Columns.Folder.Prefix(MM_ALIAS), (int)chain.Folder);
                         }
 
                         exp |= innerWhere;
@@ -491,9 +519,18 @@ namespace ASC.Mail.Core.Engine
                         MailTable.Columns.Importance,
                         important);
 
-                    foreach (var message in ids)
+                    var daoChain = daoFactory.CreateChainDao(tenant, user);
+
+                    foreach (var chain in chainsInfo)
                     {
-                        UpdateMessageChainImportanceFlag(daoFactory, tenant, user, message);
+                        daoChain.SetFieldValue(
+                            SimpleConversationsExp.CreateBuilder(tenant, user)
+                                .SetChainId(chain.ChainId)
+                                .SetMailboxId(chain.MailboxId)
+                                .SetFolder((int)chain.Folder)
+                                .Build(),
+                            ChainTable.Columns.Importance,
+                            important);
                     }
 
                     tx.Commit();
@@ -609,7 +646,6 @@ namespace ASC.Mail.Core.Engine
             var daoMailInfo = daoFactory.CreateMailInfoDao(tenant, user);
 
             const string m_alias = "m";
-            const string utm_alias = "ufm";
 
             var getChainQuery = new SqlQuery(MailTable.TABLE_NAME.Alias(m_alias))
                 .SelectCount()
@@ -623,17 +659,6 @@ namespace ASC.Mail.Core.Engine
                 .Where(MailTable.Columns.ChainId.Prefix(m_alias), chainId)
                 .Where(MailTable.Columns.MailboxId.Prefix(m_alias), mailboxId)
                 .Where(MailTable.Columns.Folder.Prefix(m_alias), (int)folder);
-
-            if (userFolderId.HasValue)
-            {
-                getChainQuery
-                    .InnerJoin(UserFoldertXMailTable.TABLE_NAME.Alias(utm_alias),
-                        Exp.EqColumns(MailTable.Columns.Id.Prefix(m_alias),
-                            UserFoldertXMailTable.Columns.MailId.Prefix(utm_alias)))
-                    .Where(UserFoldertXMailTable.Columns.Tenant.Prefix(utm_alias), tenant)
-                    .Where(UserFoldertXMailTable.Columns.User.Prefix(utm_alias), user)
-                    .Where(UserFoldertXMailTable.Columns.FolderId.Prefix(utm_alias), userFolderId.Value);
-            }
 
             var chainInfo = db.ExecuteList(getChainQuery)
                 .ConvertAll(x => new
@@ -651,21 +676,25 @@ namespace ASC.Mail.Core.Engine
 
             var daoChain = daoFactory.CreateChainDao(tenant, user);
 
-            var storedChainInfo = daoChain.GetChains(SimpleConversationsExp.CreateBuilder(tenant, user)
+            var query = SimpleConversationsExp.CreateBuilder(tenant, user)
                 .SetMailboxId(mailboxId)
                 .SetChainId(chainId)
-                .SetFolder((int) folder)
-                .Build());
+                .SetFolder((int)folder)
+                .Build();
 
-            var chainUnreadFlag = storedChainInfo.Any() && Convert.ToBoolean(storedChainInfo.First().Unread);
+            var storedChainInfo = daoChain.GetChains(query);
+
+            var chainUnreadFlag = storedChainInfo.Any(c => c.Unread);
 
             if (0 == chainInfo.length)
             {
-                var result = daoChain.Delete(SimpleConversationsExp.CreateBuilder(tenant, user)
-                    .SetFolder((int) folder)
+                var deletQuery = SimpleConversationsExp.CreateBuilder(tenant, user)
+                    .SetFolder((int)folder)
                     .SetMailboxId(mailboxId)
                     .SetChainId(chainId)
-                    .Build());
+                    .Build();
+
+                var result = daoChain.Delete(deletQuery);
 
                 Log.DebugFormat(
                     "UpdateChain() row deleted from chain table tenant='{0}', user_id='{1}', id_mailbox='{2}', folder='{3}', chain_id='{4}' result={5}",
@@ -678,24 +707,25 @@ namespace ASC.Mail.Core.Engine
             }
             else
             {
-                var updateMailQuery = new SqlUpdate(MailTable.TABLE_NAME)
-                    .Where(MailTable.Columns.Tenant, tenant)
-                    .Where(MailTable.Columns.User, user)
-                    .Where(MailTable.Columns.IsRemoved, 0)
-                    .Where(MailTable.Columns.ChainId, chainId)
-                    .Where(MailTable.Columns.MailboxId, mailboxId)
-                    .Where(MailTable.Columns.Folder, (int) folder)
-                    // Folder condition important because chain has different dates in different folders(Ex: Sent and Inbox).
-                    .Set(MailTable.Columns.ChainDate, chainInfo.date);
+                //var updateMailQuery = new SqlUpdate(MailTable.TABLE_NAME)
+                //    .Where(MailTable.Columns.Tenant, tenant)
+                //    .Where(MailTable.Columns.User, user)
+                //    .Where(MailTable.Columns.IsRemoved, 0)
+                //    .Where(MailTable.Columns.ChainId, chainId)
+                //    .Where(MailTable.Columns.MailboxId, mailboxId)
+                //    .Where(MailTable.Columns.Folder, (int) folder)
+                //    // Folder condition important because chain has different dates in different folders(Ex: Sent and Inbox).
+                //    .Set(MailTable.Columns.ChainDate, chainInfo.date);
 
-                db.ExecuteNonQuery(updateMailQuery);
+                //db.ExecuteNonQuery(updateMailQuery);
 
-                daoMailInfo.SetFieldValue(
-                    SimpleMessagesExp.CreateBuilder(tenant, user)
+                var updateQuery = SimpleMessagesExp.CreateBuilder(tenant, user)
                         .SetChainId(chainId)
                         .SetMailboxId(mailboxId)
-                        .SetFolder((int) folder)
-                        .Build(),
+                        .SetFolder((int)folder)
+                        .Build();
+
+                daoMailInfo.SetFieldValue(updateQuery,
                     MailTable.Columns.ChainDate,
                     chainInfo.date);
 
@@ -735,7 +765,9 @@ namespace ASC.Mail.Core.Engine
                 else
                 {
                     if (chainUnreadFlag != chainInfo.unread)
+                    {
                         unreadConvDiff = chainInfo.unread ? 1 : -1;
+                    }
                 }
 
                 engine.FolderEngine.ChangeFolderCounters(daoFactory, folder, userFolderId,
@@ -749,12 +781,14 @@ namespace ASC.Mail.Core.Engine
 
             var daoChain = daoFactory.CreateChainDao(tenant, user);
 
-            daoChain.SetFieldValue(
-                SimpleConversationsExp.CreateBuilder(tenant, user)
+            var updateQuery = SimpleConversationsExp.CreateBuilder(tenant, user)
                     .SetChainId(chainId)
                     .SetMailboxId(mailboxId)
-                    .SetFolder((int) folder)
-                    .Build(),
+                    .SetFolder((int)folder)
+                    .Build();
+
+            daoChain.SetFieldValue(
+                updateQuery,
                 ChainTable.Columns.Tags,
                 tags);
         }
@@ -787,7 +821,6 @@ namespace ASC.Mail.Core.Engine
 
         private List<MailMessageData> GetFilteredConversations(IDaoFactory daoFactory, MailSearchFilterData filter, out bool hasMore)
         {
-
             var conversations = new List<MailMessageData>();
             var skipFlag = false;
             var chunkIndex = 0;
@@ -797,14 +830,7 @@ namespace ASC.Mail.Core.Engine
                 skipFlag = true;
             }
 
-            // Invert sort order for back paging
-            if (filter.PrevFlag.GetValueOrDefault(false))
-            {
-                filter.SortOrder = filter.SortOrder == Defines.ASCENDING
-                    ? Defines.DESCENDING
-                    : Defines.ASCENDING;
-            }
-
+            var prevFlag = filter.PrevFlag.GetValueOrDefault(false);
             var tenantInfo = CoreContext.TenantManager.GetTenant(Tenant);
             var utcNow = DateTime.UtcNow;
             var pageSize = filter.PageSize.GetValueOrDefault(25);
@@ -829,10 +855,19 @@ namespace ASC.Mail.Core.Engine
 
                         var ids = mailWrappers.Select(c => c.Id).ToList();
 
-                        exp = SimpleMessagesExp.CreateBuilder(Tenant, User)
+                        var query = SimpleMessagesExp.CreateBuilder(Tenant, User)
                             .SetMessageIds(ids)
-                            .SetOrderBy(filter.Sort)
-                            .SetOrderAsc(filter.SortOrder == Defines.ASCENDING)
+                            .SetOrderBy(filter.Sort);
+
+                        if (prevFlag)
+                        {
+                            query.SetOrderAsc(!(filter.SortOrder == Defines.ASCENDING));
+                        }
+                        else {
+                            query.SetOrderAsc(filter.SortOrder == Defines.ASCENDING);
+                        }
+
+                        exp = query
                             .Build();
                     }
                 }
@@ -895,8 +930,7 @@ namespace ASC.Mail.Core.Engine
                 conversations = conversations.Take(pageSize).ToList();
             }
 
-            if (filter.PrevFlag.GetValueOrDefault(false))
-            {
+            if (prevFlag) {
                 conversations.Reverse();
             }
 

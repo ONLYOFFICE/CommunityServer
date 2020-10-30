@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -158,7 +149,7 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
-                            greenButtonUrl = String.Format("{0}/products/people/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                            greenButtonUrl = String.Format("{0}/Products/People/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
                         #endregion
@@ -205,8 +196,12 @@ namespace ASC.Web.Studio.Core.Notify
                             tableItemImg1 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-formatting-100.png");
                             tableItemText1 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_formatting_hdr;
                             tableItemComment1 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_formatting;
-                            tableItemLearnMoreUrl1 = StudioNotifyHelper.Helplink + "/onlyoffice-editors/index.aspx";
-                            tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            if (!CoreContext.Configuration.CustomMode)
+                            {
+                                tableItemLearnMoreUrl1 = StudioNotifyHelper.Helplink + "/onlyoffice-editors/index.aspx";
+                                tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+                            }
 
                             tableItemImg2 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-share-100.png");
                             tableItemText2 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_share_hdr;
@@ -233,7 +228,7 @@ namespace ASC.Web.Studio.Core.Notify
                             tableItemComment7 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_apps;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
-                            greenButtonUrl = String.Format("{0}/products/files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                            greenButtonUrl = String.Format("{0}/Products/Files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
                         #endregion
@@ -298,7 +293,7 @@ namespace ASC.Web.Studio.Core.Notify
                             }
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonUseDiscount;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -380,7 +375,7 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonRenewNow;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -393,7 +388,7 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonRenewNow;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -406,7 +401,7 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonBuyNow;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -467,7 +462,7 @@ namespace ASC.Web.Studio.Core.Notify
                             new[] { senderName },
                             null,
                             new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
-                            new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx")),
+                            new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx")),
                             new TagValue(Tags.ActiveUsers, CoreContext.UserManager.GetUsers().Count()),
                             new TagValue(Tags.Price, rquota.Price),
                             new TagValue(Tags.PricePeriod, rquota.Year3 ? UserControlsCommonResource.TariffPerYear3 : rquota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth),
@@ -527,8 +522,9 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var createdDate = tenant.CreatedDateTime.Date;
 
-                    var dueDateIsNotMax = tariff.DueDate != DateTime.MaxValue;
-                    var dueDate = tariff.DueDate.Date;
+                    var actualEndDate = (tariff.DueDate != DateTime.MaxValue ? tariff.DueDate : tariff.LicenseDate);
+                    var dueDateIsNotMax = actualEndDate != DateTime.MaxValue;
+                    var dueDate = actualEndDate.Date;
 
                     var delayDueDateIsNotMax = tariff.DelayDueDate != DateTime.MaxValue;
                     var delayDueDate = tariff.DelayDueDate.Date;
@@ -639,7 +635,7 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
-                            greenButtonUrl = String.Format("{0}/products/people/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                            greenButtonUrl = String.Format("{0}/Products/People/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
                         #endregion
@@ -685,8 +681,12 @@ namespace ASC.Web.Studio.Core.Notify
                             tableItemImg1 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-formatting-100.png");
                             tableItemText1 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_formatting_hdr;
                             tableItemComment1 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_formatting;
-                            tableItemLearnMoreUrl1 = StudioNotifyHelper.Helplink + "/onlyoffice-editors/index.aspx";
-                            tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            if (!CoreContext.Configuration.CustomMode)
+                            {
+                                tableItemLearnMoreUrl1 = StudioNotifyHelper.Helplink + "/onlyoffice-editors/index.aspx";
+                                tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+                            }
 
                             tableItemImg2 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-share-100.png");
                             tableItemText2 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_share_hdr;
@@ -713,7 +713,7 @@ namespace ASC.Web.Studio.Core.Notify
                             tableItemComment7 = () => WebstudioNotifyPatternResource.pattern_saas_admin_user_docs_tips_v10_item_apps;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
-                            greenButtonUrl = String.Format("{0}/products/files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                            greenButtonUrl = String.Format("{0}/Products/Files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
                         #endregion
@@ -815,7 +815,7 @@ namespace ASC.Web.Studio.Core.Notify
                                          : Actions.EnterpriseWhitelabelAdminPaymentWarningBefore7V10;
                             toadmins = true;
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -829,7 +829,7 @@ namespace ASC.Web.Studio.Core.Notify
                                          : Actions.EnterpriseWhitelabelAdminPaymentWarningV10;
                             toadmins = true;
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
-                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                            greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
 
                         #endregion
@@ -857,7 +857,7 @@ namespace ASC.Web.Studio.Core.Notify
                             new[] { senderName },
                             null,
                             new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
-                            new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx")),
+                            new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx")),
                             new TagValue(Tags.ActiveUsers, CoreContext.UserManager.GetUsers().Count()),
                             new TagValue(Tags.Price, rquota.Price),
                             new TagValue(Tags.PricePeriod, rquota.Year3 ? UserControlsCommonResource.TariffPerYear3 : rquota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth),
@@ -908,150 +908,34 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var createdDate = tenant.CreatedDateTime.Date;
 
-                    INotifyAction action = null;
-
-                    Func<string> greenButtonText = () => string.Empty;
-                    var greenButtonUrl = string.Empty;
-
-                    Func<string> tableItemText1 = () => string.Empty;
-                    Func<string> tableItemText2 = () => string.Empty;
-                    Func<string> tableItemText3 = () => string.Empty;
-                    Func<string> tableItemText4 = () => string.Empty;
-                    Func<string> tableItemText5 = () => string.Empty;
-                    Func<string> tableItemText6 = () => string.Empty;
-                    Func<string> tableItemText7 = () => string.Empty;
-
-                    var tableItemUrl1 = string.Empty;
-                    var tableItemUrl2 = string.Empty;
-                    var tableItemUrl3 = string.Empty;
-                    var tableItemUrl4 = string.Empty;
-                    var tableItemUrl5 = string.Empty;
-                    var tableItemUrl6 = string.Empty;
-                    var tableItemUrl7 = string.Empty;
-
-                    var tableItemImg1 = string.Empty;
-                    var tableItemImg2 = string.Empty;
-                    var tableItemImg3 = string.Empty;
-                    var tableItemImg4 = string.Empty;
-                    var tableItemImg5 = string.Empty;
-                    var tableItemImg6 = string.Empty;
-                    var tableItemImg7 = string.Empty;
-
-                    Func<string> tableItemComment1 = () => string.Empty;
-                    Func<string> tableItemComment2 = () => string.Empty;
-                    Func<string> tableItemComment3 = () => string.Empty;
-                    Func<string> tableItemComment4 = () => string.Empty;
-                    Func<string> tableItemComment5 = () => string.Empty;
-                    Func<string> tableItemComment6 = () => string.Empty;
-                    Func<string> tableItemComment7 = () => string.Empty;
-
-                    Func<string> tableItemLearnMoreText1 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText2 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText3 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText4 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText5 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText6 = () => string.Empty;
-                    Func<string> tableItemLearnMoreText7 = () => string.Empty;
-
-                    var tableItemLearnMoreUrl1 = string.Empty;
-                    var tableItemLearnMoreUrl2 = string.Empty;
-                    var tableItemLearnMoreUrl3 = string.Empty;
-                    var tableItemLearnMoreUrl4 = string.Empty;
-                    var tableItemLearnMoreUrl5 = string.Empty;
-                    var tableItemLearnMoreUrl6 = string.Empty;
-                    var tableItemLearnMoreUrl7 = string.Empty;
-
-
                     #region After registration letters
 
-                    #region 7 days after registration to admins
+                    #region 5 days after registration to admins and users
 
-                    if (createdDate.AddDays(7) == nowDate)
+                    if (createdDate.AddDays(5) == nowDate)
                     {
-                        action = Actions.OpensourceAdminSecurityTips;
+                        var users = StudioNotifyHelper.GetRecipients(true, true, false);
 
-                        greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
-                        greenButtonUrl = "https://www.onlyoffice.com/enterprise-edition-free.aspx";
-                    }
+                        foreach (var u in users.Where(u => StudioNotifyHelper.IsSubscribedToNotify(u, Actions.PeriodicNotify)))
+                        {
+                            var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
+                            Thread.CurrentThread.CurrentCulture = culture;
+                            Thread.CurrentThread.CurrentUICulture = culture;
 
-                    #endregion
-
-                    #region 3 weeks after registration to admins
-
-                    else if (createdDate.AddDays(21) == nowDate)
-                    {
-                        action = Actions.OpensourceAdminDocsTips;
-
-                        tableItemImg1 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-coediting-100.png");
-                        tableItemComment1 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips1;
-                        tableItemLearnMoreUrl1 = StudioNotifyHelper.Helplink + "/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
-                        tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
-
-                        tableItemImg2 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-docinfo-100.png");
-                        tableItemComment2 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips2;
-                        tableItemLearnMoreUrl2 = StudioNotifyHelper.Helplink + "/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
-                        tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
-
-                        tableItemImg3 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-review-100.png");
-                        tableItemComment3 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips3;
-                        tableItemLearnMoreUrl3 = StudioNotifyHelper.Helplink + "/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
-                        tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
-
-                        tableItemImg4 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-share-100.png");
-                        tableItemComment4 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips4;
-                        tableItemLearnMoreUrl4 = StudioNotifyHelper.Helplink + "/gettingstarted/documents.aspx#SharingDocuments_block";
-                        tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
-
-                        tableItemImg5 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-mailmerge-100.png");
-                        tableItemComment5 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips5;
-                        tableItemLearnMoreUrl5 = StudioNotifyHelper.Helplink + "/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/UseMailMerge.aspx";
-                        tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.LinkLearnMore;
-
-                        tableItemImg6 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-desktop-100.png");
-                        tableItemComment6 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips6;
-                        tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
-                        tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
-
-                        tableItemImg7 = StudioNotifyHelper.GetNotificationImageUrl("tips-documents-apps-100.png");
-                        tableItemComment7 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips7;
-                        tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
-                        tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
+                            client.SendNoticeToAsync(
+                                u.IsAdmin() ? Actions.OpensourceAdminDocsTipsV11 : Actions.OpensourceUserDocsTipsV11,
+                                null,
+                                new[] { StudioNotifyHelper.ToRecipient(u.ID) },
+                                new[] { senderName },
+                                null,
+                                new TagValue(Tags.UserName, u.DisplayUserName()),
+                                new TagValue(CommonTags.Footer, "opensource"));
+                        }
                     }
 
                     #endregion
 
                     #endregion
-
-
-                    if (action == null) continue;
-
-                    var users = StudioNotifyHelper.GetRecipients(true, false, false);
-
-                    foreach (var u in users.Where(u => StudioNotifyHelper.IsSubscribedToNotify(u, Actions.PeriodicNotify)))
-                    {
-                        var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
-                        Thread.CurrentThread.CurrentCulture = culture;
-                        Thread.CurrentThread.CurrentUICulture = culture;
-
-                        client.SendNoticeToAsync(
-                            action,
-                            null,
-                            new[] { StudioNotifyHelper.ToRecipient(u.ID) },
-                            new[] { senderName },
-                            null,
-                            new TagValue(Tags.UserName, u.DisplayUserName()),
-                            TagValues.GreenButton(greenButtonText, greenButtonUrl),
-                            TagValues.TableTop(),
-                            TagValues.TableItem(1, tableItemText1, tableItemUrl1, tableItemImg1, tableItemComment1, tableItemLearnMoreText1, tableItemLearnMoreUrl1),
-                            TagValues.TableItem(2, tableItemText2, tableItemUrl2, tableItemImg2, tableItemComment2, tableItemLearnMoreText2, tableItemLearnMoreUrl2),
-                            TagValues.TableItem(3, tableItemText3, tableItemUrl3, tableItemImg3, tableItemComment3, tableItemLearnMoreText3, tableItemLearnMoreUrl3),
-                            TagValues.TableItem(4, tableItemText4, tableItemUrl4, tableItemImg4, tableItemComment4, tableItemLearnMoreText4, tableItemLearnMoreUrl4),
-                            TagValues.TableItem(5, tableItemText5, tableItemUrl5, tableItemImg5, tableItemComment5, tableItemLearnMoreText5, tableItemLearnMoreUrl5),
-                            TagValues.TableItem(6, tableItemText6, tableItemUrl6, tableItemImg6, tableItemComment6, tableItemLearnMoreText6, tableItemLearnMoreUrl6),
-                            TagValues.TableItem(7, tableItemText7, tableItemUrl7, tableItemImg7, tableItemComment7, tableItemLearnMoreText7, tableItemLearnMoreUrl7),
-                            TagValues.TableBottom(),
-                            new TagValue(CommonTags.Footer, "opensource"));
-                    }
                 }
                 catch (Exception err)
                 {

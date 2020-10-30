@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.PublicResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CustomModeResource {
@@ -398,6 +398,32 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1. CRM. Data export successfully completed
+        ///
+        ///Please, follow this link to download the archive: &quot;${EntityTitle}&quot;:&quot;${EntityRelativeURL}&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        /// </summary>
+        public static string pattern_ExportCompletedCustomMode {
+            get {
+                return ResourceManager.GetString("pattern_ExportCompletedCustomMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1. CRM. Data import successfully completed
+        ///
+        ///Go to the &quot;${Tag_EntityListTitle}&quot;:&quot;$__VirtualRootPath/${Tag_EntityListRelativeURL}&quot; list.
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        /// </summary>
+        public static string pattern_ImportCompletedCustomMode {
+            get {
+                return ResourceManager.GetString("pattern_ImportCompletedCustomMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Welcome to ONLYOFFICE Personal
         ///
         ///You have just created your personal office in the cloud.
@@ -419,11 +445,11 @@ namespace ASC.Web.Studio.PublicResources {
         ///
         ///It has been a week since you created your cloud office, so we believe it&apos;s time to unveil some beneficial features you might have missed.
         ///
-        ///Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You&apos;ll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents [rest of string was truncated]&quot;;.
+        ///Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You&apos;ll be able to edit external files in ONLYOFFICE and save them to the storage you keep [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_personal_custom_mode_after_registration7 {
+        public static string pattern_personal_custom_mode_after_registration8 {
             get {
-                return ResourceManager.GetString("pattern_personal_custom_mode_after_registration7", resourceCulture);
+                return ResourceManager.GetString("pattern_personal_custom_mode_after_registration8", resourceCulture);
             }
         }
         
@@ -514,6 +540,22 @@ namespace ASC.Web.Studio.PublicResources {
         public static string pattern_remove_user_data_completed_custom_mode {
             get {
                 return ResourceManager.GetString("pattern_remove_user_data_completed_custom_mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h3.New portal has been registered
+        ///
+        ///# Portal url: &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;
+        ///# First name: $UserName
+        ///# Last name: $UserLastName
+        ///# Email: $UserEmail
+        ///# Phone: $Phone
+        ///# Creation date: $Date.
+        /// </summary>
+        public static string pattern_saas_custom_mode_reg_data {
+            get {
+                return ResourceManager.GetString("pattern_saas_custom_mode_reg_data", resourceCulture);
             }
         }
         
@@ -721,6 +763,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string subject_remove_user_data_completed_custom_mode {
             get {
                 return ResourceManager.GetString("subject_remove_user_data_completed_custom_mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New portal has been registered.
+        /// </summary>
+        public static string subject_saas_custom_mode_reg_data {
+            get {
+                return ResourceManager.GetString("subject_saas_custom_mode_reg_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license{1}..
+        /// </summary>
+        public static string TariffNotPaidStandaloneCustomMode {
+            get {
+                return ResourceManager.GetString("TariffNotPaidStandaloneCustomMode", resourceCulture);
             }
         }
         

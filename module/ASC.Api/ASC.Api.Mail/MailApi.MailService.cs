@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -47,7 +38,7 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/connect")]
-        public object ConnectMailServer(string ip, string sqlip, string user, string password)
+        public object ConnectMailServer(string ip, string sqlip, string database, string user, string password)
         {
             try
             {
@@ -56,6 +47,9 @@ namespace ASC.Api.Mail
 
                 if (string.IsNullOrEmpty(sqlip))
                     sqlip = ip;
+
+                if (string.IsNullOrEmpty(database))
+                    throw new ArgumentException("database");
 
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
@@ -69,7 +63,7 @@ namespace ASC.Api.Mail
                 if (!PingHost(sqlip, 3306))
                     throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, sqlip, 3306));
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, MailServiceHelper.DefaultDatabase, user, password);
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, database, user, password);
 
                 var token = GetToken(connectionString);
 
@@ -81,6 +75,7 @@ namespace ASC.Api.Mail
                     message = Resource.MailServiceConnectSuccessMsg,
                     ip,
                     sqlip,
+                    database,
                     user,
                     password,
                     token,
@@ -101,7 +96,7 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/save")]
-        public object SaveMailServerInfo(string ip, string sqlip, string user, string password, string token, string host)
+        public object SaveMailServerInfo(string ip, string sqlip, string database, string user, string password, string token, string host)
         {
             try
             {
@@ -110,6 +105,9 @@ namespace ASC.Api.Mail
 
                 if (string.IsNullOrEmpty(sqlip))
                     sqlip = ip;
+
+                if (string.IsNullOrEmpty(database))
+                    throw new ArgumentException("database");
 
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
@@ -123,7 +121,7 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(host))
                     throw new ArgumentException("host");
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, MailServiceHelper.DefaultDatabase, user, password);
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, database, user, password);
 
                 Save(connectionString, ip, token, host);
 
@@ -147,12 +145,15 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/connectandsave")]
-        public object ConnectAndSaveMailServerInfo(string host, string user, string password)
+        public object ConnectAndSaveMailServerInfo(string host, string database, string user, string password)
         {
             try
             {
                 if (string.IsNullOrEmpty(host))
                     throw new ArgumentException("host");
+
+                if (string.IsNullOrEmpty(database))
+                    database = MailServiceHelper.DefaultDatabase;
 
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
@@ -171,7 +172,7 @@ namespace ASC.Api.Mail
                 if (!PingHost(ip, 3306))
                     throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, ip, 3306));
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, database, user, password);
 
                 var token = GetToken(connectionString);
 
@@ -199,7 +200,7 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/connectandsavepartitional")]
-        public object ConnectAndSavePartitionalMailServerInfo(string mailHost, string mysqlHost, string mysqlUser, string mysqlPassword)
+        public object ConnectAndSavePartitionalMailServerInfo(string mailHost, string mysqlHost, string mysqlDatabase, string mysqlUser, string mysqlPassword)
         {
             try
             {
@@ -208,6 +209,9 @@ namespace ASC.Api.Mail
 
                 if (string.IsNullOrEmpty(mysqlHost))
                     throw new ArgumentException("mysqlHost");
+
+                if (string.IsNullOrEmpty(mysqlDatabase))
+                    mysqlDatabase = MailServiceHelper.DefaultDatabase;
 
                 if (string.IsNullOrEmpty(mysqlUser))
                     throw new ArgumentException("mysqlUser");
@@ -231,7 +235,7 @@ namespace ASC.Api.Mail
                 if (!PingHost(mysqlIp, 3306))
                     throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, mysqlIp, 3306));
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, mysqlIp, MailServiceHelper.DefaultDatabase, mysqlUser, mysqlPassword);
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, mysqlIp, mysqlDatabase, mysqlUser, mysqlPassword);
 
                 var token = GetToken(connectionString);
 

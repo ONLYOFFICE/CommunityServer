@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -111,6 +111,15 @@ namespace Resources {
         public static string AboutCompanyVersion {
             get {
                 return ResourceManager.GetString("AboutCompanyVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright © {0} {1}. All rights reserved..
+        /// </summary>
+        public static string AboutCopyright {
+            get {
+                return ResourceManager.GetString("AboutCopyright", resourceCulture);
             }
         }
         
@@ -1083,7 +1092,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organize your data with multiple cell and row actions and perform complex calculations with Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches..
+        ///   Looks up a localized string similar to Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches..
         /// </summary>
         public static string AuthDocsCreateProfSpreadsheetsText {
             get {
@@ -1443,29 +1452,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How It Works?.
+        ///   Looks up a localized string similar to Detailed instructions in our {0}Help Center{1}..
         /// </summary>
-        public static string AuthorizationKeysHelpHeader {
+        public static string AuthorizationKeysHelpTextV11 {
             get {
-                return ResourceManager.GetString("AuthorizationKeysHelpHeader", resourceCulture);
+                return ResourceManager.GetString("AuthorizationKeysHelpTextV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more detailed instructions about connecting this service, please refer to our {0}Help Center{1} that provides all the necessary information..
+        ///   Looks up a localized string similar to Got any problems? Contact our {0}support team{1}..
         /// </summary>
-        public static string AuthorizationKeysHelpText {
+        public static string AuthorizationKeysSupportTextV11 {
             get {
-                return ResourceManager.GetString("AuthorizationKeysHelpText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you still have some questions on how to connect this service or need technical assistance, please feel free to contact our {0}Support Team{1}..
-        /// </summary>
-        public static string AuthorizationKeysSupportText {
-            get {
-                return ResourceManager.GetString("AuthorizationKeysSupportText", resourceCulture);
+                return ResourceManager.GetString("AuthorizationKeysSupportTextV11", resourceCulture);
             }
         }
         
@@ -1832,15 +1832,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change the email.
-        /// </summary>
-        public static string ChangeEmail {
-            get {
-                return ResourceManager.GetString("ChangeEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mail has been successfully changed.
         /// </summary>
         public static string ChangeEmailSuccess {
@@ -1936,15 +1927,6 @@ namespace Resources {
         public static string ChooseUser {
             get {
                 return ResourceManager.GetString("ChooseUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rate and review us in Chrome Store.
-        /// </summary>
-        public static string ChromeStoreBannerTitle {
-            get {
-                return ResourceManager.GetString("ChromeStoreBannerTitle", resourceCulture);
             }
         }
         
@@ -2282,7 +2264,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить сервис Bitly для сокращения пригласительных ссылок на портал и расшаренных ссылок в Документах..
+        ///   Looks up a localized string similar to Enable this application to shorten portal invitation links and shared links in the Documents module with the Bitly service..
         /// </summary>
         public static string ConsumersBitlyDescription {
             get {
@@ -2291,11 +2273,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив сервис Bitly Вы будуте получать сокращенные ссылки для приглашения новых пользователей на портал ONLYOFFICE™ и сокращённые ссылки для расшаренных на внешний доступ документов в модуле Документы..
+        ///   Looks up a localized string similar to Enable this app to shorten the invitation and document links. {0}Insert your Bitly login and API key below:.
         /// </summary>
-        public static string ConsumersBitlyInstruction {
+        public static string ConsumersBitlyInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersBitlyInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersBitlyInstructionV11", resourceCulture);
             }
         }
         
@@ -2327,7 +2309,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками Box..
+        ///   Looks up a localized string similar to Enable the application to manage Box files and folders..
         /// </summary>
         public static string ConsumersBoxDescription {
             get {
@@ -2336,11 +2318,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Box Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Box, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to connect your Box account to the Documents module. You’ll be able to manage, edit, and share files from Box with ONLYOFFICE users. {0}Sign in to your account on the Box developers page and create a new app for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersBoxInstruction {
+        public static string ConsumersBoxInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersBoxInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersBoxInstructionV11", resourceCulture);
             }
         }
         
@@ -2363,7 +2345,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для включения двухфакторной авторизации через Clickatell..
+        ///   Looks up a localized string similar to Enable the application for the two-factor authentication via Clickatell..
         /// </summary>
         public static string ConsumersClickatellDescription {
             get {
@@ -2372,11 +2354,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Clickatell Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE..
+        ///   Looks up a localized string similar to Use this app to enable two-factor authentication with Clickatell service. {0}Sign in to your SMS Platform account and create a new integration for ONLYOFFICE. Copy an apiKey and insert it below:.
         /// </summary>
-        public static string ConsumersClickatellInstruction {
+        public static string ConsumersClickatellInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersClickatellInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersClickatellInstructionV11", resourceCulture);
             }
         }
         
@@ -2408,7 +2390,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для добавления электронной подписи DocuSign к документам..
+        ///   Looks up a localized string similar to Enable the application to digitally sign your documents with DocuSign..
         /// </summary>
         public static string ConsumersDocuSignDescription {
             get {
@@ -2426,11 +2408,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса DocuSign Вы сможете подписывать файлы модуля Документы. Это позволит вам отправлять файл на получение электронной подписи сотрудникам портала ONLYOFFICE™ средствами сервиса DocuSugn. Подписанный файл будет сохранён в Документах порала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to digitally sign documents using DocuSign. {0}Go to your DocuSign Admin Console and add ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersDocuSignInstruction {
+        public static string ConsumersDocuSignInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersDocuSignInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersDocuSignInstructionV11", resourceCulture);
             }
         }
         
@@ -2444,7 +2426,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками Dropbox..
+        ///   Looks up a localized string similar to Enable the application to manage Dropbox files and folders..
         /// </summary>
         public static string ConsumersDropBoxDescription {
             get {
@@ -2453,11 +2435,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Dropbox Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Dropbox, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to connect your Dropbox account to the Documents module. You’ll be able to manage, edit, and share files from Dropbox with ONLYOFFICE users. {0}Sign in to your account on the Dropbox Developers website and create a new app for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersDropBoxInstruction {
+        public static string ConsumersDropBoxInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersDropBoxInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersDropBoxInstructionV11", resourceCulture);
             }
         }
         
@@ -2498,7 +2480,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение EasyBib для создания библиографических списков..
+        ///   Looks up a localized string similar to Enable this application to create bibliographic lists in documents with EasyBib..
         /// </summary>
         public static string ConsumersEasyBibDescription {
             get {
@@ -2507,11 +2489,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение EasyBib Вы сможете легко создавать библиографические списки в своих документах..
+        ///   Looks up a localized string similar to Enable this app to create bibliographies in ONLYOFFICE editors. {0}Go to the EasyBib signup page and fill in the form to add ONLYOFFICE integration. After you get an app key, paste it below:.
         /// </summary>
-        public static string ConsumersEasyBibInstruction {
+        public static string ConsumersEasyBibInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersEasyBibInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersEasyBibInstructionV11", resourceCulture);
             }
         }
         
@@ -2552,7 +2534,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи Facebook и поиска контактов..
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Facebook account and search for contacts..
         /// </summary>
         public static string ConsumersFacebookDescription {
             get {
@@ -2561,11 +2543,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Facebook Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Facebook. Так же Вы сможете на странице редактирования персоны CRM находить и привязывать аккаунт Facebook..
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using Facebook and link their customers’ Facebook accounts to the CRM module. {0}Go to Facebook Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersFacebookInstruction {
+        public static string ConsumersFacebookInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersFacebookInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersFacebookInstructionV11", resourceCulture);
             }
         }
         
@@ -2615,7 +2597,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить сервис Firebase Cloud Messaging для получения уведомлений о полученных сообщениях..
+        ///   Looks up a localized string similar to Enable this application to receive notifications about the messages sent to you with Firebase Cloud Messaging..
         /// </summary>
         public static string ConsumersFirebaseDescription {
             get {
@@ -2624,11 +2606,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив Firebase Cloud Messaging Вы сможете получать уведомлений о полученных сообщениях, находясь не в сети..
+        ///   Looks up a localized string similar to Enable this app to allow your users to receive notifications about the messages even offline. {0}Go to Firebase console and add a new project for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersFirebaseInstruction {
+        public static string ConsumersFirebaseInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersFirebaseInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersFirebaseInstructionV11", resourceCulture);
             }
         }
         
@@ -2687,7 +2669,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoogleCloud Description.
+        ///   Looks up a localized string similar to Connect Google Cloud Storage service to backup and store data from your portal..
         /// </summary>
         public static string ConsumersGoogleCloudDescription {
             get {
@@ -2696,11 +2678,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoogleCloud Instruction.
+        ///   Looks up a localized string similar to Connect Google Cloud Storage service to backup and store data from your portal. {0}Go to Google Cloud Platform Console and create a new service account for ONLYOFFICE. Paste the data you received  below:.
         /// </summary>
-        public static string ConsumersGoogleCloudInstruction {
+        public static string ConsumersGoogleCloudInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersGoogleCloudInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersGoogleCloudInstructionV11", resourceCulture);
             }
         }
         
@@ -2714,7 +2696,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить проект для входа на портал по учетной записи Google и для управления файлами и папками Google Drive..
+        ///   Looks up a localized string similar to Connect the project to sign in to the portal using a Google account and manage Google Drive files and folders..
         /// </summary>
         public static string ConsumersGoogleDescription {
             get {
@@ -2723,11 +2705,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив проект сервиса Google Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Google и подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Google Drive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to connect your Google Drive account to the Documents module. You’ll be able to manage, edit, and share files from Google Drive with ONLYOFFICE users. {0}Go to Google APIs console and create a new project for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersGoogleInstruction {
+        public static string ConsumersGoogleInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersGoogleInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersGoogleInstructionV11", resourceCulture);
             }
         }
         
@@ -2741,7 +2723,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи LinkedIn..
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a LinkedIn account..
         /// </summary>
         public static string ConsumersLinkedInDescription {
             get {
@@ -2750,11 +2732,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса LinkeIn Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт LinkedIn..
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their LinkedIn accounts. {0}Go to the  LinkedIn Developers website and create a new app ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersLinkedInInstruction {
+        public static string ConsumersLinkedInInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersLinkedInInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersLinkedInInstructionV11", resourceCulture);
             }
         }
         
@@ -2777,6 +2759,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail.ru.
+        /// </summary>
+        public static string ConsumersMailru {
+            get {
+                return ResourceManager.GetString("ConsumersMailru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ConsumersMailruClientId {
+            get {
+                return ResourceManager.GetString("ConsumersMailruClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret key.
+        /// </summary>
+        public static string ConsumersMailruClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersMailruClientSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Mail.ru account..
+        /// </summary>
+        public static string ConsumersMailruDescription {
+            get {
+                return ResourceManager.GetString("ConsumersMailruDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their mail.ru accounts. {0}Connect ONLYOFFICE as a new website on https://api.mail.ru/sites/my/. Paste the data you received below:.
+        /// </summary>
+        public static string ConsumersMailruInstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersMailruInstructionV11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rackspace.
         /// </summary>
         public static string ConsumersRackspace {
@@ -2786,7 +2813,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rackspace Description.
+        ///   Looks up a localized string similar to Connect Rackspace Cloud Storage service to backup and store data from your portal..
         /// </summary>
         public static string ConsumersRackspaceDescription {
             get {
@@ -2795,11 +2822,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rackspace Instruction.
+        ///   Looks up a localized string similar to Connect Rackspace Cloud Storage service to backup and store data from your portal. {0}In the security settings of  Rackspace Cloud Control Panel, click the Show link next to Rackspace API Key. Paste the data you received below:.
         /// </summary>
-        public static string ConsumersRackspaceInstruction {
+        public static string ConsumersRackspaceInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersRackspaceInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersRackspaceInstructionV11", resourceCulture);
             }
         }
         
@@ -2885,7 +2912,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S3 Description.
+        ///   Looks up a localized string similar to Connect Amazon AWS S3 to backup and store data from your portal..
         /// </summary>
         public static string ConsumersS3Description {
             get {
@@ -2894,11 +2921,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to S3 Instruction.
+        ///   Looks up a localized string similar to Force Path Style.
         /// </summary>
-        public static string ConsumersS3Instruction {
+        public static string ConsumersS3forcepathstyle {
             get {
-                return ResourceManager.GetString("ConsumersS3Instruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersS3forcepathstyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force Path Style Description.
+        /// </summary>
+        public static string ConsumersS3forcepathstyleDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3forcepathstyleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect Amazon AWS S3 to backup and store data from your portal. {0}Go to the AWS Management Console and create access keys for ONLYOFFICE. Paste the data you received below:.
+        /// </summary>
+        public static string ConsumersS3InstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersS3InstructionV11", resourceCulture);
             }
         }
         
@@ -2917,6 +2962,60 @@ namespace Resources {
         public static string ConsumersS3regionDescription {
             get {
                 return ResourceManager.GetString("ConsumersS3regionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Url.
+        /// </summary>
+        public static string ConsumersS3serviceurl {
+            get {
+                return ResourceManager.GetString("ConsumersS3serviceurl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Url.
+        /// </summary>
+        public static string ConsumersS3serviceurlDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3serviceurlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Side Encryption Method.
+        /// </summary>
+        public static string ConsumersS3sse {
+            get {
+                return ResourceManager.GetString("ConsumersS3sse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Side Encryption Method.
+        /// </summary>
+        public static string ConsumersS3sseDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3sseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Http.
+        /// </summary>
+        public static string ConsumersS3usehttp {
+            get {
+                return ResourceManager.GetString("ConsumersS3usehttp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Http.
+        /// </summary>
+        public static string ConsumersS3usehttpDescription {
+            get {
+                return ResourceManager.GetString("ConsumersS3usehttpDescription", resourceCulture);
             }
         }
         
@@ -2957,20 +3056,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selectel Instruction.
-        /// </summary>
-        public static string ConsumersSelectelCloudInstruction {
-            get {
-                return ResourceManager.GetString("ConsumersSelectelCloudInstruction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selectel Description.
+        ///   Looks up a localized string similar to Connect Selectel Cloud Storage service to backup and store data from your portal..
         /// </summary>
         public static string ConsumersSelectelDescription {
             get {
                 return ResourceManager.GetString("ConsumersSelectelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect Selectel Cloud Storage service to backup and store data from your portal. {0}Get the access data for a user with Read/Write rights for containers where you plan to store your backups and paste it below:.
+        /// </summary>
+        public static string ConsumersSelectelInstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersSelectelInstructionV11", resourceCulture);
             }
         }
         
@@ -3038,7 +3137,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками OneDrive..
+        ///   Looks up a localized string similar to Enable the application to manage OneDrive files and folders..
         /// </summary>
         public static string ConsumersSkyDriveDescription {
             get {
@@ -3047,16 +3146,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса OneDrive Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в OneDrive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to connect your OneDrive account to the Documents module. You’ll be able to manage, edit, and share files from OneDrive with ONLYOFFICE users. {0}Sign in to your account on Live Connect Developer Center and create a new app for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersSkyDriveInstruction {
+        public static string ConsumersSkyDriveInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersSkyDriveInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersSkyDriveInstructionV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMS-центр.
+        ///   Looks up a localized string similar to SMS Center.
         /// </summary>
         public static string ConsumersSmsc {
             get {
@@ -3065,7 +3164,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для включения двухфакторной авторизации через SMS-центр..
+        ///   Looks up a localized string similar to Enable the application for the two-factor authentication via SMS Center..
         /// </summary>
         public static string ConsumersSmscDescription {
             get {
@@ -3074,11 +3173,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса SMS-центр Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE. SMS-центр удобно использовать как sms провайдер для стран СНГ..
+        ///   Looks up a localized string similar to Use this app to enable two-factor authentication with SMS Center service. {0}Insert your smsc account login and your password (or password MD5 hash) in lower case:.
         /// </summary>
-        public static string ConsumersSmscInstruction {
+        public static string ConsumersSmscInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersSmscInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersSmscInstructionV11", resourceCulture);
             }
         }
         
@@ -3097,6 +3196,51 @@ namespace Resources {
         public static string Consumerssmscpsw {
             get {
                 return ResourceManager.GetString("Consumerssmscpsw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telegram.
+        /// </summary>
+        public static string ConsumersTelegram {
+            get {
+                return ResourceManager.GetString("ConsumersTelegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bot name.
+        /// </summary>
+        public static string ConsumersTelegramBotName {
+            get {
+                return ResourceManager.GetString("ConsumersTelegramBotName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bot token.
+        /// </summary>
+        public static string ConsumersTelegramBotToken {
+            get {
+                return ResourceManager.GetString("ConsumersTelegramBotToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect Telegram account to receive portal notifications via Telegram..
+        /// </summary>
+        public static string ConsumersTelegramDescription {
+            get {
+                return ResourceManager.GetString("ConsumersTelegramDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To receive portal notifications via Telegram, enable Telegram bot. You can create a new bot using BotFather in Telegram Desktop. To use this bot, portal users need to enable Telegram notifications on their Profile Page. {0}Paste bot’s username and the token you received in the fields below..
+        /// </summary>
+        public static string ConsumersTelegramInstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersTelegramInstructionV11", resourceCulture);
             }
         }
         
@@ -3128,7 +3272,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить Twilio для совершения вызовов контактов CRM прямо из браузера или для включения двухфакторной авторизации..
+        ///   Looks up a localized string similar to Enable this application to call CRM contacts with Twilio..
         /// </summary>
         public static string ConsumersTwilioDescription {
             get {
@@ -3137,11 +3281,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив Twilio Вы сможете звонить любому контакту из CRM прямо из браузера и включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE..
+        ///   Looks up a localized string similar to Enable this app to allow your users to call their contacts from the CRM module using Twilio. {0}Go to Twilio Console and paste the following data below:.
         /// </summary>
-        public static string ConsumersTwilioInstruction {
+        public static string ConsumersTwilioInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersTwilioInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersTwilioInstructionV11", resourceCulture);
             }
         }
         
@@ -3182,7 +3326,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи Twitter и поиска контактов..
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Twitter account and search for contacts..
         /// </summary>
         public static string ConsumersTwitterDescription {
             get {
@@ -3191,11 +3335,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Twitter Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Twitter. Так же Вы сможете на странице персоны CRM привязывать аккаунт и читать новости Twitter..
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their Twitter and link their customers’ Twitter accounts to the CRM module. {0}Go to Twitter Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersTwitterInstruction {
+        public static string ConsumersTwitterInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersTwitterInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersTwitterInstructionV11", resourceCulture);
             }
         }
         
@@ -3227,6 +3371,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VK.
+        /// </summary>
+        public static string ConsumersVk {
+            get {
+                return ResourceManager.GetString("ConsumersVk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application ID.
+        /// </summary>
+        public static string ConsumersVkClientId {
+            get {
+                return ResourceManager.GetString("ConsumersVkClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure key.
+        /// </summary>
+        public static string ConsumersVkClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersVkClientSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a VK account..
+        /// </summary>
+        public static string ConsumersVkDescription {
+            get {
+                return ResourceManager.GetString("ConsumersVkDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their VK accounts. {0}Create a new VK app for ONLYOFFICE. Paste the data you received below:.
+        /// </summary>
+        public static string ConsumersVkInstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersVkInstructionV11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WordPress.
         /// </summary>
         public static string ConsumersWordpress {
@@ -3236,7 +3425,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для публикации документов в WordPress..
+        ///   Looks up a localized string similar to Enable the application to publish documents directly in WordPress..
         /// </summary>
         public static string ConsumersWordpressDescription {
             get {
@@ -3245,11 +3434,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение WordPress Вы сможете легко, сохраняя форматирование, публиковать документы на своем сайте WordPress..
+        ///   Looks up a localized string similar to Enable the application to easily publish documents to your WordPress website. {0}On the Wordpress Developers page, create a new app for ONLYOFFICE integration. Paste the data you received below:.
         /// </summary>
-        public static string ConsumersWordpressInstruction {
+        public static string ConsumersWordpressInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersWordpressInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersWordpressInstructionV11", resourceCulture);
             }
         }
         
@@ -3299,7 +3488,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подключить приложение для импорта контактов Yahoo..
+        ///   Looks up a localized string similar to Enable the application to import users from the Yahoo service..
         /// </summary>
         public static string ConsumersYahooDescription {
             get {
@@ -3308,11 +3497,56 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавив приложение сервиса Yahoo Вы сможете из списка контактов добавлять новых пользователей портала ONLYOFFICE™..
+        ///   Looks up a localized string similar to Enable this app to add new portal users from your Yahoo contact list. {0}Go to the Create Application page in the Yahoo Developer Network and create a new app for ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
-        public static string ConsumersYahooInstruction {
+        public static string ConsumersYahooInstructionV11 {
             get {
-                return ResourceManager.GetString("ConsumersYahooInstruction", resourceCulture);
+                return ResourceManager.GetString("ConsumersYahooInstructionV11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yandex.
+        /// </summary>
+        public static string ConsumersYandex {
+            get {
+                return ResourceManager.GetString("ConsumersYandex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ConsumersYandexClientId {
+            get {
+                return ResourceManager.GetString("ConsumersYandexClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string ConsumersYandexClientSecret {
+            get {
+                return ResourceManager.GetString("ConsumersYandexClientSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Yandex account..
+        /// </summary>
+        public static string ConsumersYandexDescription {
+            get {
+                return ResourceManager.GetString("ConsumersYandexDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their Yandex accounts. {0}Register ONLYOFFICE as a new app on the Yandex OAuth server. Paste the data you received below:.
+        /// </summary>
+        public static string ConsumersYandexInstructionV11 {
+            get {
+                return ResourceManager.GetString("ConsumersYandexInstructionV11", resourceCulture);
             }
         }
         
@@ -3641,6 +3875,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пример.
+        /// </summary>
+        public static string CustomNavigationLabelPlaceholder {
+            get {
+                return ResourceManager.GetString("CustomNavigationLabelPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Item.
         /// </summary>
         public static string CustomNavigationRemoveBtn {
@@ -3691,6 +3934,15 @@ namespace Resources {
         public static string CustomNavigationURLHeader {
             get {
                 return ResourceManager.GetString("CustomNavigationURLHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://example.com.
+        /// </summary>
+        public static string CustomNavigationURLPlaceholder {
+            get {
+                return ResourceManager.GetString("CustomNavigationURLPlaceholder", resourceCulture);
             }
         }
         
@@ -4625,11 +4877,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (minimum 6 characters).
+        ///   Looks up a localized string similar to (minimum {0} characters).
         /// </summary>
-        public static string EmailAndPasswordTypePasswordRecommendations {
+        public static string EmailAndPasswordTypePasswordRecommendation {
             get {
-                return ResourceManager.GetString("EmailAndPasswordTypePasswordRecommendations", resourceCulture);
+                return ResourceManager.GetString("EmailAndPasswordTypePasswordRecommendation", resourceCulture);
             }
         }
         
@@ -4787,6 +5039,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Room.
+        /// </summary>
+        public static string Encryption {
+            get {
+                return ResourceManager.GetString("Encryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string EncryptionOff {
+            get {
+                return ResourceManager.GetString("EncryptionOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string EncryptionOn {
+            get {
+                return ResourceManager.GetString("EncryptionOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter a new email address.
         /// </summary>
         public static string EnterEmail {
@@ -4864,6 +5143,15 @@ namespace Resources {
         public static string ErrorConfirmURLError {
             get {
                 return ResourceManager.GetString("ErrorConfirmURLError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method for default disk storage only. Please, turn off all third-party storages before continue..
+        /// </summary>
+        public static string ErrorDefaultStorageMethod {
+            get {
+                return ResourceManager.GetString("ErrorDefaultStorageMethod", resourceCulture);
             }
         }
         
@@ -5201,11 +5489,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new password must be used.
+        /// </summary>
+        public static string ErrorPasswordRechange {
+            get {
+                return ResourceManager.GetString("ErrorPasswordRechange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request limit is exceeded.
         /// </summary>
         public static string ErrorRequestLimitExceeded {
             get {
                 return ResourceManager.GetString("ErrorRequestLimitExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method for server edition only..
+        /// </summary>
+        public static string ErrorServerEditionMethod {
+            get {
+                return ResourceManager.GetString("ErrorServerEditionMethod", resourceCulture);
             }
         }
         
@@ -5251,6 +5557,15 @@ namespace Resources {
         public static string ErrorUserNotFoundByEmail {
             get {
                 return ResourceManager.GetString("ErrorUserNotFoundByEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup in progress! Complete it before you proceed..
+        /// </summary>
+        public static string ErrorWaitForBackupProcessComplete {
+            get {
+                return ResourceManager.GetString("ErrorWaitForBackupProcessComplete", resourceCulture);
             }
         }
         
@@ -5855,6 +6170,15 @@ namespace Resources {
         public static string HelpJoinToAffilliate {
             get {
                 return ResourceManager.GetString("HelpJoinToAffilliate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable this option to create a secure environment for document editing and co-authoring. All documents stored within Private Room as well as data transfer while co-editing documents will be encrypted using the AES-256 encryption algorithm to prevent from accessing your data.{0} Private Room is available through {3}ONLYOFFICE Desktop Editors{4}. To start, users must log in to ONLYOFFICE cloud in its Connect to cloud section. Once connected, they automatically obtain a pair of encryption keys. Learn how it wo [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string HelpPrivacyRoomSettings {
+            get {
+                return ResourceManager.GetString("HelpPrivacyRoomSettings", resourceCulture);
             }
         }
         
@@ -6755,15 +7079,6 @@ namespace Resources {
         public static string KeepTariffInviteGuests {
             get {
                 return ResourceManager.GetString("KeepTariffInviteGuests", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do not show this message.
-        /// </summary>
-        public static string LabelDontShowMessage {
-            get {
-                return ResourceManager.GetString("LabelDontShowMessage", resourceCulture);
             }
         }
         
@@ -7803,6 +8118,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploaded successfully. {0}Support are not available for this license since {2}.{1}.
+        /// </summary>
+        public static string LicenseUploadedOverdueSupport {
+            get {
+                return ResourceManager.GetString("LicenseUploadedOverdueSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to link.
         /// </summary>
         public static string Link {
@@ -7992,6 +8316,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string MailIcsCalendarDescriptionLabel {
+            get {
+                return ResourceManager.GetString("MailIcsCalendarDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to map.
         /// </summary>
         public static string MailIcsCalendarMapLabel {
@@ -8096,6 +8429,15 @@ namespace Resources {
         public static string MailServiceCouldNotGetTokenErrorMsg {
             get {
                 return ResourceManager.GetString("MailServiceCouldNotGetTokenErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Server database.
+        /// </summary>
+        public static string MailServiceDatabase {
+            get {
+                return ResourceManager.GetString("MailServiceDatabase", resourceCulture);
             }
         }
         
@@ -8406,29 +8748,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your current email address is.
-        /// </summary>
-        public static string MessageCurrentEmailAddressIs {
-            get {
-                return ResourceManager.GetString("MessageCurrentEmailAddressIs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The email activation instructions have been sent to the {0} email address.
         /// </summary>
         public static string MessageEmailActivationInstuctionsSentOnEmail {
             get {
                 return ResourceManager.GetString("MessageEmailActivationInstuctionsSentOnEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are changing your email address.
-        /// </summary>
-        public static string MessageEmailAddressChanging {
-            get {
-                return ResourceManager.GetString("MessageEmailAddressChanging", resourceCulture);
             }
         }
         
@@ -8514,11 +8838,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password change instructions have been sent to the {0} email address..
+        ///   Looks up a localized string similar to If a user with the {0} email exists, the password change instruction has been sent to this email address..
         /// </summary>
-        public static string MessageYourPasswordSuccessfullySendedToEmail {
+        public static string MessageYourPasswordSendedToEmail {
             get {
-                return ResourceManager.GetString("MessageYourPasswordSuccessfullySendedToEmail", resourceCulture);
+                return ResourceManager.GetString("MessageYourPasswordSendedToEmail", resourceCulture);
             }
         }
         
@@ -8775,15 +9099,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Email.
-        /// </summary>
-        public static string NewEmail {
-            get {
-                return ResourceManager.GetString("NewEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New Password.
         /// </summary>
         public static string NewPassword {
@@ -8906,6 +9221,15 @@ namespace Resources {
         public static string NotifyByEmailAndTMTalk {
             get {
                 return ResourceManager.GetString("NotifyByEmailAndTMTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telegram.
+        /// </summary>
+        public static string NotifyByTelegram {
+            get {
+                return ResourceManager.GetString("NotifyByTelegram", resourceCulture);
             }
         }
         
@@ -9297,6 +9621,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encryption process in progress.
+        /// </summary>
+        public static string PortalEncryptionProcessTitle {
+            get {
+                return ResourceManager.GetString("PortalEncryptionProcessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As soon as the process is over, the portal data will be available for work..
+        /// </summary>
+        public static string PortalEncryptionText {
+            get {
+                return ResourceManager.GetString("PortalEncryptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Portal Name.
         /// </summary>
         public static string PortalName {
@@ -9338,6 +9680,96 @@ namespace Resources {
         public static string PoweredBy {
             get {
                 return ResourceManager.GetString("PoweredBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Present.
+        /// </summary>
+        public static string Present {
+            get {
+                return ResourceManager.GetString("Present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable free access to enterprise features in Control Panel:.
+        /// </summary>
+        public static string PresentAdminHdr {
+            get {
+                return ResourceManager.GetString("PresentAdminHdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not now.
+        /// </summary>
+        public static string PresentAdminHideBtn {
+            get {
+                return ResourceManager.GetString("PresentAdminHideBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string PresentAdminOkBtn {
+            get {
+                return ResourceManager.GetString("PresentAdminOkBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing docs, sheets, and slides in mobile browser.
+        /// </summary>
+        public static string PresentItemMobile {
+            get {
+                return ResourceManager.GetString("PresentItemMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted collaboration on office docs.
+        /// </summary>
+        public static string PresentItemPrivate {
+            get {
+                return ResourceManager.GetString("PresentItemPrivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document comparison, content controls.
+        /// </summary>
+        public static string PresentItemPro {
+            get {
+                return ResourceManager.GetString("PresentItemPro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask your portal admin to enable free access to pro features for 30 days:.
+        /// </summary>
+        public static string PresentUserHdr {
+            get {
+                return ResourceManager.GetString("PresentUserHdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide this offer.
+        /// </summary>
+        public static string PresentUserHideBtn {
+            get {
+                return ResourceManager.GetString("PresentUserHideBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok, thanks.
+        /// </summary>
+        public static string PresentUserOkBtn {
+            get {
+                return ResourceManager.GetString("PresentUserOkBtn", resourceCulture);
             }
         }
         
@@ -10263,6 +10695,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign in to: {0}.
+        /// </summary>
+        public static string SignInLDAP {
+            get {
+                return ResourceManager.GetString("SignInLDAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use credentials for the corporate domain.
+        /// </summary>
+        public static string SignInLDAPHelper {
+            get {
+                return ResourceManager.GetString("SignInLDAPHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single Sign-on.
         /// </summary>
         public static string SingleSignOnSettings {
@@ -10659,11 +11109,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authentication failed (assertion attributes not found).
+        /// </summary>
+        public static string SsoAttributesNotFound {
+            get {
+                return ResourceManager.GetString("SsoAttributesNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authentication failed.
+        /// </summary>
+        public static string SsoAuthFailed {
+            get {
+                return ResourceManager.GetString("SsoAuthFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSO Endpoint URL.
         /// </summary>
         public static string SsoEndpointURL {
             get {
                 return ResourceManager.GetString("SsoEndpointURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal server error.
+        /// </summary>
+        public static string SsoError {
+            get {
+                return ResourceManager.GetString("SsoError", resourceCulture);
             }
         }
         
@@ -11057,6 +11534,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Room.
+        /// </summary>
+        public static string StudioEncryptionSettings {
+            get {
+                return ResourceManager.GetString("StudioEncryptionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password Strength Settings.
         /// </summary>
         public static string StudioPasswordSettings {
@@ -11210,15 +11696,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat now.
-        /// </summary>
-        public static string SupportBlockChatBtn {
-            get {
-                return ResourceManager.GetString("SupportBlockChatBtn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Send email.
         /// </summary>
         public static string SupportBlockEmailBth {
@@ -11233,15 +11710,6 @@ namespace Resources {
         public static string SupportBlockTitle {
             get {
                 return ResourceManager.GetString("SupportBlockTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Support via chat.
-        /// </summary>
-        public static string SupportByChat {
-            get {
-                return ResourceManager.GetString("SupportByChat", resourceCulture);
             }
         }
         
@@ -11269,24 +11737,6 @@ namespace Resources {
         public static string TariffButtonExtend {
             get {
                 return ResourceManager.GetString("TariffButtonExtend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We recommend you to select the Recurring payments option during the payment process. It will guarantee you the invariable price according to the chosen plan..
-        /// </summary>
-        public static string TariffBuyRecommendation {
-            get {
-                return ResourceManager.GetString("TariffBuyRecommendation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buy.
-        /// </summary>
-        public static string TariffBuyRecommendationTitle {
-            get {
-                return ResourceManager.GetString("TariffBuyRecommendationTitle", resourceCulture);
             }
         }
         
@@ -11381,11 +11831,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It will expire on {0}..
+        ///   Looks up a localized string similar to Your subscription for support and updates expires on {0}..
         /// </summary>
-        public static string TariffExpiredDateStandalone {
+        public static string TariffExpiredDateStandaloneV11 {
             get {
-                return ResourceManager.GetString("TariffExpiredDateStandalone", resourceCulture);
+                return ResourceManager.GetString("TariffExpiredDateStandaloneV11", resourceCulture);
             }
         }
         
@@ -11584,6 +12034,24 @@ namespace Resources {
         public static string TeamLabOfficeTitle {
             get {
                 return ResourceManager.GetString("TeamLabOfficeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telegram account connected.
+        /// </summary>
+        public static string TelegramConnected {
+            get {
+                return ResourceManager.GetString("TelegramConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To connect TelegramBot to your account follow secret link:.
+        /// </summary>
+        public static string TelegramHowToConnect {
+            get {
+                return ResourceManager.GetString("TelegramHowToConnect", resourceCulture);
             }
         }
         
@@ -12047,6 +12515,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Триал.
+        /// </summary>
+        public static string Trial {
+            get {
+                return ResourceManager.GetString("Trial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trial period: {0} {1}.
         /// </summary>
         public static string TrialPeriod {
@@ -12098,15 +12575,6 @@ namespace Resources {
         public static string TrustedDomainsInviteTitle {
             get {
                 return ResourceManager.GetString("TrustedDomainsInviteTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter a new email address.
-        /// </summary>
-        public static string TypeNewEmail {
-            get {
-                return ResourceManager.GetString("TypeNewEmail", resourceCulture);
             }
         }
         
@@ -12503,15 +12971,6 @@ namespace Resources {
         public static string WelcomeUserMessage {
             get {
                 return ResourceManager.GetString("WelcomeUserMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We use ONLYOFFICE™ Online Office.
-        /// </summary>
-        public static string WeUseTeamLabOnlineOffice {
-            get {
-                return ResourceManager.GetString("WeUseTeamLabOnlineOffice", resourceCulture);
             }
         }
         

@@ -96,7 +96,7 @@
     </asp:Repeater>
     </div>
     <% } else { %>
-    <asp:PlaceHolder ID="EmptyContent" runat="server"></asp:PlaceHolder>
+    <asp:PlaceHolder ID="EmptyContent" runat="server"/>
     <% } %>
     
     <div id="wiki_blockOverlay" class="wikiBlockOverlay" style="display: none;"></div>

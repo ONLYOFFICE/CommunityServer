@@ -17,9 +17,9 @@
     <div class="auth-service-block clearFix">
         <% foreach (var service in AuthServiceList)
            { %>
-        <div class="auth-service-item">
+        <div id="<%= service.Title %>" class="auth-service-item">
             <div class="auth-service-name clearFix">
-                <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
+                <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
                 <span class="sub-button">
                     <a id="switcherBtn<%= service.Name %>" class="on_off_button <%= service.CanSet ? "" : "disable" %> <%= (service.Props.All(r=> string.IsNullOrEmpty(r.Value))) ? "off" : "on" %>"></a>
                 </span>
@@ -42,19 +42,11 @@
                 </div>
                 <div class="containerBodyBlock clearFix">
 
-                    <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
+                    <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
 
                     <% if (!string.IsNullOrEmpty(service.Instruction))
                        { %>
-                    <div class="popup-info-block"><%= service.Instruction.HtmlEncode() %></div>
-                    <% } %>
-
-                    <% if (!string.IsNullOrEmpty(HelpLink))
-                       { %>
-                    <div class="popup-info-block">
-                        <div class="bold headerPanelSmall"><%= Resource.AuthorizationKeysHelpHeader %></div>
-                        <%= string.Format(Resource.AuthorizationKeysHelpText, "<a href=\"" + HelpLink + "/server/windows/community/authorization-keys.aspx#" + service.Name + "\" target=\"_blank\">", "</a>") %>
-                    </div>
+                    <div class="popup-info-block"><%= string.Format(service.Instruction.HtmlEncode(), "<div class=\"popup-info-separator\"></div>") %></div>
                     <% } %>
 
                     <div>
@@ -68,10 +60,18 @@
                         <a id="saveBtn<%= service.Name %>" class="button blue middle saveButton"><%= Resource.AuthorizationKeysEnableButton %></a>
                     </div>
 
-                    <% if (!string.IsNullOrEmpty(SupportLink))
+                     <% if (!string.IsNullOrEmpty(SupportLink) || !string.IsNullOrEmpty(SupportLink))
                        { %>
                     <div class="popup-info-block">
-                        <%= string.Format(Resource.AuthorizationKeysSupportText, "<a href=\""+ SupportLink +"\" target=\"_blank\">", "</a>") %>
+                        <% if (!string.IsNullOrEmpty(HelpLink))
+                           { %>
+                        <div><%= string.Format(Resource.AuthorizationKeysHelpTextV11, "<a href=\"" + HelpLink + "/server/windows/community/authorization-keys.aspx#" + service.Name + "\" target=\"_blank\">", "</a>") %></div>
+                        <div class="popup-info-separator"></div>
+                        <% } %>
+                        <% if (!string.IsNullOrEmpty(SupportLink))
+                           { %>
+                        <div><%= string.Format(Resource.AuthorizationKeysSupportTextV11, "<a href=\""+ SupportLink +"\" target=\"_blank\">", "</a>") %></div>
+                        <% } %>
                     </div>
                     <% } %>
                 </div>

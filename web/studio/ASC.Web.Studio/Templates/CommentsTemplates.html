@@ -4,7 +4,7 @@
     {{/if}}
 
     <div id="noComments"{{if isEmpty !== true}} style="display: none;"{{/if}}>${ASC.Resources.Master.UserControlsCommonResource.NoComments}</div>
-
+    <textarea id="commentsClip" style="position: absolute;top: 0;left: -1000px;"></textarea>
     <div id="mainCommentsContainer" class="comment-main-container" style="{{if total%2==0}}border-bottom:1px solid #ddd; {{/if}} {{if isEmpty===true}} display:none; {{/if}}">
         {{each(i, cmt) comments}}
         {{tmpl({comment: cmt, commentLevel: 1, maxDepthLevel: maxDepthLevel}) 'template-comment'}}
@@ -69,6 +69,7 @@
                             <span class="text-medium-describe" style="padding-left:5px;">
                                 ${comment.timeStampStr}
                             </span>
+                            <a id="clip_${comment.commentID}" class="link dotline gray" style="float:right;" title="${ASC.Resources.Master.CopyToClipboard}">#</a>
                         </div>
 
                         {{if comment.userPost != ""}}

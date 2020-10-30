@@ -1,0 +1,183 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+#backup-manager-view {
+    display: none;
+
+    .backupBoxDscr {
+        margin-bottom: 15px;
+    }
+
+    .backupBoxHeader {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .backupStoragesBox, #autoBackupSwitchBox {
+        list-style-type: none;
+        margin: 0 0 15px 0;
+        padding: 0;
+
+        li {
+            display: block;
+            clear: both;
+            margin: 0;
+            padding: 0;
+
+            .expl {
+                display: none;
+            }
+
+            &.disabled {
+                color: #808080;
+
+                .expl {
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0 0 -3px 0;
+                }
+            }
+        }
+    }
+
+    .teamlabStorageFolderSelectorBox {
+        width: 343px;
+        height: 25px;
+        margin-bottom: 15px;
+
+        .teamlabStorageFolderSelector {
+            height: 18px;
+            width: 65%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .button {
+            min-width: 15%;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+
+        .storageBox {
+        border: 1px solid #e0e0e0;
+        padding: 29px 35px;
+
+        li {
+            display: block;
+            clear: both;
+            margin: 0;
+            padding: 0;
+
+            &.disabled {
+                color: #808080;
+
+                .expl {
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0 0 -3px 0;
+                }
+            }
+        }
+    }
+
+    .consumerStorageSettingsBox {
+        margin-top: 10px;
+
+        .textBox {
+            margin-bottom: 10px;
+            width: 90%;
+        }
+
+        select.textEdit{
+            height: 24px;
+            width: 345px;
+        }
+
+        div .textBox:first-child {
+            margin-top: 10px;
+        }
+    }
+
+    .amazonStorageSettingsBox  {
+        margin-bottom: 15px;
+
+        .amazonStorageSettingsParam {
+            height: 20px;
+            margin-bottom: 10px;
+
+            &.access-key-id {
+                float: left;
+                margin-right: 8px;
+                width: 166px;
+            }
+
+            &.secret-access-key {
+                width: 166px;
+            }
+
+            &.bucket {
+                width: 343px;
+            }
+
+            &.accessKeyId  {
+                width: 343px;
+            }
+
+            &.secretAccessKey {
+                width: 343px;
+            }
+
+            &.filePath {
+                width: 343px;
+            }
+                        
+            &.region {
+                height: 24px;
+                width: 345px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    #backupProgressBox {
+        display: none; 
+        margin-bottom: 10px;
+        padding: 20px 0 0 0;
+
+        .text-medium-describe {
+            padding-top: 2px;
+        }
+    }
+
+    #backupResultLinkBox {
+        display: none;
+        margin-top: 30px;
+    }
+
+    #autoBackuSettingsBlock {
+        display: none;
+    }
+}
+
+.backup-settings_auto_places {
+    display: none;
+}
+
+.select-time-period {
+    margin-top:10px;
+}

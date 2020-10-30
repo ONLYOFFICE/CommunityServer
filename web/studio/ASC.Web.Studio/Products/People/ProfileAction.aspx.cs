@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -39,6 +30,7 @@ using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
 using ASC.Web.People.Resources;
+using Resources;
 
 namespace ASC.Web.People
 {
@@ -167,6 +159,8 @@ namespace ASC.Web.People
     {
         public ProfileHelper ProfileHelper;
 
+        protected string PageTitle { get; private set; }
+
         protected bool IsPageEditProfile()
         {
             return (Request["action"] == "edit");
@@ -181,20 +175,22 @@ namespace ASC.Web.People
         protected void Page_Load(object sender, EventArgs e)
         {
             ProfileHelper = new ProfileHelper(Request["user"]);
+
             var userInfo = ProfileHelper.UserInfo;
 
             if (userInfo.IsMe() && userInfo.IsVisitor() && IsPageEditProfile())
             {
-                Response.Redirect("/my.aspx?action=edit");
+                Response.Redirect("/My.aspx?action=edit");
             }
 
             if (IsPageEditProfile() ? !userInfo.IsMe() && (!IsAdmin() || userInfo.IsOwner()) : !IsAdmin())
             {
-                Response.Redirect("~/products/people/", true);
+                Response.Redirect("~/Products/People/", true);
             }
 
-            var userProfileEditControl = LoadControl(UserProfileEditControl.Location) as UserProfileEditControl;
+            PageTitle = IsPageEditProfile() ? userInfo.DisplayUserName(false) + " - " + Resource.EditUserDialogTitle : Resource.CreateNewProfile;
 
+            var userProfileEditControl = LoadControl(UserProfileEditControl.Location) as UserProfileEditControl;
 
             _contentHolderForEditForm.Controls.Add(userProfileEditControl);
         }

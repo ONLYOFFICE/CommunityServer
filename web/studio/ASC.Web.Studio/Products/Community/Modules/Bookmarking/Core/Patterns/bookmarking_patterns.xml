@@ -16,6 +16,15 @@ $CommentBody
 $BookmarkUrl
     </body>
   </pattern>
+  <!--New bookmark comment-->
+  <pattern id="new bookmark comment created" sender="telegram.sender">
+    <subject resource="|subject_BookmarkCommentCreatedID_tg|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
+
+$CommentBody
+    </body>
+  </pattern>
+
   <!--New bookmark-->
   <pattern id="new bookmark created" sender="email.sender">
     <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
@@ -29,6 +38,14 @@ $BookmarkUrl
 $BookmarkDescription
 
 $BookmarkUrl
+    </body>
+  </pattern>
+  <!--New bookmark-->
+  <pattern id="new bookmark created" sender="telegram.sender">
+    <subject resource="|subject_BookmarkCreatedID_tg|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
+
+$BookmarkDescription
     </body>
   </pattern>
 </patterns>

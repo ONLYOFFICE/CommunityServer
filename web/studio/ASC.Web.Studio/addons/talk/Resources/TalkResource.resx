@@ -292,7 +292,7 @@
     <value>last week</value>
   </data>
   <data name="IndexTitle" xml:space="preserve">
-    <value>Search by contents of messages</value>
+    <value>Search in messages content</value>
   </data>
   <data name="LabelConferenceSplash" xml:space="preserve">
     <value>Drag a contact here to add a recipient</value>

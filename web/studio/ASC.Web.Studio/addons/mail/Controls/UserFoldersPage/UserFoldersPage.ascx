@@ -6,25 +6,11 @@
 
 <div id="user_folders_page" class="hidden page_content">
     <div class="containerBodyBlock">
-        <div class="content-header">
-            <a title="<%=MailResource.CreateUserFolderBtn%>" class="button gray" id="createUserFolder" style="margin-right: 4px;">
-                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateUserFolderBtn%></div>
-            </a>
-            <a title="<%=MailResource.EditUserFolderBtn%>" class="button gray" id="editUserFolder" style="margin-right: 4px;">
-                <div style="background-position: -2px 1px;"><%=MailResource.EditUserFolderBtn%></div>
-            </a>
-            <a title="<%=MailResource.DeleteUserFolderBtn%>" class="button gray" id="deleteUserFolder">
-                <div style="background-position: -2px 1px;"><%=MailResource.DeleteUserFolderBtn%></div>
-            </a>
-            <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'UserFoldersHelperBlock'});"></span>
+        <div id="userFolderTree">
+            <div class="userFolders"></div>
         </div>
     </div>
-    
-    <div id="userFolderTree">
-        <div class="userFolders"></div>
-    </div>
 </div>
-
 
 <div class="popup_helper" id="UserFoldersHelperBlock">
     <p><%=MailResource.UserFolderCommonInformationText%></p>
@@ -57,9 +43,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label><%=MailScriptResource.UserFolderSelectorLabel%>
+                            <div class="parentBlock">
+                                <span><%=MailScriptResource.UserFolderSelectorLabel%></span>
                                 <a class="mail-foldersLink link dotline arrow-down" parent="0" title="<%=MailScriptResource.UserFolderSelectorLink%>"><%=MailScriptResource.UserFolderNoSelected%>></a>
-                            </label>
+                            </div>
                         </td>
                     </tr>
                 </table>

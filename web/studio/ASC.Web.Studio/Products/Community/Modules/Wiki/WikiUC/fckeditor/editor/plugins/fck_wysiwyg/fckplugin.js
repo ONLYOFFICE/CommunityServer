@@ -565,7 +565,11 @@ FCK.DataProcessor =
 	},
 
 
-	_DecodeWikiPath: function(path) {
+	_DecodeWikiPath: function(path, isWikiInfo) {
+		if (isWikiInfo) {
+			return decodeURI(path).replace(/_/g, ' ');
+		}
+
 		var wikiInternalStart = null;
 		if (window.parent.popup) {
 			wikiInternalStart = window.parent.popup.parent.wikiInternalStart;
@@ -1048,8 +1052,8 @@ FCK.DataProcessor =
 								result = result.replace(/<br\s*\/?>/gi, '\n');
 							}
 							else {
-								result = ' ' + htmlNode.innerHTML;
-								result = result.replace(/<br\s*\/?>/gi, '\n ');
+								result = '\n&nbsp;' + htmlNode.innerHTML.replace(/\n/g, '\n&nbsp;') + '\n&nbsp;';
+								result = result.replace(/<br\s*\/?>/gi, '\n&nbsp;');
 							}
 
 							result = result.replace(/&nbsp;/gi, ' ');
@@ -1101,6 +1105,7 @@ FCK.DataProcessor =
 							}
 							}*/
 							stringBuilder.push(result);
+							stringBuilder.push('\n');
 							break;
 						case 'nowiki':
 							if (htmlNode.firstChild && htmlNode.firstChild.nodeName.toUpperCase() == "PRE") {
@@ -1214,7 +1219,7 @@ FCK.DataProcessor =
 									var wikiInfo = htmlNode.getAttribute('_wikiInfo');
 
 									stringBuilder.push('[[Image:');
-									stringBuilder.push(this._DecodeWikiPath(wikiInfo.split(':')[0]));
+									stringBuilder.push(this._DecodeWikiPath(wikiInfo.split(':')[0], true));
 									if (wikiInfo.split(':')[3] == 1) {
 										stringBuilder.push('|thumb');
 									}
@@ -1231,11 +1236,11 @@ FCK.DataProcessor =
 									}
 
 									if (wikiInfo.split(':')[1] != '') {
-										stringBuilder.push('|alt=' + this._DecodeWikiPath(wikiInfo.split(':')[1]));
+										stringBuilder.push('|alt=' + this._DecodeWikiPath(wikiInfo.split(':')[1], true));
 									}
 
 									if (wikiInfo.split(':')[6] != '') {
-										stringBuilder.push('|' + this._DecodeWikiPath(wikiInfo.split(':')[6]));
+										stringBuilder.push('|' + this._DecodeWikiPath(wikiInfo.split(':')[6], true));
 									}
 
 									stringBuilder.push(']]');

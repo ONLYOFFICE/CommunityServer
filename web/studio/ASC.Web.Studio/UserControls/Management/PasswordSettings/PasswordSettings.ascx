@@ -15,7 +15,7 @@
                 <%= Resource.PasswordMinLength %></div>
             <div class="clearFix passwordLengthBox">
                 <div class="sliderPassword">
-                    <div id="slider" data-max="<%= PasswordSettings.MaxLength %>"></div>
+                    <div id="slider" data-min="<%= ((PasswordSettings)new PasswordSettings().GetDefault()).MinLength %>" data-max="<%= PasswordSettings.MaxLength %>"></div>
                 </div>
                 <div class="float-left" id="count">
                 </div>

@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="Management.aspx.cs" Inherits="ASC.Web.Studio.Management" %>
+﻿<%@ Page MasterPageFile="~/Masters/BaseTemplate.master" Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="Management.aspx.cs" Inherits="ASC.Web.Studio.Management" %>
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
@@ -69,7 +69,7 @@
             </li>
             <% } %>
 
-            <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="InviteUserHolder" runat="server"/>
 
             <% if (TenantExtra.EnableTarrifSettings)
                { %>
@@ -88,10 +88,10 @@
             </li>
             <% } %>
 
-            <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
-            <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
-            <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
-            <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="HelpHolder" runat="server"/>
+            <asp:PlaceHolder ID="SupportHolder" runat="server"/>
+            <asp:PlaceHolder ID="UserForumHolder" runat="server"/>
+            <asp:PlaceHolder ID="VideoGuides" runat="server"/>
         </ul>
     </div>
     <% if (!string.IsNullOrEmpty(SetupInfo.UserVoiceURL))

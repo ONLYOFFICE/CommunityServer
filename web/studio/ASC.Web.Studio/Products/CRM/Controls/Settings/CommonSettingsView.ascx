@@ -7,7 +7,6 @@
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<div class="header-base settingsHeader"><%= CRMSettingResource.ExportData %></div>
 <div id="exportDataContent">
     <table width="100%" cellpadding="0" cellspacing="0">
         <colgroup>

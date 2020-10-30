@@ -1,4 +1,4 @@
-﻿<script id="contactsTmpl" type="text/x-jquery-tmpl">
+﻿<script id="contactsActionsTmpl" type="text/x-jquery-tmpl">
     <div class="contentMenuWrapper">
       <ul class="clearFix contentMenu contentMenuDisplayAll" id="ContactsListGroupButtons" style="display: block;">
         <li class="menuAction menuActionSelectAll">
@@ -26,11 +26,16 @@
       </ul>
       <div class="header-menu-spacer">&nbsp;</div>
     </div>
-    <table class="contacts_list" id="ContactsList">
-        <tbody>
-            {{tmpl(contacts, { htmlEncode : $item.htmlEncode}) "contactItemTmpl"}}
-        </tbody>
-    </table>
+</script>
+
+<script id="contactsTmpl" type="text/x-jquery-tmpl">
+    <div id="ContactsList">
+        <table class="contacts_list">
+            <tbody>
+                {{tmpl(contacts, { htmlEncode : $item.htmlEncode}) "contactItemTmpl"}}
+            </tbody>
+        </table>
+    </div>
 </script>
 
 <script id="contactItemTmpl" type="text/x-jquery-tmpl">

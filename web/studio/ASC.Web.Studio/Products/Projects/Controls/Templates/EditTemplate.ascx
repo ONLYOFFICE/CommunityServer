@@ -27,7 +27,7 @@
             <%= ProjectTmplId >= 0 ? ProjectTemplatesResource.CreateProject : ProjectTemplatesResource.SaveAndCreateProjFromTmpl%>
         </a>
         <span class="splitter-buttons"></span>
-        <a id="cancelCreateProjectTemplate" class="button gray big" href="projectTemplates.aspx"><%=ProjectsCommonResource.Cancel%></a>
+        <a id="cancelCreateProjectTemplate" class="button gray big" href="ProjectTemplates.aspx"><%=ProjectsCommonResource.Cancel%></a>
     </div>
 
     <div id="taskActionPanel" class="studio-action-panel">

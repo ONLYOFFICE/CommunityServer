@@ -24,11 +24,6 @@ fi
 
 case "$1" in
 	purge)
-		# purge logs
-		if [ -d /var/log/{{package_sysname}} ]; then
-			rm -rf /var/log/{{package_sysname}}
-		fi
-
 		db_input high {{package_sysname}}-communityserver/remove-db || true
 		db_go
 		db_get {{package_sysname}}-communityserver/remove-db

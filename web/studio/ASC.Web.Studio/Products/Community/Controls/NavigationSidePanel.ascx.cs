@@ -1,30 +1,19 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
-
-#region Usings
 
 using System;
 using System.Web;
@@ -36,12 +25,9 @@ using ASC.Web.Studio.Core;
 using System.Text;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.Support;
-using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using Newtonsoft.Json.Linq;
 using ASC.Web.Studio.UserControls.Common.UserForum;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
-
-#endregion
 
 namespace ASC.Web.Community.Controls
 {
@@ -106,7 +92,6 @@ namespace ASC.Web.Community.Controls
             help.IsSideBar = true;
             HelpHolder.Controls.Add(help);
             SupportHolder.Controls.Add(LoadControl(Support.Location));
-            VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
         }
@@ -141,22 +126,22 @@ namespace ASC.Web.Community.Controls
 
         private void InitCurrentPage()
         {
-            var currentPath = HttpContext.Current.Request.Path.ToLower();
-            if (currentPath.IndexOf("modules/blogs", StringComparison.Ordinal) > 0)
+            var currentPath = HttpContext.Current.Request.Path;
+            if (currentPath.IndexOf("Modules/Blogs", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "blogs";
-                if (currentPath.IndexOf("allblogs.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("AllBlogs.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "allblogs";
                 }
             }
-            else if (currentPath.IndexOf("modules/news", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Modules/News", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "events";
-                if (currentPath.IndexOf("editpoll.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("EditPoll.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                 }
-                else if (currentPath.IndexOf("editnews.aspx", StringComparison.Ordinal) > 0)
+                else if (currentPath.IndexOf("EditNews.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                 }
                 else
@@ -182,35 +167,35 @@ namespace ASC.Web.Community.Controls
                     }
                 }
             }
-            else if (currentPath.IndexOf("modules/forum", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Modules/Forum", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "forum";
-                if (currentPath.IndexOf("managementcenter.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("ManagementCenter.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "forumeditor";
                 }
-                if (currentPath.IndexOf("posts.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("Posts.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     InAParticularTopic = true;
                     MakeCreateNewTopic = true;
                 }
             }
-            else if (currentPath.IndexOf("modules/bookmarking", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Modules/Bookmarking", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "bookmarking";              
-                if (currentPath.IndexOf("favouritebookmarks.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("FavouriteBookmarks.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "bookmarkingfavourite";
                 }
             }
-            else if (currentPath.IndexOf("modules/wiki", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Modules/Wiki", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "wiki";
-                if (currentPath.IndexOf("listcategories.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("ListCategories.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "wikicategories";
                 }
-                if (currentPath.IndexOf("listpages.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("ListPages.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "wikiindex";
                     var type = Request["n"];
@@ -224,7 +209,7 @@ namespace ASC.Web.Community.Controls
                         CurrentPage = "wikirecently";
                     }
                 }
-                if (currentPath.IndexOf("listfiles.aspx", StringComparison.Ordinal) > 0)
+                if (currentPath.IndexOf("ListFiles.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "wikifiles";
                 }
@@ -238,11 +223,11 @@ namespace ASC.Web.Community.Controls
                         CurrentPage = "wikihelp";
                 }
             }
-            else if (currentPath.IndexOf("modules/birthdays", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Modules/Birthdays", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "birthdays";
             }
-            else if (currentPath.IndexOf("help.aspx", StringComparison.Ordinal) > 0)
+            else if (currentPath.IndexOf("Help.aspx", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 CurrentPage = "help";
             }
@@ -301,10 +286,10 @@ namespace ASC.Web.Community.Controls
 
         protected string GetDefaultSettingsPageUrl()
         {
-            var defaultUrl = VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#community";
+            var defaultUrl = VirtualPathUtility.ToAbsolute("~/Management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#community";
             if (IsForumsAvailable)
             {
-                defaultUrl = VirtualPathUtility.ToAbsolute("~/products/community/modules/forum/managementcenter.aspx");
+                defaultUrl = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/ManagementCenter.aspx");
             }
             return defaultUrl;
         }

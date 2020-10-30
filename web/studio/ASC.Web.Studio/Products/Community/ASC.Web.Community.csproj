@@ -10,12 +10,11 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{11BA9805-752F-4F6F-A876-6BA56F0EB9DE}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Community</RootNamespace>
     <AssemblyName>ASC.Web.Community</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -36,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -44,38 +43,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.19702, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20\FredCK.FCKeditorV2.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Controls\ButtonSidePanel.ascx.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ButtonSidePanel.ascx.designer.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -328,6 +302,13 @@
     <Compile Include="Modules\Bookmarking\UserControls\Common\Util\IThumbnailHelper.cs" />
     <Compile Include="Modules\Bookmarking\UserControls\Common\Util\SortByEnum.cs" />
     <Compile Include="Modules\Bookmarking\UserControls\Common\Util\WebSiteThumbnailHelper.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.cs">
+      <DependentUpon>BookmarkingPagingUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.designer.cs">
+      <DependentUpon>BookmarkingPagingUserControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.cs">
       <DependentUpon>CreateBookmarkUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -460,6 +441,13 @@
     <Compile Include="Modules\Forum\UserControls\Common\PageLocation.cs" />
     <Compile Include="Modules\Forum\UserControls\Common\Settings.cs" />
     <Compile Include="Modules\Forum\UserControls\Common\TagSuggest.cs" />
+    <Compile Include="Modules\Forum\UserControls\PagingControl.ascx.cs">
+      <DependentUpon>PagingControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\PagingControl.ascx.designer.cs">
+      <DependentUpon>PagingControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Forum\UserControls\ForumEditor.ascx.cs">
       <DependentUpon>ForumEditor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -476,7 +464,6 @@
     </Compile>
     <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.designer.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
@@ -490,7 +477,6 @@
     </Compile>
     <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.designer.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
@@ -585,40 +571,40 @@
     <Compile Include="Modules\News\Controls\FeedView.ascx.designer.cs">
       <DependentUpon>FeedView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Modules\News\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Modules\News\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\editnews.aspx.cs">
-      <DependentUpon>editnews.aspx</DependentUpon>
+    <Compile Include="Modules\News\EditNews.aspx.cs">
+      <DependentUpon>EditNews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\editnews.aspx.designer.cs">
-      <DependentUpon>editnews.aspx</DependentUpon>
+    <Compile Include="Modules\News\EditNews.aspx.designer.cs">
+      <DependentUpon>EditNews.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\editpoll.aspx.cs">
-      <DependentUpon>editpoll.aspx</DependentUpon>
+    <Compile Include="Modules\News\EditPoll.aspx.cs">
+      <DependentUpon>EditPoll.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\editpoll.aspx.designer.cs">
-      <DependentUpon>editpoll.aspx</DependentUpon>
+    <Compile Include="Modules\News\EditPoll.aspx.designer.cs">
+      <DependentUpon>EditPoll.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\news.aspx.cs">
-      <DependentUpon>news.aspx</DependentUpon>
+    <Compile Include="Modules\News\News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\news.aspx.designer.cs">
-      <DependentUpon>news.aspx</DependentUpon>
+    <Compile Include="Modules\News\News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\news.Master.cs">
-      <DependentUpon>news.Master</DependentUpon>
+    <Compile Include="Modules\News\News.Master.cs">
+      <DependentUpon>News.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\news.Master.designer.cs">
-      <DependentUpon>news.Master</DependentUpon>
+    <Compile Include="Modules\News\News.Master.designer.cs">
+      <DependentUpon>News.Master</DependentUpon>
     </Compile>
     <Compile Include="Modules\News\NewsConst.cs" />
     <Compile Include="Modules\News\NewsModule.cs" />
@@ -639,9 +625,7 @@
     </Compile>
     <Compile Include="Modules\Wiki\Code\ActionHelper.cs" />
     <Compile Include="Modules\Wiki\Code\BaseDao.cs" />
-    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs" />
     <Compile Include="Modules\Wiki\Code\Category.cs" />
     <Compile Include="Modules\Wiki\Code\CategoryDao.cs" />
     <Compile Include="Modules\Wiki\Code\Comment.cs" />
@@ -689,7 +673,6 @@
     <Compile Include="Modules\Wiki\Handlers\WikiSection.cs" />
     <Compile Include="Modules\Wiki\ListCategories.aspx.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Wiki\ListCategories.aspx.designer.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
@@ -759,7 +742,6 @@
     </Compile>
     <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.designer.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
@@ -989,6 +971,7 @@
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="Controls\ButtonSidePanel.ascx" />
     <Content Include="Controls\NavigationSidePanel.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Help.aspx" />
@@ -1065,6 +1048,7 @@
     <Content Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx" />
     <Content Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx" />
     <Content Include="Modules\Bookmarking\UserControls\Common\ActionButton\js\actionbutton.js" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx" />
     <Content Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx" />
     <Content Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx" />
     <Content Include="Modules\Forum\App_Themes\default\images\attach.png" />
@@ -1113,6 +1097,7 @@
     <Content Include="Modules\Forum\Posts.aspx" />
     <Content Include="Modules\Forum\Search.aspx" />
     <Content Include="Modules\Forum\Topics.aspx" />
+    <Content Include="Modules\Forum\UserControls\PagingControl.ascx" />
     <Content Include="Modules\Forum\UserControls\ForumEditor.ascx" />
     <Content Include="Modules\Forum\UserControls\ForumMaker.ascx" />
     <Content Include="Modules\Forum\UserControls\NewPostControl.ascx" />
@@ -1137,11 +1122,11 @@
     <Content Include="Modules\News\App_Themes\default\newsstylesheet.css" />
     <Content Include="Modules\News\Controls\FeedItem.ascx" />
     <Content Include="Modules\News\Controls\FeedView.ascx" />
-    <Content Include="Modules\News\default.aspx" />
-    <Content Include="Modules\News\editnews.aspx" />
-    <Content Include="Modules\News\editpoll.aspx" />
+    <Content Include="Modules\News\Default.aspx" />
+    <Content Include="Modules\News\EditNews.aspx" />
+    <Content Include="Modules\News\EditPoll.aspx" />
     <Content Include="Modules\News\js\news.js" />
-    <Content Include="Modules\News\news.aspx" />
+    <Content Include="Modules\News\News.aspx" />
     <Content Include="Modules\News\Resources\news_patterns.xml" />
     <Content Include="Modules\Wiki\App_Themes\default\css\filetype_style.css" />
     <Content Include="Modules\Wiki\App_Themes\default\css\wikicss.css" />
@@ -1648,7 +1633,7 @@
     <Content Include="Modules\Forum\Forum.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Modules\News\news.Master" />
+    <Content Include="Modules\News\News.Master" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Modules\Wiki\Wiki.Master" />
@@ -1658,16 +1643,35 @@
   <ItemGroup>
     <Content Include="Master\Community.Master" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AjaxPro.2">
+      <Version>2.9.17.2</Version>
+    </PackageReference>
+    <PackageReference Include="FredCK.FCKeditorV2">
+      <Version>2.6.3.19702</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

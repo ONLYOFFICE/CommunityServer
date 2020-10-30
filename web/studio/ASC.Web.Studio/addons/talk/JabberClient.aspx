@@ -17,6 +17,10 @@
 <asp:Content ID="TalkContent" ContentPlaceHolderID="PageContent" runat="server">
     <!--hack for artifact css-->
     <style type="text/css">
+        header{ margin: 0; }
+        main{ height: 100vh; padding: 0; }
+        .page-content { margin: 0; padding: 0; overflow: auto; }
+        .paging-content { padding: 0; }
         div#talkWrapper.hide {
             display:none
         }

@@ -10,39 +10,17 @@
         if(!request.user || !request.user.id) return;
         const userId = request.user.id;
         const tenantId = request.portal.tenantId;
-        const clientId = socket.client.request.id;
         let ipAddress = socket.handshake.headers['x-forwarded-for'];
         const userAgent = socket.request.headers['user-agent'];
         const parser = new uaParser();
         parser.setUA(userAgent);
         
         const [os, browser] = [parser.getOS(), parser.getBrowser()];
-        let operationSystem;
-        os.version === undefined ?  operationSystem = `${os.name}` : operationSystem = `${os.name} ${os.version}`;  
-        const browserVersion = browser.version;
-        const indexOfDot = browserVersion.indexOf('.');
-        let getCleanIP = (ipAddress) => {
-                        const indexOfColon = ipAddress.indexOf(':');
-                        if (indexOfColon === -1){
-                            return ipAddress;
-                        } else if (indexOfColon > 3){
-                            ipAddress = ipAddress.substring(0, indexOfColon);
-                        }
-                        else {
-                            ipAddress = "127.0.0.1";
-                        }
-                        return ipAddress;
-                }
+        const operationSystem = os.version !== undefined ?  `${os.name} ${os.version}` : `${os.name}`;  
+        const browserVersion = browser.version ? browser.version : '';
 
         ipAddress = getCleanIP(ipAddress);
-        let browserVersionShort;
-        if (indexOfDot > 0) {
-            browserVersionShort = browserVersion.substring(0, indexOfDot + 2);
-        }
-        else {
-            browserVersionShort = parser.getBrowser().major;
-        }
-        const browserName = `${browser.name} ${browserVersionShort}`;
+        const browserName = `${browser.name} ${browserVersion}`;
         const userName = (request.user.userName || "").toLowerCase();
         getCityByIP(ipAddress);
 
@@ -158,7 +136,19 @@
                     .catch((err) => {
                         console.log(err);
                     });
-        }
+        };
+
+        function getCleanIP (ipAddress) {
+            const indexOfColon = ipAddress.indexOf(':');
+            if (indexOfColon === -1){
+                return ipAddress;
+            } else if (indexOfColon > 3){
+                return ipAddress.substring(0, indexOfColon);
+            }
+            else {
+                return "127.0.0.1";
+            }
+    }
     });
 
     function getInreadMessageCount(mailMessageFolders){

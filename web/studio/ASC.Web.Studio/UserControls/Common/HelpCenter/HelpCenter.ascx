@@ -25,6 +25,7 @@
             </a>
         </li>
         <% } %>
+        <asp:PlaceHolder ID="VideoGuidesSubItem" runat="server"></asp:PlaceHolder>
     </ul>
 </li>
 
@@ -45,4 +46,9 @@
 <asp:PlaceHolder runat="server" ID="MediaViewersPlaceHolder"></asp:PlaceHolder>
 <% }%>
 
+<% } %>
+
+<% if (IsSideBar)
+   { %>
+<asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
 <% } %>

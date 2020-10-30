@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -246,11 +237,27 @@ var CommonSubscriptionManager = new function() {
     }
 
     this.InitNotifyByComboboxes = function() {
-        jq('select[id^="NotifyByCombobox_"]').each(
-            function() {
-                jq(this).tlcombobox();
+        jq(".subsSelector").each(function () {
+            var el = jq(this);
+
+            var notify = parseInt(el.attr("data-notify"));
+            if (!notify) return;
+
+            var subId = el.attr("data-id");
+            var fun = el.attr("data-function");
+            el.removeAttr("data-id").removeAttr("data-notify").removeAttr("data-function");
+
+            var f = subId ? function () { AjaxPro.SubscriptionManager[fun](subId, parseCheckBoxes(el)); } : function () { AjaxPro.SubscriptionManager[fun](parseCheckBoxes(el)); };
+
+            el.html(jq("#subsSelectorTemplate").tmpl({ type: notify }));
+
+            el.find("input[type=\"checkbox\"]").change(f);
+
+            var connector = el.find(".baseLinkAction");
+            if (connector.hasClass("tgConnector")) {
+                telegramConnect.init(connector);
             }
-		);
+        });
     };
 
     this.InitListTabsComboboxes = function() {
@@ -261,15 +268,190 @@ var CommonSubscriptionManager = new function() {
 		);
     };
 
-    this.SetNotifyByMethod = function(productID, notifyBy) {
-        AjaxPro.SubscriptionManager.SetNotifyByMethod(productID, notifyBy, function(result) { });
-    };
+    var telegramConnect = (function () {
+        var isInit = false;
+        var elements = [];
 
-    this.SetWhatsNewNotifyByMethod = function(notifyBy) {
-        AjaxPro.SubscriptionManager.SetWhatsNewNotifyByMethod(notifyBy, function(result) { });
-    };
-    this.SetAdminNotifyNotifyByMethod = function(notifyBy) {
+        var helper = jq("#telegramConnectTemplate").tmpl();
+        var body = jq("body");
 
-        AjaxPro.SubscriptionManager.SetAdminNotifyNotifyByMethod(notifyBy, function(result) { });
+        var tgConnect = helper.children("#tgConnect");
+        var tgConnected = helper.children("#tgConnected");
+        var tgLink = helper.children("#tgLink");
+        var tgCopy = helper.children("#tgCopy");
+        var tgDisconnect = helper.children("#tgDisconnect");
+
+        var clipboard;
+        var timeout;
+
+        function onApiFail(params, error) {
+            LoadingBanner.hideLoading();
+            toastr.error(error[0]);
+        };
+
+        function hideAll() {
+            tgConnect.addClass("display-none");
+            tgConnected.addClass("display-none");
+            tgLink.addClass("display-none");
+            tgCopy.addClass("display-none");
+            tgDisconnect.addClass("display-none");
+        };
+
+        var lastRender;
+        function render(isConnected) {
+            lastRender = isConnected;
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].children("span").toggleClass("display-none", isConnected);
+                elements[i].parent().children("input").toggleClass("display-none", !isConnected);
+            }
+
+            tgConnect.toggleClass("display-none", isConnected);
+            tgConnected.toggleClass("display-none", !isConnected);
+            tgLink.toggleClass("display-none", isConnected);
+            tgCopy.toggleClass("display-none", isConnected && ASC.Clipboard.enable);
+            tgDisconnect.toggleClass("display-none", !isConnected);
+        };
+
+        function renderSingle(element) {
+            if (lastRender == undefined) return;
+            element.children("span").toggleClass("display-none", lastRender);
+            element.parent().children("input").toggleClass("display-none", !lastRender);
+        }
+
+        function generateLink() {
+            Teamlab.telegramLink({ success: linkCallback, error: onApiFail });
+        };
+
+        function isConnected(stealth) {
+            Teamlab.telegramIsConnected({ success: stealth ? function (params, response) { render(response == 1); } : isConnectedCallback, error: onApiFail });
+        };
+
+        function disconnect() {
+            LoadingBanner.displayLoading();
+            Teamlab.telegramDisconnect({ success: function () { tgDisconnect.off("click"); isConnectedCallback(null, 0); }, error: onApiFail });
+        };
+
+        function linkCallback(params, response) {
+            if (clipboard) ASC.Clipboard.destroy(clipboard);
+
+            tgLink.on("click", linkUsed);
+            if (ASC.Clipboard.enable) {
+                tgCopy.on("click", linkUsed);
+
+                clipboard = ASC.Clipboard.create(response, "tgCopy", {
+                    onComplete: function () {
+                        toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                    }
+                });
+            }
+
+            tgLink.children("a").attr("href", "https://" + response).text(response.slice(0, 30) + "...");
+        };
+
+        function isConnectedCallback(params, response) {
+            render(response == 1);
+            LoadingBanner.hideLoading();
+
+            if (response != 1) {
+                generateLink();
+
+                if (response == 2) {
+                    timeout = timeOutFunction()
+                }
+            } else {
+                if (clipboard) ASC.Clipboard.destroy(clipboard);
+                tgDisconnect.on("click", disconnect);
+            }
+        };
+
+        function timeOutFunction() {
+            return setTimeout(Teamlab.telegramIsConnected, 1500, { success: timeOutCallback });
+        };
+
+        function timeOutCallback(params, response) {
+            if (response != 2) {
+                isConnectedCallback(params, response);
+            } else {
+                timeout = timeOutFunction();
+            }
+        };
+
+        function linkUsed() {
+            tgLink.off("click");
+            tgCopy.off("click");
+
+            if (!timeout) {
+                timeout = timeOutFunction();
+            }
+        };
+
+        function onClose() {
+            body.unbind("click.tgConnect");
+            tgDisconnect.off("click");
+
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        };
+
+        function init(element) {
+            elements.push(element);
+            element.removeAttr("data-value");
+            element.click(function (e) {
+                e.stopPropagation(true);
+
+                var height = jq(window).height();
+                var top = e.pageY + jq(e.target).height();
+                var diff = height - (top - jq(window).scrollTop() + helper.height() + parseInt(helper.css("padding-top")) * 2);
+                top = diff >= 0 ? top : top + diff;
+
+                helper.css({
+                    position: "absolute",
+                    left: e.pageX,
+                    top: top - 10,
+                }).toggleClass("display-none");
+
+                if (!helper.hasClass("display-none")) {
+                    hideAll();
+                    LoadingBanner.displayLoading();
+                    isConnected();
+
+                    body.bind("click.tgConnect", function (e) {
+                        if (jq(e.target).parents("#telegramConnect").length) return;
+
+                        helper.addClass("display-none");
+                        onClose();
+                    });
+                } else {
+                    onClose();
+                }
+            });
+            renderSingle(element);
+
+            if (isInit) return;
+            isInit = true;
+
+            hideAll();
+            helper.appendTo(body);
+            isConnected(true);
+        };
+
+        return {
+            init: init
+        };
+    })();
+
+    var parseCheckBoxes = function (el) {
+        var notifyBy = 0;
+
+        el.find("input[type=\"checkbox\"]").each(function () {
+            var checkBox = jq(this);
+            if (checkBox.prop("checked")) {
+                var num = parseInt(jq(this).attr("data-value"));
+                notifyBy |= num;
+            }
+        });
+
+        return notifyBy;
     };
 };

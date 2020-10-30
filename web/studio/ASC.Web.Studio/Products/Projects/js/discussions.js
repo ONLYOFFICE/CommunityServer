@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -63,7 +54,7 @@ ASC.Projects.Discussions = (function($) {
                     button: {
                         title: messageResource.StartFirstDiscussion,
                         onclick: function () {
-                            location.href = jq.format("messages.aspx?action=add{0}", currentProjectId != null ? "&prjID=" + currentProjectId : "");
+                            location.href = jq.format("Messages.aspx?action=add{0}", currentProjectId != null ? "&prjID=" + currentProjectId : "");
                         },
                         canCreate: function () {
                             return currentProjectId ?
@@ -144,7 +135,7 @@ ASC.Projects.Discussions = (function($) {
     function getDiscussionTemplate(discussion) {
         var discussionId = discussion.id;
         var prjId = discussion.projectId;
-        var discussionUrl = "messages.aspx?prjID=" + prjId + "&id=" + discussionId;
+        var discussionUrl = "Messages.aspx?prjID=" + prjId + "&id=" + discussionId;
 
         var template =
         {
@@ -167,7 +158,7 @@ ASC.Projects.Discussions = (function($) {
         };
         if (!currentProjectId) {
             template.projectTitle = discussion.projectTitle;
-            template.projectUrl = 'projects.aspx?prjID=' + discussion.projectId;
+            template.projectUrl = 'Projects.aspx?prjID=' + discussion.projectId;
         }
         return template;
     };
@@ -264,7 +255,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
 
         ASC.Projects.DescriptionTab
             .init()
-            .push(resources.ProjectResource.Project, discussion.projectOwner.title, "tasks.aspx?prjID=" + discussion.projectOwner.id)
+            .push(resources.ProjectResource.Project, discussion.projectOwner.title, "Tasks.aspx?prjID=" + discussion.projectOwner.id)
             .push(messageResource.AuthorTitle, discussion.createdBy.displayName)
             .push(resources.ProjectsFilterResource.ByCreateDate, discussion.displayDateTimeCrtdate)
             .push(messageResource.Description, discussion.text)
@@ -283,7 +274,9 @@ ASC.Projects.DiscussionDetails = (function ($) {
             "commentsModule",
             $discussionCommentsContainer,
             '#comments',
-            isVisibleSelector);
+            isVisibleSelector,
+            undefined,
+            '#comment_');
         subscribersTab = new Tab(resources.MessageResource.DiscussionParticipants,
             function() { return subscribers.length; },
             "subscribeModule",
@@ -545,7 +538,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
     };
 
     function daEditHandler() {
-        location.href = "messages.aspx?prjID=" + discussion.projectId + "&id=" + discussion.id + "&action=edit";
+        location.href = "Messages.aspx?prjID=" + discussion.projectId + "&id=" + discussion.id + "&action=edit";
     };
 
     function daCreateTaskHandler() {
@@ -554,7 +547,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         teamlab.addPrjTaskByMessage({}, projId, discussionId, {
             success: function (params, task) {
                 window.onbeforeunload = null;
-                location.href = "tasks.aspx?prjID=" + projId + "&id=" + task.id;
+                location.href = "Tasks.aspx?prjID=" + projId + "&id=" + task.id;
             }
         });
     };
@@ -639,7 +632,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
     function onDeleteDiscussion(params, discussion) {
         teamlab.fckeRemoveCommentComplete(discussion.id.toString(), 'discussion', function () {
             window.onbeforeunload = null;
-            window.location.replace("messages.aspx?prjID=" + discussion.projectId);
+            window.location.replace("Messages.aspx?prjID=" + discussion.projectId);
         });
     };
 
@@ -984,7 +977,7 @@ ASC.Projects.DiscussionAction = (function ($) {
     function onError() {
         if (this.__errors[0] === "Access denied.") {
             window.onbeforeunload = null;
-            window.location.replace("messages.aspx");
+            window.location.replace("Messages.aspx");
         }
         unlockDiscussionActionPageElements();
     };
@@ -1077,7 +1070,7 @@ ASC.Projects.DiscussionAction = (function ($) {
     function attachFiles(discussion, isEdit) {
         var onComplete = function() {
             window.onbeforeunload = null;
-            window.location.replace('messages.aspx?prjID=' + discussion.projectId + '&id=' + discussion.id);
+            window.location.replace('Messages.aspx?prjID=' + discussion.projectId + '&id=' + discussion.id);
         };
 
         if (filesToDeattach.length || filesToAttach.length) {

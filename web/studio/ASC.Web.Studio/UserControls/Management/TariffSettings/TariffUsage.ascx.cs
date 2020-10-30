@@ -1,50 +1,44 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Geolocation;
 using ASC.Web.Core;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
+
 using PhoneNumbers;
+
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -57,7 +51,6 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return "~/UserControls/Management/TariffSettings/TariffUsage.ascx"; }
         }
 
-        protected bool HideBuyRecommendation;
         protected Dictionary<string, bool> ListStarRemark = new Dictionary<string, bool>();
 
         protected int UsersCount;
@@ -72,6 +65,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected RegionInfo RegionDefault = new RegionInfo("US");
         protected RegionInfo CurrentRegion;
+        protected string PhoneCountry = "US";
 
         protected List<RegionInfo> Regions = new List<RegionInfo>();
 
@@ -177,19 +171,18 @@ namespace ASC.Web.Studio.UserControls.Management
             var minYearQuota = QuotasYear.FirstOrDefault(q => q.ActiveUsers >= UsersCount && q.MaxTotalSize >= UsedSize);
             MinActiveUser = minYearQuota != null ? minYearQuota.ActiveUsers : (QuotasYear.Count > 0 ? QuotasYear.Last().ActiveUsers : 0 + 1);
 
-            HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.HideRecommendation;
-
             downgradeInfoContainer.Options.IsPopup = true;
-            buyRecommendationContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            RegisterScript();
             CurrencyCheck();
         }
 
         private void CurrencyCheck()
         {
-            CurrentRegion = FindRegionInfo() ?? CurrentRegion;
+            var findRegion = FindRegionInfo();
+
+            CurrentRegion = findRegion ?? CurrentRegion;
+            PhoneCountry = (findRegion ?? new RegionInfo(Thread.CurrentThread.CurrentCulture.LCID)).TwoLetterISORegionName;
 
             if (!CurrentRegion.Equals(RegionDefault))
             {
@@ -370,6 +363,13 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     text = Resource.TariffButtonBuy + SetStar(Resource.TariffRemarkProlongDisable);
                 }
+                else if (CurrentTariff.State == TariffState.Paid
+                    && quota.ActiveUsers < CurrentQuota.ActiveUsers)
+                {
+                    cssList.Add("disable");
+                    getHref = false;
+                    text = Resource.TariffButtonBuy + SetStar(CurrentQuota.Year3 ? Resource.TariffRemarkDisabledYear : Resource.TariffRemarkDisabledMonth);
+                }
 
                 if (!quota.Year3)
                 {
@@ -441,6 +441,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected string GetRemarks()
         {
             var result = string.Empty;
+            if (QuotasYear.Count == 0) return result;
 
             foreach (var starType in ListStarRemark)
             {
@@ -458,24 +459,10 @@ namespace ASC.Web.Studio.UserControls.Management
             return result;
         }
 
-        protected string GetChatBannerPath()
-        {
-            var lng = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
-            var cult = string.Empty;
-            var cultArray = new[] {"de", "es", "fr", "it", "lv", "ru"};
-            if (cultArray.Contains(lng))
-            {
-                cult = "_" + lng;
-            }
-            var imgName = "support/live_support_banner" + cult + ".png";
-
-            return WebImageSupplier.GetAbsoluteWebPath(imgName);
-        }
-
         protected string GetSaleDate()
         {
             DateTime date;
-            if (!DateTime.TryParse(WebConfigurationManager.AppSettings["web.payment-sale"], out date))
+            if (!DateTime.TryParse(ConfigurationManagerExtension.AppSettings["web.payment-sale"], out date))
             {
                 date = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1).AddMonths(1).AddDays(-1);
             }
@@ -487,7 +474,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             if (rubleRate && InRuble)
             {
-                price = price*SetupInfo.ExchangeRateRuble;
+                price = price * SetupInfo.ExchangeRateRuble;
             }
 
             var priceString = InEuro && Math.Truncate(price) != price
@@ -534,19 +521,13 @@ namespace ASC.Web.Studio.UserControls.Management
             var price = GetPrice(quota);
 
             var period = quota.Year ? 12 : 36;
-            return priceMonth*period - price;
+            return priceMonth * period - price;
         }
 
         protected string GetPerUserPrice(TenantQuota quota)
         {
             var price = PricesPerUser[quota == null ? 0 : quota.Year ? 1 : quota.Year3 ? 2 : 0];
             return GetPriceString(price, InRuble);
-        }
-
-        [AjaxMethod]
-        public void SaveHideRecommendation(bool hide)
-        {
-            TariffSettings.HideRecommendation = hide;
         }
 
         [AjaxMethod]
@@ -561,34 +542,6 @@ namespace ASC.Web.Studio.UserControls.Management
             HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
 
             StudioNotifyService.Instance.SendRequestTariff(false, fname, lname, title, email, phone, ctitle, csize, site, message);
-        }
-
-        private void RegisterScript()
-        {
-            Page.RegisterInlineScript(@"
-                var __lc = {};
-                __lc.license = 2673891;
-
-                (function () {
-                    var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-                    lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-
-                    (function loopForCorrectLoading(i) {
-                        setTimeout(function () {
-                            if (--i && typeof(window.LC_API) === 'undefined') {
-                                loopForCorrectLoading(i);
-                            }
-                            if (typeof(window.LC_API) === 'object') {
-                                window.LC_API.on_after_load = function () {
-                                    if (window.LC_API.agents_are_available()) {
-                                        jq('.support-chat-btn').show();
-                                    }
-                                };
-                            }
-                        }, 100);
-                    })(500);
-                })();", onReady: false);
         }
     }
 }

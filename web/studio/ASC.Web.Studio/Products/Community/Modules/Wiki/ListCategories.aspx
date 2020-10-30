@@ -43,6 +43,6 @@
         </footertemplate>
     </asp:Repeater>
     <% } else { %>
-    <asp:PlaceHolder ID="EmptyContent" runat="server"></asp:PlaceHolder>
+        <asp:PlaceHolder ID="EmptyContent" runat="server"/>
     <% } %>
 </asp:Content>

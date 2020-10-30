@@ -14,9 +14,17 @@ $PostPreview
 $URL
     </body>
   </pattern>
+  <pattern id="new post" sender="telegram.sender">
+    <subject resource="|subject_new_post_tg|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$PostPreview
+    </body>
+  </pattern>
 
   <pattern id="new personal post" sender="email.sender" reference="new post"/>
   <pattern id="new personal post" sender="messanger.sender" reference="new post"/>
+  <pattern id="new personal post" sender="telegram.sender" reference="new post"/>
 
   <pattern id="new comment" sender="email.sender">
     <subject resource="|subject_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
@@ -29,6 +37,13 @@ $URL
 $CommentBody
 
 $CommentURL
+    </body>
+  </pattern>
+  <pattern id="new comment" sender="telegram.sender">
+    <subject resource="|subject_new_comment_tg|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
     </body>
   </pattern>
 </patterns>

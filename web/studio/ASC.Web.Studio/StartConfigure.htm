@@ -460,6 +460,13 @@
             font-size: 14px;
         }
 
+        .asc-progress-error {
+            display: none;
+            color: #cc3300;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
         @-webkit-keyframes progress {
           0% {
             left: -100%;
@@ -565,6 +572,7 @@
                                             </div>
                                             <span class="asc-progress-percent"></span>
                                         </div>
+                                        <div class="asc-progress-error"></div>
                                     </div>
                                 </div>
                             </td>
@@ -579,13 +587,17 @@
 
     <script type="text/javascript">
 
-        window.progressUrl = window.location.origin + "/api/2.0/capabilities.json";
+        window.apiUrl = window.location.origin + "/api/2.0/capabilities.json";
+        window.warmupUrl = window.location.origin + "/api/2.0/warmup/progress.json";
+
         window.textPosition = 0;
         window.textArray = [
             "The portal start up process might take some time, please wait...",
             "We are working on it.",
             "Please do not reload the page or shut down your computer."
         ];
+
+        window.warmupAttempts = 0;
 
         function showText() {
             $(".startup-loading-cnt_text").text(window.textArray[window.textPosition]);
@@ -598,45 +610,99 @@
             window.showTextTimeout = setTimeout(showText, 5000);
         };
 
-        function getProgress() {
-            $.ajax(window.progressUrl, {
-                success: getProgressResponseHandler,
-                error: getProgressDelay,
+        function getApiResponse() {
+            $.ajax(window.apiUrl, {
+                success: apiResponseHandler,
+                error: getApiResponseDelay,
                 statusCode: {
-                    0: progressRedirect,
-                    301: progressRedirect
+                    0: responseRedirect,
+                    301: responseRedirect
                 }
             });
         }
 
-        function getProgressDelay() {
-            window.getProgressTimeout = setTimeout(getProgress, 3000);
+        function getApiResponseDelay() {
+            window.getApiResponseTimeout = setTimeout(getApiResponse, 3000);
         }
 
-        function getProgressResponseHandler(response) {
+        function apiResponseHandler(response) {
             if (response.error || response.statusCode != 200 || typeof (response) != "object") {
-                getProgressDelay();
+                getApiResponseDelay();
                 return;
             }
 
-            setTimeout(function() {
-                window.location.href = "/";
-            }, 5000);
+            getWarmupResponse();
         }
 
-        function progressRedirect() {
-            if (window.progressUrl.indexOf("http:") == 0) {
-                window.progressUrl = window.progressUrl.replace("http:", "https:");
-            } else if (window.progressUrl.indexOf("https:") == 0) {
-                window.progressUrl = window.progressUrl.replace("https:", "http:");
+        function responseRedirect() {
+            if (window.apiUrl.indexOf("http:") == 0) {
+                window.apiUrl = window.apiUrl.replace("http:", "https:");
+                window.warmupUrl = window.warmupUrl.replace("http:", "https:");
+            } else if (window.apiUrl.indexOf("https:") == 0) {
+                window.apiUrl = window.apiUrl.replace("https:", "http:");
+                window.warmupUrl = window.warmupUrl.replace("https:", "http:");
             }
 
-            clearTimeout(window.getProgressTimeout);
-            getProgressDelay();
+            clearTimeout(window.getApiResponseTimeout);
+            getApiResponseDelay();
+        }
+
+        function getWarmupResponse() {
+            $.ajax(window.warmupUrl, {
+                success: warmupResponseHandler,
+                error: warmupErrorHandler
+            });
+        }
+
+        function warmupResponseHandler(response) {
+            var progress = response.response;
+
+            try {
+                if (typeof progress == "string") {
+                    progress = JSON.parse(progress);
+                }
+            }
+            catch (e) {
+                warmupErrorHandler(null, [e.message]);
+                return;
+            }
+
+            if (progress.Completed) {
+                showProgress(progress.ProgressPercent);
+                setTimeout(function () { window.location.href = "/"; }, 3000);
+            } else {
+                showProgress(progress.ProgressPercent);
+                getWarmupResponseDelay();
+            }
+        }
+
+        function warmupErrorHandler(params, errors) {
+            if (window.warmupAttempts < 3) {
+                window.warmupAttempts++;
+                getWarmupResponseDelay();
+            } else {
+                showError(errors[0]);
+            }
+        }
+
+        function getWarmupResponseDelay() {
+            window.getWarmupResponseTimeout = setTimeout(getWarmupResponse, 3000);
+        }
+
+        function showProgress(progress) {
+            $(".asc-progress-value").removeClass("animated").animate({ "width": progress + "%" }, 3000, "linear");
+            if (progress > 0) {
+                clearTimeout(window.showTextTimeout);
+                $(".startup-loading-cnt_text").text(window.textArray[0]);
+            }
+        }
+
+        function showError(error) {
+            $(".asc-progress-error").text(error).show();
         }
 
         showText();
-        getProgress();
+        getApiResponse();
 
     </script>
 </body>

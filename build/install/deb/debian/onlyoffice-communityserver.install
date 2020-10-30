@@ -1,10 +1,10 @@
 Files/nginx/{{package_sysname}} etc/nginx/sites-available/
 Files/nginx/includes/* etc/nginx/includes/
 Files/hyperfastcgi/* etc/hyperfastcgi/
-Files/god/* etc/god/
 Files/Services/* var/www/{{package_sysname}}/Services/
 Files/WebStudio/* var/www/{{package_sysname}}/WebStudio/
 Files/sql/* var/www/{{package_sysname}}/Sql/
+Files/god/* etc/god/
 Files/Tools/* var/www/{{package_sysname}}/Tools/
 Files/licenses/* usr/share/doc/{{package_sysname}}-communityserver/licenses/
 Files/ApiSystem/* var/www/{{package_sysname}}/ApiSystem/

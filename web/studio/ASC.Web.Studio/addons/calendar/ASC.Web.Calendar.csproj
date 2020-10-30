@@ -3,6 +3,8 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Calendar</RootNamespace>
     <AssemblyName>ASC.Web.Calendar</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -39,7 +41,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -51,13 +53,18 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="NLog">
+      <Version>4.7.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Addon\CalendarAddon.cs" />
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Notification\CalendarSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +92,20 @@
     <Compile Include="UserControls\CalendarResources.ascx.designer.cs">
       <DependentUpon>CalendarResources.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonSidePanel.ascx.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ButtonSidePanel.ascx.designer.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CalendarSidePanel.ascx.cs">
+      <DependentUpon>CalendarSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\CalendarSidePanel.ascx.designer.cs">
+      <DependentUpon>CalendarSidePanel.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SidePanel.ascx.cs">
       <DependentUpon>SidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -110,10 +131,12 @@
     <Content Include="App_Themes\default\images\disabledlogo.png" />
     <Content Include="App_Themes\default\images\minilogo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.png" />
-    <Content Include="default.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="UserControls\CalendarTemplates.ascx" />
     <Content Include="UserControls\CalendarControl.ascx" />
     <Content Include="UserControls\CalendarResources.ascx" />
+    <Content Include="UserControls\ButtonSidePanel.ascx" />
+    <Content Include="UserControls\CalendarSidePanel.ascx" />
     <Content Include="UserControls\css\jquery.jscrollpane.css" />
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\images\ui-bg_flat_100_ffffff_40x100.png" />
@@ -183,6 +206,13 @@
     <Content Include="UserControls\popup\img\popup-arrow-big.png" />
     <Content Include="UserControls\popup\img\popup-arrow.png" />
     <Content Include="UserControls\popup\popup.js" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="UserControls\fullcalendar\tmpl\todo.editor.tmpl" />

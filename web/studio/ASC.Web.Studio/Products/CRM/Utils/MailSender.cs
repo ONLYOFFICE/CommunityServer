@@ -1,59 +1,55 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 #region Import
 
-using ASC.Common.Caching;
-using ASC.Common.Threading.Progress;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Studio.Utility;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Web.Configuration;
+
+using ASC.Common.Caching;
 using ASC.Common.Logging;
+using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Core;
+using ASC.Web.CRM.Resources;
 using ASC.Web.Files.Api;
+using ASC.Web.Studio.Utility;
+
 using Autofac;
+
 using MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+
 using MimeKit;
+
+using Newtonsoft.Json.Linq;
+
 using File = System.IO.File;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
@@ -179,7 +175,7 @@ namespace ASC.Web.CRM.Classes
                         return;
                     }
 
-                    MailSenderDataCache.Insert((SendBatchEmailsOperation) Clone());
+                    MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
 
                     var from = new MailboxAddress(_smtpSetting.SenderDisplayName, _smtpSetting.SenderEmailAddress);
                     var filePaths = new List<string>();
@@ -217,7 +213,7 @@ namespace ASC.Web.CRM.Classes
                         {
                             _exactPercentageValue += 100.0 / contactCount;
                             Percentage = Math.Round(_exactPercentageValue);
-                            
+
                             if (IsCompleted) break; // User selected cancel
 
                             var contactInfoDao = _daoFactory.ContactInfoDao;
@@ -292,7 +288,7 @@ namespace ASC.Web.CRM.Classes
                                 deliveryCount++;
 
                                 var estimatedTime =
-                                    TimeSpan.FromTicks(waitInterval.Ticks*(_contactID.Count - deliveryCount));
+                                    TimeSpan.FromTicks(waitInterval.Ticks * (_contactID.Count - deliveryCount));
 
                                 Status = new
                                 {
@@ -309,7 +305,7 @@ namespace ASC.Web.CRM.Classes
                                 throw new OperationCanceledException();
                             }
 
-                            MailSenderDataCache.Insert((SendBatchEmailsOperation) Clone());
+                            MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
 
                             if (Percentage > 100)
                             {
@@ -322,7 +318,7 @@ namespace ASC.Web.CRM.Classes
                                     throw new OperationCanceledException();
                                 }
 
-                                MailSenderDataCache.Insert((SendBatchEmailsOperation) Clone());
+                                MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
 
                             }
                         }
@@ -350,7 +346,7 @@ namespace ASC.Web.CRM.Classes
                     };
                 }
             }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 Error = e.Message;
                 _log.Error(Error);
@@ -421,7 +417,7 @@ namespace ASC.Web.CRM.Classes
             {
                 ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
                     WorkContext.IsMono || MailKit.MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
-                Timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds
+                Timeout = (int)TimeSpan.FromSeconds(30).TotalMilliseconds
             };
 
             client.Connect(_smtpSetting.Host, _smtpSetting.Port,
@@ -440,7 +436,7 @@ namespace ASC.Web.CRM.Classes
             IsCompleted = true;
             Percentage = 100;
             _log.Debug("Completed");
-           
+
             MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
 
             Thread.Sleep(10000);
@@ -512,7 +508,7 @@ namespace ASC.Web.CRM.Classes
             Cache.Remove(GetCancelCacheKey());
         }
     }
-    
+
     public class MailSender
     {
         private static readonly Object _syncObj = new Object();
@@ -523,7 +519,7 @@ namespace ASC.Web.CRM.Classes
         static MailSender()
         {
             int parsed;
-            if (int.TryParse(WebConfigurationManager.AppSettings["crm.mailsender.quotas"], out parsed))
+            if (int.TryParse(ConfigurationManagerExtension.AppSettings["crm.mailsender.quotas"], out parsed))
             {
                 quotas = parsed;
             }
@@ -547,7 +543,7 @@ namespace ASC.Web.CRM.Classes
                     if (mailSender != null)
                         return mailSender;
                 }
-                
+
                 if (operation == null)
                 {
                     if (fileID == null)
@@ -672,7 +668,7 @@ namespace ASC.Web.CRM.Classes
                 {
                     MailSenderDataCache.SetCancelFlag();
                 }
-            }           
+            }
         }
     }
 
@@ -835,11 +831,12 @@ namespace ASC.Web.CRM.Classes
                     case "contactInfo":
                         var contactInfoType = (ContactInfoType)Enum.Parse(typeof(ContactInfoType), tagParts[1]);
                         var category = Convert.ToInt32(tagParts[2]);
-                        var contactInfos = contactInfoDao.GetList(contactID, contactInfoType, category, true);
+                        var contactInfos = contactInfoDao.GetList(contactID, contactInfoType, null, null);
 
                         if (contactInfos == null || contactInfos.Count == 0) break;
 
-                        var contactInfo = contactInfos[0];
+                        var contactInfo = contactInfos.FirstOrDefault(info => info.Category == category && info.IsPrimary) ??
+                                          contactInfos.First();
 
                         if (contactInfoType == ContactInfoType.Address)
                         {
@@ -947,13 +944,13 @@ namespace ASC.Web.CRM.Classes
                 if (infoTypeEnum == ContactInfoType.Address)
                     foreach (AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart)))
                         result.Add(new MailTemplateTag
-                                       {
-                                           SysName = String.Format(localName + "_{0}_{1}", addressPartEnum, (int)AddressCategory.Work),
-                                           DisplayName = String.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString()),
-                                           Category = CRMContactResource.GeneralInformation,
-                                           isCompany = isCompany,
-                                           Name = ToTagName(String.Format("{0} {1}", infoTypeEnum.ToString(), addressPartEnum.ToString()), isCompany)
-                                       });
+                        {
+                            SysName = String.Format(localName + "_{0}_{1}", addressPartEnum, (int)AddressCategory.Work),
+                            DisplayName = String.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString()),
+                            Category = CRMContactResource.GeneralInformation,
+                            isCompany = isCompany,
+                            Name = ToTagName(String.Format("{0} {1}", infoTypeEnum.ToString(), addressPartEnum.ToString()), isCompany)
+                        });
                 else
                     result.Add(new MailTemplateTag
                     {
@@ -991,13 +988,13 @@ namespace ASC.Web.CRM.Classes
                 }
 
                 result.Add(new MailTemplateTag
-                                 {
-                                     SysName = "customField_" + customField.ID,
-                                     DisplayName = customField.Label.HtmlEncode(),
-                                     Category = category,
-                                     isCompany = isCompany,
-                                     Name = ToTagName(customField.Label, isCompany)
-                                 });
+                {
+                    SysName = "customField_" + customField.ID,
+                    DisplayName = customField.Label.HtmlEncode(),
+                    Category = category,
+                    isCompany = isCompany,
+                    Name = ToTagName(customField.Label, isCompany)
+                });
             }
 
             #endregion

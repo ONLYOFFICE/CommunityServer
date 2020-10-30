@@ -1,31 +1,23 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -33,7 +25,7 @@ using System.Security;
 using System.Security.Authentication;
 using System.Text;
 using System.Web;
-using System.Web.Configuration;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Mail;
@@ -49,6 +41,7 @@ using ASC.Web.Mail.Controls;
 using ASC.Web.Mail.Masters.ClientScripts;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Studio;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
@@ -56,9 +49,10 @@ using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.UserForum;
-using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json;
+
 using Constants = ASC.Core.Users.Constants;
 using MailBox = ASC.Web.Mail.Controls.MailBox;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -85,6 +79,9 @@ namespace ASC.Web.Mail
         protected List<string> DisplayImagesAddresses { get; set; }
         protected List<MailSieveFilterData> Filters { get; set; }
 
+        public const int EntryCountOnPage_def = 25;
+        public const int VisiblePageCount_def = 10;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) // Redirect to home page if user hasn't permissions or not authenticated.
@@ -107,12 +104,22 @@ namespace ASC.Web.Mail
 
             MailControlContainer.Controls.Add(LoadControl(MailBox.Location));
 
+            //init Page Navigator
+            _phPagerContent.Controls.Add(new PageNavigator
+            {
+                ID = "mailPageNavigator",
+                CurrentPageNumber = 1,
+                VisibleOnePage = false,
+                EntryCount = 0,
+                VisiblePageCount = VisiblePageCount_def,
+                EntryCountOnPage = EntryCountOnPage_def
+            });
+
             var helpCenter = (HelpCenter)LoadControl(HelpCenter.Location);
             helpCenter.IsSideBar = true;
             sideHelpCenter.Controls.Add(helpCenter);
 
             SupportHolder.Controls.Add(LoadControl(Support.Location));
-            VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
@@ -167,12 +174,12 @@ namespace ASC.Web.Mail
 
         public static int GetMailCheckNewsTimeout()
         {
-            return WebConfigurationManager.AppSettings["mail.check-news-timeout"] == null ? 30000 : Convert.ToInt32(WebConfigurationManager.AppSettings["ServiceCheckTimeout"]);
+            return ConfigurationManagerExtension.AppSettings["mail.check-news-timeout"] == null ? 30000 : Convert.ToInt32(ConfigurationManagerExtension.AppSettings["ServiceCheckTimeout"]);
         }
 
         public static int GetMaximumMessageBodySize()
         {
-            return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.maximum-message-body-size"] ?? "524288");
+            return Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.maximum-message-body-size"] ?? "524288");
         }
 
         private const string MAIL_TROUBLESHOOTING = "troubleshooting/mail.aspx";
@@ -183,7 +190,7 @@ namespace ASC.Web.Mail
             var baseHelpLink = CommonLinkUtility.GetHelpLink();
 
             if (string.IsNullOrEmpty(baseHelpLink))
-                baseHelpLink = WebConfigurationManager.AppSettings["web.faq-url"] ?? string.Empty;
+                baseHelpLink = ConfigurationManagerExtension.AppSettings["web.faq-url"] ?? string.Empty;
 
             return baseHelpLink.TrimEnd('/') + "/troubleshooting/mail.aspx";
         }
@@ -201,6 +208,11 @@ namespace ASC.Web.Mail
         public static bool IsTurnOnAttachmentsGroupOperations()
         {
             return Defines.IsAttachmentsGroupOperationsAvailable;
+        }
+
+        public static bool IsMSExchangeMigrationLinkAvailable()
+        {
+            return Defines.IsMSExchangeMigrationLinkAvailable;
         }
 
         public static bool IsCrmAvailable()
@@ -230,32 +242,32 @@ namespace ASC.Web.Mail
 
         public static string GetMailDownloadHandlerUri()
         {
-            return WebConfigurationManager.AppSettings["mail.download-handler-url"] ?? "/addons/mail/httphandlers/download.ashx?attachid={0}";
+            return ConfigurationManagerExtension.AppSettings["mail.download-handler-url"] ?? "/addons/mail/httphandlers/download.ashx?attachid={0}";
         }
 
         public static string GetMailViewDocumentHandlerUri()
         {
-            return WebConfigurationManager.AppSettings["mail.view-document-handler-url"] ?? "/addons/mail/httphandlers/viewdocument.ashx?attachid={0}";
+            return ConfigurationManagerExtension.AppSettings["mail.view-document-handler-url"] ?? "/addons/mail/httphandlers/viewdocument.ashx?attachid={0}";
         }
 
         public static string GetMailContactPhotoHandlerUri()
         {
-            return WebConfigurationManager.AppSettings["mail.contact-photo-handler-url"] ?? "/addons/mail/httphandlers/contactphoto.ashx?cid={0}&ps={1}";
+            return ConfigurationManagerExtension.AppSettings["mail.contact-photo-handler-url"] ?? "/addons/mail/httphandlers/contactphoto.ashx?cid={0}&ps={1}";
         }
 
         public static string GetMailEditDocumentHandlerUri()
         {
-            return WebConfigurationManager.AppSettings["mail.edit-document-handler-url"] ?? "/addons/mail/httphandlers/editdocument.ashx?attachid={0}";
+            return ConfigurationManagerExtension.AppSettings["mail.edit-document-handler-url"] ?? "/addons/mail/httphandlers/editdocument.ashx?attachid={0}";
         }
 
         public static string GetMailDaemonEmail()
         {
-            return WebConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com";
+            return ConfigurationManagerExtension.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com";
         }
 
         public static string GetProxyHttpUrl()
         {
-            return WebConfigurationManager.AppSettings["proxy.http-url"] ?? "/httphandlers/urlProxy.ashx";
+            return ConfigurationManagerExtension.AppSettings["proxy.http-url"] ?? "/httphandlers/urlProxy.ashx";
         }
 
         public List<MailAccountData> GetAccounts()
@@ -289,7 +301,7 @@ namespace ASC.Web.Mail
             if (Folders == null)
                 Folders = new List<MailFolderData>();
 
-            if (Folders.Any()) 
+            if (Folders.Any())
                 return Folders;
 
             Folders = EngineFactory.FolderEngine.GetFolders()
@@ -418,7 +430,9 @@ namespace ASC.Web.Mail
                 .AppendFormat("ASC.Mail.Constants.PASSWORD_SETTINGS = {0};\r\n",
                     JsonConvert.SerializeObject(PasswordSettings.Load()))
                 .AppendFormat("ASC.Mail.Constants.MAXIMUM_MESSAGE_BODY_SIZE = {0};\r\n",
-                    JsonConvert.SerializeObject(GetMaximumMessageBodySize()));
+                    JsonConvert.SerializeObject(GetMaximumMessageBodySize()))
+                .AppendFormat("ASC.Mail.Constants.MS_MIGRATION_LINK_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsMSExchangeMigrationLinkAvailable()));
 
             return sbScript.ToString();
         }

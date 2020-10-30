@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -403,13 +394,13 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var descriptionTab = ASC.Projects.DescriptionTab;
         
         descriptionTab.init()
-            .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "tasks.aspx?prjID=" + task.projectOwner.id)
+            .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "Tasks.aspx?prjID=" + task.projectOwner.id)
             .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}] {1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
             .push(tasksResource.TaskStartDate, task.displayDateStart)
             .push(tasksResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
             .push(tasksResource.Priority, task.priority === 1 ? tasksResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
             .push(tasksResource.AssignedTo, task.responsibles.length === 0 ? tasksResource.WithoutResponsible : task.responsibles.map(function (item) { return item.displayName }).join(', '))
-            .push(resources.CommonResource.SpentTotally, task.canCreateTimeSpend && task.timeSpend ? jq.format("{0} {1}", timeSpend.hours + resources.TimeTrackingResource.ShortHours, timeSpend.minutes + resources.TimeTrackingResource.ShortMinutes) : '', "timetracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id)
+            .push(resources.CommonResource.SpentTotally, task.canCreateTimeSpend && task.timeSpend ? jq.format("{0} {1}", timeSpend.hours + resources.TimeTrackingResource.ShortHours, timeSpend.minutes + resources.TimeTrackingResource.ShortMinutes) : '', "TimeTracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id)
             .push(tasksResource.CreatingDate, task.displayDateCrtdate)
             .push(tasksResource.TaskProducer, task.createdBy.displayName)
             .push(tasksResource.ClosingDate, task.status === 2 ? task.displayDateUptdate : '')
@@ -791,8 +782,8 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var taskid = selectedActionCombobox.data("taskid");
 
         var menuItems = [
-            new ASC.Projects.ActionMenuItem("lta_edit", tasksResource.Edit, ltaEditHandler.bind(null, taskid)),
-            new ASC.Projects.ActionMenuItem("lta_remove", resources.CommonResource.Delete, ltaRemoveHandler.bind(null, taskid))
+            new ASC.Projects.ActionMenuItem("lta_edit", tasksResource.Edit, ltaEditHandler.bind(null, taskid), "edit"),
+            new ASC.Projects.ActionMenuItem("lta_remove", resources.CommonResource.Delete, ltaRemoveHandler.bind(null, taskid), "delete")
         ];
 
         return { menuItems: menuItems };
@@ -939,15 +930,16 @@ ASC.Projects.TaskDescriptionPage = (function() {
             $commentContainer,
             '#comments',
             function() { return true },
-            commentsEmpty);
+            commentsEmpty,
+            '#comment_');
         ganttTab = new Tab(resources.ProjectResource.GanttGart,
             function () { return 0; },
             "ganttchartModule",
             null,
-            "ganttchart.aspx",
+            "GanttChart.aspx",
             function () { return !jq.browser.mobile && task.projectOwner.status === 0 });
 
-        ganttTab.href = "ganttchart.aspx?prjID=" + task.projectId;
+        ganttTab.href = "GanttChart.aspx?prjID=" + task.projectId;
 
         timeTrackingTab = new Tab(resources.ProjectsJSResource.TimeTrackingModule,
             function () {
@@ -960,10 +952,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
             },
             "timetrackingModule",
             null,
-            "timetracking.aspx",
+            "TimeTracking.aspx",
             function () { return task.canCreateTimeSpend && task.timeSpend; });
 
-        timeTrackingTab.href = "timetracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id;
+        timeTrackingTab.href = "TimeTracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id;
 
         var data = {
             icon: "tasks",
@@ -996,7 +988,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
 
     function onRemoveTask() {
         jq.unblockUI();
-        var newUrl = "tasks.aspx?prjID=" + projId;
+        var newUrl = "Tasks.aspx?prjID=" + projId;
         window.location.replace(newUrl);
     };
 

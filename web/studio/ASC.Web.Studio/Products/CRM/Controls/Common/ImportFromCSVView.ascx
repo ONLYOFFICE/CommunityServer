@@ -149,7 +149,7 @@
                     <%= CRMContactResource.Continue%>
                 </a>
                 <span class="splitter-buttons"></span>
-                <a href="default.aspx" class="button gray middle">
+                <a href="Default.aspx" class="button gray middle">
                     <%= CRMCommonResource.Cancel%>
                 </a>
             </div>
@@ -201,7 +201,7 @@
                 <%= CRMCommonResource.PrevStep%>
             </a>
             <span class="splitter-buttons"></span>
-            <a href="default.aspx" class="button gray middle">
+            <a href="Default.aspx" class="button gray middle">
                 <%= CRMCommonResource.Cancel%>
             </a>
         </div>

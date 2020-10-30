@@ -98,11 +98,29 @@ namespace ASC.Web.Community.Bookmarking.Core.Patterns {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community. New comment to bookmark: [$BookmarkTitle]($BookmarkUrl).
+        /// </summary>
+        public static string subject_BookmarkCommentCreatedID_tg {
+            get {
+                return ResourceManager.GetString("subject_BookmarkCommentCreatedID_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. New bookmark added: $BookmarkTitle.
         /// </summary>
         public static string subject_BookmarkCreatedID {
             get {
                 return ResourceManager.GetString("subject_BookmarkCreatedID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. New bookmark added: [$BookmarkTitle]($BookmarkUrl).
+        /// </summary>
+        public static string subject_BookmarkCreatedID_tg {
+            get {
+                return ResourceManager.GetString("subject_BookmarkCreatedID_tg", resourceCulture);
             }
         }
     }

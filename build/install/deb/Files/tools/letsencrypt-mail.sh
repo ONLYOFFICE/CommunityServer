@@ -2,21 +2,20 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
-LETSENCRYPT_ROOT_DIR="/etc/letsencrypt/live";
+LETSENCRYPT_ROOT_DIR="/etc/letsencrypt";
 
 certbot certonly --expand --webroot -w ${ROOT_DIR} --noninteractive --agree-tos --email support@$1 $1;
 
-cp ${LETSENCRYPT_ROOT_DIR}/$1/fullchain.pem ${ROOT_DIR}/mail.onlyoffice.crt
-cp ${LETSENCRYPT_ROOT_DIR}/$1/privkey.pem ${ROOT_DIR}/mail.onlyoffice.key
+mkdir -p ${ROOT_DIR}
 
-cat > ${DIR}/letsencrypt_mail_cron.sh <<END
-certbot renew >> /var/log/le-renew.log
-cp ${LETSENCRYPT_ROOT_DIR}/$1/fullchain.pem ${ROOT_DIR}/mail.onlyoffice.crt
-cp ${LETSENCRYPT_ROOT_DIR}/$1/privkey.pem ${ROOT_DIR}/mail.onlyoffice.key
+cat > ${LETSENCRYPT_ROOT_DIR}/renewal-hooks/deploy/mailserver.sh <<END
+#!/bin/bash
+
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/fullchain.pem ${ROOT_DIR}/mail.onlyoffice.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/privkey.pem ${ROOT_DIR}/mail.onlyoffice.key
+
+service nginx reload
+
 END
 
-chmod a+x ${DIR}/letsencrypt_mail_cron.sh
-
-cat > /etc/cron.d/letsencrypt_mail <<END
-@weekly root ${DIR}/letsencrypt_mail_cron.sh
-END
+chmod a+x ${LETSENCRYPT_ROOT_DIR}/renewal-hooks/deploy/mailserver.sh

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -62,7 +53,7 @@ window.peopleActions = (function() {
 
         if (jq("#peopleData tr.profile").length == 0) {
             jq("#emptyContentForPeopleFilter").addClass("display-none");
-            jq("#peopleContent").removeClass("display-none");
+            jq(".people-content").removeClass("display-none");
         }
         jq("#peopleData").prepend($o);
         ASC.Controls.AnchorController.trigger();
@@ -84,13 +75,13 @@ window.peopleActions = (function() {
             jq("#confirmationDeleteDepartmentPanel .middle-button-container>.button.blue.middle").unbind("click").bind("click", function() {
                 ASC.People.PeopleController.deleteGroup();
             });
-            StudioBlockUIManager.blockUI("#confirmationDeleteDepartmentPanel", 500, 200, 0);
+            StudioBlockUIManager.blockUI("#confirmationDeleteDepartmentPanel", 500);
             PopupKeyUpActionProvider.ClearActions();
             PopupKeyUpActionProvider.EnterAction = 'ASC.People.PeopleController.deleteGroup();';
         },
 
         add_profiles: function(evt, $btn) {
-            location.href = "/products/people/import.aspx";
+            location.href = "/Products/People/Import.aspx";
         },
 
         send_invites: function(evt, $btn) {
@@ -130,14 +121,14 @@ window.peopleActions = (function() {
         invite_link: function (evt, $btn) {
             PopupKeyUpActionProvider.ClearActions();
             jq("#otherActions").hide();
-            StudioBlockUIManager.blockUI("#inviteLinkContainer", 550, 350, 0);
+            StudioBlockUIManager.blockUI("#inviteLinkContainer", 550);
             ASC.InvitePanel.bindClipboardEvent();
         }
     };
 })();
 
 jq(function () {
-    var pathname = "/products/people/";
+    var pathname = "/Products/People/";
     jq("#groupList .menu-item-label").each(function (index, item) {
         var id = jq(item).parents(".menu-sub-item").attr("data-id");
         if (location.pathname != pathname) {
@@ -150,6 +141,6 @@ jq(function () {
     }
 
     jq(".people-import-banner_img").on("click", function () {
-        location.href = "/products/people/import.aspx";
+        location.href = "/Products/People/Import.aspx";
     });
 })

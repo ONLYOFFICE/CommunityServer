@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -68,7 +59,7 @@
     .dropdown-content {
         list-style: none outside none;
         margin: 0;
-        max-height: 400px;
+        max-height: 480px;
         overflow-x: hidden;
         overflow-y: auto;
         padding: 0;
@@ -77,7 +68,6 @@
             max-width: 375px;
             overflow: hidden;
             .textOverflowEllipsis();
-            margin-bottom: 1px;
 
             &:last-child {
                 margin-bottom: 0;
@@ -97,7 +87,7 @@
             cursor: pointer;
             display: block;
             font-size: 12px;
-            line-height: 24px;
+            line-height: 25px;
             margin: 0;
             padding: 0 12px;
             text-decoration: none;
@@ -105,6 +95,10 @@
         }
 
         .dropdown-item {
+            &.display-none {
+                display: none;
+            }
+
             &.active {
                 color: @linkColor;
             }
@@ -130,14 +124,10 @@
             position: relative;
 
             &:after {
-                content: "\203A";
-                display: block;
-                font-size: 20px;
-                height: 14px;
-                right: 0;
+                content: url("/skins/default/images/svg/context/icon_arrow.svg");
+                right: 4px;
                 position: absolute;
-                top: -2px;
-                width: 12px;
+                top: 8px;
             }
         }
 
@@ -170,7 +160,11 @@
 *******************************************************************************/
     &.modules li {
 
-        .dropdown-item-svg{
+        .menu-products-item {
+            padding: 0 12px 0 10px;
+        }
+
+        .dropdown-item-svg {
             width: 16px;
             height: 16px;
             fill:#83888d;
@@ -179,7 +173,7 @@
         .dropdown-item-icon {
             width: 16px;
             height: 16px;
-            margin: 8px 5px 0 1px;
+            margin: 8px 5px 0 0;
             float: left;
         } 
     }
@@ -191,7 +185,7 @@
     .wrapper
     {
         position: relative;
-        width: 150px;
+        width: 155px;
         max-height: 430px;
         overflow-y: auto;
         overflow-x: hidden;
@@ -209,7 +203,7 @@
 
         &.col3
         {
-            width: 450px;
+            width: 465px;
 
             .columns
             {
@@ -256,7 +250,7 @@
 }
 
 .dropdown-item-seporator {
-    border-top: 1px dotted #a6a6a6;
+    border-top: 1px solid #E4E4E4;
     width: 100%;
     margin: 2px 0;
 }
@@ -284,3 +278,269 @@
     }
 }
 
+/*******************************************************************************
+  Context menu items
+*******************************************************************************/
+
+.studio-action-panel .dropdown-content .dropdown-item.with-icon {
+    padding: 0 20px 0 24px;
+    background-repeat: no-repeat;
+    background-position: 4px center;
+    float: none;
+
+    &.with-toggle {
+        padding-right: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .toggle {
+            width: 22px;
+            height: 13px;
+            display: inline-block;
+            background: #3B72A7;
+            border-radius: 7px;
+            margin: 0 4px;
+            cursor: pointer;
+            text-align: right;
+
+            &.off {
+                text-align: left;
+                background: #CCCCCC;
+            }
+            
+            .switcher {
+                width: 9px;
+                height: 9px;
+                display: inline-block;
+                background: white;
+                border-radius: 5px;
+                margin: 2px;
+            }
+        }
+    }
+
+    &.accept {
+        background-image: url("/skins/default/images/svg/context/icon_accept.svg");
+    }
+    &.access {
+        background-image: url("/skins/default/images/svg/context/icon_access.svg");
+    }
+    &.add-email {
+        background-image: url("/skins/default/images/svg/context/icon_add_email.svg");
+    }
+    &.block {
+        background-image: url("/skins/default/images/svg/context/icon_block.svg");
+    }
+    &.call {
+        background-image: url("/skins/default/images/svg/context/icon_call.svg");
+    }
+    &.case {
+        background-image: url("/skins/default/images/svg/context/icon_case.svg");
+    }
+    &.calendar {
+        background-image: url("/skins/default/images/svg/context/icon_calendar.svg");
+    }
+    &.chat {
+        background-image: url("/skins/default/images/svg/context/icon_chat.svg");
+    }
+    &.closed-tasks-report {
+        background-image: url("/skins/default/images/svg/context/icon_closed_tasks_report.svg");
+    }
+    &.create {
+        background-image: url("/skins/default/images/svg/context/icon_create.svg");
+    }
+    &.delete {
+        background-image: url("/skins/default/images/svg/context/icon_delete.svg");
+    }
+    &.disable-item {
+        background-image: url("/skins/default/images/svg/context/icon_disable.svg");
+    }
+    &.document {
+        background-image: url("/skins/default/images/svg/context/icon_document.svg");
+    }
+    &.download {
+        background-image: url("/skins/default/images/svg/context/icon_download.svg");
+    }
+    &.download-as {
+        background-image: url("/skins/default/images/svg/context/icon_download_as.svg");
+    }
+    &.download-as {
+        background-image: url("/skins/default/images/svg/context/icon_download_as.svg");
+    }
+    &.edit {
+        background-image: url("/skins/default/images/svg/context/icon_edit.svg");
+    }
+    &.email {
+        background-image: url("/skins/default/images/svg/context/icon_email.svg");
+    }
+    &.email-v2 {
+        background-image: url("/skins/default/images/svg/context/icon_email_v2.svg");
+    }
+    &.empty-recycle-bin {
+        background-image: url("/skins/default/images/svg/context/icon_empty_recycle_bin.svg");
+    }
+    &.enable-item {
+        background-image: url("/skins/default/images/svg/context/icon_enable.svg");
+    }
+    &.export {
+        background-image: url("/skins/default/images/svg/context/icon_export.svg");
+    }
+    &.extrn-link {
+        background-image: url("/skins/default/images/svg/context/icon_extrn_link.svg");
+    }
+    &.extrn-link-v2 {
+        background-image: url("/skins/default/images/svg/context/icon_extrn_link_v2.svg");
+    }
+    &.favorites {
+        background-image: url("/skins/default/images/svg/context/icon_favorite.svg");
+    }
+    &.templates {
+        background-image: url("/skins/default/images/svg/context/icon_template.svg");
+    }
+    &.filter {
+        background-image: url("/skins/default/images/svg/context/icon_filter.svg");
+    }
+    &.forward {
+        background-image: url("/skins/default/images/svg/context/icon_forward.svg");
+    }
+    &.history {
+        background-image: url("/skins/default/images/svg/context/icon_history.svg");
+    }
+    &.image {
+        background-image: url("/skins/default/images/svg/context/icon_image.svg");
+    }
+    &.invoice {
+        background-image: url("/skins/default/images/svg/context/icon_invoice.svg");
+    }
+    &.invoice-draft {
+        background-image: url("/skins/default/images/svg/context/icon_invoice_draft.svg");
+    }
+    &.invoice-paid {
+        background-image: url("/skins/default/images/svg/context/icon_invoice_paid.svg");
+    }
+    &.invoice-rejected {
+        background-image: url("/skins/default/images/svg/context/icon_invoice_rejected.svg");
+    }
+    &.invoice-send {
+        background-image: url("/skins/default/images/svg/context/icon_invoice_send.svg");
+    }
+    &.link {
+        background-image: url("/skins/default/images/svg/context/icon_link.svg");
+    }
+    &.mark-as-important {
+        background-image: url("/skins/default/images/svg/context/icon_mark_as_important.svg");
+    }
+    &.mark-as-read {
+        background-image: url("/skins/default/images/svg/context/icon_mark_as_read.svg");
+    }
+    &.move {
+        background-image: url("/skins/default/images/svg/context/icon_move.svg");
+    }
+    &.move-or-copy {
+        background-image: url("/skins/default/images/svg/context/icon_move_or_copy.svg");
+    }
+    &.move-to-milestone {
+        background-image: url("/skins/default/images/svg/context/icon_move_to_milestone.svg");
+    }
+    &.new-opportunity {
+        background-image: url("/skins/default/images/svg/context/icon_new_opportunity.svg");
+    }
+    &.new-tab {
+        background-image: url("/skins/default/images/svg/context/icon_new_tab.svg");
+    }
+    &.new-task {
+        background-image: url("/skins/default/images/svg/context/icon_new_task.svg");
+    }
+    &.notify-responsible {
+        background-image: url("/skins/default/images/svg/context/icon_notify_responsible.svg");
+    }
+    &.open-folder {
+        background-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
+    }
+    &.open-location {
+        background-image: url("/skins/default/images/svg/context/icon_open_location.svg");
+    }
+    &.open-mail {
+        background-image: url("/skins/default/images/svg/context/icon_open_mail.svg");
+    }
+    &.open-tasks-report {
+        background-image: url("/skins/default/images/svg/context/icon_open_tasks_report.svg");
+    }
+    &.permissions {
+        background-image: url("/skins/default/images/svg/context/icon_permissions.svg");
+    }
+    &.phone {
+        background-image: url("/skins/default/images/svg/context/icon_phone.svg");
+    }
+    &.preview {
+        background-image: url("/skins/default/images/svg/context/icon_preview.svg");
+    }
+    &.print {
+        background-image: url("/skins/default/images/svg/context/icon_print.svg");
+    }
+    &.project {
+        background-image: url("/skins/default/images/svg/context/icon_project.svg");
+    }
+    &.reassign-data {
+        background-image: url("/skins/default/images/svg/context/icon_reassign_data.svg");
+    }
+    &.rename {
+        background-image: url("/skins/default/images/svg/context/icon_rename.svg");
+    }
+    &.reply {
+        background-image: url("/skins/default/images/svg/context/icon_reply.svg");
+    }
+    &.reply-all {
+        background-image: url("/skins/default/images/svg/context/icon_reply_all.svg");
+    }
+    &.restore {
+        background-image: url("/skins/default/images/svg/context/icon_restore.svg");
+    }
+    &.ringtone {
+        background-image: url("/skins/default/images/svg/context/icon_ringtone.svg");
+    }
+    &.settings {
+        background-image: url("/skins/default/images/svg/context/icon_settings.svg");
+    }
+    &.sign {
+        background-image: url("/skins/default/images/svg/context/icon_sign.svg");
+    }
+    &.spam {
+        background-image: url("/skins/default/images/svg/context/icon_spam.svg");
+    }
+    &.subtask {
+        background-image: url("/skins/default/images/svg/context/icon_subtask.svg");
+    }
+    &.subtask-v2 {
+        background-image: url("/skins/default/images/svg/context/icon_subtask_v2.svg");
+    }
+    &.track-time {
+        background-image: url("/skins/default/images/svg/context/icon_track_time.svg");
+    }
+    &.un-notify-responsible {
+        background-image: url("/skins/default/images/svg/context/icon_un_notify_responsible.svg");
+    }
+    &.unlink {
+        background-image: url("/skins/default/images/svg/context/icon_unlink.svg");
+    }
+    &.unlink-v2 {
+        background-image: url("/skins/default/images/svg/context/icon_unlink_v2.svg");
+    }
+    &.user {
+        background-image: url("/skins/default/images/svg/context/icon_user.svg");
+    }
+    &.user-active {
+        background-image: url("/skins/default/images/svg/context/icon_user_active.svg");
+    }
+    &.user-deactive {
+        background-image: url("/skins/default/images/svg/context/icon_user_deactive.svg");
+    }
+    &.user-new {
+        background-image: url("/skins/default/images/svg/context/icon_user_new.svg");
+    }
+    &.user-v2 {
+        background-image: url("/skins/default/images/svg/context/icon_user_v2.svg");
+    }
+}

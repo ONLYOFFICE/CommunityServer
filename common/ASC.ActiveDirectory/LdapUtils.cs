@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -32,7 +23,6 @@ using ASC.ActiveDirectory.Base.Data;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Web.Core.Utility;
 using Monocert = Mono.Security.X509;
 using Syscert = System.Security.Cryptography.X509Certificates;
 
@@ -138,35 +128,9 @@ namespace ASC.ActiveDirectory
             }
         }
 
-        private const string NOISE = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk@%&;";
-
-        public static string GeneratePassword(PasswordSettings ps)
+        public static string GeneratePassword()
         {
-            var maxLength = PasswordSettings.MaxLength
-                            - (ps.Digits ? 1 : 0)
-                            - (ps.UpperCase ? 1 : 0)
-                            - (ps.SpecSymbols ? 1 : 0);
-            var minLength = Math.Min(ps.MinLength, maxLength);
-
-            return string.Format("{0}{1}{2}{3}",
-                                 GeneratePassword(minLength, minLength, NOISE.Substring(0, NOISE.Length - 4)),
-                                 ps.Digits ? GeneratePassword(1, 1, NOISE.Substring(0, 10)) : string.Empty,
-                                 ps.UpperCase ? GeneratePassword(1, 1, NOISE.Substring(10, 20).ToUpper()) : string.Empty,
-                                 ps.SpecSymbols ? GeneratePassword(1, 1, NOISE.Substring(NOISE.Length - 4, 4).ToUpper()) : string.Empty);
-        }
-
-        private static readonly Random Rnd = new Random();
-
-        internal static string GeneratePassword(int minLength, int maxLength, string noise)
-        {
-            var length = Rnd.Next(minLength, maxLength + 1);
-
-            var pwd = string.Empty;
-            while (length-- > 0)
-            {
-                pwd += noise.Substring(Rnd.Next(noise.Length - 1), 1);
-            }
-            return pwd;
+            return Guid.NewGuid().ToString();
         }
 
         public static bool IsCertInstalled(Syscert.X509Certificate certificate, ILog log = null)
@@ -253,6 +217,28 @@ namespace ASC.ActiveDirectory
                 userInfo.Location,
                 userInfo.GetContactsString(),
                 Enum.GetName(typeof(EmployeeStatus), userInfo.Status));
+        }
+
+        public static string UnescapeLdapString(string ldapString)
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i < ldapString.Length; i++)
+            {
+                var ch = ldapString[i];
+                if (ch == '\\')
+                {
+                    if (i + 1 < ldapString.Length && ldapString[i + 1] == ch)
+                    {
+                        sb.Append(ch);
+                        i++;
+                    }
+                }
+                else
+                {
+                    sb.Append(ch);
+                }
+            }
+            return sb.ToString();
         }
     }
 }

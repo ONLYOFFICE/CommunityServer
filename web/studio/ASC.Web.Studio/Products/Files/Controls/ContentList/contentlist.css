@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -78,25 +69,22 @@
 /*************************************************************
    Main Content
 *************************************************************/
-body.media-width-0-1200 .files-content-panel {
-    padding-bottom: 28px;
-}
 .contentMenu {
     border-bottom: none;
     margin-bottom: 0;
 }
 #mainContent {
-    min-height: 450px;
+    /*min-height: 450px;*/
     min-width: 660px;
     overflow: hidden;
+    border: 1px solid transparent;
 }
 #mainContent.selected {
     border: 1px dashed #bbb;
-    margin: -1px;
 }
 #filesMainContent {
     display: none;
-    margin: 0 0 20px;
+    margin: 0;
     padding: 0;
 }
 .file-row {
@@ -167,6 +155,7 @@ body.media-width-0-1200 .files-content-panel {
 .file-row.checkloading .checkbox input,
 .file-row.checkloading .menu-small,
 .file-row.checkloading .btn-row,
+.file-row.checkloading .template-action,
 .file-row.checkloading .pencil {
     visibility: hidden;
 }
@@ -226,6 +215,7 @@ body.media-width-0-1200 .files-content-panel {
     text-decoration: none;
     line-height: 22px;
     outline: none;
+    white-space: pre;
 }
 .file-row .entry-title .name a .file-extension {
     color: #A2A2A2;
@@ -265,7 +255,9 @@ body.media-width-0-1200 .files-content-panel {
 
 .row-rename .entry-title .name a,
 .row-rename .entry-descr,
+.row-rename .template-action,
 .row-rename .pencil,
+.row-rename .favorite,
 .row-rename .version,
 .row-rename .is-new,
 .row-rename .btn-row,
@@ -273,7 +265,9 @@ body.media-width-0-1200 .files-content-panel {
 .row-rename .file-lock,
 .file-row.new-folder .entry-descr,
 .file-row.new-file .entry-descr,
+.file-row.new-file .template-action,
 .file-row.new-file .pencil,
+.file-row.new-file .favorite,
 .file-row.new-file .btn-row,
 .file-row.new-file .file-lock {
     display: none !important;
@@ -363,6 +357,18 @@ body.media-width-0-1200 .files-content-panel {
 .file-row.can-coauthoring .pencil.file-editing {
     background: url('../../../../skins/default/images/svg/documents/pencil_add.svg');
 }
+.is-template .pencil,
+.template-action {
+    display: none;
+}
+.is-template .template-action {
+    display: block;
+    float: left;
+    margin: 2px 0 0 8px;
+}
+.row-hover:hover .template-action {
+    background: url('../../../../skins/default/images/svg/documents/templateblue.svg');
+}
 .file-lock {
     display: none;
     margin: 2px 0 0 8px;
@@ -378,6 +384,13 @@ body.media-width-0-1200 .files-content-panel {
 }
 .file-row.file-locked-by .pencil {
     display: none;
+}
+.file-row .favorite {
+    display: none;
+    margin-left: 8px;
+}
+.file-row.on-favorite .favorite {
+    display: block;
 }
 
 li.without-share .btn-row {
@@ -467,6 +480,7 @@ ul.without-share .btn-row {
     margin-top: 2px;
 }
 #filesMainContent.compact .pencil,
+#filesMainContent.compact .template-action,
 #filesMainContent.compact .file-lock {
     margin-top: 6px;
 }
@@ -476,6 +490,7 @@ ul.without-share .btn-row {
 #filesMainContent.compact #contentVersions {
     margin: 1px 0 0;
 }
+#filesMainContent.compact .favorite,
 #filesMainContent.compact .file-row .version,
 #filesMainContent.compact .file-row .is-new {
     margin-top: 4px;
@@ -505,6 +520,7 @@ ul.without-share .btn-row {
     color: #aa2c2c;
 }
 .file-row.error-entry .btn-row,
+.file-row.error-entry .template-action,
 .file-row.error-entry .pencil,
 .file-row.error-entry .menu-small {
     display: none !important;
@@ -618,12 +634,8 @@ ul.without-share .btn-row {
 }
 .version-row .version-date {
     padding-left: 7px;
-    width: 65px;
-}
-.version-row .version-time {
-    padding-left: 12px;
     padding-right: 4px;
-    width: 45px;
+    width: 110px;
 }
 .version-sublist {
     width: 80px;

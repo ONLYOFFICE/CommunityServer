@@ -1,33 +1,24 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 @import "settings.less";
 
-#itemContainer, .message-print-box
-{
+#itemContainer, .message-print-box, #pageActionContainer {
+
     .message-wrap {
         .head .row {
             padding-left: @message-spliter-width;
@@ -38,7 +29,7 @@
 
         .subject h2 {
             display: inline-block;
-            margin-left:10px;
+            margin-left: 10px;
         }
 
         .row {
@@ -58,10 +49,11 @@
 
             .header-value {
                 width: 100%;
+
                 .value {
 
                     &.with-right {
-                        margin-right:120px;
+                        margin-right: 120px;
                     }
 
                     .itemTags {
@@ -71,7 +63,7 @@
                         }
 
                         .tagArrow {
-                             background-position: right -40px;
+                            background-position: right -40px;
                         }
                     }
 
@@ -83,11 +75,11 @@
                     }
                 }
 
-                .to-addresses, 
-                .bcc-addresses, 
+                .to-addresses,
+                .bcc-addresses,
                 .cc-addresses {
-                   word-wrap: break-word; 
-                   word-break: break-all;
+                    word-wrap: break-word;
+                    word-break: break-all;
                 }
             }
 
@@ -102,7 +94,7 @@
 
         .flag-message,
         .flag-message-true {
-            float:left;
+            float: left;
             margin-top: 5px;
         }
 
@@ -121,7 +113,7 @@
                 margin-left: 63px;
 
                 &.with-right {
-                    margin-right:120px;
+                    margin-right: 120px;
                 }
 
                 .itemTags .tag {
@@ -170,7 +162,7 @@
             }
         }
 
-        .header-crm-link{
+        .header-crm-link {
             cursor: pointer;
             height: 22px;
             width: 22px;
@@ -190,7 +182,7 @@
                 font-weight: bold;
             }
         }
-        
+
         &.loading
         {
             .message_short
@@ -207,9 +199,12 @@
         @border-style: @messages-border-style;
         @spliter-width: @row-height / 4;
         @darken-text-color: #83888D;
-        width: 100%;
-        table-layout: fixed;
-        border-top: @border-style;
+        
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-top: @border-style;
+        }
 
         .message_short
         {
@@ -356,7 +351,7 @@
             cursor: pointer !important;
             padding: 0 5px 6px 5px;
             margin: 8px 0;
-            color:  #666;
+            color: #666;
             font-weight: bold;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -435,11 +430,11 @@
 
     div.head {
         div.more_lnk {
-            float:none;
+            float: none;
         }
 
         div.action {
-            float:none;
+            float: none;
         }
     }
 
@@ -451,7 +446,7 @@
         }
     }
 
-    .composeFooter{
+    .composeFooter {
         border-top: 1px solid #D7D8DC;
     }
 
@@ -472,6 +467,7 @@
             height: 100px;
             margin: 15px;
             overflow: hidden;
+
             span {
                 display: block;
                 padding-left: 18px;
@@ -515,7 +511,7 @@
         }
 
         .icon {
-            float:left;
+            float: left;
             padding-left: @message-spliter-width - 3;
             padding-top: 2px;
 

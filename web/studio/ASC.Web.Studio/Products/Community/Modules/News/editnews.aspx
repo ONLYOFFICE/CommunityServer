@@ -1,11 +1,16 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/News/news.Master" AutoEventWireup="true" CodeBehind="editnews.aspx.cs" Inherits="ASC.Web.Community.News.EditNews" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/News/News.Master" AutoEventWireup="true" CodeBehind="EditNews.aspx.cs" Inherits="ASC.Web.Community.News.EditNews" %>
 
 <%@ Import Namespace="ASC.Web.Community.News.Resources" %>
 
-<asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
+
+<asp:Content ContentPlaceHolderID="NewsTitleContent" runat="server">
+    <div class="eventsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
+        <span class="main-title-icon events"></span>
+        <span class="header"><%=HttpUtility.HtmlEncode(PageTitle)%></span>
+    </div>
 </asp:Content>
 
-<asp:Content ID="PageContent" ContentPlaceHolderID="NewsContents" runat="server">
+<asp:Content ContentPlaceHolderID="NewsContents" runat="server">
     <div id="actionNewsPage" style="margin-top: 15px;">
     <div class="headerPanel-splitter requiredField">
         <span class="requiredErrorText"><%=NewsResource.RequaredFieldValidatorCaption%></span>
@@ -24,9 +29,9 @@
         <div class="headerPanelSmall-splitter">
             <b><%=NewsResource.NewsBody%>:</b>
         </div>
-        <textarea id="ckEditor" name="news_text" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
+        <textarea id="ckEditor" name="news_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%=_text%></textarea>
     </div>
-    
+
     <div class="big-button-container" id="panel_buttons">
         <a id="lbSave" class="button blue big" onclick="submitNewsData(this)"><%=NewsResource.PostButton%></a>
         <span class="splitter-buttons"></span>
@@ -51,5 +56,5 @@
         </div>
         <div style='margin-top:25px;'><a class="button blue big" href='javascript:void(0);' onclick='HidePreview(); return false;'><%= NewsResource.HideButton%></a></div>
     </div>
-    
+
 </asp:Content>

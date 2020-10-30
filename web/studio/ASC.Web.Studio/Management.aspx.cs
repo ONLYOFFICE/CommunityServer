@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -30,18 +21,19 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
+using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Core.Common.Settings;
+using ASC.Core.Billing;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
+using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.Support;
-using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using ASC.Web.Studio.UserControls.Common.UserForum;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
+
 using Resources;
 
 namespace ASC.Web.Studio
@@ -73,15 +65,16 @@ namespace ASC.Web.Studio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             var help = (HelpCenter)LoadControl(HelpCenter.Location);
             help.IsSideBar = true;
             HelpHolder.Controls.Add(help);
             SupportHolder.Controls.Add(LoadControl(Support.Location));
-            VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
             CurrentModule = GetCurrentModule();
+            LogManager.GetLogger("ASC").Debug("Test " + CurrentModule);
             NavigationList = GetNavigationList();
             Page.Title = HeaderStringHelper.GetPageTitle(GetNavigationTitle(CurrentModule));
 
@@ -159,6 +152,8 @@ namespace ASC.Web.Studio
                     return Resource.Backup;
                 case ManagementType.Storage:
                     return Resource.Storage;
+                case ManagementType.PrivacyRoom:
+                    return Resource.Encryption;
                 default:
                     return Resource.ResourceManager.GetString(module.ToString()) ?? module.ToString();
             }
@@ -183,7 +178,7 @@ namespace ASC.Web.Studio
                     return TransferPortal.TransferRegions.Count > 1;
                 case ManagementType.Backup:
                     //only SaaS features
-                    return !CoreContext.Configuration.Standalone && 
+                    return !CoreContext.Configuration.Standalone &&
                         !TenantAccessSettings.Load().Anyone;
                 case ManagementType.AuditTrail:
                 case ManagementType.LoginHistory:
@@ -201,6 +196,8 @@ namespace ASC.Web.Studio
                 case ManagementType.Storage:
                     //only standalone feature
                     return CoreContext.Configuration.Standalone;
+                case ManagementType.PrivacyRoom:
+                    return !CoreContext.Configuration.Standalone && PrivacyRoomSettings.Available;
             }
 
             return true;
@@ -250,13 +247,14 @@ namespace ASC.Web.Studio
                                                                 {
                                                                     ManagementType.PortalSecurity,
                                                                     ManagementType.AccessRights,
+                                                                    ManagementType.PrivacyRoom,
                                                                     ManagementType.LoginHistory,
                                                                     ManagementType.AuditTrail
                                                                 })
-                                           {
-                                               Title = Resource.ManagementCategorySecurity,
-                                               ClassName = "security"
-                                           };
+            {
+                Title = Resource.ManagementCategorySecurity,
+                ClassName = "security"
+            };
 
             var generalSettings = new CategorySettings(new[]
                                                        {
@@ -264,10 +262,10 @@ namespace ASC.Web.Studio
                                                            ManagementType.ProductsAndInstruments,
                                                            ManagementType.WhiteLabel
                                                        })
-                                  {
-                                      Title = Resource.ManagementCategoryCommon,
-                                      ClassName = "general"
-                                  };
+            {
+                Title = Resource.ManagementCategoryCommon,
+                ClassName = "general"
+            };
 
             var backupSettings =
                 new CategorySettings(new[]
@@ -290,10 +288,10 @@ namespace ASC.Web.Studio
                                                                        ManagementType.MailService,
                                                                        ManagementType.SmtpSettings
                                                                    })
-                                              {
-                                                  Title = Resource.ManagementCategoryIntegration,
-                                                  ClassName = "productsandinstruments"
-                                              };
+            {
+                Title = Resource.ManagementCategoryIntegration,
+                ClassName = "productsandinstruments"
+            };
 
             if (CoreContext.Configuration.Standalone)
             {
@@ -301,17 +299,17 @@ namespace ASC.Web.Studio
             }
 
             var statisticSettings = new CategorySettings
-                                    {
-                                        Title = Resource.ManagementCategoryStatistic,
-                                        ModuleUrl = ManagementType.Statistic,
-                                        ClassName = "statistic"
-                                    };
+            {
+                Title = Resource.ManagementCategoryStatistic,
+                ModuleUrl = ManagementType.Statistic,
+                ClassName = "statistic"
+            };
             var monitoringSettings = new CategorySettings
-                                     {
-                                         Title = Resource.Monitoring,
-                                         ModuleUrl = ManagementType.Monitoring,
-                                         ClassName = "monitoring"
-                                     };
+            {
+                Title = Resource.Monitoring,
+                ModuleUrl = ManagementType.Monitoring,
+                ClassName = "monitoring"
+            };
 
             var result = new List<CategorySettings>
                    {
@@ -331,11 +329,11 @@ namespace ASC.Web.Studio
             return Assembly.GetExecutingAssembly()
                            .GetTypes()
                            .Select(type => type.GetCustomAttribute<ManagementControlAttribute>())
-                           .Where(control => control != null  && DisplayModule(control))
+                           .Where(control => control != null && DisplayModule(control))
                            .GroupBy(control => control.Module)
                            .OrderBy(group => (int)group.Key)
                            .ToDictionary(
-                           group => group.Key, 
+                           group => group.Key,
                            group => group.OrderBy(control => control.SortOrder).ToArray());
         }
     }

@@ -21,7 +21,7 @@
                 <div class="contact-photo">
                     <div class="contact-photo-img<%= TargetContact.ShareType == ShareType.ReadWrite || TargetContact.ShareType == ShareType.Read ? " sharedContact" : "" %>">
                         <img class="contact_photo" src="<%= String.Format("{0}?{1}",ContactPhotoManager.GetBigSizePhoto(0, TargetContact is Company), new DateTime().Ticks) %>"
-                            data-avatarurl="<%= String.Format("{0}HttpHandlers/filehandler.ashx?action=contactphotoulr&cid={1}&isc={2}&ps=3", PathProvider.BaseAbsolutePath, TargetContact.ID, TargetContact is Company).ToLower() %>"
+                            data-avatarurl="<%= String.Format("{0}HttpHandlers/filehandler.ashx?action=contactphotoulr&cid={1}&isc={2}&ps=3", PathProvider.BaseAbsolutePath, TargetContact.ID, TargetContact is Company) %>"
                             title="<%= TargetContact.GetTitle().HtmlEncode() %>"
                             alt="<%= TargetContact.GetTitle().HtmlEncode() %>" />
                     </div>
@@ -79,7 +79,7 @@
                             <div onclick="jq(this).helper({ BlockHelperID: 'contactStageSlider_helpInfo'});" class="HelpCenterSwitcher"></div>
                             <div class="popup_helper" id="contactStageSlider_helpInfo">
                                 <%= String.Format(CRMCommonResource.ContactCategoriesHelpInfo,
-                                    "<a class='linkAction' href='settings.aspx?type=contact_stage' target='blank'>",
+                                    "<a class='linkAction' href='Settings.aspx?type=contact_stage' target='blank'>",
                                     "</a>") %>
                             </div>
                             <% } %>
@@ -127,7 +127,7 @@
                     <tr class="">
                         <td colspan="3">
                             <div class="small-button-container">
-                                <a class="button gray middle" href="invoices.aspx?action=create&contactID=<%=TargetContact.ID%>"><%= CRMInvoiceResource.MakeOutAnInvoice %></a>
+                                <a class="button gray middle" href="Invoices.aspx?action=create&contactID=<%=TargetContact.ID%>"><%= CRMInvoiceResource.MakeOutAnInvoice %></a>
                                 <span class="splitter-buttons"></span>
                                 <a class="button gray middle viewMailingHistory display-none" href="<%=GetMailingHistoryUrl()%>" target="_blank"><%= CRMContactResource.ViewMailingHistory %></a>
                             </div>

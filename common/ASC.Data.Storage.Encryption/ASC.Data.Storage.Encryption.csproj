@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D7EAC337-B897-44EA-870A-E8B33E780351}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Data.Storage.Encryption</RootNamespace>
+    <AssemblyName>ASC.Data.Storage.Encryption</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Launcher.cs" />
+    <Compile Include="NotifyHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EncryptionService.cs" />
+    <Compile Include="EncryptionWorker.cs" />
+    <Compile Include="EncryptionOperation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NLog">
+      <Version>4.7.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

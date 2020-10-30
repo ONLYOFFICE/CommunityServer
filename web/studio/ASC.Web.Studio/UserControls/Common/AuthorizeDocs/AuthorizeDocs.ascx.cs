@@ -1,35 +1,27 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.Security.Authentication;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
+
 using ASC.Common.Caching;
 using ASC.Core;
 using ASC.FederatedLogin.Profile;
@@ -39,6 +31,7 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
+
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
@@ -61,6 +54,8 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         }
         protected bool ShowRecaptcha;
 
+        protected bool ThirdpartyEnable;
+
         private readonly ICache cache = AscCache.Memory;
         protected string Login;
 
@@ -71,13 +66,23 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoginMessage = Request["m"];
+            LoginMessage = Auth.GetAuthMessage(Request["am"]);
 
             Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/authorizedocs.less", "~/UserControls/Common/AuthorizeDocs/css/slick.less")
                 .RegisterBodyScripts("~/UserControls/Common/AuthorizeDocs/js/authorizedocs.js", "~/UserControls/Common/Authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
             if (CoreContext.Configuration.CustomMode)
                 Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/custom-mode.less");
+
+            ThirdpartyEnable = SetupInfo.ThirdPartyAuthEnabled && AccountLinkControl.IsNotEmpty;
+            if (Request.DesktopApp()
+                && PrivacyRoomSettings.Available
+                && PrivacyRoomSettings.Enabled)
+            {
+                ThirdpartyEnable = false;
+                Page
+                    .RegisterBodyScripts("~/UserControls/Common/Authorize/js/desktop.js");
+            }
 
             Page.Title = CoreContext.Configuration.CustomMode ? CustomModeResource.TitlePageNewCustomMode : Resource.AuthDocsTitlePage;
             Page.MetaDescription = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaDescriptionCustomMode.HtmlEncode() : Resource.AuthDocsMetaDescription.HtmlEncode();
@@ -89,7 +94,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                                                               ? PersonalFooter.PersonalFooter.LocationCustomMode
                                                               : PersonalFooter.PersonalFooter.Location));
 
-            if (AccountLinkControl.IsNotEmpty)
+            if (ThirdpartyEnable)
             {
                 HolderLoginWithThirdParty.Controls.Add(LoadControl(LoginWithThirdParty.Location));
                 LoginSocialNetworks.Controls.Add(LoadControl(LoginWithThirdParty.Location));
@@ -103,9 +108,9 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                 try
                 {
                     Login = Request["login"].Trim();
-                    var password = Request["pwd"];
+                    var passwordHash = Request["passwordHash"];
 
-                    if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(password))
+                    if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(passwordHash))
                     {
                         if (AccountLinkControl.IsNotEmpty
                             && (Request.Url.GetProfile() != null
@@ -153,7 +158,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
 
-                    var cookiesKey = SecurityContext.AuthenticateMe(Login, password);
+                    var cookiesKey = SecurityContext.AuthenticateMe(Login, passwordHash);
                     CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
                     MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
 
@@ -235,7 +240,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             var baseHelpLink = CommonLinkUtility.GetHelpLink();
 
             if (string.IsNullOrEmpty(baseHelpLink))
-                baseHelpLink = WebConfigurationManager.AppSettings["web.faq-url"] ?? string.Empty;
+                baseHelpLink = ConfigurationManagerExtension.AppSettings["web.faq-url"] ?? string.Empty;
 
             return baseHelpLink.TrimEnd('/');
         }

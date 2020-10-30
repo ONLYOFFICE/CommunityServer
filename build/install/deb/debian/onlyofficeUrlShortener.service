@@ -1,0 +1,23 @@
+[Unit]
+Description=ONLYOFFICE UrlShortener Service
+After=network.target syslog.target mysqld.service
+Wants=mysqld.service
+
+[Service]
+Type=forking
+ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeUrlShortener'
+ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeUrlShortener /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.UrlShortener.Svc.Launcher,ASC.UrlShortener.Svc\" --log UrlShortener
+Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+# Auto-Restart every 24 hours
+WatchdogSec=24h
+
+Restart=no
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

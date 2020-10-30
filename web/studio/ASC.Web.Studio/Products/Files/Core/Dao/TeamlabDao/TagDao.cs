@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -43,7 +34,7 @@ namespace ASC.Files.Core.Data
         {
         }
 
-        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
+        public IEnumerable<Tag> GetTags(Guid subject, TagType tagType, IEnumerable<FileEntry> fileEntries)
         {
             var filesId = fileEntries.Where(e => e.FileEntryType == FileEntryType.File).Select(e => MappingID(e.ID)).ToList();
             var foldersId = fileEntries.Where(e => e.FileEntryType == FileEntryType.Folder).Select(e => MappingID(e.ID)).ToList();
@@ -58,7 +49,15 @@ namespace ASC.Files.Core.Data
                        | (Exp.Eq("l.entry_type", (int)FileEntryType.Folder) & Exp.In("l.entry_id", foldersId)))
                 .Where("t.flag", (int)tagType);
 
+            if (subject != Guid.Empty)
+                q.Where(Exp.Eq("l.create_by", subject));
+
             return SelectTagByQuery(q);
+        }
+
+        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
+        {
+            return GetTags(Guid.Empty, tagType, fileEntries);
         }
 
         public IEnumerable<Tag> GetTags(object entryID, FileEntryType entryType, TagType tagType)
@@ -113,7 +112,8 @@ namespace ASC.Files.Core.Data
                            Exp.EqColumns("l.tag_id", "t.id"))
                 .Select("t.name", "t.flag", "t.owner", "entry_id", "entry_type", "tag_count", "t.id")
                 .Where("l.tenant_id", TenantID)
-                .Where("t.flag", (int)tagType);
+                .Where("t.flag", (int)tagType)
+                .OrderBy("l.create_on", false);
 
             if (owner != Guid.Empty)
                 q.Where("t.owner", owner.ToString());
@@ -185,8 +185,8 @@ namespace ASC.Files.Core.Data
                                               .InnerJoin("files_tag_link ftl",
                                                          Exp.EqColumns("ft.tenant_id", "ftl.tenant_id") &
                                                          Exp.EqColumns("ft.id", "ftl.tag_id"))
-                                              .Where(Exp.Eq("ft.flag", (int)TagType.New) &
-                                                     Exp.Le("create_on", TenantUtil.DateTimeNow().AddMonths(-1))));
+                                              .Where((Exp.Eq("ft.flag", (int)TagType.New) | Exp.Eq("ft.flag", (int)TagType.Recent))
+                                                     & Exp.Le("ftl.create_on", TenantUtil.DateTimeNow().AddMonths(-1))));
 
             foreach (var row in mustBeDeleted)
             {
@@ -531,6 +531,40 @@ namespace ASC.Files.Core.Data
                     ).ConvertAll(ToTag);
 
                 tempTags = tempTags.Concat(tmpShareSboxTags);
+            }
+            else if (parentFolder.FolderType == FolderType.Privacy)
+            {
+                var shareQuery =
+                    new Func<SqlQuery>(() => getBaseSqlQuery().Where(Exp.Exists(
+                        new SqlQuery("files_security fs")
+                        .Select("fs.entry_id")
+                        .Where(
+                            Exp.EqColumns("fs.tenant_id", "ftl.tenant_id") &
+                            Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
+                            Exp.EqColumns("fs.entry_type", "ftl.entry_type")))));
+
+                var tmpShareFileTags = dbManager.ExecuteList(
+                    shareQuery().InnerJoin("files_file f",
+                                            Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
+                                            !Exp.Eq("f.create_by", subject) &
+                                            Exp.EqColumns("f.id", "ftl.entry_id") &
+                                            Exp.Eq("ftl.entry_type", (int)FileEntryType.File))
+                                .Select(GetRootFolderType("folder_id")))
+                                                .Where(r => ParseRootFolderType(r[7]) == FolderType.Privacy).ToList()
+                                                .ConvertAll(ToTag);
+                tempTags = tempTags.Concat(tmpShareFileTags);
+
+
+                var tmpShareFolderTags = dbManager.ExecuteList(
+                    shareQuery().InnerJoin("files_folder f",
+                                            Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
+                                            !Exp.Eq("f.create_by", subject) &
+                                            Exp.EqColumns("f.id", "ftl.entry_id") &
+                                            Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder))
+                                .Select(GetRootFolderType("parent_id")))
+                                                    .Where(r => ParseRootFolderType(r[7]) == FolderType.Privacy).ToList()
+                                                    .ConvertAll(ToTag);
+                tempTags = tempTags.Concat(tmpShareFolderTags);
             }
             else if (parentFolder.FolderType == FolderType.Projects)
                 tempTags = tempTags.Concat(

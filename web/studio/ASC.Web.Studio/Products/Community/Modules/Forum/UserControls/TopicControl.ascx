@@ -12,7 +12,7 @@
          </td>
          <td style="padding-top:8px;">
          <div class="clearFix">            
-              <%="<a class=\"link bold\" href=\"posts.aspx?&t=" + Topic.ID + "\">" + HttpUtility.HtmlEncode(Topic.Title) + "</a>"%>
+              <%="<a class=\"link bold\" href=\"Posts.aspx?&t=" + Topic.ID + "\">" + HttpUtility.HtmlEncode(Topic.Title) + "</a>"%>
                   <%=RenderPages()%>             
                   <%=RenderModeratorFunctions()%>
                 </div>                              

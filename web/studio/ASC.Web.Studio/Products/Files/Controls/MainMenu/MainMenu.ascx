@@ -8,29 +8,6 @@
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
-<% if (!Global.IsOutsider)
-   { %>
-<ul id="mainMenuHolder" class="menu-actions">
-    <li id="menuCreateNewButton" class="menu-main-button without-separator disable middle" title="<%= FilesUCResource.ButtonCreate %>">
-        <span class="main-button-text"><%= FilesUCResource.ButtonCreate %></span>
-        <span class="white-combobox">&nbsp;</span>
-    </li>
-    <li id="menuUploadActionsButton" class="menu-upload-button menu-gray-button disable" title="<%= FilesUCResource.ButtonUpload %>">
-        <span class="menu-upload-icon btn_other-actions"><svg class="upload-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconsupload"></use></svg></span>
-    </li>
-</ul>
-
-<div id="uploadActions" class="studio-action-panel">
-    <ul class="dropdown-content">
-        <li><a id="buttonUpload" class="dropdown-item disable not-ready"><%= FilesUCResource.ButtonUploadFiles %></a></li>
-        <% if (!MobileDetector.IsMobile)
-           { %>
-            <li><a id="buttonFolderUpload" class="dropdown-item disable not-ready"><%= FilesUCResource.ButtonUploadFolder %></a></li>
-        <% } %>
-    </ul>
-</div>
-<% } %>
-
 <asp:PlaceHolder runat="server" ID="ControlHolder"></asp:PlaceHolder>
 
 <ul id="treeSecondary" class="menu-list">
@@ -44,7 +21,11 @@
         <div class="category-wrapper">
             <span class="expander"></span>
             <a href="#setting" class="menu-item-label outer-text text-overflow" title="<%= FilesUCResource.SideCaptionSettings %>">
-                <span class="menu-item-icon settings"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg#documentsIconssettings"></use></svg></span>
+                <span class="menu-item-icon settings">
+                    <svg class="menu-item-svg">
+                        <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconssettings"></use>
+                    </svg>
+                </span>
                 <span class="menu-item-label inner-text"><%= FilesUCResource.SideCaptionSettings %></span>
             </a>
         </div>
@@ -54,9 +35,17 @@
                     <span class="menu-item-label inner-text"><%= FilesUCResource.CommonSettings %></span>
                 </a>
             </li>
+            <% if (Global.IsAdministrator)
+               { %>
+            <li class="menu-sub-item settings-link-admin">
+                <a class="menu-item-label outer-text text-overflow" href="#setting=admin" title="<%= FilesUCResource.AdminSettings %>">
+                    <span class="menu-item-label inner-text"><%= FilesUCResource.AdminSettings %></span>
+                </a>
+            </li>
+            <% } %>
             <% if (EnableThirdParty)
                { %>
-            <li class="menu-sub-item settings-link-thirdparty">
+            <li class="menu-sub-item settings-link-thirdparty <%= FilesSettings.EnableThirdParty ? "" : "display-none" %>">
                 <a class="menu-item-label outer-text text-overflow" href="#setting=thirdparty" title="<%= FilesUCResource.ThirdPartyConnectAccounts %>">
                     <span class="menu-item-label inner-text"><%= FilesUCResource.ThirdPartyConnectAccounts %></span>
                 </a>
@@ -73,16 +62,9 @@
     <% } %>
 </ul>
 
-<%-- popup window --%>
-<div id="newDocumentPanel" class="studio-action-panel">
-    <ul class="dropdown-content">
-        <asp:PlaceHolder runat="server" ID="CreateMenuHolder"></asp:PlaceHolder>
-    </ul>
-</div>
-
 <% if (EnableThirdParty)
    { %>
-<div class="tree-thirdparty">
+<div class="tree-thirdparty <%= FilesSettings.EnableThirdParty ? "" : "display-none" %>">
     <span class="account-connect header-base medium gray-text link dotted"><%= FilesUCResource.AddAccount %></span>
 
 <% if (ThirdpartyConfiguration.SupportGoogleDriveInclusion

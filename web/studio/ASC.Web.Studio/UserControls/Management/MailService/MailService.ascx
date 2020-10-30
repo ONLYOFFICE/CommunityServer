@@ -27,6 +27,11 @@
             <div class="gray-text"><%= string.Format(Resource.MailServiceExample, "127.0.0.1") %></div>
         </div>
         <div class="mail-service-item requiredField">
+            <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceDatabase %></div>
+            <input id="mailServiceDatabase" type="text" class="mail-service-value textEdit" value="<%= Database %>" placeholder="<%= MailServiceHelper.DefaultDatabase %>" autocomplete="off"/>
+            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultDatabase) %></div>
+        </div>
+        <div class="mail-service-item requiredField">
             <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceUser %></div>
             <input id="mailServiceUser" type="text" class="mail-service-value textEdit" value="<%= User %>" placeholder="<%= MailServiceHelper.DefaultUser %>" autocomplete="off"/>
             <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultUser) %></div>

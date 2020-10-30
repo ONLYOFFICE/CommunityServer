@@ -267,9 +267,6 @@
   <data name="CreateDate" xml:space="preserve">
     <value>Creation date</value>
   </data>
-  <data name="CreateInvoices" xml:space="preserve">
-    <value>Create Invoices</value>
-  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Create New</value>
   </data>
@@ -497,45 +494,6 @@
   </data>
   <data name="CustomResponsibleFilter" xml:space="preserve">
     <value>Other users</value>
-  </data>
-  <data name="DashboardTitle" xml:space="preserve">
-    <value>Manage Relations with Customers</value>
-  </data>
-  <data name="DashContactsDetails" xml:space="preserve">
-    <value>Fill in various contact details, link persons with companies.</value>
-  </data>
-  <data name="DashContactsImport" xml:space="preserve">
-    <value>Add contacts manually or import the list from file.</value>
-  </data>
-  <data name="DashContactsMail" xml:space="preserve">
-    <value>Use the mass mailing feature to address multiple contacts.</value>
-  </data>
-  <data name="DashCustomizeCRM" xml:space="preserve">
-    <value>Change CRM module settings, adapting it maximally to your needs.</value>
-  </data>
-  <data name="DashCustomizeFields" xml:space="preserve">
-    <value>Customize user fields, task categories or opportunity stages.</value>
-  </data>
-  <data name="DashCustomizeWebsite" xml:space="preserve">
-    <value>Use website contact form to add new contacts right from your site.</value>
-  </data>
-  <data name="DashInvoiceProductsAndServices" xml:space="preserve">
-    <value>Simplify invoice creation adding products and services.</value>
-  </data>
-  <data name="DashInvoiceTaxes" xml:space="preserve">
-    <value>Add taxes specific to certain countries and use them in invoices.</value>
-  </data>
-  <data name="DashIssueInvoices" xml:space="preserve">
-    <value>Issue invoices to your clients right from the portal interface.</value>
-  </data>
-  <data name="DashSalesOpportunities" xml:space="preserve">
-    <value>Add opportunities, set budget and estimate success probability.</value>
-  </data>
-  <data name="DashSalesParticipants" xml:space="preserve">
-    <value>Organize cases and specify the list of their participants.</value>
-  </data>
-  <data name="DashSalesTasks" xml:space="preserve">
-    <value>Assign tasks to CRM managers linking them with the contacts.</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
@@ -786,9 +744,6 @@
   <data name="MailTo" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="ManageContacts" xml:space="preserve">
-    <value>Manage Contacts</value>
-  </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
   </data>
@@ -952,9 +907,6 @@
   <data name="SettingModuleName" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SetUpCustomize" xml:space="preserve">
-    <value>Set up &amp; Customize</value>
-  </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>
   </data>
@@ -1032,9 +984,6 @@
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
-  </data>
-  <data name="TrackSales" xml:space="preserve">
-    <value>Track Sales</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -1122,5 +1071,53 @@
   </data>
   <data name="Currency_QatariRiyal" xml:space="preserve">
     <value>Qatari Riyal</value>
+  </data>
+  <data name="DashboardCommunicateWithClients" xml:space="preserve">
+    <value>Communicate with clients</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsFirstLine" xml:space="preserve">
+    <value>Send invoices to your clients.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsSecondLine" xml:space="preserve">
+    <value>Make VoIP calls with Twilio integration.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsThirdLine" xml:space="preserve">
+    <value>Organize mass mailings and meetings.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabase" xml:space="preserve">
+    <value>Create clients database</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseFirstLine" xml:space="preserve">
+    <value>Add contacts manually, get from web-to-lead form, or import from csv/email.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseSecondLine" xml:space="preserve">
+    <value>Fill in contact details, link people with companies and their social networks.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseThirdLine" xml:space="preserve">
+    <value>Structure contacts using types/tags, adjust temperature levels.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrm" xml:space="preserve">
+    <value>Customize your CRM</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmFirstLine" xml:space="preserve">
+    <value>Adjust CRM settings, grant access rights, set up currency/exchange rates.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmSecondLine" xml:space="preserve">
+    <value>Add new contacts types/user fields, create your own web-to-lead forms.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmThirdLine" xml:space="preserve">
+    <value>Describe your business process using customizable opportunity stages.</value>
+  </data>
+  <data name="DashboardTrackSales" xml:space="preserve">
+    <value>Track sales</value>
+  </data>
+  <data name="DashboardTrackSalesFirstLine" xml:space="preserve">
+    <value>Assign tasks to managers, link them with contacts.</value>
+  </data>
+  <data name="DashboardTrackSalesSecondLine" xml:space="preserve">
+    <value>Add opportunities, set budget, analyze potential deal success.</value>
+  </data>
+  <data name="DashboardTrackSalesThirdLine" xml:space="preserve">
+    <value>Set deadline/task reminders, generate reports.</value>
   </data>
 </root>

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -30,6 +21,7 @@ namespace ASC.Data.Storage.Tests
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using ASC.Data.Storage;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,9 +29,10 @@ namespace ASC.Data.Storage.Tests
     public class DataStorageTest
     {
         private readonly IDataStore store;
-        private const string defaultmodule = "forum";
-        private const string defauldomain = "forum";
-        private const string defaultfile = "test.txt";
+        private const string defaultModule = "forum";
+        private const string defaultDomain = "";
+        private const string defaultDirectory = "directory";
+        private const string defaultFile = "test.txt";
 
 
         public DataStorageTest()
@@ -54,7 +47,7 @@ namespace ASC.Data.Storage.Tests
 
         private static IDataStore GetStorageWithoutQuota(int tennant)
         {
-            return GetStorageWithoutQuota(tennant, defaultmodule);
+            return GetStorageWithoutQuota(tennant, defaultModule);
         }
 
         private static IDataStore GetStorageWithoutQuota(int tennant, string module)
@@ -68,75 +61,177 @@ namespace ASC.Data.Storage.Tests
             return new MemoryStream(Encoding.UTF8.GetBytes("unit test generated file"));
         }
 
+
         [TestMethod]
         public void SslLinkGeneration()
         {
-            var uri = StorageFactory.GetStorage(null, 23.ToString(), "userPhotos", null).Save("", defaultfile, GetDataStream());
+            Assert.IsNotNull(store);
+
+            var uri = store.Save(defaultDomain, defaultFile, GetDataStream());
+            Assert.AreEqual(true, store.IsFile(defaultDomain, defaultFile));
             Assert.IsNotNull(uri);
+
+            store.Delete(defaultDomain, defaultFile);
+            Assert.AreEqual(false, store.IsFile(defaultDomain, defaultFile));
         }
 
         [TestMethod]
-        public void TestFile()
+        public void MoveTest()
         {
-            var stream = GetDataStream();
-            var uri = store.Save(defauldomain, defaultfile, stream);
-            Assert.IsNotNull(uri);
-            var files = store.ListFiles(defauldomain, "", "*.*", true);
+            
+            Assert.IsNotNull(store);
+
+            var srcFilePath = Path.Combine(defaultDirectory, defaultFile);
+            var srcUri = store.Save(defaultDomain, srcFilePath, GetDataStream());
+            Assert.IsNotNull(srcUri);
+
+            var files = store.ListFiles(defaultDomain, defaultDirectory, defaultFile, true);
             Assert.IsNotNull(files);
-            Assert.IsNotNull(files.Where(x => x.ToString().Equals(uri.ToString())).SingleOrDefault());
-            var size = store.GetFileSize(defauldomain, defaultfile);
+            Assert.AreEqual(true, files.Any());
+
+            var size = store.GetFileSize(defaultDomain, srcFilePath);
             Assert.AreEqual(size, GetDataStream().Length);
-            var moved = store.Move(defauldomain, defaultfile, "", "testmoved.txt");
-            files = store.ListFiles("", "testmoved.txt", "*.*", true);
-            Assert.IsNotNull(files);
-            Assert.IsNotNull(files.Where(x => x.ToString().Equals(moved.ToString())).SingleOrDefault());
 
-            store.Delete("", "testmoved.txt");
-            files = store.ListFiles(defauldomain, "", "*.*", true);
+            var movedFileName = "moved-" + defaultFile;
+            var destFilePath = Path.Combine(defaultDirectory, movedFileName);
+            var movedUri = store.Move(defaultDomain, srcFilePath, defaultDomain, destFilePath);
+            Assert.IsNotNull(movedUri);
+
+            files = store.ListFiles(defaultDomain, defaultDirectory, movedFileName, true);
             Assert.IsNotNull(files);
-            Assert.IsNull(files.Where(x => x.ToString().Equals(uri.ToString())).SingleOrDefault());
+            Assert.AreEqual(true, files.Any());
+
+            store.Delete(defaultDomain, destFilePath);
+
+            files = store.ListFiles(defaultDomain, defaultDirectory, "*.*", true);
+            Assert.IsNotNull(files);
+            Assert.AreEqual(false, files.Any());
+
+            store.DeleteDirectory(defaultDomain, defaultDirectory);
+            Assert.AreEqual(false, store.IsDirectory(defaultDomain, defaultDirectory));
         }
 
         [TestMethod]
-        public void TestDisposeStream()
+        public void DisposeStreamTest()
         {
+            Assert.IsNotNull(store);
+
             var stream = GetDataStream();
-            var uri = store.Save(defauldomain, defaultfile, stream);
+            Assert.IsNotNull(stream);
+
+            var uri = store.Save(defaultDomain, defaultFile, stream);
+            Assert.AreEqual(true, store.IsFile(defaultDomain, defaultFile));
             Assert.IsNotNull(uri);
-            stream.Position = 0;
+
+            Assert.AreEqual(false, stream.Position == 0);
+
+            store.Delete(defaultDomain, defaultFile);
+            Assert.AreEqual(false, store.IsFile(defaultDomain, defaultFile));
         }
 
 
         [TestMethod]
-        public void Test2()
+        public void ListFilesTest()
         {
-            var storage = StorageFactory.GetStorage("0", "fckuploaders");
-            var list = storage.ListFiles("forum", "40105221-fb0c-4943-bccd-baa635a016f7/", "*.*", true);
-            var listRel = storage.ListFilesRelative("forum", "40105221-fb0c-4943-bccd-baa635a016f7/", "*.*", true);
-            storage.DeleteFiles("forum", "40105221-fb0c-4943-bccd-baa635a016f7/", "*.*", true);
+            Assert.IsNotNull(store);
 
+            var path = Path.Combine(defaultDirectory, defaultFile);
+            var uri = store.Save(defaultDomain, path, GetDataStream());
+            Assert.AreEqual(true, store.IsFile(defaultDomain, path));
+            Assert.IsNotNull(uri);
+
+            var list = store.ListFiles(defaultDomain, defaultDirectory, "*.*", true);
             Assert.IsNotNull(list);
+            Assert.AreEqual(true, list.Any());
+
+            store.DeleteFiles(defaultDomain, defaultDirectory, "*.*", true);
+
+            list = store.ListFiles(defaultDomain, defaultDirectory, "*.*", true);
+            Assert.IsNotNull(list);
+            Assert.AreEqual(false, list.Any());
+
+            store.DeleteDirectory(defaultDomain, defaultDirectory);
+            Assert.AreEqual(false, store.IsDirectory(defaultDomain, defaultDirectory));
+        }
+
+        [TestMethod]
+        public void ListFilesRelativeTest()
+        {
+            Assert.IsNotNull(store);
+
+            var path = Path.Combine(defaultDirectory, defaultFile);
+            var uri = store.Save(defaultDomain, path, GetDataStream());
+            Assert.AreEqual(true, store.IsFile(defaultDomain, path));
+            Assert.IsNotNull(uri);
+
+            var listRel = store.ListFilesRelative(defaultDomain, defaultDirectory, "*.*", true);
             Assert.IsNotNull(listRel);
+            Assert.AreEqual(true, listRel.Any());
+
+            store.DeleteFiles(defaultDomain, defaultDirectory, "*.*", true);
+
+            listRel = store.ListFilesRelative(defaultDomain, defaultDirectory, " *.*", true);
+            Assert.IsNotNull(listRel);
+            Assert.AreEqual(false, listRel.Any());
+
+            store.DeleteDirectory(defaultDomain, defaultDirectory);
+            Assert.AreEqual(false, store.IsDirectory(defaultDomain, defaultDirectory));
         }
 
         [TestMethod]
-        public void TestListrelative()
+        public void GetReadStreamTest()
         {
-            var listing = GetStorageWithoutQuota(0, "fckuploaders").ListFilesRelative("blogs", "", "*.*", true);
-            Assert.IsNotNull(listing);
-        }
+            Assert.IsNotNull(store);
 
-        [TestMethod]
-        public void GetFilesTest()
-        {
-            var store = StorageFactory.GetStorage("0", "crm");
-            store.Save("path/file.jpg", new MemoryStream(new byte[] { 1, 2, 3, 4, 5, 6 }));
-            var list = store.ListFilesRelative("", "path", "*", false);
-            foreach (var f in list)
+            var path = Path.Combine(defaultDirectory, defaultFile);
+            var uri = store.Save(path, GetDataStream());
+            Assert.IsNotNull(uri);
+            Assert.AreEqual(true, store.IsFile(defaultDomain, path));
+
+            var list = store.ListFilesRelative(defaultDomain, defaultDirectory, "*", false);
+            Assert.IsNotNull(list);
+            Assert.AreEqual(true, list.Any());
+
+            foreach (var file in list)
             {
-                var stream = store.GetReadStream(f.ToString());
+                var stream = store.GetReadStream(Path.Combine(defaultDirectory, file));
                 Assert.IsNotNull(stream);
+                stream.Close();
             }
+
+            store.Delete(path);
+            Assert.AreEqual(false, store.IsFile(defaultDomain, path));
+
+            store.DeleteDirectory(defaultDirectory);
+            Assert.AreEqual(false, store.IsDirectory(defaultDomain, defaultDirectory));
+        }
+
+        private void ReadFile(IDataStore dataStore, string directory, string file)
+        {
+            using (var stream = dataStore.GetReadStream(Path.Combine(directory, file)))
+            {
+                byte[] array = new byte[81920];
+                while (stream.Read(array, 0, array.Length) != 0)
+                {
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ParallelGetReadStreamTest()
+        {
+            var path = Path.Combine(defaultDirectory, defaultFile);
+            var uri = store.Save(path, GetDataStream());
+
+            var array = new int[10];
+
+            Parallel.ForEach(array, (item) =>
+            {
+                ReadFile(store, defaultDirectory, defaultFile);
+            });
+
+            store.Delete(path);
+            store.DeleteDirectory(defaultDirectory);
         }
     }
 }

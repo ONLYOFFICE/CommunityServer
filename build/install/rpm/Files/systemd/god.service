@@ -1,0 +1,16 @@
+[Unit]
+Description=God Service
+After=network.target syslog.target
+
+[Service]
+Type=forking
+ExecStartPre=/bin/bash -c 'rm -f /var/run/god.pid'
+ExecStart=/usr/bin/god -c /etc/god/god.conf -P /var/run/god.pid -l /var/log/god.log
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=always
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

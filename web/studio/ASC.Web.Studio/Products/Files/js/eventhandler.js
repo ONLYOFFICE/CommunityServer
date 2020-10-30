@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -57,6 +48,7 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.UpdateComment, ASC.Files.EventHandler.onUpdateComment);
 
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.MoveFilesCheck, ASC.Files.EventHandler.onMoveFilesCheck);
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetTemplates, ASC.Files.EventHandler.onGetTemplates);
 
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.MoveItems, ASC.Files.EventHandler.onGetTasksStatuses);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.DeleteItem, ASC.Files.EventHandler.onGetTasksStatuses);
@@ -295,6 +287,10 @@ window.ASC.Files.EventHandler = (function () {
             .removeClass("myFiles")
             .removeClass("corporateFiles")
             .removeClass("shareformeFiles")
+            .removeClass("recentFiles")
+            .removeClass("favoritesFiles")
+            .removeClass("templatesFiles")
+            .removeClass("privacyFiles")
             .removeClass("trashFiles")
             .removeClass("projectFiles");
 
@@ -308,6 +304,26 @@ window.ASC.Files.EventHandler = (function () {
                 ASC.Files.Folders.folderContainer = "forme";
                 jq("#filesMainContent").addClass("shareformeFiles");
                 jq("#mainDownload, #mainCopy, #mainMarkRead, #mainUnsubscribe, #mainConvert").show();
+                break;
+            case ASC.Files.Constants.FOLDER_ID_RECENT:
+                ASC.Files.Folders.folderContainer = "recent";
+                jq("#filesMainContent").addClass("recentFiles");
+                jq("#mainDownload, #mainCopy, #mainConvert").show();
+                break;
+            case ASC.Files.Constants.FOLDER_ID_FAVORITES:
+                ASC.Files.Folders.folderContainer = "favorites";
+                jq("#filesMainContent").addClass("favoritesFiles");
+                jq("#mainDownload, #mainCopy, #mainConvert, #mainRemoveFavorite").show();
+                break;
+            case ASC.Files.Constants.FOLDER_ID_TEMPLATES:
+                ASC.Files.Folders.folderContainer = "templates";
+                jq("#filesMainContent").addClass("templatesFiles");
+                jq("#mainDownload, #mainCopy, #mainConvert, #mainRemoveTemplate").show();
+                break;
+            case ASC.Files.Constants.FOLDER_ID_PRIVACY:
+                ASC.Files.Folders.folderContainer = "privacy";
+                jq("#filesMainContent").addClass("privacyFiles");
+                jq("#mainDownload, #mainMove, #mainDelete").show();
                 break;
             case ASC.Files.Constants.FOLDER_ID_COMMON_FILES:
                 ASC.Files.Folders.folderContainer = "corporate";
@@ -354,6 +370,58 @@ window.ASC.Files.EventHandler = (function () {
         ASC.Files.UI.checkButtonBack(".to-parent-folder", "#filesBreadCrumbs");
 
         return true;
+    };
+
+    var onGetPrivacy = function () {
+        //fake duplicate from onGetFolderItems
+
+        ASC.Files.Folders.currentFolder = {
+            access: ASC.Files.Constants.AceStatusEnum.Read,
+            entryId: ASC.Files.Constants.FOLDER_ID_PRIVACY,
+            entryType: "folder",
+            id: ASC.Files.Constants.FOLDER_ID_PRIVACY,
+            shareable: false,
+            title: ASC.Files.FilesJSResources.PrivacyRoom,
+        };
+        ASC.Files.UI.setDocumentTitle(ASC.Files.Folders.currentFolder.title);
+
+        jq("#filesMainContent")
+            .removeClass("myFiles")
+            .removeClass("corporateFiles")
+            .removeClass("shareformeFiles")
+            .removeClass("recentFiles")
+            .removeClass("favoritesFiles")
+            .removeClass("templatesFiles")
+            .removeClass("privacyFiles")
+            .removeClass("trashFiles")
+            .removeClass("projectFiles");
+
+        ASC.Files.Folders.folderContainer = "privacy";
+        jq("#filesMainContent").addClass("privacyFiles");
+
+        if (ASC.Files.Tree) {
+            ASC.Files.Tree.pathParts = [ASC.Files.Constants.FOLDER_ID_PRIVACY];
+            ASC.Files.Tree.updateTreePath();
+        }
+
+        if (ASC.Files.Filter) {
+            ASC.Files.Filter.disableFilter();
+        }
+
+        ASC.Files.UI.countTotal = 0;
+
+        jq("#filesMainContent").empty();
+        jq(document).scrollTop(0);
+
+        jq("#emptyContainer_privacy .emptyScrBttnPnl").remove();
+        ASC.Files.EmptyScreen.displayEmptyScreen();
+
+        ASC.Files.UI.lastSelectedEntry = null;
+        ASC.Files.Folders.eventAfter = null;
+
+        if (ASC.Files.CreateMenu) {
+            ASC.Files.CreateMenu.disableMenu(false);
+        }
     };
 
     var onGetItems = function (jsonData, params, errorMessage) {
@@ -409,8 +477,8 @@ window.ASC.Files.EventHandler = (function () {
             return;
         }
 
+        var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
         if (ASC.Files.Folders.currentFolder.id == params.folderID) {
-            var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
 
             var fileObj = insertFolderItems(htmlXML, fileNewObj);
 
@@ -419,16 +487,16 @@ window.ASC.Files.EventHandler = (function () {
             var fileTitle = fileData.title;
             var fileId = fileData.entryId;
 
-            if (ASC.Desktop && ASC.Desktop.encryptionSupport() && ASC.Desktop.encryptFileByUrl) {
+            if (ASC.Files.Folders.folderContainer == "privacy"
+                && ASC.Desktop && ASC.Desktop.setAccess) {
                 ASC.Files.UI.blockObject(fileObj, true, ASC.Files.FilesJSResources.DescriptCreate);
-                ASC.Desktop.encryptFileByUrl(ASC.Files.Utility.GetFileDownloadUrl(fileId), function (encryptedFile, encrypted) {
-                    if (encrypted) {
+
+                ASC.Desktop.setAccess(fileId, function (encryptedFile) {
+                    if (encryptedFile) {
                         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.DesktopMessageStoring);
-                        ASC.Files.Folders.replaceFileStream(fileData, encryptedFile, winEditor);
+                        ASC.Files.Folders.replaceFileStream(fileId, fileTitle, encryptedFile, true, winEditor);
                     } else {
-                        if (ASC.Desktop && ASC.Desktop.encryptionSupport() && ASC.Desktop.encryptionUploadEnd) {
-                            ASC.Desktop.encryptionUploadEnd();
-                        }
+                        ASC.Files.UI.blockObject(fileObj);
                         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFile.format(fileTitle));
                     }
                 });
@@ -437,7 +505,12 @@ window.ASC.Files.EventHandler = (function () {
                 ASC.Files.Actions.checkEditFile(fileId, winEditor);
             }
         } else {
-            fileTitle = params.fileTitle;
+            fileObj = jq(htmlXML);
+            fileData = ASC.Files.UI.getObjectData(fileObj);
+            fileTitle = fileData.title;
+            fileId = fileData.entryId;
+
+            ASC.Files.Actions.checkEditFile(fileId, winEditor);
         }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFile.format(fileTitle));
@@ -574,7 +647,7 @@ window.ASC.Files.EventHandler = (function () {
 
                 ASC.Files.UI.selectRow(fileData.entryObject, true);
                 ASC.Files.UI.updateMainContentHeader();
-                
+
                 createBy = fileData.create_by;
                 title = fileData.title;
             }
@@ -630,7 +703,8 @@ window.ASC.Files.EventHandler = (function () {
         if (!ASC.Files.UI.accessEdit(fileData, fileObj)
             || ASC.Files.UI.editingFile(fileObj)
             || ASC.Files.UI.lockedForMe(fileObj)
-            || Teamlab.profile.isVisitor) {
+            || Teamlab.profile.isVisitor
+            || fileData.encrypted) {
             jq(".version-comment-edit").remove();
             jq(".version-operation.version-restore").empty();
             jq(".version-complete, .version-continue").remove();
@@ -997,8 +1071,57 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.UI.addRowHandlers(fileObj);
         } else {
             params.show = true;
-            ASC.Files.EventHandler.onGetFile(xmlData, params, errorMessage);
+            ASC.Files.Actions.currentEntryData = ASC.Files.EventHandler.onGetFile(xmlData, params, errorMessage);
         }
+    };
+
+    var onGetTemplates = function (xmlData, params, errorMessage) {
+        if (typeof errorMessage != "undefined" || typeof xmlData == "undefined") {
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            ASC.Files.Actions.hideAllActionPanels();
+
+            return;
+        }
+
+        jq("#filesTemplateLoader").hide();
+
+        var htmlData = ASC.Files.TemplateManager.translate(xmlData);
+        var empty = !htmlData.length;
+
+        if (!params.append) {
+            jq("#filesTemplateEmpty").toggle(empty);
+            jq("#filesTemplateList").toggle(!empty);
+        }
+        if (empty) {
+            return;
+        }
+        if (params.append) {
+            jq("#filesTemplateList").append(htmlData);
+        }
+        else {
+            jq("#filesTemplateList").html(htmlData);
+        }
+
+        jq("#filesTemplateList .file-row").each(function () {
+            var entryData = ASC.Files.UI.getObjectData(this);
+
+            var entryId = entryData.entryId;
+            var entryType = entryData.entryType;
+            var entryObj = entryData.entryObject;
+            var entryTitle = entryData.title;
+
+            var ftClass = (entryType == "file" ? ASC.Files.Utility.getCssClassByFileTitle(entryTitle, true) : ASC.Files.Utility.getFolderCssClass(true));
+            entryObj.find(".thumb-" + entryType).addClass(ftClass);
+
+            var rowLink = entryObj.find(".entry-title .name a");
+
+            if (entryType == "file" && rowLink.is(":not(:has(.file-extension))")) {
+                ASC.Files.UI.highlightExtension(rowLink, entryTitle);
+            }
+
+            var entryUrl = ASC.Files.UI.getEntryLink(entryType, entryId, entryTitle);
+            rowLink.attr("href", entryUrl).attr("target", "_blank");
+        });
     };
 
     var onGetHelpCenter = function (jsonData, params, errorMessage) {
@@ -1165,6 +1288,7 @@ window.ASC.Files.EventHandler = (function () {
         init: init,
 
         onGetFolderItems: onGetFolderItems,
+        onGetPrivacy: onGetPrivacy,
         onGetItems: onGetItems,
         onGetFile: onGetFile,
         onCreateNewFile: onCreateNewFile,
@@ -1177,6 +1301,7 @@ window.ASC.Files.EventHandler = (function () {
         onUpdateComment: onUpdateComment,
         onCheckEditing: onCheckEditing,
         onLockFile: onLockFile,
+        onGetTemplates: onGetTemplates,
 
         onUpdateIfExist: onUpdateIfExist,
         onGetHelpCenter: onGetHelpCenter,

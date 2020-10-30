@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Studio.UserControls.Common.HelpCenter {
-    
-    
-    public partial class HelpCenter {
-        
+namespace ASC.Web.Studio.UserControls.Common.HelpCenter
+{
+
+
+    public partial class HelpCenter
+    {
+
+        /// <summary>
+        /// VideoGuidesSubItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder VideoGuidesSubItem;
+
         /// <summary>
         /// MediaViewersPlaceHolder control.
         /// </summary>
@@ -20,5 +31,14 @@ namespace ASC.Web.Studio.UserControls.Common.HelpCenter {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder MediaViewersPlaceHolder;
+
+        /// <summary>
+        /// VideoGuides control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder VideoGuides;
     }
 }

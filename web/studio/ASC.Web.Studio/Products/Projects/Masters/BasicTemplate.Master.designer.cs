@@ -22,6 +22,15 @@ namespace ASC.Web.Projects.Masters {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder BTHeaderContent;
         
         /// <summary>
+        /// createButtonPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder createButtonPanel;
+        
+        /// <summary>
         /// projectsNavigationPanel control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace ASC.Web.Projects.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder AdditionalColumns;
+        
+        /// <summary>
+        /// FilterContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder FilterContent;
         
         /// <summary>
         /// commonHolder control.

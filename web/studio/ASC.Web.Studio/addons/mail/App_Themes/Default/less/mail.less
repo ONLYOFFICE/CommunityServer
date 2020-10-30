@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -87,9 +78,31 @@ div[id^="fu_item_"] {
             }
         }
     }
+}
 
+#actionContainer {
     .menu-action-simple-pagenav {
         margin-left: 15px;
+    }
+}
+
+.media-width-0-1100 {
+    #actionContainer {
+        .menu-action-checked-count {
+            margin-left: 0;
+            padding: 3px 5px 0 0px;
+
+            div {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 65px;
+            }
+        }
+
+        .menu-action-simple-pagenav {
+            margin-left: 0;
+        }
     }
 }
 
@@ -379,6 +392,7 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
 #id_contacts_page {
     .column {
         margin-top: 0;
+
         .row {
             .description {
                 .labels {
@@ -387,13 +401,6 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
             }
         }
     }
-}
-
-div.subject {
-    margin: 0 0 12px 0;
-    position: absolute;
-    right: 150px;
-    left: 50px;
 }
 
 div.studioSideBoxMailBody {
@@ -410,7 +417,7 @@ div.studioSideBoxMailBody {
 }
 
 .page-menu {
-    .menu-actions {       
+    .menu-actions {
         .menu-main-button.middle.create-new {
             width: 198px;
         }
@@ -598,8 +605,7 @@ a.disable:hover {
 
 .mail-navigation-table {
     width: 100%;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    height: 24px;
     .tl-combobox {
         margin-bottom: 1px;
         vertical-align: middle;
@@ -728,10 +734,6 @@ span.editTag {
     text-align: center;
     padding: 2px 0px;
     float: right;
-}
-
-.mailBoxContainer {
-    padding-bottom: 48px;
 }
 
 .header-page {
@@ -949,28 +951,21 @@ textarea {
 
 .dashboard-center-box {
     .content .module-block .img {
-        display: block;
-        height: 130px;
-        margin: 0 auto;
-        background: url("@{blank-modal-sprite-url}") no-repeat;
-
-        &.server
+        &.use-mail-server
         {
-            .blank-modal-mixin (3);
+            background-image: url("@{imaqes-base-url}/dashboard/use-mail-server.png");
         }
-        &.crm
+        &.collect-all-emails-in-one-place
         {
-            .blank-modal-mixin (2);
+            background-image: url("@{imaqes-base-url}/dashboard/collect-all-emails-in-one-place.png");
         }
-
-        &.tags
+        &.structure-correspondence
         {
-            .blank-modal-mixin (1);
+            background-image: url("@{imaqes-base-url}/dashboard/structure-correspondence.png");
         }
-
-        &.accounts
+        &.communicate-easily
         {
-            .blank-modal-mixin (0);
+            background-image: url("@{imaqes-base-url}/dashboard/communicate-easily.png");
         }
     }
 
@@ -1048,7 +1043,7 @@ textarea {
 
         .questionText {
             word-wrap: break-word;
-            word-break: break-all;
+            word-break: break-word;
         }
     }
 
@@ -1095,12 +1090,19 @@ textarea {
     }
 }
 
-.page-menu > .expandable {
-    margin: 0;
+#tags_panel {
+    #id_tags_panel_content {
+        max-height: 100px;
+        overflow-y: hidden;
 
-    &.left-margin,
-    .more.left-margin {
-        margin-left: 17px;
+        .tag {
+            margin: 5px 5px 0 0;
+            padding: 0 10px 0 0;
+            height: 20px;
+            -ms-text-overflow: clip;
+            -o-text-overflow: clip;
+            text-overflow: clip;
+        }
     }
 
     .more {
@@ -1119,21 +1121,9 @@ textarea {
         }
     }
 
-    .tag {
-        -ms-text-overflow: clip;
-        -o-text-overflow: clip;
-        text-overflow: clip;
-    }
-
-    .content {
-        max-height: 250px;
-        overflow-y: hidden;
-
-        .tag {
-            margin: 5px 5px 0 0;
-            padding: 0 10px 0 0;
-            height: 20px;
-        }
+    &.left-margin,
+    .more.left-margin {
+        margin-left: 17px;
     }
 }
 
@@ -1158,16 +1148,16 @@ textarea {
         text-decoration: none;
     }
 
-        .createTagMenu:hover {
-            background-color: #e9e9e9;
-            border-radius: 2px;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
+    .createTagMenu:hover {
+        background-color: #e9e9e9;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
 
-            .entertag_button {
-                text-decoration: none;
-            }
+        .entertag_button {
+            text-decoration: none;
         }
+    }
 }
 
 * html table#newMessage div.helper div.mailbox-from-helper, * html table#newMessage div.helper div.mailbox-to-helper {
@@ -1176,12 +1166,12 @@ textarea {
 
 .checkbox, .radiobox {
     span {
-        line-height: 18px;
+        line-height: 19px;
         margin: 3px 0 0 3px;
         vertical-align: middle;
     }
     input {
-        height: 18px;
+        height: 19px;
         vertical-align: middle;
         cursor: pointer;
         margin-left: 0;
@@ -1328,10 +1318,6 @@ input {
         {
             min-height: 237px;
         }
-    }
-
-    .blockUI:not(.blockOverlay) {
-        top: 45% !important;
     }
 }
 
@@ -1570,4 +1556,8 @@ body.media-width-0-1200
 
 .mailMoveToUserFolderHover {
     background: @drag-hover-color !important;
+}
+
+*:focus {
+    outline: none;
 }

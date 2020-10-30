@@ -162,7 +162,7 @@
 
 <div id="forum_threadCategories">
     <%= RenderForumCategories() %>
-    <asp:PlaceHolder ID="EmptyContent" runat="server"></asp:PlaceHolder>
+    <asp:PlaceHolder ID="EmptyContent" runat="server"/>
 </div>
 
 <% if (HasCategories)%>

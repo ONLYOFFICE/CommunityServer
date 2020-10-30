@@ -97,5 +97,14 @@ namespace ASC.Web.Community.Birthdays.Resources {
                 return ResourceManager.GetString("subject_BirthdayReminder", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [$BirthdayUserName]($BirthdayUserUrl) has the birthday $BirthdayDate.
+        /// </summary>
+        public static string subject_BirthdayReminder_tg {
+            get {
+                return ResourceManager.GetString("subject_BirthdayReminder_tg", resourceCulture);
+            }
+        }
     }
 }

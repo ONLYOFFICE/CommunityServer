@@ -1,0 +1,11 @@
+﻿{
+  "Please wait...": "お待ち下さい...",
+  "Connect account to publish documents to your WordPress site": "アカウントを接続して、WordPress にドキュメントを公開",
+  "Connect": "接続",
+  "Title": "タイトル",
+  "Publish": "出版",
+  "Save as Draft": "ドラフトを保存",
+  "Do you really want to delete this site?": "本当にこのサイトを削除しますか？",
+  "The current document was successfully saved on the website": "現在のドキュメントは、正常にこのサイトへ保存されました",
+  "The current document was successfully published on the website": "現在のドキュメントは、正常にこのサイトで公開されました"
+}

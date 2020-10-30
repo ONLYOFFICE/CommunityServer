@@ -10,16 +10,25 @@
 namespace ASC.Web.Calendar {
     
     
-    public partial class _default {
+    public partial class Default {
         
         /// <summary>
-        /// CalendarSidePanel control.
+        /// CreateButtonContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder CalendarSidePanel;
+        protected global::System.Web.UI.WebControls.PlaceHolder CreateButtonContent;
+        
+        /// <summary>
+        /// SidePanelContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SidePanelContent;
         
         /// <summary>
         /// CalendarPageContent control.

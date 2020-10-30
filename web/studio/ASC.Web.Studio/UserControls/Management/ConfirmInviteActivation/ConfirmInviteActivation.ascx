@@ -69,7 +69,11 @@
                         <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'InvitePasswordHelp'});"></span>
                     </div>
                     <div class="value">
-                        <input type="password" data-maxlength="<%= PasswordSettings.MaxLength %>" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
+                        <input type="password" id="studio_confirm_pwd" value="" class="textEdit" autocomplete="off"
+                            data-maxlength="<%= PasswordSettings.MaxLength %>"
+                            data-regex="<%: PasswordSettings.GetPasswordRegex(PasswordSettings.Load()) %>"
+                            data-help="<%= ASC.Web.Studio.Core.Users.UserManagerWrapper.GetPasswordHelpMessage() %>" />
+                        <input type="hidden" id="passwordHash" name="passwordHash" />
                     </div>
                     <div class="popup_helper" id="InvitePasswordHelp">
                         <%= UserManagerWrapper.GetPasswordHelpMessage() %>
@@ -91,7 +95,7 @@
             <% if (!isPersonal){ %>
             <div class="leftPart">
                 <div class="borderBase tintMedium portalInfo">
-                    <a href="auth.aspx">
+                    <a href="Auth.aspx">
                         <img class="logo" src="/TenantLogo.ashx?logotype=2" border="0" alt="" />
                     </a>
                     <div class="header-base big blue-text">

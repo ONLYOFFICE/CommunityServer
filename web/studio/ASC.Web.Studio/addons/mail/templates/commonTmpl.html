@@ -38,3 +38,64 @@
         <div class="cornerHelpBlock pos_top"></div>
     </div>
 </script>
+
+<script id="commonSettingsHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        <span class="header-base">${ASC.Mail.Resources.MailResource.CommonSettingsLabel}</span>
+    </div>
+</script>
+
+<script id="accountsPageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        {{if ASC.Mail.Constants.COMMON_DOMAIN_AVAILABLE}} 
+        <a title="${ASC.Mail.Resources.MailResource.CreateMailboxBtn}" class="button gray" id="createNewMailbox">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.CreateMailboxBtn}</div>
+        </a>
+        {{/if}}
+        <a title="${ASC.Mail.Resources.MailResource.CreateNewAccountBtn}" class="button gray" id="createNewAccount">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.CreateNewAccountBtn}</div>
+        </a>
+        <span class="HelpCenterSwitcher" id="accountsHelpCenterSwitcher"></span>&nbsp;
+    </div>
+</script>
+
+<script id="tagsPageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        <a title="${ASC.Mail.Resources.MailResource.CreateNewTagBtn}" class="button gray" id="createNewTag">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.CreateNewTagBtn}</div>
+        </a>
+        <span class="HelpCenterSwitcher" id="tagHelpCenterSwitcher"></span>&nbsp;
+    </div>
+</script>
+
+<script id="userFoldersPageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        <a title="${ASC.Mail.Resources.MailResource.CreateUserFolderBtn}" class="button gray" id="createUserFolder">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.CreateUserFolderBtn}</div>
+        </a>
+        <a title="${ASC.Mail.Resources.MailResource.EditUserFolderBtn}" class="button gray" id="editUserFolder">
+            <div style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.EditUserFolderBtn}</div>
+        </a>
+        <a title="${ASC.Mail.Resources.MailResource.DeleteUserFolderBtn}" class="button gray" id="deleteUserFolder">
+            <div style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.DeleteUserFolderBtn}</div>
+        </a>
+        <span class="HelpCenterSwitcher" id="userFoldersHelpCenterSwitcher"></span>&nbsp;
+    </div>
+</script>
+
+<script id="filtersPageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        <a title="${ASC.Mail.Resources.MailResource.CreateFilterBtn}" class="button gray" id="createFilter">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailResource.CreateFilterBtn}</div>
+        </a>
+        <span class="HelpCenterSwitcher" id="filtersHelpCenterSwitcher"></span>&nbsp;
+    </div>
+</script>
+
+<script id="administrationPageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="content-header">
+        <a title="${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}" class="button gray" id="mail-server-add-domain">
+            <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}</div>
+        </a>&nbsp;
+    </div>
+</script>

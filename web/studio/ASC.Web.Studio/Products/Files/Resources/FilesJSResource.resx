@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessSettingsTitle" xml:space="preserve">
-    <value>Access Settings {0}</value>
+  <data name="AccessSettingsHeader" xml:space="preserve">
+    <value>Access Settings for {0}</value>
   </data>
   <data name="AceStatusEnum_Comment" xml:space="preserve">
     <value>Comment</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Custom Filter</value>
   </data>
   <data name="AceStatusEnum_FillForms" xml:space="preserve">
     <value>Form Filling</value>
@@ -369,6 +372,9 @@
   <data name="FolderTitleGoogle" xml:space="preserve">
     <value>Google directory</value>
   </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>kDrive directory</value>
+  </data>
   <data name="FolderTitleSharePoint" xml:space="preserve">
     <value>SharePoint directory</value>
   </data>
@@ -483,6 +489,12 @@
   <data name="InfoRenameFolder" xml:space="preserve">
     <value>The folder '{0}' is renamed to '{1}'</value>
   </data>
+  <data name="InfoTemplateAdd" xml:space="preserve">
+    <value>Files added to Templates</value>
+  </data>
+  <data name="InfoTemplateRemove" xml:space="preserve">
+    <value>Files removed from Templates</value>
+  </data>
   <data name="InfoChangeOwner" xml:space="preserve">
     <value>Now '{0}' is the owner of '{1}'</value>
   </data>
@@ -519,6 +531,9 @@
   <data name="PreviewError" xml:space="preserve">
     <value>Failed to upload file {0} to display</value>
   </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>Privacy Room</value>
+  </data>
   <data name="ProjectFiles" xml:space="preserve">
     <value>Project Documents</value>
   </data>
@@ -537,8 +552,8 @@
   <data name="SharingSettingsEmpty" xml:space="preserve">
     <value>Add users or groups and give them permissions{0} to read, review or edit the documents.</value>
   </data>
-  <data name="SharingSettingsTitle" xml:space="preserve">
-    <value>Sharing Settings {0}</value>
+  <data name="SharingSettingsHeader" xml:space="preserve">
+    <value>Sharing Settings for {0}</value>
   </data>
   <data name="Spreedsheets" xml:space="preserve">
     <value>Spreadsheets</value>
@@ -597,6 +612,9 @@
   <data name="TitleNewFolder" xml:space="preserve">
     <value>New Folder</value>
   </data>
+  <data name="TitleSettingsAdmin" xml:space="preserve">
+    <value>Admin Settings</value>
+  </data>
   <data name="TitleSettingsCommon" xml:space="preserve">
     <value>Common Settings</value>
   </data>
@@ -617,6 +635,9 @@
   </data>
   <data name="TypeTitleGoogle" xml:space="preserve">
     <value>google.com</value>
+  </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
   </data>
   <data name="TypeTitleSharePoint" xml:space="preserve">
     <value>sharepoint.com</value>

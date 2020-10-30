@@ -5,16 +5,13 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="tags_panel" class="expandable top-margin-menu left-margin hidden">
-  <div class="content">
-    <div id="id_tags_panel_content">
-    </div>
-  </div>
-  <div class="more hidden">
+  <div id="id_tags_panel_content"></div>
+  <div class="more" style="display: none">
     <div class="shadow">
     </div>
-    <div class="text link dotline">
+    <a class="more_link text link dotline">
       <%=MailResource.ShowMoreTags%>
-    </div>
+    </a>
   </div>
 </div>
 
@@ -70,20 +67,4 @@
             </div>
         </body>
     </sc:Container>
-</div>
-
-<div id="addTagsPanel" class="actionPanel stick-over">
-    <div id="tagsPanelContent" style="display: block;">
-        <div class="actionPanelSection">
-            <label for="markallrecipients" class="mark_all_checkbox">
-                <input type="checkbox" id="markallrecipients"/>
-                <span  id="markallrecipientsLabel"><%=MailScriptResource.MarkAllSendersLabel%></span>
-            </label>
-        </div>
-        <div class="existsTags webkit-scrollbar"></div>
-        <div class="h_line"></div>
-        <div class="createTagMenu">
-            <a title="<%: MailResource.CreateNewTagBtn %>" class="link entertag_button"><%: MailResource.CreateNewTagBtn %></a>
-        </div>
-    </div>
 </div>

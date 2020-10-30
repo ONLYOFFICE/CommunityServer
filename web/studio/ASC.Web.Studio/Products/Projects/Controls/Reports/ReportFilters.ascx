@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Projects.Core.Domain.Reports" %>
 
-<div id="reportFilters" class="report-filter-container">
+<div id="reportFilters" class="report-filter-container clearFix">
 
 <% if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend) %>
 <% { %>
@@ -16,8 +16,7 @@
             <div class="splitter-input"></div>
             <asp:TextBox runat="server" ID="toDate" CssClass="textEditCalendar" Width="75px" />
         <div class="errorText display-none float-left" style="margin:3px 0 0 10px;"><%=ReportResource.IncorrectDateRage%></div>
-    </span>             
+    </span>
 </div>
 <% } %>
 </div>
-<div class="clearFix"></div>

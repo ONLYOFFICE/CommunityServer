@@ -6,7 +6,7 @@
 
 <div id="voip-numbers-view">
     <div id="empty-numbers-list-msg">
-        <%= string.Format(CRMVoipResource.NoNumbersMsg, "<a href=\"settings.aspx?type=voip.numbers\" class=\"link underline blue\" target=\"_blank\">", "</a>") %>
+        <%= string.Format(CRMVoipResource.NoNumbersMsg, "<a href=\"Settings.aspx?type=voip.numbers\" class=\"link underline blue\" target=\"_blank\">", "</a>") %>
     </div>
     
     <div id="number-selector-box" class="clearFix">

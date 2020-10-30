@@ -138,7 +138,13 @@ $PostPreview
   <data name="subject_new_comment" xml:space="preserve">
     <value>Community. New comment to blog post: $PostSubject</value>
   </data>
+  <data name="subject_new_comment_tg" xml:space="preserve">
+    <value>Community. New comment to blog post: [$PostSubject]($CommentURL)</value>
+  </data>
   <data name="subject_new_post" xml:space="preserve">
     <value>Community. New post in blogs: $PostSubject</value>
+  </data>
+  <data name="subject_new_post_tg" xml:space="preserve">
+    <value>Community. New post in blogs: [$PostSubject]($URL)</value>
   </data>
 </root>

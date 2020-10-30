@@ -5,7 +5,6 @@
     Inherits="ASC.Web.CRM.Controls.Settings.CurrencySettingsView" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<div class="header-base settingsHeader"><%= CRMSettingResource.CurrencySettings %></div>
 <div id="currencySettingsContent">
     <div class="clearFix">
         <div id="currencySettingsPannel" class="float-left">

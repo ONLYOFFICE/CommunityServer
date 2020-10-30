@@ -157,4 +157,10 @@ $CommentBody
   <data name="subject_new_text_comment" xml:space="preserve">
     <value>Community. #if($FEED_TYPE == "poll")New comment to poll#end#if($FEED_TYPE == "feed")New comment to event#end: $Caption</value>
   </data>
+  <data name="subject_new_text_comment_tg" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")New comment to poll#end#if($FEED_TYPE == "feed")New comment to event#end: [$Caption]($CommentURL)</value>
+  </data>
+  <data name="subject_new_text_tg" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")New poll added#end#if($FEED_TYPE == "feed")New event added#end: [$Caption]($URL)</value>
+  </data>
 </root>

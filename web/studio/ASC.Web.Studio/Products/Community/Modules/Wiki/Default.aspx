@@ -20,22 +20,19 @@
         rel="stylesheet" type="text/css" media="print" />
 </asp:Content>
 
-<asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
-    <div id="actionWikiPage">
-
-
-    <asp:PlaceHolder ID="WikiSideHolder" runat="server">
-  
+<asp:Content ContentPlaceHolderID="WikiTitleContent" runat="Server">
     <div class="WikiHeaderBlock header-with-menu" style="margin-bottom: 16px;">
+        <span class="main-title-icon wiki"></span>
         <span class="header"><%=HttpUtility.HtmlEncode(WikiPageName)%></span>
         <% if(!CommunitySecurity.IsOutsider()) { %>
         <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
         <% } %>
         <span class="menu-small topic"></span>
     </div>
-    </asp:PlaceHolder>
+</asp:Content>
 
-
+<asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
+    <div id="actionWikiPage">
 
     <asp:Panel ID="pView" runat="Server" CssClass="wikiBody">
         <asp:Panel ID="PrintHeader" runat="Server" CssClass="PrintHeader">

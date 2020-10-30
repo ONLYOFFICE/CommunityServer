@@ -1,0 +1,14 @@
+﻿{
+  "Book": "本",
+  "Journal Article": "学術論文",
+  "Website": "ウェブサイト",
+  "Search": "検索",
+  "Search result": "検索結果",
+  "Back to bibliography": "書誌に戻る",
+  "Bibliography": "書誌",
+  "Style": "スタイル",
+  "Add Bibliography to Doc": "ドキュメントに書誌を追加",
+  "Enter book title": "ほんの名前を入力してください",
+  "Enter journal article": "学術論文を入力してください",
+  "Enter website url": "ウェブサイトの URL を入力してください"
+}

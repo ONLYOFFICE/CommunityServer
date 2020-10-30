@@ -6,7 +6,7 @@
 
 <script id="projects_subtaskTemplate" type="text/x-jquery-tmpl">
     <div id="${id}" class="with-entity-menu subtask clearFix {{if $item.data.status == 2}} closed{{/if}}{{if $item.data.canEdit}} canedit{{/if}}">
-        {{if $item.data.canEdit}}<div class="entity-menu"></div>
+        {{if $item.data.canEdit}}<div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
         {{else}}<div class="nomenupoint"></div>{{/if}}
         <div class="check"><input type="checkbox" {{if $item.data.status == 2}} checked="checked" {{/if}} {{if !$item.data.canEdit || $item.taskStatus == 2}} disabled="true" {{/if}} /></div>
         <div class="taskName{{if $item.data.canEdit}} canedit{{/if}}"><span>{{html jq.linksParser(jq.htmlEncodeLight($item.data.title))}}</span></div>

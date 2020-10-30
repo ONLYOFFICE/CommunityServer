@@ -7,6 +7,10 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 
+<asp:Content ContentPlaceHolderID="CreateButtonContent" runat="server">
+    <asp:PlaceHolder ID="CreateButton" runat="server" />
+</asp:Content>
+
 <asp:Content ContentPlaceHolderID="SidePanel" runat="server">
     <asp:PlaceHolder ID="SideNavigation" runat="server" />
     <asp:ContentPlaceHolder ID="BTSidePanel" runat="server" />
@@ -16,15 +20,28 @@
     <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
 </asp:Content>
 
-<asp:Content ID="PageContent" ContentPlaceHolderID="PageContent" runat="server">
-    <asp:ContentPlaceHolder ID="BTPageContentWithoutCommonContainer" runat="server" />
-    <sc:Container ID="_commonContainer" runat="server">
-        <header>
-        </header>
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
+    <sc:Container ID="HeaderContainer" runat="server">
+        <body>
+            <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+        </body>
+    </sc:Container>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="FilterContent" runat="server">
+    <asp:ContentPlaceHolder ID="FilterContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <sc:Container ID="PageContainer" runat="server">
         <body>
             <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
         </body>
     </sc:Container>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PagingContent" runat="server">
+    <asp:ContentPlaceHolder ID="PagingContent" runat="server" />
 </asp:Content>
 
 

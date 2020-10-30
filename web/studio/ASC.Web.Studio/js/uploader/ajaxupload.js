@@ -501,6 +501,13 @@
                         return;
                     }
 
+                    // fixing Chrome 83
+                    if (doc.body && doc.body.innerHTML == "") {
+                        // In Chrome 83 event was fired second time
+                        // when body changed to null
+                        return;
+                    }
+
                     var response;
 
                     if (doc.XMLDocument) {

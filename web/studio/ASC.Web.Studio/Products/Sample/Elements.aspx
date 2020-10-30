@@ -33,7 +33,7 @@
             <a id="popupBtn" class="button blue">show dialog</a>
          </p>
 
-<pre><code>StudioBlockUIManager.blockUI("#popupDialog", 500, 500, 0);
+<pre><code>StudioBlockUIManager.blockUI("#popupDialog", 500);
 LoadingBanner.showLoaderBtn("#popupDialog");
 LoadingBanner.hideLoaderBtn("#popupDialog");
 LoadingBanner.showMesInfoBtn("#popupDialog", "error message", "error");

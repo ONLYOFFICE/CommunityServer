@@ -8,7 +8,7 @@
                 <%= Resources.Resource.EmailActivationPanelHeaderText %>    
             </div>
             <%= Resources.Resource.EmailActivationPanelBodyText%>
-            <a class="link underline blue" onclick="ASC.EmailOperationManager.sendInstructions('<%=CurrentUser.ID%>', '<%=CurrentUser.Email%>');">
+            <a class="link underline blue" onclick="ASC.EmailOperationManager.sendInstructions('<%=CurrentUser.ID%>', '<%= CurrentUser.Email.Replace("'", "\\'").HtmlEncode() %>');">
                 <%= Resources.Resource.EmailActivationPanelLinkText%>
             </a>
         </div>

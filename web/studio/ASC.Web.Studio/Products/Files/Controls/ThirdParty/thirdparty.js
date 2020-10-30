@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -38,6 +29,7 @@ window.ASC.Files.ThirdParty = (function () {
         SharePoint: { key: "SharePoint", customerTitle: ASC.Files.FilesJSResources.FolderTitleSharePoint, providerTitle: ASC.Files.FilesJSResources.TypeTitleSharePoint, urlRequest: true },
         SkyDrive: { key: "SkyDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
         WebDav: { key: "WebDav", customerTitle: ASC.Files.FilesJSResources.FolderTitleWebDav, providerTitle: ASC.Files.FilesJSResources.TypeTitleWebDav, urlRequest: true },
+        kDrive: { key: "kDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitlekDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitlekDrive },
         Yandex: { key: "Yandex", customerTitle: ASC.Files.FilesJSResources.FolderTitleYandex, providerTitle: ASC.Files.FilesJSResources.TypeTitleYandex }
     };
 
@@ -172,7 +164,7 @@ window.ASC.Files.ThirdParty = (function () {
 
         jq("#thirdPartyDialogCaption").text(ASC.Files.FilesJSResources.ThirdPartyEditorCaption.format(thirdParty.providerTitle));
 
-        ASC.Files.UI.blockUI("#thirdPartyEditor", 400, 300);
+        ASC.Files.UI.blockUI("#thirdPartyEditor", 400);
         PopupKeyUpActionProvider.EnterAction = "jq(\"#submitThirdParty\").click();";
     };
 
@@ -221,7 +213,7 @@ window.ASC.Files.ThirdParty = (function () {
             return false;
         });
 
-        ASC.Files.UI.blockUI("#thirdPartyDelete", 400, 300);
+        ASC.Files.UI.blockUI("#thirdPartyDelete", 400);
         PopupKeyUpActionProvider.EnterAction = "jq(\"#deleteThirdParty\").click();";
     };
 
@@ -410,11 +402,13 @@ window.ASC.Files.ThirdParty = (function () {
     var changeAccessToThirdpartySettings = function (obj) {
         var enable = jq(obj).prop("checked");
         changeAccessToThirdparty(enable === true);
+
+        jq(".settings-link-thirdparty, .tree-thirdparty").toggleClass("display-none", enable !== true);
     };
 
     var showThirdPartyNewAccount = function () {
         ASC.Files.Actions.hideAllActionPanels();
-        ASC.Files.UI.blockUI("#thirdPartyNewAccount", 500, 400);
+        ASC.Files.UI.blockUI("#thirdPartyNewAccount", 500);
     };
 
     var showThirdPartyActionsPanel = function (event) {
@@ -499,12 +493,16 @@ window.ASC.Files.ThirdParty = (function () {
             PopupKeyUpActionProvider.CloseDialog();
         });
 
-        ASC.Files.UI.blockUI("#thirPartyConfirmMove", 420, 300);
+        ASC.Files.UI.blockUI("#thirPartyConfirmMove", 420);
 
         PopupKeyUpActionProvider.EnterAction = "jq(\"#buttonMoveThirdParty\").click();";
         PopupKeyUpActionProvider.CloseDialogAction = "jq(\"#buttonCancelMoveThirdParty\").click();";
     };
 
+
+    var thirdpartyAvailable = function () {
+        return !!jq(".settings-link-thirdparty").length;
+    };
 
     var docuSignAttached = function (value) {
         if (typeof value != "undefined") {
@@ -514,6 +512,14 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var showDocuSignDialog = function (fileData) {
+        if (jq("#thirdpartyToDocuSignHelper").length) {
+            ASC.Files.UI.blockUI("#thirdpartyToDocuSignHelper", 500);
+            return;
+        } else if (!ASC.Files.ThirdParty.docuSignAttached()) {
+            ASC.Files.ThirdParty.addAccountButton(null, ASC.Files.ThirdParty.thirdPartyList.DocuSign.key);
+            return;
+        }
+
         var header = ASC.Files.FilesJSResources.DocuSignDialogHeader.format(fileData.title);
         jq("#thirdpartyToDocuSign .thirdparty-todocusign-header").attr("title", header).text(header);
 
@@ -558,14 +564,7 @@ window.ASC.Files.ThirdParty = (function () {
                 }
             };
 
-            var winSign = window.open("");
-            try {
-                if (winSign) {
-                    winSign.document.write(ASC.Resources.Master.Resource.LoadingPleaseWait);
-                    winSign.document.close();
-                }
-            } catch (e) {
-            }
+            var winSign = window.open(ASC.Desktop ? "" : ASC.Files.Constants.URL_LOADER);
 
             var params = {
                 fileId: fileData.id,
@@ -606,7 +605,7 @@ window.ASC.Files.ThirdParty = (function () {
 
         removeDocuSignMessage();
 
-        ASC.Files.UI.blockUI("#thirdpartyToDocuSign", 400, 475);
+        ASC.Files.UI.blockUI("#thirdpartyToDocuSign", 400);
     };
 
     var removeDocuSignMessage = function () {
@@ -714,6 +713,50 @@ window.ASC.Files.ThirdParty = (function () {
             editThirdPartyAccount("#account_" + providerId);
             jq("#thirdPartyAccount").attr("data-token", code);
         }
+    };
+
+    var addAccountButton = function (e, thirdPartyKey) {
+        ASC.Files.Actions.hideAllActionPanels();
+
+        if (!thirdPartyKey) {
+            thirdPartyKey = jq(this).attr("data-provider");
+        }
+        var thirdParty = ASC.Files.ThirdParty.thirdPartyList[thirdPartyKey];
+        if (!thirdParty) {
+            return true;
+        }
+
+        if (jq("#thirdPartyEditor").is(":visible")) {
+            ASC.Files.ThirdParty.changeTokenThirdPartyAccount();
+            return false;
+        }
+
+        PopupKeyUpActionProvider.CloseDialog();
+
+        var account = jq(this).closest(".account-row");
+        if (account.length) {
+            thirdParty.provider_id = jq(account).find(".account-hidden-provider-id").val();
+
+            ASC.Files.ThirdParty.editTokenThirdPartyAccount(thirdParty);
+            return false;
+        }
+
+        var eventAfter = function () {
+            return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
+        };
+
+        if (jq("#settingThirdPartyPanel:visible").length == 0) {
+            if (!thirdParty.getTokenUrl) {
+                ASC.Files.Folders.eventAfter = eventAfter;
+            } else {
+                eventAfter();
+            }
+            ASC.Files.Anchor.move("setting=thirdparty");
+            return false;
+        }
+
+        eventAfter();
+        return false;
     };
 
     //request
@@ -1050,6 +1093,7 @@ window.ASC.Files.ThirdParty = (function () {
         showChangeDialog: showChangeDialog,
         showDeleteDialog: showDeleteDialog,
 
+        addAccountButton: addAccountButton,
         addNewThirdPartyAccount: addNewThirdPartyAccount,
         editTokenThirdPartyAccount: editTokenThirdPartyAccount,
         changeTokenThirdPartyAccount: changeTokenThirdPartyAccount,
@@ -1065,6 +1109,7 @@ window.ASC.Files.ThirdParty = (function () {
 
         showMoveThirdPartyMessage: showMoveThirdPartyMessage,
 
+        thirdpartyAvailable: thirdpartyAvailable,
         docuSignAttached: docuSignAttached,
         showDocuSignDialog: showDocuSignDialog,
         docuSignFolderSelectorReset: docuSignFolderSelectorReset,
@@ -1083,50 +1128,8 @@ window.ASC.Files.ThirdParty = (function () {
             .addClass("errorBox")
             .css("margin", "10px 16px 0");
 
-        var addAccountButton = function () {
-            ASC.Files.Actions.hideAllActionPanels();
-
-            var thirdPartyKey = jq(this).attr("data-provider");
-            var thirdParty = ASC.Files.ThirdParty.thirdPartyList[thirdPartyKey];
-            if (!thirdParty) {
-                return true;
-            }
-
-            if (jq("#thirdPartyEditor").is(":visible")) {
-                ASC.Files.ThirdParty.changeTokenThirdPartyAccount();
-                return false;
-            }
-
-            PopupKeyUpActionProvider.CloseDialog();
-
-            var account = jq(this).closest(".account-row");
-            if (account.length) {
-                thirdParty.provider_id = jq(account).find(".account-hidden-provider-id").val();
-
-                ASC.Files.ThirdParty.editTokenThirdPartyAccount(thirdParty);
-                return false;
-            }
-
-            var eventAfter = function () {
-                return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
-            };
-
-            if (jq("#settingThirdPartyPanel:visible").length == 0) {
-                if (!thirdParty.getTokenUrl) {
-                    ASC.Files.Folders.eventAfter = eventAfter;
-                } else {
-                    eventAfter();
-                }
-                ASC.Files.Anchor.move("setting=thirdparty");
-                return false;
-            }
-
-            eventAfter();
-            return false;
-        };
-
-        jq(".add-account-button, .edit-account-button").click(addAccountButton);
-        jq("#thirdPartyAccountList").on("click", ".edit-account-button", addAccountButton);
+        jq(".add-account-button, .edit-account-button").click(ASC.Files.ThirdParty.addAccountButton);
+        jq("#thirdPartyAccountList").on("click", ".edit-account-button", ASC.Files.ThirdParty.addAccountButton);
 
         jq("#thirdPartyAccountList").on("click", "a.account-cancel-link", function () {
             ASC.Files.Actions.hideAllActionPanels();

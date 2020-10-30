@@ -16,7 +16,7 @@
         <body>
             <div class="confirm-convert-panel">
                 <span id="confirmConvertSaveDescript"><%= FilesUCResource.ConfirmStoreOriginalSaveTitle %></span>
-                <span id="confirmConvertEditDescript"><%= FilesUCResource.ConfirmStoreOriginalOpenTitle %></span>
+                <span id="confirmConvertEditDescript"><%= FilesUCResource.ConfirmStoreOriginalOpenTitle.HtmlEncode() %></span>
                 <br/>
                 <br/>
                 <label>

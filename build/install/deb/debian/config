@@ -1,21 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 . /usr/share/debconf/confmodule
-
-DB_HOST=""
-DB_NAME=""
-DB_USER=""
-DB_PWD=""
-
-apply_connection_string(){
-	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
-		if [ -d /var/www/{{package_sysname}}/ ]; then
-			find "/var/www/{{package_sysname}}/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
-		fi
-	fi
-}
 
 db_input medium {{package_sysname}}-communityserver/db-host || true
 db_input medium {{package_sysname}}-communityserver/db-name || true
@@ -24,19 +11,5 @@ db_go
 
 db_input critical {{package_sysname}}-communityserver/db-pwd || true
 db_go
-
-db_get {{package_sysname}}-communityserver/db-host
-DB_HOST="$RET"
-
-db_get {{package_sysname}}-communityserver/db-name
-DB_NAME="$RET"
-
-db_get {{package_sysname}}-communityserver/db-user
-DB_USER="$RET"
-
-db_get {{package_sysname}}-communityserver/db-pwd
-DB_PWD="$RET"
-
-apply_connection_string
 
 exit 0

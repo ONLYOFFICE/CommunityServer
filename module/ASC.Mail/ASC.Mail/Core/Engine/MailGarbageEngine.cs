@@ -1,43 +1,37 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
+using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Mail.Core.Dao;
+using ASC.Mail.Core.Dao.Expressions.Mailbox;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Data.Storage;
 using ASC.Mail.Extensions;
@@ -126,7 +120,119 @@ namespace ASC.Mail.Core.Engine
                 break;
             }
 
+            RemoveUselessMsDomains();
+
             Log.Debug("End ClearMailGarbage()\r\n");
+        }
+
+        public void RemoveUselessMsDomains() {
+            Log.Debug("Start RemoveUselessMsDomains()\r\n");
+
+            try
+            {
+                var engineFactory = new EngineFactory(-1, ASC.Core.Configuration.Constants.CoreSystem.ID.ToString());
+
+                var domains = engineFactory.ServerDomainEngine.GetAllDomains();
+
+                foreach (var domain in domains)
+                {
+                    if (domain.Tenant == -1)
+                        continue;
+
+                    var status = GetTenantStatus(domain.Tenant);
+
+                    if (status != TenantStatus.RemovePending)
+                        continue;
+
+                    var exp = new TenantServerMailboxesExp(domain.Tenant, null);
+
+                    var mailboxes = engineFactory.MailboxEngine.GetMailboxDataList(exp);
+
+                    if (mailboxes.Any())
+                    {
+                        Log.WarnFormat("Domain's '{0}' Tenant={1} is removed, but it has unremoved server mailboxes (count={2}). Skip it.", 
+                            domain.Name, domain.Tenant, mailboxes.Count);
+
+                        continue;
+                    }
+
+                    Log.InfoFormat("Domain's '{0}' Tenant={1} is removed. Lets remove domain.", domain.Name, domain.Tenant);
+
+                    var count = domains.Count(d => d.Name.Equals(domain.Name, StringComparison.InvariantCultureIgnoreCase));
+
+                    var skipMS = count > 1;
+
+                    if (skipMS)
+                    {
+                        Log.InfoFormat("Domain's '{0}' has duplicated entry for another tenant. Remove only current entry.", domain.Name);
+                    }
+
+                    RemoveDomain(domain, skipMS);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(string.Format("RemoveUselessMsDomains failed. Exception: {0}", ex.ToString()));
+            }
+
+            Log.Debug("End RemoveUselessMsDomains()\r\n");
+        }
+
+        public TenantStatus GetTenantStatus(int tenant) {
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
+
+                var tenantInfo = CoreContext.TenantManager.GetCurrentTenant();
+
+                return tenantInfo.Status;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(string.Format("GetTenantStatus(tenant='{0}') failed. Exception: {1}", tenant, ex.ToString()));
+            }
+
+            return TenantStatus.Active;
+        }
+
+        public void RemoveDomain(Entities.ServerDomain domain, bool skipMS = false)
+        {
+            try
+            {
+                using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveDomainTimeout))
+                {
+                    var daoFactory = new DaoFactory(db);
+
+                    using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
+                    {
+                        var serverDomainDao = daoFactory.CreateServerDomainDao(domain.Tenant);
+
+                        serverDomainDao.Delete(domain.Id);
+
+                        if (!skipMS)
+                        {
+                            var serverDao = daoFactory.CreateServerDao();
+
+                            var server = serverDao.Get(domain.Tenant);
+
+                            if (server == null)
+                                throw new Exception(string.Format("Information for Tenant's Mail Server not found (Tenant = {0})", domain.Tenant));
+
+                            var serverEngine = new Server.Core.ServerEngine(server.Id, server.ConnectionString);
+
+                            serverEngine.RemoveDomain(domain.Name, false);
+                        }
+
+                        tx.Commit();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(string.Format("RemoveDomainIfUseless(Domain: '{0}', ID='{1}') failed. Exception: {2}", domain.Name, domain.Id, ex.ToString()));
+            }
         }
 
         public void ClearUserMail(Guid userId, Tenant tenantId = null)

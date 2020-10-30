@@ -27,30 +27,3 @@
 </div>
 <div class="longWordsBreak" id="BookmarksHolder" runat="server">
 </div>
-<%if (!singleBookmark && itemCounter>20) {%>
-<div class="navigationLinkBox bookmarks">
-            <table id="tableForNavigation" cellpadding="4" cellspacing="0">
-                <tbody>
-                <tr>
-                    <td>
-                        <div style="clear: right; display: inline-block;">
-                            <div id="BookmarkingPaginationContainer" runat="server" class="bookmarkingPagination"></div>
-                        </div>
-                    </td>
-                    <td style="text-align:right;">
-                        <span class="gray-text"><%=BookmarkingUCResource.TotalPages%>: </span>
-                        <span class="gray-text" style="margin-right: 20px;"><%=itemCounter%></span>
-                        <span class="gray-text"><%=BookmarkingUCResource.ShowOnPage%>: </span>
-                        <select class="top-align">
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="75">75</option>
-                            <option value="100">100</option>
-                        </select>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-    </div>
-    <%} %>
-

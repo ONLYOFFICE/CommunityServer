@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" CodeBehind="confirm.aspx.cs" Inherits="ASC.Web.Studio.Confirm" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="confirm.aspx.cs" Inherits="ASC.Web.Studio.Confirm" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 
@@ -7,7 +7,7 @@
         <div class="confirm-block-page <%= CoreContext.Configuration.Personal ? "confirm-personal" : "" %>">
             <div class="confirm-block-cnt">
                 <div class="confirm-block-header">
-                    <a href="auth.aspx">
+                    <a href="Auth.aspx">
                         <img class="logo" src="/TenantLogo.ashx?logotype=2" border="0" alt="" /></a>
                     <div class="header-base big blue-text"><%=HttpUtility.HtmlEncode(CoreContext.TenantManager.GetCurrentTenant().Name)%></div>
                 </div>
@@ -19,10 +19,10 @@
                 </div>
                 <%} %>
 
-                <asp:PlaceHolder runat="server" ID="_confirmHolder"></asp:PlaceHolder>
+                <asp:PlaceHolder runat="server" ID="_confirmHolder"/>
             </div>
         </div>
     </asp:PlaceHolder>
 
-    <asp:PlaceHolder runat="server" ID="_confirmHolder2"></asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" ID="_confirmHolder2"/>
 </asp:Content>

@@ -16,8 +16,10 @@
         BibList = new Bibliography();
         var docBody = frames.parent.parent.document.getElementsByTagName("body");
         var searchInput = $('#search');
-        
-        searchInput.attr('placeholder', "Enter book title");
+
+        window.Asc.plugin.onTranslate = applyTranslations;
+
+        searchInput.attr('placeholder', getMessage("Enter book title"));
 
         if (docBody) {
             var action = $(docBody).find('form').attr('action');
@@ -75,7 +77,7 @@
             switch (this.id) {
                 case 'bookButton':
                     BibList.searchOptions.source = 0;
-                    searchInput.attr('placeholder', "Enter book title");
+                    searchInput.attr('placeholder', getMessage("Enter book title"));
                     $('#journalButton').removeClass('web-active-button');
                     $('#journalButton').addClass('book-active-button');
                     break;
@@ -83,13 +85,13 @@
                     BibList.searchOptions.source = 1;
                     $('#journalButton').removeClass('web-active-button');
                     $('#journalButton').removeClass('book-active-button');
-                    searchInput.attr('placeholder', "Enter journal article");
+                    searchInput.attr('placeholder', getMessage("Enter journal article"));
                     break;
                 case 'websiteButton':
                     BibList.searchOptions.source = 2;
                     $('#journalButton').removeClass('book-active-button');
                     $('#journalButton').addClass('web-active-button');
-                    searchInput.attr('placeholder', "Enter website url");
+                    searchInput.attr('placeholder', getMessage("Enter website url"));
                     break;
                 default:
                     break;
@@ -231,7 +233,21 @@
             };
         }); 
     };
-    
+
+    function applyTranslations() {
+        var elements = document.getElementsByClassName("i18n");
+
+        for (var i = 0; i < elements.length; i++) {
+            var el = elements[i];
+            if (el.attributes["placeholder"]) el.attributes["placeholder"].value = getMessage(el.attributes["placeholder"].value);
+            if (el.innerText) el.innerText = getMessage(el.innerText);
+        }
+    }
+
+    function getMessage(key) {
+        return window.Asc.plugin.tr(key);
+    }
+
     delBibliographyPart = function (data) {
         var id = +$(data)[0].id.split('_')[1];
         if (id && id > 0) {

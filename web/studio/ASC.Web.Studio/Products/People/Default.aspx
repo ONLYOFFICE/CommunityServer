@@ -1,8 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
-<%@ Page Language="C#" MasterPageFile="~/products/people/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.People.Default" EnableViewState="false" %>
 
-<%@ Register Assembly="ASC.Web.Studio" Namespace=" ASC.Web.Studio.Controls.Common" TagPrefix="sc" %>
-
+<%@ Page Language="C#" MasterPageFile="~/Products/People/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.People.Default" EnableViewState="false" %>
 
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Core.Users" %>
@@ -10,10 +8,8 @@
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
-<asp:Content ID="_peopleContent" runat="server" ContentPlaceHolderID="PeoplePageContent">
-    
-    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
-    <div class="clearFix default-title profile-title header-with-menu">
+<asp:Content runat="server" ContentPlaceHolderID="TitleContent">
+    <div class="clearFix default-title profile-title header-with-menu display-none">
         <span class="header text-overflow"><%= Resource.People %></span>
         <% if (IsAdmin) { %>
         <span class="menu-small" style="display:none;"></span>
@@ -28,14 +24,15 @@
         </ul>
     </div>
     <% } %>
+</asp:Content>
 
-    
-    <div id="filterContainer">
+<asp:Content runat="server" ContentPlaceHolderID="FilterContent">
+    <div id="filterContainer" class="display-none">
         <div id="peopleFilter"></div>
     </div>
 
-    <div id="peopleContent">
-        <% if (IsAdmin) { %>
+    <% if (IsAdmin) { %>
+    <div class="people-content">
         <ul id="peopleHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
             <li class="menuAction menuActionSelectAll menuActionSelectLonely">
                 <div class="menuActionSelect">
@@ -91,48 +88,32 @@
             </li>
         </ul>
         <div class="header-menu-spacer" style="display: none;"></div>
-        <% } %>
+    </div>
+    <% } %>
 
-        <table id="peopleData" class="table-list height48" cellpadding="7" cellspacing="0">
-            <tbody>
-            </tbody>
-        </table>
+</asp:Content>
 
+<asp:Content runat="server" ContentPlaceHolderID="PeoplePageContent">
 
-        <table id="tableForPeopleNavigation" cellpadding="0" cellspacing="0" border="0">
-            <tbody>
-                <tr>
-                    <td>
-                        <div id="peoplePageNavigator"></div>
-                    </td>
-                    <td style="text-align:right;">
-                        <span class="gray-text"><%= PeopleResource.TotalCount %>:&nbsp;</span>
-                        <span class="gray-text" id="totalUsers"></span>
-                        <span class="page-nav-info">
-                            <span class="gray-text"><%= PeopleResource.ShowOnPage %>:&nbsp;</span>
-                            <select id="countOfRows" class="top-align">
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="75">75</option>
-                                <option value="100">100</option>
-                            </select>
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <asp:PlaceHolder ID="loaderHolder" runat="server"/>
 
+    <div id="peopleContent" class="people-content">
+        <div class="content-list_scrollable webkit-scrollbar">
+            <table id="peopleData" class="table-list height48" cellpadding="7" cellspacing="0">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div id="peopleActionMenu" class="studio-action-panel" data-canedit="<%= Actions.AllowEdit %>" data-candel="<%= Actions.AllowAddOrDelete %>">        
-    </div>
+    <div id="peopleActionMenu" class="studio-action-panel" data-canedit="<%= Actions.AllowEdit %>" data-candel="<%= Actions.AllowAddOrDelete %>"></div>
 
-
-    <asp:PlaceHolder ID="userEmailChange" runat="server"></asp:PlaceHolder>
-    <asp:PlaceHolder ID="userPwdChange" runat="server"></asp:PlaceHolder>
-    <asp:PlaceHolder ID="userConfirmationDelete" runat="server"></asp:PlaceHolder>
+    <asp:PlaceHolder ID="userEmailChange" runat="server"/>
+    <asp:PlaceHolder ID="userPwdChange" runat="server"/>
+    <asp:PlaceHolder ID="userConfirmationDelete" runat="server"/>
 
     <% if (IsAdmin) { %>
+
     <div id="changeTypePanel" class="studio-action-panel group-actions">
         <ul class="dropdown-content">
             <li>
@@ -297,4 +278,29 @@
         </div>
     </div>
 
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PagingContent">
+    <table id="tableForPeopleNavigation" cellpadding="0" cellspacing="0" border="0" class="people-content display-none">
+        <tbody>
+            <tr>
+                <td>
+                    <div id="peoplePageNavigator"></div>
+                </td>
+                <td style="text-align:right;">
+                    <span class="gray-text"><%= PeopleResource.TotalCount %>:&nbsp;</span>
+                    <span class="gray-text" id="totalUsers"></span>
+                    <span class="page-nav-info">
+                        <span class="gray-text"><%= PeopleResource.ShowOnPage %>:&nbsp;</span>
+                        <select id="countOfRows" class="top-align">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                            <option value="100">100</option>
+                        </select>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </asp:Content>

@@ -25,7 +25,15 @@
 <script id="projects_actionMenuContent" type="text/x-jquery-tmpl">
     <ul class="dropdown-content">
         {{each menuItems}}
-            <li id="${id}" class="dropdown-item"><span title="${text}">${text}</span></li>
+            {{if seporator }}
+                <li class="dropdown-item-seporator"></li>
+            {{else}}
+                {{if classname }}
+                    <li id="${id}" class="dropdown-item with-icon ${classname}"><span title="${text}">${text}</span></li>
+                {{else}}
+                    <li id="${id}" class="dropdown-item"><span title="${text}">${text}</span></li>
+                {{/if}}
+            {{/if}}
         {{/each}}
     </ul>
 </script>
@@ -160,13 +168,13 @@
         <span></span>
         <span class="total-count">
             ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeCommon}
-            <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
-            <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+            <b><span class="hours"></span>${ASC.Projects.Resources.TimeTrackingResource.Hours}
+            <span class="minutes"></span>${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
         </span>
         <span class="billed-count">
             ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeBilled}
-            <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
-            <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+            <b><span class="hours"></span>${ASC.Projects.Resources.TimeTrackingResource.Hours}
+            <span class="minutes"></span>${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
         </span>
      </div>
 </script>
@@ -177,7 +185,7 @@
             <span class="main-title-icon ${$item.data.icon}"></span>
             {{if $item.data.private}}<span class="private"></span>{{/if}}
             <span id="essenceTitle" class="text-overflow" title="${$item.data.title}">${$item.data.title}</span>
-            <span class="entity-menu"></span>
+            <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
         </div>
 
         <div id="projectTabs" class="display-none tabsNavigationLinkBox"></div>
@@ -250,27 +258,27 @@
 <script id="projects_dashboard_empty_screen" type="text/x-jquery-tmpl">
     <div id="projects_dashboard_empty_screen_container">
         <div class="backdrop" blank-page=""></div>
-
         <div id="content" blank-page="" class="dashboard-center-box projects">
-            <div class="header">
-                <span class="close">&times;</span>
-                ${ASC.Projects.Resources.CommonResource.DashboardTitle}
-            </div>
-            <div class="content clearFix">
-                {{each blocks}}
-                <div class="module-block">
-                    <img src="/Products/Projects/App_Themes/default/images/${image}"/>
-                    <div class="title">${title}</div>
-                    <ul>
-                        {{each ul}}
-                        <li>${$value}</li>
-                        {{/each}}
-                    </ul>
+            <a class="close">&times;</a>
+            <div class="content">
+                <div class="slick-carousel">
+                    {{each blocks}}
+                    <div class="module-block slick-carousel-item clearFix">
+                        <div class="img">
+                            <img src="/Products/Projects/App_Themes/default/images/dashboard/${image}"/>
+                        </div>
+                        <div class="text">
+                            <div class="title">${title}</div>
+                            {{each text}}
+                            <p>${$value}</p>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
             <div class="dashboard-buttons">
-                <a class="button huge create-button" href="/products/projects/projects.aspx?action=add">
+                <a class="button huge create-button" href="/Products/Projects/Projects.aspx?action=add">
                     ${ASC.Projects.Resources.CommonResource.CreateProjectButtonText}
                 </a>
             </div>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Adium" xml:space="preserve">
-    <value>Adium messanger</value>
-  </data>
   <data name="AutoupdateContactListDescription" xml:space="preserve">
     <value>The contact list is updated automatically as people are added/removed from the list of employees, so you don't have to check it out manually.  </value>
   </data>
@@ -129,17 +126,8 @@
   <data name="ContactListWithSettings" xml:space="preserve">
     <value>Contact List with settings</value>
   </data>
-  <data name="IntegrationWith3rdPartyAppsSectionContent" xml:space="preserve">
-    <value>Integrate Talk with a third-party client, read {0}</value>
-  </data>
-  <data name="IntegrationWith3rdPartyAppsSectionTitle" xml:space="preserve">
-    <value>Third-Party Software Support</value>
-  </data>
   <data name="MailRuAgent" xml:space="preserve">
     <value>Mail.ru Agent</value>
-  </data>
-  <data name="MirandaIMLink" xml:space="preserve">
-    <value>Miranda IM - the Miranda IM client home page.  Smaller, Faster, Easier</value>
   </data>
   <data name="OverviewContent" xml:space="preserve">
     <value>Talk is a corporate IM system for exchanging instant text messages among the employees in real time.</value>
@@ -152,18 +140,6 @@
   </data>
   <data name="OverviewWebClientDescription" xml:space="preserve">
     <value>Launch our web client to start using Talk right now with no prior settings. </value>
-  </data>
-  <data name="PidginLink" xml:space="preserve">
-    <value>A free chat client used by millions. Connect easily to MSN, Google Talk, Yahoo, AIM and other chat networks all at once.</value>
-  </data>
-  <data name="PsiLink" xml:space="preserve">
-    <value>The Cross-Platform JabberXMPP Client For Power Users</value>
-  </data>
-  <data name="QIP" xml:space="preserve">
-    <value>QIP</value>
-  </data>
-  <data name="qutlIM" xml:space="preserve">
-    <value>qutlIM messanger</value>
   </data>
   <data name="Recommended" xml:space="preserve">
     <value>Recommended Clients</value>
@@ -179,23 +155,6 @@
   </data>
   <data name="StartWebClientLinkDescription" xml:space="preserve">
     <value>No extra settings! Click to launch web client and start talking right now</value>
-  </data>
-  <data name="ThirdPartyAppsSettingsSectionContent" xml:space="preserve">
-    <value>Use the following settings together you Jabber ID{0} and password from your accocunt{1}
-Server Name: {2}
-Server Address: {3}
-Connection Port: {4}
-Your User Name: {5}
-</value>
-  </data>
-  <data name="TrillianLink" xml:space="preserve">
-    <value>Trillian - Windows, iPhone, and Web based instant messenger.  Supports Astra, Windows Live, Facebook, Twitter, Yahoo, MySpace, AIM, Email, Google Talk, Skype, ICQ, Jabber, IRC, Bonjour, and more!</value>
-  </data>
-  <data name="WarningHeader" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="WarningText" xml:space="preserve">
-    <value>For Talk to work correctly this computer must be accessible for the other computers in the local network or from the internet and the {0}Server Name{1} must be a domain name or a local computer name (not an IP address), in case there is a local DNS server. This can be done setting the valid {0}Server Name{1} and {0}Server Address{1} with the help of {2}DNS Settings{3} option.</value>
   </data>
   <data name="YourStatusChanger" xml:space="preserve">
     <value>Status Changer</value>
@@ -238,9 +197,6 @@ Your User Name: {5}
   </data>
   <data name="Here" xml:space="preserve">
     <value>here</value>
-  </data>
-  <data name="IMClients" xml:space="preserve">
-    <value>IM Clients</value>
   </data>
   <data name="ProfilePage" xml:space="preserve">
     <value>Profile page</value>

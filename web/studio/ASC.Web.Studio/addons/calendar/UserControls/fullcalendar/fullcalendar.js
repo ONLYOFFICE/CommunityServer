@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -311,7 +302,7 @@ var defaults = function defaultsModule() {return {
 		    dialogButton_details:        "Details",
 			
 			// new option
-			dialogRepeatOption_custom:   "���������",
+			dialogRepeatOption_custom:   "настройка",
 			dialogHeader_createEvent: "Create new event",
 			dialogHeader_editEvent: "Edit event",
 			dialogHeader_viewEvent: "View event",
@@ -3433,7 +3424,40 @@ function CategoryDialog(calendar) {
 		$(document).unbind("keyup", _checkEscKey);
 		_dialog.popupFrame("close");
 		_icalStream.popupFrame("close");
-		_trigger.call(_this, "onClose", _elem, _source, changed, deleted);
+
+
+		var elem = _elem;
+		var source = _source;
+		if (configuration.isNewCalendar == 1 && configuration.isExportLink == 1 && configuration.isSyncWithCalendar == 1) {
+			var opt = calendar.options;
+			var categories = opt.categories;
+			var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
+			var newBg = fcUtil.parseCssColor(fcUtil.randomHex(false));
+			var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
+
+			elem = undefined;
+			source = {
+				title: _source.title,
+				textColor: _source.textColor,
+				backgroundColor: _source.backgroundColor,
+				borderColor: _source.borderColor,
+				isHidden: false,
+				events: [],
+				todos: [],
+				permissions: { users: [] },
+				defaultAlert: { type: 0 },
+				timeZone: $.extend({}, opt.defaultTimeZone),
+				iCalUrl: _source.iCalUrl
+			};
+		}
+
+        _trigger.call(
+            _this,
+            "onClose",
+            elem,
+            source,
+            changed,
+            deleted);
 	}
 	
 	function _closeIcalStream() {
@@ -4344,7 +4368,7 @@ function ManageSubscriptionsDialog(calendar) {
 				}
 			});
 
-			_dialog.find(".groups .scroll-area").jScrollPane();
+			//_dialog.find(".groups .scroll-area").jScrollPane();
 
 		}
 	}
@@ -4658,8 +4682,8 @@ function CategoriesList(calendar) {
 	    list.find(".my_calendars").removeClass('active');
 	    
 	    
-		var jsp = list.find(".categories").data("jsp");
-		var categ = jsp.getContentPane();
+
+		var categ = list.find(".categories");
 		categ.empty();
 		
 			for (var i = 0; i < sources.length; ++i) {
@@ -4681,7 +4705,7 @@ function CategoriesList(calendar) {
 			}
 		
 
-		jsp.reinitialise();
+		
 	}
 
 	function _renderSubscriptions(list) {
@@ -4693,8 +4717,8 @@ function CategoriesList(calendar) {
         //list.find(".subscr").removeClass('hidden');
         list.find(".other_calendars").removeClass('active');
 	    
-		var jsp = list.find(".subscr").data("jsp");
-		var subscr = jsp.getContentPane();
+		
+		var subscr = list.find(".subscr");
 		subscr.empty();
 		
 			for (var i = 0; i < sources.length; ++i) {
@@ -4712,7 +4736,7 @@ function CategoriesList(calendar) {
 				li.appendTo(subscr);
 			}
 		
-		jsp.reinitialise();
+		
 	}
 
 	function _renderList() {
@@ -4743,7 +4767,7 @@ function CategoriesList(calendar) {
 			    
 			    return false;
 			});
-			list.find(".categories, .subscr").jScrollPane();
+			//list.find(".categories, .subscr").jScrollPane();
 
 			list.find(".content-h.my_calendars").click(function () {
 			    $(this).toggleClass('active');
@@ -4796,7 +4820,7 @@ function CategoriesList(calendar) {
 		subscr.height(subscrH);
 
 		// make datepicker sticky
-		var pickerDiv = _content.find(".fc-catlist-picker").removeClass("fixed");
+		var pickerDiv = $('#calendarSidePanelCalendar').find(".fc-catlist-picker").removeClass("fixed");
 		var makeSticky =
 				pickerDiv.position().top + pickerDiv.outerHeight(true) > _content.height();
 		if (makeSticky) {
@@ -4832,13 +4856,13 @@ function CategoriesList(calendar) {
 	   
 		subscr.css("height", (newSubscrH - subscrSpace) + "px");
 
-		var categJSP = categ.data("jsp");
-		categJSP.reinitialise();
-		if (subscr.length) subscr.data("jsp").reinitialise();
+		//var categJSP = categ.data("jsp");
+		//categJSP.reinitialise();
+		//if (subscr.length) subscr.data("jsp").reinitialise();
 
-		if (scrollToEnd) {
-			categJSP.scrollToBottom();
-		}
+		//if (scrollToEnd) {
+		//	categJSP.scrollToBottom();
+		//}
 
 		_list.css("visibility", "visible");
 	    
@@ -5032,7 +5056,7 @@ function CategoriesList(calendar) {
 
 		$.cookie('fc_show_minicalendar', !show ? "0" : "1", {expires: 365});
 
-		var pickerDiv = _content.find(".fc-catlist-picker");
+		var pickerDiv = $("#calendarSidePanelCalendar .fc-catlist-picker");
 		var label = pickerDiv.find(".hide span");
 		if (show == false) {
 			if (_dpickerIsVisible) {
@@ -5048,7 +5072,7 @@ function CategoriesList(calendar) {
 			}
 		}
 
-		var pickerH = _content.find(".fc-catlist-picker").outerHeight(true);
+		var pickerH = $("#calendarSidePanelCalendar .fc-catlist-picker").outerHeight(true);
 		_list.css("bottom", pickerH + "px");
 		_resizeList.call(_this);
 	}
@@ -5147,8 +5171,9 @@ function CategoriesList(calendar) {
 	this.render = function() {
 		_list = _renderList.call(_this);
 		_content = $('<div class="fc-catlist asc-dialog"><div class="fc-modal"/></div>')
-				.append(_list)
-				.append(_renderDatepicker.call(_this));
+				.append(_list);
+	    
+		$('#calendarSidePanelCalendar').append(_renderDatepicker.call(_this));
 
 		_categoryDialog = new CategoryDialog(calendar);
 		_categoryDialog.setEventsHandlers({
@@ -6544,19 +6569,45 @@ function EventEditor(calendar, uiBlocker) {
 		    _dialog.find(".buttonGroup span.active").removeClass('active');
 		    currentBtn.addClass('active');
 		    
-		    var mode;
+			var mode;
+			var s = calendar.getEventSources();
 		    if (currentBtn.hasClass('event')) {
 		        _editMode = _editModes.event;
-		        mode = 'edit';
+				mode = 'edit';
+				var calendarId = _dialog.find(".editor .calendar select").val();
+				for (var i = 0; i < s.length; ++i) {
+					if (s[i].objectId == calendarId) {
+						_anchor.find(".fc-event-skin, .fc-event-skin-day")
+							.css("border-color", s[i].backgroundColor)
+							.css("background-color", s[i].backgroundColor)
+							.css("color", s[i].textColor);
+						$(_anchor.find(".fc-event-skin, .fc-event-skin-day")).parent()
+							.css("border-color", s[i].backgroundColor)
+							.css("background-color", s[i].backgroundColor)
+							.css("color", s[i].textColor);
+					}
+				}
 		    } else {
 		        _editMode = _editModes.todo;
-		        mode = 'todo';
+				mode = 'todo';
+				for (var i = 0; i < s.length; ++i) {
+					if (s[i].isTodo == 1) {
+						_anchor.find(".fc-event-skin, .fc-event-skin-day")
+							.css("border-color", s[i].backgroundColor)
+							.css("background-color", s[i].backgroundColor)
+							.css("color", s[i].textColor);
+						$(_anchor.find(".fc-event-skin, .fc-event-skin-day")).parent()
+							.css("border-color", s[i].backgroundColor)
+							.css("background-color", s[i].backgroundColor)
+							.css("color", s[i].textColor);
+                    }
+				}
 		    }
 		    _modes[mode].call(_this);
 	    }
 
 		_dialog.find(".buttonGroup span").click(function () {
-		    updateMode($(this));
+			updateMode($(this));
 		});
 		_dialog.find(".buttonGroup span").on('touchstart', function (e) {
 		    
@@ -6692,8 +6743,13 @@ function EventEditor(calendar, uiBlocker) {
 		//
 		_dialog.find(".editor .from-time, .editor .to-time").mask("00:00");
 		_dialog
-				.find(".editor .from-date, .editor .from-time, .editor .to-date, .editor .to-time")
-				.bind("keyup change", _validateDateFields);
+			.find(".editor .from-date, .editor .from-time, .editor .to-date, .editor .to-time")
+			.bind("keyup change", function (result) {
+				var r = _validateDateFields(result)
+				if (r && !($(result.currentTarget).hasClass('from-time') || $(result.currentTarget).hasClass('to-time'))) {
+					updateEditorView();
+				}
+			});
 	    //
 	    
 		_dialog.find(".editor .todo_editor .time").mask("00:00");
@@ -6713,7 +6769,7 @@ function EventEditor(calendar, uiBlocker) {
 			        _anchor
 			            .css("border-color", s[i].backgroundColor)
 			            .css("background-color", s[i].backgroundColor)
-			            .css("color", s[i].textColor);
+						.css("color", s[i].textColor);
 			        _anchor.find(".fc-event-skin, .fc-event-skin-day")
 			            .css("border-color", s[i].backgroundColor)
 			            .css("background-color", s[i].backgroundColor)
@@ -6733,7 +6789,54 @@ function EventEditor(calendar, uiBlocker) {
 		    });
 		}
 	}());
-	
+
+	function updateEditorView(isTodo) {
+		_close.call(_this, false);
+
+		var startStr = _dialog.find(".editor .from-date").val() + (_dialog.find(".editor .from-time").val() ? "T" + _dialog.find(".editor .from-time").val() : "T00:00:00");
+		var endStr = _dialog.find(".editor .to-date").val() + (_dialog.find(".editor .to-time").val() ? "T" + _dialog.find(".editor .to-time").val() : "T00:00:00");
+
+		var start = new Date(startStr);
+		var end = new Date(endStr);
+		var allDay = _dialog.find(".editor .all-day input").is(":checked");
+
+		_eventObj.title = _dialog.find('.title input').val();
+
+		_eventObj.start = start;
+		_eventObj._start = start;
+		_eventObj.end = isTodo ? start : end;
+		_eventObj._end =  isTodo ? start : end;
+
+		_eventObj.allDay = !isTodo ? allDay : true;
+		_eventObj.location = _dialog.find(".editor .location input").val();
+
+		var s = calendar.getEventSources();
+		if (_dialog.find(".editor .calendar select").val() == null && !isTodo) {
+			_eventObj.afretResizeSource = s[2];
+			_eventObj.textColor = s[2].textColor;
+			_eventObj.backgroundColor = s[2].backgroundColor;
+			_eventObj.borderColor = s[2].borderColor;
+		} else {
+			for (var i = 0; i < s.length; ++i) {
+				if (s[i].objectId == _dialog.find(".editor .calendar select").val() && !isTodo) {
+					_eventObj.afretResizeSource = s[i];
+					_eventObj.textColor = s[i].textColor;
+					_eventObj.backgroundColor = s[i].backgroundColor;
+					_eventObj.borderColor = s[i].borderColor;
+				} else if (isTodo && s[i].isTodo == 1) {
+					_eventObj.afretResizeSource = s[i];
+					_eventObj.textColor = s[i].textColor;
+					_eventObj.backgroundColor = s[i].backgroundColor;
+					_eventObj.borderColor = s[i].borderColor;
+				}
+			}
+        }
+		
+
+		calendar.renderEvent(_eventObj);
+		_open.call(_this, "addPopup", calendar.getView().getEventElement(_eventObj), _eventObj);
+	}
+
 	function _showDaySections(){
 		_settings.find(".fc-days-week").addClass("hidden");
 		_settings.find(".fc-month-radio").addClass("hidden");
@@ -7151,13 +7254,15 @@ function EventEditor(calendar, uiBlocker) {
 	}
 	
 	function _editMode() {
-	    _resetMode.call(_this);
+		_resetMode.call(_this);
+		updateEditorView(false);
 	    _dialog.addClass("edit-popup");
 	    _dialog.find('.title input').focus();
 	}
 
 	function _todoMode() {
-	    _resetMode.call(_this);
+		_resetMode.call(_this);
+		updateEditorView(true);
 	    _dialog.addClass("edit-popup todo-popup");
 	    _dialog.find('.title input').focus();
 	}
@@ -7533,6 +7638,11 @@ function EventEditor(calendar, uiBlocker) {
 			_dialog.find(".buttons").addClass("shared");
 		} else {
 			_dialog.find(".buttons").removeClass("shared");
+		}
+		if (eventObj.allDay && (eventObj.start == eventObj.end || eventObj.end == null)) {
+			_dialog.find(".viewer .date-time .right").hide();
+		} else {
+			_dialog.find(".viewer .date-time .right").show();
 		}
 
 		_doDDX.call(_this);
@@ -8089,49 +8199,56 @@ function EventEditor(calendar, uiBlocker) {
 		dlg.from_t.css("color", "").css("border-color", frtc);
 		dlg.to.css("color", "").css("border-color", toc);
 		dlg.to_t.css("color", "").css("border-color", totc);
-	    
-		if ($(this).hasClass('from-time') || $(this).hasClass('from-date')) {
 
-		    var oldTime = new Date(Date.parse(_eventObj._start ? _eventObj._start : _eventObj.start));
-		    var newTime = new Date(Date.parse(frDate.dateTime));
-            
-		    if (changeTimeFrom != null) {
-		        oldTime = changeTimeFrom;
-		    }
-            
-		    var diff = newTime.getTime() - oldTime.getTime();
-		    if (diff != NaN && diff != 0) {
+		if (result) {
+			if ($(result.currentTarget).hasClass('from-time') || $(result.currentTarget).hasClass('from-date')) {
+				var oldTime = new Date(Date.parse(_eventObj._start ? _eventObj._start : _eventObj.start));
+				var newTime = new Date(Date.parse(frDate.dateTime));
 
-		        var date = new Date();
-		        date.setTime(Date.parse(toDate.dateTime) + diff);
+				if (changeTimeFrom != null) {
+					oldTime = changeTimeFrom;
+				}
 
-		        if (date != 'Invalid Date') {
-		            toDate.dateTime.setTime(Date.parse(toDate.dateTime) + diff);
+				var diff = newTime.getTime() - oldTime.getTime();
+				if (diff != NaN && diff != 0) {
 
-		            changeTimeFrom = newTime;
+					var date = new Date();
+					date.setTime(Date.parse(toDate.dateTime) + diff);
 
-		            if ($(this).hasClass('from-time')) {
-		                var time =
-                            (toDate.dateTime.getHours() < 10 ? '0' + toDate.dateTime.getHours() : toDate.dateTime.getHours())
-                            + ":" +
-                            (toDate.dateTime.getMinutes() < 10 ? '0' + toDate.dateTime.getMinutes() : toDate.dateTime.getMinutes());
-		                
-		                toDate.time.value = time;
-		                dlg.to_t[0].value = time;
-                        
-		            } else if ($(this).hasClass('from-date')) {
-                        
-		                var newDate = date.getFullYear() + '-'
-                           + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
-                           + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
-                       
-		                toDate.date.value = newDate;
-		                dlg.to[0].value = newDate;
-		            }
-		            _validateDateFields.call(_this);
-		        }
-		    }
-		}
+					if (date != 'Invalid Date') {
+						toDate.dateTime.setTime(Date.parse(toDate.dateTime) + diff);
+
+						changeTimeFrom = newTime;
+
+						if ($(result.currentTarget).hasClass('from-time')) {
+							var time =
+								(toDate.dateTime.getHours() < 10 ? '0' + toDate.dateTime.getHours() : toDate.dateTime.getHours())
+								+ ":" +
+								(toDate.dateTime.getMinutes() < 10 ? '0' + toDate.dateTime.getMinutes() : toDate.dateTime.getMinutes());
+							var newDate = date.getFullYear() + '-'
+								+ ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
+								+ (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+							toDate.date.value = newDate;
+							toDate.time.value = time;
+
+							dlg.to[0].value = newDate;
+							dlg.to_t[0].value = time;
+
+						} else if ($(result.currentTarget).hasClass('from-date')) {
+
+							var newDate = date.getFullYear() + '-'
+								+ ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
+								+ (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+
+							toDate.date.value = newDate;
+							dlg.to[0].value = newDate;
+						}
+						_validateDateFields.call(_this);
+					}
+				}
+            }
+        }
+		
 
 		if (result != undefined) {
 			result.fromDate = frDate;
@@ -8836,7 +8953,8 @@ function EventEditor(calendar, uiBlocker) {
 						if (response.event.length < 1) {return;}
 						//
 						var sources = calendar.getEventSources();
-						calendar.removeEvents(response.event[0].objectId);
+						if (response.event[0])
+							calendar.removeEvents(response.event[0].objectId);
 						for (var j = 0; j < response.event.length; ++j) {
 							_setEventSource(response.event[j], sources);
 						}
@@ -8856,7 +8974,8 @@ function EventEditor(calendar, uiBlocker) {
 						if (response.event.length < 1) {return;}
 						//
 						var sources = calendar.getEventSources();
-						calendar.removeEvents(response.event[0].objectId);
+						if (response.event[0])
+							calendar.removeEvents(response.event[0].objectId);
 						for (var j = 0; j < response.event.length; ++j) {
 							_setEventSource(response.event[j], sources);
 						}
@@ -9168,7 +9287,7 @@ function EventPage(calendar) {
             selector.append(option);
         });
 
-        selector.tlcombobox();
+        selector.tlcombobox({ align: "left" });
 
         uiBlocker = _dialog.find(".fc-modal");
 
@@ -9388,7 +9507,7 @@ function EventPage(calendar) {
             fcUtil.validateInput(this, fcUtil.validateNonemptyString);
         });
         
-        _dialog.find(".editor .attendees input").AttendeesSelector("init", {
+        _dialog.find(".editor .attendees input.textEdit").AttendeesSelector("init", {
             isInPopup: false,
             items: [],
             container: _dialog.find(".editor .attendees .attendees-user-list"),
@@ -9402,7 +9521,7 @@ function EventPage(calendar) {
 
         _dialog.find(".editor .owner select").on("change", function() {
             var email = jq(this).val();
-            var attendeeSelector = _dialog.find(".editor .attendees input");
+            var attendeeSelector = _dialog.find(".editor .attendees input.textEdit");
             var attendees = attendeeSelector.AttendeesSelector("get");
             var redraw = false;
 
@@ -11452,7 +11571,16 @@ function EventPage(calendar) {
             options = '<option value="' + htmlEscape(calVal) + '" title="' + calT + '">' +
 					'&nbsp;&nbsp;&nbsp;&nbsp;' +      // for select elem padding does not work in safari
 					calT + '</option>';
-            dlg.editor.calendar.attr("disabled", "disabled");
+			dlg.editor.calendar.attr("disabled", "disabled");
+
+			var wrapper = $(dlg.viewer.calendar[0].parentElement)
+			if (wrapper) {
+				var halfwidth = $(wrapper)[0].parentElement;
+				if (halfwidth) {
+					$(halfwidth).addClass("readonly")
+				}
+			}
+
         }
 
         dlg.editor.calendar.html(options);
@@ -12847,7 +12975,8 @@ function getSkinCss(event, opt, curView) {
 			(!(event.end instanceof Date) ||
 			event.end.getFullYear() == event.start.getFullYear() &&
 			event.end.getMonth() == event.start.getMonth() &&
-			event.end.getDate() == event.start.getDate());
+			((event.end.getDate() == event.start.getDate()) || (event.end.getDate() - event.start.getDate() == 1 && event.end.getHours() == 0 && event.end.getMinutes() == 0)));
+
 	var backgroundColor = isShort ? 'transparent' : (
 		event.backgroundColor ||
 		eventColor ||
@@ -15341,7 +15470,7 @@ function AgendaEventRenderer() {
 				width = Math.max(0, seg.outerWidth - seg.hsides);
 				height = Math.max(0, seg.outerHeight - seg.vsides);
 				eventElement[0].style.width = width + 'px';
-				eventElement[0].style.height = height + 'px';
+				eventElement[0].style.height = height > 0 ? height + 'px' : 'auto';
 				// set height of event-content
 				contentElement = eventElement.find('.fc-event-content');
 				cheight = height -

@@ -47,10 +47,10 @@ ASC.Web.Studio.dll</code></pre>
             <li>
                 <p class="none">
                     After the build run the website at the <span class="bg">localhost:port</span> address,
-                    go to the "Modules & Tools" Settings page (<span class="bg">http://localhost:port/management.aspx?type=2</span>)
+                    go to the "Modules & Tools" Settings page (<span class="bg">http://localhost:port/Management.aspx?type=2</span>)
                     and enable the new Sample module.
                     It will be available in the portal header drop-down menu afterwards
-                    or using the direct link: http://localhost:port/products/sample/default.aspx
+                    or using the direct link: http://localhost:port/Products/Sample/Default.aspx
                 </p>
             </li>
         </ol>

@@ -1,5 +1,5 @@
 ﻿<script id="tagViewTmpl" type="text/x-jquery-tmpl">
-    <div id="tagContainer">
+    <div id="tagContainer" class="${$data.containerClass || ''}">
         ${( $data.readonly = $data.readonly || false ),''}
         {{if !readonly }}
         <span>
@@ -55,7 +55,7 @@
         </td>
         <td class="title">
             {{if contact != null && contact.id != ASC.CRM.HistoryView.ContactID}}
-                <a class="link underline gray" href="default.aspx?id=${contact.id}">${contact.displayName}</a>
+                <a class="link underline gray" href="Default.aspx?id=${contact.id}">${contact.displayName}</a>
                 {{if entity != null && entity.entityId != ASC.CRM.HistoryView.EntityID}}
                     &nbsp;/&nbsp;
                 {{/if}}
@@ -68,7 +68,7 @@
             {{if typeof message != "undefined" && message != null}}
             <div>
                 ${ASC.CRM.Resources.CRMCommonResource.TheEmail}
-                "<a class="link historyEventMailSubj" href="mailviewer.aspx?id=${id}" target="_blank">${content}</a>"
+                "<a class="link historyEventMailSubj" href="MailViewer.aspx?id=${id}" target="_blank">${content}</a>"
                 {{if message.is_sended === true}}
                 ${ASC.CRM.Resources.CRMCommonResource.HistoryEventOutboxMail}
                 {{else}}
@@ -214,7 +214,7 @@
 <script id="categorySelectorTemplate" type="text/x-jquery-tmpl">
     <div id="${jsObjName}">
         {{if typeof helpInfoText != "undefined" && helpInfoText != ""}}
-        <div style="float: left;">
+        <div style="float: left;position: relative;">
         {{/if}}
 
         {{if jq.browser.mobile === true}}

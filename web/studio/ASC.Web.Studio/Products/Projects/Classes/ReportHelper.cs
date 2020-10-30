@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -44,6 +35,7 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 
 using Autofac;
+
 using Newtonsoft.Json;
 
 
@@ -194,7 +186,7 @@ namespace ASC.Web.Projects.Classes
                 state.Status = ReportStatus.Failed;
                 return false;
             }
-            
+
             DocbuilderReportsUtility.Enqueue(state);
 
             return true;
@@ -254,8 +246,8 @@ namespace ASC.Web.Projects.Classes
 
     public abstract class ExtendedReportType
     {
-        public ReportType ReportType {get; private set; }
-        
+        public ReportType ReportType { get; private set; }
+
         public abstract string[] ColumnsName { get; }
 
         public abstract ReportInfo ReportInfo { get; }
@@ -312,7 +304,7 @@ namespace ASC.Web.Projects.Classes
                     .OrderBy(r => r.Project.Title)
                     .Select(r => new object[]
                     {
-                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false), 
+                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false),
                         r.Title, CoreContext.UserManager.GetUsers(r.Responsible).DisplayUserName(false), r.DeadLine.ToString("d"),
                         (int)((DateTime.Now - r.DeadLine).TotalDays)
                     });
@@ -396,7 +388,7 @@ namespace ASC.Web.Projects.Classes
                     .Where(r => ((r.DeadLine - DateTime.Now).TotalDays) > 0)
                     .Select(r => new object[]
                     {
-                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false), 
+                        r.Project.Title, CoreContext.UserManager.GetUsers(r.Project.Responsible).DisplayUserName(false),
                         r.Title, CoreContext.UserManager.GetUsers(r.Responsible).DisplayUserName(false), r.DeadLine.ToString("d"),
                         (int)((r.DeadLine - DateTime.Now).TotalDays)
                     });
@@ -541,7 +533,7 @@ namespace ASC.Web.Projects.Classes
         {
             get
             {
-                return new ReportInfo(String.Format(ReportResource.ReportProjectsWithoutActiveMilestones_Description, "<ul>", "</ul>","<li>", "</li>"),
+                return new ReportInfo(String.Format(ReportResource.ReportProjectsWithoutActiveMilestones_Description, "<ul>", "</ul>", "<li>", "</li>"),
                     ReportResource.ReportProjectsWithoutActiveMilestones_Title,
                     ProjColumns);
             }
@@ -649,8 +641,8 @@ namespace ASC.Web.Projects.Classes
                 var result = new List<object[]>();
 
                 foreach (var proj in projects)
-                    result.Add(new object[] { 
-                        new object[] { proj.Title, LocalizedEnumConverter.ConvertToString(proj.Status), 
+                    result.Add(new object[] {
+                        new object[] { proj.Title, LocalizedEnumConverter.ConvertToString(proj.Status),
                             CoreContext.UserManager.GetUsers(proj.Responsible).DisplayUserName(false), proj.CreateOn.ToString("d"), proj.Description },
                         tasks.Where(r => r.Project.ID == proj.ID).Select(r => new object[]
                         {
@@ -770,7 +762,7 @@ namespace ASC.Web.Projects.Classes
 
                 var result = new List<object[]>();
 
-                var users = tasks.SelectMany(r => r.Responsibles).Distinct();
+                var users = filter.ParticipantId.HasValue ? new List<Guid> { filter.ParticipantId.Value } : tasks.SelectMany(r => r.Responsibles).Distinct();
                 foreach (var user in users)
                 {
                     var userTasks = tasks.Where(r => r.Responsibles.Contains(user));
@@ -782,7 +774,7 @@ namespace ASC.Web.Projects.Classes
                         projData.Add(new object[] { pr.Title, CoreContext.UserManager.GetUsers(pr.Responsible).DisplayUserName(false),
                         prTasks.Select(r => new object[] { r.Title,
                             r.Deadline.Equals(DateTime.MinValue) ? ( r.MilestoneDesc == null ? "" : r.MilestoneDesc.DeadLine.ToString("d") ) : r.Deadline.ToString("d"),
-                            LocalizedEnumConverter.ConvertToString(r.Status), 
+                            LocalizedEnumConverter.ConvertToString(r.Status),
                             LocalizedEnumConverter.ConvertToString(r.Priority), r.StartDate.Equals(DateTime.MinValue) ? "" : r.StartDate.ToString("d") })});
                     }
 
@@ -839,7 +831,7 @@ namespace ASC.Web.Projects.Classes
                 var result = new List<object[]>();
 
                 foreach (var pr in projects)
-                    result.Add(new object[] { pr.Title, CoreContext.UserManager.GetUsers(pr.Responsible).DisplayUserName(false), 
+                    result.Add(new object[] { pr.Title, CoreContext.UserManager.GetUsers(pr.Responsible).DisplayUserName(false),
                         tasks.Where(r => r.Project.ID == pr.ID).Select(r => new object[]
                 {
                     r.Title,
@@ -1065,7 +1057,7 @@ namespace ASC.Web.Projects.Classes
                             .Select(r =>
                                 new object[]
                                 {
-                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false),
                                     r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : ""
                                 });
 
@@ -1084,8 +1076,8 @@ namespace ASC.Web.Projects.Classes
                             .Select(r =>
                                 new object[]
                                 {
-                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
-                                    r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : "", 
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false),
+                                    r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : "",
                                     r.Task.Project, r.Task.Title
                                 });
 
@@ -1107,7 +1099,7 @@ namespace ASC.Web.Projects.Classes
                             var groupedUserTasks = userTasks.GroupBy(x => x[4]).Select(r => new object[] {
                             new object[] { ((Project)r.Key).Title, ProjectsCommonResource.Status + ": " + LocalizedEnumConverter.ConvertToString(((Project)r.Key).Status),
                             ProjectResource.ProjectLeader + ": " + CoreContext.UserManager.GetUsers(((Project)r.Key).Responsible).DisplayUserName(false),
-                            TaskResource.CreatingDate + ": " + ((Project)r.Key).CreateOn.ToString("d"), 
+                            TaskResource.CreatingDate + ": " + ((Project)r.Key).CreateOn.ToString("d"),
                             ((Project)r.Key).Description != "" ? ProjectsCommonResource.Description + ": " + ((Project)r.Key).Description : ""
                             }, r.ToList().Select(y => new object[] { y[0], y[1], y[2], y[3], y[5] } )});
 
@@ -1121,7 +1113,7 @@ namespace ASC.Web.Projects.Classes
                             .Select(r =>
                                 new object[]
                                 {
-                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false), 
+                                    CoreContext.UserManager.GetUsers(r.Person).DisplayUserName(false),
                                     r.Hours, 0, r.PaymentStatus, r.PaymentStatus == PaymentStatus.NotChargeable ? "+" : "",
                                     r.Task.Project.Title
                                 });
@@ -1250,12 +1242,12 @@ namespace ASC.Web.Projects.Classes
 
         public override string[] ColumnsName
         {
-            get { return new[] {ProjectsCommonResource.NoData}; }
+            get { return new[] { ProjectsCommonResource.NoData }; }
         }
 
         public override ReportInfo ReportInfo
         {
-            get { return new ReportInfo("", "", new[] {ProjectsCommonResource.NoData}); }
+            get { return new ReportInfo("", "", new[] { ProjectsCommonResource.NoData }); }
         }
 
         public override string ReportFileName

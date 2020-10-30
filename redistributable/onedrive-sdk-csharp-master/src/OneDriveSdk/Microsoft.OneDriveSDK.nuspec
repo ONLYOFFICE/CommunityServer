@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.OneDriveSDK</id>
+    <version>2.0.7.5</version>
+    <title>OneDrive .NET SDK</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Integrate the OneDrive API into your .NET App!</description>
+    <copyright>Copyright 2016 Microsoft Corporation</copyright>
+    <projectUrl>https://github.com/OneDrive/onedrive-sdk-csharp</projectUrl>
+    <licenseUrl>http://msdn.microsoft.com/en-US/cc300389</licenseUrl>
+    <iconUrl>https://dev.onedrive.com/images/OneDriveCloud.png</iconUrl>
+    <tags>onedrive sharepoint files livesdk liveconnect cloud storage microsoftaccount windowsliveid microsoftid windowsphone windowsstore metro xaml html</tags>
+    <dependencies>
+      <group>
+        <dependency id="Microsoft.Graph.Core" version="1.20.1.4" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

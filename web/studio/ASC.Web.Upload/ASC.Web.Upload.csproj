@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{69393DCE-0B48-40F6-908F-B30BDBDD9A79}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Upload</RootNamespace>
+    <AssemblyName>ASC.Web.Upload</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.appsettings.config" />
+    <Content Include="web.autofac.config" />
+    <Content Include="Web.config" />
+    <Content Include="web.connections.config" />
+    <Content Include="web.consumers.config" />
+    <Content Include="web.log4net.config" />
+    <Content Include="web.nlog.config" />
+    <Content Include="web.storage.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="crossdomain.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Files.Thirdparty\ASC.Files.Thirdparty.csproj">
+      <Project>{d51d3e43-6047-45dd-a0fa-321ce7c3885b}</Project>
+      <Name>ASC.Files.Thirdparty</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
+      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
+      <Name>ASC.Web.CRM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
+      <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
+      <Name>ASC.Web.Projects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4983</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <ItemGroup>
+    <PackageReference Include="AjaxPro.2">
+      <Version>2.9.17.2</Version>
+    </PackageReference>
+    <PackageReference Include="AppLimit.CloudComputing.SharpBox">
+      <Version>1.1.0.452</Version>
+    </PackageReference>
+    <PackageReference Include="Autofac">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="BouncyCastle-PCL">
+      <Version>1.0.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Box.V2">
+      <Version>3.23.0</Version>
+    </PackageReference>
+    <PackageReference Include="Dropbox.Api">
+      <Version>4.9.4</Version>
+    </PackageReference>
+    <PackageReference Include="dotless.Core">
+      <Version>1.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="MySql.Data">
+      <Version>8.0.19</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Nito.AsyncEx">
+      <Version>2.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="SelectelSharp">
+      <Version>0.8.5</Version>
+    </PackageReference>
+    <PackageReference Include="SSH.NET">
+      <Version>2016.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="UAParser">
+      <Version>3.1.44</Version>
+    </PackageReference>
+    <PackageReference Include="Ubiety.Dns.Core">
+      <Version>2.4.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
+</Project>

@@ -139,28 +139,12 @@
                     <span class="name"></span>
 		        </div>
 	        </div>
-	
-	        <!-- show iCal url -->
-	        <div class="ical-saved-url">
-		        <div class="ical-label">${dialogSavediCalLabel}</div>
-		        <span class="saved-url-link"></span>
-	        </div>
+
 	        <div class="shared-list"/>
-	
-	        <!-- get/set iCal stream -->
-	        <div class="ical">
-		        <!--<div class="ical-logo"></div> -->
-		        <div class="ical-selectors">
-			       <!-- <span class="ical-label">${dialogImportExportLabel}</span> -->
-			        <div class="ical-import">
-				        <span id="ical-browse-btn-subs" class="ical-link">${dialogImportLabel}</span>&nbsp;&nbsp;
-				        <span class="ical-file-selected">${fileNotSelected}</span>
-			        </div>
-			        <div class="ical-export">
-				        <span class="ical-link">${dialogExportLink}</span>
-			        </div>
-		        </div>
-	        </div>
+			<div class="ical-export">
+				<span class="ical-link">${dialogExportLink}</span>
+			</div>
+
 	        <div class="buttons">
 		        <a class="button blue middle save-btn" href="#">${dialogButtonSave}</a>
 		        <a class="button gray middle cancel-btn" href="#">${dialogButtonCancel}</a>
@@ -253,11 +237,7 @@
 				        <span class="repeat"></span>
 			        </div>
 		        </div>
-		        <div class="shared-list"  style="display: none !important;">
-			        <div class="no-label">${dialogSharingNoText}</div>
-			        <div class="yes-label">${dialogSharingYesText}</div>
-			        <div class="users-list"></div>
-		        </div>
+
 		        <div class="calendar-status">
 			        <div class="calendar" style="width: 100%; padding: 0;">
                         <div class="label">${dialogCalendarLabel}</div>
@@ -338,7 +318,7 @@
 				        </span>
 			        </div>
 		        </div>
-		        <div class="shared-list" style="display: none !important;"></div>
+
 		        <div class="calendar-status">
 			        <div class="calendar" style="width: 46%; padding: 0;">
                         <div class="label">${dialogCalendarLabel}</div>
@@ -725,7 +705,7 @@
                             <div class="halfwidth">
                                 <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_calendarLabel%></div>
                                 <div class="wrapper">
-				                    <span class="bullet">&#9632;</span>
+				                    <span class="bullet"></span>
                                     <span class="name"></span>
 			                    </div>
                             </div>
@@ -935,7 +915,7 @@
                             </div>
                             <div class="users-list attendees-user-list"></div>
                             <div class="attendees-noaccount">
-                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/default.aspx") %>">
+                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/Default.aspx") %>">
                                     <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
                                 </a>
                                 <%=Resources.CalendarJSResource.attendeesNoAccountText%>

@@ -100,11 +100,29 @@ namespace ASC.Web.Community.Forum.Core.Module {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community. New post in forum topic: [$TopicTitle]($PostURL).
+        /// </summary>
+        public static string subject_PostInTopicEmailPattern_tg {
+            get {
+                return ResourceManager.GetString("subject_PostInTopicEmailPattern_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. New topic in forums: $TopicTitle.
         /// </summary>
         public static string subject_TopicInForumEmailPattern {
             get {
                 return ResourceManager.GetString("subject_TopicInForumEmailPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. New topic in forums: [$TopicTitle]($PostURL).
+        /// </summary>
+        public static string subject_TopicInForumEmailPattern_tg {
+            get {
+                return ResourceManager.GetString("subject_TopicInForumEmailPattern_tg", resourceCulture);
             }
         }
     }

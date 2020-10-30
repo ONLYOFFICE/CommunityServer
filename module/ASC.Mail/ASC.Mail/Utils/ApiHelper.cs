@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -33,7 +24,6 @@ using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Web;
-using System.Web.Configuration;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -54,24 +44,25 @@ namespace ASC.Mail.Utils
     {
         private const int MAIL_CRM_HISTORY_CATEGORY = -3;
         private const string ERR_MESSAGE = "Error retrieving response. Check inner details for more info.";
-        private Cookie _cookie;
         private readonly ILog _log;
 
         public string Scheme { get; private set; }
 
         public UriBuilder BaseUrl { get; private set; }
 
+        public string Token { get; set; }
+
         /// <summary>
         /// Constructor of class ApiHelper
         /// </summary>
         /// <param name="scheme">Uri.UriSchemeHttps or Uri.UriSchemeHttp</param>
         /// <exception cref="ApiHelperException">Exception happens when scheme is invalid.</exception>>
-        public ApiHelper(string scheme)
+        public ApiHelper(string scheme, ILog log = null)
         {
             if (!scheme.Equals(Uri.UriSchemeHttps) && !scheme.Equals(Uri.UriSchemeHttp))
                 throw new ApiHelperException("ApiHelper: url scheme not setup", HttpStatusCode.InternalServerError, "");
 
-            _log = LogManager.GetLogger("ASC.Api");
+            _log = log ?? LogManager.GetLogger("ASC.Mail.ApiHelper");
 
             Scheme = scheme;
 
@@ -88,7 +79,7 @@ namespace ASC.Mail.Utils
 
             var user = SecurityContext.CurrentAccount;
 
-            _log.DebugFormat("ApiHelper->Setup: Tenant={0} User='{1}' IsAuthenticated={2} Scheme='{3}' HttpContext is {4}",
+            _log.DebugFormat("Tenant={0} User='{1}' IsAuthenticated={2} Scheme='{3}' HttpContext is {4}",
                       tenant.TenantId, user.ID, user.IsAuthenticated, Scheme,
                       HttpContext.Current != null
                           ? string.Format("not null and UrlRewriter = {0}, RequestUrl = {1}", HttpContext.Current.Request.GetUrlRewriter(), HttpContext.Current.Request.Url)
@@ -97,11 +88,7 @@ namespace ASC.Mail.Utils
             if (!user.IsAuthenticated)
                 throw new AuthenticationException("User not authenticated");
 
-            var hs = new HostedSolution(ConfigurationManager.ConnectionStrings["default"]);
-
-            var authenticationCookie = hs.CreateAuthenticationCookie(tenant.TenantId, user.ID);
-
-            var tempUrl = (WebConfigurationManager.AppSettings["api.url"] ?? "").Trim('~', '/');
+            var tempUrl = Defines.ApiPrefix;
 
             var ubBase = new UriBuilder
             {
@@ -109,37 +96,34 @@ namespace ASC.Mail.Utils
                 Host = tenant.GetTenantDomain(false)
             };
 
-            var virtualDir = WebConfigurationManager.AppSettings["api.virtual-dir"];
+            if (!string.IsNullOrEmpty(Defines.ApiVirtualDirPrefix))
+                tempUrl = string.Format("{0}/{1}", Defines.ApiVirtualDirPrefix, tempUrl);
 
-            if (!string.IsNullOrEmpty(virtualDir))
-                tempUrl = string.Format("{0}/{1}", virtualDir.Trim('/'), tempUrl);
+            if (!string.IsNullOrEmpty(Defines.ApiHost))
+                ubBase.Host = Defines.ApiHost;
 
-            var host = WebConfigurationManager.AppSettings["api.host"];
-
-            if (!string.IsNullOrEmpty(host))
-                ubBase.Host = host;
-
-            var port = WebConfigurationManager.AppSettings["api.port"];
-
-            if (!string.IsNullOrEmpty(port))
-                ubBase.Port = int.Parse(port);
+            if (!string.IsNullOrEmpty(Defines.ApiPort))
+                ubBase.Port = int.Parse(Defines.ApiPort);
 
             ubBase.Path = tempUrl;
 
             BaseUrl = ubBase;
 
-            _cookie = new Cookie("asc_auth_key", authenticationCookie, "/", BaseUrl.Host);
+            Token = SecurityContext.AuthenticateMe(user.ID);
         }
 
         public IRestResponse Execute(RestRequest request)
         {
             Setup();
 
-            _log.DebugFormat("ApiHelper->Execute: request url: {0}/{1}", BaseUrl.Uri.ToString(), request.Resource);
+            _log.DebugFormat("Execute request url: baseUrl='{0}' resourceUrl='{1}' token='{2}'", 
+                BaseUrl.Uri.ToString(), 
+                request.Resource,
+                Token);
 
             var client = new RestClient { BaseUrl = BaseUrl.Uri };
 
-            request.AddCookie(_cookie.Name, _cookie.Value);
+            request.AddHeader("Authorization", Token);
 
             var response = client.ExecuteSafe(request);
 

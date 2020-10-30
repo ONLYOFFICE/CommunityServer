@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Documents</RootNamespace>
     <AssemblyName>ASC.Api.Documents</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
@@ -34,7 +34,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -43,24 +43,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EncryptionApi.cs" />
     <Compile Include="DocumentsApi.cs" />
     <Compile Include="FileEntryWrapper.cs" />
     <Compile Include="FileShareParams.cs" />
@@ -69,6 +51,7 @@
     <Compile Include="FolderContentWrapper.cs" />
     <Compile Include="FileOperationWraper.cs" />
     <Compile Include="FolderWrapper.cs" />
+    <Compile Include="PrivacyRoomApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +70,10 @@
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
@@ -112,6 +99,14 @@
       <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
       <Name>ASC.Specific</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

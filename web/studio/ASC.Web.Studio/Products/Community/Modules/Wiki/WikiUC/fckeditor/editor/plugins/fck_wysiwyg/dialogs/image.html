@@ -159,10 +159,10 @@ function LoadSelection()
 		}
 		
 		
-		GetE('txtUrl').value = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[0]);
+		GetE('txtUrl').value = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[0], true);
 		//There is mistake. We neet to Coption title? not alt.
-		//GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[1]);
-		GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[6]);
+		//GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[1], true);
+		GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[6], true);
 		
 		if(wikiInfo.split(':')[3] == 1)
 			GetE('xType').value		= 'thumb';

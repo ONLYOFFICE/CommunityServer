@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -33,6 +24,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Common.Logging;
 using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
@@ -122,7 +114,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region Restore default
 
-        public void RestoreDefault()
+        public void RestoreDefault(int tenantId, IDataStore storage = null)
         {
             _logoLightSmallExt = null;
             _logoDarkExt = null;
@@ -136,8 +128,7 @@ namespace ASC.Web.Core.WhiteLabel
 
             LogoText = null;
 
-            var tenantId = TenantProvider.CurrentTenantID;
-            var store = StorageFactory.GetStorage(tenantId.ToString(), moduleName);
+            var store = storage ?? StorageFactory.GetStorage(tenantId.ToString(), moduleName);
             try
             {
                 store.DeleteFiles("", "*", false);
@@ -171,9 +162,9 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region Set logo
 
-        public void SetLogo(WhiteLabelLogoTypeEnum type, string logoFileExt, byte[] data)
+        public void SetLogo(WhiteLabelLogoTypeEnum type, string logoFileExt, byte[] data, IDataStore storage = null)
         {
-            var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), moduleName);
+            var store = storage ?? StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), moduleName);
 
             #region delete from storage if already exists
 
@@ -210,7 +201,7 @@ namespace ASC.Web.Core.WhiteLabel
             ResizeLogo(type, generalFileName, data, -1, generalSize, store);
         }
 
-        public void SetLogo(Dictionary<int, string> logo)
+        public void SetLogo(Dictionary<int, string> logo, IDataStore storage = null)
         {
             var xStart = @"data:image/png;base64,";
 
@@ -246,13 +237,13 @@ namespace ASC.Web.Core.WhiteLabel
 
                     if (data != null)
                     {
-                        SetLogo(currentLogoType, fileExt, data);
+                        SetLogo(currentLogoType, fileExt, data, storage);
                     }
                 }
             }
         }
 
-        public void SetLogoFromStream(WhiteLabelLogoTypeEnum type, string fileExt, Stream fileStream)
+        public void SetLogoFromStream(WhiteLabelLogoTypeEnum type, string fileExt, Stream fileStream, IDataStore storage = null)
         {
             byte[] data = null;
             using(var memoryStream = new MemoryStream())
@@ -263,7 +254,7 @@ namespace ASC.Web.Core.WhiteLabel
 
             if (data != null)
             {
-                SetLogo(type, fileExt, data);
+                SetLogo(type, fileExt, data, storage);
             }
         }
 
@@ -540,19 +531,29 @@ namespace ASC.Web.Core.WhiteLabel
         public void Save(int tenantId, bool restore = false)
         {
             SaveForTenant(tenantId);
-            SetNewLogoText(tenantId, restore);
 
-            TenantLogoManager.RemoveMailLogoDataFromCache();
+            if (tenantId == Tenant.DEFAULT_TENANT)
+            {
+                AppliedTenants.Clear();
+            }
+            else
+            {
+                SetNewLogoText(tenantId, restore);
+                TenantLogoManager.RemoveMailLogoDataFromCache();
+            }
         }
 
         private void SetNewLogoText(int tenantId, bool restore = false)
         {
             WhiteLabelHelper.DefaultLogoText = DefaultLogoText;
-            if (restore && !ASC.Core.CoreContext.Configuration.CustomMode)
+
+            var partnerSettings = LoadForDefaultTenant();
+
+            if (restore && String.IsNullOrEmpty(partnerSettings._logoText))
             {
                 WhiteLabelHelper.RestoreOldText(tenantId);
             }
-            else if(!string.IsNullOrEmpty(LogoText))
+            else
             {
                 WhiteLabelHelper.SetNewText(tenantId, LogoText);
             }

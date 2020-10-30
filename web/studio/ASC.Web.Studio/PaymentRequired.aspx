@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="PaymentRequired.aspx.cs" Inherits="ASC.Web.Studio.PaymentRequired" %>
+﻿<%@ Page MasterPageFile="~/Masters/BaseTemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="PaymentRequired.aspx.cs" Inherits="ASC.Web.Studio.PaymentRequired" %>
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
@@ -30,7 +30,7 @@
         <% if (!string.IsNullOrEmpty(Settings.BuyUrl))
            { %>
         <div class="license-section">
-            <span class="header-base"><%= UserControlsCommonResource.LicenseKeyBuyLabel %></span>
+            <span class="header-base"><%= UserControlsCommonResource.LicenseKeyBuyLabelV11 %></span>
         </div>
         <div><%= UserControlsCommonResource.HostedBuyDescr.HtmlEncode() %></div>
 
@@ -42,8 +42,8 @@
         <% if (!string.IsNullOrEmpty(Settings.SalesEmail))
            { %>
         <div class="license-questions">
-            <%= string.Format(UserControlsCommonResource.SalesQuestions,
-                              string.Format("<a href=\"mailto:{0}\" >{0}</a>", Settings.SalesEmail)) %>
+            <%= string.Format(UserControlsCommonResource.SalesQuestionsV11,
+                              string.Format("<a href=\"mailto:{0}\" class=\"link-black-12\">{0}</a>", Settings.SalesEmail)) %>
         </div>
         <% } %>
     </div>

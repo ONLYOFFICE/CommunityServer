@@ -9,7 +9,7 @@
 <%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>" data-email="<%= UserInfo.Email %>"></div>
+<div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>" data-email="<%= UserInfo.Email.HtmlEncode() %>"></div>
 <div class="userProfileCard clearFix<%= (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending) ? " pending" : "" %>">
     <div class="additionInfo">
         <div class="profile-user-photo <%= (UserInfo.IsMe() || IsAdmin) ? "" : "readonly" %>">
@@ -112,7 +112,7 @@
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.Password %>:</span>
                                 <span id="passwordUserProfile" class="field-value">********</span>
-                                <a onclick="PasswordTool.ShowPwdReminderDialog('1','<%= UserInfo.Email %>'); return false;" class="baseLinkAction">&nbsp;</a>
+                                <a onclick="PasswordTool.ShowPwdReminderDialog('1','<%= UserInfo.Email.HtmlEncode() %>'); return false;" class="baseLinkAction">&nbsp;</a>
                             </div>
                             <% } %>
 
@@ -167,7 +167,7 @@
                                 </span>
                                 <% if ((HappyBirthday == 0) && !UserInfo.IsMe() && (UserInfo.ActivationStatus.HasFlag(EmployeeActivationStatus.Activated)) && (UserInfo.Status == EmployeeStatus.Active))
                                    { %>
-                                <a target="_blank" href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + UserInfo.Email.ToLower()) %>"
+                                <a target="_blank" href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + HttpUtility.UrlEncode(UserInfo.Email)) %>"
                                     class="button gray"><%= Resource.CongratulateBirthday %></a>
                                 <% }
                                    } %>
@@ -180,7 +180,7 @@
                                 <span id="locationUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Location) %></span>
                             </div>
                             <% } %>
-                            <% if (AffiliateHelper.ButtonAvailable(UserInfo) && !IsPersonal)
+                            <% if (false && AffiliateHelper.ButtonAvailable(UserInfo) && !IsPersonal)
                                { %>
 
                             <div class="field">
@@ -348,7 +348,7 @@
         <Body>
             <div id="remove_content">
                 <div><%: Resource.DeleteProfileInfo %></div>
-                <a target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + UserInfo.Email.ToLower())%>" class="link blue underline email"><%= UserInfo.Email %></a>
+                <a target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + HttpUtility.UrlEncode(UserInfo.Email))%>" class="link blue underline email"><%= UserInfo.Email.HtmlEncode() %></a>
             </div>
             <div class="clearFix middle-button-container">
                 <a href="javascript:void(0);" class="button blue middle" onclick="SendInstrunctionsToRemoveProfile();"><%= Resource.SendButton %></a>

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,6 +18,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
+
 using ASC.Core;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
@@ -59,7 +51,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
                         new
                             {
                                 URL_OAUTH_BOX = Box.Location.ToLower(),
-                                URL_OAUTH2_GOOGLE = Google.Location.ToLower(),
+                                URL_OAUTH2_GOOGLE = ASC.Web.Studio.ThirdParty.Google.Location.ToLower(),
                                 URL_OAUTH_DROPBOXV2 = Dropbox.Location.ToLower(),
                                 URL_OAUTH_SKYDRIVE = OneDrive.Location.ToLower(),
                                 URL_OAUTH_DOCUSIGN = Studio.ThirdParty.DocuSign.Location.ToLower(),
@@ -68,6 +60,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                 URL_BASE = FilesLinkUtility.FilesBaseAbsolutePath,
                                 URL_WCFSERVICE = PathProvider.GetFileServicePath,
                                 URL_TEMPLATES_HANDLER = CommonLinkUtility.ToAbsolute("~/template.ashx") + "?id=" + PathProvider.TemplatePath + "&name=collection&ver=" + ClientSettings.ResetCacheKey,
+                                URL_LOADER = CommonLinkUtility.ToAbsolute(FilesLinkUtility.FilesBaseVirtualPath + "loader.html"),
 
                                 ADMIN = Global.IsAdministrator,
                                 MAX_NAME_LENGTH = Global.MaxTitle,
@@ -77,6 +70,10 @@ namespace ASC.Web.Files.Masters.ClientScripts
 
                                 FOLDER_ID_MY_FILES = Global.FolderMy,
                                 FOLDER_ID_SHARE = Global.FolderShare,
+                                FOLDER_ID_RECENT = Global.FolderRecent,
+                                FOLDER_ID_FAVORITES = Global.FolderFavorites,
+                                FOLDER_ID_TEMPLATES = Global.FolderTemplates,
+                                FOLDER_ID_PRIVACY = Global.FolderPrivacy,
                                 FOLDER_ID_COMMON_FILES = Global.FolderCommon,
                                 FOLDER_ID_PROJECT = Global.FolderProjects,
                                 FOLDER_ID_TRASH = Global.FolderTrash,
@@ -87,6 +84,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                     {
                                         FileShare.None,
                                         FileShare.ReadWrite,
+                                        FileShare.CustomFilter,
                                         FileShare.Read,
                                         FileShare.Restrict,
                                         FileShare.Varies,

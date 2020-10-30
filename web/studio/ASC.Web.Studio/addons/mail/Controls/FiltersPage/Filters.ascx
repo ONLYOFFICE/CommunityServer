@@ -5,23 +5,15 @@
 
 <div id="filters_page" class="hidden page_content">
     <div class="containerBodyBlock">
-        <div class="content-header">
-            <a title="<%=MailResource.CreateFilterBtn%>" class="button gray" id="createFilter" style="margin-right: 4px;">
-                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateFilterBtn%></div>
-            </a>
-            <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'FiltersHelperBlock'});"></span>
-        </div>
+        <div id="filtersContainer"></div>
     </div>
-    
-    <div id="filtersContainer">
-    </div>
-    
+
     <div id="filterActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="enableFilter dropdown-item"><%= MailResource.EnableBtnLabel %></a></li>
-            <li><a class="applyFilter dropdown-item"><%= MailResource.ApplyFilterBtnLabel %></a></li>
-            <li><a class="editFilter dropdown-item"><%= MailResource.EditFilterBtn %></a></li>
-            <li><a class="deleteFilter dropdown-item"><%= MailResource.DeleteFilterBtn %></a></li>
+            <li><a class="enableFilter dropdown-item with-icon enable-item"><%= MailResource.EnableBtnLabel %></a></li>
+            <li><a class="applyFilter dropdown-item with-icon filter"><%= MailResource.ApplyFilterBtnLabel %></a></li>
+            <li><a class="editFilter dropdown-item with-icon edit"><%= MailResource.EditFilterBtn %></a></li>
+            <li><a class="deleteFilter dropdown-item with-icon delete"><%= MailResource.DeleteFilterBtn %></a></li>
         </ul>
     </div>
 </div>

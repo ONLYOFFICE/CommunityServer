@@ -19,7 +19,7 @@ namespace ASC.Web.Talk.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class TalkOverviewResource {
@@ -57,15 +57,6 @@ namespace ASC.Web.Talk.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adium messanger.
-        /// </summary>
-        public static string Adium {
-            get {
-                return ResourceManager.GetString("Adium", resourceCulture);
             }
         }
         
@@ -160,33 +151,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IM Clients.
-        /// </summary>
-        public static string IMClients {
-            get {
-                return ResourceManager.GetString("IMClients", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Integrate Talk with a third-party client, read {0}.
-        /// </summary>
-        public static string IntegrationWith3rdPartyAppsSectionContent {
-            get {
-                return ResourceManager.GetString("IntegrationWith3rdPartyAppsSectionContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Third-Party Software Support.
-        /// </summary>
-        public static string IntegrationWith3rdPartyAppsSectionTitle {
-            get {
-                return ResourceManager.GetString("IntegrationWith3rdPartyAppsSectionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mailing.
         /// </summary>
         public static string Mailing {
@@ -210,15 +174,6 @@ namespace ASC.Web.Talk.Resources {
         public static string Messaging {
             get {
                 return ResourceManager.GetString("Messaging", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Miranda IM - the Miranda IM client home page.  Smaller, Faster, Easier.
-        /// </summary>
-        public static string MirandaIMLink {
-            get {
-                return ResourceManager.GetString("MirandaIMLink", resourceCulture);
             }
         }
         
@@ -286,47 +241,11 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A free chat client used by millions. Connect easily to MSN, Google Talk, Yahoo, AIM and other chat networks all at once..
-        /// </summary>
-        public static string PidginLink {
-            get {
-                return ResourceManager.GetString("PidginLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profile page.
         /// </summary>
         public static string ProfilePage {
             get {
                 return ResourceManager.GetString("ProfilePage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Cross-Platform JabberXMPP Client For Power Users.
-        /// </summary>
-        public static string PsiLink {
-            get {
-                return ResourceManager.GetString("PsiLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to QIP.
-        /// </summary>
-        public static string QIP {
-            get {
-                return ResourceManager.GetString("QIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to qutlIM messanger.
-        /// </summary>
-        public static string qutlIM {
-            get {
-                return ResourceManager.GetString("qutlIM", resourceCulture);
             }
         }
         
@@ -394,29 +313,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use the following settings together you Jabber ID{0} and password from your accocunt{1}
-        ///Server Name: {2}
-        ///Server Address: {3}
-        ///Connection Port: {4}
-        ///Your User Name: {5}
-        ///.
-        /// </summary>
-        public static string ThirdPartyAppsSettingsSectionContent {
-            get {
-                return ResourceManager.GetString("ThirdPartyAppsSettingsSectionContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trillian - Windows, iPhone, and Web based instant messenger.  Supports Astra, Windows Live, Facebook, Twitter, Yahoo, MySpace, AIM, Email, Google Talk, Skype, ICQ, Jabber, IRC, Bonjour, and more!.
-        /// </summary>
-        public static string TrillianLink {
-            get {
-                return ResourceManager.GetString("TrillianLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Type:.
         /// </summary>
         public static string Type {
@@ -431,24 +327,6 @@ namespace ASC.Web.Talk.Resources {
         public static string VoicesOfEvents {
             get {
                 return ResourceManager.GetString("VoicesOfEvents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        public static string WarningHeader {
-            get {
-                return ResourceManager.GetString("WarningHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For Talk to work correctly this computer must be accessible for the other computers in the local network or from the internet and the {0}Server Name{1} must be a domain name or a local computer name (not an IP address), in case there is a local DNS server. This can be done setting the valid {0}Server Name{1} and {0}Server Address{1} with the help of {2}DNS Settings{3} option..
-        /// </summary>
-        public static string WarningText {
-            get {
-                return ResourceManager.GetString("WarningText", resourceCulture);
             }
         }
         

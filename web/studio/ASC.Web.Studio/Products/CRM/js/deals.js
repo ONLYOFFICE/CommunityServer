@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -175,7 +166,7 @@ ASC.CRM.ListDealView = (function() {
 
         if (!ASC.CRM.ListDealView.isFirstLoad) {
             LoadingBanner.displayLoading();
-            jq("#dealFilterContainer, #dealList").show();
+            jq("#dealFilterContainer, #dealHeaderMenu, #dealList, #tableForDealNavigation").show();
             jq('#dealsAdvansedFilter').advansedFilter("resize");
         }
         jq("#mainSelectAllDeals").prop("checked", false);
@@ -240,8 +231,7 @@ ASC.CRM.ListDealView = (function() {
 
     var _renderNoDealsEmptyScreen = function() {
         jq("#dealTable tbody tr").remove();
-        jq("#dealList").hide();
-        jq("#dealFilterContainer").hide();
+        jq("#dealFilterContainer, #dealHeaderMenu, #dealList, #tableForDealNavigation").hide();
         ASC.CRM.Common.hideExportButtons();
         jq("#emptyContentForDealsFilter:not(.display-none)").addClass("display-none");
         jq("#dealsEmptyScreen.display-none").removeClass("display-none");
@@ -249,7 +239,8 @@ ASC.CRM.ListDealView = (function() {
 
     var _renderNoDealsForQueryEmptyScreen = function() {
         jq("#dealTable tbody tr").remove();
-        jq("#dealList").hide();
+        jq("#dealHeaderMenu, #dealList, #tableForDealNavigation").hide();
+        jq("#dealFilterContainer").show();
         ASC.CRM.Common.hideExportButtons();
         jq("#mainSelectAllDeals").attr("disabled", true);
         jq("#dealsEmptyScreen:not(.display-none)").addClass("display-none");
@@ -295,7 +286,6 @@ ASC.CRM.ListDealView = (function() {
         if (ASC.CRM.ListDealView.noDealsForQuery) {
             _renderNoDealsForQueryEmptyScreen();
 
-            jq("#dealFilterContainer").show();
             _resizeFilter();
 
             ASC.CRM.ListDealView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
@@ -327,7 +317,7 @@ ASC.CRM.ListDealView = (function() {
         jq("#dealsEmptyScreen:not(.display-none)").addClass("display-none");
         ASC.CRM.Common.showExportButtons();
 
-        jq("#dealFilterContainer").show();
+        jq("#dealFilterContainer, #dealHeaderMenu, #tableForDealNavigation").show();
         _resizeFilter();
 
         jq("#mainSelectAllDeals").removeAttr("disabled");
@@ -492,7 +482,7 @@ ASC.CRM.ListDealView = (function() {
         ASC.CRM.ListContactView.isFirstLoad = false;
         jq(".containerBodyBlock").children(".loader-page").hide();
         if (!jq("#dealsEmptyScreen").is(":visible") && !jq("#emptyContentForDealsFilter")) {
-            jq("#dealFilterContainer, #dealList").show();
+            jq("#dealFilterContainer, #dealHeaderMenu, #dealList, #tableForDealNavigation").show();
             jq('#dealsAdvansedFilter').advansedFilter("resize");
         }
     };
@@ -507,7 +497,7 @@ ASC.CRM.ListDealView = (function() {
         }
         if (deal == null) return;
 
-        jq("#dealActionMenu .editDealLink").attr("href", jq.format("deals.aspx?id={0}&action=manage", dealID));
+        jq("#dealActionMenu .editDealLink").attr("href", jq.format("Deals.aspx?id={0}&action=manage", dealID));
 
         jq("#dealActionMenu .deleteDealLink").unbind("click").bind("click", function() {
             jq("#dealActionMenu").hide();
@@ -515,13 +505,15 @@ ASC.CRM.ListDealView = (function() {
             ASC.CRM.ListDealView.showConfirmationPanelForDelete(deal.title, dealID, true);
         });
 
-        jq("#dealActionMenu .showProfileLink").attr("href", jq.format("deals.aspx?id={0}", dealID));
+        jq("#dealActionMenu .showProfileLink").attr("href", jq.format("Deals.aspx?id={0}", dealID));
 
         jq("#dealActionMenu .showProfileLinkNewTab").unbind("click").bind("click", function () {
             jq("#dealActionMenu").hide();
             jq("#dealTable .entity-menu.active").removeClass("active");
-            window.open(jq.format("deals.aspx?id={0}", dealID), "_blank");
+            window.open(jq.format("Deals.aspx?id={0}", dealID), "_blank");
         });
+
+        var showSeporators = false;
 
         if (ASC.CRM.Data.IsCRMAdmin === true || Teamlab.profile.id == deal.createdBy.id) {
             jq("#dealActionMenu .setPermissionsLink").show();
@@ -534,17 +526,25 @@ ASC.CRM.ListDealView = (function() {
 
                 _showSetPermissionsPanel({ isBatch: false });
             });
+            showSeporators = true;
         } else {
             jq("#dealActionMenu .setPermissionsLink").hide();
         }
 
         if (ASC.CRM.Data.IsCRMAdmin === true && jq("#dealActionMenu .createProject").length == 1) {
-            var basePathForLink = StudioManager.getLocationPathToModule("projects") + "projects.aspx?action=add&opportunityID=";
+            var basePathForLink = StudioManager.getLocationPathToModule("Projects") + "Projects.aspx?action=add&opportunityID=";
             jq("#dealActionMenu .createProject").attr("href", basePathForLink + dealID);
             jq("#dealActionMenu .createProject").unbind("click").bind("click", function() {
                 jq("#dealTable .entity-menu.active").removeClass("active");
                 jq("#dealActionMenu").hide();
             });
+            showSeporators = true;
+        }
+
+        if (showSeporators) {
+            jq("#dealActionMenu .dropdown-item-seporator:first").show();
+        } else {
+            jq("#dealActionMenu .dropdown-item-seporator:first").hide();
         }
     };
 
@@ -629,15 +629,21 @@ ASC.CRM.ListDealView = (function() {
         });
 
 
-        jq("#dealTable").unbind("contextmenu").bind("contextmenu", function(event) {
+        jq("body").unbind("contextmenu").bind("contextmenu", function(event) {
             var e = jq.fixEvent(event);
 
             if (typeof e == "undefined" || !e) {
                 return true;
             }
 
-            var target = jq(e.srcElement || e.target),
-                dealId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
+            var target = jq(e.srcElement || e.target);
+
+            if (!target.parents("#dealTable").length) {
+                jq("#dealActionMenu").hide();
+                return true;
+            }
+
+            var dealId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!dealId) {
                 return true;
             }
@@ -653,7 +659,7 @@ ASC.CRM.ListDealView = (function() {
         ScrolledGroupMenu.init({
             menuSelector: "#dealHeaderMenu",
             menuAnchorSelector: "#mainSelectAllDeals",
-            menuSpacerSelector: "#dealList .header-menu-spacer",
+            menuSpacerSelector: "main .filter-content .header-menu-spacer",
             userFuncInTop: function() { jq("#dealHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function() { jq("#dealHeaderMenu .menu-action-on-top").show(); }
         });
@@ -755,7 +761,7 @@ ASC.CRM.ListDealView = (function() {
         }
         LoadingBanner.hideLoaderBtn("#deleteDealsPanel");
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#deleteDealsPanel", 500, 500, 0);
+        StudioBlockUIManager.blockUI("#deleteDealsPanel", 500);
     };
 
     var _showSetPermissionsPanel = function(params) {
@@ -780,7 +786,7 @@ ASC.CRM.ListDealView = (function() {
             _setPermissions(params);
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#setPermissionsDealsPanel", 600, 500, 0);
+        StudioBlockUIManager.blockUI("#setPermissionsDealsPanel", 600);
     };
 
     var _setPermissions = function(params) {
@@ -836,12 +842,12 @@ ASC.CRM.ListDealView = (function() {
     
     var _initEmptyScreen = function (emptyListImgSrc, emptyFilterListImgSrc) {
         //init emptyScreen for all list
-        var buttonHTML = ["<a class='link dotline plus' href='deals.aspx?action=manage'>",
+        var buttonHTML = ["<a class='link dotline plus' href='Deals.aspx?action=manage'>",
             ASC.CRM.Resources.CRMDealResource.CreateFirstDeal,
             "</a>"].join('');
         
         if (jq.browser.mobile != true) {
-            buttonHTML += ["<br/><a class='crm-importLink link' href='deals.aspx?action=import'>",
+            buttonHTML += ["<br/><a class='crm-importLink link' href='Deals.aspx?action=import'>",
                 ASC.CRM.Resources.CRMDealResource.ImportDeals,
                 "</a>"].join('');
         }
@@ -1139,13 +1145,15 @@ ASC.CRM.ListDealView = (function() {
             ASC.CRM.ListDealView.advansedFilter = null;
         },
 
-        init: function (parentSelector) {
+        init: function (parentSelector, filterSelector, pagingSelector) {
             if (jq(parentSelector).length == 0) return;
             ASC.CRM.Common.setDocumentTitle(ASC.CRM.Resources.CRMDealResource.MyDeals);
             ASC.CRM.ListDealView.clear();
             jq(parentSelector).removeClass("display-none");
 
+            jq.tmpl("dealsListFilterTmpl").appendTo(filterSelector);
             jq.tmpl("dealsListBaseTmpl", { IsCRMAdmin: ASC.CRM.Data.IsCRMAdmin, CanCreateProjects: ASC.CRM.Data.CanCreateProjects }).appendTo(parentSelector);
+            jq.tmpl("dealsListPagingTmpl").appendTo(pagingSelector);
 
             jq('#privatePanelWrapper').appendTo("#permissionsDealsPanelInnerHtml");
 
@@ -1378,7 +1386,7 @@ ASC.CRM.ListDealView = (function() {
             ASC.CRM.ExchangeRateView.init(ASC.CRM.ListDealView.bidList);
             jq("#ExchangeRateTabs>a:first").click();
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI('#exchangeRatePopUp', 550, 674, 0);
+            StudioBlockUIManager.blockUI('#exchangeRatePopUp', 550);
         },
 
         selectAll: function(obj) {
@@ -1505,7 +1513,7 @@ ASC.CRM.ListDealView = (function() {
                 ASC.CRM.ListDealView.deleteDeal(dealID, isListView);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#confirmationDeleteOneDealPanel", 500, 500, 0);
+            StudioBlockUIManager.blockUI("#confirmationDeleteOneDealPanel", 500);
         },
 
         deleteDeal: function(dealID, isListView) {
@@ -1529,9 +1537,9 @@ ASC.CRM.ListDealView = (function() {
                     success: function (params, opportunity) {
                         ASC.CRM.Common.unbindOnbeforeUnloadEvent();
                         if (params.contact_id != "") {
-                            location.href = jq.format("default.aspx?id={0}#deals", params.contact_id);
+                            location.href = jq.format("Default.aspx?id={0}#deals", params.contact_id);
                         } else {
-                            location.href = "deals.aspx";
+                            location.href = "Deals.aspx";
                         }
                     }
                 });
@@ -1616,7 +1624,7 @@ ASC.CRM.DealActionView = (function() {
                 ASC.CRM.Resources.CRMJSResource.ConfirmGoToCustomFieldPage,
             "</div>"].join(''),
             OKBtn: ASC.CRM.Resources.CRMCommonResource.OK,
-            OKBtnHref: "settings.aspx?type=custom_field#opportunity",
+            OKBtnHref: "Settings.aspx?type=custom_field#opportunity",
             CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel,
             progressText: ""
         }).insertAfter("#otherDealsCustomFieldPanel");
@@ -1915,7 +1923,7 @@ ASC.CRM.DealActionView = (function() {
                 }).insertAfter("#crm_dealMakerDialog");
 
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#saveDealError", 500, 400, 0);
+                StudioBlockUIManager.blockUI("#saveDealError", 500);
             }
 
             initFields();
@@ -2073,10 +2081,10 @@ ASC.CRM.DealActionView = (function() {
 
         showGotoAddSettingsPanel: function () {
             if (window.onbeforeunload == null) {//No need the confirmation
-                location.href = "settings.aspx?type=custom_field#opportunity";
+                location.href = "Settings.aspx?type=custom_field#opportunity";
             } else {
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500, 200, 0);
+                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500);
             }
         }
     };
@@ -3041,7 +3049,7 @@ ASC.CRM.DealSelector = new function () {
         });
 
         selector.DomObjects.link.click(function () {
-            location.href = "deals.aspx?action=manage&contactID=" + selector.ContactID;
+            location.href = "Deals.aspx?action=manage&contactID=" + selector.ContactID;
         });
 
         jq(document).click(function (event) {

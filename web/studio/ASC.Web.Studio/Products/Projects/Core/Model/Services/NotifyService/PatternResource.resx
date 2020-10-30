@@ -118,29 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="pattern_EditedCommentForMessage" xml:space="preserve">
-    <value>h1.Comment edited for discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Comment edited for discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
 $AdditionalData 
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_EditedCommentForTask" xml:space="preserve">
-    <value>h1.Comment edited for task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Comment edited for task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
 
 $AdditionalData
 
-"Read more":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+"Read more":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_EditMessage" xml:space="preserve">
-    <value>h1.Discussion edited: "${EntityTitle}":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Discussion edited: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the discussion: "${EntityTitle}":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the discussion: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
 
 $AdditionalData.get_item("MessagePreview") 
 
@@ -156,7 +156,7 @@ $AdditionalData.get_item("MessagePreview")
 
 #end
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_ImportData" xml:space="preserve">
     <value>h1.Projects. Import of the data from Basecamp
@@ -164,94 +164,94 @@ $AdditionalData.get_item("MessagePreview")
 The new data has been successfully imported.</value>
   </data>
   <data name="pattern_InviteToProject" xml:space="preserve">
-    <value>h1.You have been added to the project team: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" 
+    <value>h1.You have been added to the project team: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"]</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]</value>
   </data>
   <data name="pattern_LateMilestone" xml:space="preserve">
-    <value>h1.Overdue milestone notification: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+    <value>h1.Overdue milestone notification: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
 
-The "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" is overdue.</value>
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" is overdue.</value>
   </data>
   <data name="pattern_MessageDeleted" xml:space="preserve">
     <value>h1.Discussion deleted: "$EntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the discussion "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the discussion "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneClosed" xml:space="preserve">
-    <value>h1.Milestone closed: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed" 
+    <value>h1.Milestone closed: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneCreated" xml:space="preserve">
-    <value>h1.Milestone created: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Milestone created: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" to the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new milestone: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" to the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneDeadline" xml:space="preserve">
-    <value>h1.Milestone due date notification: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
+    <value>h1.Milestone due date notification: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
 
-Less than 48 hours is left till the due date of the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+Less than 48 hours is left till the due date of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneDeleted" xml:space="preserve">
     <value>h1.Milestone deleted: "$EntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the milestone "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project:
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the milestone "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
 
 $AdditionalData</value>
   </data>
   <data name="pattern_MilestoneEdited" xml:space="preserve">
-    <value>h1.Milestone edited: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
+    <value>h1.Milestone edited: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_MilestoneResumed" xml:space="preserve">
-    <value>h1.Milestone resumed:  "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" 
+    <value>h1.Milestone resumed:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the milestone "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the milestone "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
 
 $AdditionalData</value>
   </data>
   <data name="pattern_NewCommentForMessage" xml:space="preserve">
-    <value>h1.New comment to discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.New comment to discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
 $AdditionalData 
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_NewCommentForTask" xml:space="preserve">
-    <value>h1.New comment to task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.New comment to task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
 
 $AdditionalData
 
-"Read more":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+"Read more":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_NewFileForDiscussion" xml:space="preserve">
-    <value>h1.New file to discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.New file to discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" discussion: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" discussion: 
 
 $AdditionalData
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this discussion, please "unsubscribe":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this discussion, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_NewFileForTask" xml:space="preserve">
-    <value>h1.New file to task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.New file to task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task.
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task.
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_NewMessage" xml:space="preserve">
-    <value>h1.New discussion created: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.New discussion created: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has started a new discussion: "$EntityTitle":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has started a new discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
 
 $AdditionalData.get_item("MessagePreview") 
 
@@ -267,7 +267,7 @@ $AdditionalData.get_item("MessagePreview")
 
 #end
 
-"Read more":"${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"</value>
   </data>
   <data name="pattern_ProjectDeleted" xml:space="preserve">
     <value>h1.Project deleted: "$EntityTitle" 
@@ -335,146 +335,146 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the project "$EntityTitle
     <value>Projects [$ProjectTitle]. Task resumed: $EntityTitle</value>
   </data>
   <data name="pattern_ReminderAboutTask" xml:space="preserve">
-    <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
-    <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Reminder about the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-Today is the deadline for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
+Today is the deadline for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_RemoveFromProject" xml:space="preserve">
-    <value>h1.You have been removed from the project team: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"
+    <value>h1.You have been removed from the project team: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
 
- $__DateTime "$__AuthorName":"$__AuthorUrl" has removed you from the team of the project: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID"</value>
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has removed you from the team of the project: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"</value>
   </data>
   <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
-    <value>h1.Task no longer assigned to you: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task no longer assigned to you: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime you are no longer responsible for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
+$__DateTime you are no longer responsible for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
 
 $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
-    <value>h1.Milestone assigned to you: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" 
+    <value>h1.Milestone assigned to you: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the milestone: "$EntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the milestone: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_ResponsibleForProject" xml:space="preserve">
-    <value>h1.You were appointed project manager: "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" 
+    <value>h1.You were appointed project manager: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you manager of the project "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID": 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you manager of the project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
 
 $AdditionalData</value>
   </data>
   <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
-    <value>h1.Subtask assigned to you: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Subtask assigned to you: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the subtask: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" added to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task:
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the subtask: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task:
 
 $AdditionalData.get_item("TaskDescription") 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_ResponsibleForTask" xml:space="preserve">
-    <value>h1.Task assigned to you: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task assigned to you: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" project: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" project: 
 
 $AdditionalData.get_item("TaskDescription")</value>
   </data>
   <data name="pattern_SubTaskClosed" xml:space="preserve">
-    <value>h1.Subtask closed: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Subtask closed: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the subtask added to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the subtask added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_SubTaskCreated" xml:space="preserve">
-    <value>h1.Subtask created: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Subtask created: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new subtask: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new subtask: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
 
 The subtask is assigned to "$Responsible". 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_SubTaskDeleted" xml:space="preserve">
     <value>h1.Subtask deleted: "$SubEntityTitle"
 
- $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_SubTaskEdited" xml:space="preserve">
-    <value>h1.Subtask edited: "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Subtask edited: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" subtask of the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" subtask of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
 
 The subtask is assigned to "$Responsible". 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_SubTaskResumed" xml:space="preserve">
     <value>h1.Subtask resumed: "$SubEntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_TaskClosed" xml:space="preserve">
-    <value>h1.Task closed: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task closed: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the task "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the task "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
 
 $AdditionalData 
 
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+ ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
   </data>
   <data name="pattern_TaskCreated" xml:space="preserve">
-    <value>h1.Task created: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task created: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new task: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project:
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
 
  $AdditionalData.get_item("TaskDescription") 
 
 The task is assigned to "$Responsible"
 
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+ ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="pattern_TaskDeleted" xml:space="preserve">
     <value>h1.Task deleted: "$EntityTitle" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the task "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project:
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the task "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
 
 $AdditionalData</value>
   </data>
   <data name="pattern_TaskEdited" xml:space="preserve">
-    <value>h1.Task edited: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+    <value>h1.Task edited: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
-    <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+    <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has removed the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task from the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.
+$__DateTime "$__AuthorName":"$__AuthorUrl" has removed the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task from the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
 
-The "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task is not a part of any milestone now.</value>
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task is not a part of any milestone now.</value>
   </data>
   <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
-    <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task moved: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task to the "$SubEntityTitle":"${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project.</value>
+$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task to the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.</value>
   </data>
   <data name="pattern_TaskResumed" xml:space="preserve">
-    <value>h1.Task resumed:  "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Task resumed:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the task "$EntityTitle":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID" project: 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the task "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
 
 $AdditionalData
 
- ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+ ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
   </data>
   <data name="subject_EditedCommentForMessage" xml:space="preserve">
     <value>Projects [$ProjectTitle]. Edited comment to discussion: $EntityTitle</value>
@@ -655,5 +655,110 @@ $AdditionalData
   </data>
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>Nobody</value>
+  </data>
+  <data name="subject_EditedCommentForMessage_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Edited comment to discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditedCommentForTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Edited comment to task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditMessage_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Discussion edited: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_InviteToProject_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). You have been added to the project team</value>
+  </data>
+  <data name="subject_MessageDeleted_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Discussion deleted: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneClosed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone closed: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed)</value>
+  </data>
+  <data name="subject_MilestoneCreated_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone created: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneDeleted_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone deleted: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneEdited_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone edited: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneResumed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone resumed: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_NewCommentForMessage_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). New comment to discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewCommentForTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). New comment to task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForDiscussion_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). New file to discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). New file to task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewMessage_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). New discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Remind about the task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ReminderAboutTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Remind about the task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_RemoveFromProject_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). You have been removed from the project team</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task no longer assigned to you: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Milestone assigned to you: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForProject_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). You were appointed project manager</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask assigned to you: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task assigned to you: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_SubTaskClosed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask closed: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskCreated_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask created: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskDeleted_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask deleted: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_SubTaskEdited_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask edited: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskResumed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Subtask resumed: [$SubEntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskClosed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task closed: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskCreated_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task created: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskDeleted_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task deleted: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskEdited_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task edited: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task removed: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task moved: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskResumed_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Task resumed: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID)</value>
   </data>
 </root>

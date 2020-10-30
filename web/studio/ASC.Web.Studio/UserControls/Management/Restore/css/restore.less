@@ -1,0 +1,136 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/*******************************************************************************
+    Restore
+*******************************************************************************/
+.restore-setting_desc {
+    margin-bottom: 30px;
+}
+.restore-setting_file {
+    display: none;
+    float:left;
+}
+
+.restore-setting_form {
+    margin-bottom: 15px;
+}
+.restore-settings_show-list {
+    display:inline-block;
+    margin-bottom:15px;
+}
+.restore-setting_filename {
+    height: 18px;
+    width: 65%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.restore-setting_teamlab-file {
+    #restoreChooseTeamlabFile {
+        min-width: 15%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+.restore-settings_title {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.restore-settings_places {
+    list-style-type: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    li {
+        display: block;
+        clear: both;
+        margin: 0;
+        padding: 0;
+
+        .expl {
+            display: none;
+        }
+
+        &.disabled {
+            color: #808080;
+
+            .expl {
+                display: inline-block;
+                padding: 0;
+                margin: 0 0 -3px 0;
+            }
+        }
+    }
+}
+.restore-settings_path {
+    margin-bottom: 15px;
+        .consumerStorageSettingsBox {
+        margin-top: 10px;
+
+        .textBox {
+            margin-bottom: 10px;
+        }
+
+        select.textEdit{
+            height: 24px;
+            width: 345px;
+        }
+
+        div .textBox:first-child {
+            margin-top: 10px;
+        }
+    }
+}
+
+/*******************************************************************************
+    Backup List
+*******************************************************************************/
+
+#restoreChooseBackupDialog {
+    .containerBodyBlock {
+        text-align: center;
+    }
+
+    .middle-button-container {
+        text-align: left;
+    }
+}
+.restore-backup-list_w {
+    max-height: 225px;
+    overflow-y: auto;
+}
+.restore-backup-list {
+    .trash {
+        cursor: pointer;
+    }
+}
+.restore-backup-list_name {
+    padding: 0 10px;
+    width:70%;
+}
+
+.restore-backup-empty-list {
+     display: none;
+     text-align: left;
+}
+
+.restore-backup-text {
+    margin-bottom: 25px;
+    text-align: left;
+}

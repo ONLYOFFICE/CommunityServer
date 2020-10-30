@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # postinst script for {{package_sysname}}
 #
 # see: dh_installdeb(1)
@@ -22,6 +22,9 @@ set -e
 DIR="/var/www/{{package_sysname}}"
 LOG_DIR="/var/log/{{package_sysname}}"
 APP_DATA_DIR="${DIR}/Data"
+ELASTIC_SEARCH_VERSION=$(dpkg -l elasticsearch | tail -n1 | awk '{print $3}');
+APP_INDEX_DIR="${APP_DATA_DIR}/Index/v${ELASTIC_SEARCH_VERSION}"
+APP_SERVICES_DIR="$DIR/Services";
 OLD_VERSION="$2"
 NGINX_ROOT_DIR="/etc/nginx"
 
@@ -30,6 +33,41 @@ DB_USER=""
 DB_PWD=""
 DB_NAME=""
 
+apply_connection_string(){
+	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
+
+	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
+		if [ -d /var/www/{{package_sysname}}/ ]; then
+			for i in "${!binDirs[@]}";
+			do
+				find "/var/www/{{package_sysname}}/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;						
+			done
+		fi
+		
+		sed "s!\"host\":.*,!\"host\":\"${DB_HOST}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
+		sed "s!\"user\":.*,!\"user\":\"${DB_USER}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
+		sed "s!\"password\":.*,!\"password\":\"${DB_PWD//!/\\!}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
+		sed "s!\"database\":.*!\"database\":\"${DB_NAME}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+
+	fi
+}
+
+apply_core_machinekey(){
+	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
+
+	if [ -d /var/www/{{package_sysname}}/ ]; then
+		for i in "${!binDirs[@]}";
+		do
+			if [ ! -z $CORE_MACHINEKEY ]; then
+				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i '/core.\machinekey/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${CORE_MACHINEKEY}'\"!' {} \;			
+			fi			
+		done
+	fi
+	
+	if [ ! -z $CORE_MACHINEKEY ]; then
+		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+	fi			
+}
 
 install_db(){
 	db_get {{package_sysname}}-communityserver/db-host || true
@@ -56,7 +94,6 @@ install_db(){
 		CNF_PATH="/etc/mysql/mariadb.conf.d/50-server.cnf";
 		CNF_SERVICE_PATH="/lib/systemd/system/mariadb.service";
 	fi
-
 
 	if [ -e ${CNF_PATH} ]; then
 	    if ! grep -q "^sql_mode" ${CNF_PATH}; then
@@ -152,74 +189,8 @@ install_db(){
 	
 }
 
-apply_connection_string(){
-	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
-		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=true;Connection Timeout=30;Maximum Pool Size=300;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
-	fi
-}
-
-upgrade_storage(){
-	if [ -d $DIR/WebStudio/Products/Community/Modules/Blogs/data ]; then
-		mkdir -p $DIR/Data/Products/Community/Modules/Blogs/Data
-		cp -R -u $DIR/WebStudio/Products/Community/Modules/Blogs/data/. $DIR/Data/Products/Community/Modules/Blogs/Data
-	fi
-	if [ -d $DIR/WebStudio/Products/Community/Modules/Forum/data ]; then
-		mkdir -p $DIR/Data/Products/Community/Modules/Forum/Data
-		cp -R -u $DIR/WebStudio/Products/Community/Modules/Forum/data/. $DIR/Data/Products/Community/Modules/Forum/Data
-	fi
-	if [ -d $DIR/WebStudio/Products/Community/Modules/News/data ]; then
-		mkdir -p $DIR/Data/Products/Community/Modules/News/Data
-		cp -R -u $DIR/WebStudio/Products/Community/Modules/News/data/. $DIR/Data/Products/Community/Modules/News/Data
-	fi
-	if [ -d $DIR/WebStudio/Products/Community/Modules/Bookmarking/data ]; then
-		mkdir -p $DIR/Data/Products/Community/Modules/Bookmarking/Data
-		cp -R -u $DIR/WebStudio/Products/Community/Modules/Bookmarking/data/. $DIR/Data/Products/Community/Modules/Bookmarking/Data
-	fi
-	if [ -d $DIR/WebStudio/Products/Community/Modules/Wiki/data ]; then
-		mkdir -p $DIR/Data/Products/Community/Modules/Wiki/Data
-		cp -R -u $DIR/WebStudio/Products/Community/Modules/Wiki/data/. $DIR/Data/Products/Community/Modules/Wiki/Data
-	fi
-	if [ -d $DIR/Data/Files ]; then
-		mkdir -p $DIR/Data/Products
-		cp -R -u $DIR/Data/Files $DIR/Data/Products
-	fi
-	if [ -d $DIR/WebStudio/Products/CRM/data ]; then
-		mkdir -p $DIR/Data/Products/CRM/Data
-		cp -R -u $DIR/WebStudio/Products/CRM/data/. $DIR/Data/Products/CRM/Data
-	fi
-	if [ -d $DIR/WebStudio/Products/Projects/data ]; then
-		mkdir -p $DIR/Data/Products/Projects/Data
-		cp -R -u $DIR/WebStudio/Products/Projects/data/. $DIR/Data/Products/Projects/Data
-	fi
-	if [ -d $DIR/WebStudio/data ]; then
-		mkdir -p $DIR/Data/Studio
-		cp -R -u $DIR/WebStudio/data/. $DIR/Data/Studio
-	fi
-	if [ -d $DIR/WebStudio/addons/mail/data ]; then
-		mkdir -p $DIR/Data/addons/mail/Data
-		cp -R -u $DIR/WebStudio/addons/mail/data/. $DIR/Data/addons/mail/Data
-	fi
-	if [ -d $DIR/WebStudio/addons/mail/Data ]; then
-		mkdir -p $DIR/Data/addons/mail/Data
-		cp -R -u $DIR/WebStudio/addons/mail/Data/. $DIR/Data/addons/mail/Data
-	fi
-	if [ -d $DIR/Data/Mail/Aggregator ]; then
-		mkdir -p $DIR/Data/addons/mail/Data/aggregator
-		cp -R -u $DIR/Data/Mail/Aggregator/. $DIR/Data/addons/mail/Data/aggregator
-	fi
-	if [ -d $DIR/WebStudio/addons/talk/Data/upload ]; then
-		mkdir -p $DIR/Data/addons/talk/Data
-		cp -R -u $DIR/WebStudio/addons/talk/Data/upload/. $DIR/Data/addons/talk/Data
-	fi
-	if [ -d $DIR/bundle ]; then
-		mkdir -p $DIR/Data/bundle
-		cp -rf $DIR/bundle/* $DIR/Data/bundle/
-	fi
-}
-
 case "$1" in
 	configure)
-	
 	
 		if ! cat /etc/passwd | grep -q "{{package_sysname}}:"; then
 			adduser --quiet --home $DIR --system --group {{package_sysname}}
@@ -229,6 +200,7 @@ case "$1" in
 
 		install_db
 		apply_connection_string
+		apply_core_machinekey
 
 		mkdir -p /etc/mono/registry/LocalMachine
 		mkdir -p /usr/share/.mono/keypairs
@@ -239,9 +211,7 @@ case "$1" in
 		mkdir -p /var/run/{{package_sysname}}
 
 		# needed for signalr service
-                mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
-
-		upgrade_storage
+        mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 	
 		chown {{package_sysname}}:{{package_sysname}} $DIR
 		chown {{package_sysname}}:{{package_sysname}} $APP_DATA_DIR
@@ -281,28 +251,27 @@ END
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
-
 		
         #configure elasticsearch
         service elasticsearch stop
 	
-       	if ! /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
-			/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment
+       	if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
+			/usr/share/elasticsearch/bin/elasticsearch-plugin remove ingest-attachment
+		fi
+
+		/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment
+
+		if [ ! -d "$APP_INDEX_DIR" ]; then
+			$MYSQL "$DB_NAME" -e "TRUNCATE webstudio_index";
 		fi
         
 		mkdir -p "$LOG_DIR/Index"
-       	mkdir -p "$APP_DATA_DIR/Index"
-       	chown -R elasticsearch:elasticsearch "$APP_DATA_DIR/Index"
+       	mkdir -p "$APP_INDEX_DIR"
+       	chown -R elasticsearch:elasticsearch "$APP_INDEX_DIR"
        	chown -R elasticsearch:elasticsearch "$LOG_DIR/Index"
 
-		sed "/path\.data/s!path\.data.*!path\.data: ${APP_DATA_DIR}/Index/!" -i /etc/elasticsearch/elasticsearch.yml
+		sed "/path\.data/s!path\.data.*!path\.data: $APP_INDEX_DIR!" -i /etc/elasticsearch/elasticsearch.yml
 		sed "/path\.logs/s!path\.logs.*!path\.logs: ${LOG_DIR}/Index/!" -i /etc/elasticsearch/elasticsearch.yml
-
-		if ! grep -q "http.max_content_length" /etc/elasticsearch/elasticsearch.yml; then
-			echo "http.max_content_length: 2g" >> /etc/elasticsearch/elasticsearch.yml
-		else
-			sed -i "s/http.max_content_length.*/http.max_content_length: 2g/" /etc/elasticsearch/elasticsearch.yml 
-		fi
 	
 		if ! grep -q "indices.fielddata.cache.size" /etc/elasticsearch/elasticsearch.yml; then
 			echo "indices.fielddata.cache.size: 30%" >> /etc/elasticsearch/elasticsearch.yml
@@ -316,42 +285,25 @@ END
 			sed -i "s/indices.memory.index_buffer_size.*/indices.memory.index_buffer_size: 30%/" /etc/elasticsearch/elasticsearch.yml 
 		fi
 		
-		if ! grep -q "thread_pool.index.queue_size" /etc/elasticsearch/elasticsearch.yml; then
-			echo "thread_pool.index.queue_size: 250" >> /etc/elasticsearch/elasticsearch.yml
-		else
-			sed -i "s/thread_pool.index.queue_size.*/thread_pool.index.queue_size: 250/" /etc/elasticsearch/elasticsearch.yml 
-		fi
-		
-		if ! grep -q "thread_pool.write.queue_size" /etc/elasticsearch/elasticsearch.yml; then
-			echo "thread_pool.write.queue_size: 250" >> /etc/elasticsearch/elasticsearch.yml
-		else
-			sed -i "s/thread_pool.write.queue_size.*/thread_pool.write.queue_size: 250/" /etc/elasticsearch/elasticsearch.yml 
-		fi
-			
-		export LC_ALL=C
-
-  	        CORE_COUNT=$(( $(lscpu | awk '/^Socket\(s\)/{ print $2 }') * $(lscpu | awk '/^Core\(s\) per socket/{ print $4 }') ));
-
- 	        unset LC_ALL
-
-		if [ "$CORE_COUNT" -eq "0" ]; then
-			CORE_COUNT=1;
-		fi
-		
-		if ! grep -q "thread_pool.index.size" /etc/elasticsearch/elasticsearch.yml; then
-			echo "thread_pool.index.size: $CORE_COUNT" >> /etc/elasticsearch/elasticsearch.yml
-		else
-			sed -i "s/thread_pool.index.size.*/thread_pool.index.size: $CORE_COUNT/" /etc/elasticsearch/elasticsearch.yml 
-		fi
-	
-		if ! grep -q "thread_pool.write.size" /etc/elasticsearch/elasticsearch.yml; then
-			echo "thread_pool.write.size: $CORE_COUNT" >> /etc/elasticsearch/elasticsearch.yml
-		else
-			sed -i "s/thread_pool.write.size.*/thread_pool.write.size: $CORE_COUNT/" /etc/elasticsearch/elasticsearch.yml 
-		fi
-		
 		if grep -q "HeapDumpOnOutOfMemoryError" /etc/elasticsearch/jvm.options; then
 			sed "/-XX:+HeapDumpOnOutOfMemoryError/d" -i /etc/elasticsearch/jvm.options
+		fi
+
+		TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);
+		MEMORY_REQUIREMENTS=12228; #RAM ~4*3Gb
+
+		if [ ${TOTAL_MEMORY} -gt ${MEMORY_REQUIREMENTS} ]; then
+			if ! grep -q "[-]Xms1g" /etc/elasticsearch/jvm.options; then
+				echo "-Xms4g" >> /etc/elasticsearch/jvm.options
+			else
+				sed -i "s/-Xms1g/-Xms4g/" /etc/elasticsearch/jvm.options 
+			fi
+
+			if ! grep -q "[-]Xmx1g" /etc/elasticsearch/jvm.options; then
+				echo "-Xmx4g" >> /etc/elasticsearch/jvm.options
+			else
+				sed -i "s/-Xmx1g/-Xmx4g/" /etc/elasticsearch/jvm.options 
+			fi
 		fi
 
 		if [ -d /etc/elasticsearch/ ]; then 
@@ -376,7 +328,6 @@ END
 		LICENSE_FILE_PATH="/var/www/{{package_sysname}}/Data/license.lic";
 		APP_ROOT_DIR="$DIR/WebStudio";
 		CONTROL_PANEL_PORT_80_TCP_ADDR="localhost:8082";
-		APP_SERVICES_DIR="$DIR/Services";
 		SERVICE_SSO_AUTH_HOST_ADDR="localhost";
 		SERVER_HOST="localhost";
 
@@ -407,8 +358,24 @@ END
 				sed '/files\.docservice\.url\.internal/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\"!' -i  ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
     			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
     			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
+
+				if dpkg -l "{{package_sysname}}-documentserver-ee"; then
+					sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
+					sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config		
+					
+					if [ ! -f ${LICENSE_FILE_PATH} ]; then
+		
+					$MYSQL "$DB_NAME" <<EOF || true
+INSERT IGNORE INTO tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) \
+SELECT -1000, 'start_trial', max_file_size, max_total_size, active_users, CONCAT(features, ',trial')
+FROM tenants_quota
+WHERE tenant = -1;
+INSERT IGNORE INTO tenants_tariff (id, tenant, tariff, stamp) VALUES ('1000','-1', '-1000', NOW() + INTERVAL 30 DAY);
+EOF
+		
+					fi
 				
-	    		sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
+				fi
 
 				if [ "${DOCUMENT_SERVER_JWT_ENABLED}" = "true" ]; then
 	    			sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
@@ -420,30 +387,30 @@ END
 
 		# setup controlpanel
 		if dpkg -l | grep -q "{{package_sysname}}-controlpanel"; then
-        		cp ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
+        	cp ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 		fi
-
 		# end
 
-		# delete monoserve2
-		if [ -d $DIR/WebStudio2 ]; then
-			service monoserve2 stop;
-			rm -frd $DIR/WebStudio2;
-			rm -f /etc/hyperfastcgi/monoserve2;
-			rm -f /etc/init.d/monoserve2;
-			rm -f /etc/god/conf.d/monoserve2;
+		# setup xmppserver
+		if dpkg -l | grep -q "{{package_sysname}}-xmppserver"; then
+			sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
+			sed '/web\.chat/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
 		fi
-
+		# end
 
 		# call db_stop to prevent installation hang
 		db_stop
 
 		service nginx restart >/dev/null 2>&1
 		service mysql restart >/dev/null 2>&1 || true # ignore errors
+		
+		if systemctl is-active monoserve | grep -q "active"; then
+			curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
+		fi		
 	;;
 
 	abort-upgrade|abort-remove|abort-deconfigure)

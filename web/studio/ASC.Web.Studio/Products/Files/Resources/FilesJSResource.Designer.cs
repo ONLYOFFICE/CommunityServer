@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesJSResource {
@@ -61,11 +61,11 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access Settings {0}.
+        ///   Looks up a localized string similar to Access Settings for {0}.
         /// </summary>
-        public static string AccessSettingsTitle {
+        public static string AccessSettingsHeader {
             get {
-                return ResourceManager.GetString("AccessSettingsTitle", resourceCulture);
+                return ResourceManager.GetString("AccessSettingsHeader", resourceCulture);
             }
         }
         
@@ -75,6 +75,15 @@ namespace ASC.Web.Files.Resources {
         public static string AceStatusEnum_Comment {
             get {
                 return ResourceManager.GetString("AceStatusEnum_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Filter.
+        /// </summary>
+        public static string AceStatusEnum_CustomFilter {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_CustomFilter", resourceCulture);
             }
         }
         
@@ -817,6 +826,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to kDrive directory.
+        /// </summary>
+        public static string FolderTitlekDrive {
+            get {
+                return ResourceManager.GetString("FolderTitlekDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SharePoint directory.
         /// </summary>
         public static string FolderTitleSharePoint {
@@ -1186,6 +1204,24 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files added to Templates.
+        /// </summary>
+        public static string InfoTemplateAdd {
+            get {
+                return ResourceManager.GetString("InfoTemplateAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files removed from Templates.
+        /// </summary>
+        public static string InfoTemplateRemove {
+            get {
+                return ResourceManager.GetString("InfoTemplateRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} documents are successfully uploaded.
         /// </summary>
         public static string InfoUploadedSuccess {
@@ -1267,6 +1303,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Room.
+        /// </summary>
+        public static string PrivacyRoom {
+            get {
+                return ResourceManager.GetString("PrivacyRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Documents.
         /// </summary>
         public static string ProjectFiles {
@@ -1321,11 +1366,11 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sharing Settings {0}.
+        ///   Looks up a localized string similar to Sharing Settings for {0}.
         /// </summary>
-        public static string SharingSettingsTitle {
+        public static string SharingSettingsHeader {
             get {
-                return ResourceManager.GetString("SharingSettingsTitle", resourceCulture);
+                return ResourceManager.GetString("SharingSettingsHeader", resourceCulture);
             }
         }
         
@@ -1501,6 +1546,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin Settings.
+        /// </summary>
+        public static string TitleSettingsAdmin {
+            get {
+                return ResourceManager.GetString("TitleSettingsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Settings.
         /// </summary>
         public static string TitleSettingsCommon {
@@ -1560,6 +1614,15 @@ namespace ASC.Web.Files.Resources {
         public static string TypeTitleGoogle {
             get {
                 return ResourceManager.GetString("TypeTitleGoogle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kDrive.
+        /// </summary>
+        public static string TypeTitlekDrive {
+            get {
+                return ResourceManager.GetString("TypeTitlekDrive", resourceCulture);
             }
         }
         

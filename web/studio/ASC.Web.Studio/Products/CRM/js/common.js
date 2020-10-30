@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -407,7 +398,7 @@ ASC.CRM.Common = (function() {
             contact.showUnlinkBtn = (typeof (params) != "undefined" && params != null && params.hasOwnProperty("showUnlinkBtn") && params.showUnlinkBtn);
             contact.showActionMenu = (typeof (params) != "undefined" && params != null && params.hasOwnProperty("showActionMenu") && params.showActionMenu);
 
-            var basePathForLink = StudioManager.getLocationPathToModule("crm") + "default.aspx?id=";
+            var basePathForLink = StudioManager.getLocationPathToModule("CRM") + "Default.aspx?id=";
 
             contact.contactLink = basePathForLink + contact.id;
             if (contact.showCompanyLink && typeof (contact.company) && contact.company != null) {
@@ -993,52 +984,72 @@ ASC.CRM.Common = (function() {
         },
 
         createInvoiceMail: function (invoice, newTab) {
-            var message = new ASC.Mail.Message();
-            message.to = [typeof (invoice.contact.email) != "undefined" && invoice.contact.email != null ? invoice.contact.email.data : ""];
-            message.subject = '';
-            message.body = invoice.description.replace(/\r\n|\n|\r/g, '<br>');
-            message.AddDocumentsForSave([invoice.fileId]);
 
-            ASC.Mail.Utility
-                .SaveMessageInDrafts(message)
-                    .done(function (params, data) {
-                        LoadingBanner.hideLoading();
-                        if (newTab && newTab.location) {
-                            newTab.location.href = data.messageUrl;
-                        } else {
-                            window.location.href = data.messageUrl;
-                        }
-                    })
-                    .fail(function (params, error) {
-                        console.log(params, error);
-                        if(error === "No accounts.")
-                        {
-                            if (newTab) {
-                                newTab.close();
+            Teamlab.getCrmContactInfo({}, invoice.contact.id, {
+                success: function (params, info) {
+                    var email = "";
+
+                    for (var i = 0, n = info.length; i < n; i++) {
+                        if (info[i].infoType == 1) {
+                            email = info[i].data;
+                            if (info[i].isPrimary) {
+                                break;
                             }
-                            if (jq("#noMailAccountsError").length == 0) {
-                                jq.tmpl("template-blockUIPanel", {
-                                    id: "noMailAccountsError",
-                                    headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
-                                    questionText: "",
-                                    innerHtmlText: ['<div>', ASC.CRM.Resources.CRMCommonResource.NoMailAccountsAvailableError, '</div>'].join(''),
-                                    CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
-                                    OKBtn: ASC.CRM.Resources.CRMCommonResource.AddMailAccount,
-                                    OKBtnClass: "OKAddMailAccount"
-                                }).appendTo(".mainContainerClass .containerBodyBlock");
+                        }
+                    }
 
-                                jq("#noMailAccountsError").on("click", ".OKAddMailAccount", function () {
-                                    window.open(ASC.CRM.Common.getMailModuleBasePath(), "_blank");
-                                    jq.unblockUI();
-                                });
+                    invoice.contact.email = email;
+
+                    var message = new ASC.Mail.Message();
+                    message.to = [invoice.contact.email || ""];
+                    message.subject = '';
+                    message.body = invoice.description.replace(/\r\n|\n|\r/g, '<br>');
+                    message.AddDocumentsForSave([invoice.fileId]);
+
+                    ASC.Mail.Utility
+                        .SaveMessageInDrafts(message)
+                        .done(function (params, data) {
+                            LoadingBanner.hideLoading();
+                            if (newTab && newTab.location) {
+                                newTab.location.href = data.messageUrl;
+                            } else {
+                                window.location.href = data.messageUrl;
+                            }
+                        })
+                        .fail(function (params, error) {
+                            console.log(params, error);
+                            if (error === "No accounts.") {
+                                if (newTab) {
+                                    newTab.close();
+                                }
+                                if (jq("#noMailAccountsError").length == 0) {
+                                    jq.tmpl("template-blockUIPanel", {
+                                        id: "noMailAccountsError",
+                                        headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
+                                        questionText: "",
+                                        innerHtmlText: ['<div>', ASC.CRM.Resources.CRMCommonResource.NoMailAccountsAvailableError, '</div>'].join(''),
+                                        CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
+                                        OKBtn: ASC.CRM.Resources.CRMCommonResource.AddMailAccount,
+                                        OKBtnClass: "OKAddMailAccount"
+                                    }).appendTo(".mainContainerClass .containerBodyBlock");
+
+                                    jq("#noMailAccountsError").on("click", ".OKAddMailAccount", function () {
+                                        window.open(ASC.CRM.Common.getMailModuleBasePath(), "_blank");
+                                        jq.unblockUI();
+                                    });
+                                }
+
+                                PopupKeyUpActionProvider.EnableEsc = false;
+                                StudioBlockUIManager.blockUI("#noMailAccountsError", 500);
                             }
 
-                            PopupKeyUpActionProvider.EnableEsc = false;
-                            StudioBlockUIManager.blockUI("#noMailAccountsError", 500, 200, 0);
-                        }
-                        
-                        LoadingBanner.hideLoading();
-                    });
+                            LoadingBanner.hideLoading();
+                        });
+                },
+                error: function (params, error) {
+                    console.log(error);
+                }
+            });
         },
 
         setPostionPageLoader: function () {
@@ -1358,7 +1369,7 @@ ASC.CRM.HistoryView = (function () {
 
     var _initEventCategorySelector = function () {
         var helpInfoText = ASC.CRM.Data.IsCRMAdmin ? jq.format(ASC.CRM.Resources.CRMCommonResource.HistoryCategoriesHelpInfo,
-            "<a class='linkAction' href='settings.aspx?type=history_category' target='blank'>",
+            "<a class='linkAction' href='Settings.aspx?type=history_category' target='blank'>",
             "</a>") : "",
             selectedCategory = {};
 
@@ -1702,7 +1713,7 @@ ASC.CRM.HistoryView = (function () {
             jq("#DepsAndUsersContainer").css("z-index", 999);
 
             jq("#historyBlock input.textEditCalendar").mask(ASC.Resources.Master.DatePatternJQ);
-            jq("#historyBlock input.textEditCalendar").datepickerWithButton().val(window.historyView_dateTimeNowShortDateString);
+            jq("#historyBlock input.textEditCalendar").datepickerWithButton().datepicker('setDate', window.historyView_dateTimeNowShortDateString);
 
             jq("#historyBlock table #selectedUsers").remove();
 
@@ -1842,11 +1853,11 @@ ASC.CRM.HistoryView = (function () {
             if (eventItem.entity != null) {
                 switch (eventItem.entity.entityType) {
                     case "opportunity":
-                        eventItem.entityURL = "deals.aspx?id=" + eventItem.entity.entityId;
+                        eventItem.entityURL = "Deals.aspx?id=" + eventItem.entity.entityId;
                         eventItem.entityType = ASC.CRM.Resources.CRMJSResource.Deal;
                         break;
                     case "case":
-                        eventItem.entityURL = "cases.aspx?id=" + eventItem.entity.entityId;
+                        eventItem.entityURL = "Cases.aspx?id=" + eventItem.entity.entityId;
                         eventItem.entityType = ASC.CRM.Resources.CRMJSResource.Case;
                         break;
                     default:
@@ -3086,7 +3097,7 @@ ASC.CRM.TagView = (function() {
                 switcherSelector: "#addNewTag",
                 addTop: 1,
                 addLeft: 0,
-                simpleToggle: true
+                simpleToggle: (typeof (params) != "undefined" && params.hasOwnProperty("simpleToggle")) ? params.simpleToggle : true
             });
 
             jq("#addThisTag").click(function() {
@@ -3182,17 +3193,18 @@ ASC.CRM.ImportFromCSVView = (function() {
 
     return {
         init: function(intEntityType, entityType) {
-            jq("#delimiterCharacterSelect,#encodingSelect, #quoteCharacterSelect").tlcombobox();
+            jq("#delimiterCharacterSelect,#encodingSelect, #quoteCharacterSelect").tlcombobox({ align: "left" });
             initOtherActionMenu();
 
             if (intEntityType != 3) {//not tasks
                 jq.tmpl("tagViewTmpl",
                        {
                            tags: [],
-                           availableTags: ASC.CRM.Data.tagList
+                           availableTags: ASC.CRM.Data.tagList,
+                           containerClass: "initial"
                        })
                        .appendTo("#importFromCSVTags");
-                ASC.CRM.TagView.init(entityType, true);
+                ASC.CRM.TagView.init(entityType, true, { simpleToggle: false });
             }
 
             if (intEntityType == 0) {//contact
@@ -3221,7 +3233,7 @@ ASC.CRM.ImportFromCSVView = (function() {
                     .append(jq("<option value='2'></option>").text(ASC.CRM.Resources.CRMCommonResource.AccessRightsForReading))
                     .append(jq("<option value='1'></option>").text(ASC.CRM.Resources.CRMCommonResource.AccessRightsForReadWriting))
                     .val("2")
-                    .tlCombobox();
+                    .tlCombobox({ align: "left" });
 
                 $html.appendTo("#makePublicPanel");
             }
@@ -3416,7 +3428,7 @@ ASC.CRM.ImportEntities = (function ($) {
         LoadingBanner.hideLoaderBtn("#importFromCSVSteps");
         jq("#importErrorPanel .errorNote").text(msg);
         //PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#importErrorPanel", 500, 200, 0);
+        StudioBlockUIManager.blockUI("#importErrorPanel", 500);
     };
 
     var _resetUploader = function () {
@@ -4000,7 +4012,7 @@ ASC.CRM.PartialExport = (function () {
         ProgressDialog.init(
             {
                 header: ASC.CRM.Resources.CRMCommonResource.ExportData,
-                footer: ASC.CRM.Resources.CRMCommonResource.ExportDataInfo.format("<a class='link underline' href='/products/files/'>", "</a>"),
+                footer: ASC.CRM.Resources.CRMCommonResource.ExportDataInfo.format("<a class='link underline' href='/Products/Files/'>", "</a>"),
                 progress: ASC.CRM.Resources.CRMCommonResource.ExportDataProgress
             },
             jq("#studioPageContent .mainPageContent .containerBodyBlock:first"),

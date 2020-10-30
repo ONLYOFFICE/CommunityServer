@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,13 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using ASC.Api.Calendar.ExternalCalendars;
 using ASC.Api.Calendar.iCalParser;
@@ -43,9 +28,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Core;
-using ASC.Security.Cryptography;
 using ASC.Web.Core.Calendars;
-using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Api.Calendar.BusinessObjects
 {
@@ -647,36 +630,18 @@ namespace ASC.Api.Calendar.BusinessObjects
             }
         }
 
-        public void RemoveCalendar(int calendarId)
+        public Guid RemoveCalendar(int calendarId)
         {
             using (var tr = db.BeginTransaction())
             {
-
+                var caldavGuid = Guid.Empty;
                 try
                 {
                     var dataCaldavGuid =
                         db.ExecuteList(new SqlQuery("calendar_calendars").Select("caldav_guid").Where("id", calendarId))
                           .Select(r => r[0])
                           .ToArray();
-                    var caldavGuid = dataCaldavGuid[0] != null ? Guid.Parse(dataCaldavGuid[0].ToString()) : Guid.Empty;
-
-                    if (caldavGuid != Guid.Empty)
-                    {
-
-                        var myUri = HttpContext.Current.Request.GetUrlRewriter();
-                        
-                        var caldavHost = myUri.Host;
-
-                        LogManager.GetLogger("ASC.Calendar").Info("RADICALE REWRITE URL: " + myUri);
-
-                        var currentUserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + "@" + caldavHost;
-                        var _email = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email;
-                        string currentAccountPaswd = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
-                        var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + ":" + currentAccountPaswd));
-
-                        var caldavTask = new Task(() => RemoveCaldavCalendar(currentUserName, _email, currentAccountPaswd, encoded, caldavGuid.ToString(), myUri));
-                        caldavTask.Start();
-                    }
+                    if (dataCaldavGuid[0] != null) caldavGuid = Guid.Parse(dataCaldavGuid[0].ToString());
                 }
                 catch (Exception ex)
                 {
@@ -703,29 +668,11 @@ namespace ASC.Api.Calendar.BusinessObjects
                 db.ExecuteNonQuery(new SqlDelete("calendar_event_history").Where("tenant", tenant).Where(Exp.In("event_id", data)));
 
                 tr.Commit();
+
+                return caldavGuid;
             }
         }
 
-        public void RemoveCaldavCalendar(string currentUserName, string email, string currentAccountPaswd, string encoded, string calDavGuid, Uri myUri, bool isShared = false)
-        {
-            var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
-            var calDavUrl = calDavServerUrl.Insert(calDavServerUrl.IndexOf("://") + 3, HttpUtility.UrlEncode(currentUserName) + ":" + HttpUtility.UrlEncode(currentAccountPaswd) + "@");
-            var requestUrl = calDavUrl + "/" + HttpUtility.UrlEncode(currentUserName) + "/" + (isShared ? calDavGuid + "-shared" : calDavGuid);
-
-            try
-            {
-                var webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
-                webRequest.Method = "DELETE";
-                webRequest.ContentType = "text/xml; charset=utf-8";
-                webRequest.Headers.Add("Authorization", "Basic " + encoded);
-                using (var webResponse = webRequest.GetResponse())
-                using (var reader = new StreamReader(webResponse.GetResponseStream())){}
-            }
-            catch (Exception ex)
-            {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
-            }
-        }
         public void RemoveExternalCalendarData(string calendarId)
         {
             using (var tr = db.BeginTransaction())

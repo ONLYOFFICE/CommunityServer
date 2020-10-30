@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.MailServer</RootNamespace>
     <AssemblyName>ASC.Api.MailServer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.MailServer.XML</DocumentationFile>
@@ -25,7 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -34,21 +34,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MailServerApi.cs" />
     <Compile Include="MailServerApi.Mailbox.cs" />
     <Compile Include="MailServerApi.MailGroup.cs" />
@@ -66,6 +52,10 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
@@ -78,6 +68,13 @@
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

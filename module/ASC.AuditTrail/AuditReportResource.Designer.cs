@@ -19,7 +19,7 @@ namespace ASC.AuditTrail {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AuditReportResource {
@@ -3139,6 +3139,24 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Room is disabled.
+        /// </summary>
+        public static string PrivacyRoomDisable {
+            get {
+                return ResourceManager.GetString("PrivacyRoomDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Room is enabled.
+        /// </summary>
+        public static string PrivacyRoomEnable {
+            get {
+                return ResourceManager.GetString("PrivacyRoomEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Products [{0}]. Access Opened.
         /// </summary>
         public static string ProductAccessOpened {
@@ -3531,6 +3549,24 @@ namespace ASC.AuditTrail {
         public static string StartBackupSetting {
             get {
                 return ResourceManager.GetString("StartBackupSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start storage decryption.
+        /// </summary>
+        public static string StartStorageDecryption {
+            get {
+                return ResourceManager.GetString("StartStorageDecryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start storage encryption.
+        /// </summary>
+        public static string StartStorageEncryption {
+            get {
+                return ResourceManager.GetString("StartStorageEncryption", resourceCulture);
             }
         }
         

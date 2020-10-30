@@ -1,6 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Talk" %>
 <%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Talk.DefaultTalk" Title="Untitled Page" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.Talk.Addon" %>
 <%@ Import Namespace="ASC.Web.Talk.Resources" %>
@@ -24,7 +25,7 @@
 					  <div style="padding-top: 10px;padding-top: 0px;"><%=string.Format(TalkOverviewResource.OverviewWebClientDescription, TalkAddon.GetTalkClientURL())%></div>
                       <div class="header-base" style="padding-top: 20px;"><%=TalkOverviewResource.NotificationSetup %></div>
                       <div style="padding-top: 10px;"><%=TalkOverviewResource.DefaultNotificationText%></div>
-                      <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href='/products/people/profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
+                      <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href='/Products/People/Profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
                       <% if (!string.IsNullOrEmpty(HelpLink)) { %>
                       <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href='" + HelpLink + "/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
                       <% } %>
@@ -53,75 +54,6 @@
 						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot04.png", TalkAddon.AddonID)%>" alt="" />
 						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.SettingsOfInputField%></div>
 					      </div>
-				  </td>
-			  </tr>
-			  <tr>
-				  <td colspan="5" class="header-base" style="padding: 20px 0 15px">
-				    <%=TalkOverviewResource.IntegrationWith3rdPartyAppsSectionTitle%>
-				  </td>
-			  </tr>
-			  <tr valign="top">
-				  <td colspan="3" style="padding: 0 35px 15px 0">
-                      <% if (!string.IsNullOrEmpty(HelpLink)) { %>
-                      <div style="padding-top: 0;">
-					    <%=string.Format(TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent, "<a href='" + HelpLink + "/tipstricks/integrating-talk.aspx'>" + TalkOverviewResource.Here + "</a>") %>
-					  </div>
-                      <% } %>
-					  <div style="margin-top: 10px; padding-top: 0px;">
-					    <%=string.Format(TalkOverviewResource.ThirdPartyAppsSettingsSectionContent,
-                                "<b>"+JID+"</b>",
-				                "<ul><li style ='list-style-type: none'>", 
-					             "<b>"+ServerName+"</b></li><li style ='list-style-type: none'>",
-                                 "<b>" + ServerAddress + "</b></li><li style ='list-style-type: none'>",
-                                 "<b>" + ServerPort + "</b></li><li style ='list-style-type: none'>",
-                                 "<b>" + UserName + "</b></li></ul>") %>
-					  </div>
-                      <% if (!ASC.Web.Studio.Utility.TenantExtra.Saas)
-                         { %>
-                      <div class="middle-button-container">
-                          <div class="header-base red-text">
-                              <%= TalkOverviewResource.WarningHeader %>
-                          </div>
-                          <div style="margin-top: 8px;">
-                              <%= string.Format(TalkOverviewResource.WarningText,
-                                                "<b>",
-                                                "</b>",
-                                                "<a href='/management.aspx'>",
-                                                "</a>") %>
-                          </div>
-                      </div>
-                      <% } %>
-				  </td>
-				  <td style="padding-bottom: 15px; vertical-align:middle">
-					  <div class="tintMedium" style="width: 122px">
-                          <div class="header-base" style="margin-bottom: 15px; column-span:all"><%=TalkOverviewResource.IMClients%></div>
-						  <div class="talkTrillianClientImage">
-						    <a href="http://www.trillian.im/download/" class="external" title="<%=TalkOverviewResource.TrillianLink%>" target="_blank">Trillian</a>
-						  </div>
-						  <div class="talkMirandaIMClientImage">
-						    <a href="http://www.miranda-im.org/" class="external" title="<%=TalkOverviewResource.MirandaIMLink%>" target="_blank">Miranda</a>
-						    </div>
-						  <div class="talkPidginClientImage">
-						    <a href="http://pidgin.im/" class="external" title="<%=TalkOverviewResource.PidginLink%>" target="_blank">Pidgin</a>
-						  </div>
-						  <div class="talkPsiClientImage">
-						    <a href="http://psi-im.org/" class="external" title="<%=TalkOverviewResource.PsiLink%>" target="_blank">Psi</a>
-						  </div>
-					  </div>
-				  </td>
-					<td style="vertical-align:middle; padding-bottom: 15px;">
-					  <div class="tintMedium" style="width: 122px;">
-						  <div class="header-base" style="margin-top: 10px;"></div>
-						  <div class="talkAdiumClientImage">
-						    <a href="https://adium.im/" class="external" title="<%=TalkOverviewResource.Adium%>" target="_blank">Adium</a>
-						  </div>
-						  <div class="talkqutimClientImage">
-						    <a href="https://qutim.org/" class="external" title="<%=TalkOverviewResource.qutlIM%>" target="_blank">qutIM</a>
-						    </div>
-						  <div class="talkQipClientImage">
-						    <a href="http://welcome.qip.ru/im" class="external" title="<%=TalkOverviewResource.QIP%>" target="_blank">QIP</a>
-						  </div>
-					  </div>
 				  </td>
 			  </tr>
 		  </table>

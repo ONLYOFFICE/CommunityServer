@@ -13,7 +13,7 @@
         </header>
         <body>
             <div id="copyConvertDescript" class="confirm-convert-panel">
-                <%= FilesUCResource.ConfirmStoreOriginalOpenTitle %>
+                <%= FilesUCResource.ConfirmStoreOriginalOpenTitle.HtmlEncode() %>
                 <br/>
                 <br/>
                 <label id="confirmCopyConvertLabelText">
@@ -29,7 +29,7 @@
                 <%= FilesUCResource.CaptionConvertPassword %>
                 <br/>
                 <br/>
-                <input type="text" id="convertPassword" class="textEdit" />
+                <input type="password" id="convertPassword" class="textEdit" name="convert-field" autocomplete="new-password" />
             </div>
 
             <div id="progressCopyConvert">

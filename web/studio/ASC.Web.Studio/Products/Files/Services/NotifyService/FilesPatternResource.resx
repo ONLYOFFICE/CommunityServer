@@ -157,9 +157,9 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$Docum
 $Message</value>
   </data>
   <data name="pattern_ShareFolder" xml:space="preserve">
-    <value>h1. Access granted to folder: "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID"
+    <value>h1. Access granted to folder: "$DocumentTitle":"$DocumentURL"
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID" folder with the following access rights: "$AccessRights". 
+$__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$DocumentURL" folder with the following access rights: "$AccessRights". 
 
 $Message</value>
   </data>
@@ -184,5 +184,14 @@ $Message</value>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="patterns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>patterns.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="subject_DocuSignComplete_tg" xml:space="preserve">
+    <value>Documents. All signers completed [$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_ShareDocument_tg" xml:space="preserve">
+    <value>Documents. Access granted to document: [$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_ShareFolder_tg" xml:space="preserve">
+    <value>Documents. Access granted to folder: [$DocumentTitle]($DocumentURL)</value>
   </data>
 </root>

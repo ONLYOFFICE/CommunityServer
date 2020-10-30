@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -230,7 +221,7 @@ ASC.Projects.AllMilestones = (function () {
     }
 
     var getMilestoneTasksLink = function (prjId, milestoneId, status) {
-        var link = 'tasks.aspx?prjID=' + prjId + '#milestone=' + milestoneId + '&status=' + status;
+        var link = 'Tasks.aspx?prjID=' + prjId + '#milestone=' + milestoneId + '&status=' + status;
 
         if (location.hash.indexOf('user_tasks') > 0)
             link += '&tasks_responsible=' + jq.getAnchorParam('user_tasks', location.href);
@@ -288,7 +279,7 @@ ASC.Projects.AllMilestones = (function () {
     function showQuestionWindow(milestoneId) {
         self.showCommonPopup("closeMilestoneWithOpenTasks", function () {
             var milestone = getMilestoneById(milestoneId);
-            location.href = 'tasks.aspx?prjID=' + milestone.projectId + '#milestone=' + milestoneId + '&status=open';
+            location.href = 'Tasks.aspx?prjID=' + milestone.projectId + '#milestone=' + milestoneId + '&status=open';
         });
     };
 
@@ -300,12 +291,12 @@ ASC.Projects.AllMilestones = (function () {
             ActionMenuItem = ASC.Projects.ActionMenuItem;
 
         if (milestone.status !== 'closed') {
-            menuItems.push(new ActionMenuItem("updateMilestoneButton", resources.TasksResource.Edit, updateMilestoneActionHandler.bind(null, milestoneId)));
-            menuItems.push(new ActionMenuItem("addMilestoneTaskButton", resources.TasksResource.AddTask, addMilestoneTaskActionHandler.bind(null, milestoneId)));
+            menuItems.push(new ActionMenuItem("updateMilestoneButton", resources.TasksResource.Edit, updateMilestoneActionHandler.bind(null, milestoneId), "edit"));
+            menuItems.push(new ActionMenuItem("addMilestoneTaskButton", resources.TasksResource.AddTask, addMilestoneTaskActionHandler.bind(null, milestoneId), "new-task"));
         }
 
         if (milestone.canDelete) {
-            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.CommonResource.Delete, maRemoveHandler.bind(null, milestoneId)));
+            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.CommonResource.Delete, maRemoveHandler.bind(null, milestoneId), "delete"));
         }
 
         return { menuItems: menuItems };
@@ -336,6 +327,12 @@ ASC.Projects.AllMilestones = (function () {
         jq.unblockUI();
     };
     function onUpdateMilestone(params, milestone) {
+
+        if (milestone.status == 0)
+            milestoneAction.updateCaldavMilestone(milestone.id, milestone.projectId, 1)
+        else if (milestone.status == 1)
+            milestoneAction.updateCaldavMilestone(milestone.id, milestone.projectId, 2)
+
         var milestoneTemplate = getMilestoneTemplate(milestone);
 
         currentMilestonesList = currentMilestonesList.filter(function(item) { return item.id !== milestone.id });

@@ -1,35 +1,24 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 using System;
-using System.Linq;
 using System.Web;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Settings;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Utility;
@@ -38,6 +27,10 @@ namespace ASC.Web.CRM
 {
     public partial class Settings : BasePage
     {
+        protected string PageTitle { get; private set; }
+
+        protected bool IsInvoiceItemsList { get; private set; }
+
         protected override void PageLoad()
         {
             if (!CRMSecurity.IsAdmin)
@@ -51,114 +44,145 @@ namespace ASC.Web.CRM
             var typeValue = (HttpContext.Current.Request["type"] ?? "common").ToLower();
             ListItemView listItemViewControl;
 
-            string titlePage;
+            var headerView = (SettingsHeaderView) LoadControl(SettingsHeaderView.Location);
+
             switch (typeValue)
             {
                 case "common":
-                    CommonContainerHolder.Controls.Add(LoadControl(CommonSettingsView.Location));
+                    PageTitle = CRMSettingResource.CommonSettings;
+                    
+                    headerView.HeaderText = CRMSettingResource.ExportData;
+                    TitleContentHolder.Controls.Add(headerView);
 
-                    titlePage = CRMSettingResource.CommonSettings;
+                    CommonContainerHolder.Controls.Add(LoadControl(CommonSettingsView.Location));
                     break;
 
                 case "currency":
-                    CommonContainerHolder.Controls.Add(LoadControl(CurrencySettingsView.Location));
+                    PageTitle = CRMSettingResource.CurrencySettings;
 
-                    titlePage = CRMSettingResource.CurrencySettings;
+                    headerView.HeaderText = PageTitle;
+                    TitleContentHolder.Controls.Add(headerView);
+
+                    CommonContainerHolder.Controls.Add(LoadControl(CurrencySettingsView.Location));
                     break;
 
                 case "deal_milestone":
-                    var dealMilestoneViewControl = (DealMilestoneView)LoadControl(DealMilestoneView.Location);
-                    CommonContainerHolder.Controls.Add(dealMilestoneViewControl);
+                    PageTitle = CRMDealResource.DealMilestone;
 
-                    titlePage = CRMDealResource.DealMilestone;
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMSettingResource.DescriptionTextDealMilestone;
+                    headerView.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextDealMilestoneEditDelete;
+                    headerView.AddListButtonId = "createNewDealMilestone";
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewDealMilestoneListButton;
+                    TitleContentHolder.Controls.Add(headerView);
+
+                    CommonContainerHolder.Controls.Add(LoadControl(DealMilestoneView.Location));
                     break;
 
                 case "task_category":
+                    PageTitle = CRMTaskResource.TaskCategories;
+
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMSettingResource.DescriptionTextTaskCategory;
+                    headerView.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextTaskCategoryEditDelete;
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewCategoryListButton;
+                    TitleContentHolder.Controls.Add(headerView);
+
                     listItemViewControl = (ListItemView)LoadControl(ListItemView.Location);
                     listItemViewControl.CurrentTypeValue = ListType.TaskCategory;
                     listItemViewControl.AddButtonText = CRMSettingResource.AddThisCategory;
                     listItemViewControl.AddPopupWindowText = CRMSettingResource.CreateNewCategory;
-                    listItemViewControl.AddListButtonText = CRMSettingResource.CreateNewCategoryListButton;
-
                     listItemViewControl.AjaxProgressText = CRMSettingResource.CreateCategoryInProgressing;
                     listItemViewControl.DeleteText = CRMSettingResource.DeleteCategory;
                     listItemViewControl.EditText = CRMSettingResource.EditCategory;
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedCategory;
-                    listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextTaskCategory;
-                    listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextTaskCategoryEditDelete;
-                    listItemViewControl.HeaderText = CRMTaskResource.TaskCategories;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
-                    titlePage = CRMTaskResource.TaskCategories;
                     break;
 
                 case "history_category":
+                    PageTitle = CRMSettingResource.HistoryCategories;
+
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMSettingResource.DescriptionTextHistoryCategory;
+                    headerView.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextHistoryCategoryEditDelete;
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewCategoryListButton;
+                    TitleContentHolder.Controls.Add(headerView);
+
                     listItemViewControl = (ListItemView)LoadControl(ListItemView.Location);
                     listItemViewControl.CurrentTypeValue = ListType.HistoryCategory;
                     listItemViewControl.AddButtonText = CRMSettingResource.AddThisCategory;
                     listItemViewControl.AddPopupWindowText = CRMSettingResource.CreateNewCategory;
-                    listItemViewControl.AddListButtonText = CRMSettingResource.CreateNewCategoryListButton;
                     listItemViewControl.AjaxProgressText = CRMSettingResource.CreateCategoryInProgressing;
                     listItemViewControl.DeleteText = CRMSettingResource.DeleteCategory;
                     listItemViewControl.EditText = CRMSettingResource.EditCategory;
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedCategory;
-                    listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextHistoryCategory;
-                    listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextHistoryCategoryEditDelete;
-                    listItemViewControl.HeaderText = CRMSettingResource.HistoryCategories;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
-                    titlePage = CRMSettingResource.HistoryCategories;
                     break;
 
                 case "contact_stage":
+                    PageTitle = CRMContactResource.ContactStages;
+
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMSettingResource.DescriptionTextContactStage;
+                    headerView.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactStageEditDelete;
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewStageListButton;
+                    headerView.ShowContactStatusAskingDialog = true;
+                    TitleContentHolder.Controls.Add(headerView);
+
                     listItemViewControl = (ListItemView)LoadControl(ListItemView.Location);
                     listItemViewControl.CurrentTypeValue = ListType.ContactStatus;
                     listItemViewControl.AddButtonText = CRMSettingResource.AddThisStage;
                     listItemViewControl.AddPopupWindowText = CRMSettingResource.CreateNewStage;
-                    listItemViewControl.AddListButtonText = CRMSettingResource.CreateNewStageListButton;
-
                     listItemViewControl.AjaxProgressText = CRMSettingResource.CreateContactStageInProgressing;
                     listItemViewControl.DeleteText = CRMSettingResource.DeleteContactStage;
                     listItemViewControl.EditText = CRMSettingResource.EditContactStage;
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedContactStage;
-                    listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextContactStage;
-                    listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactStageEditDelete;
-                    listItemViewControl.HeaderText = CRMContactResource.ContactStages;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
-                    titlePage = CRMContactResource.ContactStages;
                     break;
 
                 case "contact_type":
+                    PageTitle = CRMSettingResource.ContactTypes;
+
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMSettingResource.DescriptionTextContactType;
+                    headerView.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactTypeEditDelete;
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewContactTypeListButton;
+                    TitleContentHolder.Controls.Add(headerView);
+
                     listItemViewControl = (ListItemView)LoadControl(ListItemView.Location);
                     listItemViewControl.CurrentTypeValue = ListType.ContactType;
                     listItemViewControl.AddButtonText = CRMSettingResource.AddThisContactType;
                     listItemViewControl.AddPopupWindowText = CRMSettingResource.CreateNewContactType;
-                    listItemViewControl.AddListButtonText = CRMSettingResource.CreateNewContactTypeListButton;
-
                     listItemViewControl.AjaxProgressText = CRMSettingResource.CreateContactTypeInProgressing;
                     listItemViewControl.DeleteText = CRMSettingResource.DeleteContactType;
                     listItemViewControl.EditText = CRMSettingResource.EditContactType;
                     listItemViewControl.EditPopupWindowText = CRMSettingResource.EditSelectedContactType;
-                    listItemViewControl.DescriptionText = CRMSettingResource.DescriptionTextContactType;
-                    listItemViewControl.DescriptionTextEditDelete = CRMSettingResource.DescriptionTextContactTypeEditDelete;
-                    listItemViewControl.HeaderText = CRMSettingResource.ContactTypes;
                     CommonContainerHolder.Controls.Add(listItemViewControl);
-                    titlePage = CRMSettingResource.ContactTypes;
                     break;
 
                 case "tag":
-                    var tagSettingsViewControl = (TagSettingsView)LoadControl(TagSettingsView.Location);
-                    CommonContainerHolder.Controls.Add(tagSettingsViewControl);
+                    PageTitle = CRMCommonResource.Tags;
 
-                    titlePage = CRMCommonResource.Tags;
+                    headerView.HeaderText = PageTitle;
+                    headerView.TabsContainerId = "TagSettingsTabs";
+                    headerView.AddListButtonId = "createNewTagSettings";
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewTagListButton;
+                    headerView.ShowTagAskingDialog = true;
+                    TitleContentHolder.Controls.Add(headerView);
+
+                    CommonContainerHolder.Controls.Add(LoadControl(TagSettingsView.Location));
                     break;
 
                 case "web_to_lead_form":
-                    CommonContainerHolder.Controls.Add(LoadControl(WebToLeadFormView.Location));
-                    titlePage = CRMSettingResource.WebToLeadsForm;
-                    break;
-                //case "task_template":
-                //    CommonContainerHolder.Controls.Add(LoadControl(TaskTemplateView.Location));
+                    PageTitle = CRMSettingResource.WebToLeadsForm;
 
-                //    titlePage = CRMSettingResource.TaskTemplates;
+                    CommonContainerHolder.Controls.Add(LoadControl(WebToLeadFormView.Location));
+                    break;
+
+                //case "task_template":
+                //    PageTitle = CRMSettingResource.TaskTemplates;
+
+                //    CommonContainerHolder.Controls.Add(LoadControl(TaskTemplateView.Location));
                 //    break;
 
                 case "invoice_items":
@@ -174,72 +198,79 @@ namespace ASC.Web.CRM
                             targetInvoiceItem = DaoFactory.InvoiceItemDao.GetByID(Convert.ToInt32(idParam));
                             if (targetInvoiceItem == null)
                             {
-                                Response.Redirect(PathProvider.StartURL() + "settings.aspx?type=invoice_items");
+                                Response.Redirect(PathProvider.StartURL() + "Settings.aspx?type=invoice_items");
                             }
                         }
 
+                        PageTitle = targetInvoiceItem == null ?
+                                              CRMInvoiceResource.CreateNewInvoiceItem :
+                                              String.Format(CRMInvoiceResource.UpdateInvoiceItem, targetInvoiceItem.Title);
+
+                        headerView.HeaderText = PageTitle;
+                        TitleContentHolder.Controls.Add(headerView);
 
                         var invoiceProductsViewControl = (InvoiceItemActionView)LoadControl(InvoiceItemActionView.Location);
                         invoiceProductsViewControl.TargetInvoiceItem = targetInvoiceItem;
                         CommonContainerHolder.Controls.Add(invoiceProductsViewControl);
-
-                        titlePage = CRMCommonResource.ProductsAndServices;
-
-                        var headerTitle = targetInvoiceItem == null ?
-                                              CRMInvoiceResource.CreateNewInvoiceItem :
-                                              String.Format(CRMInvoiceResource.UpdateInvoiceItem, targetInvoiceItem.Title);
-                        Master.CurrentPageCaption = headerTitle;
-                        Title = HeaderStringHelper.GetPageTitle(headerTitle);
                     }
                     else
                     {
-                        var invoiceProductsViewControl = (InvoiceItemsView)LoadControl(InvoiceItemsView.Location);
-                        CommonContainerHolder.Controls.Add(invoiceProductsViewControl);
+                        PageTitle = CRMCommonResource.ProductsAndServices;
 
-                        titlePage = CRMCommonResource.ProductsAndServices;
+                        headerView.HeaderText = PageTitle;
+                        TitleContentHolder.Controls.Add(headerView);
+                        
+                        IsInvoiceItemsList = true;
+                        
+                        CommonContainerHolder.Controls.Add(LoadControl(InvoiceItemsView.Location));
                     }
                     break;
 
                 case "invoice_tax":
-                    var invoiceTaxesViewControl = (InvoiceTaxesView)LoadControl(InvoiceTaxesView.Location);
-                    CommonContainerHolder.Controls.Add(invoiceTaxesViewControl);
+                    PageTitle = CRMCommonResource.InvoiceTaxes;
+                    
+                    headerView.HeaderText = PageTitle;
+                    headerView.DescriptionText = CRMInvoiceResource.InvoiceTaxesDescriptionText;
+                    headerView.DescriptionTextEditDelete = CRMInvoiceResource.InvoiceTaxesDescriptionTextEditDelete;
+                    headerView.AddListButtonId = "createNewTax";
+                    headerView.AddListButtonText = CRMInvoiceResource.CreateInvoiceTax;
+                    TitleContentHolder.Controls.Add(headerView);
 
-                    titlePage = CRMCommonResource.InvoiceTaxes;
-
+                    CommonContainerHolder.Controls.Add(LoadControl(InvoiceTaxesView.Location));
                     break;
 
                 case "organisation_profile":
-                    var organisationProfileControl = (OrganisationProfile)LoadControl(OrganisationProfile.Location);
-                    CommonContainerHolder.Controls.Add(organisationProfileControl);
+                    PageTitle = CRMCommonResource.OrganisationProfile;
 
-                    titlePage = CRMCommonResource.OrganisationProfile;
-
+                    CommonContainerHolder.Controls.Add(LoadControl(OrganisationProfile.Location));
                     break;
 
                 case "voip.common":
-                    var voIPCommon = (VoipCommon)LoadControl(VoipCommon.Location);
-                    CommonContainerHolder.Controls.Add(voIPCommon);
+                    PageTitle = CRMCommonResource.VoIPCommonSettings;
 
-                    titlePage = CRMCommonResource.VoIPCommonSettings;
-
+                    CommonContainerHolder.Controls.Add(LoadControl(VoipCommon.Location));
                     break;
 
                 case "voip.numbers":
-                    var voIPNumbers = (VoipNumbers)LoadControl(VoipNumbers.Location);
-                    CommonContainerHolder.Controls.Add(voIPNumbers);
+                    PageTitle = CRMCommonResource.VoIPNumbersSettings;
 
-                    titlePage = CRMCommonResource.VoIPNumbersSettings;
-
+                    CommonContainerHolder.Controls.Add(LoadControl(VoipNumbers.Location));
                     break;
 
                 default:
-                    CommonContainerHolder.Controls.Add(LoadControl(CustomFieldsView.Location));
+                    PageTitle = CRMSettingResource.CustomFields;
 
-                    titlePage = CRMSettingResource.CustomFields;
+                    headerView.HeaderText = PageTitle;
+                    headerView.TabsContainerId = "CustomFieldsTabs";
+                    headerView.AddListButtonId = "createNewField";
+                    headerView.AddListButtonText = CRMSettingResource.CreateNewFieldListButton;
+                    TitleContentHolder.Controls.Add(headerView);
+
+                    CommonContainerHolder.Controls.Add(LoadControl(CustomFieldsView.Location));
                     break;
             }
 
-            Title = HeaderStringHelper.GetPageTitle(Master.CurrentPageCaption ?? titlePage);
+            Title = HeaderStringHelper.GetPageTitle(Master.CurrentPageCaption ?? PageTitle);
         }
     }
 }

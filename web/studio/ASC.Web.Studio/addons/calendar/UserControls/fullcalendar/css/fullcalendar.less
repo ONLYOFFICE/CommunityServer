@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -89,6 +80,10 @@ html .fc {
 	-khtml-user-select: none;
 	user-select: none;
 	-o-user-select: none;*/
+}
+
+main {
+    padding: 24px 24px 24px 0 !important;
 }
 
 .fc {
@@ -1871,10 +1866,10 @@ div.fc-catlist {
 	min-height: 170px;
 }
 .fc-catlist .content.fixed {
-	position: absolute;
+	/*position: absolute;
 	left: 0;
 	right: 0;
-	top: 0;
+	top: 0;*/
 }
 
 .fc-catlist .content-h {
@@ -1938,7 +1933,7 @@ div.fc-catlist {
 	
     position: relative;
     min-height: 2.5em;
-    overflow: auto;
+    /*overflow: auto;*/
     width: 100%;
     padding-bottom: 3px;
 
@@ -2064,11 +2059,11 @@ div.fc-catlist {
     max-width: 300px;
 }
 .fc-catlist-picker.fixed {
-	position: absolute;
+	/*position: absolute;
 	width: 100%;
 	left: 0;
 	bottom: 0;
-	border-bottom-width: 0;
+	border-bottom-width: 0;*/
 }
 
 .fc-catlist-picker > div {
@@ -2552,7 +2547,9 @@ div.fc-todo-list {
         }
     }
 }
-
+.shared-list .users-list .user {
+    display: block;
+}
 .shared-list .users-list .user .icon,
 .shared-list .users-list .user .remove-btn {
 	display: inline-block;
@@ -2767,7 +2764,7 @@ div.fc-todo-list {
 	display: none;
 }
 
-.event-editor.edit-popup{
+/*.event-editor.edit-popup{
     .buttons .edit-btn,
     .buttons .save-btn,
     .buttons .close-btn,
@@ -2775,7 +2772,7 @@ div.fc-todo-list {
     .buttons .delete-btn{
         margin-bottom: 24px;
     }
-}
+}*/
 
 .event-editor .buttons .edit-btn,
 .event-editor .buttons .save-btn,
@@ -3161,14 +3158,14 @@ div.fc-todo-list {
     white-space: initial;
 }
 .event-editor .viewer .description .text {
-	/*width: 100%;*/
+	width: 100%;
 	
 	white-space: normal;
-	width: 30em;
 	word-wrap: break-word;
 	
 	height: auto;
 	max-height: 8em;
+    overflow: auto;
 }
 #fc_todo_viewer .viewer .description .text > div,
 .event-editor .viewer .description .text > div {
@@ -4184,6 +4181,9 @@ div.fc-todo-list {
 #fc_subscription_dlg .ical-saved-url.hidden {
 	display: none;
 }
+#fc_subscription_dlg .ical-export {
+    margin-top: 1em;
+}
 
 #fc_cal_editor .ical,
 #fc_subscription_dlg .ical {
@@ -4556,8 +4556,8 @@ div.fc-todo-list {
     }
 
     textarea.textEdit {
-        height: 300px;
-        max-height: 365px;
+        height: 150px;
+        max-height: 300px;
         max-width: inherit;
         min-height: 22px;
         padding: 0;
@@ -4570,6 +4570,14 @@ div.fc-todo-list {
         float: left;
         margin: 0;
         padding: 0;
+
+        &.readonly {
+            width: 100%;
+
+            .wrapper {
+                width: auto;
+            }
+        }
 
         &.left .inner {
             padding: 0 45px 0 0;
@@ -4625,6 +4633,7 @@ div.fc-todo-list {
 
     .wrapper {
         width: 164px;
+        position: relative
     }
 
     .withbullet {

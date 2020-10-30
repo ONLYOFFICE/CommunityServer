@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,6 +19,8 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+
 using ASC.Common.Logging;
 using ASC.Common.Module;
 using ASC.Core;
@@ -35,7 +28,7 @@ using ASC.Core;
 
 namespace ASC.Radicale
 {
-    public class Launcher: IServiceController
+    public class Launcher : IServiceController
     {
         private static Process proc;
         private static ProcessStartInfo startInfo;
@@ -44,9 +37,9 @@ namespace ASC.Radicale
         {
             try
             {
-                var cfg = (RadicaleCfgSectionHandler)ConfigurationManager.GetSection("radicale");
+                var cfg = (RadicaleCfgSectionHandler)ConfigurationManagerExtension.GetSection("radicale");
                 var pythonName = "python";
-                
+
                 if (WorkContext.IsMono)
                 {
                     pythonName = "python3";
@@ -58,10 +51,9 @@ namespace ASC.Radicale
                     UseShellExecute = false,
                     FileName = pythonName,
                     WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = string.Format("-m radicale --config \"{0}\" --logging-config \"{1}\"", 
-                                                Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "radicale.config")),
-                                                Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "radicale.log.config"))),
-                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                    Arguments = string.Format("-m radicale --config \"{0}\"",
+                                                Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "radicale.config"))),
+                    WorkingDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
                 };
 
                 StartRedicale();
@@ -91,7 +83,7 @@ namespace ASC.Radicale
                 if (proc != null && !proc.HasExited)
                 {
                     proc.Kill();
-                    if (!proc.WaitForExit(10000)) 
+                    if (!proc.WaitForExit(10000))
                     {
                         Logger.Warn("The process does not wait for completion.");
                     }

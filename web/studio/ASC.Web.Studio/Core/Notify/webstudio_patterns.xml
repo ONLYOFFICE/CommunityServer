@@ -10,6 +10,10 @@
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_self_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="self_profile_updated" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_self_profile_updated_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- user_has_join -->
   <pattern id="user_has_join" sender="email.sender">
@@ -19,6 +23,10 @@
   <pattern id="user_has_join" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_user_has_join|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="user_has_join" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_user_has_join_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- for_admin_notify -->
@@ -30,6 +38,10 @@
     <subject resource="|subject_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="for_admin_notify" sender="telegram.sender">
+    <subject resource="|subject_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_for_admin_notify_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- profile_updated -->
   <pattern id="profile_updated" sender="email.sender">
@@ -39,6 +51,10 @@
   <pattern id="profile_updated" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="profile_updated" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_profile_updated_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- join -->
@@ -68,6 +84,18 @@ $activity.Key
 #end
     </body>
   </pattern>
+  <pattern id="send_whats_new" sender="telegram.sender">
+    <subject resource="|subject_send_whats_new|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">#foreach($activity in $Activities)
+$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)#foreach($b in $whatsNewActivity.BreadCrumbs) $b &gt; #end [$whatsNewActivity.Title]($whatsNewActivity.URL)
+[$whatsNewActivity.UserName]($whatsNewActivity.UserAbsoluteURL)    $whatsNewActivity.Date.ToShortTimeString()
+
+#end
+#end
+    </body>
+  </pattern>
 
   <!-- backup_created -->
   <pattern id="backup_created" sender="email.sender">
@@ -77,6 +105,10 @@ $activity.Key
   <pattern id="backup_created" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_backup_created|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="backup_created" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_backup_created_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
   
   <!-- restore_started -->
@@ -100,6 +132,10 @@ $activity.Key
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_deactivate|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="portal_deactivate" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_deactivate_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- portal_delete -->
   <pattern id="portal_delete" sender="email.sender">
@@ -109,6 +145,10 @@ $activity.Key
   <pattern id="portal_delete" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_delete|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="portal_delete" sender="telegram.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- portal_delete_success_v10 -->
@@ -251,7 +291,7 @@ $activity.Key
   <!-- request tariff -->
   <pattern id="request_tariff" sender="email.sender">
     <subject resource="|subject_request_tariff|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_request_tariff|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_request_tariff1|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
   <pattern id="request_license" sender="email.sender">
     <subject resource="|subject_request_license|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
@@ -276,10 +316,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_admin_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- opensource admin activation -->
-  <pattern id="opensource_admin_activation">
-    <subject resource="|subject_opensource_admin_activation|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_activation|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- opensource admin activation v11 -->
+  <pattern id="opensource_admin_activation_v11">
+    <subject resource="|subject_opensource_admin_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- saas admin welcome v10 -->
@@ -300,6 +340,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_admin_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- opensource admin welcome v11 -->
+  <pattern id="opensource_admin_welcome_v11" sender="email.sender">
+    <subject resource="|subject_opensource_admin_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
   <!-- saas user activation v10 -->
   <pattern id="saas_user_activation_v10">
     <subject resource="|subject_saas_user_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
@@ -316,6 +362,12 @@ $activity.Key
   <pattern id="enterprise_whitelabel_user_activation_v10">
     <subject resource="|subject_enterprise_whitelabel_user_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_user_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- opensource user activation v11 -->
+  <pattern id="opensource_user_activation_v11">
+    <subject resource="|subject_opensource_user_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_user_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- ldap user activation -->
@@ -364,6 +416,16 @@ $activity.Key
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_user_welcome_custom_mode|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- opensource user welcome v11 -->
+  <pattern id="opensource_user_welcome_v11" sender="email.sender">
+    <subject resource="|subject_opensource_user_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_user_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="opensource_user_welcome_v11" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_opensource_user_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
   <!-- saas guest activation v10 -->
   <pattern id="saas_guest_activation_v10">
     <subject resource="|subject_saas_guest_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
@@ -380,6 +442,12 @@ $activity.Key
   <pattern id="enterprise_whitelabel_guest_activation_v10">
     <subject resource="|subject_enterprise_whitelabel_guest_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_guest_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- opensource guest activation v11 -->
+  <pattern id="opensource_guest_activation_v11">
+    <subject resource="|subject_opensource_guest_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_guest_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- saas guest welcome v10 -->
@@ -410,6 +478,16 @@ $activity.Key
   <pattern id="enterprise_whitelabel_guest_welcome_v10" sender="messanger.sender">
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_guest_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- opensource guest welcome v11 -->
+  <pattern id="opensource_guest_welcome_v11" sender="email.sender">
+    <subject resource="|subject_opensource_guest_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_guest_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="opensource_guest_welcome_v11" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_opensource_guest_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise admin customize portal v10 -->
@@ -562,16 +640,16 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_payment_after_monthly_subscriptions_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- opensource admin security tips -->
-  <pattern id="opensource_admin_security_tips">
-    <subject resource="|subject_opensource_admin_security_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_security_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- opensource admin docs tips v11 -->
+  <pattern id="opensource_admin_docs_tips_v11">
+    <subject resource="|subject_opensource_admin_docs_tips_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_docs_tips_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- opensource admin docs tips -->
-  <pattern id="opensource_admin_docs_tips">
-    <subject resource="|subject_opensource_admin_docs_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_docs_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- opensource user docs tips v11 -->
+  <pattern id="opensource_user_docs_tips_v11">
+    <subject resource="|subject_opensource_user_docs_tips_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_user_docs_tips_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- personal activate -->
@@ -587,7 +665,7 @@ $activity.Key
   </pattern>
   <pattern id="personal_after_registration7">
     <subject resource="|subject_personal_after_registration7|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_after_registration7|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_after_registration8|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
   <pattern id="personal_after_registration14">
     <subject resource="|subject_personal_after_registration14|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
@@ -633,7 +711,7 @@ $activity.Key
   </pattern>
   <pattern id="personal_custom_mode_after_registration7">
     <subject resource="|subject_personal_custom_mode_after_registration7|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_after_registration7|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_after_registration8|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- personal custom mode confirmation -->
@@ -659,4 +737,47 @@ $activity.Key
     <subject resource="|subject_personal_custom_mode_profile_delete|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_profile_delete|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
+
+  <!-- saas custom mode reg data -->
+  <pattern id="saas_custom_mode_reg_data">
+    <subject resource="|subject_saas_custom_mode_reg_data|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_custom_mode_reg_data|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- encryption_start -->
+  <pattern id="storage_encryption_start">
+    <subject resource="|subject_storage_encryption_start|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_encryption_start|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- encryption_success -->
+  <pattern id="storage_encryption_success">
+    <subject resource="|subject_storage_encryption_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_encryption_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- encryption_error -->
+  <pattern id="storage_encryption_error">
+    <subject resource="|subject_storage_encryption_error|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_encryption_error|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- decryption_start -->
+  <pattern id="storage_decryption_start">
+    <subject resource="|subject_storage_decryption_start|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_decryption_start|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- decryption_success -->
+  <pattern id="storage_decryption_success">
+    <subject resource="|subject_storage_decryption_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_decryption_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- decryption_error -->
+  <pattern id="storage_decryption_error">
+    <subject resource="|subject_storage_decryption_error|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_storage_decryption_error|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
 </patterns>

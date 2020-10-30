@@ -114,7 +114,7 @@
             <%= CRMJSResource.NextPreview%>
         </a>
         <span class="splitter-buttons"></span>
-        <a class="button gray middle" href="default.aspx">
+        <a class="button gray middle" href="Default.aspx">
             <%= CRMCommonResource.Cancel%>
         </a>
     </div>
@@ -178,7 +178,7 @@
                         <a id="abortButton" class="button middle gray" onclick="ASC.CRM.SmtpSender.abortMassSend()">
                             <%= CRMContactResource.AbortMassSend%>
                         </a>
-                        <a id="okButton" class="button middle gray" href="default.aspx" style="display: none;">
+                        <a id="okButton" class="button middle gray" href="Default.aspx" style="display: none;">
                             <%= CRMCommonResource.OK%>
                         </a>
                     </div>

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -90,6 +81,8 @@ namespace ASC.Web.Files.Services.DocumentService
             var rightToComment = rightToEdit;
             var commentPossible = editPossible;
 
+            var rightModifyFilter = rightToEdit;
+
             if (linkRight == FileShare.Restrict && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 rightToEdit = false;
@@ -100,12 +93,16 @@ namespace ASC.Web.Files.Services.DocumentService
 
             var fileSecurity = Global.GetFilesSecurity();
             rightToEdit = rightToEdit
-                          && (linkRight == FileShare.ReadWrite
-                              || fileSecurity.CanEdit(file));
+                          && (linkRight == FileShare.ReadWrite || linkRight == FileShare.CustomFilter
+                              || fileSecurity.CanEdit(file) || fileSecurity.CanCustomFilterEdit(file));
             if (editPossible && !rightToEdit)
             {
                 editPossible = false;
             }
+
+            rightModifyFilter = rightModifyFilter
+                            && (linkRight == FileShare.ReadWrite
+                                || fileSecurity.CanEdit(file));
 
             rightToRename = rightToRename && rightToEdit && fileSecurity.CanEdit(file);
 
@@ -162,6 +159,15 @@ namespace ASC.Web.Files.Services.DocumentService
                 rightToEdit = editPossible = false;
             }
 
+            if (file.Encrypted
+                && file.RootFolderType != FolderType.Privacy)
+            {
+                rightToEdit = editPossible = false;
+                rightToReview = reviewPossible = false;
+                rightToFillForms = fillFormsPossible = false;
+                rightToComment = commentPossible = false;
+            }
+
             if (!editPossible && !FileUtility.CanWebView(file.Title)) throw new Exception(string.Format("{0} ({1})", FilesCommonResource.ErrorMassage_NotSupportedFormat, FileUtility.GetFileExtension(file.Title)));
 
             if (reviewPossible &&
@@ -182,7 +188,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 rightToComment = commentPossible = false;
             }
 
-            var rightChangeHistory = rightToEdit;
+            var rightChangeHistory = rightToEdit && !file.Encrypted;
 
             if (FileTracker.IsEditing(file.ID))
             {
@@ -230,6 +236,7 @@ namespace ASC.Web.Files.Services.DocumentService
                                     FillForms = rightToFillForms && lastVersion,
                                     Comment = rightToComment && lastVersion,
                                     ChangeHistory = rightChangeHistory,
+                                    ModifyFilter = rightModifyFilter
                                 }
                         },
                     EditorConfig =
@@ -259,7 +266,9 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static string GetDocKey(File file)
         {
-            return GetDocKey(file.ID, file.Version, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
+            return file == null
+                       ? string.Empty
+                       : GetDocKey(file.ID, file.Version, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
         }
 
         public static string GetDocKey(object fileId, int fileVersion, DateTime modified)
@@ -284,6 +293,7 @@ namespace ASC.Web.Files.Services.DocumentService
             var fileSecurity = Global.GetFilesSecurity();
             var sharedLink =
                 fileSecurity.CanEdit(file, FileConstant.ShareLinkId)
+                || fileSecurity.CanCustomFilterEdit(file, FileConstant.ShareLinkId)
                 || fileSecurity.CanReview(file, FileConstant.ShareLinkId)
                 || fileSecurity.CanFillForms(file, FileConstant.ShareLinkId)
                 || fileSecurity.CanComment(file, FileConstant.ShareLinkId);
@@ -295,7 +305,12 @@ namespace ASC.Web.Files.Services.DocumentService
                                                {
                                                    return !sharedLink;
                                                }
-                                               return !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid) && !fileSecurity.CanFillForms(file, uid) && !fileSecurity.CanComment(file, uid);
+                                               return
+                                                   !fileSecurity.CanEdit(file, uid)
+                                                   && !fileSecurity.CanCustomFilterEdit(file, uid)
+                                                   && !fileSecurity.CanReview(file, uid)
+                                                   && !fileSecurity.CanFillForms(file, uid)
+                                                   && !fileSecurity.CanComment(file, uid);
                                            })
                                        .Select(u => u.ToString()).ToArray();
 
@@ -322,6 +337,7 @@ namespace ASC.Web.Files.Services.DocumentService
         public static bool RenameFile(File file, IFileDao fileDao)
         {
             if (!FileUtility.CanWebView(file.Title)
+                && !FileUtility.CanWebCustomFilterEditing(file.Title)
                 && !FileUtility.CanWebEdit(file.Title)
                 && !FileUtility.CanWebReview(file.Title)
                 && !FileUtility.CanWebRestrictedEditing(file.Title)

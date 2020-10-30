@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -131,6 +122,7 @@ if (!Array.prototype.find) {
 }
 
 toastr.options.hideDuration = 100;
+toastr.options.timeOut = 8000;
 
 jQuery.extend(
     jQuery.expr[":"],
@@ -316,30 +308,32 @@ jQuery.extend({
             ms, // date in milliseconds
             month, day, year; // (integer) month, day and year
 
-        var dateFormat = Teamlab.constants.dateFormats.date;
+        var dateFormat = Teamlab.constants.dateFormats.date.replace(/ /g, '');
         var separator = "/";
-        var dateFormatComponent = dateFormat.split(separator);
+        var dateFormatComponent = dateFormat.replace(/[^dDmMyY\/]/g, '').split(separator);
         if (dateFormatComponent.length == 1) {
             separator = ".";
-            dateFormatComponent = dateFormat.split(separator);
+            dateFormatComponent = dateFormat.replace(/[^dDmMyY.]/g, '').split(separator);
             if (dateFormatComponent.length == 1) {
                 separator = "-";
-                dateFormatComponent = dateFormat.split(separator);
+                dateFormatComponent = dateFormat.replace(/[^dDmMyY-]/g, '').split(separator);
                 if (dateFormatComponent.length == 1) {
-                    separator = ". ";       // for czech language
-                    dateFormatComponent = dateFormat.split(separator);
-                    if (dateFormatComponent.length == 1) {
-                        return "Unknown format date";
-                    }
+                    return "Unknown format date";
                 }
             }
         }
 
+        dateFormatComponent = dateFormatComponent.filter(function (el) { return el; });
+
+        var regex = new RegExp('[^\\[0-9\\]' + separator + ']', 'g');
+
         // split input date to month, day and year
-        aoDate = txtDate.split(separator);
+        aoDate = txtDate.replace(regex, '').split(separator);
+
+        aoDate = aoDate.filter(function (el) { return el; });
+
         // array length should be exactly 3 (no more no less)
-        // the second condition for format dd.mm.yyyy. (for example in Latvia)
-        if (aoDate.length !== 3 && txtDate.charAt(txtDate.length - 1) !== separator) {
+        if (aoDate.length !== 3) {
             return false;
         }
         // define month, day and year from array (expected format is m/d/yyyy)
@@ -447,10 +441,19 @@ jQuery.extend({
                     ? 0
                     : (scrHeight + scrScrollTop - baseTop > ddiHeight ? 0 : ddiHeight);
 
+            var top = baseTop - correctionY + (correctionY == 0 ? 2 : -target.outerHeight() - 2);
+            var bottom = "auto";
+
+            if (top + ddiHeight > document.body.clientHeight + scrScrollTop) {
+                top = "auto";
+                bottom = "0";
+            }
+
             dropdownItem.css({
-                "top": baseTop - correctionY + (correctionY == 0 ? 2 : -target.outerHeight() - 2),
+                "top": top,
                 "left": position.left + target.outerWidth() - ddiWidth + 10,
-                "right": "auto"
+                "right": "auto",
+                "bottom": bottom
             });
         } else {
             var correctionX = document.body.clientWidth - (evt.pageX - pageXOffset + ddiWidth) > 0 ? 0 : ddiWidth;
@@ -459,11 +462,20 @@ jQuery.extend({
                     ? 0
                     : (scrHeight + scrScrollTop - evt.pageY > ddiHeight ? 0 : ddiHeight);
 
+            var top = evt.pageY - correctionY;
+            var bottom = "auto";
+
+            if (top + ddiHeight > document.body.clientHeight + scrScrollTop) {
+                top = "auto";
+                bottom = "0";
+            }
+
             dropdownItem.css(
                 {
-                    "top": evt.pageY - correctionY,
+                    "top": top,
                     "left": evt.pageX - correctionX,
                     "right": "auto",
+                    "bottom": bottom,
                     "margin": "0"
                 });
         }
@@ -495,33 +507,22 @@ String.prototype.removeAt = function (start, length) {
 }
 
 StudioBlockUIManager = {
-    blockUI: function (obj, width, height, top, position, opts) {
+    blockUI: function (obj, width, opts) {
         try {
-            width = width | 0;
-            height = height | 0;
-            left = width > 0 ? (-width / 2 | 0) : -200;
-            top = ((top || -height / 2) | 0) + (position ? jq(window).scrollTop() : 0);
-            top = -Math.min(-top, jq(window).height() / 2);
-            position = position ? position : "fixed";
-            opts = opts || {};
-
             var defaultOptions = {
                 message: jq(obj),
                 css: {
                     backgroundColor: "transparent",
                     border: "none",
                     cursor: "default",
-                    height: height > 0 ? height + "px" : "auto",
                     left: "50%",
-                    marginLeft: left + "px",
-                    marginTop: top + "px",
                     opacity: "1",
                     overflow: "visible",
                     padding: "0px",
-                    position: position,
+                    position: "fixed",
                     textAlign: "left",
-                    top: "50%",
-                    width: width > 0 ? width + "px" : "auto",
+                    width: (typeof width == "number" && width > 0) ? width + "px" : "auto",
+                    transform: "translate(-50%, -50%)"
                 },
 
                 overlayCSS: {
@@ -534,10 +535,21 @@ StudioBlockUIManager = {
                 baseZ: 666,
 
                 fadeIn: 0,
-                fadeOut: 0
+                fadeOut: 0,
+
+                onBlock: function () {
+                    var matrix = this.css("transform").match(/-?\d+\.?\d*/g);
+                    this.css("transform", "");
+                    this.css("margin-left", parseInt(matrix[4]) + "px");
+                    this.css("margin-top", parseInt(matrix[5]) + "px");
+
+                    if (jq.browser.mobile) {
+                        jq(obj).get(0).scrollIntoView({ block: "start", inline: "start" });
+                    }
+                }
             };
 
-            jq.blockUI(jq.extend(true, defaultOptions, opts));
+            jq.blockUI(jq.extend(true, defaultOptions, opts || {}));
         } catch (e) {
         }
     }
@@ -603,8 +615,13 @@ var PopupKeyUpActionProvider = new function () {
                 eval(PopupKeyUpActionProvider.CtrlEnterAction);
             }
         } else if (code == 13) {
-            if (e.target.nodeName.toLowerCase() !== 'textarea' && PopupKeyUpActionProvider.EnterAction != null && PopupKeyUpActionProvider.EnterAction != '')
-                eval(PopupKeyUpActionProvider.EnterAction);
+            if (e.target.nodeName.toLowerCase() !== 'textarea' && PopupKeyUpActionProvider.EnterAction != null && PopupKeyUpActionProvider.EnterAction != '') {
+                if (typeof PopupKeyUpActionProvider.EnterAction === "string") {
+                    eval(PopupKeyUpActionProvider.EnterAction);
+                } else if (typeof PopupKeyUpActionProvider.EnterAction === "function") {
+                    PopupKeyUpActionProvider.EnterAction();
+                }
+            }
             if (e.target.nodeName.toLowerCase() !== 'textarea' && PopupKeyUpActionProvider.EnterActionCallback != null && PopupKeyUpActionProvider.EnterActionCallback != '')
                 eval(PopupKeyUpActionProvider.EnterActionCallback);
         }
@@ -648,22 +665,19 @@ var StudioManager = new function () {
         return ASC.Resources.Master.ImageWebPath + "/" + imageName;
     };
 
-    this.getLocationPathToModule = function (moduleName) { // example path = jq.getLocationPathToModule("projects") - http://localhost/asc/products/projects/
-        var products = "products";
-        var mass = location.href.toLowerCase().split(products);
-        var path = mass[0] + products + "/" + moduleName + "/";
-        return path;
+    this.getLocationPathToModule = function (moduleName) { // example path = jq.getLocationPathToModule("Projects") - http://localhost/Products/Projects/
+        return window.location.origin + "/Products/" + moduleName + "/";
     };
 
     this.getBasePathToModule = function () {
-        var products = "products",
+        var products = "Products",
             addons = "addons",
             mass,
             parts,
             moduleName = "",
             path = "/";
 
-        mass = location.pathname.toLowerCase().split(products);
+        mass = location.pathname.split(products);
         if (mass.length > 1) {
             parts = mass[1].split('/');
             if (parts.length > 1) {
@@ -851,7 +865,7 @@ var StudioManager = new function () {
     };
 
     this.ShowAddContentDialog = function () {
-        StudioBlockUIManager.blockUI("#studio_AddContentDialog", 400, 350, 0);
+        StudioBlockUIManager.blockUI("#studio_AddContentDialog", 400);
     };
 
     this.Disable = function (obj_id) {
@@ -1097,7 +1111,7 @@ ASC.EmailOperationManager = (function () {
     };
 
     function openPopupDialog () {
-        StudioBlockUIManager.blockUI("#studio_emailChangeDialog", 425, 300, 0);
+        StudioBlockUIManager.blockUI("#studio_emailChangeDialog", 425);
 
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#btEmailOperationSend\").click();";
@@ -1373,6 +1387,7 @@ var LeftMenuManager = new function () {
             inPopup: true,
             addTop: 4,
             addLeft: 0,
+            rightPos: true,
             afterShowFunction: function (switcherObj, dropdownItem) {
                 jq(window).trigger("onOpenSideNavOtherActions", switcherObj, dropdownItem);
             }
@@ -1852,7 +1867,23 @@ window.submitForm = function (eventTarget, eventArgument) {
         form.__EVENTARGUMENT.value = eventArgument;
     }
 
+    if (ASC.Desktop && ASC.Desktop.checkpwd) {
+        ASC.Desktop.checkpwd();
+    }
+
     form.submit();
+};
+
+window.hashPassword = function (password, callback) {
+    var size = ASC.Resources.Master.PasswordHashSize;
+    var iterations = ASC.Resources.Master.PasswordHashIterations;
+    var salt = ASC.Resources.Master.PasswordHashSalt;
+
+    var bits = sjcl.misc.pbkdf2(password, salt, iterations);
+    bits = bits.slice(0, size / 32);
+    var hash = sjcl.codec.hex.fromBits(bits);
+
+    callback(hash);
 };
 
 window.TipsManager = new function() {

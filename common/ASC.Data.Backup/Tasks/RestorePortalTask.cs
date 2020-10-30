@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,8 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Logging;
@@ -88,7 +81,7 @@ namespace ASC.Data.Backup.Tasks
                 var dbFactory = new DbFactory(ConfigPath);
                 if (Dump)
                 {
-                    RestoreFromDump(dataReader, dbFactory);
+                    RestoreFromDump(dataReader);
                 }
                 else
                 {
@@ -111,6 +104,11 @@ namespace ASC.Data.Backup.Tasks
 
                 if (ProcessStorage)
                 {
+                    if (CoreContext.Configuration.Standalone)
+                    {
+                        Logger.Debug("clear cache");
+                        AscCache.ClearCache();
+                    }
                     DoRestoreStorage(dataReader);
                 }
                 if (UnblockPortalAfterCompleted)
@@ -138,20 +136,36 @@ namespace ASC.Data.Backup.Tasks
             Logger.Debug("end restore portal");
         }
 
-        private void RestoreFromDump(IDataReadOperator dataReader, DbFactory dbFactory)
+        private void RestoreFromDump(IDataReadOperator dataReader)
         {
             var keyBase = KeyHelper.GetDatabaseSchema();
             var keys = dataReader.Entries.Where(r => r.StartsWith(keyBase)).ToList();
             var upgrades = new List<string>();
 
-            if (!string.IsNullOrEmpty(UpgradesPath) && Directory.Exists(UpgradesPath))
+            var upgradesPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), UpgradesPath));
+            if (!string.IsNullOrEmpty(upgradesPath) && Directory.Exists(upgradesPath))
             {
-                upgrades = Directory.GetFiles(UpgradesPath).ToList();
+                upgrades = Directory.GetFiles(upgradesPath).ToList();
             }
 
             var stepscount = keys.Count * 2 + upgrades.Count;
 
-            SetStepsCount(ProcessStorage ? stepscount + 1 : stepscount);
+            if (ProcessStorage)
+            {
+                var storageModules = StorageFactory.GetModuleList(ConfigPath).Where(IsStorageModuleAllowed);
+                var tenants = CoreContext.TenantManager.GetTenants(false);
+
+                stepscount += storageModules.Count() * tenants.Count;
+
+                SetStepsCount(stepscount + 1);
+
+                DoDeleteStorage(storageModules, tenants);
+            }
+            else
+            {
+                SetStepsCount(stepscount);
+            }
+
 
             for (var i = 0; i < keys.Count; i += TasksLimit)
             {
@@ -169,7 +183,22 @@ namespace ASC.Data.Backup.Tasks
             var comparer = new SqlComparer();
             foreach (var u in upgrades.OrderBy(Path.GetFileName, comparer))
             {
-                RunMysqlFile(dbFactory, u, true);
+                using (var s = File.OpenRead(u))
+                {
+                    if (u.Contains(".upgrade."))
+                    {
+                        RunMysqlFile(s, null).Wait();
+                    }
+                    else if (u.Contains(".data") || u.Contains(".upgrade"))
+                    {
+                        RunMysqlProcedure(s).Wait();
+                    }
+                    else
+                    {
+                        RunMysqlFile(s).Wait();
+                    }
+                }
+
                 SetStepCompleted();
             }
         }
@@ -277,6 +306,42 @@ namespace ASC.Data.Backup.Tasks
             Logger.Debug("end restore storage");
         }
 
+        private void DoDeleteStorage(IEnumerable<string> storageModules, IEnumerable<Tenant> tenants)
+        {
+            Logger.Debug("begin delete storage");
+
+            foreach (var tenant in tenants)
+            {
+                foreach (var module in storageModules)
+                {
+                    var storage = StorageFactory.GetStorage(ConfigPath, tenant.TenantId.ToString(), module);
+                    var domains = StorageFactory.GetDomainList(ConfigPath, module).ToList();
+
+                    domains.Add(string.Empty); //instead storage.DeleteFiles("\\", "*.*", true);
+
+                    foreach (var domain in domains)
+                    {
+                        ActionInvoker.Try(
+                            state =>
+                            {
+                                if (storage.IsDirectory((string)state))
+                                {
+                                    storage.DeleteFiles((string)state, "\\", "*.*", true);
+                                }
+                            },
+                            domain,
+                            5,
+                            onFailure: error => Logger.WarnFormat("Can't delete files for domain {0}: \r\n{1}", domain, error)
+                        );
+                    }
+
+                    SetStepCompleted();
+                }
+            }
+
+            Logger.Debug("end delete storage");
+        }
+
         private static IEnumerable<BackupFileInfo> GetFilesToProcess(IDataReadOperator dataReader)
         {
             using (var stream = dataReader.GetEntry(KeyHelper.GetStorageRestoreInfoZipKey()))
@@ -288,14 +353,6 @@ namespace ASC.Data.Backup.Tasks
                 var restoreInfo = XElement.Load(new StreamReader(stream));
                 return restoreInfo.Elements("file").Select(BackupFileInfo.FromXElement).ToList();
             }
-        }
-
-
-        protected override bool IsStorageModuleAllowed(string storageModuleName)
-        {
-            if (storageModuleName == "fckuploaders")
-                return false;
-            return base.IsStorageModuleAllowed(storageModuleName);
         }
 
         private static void SetTenantActive(DbFactory dbFactory, int tenantId)

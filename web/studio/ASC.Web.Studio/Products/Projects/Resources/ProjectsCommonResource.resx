@@ -186,9 +186,6 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-  <data name="DashboardTitle" xml:space="preserve">
-    <value>Manage your project using:</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -197,27 +194,6 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="DiscussionModuleFirstLine" xml:space="preserve">
-    <value>Start project-related discussion</value>
-  </data>
-  <data name="DiscussionModuleSecondLine" xml:space="preserve">
-    <value>Invite users out of the project</value>
-  </data>
-  <data name="DiscussionModuleThirdLine" xml:space="preserve">
-    <value>Get feedback from the users' comments</value>
-  </data>
-  <data name="DiscussionModuleTitle" xml:space="preserve">
-    <value>Discussions</value>
-  </data>
-  <data name="DocsModuleFirstLine" xml:space="preserve">
-    <value>Create documents, spreadsheets, presentations</value>
-  </data>
-  <data name="DocsModuleSecondLine" xml:space="preserve">
-    <value>Edit them right on the portal</value>
-  </data>
-  <data name="DocsModuleThirdLine" xml:space="preserve">
-    <value>Automatically make them available for the project team</value>
   </data>
   <data name="DocsModuleTitle" xml:space="preserve">
     <value>Documents</value>
@@ -318,18 +294,6 @@
   <data name="Milestones" xml:space="preserve">
     <value>Milestones</value>
   </data>
-  <data name="MilestonesModuleFirstLine" xml:space="preserve">
-    <value>Mark timestamps of your project</value>
-  </data>
-  <data name="MilestonesModuleSecondLine" xml:space="preserve">
-    <value>Select key milestone</value>
-  </data>
-  <data name="MilestonesModuleThirdLine" xml:space="preserve">
-    <value>Track milestones using Calendar</value>
-  </data>
-  <data name="MilestonesModuleTitle" xml:space="preserve">
-    <value>Milestones</value>
-  </data>
   <data name="ModuleContacts" xml:space="preserve">
     <value>Contacts</value>
   </data>
@@ -402,15 +366,6 @@
   <data name="RemoveMemberFromTeam" xml:space="preserve">
     <value>Remove the user from the team</value>
   </data>
-  <data name="ReportsModuleFirstLine" xml:space="preserve">
-    <value>Generate general and detailed reports</value>
-  </data>
-  <data name="ReportsModuleSecondLine" xml:space="preserve">
-    <value>Export them to CSV file or print</value>
-  </data>
-  <data name="ReportsModuleThirdLine" xml:space="preserve">
-    <value>Receive automatic reports by email</value>
-  </data>
   <data name="ReportsModuleTitle" xml:space="preserve">
     <value>Reports</value>
   </data>
@@ -470,18 +425,6 @@
   </data>
   <data name="TaskMoveNote" xml:space="preserve">
     <value>The task you are going to move is linked with other tasks. {0} Please select one of the actions:</value>
-  </data>
-  <data name="TasksModuleFirstLine" xml:space="preserve">
-    <value>Add tasks and set the responsible person</value>
-  </data>
-  <data name="TasksModuleSecondLine" xml:space="preserve">
-    <value>Record time spent on tasks</value>
-  </data>
-  <data name="TasksModuleThirdLine" xml:space="preserve">
-    <value>Keep track of tasks using Calendar</value>
-  </data>
-  <data name="TasksModuleTitle" xml:space="preserve">
-    <value>Tasks</value>
   </data>
   <data name="TaskTitle" xml:space="preserve">
     <value>Task Title</value>
@@ -602,5 +545,56 @@
   </data>
   <data name="ProductDescriptionShort" xml:space="preserve">
     <value>Build teams and assign tasks. Schedule project milestones, track project activity and generate reports.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>Design project hierarchy</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>Create projects and milestones.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>Assign tasks/subtasks. Mark tasks with custom statuses.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>Set deadlines and priorities.</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Manage access rights</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>Create private projects.</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>Restrict access to milestones, tasks, docs, discussions.</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>Choose who can create new projects - admins or all users.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>Track time and progress</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>Schedule your project with Gantt Chart.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>Track time spent on specific tasks.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>Automatically generate progress reports.</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Use more tools</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>Create discussions and projects templates.</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Attach documents, spreadsheets, and presentations.</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>Work with your projects on iOS devices.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
   </data>
 </root>

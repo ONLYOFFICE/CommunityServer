@@ -1,0 +1,88 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@media (min-width: 1200px) {
+    body {
+        overflow: hidden;
+    }
+
+    .studio-container {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
+    nav {
+        height: calc(100vh - 98px);
+        height: calc(var(--vh, 1vh) * 100 - 98px);
+        display: grid;
+    }
+
+    nav.with-chat {
+        height: calc(100vh - 112px);
+        height: calc(var(--vh, 1vh) * 100 - 112px);
+    }
+
+    main {
+        height: calc(100vh - 74px);
+        height: calc(var(--vh, 1vh) * 100 - 74px);
+        display: grid;
+    }
+
+    aside {
+        height: calc(100vh - 74px);
+        height: calc(var(--vh, 1vh) * 100 - 74px);
+    }
+
+    .nav-content {
+        overflow: hidden;
+    }
+
+    .nav-content.webkit-scrollbar::-webkit-scrollbar-track { background: transparent; }
+
+    .nav-content:hover {
+        overflow-y: scroll;
+        margin-right: -16px;
+        scrollbar-width: thin;
+        scrollbar-color: #BFBFBF transparent;
+    }
+
+    .nav-content #treeViewContainer {
+        overflow: hidden;
+    }
+
+    .page-content {
+        padding-right: 8px;
+        margin-right: -24px;
+        overflow-y: scroll;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #BFBFBF transparent;
+    }
+
+    .page-content.webkit-scrollbar::-webkit-scrollbar-track { background: transparent; }
+
+    @-moz-document url-prefix() {
+        .nav-content:hover {
+            margin-right: -16px;
+            padding-right: 8px;
+        }
+        .page-content {
+            margin-right: -16px;
+            padding-right: 8px;
+        }
+    }
+}

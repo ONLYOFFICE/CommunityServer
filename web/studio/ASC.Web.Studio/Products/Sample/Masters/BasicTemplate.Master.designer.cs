@@ -13,6 +13,15 @@ namespace ASC.Web.Sample.Masters {
     public partial class BasicTemplate {
         
         /// <summary>
+        /// CreateButtonContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder CreateButtonContent;
+        
+        /// <summary>
         /// SideNavigation control.
         /// </summary>
         /// <remarks>

@@ -5,20 +5,7 @@
 
 
 <div id="id_accounts_page" class="hidden page_content">
-    <div class="containerBodyBlock">
-        <div class="content-header">
-            <% if (ASC.Web.Mail.Configuration.Settings.IsMailCommonDomainAvailable()) 
-               { %>
-            <a title="<%=MailResource.CreateMailboxBtn%>" class="button gray" id="createNewMailbox" style="margin-right: 4px;">
-                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateMailboxBtn%></div>
-            </a>
-            <% } %>
-            <a title="<%=MailResource.CreateNewAccountBtn%>" class="button gray" id="createNewAccount">
-                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateNewAccountBtn%></div>
-            </a>
-            <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AccountsHelperBlock'});"></span>
-        </div>
-    </div>
+    <div class="containerBodyBlock"></div>
 </div>
 
 
@@ -31,14 +18,15 @@
 
 <div id="accountActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
-        <li><a class="activateAccount dropdown-item"><%=MailResource.ActivateAccountLabel%></a></li>
-        <li><a class="deactivateAccount dropdown-item"><%=MailResource.DeactivateAccountLabel%></a></li>
-        <li><a class="selectAttachmentsFolder dropdown-item"><%=MailResource.SelectAttachmentsFolderLabel%></a></li>
-        <li><a class="setMailAutoreply dropdown-item"><%=MailResource.SetMailAutoreply%></a></li>
-        <li><a class="editAccount dropdown-item"><%=MailResource.EditAccountLabel%></a></li>
-        <li><a class="viewAccountSettings dropdown-item"><%=MailResource.ViewAccountConnectionSettingsLabel%></a></li>
-        <li><a class="changePassword dropdown-item"><%=MailResource.ChangeAccountPasswordLabel%></a></li>
-        <li><a class="deleteAccount dropdown-item"><%=MailResource.DeleteAccountLabel%></a></li>
+        <li><a class="activateAccount dropdown-item with-icon enable-item"><%=MailResource.ActivateAccountLabel%></a></li>
+        <li><a class="deactivateAccount dropdown-item with-icon disable-item"><%=MailResource.DeactivateAccountLabel%></a></li>
+        <li><a class="selectAttachmentsFolder dropdown-item with-icon open-location"><%=MailResource.SelectAttachmentsFolderLabel%></a></li>
+        <li><a class="setMailAutoreply dropdown-item with-icon reply"><%=MailResource.SetMailAutoreply%></a></li>
+        <li><a class="editAccount dropdown-item with-icon edit"><%=MailResource.EditAccountLabel%></a></li>
+        <li><a class="viewAccountSettings dropdown-item with-icon settings"><%=MailResource.ViewAccountConnectionSettingsLabel%></a></li>
+        <li><a class="changePassword dropdown-item with-icon block"><%=MailResource.ChangeAccountPasswordLabel%></a></li>
+        <li class="dropdown-item-seporator"></li>
+        <li><a class="deleteAccount dropdown-item with-icon delete"><%=MailResource.DeleteAccountLabel%></a></li>
     </ul>
 </div>
 

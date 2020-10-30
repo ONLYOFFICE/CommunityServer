@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -584,10 +575,21 @@ div.blockMsg {
     left: 50%;
     padding: 10px 15px;
     text-align: center;
-    top: 30%;
+    top: 40%;
     .borderRadius(5px);
 }
 
+@media (max-height: 800px) {
+    div.blockMsg {
+        top: 45%
+    }
+}
+
+@media (max-height: 700px) {
+    div.blockMsg {
+        top: 50%
+    }
+}
 
 /*---------------progress file uploader-----------------------------------*/
 .studioFileUploaderDescription {
@@ -1020,14 +1022,24 @@ div.hintDescriptionPanel.help_bottom  {
 .profile-title {
     display: inline-block;
 
+    &.my {
+        margin: 0 0 32px 288px;
+    }
+
     .studio-action-panel {
         font-size: 12px;
         line-height: 21px;
     }
 }
 
-.profile-container .borderBase {
-    border: 0;
+.profile-container {
+    &.my {
+        margin: 0 0 0 288px;
+    }
+
+    .borderBase {
+        border: 0;
+    }
 }
 
 /*******************************************************************************
@@ -1256,15 +1268,6 @@ welcome popup for Collaborator
 
 #studio_welcomeCollaboratorContainer .button {
     padding: 2px 24px 3px 24px; 
-}
-
-/*******************************************************************************
-        Banner  for non-profit
-*******************************************************************************/
-.banner-registration {
-    display:block;
-    margin: 20px 0 30px 0;
-    outline: none;
 }
 
 /*******************************************************************************
@@ -1534,32 +1537,20 @@ welcome popup for Collaborator
 /*******************************************************************************
        WebKit scrollbar
 *******************************************************************************/
-.webkit-scrollbar {
-    &::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
 
-    &::-webkit-scrollbar-button {
-        display: none;
-    }
+::-webkit-scrollbar { background: transparent; width: 16px; height: 16px; }
+::-webkit-scrollbar-button { display: none; }
+::-webkit-scrollbar-track { background: #F5F5F5; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+::-webkit-scrollbar-thumb { background: #BFBFBF; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: #A7A7A7; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+::-webkit-scrollbar-corner { background: inherit; }
 
-    &::-webkit-scrollbar-track,
-    &::-webkit-scrollbar-thumb {
-        border-style: solid;
-        border-color: transparent;
-        .borderRadius(2px);
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: #f5f5f5;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #bfbfbf;
-        min-height: 28px;
-    }
-}
+.webkit-scrollbar::-webkit-scrollbar { background: transparent; width: 16px; height: 16px; }
+.webkit-scrollbar::-webkit-scrollbar-button { display: none; }
+.webkit-scrollbar::-webkit-scrollbar-track { background: #F5F5F5; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+.webkit-scrollbar::-webkit-scrollbar-thumb { background: #BFBFBF; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+.webkit-scrollbar::-webkit-scrollbar-thumb:hover { background: #A7A7A7; border-style: solid; border-color: transparent; border-width: 0px 4px; border-radius: 6px; background-clip: content-box; }
+.webkit-scrollbar::-webkit-scrollbar-corner { background: inherit; }
 
 /*******************************************************************************
        Confirm page

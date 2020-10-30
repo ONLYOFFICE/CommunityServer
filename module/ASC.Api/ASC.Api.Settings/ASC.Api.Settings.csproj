@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Settings</RootNamespace>
     <AssemblyName>ASC.Api.Settings</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -35,6 +35,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.Settings.XML</DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,11 +45,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -60,37 +60,6 @@
     <OutputPath>bin\MvcOnly\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="MailKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
-    </Reference>
-    <Reference Include="MimeKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildVersion.cs" />
     <Compile Include="StatisticsWrapper.cs" />
@@ -132,6 +101,10 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\common\ASC.IPSecurity\ASC.IPSecurity.csproj">
       <Project>{2ff2177f-2d1a-4396-84eb-51f14fd99385}</Project>
       <Name>ASC.IPSecurity</Name>
@@ -168,6 +141,17 @@
       <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
       <Name>ASC.Specific</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MailKit">
+      <Version>2.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

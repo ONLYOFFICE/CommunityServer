@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Projects</RootNamespace>
     <AssemblyName>ASC.Api.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -32,7 +32,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -40,29 +40,6 @@
     <NoWarn>1591</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Studio.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Wrappers\CommentWrapper.cs" />
     <Compile Include="Wrappers\MessageWrapperFull.cs" />
@@ -115,6 +92,10 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
       <Name>ASC.Web.CRM</Name>
@@ -147,6 +128,17 @@
       <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
       <Name>ASC.Specific</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

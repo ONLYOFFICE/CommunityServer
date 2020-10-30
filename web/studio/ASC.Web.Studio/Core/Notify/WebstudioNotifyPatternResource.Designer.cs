@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.Core.Notify {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class WebstudioNotifyPatternResource {
@@ -367,24 +367,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download now.
-        /// </summary>
-        public static string ButtonDownloadNow {
-            get {
-                return ResourceManager.GetString("ButtonDownloadNow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Go to the App Store &gt;&gt;.
-        /// </summary>
-        public static string ButtonGoToAppStore {
-            get {
-                return ResourceManager.GetString("ButtonGoToAppStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invite Right Now.
         /// </summary>
         public static string ButtonInviteRightNow {
@@ -574,69 +556,6 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #1.&lt;/b&gt; Use the &lt;b&gt;Real-time Co-editing&lt;/b&gt; feature to  speed up the interaction process when specifying details or proofreading a document. Choose between two co-editing modes - &lt;b&gt;Fast&lt;/b&gt; when you see changes as your co-author is typing or &lt;b&gt;Strict&lt;/b&gt; when the changes are shown only after saving the document..
-        /// </summary>
-        public static string ItemOpensourceDocsTips1 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #2.&lt;/b&gt; Use the &lt;b&gt;Version History&lt;/b&gt; option to check the changes made to a file by you and your teammates or see who made the specific edits..
-        /// </summary>
-        public static string ItemOpensourceDocsTips2 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #3.&lt;/b&gt; Use the &lt;b&gt;Review&lt;/b&gt; feature to avoid manual tracking changes and merging. Grant a quick access to your document for reviewing and let others suggest changes without actually editing the document. Easily accept or reject suggested changes..
-        /// </summary>
-        public static string ItemOpensourceDocsTips3 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #4.&lt;/b&gt; Share documents with other users or people. Attach documents as links to your email to reduce the mail traffic..
-        /// </summary>
-        public static string ItemOpensourceDocsTips4 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #5.&lt;/b&gt; Use the &lt;b&gt;Mail Merge&lt;/b&gt; function to create a set of personalized messages or a templates and save time you usually spend on writing the same text several times..
-        /// </summary>
-        public static string ItemOpensourceDocsTips5 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #6.&lt;/b&gt; Download free ONLYOFFICE Desktop Editors to work on documents without Internet connection. Note that the app can be connected to your ONLYOFFICE portal to access documents stored there..
-        /// </summary>
-        public static string ItemOpensourceDocsTips6 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Tip #7.&lt;/b&gt; Download &lt;b&gt;ONLYOFFICE Documents app&lt;/b&gt; and install it on your iOS device to work with documents anywhere, anytime, even on the go..
-        /// </summary>
-        public static string ItemOpensourceDocsTips7 {
-            get {
-                return ResourceManager.GetString("ItemOpensourceDocsTips7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Share documents with your teammates..
         /// </summary>
         public static string ItemShareDocuments {
@@ -744,6 +663,26 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_backup_created {
             get {
                 return ResourceManager.GetString("pattern_backup_created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [${__VirtualRootPath}](${__VirtualRootPath}) portal backup created
+        ///
+        ///Dear $OwnerName,
+        ///
+        ///A backup file containing data from your [${__VirtualRootPath}](${__VirtualRootPath}) portal has been created.
+        ///
+        ///To learn more on the backup procedure please refer to our [Data backup](${__HelpLink}/tipstricks/data-backup-restore.aspx) user guide.
+        ///
+        ///If you have any questions or need assistance please feel free to contact us at [support.onlyoffice.com](http://support.onlyoffice.com)
+        ///
+        ///Best regards,
+        ///ONLYOFFICE™ Suppor [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_backup_created_tg {
+            get {
+                return ResourceManager.GetString("pattern_backup_created_tg", resourceCulture);
             }
         }
         
@@ -1042,13 +981,13 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Thanks for choosing ONLYOFFICE. We just want to remind you that the trial period for your Enterprise Edition will be over in seven days.
         ///
-        ///Please, check all the available pricing plans for Enterprise Edition and choose the most suitable one for your business.
+        ///Please, check all the available pricing plans for ONLYOFFICE Workspace Enterprise and choose the most suitable one for your business.
         ///
         ///$GreenButton
         ///
         ///$BlueButton
         ///
-        ///For any purchase questions, contact us at &quot;sales@onlyoffice.com&quot;:&quot;mailto:sales@onlyoffice.com&quot;. For solving any technical problems, write to &quot;support@onlyoffice.com&quot;:&quot;mailto:support@onlyoffice.com [rest of string was truncated]&quot;;.
+        ///For any purchase questions, contact us at &quot;sales@onlyoffice.com&quot;:&quot;mailto:sales@onlyoffice.com&quot;. For solving any technical problems, write to &quot;support@onlyoffice.com&quot;:&quot;mailto:support@o [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_admin_trial_warning_before7_v10 {
             get {
@@ -1059,7 +998,7 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Thanks for choosing ONLYOFFICE. You trial expires today. To continue using it, purchase the full license.
+        ///Thanks for choosing ONLYOFFICE Workspace. Your trial expires today. To continue using pro features, purchase the full license.
         ///
         ///Buy now: &quot;https://www.onlyoffice.com/enterprise-edition.aspx&quot;:&quot;https://www.onlyoffice.com/enterprise-edition.aspx&quot;
         ///
@@ -1150,8 +1089,8 @@ namespace ASC.Web.Studio.Core.Notify {
         ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
         ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
-        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/Products/Community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;.
         ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_guest_welcome_v10 {
@@ -1184,9 +1123,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;, share them with teammates, and collaborate in real time.
         ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_user_welcome_v10 {
             get {
@@ -1296,8 +1235,8 @@ namespace ASC.Web.Studio.Core.Notify {
         ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
         ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
-        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/Products/Community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;.
         ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_whitelabel_guest_welcome_v10 {
@@ -1330,9 +1269,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;, share them with teammates, and collaborate in real time.
         ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot; and your customer relationships using [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_enterprise_whitelabel_user_welcome_v10 {
             get {
@@ -1350,6 +1289,19 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_for_admin_notify {
             get {
                 return ResourceManager.GetString("pattern_for_admin_notify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message from the [${__VirtualRootPath}](${__VirtualRootPath}) portal
+        ///
+        ///Email: $UserEmail
+        ///
+        ///$Body.
+        /// </summary>
+        public static string pattern_for_admin_notify_tg {
+            get {
+                return ResourceManager.GetString("pattern_for_admin_notify_tg", resourceCulture);
             }
         }
         
@@ -1503,53 +1455,138 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///You have just created your ONLYOFFICE portal, your safe and secure web office. Your portal address is   &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Follow the link below to confirm your email address:
+        ///You have just created the ONLYOFFICE portal, your team&apos;s cloud office that would enhance internal cooperation.  Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
         ///
-        ///$GreenButton
+        ///Please, confirm your email following the &quot;link&quot;:&quot;$ActivateUrl&quot;.
         ///
-        ///Please, complete your email activation within a week as the link is valid for 7 days only.
+        ///You can change your email or password in your &quot;personal profile page&quot;:&quot;$MyStaffLink&quot;.
         ///
-        ///Note: we do not send out confidential information (like your password) in emails for safety reasons. You may change your email or password in your &quot;Profile page&quot;:&quot;$MyStaffLink&quot; [rest of string was truncated]&quot;;.
+        ///To send notifications, we use the SMTP settings of ONLYOFFICE mail server. To change them, follow the instructions &quot;here&quot;:&quot;${__HelpLink}/server/windows/commun [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_opensource_admin_activation {
+        public static string pattern_opensource_admin_activation_v11 {
             get {
-                return ResourceManager.GetString("pattern_opensource_admin_activation", resourceCulture);
+                return ResourceManager.GetString("pattern_opensource_admin_activation_v11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///In almost every business we are to deal with documents every day - contracts, reports, white papers, invoices, etc. - and waste a lot of time moving it around. To help you work more efficiently and reduce time and efforts spent on paperwork, make use of these 7 simple tips and tricks.
+        ///We hope you enjoy using integrated ONLYOFFICE document editors. Here are some tips that might be useful: 
         ///
-        ///$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
+        ///*#1. Share documents* to individuals and groups. Choose their access level - Read Only, Comment, Form Filling, Review or Full Access. Let other users apply their own filters in spreadsheets without disturbing co-authors. Restrict downloading and printing using &quot;ONLYOFFICE API&quot;:&quot;https://api.onlyoffice.com/editors/config/document/permissions&quot;. 
         ///
-        ///Do you know that you&apos;re using the most powerful online editors in the world? Want to kn [rest of string was truncated]&quot;;.
+        ///*#2. Learn how document saving wor [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_opensource_admin_docs_tips {
+        public static string pattern_opensource_admin_docs_tips_v11 {
             get {
-                return ResourceManager.GetString("pattern_opensource_admin_docs_tips", resourceCulture);
+                return ResourceManager.GetString("pattern_opensource_admin_docs_tips_v11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear $UserName,
+        ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Data security is a burning issue for most teams, especially when it comes to documents. To affirm ONLYOFFICE transparency and reliability we have opened its source code that is available on &quot;GitHub&quot;:&quot;https://github.com/ONLYOFFICE&quot;.
+        ///Here’s what you can do to make your web-office even more secure:
         ///
-        ///To make it even more secure:
+        ///*Get an SSL certificate* if you are going to provide not only local but also external portal access for your users. Generate a new signed certificate in the Control Panel or purchase one from the provider you trust.
         ///
-        ///# Turn on HTTPS to keep your portal data secure;
-        ///# Backup your portal data on a regular basis to avoid any data-loss;
-        ///# Track history of login attempts.
-        ///
-        ///Control Panel included into ONLYOFFICE Enterprise Edition allows you [rest of string was truncated]&quot;;.
+        ///*Enable automatic backups* in the Control Panel. We also recommend that you use 3rd services and make a backup copy of the server with ONLYOFFICE installed from time to time. Instructions in our &quot;Help Cen [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_opensource_admin_security_tips {
+        public static string pattern_opensource_admin_welcome_v11 {
             get {
-                return ResourceManager.GetString("pattern_opensource_admin_security_tips", resourceCulture);
+                return ResourceManager.GetString("pattern_opensource_admin_welcome_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello!
+        ///
+        ///You are invited to join &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; as a guest user. Accept the invitation by clicking the link:
+        ///
+        ///&quot;$ActivateUrl&quot;:&quot;$ActivateUrl&quot;
+        ///
+        ///The link is only valid for 7 days.
+        ///
+        ///You will get more tips on how to use your web-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
+        /// </summary>
+        public static string pattern_opensource_guest_activation_v11 {
+            get {
+                return ResourceManager.GetString("pattern_opensource_guest_activation_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///You are now a guest user at&quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
+        ///
+        ///*Introduce yourself* to the team by editing your profile.
+        ///
+        ///*View shared documents* as well as download them and upload new files to shared folders.
+        ///
+        ///*View and comment projects* you’ve been invited to as well as blog and forum posts.
+        ///
+        ///*Exchange instant messages* and quickly share files using Talk.
+        ///
+        ///*Use personal and shared calendars* to arrange meetings, set reminders, and create to-do lists [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_opensource_guest_welcome_v11 {
+            get {
+                return ResourceManager.GetString("pattern_opensource_guest_welcome_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello!
+        ///
+        ///You are invited to join your company&apos;s safe and secure web-office that would enhance your collaboration. Its address is &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.
+        ///
+        ///Accept the invitation by following the &quot;link&quot;:&quot;$ActivateUrl&quot;
+        ///
+        ///The link is only valid for 7 days.
+        ///
+        ///You will get more tips on how to use your web-office. You can cancel the subscriptions on your Profile page at any moment as well as re-enable them..
+        /// </summary>
+        public static string pattern_opensource_user_activation_v11 {
+            get {
+                return ResourceManager.GetString("pattern_opensource_user_activation_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///We hope you enjoy using integrated ONLYOFFICE document editors. Here are some tips that might be useful:
+        ///
+        ///*#1. Explore advanced formatting*. The doc editors provide you with the most complete set of styling and formatting tools.  
+        ///
+        ///*#2. Share documents* to individuals or user groups. Choose their access level - Read Only, Comment, Form Filling, Review or Full Access. 
+        ///
+        ///*#3. Choose co-editing mode*. While co-editing a doc with your team in real time, switch to Fast mode to see chan [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_opensource_user_docs_tips_v11 {
+            get {
+                return ResourceManager.GetString("pattern_opensource_user_docs_tips_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations, $UserName!
+        ///
+        ///You have officially joined your team’s web-office at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
+        ///
+        ///*Store, manage and share documents*. View pictures, play videos and audios. &quot;Learn more&quot;:&quot;${__HelpLink}/gettingstarted/documents.aspx&quot;
+        ///
+        ///*Edit and co-author documents, spreadsheets, and presentations* using integrated ONLYOFFICE editors. Use hundreds of formatting tools and collaborate efficiently. &quot;Watch video&quot;:&quot;https://youtu.be/ep1VLGlmsdI&quot;
+        ///
+        ///*Manage your tas [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_opensource_user_welcome_v11 {
+            get {
+                return ResourceManager.GetString("pattern_opensource_user_welcome_v11", resourceCulture);
             }
         }
         
@@ -1657,11 +1694,11 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///It has been a week since you created your cloud office, so we believe it&apos;s time to unveil some beneficial features you might have missed.
         ///
-        ///Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You&apos;ll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents [rest of string was truncated]&quot;;.
+        ///Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You&apos;ll be able to edit external files in ONLYOFFICE and save them to the storage you keep [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string pattern_personal_after_registration7 {
+        public static string pattern_personal_after_registration8 {
             get {
-                return ResourceManager.GetString("pattern_personal_after_registration7", resourceCulture);
+                return ResourceManager.GetString("pattern_personal_after_registration8", resourceCulture);
             }
         }
         
@@ -1757,6 +1794,26 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deactivation of the [${__VirtualRootPath}](${__VirtualRootPath}) portal
+        ///
+        ///Dear $OwnerName,
+        ///
+        ///You have requested a temporary deactivation of your [${__VirtualRootPath}](${__VirtualRootPath}) portal. Please follow the link below to confirm the operation:
+        ///
+        ///$GreenButton
+        ///
+        ///_Note_: this link is valid for 7 days only. Please complete the portal deactivation process within that period.
+        ///
+        ///You can reactivate your portal any time by clicking the following link:
+        ///[Reactivate Portal]($ActivateUrl) (this link has n [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_portal_deactivate_tg {
+            get {
+                return ResourceManager.GetString("pattern_portal_deactivate_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Deletion of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal
         ///
         ///Dear $OwnerName,
@@ -1790,6 +1847,24 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_portal_delete_success_v10 {
             get {
                 return ResourceManager.GetString("pattern_portal_delete_success_v10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletion of the [${__VirtualRootPath}](${__VirtualRootPath}) portal
+        ///
+        ///Dear $OwnerName,
+        ///
+        ///You have requested to permanently delete your [${__VirtualRootPath}](${__VirtualRootPath}) portal.
+        ///
+        ///_Important! All the data stored on your portal, as well as your registration details will be lost and cannot be recovered._
+        ///
+        ///#if($AutoRenew == &quot;True&quot;)
+        ///Before you delete the portal, please make sure that automatic billing is turned off. You may check the status of automatic billing in your [Avangate account](https:/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_portal_delete_tg {
+            get {
+                return ResourceManager.GetString("pattern_portal_delete_tg", resourceCulture);
             }
         }
         
@@ -1856,6 +1931,24 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_profile_updated {
             get {
                 return ResourceManager.GetString("pattern_profile_updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your profile at [${__VirtualRootPath}](${__VirtualRootPath}) has been changed
+        ///
+        ///Dear $UserName,
+        ///
+        ///Your user profile details at [${__VirtualRootPath}](${__VirtualRootPath}) have been changed by [$__AuthorName]($__AuthorUrl).
+        ///
+        ///To view your profile follow the link below:
+        ///[$UserName]($MyStaffLink)
+        ///
+        ///You receive this email because you are a registered user of the [${__VirtualRootPath}](${__VirtualRootPath}) portal..
+        /// </summary>
+        public static string pattern_profile_updated_tg {
+            get {
+                return ResourceManager.GetString("pattern_profile_updated_tg", resourceCulture);
             }
         }
         
@@ -1962,25 +2055,51 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1.SAAS pricing plan request for &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;
+        ///   Looks up a localized string similar to h1.SAAS Tariff Request for &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;
         ///
-        ///h3.Name
+        ///h3.First name
         ///$UserName
+        ///
+        ///h3.Last name
+        ///$UserLastName
+        ///
+        ///h3.Position
+        ///$Position
         ///
         ///h3.Email
         ///&quot;$UserEmail&quot;:&quot;mailto:$UserEmail&quot;
         ///
+        ///h3.Phone
+        ///$Phone
+        ///
+        ///h3.Company Website
+        ///$Website
+        ///
+        ///h3.Company name
+        ///$CompanyTitle
+        ///
+        ///h3.Company size
+        ///$CompanySize
+        ///
         ///h3.Request content
         ///$Body.
         /// </summary>
-        public static string pattern_request_tariff {
+        public static string pattern_request_tariff1 {
             get {
-                return ResourceManager.GetString("pattern_request_tariff", resourceCulture);
+                return ResourceManager.GetString("pattern_request_tariff1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to h1.Portal restoration completed
+        ///
+        ///The portal restoration process has been successfully completed.
+        ///
+        ///Your portal is available again.
+        ///
+        ///Best regards,
+        ///ONLYOFFICE™ Support Team
+        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;.
         /// </summary>
         public static string pattern_restore_completed {
             get {
@@ -2502,8 +2621,8 @@ namespace ASC.Web.Studio.Core.Notify {
         ///Your guest profile has been successfully added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;.  Now you can:
         ///
         ///# Edit your &quot;profile&quot;:&quot;$MyStaffLink&quot;.
-        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/products/community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot;.
-        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;.
+        ///# View and comment the content available in the &quot;Community&quot;:&quot;${__VirtualRootPath}/Products/Community/&quot; and &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot;.
+        ///# Add and download files available for you in the &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;.
         ///# Organize your schedule with the built-in &quot;Calendar&quot;:&quot;${__VirtualRootPath}/addons/c [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_guest_welcome_v10 {
@@ -2536,9 +2655,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Welcome to ONLYOFFICE! Your user profile has been successfully added to the portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;. Now you can:
         ///
-        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/products/files/&quot;, share them with teammates, and collaborate in real time.
+        ///# Create and edit &quot;Documents&quot;:&quot;${__VirtualRootPath}/Products/Files/&quot;, share them with teammates, and collaborate in real time.
         ///# Add your email accounts and manage all correspondence in one place with &quot;Mail&quot;:&quot;${__VirtualRootPath}/addons/mail/&quot;.
-        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/products/projects/&quot; and your customer relatio [rest of string was truncated]&quot;;.
+        ///# Manage your workflow with &quot;Projects&quot;:&quot;${__VirtualRootPath}/Products/Projects/&quot; and your customer relatio [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_user_welcome_v10 {
             get {
@@ -2554,6 +2673,17 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_self_profile_updated {
             get {
                 return ResourceManager.GetString("pattern_self_profile_updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [${__VirtualRootPath}](${__VirtualRootPath}) portal profile change notification
+        ///
+        ///[$__AuthorName]($__AuthorUrl) has changed his/her profile details at the [${__VirtualRootPath}](${__VirtualRootPath}) portal..
+        /// </summary>
+        public static string pattern_self_profile_updated_tg {
+            get {
+                return ResourceManager.GetString("pattern_self_profile_updated_tg", resourceCulture);
             }
         }
         
@@ -2596,6 +2726,84 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file decryption process on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot; has been failed.
+        ///
+        ///Some files could not be decrypted. Find more details in the &quot;Control Panel&quot;:&quot;${ControlPanelUrl}/storage&quot;..
+        /// </summary>
+        public static string pattern_storage_decryption_error {
+            get {
+                return ResourceManager.GetString("pattern_storage_decryption_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file decryption process has been started on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot;.
+        ///
+        ///The decryption might take some time, so the portal will be temporarily unavailable. As soon as the decryption is over, you will be able to work with your data again..
+        /// </summary>
+        public static string pattern_storage_decryption_start {
+            get {
+                return ResourceManager.GetString("pattern_storage_decryption_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file decryption process on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot; has been successfully completed.
+        ///
+        ///Your portal is available again..
+        /// </summary>
+        public static string pattern_storage_decryption_success {
+            get {
+                return ResourceManager.GetString("pattern_storage_decryption_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file encryption process on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot; has been failed.
+        ///
+        ///Some files could not be encrypted. Find more details in the &quot;Control Panel&quot;:&quot;${ControlPanelUrl}/storage&quot;..
+        /// </summary>
+        public static string pattern_storage_encryption_error {
+            get {
+                return ResourceManager.GetString("pattern_storage_encryption_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file encryption process has been started on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot;.
+        ///
+        ///The encryption might take some time, so the portal will be temporarily unavailable. As soon as the decryption is over, you will be able to work with your data again..
+        /// </summary>
+        public static string pattern_storage_encryption_start {
+            get {
+                return ResourceManager.GetString("pattern_storage_encryption_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, $UserName!
+        ///
+        ///The file encryption process on your portal &quot;${PortalUrl}&quot;:&quot;${PortalUrl}&quot; has been successfully completed.
+        ///
+        ///Your portal is available again..
+        /// </summary>
+        public static string pattern_storage_encryption_success {
+            get {
+                return ResourceManager.GetString("pattern_storage_encryption_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.New user added to &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal
         ///
         ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has joined your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot;..
@@ -2603,6 +2811,16 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_user_has_join {
             get {
                 return ResourceManager.GetString("pattern_user_has_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New user added to [${__VirtualRootPath}](${__VirtualRootPath}) portal
+        ///[$__AuthorName]($__AuthorUrl) has joined your portal at [${__VirtualRootPath}](${__VirtualRootPath})..
+        /// </summary>
+        public static string pattern_user_has_join_tg {
+            get {
+                return ResourceManager.GetString("pattern_user_has_join_tg", resourceCulture);
             }
         }
         
@@ -2993,29 +3211,74 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to ONLYOFFICE!.
+        ///   Looks up a localized string similar to Confirm your email.
         /// </summary>
-        public static string subject_opensource_admin_activation {
+        public static string subject_opensource_admin_activation_v11 {
             get {
-                return ResourceManager.GetString("subject_opensource_admin_activation", resourceCulture);
+                return ResourceManager.GetString("subject_opensource_admin_activation_v11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 7 Tips and Tricks to Work More Effectively in ONLYOFFICE Documents.
+        ///   Looks up a localized string similar to 5 tips for effective work on your docs.
         /// </summary>
-        public static string subject_opensource_admin_docs_tips {
+        public static string subject_opensource_admin_docs_tips_v11 {
             get {
-                return ResourceManager.GetString("subject_opensource_admin_docs_tips", resourceCulture);
+                return ResourceManager.GetString("subject_opensource_admin_docs_tips_v11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Easy Way to Make Your Portal More Secure.
+        ///   Looks up a localized string similar to Make your ONLYOFFICE more secure.
         /// </summary>
-        public static string subject_opensource_admin_security_tips {
+        public static string subject_opensource_admin_welcome_v11 {
             get {
-                return ResourceManager.GetString("subject_opensource_admin_security_tips", resourceCulture);
+                return ResourceManager.GetString("subject_opensource_admin_welcome_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
+        /// </summary>
+        public static string subject_opensource_guest_activation_v11 {
+            get {
+                return ResourceManager.GetString("subject_opensource_guest_activation_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to your web-office.
+        /// </summary>
+        public static string subject_opensource_guest_welcome_v11 {
+            get {
+                return ResourceManager.GetString("subject_opensource_guest_welcome_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join ${__VirtualRootPath}.
+        /// </summary>
+        public static string subject_opensource_user_activation_v11 {
+            get {
+                return ResourceManager.GetString("subject_opensource_user_activation_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6 tips for effective work on your docs.
+        /// </summary>
+        public static string subject_opensource_user_docs_tips_v11 {
+            get {
+                return ResourceManager.GetString("subject_opensource_user_docs_tips_v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to your web-office.
+        /// </summary>
+        public static string subject_opensource_user_welcome_v11 {
+            get {
+                return ResourceManager.GetString("subject_opensource_user_welcome_v11", resourceCulture);
             }
         }
         
@@ -3439,6 +3702,60 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_smtp_test {
             get {
                 return ResourceManager.GetString("subject_smtp_test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Decryption process failed.
+        /// </summary>
+        public static string subject_storage_decryption_error {
+            get {
+                return ResourceManager.GetString("subject_storage_decryption_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Decryption process started.
+        /// </summary>
+        public static string subject_storage_decryption_start {
+            get {
+                return ResourceManager.GetString("subject_storage_decryption_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Decryption process completed.
+        /// </summary>
+        public static string subject_storage_decryption_success {
+            get {
+                return ResourceManager.GetString("subject_storage_decryption_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Encryption process failed.
+        /// </summary>
+        public static string subject_storage_encryption_error {
+            get {
+                return ResourceManager.GetString("subject_storage_encryption_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Encryption process started.
+        /// </summary>
+        public static string subject_storage_encryption_start {
+            get {
+                return ResourceManager.GetString("subject_storage_encryption_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ${LetterLogoText}. Encryption process completed.
+        /// </summary>
+        public static string subject_storage_encryption_success {
+            get {
+                return ResourceManager.GetString("subject_storage_encryption_success", resourceCulture);
             }
         }
         

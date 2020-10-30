@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -32,6 +23,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -75,6 +67,7 @@ namespace ASC.Web.Studio
             BlockRemovedOrSuspendedPortal(tenant);
             BlockTransferingOrRestoringPortal(tenant);
             BlockMigratingPortal(tenant);
+            BlockPortalEncryption(tenant);
             BlockNotPaidPortal(tenant);
             TenantWhiteLabelSettings.Apply(tenant.TenantId);
 
@@ -101,11 +94,6 @@ namespace ASC.Web.Studio
                 Response.Cookies["ASP.NET_SessionId"].Secure = true;
 
             Response.Cookies["ASP.NET_SessionId"].HttpOnly = true;
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-            CommonControlsConfigurer.FCKClearTempStore(Session);
         }
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
@@ -269,7 +257,7 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", "confirm.aspx" };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", "confirm.aspx", "capabilities.json" };
             if (tenant.Status == TenantStatus.Suspended && passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -298,7 +286,7 @@ namespace ASC.Web.Studio
             var handlerType = typeof(BackupAjaxHandler);
             var backupHandler = handlerType.FullName + "," + handlerType.Assembly.GetName().Name + ".ashx";
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json", };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json", "capabilities.json" };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -314,7 +302,7 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true" };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "capabilities.json" };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)) || Request.Url.AbsoluteUri.Contains("settings/storage/progress.json"))
             {
                 return;
@@ -323,11 +311,27 @@ namespace ASC.Web.Studio
             ResponseRedirect("~/MigrationPortal.aspx", HttpStatusCode.ServiceUnavailable);
         }
 
+        private void BlockPortalEncryption(Tenant tenant)
+        {
+            if (tenant.Status != TenantStatus.Encryption)
+            {
+                return;
+            }
+
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "PortalEncryption.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "capabilities.json" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)) || Request.Url.AbsoluteUri.Contains("settings/encryption/progress.json"))
+            {
+                return;
+            }
+
+            ResponseRedirect("~/PortalEncryption.aspx", HttpStatusCode.ServiceUnavailable);
+        }
+
         private void BlockNotPaidPortal(Tenant tenant)
         {
             if (tenant == null) return;
 
-            var passthroughtRequestEndings = new[] { ".htm", ".ashx", ".png", ".ico", ".less", ".css", ".js" };
+            var passthroughtRequestEndings = new[] { ".htm", ".ashx", ".png", ".ico", ".less", ".css", ".js", "capabilities.json" };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -358,7 +362,7 @@ namespace ASC.Web.Studio
             {
                 Auth.ProcessLogout();
 
-                ResponseRedirect("~/auth.aspx?error=ipsecurity", HttpStatusCode.Forbidden);
+                ResponseRedirect("~/Auth.aspx?error=ipsecurity", HttpStatusCode.Forbidden);
             }
         }
 

@@ -1,24 +1,26 @@
 ﻿<script id="accountsTmpl" type="text/x-jquery-tmpl">
-    <table class="accounts_list" id="common_mailboxes">
-        <tbody>
-            {{tmpl(common_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
-        </tbody>
-    </table>
-    <table class="accounts_list" id="server_mailboxes">
-        <tbody>
-            {{tmpl(server_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
-        </tbody>
-    </table>
-    <table class="accounts_list" id="aliases">
-        <tbody>
-            {{tmpl(aliases, {showSetDefaultIcon: showSetDefaultIcon}) "aliasItemTmpl"}}
-        </tbody>
-    </table>
-    <table class="accounts_list" id="groups">
-        <tbody>
-            {{tmpl(groups, {showSetDefaultIcon: showSetDefaultIcon}) "groupItemTmpl"}}
-        </tbody>
-    </table>
+    <div>
+        <table class="accounts_list" id="common_mailboxes">
+            <tbody>
+                {{tmpl(common_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
+            </tbody>
+        </table>
+        <table class="accounts_list" id="server_mailboxes">
+            <tbody>
+                {{tmpl(server_mailboxes, {showSetDefaultIcon: showSetDefaultIcon}) "mailboxItemTmpl"}}
+            </tbody>
+        </table>
+        <table class="accounts_list" id="aliases">
+            <tbody>
+                {{tmpl(aliases, {showSetDefaultIcon: showSetDefaultIcon}) "aliasItemTmpl"}}
+            </tbody>
+        </table>
+        <table class="accounts_list" id="groups">
+            <tbody>
+                {{tmpl(groups, {showSetDefaultIcon: showSetDefaultIcon}) "groupItemTmpl"}}
+            </tbody>
+        </table>
+    </div>
 </script>
 
 <script id="mailboxItemTmpl" type="text/x-jquery-tmpl">

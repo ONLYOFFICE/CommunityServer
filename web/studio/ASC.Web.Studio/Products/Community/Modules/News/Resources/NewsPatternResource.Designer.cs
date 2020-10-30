@@ -123,5 +123,23 @@ namespace ASC.Web.Community.News.Resources {
                 return ResourceManager.GetString("subject_new_text_comment", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. #if($FEED_TYPE == &quot;poll&quot;)New comment to poll#end#if($FEED_TYPE == &quot;feed&quot;)New comment to event#end: [$Caption]($CommentURL).
+        /// </summary>
+        public static string subject_new_text_comment_tg {
+            get {
+                return ResourceManager.GetString("subject_new_text_comment_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. #if($FEED_TYPE == &quot;poll&quot;)New poll added#end#if($FEED_TYPE == &quot;feed&quot;)New event added#end: [$Caption]($URL).
+        /// </summary>
+        public static string subject_new_text_tg {
+            get {
+                return ResourceManager.GetString("subject_new_text_tg", resourceCulture);
+            }
+        }
     }
 }

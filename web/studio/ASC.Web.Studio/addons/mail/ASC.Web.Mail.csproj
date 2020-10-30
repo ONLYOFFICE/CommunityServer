@@ -11,23 +11,17 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1EF9C7D8-F92E-48B3-9A86-78E431ABC306}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Mail</RootNamespace>
     <AssemblyName>ASC.Web.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
     <OutputPath>..\..\..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,7 +34,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -48,48 +42,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Data.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Web.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.CRM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Web.CRM.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Web.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml" />
-    <Reference Include="DotNetZip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="App_Themes\default\images\dashboard\collect-all-emails-in-one-place.png" />
+    <Content Include="App_Themes\default\images\dashboard\communicate-easily.png" />
+    <Content Include="App_Themes\default\images\dashboard\structure-correspondence.png" />
+    <Content Include="App_Themes\default\images\dashboard\use-mail-server.png" />
     <Content Include="App_Themes\default\images\google.png" />
     <Content Include="App_Themes\default\images\background_sprite.png" />
     <Content Include="App_Themes\default\images\base_sprite.png" />
-    <Content Include="App_Themes\default\images\blank_modal_sprite.png" />
     <Content Include="App_Themes\default\images\blank_sprite.png" />
     <Content Include="App_Themes\default\images\dns_sprite.png" />
     <Content Include="App_Themes\default\images\icon_group.png" />
@@ -238,6 +198,7 @@
     <Content Include="templates\messageTmpl.html" />
     <Content Include="templates\signatureTmpl.html" />
     <Content Include="templates\tagsTmpl.html" />
+    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\MailAddon.cs" />
@@ -453,6 +414,13 @@
     <Content Include="HttpHandlers\Download.ashx" />
     <Content Include="HttpHandlers\ContactPhoto.ashx" />
     <Content Include="js\userfolders\plugins\jstree.counters.plugin.js" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
@@ -463,6 +431,14 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail</Name>
@@ -472,28 +448,32 @@
       <Name>ASC.FederatedLogin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Products\CRM\ASC.Web.CRM.csproj">
+      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
+      <Name>ASC.Web.CRM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.7</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

@@ -325,7 +325,7 @@
                     <div id="contactPhoto" class="contact-photo">
                         <div class="contact-photo-img">
                             <img class="contact_photo" alt="" src="<%= String.Format("{0}?{1}",ContactPhotoManager.GetBigSizePhoto(0, UrlParameters.Type != "people"), new DateTime().Ticks) %>"
-                                data-avatarurl="<%= TargetContact != null ? String.Format("{0}HttpHandlers/filehandler.ashx?action=contactphotoulr&cid={1}&isc={2}&ps=3", PathProvider.BaseAbsolutePath, TargetContact.ID, TargetContact is Company).ToLower() : "" %>" />
+                                data-avatarurl="<%= TargetContact != null ? String.Format("{0}HttpHandlers/filehandler.ashx?action=contactphotoulr&cid={1}&isc={2}&ps=3", PathProvider.BaseAbsolutePath, TargetContact.ID, TargetContact is Company) : "" %>" />
                         </div>
 
                         <div class="under_logo">

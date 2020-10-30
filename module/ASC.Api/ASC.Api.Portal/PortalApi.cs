@@ -1,25 +1,16 @@
 ﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -49,19 +40,21 @@ using ASC.Core.Users;
 using ASC.ElasticSearch;
 using ASC.ElasticSearch.Core;
 using ASC.Geolocation;
+using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
-using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.FirstTime;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -198,6 +191,150 @@ namespace ASC.Api.Portal
         public long GetUsersCount()
         {
             return CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
+        }
+
+        ///<visible>false</visible>
+        [Create("uploadlicense")]
+        public FileUploadResult UploadLicense(IEnumerable<HttpPostedFileBase> attachments)
+        {
+            if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();
+
+            var license = attachments.FirstOrDefault();
+
+            if (license == null) throw new Exception(Resource.ErrorEmptyUploadFileSelected);
+
+            var result = new FileUploadResult();
+
+            try
+            {
+                var dueDate = LicenseReader.SaveLicenseTemp(license.InputStream);
+
+                result.Message = dueDate >= DateTime.UtcNow.Date
+                                         ? Resource.LicenseUploaded
+                                         : string.Format(Resource.LicenseUploadedOverdue,
+                                                         string.Empty,
+                                                         string.Empty,
+                                                         dueDate.Date.ToLongDateString());
+                result.Success = true;
+            }
+            catch (LicenseExpiredException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License upload", ex);
+                result.Message = Resource.LicenseErrorExpired;
+            }
+            catch (LicenseQuotaException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License upload", ex);
+                result.Message = Resource.LicenseErrorQuota;
+            }
+            catch (LicensePortalException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License upload", ex);
+                result.Message = Resource.LicenseErrorPortal;
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC").Error("License upload", ex);
+                result.Message = Resource.LicenseError;
+            }
+
+            return result;
+        }
+
+        ///<visible>false</visible>
+        [Create("activatelicense")]
+        public FileUploadResult ActivateLicense()
+        {
+            if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();
+
+            var result = new FileUploadResult();
+
+            try
+            {
+                LicenseReader.RefreshLicense();
+                Web.Studio.UserControls.Management.TariffSettings.LicenseAccept = true;
+                MessageService.Send(HttpContext.Current.Request, MessageAction.LicenseKeyUploaded);
+                result.Success = true;
+            }
+            catch (BillingNotFoundException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License activate", ex);
+                result.Message = UserControlsCommonResource.LicenseKeyNotFound;
+            }
+            catch (BillingNotConfiguredException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License activate", ex);
+                result.Message = UserControlsCommonResource.LicenseKeyNotCorrect;
+            }
+            catch (BillingException ex)
+            {
+                LogManager.GetLogger("ASC").Error("License activate", ex);
+                result.Message = UserControlsCommonResource.LicenseException;
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC").Error("License activate", ex);
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
+
+
+        ///<visible>false</visible>
+        [Create("activatetrial")]
+        public bool ActivateTrial()
+        {
+            if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();
+            if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin()) throw new SecurityException();
+
+            var curQuota = TenantExtra.GetTenantQuota();
+            if (curQuota.Id != Tenant.DEFAULT_TENANT) return false;
+            if (curQuota.Trial) return false;
+
+            var curTariff = TenantExtra.GetCurrentTariff();
+            if (curTariff.DueDate.Date != DateTime.MaxValue.Date) return false;
+
+            var quota = new TenantQuota(-1000)
+            {
+                Name = "apirequest",
+                ActiveUsers = curQuota.ActiveUsers,
+                MaxFileSize = curQuota.MaxFileSize,
+                MaxTotalSize = curQuota.MaxTotalSize,
+                Features = curQuota.Features
+            };
+            quota.Trial = true;
+
+            CoreContext.TenantManager.SaveTenantQuota(quota);
+
+            var DEFAULT_TRIAL_PERIOD = 30;
+
+            var tariff = new Tariff
+            {
+                QuotaId = quota.Id,
+                DueDate = DateTime.Today.AddDays(DEFAULT_TRIAL_PERIOD)
+            };
+
+            CoreContext.PaymentManager.SetTariff(-1, tariff);
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.LicenseKeyUploaded);
+
+            return true;
+        }
+
+        ///<visible>false</visible>
+        [Read("tenantextra")]
+        public object GetTenantExtra()
+        {
+            return new
+            {
+                opensource = TenantExtra.Opensource,
+                enterprise = TenantExtra.Enterprise,
+                tariff = TenantExtra.GetCurrentTariff(),
+                quota = TenantExtra.GetTenantQuota(),
+                notPaid = TenantStatisticsProvider.IsNotPaid(),
+                licenseAccept = Web.Studio.UserControls.Management.TariffSettings.LicenseAccept
+            };
         }
 
         ///<summary>
@@ -424,6 +561,11 @@ namespace ASC.Api.Portal
         [Read("getbackupschedule")]
         public BackupAjaxHandler.Schedule GetBackupSchedule()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.GetSchedule();
         }
 
@@ -439,6 +581,11 @@ namespace ASC.Api.Portal
         [Create("createbackupschedule")]
         public void CreateBackupSchedule(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, int backupsStored, BackupAjaxHandler.CronParams cronParams, bool backupMail)
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             backupHandler.CreateSchedule(storageType, storageParams.ToDictionary(r=> r.Key, r=> r.Value), backupsStored, cronParams, backupMail);
         }
 
@@ -449,6 +596,11 @@ namespace ASC.Api.Portal
         [Delete("deletebackupschedule")]
         public void DeleteBackupSchedule()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             backupHandler.DeleteSchedule();
         }
 
@@ -463,6 +615,11 @@ namespace ASC.Api.Portal
         [Create("startbackup")]
         public BackupProgress StartBackup(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool backupMail)
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.StartBackup(storageType, storageParams.ToDictionary(r=> r.Key, r=> r.Value), backupMail);
         }
 
@@ -474,6 +631,11 @@ namespace ASC.Api.Portal
         [Read("getbackupprogress")]
         public BackupProgress GetBackupProgress()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.GetBackupProgress();
         }
 
@@ -485,6 +647,11 @@ namespace ASC.Api.Portal
         [Read("getbackuphistory")]
         public List<BackupHistoryRecord> GetBackupHistory()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.GetBackupHistory();
         }
 
@@ -495,6 +662,11 @@ namespace ASC.Api.Portal
         [Delete("deletebackup/{id}")]
         public void DeleteBackup(Guid id)
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             backupHandler.DeleteBackup(id);
         }
 
@@ -506,6 +678,11 @@ namespace ASC.Api.Portal
         [Delete("deletebackuphistory")]
         public void DeleteBackupHistory()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             backupHandler.DeleteAllBackups();
         }
 
@@ -521,6 +698,11 @@ namespace ASC.Api.Portal
         [Create("startrestore")]
         public BackupProgress StartBackupRestore(string backupId, BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool notify)
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.StartRestore(backupId, storageType, storageParams.ToDictionary(r => r.Key, r => r.Value), notify);
         }
 
@@ -532,6 +714,11 @@ namespace ASC.Api.Portal
         [Read("getrestoreprogress", true, false)]  //NOTE: this method doesn't check payment!!!
         public BackupProgress GetRestoreProgress()
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.GetRestoreProgress();
         }
 
@@ -539,6 +726,11 @@ namespace ASC.Api.Portal
         [Read("backuptmp")]
         public string GetTempPath(string alias)
         {
+            if (CoreContext.Configuration.Standalone)
+            {
+                TenantExtra.DemandControlPanelPermission();
+            }
+
             return backupHandler.GetTmpFolder();
         }
 
@@ -557,7 +749,6 @@ namespace ASC.Api.Portal
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
             if (String.IsNullOrEmpty(alias)) throw new ArgumentException();
-
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
@@ -662,7 +853,9 @@ namespace ASC.Api.Portal
             {
                 case EmailValidationKeyProvider.ValidationResult.Ok:
                     var currentUser = CoreContext.UserManager.GetUsers(userid);
+
                     StudioNotifyService.Instance.SendCongratulations(currentUser);
+                    StudioNotifyService.Instance.SendRegData(currentUser);
                     FirstTimeTenantSettings.SendInstallInfo(currentUser);
 
                     if (!SetupInfo.IsSecretEmail(currentUser.Email))
@@ -908,6 +1101,8 @@ namespace ASC.Api.Portal
         [Read("search")]
         public IEnumerable<object> GetSearchSettings()
         {
+            TenantExtra.DemandControlPanelPermission();
+
             return SearchSettings.GetAllItems().Select(r => new
             {
                 id =r.ID,
@@ -919,12 +1114,16 @@ namespace ASC.Api.Portal
         [Read("search/state")]
         public object CheckSearchAvailable()
         {
+            TenantExtra.DemandControlPanelPermission();
+
             return FactoryIndexer.GetState();
         }
 
         [Create("search/reindex")]
         public object Reindex(string name)
         {
+            TenantExtra.DemandControlPanelPermission();
+
             FactoryIndexer.Reindex(name);
             return CheckSearchAvailable();
         }
@@ -932,6 +1131,8 @@ namespace ASC.Api.Portal
         [Create("search")]
         public void SetSearchSettings(List<SearchSettingsItem> items)
         {
+            TenantExtra.DemandControlPanelPermission();
+
             SearchSettings.Set(items);
         }
 
@@ -943,8 +1144,37 @@ namespace ASC.Api.Portal
         [Read(@"randompwd")]
         public string GetRandomPassword()
         {
-            var password = UserManagerWrapper.GeneratePassword();
+            var Noise = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk_-()=";
+
+            var ps = PasswordSettings.Load();
+
+            var maxLength = PasswordSettings.MaxLength
+                            - (ps.Digits ? 1 : 0)
+                            - (ps.UpperCase ? 1 : 0)
+                            - (ps.SpecSymbols ? 1 : 0);
+            var minLength = Math.Min(ps.MinLength, maxLength);
+
+            var password = String.Format("{0}{1}{2}{3}",
+                             GeneratePassword(minLength, minLength, Noise.Substring(0, Noise.Length - 4)),
+                             ps.Digits ? GeneratePassword(1, 1, Noise.Substring(0, 10)) : String.Empty,
+                             ps.UpperCase ? GeneratePassword(1, 1, Noise.Substring(10, 20).ToUpper()) : String.Empty,
+                             ps.SpecSymbols ? GeneratePassword(1, 1, Noise.Substring(Noise.Length - 4, 4).ToUpper()) : String.Empty);
+
             return password;
+        }
+
+        private static readonly Random Rnd = new Random();
+
+        private static string GeneratePassword(int minLength, int maxLength, string noise)
+        {
+            var length = Rnd.Next(minLength, maxLength + 1);
+
+            var pwd = string.Empty;
+            while (length-- > 0)
+            {
+                pwd += noise.Substring(Rnd.Next(noise.Length - 1), 1);
+            }
+            return pwd;
         }
 
         /// <summary>
@@ -958,6 +1188,22 @@ namespace ASC.Api.Portal
             GeolocationHelper helper = new GeolocationHelper("teamlabsite");
             return helper.GetIPGeolocation(ipAddress);
    
+        }
+
+        ///<visible>false</visible>
+        [Create("gift/mark")]
+        public void MarkGiftAsReaded()
+        {
+            try
+            {
+                var settings = OpensourceGiftSettings.LoadForCurrentUser();
+                settings.Readed = true;
+                settings.SaveForCurrentUser();
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Web").Error("MarkGiftAsReaded", ex);
+            }
         }
     }
 }

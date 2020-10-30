@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -48,7 +39,7 @@ namespace ASC.Web.Studio.HttpHandlers
     public class SsoHandler : IHttpHandler
     {
         private readonly ILog _log = LogManager.GetLogger("ASC");
-        private const string AUTH_PAGE = "~/auth.aspx";
+        private const string AUTH_PAGE = "~/Auth.aspx";
 
         #region IHttpHandler Members
 
@@ -64,7 +55,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()))
                 {
                     _log.DebugFormat("Single sign-on settings are disabled");
-                    context.Response.Redirect(AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsDisabled),
+                    context.Response.Redirect(AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsDisabled,
                         false);
                     return;
                 }
@@ -73,7 +64,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 {
                     _log.DebugFormat("Single sign-on settings are not paid");
                     context.Response.Redirect(
-                        AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.ErrorNotAllowedOption), false);
+                        AUTH_PAGE + "?am=" + (int)Auth.MessageKey.ErrorNotAllowedOption, false);
                     return;
                 }
                 var settings = SsoSettingsV2.Load();
@@ -90,7 +81,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 if (!settings.EnableSso)
                 {
                     _log.DebugFormat("Single sign-on is disabled");
-                    context.Response.Redirect(AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsDisabled),
+                    context.Response.Redirect(AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsDisabled,
                         false);
                     return;
                 }
@@ -101,7 +92,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 {
                     _log.Error("SAML response is null or empty");
                     context.Response.Redirect(
-                        AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsEmptyToken), false);
+                        AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsEmptyToken, false);
                     return;
                 }
 
@@ -114,7 +105,7 @@ namespace ASC.Web.Studio.HttpHandlers
                         _log.Error("SAML response is not valid");
                         MessageService.Send(context.Request, MessageAction.LoginFailViaSSO);
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsNotValidToken), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsNotValidToken, false);
                         return;
                     }
 
@@ -122,9 +113,9 @@ namespace ASC.Web.Studio.HttpHandlers
 
                     if (Equals(userInfo, Constants.LostUser))
                     {
-                        _log.Error("Can't create userInfo using current SAML response");
+                        _log.Error("Can't create userInfo using current SAML response (fields Email, FirstName, LastName are required)");
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsCantCreateUser), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsCantCreateUser, false);
                         return;
                     }
 
@@ -132,7 +123,7 @@ namespace ASC.Web.Studio.HttpHandlers
                     {
                         _log.Error("Current user is terminated");
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsUserTerminated), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsUserTerminated, false);
                         return;
                     }
 
@@ -172,7 +163,7 @@ namespace ASC.Web.Studio.HttpHandlers
                         _log.Error("SAML Logout response is not valid");
                         MessageService.Send(context.Request, MessageAction.LoginFailViaSSO);
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsNotValidToken), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsNotValidToken, false);
                         return;
                     }
 
@@ -182,7 +173,7 @@ namespace ASC.Web.Studio.HttpHandlers
                     {
                         _log.Error("Can't logout userInfo using current SAML response");
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsCantCreateUser), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsCantCreateUser, false);
                         return;
                     }
 
@@ -190,7 +181,7 @@ namespace ASC.Web.Studio.HttpHandlers
                     {
                         _log.Error("Current user is terminated");
                         context.Response.Redirect(
-                            AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.SsoSettingsUserTerminated), false);
+                            AUTH_PAGE + "?am=" + (int)Auth.MessageKey.SsoSettingsUserTerminated, false);
                         return;
                     }
 
@@ -208,7 +199,7 @@ namespace ASC.Web.Studio.HttpHandlers
             catch (Exception e)
             {
                 _log.ErrorFormat("Unexpected error. {0}", e);
-                context.Response.Redirect(AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(e.Message), false);
+                context.Response.Redirect(AUTH_PAGE + "?am=" + (int)Auth.MessageKey.Error, false);
             }
             finally
             {
@@ -235,26 +226,10 @@ namespace ASC.Web.Studio.HttpHandlers
 
                 if (string.IsNullOrEmpty(newUserInfo.UserName))
                 {
-                    if (string.IsNullOrWhiteSpace(newUserInfo.FirstName))
-                    {
-                        newUserInfo.FirstName = Resource.FirstName;
-                    }
+                    var limitExceeded = TenantStatisticsProvider.GetUsersCount() >= TenantExtra.GetTenantQuota().ActiveUsers;
 
-                    if (string.IsNullOrWhiteSpace(newUserInfo.LastName))
-                    {
-                        newUserInfo.LastName = Resource.LastName;
-                    }
-
-                    if (TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers)
-                    {
-                        newUserInfo = UserManagerWrapper.AddUser(newUserInfo, UserManagerWrapper.GeneratePassword(), true,
-                            false);
-                    }
-                    else
-                    {
-                        newUserInfo = UserManagerWrapper.AddUser(newUserInfo, UserManagerWrapper.GeneratePassword(), true,
-                            false, true);
-                    }
+                    newUserInfo = UserManagerWrapper.AddUser(newUserInfo, UserManagerWrapper.GeneratePassword(), true,
+                        false, isVisitor: limitExceeded);
                 }
                 else
                 {

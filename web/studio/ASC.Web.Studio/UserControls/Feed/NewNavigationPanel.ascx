@@ -11,17 +11,13 @@
     .page-menu .menu-list #feed-menu-item .menu-sub-list .menu-sub-item {
         padding-left: 16px;
     }
-
-    #feed-menu-item {
-        margin-bottom: 20px;
-    }
 </style>
 
 <div id="feed-page-menu" class="page-menu">
     <ul class="menu-list">
         <li id="feed-menu-item" class="menu-item sub-list active open currentCategory">
             <div class="category-wrapper">
-                <a id="feed-all-products-nav" class="menu-item-label outer-text text-overflow" href="feed.aspx" title="<%= UserControlsCommonResource.WhatsNew %>">
+                <a id="feed-all-products-nav" class="menu-item-label outer-text text-overflow" href="Feed.aspx" title="<%= UserControlsCommonResource.WhatsNew %>">
                     <%= UserControlsCommonResource.WhatsNew %>
                 </a>
             </div>

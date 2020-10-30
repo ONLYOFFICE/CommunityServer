@@ -42,4 +42,5 @@ html.cke_copyformatting_active {
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
+	bottom: 0;
 }

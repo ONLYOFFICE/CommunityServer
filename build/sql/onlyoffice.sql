@@ -389,6 +389,7 @@ CREATE TABLE IF NOT EXISTS `core_usersecurity` (
   `userid` varchar(38) NOT NULL,
   `pwdhash` varchar(512) DEFAULT NULL,
   `pwdhashsha512` varchar(512) DEFAULT NULL,
+  `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
   KEY `pwdhash` (`pwdhash`(255)),
   KEY `tenant` (`tenant`)
@@ -592,8 +593,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_item` (
   `description` text NOT NULL,
   `stock_keeping_unit` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `quantity` int(11) NOT NULL DEFAULT '0',
-  `stock_quantity` int(11) NOT NULL DEFAULT '0',
+  `stock_quantity` decimal(10,2) NOT NULL DEFAULT '0.00',
   `track_inventory` tinyint(4) NOT NULL DEFAULT '0',
   `invoice_tax1_id` int(11) NOT NULL DEFAULT '0',
   `invoice_tax2_id` int(11) NOT NULL DEFAULT '0',
@@ -614,9 +614,9 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_line` (
   `invoice_tax1_id` int(11) NOT NULL,
   `invoice_tax2_id` int(11) NOT NULL,
   `description` text NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` decimal(10,2) NOT NULL DEFAULT '0.00',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `discount` int(11) NOT NULL DEFAULT '0',
+  `discount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `tenant_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -806,16 +806,6 @@ CREATE TABLE IF NOT EXISTS `crm_voip_number` (
   `tenant_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `encrypted_data` (
-	`public_key` VARCHAR(512) NOT NULL,
-	`file_hash` VARCHAR(512) NOT NULL,
-	`data` VARCHAR(512) NOT NULL,
-	`create_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`tenant_id` INT(10) NOT NULL,
-	PRIMARY KEY (`public_key`, `file_hash`),
-	INDEX `tenant_id` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `dbip_location` (
@@ -1859,6 +1849,7 @@ CREATE TABLE IF NOT EXISTS `notify_queue` (
   `reply_to` varchar(1024) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
   `attachments` text NULL,
+  `auto_submitted` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`notify_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2428,4 +2419,12 @@ CREATE TABLE IF NOT EXISTS `short_links` (
   `link` TEXT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UNIQUE` (`short`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `telegram_users` (
+  `portal_user_id` VARCHAR(38) NOT NULL,
+  `tenant_id` INT(11) NOT NULL,
+  `telegram_user_id` INT(11) NOT NULL,
+  PRIMARY KEY (`portal_user_id`, `tenant_id`),
+  INDEX `tgId` (`telegram_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

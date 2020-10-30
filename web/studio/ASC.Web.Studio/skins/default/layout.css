@@ -1,0 +1,190 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.studio-container {
+    display: grid;
+    grid-template-areas: "header header header" "nav aside main";
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-gap: 0;
+}
+
+header {
+    grid-area: header;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    grid-area: nav;
+    display: block;
+    grid-template-areas: "new-content" "nav-content";
+    grid-template-rows: auto 1fr;
+    grid-gap: 0;
+    margin: 0;
+    padding: 24px;
+}
+
+aside {
+    grid-area: aside;
+    display: grid;
+    grid-template-areas: "aside-content";
+    grid-template-rows: 1fr;
+    grid-gap: 0;
+    margin: 24px 0 0 0;
+    padding: 0;
+}
+
+aside.borderBase{
+    border-bottom: medium none;
+    border-right: medium none;
+    border-top: medium none;
+}
+
+main {
+    grid-area: main;
+    display: block;
+    grid-template-areas: "bar-content" "title-content" "filter-content" "page-content" "paging-content";
+    grid-template-rows: auto auto auto 1fr auto;
+    grid-gap: 0;
+    margin: 0;
+    padding: 24px 24px 0 24px;
+}
+
+.header-content{
+    grid-area: header-content;
+}
+.new-content {
+    grid-area: new-content;
+}
+.nav-content {
+    grid-area: nav-content;
+    overflow-x: hidden;
+}
+.aside-content {
+    grid-area: aside-content;
+    overflow-x: hidden;
+}
+.bar-content {
+    grid-area: bar-content;
+}
+.title-content {
+    grid-area: title-content;
+}
+.filter-content {
+    grid-area: filter-content;
+}
+.page-content {
+    grid-area: page-content;
+    outline: none;
+}
+.paging-content {
+    grid-area: paging-content;
+    padding: 12px 0;
+}
+
+/*fix Bug 45531 IE 11 hack*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .studio-container {
+        display: -ms-grid;
+        -ms-grid-columns: auto auto 1fr;
+        -ms-grid-rows: auto 1fr;
+    }
+
+    header {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+        -ms-grid-column-span: 3;
+    }
+
+    nav {
+        display: -ms-grid;
+        -ms-grid-rows: auto 1fr;
+        -ms-grid-columns: 1fr;
+        -ms-grid-column: 1;
+        -ms-grid-row: 2;
+    }
+
+    aside {
+        display: -ms-grid;
+        -ms-grid-column: 2;
+        -ms-grid-row: 2;
+    }
+
+    main {
+        display: -ms-grid;
+        -ms-grid-rows: auto auto auto 1fr auto;
+        -ms-grid-columns: 1fr;
+        -ms-grid-column: 3;
+        -ms-grid-row: 2;
+    }
+
+    .new-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+    }
+
+    .nav-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 2;
+    }
+
+    .aside-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+    }
+
+    .bar-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+    }
+
+    .title-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 2;
+    }
+
+    .filter-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 3;
+    }
+
+    .page-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 4;
+    }
+
+    .paging-content {
+        -ms-grid-column: 1;
+        -ms-grid-row: 5;
+    }
+}
+
+@media (max-width: 1200px) {
+    .paging-content {
+        padding: 12px 0 36px 0;
+    }
+}

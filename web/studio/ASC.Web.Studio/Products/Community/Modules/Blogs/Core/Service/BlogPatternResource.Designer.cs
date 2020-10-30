@@ -100,11 +100,29 @@ namespace ASC.Web.Community.Blogs.Core.Service {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community. New comment to blog post: [$PostSubject]($CommentURL).
+        /// </summary>
+        public static string subject_new_comment_tg {
+            get {
+                return ResourceManager.GetString("subject_new_comment_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. New post in blogs: $PostSubject.
         /// </summary>
         public static string subject_new_post {
             get {
                 return ResourceManager.GetString("subject_new_post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. New post in blogs: [$PostSubject]($URL).
+        /// </summary>
+        public static string subject_new_post_tg {
+            get {
+                return ResourceManager.GetString("subject_new_post_tg", resourceCulture);
             }
         }
     }

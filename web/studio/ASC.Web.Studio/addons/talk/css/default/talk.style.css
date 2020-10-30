@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -166,7 +157,7 @@ div.textfield input {
 }
 div.textfield input.search-value {
     bottom: 6px;
-    width: calc(100% - 30px);
+    width: 100%;
     font-size: 12px;
 }
 
@@ -229,7 +220,6 @@ color:#FFF;
 div#talkWrapper {
     position:relative;
     zoom:1;
-    margin-bottom:-24px;
     padding:0 0 0;
 }
 
@@ -2629,7 +2619,7 @@ div#talkContactToolbarContainer div#talkFilterContainer {
 div#talkContactToolbarContainer div#talkFilterContainer div.helper input {
     display:block;
     border:0;
-    width: calc(100% - 65px);
+    width: calc(100% - 15px);
     height:17px;
     outline:none;
     margin:0;
@@ -2882,10 +2872,9 @@ background:url(imagescss/search.png);
 }
 
 div#talkSidebarContainer.enable-filter div#talkContactToolbarContainer div#talkFilterContainer {
-display:block;
-width:80%;
-float:left;
-
+    display:block;
+    width:90%;
+    float:left;
 }
 
 div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist li.group.checked-by-filter div.head div.state {
@@ -4296,22 +4285,16 @@ text-align: center;
 }
 div.toolbar div.button-container.settings div#pop {
     position: absolute;
-    left: 0;
     border: 1px solid rgb(189, 189, 189);
     border-radius: 3px;
     padding: 10px;
     background-color: white;
     font-size: 12px;
     width: 222px;
-    bottom: -177px;
-    top: unset!important;
     display:none;
 }
 div.toolbar div.button-container.settings div#pop .delete-files-link {
 display:none;
-}
-div.toolbar div.button-container.settings div#pop.has-files {
-    bottom: -214px!important;
 }
 div.toolbar div.button-container.settings div#pop.has-files .delete-files-link {
 display:block;

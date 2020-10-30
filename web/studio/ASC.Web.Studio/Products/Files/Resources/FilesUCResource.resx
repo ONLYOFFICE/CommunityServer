@@ -120,6 +120,9 @@
   <data name="AceStatusEnum_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Custom Filter</value>
+  </data>
   <data name="AceStatusEnum_FillForms" xml:space="preserve">
     <value>Form Filling</value>
   </data>
@@ -141,8 +144,8 @@
   <data name="AddShareMessage" xml:space="preserve">
     <value>Add message</value>
   </data>
-  <data name="AppStore" xml:space="preserve">
-    <value>Mobile Documents {0} available on the {1}App Store{2}</value>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Admin Settings</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
@@ -156,6 +159,9 @@
   <data name="ButtonAddDropBox" xml:space="preserve">
     <value>Add DropBox account</value>
   </data>
+  <data name="ButtonAddFavorite" xml:space="preserve">
+    <value>Mark as favorite</value>
+  </data>
   <data name="ButtonAddGoogle" xml:space="preserve">
     <value>Add Google account</value>
   </data>
@@ -164,6 +170,9 @@
   </data>
   <data name="ButtonAddSkyDrive" xml:space="preserve">
     <value>Add OneDrive account</value>
+  </data>
+  <data name="ButtonAddTemplate" xml:space="preserve">
+    <value>Use as template</value>
   </data>
   <data name="ButtonAddWebDav" xml:space="preserve">
     <value>Other account</value>
@@ -194,6 +203,12 @@
   </data>
   <data name="ButtonCreate" xml:space="preserve">
     <value>Create...</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>Create by Template</value>
+  </data>
+  <data name="ButtonCreateByTemplateShort" xml:space="preserve">
+    <value>By Template</value>
   </data>
   <data name="ButtonCreateFolder" xml:space="preserve">
     <value>Folder</value>
@@ -296,6 +311,18 @@
   </data>
   <data name="ButtonPrevImg" xml:space="preserve">
     <value>Previous Image</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Remove from Favorites</value>
+  </data>
+  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ButtonRemoveTemplate" xml:space="preserve">
+    <value>Remove from templates</value>
+  </data>
+  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="ButtonRename" xml:space="preserve">
     <value>Rename</value>
@@ -507,8 +534,20 @@
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
   </data>
+  <data name="DocuSignAdmin" xml:space="preserve">
+    <value>To do it, go to your portal settings and open the Integration -&gt; Third-Party Services section {0}Go to Settings{1}</value>
+  </data>
+  <data name="DocuSignCaption" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="DocuSignConnect" xml:space="preserve">
+    <value>To sign document, you need to connect the DocuSign service.</value>
+  </data>
   <data name="DocuSignFolder" xml:space="preserve">
     <value>Save to folder:</value>
+  </data>
+  <data name="DocuSignHelp" xml:space="preserve">
+    <value>To learn more, visit our {0}Help Center{1}</value>
   </data>
   <data name="DocuSignMessage" xml:space="preserve">
     <value>Message</value>
@@ -527,6 +566,9 @@
   </data>
   <data name="DocuSignRecipients" xml:space="preserve">
     <value>Signer recipient list</value>
+  </data>
+  <data name="DocuSignUser" xml:space="preserve">
+    <value>To do it, please contact your portal administrator.</value>
   </data>
   <data name="DownloadAs" xml:space="preserve">
     <value>Download as</value>
@@ -550,37 +592,58 @@
     <value>Width</value>
   </data>
   <data name="EmptyScreenDescrCorporate" xml:space="preserve">
-    <value>The 'Common Documents' section shows all the documents shared by portal administrator for common access. Only portal administrator can create folders in this section, but with the access granted the portal users can also upload their files here.</value>
+    <value>In this section, you can access files available to all portal members. Note that only admins can create folders here.</value>
   </data>
   <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
     <value>Drag-and-drop the files from your computer here to upload them to your portal even more easily.</value>
   </data>
+  <data name="EmptyScreenDescrRecent" xml:space="preserve">
+    <value>In this section, you can access your recently edited files.</value>
+  </data>
+  <data name="EmptyScreenDescrFavorites" xml:space="preserve">
+    <value>In this section, you can access files marked as favorites. To mark files as favorites or remove them from this list, use the context menu.</value>
+  </data>
   <data name="EmptyScreenDescrForme" xml:space="preserve">
-    <value>The 'Shared with Me' section is used to show the files which your friends or colleagues gave you access to. In case you haven't seen the latest changes in the documents they are marked 'new'. You can remove the files from the list clicking the appropriate button.</value>
+    <value>In this section, you can access files your teammates shared with you.</value>
   </data>
   <data name="EmptyScreenDescrMy" xml:space="preserve">
-    <value>The documents and image files you {0}create{1} or {2}upload{3} to the portal are kept here in 'My Documents' section. You can {4}open{5} and {6}edit{7} them using the ONLYOFFICE™ portal editor, share them with friends or colleagues, organize into folders.</value>
+    <value>{2}Upload{3}, {0}create{1}, and {4}open{5} documents. Share and {6}edit{7} them together with your teammates.</value>
   </data>
   <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
     <value>The documents and image files you {2}upload{3} to the portal are kept here in 'My Documents' section. You can share them with friends or colleagues, organize into folders.</value>
   </data>
+  <data name="EmptyScreenDescrPrivacyList" xml:space="preserve">
+    <value>{0}The safest storage for docx, xlsx and pptx.{1} {0}Secure sharing with trusted teammates.{1} {0}Encrypted editing and real-time collaboration.{1} {0}Unbreakable AES-256 algorithm.{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyAsk" xml:space="preserve">
+    <value>Ask your administrator to enable Private Room.</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyBrowser" xml:space="preserve">
+    <value>Work in Private Room is available via lastest ONLYOFFICE desktop app. {0}Instructions{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyEnable" xml:space="preserve">
+    <value>{0}Enable Private Room{1}</value>
+  </data>
   <data name="EmptyScreenDescrProject" xml:space="preserve">
-    <value>The documents and image files you create or upload for your project are kept in this section. You can open and edit them using the ONLYOFFICE™ portal editor, organize into folders.</value>
+    <value>In this section, you can access documents attached to your projects.</value>
   </data>
   <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
     <value>The documents and image files uploaded for the project are kept in this section. You can view them using the ONLYOFFICE portal editor.</value>
   </data>
+  <data name="EmptyScreenDescrTemplates" xml:space="preserve">
+    <value>In this section, you can access files saved as templates. To save file as template, use the context menu.</value>
+  </data>
   <data name="EmptyScreenDescrTrash" xml:space="preserve">
-    <value>The 'Recycle Bin' section is where all the deleted files are moved. You can either restore them in case they are deleted by mistake or delete them permanently. Please note, that when you delete the files from the 'Recycle Bin' they cannot be restored any longer.</value>
+    <value>Your deleted files are moved to this section. You can restore files or delete them permanently.</value>
   </data>
   <data name="EmptyScreenFilter" xml:space="preserve">
-    <value>No files to be displayed for this filter here</value>
+    <value>No files found</value>
   </data>
   <data name="EmptyScreenFilterDescr" xml:space="preserve">
-    <value>No files or folders matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the files in this section. You can also look for the file you need in other sections.</value>
+    <value>No files and folders matching your filter found. Please, select other filter options or clear it.</value>
   </data>
   <data name="EmptyScreenHeader" xml:space="preserve">
-    <value>No files to be displayed in this section</value>
+    <value>No files here yet</value>
   </data>
   <data name="EmptyScreenFolderHeader" xml:space="preserve">
     <value>No files in this folder</value>
@@ -596,6 +659,12 @@
   </data>
   <data name="Everyone" xml:space="preserve">
     <value>All Users</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Recent Documents</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorites</value>
   </data>
   <data name="FileChoiceFormat" xml:space="preserve">
     <value>Select the file in {0} format</value>
@@ -645,6 +714,24 @@
   <data name="MaxFileSize" xml:space="preserve">
     <value>The maximum file size is {0}</value>
   </data>
+  <data name="MobileAndroid" xml:space="preserve">
+    <value>Get ONLYOFFICE Documents on Google Play</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>Download apps</value>
+  </data>
+  <data name="MobileIos" xml:space="preserve">
+    <value>Download ONLYOFFICE Documents on the App Store</value>
+  </data>
+  <data name="MobileLinux" xml:space="preserve">
+    <value>Download ONLYOFFICE Desktop Editors for Linux</value>
+  </data>
+  <data name="MobileMac" xml:space="preserve">
+    <value>Download ONLYOFFICE Desktop Editors for Mac OS</value>
+  </data>
+  <data name="MobileWin" xml:space="preserve">
+    <value>Download ONLYOFFICE Desktop Editors for Windows</value>
+  </data>
   <data name="MoreFeatures" xml:space="preserve">
     <value>Have a team {0}to collaborate with? {0}{1}Learn more{2}</value>
   </data>
@@ -693,6 +780,12 @@
   <data name="PreviewError" xml:space="preserve">
     <value>Warning! Possibly this file is a renamed executable file and it cannot be previewed.</value>
   </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>Privacy Room</value>
+  </data>
+  <data name="PrivacyRoomEmptyFolder" xml:space="preserve">
+    <value>Welcome to ONLYOFFICE private room where every symbol you type is encrypted</value>
+  </data>
   <data name="ProductDescription" xml:space="preserve">
     <value>This is a web application for internal use designed to store and share files and work on them in team.</value>
   </data>
@@ -732,11 +825,23 @@
   <data name="SendShareNotify" xml:space="preserve">
     <value>Send notification</value>
   </data>
+  <data name="SettingRecent" xml:space="preserve">
+    <value>Display Recent Documents</value>
+  </data>
+  <data name="SettingFavorite" xml:space="preserve">
+    <value>Display Favorites</value>
+  </data>
   <data name="SettingForcesave" xml:space="preserve">
     <value>Keep intermediate versions when editing</value>
   </data>
+  <data name="SettingSection" xml:space="preserve">
+    <value>Additional sections</value>
+  </data>
   <data name="SettingStoreForcesave" xml:space="preserve">
     <value>Keep all saved intermediate versions</value>
+  </data>
+  <data name="SettingTemplates" xml:space="preserve">
+    <value>Using Document Templates</value>
   </data>
   <data name="SettingUpdateIfExist" xml:space="preserve">
     <value>Common Settings</value>
@@ -770,6 +875,15 @@
   </data>
   <data name="SwitchViewToNormal" xml:space="preserve">
     <value>Switch to common view</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Document Templates</value>
+  </data>
+  <data name="TemplatesEmpty" xml:space="preserve">
+    <value>No Document Templates</value>
+  </data>
+  <data name="TemplatesLoader" xml:space="preserve">
+    <value>Loading...</value>
   </data>
   <data name="ThirdPartyAccounts" xml:space="preserve">
     <value>Third-party accounts</value>
@@ -815,6 +929,9 @@
   </data>
   <data name="ThirdPartyNextcloud" xml:space="preserve">
     <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
   </data>
   <data name="ThirdPartyOwnCloud" xml:space="preserve">
     <value>ownCloud</value>
@@ -917,5 +1034,8 @@
   </data>
   <data name="ButtonUploadFolder" xml:space="preserve">
     <value>Upload folder</value>
+  </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>Copy external link</value>
   </data>
 </root>

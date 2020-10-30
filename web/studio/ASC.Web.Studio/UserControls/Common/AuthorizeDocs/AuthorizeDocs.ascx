@@ -253,7 +253,7 @@
                     <input type="checkbox" id="agree_to_terms" hidden><span></span>
                     <label for="agree_to_terms">
                         <%= String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
-                                                                  "<a target=\"_blank\" href=" + CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) + ">", "</a>",
+                                                                  "<a target=\"_blank\" href=" + CommonLinkUtility.ToAbsolute("~/Terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) + ">", "</a>",
                                                                   "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>") %></label>
                 </label>
             </div>
@@ -279,7 +279,7 @@
 
         <a id="confirmEmailBtn" class="auth-form-with_form_btn disabled"><%= Resource.RegistryButtonCreateNow %></a>
 
-        <% if (SetupInfo.ThirdPartyAuthEnabled)
+        <% if (ThirdpartyEnable)
            { %>
         <span class="auth-form-with_form_or"><%= Resource.AuthDocsOr %></span>
         <span class="auth-form-with_btns_social auth-docs_btns_social">
@@ -315,7 +315,8 @@
         </div>
         <div class="default-personal-popup_form-i">
             <label class="default-personal-popup_label password"><%= Resource.Password %></label>
-            <input class="default-personal-popup_field password" id="pwd" name="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+            <input class="default-personal-popup_field password" id="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+            <input type="hidden" id="passwordHash" name="passwordHash" />
 
             <% if (Request.DesktopApp())
                { %>
@@ -325,7 +326,7 @@
                     <span class="checkbox-custom"></span>
                     <label>
                         <%= String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
-                                                 "<a target=\"_blank\" href=" + CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) + ">", "</a>",
+                                                 "<a target=\"_blank\" href=" + CommonLinkUtility.ToAbsolute("~/Terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) + ">", "</a>",
                                                  "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>") %></label>
                 </label>
             </span>
@@ -345,11 +346,12 @@
         <% } %>
 
         <div class="login_accept-btn-cnt">
-            <button id="loginBtn" class="default-personal-popup_btn disabled" type="submit"><%= Resource.AuthDocsLogIn %></button>
+            <button id="loginBtn" class="default-personal-popup_btn <%= Request.DesktopApp() ? "disabled" : "" %>"
+                onclick="return false;"><%= Resource.AuthDocsLogIn %></button>
             <span class="login_forget-psw" onclick="PasswordTool.ShowPwdReminderDialog();"><%= Resource.AuthDocsForgotPswd %></span>
         </div>
 
-        <% if (SetupInfo.ThirdPartyAuthEnabled)
+        <% if (ThirdpartyEnable)
            { %>
         <div class="popup_social-nets auth-docs_btns_social">
             <div class="auth-docs_social_text"><%= Resource.AuthDocsEnterViaSocial %></div>

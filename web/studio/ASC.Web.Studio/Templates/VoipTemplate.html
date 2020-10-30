@@ -43,7 +43,7 @@
     <div class="missed-call" data-number="${lastCall.from}">
         <div class="missed-call-avatar">
             {{if lastCall.contact != null}}
-            <a href="${'/products/crm/default.aspx?id=' + lastCall.contact.id}" target="_blank">
+            <a href="${'/Products/CRM/Default.aspx?id=' + lastCall.contact.id}" target="_blank">
                 <img src="${lastCall.contact.smallFotoUrl}" alt="${lastCall.contact.displayName}" />
             </a>
             {{/if}}
@@ -53,7 +53,7 @@
         </div>
         <div class="missed-call-contact">
             {{if lastCall.contact && lastCall.contact.displayName}}
-            <a href="${'/products/crm/default.aspx?id=' + lastCall.contact.id}" target="_blank" class="missed-call-name" title="${lastCall.contact.displayName}">
+            <a href="${'/Products/CRM/Default.aspx?id=' + lastCall.contact.id}" target="_blank" class="missed-call-name" title="${lastCall.contact.displayName}">
                 ${lastCall.contact.displayName}
             </a>
             <div class="missed-call-number">${lastCall.from}</div>
@@ -77,12 +77,12 @@
 <script id="call-tmpl" type="text/x-jquery-tmpl">
     {{if contact != null}}
     <div id="call-avatar">
-        <a href="${'/products/crm/default.aspx?id=' + contact.id}" target="_blank">
+        <a href="${'/Products/CRM/Default.aspx?id=' + contact.id}" target="_blank">
             <img src="${contact.mediumFotoUrl}" alt="${contact.displayName}" />
         </a>
     </div>
     <div id="call-dude">
-        <a href="${'/products/crm/default.aspx?id=' + contact.id}" target="_blank" id="dude-name">
+        <a href="${'/Products/CRM/Default.aspx?id=' + contact.id}" target="_blank" id="dude-name">
             ${contact.displayName}
         </a>
         <div id="dude-company"></div>

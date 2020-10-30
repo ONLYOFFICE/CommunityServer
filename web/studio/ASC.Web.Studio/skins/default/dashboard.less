@@ -1,66 +1,19 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
-
-/*************************************************************
-    DashBoard Community & Projects
-*************************************************************/
-@padding-clm: 30px;
-
-.dashboard-box(@width-clm, @count-clm) {
-    @width: (@width-clm + @padding-clm) * @count-clm + @padding-clm;
-    background-color: #FFF;
-    left: 50%;
-    position: absolute;
-    text-align: center;
-    top: 10%;
-    z-index: 1050;
-    width: @width;
-    margin-left: -@width/2;
-
-    &.static {
-        position: static;
-        margin-left: 0;
-    }
-
-    .content {
-        display: inline-block;
-        padding: @padding-clm;
-
-        .module-block {
-            float: left;
-            margin-left: @padding-clm;
-            text-align: center;
-            width: @width-clm;
-
-            &:first-child {
-                 margin-left: 0;
-            }
-        }
-    }
-}
 
 .backdrop
 {
@@ -76,115 +29,63 @@
 }
 
 .dashboard-center-box {
-    &.crm {
-        .dashboard-box(215px, 4);
-    }
-
-    &.projects {
-        .dashboard-box(171px, 5);
-    }
-
-    &.community {
-        .dashboard-box(210px, 4);
-    }
-
-    &.mail {
-        &.for-admin
-        {
-            .dashboard-box(260px, 4);
-        }
-        &.for-user
-        {
-            .dashboard-box(260px, 3);
-        }
-    }
+    padding: 40px;
+    background-color: #FFF;
+    left: 50%;
+    position: absolute;
+    top: 10%;
+    z-index: 1050;
+    width: 660px;
+    margin-left: -330px;
 }
 
-@media all and (max-width: 1200px) {
-    .dashboard-center-box {
-        &.crm {
-            .dashboard-box(205px, 4);
-        }
-        &.projects {
-            .dashboard-box(155px, 5);
-        }
-        &.community {
-            .dashboard-box(200px, 4);
-        }
-        &.mail {
-            .dashboard-box(260px, 4);
-        }
-    }
-}
-@media screen and (min-height: 768px) {
-
+.dashboard-center-box .close {
+    color: #C4C4C4;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font-size: 32px;
+    height: 16px;
+    line-height: 16px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    vertical-align: middle;
+    width: 16px;
+    text-decoration: none;
 }
 
-
-.dashboard-center-box .header {
-    background-color: #4192B8;
-    background-repeat: repeat-x;
-    color: #fff;
-    font-size: 43px;
-    font-weight: bold;
-    padding: 15px 30px;
-    text-align: center;
-    text-shadow: #174B63 1px 1px 1px;
-    -webkit-text-shadow: #174B63 1px 1px 1px;
-
-    .close {
-        color: #fff;
-        cursor: pointer;
-        display: inline-block;
-        float: right;
-        font-size: 32px;
-        font-weight: 500;
-        height: 16px;
-        line-height: 16px;
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        vertical-align: middle;
-        width: 16px;
-    }
+.dashboard-center-box .content {
+    overflow: hidden;
+    padding: 0 30px;
 }
 
- @media all and (max-width: 1200px) {
-    .dashboard-center-box .header {
-        font-size: 38px;
-    }
-}
-
-.dashboard-center-box .content .module-block {
+.dashboard-center-box .module-block {
     .img {
-        background-position: center center;
+        background-position: 0 20px;
         background-repeat: no-repeat;
         display: block;
-        margin: 0 auto;
-        width: 135px;
-        height: 135px;
+        padding: 20px 0 0;
+        width: 165px;
+        height: 260px;
+        float: left;
+    }
+
+    .text {
+        float: left;
+        width: 435px;
+        height: 260px;
+
+        p {
+            font-size: 13px;
+            margin: 18px 0;
+        }
     }
 
     .title {
-        font-size: 24px;
-        height: 80px;
-        padding-bottom: 10px;
-        display: table-cell;
-        vertical-align: middle;
-        width: inherit;
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-
-        li {
-            background: url('imagescss/markers.gif') left 4px no-repeat;
-            list-style-type: none;
-            margin: 0;
-            padding: 0 0 14px 20px;
-            text-align: left;
-        }
+        font-size: 27px;
+        font-weight: 600;
+        margin: 18px 0;
     }
 
     a.link {
@@ -194,7 +95,7 @@
 
 
 .dashboard-center-box .dashboard-buttons {
-    margin-bottom: 30px;
+    margin-bottom: 54px;
     text-align: center;
 
     .create-button {
@@ -205,44 +106,175 @@
 
 .dashboard-center-box.community {
     .content .module-block {
-        .img.users {
-            background-image: url("images/icon-employees.png");
+        .img.share-news-and-knowledge {
+            background-image: url("images/dashboard/share-news-and-knowledge.png");
         }
-
-        .img.events {
-            background-image: url("images/icon-events.png");
+        .img.discuss-with-team {
+            background-image: url("images/dashboard/discuss-with-team.png");
         }
-
-        .img.blogs {
-            background-image: url("images/icon-blogs.png");
-        }
-
-        .img.bookmarks {
-            background-image: url("images/icon-bookmarks.png");
-        }
-
-        .img.helpcenter {
-            background-image: url("images/icon-helpcenter.png");
+        .img.keep-your-team-posted {
+            background-image: url("images/dashboard/keep-your-team-posted.png");
         }
     }
 }
 
 .dashboard-center-box.crm {
     .content .module-block {
-        .img.contacts {
-            background-image: url("images/contacts.png");
+        .img.create-clients-database {
+            background-image: url("images/dashboard/create-clients-database.png");
         }
-        .img.sales {
-            background-image: url("images/sales.png");
+        .img.track-sales {
+            background-image: url("images/dashboard/track-sales.png");
         }
-        .img.customize {
-            background-image: url("images/customize.png");
+        .img.communicate-with-clients {
+            background-image: url("images/dashboard/communicate-with-clients.png");
         }
-        .img.integration {
-            background-image: url("images/integration.png");
+        .img.customize-your-crm {
+            background-image: url("images/dashboard/customize-your-crm.png");
         }
-        .img.invoice {
-            background-image: url("images/invoice.png");
+    }
+}
+
+.dashboard-center-box.files {
+    .content .module-block {
+        .img.work-with-office-docs {
+            background-image: url("images/dashboard/work-with-office-docs.png");
         }
+        .img.share-files {
+            background-image: url("images/dashboard/share-files.png");
+        }
+        .img.make-co-editing-comfy {
+            background-image: url("images/dashboard/make-co-editing-comfy.png");
+        }
+        .img.use-more-collaboration-tools {
+            background-image: url("images/dashboard/use-more-collaboration-tools.png");
+        }
+    }
+}
+
+.dashboard-center-box .slick-carousel {
+    display: none;
+    width: 600px;
+    height: 260px;
+
+    &.slick-initialized {
+        display: block;
+    }
+
+    .slick-prev {
+        position: absolute;
+        top: 40%;
+        z-index: 1;
+        left: 20px;
+        cursor: pointer;
+        background: transparent;
+        color: transparent;
+        outline: none;
+        border: none;
+        width: 50px;
+        height: 50px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            border: 2px solid #E3E3E3;
+            border-right: none;
+            border-top: none;
+            width: 21px;
+            height: 21px;
+            top: 15px;
+            left: 20px;
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        &:hover {
+            &:after {
+                border: 2px solid #2DA7DB;
+                border-right: none;
+                border-top: none;
+            }
+        }
+    }
+
+    .slick-next {
+        position: absolute;
+        top: 40%;
+        z-index: 1;
+        right: 20px;
+        cursor: pointer;
+        background: transparent;
+        color: transparent;
+        outline: none;
+        border: none;
+        width: 50px;
+        height: 50px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            border: 2px solid #E3E3E3;
+            border-right: none;
+            border-top: none;
+            width: 21px;
+            height: 21px;
+            top: 15px;
+            left: 10px;
+            -moz-transform: rotate(-135deg);
+            -ms-transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+            -o-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+        }
+
+        &:hover {
+            &:after {
+                border: 2px solid #2DA7DB;
+                border-right: none;
+                border-top: none;
+            }
+        }
+    }
+
+    .slick-dots {
+        position: absolute;
+        bottom: 30px;
+        left: 45%;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+
+        li {
+            display: inline-block;
+            margin-right: 16px;
+
+            &.slick-active {
+                button {
+                    background: #2DA7DB;
+                }
+            }
+
+            button {
+                color: transparent;
+                background: #E9E9E9;
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+                outline: none;
+                padding: 0;
+            }
+        }
+    }
+
+    .slick-carousel-item {
+        float: left;
+        height: 260px;
+        position: relative;
     }
 }

@@ -547,42 +547,6 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add existing email accounts or create new using free domain.
-        /// </summary>
-        public static string BlankModalAccountsTip1 {
-            get {
-                return ResourceManager.GetString("BlankModalAccountsTip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send and receive email messages right on the portal.
-        /// </summary>
-        public static string BlankModalAccountsTip2 {
-            get {
-                return ResourceManager.GetString("BlankModalAccountsTip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access your correspondence from any browser and location.
-        /// </summary>
-        public static string BlankModalAccountsTip3 {
-            get {
-                return ResourceManager.GetString("BlankModalAccountsTip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Accounts.
-        /// </summary>
-        public static string BlankModalAccountsTitle {
-            get {
-                return ResourceManager.GetString("BlankModalAccountsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add New Account.
         /// </summary>
         public static string BlankModalCreateBtn {
@@ -601,137 +565,11 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See all your CRM contacts in your mailing list.
-        /// </summary>
-        public static string BlankModalCRMTip1 {
-            get {
-                return ResourceManager.GetString("BlankModalCRMTip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create mails for both portal users and CRM contacts.
-        /// </summary>
-        public static string BlankModalCRMTip2 {
-            get {
-                return ResourceManager.GetString("BlankModalCRMTip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mail CRM contacts via a common email client interface.
-        /// </summary>
-        public static string BlankModalCRMTip3 {
-            get {
-                return ResourceManager.GetString("BlankModalCRMTip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CRM Integration.
-        /// </summary>
-        public static string BlankModalCRMTitle {
-            get {
-                return ResourceManager.GetString("BlankModalCRMTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage Email on the Portal.
-        /// </summary>
-        public static string BlankModalHeader {
-            get {
-                return ResourceManager.GetString("BlankModalHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configure a mail server for your own corporate domain.
-        /// </summary>
-        public static string BlankModalMailServerTip1 {
-            get {
-                return ResourceManager.GetString("BlankModalMailServerTip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use the ready-made free default domain or add your own.
-        /// </summary>
-        public static string BlankModalMailServerTip2 {
-            get {
-                return ResourceManager.GetString("BlankModalMailServerTip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Import accounts and other data from MS Exchange.
-        /// </summary>
-        public static string BlankModalMailServerTip2Stanalone {
-            get {
-                return ResourceManager.GetString("BlankModalMailServerTip2Stanalone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assign aliases to the users and organize them into groups.
-        /// </summary>
-        public static string BlankModalMailServerTip3 {
-            get {
-                return ResourceManager.GetString("BlankModalMailServerTip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mail Server.
-        /// </summary>
-        public static string BlankModalMailServerTitle {
-            get {
-                return ResourceManager.GetString("BlankModalMailServerTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Set up domain.
         /// </summary>
         public static string BlankModalSetUpDomainBtn {
             get {
                 return ResourceManager.GetString("BlankModalSetUpDomainBtn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Organize mail using own tags for every message.
-        /// </summary>
-        public static string BlankModalTagsTip1 {
-            get {
-                return ResourceManager.GetString("BlankModalTagsTip1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group similar emails or divide the ones you need.
-        /// </summary>
-        public static string BlankModalTagsTip2 {
-            get {
-                return ResourceManager.GetString("BlankModalTagsTip2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Customize tags selecting color, name and senders.
-        /// </summary>
-        public static string BlankModalTagsTip3 {
-            get {
-                return ResourceManager.GetString("BlankModalTagsTip3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tags.
-        /// </summary>
-        public static string BlankModalTagsTitle {
-            get {
-                return ResourceManager.GetString("BlankModalTagsTitle", resourceCulture);
             }
         }
         
@@ -1038,6 +876,150 @@ namespace ASC.Web.Mail.Resources {
         public static string CRMContactsLabel {
             get {
                 return ResourceManager.GetString("CRMContactsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collect all emails in one place.
+        /// </summary>
+        public static string DashboardCollectAllEmailsInOnePlace {
+            get {
+                return ResourceManager.GetString("DashboardCollectAllEmailsInOnePlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect all 3rd party mail accounts..
+        /// </summary>
+        public static string DashboardCollectAllEmailsInOnePlaceFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardCollectAllEmailsInOnePlaceFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send and receive messages on your portal..
+        /// </summary>
+        public static string DashboardCollectAllEmailsInOnePlaceSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardCollectAllEmailsInOnePlaceSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access your emails from anywhere..
+        /// </summary>
+        public static string DashboardCollectAllEmailsInOnePlaceThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardCollectAllEmailsInOnePlaceThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communicate easily.
+        /// </summary>
+        public static string DashboardCommunicateEasily {
+            get {
+                return ResourceManager.GetString("DashboardCommunicateEasily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save your typical reply as a template to send emails faster..
+        /// </summary>
+        public static string DashboardCommunicateEasilyFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardCommunicateEasilyFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request delivery and read notifications..
+        /// </summary>
+        public static string DashboardCommunicateEasilySecondLine {
+            get {
+                return ResourceManager.GetString("DashboardCommunicateEasilySecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recieve event notifications, accept or decline invitations..
+        /// </summary>
+        public static string DashboardCommunicateEasilyThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardCommunicateEasilyThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Structure correspondence.
+        /// </summary>
+        public static string DashboardStructureCorrespondence {
+            get {
+                return ResourceManager.GetString("DashboardStructureCorrespondence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add tags, link conversations and single messages to CRM..
+        /// </summary>
+        public static string DashboardStructureCorrespondenceFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardStructureCorrespondenceFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create custom folders and subfolders..
+        /// </summary>
+        public static string DashboardStructureCorrespondenceSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardStructureCorrespondenceSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use filters to sort mail automatically..
+        /// </summary>
+        public static string DashboardStructureCorrespondenceThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardStructureCorrespondenceThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use mail server.
+        /// </summary>
+        public static string DashboardUseMailServer {
+            get {
+                return ResourceManager.GetString("DashboardUseMailServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure your mail server using your domain..
+        /// </summary>
+        public static string DashboardUseMailServerFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMailServerFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create and manage corporate mailboxes..
+        /// </summary>
+        public static string DashboardUseMailServerSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMailServerSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign aliases to users and organize mail groups..
+        /// </summary>
+        public static string DashboardUseMailServerThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMailServerThirdLine", resourceCulture);
             }
         }
         
@@ -3711,6 +3693,15 @@ namespace ASC.Web.Mail.Resources {
         public static string TotalContacts {
             get {
                 return ResourceManager.GetString("TotalContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To you.
+        /// </summary>
+        public static string ToYouLabel {
+            get {
+                return ResourceManager.GetString("ToYouLabel", resourceCulture);
             }
         }
         

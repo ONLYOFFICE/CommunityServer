@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\..\..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\..\..\..\..\packages\NUnit.3.12.0\build\NUnit.props')" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -16,7 +20,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Projects</RootNamespace>
     <AssemblyName>ASC.Web.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -41,7 +45,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -49,43 +53,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\..\..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlSanitizationLibrary">
-      <HintPath>..\..\..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Ploeh.AutoFixture">
-      <HintPath>..\..\..\..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Themes\default\css\addmilestonecontainer.css" />
     <Content Include="App_Themes\default\images\common-icons.png" />
+    <Content Include="App_Themes\default\images\dashboard\design-project-hierarchy.png" />
+    <Content Include="App_Themes\default\images\dashboard\manage-access-rights.png" />
+    <Content Include="App_Themes\default\images\dashboard\track-time-and-progress.png" />
+    <Content Include="App_Themes\default\images\dashboard\use-more-tools.png" />
     <Content Include="App_Themes\default\images\empty_screen_comments.png" />
     <Content Include="App_Themes\default\images\empty_screen_relatedtasks.png" />
     <Content Include="App_Themes\default\images\empty_screen_subtasks.png" />
@@ -95,6 +69,7 @@
     <Content Include="App_Themes\default\images\small-icons.png" />
     <Content Include="App_Themes\default\images\timer-icons.png" />
     <Content Include="Controls\Common\CommonList.ascx" />
+    <Content Include="Controls\Common\ButtonSidePanel.ascx" />
     <Content Include="Controls\Common\ProjectDocumentsPopup.ascx" />
     <Content Include="Controls\Projects\ProjectAction.ascx" />
     <Content Include="Controls\Reports\ReportFile.ascx" />
@@ -140,6 +115,13 @@
     </Compile>
     <Compile Include="Controls\Common\CommonList.ascx.designer.cs">
       <DependentUpon>CommonList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ButtonSidePanel.ascx.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\ButtonSidePanel.ascx.designer.cs">
+      <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
@@ -503,6 +485,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TaskResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Warmup.aspx.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Warmup.aspx.designer.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\ASC.Projects.db3" />
@@ -519,11 +508,6 @@
     <Content Include="App_Themes\default\images\empty_screen_tasks.png" />
     <Content Include="App_Themes\default\images\empty_screen_time_tracking.png" />
     <Content Include="App_Themes\default\images\gantt-icons.png" />
-    <Content Include="App_Themes\default\images\icon-discussion.png" />
-    <Content Include="App_Themes\default\images\icon-document.png" />
-    <Content Include="App_Themes\default\images\icon-milestones.png" />
-    <Content Include="App_Themes\default\images\icon-report.png" />
-    <Content Include="App_Themes\default\images\icon-tasks.png" />
     <Content Include="App_Themes\default\images\icon_empty_gantt.png" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\project-templates_logo.png" />
@@ -617,6 +601,14 @@
     <EmbeddedResource Include="DocbuilderTemplates\UsersWorkload_0.docbuilder" />
     <EmbeddedResource Include="DocbuilderTemplates\TimeSpend_2.docbuilder" />
     <EmbeddedResource Include="DocbuilderTemplates\UsersWorkload_1.docbuilder" />
+    <Content Include="Warmup.aspx" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">
@@ -745,6 +737,26 @@
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AntiXSS">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Autofac">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="AutoFixture">
+      <Version>4.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="AutoMapper">
+      <Version>9.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.12.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

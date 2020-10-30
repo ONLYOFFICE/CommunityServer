@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -32,11 +23,13 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
+using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Studio.Utility;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files.Utils
@@ -48,9 +41,12 @@ namespace ASC.Web.Files.Utils
             return
                 entry != null
                 && (entry.RootFolderType == FolderType.COMMON && Global.IsAdministrator
-                    || entry.RootFolderType == FolderType.USER
-                    && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanEdit(entry))
-                    && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor());
+                    || !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
+                        && (entry.RootFolderType == FolderType.USER
+                            && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanEdit(entry))
+                            || entry.RootFolderType == FolderType.Privacy
+                                && entry is File
+                                && (Equals(entry.RootFolderId, Global.FolderPrivacy) || Global.GetFilesSecurity().CanEdit(entry))));
         }
 
         public static List<AceWrapper> GetSharedInfo(FileEntry entry)
@@ -119,9 +115,10 @@ namespace ASC.Web.Files.Utils
                 result.Add(w);
             }
 
-            if (entry.FileEntryType == FileEntryType.File && result.All(w => w.SubjectId != FileConstant.ShareLinkId)
-                && entry.FileEntryType == FileEntryType.File
-                && !((File)entry).Encrypted)
+            if (entry.FileEntryType == FileEntryType.File
+                && !((File)entry).Encrypted
+                && result.All(w => w.SubjectId != FileConstant.ShareLinkId)
+                && (linkAccess != FileShare.Restrict || CoreContext.Configuration.Standalone || !TenantExtra.GetTenantQuota().Trial || FileUtility.CanWebView(entry.Title)))
             {
                 var w = new AceWrapper
                     {
@@ -211,7 +208,17 @@ namespace ASC.Web.Files.Utils
 
                 if (w.SubjectId == FileConstant.ShareLinkId)
                 {
-                    if (w.Share == FileShare.ReadWrite && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
+                    if (w.Share == FileShare.ReadWrite && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+                        throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
+
+                    // only editable format on personal
+                    if (CoreContext.Configuration.Personal && !FileUtility.CanWebView(entry.Title) && w.Share != FileShare.Restrict)
+                        throw new SecurityException(FilesCommonResource.ErrorMassage_BadRequest);
+
+                    // only editable format on SaaS trial
+                    if (w.Share != FileShare.Restrict && !CoreContext.Configuration.Standalone && TenantExtra.GetTenantQuota().Trial && !FileUtility.CanWebView(entry.Title))
+                        throw new SecurityException(FilesCommonResource.ErrorMassage_BadRequest);
+
                     share = w.Share == FileShare.Restrict ? FileShare.None : w.Share;
                 }
 
@@ -237,6 +244,7 @@ namespace ASC.Web.Files.Utils
                 }
 
                 var addRecipient = share == FileShare.Read
+                                   || share == FileShare.CustomFilter
                                    || share == FileShare.ReadWrite
                                    || share == FileShare.Review
                                    || share == FileShare.FillForms
@@ -272,7 +280,8 @@ namespace ASC.Web.Files.Utils
                     FileMarker.MarkAsNew(entry, recipients.Keys.ToList());
                 }
 
-                if (entry.RootFolderType == FolderType.USER
+                if ((entry.RootFolderType == FolderType.USER
+                    || entry.RootFolderType == FolderType.Privacy)
                     && notify)
                 {
                     NotifyClient.SendShareNotice(entry, recipients, message);
@@ -291,11 +300,16 @@ namespace ASC.Web.Files.Utils
             entries.ForEach(
                 entry =>
                     {
-                        if (entry.RootFolderType != FolderType.USER || Equals(entry.RootFolderId, Global.FolderMy))
+                        if (entry.RootFolderType != FolderType.USER && entry.RootFolderType != FolderType.Privacy
+                            || Equals(entry.RootFolderId, Global.FolderMy)
+                            || Equals(entry.RootFolderId, Global.FolderPrivacy))
                             return;
 
                         var entryType = entry.FileEntryType;
-                        fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID, fileSecurity.DefaultMyShare);
+                        fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID,
+                            entry.RootFolderType == FolderType.USER
+                            ? fileSecurity.DefaultMyShare
+                            : fileSecurity.DefaultPrivacyShare);
 
                         if (entryType == FileEntryType.File)
                         {

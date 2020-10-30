@@ -3,8 +3,6 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <UseGlobalApplicationHostFile />
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,23 +10,17 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{48EFB880-3D76-4B21-B31E-1007C0062B5C}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.CRM</RootNamespace>
     <AssemblyName>ASC.Web.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
     <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,96 +33,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Autofac">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="LumenWorks.Framework.IO">
-      <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="MailKit">
-      <HintPath>..\..\..\..\..\packages\MailKit.2.0.4\lib\net45\MailKit.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MimeKit">
-      <HintPath>..\..\..\..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="DotNetZip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.13.2\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
-    <Reference Include="Twilio">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Twilio.5.6.0\lib\net451\Twilio.dll</HintPath>
-    </Reference>
-    <Reference Include="Twilio.AspNet.Common">
-      <HintPath>..\..\..\..\..\packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Twilio.AspNet.Mvc">
-      <HintPath>..\..\..\..\..\packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Calls.aspx.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
@@ -165,6 +74,13 @@
     </Compile>
     <Compile Include="Controls\Cases\CasesFullCardView.ascx.designer.cs">
       <DependentUpon>CasesFullCardView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ButtonsSidePanel.ascx.cs">
+      <DependentUpon>ButtonsSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\ButtonsSidePanel.ascx.designer.cs">
+      <DependentUpon>ButtonsSidePanel.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\ListBaseView.ascx.cs">
       <DependentUpon>ListBaseView.ascx</DependentUpon>
@@ -243,6 +159,13 @@
     </Compile>
     <Compile Include="Controls\Deals\ListDealView.ascx.designer.cs">
       <DependentUpon>ListDealView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsHeaderView.ascx.cs">
+      <DependentUpon>SettingsHeaderView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\SettingsHeaderView.ascx.designer.cs">
+      <DependentUpon>SettingsHeaderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\CurrencySettingsView.ascx.cs">
       <DependentUpon>CurrencySettingsView.ascx</DependentUpon>
@@ -323,7 +246,6 @@
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
@@ -712,6 +634,13 @@
     <Compile Include="Utils\Import\CSV\ImportTasks.cs" />
     <Compile Include="Utils\MailSender.cs" />
     <Compile Include="Utils\PdfCreator.cs" />
+    <Compile Include="Warmup.aspx.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Warmup.aspx.designer.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\reports.less" />
@@ -756,6 +685,7 @@
     <Content Include="Controls\Cases\CasesActionView.ascx" />
     <Content Include="Controls\Cases\CasesDetailsView.ascx" />
     <Content Include="Controls\Cases\ListCasesView.ascx" />
+    <Content Include="Controls\Common\ButtonsSidePanel.ascx" />
     <Content Include="Controls\Common\ListBaseView.ascx" />
     <Content Include="Controls\Invoices\InvoiceDetailsView.ascx" />
     <Content Include="Controls\Invoices\InvoiceActionView.ascx" />
@@ -766,6 +696,7 @@
     <Content Include="Controls\Common\HistoryView.ascx" />
     <Content Include="Controls\Deals\DealActionView.ascx" />
     <Content Include="Controls\Deals\DealDetailsView.ascx" />
+    <Content Include="Controls\Settings\SettingsHeaderView.ascx" />
     <Content Include="Controls\Settings\CurrencySettingsView.ascx" />
     <Content Include="Controls\Settings\CustomFieldsView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx" />
@@ -1115,6 +1046,16 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Warmup.aspx" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <CreateItem Include="$(ProjectDir)**\*.css">
@@ -1124,25 +1065,32 @@
       <Output TaskParameter="Include" ItemName="JavaScriptFiles" />
     </CreateItem>
   </Target>
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54557</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.7</Version>
+    </PackageReference>
+    <PackageReference Include="LumenWorksCsvReader">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="MailKit">
+      <Version>2.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Twilio">
+      <Version>5.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="Twilio.AspNet.Mvc">
+      <Version>5.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

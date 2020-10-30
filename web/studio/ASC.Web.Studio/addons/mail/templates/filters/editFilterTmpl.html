@@ -1,34 +1,39 @@
-﻿<script id="editFilterTmpl" type="text/x-jquery-tmpl">
+﻿<script id="editFilterActionTmpl" type="text/x-jquery-tmpl">
+    <div class="simpleWrapper">
+        <div class="contentMenuWrapper editFilterContentMenu">
+            <ul class="clearFix contentMenu contentMenuDisplayAll">
+                <li class="menuAction blue btnSaveFilter unlockAction">
+                    {{if id == 0}}
+                    <span title="${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}</span>
+                    {{else}}
+                    <span title="${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}">${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}</span>
+                    {{/if}}
+                </li>
+                <li class="menuAction btnCheckFilter unlockAction">
+                    <span title="${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}</span>
+                </li>
+                <li class="menuAction btnApplyFilter unlockAction">
+                    <span title="${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}">${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}</span>
+                </li>
+                <li class="menuAction btnDeleteFilter unlockAction">
+                    <span title="${ASC.Mail.Resources.MailResource.DeleteFilterBtn}">${ASC.Mail.Resources.MailResource.DeleteFilterBtn}</span>
+                </li>
+                <li class="menu-action-on-close pull-right">
+                    <a class="on-close-link" onclick="javascript:window.editFilterPage.close();">×</a>
+                </li>
+                <li class="menu-action-on-top">
+                    <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">${ASC.Mail.Resources.MailResource.OnTopLabel}
+                    </a>
+                </li>
+            </ul>
+            <div class="header-menu-spacer" style="display: block;">&nbsp;</div>
+        </div>
+    </div>
+</script>
+
+<script id="editFilterTmpl" type="text/x-jquery-tmpl">
     <div id="editFilterPage">
         <div class="simpleWrapper">
-            <div class="contentMenuWrapper">
-                <ul class="clearFix contentMenu contentMenuDisplayAll">
-                    <li class="menuAction blue btnSaveFilter unlockAction">
-                        {{if id == 0}}
-                        <span title="${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CreateFilterBtnLabel}</span>
-                        {{else}}
-                        <span title="${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}">${ASC.Mail.Resources.MailResource.SaveFilterBtnLabel}</span>
-                        {{/if}}
-                    </li>
-                    <li class="menuAction btnCheckFilter unlockAction">
-                        <span title="${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}">${ASC.Mail.Resources.MailResource.CheckFilterBtnLabel}</span>
-                    </li>
-                    <li class="menuAction btnApplyFilter unlockAction">
-                        <span title="${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}">${ASC.Mail.Resources.MailResource.ApplyFilterBtnLabel}</span>
-                    </li>
-                    <li class="menuAction btnDeleteFilter unlockAction">
-                        <span title="${ASC.Mail.Resources.MailResource.DeleteFilterBtn}">${ASC.Mail.Resources.MailResource.DeleteFilterBtn}</span>
-                    </li>
-                    <li class="menu-action-on-close pull-right">
-                        <a class="on-close-link" onclick="javascript:window.editFilterPage.close();">×</a>
-                    </li>
-                    <li class="menu-action-on-top">
-                        <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">${ASC.Mail.Resources.MailResource.OnTopLabel}
-                        </a>
-                    </li>
-                </ul>
-                <div class="header-menu-spacer" style="display: block;">&nbsp;</div>
-            </div>
 
             <!-- Conditions block -->
             <div id="conditionsContainer" class="field-with-actions">

@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
 
 
-<div class="bookmarksHeaderBlock header-with-menu"> 
+<div class="bookmarksHeaderBlock header-with-menu" style="margin-bottom: 16px;">
     <span class="main-title-icon bookmarks"></span>
     <span class="header"><%=Title%></span>
     <% if(!CommunitySecurity.IsOutsider()) { %>

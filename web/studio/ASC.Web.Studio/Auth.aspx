@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Auth.aspx.cs" Inherits="ASC.Web.Studio.Auth" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Auth.aspx.cs" Inherits="ASC.Web.Studio.Auth" %>
 <%@ Import Namespace="ASC.Core.Billing" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
@@ -12,7 +12,7 @@
 
     <% if (CoreContext.Configuration.Personal)
        { %>
-    <asp:PlaceHolder runat="server" ID="AutorizeDocuments"></asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" ID="AutorizeDocuments"/>
     <% }
        else
        { %>
@@ -24,10 +24,10 @@
                 <h1 class="header-base big blue-text"><%= TenantName.HtmlEncode() %></h1>
             </div>
 
-            <asp:PlaceHolder runat="server" ID="AuthorizeHolder"></asp:PlaceHolder>
+            <asp:PlaceHolder runat="server" ID="AuthorizeHolder"/>
 
             <div class="help-block-signin">
-                <asp:PlaceHolder runat="server" ID="CommunitationsHolder"></asp:PlaceHolder>
+                <asp:PlaceHolder runat="server" ID="CommunitationsHolder"/>
             </div>
         </div>
     </div>

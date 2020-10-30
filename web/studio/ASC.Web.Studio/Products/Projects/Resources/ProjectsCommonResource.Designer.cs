@@ -19,7 +19,7 @@ namespace ASC.Web.Projects.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectsCommonResource {
@@ -75,6 +75,15 @@ namespace ASC.Web.Projects.Resources {
         public static string Action {
             get {
                 return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
             }
         }
         
@@ -349,11 +358,146 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage your project using:.
+        ///   Looks up a localized string similar to Design project hierarchy.
         /// </summary>
-        public static string DashboardTitle {
+        public static string DashboardDesignProjectHierarchy {
             get {
-                return ResourceManager.GetString("DashboardTitle", resourceCulture);
+                return ResourceManager.GetString("DashboardDesignProjectHierarchy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create projects and milestones..
+        /// </summary>
+        public static string DashboardDesignProjectHierarchyFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardDesignProjectHierarchyFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign tasks/subtasks. Mark tasks with custom statuses..
+        /// </summary>
+        public static string DashboardDesignProjectHierarchySecondLine {
+            get {
+                return ResourceManager.GetString("DashboardDesignProjectHierarchySecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set deadlines and priorities..
+        /// </summary>
+        public static string DashboardDesignProjectHierarchyThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardDesignProjectHierarchyThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage access rights.
+        /// </summary>
+        public static string DashboardManageAccessRights {
+            get {
+                return ResourceManager.GetString("DashboardManageAccessRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create private projects..
+        /// </summary>
+        public static string DashboardManageAccessRightsFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardManageAccessRightsFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restrict access to milestones, tasks, docs, discussions..
+        /// </summary>
+        public static string DashboardManageAccessRightsSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardManageAccessRightsSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose who can create new projects - admins or all users..
+        /// </summary>
+        public static string DashboardManageAccessRightsThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardManageAccessRightsThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track time and progress.
+        /// </summary>
+        public static string DashboardTrackTimeAndProgress {
+            get {
+                return ResourceManager.GetString("DashboardTrackTimeAndProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule your project with Gantt Chart..
+        /// </summary>
+        public static string DashboardTrackTimeAndProgressFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackTimeAndProgressFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track time spent on specific tasks..
+        /// </summary>
+        public static string DashboardTrackTimeAndProgressSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackTimeAndProgressSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically generate progress reports..
+        /// </summary>
+        public static string DashboardTrackTimeAndProgressThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackTimeAndProgressThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use more tools.
+        /// </summary>
+        public static string DashboardUseMoreTools {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create discussions and projects templates..
+        /// </summary>
+        public static string DashboardUseMoreToolsFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreToolsFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attach documents, spreadsheets, and presentations..
+        /// </summary>
+        public static string DashboardUseMoreToolsSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreToolsSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work with your projects on iOS devices..
+        /// </summary>
+        public static string DashboardUseMoreToolsThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreToolsThirdLine", resourceCulture);
             }
         }
         
@@ -381,69 +525,6 @@ namespace ASC.Web.Projects.Resources {
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start project-related discussion.
-        /// </summary>
-        public static string DiscussionModuleFirstLine {
-            get {
-                return ResourceManager.GetString("DiscussionModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invite users out of the project.
-        /// </summary>
-        public static string DiscussionModuleSecondLine {
-            get {
-                return ResourceManager.GetString("DiscussionModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Get feedback from the users&apos; comments.
-        /// </summary>
-        public static string DiscussionModuleThirdLine {
-            get {
-                return ResourceManager.GetString("DiscussionModuleThirdLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discussions.
-        /// </summary>
-        public static string DiscussionModuleTitle {
-            get {
-                return ResourceManager.GetString("DiscussionModuleTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create documents, spreadsheets, presentations.
-        /// </summary>
-        public static string DocsModuleFirstLine {
-            get {
-                return ResourceManager.GetString("DocsModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit them right on the portal.
-        /// </summary>
-        public static string DocsModuleSecondLine {
-            get {
-                return ResourceManager.GetString("DocsModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatically make them available for the project team.
-        /// </summary>
-        public static string DocsModuleThirdLine {
-            get {
-                return ResourceManager.GetString("DocsModuleThirdLine", resourceCulture);
             }
         }
         
@@ -763,42 +844,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark timestamps of your project.
-        /// </summary>
-        public static string MilestonesModuleFirstLine {
-            get {
-                return ResourceManager.GetString("MilestonesModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select key milestone.
-        /// </summary>
-        public static string MilestonesModuleSecondLine {
-            get {
-                return ResourceManager.GetString("MilestonesModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Track milestones using Calendar.
-        /// </summary>
-        public static string MilestonesModuleThirdLine {
-            get {
-                return ResourceManager.GetString("MilestonesModuleThirdLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Milestones.
-        /// </summary>
-        public static string MilestonesModuleTitle {
-            get {
-                return ResourceManager.GetString("MilestonesModuleTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contacts.
         /// </summary>
         public static string ModuleContacts {
@@ -1051,33 +1096,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate general and detailed reports.
-        /// </summary>
-        public static string ReportsModuleFirstLine {
-            get {
-                return ResourceManager.GetString("ReportsModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export them to CSV file or print.
-        /// </summary>
-        public static string ReportsModuleSecondLine {
-            get {
-                return ResourceManager.GetString("ReportsModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Receive automatic reports by email.
-        /// </summary>
-        public static string ReportsModuleThirdLine {
-            get {
-                return ResourceManager.GetString("ReportsModuleThirdLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
         public static string ReportsModuleTitle {
@@ -1272,42 +1290,6 @@ namespace ASC.Web.Projects.Resources {
         public static string TaskMoveNote {
             get {
                 return ResourceManager.GetString("TaskMoveNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add tasks and set the responsible person.
-        /// </summary>
-        public static string TasksModuleFirstLine {
-            get {
-                return ResourceManager.GetString("TasksModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Record time spent on tasks.
-        /// </summary>
-        public static string TasksModuleSecondLine {
-            get {
-                return ResourceManager.GetString("TasksModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keep track of tasks using Calendar.
-        /// </summary>
-        public static string TasksModuleThirdLine {
-            get {
-                return ResourceManager.GetString("TasksModuleThirdLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tasks.
-        /// </summary>
-        public static string TasksModuleTitle {
-            get {
-                return ResourceManager.GetString("TasksModuleTitle", resourceCulture);
             }
         }
         

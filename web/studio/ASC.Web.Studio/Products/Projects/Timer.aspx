@@ -9,6 +9,9 @@
 
 <asp:Content ID="PageContent" ContentPlaceHolderID="BTPageContent" runat="server">
     <style type="text/css">
+        #studioPageContent main {
+            padding: 0;
+        }
         #studioPageContent .mainPageLayout {
             min-width: 270px;
         }
@@ -23,7 +26,10 @@
             border: medium none;
         }
         body {
-            overflow:hidden;
+            overflow: auto;
+        }
+        #studioPageContent{
+            min-width: 270px;
         }
 </style>
 

@@ -4,6 +4,7 @@
 
 <%@ Import Namespace="System.Threading" %>
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
@@ -132,11 +133,15 @@
                 <% } %>
                 <% if (ThirdpartyConfiguration.SupportNextcloudInclusion) %>
                 <% { %>
-                <span class="add-account-big add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <span class="add-account-big add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyNextcloud %>"></span>
                 <% } %>
                 <% if (ThirdpartyConfiguration.SupportOwncloudInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <% } %>
+                <% if (ThirdpartyConfiguration.SupportkDriveInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button kDrive <%= Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName %>" data-provider="kDrive" title="<%= FilesUCResource.ThirdPartykDrive %>"></span>
                 <% } %>
                 <% if (ThirdpartyConfiguration.SupportYandexInclusion) %>
                 <% { %>
@@ -220,6 +225,36 @@
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
                     <%= FilesUCResource.ButtonCancel %>
+                </a>
+            </div>
+        </body>
+    </sc:Container>
+</div>
+<% } %>
+<% if (ThirdpartyConfiguration.ThirdPartyProviders.Contains("docusign")
+        && !DocuSignLoginProvider.Instance.IsEnabled)
+   { %>
+<div id="thirdpartyToDocuSignHelper" class="popup-modal">
+    <sc:Container ID="thirdpartyToDocuSignHelperDialog" runat="server">
+        <header><%= FilesUCResource.DocuSignCaption %></header>
+        <body>
+            <div class="headerPanelSmall-splitter"><%= FilesUCResource.DocuSignConnect %></div>
+            <div class="headerPanelSmall-splitter">
+                <%= Global.IsAdministrator
+                        ? string.Format(FilesUCResource.DocuSignAdmin,
+                            "<a class=\"link underline\" href=\"" + CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) + "#DocuSign\">",
+                            "</a>")
+                        : FilesUCResource.DocuSignUser %>
+            </div>
+            <% if (!string.IsNullOrEmpty(HelpLink))
+               { %>
+            <div class="headerPanelSmall-splitter">
+                <%= string.Format(FilesUCResource.DocuSignHelp, "<a class=\"link underline\" href=\"" + HelpLink + "/guides/send-documents-for-e-signature.aspx\" target=\"_blank\">", "</a>") %>
+            </div>
+            <% } %>
+            <div class="middle-button-container">
+                <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
+                    <%= FilesUCResource.ButtonOk %>
                 </a>
             </div>
         </body>

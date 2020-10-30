@@ -14,16 +14,18 @@ if "%~1" == "--install" (
 )
 
 if "%~1" == "--install-all" (
-	sc create OnlyofficeNotify%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Notify.NotifyServiceLauncher, ASC.Notify\" --log Notify"
-	sc create OnlyofficeJabber%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Xmpp.Host.XmppServerLauncher, ASC.Xmpp.Host\" --log Jabber"
-	sc create OnlyofficeIndex%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.ElasticSearch.Launcher, ASC.ElasticSearch\" --log Index"
-	sc create OnlyofficeRadicale%version%         start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Radicale.Launcher, ASC.Radicale\" --log Radicale"
-	sc create OnlyOfficeStorageMigrate%version%   start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Storage.Migration.Launcher,ASC.Data.Storage.Migration\" --log StorageMigrate"
-	sc create OnlyofficeFeed%version%             start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Feed.Aggregator.FeedAggregatorLauncher, ASC.Feed.Aggregator\" --log Feed"
-	sc create OnlyofficeBackup%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
-	sc create OnlyOfficeSocketIO%version%         start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc\" --log SocketIO"
-	sc create OnlyOfficeMailAggregator%version%   start= auto binPath= "\"%grandparent%\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe\""
-	sc create OnlyOfficeMailWatchdog%version%     start= auto binPath= "\"%grandparent%\MailWatchdog\ASC.Mail.Watchdog.Service.exe\""
+	sc create OnlyofficeNotify%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Notify.NotifyServiceLauncher, ASC.Notify\" --log Notify"
+	sc create OnlyofficeJabber%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Xmpp.Host.XmppServerLauncher, ASC.Xmpp.Host\" --log Jabber"
+	sc create OnlyofficeIndex%version%             start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.ElasticSearch.Launcher, ASC.ElasticSearch\" --log Index"
+	sc create OnlyofficeRadicale%version%          start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Radicale.Launcher, ASC.Radicale\" --log Radicale"
+	sc create OnlyOfficeStorageMigrate%version%    start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Storage.Migration.Launcher,ASC.Data.Storage.Migration\" --log StorageMigrate"
+	sc create OnlyOfficeStorageEncryption%version% start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Storage.Encryption.Launcher,ASC.Data.Storage.Encryption\" --log StorageEncryption"
+	sc create OnlyofficeFeed%version%              start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Feed.Aggregator.FeedAggregatorLauncher, ASC.Feed.Aggregator\" --log Feed"
+	sc create OnlyofficeBackup%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
+	sc create OnlyOfficeSocketIO%version%          start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc\" --log SocketIO"
+	sc create OnlyOfficeTelegram%version%          start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.TelegramService.Launcher, ASC.TelegramService\" --log Telegram"
+	sc create OnlyOfficeMailAggregator%version%    start= auto binPath= "\"%grandparent%\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe\""
+	sc create OnlyOfficeMailWatchdog%version%      start= auto binPath= "\"%grandparent%\MailWatchdog\ASC.Mail.Watchdog.Service.exe\""
 	
 	goto Exit
 )
@@ -40,12 +42,20 @@ if "%~1" == "--uninstall-all" (
 	sc delete OnlyofficeJabber%version%
 	net stop  OnlyofficeIndex%version%
 	sc delete OnlyofficeIndex%version%
+	net stop  OnlyofficeRadicale%version%
+	sc delete OnlyofficeRadicale%version%
+	net stop  OnlyOfficeStorageMigrate%version%
+	sc delete OnlyOfficeStorageMigrate%version%
+	net stop  OnlyOfficeStorageEncryption%version%
+	sc delete OnlyOfficeStorageEncryption%version%
 	net stop  OnlyofficeFeed%version%
 	sc delete OnlyofficeFeed%version%
 	net stop  OnlyofficeBackup%version%
 	sc delete OnlyofficeBackup%version%	
 	net stop  OnlyOfficeSocketIO%version%
 	sc delete OnlyOfficeSocketIO%version%	
+	net stop  OnlyOfficeTelegram%version%
+	sc delete OnlyOfficeTelegram%version%
 	net stop  OnlyOfficeMailAggregator%version%
 	sc delete OnlyOfficeMailAggregator%version%	
 	net stop  OnlyOfficeMailWatchdog%version%

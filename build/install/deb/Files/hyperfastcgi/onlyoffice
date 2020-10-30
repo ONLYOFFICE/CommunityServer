@@ -5,7 +5,7 @@
 	</server>
 	<listener type="HyperFastCgi.Listeners.NativeListener">
 		<apphost-transport type="HyperFastCgi.Transports.NativeTransport">
-			<multithreading>Task</multithreading>
+			<multithreading>ThreadPool</multithreading>
 		</apphost-transport>
 		<protocol>Unix</protocol>
 		<address>//666@/var/run/onlyoffice/onlyoffice.socket</address>

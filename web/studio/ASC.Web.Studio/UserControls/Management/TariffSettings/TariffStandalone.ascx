@@ -35,22 +35,19 @@
 </div>
 
 <div class="license-section">
-    <span class="header-base"><%= UserControlsCommonResource.LicenseActivateAndGet.HtmlEncode() %></span>
+    <span class="header-base"><%= UserControlsCommonResource.LicenseActivateAndGetV11.HtmlEncode() %></span>
 </div>
-<table class="license-list" cellpadding="0" cellspacing="0">
+<table class="license-list-v11" cellpadding="0" cellspacing="0">
     <tbody>
         <tr>
-            <td rowspan="5">
-                <div class="license-item">
-                    <div class="license-item-modules"><%= UserControlsCommonResource.LicenseModules.HtmlEncode() %></div>
-                    <%= string.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseModulesListCustomMode : UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
-                </div>
-            </td>
             <td>
-                <div class="license-item license-item-controlpanel"><%= UserControlsCommonResource.LicenseModulesControlPanel %></div>
-                <div class="license-item license-item-multitenancy"><%= UserControlsCommonResource.LicenseModulesMultitenancy %></div>
-                <div class="license-item license-item-updates"><%= UserControlsCommonResource.LicenseModulesUpdates.HtmlEncode() %></div>
-                <div class="license-item license-item-support"><%= UserControlsCommonResource.LicenseModulesSupport %></div>
+                <div class="license-item license-item-pro"><%= UserControlsCommonResource.LicenseModulesProV11.HtmlEncode() %></div>
+                <% if (false && !CoreContext.Configuration.CustomMode) { %>
+                <div class="license-item license-item-private"><%= UserControlsCommonResource.LicenseModulesPrivateV11.HtmlEncode() %></div>
+                <% } %>
+                <div class="license-item license-item-mobile"><%= UserControlsCommonResource.LicenseModulesMobileV11.HtmlEncode() %></div>
+                <div class="license-item license-item-update"><%= UserControlsCommonResource.LicenseModulesUpdatesV11.HtmlEncode() %></div>
+                <div class="license-item license-item-support"><%= UserControlsCommonResource.LicenseModulesSupportV11.HtmlEncode() %></div>
             </td>
         </tr>
     </tbody>
@@ -59,9 +56,9 @@
 <% if (!string.IsNullOrEmpty(Settings.BuyUrl))
    { %>
 <div class="license-section">
-    <span class="header-base"><%= UserControlsCommonResource.LicenseKeyBuyLabel %></span>
+    <span class="header-base"><%= UserControlsCommonResource.LicenseKeyBuyLabelV11 %></span>
 </div>
-<div><%= UserControlsCommonResource.LicenseKeyBuyDescr.HtmlEncode() %></div>
+<div><%= UserControlsCommonResource.LicenseKeyBuyDescrV11.HtmlEncode() %></div>
 
 <div class="button-margin">
     <a href="<%= Settings.BuyUrl %>" class="button blue big" target="_blank"><%= Resource.TariffButtonBuy %></a>
@@ -70,11 +67,11 @@
 
 
 <div class="license-section">
-    <span class="header-base"><%= UserControlsCommonResource.LicenseKeyLabel %></span>
+    <span class="header-base"><%= UserControlsCommonResource.LicenseKeyLabelV11 %></span>
 </div>
 
 <div id="activatePanel">
-    <div><%= CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseActivateDescrCustomMode.HtmlEncode() : UserControlsCommonResource.LicenseActivateDescr.HtmlEncode() %></div>
+    <div><%= CoreContext.Configuration.CustomMode ? CustomModeResource.LicenseActivateDescrCustomMode.HtmlEncode() : UserControlsCommonResource.LicenseActivateDescrV11.HtmlEncode() %></div>
     <div class="button-margin clearFix">
         <input type="file" id="uploadButton" />
         <a id="licenseKey" class="button gray"><%= UserControlsCommonResource.UploadFile %></a>
@@ -87,14 +84,14 @@
         <input type="checkbox" id="policyAccepted">
         <label for="policyAccepted">
             <%= string.Format(UserControlsCommonResource.LicenseAgreements,
-                              "<a href=" + Settings.LicenseAgreementsUrl + " target=\"_blank\">",
+                              "<a href=" + Settings.LicenseAgreementsUrl + " target=\"_blank\" class=\"link-black-12\">",
                               "</a>") %></label>
     </div>
     <% } %>
 
     <div class="button-margin">
         <a id="activateButton" class="button blue big disable">
-            <%= UserControlsCommonResource.LicenseActivateButton %>
+            <%= UserControlsCommonResource.LicenseActivateButtonV11 %>
         </a>
     </div>
 </div>
@@ -102,8 +99,16 @@
 <% if (!string.IsNullOrEmpty(Settings.SalesEmail))
    { %>
 <div class="license-questions">
-    <%= string.Format(UserControlsCommonResource.SalesQuestions,
-                      string.Format("<a href=\"mailto:{0}\" >{0}</a>", Settings.SalesEmail)) %>
+    <%= string.Format(UserControlsCommonResource.SalesQuestionsV11,
+                      string.Format("<a href=\"mailto:{0}\" class=\"link-black-12\">{0}</a>", Settings.SalesEmail)) %>
+</div>
+<% } %>
+
+<% if (Settings.FeedbackAndSupportEnabled && !string.IsNullOrEmpty(Settings.FeedbackAndSupportUrl))
+   { %>
+<div class="support-questions">
+    <%= string.Format(UserControlsCommonResource.SupportQuestionsV11,
+                      string.Format("<a href=\"{0}\" target=\"_blank\" class=\"link-black-12\">{0}</a>", Settings.FeedbackAndSupportUrl)) %>
 </div>
 <% } %>
 

@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Desktop.ascx.cs" Inherits="ASC.Web.Files.Controls.Desktop" %>
 <%@ Import Namespace="System.Globalization" %>
+<%@ Import Namespace="ASC.Web.Files.Core.Entries" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="Newtonsoft.Json" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <% if (!string.IsNullOrEmpty(Request["first"]))
@@ -27,4 +30,11 @@
         </Body>
     </sc:Container>
 </div>
+<% } %>
+
+<% if (PrivacyRoomSettings.Available
+        && PrivacyRoomSettings.Enabled)
+   { 
+    var keyPair = EncryptionKeyPair.GetKeyPair(); %>
+<input type="hidden" id="encryptionKeyPair" value="<%: keyPair != null ? JsonConvert.SerializeObject(keyPair) : "" %>" />
 <% } %>

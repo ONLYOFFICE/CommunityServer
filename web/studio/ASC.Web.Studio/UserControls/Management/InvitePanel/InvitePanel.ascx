@@ -42,9 +42,9 @@
                         <input type="checkbox" id="chkVisitor" <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
                         <label for="chkVisitor"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %></label>
 
-                        <input id="hiddenVisitorLink" type="hidden" value="<%= GeneratedVisitorLink%>" />
+                        <input id="hiddenVisitorLink" type="hidden" value="<%= HttpUtility.HtmlEncode(GeneratedVisitorLink) %>" />
                         <% if (EnableInviteLink) { %>
-                        <input id="hiddenUserLink" type="hidden" value="<%= GeneratedUserLink%>" />
+                        <input id="hiddenUserLink" type="hidden" value="<%= HttpUtility.HtmlEncode(GeneratedUserLink) %>" />
                         <% } %>
                     </div>  
                     

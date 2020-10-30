@@ -26,12 +26,12 @@
         </li>
         <% } %>
         <li>
-            <a class="dropdown-item duplicate-btn" href="<%= String.Format("invoices.aspx?id={0}&action=duplicate", TargetInvoice.ID) %>">
+            <a class="dropdown-item duplicate-btn" href="<%= String.Format("Invoices.aspx?id={0}&action=duplicate", TargetInvoice.ID) %>">
                 <%= CRMInvoiceResource.DuplicateInvoice %>
             </a>
         </li>
         <li>
-            <a class="dropdown-item edit-btn" href="<%= String.Format("invoices.aspx?id={0}&action=edit", TargetInvoice.ID) %>">
+            <a class="dropdown-item edit-btn" href="<%= String.Format("Invoices.aspx?id={0}&action=edit", TargetInvoice.ID) %>">
                 <%= CRMInvoiceResource.EditInvoice %>
             </a>
         </li>

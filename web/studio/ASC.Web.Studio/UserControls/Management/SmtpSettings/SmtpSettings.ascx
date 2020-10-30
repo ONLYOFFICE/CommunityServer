@@ -34,7 +34,7 @@
         <div id="customSettingsBox" class="smtp-settings-block clearFix"></div>
 
         <script id="customSettingsBoxTmpl" type="text/x-jquery-tmpl">
-            <div class="smtp-settings-item">
+            <div class="smtp-settings-item clearFix">
                 <div class="host requiredField">
                     <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                     <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostName %>:</div>

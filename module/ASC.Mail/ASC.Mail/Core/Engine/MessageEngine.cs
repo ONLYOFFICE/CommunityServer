@@ -1,25 +1,16 @@
 ﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -364,9 +355,10 @@ namespace ASC.Mail.Core.Engine
 
                     uint? userFolder = null;
 
+                    var userFolderXmailDao = daoFactory.CreateUserFolderXMailDao(Tenant, User);
+
                     if (chainedMessages.Any(m => m.Folder == FolderType.UserFolder))
                     {
-                        var userFolderXmailDao = daoFactory.CreateUserFolderXMailDao(Tenant, User);
                         var item = userFolderXmailDao.Get(ids.First());
                         userFolder = item == null ? (uint?) null : item.FolderId;
                     }
@@ -430,6 +422,16 @@ namespace ASC.Mail.Core.Engine
 
                     foreach (var id in ids2Update)
                         factory.ChainEngine.UpdateMessageChainUnreadFlag(daoFactory, Tenant, User, id);
+
+                    if (userFolder.HasValue)
+                    {
+                        var userFoldersIds = userFolderXmailDao.GetList(mailIds: chainedMessages.Select(m => m.Id).ToList())
+                            .Select(ufxm => (int)ufxm.FolderId)
+                            .Distinct()
+                            .ToList();
+
+                        factory.UserFolderEngine.RecalculateCounters(daoFactory, userFoldersIds);
+                    }
 
                     tx.Commit();
 
@@ -624,18 +626,10 @@ namespace ASC.Mail.Core.Engine
 
             using (var daoFactory = new DaoFactory())
             {
-                var daoMailInfo = daoFactory.CreateMailInfoDao(Tenant, User);
-
-                var mailInfoList = daoMailInfo.GetMailInfoList(
-                    SimpleMessagesExp.CreateBuilder(Tenant, User)
-                            .SetMessageIds(ids)
-                            .Build());
-
-                if (!mailInfoList.Any()) return;
 
                 using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    SetFolder(daoFactory, mailInfoList, folder, userFolderId);
+                    SetFolder(daoFactory, ids, folder, userFolderId);
                     tx.Commit();
                 }
             }
@@ -670,10 +664,11 @@ namespace ASC.Mail.Core.Engine
         {
             var daoMailInfo = daoFactory.CreateMailInfoDao(Tenant, User);
 
-            var mailInfoList = daoMailInfo.GetMailInfoList(
-                SimpleMessagesExp.CreateBuilder(Tenant, User)
+            var query = SimpleMessagesExp.CreateBuilder(Tenant, User)
                         .SetMessageIds(ids)
-                        .Build());
+                        .Build();
+
+            var mailInfoList = daoMailInfo.GetMailInfoList(query);
 
             if (!mailInfoList.Any()) return;
 
@@ -743,10 +738,11 @@ namespace ASC.Mail.Core.Engine
 
             var daoMailInfo = daoFactory.CreateMailInfoDao(Tenant, User);
 
-            daoMailInfo.SetFieldValue(
-                SimpleMessagesExp.CreateBuilder(Tenant, User)
+            var updateQuery = SimpleMessagesExp.CreateBuilder(Tenant, User)
                     .SetMessageIds(ids)
-                    .Build(),
+                    .Build();
+
+            daoMailInfo.SetFieldValue(updateQuery,
                 MailTable.Columns.Folder,
                 toFolder);
 
@@ -771,10 +767,10 @@ namespace ASC.Mail.Core.Engine
                     Tenant, User);
             }
 
-            var totalMessagesCountCollection = prevInfo.GroupBy(x => new {x.folder, x.userFolderId})
+            var totalMessages = prevInfo.GroupBy(x => new {x.folder, x.userFolderId})
                 .Select(group => new {group.Key, Count = group.Count()});
 
-            var unreadMessagesCountCollection = prevInfo.Where(x => x.unread)
+            var unreadMessages = prevInfo.Where(x => x.unread)
                 .GroupBy(x => new {x.folder, x.userFolderId})
                 .Select(group => new {group.Key, Count = group.Count()})
                 .ToList();
@@ -783,16 +779,16 @@ namespace ASC.Mail.Core.Engine
 
             var movedTotalUnreadCount = 0;
             var movedTotalCount = 0;
-
             int? totalMessDiff;
             int? unreadMessDiff;
-            foreach (var keyPair in totalMessagesCountCollection)
+
+            foreach (var keyPair in totalMessages)
             {
                 var srcFolder = keyPair.Key.folder;
                 var srcUserFolder = keyPair.Key.userFolderId;
                 var totalMove = keyPair.Count;
 
-                var unreadItem = unreadMessagesCountCollection.FirstOrDefault(
+                var unreadItem = unreadMessages.FirstOrDefault(
                         x => x.Key.folder == srcFolder && x.Key.userFolderId == srcUserFolder);
 
                 var unreadMove = unreadItem != null ? unreadItem.Count : 0;  
@@ -812,6 +808,21 @@ namespace ASC.Mail.Core.Engine
 
             engine.FolderEngine.ChangeFolderCounters(daoFactory, toFolder, toUserFolderId,
                 unreadMessDiff, totalMessDiff);
+
+            // Correction of UserFolders counters
+
+            var userFolderIds = prevInfo.Where(x => x.folder == FolderType.UserFolder)
+                .Select(x => (int)x.userFolderId.Value)
+                .Distinct()
+                .ToList();
+
+            if (userFolderIds.Count() == 0 && !toUserFolderId.HasValue) // Only for movement from/to UserFolders
+                return;
+
+            if(toUserFolderId.HasValue)
+                userFolderIds.Add((int)toUserFolderId.Value);
+
+            engine.UserFolderEngine.RecalculateCounters(daoFactory, userFolderIds);
         }
 
         public void SetRemoved(List<int> ids)
@@ -1312,7 +1323,7 @@ namespace ASC.Mail.Core.Engine
             log.Debug("UpdateExistingMessages()");
 
             var found = UpdateExistingMessages(mailbox, folder.Folder, uidl, md5,
-                mimeMessage.MessageId, fromThisMailBox, toThisMailBox, tagsIds, log);
+                mimeMessage.MessageId, mimeMessage.Subject, mimeMessage.Date.UtcDateTime, fromThisMailBox, toThisMailBox, tagsIds, log);
 
             var needSave = !found;
             if (!needSave)
@@ -1334,7 +1345,7 @@ namespace ASC.Mail.Core.Engine
 
             if (!TryStoreMailData(message, mailbox, log))
             {
-                return null;
+                throw new Exception("Failed to save message");
             }
 
             log.Debug("MailSave()");
@@ -1396,8 +1407,8 @@ namespace ASC.Mail.Core.Engine
             }
             catch (Exception ex)
             {
-                log.DebugFormat(
-                    "StoreMailBody() Problems with message saving in messageId={0}. \r\n Exception: \r\n {0}\r\n",
+                log.ErrorFormat(
+                    "StoreMailBody() Problems with message saving in messageId={0}. \r\n Exception: \r\n {1}\r\n",
                     messageItem.MimeMessageId, ex.ToString());
 
                 storage.Delete(string.Empty, savePath);
@@ -1621,7 +1632,7 @@ namespace ASC.Mail.Core.Engine
         }
         //TODO: Need refactoring
         private static bool UpdateExistingMessages(MailBoxData mailbox, FolderType folder, string uidl, string md5,
-            string mimeMessageId, bool fromThisMailBox, bool toThisMailBox, List<int> tagsIds, ILog log)
+            string mimeMessageId, string subject, DateTime dateSent, bool fromThisMailBox, bool toThisMailBox, List<int> tagsIds, ILog log)
         {
             if ((string.IsNullOrEmpty(md5) || md5.Equals(Defines.MD5_EMPTY)) && string.IsNullOrEmpty(mimeMessageId))
             {
@@ -1644,8 +1655,22 @@ namespace ASC.Mail.Core.Engine
 
                 var messagesInfo = daoMailInfo.GetMailInfoList(exp);
 
+                if (!messagesInfo.Any() && folder == FolderType.Sent)
+                {
+                    exp = SimpleMessagesExp.CreateBuilder(mailbox.TenantId, mailbox.UserId, null)
+                        .SetMailboxId(mailbox.MailBoxId)
+                        .SetFolder((int)FolderType.Sent)
+                        .SetSubject(subject)
+                        .SetDateSent(dateSent)
+                        .Build();
+
+                    messagesInfo = daoMailInfo.GetMailInfoList(exp);
+                }
+
                 if (!messagesInfo.Any())
+                {
                     return false;
+                }
 
                 var idList = messagesInfo.Where(m => !m.IsRemoved).Select(m => m.Id).ToList();
                 if (!idList.Any())
@@ -1676,7 +1701,24 @@ namespace ASC.Mail.Core.Engine
                         if (clone != null)
                             log.InfoFormat("Message already exists: mailId={0}. Clone", clone.Id);
                         else
-                            log.Info("Message already exists. by MD5/MimeMessageId");
+                        {
+                            var existMessage = messagesInfo.First();
+
+                            if (!existMessage.IsRemoved)
+                            {
+                                if (string.IsNullOrEmpty(existMessage.Uidl))
+                                {
+                                    daoMailInfo.SetFieldValue(
+                                    SimpleMessagesExp.CreateBuilder(mailbox.TenantId, mailbox.UserId)
+                                        .SetMessageId(existMessage.Id)
+                                        .Build(),
+                                    MailTable.Columns.Uidl,
+                                    uidl);
+                                }
+                            }
+
+                            log.Info("Message already exists by MD5|MimeMessageId|Subject|DateSent");
+                        }
 
                         return true;
                     }

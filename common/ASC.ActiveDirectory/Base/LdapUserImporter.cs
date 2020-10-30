@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,6 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Expressions;
 using ASC.ActiveDirectory.Base.Settings;
@@ -39,7 +32,7 @@ using ASC.Core.Users;
 
 namespace ASC.ActiveDirectory.Base
 {
-    public class LdapUserImporter: IDisposable
+    public class LdapUserImporter : IDisposable
     {
         public List<LdapObject> AllDomainUsers { get; private set; }
         public List<LdapObject> AllDomainGroups { get; private set; }
@@ -48,12 +41,13 @@ namespace ASC.ActiveDirectory.Base
         public Dictionary<LdapObject, LdapSettingsStatus> AllSkipedDomainGroups { get; private set; }
 
         private string _ldapDomain;
-        private static readonly string UnknownDomain = ConfigurationManager.AppSettings["ldap.domain"] ?? "LDAP";
+        private static readonly string UnknownDomain = ConfigurationManagerExtension.AppSettings["ldap.domain"] ?? "LDAP";
 
-        public string LDAPDomain {
+        public string LDAPDomain
+        {
             get
             {
-                if (!string.IsNullOrEmpty(_ldapDomain)) 
+                if (!string.IsNullOrEmpty(_ldapDomain))
                     return _ldapDomain;
 
                 _ldapDomain = LoadLDAPDomain();
@@ -66,7 +60,7 @@ namespace ASC.ActiveDirectory.Base
                 return _ldapDomain;
             }
         }
-        public string PrimaryGroupId { get; set; }
+        public List<string> PrimaryGroupIds { get; set; }
 
         public LdapSettings Settings
         {
@@ -149,72 +143,63 @@ namespace ASC.ActiveDirectory.Base
             if (domainGroup == null)
                 return users;
 
-            if (!string.IsNullOrEmpty(PrimaryGroupId) && domainGroup.Sid.EndsWith("-" + PrimaryGroupId))
+            var members = domainGroup.GetAttributes(Settings.GroupAttribute, _log);
+
+            foreach (var member in members)
+            {
+                var ldapUser = FindUserByMember(member);
+
+                if (ldapUser == null)
+                {
+                    var nestedLdapGroup = FindGroupByMember(member);
+
+                    if (nestedLdapGroup != null)
+                    {
+                        _log.DebugFormat("Found nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
+
+                        if (clearCache)
+                            _watchedNestedGroups = new List<string>();
+
+                        if (_watchedNestedGroups.Contains(nestedLdapGroup.DistinguishedName))
+                        {
+                            _log.DebugFormat("Skip already watched nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
+                            continue;
+                        }
+
+                        _watchedNestedGroups.Add(nestedLdapGroup.DistinguishedName);
+
+                        var nestedGroupInfo = nestedLdapGroup.ToGroupInfo(Settings, _log);
+
+                        var nestedGroupUsers = GetGroupUsers(nestedGroupInfo, false);
+
+                        foreach (var groupUser in nestedGroupUsers)
+                        {
+                            if (!users.Exists(u => u.Sid == groupUser.Sid))
+                                users.Add(groupUser);
+                        }
+                    }
+
+                    continue;
+                }
+
+                var userInfo = ldapUser.ToUserInfo(this, _log);
+
+                if (!users.Exists(u => u.Sid == userInfo.Sid))
+                    users.Add(userInfo);
+            }
+
+            if (PrimaryGroupIds != null && PrimaryGroupIds.Any(id => domainGroup.Sid.EndsWith("-" + id)))
             {
                 // Domain Users found
-
-                var ldapUsers = FindUsersByPrimaryGroup();
-
-               if (!ldapUsers.Any())
-                   return users;
+                var ldapUsers = FindUsersByPrimaryGroup(domainGroup.Sid);
 
                 foreach (var ldapUser in ldapUsers)
                 {
-                        var userInfo = ldapUser.ToUserInfo(this, _log);
+                    var userInfo = ldapUser.ToUserInfo(this, _log);
 
-                        if (!users.Exists(u => u.Sid == userInfo.Sid))
-                            users.Add(userInfo);
-                    }
-            }
-            else
-            {
-                var members = domainGroup.GetAttributes(Settings.GroupAttribute, _log);
-
-                if (!members.Any())
-                    return users;
-
-                foreach (var member in members)
-                {
-                    var ldapUser = FindUserByMember(member);
-
-                    if (ldapUser == null)
-                    {
-                        var nestedLdapGroup = FindGroupByMember(member);
-
-                        if (nestedLdapGroup != null)
-                        {
-                            _log.DebugFormat("Found nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
-
-                            if (clearCache)
-                                _watchedNestedGroups = new List<string>();
-
-                            if (_watchedNestedGroups.Contains(nestedLdapGroup.DistinguishedName))
-                            {
-                                _log.DebugFormat("Skip already watched nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
-                                continue;
-                            }
-
-                            _watchedNestedGroups.Add(nestedLdapGroup.DistinguishedName);
-
-                            var nestedGroupInfo = nestedLdapGroup.ToGroupInfo(Settings, _log);
-
-                            var nestedGroupUsers = GetGroupUsers(nestedGroupInfo, false);
-
-                            foreach (var groupUser in nestedGroupUsers)
-                            {
-                                if (!users.Exists(u => u.Sid == groupUser.Sid))
-                                    users.Add(groupUser);
-                            }
-                        }
-
-                        continue;
-                    }
-
-                        var userInfo = ldapUser.ToUserInfo(this, _log);
-
-                        if (!users.Exists(u => u.Sid == userInfo.Sid))
-                            users.Add(userInfo);
-                    }
+                    if (!users.Exists(u => u.Sid == userInfo.Sid))
+                        users.Add(userInfo);
+                }
             }
 
             return users;
@@ -222,27 +207,27 @@ namespace ASC.ActiveDirectory.Base
 
         const string GROUP_MEMBERSHIP = "groupMembership";
 
-        private bool TryGetLdapUserGroups(LdapObject ldapUser, out List<LdapObject> ldapUserGroups)
+        private IEnumerable<LdapObject> GetLdapUserGroups(LdapObject ldapUser)
         {
-            ldapUserGroups = new List<LdapObject>();
+            var ldapUserGroups = new List<LdapObject>();
             try
             {
                 if (!Settings.GroupMembership)
                 {
-                    return false;
+                    return ldapUserGroups;
                 }
 
                 if (ldapUser == null ||
                     string.IsNullOrEmpty(ldapUser.Sid))
                 {
-                    return false;
+                    return ldapUserGroups;
                 }
 
                 if (!LdapHelper.IsConnected)
                     LdapHelper.Connect();
 
                 var userGroups = ldapUser.GetAttributes(LdapConstants.ADSchemaAttributes.MEMBER_OF, _log)
-                    .Select(s => s.Replace("\\", string.Empty))
+                    .Select(s => LdapUtils.UnescapeLdapString(s))
                     .ToList();
 
                 if (!userGroups.Any())
@@ -252,25 +237,25 @@ namespace ASC.ActiveDirectory.Base
 
                 var searchExpressions = new List<Expression>();
 
-                PrimaryGroupId = PrimaryGroupId ??
-                                ldapUser.GetValue(LdapConstants.ADSchemaAttributes.PRIMARY_GROUP_ID) as string;
+                var primaryGroupId = ldapUser.GetValue(LdapConstants.ADSchemaAttributes.PRIMARY_GROUP_ID) as string;
 
-                if (!string.IsNullOrEmpty(PrimaryGroupId))
+                if (!string.IsNullOrEmpty(primaryGroupId))
                 {
                     var userSid = ldapUser.Sid;
                     var index = userSid.LastIndexOf("-", StringComparison.InvariantCultureIgnoreCase);
 
                     if (index > -1)
                     {
-                        var primaryGroupSid = userSid.Substring(0, index + 1) + PrimaryGroupId;
+                        var primaryGroupSid = userSid.Substring(0, index + 1) + primaryGroupId;
                         searchExpressions.Add(Expression.Equal(ldapUser.SidAttribute, primaryGroupSid));
                     }
                 }
 
                 if (userGroups.Any())
                 {
+                    var cnRegex = new Regex(",[A-z]{2}=");
                     searchExpressions.AddRange(userGroups
-                        .Select(g => g.Substring(0, g.IndexOf(",", StringComparison.InvariantCultureIgnoreCase)))
+                        .Select(g => g.Substring(0, cnRegex.Match(g).Index))
                         .Where(s => !string.IsNullOrEmpty(s))
                         .Select(Expression.Parse)
                         .Where(e => e != null));
@@ -282,7 +267,6 @@ namespace ASC.ActiveDirectory.Base
                     if (foundList.Any())
                     {
                         ldapUserGroups.AddRange(foundList);
-                        return true;
                     }
                 }
                 else
@@ -293,8 +277,6 @@ namespace ASC.ActiveDirectory.Base
                         ldapGroups.Where(
                             ldapGroup =>
                                 LdapHelper.UserExistsInGroup(ldapGroup, ldapUser, Settings)));
-
-                    return ldapUserGroups.Any();
                 }
             }
             catch (Exception ex)
@@ -304,7 +286,47 @@ namespace ASC.ActiveDirectory.Base
                         ldapUser.DistinguishedName, ldapUser.Sid, ex);
             }
 
-            return false;
+            return ldapUserGroups;
+        }
+
+        public IEnumerable<GroupInfo> GetAndCheckCurrentGroups(LdapObject ldapUser, IEnumerable<GroupInfo> portalGroups)
+        {
+            var result = new List<GroupInfo>();
+            try
+            {
+                var searchExpressions = new List<Expression>();
+                if (portalGroups != null && portalGroups.Any())
+                {
+                    searchExpressions.AddRange(portalGroups.Select(g => Expression.Equal(LdapConstants.ADSchemaAttributes.OBJECT_SID, g.Sid)));
+                }
+                else
+                {
+                    return result;
+                }
+
+                var criteria = Criteria.Any(searchExpressions.ToArray());
+                var foundList = LdapHelper.GetGroups(criteria);
+
+                if (foundList.Any())
+                {
+                    var stillExistingGroups = portalGroups.Where(g => foundList.Any(fg => fg.Sid == g.Sid));
+
+                    foreach (var group in stillExistingGroups)
+                    {
+                        if (GetGroupUsers(group).Any(u => u.Sid == ldapUser.Sid))
+                        {
+                            result.Add(group);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ldapUser != null)
+                    _log.ErrorFormat("GetAndCheckCurrentGroups(login: '{0}' sid: '{1}') error {2}",
+                        ldapUser.DistinguishedName, ldapUser.Sid, ex);
+            }
+            return result;
         }
 
         public bool TrySyncUserGroupMembership(Tuple<UserInfo, LdapObject> ldapUserInfo)
@@ -318,23 +340,19 @@ namespace ASC.ActiveDirectory.Base
             var userInfo = ldapUserInfo.Item1;
             var ldapUser = ldapUserInfo.Item2;
 
-            List<LdapObject> ldapUserGroupList;
-
-            if (!TryGetLdapUserGroups(ldapUser, out ldapUserGroupList))
-            {
-                _log.DebugFormat("TrySyncUserGroupMembership(username: '{0}' sid: '{1}') no ldap groups found", userInfo.UserName, ldapUser.Sid);
-                return false;
-            }
-
-            if (!LdapHelper.IsConnected)
-                LdapHelper.Connect();
-
             var portalUserLdapGroups =
                 CoreContext.UserManager.GetUserGroups(userInfo.ID, IncludeType.All)
                     .Where(g => !string.IsNullOrEmpty(g.Sid))
                     .ToList();
 
-            var actualPortalLdapGroups = new List<GroupInfo>();
+            List<LdapObject> ldapUserGroupList = new List<LdapObject>();
+
+            ldapUserGroupList.AddRange(GetLdapUserGroups(ldapUser));
+
+            if (!LdapHelper.IsConnected)
+                LdapHelper.Connect();
+
+            var actualPortalLdapGroups = GetAndCheckCurrentGroups(ldapUser, portalUserLdapGroups).ToList();
 
             foreach (var ldapUserGroup in ldapUserGroupList)
             {
@@ -366,7 +384,7 @@ namespace ASC.ActiveDirectory.Base
                 }
             }
 
-            return true;
+            return actualPortalLdapGroups.Count != 0;
         }
 
         public bool TryLoadLDAPUsers()
@@ -413,7 +431,8 @@ namespace ASC.ActiveDirectory.Base
 
                 if (AllDomainUsers.Any())
                 {
-                    PrimaryGroupId = AllDomainUsers.First().GetValue(LdapConstants.ADSchemaAttributes.PRIMARY_GROUP_ID) as string;
+                    PrimaryGroupIds = AllDomainUsers.Select(u => u.GetValue(LdapConstants.ADSchemaAttributes.PRIMARY_GROUP_ID)).Cast<string>()
+                        .Distinct().ToList();
                 }
 
                 return AllDomainUsers.Any() || !users.Any();
@@ -594,7 +613,7 @@ namespace ASC.ActiveDirectory.Base
             return true;
         }
 
-        private List<LdapObject> FindUsersByPrimaryGroup()
+        private List<LdapObject> FindUsersByPrimaryGroup(string sid)
         {
             _log.Debug("LdapUserImporter.FindUsersByPrimaryGroup()");
 
@@ -608,7 +627,7 @@ namespace ASC.ActiveDirectory.Base
                         var primaryGroupId = lu.GetValue(LdapConstants.ADSchemaAttributes.PRIMARY_GROUP_ID) as string;
 
                         return !string.IsNullOrEmpty(primaryGroupId) &&
-                               primaryGroupId.Equals(PrimaryGroupId, StringComparison.InvariantCultureIgnoreCase);
+                               sid.EndsWith(primaryGroupId);
                     })
                     .ToList();
 
@@ -650,7 +669,7 @@ namespace ASC.ActiveDirectory.Base
             if (!LdapHelper.IsConnected)
                 LdapHelper.Connect();
 
-            var exps = new List<Expression> {Expression.Equal(Settings.LoginAttribute, ldapLogin.Username)};
+            var exps = new List<Expression> { Expression.Equal(Settings.LoginAttribute, ldapLogin.Username) };
 
             if (!ldapLogin.Username.Equals(login) && ldapLogin.ToString().Equals(login))
             {
@@ -682,7 +701,7 @@ namespace ASC.ActiveDirectory.Base
 
                         ui = lu.ToUserInfo(this, _log);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         _log.ErrorFormat("FindLdapUser->ToUserInfo() failed. Error: {0}", ex.ToString());
                     }
@@ -806,7 +825,7 @@ namespace ASC.ActiveDirectory.Base
                         _log.DebugFormat("LdapUserImporter.Login('{0}')", currentLogin);
 
                         LdapHelper.CheckCredentials(currentLogin, password, Settings.Server,
-                            Settings.PortNumber, Settings.StartTls, Settings.Ssl, Settings.AcceptCertificate, 
+                            Settings.PortNumber, Settings.StartTls, Settings.Ssl, Settings.AcceptCertificate,
                             Settings.AcceptCertificateHash);
 
                         return new Tuple<UserInfo, LdapObject>(ldapUserInfo, ldapUserObject);

@@ -78,7 +78,7 @@
 				writeRow([0, 2, 3, 4], tasks[k], [2], {
 					color: lightGrayBorderColor
 				}, {
-					color: tasks[j][4] == reportColumns[8] ? blackFontColor : grayFontColor,
+					color: tasks[k][4] == reportColumns[8] ? blackFontColor : grayFontColor,
 					size: smallFontSize,
 					setWrap: true
 				}, true);

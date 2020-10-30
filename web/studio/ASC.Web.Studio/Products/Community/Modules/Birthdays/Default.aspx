@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true"
+<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.Master" AutoEventWireup="true"
  CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Birthdays.Default" %>
 
 <%@ Import Namespace="ASC.Core.Users" %>
@@ -10,11 +10,9 @@
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
-<asp:Content ID="SettingsHeaderContent" ContentPlaceHolderID="CommunityPageHeader" runat="server">
-</asp:Content>
 
-<asp:Content ID="SettingsPageContent" ContentPlaceHolderID="CommunityPageContent"  runat="server">
-    
+<asp:Content ContentPlaceHolderID="CommunityPageContent"  runat="server">
+
     <% if (todayBirthdays != null && todayBirthdays.Count > 0) %>
     <% { %>
     <div class="birthday-header birthday-content-splitter">
@@ -62,7 +60,7 @@
 
 
 
-    <asp:PlaceHolder ID="upcomingEmptyContent" runat="server"></asp:PlaceHolder>
+    <asp:PlaceHolder ID="upcomingEmptyContent" runat="server"/>
 
 
     <% if (upcomingBirthdays != null && upcomingBirthdays.Count > 0) %>
@@ -116,5 +114,5 @@
         </tbody>
     </table>
     <% } %>
-   
+
 </asp:Content>

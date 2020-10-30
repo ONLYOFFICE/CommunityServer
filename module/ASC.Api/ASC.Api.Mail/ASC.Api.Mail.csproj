@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Mail</RootNamespace>
     <AssemblyName>ASC.Api.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -47,7 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -55,47 +55,6 @@
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.MessagingSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.MessagingSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Specific.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Ical.Net, Version=4.0.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.4.0.6.1\lib\net46\Ical.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="NodaTime, Version=2.0.2.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NodaTime.2.0.2\lib\net45\NodaTime.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="MailApi.Filters.cs" />
     <Compile Include="MailApi.MailService.cs" />
@@ -141,6 +100,14 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj">
       <Project>{1ef9c7d8-f92e-48b3-9a86-78e431abc306}</Project>
       <Name>ASC.Web.Mail</Name>
@@ -149,15 +116,39 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
+      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
+      <Name>ASC.MessagingSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
+      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
+      <Name>ASC.Specific</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Ical.Net">
+      <Version>4.1.11</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

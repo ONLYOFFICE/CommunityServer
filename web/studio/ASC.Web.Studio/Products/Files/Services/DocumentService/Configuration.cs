@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -39,7 +30,6 @@ using ASC.Core.Users;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
@@ -163,7 +153,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             private string _key = string.Empty;
             private string _fileUri;
-            private string _title = null;
+            private string _title;
 
 
             [DataMember(Name = "fileType")]
@@ -219,15 +209,15 @@ namespace ASC.Web.Files.Services.DocumentService
                 private string _breadCrumbs;
 
 
-                [Obsolete("Use owner (since v5.4)")]
+                //todo: obsolete since DS v5.4
                 [DataMember(Name = "author")]
-                public string Aouthor
+                public string Author
                 {
                     set { }
                     get { return File.CreateByString; }
                 }
 
-                [Obsolete("Use uploaded (since v5.4)")]
+                //todo: obsolete since DS v5.4
                 [DataMember(Name = "created")]
                 public string Created
                 {
@@ -293,7 +283,7 @@ namespace ASC.Web.Files.Services.DocumentService
             [DataContract(Name = "permissions", Namespace = "")]
             public class PermissionsConfig
             {
-                [Obsolete("Since DS v5.5")]
+                //todo: obsolete since DS v5.5
                 [DataMember(Name = "changeHistory")]
                 public bool ChangeHistory = false;
 
@@ -312,6 +302,10 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "print")]
                 public bool Print = true;
 
+                [DataMember(Name = "modifyFilter")]
+                public bool ModifyFilter = true;
+
+                //todo: obsolete since DS v6.0
                 [DataMember(Name = "rename")]
                 public bool Rename = false;
 
@@ -376,6 +370,47 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
             }
 
+            [DataMember(Name = "templates", EmitDefaultValue = false)]
+            public List<TemplatesConfig> Templates
+            {
+                set { }
+                get
+                {
+                    if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
+                    if (!FilesSettings.TemplatesSection) return null;
+
+                    var extension = FileUtility.GetInternalExtension(_configuration.Document.Title).TrimStart('.');
+                    var filter = FilterType.FilesOnly;
+                    switch (_configuration.GetFileType)
+                    {
+                        case FileType.Document:
+                            filter = FilterType.DocumentsOnly;
+                            break;
+                        case FileType.Spreadsheet:
+                            filter = FilterType.SpreadsheetsOnly;
+                            break;
+                        case FileType.Presentation:
+                            filter = FilterType.PresentationsOnly;
+                            break;
+                    }
+
+                    using (var fileDao = Global.DaoFactory.GetFileDao())
+                    {
+                        var files = EntryManager.GetTemplates(fileDao, filter, false, Guid.Empty, string.Empty, false);
+                        var listTemplates = from file in files
+                                            select
+                                                new TemplatesConfig
+                                                {
+                                                    Image = CommonLinkUtility.GetFullAbsolutePath("skins/default/images/filetype/thumb/" + extension + ".png"),
+                                                    Name = file.Title,
+                                                    Title = file.Title,
+                                                    Url = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID))
+                                                };
+                        return listTemplates.ToList();
+                    }
+                }
+            }
+
             [DataMember(Name = "callbackUrl", EmitDefaultValue = false)]
             public string CallbackUrl;
 
@@ -405,6 +440,9 @@ namespace ASC.Web.Files.Services.DocumentService
                 get { return _configuration.Document.Info.Type == EditorType.Embedded ? _embeddedConfig : null; }
             }
 
+            [DataMember(Name = "encryptionKeys", EmitDefaultValue = false)]
+            public EncryptionKeysConfig EncryptionKeys;
+
             [DataMember(Name = "fileChoiceUrl", EmitDefaultValue = false)]
             public string FileChoiceUrl;
 
@@ -415,10 +453,6 @@ namespace ASC.Web.Files.Services.DocumentService
                 get { return _userInfo.GetCulture().Name; }
             }
 
-            //todo: remove old feild after release 5.2+
-            [DataMember(Name = "mergeFolderUrl", EmitDefaultValue = false)]
-            public string MergeFolderUrl;
-
             [DataMember(Name = "mode")]
             public string Mode
             {
@@ -428,6 +462,48 @@ namespace ASC.Web.Files.Services.DocumentService
 
             [DataMember(Name = "saveAsUrl", EmitDefaultValue = false)]
             public string SaveAsUrl;
+
+            [DataMember(Name = "recent", EmitDefaultValue = false)]
+            public List<RecentConfig> Recent
+            {
+                set { }
+                get
+                {
+                    if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
+                    if (!FilesSettings.RecentSection) return null;
+
+                    var filter = FilterType.FilesOnly;
+                    switch (_configuration.GetFileType)
+                    {
+                        case FileType.Document:
+                            filter = FilterType.DocumentsOnly;
+                            break;
+                        case FileType.Spreadsheet:
+                            filter = FilterType.SpreadsheetsOnly;
+                            break;
+                        case FileType.Presentation:
+                            filter = FilterType.PresentationsOnly;
+                            break;
+                    }
+
+                    using (var folderDao = Global.DaoFactory.GetFolderDao())
+                    using (var fileDao = Global.DaoFactory.GetFileDao())
+                    {
+                        var files = EntryManager.GetRecent(fileDao, filter, false, Guid.Empty, string.Empty, false);
+
+                        var listRecent = from file in files
+                                         where !Equals(_configuration.Document.Info.File.ID, file.ID)
+                                         select
+                                             new RecentConfig
+                                             {
+                                                 Folder = folderDao.GetFolder(file.FolderID).Title,
+                                                 Title = file.Title,
+                                                 Url = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID))
+                                             };
+                        return listRecent.ToList();
+                    }
+                }
+            }
 
             [DataMember(Name = "sharingSettingsUrl", EmitDefaultValue = false)]
             public string SharingSettingsUrl;
@@ -524,6 +600,19 @@ namespace ASC.Web.Files.Services.DocumentService
                 public string ToolbarDocked = "top";
             }
 
+            [DataContract(Name = "encryptionKeys", Namespace = "")]
+            public class EncryptionKeysConfig
+            {
+                [DataMember(Name = "cryptoEngineId", EmitDefaultValue = false)]
+                public string CryptoEngineId = "{FFF0E1EB-13DB-4678-B67D-FF0A41DBBCEF}";
+
+                [DataMember(Name = "privateKeyEnc", EmitDefaultValue = false)]
+                public string PrivateKeyEnc;
+
+                [DataMember(Name = "publicKey", EmitDefaultValue = false)]
+                public string PublicKey;
+            }
+
             [DataContract(Name = "plugins", Namespace = "")]
             public class PluginsConfig
             {
@@ -574,7 +663,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 public bool About
                 {
                     set { }
-                    get { return !CoreContext.Configuration.Standalone && !CoreContext.Configuration.CustomMode; }
+                    get { return !CoreContext.Configuration.Standalone || CoreContext.Configuration.CustomMode; }
                 }
 
                 [DataMember(Name = "customer")]
@@ -660,32 +749,20 @@ namespace ASC.Web.Files.Services.DocumentService
                     }
                 }
 
-                [DataMember(Name = "loaderLogo", EmitDefaultValue = false)]
-                public string LoaderLogo
-                {
-                    set { }
-                    get
-                    {
-                        return CoreContext.Configuration.CustomMode
-                                   ? CommonLinkUtility.GetFullAbsolutePath(WebImageSupplier.GetAbsoluteWebPath("loader.svg").ToLower())
-                                   : null;
-                    }
-                }
-
-                [DataMember(Name = "loaderName", EmitDefaultValue = false)]
-                public string LoaderName
-                {
-                    set { }
-                    get
-                    {
-                        return CoreContext.Configuration.CustomMode
-                                   ? " "
-                                   : null;
-                    }
-                }
-
                 [DataMember(Name = "logo")]
                 public LogoConfig Logo;
+
+                [DataMember(Name = "mentionShare")]
+                public bool MentionShare
+                {
+                    set { }
+                    get
+                    {
+                        return SecurityContext.IsAuthenticated
+                               && !_configuration.Document.Info.File.Encrypted
+                               && FileSharing.CanSetAccess(_configuration.Document.Info.File);
+                    }
+                }
 
                 [DataMember(Name = "reviewDisplay", EmitDefaultValue = false)]
                 public string ReviewDisplay
@@ -783,9 +860,39 @@ namespace ASC.Web.Files.Services.DocumentService
                     public string Url
                     {
                         set { }
-                        get { return CompanyWhiteLabelSettings.Instance.Site; }
+                        get { return CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetDefault()); }
                     }
                 }
+            }
+
+            [DataContract(Name = "recentconfig", Namespace = "")]
+            public class RecentConfig
+            {
+                [DataMember(Name = "folder", EmitDefaultValue = false)]
+                public string Folder;
+
+                [DataMember(Name = "title", EmitDefaultValue = false)]
+                public string Title;
+
+                [DataMember(Name = "url", EmitDefaultValue = false)]
+                public string Url;
+            }
+
+            [DataContract(Name = "templatesconfig", Namespace = "")]
+            public class TemplatesConfig
+            {
+                [DataMember(Name = "image", EmitDefaultValue = false)]
+                public string Image;
+
+                //todo: obsolete since DS v5.6
+                [DataMember(Name = "name", EmitDefaultValue = false)]
+                public string Name;
+
+                [DataMember(Name = "title", EmitDefaultValue = false)]
+                public string Title;
+
+                [DataMember(Name = "url", EmitDefaultValue = false)]
+                public string Url;
             }
 
             [DataContract(Name = "user", Namespace = "")]

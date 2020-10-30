@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,12 +18,11 @@
 using System;
 using System.IO;
 using System.Web;
+
 using ASC.Core;
-using ASC.Core.Common.Notify.Push;
 using ASC.Core.Users;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
-using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Helpers;
@@ -42,7 +32,6 @@ using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files
 {
@@ -50,7 +39,7 @@ namespace ASC.Web.Files
     {
         private bool AddCustomScript;
 
-        protected bool DisplayAppsBanner;
+        protected UserInfo CurrentUser;
 
         protected bool Desktop
         {
@@ -63,16 +52,9 @@ namespace ASC.Web.Files
                                    .AddStaticStyles(GetStaticStyleSheet())
                                    .AddStaticBodyScripts(GetStaticJavaScript());
 
+            CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
             LoadControls();
-
-            var mobileAppRegistrator = new CachedMobileAppInstallRegistrator(new MobileAppInstallRegistrator());
-            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-
-            DisplayAppsBanner =
-                SetupInfo.DisplayMobappBanner("files")
-                && !CoreContext.Configuration.Standalone
-                && !TenantExtra.GetTenantQuota().Trial
-                && !mobileAppRegistrator.IsInstallRegistered(currentUser.Email, MobileAppType.IosDocuments);
 
             if (CoreContext.Configuration.Personal)
             {
@@ -119,6 +101,7 @@ namespace ASC.Web.Files
                                   "~/js/uploader/jquery.fileupload.js")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                   "Controls/AccessRights/accessrights.js",
+                                  "Controls/AppBanner/appbanner.js",
                                   "Controls/ChunkUploadDialog/chunkuploadmanager.js",
                                   "Controls/ConvertFile/convertfile.js",
                                   "Controls/ConvertFile/confirmconvert.js",
@@ -137,6 +120,7 @@ namespace ASC.Web.Files
                        .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                   "Controls/AccessRights/accessrights.css",
+                                  "Controls/AppBanner/appbanner.css",
                                   "Controls/ChunkUploadDialog/chunkuploaddialog.css",
                                   "Controls/ContentList/contentlist.css",
                                   "Controls/ConvertFile/convertfile.css",
@@ -158,11 +142,13 @@ namespace ASC.Web.Files
             }
 
             var enableThirdParty = ThirdpartyConfiguration.SupportInclusion
-                                   && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
+                                   && !CurrentUser.IsVisitor()
                                    && (Classes.Global.IsAdministrator
                                        || FilesSettings.EnableThirdParty
                                        || CoreContext.Configuration.Personal)
                                    && !Desktop;
+
+            CreateButtonHolder.Controls.Add(LoadControl(MainButton.Location));
 
             var mainMenu = (MainMenu)LoadControl(MainMenu.Location);
             mainMenu.EnableThirdParty = enableThirdParty;
@@ -171,8 +157,10 @@ namespace ASC.Web.Files
 
             if (Request.SailfishApp())
             {
-                CommonContainerHolder.Controls.Add(LoadControl(Files.Controls.Sailfish.Location));
+                CommonContainerHolder.Controls.Add(LoadControl(Sailfish.Location));
             }
+
+            FilterHolder.Controls.Add(LoadControl(MainContentFilter.Location));
 
             var mainContent = (MainContent)LoadControl(MainContent.Location);
             mainContent.TitlePage = FilesCommonResource.TitlePage;
@@ -188,12 +176,18 @@ namespace ASC.Web.Files
 
             if (enableThirdParty)
             {
-                SettingPanelHolder.Controls.Add(LoadControl(ThirdParty.Location));
+                SettingPanelHolder.Controls.Add(LoadControl(Files.Controls.ThirdParty.Location));
             }
 
             if (Desktop)
             {
                 CommonContainerHolder.Controls.Add(LoadControl(Files.Controls.Desktop.Location));
+            }
+
+            if (!Desktop
+                && SetupInfo.DisplayMobappBanner("files"))
+            {
+                AppBannerHolder.Controls.Add(LoadControl(AppBanner.Location));
             }
         }
 
@@ -202,35 +196,33 @@ namespace ASC.Web.Files
             if (PersonalSettings.IsNewUser)
             {
                 PersonalSettings.IsNewUser = false;
-                AddCustomScript = SetupInfo.CustomScripts.Length != 0 && !SetupInfo.IsSecretEmail(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email);
+                AddCustomScript = SetupInfo.CustomScripts.Length != 0 && !SetupInfo.IsSecretEmail(CurrentUser.Email);
 
                 Classes.Global.Logger.Info("New personal user " + SecurityContext.CurrentAccount.ID);
             }
 
             if (PersonalSettings.IsNotActivated)
             {
-                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-
-                if (user.ActivationStatus != EmployeeActivationStatus.NotActivated) return;
+                if (CurrentUser.ActivationStatus != EmployeeActivationStatus.NotActivated) return;
 
                 try
                 {
                     SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                    user.ActivationStatus = EmployeeActivationStatus.Activated;
-                    CoreContext.UserManager.SaveUserInfo(user);
+                    CurrentUser.ActivationStatus = EmployeeActivationStatus.Activated;
+                    CoreContext.UserManager.SaveUserInfo(CurrentUser);
                 }
                 finally
                 {
                     SecurityContext.Logout();
                 }
 
-                SecurityContext.AuthenticateMe(user.ID);
+                SecurityContext.AuthenticateMe(CurrentUser.ID);
 
                 PersonalSettings.IsNotActivated = false;
-                Classes.Global.Logger.InfoFormat("User {0} ActivationStatus - Activated", user.ID);
+                Classes.Global.Logger.InfoFormat("User {0} ActivationStatus - Activated", CurrentUser.ID);
 
                 StudioNotifyService.Instance.UserHasJoin();
-                StudioNotifyService.Instance.SendUserWelcomePersonal(user);
+                StudioNotifyService.Instance.SendUserWelcomePersonal(CurrentUser);
             }
         }
     }

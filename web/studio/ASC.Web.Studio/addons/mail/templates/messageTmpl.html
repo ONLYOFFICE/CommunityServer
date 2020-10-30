@@ -1,4 +1,4 @@
-﻿<script id="messageTmpl" type="text/x-jquery-tmpl">
+﻿<script id="messageActionTmpl" type="text/x-jquery-tmpl">
     <div class="itemWrapper">
         <div class="head-subject">
             <button type="button" id="menuActionBack" class="header-back-link button gray"><span></span></button>
@@ -24,38 +24,52 @@
         </div>
 
         {{if $item.messages.length == 1}}
-            {{tmpl($item.messages[0], {
-                fileSizeToStr   : $item.fileSizeToStr,
-                cutFileName: $item.cutFileName,
-                getFileNameWithoutExt: $item.getFileNameWithoutExt,
-                getFileExtension: $item.getFileExtension,
-                htmlEncode      : $item.htmlEncode,
-                isSingleMessage         : true,
-                folder                  : $item.folder
-           }) $item.messages[0].template_name}}
+            {{tmpl($item.data, {
+                needBottomBorder : true,
+                needSortButton   : false,
+                folder           : $item.folder
+            }) "messageTopButtons"}}
         {{else}}
             {{tmpl({}, {
                 needBottomBorder : false,
                 needSortButton   : true,
                 folder           : $item.folder
-           }) "messageTopButtons"}}
+            }) "messageTopButtons"}}
+        {{/if}}
+    </div>
+</script>
 
-            {{each $item.messages}}
-                {{if $value.hidden_count > 0}}
-                    {{tmpl($value, {
-                        count       : $value.hidden_count
-                   }) "collapsedMessagesTmpl"}}
-                {{/if}}
-                {{tmpl($value, {
+<script id="messageTmpl" type="text/x-jquery-tmpl">
+    <div class="itemWrapper">
+        <div class="conversation-view_scrollable">
+            {{if $item.messages.length == 1}}
+                {{tmpl($item.messages[0], {
                     fileSizeToStr   : $item.fileSizeToStr,
                     cutFileName: $item.cutFileName,
                     getFileNameWithoutExt: $item.getFileNameWithoutExt,
                     getFileExtension: $item.getFileExtension,
                     htmlEncode      : $item.htmlEncode,
-                    isSingleMessage : false
-               }) $value.template_name}}
-            {{/each}}
-        {{/if}}
+                    isSingleMessage         : true,
+                    folder                  : $item.folder
+               }) $item.messages[0].template_name}}
+            {{else}}
+                {{each $item.messages}}
+                    {{if $value.hidden_count > 0}}
+                        {{tmpl($value, {
+                            count       : $value.hidden_count
+                        }) "collapsedMessagesTmpl"}}
+                    {{/if}}
+                    {{tmpl($value, {
+                        fileSizeToStr   : $item.fileSizeToStr,
+                        cutFileName: $item.cutFileName,
+                        getFileNameWithoutExt: $item.getFileNameWithoutExt,
+                        getFileExtension: $item.getFileExtension,
+                        htmlEncode      : $item.htmlEncode,
+                        isSingleMessage : false
+                    }) $value.template_name}}
+                {{/each}}
+            {{/if}}
+        </div>
     </div>
 </script>
 
@@ -67,53 +81,48 @@
 
 <script id="messageShortTmpl" type="text/x-jquery-tmpl">
     <div class="message-wrap{{if visible != true}} hidden{{/if}}" message_id="${id}" folder="${folder}" restore_folder_id="${restoreFolderId}" date="${date}">
-        <table class="short-view{{if visible == true && wasNew == true}} new{{/if}}" message_id="${id}">
-            <tbody>
-                <tr class="message_short" data_id="${id}">
-                    <td class="from_label">
-                        <span>${ASC.Mail.Resources.MailScriptResource.FromLabel}:</span>
-                    </td>
-                    <td class="from">
-                        <span title="${fromName}">${fromName}</span>
-                    </td>
-                    <td class="content">
-                        <span title="${$item.htmlEncode(introduction)}">${$item.htmlEncode(introduction)}</span>
-                    </td>
-                    <td class="load_box">
-                        <div class="loader hidden"></div>
-                    </td>
-                    <td class="icon">
-                        {{if attachments.length > 0}}
+        <div class="short-view{{if visible == true && wasNew == true}} new{{/if}}" message_id="${id}">
+            <table>
+                <tbody>
+                    <tr class="row message_short" data_id="${id}">
+                        <td class="from_label">
+                            <span>${ASC.Mail.Resources.MailScriptResource.FromLabel}:</span>
+                        </td>
+                        <td class="from">
+                            <span title="${fromName}">${fromName}</span>
+                        </td>
+                        <td class="content">
+                            <span title="${$item.htmlEncode(introduction)}">${$item.htmlEncode(introduction)}</span>
+                        </td>
+                        <td class="load_box">
+                            <div class="loader hidden"></div>
+                        </td>
+                        <td class="icon">
+                            {{if attachments.length > 0}}
                             <i class="{{if !calendarUid }}icon-attachment{{else}}icon-calendar{{/if}}"></i>
-                        {{/if}}
-                    </td>
-                    <td class="date-time">
-                        <span>
-                            {{if isToday}}
-                                ${ASC.Mail.Resources.MailResource.TodayLabel}
-                            {{else}}
-                                {{if isYesterday}}
-                                    ${ASC.Mail.Resources.MailResource.YesterdayLabel}
-                                {{else}}
-                                    ${displayDate}
-                                {{/if}}
                             {{/if}}
-                        </span>
-                    </td>
-                    <td class="time">
-                        <span>${displayTime}</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                        <td class="date-time">
+                            <span>
+                                {{if isToday}}
+                                ${ASC.Mail.Resources.MailResource.TodayLabel}
+                                {{else}}
+                                {{if isYesterday}}
+                                ${ASC.Mail.Resources.MailResource.YesterdayLabel}
+                                {{else}}
+                                ${displayDate}
+                                {{/if}}
+                                {{/if}}
+                            </span>
+                        </td>
+                        <td class="time">
+                            <span>${displayTime}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="full-view hidden" message_id="${id}" content_blocked="${contentIsBlocked}" is_crm="true" is_personal="true" is_single="false">
-            {{if $item.isSingleMessage == true}}
-                {{tmpl($item.data, {
-                    needBottomBorder : true,
-                    needSortButton   : false,
-                    folder           : $item.folder
-               }) "messageTopButtons"}}
-            {{/if}}
             <div class="head with-entity-menu" message_id="${id}">
                 <table>
                     <tbody>
@@ -143,24 +152,34 @@
                             </td>
                         </tr>
                         {{if cc}}
-                            <tr class="row" data_id="${id}">
-                                <td class="header-label">
-                                    ${ASC.Mail.Resources.MailResource.CopyLabel}:
-                                </td>
-                                <td class="header-value">
-                                    <div class="value cc-addresses">${cc}</div>
-                                </td>
-                            </tr>
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                ${ASC.Mail.Resources.MailResource.CopyLabel}:
+                            </td>
+                            <td class="header-value">
+                                <div class="value cc-addresses">${cc}</div>
+                            </td>
+                        </tr>
                         {{/if}}
                         {{if bcc}}
-                            <tr class="row" data_id="${id}">
-                                <td class="header-label">
-                                    ${ASC.Mail.Resources.MailResource.BCCLabel}:
-                                </td>
-                                <td class="header-value">
-                                    <div class="value bcc-addresses">${bcc}</div>
-                                </td>
-                            </tr>
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                ${ASC.Mail.Resources.MailResource.BCCLabel}:
+                            </td>
+                            <td class="header-value">
+                                <div class="value bcc-addresses">${bcc}</div>
+                            </td>
+                        </tr>
+                        {{/if}}
+                        {{if toyou}}
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                ${ASC.Mail.Resources.MailResource.ToYouLabel}:
+                            </td>
+                            <td class="header-value">
+                                <div class="value toyou-addresses">${address}</div>
+                            </td>
+                        </tr>
                         {{/if}}
                         <tr class="row" data_id="${id}">
                             <td class="header-label">
@@ -200,77 +219,77 @@
             </div>
 
             {{if contentIsBlocked == true}}
-                {{tmpl($item.data, {}) "messageBlockContent"}}
+            	{{tmpl($item.data, {}) "messageBlockContent"}}
             {{/if}}
 
             <div message_id="${id}" class="body"></div>
 
             {{if hasAttachments == true}}
-                <div class="attachments" message_id="${id}">
-                    {{if attachments.length > 0}}
-                        <div class="title-attachments">
-                            <div class="icon"><i class="icon-attachment"></i></div>
-                            <div class="attachment-message has-attachment"></div>${ASC.Mail.Resources.MailResource.Attachments} (${attachments.length}):
-                            <span class="fullSizeLabel">
-                                ${ASC.Mail.Resources.MailResource.FullSize}: ${$item.fileSizeToStr(full_size)}
-                            </span>
-                            {{if ASC.Mail.Master.IsTurnOnAttachmentsGroupOperations == true}}
-                                {{if attachments.length > 1}}
-                                    <div class="attachments-buttons">
-                                        <i class="icon-download-all" />
-                                        <a class="downloadAllAttachments baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.AttachDownloadAll}</a>
-                                        <a href="javascript:void(0);" id="bufferLink" download></a>
-                                        {{if false }}
-                                        <!-- TODO: make on operations -->
-                                        <i class="icon-save-all-to-teamlab" />
-                                        <a href="javascript:void(0);" class="exportAttachemntsToMyDocs baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.ExportAttachmentsToMyDocuments}</a>
-                                        {{/if}}
-                                    </div>
-                                {{/if}}
-                            {{/if}}
-                        </div>
+            <div class="attachments" message_id="${id}">
+                {{if attachments.length > 0}}
+                <div class="title-attachments">
+                    <div class="icon"><i class="icon-attachment"></i></div>
+                    <div class="attachment-message has-attachment"></div>${ASC.Mail.Resources.MailResource.Attachments} (${attachments.length}):
+                    <span class="fullSizeLabel">
+                        ${ASC.Mail.Resources.MailResource.FullSize}: ${$item.fileSizeToStr(full_size)}
+                    </span>
+                    {{if ASC.Mail.Master.IsTurnOnAttachmentsGroupOperations == true}}
+                    {{if attachments.length > 1}}
+                    <div class="attachments-buttons">
+                        <i class="icon-download-all" />
+                        <a class="downloadAllAttachments baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.AttachDownloadAll}</a>
+                        <a href="javascript:void(0);" id="bufferLink" download></a>
+                        {{if false }}
+                        <!-- TODO: make on operations -->
+                        <i class="icon-save-all-to-teamlab" />
+                        <a href="javascript:void(0);" class="exportAttachemntsToMyDocs baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.ExportAttachmentsToMyDocuments}</a>
+                        {{/if}}
+                    </div>
                     {{/if}}
-                    <table class="attachments_list" 
-                        save_to_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToMyDocs}"
-                        save_to_projects_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToProjDocs}"
-                        attach_to_crm_attachment="${ASC.Mail.Resources.MailResource.AttacToCRMContact}">
-                        <tbody>
-                            {{each attachments}}
-                                <tr class="row with-entity-menu" data_id="${$value.fileId}">
-                                    <td class="file_icon">
-                                        <div class="attachmentImage ${$value.iconCls}"/>
-                                    </td>
-                                    <td class="file_info">
-                                        <a {{if $value.handlerUrl.slice(0, 11) !== 'javascript:'}}target="_blank"{{/if}} href="${$value.handlerUrl}" title="${$value.fileName}" 
-                                            {{if $value.isImage == true}}
-                                                class="screenzoom" 
-                                            {{else}} 
-                                                {{if $value.isMedia == true}}
-                                                    class="mediafile"
-                                                {{else}}
-                                                    {{if $value.canView == false}} download="${$value.fileName}" {{/if}} 
-                                                {{/if}}
-                                            {{/if}}>
-                                            <span class="file-name">
-                                                ${$item.cutFileName($item.getFileNameWithoutExt($value.fileName))}
-                                                <span class="file-extension">${$item.getFileExtension($value.fileName)}</span>
-                                            </span>
-                                        </a>
-                                        <span class="fullSizeLabel">(${$item.fileSizeToStr($value.size)})</span>
-                                        {{if $value.canEdit == true}}
-                                            <div class="icon_edit">
-                                                <div class="pencil" title="${ASC.Mail.Resources.MailResource.EditAttachment}" onclick="messagePage.editDocumentAttachment(${$value.fileId});"/>
-                                            </div>
-                                        {{/if}}
-                                    </td>
-                                    <td class="menu_column">
-                                        <div class="entity-menu" data_id="${$value.fileId}" name="${$value.fileName}" title="${ASC.Mail.Resources.MailScriptResource.Actions}" />
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
+                    {{/if}}
                 </div>
+                {{/if}}
+                <table class="attachments_list"
+                       save_to_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToMyDocs}"
+                       save_to_projects_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToProjDocs}"
+                       attach_to_crm_attachment="${ASC.Mail.Resources.MailResource.AttacToCRMContact}">
+                    <tbody>
+                        {{each attachments}}
+                        <tr class="row with-entity-menu" data_id="${$value.fileId}">
+                            <td class="file_icon">
+                                <div class="attachmentImage ${$value.iconCls}" />
+                            </td>
+                            <td class="file_info">
+                                <a {{if $value.handlerUrl.slice(0, 11) !== 'javascript:'}} target="_blank" {{/if}} href="${$value.handlerUrl}" title="${$value.fileName}"
+                                   {{if $value.isImage == true}}
+                                   class="screenzoom"
+                                   {{else}}
+                                   {{if $value.isMedia == true}}
+                                   class="mediafile"
+                                   {{else}}
+                                   {{if $value.canView == false}} download="${$value.fileName}" {{/if}}
+                                   {{/if}}
+                                   {{/if}}>
+                                    <span class="file-name">
+                                        ${$item.cutFileName($item.getFileNameWithoutExt($value.fileName))}
+                                        <span class="file-extension">${$item.getFileExtension($value.fileName)}</span>
+                                    </span>
+                                </a>
+                                <span class="fullSizeLabel">(${$item.fileSizeToStr($value.size)})</span>
+                                {{if $value.canEdit == true}}
+                                <div class="icon_edit">
+                                    <div class="pencil" title="${ASC.Mail.Resources.MailResource.EditAttachment}" onclick="messagePage.editDocumentAttachment(${$value.fileId});" />
+                                </div>
+                                {{/if}}
+                            </td>
+                            <td class="menu_column">
+                                <div class="entity-menu" data_id="${$value.fileId}" name="${$value.fileName}" title="${ASC.Mail.Resources.MailScriptResource.Actions}" />
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
             {{/if}}
         </div>
     </div>
@@ -348,7 +367,7 @@
                 </li>
                 {{/if}}
                 <li class="menu-action-on-top">
-                    <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+                    <a class="on-top-link" onclick="javascript:jQuery('.page-content').scrollTo(0, 0);">
                         ${ASC.Mail.Resources.MailResource.OnTopLabel}
                     </a>
                 </li>

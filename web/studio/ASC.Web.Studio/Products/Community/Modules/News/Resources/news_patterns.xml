@@ -22,6 +22,21 @@ $Answer
 $URL#end
     </body>
   </pattern>
+  
+    <pattern id="new feed" sender="telegram.sender">
+    <subject resource="|subject_new_text_tg|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">#if($FEED_TYPE == "feed")$UserName
+
+$Text
+
+$URL#end#if($FEED_TYPE == "poll")$UserName
+#foreach($Answer in $Answers)
+#each
+
+$Answer
+#end#end
+    </body>
+  </pattern>
 
   <pattern id="new feed comment" sender="email.sender">
     <subject resource="|subject_new_text_comment|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community" />
@@ -35,6 +50,13 @@ $URL#end
 $CommentBody
 
 $CommentURL
+    </body>
+  </pattern>
+  <pattern id="new feed comment" sender="telegram.sender">
+    <subject resource="|subject_new_text_comment_tg|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
     </body>
   </pattern>
 </patterns>

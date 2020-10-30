@@ -1,141 +1,150 @@
-﻿<script id="contactsListBaseTmpl" type="text/x-jquery-tmpl">
-<div id="mainContactList">
-    <div class="clearFix">
-        <div id="contactsFilterContainer">
-            <div id="contactsAdvansedFilter"></div>
-        </div>
-        <div id="companyListBox" style="display: none">
-            <ul id="contactsHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
-                <li class="menuAction menuActionSelectAll menuActionSelectLonely">
-                    <div class="menuActionSelect">
-                        <input type="checkbox" id="mainSelectAll" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListContactView.selectAll(this);" />
-                    </div>
-                </li>
-                {{if IsCRMAdmin === true}}
-                <li class="menuAction menuActionSendEmail" title="${ASC.CRM.Resources.CRMCommonResource.SendEmail}">
-                    <span>${ASC.CRM.Resources.CRMCommonResource.SendEmail}</span>
-                    <div class="down_arrow"></div>
-                </li>
-                {{/if}}
-                <li class="menuAction menuActionAddTag" title="${ASC.CRM.Resources.CRMCommonResource.AddNewTag}">
-                    <span>${ASC.CRM.Resources.CRMCommonResource.AddNewTag}</span>
-                    <div class="down_arrow"></div>
-                </li>
-                <li class="menuAction menuActionAddTask" title="${ASC.CRM.Resources.CRMTaskResource.AddNewTaskButtonText}">
-                    <span>${ASC.CRM.Resources.CRMTaskResource.AddNewTaskButtonText}</span>
-                </li>
-                <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
-                    <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
-                </li>
-                <li class="menu-action-simple-pagenav">
-                </li>
-                <li class="menu-action-checked-count">
-                    <span></span>
-                    <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListContactView.deselectAll();">
-                        ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
-                    </a>
-                </li>
-                <li class="menu-action-on-top">
-                    <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
-                        ${ASC.CRM.Resources.CRMCommonResource.OnTop}
-                    </a>
-                </li>
-            </ul>
-            <div class="header-menu-spacer">&nbsp;</div>
+﻿<script id="contactsListFilterTmpl" type="text/x-jquery-tmpl">
+    <div id="contactsFilterContainer">
+        <div id="contactsAdvansedFilter"></div>
+    </div>
+    <ul id="contactsHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
+        <li class="menuAction menuActionSelectAll menuActionSelectLonely">
+            <div class="menuActionSelect">
+                <input type="checkbox" id="mainSelectAll" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListContactView.selectAll(this);" />
+            </div>
+        </li>
+        {{if IsCRMAdmin === true}}
+        <li class="menuAction menuActionSendEmail" title="${ASC.CRM.Resources.CRMCommonResource.SendEmail}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.SendEmail}</span>
+            <div class="down_arrow"></div>
+        </li>
+        {{/if}}
+        <li class="menuAction menuActionAddTag" title="${ASC.CRM.Resources.CRMCommonResource.AddNewTag}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.AddNewTag}</span>
+            <div class="down_arrow"></div>
+        </li>
+        <li class="menuAction menuActionAddTask" title="${ASC.CRM.Resources.CRMTaskResource.AddNewTaskButtonText}">
+            <span>${ASC.CRM.Resources.CRMTaskResource.AddNewTaskButtonText}</span>
+        </li>
+        <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
+        </li>
+        <li class="menu-action-simple-pagenav">
+        </li>
+        <li class="menu-action-checked-count">
+            <span></span>
+            <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListContactView.deselectAll();">
+                ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
+            </a>
+        </li>
+        <li class="menu-action-on-top">
+            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+                ${ASC.CRM.Resources.CRMCommonResource.OnTop}
+            </a>
+        </li>
+    </ul>
+    <div class="header-menu-spacer">&nbsp;</div>
+</script>
 
-            <table id="companyTable" class="table-list padding4" cellpadding="0" cellspacing="0">
-                <colgroup>
-                    <col style="width: 26px;"/>
-                    <col style="width: 40px;"/>
-                    <col/>
-                    <col style="width: 200px;"/>
-                    <col style="width: 200px;"/>
-                    <col style="width: 200px;"/>
-                    <col style="width: 40px;"/>
-                </colgroup>
-                <tbody>
-                </tbody>
-            </table>
-
-            <table id="tableForContactNavigation" class="crm-navigationPanel" cellpadding="4" cellspacing="0" border="0">
-                <tbody>
-                <tr>
-                    <td>
-                        <div id="divForContactPager">
-                        </div>
-                    </td>
-                    <td style="text-align:right;">
-                        <span class="gray-text">${ASC.CRM.Resources.CRMContactResource.TotalContacts}:&nbsp;</span>
-                        <span class="gray-text" id="totalContactsOnPage"></span>
-                        <span class="page-nav-info">
-                            <span class="gray-text">${ASC.CRM.Resources.CRMCommonResource.ShowOnPage}:&nbsp;</span>
-                            <select class="top-align">
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="75">75</option>
-                                <option value="100">100</option>
-                            </select>
-                        </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<script id="contactsListBaseTmpl" type="text/x-jquery-tmpl">
+    <div id="mainContactList">
+        <div class="clearFix">
+            <div id="companyListBox" style="display: none">
+                <table id="companyTable" class="table-list padding4" cellpadding="0" cellspacing="0">
+                    <colgroup>
+                        <col style="width: 26px;"/>
+                        <col style="width: 40px;"/>
+                        <col/>
+                        <col style="width: 200px;"/>
+                        <col style="width: 200px;"/>
+                        <col style="width: 200px;"/>
+                        <col style="width: 40px;"/>
+                    </colgroup>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="permissionsContactsPanelInnerHtml" class="display-none">
-    {{if IsCRMAdmin !== true}}
-    <div style="margin-top:10px">
-        <b>${ASC.CRM.Resources.CRMCommonResource.AccessRightsLimit}</b>
+    <div id="permissionsContactsPanelInnerHtml" class="display-none">
+        {{if IsCRMAdmin !== true}}
+        <div style="margin-top:10px">
+            <b>${ASC.CRM.Resources.CRMCommonResource.AccessRightsLimit}</b>
+        </div>
+        {{/if}}
+    </div>
+
+
+    {{if IsCRMAdmin === true}}
+    <div id="sendEmailDialog" class="studio-action-panel group-actions">
+        <ul class="dropdown-content">
+            <li>
+                <a class="dropdown-item" onclick="ASC.CRM.ListContactView.showCreateLinkPanel()">
+                    ${ASC.CRM.Resources.CRMSettingResource.ExternalClient}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" onclick="ASC.CRM.ListContactView.showSenderPage()">
+                    ${ASC.CRM.Resources.smtpQuotas}
+                </a>
+            </li>
+        </ul>
     </div>
     {{/if}}
-</div>
 
-
-{{if IsCRMAdmin === true}}
-<div id="sendEmailDialog" class="studio-action-panel group-actions">
-    <ul class="dropdown-content">
-        <li>
-            <a class="dropdown-item" onclick="ASC.CRM.ListContactView.showCreateLinkPanel()">
-                ${ASC.CRM.Resources.CRMSettingResource.ExternalClient}
+    <div id="addTagDialog" class="studio-action-panel group-actions addTagDialog">
+        <ul class="dropdown-content mobile-overflow"></ul>
+        <div class="h_line">&nbsp;</div>
+        <div style="padding: 0 12px;">
+            <div style="margin-bottom: 5px;" >${ASC.CRM.Resources.CRMCommonResource.CreateNewTag}:</div>
+            <input type="text" maxlength="50" class="textEdit" />
+            <a onclick="ASC.CRM.ListContactView.addNewTag();" class="button blue" id="addThisTag">
+                ${ASC.CRM.Resources.CRMCommonResource.OK}
             </a>
-        </li>
-        <li>
-            <a class="dropdown-item" onclick="ASC.CRM.ListContactView.showSenderPage()">
-                ${ASC.CRM.Resources.smtpQuotas}
-            </a>
-        </li>
-    </ul>
-</div>
-{{/if}}
-
-<div id="addTagDialog" class="studio-action-panel group-actions addTagDialog">
-    <ul class="dropdown-content mobile-overflow"></ul>
-    <div class="h_line">&nbsp;</div>
-    <div style="padding: 0 12px;">
-        <div style="margin-bottom: 5px;" >${ASC.CRM.Resources.CRMCommonResource.CreateNewTag}:</div>
-        <input type="text" maxlength="50" class="textEdit" />
-        <a onclick="ASC.CRM.ListContactView.addNewTag();" class="button blue" id="addThisTag">
-            ${ASC.CRM.Resources.CRMCommonResource.OK}
-        </a>
+        </div>
     </div>
-</div>
 
-<div id="contactActionMenu" class="studio-action-panel">
-    <ul class="dropdown-content">
-        <li><a class="showProfileLink dropdown-item">${ASC.CRM.Resources.CRMContactResource.ShowContactProfile}</a></li>
-        <li><a class="showProfileLinkNewTab dropdown-item">${ASC.CRM.Resources.CRMContactResource.ShowContactProfileNewTab}</a></li>
-        <li><a class="addPhoneLink dropdown-item">${ASC.CRM.Resources.CRMJSResource.AddNewPhone}</a></li>
-        <li><a class="addEmailLink dropdown-item">${ASC.CRM.Resources.CRMJSResource.AddNewEmail}</a></li>
-        <li><a class="sendEmailLink dropdown-item" target="_blank">${ASC.CRM.Resources.CRMContactResource.WriteEmail}</a></li>
-        <li><a class="addTaskLink dropdown-item">${ASC.CRM.Resources.CRMTaskResource.AddNewTask}</a></li>
-        <li><a class="addDealLink dropdown-item">${ASC.CRM.Resources.CRMDealResource.CreateNewDeal}</a></li>
-        <li><a class="addCaseLink dropdown-item">${ASC.CRM.Resources.CRMCasesResource.CreateNewCase}</a></li>
-        <li><a class="editContactLink dropdown-item">${ASC.CRM.Resources.CRMContactResource.EditContact}</a></li>
-        <li><a class="deleteContactLink dropdown-item">${ASC.CRM.Resources.CRMContactResource.DeleteContact}</a></li>
-    </ul>
-</div>
+    <div id="contactActionMenu" class="studio-action-panel">
+        <ul class="dropdown-content">
+            <li><a class="showProfileLink dropdown-item with-icon user">${ASC.CRM.Resources.CRMContactResource.ShowContactProfile}</a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item with-icon new-tab">${ASC.CRM.Resources.CRMContactResource.ShowContactProfileNewTab}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="addPhoneLink dropdown-item with-icon phone">${ASC.CRM.Resources.CRMJSResource.AddNewPhone}</a></li>
+            <li><a class="addEmailLink dropdown-item with-icon add-email">${ASC.CRM.Resources.CRMJSResource.AddNewEmail}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="makeVoIPCallLink dropdown-item with-icon call">${ASC.CRM.Resources.CRMJSResource.MakeVoIPCall}</a></li>
+            <li><a class="sendEmailLink dropdown-item with-icon email" target="_blank">${ASC.CRM.Resources.CRMContactResource.WriteEmail}</a></li>
+            <li><a class="addTaskLink dropdown-item with-icon new-task">${ASC.CRM.Resources.CRMTaskResource.AddNewTask}</a></li>
+            <li><a class="addDealLink dropdown-item with-icon new-opportunity">${ASC.CRM.Resources.CRMDealResource.CreateNewDeal}</a></li>
+            <li><a class="addCaseLink dropdown-item with-icon case">${ASC.CRM.Resources.CRMCasesResource.CreateNewCase}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="editContactLink dropdown-item with-icon edit">${ASC.CRM.Resources.CRMContactResource.EditContact}</a></li>
+            <li><a class="deleteContactLink dropdown-item with-icon delete">${ASC.CRM.Resources.CRMContactResource.DeleteContact}</a></li>
+        </ul>
+    </div>
+
+</script>
+
+<script id="contactsListPagingTmpl" type="text/x-jquery-tmpl">
+    <table id="tableForContactNavigation" class="crm-navigationPanel" cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+            <tr>
+                <td>
+                    <div id="divForContactPager">
+                    </div>
+                </td>
+                <td style="text-align:right;">
+                    <span class="gray-text">${ASC.CRM.Resources.CRMContactResource.TotalContacts}:&nbsp;</span>
+                    <span class="gray-text" id="totalContactsOnPage"></span>
+                    <span class="page-nav-info">
+                        <span class="gray-text">${ASC.CRM.Resources.CRMCommonResource.ShowOnPage}:&nbsp;</span>
+                        <select class="top-align">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                            <option value="100">100</option>
+                        </select>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </script>
 
 <script id="contactListTmpl" type="text/x-jquery-tmpl">
@@ -165,14 +174,14 @@
 
         <td>
             <div class="contactTitle">
-                <a class="linkHeaderMedium" href="default.aspx?id=${id}">
+                <a class="linkHeaderMedium" href="Default.aspx?id=${id}">
                     ${displayName}
                 </a>
             </div>
             {{if isCompany == false && company != null}}
                 <div class="contactTitle">
                     ${ASC.CRM.Resources.CRMContactResource.Company}:&nbsp;
-                    <a href="default.aspx?id=${company.id}" data-id="${company.id}" id="contact_${id}_company_${company.id}" class="linkMedium crm-companyInfoCardLink">
+                    <a href="Default.aspx?id=${company.id}" data-id="${company.id}" id="contact_${id}_company_${company.id}" class="linkMedium crm-companyInfoCardLink">
                         ${company.displayName}
                     </a>
                 </div>
@@ -275,7 +284,7 @@
     {{if infoType == 0}}
         <div class="collectionItem">
             {{if isPrimary == true}}
-            <a href="callto:${data}?call" class="linkMedium">${data}</a>
+            <a href="tel:${data}" class="linkMedium">${data}</a>
             {{else}}
             <span>${data}</span>
             {{/if}}
@@ -343,7 +352,9 @@
 <script id="twitterMessageListTmpl" type="text/x-jquery-tmpl">
     <div class="sm_message_line clearFix">
         <div class="sn_user_icon">
-            <img alt="" src="${userImageUrl}" width="32" />&nbsp;
+            <a href="https://twitter.com/#!/${userId}" target="_blank">
+                <img alt="" src="${userImageUrl}" width="32" />
+            </a>&nbsp;
         </div>
         <div class="sn_message_block longWordsBreak">
             <span class="header-base-small sn_userName">

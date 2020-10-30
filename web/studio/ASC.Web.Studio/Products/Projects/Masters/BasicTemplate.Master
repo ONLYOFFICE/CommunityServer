@@ -4,9 +4,14 @@
 <%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master" CodeBehind="BasicTemplate.master.cs" Inherits="ASC.Web.Projects.Masters.BasicTemplate" %>
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+<%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
     <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="CreateButtonContent" runat="server">
+    <asp:PlaceHolder ID="createButtonPanel" runat="server" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SidePanel" runat="server">
@@ -17,9 +22,42 @@
     <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
 </asp:Content>
 
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
+    <div class="project-info-container display-none"></div>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="FilterContent" runat="server">
+    <div id="filterContainer">
+        <div id="ProjectsAdvansedFilter"></div>
+    </div>
+    <div id="groupActionContainer">
+        <div class="header-menu-spacer"> </div>
+    </div>
+    <asp:ContentPlaceHolder ID="FilterContent" runat="server" />
+</asp:Content>
+
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
     <asp:ContentPlaceHolder ID="commonHolder" runat="server" />
     <asp:PlaceHolder ID="_projectNavigatePanel" runat="server" />
     <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
     <asp:PlaceHolder runat="server" ID="_commonPopupHolder"></asp:PlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PagingContent" runat="server">
+    <table id="tableForNavigation" cellpadding="0" cellspacing="0" style="display: none">
+        <tbody>
+        <tr>
+            <td>
+                <div id="divForTaskPager" class="divPager">
+                </div>
+            </td>
+            <td style="text-align:right;">
+                <span class="gray-text"><%= ProjectsCommonResource.Total%> : </span>
+                <span class="gray-text" style="margin-right: 20px;" id="totalCount"></span>
+                <span class="gray-text"><%= ProjectsCommonResource.ShowOnPage%> : </span>
+                <span id="countOfRows" class="top-align link dotline">25</span> 
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </asp:Content>

@@ -9,7 +9,7 @@
       <table class="not-preview" cellspacing="0" cellpadding="0" border="0">
         <thead>
           <tr class="versions-title">
-            <th colspan="8">
+            <th colspan="7">
               <resource name="fres.TitleVersionHistory" />
             </th>
             <th>
@@ -41,10 +41,7 @@
               </div>
             </td>
             <td class="version-date">
-              <xsl:value-of select="substring-before(modified_on, ' ')" />
-            </td>
-            <td class="version-time">
-              <xsl:value-of select="substring-after(modified_on, ' ')" />
+              <xsl:value-of select="modified_on" />
             </td>
             <td class="version-sublist">
               <span></span>

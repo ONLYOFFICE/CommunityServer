@@ -147,10 +147,19 @@ $CommentBody
   <data name="subject_1" xml:space="preserve">
     <value>Community. New Wiki page added: $PageName</value>
   </data>
+  <data name="subject_1_tg" xml:space="preserve">
+    <value>Community. New Wiki page added: [$PageName]($URL)</value>
+  </data>
   <data name="subject_2" xml:space="preserve">
     <value>Community. Wiki page edited: $PageName</value>
   </data>
+  <data name="subject_2_tg" xml:space="preserve">
+    <value>Community. Wiki page edited: [$PageName]($URL)</value>
+  </data>
   <data name="subject_3" xml:space="preserve">
     <value>Community. New comment to Wiki page: $PageName</value>
+  </data>
+  <data name="subject_3_tg" xml:space="preserve">
+    <value>Community. New comment to Wiki page: [$PageName]($URL)</value>
   </data>
 </root>

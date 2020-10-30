@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,12 +18,13 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Data.Storage;
 using ASC.Web.Core;
 using ASC.Web.Core.WebZones;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
-using ASC.Data.Storage;
 
 namespace ASC.Web.CRM.Configuration
 {
@@ -56,28 +48,30 @@ namespace ASC.Web.CRM.Configuration
 
         public string StartURL
         {
-            get { return PathProvider.StartURL() + "settings.aspx?type=voip.common&sysname=/modules/voip"; }
+            get { return PathProvider.StartURL() + "Settings.aspx?type=voip.common&sysname=/modules/voip"; }
         }
+
+        public string WarmupURL { get; set; }
 
         public string HelpURL
         {
-            get { return ""; }
+            get { return null; }
         }
 
         public string ProductClassName { get { return "voip"; } }
 
-        public bool Visible { get { return SetupInfo.VoipEnabled == "true"; } }
+        public bool Visible { get { return SetupInfo.VoipEnabled; } }
 
         public AddonContext Context { get; private set; }
 
         public void Init()
         {
             Context = new AddonContext
-                      {
-                          DefaultSortOrder = 90,
-                          IconFileName = "voip_logo.png",
-                          CanNotBeDisabled = true
-                      };
+            {
+                DefaultSortOrder = 90,
+                IconFileName = "voip_logo.png",
+                CanNotBeDisabled = true
+            };
         }
 
         public void Shutdown()

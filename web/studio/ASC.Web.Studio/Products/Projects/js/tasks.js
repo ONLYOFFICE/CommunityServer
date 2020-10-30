@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -225,7 +216,7 @@ ASC.Projects.TasksManager = (function () {
                 getItem: getFilteredTaskByTarget,
                 selector: '.task .taskName a',
                 getLink: function(item) {
-                    return "tasks.aspx?prjID=" + item.projectOwner.id + "&id=" + item.id;
+                    return "Tasks.aspx?prjID=" + item.projectOwner.id + "&id=" + item.id;
                 }
             });
 
@@ -314,32 +305,49 @@ ASC.Projects.TasksManager = (function () {
 
         if (task.status !== 2) {
             if (task.canEdit) {
-                menuItems.push(new ActionMenuItem("ta_edit", tasksResource.Edit, taEditHandler.bind(null, task)));
-                menuItems.push(new ActionMenuItem("ta_move", tasksResource.MoveToMilestone, taMoveHandler.bind(null, task)));
-                if (task.responsibles && task.responsibles.some(function (item) { return item.id != currentUserId; })) {
-                    menuItems.push(new ActionMenuItem("ta_mesres", tasksResource.MessageResponsible, taMesresHandler.bind(null, taskid)));
-                }
+                menuItems.push(new ActionMenuItem("ta_edit", tasksResource.Edit, taEditHandler.bind(null, task), "edit"));
+            }
+
+            if (task.canCreateSubtask) {
+                menuItems.push(new ActionMenuItem("ta_subtask", tasksResource.AddSubtask, taSubtaskHandler.bind(null, taskid), "subtask-v2"));
             }
 
             if (!task.responsible) {
-                menuItems.push(new ActionMenuItem("ta_accept", tasksResource.AcceptSubtask, taAcceptHandler.bind(null, task)));
+                menuItems.push(new ActionMenuItem("ta_accept", tasksResource.AcceptSubtask, taAcceptHandler.bind(null, task), "accept"));
             }
 
-            if (task.canCreateSubtask)
-                menuItems.push(new ActionMenuItem("ta_subtask", tasksResource.AddSubtask, taSubtaskHandler.bind(null, taskid)));
+            if (menuItems.length) {
+                menuItems.push(new ActionMenuItem(null, null, null, null, true));
+            }
 
-            var project = common.getProjectById(task.projectId);
-            if (project && project.canCreateTask) {
-                menuItems.push(new ActionMenuItem("ta_copy", resources.CommonResource.Copy, taCopyHandler.bind(null, task)));
+            if (task.canEdit) {
+                if (task.responsibles && task.responsibles.some(function (item) { return item.id != currentUserId; })) {
+                    menuItems.push(new ActionMenuItem("ta_mesres", tasksResource.MessageResponsible, taMesresHandler.bind(null, taskid), "notify-responsible"));
+                } 
             }
         }
 
         if (task.canCreateTimeSpend) {
-            menuItems.push(new ActionMenuItem("ta_time", tasksResource.TrackTime, taTimeHandler.bind(null, task)));
+            menuItems.push(new ActionMenuItem("ta_time", tasksResource.TrackTime, taTimeHandler.bind(null, task), "track-time"));
+        }
+
+        if (task.status !== 2) {
+            if (task.canEdit) {
+                menuItems.push(new ActionMenuItem("ta_move", tasksResource.MoveToMilestone, taMoveHandler.bind(null, task), "move-to-milestone"));
+            }
+
+            var project = common.getProjectById(task.projectId);
+            if (project && project.canCreateTask) {
+                menuItems.push(new ActionMenuItem("ta_copy", resources.CommonResource.Copy, taCopyHandler.bind(null, task), "move-or-copy"));
+            } 
         }
 
         if (task.canDelete) {
-            menuItems.push(new ActionMenuItem("ta_remove", resources.CommonResource.Delete, taRemoveHandler.bind(null, taskid)));
+            if (menuItems.length >= 3) {
+                menuItems.push(new ActionMenuItem(null, null, null, null, true));
+            }
+
+            menuItems.push(new ActionMenuItem("ta_remove", resources.CommonResource.Delete, taRemoveHandler.bind(null, taskid), "delete"));
         }
 
         return { menuItems: menuItems };
@@ -555,7 +563,7 @@ ASC.Projects.TasksManager = (function () {
                         },
                         function() {
                             jq.unblockUI();
-                            StudioBlockUIManager.blockUI($moveTaskPanel, 550, 300, 0);
+                            StudioBlockUIManager.blockUI($moveTaskPanel, 550);
                         });
                 } else {
                     update();
@@ -741,7 +749,7 @@ ASC.Projects.TasksManager = (function () {
             }
         }));
 
-        StudioBlockUIManager.blockUI($moveTaskPanel, 550, 300, 0);
+        StudioBlockUIManager.blockUI($moveTaskPanel, 550);
         PopupKeyUpActionProvider.EnterAction = "$moveTaskPanel.find('.blue').click();";
     };
 
@@ -792,7 +800,7 @@ ASC.Projects.TasksManager = (function () {
         var postData = {
             calendarId: "Project_" + task.projectId,
             uid: "Task_" + task.id,
-            responsibles: task.responsibles.map(user => user.id)
+            responsibles: jq.map(task.responsibles, function (user) { return user.id; })
         };
         jq.ajax({
             type: action === 0 || action === 1 ? 'put' : 'delete',
@@ -801,9 +809,9 @@ ASC.Projects.TasksManager = (function () {
             complete: function (d) {}
         });
         if (action === 0 || action === 1) {
-            Teamlab.getPrjTeam({}, task.projectId, (p, t) => {
-                var team = t.map(user => user.id);
-                var responsibles = task.responsibles.map(user => user.id);
+            Teamlab.getPrjTeam({}, task.projectId, function (p, t) {
+                var team = jq.map(t, function (user) { return user.id; });
+                var responsibles = jq.map(task.responsibles, function (user) { return user.id; });
 
                 var needDelete = team.filter(function (userId) {
                     return responsibles.indexOf(userId) < 0;

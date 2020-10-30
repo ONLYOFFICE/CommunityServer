@@ -156,13 +156,13 @@
         </div>
 
         <a id="confirmEmailBtn" class="auth-form-with_form_btn disabled" ><%=CustomModeResource.RegistryButtonCreateNowCustomMode %></a>
-            <% if (SetupInfo.ThirdPartyAuthEnabled) {%>
+        <% if (ThirdpartyEnable)
+           { %>
         <span class="auth-form-with_form_or"><%= CustomModeResource.AuthDocsOrCustomMode %></span>
         <span class="auth-form-with_btns_social auth-docs_btns_social">
             <asp:PlaceHolder runat="server" ID="HolderLoginWithThirdParty"></asp:PlaceHolder>
         </span> 
-        <%} %>
-                    
+        <% } %>
     </div>
 </div>
 <!-- ------ -->
@@ -194,7 +194,8 @@
         </div>
         <div class="default-personal-popup_form-i">
             <label class="default-personal-popup_label password"><%= CustomModeResource.PasswordCustomMode %></label>
-            <input class="default-personal-popup_field password" id="pwd" name="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+            <input class="default-personal-popup_field password" id="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+            <input type="hidden" id="passwordHash" name="passwordHash" />
             
             <%if (Request.DesktopApp()){ %>
                 <span class="desktop-personal-popup_check">
@@ -216,11 +217,12 @@
         </div>
 
         <div class="login_accept-btn-cnt">
-            <button id="loginBtn" class="default-personal-popup_btn disabled" type="submit"><%= CustomModeResource.LoginCustomMode %></button>
+            <button id="loginBtn" class="default-personal-popup_btn <%= Request.DesktopApp() ? "disabled" : "" %>"
+                onclick="return false;"><%= CustomModeResource.LoginCustomMode %></button>
             <span class="login_forget-psw" onclick="PasswordTool.ShowPwdReminderDialog();"><%= CustomModeResource.ForgotPswdCustomMode %></span>
         </div>
         
-        <% if (SetupInfo.ThirdPartyAuthEnabled)
+        <% if (ThirdpartyEnable)
            {%>
         <div class="popup_social-nets auth-docs_btns_social">
             <div class="auth-docs_social_text"><%= CustomModeResource.EnterViaSocialCustomMode %></div>

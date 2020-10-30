@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Services.NotifyService {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesPatternResource {
@@ -130,9 +130,9 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1. Access granted to folder: &quot;$DocumentTitle&quot;:&quot;$__VirtualRootPath/products/files/#$FolderID&quot;
+        ///   Looks up a localized string similar to h1. Access granted to folder: &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
         ///
-        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentTitle&quot;:&quot;$__VirtualRootPath/products/files/#$FolderID&quot; folder with the following access rights: &quot;$AccessRights&quot;. 
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentURL&quot; folder with the following access rights: &quot;$AccessRights&quot;. 
         ///
         ///$Message.
         /// </summary>
@@ -164,6 +164,15 @@ namespace ASC.Web.Files.Services.NotifyService {
         public static string subject_DocuSignComplete {
             get {
                 return ResourceManager.GetString("subject_DocuSignComplete", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Documents. All signers completed [$DocumentTitle]($DocumentURL).
+        /// </summary>
+        public static string subject_DocuSignComplete_tg {
+            get {
+                return ResourceManager.GetString("subject_DocuSignComplete_tg", resourceCulture);
             }
         }
         
@@ -202,13 +211,30 @@ namespace ASC.Web.Files.Services.NotifyService {
                 return ResourceManager.GetString("subject_ShareDocument", resourceCulture);
             }
         }
-        
+
+        ///   Looks up a localized string similar to Documents. Access granted to document: [$DocumentTitle]($DocumentURL).
+        /// </summary>
+        public static string subject_ShareDocument_tg {
+            get {
+                return ResourceManager.GetString("subject_ShareDocument_tg", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Documents. Access granted to folder: $DocumentTitle.
         /// </summary>
         public static string subject_ShareFolder {
             get {
                 return ResourceManager.GetString("subject_ShareFolder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Documents. Access granted to folder: [$DocumentTitle]($DocumentURL).
+        /// </summary>
+        public static string subject_ShareFolder_tg {
+            get {
+                return ResourceManager.GetString("subject_ShareFolder_tg", resourceCulture);
             }
         }
     }

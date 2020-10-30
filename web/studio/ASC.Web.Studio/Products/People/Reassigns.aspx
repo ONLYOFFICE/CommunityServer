@@ -1,12 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/products/people/Masters/PeopleBaseTemplate.Master" CodeBehind="Reassigns.aspx.cs" Inherits="ASC.Web.People.Reassigns" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/People/Masters/PeopleBaseTemplate.Master" CodeBehind="Reassigns.aspx.cs" Inherits="ASC.Web.People.Reassigns" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
 <%@ Import Namespace="Resources" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PeoplePageContent" runat="server">
-    
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
     <div class="clearFix profile-title header-with-menu">
         <span class="header text-overflow" title="<%= PageTitle %>"><%= PageTitle %></span>
     </div>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PeoplePageContent" runat="server">
 
     <% if(RemoveData) {%>
 
@@ -34,7 +36,7 @@
         <div class="big-button-container">
             <a class="start-btn button blue big"><%= Resource.DeleteButton %></a>
             <span class="splitter-buttons"></span>
-            <a class="button gray big" href="reassigns.aspx?user=<%= HttpUtility.UrlEncode(UserInfo.UserName) %>"><%= Resource.ReassignData %></a>
+            <a class="button gray big" href="Reassigns.aspx?user=<%= HttpUtility.UrlEncode(UserInfo.UserName) %>"><%= Resource.ReassignData %></a>
             <span class="splitter-buttons"></span>
             <a class="button gray big" href="<%= ProfileLink %>"><%= Resource.CancelButton %></a>
         </div>
@@ -69,7 +71,7 @@
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.RemovingAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.RemovingRestartButton %></a>
-            <a class="ok-btn button gray big display-none" href="/products/people/"><%= Resource.OKButton %></a>
+            <a class="ok-btn button gray big display-none" href="/Products/People/"><%= Resource.OKButton %></a>
         </div>
     </div>
 
@@ -135,7 +137,7 @@
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.ReassignAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.ReassignRestartButton %></a>
-            <a class="ok-btn button gray big display-none" href="/products/people/"><%= Resource.OKButton %></a>
+            <a class="ok-btn button gray big display-none" href="/Products/People/"><%= Resource.OKButton %></a>
         </div>
     </div>
 

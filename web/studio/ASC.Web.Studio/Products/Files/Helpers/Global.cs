@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -27,10 +18,10 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Web.Configuration;
+
 using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Core;
@@ -125,6 +116,10 @@ namespace ASC.Web.Files.Classes
                         UserRootFolderCache.Clear();
                         CommonFolderCache.Clear();
                         ShareFolderCache.Clear();
+                        RecentFolderCache.Clear();
+                        FavoritesFolderCache.Clear();
+                        TemplatesFolderCache.Clear();
+                        PrivacyFolderCache.Clear();
                         TrashFolderCache.Clear();
                     }
                     catch (Exception e)
@@ -147,7 +142,7 @@ namespace ASC.Web.Files.Classes
 
         public static bool EnableUploadFilter
         {
-            get { return Boolean.TrueString.Equals(WebConfigurationManager.AppSettings["files.upload-filter"] ?? "false", StringComparison.InvariantCultureIgnoreCase); }
+            get { return Boolean.TrueString.Equals(ConfigurationManagerExtension.AppSettings["files.upload-filter"] ?? "false", StringComparison.InvariantCultureIgnoreCase); }
         }
 
         public static TimeSpan StreamUrlExpire
@@ -155,7 +150,7 @@ namespace ASC.Web.Files.Classes
             get
             {
                 int validateTimespan;
-                int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
+                int.TryParse(ConfigurationManagerExtension.AppSettings["files.stream-url-minute"], out validateTimespan);
                 if (validateTimespan <= 0) validateTimespan = 16;
                 return TimeSpan.FromMinutes(validateTimespan);
             }
@@ -240,6 +235,28 @@ namespace ASC.Web.Files.Classes
             }
         }
 
+        public static bool IsFirstVisit()
+        {
+            var cacheKey = string.Format("my/{0}/{1}", TenantProvider.CurrentTenantID, SecurityContext.CurrentAccount.ID);
+
+            object myFolderId;
+
+            if (!UserRootFolderCache.TryGetValue(cacheKey, out myFolderId))
+            {
+                using (var folderDao = DaoFactory.GetFolderDao())
+                {
+                    myFolderId = folderDao.GetFolderIDUser(false);
+
+                    if (Equals(myFolderId, 0))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private static readonly IDictionary<int, object> CommonFolderCache =
             new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
@@ -286,6 +303,111 @@ namespace ASC.Web.Files.Classes
             }
         }
 
+        private static readonly IDictionary<int, object> RecentFolderCache =
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+
+        public static object FolderRecent
+        {
+            get
+            {
+                if (!SecurityContext.IsAuthenticated) return 0;
+                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return 0;
+
+                object recentFolderId;
+                if (!RecentFolderCache.TryGetValue(TenantProvider.CurrentTenantID, out recentFolderId))
+                {
+                    using (var folderDao = DaoFactory.GetFolderDao())
+                    {
+                        recentFolderId = folderDao.GetFolderIDRecent(true);
+                    }
+
+                    if (!recentFolderId.Equals(0))
+                        RecentFolderCache[TenantProvider.CurrentTenantID] = recentFolderId;
+                }
+
+                return recentFolderId;
+            }
+        }
+
+        private static readonly IDictionary<int, object> FavoritesFolderCache =
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+
+        public static object FolderFavorites
+        {
+            get
+            {
+                if (!SecurityContext.IsAuthenticated) return 0;
+                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return 0;
+
+                object favoriteFolderId;
+                if (!FavoritesFolderCache.TryGetValue(TenantProvider.CurrentTenantID, out favoriteFolderId))
+                {
+                    using (var folderDao = DaoFactory.GetFolderDao())
+                    {
+                        favoriteFolderId = folderDao.GetFolderIDFavorites(true);
+                    }
+
+                    if (!favoriteFolderId.Equals(0))
+                        FavoritesFolderCache[TenantProvider.CurrentTenantID] = favoriteFolderId;
+                }
+
+                return favoriteFolderId;
+            }
+        }
+
+        private static readonly IDictionary<int, object> TemplatesFolderCache =
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+
+        public static object FolderTemplates
+        {
+            get
+            {
+                if (!SecurityContext.IsAuthenticated) return 0;
+                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return 0;
+
+                object templatesFolderId;
+                if (!TemplatesFolderCache.TryGetValue(TenantProvider.CurrentTenantID, out templatesFolderId))
+                {
+                    using (var folderDao = DaoFactory.GetFolderDao())
+                    {
+                        templatesFolderId = folderDao.GetFolderIDTemplates(true);
+                    }
+
+                    if (!templatesFolderId.Equals(0))
+                        TemplatesFolderCache[TenantProvider.CurrentTenantID] = templatesFolderId;
+                }
+
+                return templatesFolderId;
+            }
+        }
+
+        private static readonly IDictionary<string, object> PrivacyFolderCache =
+            new ConcurrentDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+
+        public static object FolderPrivacy
+        {
+            get
+            {
+                if (!SecurityContext.IsAuthenticated) return 0;
+                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return 0;
+
+                var cacheKey = string.Format("privacy/{0}/{1}", TenantProvider.CurrentTenantID, SecurityContext.CurrentAccount.ID);
+
+                object privacyFolderId;
+                if (!PrivacyFolderCache.TryGetValue(cacheKey, out privacyFolderId))
+                {
+                    using (var folderDao = DaoFactory.GetFolderDao())
+                    {
+                        privacyFolderId = folderDao.GetFolderIDPrivacy(true);
+                    }
+
+                    if (!Equals(privacyFolderId, 0))
+                        PrivacyFolderCache[cacheKey] = privacyFolderId;
+                }
+                return privacyFolderId;
+            }
+        }
+
         private static readonly IDictionary<string, object> TrashFolderCache =
             new ConcurrentDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
@@ -323,11 +445,6 @@ namespace ASC.Web.Files.Classes
         }
 
         public static IDaoFactory DaoFactory { get; private set; }
-
-        public static EncryptedDataDao DaoEncryptedData
-        {
-            get { return new EncryptedDataDao(TenantProvider.CurrentTenantID, FileConstant.DatabaseId); }
-        }
 
         public static IFileStorageService FileStorageService { get; private set; }
 
@@ -423,15 +540,15 @@ namespace ASC.Web.Files.Classes
             foreach (var file in storeTemplate.ListFilesRelative("", path, "*", false))
             {
                 SaveFile(fileDao, folderId, path + file, storeTemplate);
-            }            
+            }
 
             foreach (var folderName in storeTemplate.ListDirectoriesRelative(path, false))
             {
                 var subFolderId = folderDao.SaveFolder(new Folder
-                    {
-                        Title = folderName,
-                        ParentFolderID = folderId
-                    });
+                {
+                    Title = folderName,
+                    ParentFolderID = folderId
+                });
 
                 SaveStartDocument(folderDao, fileDao, subFolderId, path + folderName + "/", storeTemplate);
             }
@@ -443,12 +560,12 @@ namespace ASC.Web.Files.Classes
             {
                 var fileName = Path.GetFileName(filePath);
                 var file = new File
-                    {
-                        Title = fileName,
-                        ContentLength = stream.CanSeek ? stream.Length : storeTemp.GetFileSize("", filePath),
-                        FolderID = folder,
-                        Comment = FilesCommonResource.CommentCreate,
-                    };
+                {
+                    Title = fileName,
+                    ContentLength = stream.CanSeek ? stream.Length : storeTemp.GetFileSize("", filePath),
+                    FolderID = folder,
+                    Comment = FilesCommonResource.CommentCreate,
+                };
                 stream.Position = 0;
                 try
                 {
@@ -470,7 +587,7 @@ namespace ASC.Web.Files.Classes
         {
             return GetUserUsedSpace(SecurityContext.CurrentAccount.ID);
         }
-        
+
         public static long GetUserUsedSpace(Guid userId)
         {
             var spaceUsageManager = new FilesSpaceUsageStatManager() as IUserSpaceUsage;

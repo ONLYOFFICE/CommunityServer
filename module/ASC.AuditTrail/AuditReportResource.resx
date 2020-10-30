@@ -1125,6 +1125,12 @@
   <data name="PortalDeleted" xml:space="preserve">
     <value>Portal Deleted</value>
   </data>
+  <data name="PrivacyRoomDisable" xml:space="preserve">
+    <value>Privacy Room is disabled</value>
+  </data>
+  <data name="PrivacyRoomEnable" xml:space="preserve">
+    <value>Privacy Room is enabled</value>
+  </data>
   <data name="ProductAccessOpened" xml:space="preserve">
     <value>Products [{0}]. Access Opened</value>
   </data>
@@ -1499,5 +1505,11 @@
   </data>
   <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
     <value>Two-factor Authentication Settings Updated: Authentication app was enabled</value>
+  </data>
+  <data name="StartStorageEncryption" xml:space="preserve">
+    <value>Start storage encryption</value>
+  </data>
+  <data name="StartStorageDecryption" xml:space="preserve">
+    <value>Start storage decryption</value>
   </data>
 </root>

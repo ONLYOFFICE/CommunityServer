@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedisSessionProvider</RootNamespace>
     <AssemblyName>RedisSessionProvider</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TrunkDir>..\..\</TrunkDir>
     <BuildPackage>true</BuildPackage>
     <FileAlignment>512</FileAlignment>

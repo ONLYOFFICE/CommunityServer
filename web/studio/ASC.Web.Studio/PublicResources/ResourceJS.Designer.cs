@@ -1744,11 +1744,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request was sent successfully.
+        ///   Looks up a localized string similar to Запрос успешно отправлен. В ближайшее время с вами свяжется наш менеджер..
         /// </summary>
-        public static string SendTariffRequest {
+        public static string SendTariffRequest1 {
             get {
-                return ResourceManager.GetString("SendTariffRequest", resourceCulture);
+                return ResourceManager.GetString("SendTariffRequest1", resourceCulture);
             }
         }
         

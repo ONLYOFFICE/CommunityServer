@@ -13,40 +13,22 @@ namespace ASC.Web.People.Masters {
     public partial class PeopleBaseTemplate {
         
         /// <summary>
-        /// PeoplePageContent control.
+        /// CreateButtonContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder PeoplePageContent;
+        protected global::System.Web.UI.WebControls.PlaceHolder CreateButtonContent;
         
         /// <summary>
-        /// _sideHolder control.
+        /// SidePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _sideHolder;
-        
-        /// <summary>
-        /// _sidepanelHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _sidepanelHolder;
-        
-        /// <summary>
-        /// ContentPlaceHolder1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.PlaceHolder SidePanel;
         
         /// <summary>
         /// ControlHolder control.
@@ -56,6 +38,42 @@ namespace ASC.Web.People.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ControlHolder;
+        
+        /// <summary>
+        /// TitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
+        
+        /// <summary>
+        /// FilterContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder FilterContent;
+        
+        /// <summary>
+        /// PeoplePageContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder PeoplePageContent;
+        
+        /// <summary>
+        /// PagingContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder PagingContent;
         
         /// <summary>
         /// Master property.

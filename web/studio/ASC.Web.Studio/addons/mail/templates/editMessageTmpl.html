@@ -45,86 +45,6 @@
             </ul>
             <div class="header-menu-spacer" style="display: block;">&nbsp;</div>
         </div>
-        <div class="newMessageWrap">
-            <div class="head" message_id="${id}">
-                <div class="value-group">
-                    <label>
-                        ${ASC.Mail.Resources.MailScriptResource.FromLabel}:
-                    </label>
-                    <div class="value">
-                        <span id="newmessageFromSelected" class="pointer">
-                            <span class="baseLinkAction"></span>
-                            <div class="baseLinkArrowDown"></div>
-                        </span>
-
-                        <span id="newmessageFromWarning" style="display: none; margin-left: 16px;" class="red-text">
-                            ${ASC.Mail.Resources.MailResource.AccountDisableForSending}&nbsp;
-                            <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
-                        </span>
-                    </div>
-                </div>
-                <div class="value-group">
-                    <label>
-                        ${ASC.Mail.Resources.MailScriptResource.ToLabel}:
-                    </label>
-                    <div class="pull-right">
-                        <a id="AddCopy" class="link dotline">${ASC.Mail.Resources.MailResource.AddCopy}</a>
-                    </div>
-                    <div class="value with-right">
-                        <div id="newmessageTo" class="emailselector to">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="1"/>
-                            <pre class="emailSelector-input-buffer"></pre>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-group cc hidden">
-                    <label>
-                        ${ASC.Mail.Resources.MailResource.CopyLabel}:
-                    </label>
-                    <div class="value with-right">
-                        <div id="newmessageCopy" class="emailselector cc">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="2"/>
-                            <pre class="emailSelector-input-buffer"></pre>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-group bcc hidden">
-                    <label>
-                        ${ASC.Mail.Resources.MailResource.BCCLabel}:
-                    </label>
-                    <div class="value with-right">
-                        <div id="newmessageBCC" class="emailselector bcc">
-                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="3"/>
-                            <pre class="emailSelector-input-buffer"></pre>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-group">
-                    <label>${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:</label>
-                    <div class="pull-right" style="display: inline-block; padding-top: 4px;">
-                        <div class="requestReceipt pull-right" title="${ASC.Mail.Resources.MailResource.RequestNotificationHint}">
-                            <svg class="requestReceipt-svg" width="18" height="18">
-                                <use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenumail"/>
-                            </svg>
-                        </div>
-                        <div class="importance pull-right" style="padding-right: 4px; padding-top: 1.5px;">
-                            {{if typeof(important) != 'undefined' && important == true}}
-                            <i class="icon-important" title="${ASC.Mail.Resources.MailResource.ImportantLabel}"/>
-                            {{else}}
-                            <i class="icon-unimportant" title="${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}"/>
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="value with-right" style="margin-right: 124px;">
-                        <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" tabindex="4" value="${subject}"/>
-                    </div>
-                </div>
-                <div class="value-group tags hidden">
-                    <label>${ASC.Mail.Resources.MailScriptResource.Tags}:</label>
-                    <div class="value"><div class="itemTags"></div></div>
-                </div>
-            </div>
-        </div>
     </div>
 </script>
 
@@ -217,59 +137,144 @@
     </tr>
 </script>
 
+<script id="editMessagePageHeaderTmpl" type="text/x-jquery-tmpl">
+    <div id="editMessagePageHeader">{{tmpl($item.data, { fileSizeToStr: $item.GetSizeString}) "editMessageHeaderTmpl"}}</div>
+</script>
+
 <script id="writeMessageTmpl" type="text/x-jquery-tmpl">
     <div id="editMessagePage">
-        <div id="editMessagePageHeader">{{tmpl($item.data, { fileSizeToStr: $item.GetSizeString}) "editMessageHeaderTmpl"}}</div>
-        <div id="WYSIWYGEditor" class="mail_wysiwyg_editor">
-            <textarea id="ckMailEditor" style="width: 100%;" autocomplete="off" class="cke_contents cke_reset"></textarea>
-        </div>
-        <div id="editMessagePageFooter">
-            <div class="simpleWrapper">
-                <div class="newMessageWrap" id="newMessage">
-                    <div id="attachments_count_container" class="attachments-counter-position">
-                        <div class="title-attachments">
-                            <div class="icon" style="padding-left: 0;"><i class="icon-attachment"></i></div>
-                            <span id="attachments_count_label">${ASC.Mail.Resources.MailResource.Attachments}:</span>
-                            <span id="full-size-label" class="fullSizeLabel"></span>
+        <div class="editMessage_scrollable webkit-scrollbar">
+            <div class="newMessageWrap">
+                <div class="head" message_id="${id}">
+                    <div class="value-group">
+                        <label>
+                            ${ASC.Mail.Resources.MailScriptResource.FromLabel}:
+                        </label>
+                        <div class="value">
+                            <span id="newmessageFromSelected" class="pointer">
+                                <span class="baseLinkAction"></span>
+                                <div class="baseLinkArrowDown"></div>
+                            </span>
+
+                            <span id="newmessageFromWarning" style="display: none; margin-left: 16px;" class="red-text">
+                                ${ASC.Mail.Resources.MailResource.AccountDisableForSending}&nbsp;
+                                <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
+                            </span>
                         </div>
                     </div>
-                    <div id="attachment_upload_pnl">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span id="attachments_browse_btn" class="attachLink">
-                                            <a class="link dotline plus">${ASC.Mail.Resources.MailResource.UploadFileLabel}</a>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span id="documents_browse_btn" class="attachLink" onclick="javascript:if(messagePage.isMessageDirty() && AttachmentManager.NeedShowSavingPopup && TMMail.isTemplate()) {popup.addBig(window.MailScriptResource.SavingMessage, jq.tmpl('needSaveFirst'));return false;} else {DocumentsPopup.showPortalDocUploader();return false;}">
-                                            <a class="link dotline plus" >${ASC.Mail.Resources.MailResource.AttachFilesFromDocsLabel}</a>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span id="attachments_clear_btn" class="attachLink" onclick="AttachmentManager.RemoveAll();" style="display: none;">
-                                            <a class="link dotline deleteAll">${ASC.Mail.Resources.MailResource.AttachDeleteAllLabel}</a>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span id="attachments_limit_txt"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="value-group">
+                        <label>
+                            ${ASC.Mail.Resources.MailScriptResource.ToLabel}:
+                        </label>
+                        <div class="pull-right">
+                            <a id="AddCopy" class="link dotline">${ASC.Mail.Resources.MailResource.AddCopy}</a>
+                        </div>
+                        <div class="value with-right">
+                            <div id="newmessageTo" class="emailselector to">
+                                <input type="text" class="emailselector-input" autocomplete="off" tabindex="1" />
+                                <pre class="emailSelector-input-buffer"></pre>
+                            </div>
+                        </div>
                     </div>
-                    <div class="attachments">
-                        <table id="mail_attachments" class="attachments_list"
-                            save_to_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToMyDocs}"
-                            save_to_projects_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToProjDocs}"
-                            attach_to_crm_attachment="${ASC.Mail.Resources.MailResource.AttacToCRMContact}">
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="value-group cc hidden">
+                        <label>
+                            ${ASC.Mail.Resources.MailResource.CopyLabel}:
+                        </label>
+                        <div class="value with-right">
+                            <div id="newmessageCopy" class="emailselector cc">
+                                <input type="text" class="emailselector-input" autocomplete="off" tabindex="2" />
+                                <pre class="emailSelector-input-buffer"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="value-group bcc hidden">
+                        <label>
+                            ${ASC.Mail.Resources.MailResource.BCCLabel}:
+                        </label>
+                        <div class="value with-right">
+                            <div id="newmessageBCC" class="emailselector bcc">
+                                <input type="text" class="emailselector-input" autocomplete="off" tabindex="3" />
+                                <pre class="emailSelector-input-buffer"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="value-group">
+                        <label>${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:</label>
+                        <div class="pull-right" style="display: inline-block; padding-top: 4px;">
+                            <div class="requestReceipt pull-right" title="${ASC.Mail.Resources.MailResource.RequestNotificationHint}">
+                                <svg class="requestReceipt-svg" width="18" height="18">
+                                    <use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenumail" />
+                                </svg>
+                            </div>
+                            <div class="importance pull-right" style="padding-right: 4px; padding-top: 1.5px;">
+                                {{if typeof(important) != 'undefined' && important == true}}
+                                <i class="icon-important" title="${ASC.Mail.Resources.MailResource.ImportantLabel}" />
+                                {{else}}
+                                <i class="icon-unimportant" title="${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}" />
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="value with-right" style="margin-right: 124px;">
+                            <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" tabindex="4" value="${subject}" />
+                        </div>
+                    </div>
+                    <div class="value-group tags hidden">
+                        <label>${ASC.Mail.Resources.MailScriptResource.Tags}:</label>
+                        <div class="value"><div class="itemTags"></div></div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div id="WYSIWYGEditor" class="mail_wysiwyg_editor">
+                <textarea id="ckMailEditor" style="width: 100%;" autocomplete="off" class="cke_contents cke_reset"></textarea>
+            </div>
+            <div id="editMessagePageFooter">
+                <div class="simpleWrapper">
+                    <div class="newMessageWrap" id="newMessage">
+                        <div id="attachments_count_container" class="attachments-counter-position">
+                            <div class="title-attachments">
+                                <div class="icon" style="padding-left: 0;"><i class="icon-attachment"></i></div>
+                                <span id="attachments_count_label">${ASC.Mail.Resources.MailResource.Attachments}:</span>
+                                <span id="full-size-label" class="fullSizeLabel"></span>
+                            </div>
+                        </div>
+                        <div id="attachment_upload_pnl">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span id="attachments_browse_btn" class="attachLink">
+                                                <a class="link dotline plus">${ASC.Mail.Resources.MailResource.UploadFileLabel}</a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="documents_browse_btn" class="attachLink" onclick="javascript:if(messagePage.isMessageDirty() && AttachmentManager.NeedShowSavingPopup && TMMail.isTemplate()) {popup.addBig(window.MailScriptResource.SavingMessage, jq.tmpl('needSaveFirst'));return false;} else {DocumentsPopup.showPortalDocUploader();return false;}">
+                                                <a class="link dotline plus">${ASC.Mail.Resources.MailResource.AttachFilesFromDocsLabel}</a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="attachments_clear_btn" class="attachLink" onclick="AttachmentManager.RemoveAll();" style="display: none;">
+                                                <a class="link dotline deleteAll">${ASC.Mail.Resources.MailResource.AttachDeleteAllLabel}</a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="attachments_limit_txt"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="attachments">
+                            <table id="mail_attachments" class="attachments_list"
+                                   save_to_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToMyDocs}"
+                                   save_to_projects_docs_attachment="${ASC.Mail.Resources.MailResource.SaveAttachToProjDocs}"
+                                   attach_to_crm_attachment="${ASC.Mail.Resources.MailResource.AttacToCRMContact}">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div>
     </div>
 </script>

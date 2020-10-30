@@ -16,8 +16,8 @@
   <a href="https://www.instagram.com/the_onlyoffice/"><img alt="https://www.instagram.com/the_onlyoffice/" src="https://download.onlyoffice.com/assets/logo/opensource/in.png"></a>
 </p>
 <p align="center">
-  <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img alt="http://www.gnu.org/licenses/gpl-3.0.html" src="https://img.shields.io/badge/License-GNU%20GPL%20V3-green.svg?style=flat"></a>
-  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-10.5.1-blue.svg"></a>
+  <a href="http://www.apache.org/licenses/LICENSE-2.0"><img alt="http://www.apache.org/licenses/LICENSE-2.0" src="https://img.shields.io/badge/License-Apache%20v2.0-green.svg?style=flat"></a>
+  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
 </p>
 
 ## Overview
@@ -53,7 +53,7 @@ To compile source, follow this [instruction](https://helpcenter.onlyoffice.com/s
 
 ## Connecting your own modules
 
-You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this instruction](https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx "https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx") for more details.
+You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this repository](https://github.com/ONLYOFFICE/CommunityServer-CustomModules "https://github.com/ONLYOFFICE/CommunityServer-CustomModules") for more details.
 
 ## Project Information
 

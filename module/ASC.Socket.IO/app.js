@@ -3,6 +3,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressSession = require("express-session");
 const sharedsession = require("express-socket.io-session");
+const redis = require('redis');
 const RedisStore = require('connect-redis')(expressSession);
 const MemoryStore = require('memorystore')(expressSession);
 const config = require('./config');
@@ -17,15 +18,16 @@ winston.stream = {
     write: (message) => winston.info(message)
 };
 
-const redis = {
+const redisOpt = {
     host: config.get("redis:host"),
     port: config.get("redis:port"),
     ttl: 3600
 }
 
 let store;
-if(redis.host && redis.port){
-    store = new RedisStore(redis);
+if(redisOpt.host && redisOpt.port){
+    let redisClient = redis.createClient(redisOpt);
+    store =new RedisStore({ client: redisClient });
 } else {
     store = new MemoryStore();
 }

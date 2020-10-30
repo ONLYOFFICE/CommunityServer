@@ -27,6 +27,6 @@ const transports = [
     fileTransport
 ];
 
-winston.handleExceptions(fileTransport);
+winston.exceptions.handle(fileTransport);
 
-module.exports = new winston.Logger({ transports: transports, exitOnError: false});
+module.exports = winston.createLogger({ transports: transports, exitOnError: false});

@@ -258,17 +258,8 @@
   <data name="BCCLabel" xml:space="preserve">
     <value>BCC</value>
   </data>
-  <data name="BlankModalAccountsTip1" xml:space="preserve">
-    <value>Add existing email accounts or create new using free domain</value>
-  </data>
-  <data name="BlankModalAccountsTip2" xml:space="preserve">
-    <value>Send and receive email messages right on the portal</value>
-  </data>
-  <data name="BlankModalAccountsTip3" xml:space="preserve">
-    <value>Access your correspondence from any browser and location</value>
-  </data>
-  <data name="BlankModalAccountsTitle" xml:space="preserve">
-    <value>Accounts</value>
+  <data name="ToYouLabel" xml:space="preserve">
+    <value>To you</value>
   </data>
   <data name="BlankModalCreateBtn" xml:space="preserve">
     <value>Add New Account</value>
@@ -276,50 +267,8 @@
   <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
     <value>Create mailbox</value>
   </data>
-  <data name="BlankModalCRMTip1" xml:space="preserve">
-    <value>See all your CRM contacts in your mailing list</value>
-  </data>
-  <data name="BlankModalCRMTip2" xml:space="preserve">
-    <value>Create mails for both portal users and CRM contacts</value>
-  </data>
-  <data name="BlankModalCRMTip3" xml:space="preserve">
-    <value>Mail CRM contacts via a common email client interface</value>
-  </data>
-  <data name="BlankModalCRMTitle" xml:space="preserve">
-    <value>CRM Integration</value>
-  </data>
-  <data name="BlankModalHeader" xml:space="preserve">
-    <value>Manage Email on the Portal</value>
-  </data>
-  <data name="BlankModalMailServerTip1" xml:space="preserve">
-    <value>Configure a mail server for your own corporate domain</value>
-  </data>
-  <data name="BlankModalMailServerTip2" xml:space="preserve">
-    <value>Use the ready-made free default domain or add your own</value>
-  </data>
-  <data name="BlankModalMailServerTip2Stanalone" xml:space="preserve">
-    <value>Import accounts and other data from MS Exchange</value>
-  </data>
-  <data name="BlankModalMailServerTip3" xml:space="preserve">
-    <value>Assign aliases to the users and organize them into groups</value>
-  </data>
-  <data name="BlankModalMailServerTitle" xml:space="preserve">
-    <value>Mail Server</value>
-  </data>
   <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
     <value>Set up domain</value>
-  </data>
-  <data name="BlankModalTagsTip1" xml:space="preserve">
-    <value>Organize mail using own tags for every message</value>
-  </data>
-  <data name="BlankModalTagsTip2" xml:space="preserve">
-    <value>Group similar emails or divide the ones you need</value>
-  </data>
-  <data name="BlankModalTagsTip3" xml:space="preserve">
-    <value>Customize tags selecting color, name and senders</value>
-  </data>
-  <data name="BlankModalTagsTitle" xml:space="preserve">
-    <value>Tags</value>
   </data>
   <data name="BlockedContentWarning" xml:space="preserve">
     <value>Images are disabled.</value>
@@ -1422,5 +1371,53 @@ All messages which were received before, will be left in the CRM mailing history
   </data>
   <data name="RequestNotificationHint" xml:space="preserve">
     <value>Request notification</value>
+  </data>
+  <data name="DashboardCollectAllEmailsInOnePlace" xml:space="preserve">
+    <value>Collect all emails in one place</value>
+  </data>
+  <data name="DashboardCollectAllEmailsInOnePlaceFirstLine" xml:space="preserve">
+    <value>Connect all 3rd party mail accounts.</value>
+  </data>
+  <data name="DashboardCollectAllEmailsInOnePlaceSecondLine" xml:space="preserve">
+    <value>Send and receive messages on your portal.</value>
+  </data>
+  <data name="DashboardCollectAllEmailsInOnePlaceThirdLine" xml:space="preserve">
+    <value>Access your emails from anywhere.</value>
+  </data>
+  <data name="DashboardCommunicateEasily" xml:space="preserve">
+    <value>Communicate easily</value>
+  </data>
+  <data name="DashboardCommunicateEasilyFirstLine" xml:space="preserve">
+    <value>Save your typical reply as a template to send emails faster.</value>
+  </data>
+  <data name="DashboardCommunicateEasilySecondLine" xml:space="preserve">
+    <value>Request delivery and read notifications.</value>
+  </data>
+  <data name="DashboardCommunicateEasilyThirdLine" xml:space="preserve">
+    <value>Recieve event notifications, accept or decline invitations.</value>
+  </data>
+  <data name="DashboardStructureCorrespondence" xml:space="preserve">
+    <value>Structure correspondence</value>
+  </data>
+  <data name="DashboardStructureCorrespondenceFirstLine" xml:space="preserve">
+    <value>Add tags, link conversations and single messages to CRM.</value>
+  </data>
+  <data name="DashboardStructureCorrespondenceSecondLine" xml:space="preserve">
+    <value>Create custom folders and subfolders.</value>
+  </data>
+  <data name="DashboardStructureCorrespondenceThirdLine" xml:space="preserve">
+    <value>Use filters to sort mail automatically.</value>
+  </data>
+  <data name="DashboardUseMailServer" xml:space="preserve">
+    <value>Use mail server</value>
+  </data>
+  <data name="DashboardUseMailServerFirstLine" xml:space="preserve">
+    <value>Configure your mail server using your domain.</value>
+  </data>
+  <data name="DashboardUseMailServerSecondLine" xml:space="preserve">
+    <value>Create and manage corporate mailboxes.</value>
+  </data>
+  <data name="DashboardUseMailServerThirdLine" xml:space="preserve">
+    <value>Assign aliases to users and organize mail groups.</value>
   </data>
 </root>

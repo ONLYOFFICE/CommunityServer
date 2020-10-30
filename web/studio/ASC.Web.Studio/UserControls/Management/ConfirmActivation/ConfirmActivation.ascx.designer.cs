@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Studio.UserControls.Management {
-    
-    
-    public partial class ConfirmActivation {
-        
+namespace ASC.Web.Studio.UserControls.Management
+{
+
+
+    public partial class ConfirmActivation
+    {
+
         /// <summary>
         /// passwordSetter control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ASC.Web.Studio.UserControls.Management {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel passwordSetter;
-        
+
         /// <summary>
         /// ButtonEmailAndPasswordOK control.
         /// </summary>
@@ -29,23 +31,5 @@ namespace ASC.Web.Studio.UserControls.Management {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonEmailAndPasswordOK;
-        
-        /// <summary>
-        /// emailChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel emailChange;
-        
-        /// <summary>
-        /// btChangeEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btChangeEmail;
     }
 }

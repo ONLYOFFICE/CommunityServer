@@ -138,7 +138,13 @@ $PostText
   <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
     <value>Community. New post in forum topic: $TopicTitle</value>
   </data>
+  <data name="subject_PostInTopicEmailPattern_tg" xml:space="preserve">
+    <value>Community. New post in forum topic: [$TopicTitle]($PostURL)</value>
+  </data>
   <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
     <value>Community. New topic in forums: $TopicTitle</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern_tg" xml:space="preserve">
+    <value>Community. New topic in forums: [$TopicTitle]($PostURL)</value>
   </data>
 </root>

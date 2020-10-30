@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -141,15 +132,21 @@ ASC.CRM.ListContactView = (function() {
         });
 
 
-        jq("#companyTable").unbind("contextmenu").bind("contextmenu", function(event) {
+        jq("body").unbind("contextmenu").bind("contextmenu", function(event) {
             var e = jq.fixEvent(event);
 
             if (typeof e == "undefined" || !e) {
                 return true;
             }
 
-            var target = jq(e.srcElement || e.target),
-                contactId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
+            var target = jq(e.srcElement || e.target);
+
+            if (!target.parents("#companyTable").length) {
+                jq("#contactActionMenu").hide();
+                return true;
+            }
+
+            var contactId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!contactId) {
                 return true;
             }
@@ -163,23 +160,69 @@ ASC.CRM.ListContactView = (function() {
 
         if (ASC.VoipNavigationItem && ASC.VoipNavigationItem.isInit) {
             jq("#companyTable").on("click", ".primaryDataContainer .primaryPhone", function () {
-                try {
-                    var contactID = jq(this).parents("tr:first").attr("id").split("_")[1];
-                    if (contactID) {
-                        ASC.VoipNavigationItem.call(contactID);
-                    }
-                } catch (e) {
-
-                }
+                var contactId = jq(this).parents("tr:first").attr("id").split("_")[1];
+                _openVoipClient(contactId)
             });
         }
+    };
+
+    var _openVoipClient = function (contactId) {
+        try {
+            if (contactId) {
+                ASC.VoipNavigationItem.call(contactId);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    var _initEnableVoipSettingsPanel = function () {
+        var helpLink = "";
+
+        if (ASC.Resources.Master.HelpLink) {
+            helpLink = [
+                "<div class='headerPanelSmall-splitter'>",
+                String.format(ASC.CRM.Resources.CRMJSResource.VoipSettingsLearnMore, "<a class='link underline' href='" + ASC.Resources.Master.HelpLink + "/guides/use-voip.aspx' target='_blank'>", "</a>"),
+                "</div>",
+            ].join('');
+        }
+
+        jq.tmpl("template-blockUIPanel", {
+            id: "enableVoipSettingsPanel",
+            headerTest: ASC.CRM.Resources.CRMJSResource.VoipSettingsPanelHeader,
+            questionText: "",
+            innerHtmlText:
+                [
+                    "<div class='headerPanelSmall-splitter'>",
+                    ASC.CRM.Resources.CRMJSResource.VoipSettingsPanelText,
+                    "</div>",
+                    "<div class='headerPanelSmall-splitter usertext'>",
+                    ASC.CRM.Resources.CRMJSResource.VoipSettingsPanelUserText,
+                    "</div>",
+                    "<div class='headerPanelSmall-splitter admintext display-none'>",
+                    ASC.CRM.Resources.CRMJSResource.VoipSettingsPanelAdminText,
+                    "&nbsp;<a class='link underline' href='/Management.aspx?type=9#Twilio'>",
+                    ASC.CRM.Resources.CRMJSResource.GoToSettings,
+                    "</a>",
+                    "</div>",
+                    helpLink
+                ].join(''),
+            CancelBtn: ASC.CRM.Resources.CRMCommonResource.OK,
+        }).appendTo("#studioPageContent .mainPageContent .containerBodyBlock:first");
+    };
+
+    var _showEnableVoipSettingsPanel = function () {
+        PopupKeyUpActionProvider.EnableEsc = true;
+        jq("#enableVoipSettingsPanel .usertext").toggleClass("display-none", Teamlab.profile.isAdmin);
+        jq("#enableVoipSettingsPanel .admintext").toggleClass("display-none", !Teamlab.profile.isAdmin);
+        StudioBlockUIManager.blockUI("#enableVoipSettingsPanel", 500);
     };
 
     var _initScrolledGroupMenu = function() {
         ScrolledGroupMenu.init({
             menuSelector: "#contactsHeaderMenu",
             menuAnchorSelector: "#mainSelectAll",
-            menuSpacerSelector: "#companyListBox .header-menu-spacer",
+            menuSpacerSelector: "main .filter-content .header-menu-spacer",
             userFuncInTop: function() { jq("#contactsHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function() { jq("#contactsHeaderMenu .menu-action-on-top").show(); }
         });
@@ -210,7 +253,7 @@ ASC.CRM.ListContactView = (function() {
             tmpTotal = ASC.CRM.ListContactView.Total;
         }
         contactPageNavigator.drawPageNavigator((startIndex / ASC.CRM.ListContactView.entryCountOnPage).toFixed(0) * 1 + 1, tmpTotal);
-        jq("#tableForContactNavigation").show();
+        //jq("#tableForContactNavigation").show();
     };
 
     var _renderSimpleContactPageNavigator = function() {
@@ -248,7 +291,7 @@ ASC.CRM.ListContactView = (function() {
 
     var _renderNoContactsEmptyScreen = function() {
         jq("#companyTable tbody tr").remove();
-        jq("#mainContactList").hide();
+        jq("#contactsFilterContainer, #contactsHeaderMenu, #mainContactList, #tableForContactNavigation").hide();
 
         ASC.CRM.Common.hideExportButtons();
         jq("#emptyContentForContactsFilter").hide();
@@ -257,8 +300,8 @@ ASC.CRM.ListContactView = (function() {
 
     var _renderNoContactsForQueryEmptyScreen = function() {
         jq("#companyTable tbody tr").remove();
-        jq("#companyListBox").hide();
-        jq("#tableForContactNavigation").hide();
+        jq("#contactsHeaderMenu, #companyListBox, #tableForContactNavigation").hide();
+        jq("#contactsFilterContainer").show();
         jq("#mainSelectAll").attr("disabled", true);
 
         ASC.CRM.Common.hideExportButtons();
@@ -285,8 +328,8 @@ ASC.CRM.ListContactView = (function() {
             ASC.CRM.ListContactView.showTaskPanel(contact, false);
         });
 
-        jq("#contactActionMenu .addDealLink").attr("href", jq.format("deals.aspx?action=manage&contactID={0}", contactID));
-        jq("#contactActionMenu .addCaseLink").attr("href", jq.format("cases.aspx?action=manage&contactID={0}", contactID));
+        jq("#contactActionMenu .addDealLink").attr("href", jq.format("Deals.aspx?action=manage&contactID={0}", contactID));
+        jq("#contactActionMenu .addCaseLink").attr("href", jq.format("Cases.aspx?action=manage&contactID={0}", contactID));
 
         if (contact.primaryEmail != null && contact.primaryEmail.emailHref != "") {
             jq("#contactActionMenu .sendEmailLink").attr("href", contact.primaryEmail.emailHref);
@@ -295,7 +338,23 @@ ASC.CRM.ListContactView = (function() {
             jq("#contactActionMenu .sendEmailLink").addClass("display-none");
         }
 
+        if (contact.primaryPhone != null && ASC.Resources.Master.Hub.VoipAllowed) {
+            jq("#contactActionMenu .makeVoIPCallLink").removeClass("display-none");
+            jq("#contactActionMenu .makeVoIPCallLink").unbind("click").bind("click", function () {
+                jq("#contactActionMenu").hide();
+                jq("#companyTable .entity-menu.active").removeClass("active");
+                if (ASC.VoipNavigationItem && ASC.VoipNavigationItem.isInit) {
+                    _openVoipClient(contact.id);
+                } else {
+                    _showEnableVoipSettingsPanel();
+                }
+            });
+        } else {
+            jq("#contactActionMenu .makeVoIPCallLink").addClass("display-none");
+        }
+
         if (contact.canEdit == true) {
+            jq("#contactActionMenu .dropdown-item-seporator").show();
             jq("#contactActionMenu .addPhoneLink").show();
             jq("#contactActionMenu .addEmailLink").show();
             jq("#contactActionMenu .editContactLink").show();
@@ -325,7 +384,7 @@ ASC.CRM.ListContactView = (function() {
 
 
             jq("#contactActionMenu .editContactLink").attr("href",
-                        jq.format("default.aspx?id={0}&action=manage{1}", contactID, !contact.isCompany ? "&type=people" : ""));
+                        jq.format("Default.aspx?id={0}&action=manage{1}", contactID, !contact.isCompany ? "&type=people" : ""));
 
             jq("#contactActionMenu .deleteContactLink").unbind("click").bind("click", function () {
                 jq("#contactActionMenu").hide();
@@ -333,15 +392,16 @@ ASC.CRM.ListContactView = (function() {
                 ASC.CRM.ListContactView.showConfirmationPanelForDelete(contact.displayName, contact.id, contact.isCompany, true);
             });
 
-            jq("#contactActionMenu .showProfileLink").attr("href", jq.format("default.aspx?id={0}{1}", contactID, !contact.isCompany ? "&type=people" : ""));
+            jq("#contactActionMenu .showProfileLink").attr("href", jq.format("Default.aspx?id={0}{1}", contactID, !contact.isCompany ? "&type=people" : ""));
 
             jq("#contactActionMenu .showProfileLinkNewTab").unbind("click").bind("click", function () {
                 jq("#contactActionMenu").hide();
                 jq("#companyTable .entity-menu.active").removeClass("active");
-                window.open(jq.format("default.aspx?id={0}{1}", contactID, !contact.isCompany ? "&type=people" : ""), "_blank");
+                window.open(jq.format("Default.aspx?id={0}{1}", contactID, !contact.isCompany ? "&type=people" : ""), "_blank");
             });
 
         } else {
+            jq("#contactActionMenu .dropdown-item-seporator").hide();
             jq("#contactActionMenu .addPhoneLink").hide();
             jq("#contactActionMenu .addEmailLink").hide();
             jq("#contactActionMenu .editContactLink").hide();
@@ -822,7 +882,7 @@ ASC.CRM.ListContactView = (function() {
             _setPermissions(params);
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#setPermissionsPanel", 600, 500, 0);
+        StudioBlockUIManager.blockUI("#setPermissionsPanel", 600);
     };
 
     var _setPermissions = function(params) {
@@ -898,7 +958,7 @@ ASC.CRM.ListContactView = (function() {
         LoadingBanner.hideLoaderBtn("#deletePanel");
 
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#deletePanel", 500, 500, 0);
+        StudioBlockUIManager.blockUI("#deletePanel", 500);
     };
 
     var createShortContact = function(contact) {
@@ -1014,15 +1074,15 @@ ASC.CRM.ListContactView = (function() {
     var _initEmptyScreen = function () {
         //init emptyScreen for all list
 
-        var buttonHtml = ["<a class='link dotline plus' href='default.aspx?action=manage'>",
+        var buttonHtml = ["<a class='link dotline plus' href='Default.aspx?action=manage'>",
                     ASC.CRM.Resources.CRMContactResource.CreateFirstCompany,
                     "</a><br/>",
-                    "<a class='link dotline plus' href='default.aspx?action=manage&type=people'>",
+                    "<a class='link dotline plus' href='Default.aspx?action=manage&type=people'>",
                     ASC.CRM.Resources.CRMContactResource.CreateFirstPerson,
                     "</a>"].join('');
 
         if (jq.browser.mobile !== true){
-            buttonHtml += ["<br/><a class='crm-importLink link' href='default.aspx?action=import'>",
+            buttonHtml += ["<br/><a class='crm-importLink link' href='Default.aspx?action=import'>",
                             ASC.CRM.Resources.CRMContactResource.ImportContacts,
                             "</a>"].join('');
         }
@@ -1339,6 +1399,7 @@ ASC.CRM.ListContactView = (function() {
                 if (contacts.length == 0) {//it can happen when select page without elements after deleting
                     jq("#contactsEmptyScreen").hide();
                     jq("#emptyContentForContactsFilter").hide();
+                    jq("#contactsHeaderMenu").show();
                     jq("#companyListBox").show();
                     jq("#companyTable tbody tr").remove();
                     jq("#tableForContactNavigation").show();
@@ -1364,6 +1425,7 @@ ASC.CRM.ListContactView = (function() {
 
                 jq("#totalContactsOnPage").text(ASC.CRM.ListContactView.Total);
                 jq("#emptyContentForContactsFilter").hide();
+                jq("#contactsHeaderMenu, #companyListBox, #tableForContactNavigation").show();
                 jq("#contactsEmptyScreen").hide();
                 jq("#companyListBox").show();
                 jq("#mainSelectAll").removeAttr("disabled");
@@ -1655,13 +1717,15 @@ ASC.CRM.ListContactView = (function() {
             ASC.CRM.ListContactView.cookieKey = "";
         },
 
-        init: function (parentSelector) {
+        init: function (parentSelector, filterSelector, pagingSelector) {
             if (jq(parentSelector).length == 0) return;
             ASC.CRM.Common.setDocumentTitle(ASC.CRM.Resources.CRMContactResource.AllContacts);
             ASC.CRM.ListContactView.clear();
             jq(parentSelector).removeClass("display-none");
 
+            jq.tmpl("contactsListFilterTmpl", { IsCRMAdmin: ASC.CRM.Data.IsCRMAdmin }).appendTo(filterSelector);
             jq.tmpl("contactsListBaseTmpl", { IsCRMAdmin: ASC.CRM.Data.IsCRMAdmin }).appendTo(parentSelector);
+            jq.tmpl("contactsListPagingTmpl").appendTo(pagingSelector);
 
             jq('#privatePanelWrapper').appendTo("#permissionsPanelInnerHtml");
 
@@ -1676,7 +1740,7 @@ ASC.CRM.ListContactView = (function() {
                 },
                 key = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + location.pathname + location.search,
                 currentAnchor = location.hash,
-                cookieKey = encodeURIComponent(key.charAt(key.length - 1) === '/' ? key + 'default.aspx' : key);
+                cookieKey = encodeURIComponent(key.charAt(key.length - 1) === '/' ? key + 'Default.aspx' : key);
 
             currentAnchor = currentAnchor && typeof currentAnchor === 'string' && currentAnchor.charAt(0) === '#'
                 ? currentAnchor.substring(1)
@@ -1712,6 +1776,8 @@ ASC.CRM.ListContactView = (function() {
             });
 
             ASC.CRM.ListContactView.initConfirmationPanelForDelete();
+
+            _initEnableVoipSettingsPanel();
 
             _initConfirmationPannels();
 
@@ -1854,7 +1920,12 @@ ASC.CRM.ListContactView = (function() {
             ASC.CRM.ListContactView.fullContactList = new Array();
             if (!ASC.CRM.ListContactView.isFirstLoad) {
                 LoadingBanner.displayLoading();
-                jq("#contactsFilterContainer, #tableForContactNavigation").show();
+                jq("#contactsFilterContainer").show();
+
+                if (!jq("#emptyContentForContactsFilter").is(":visible")) {
+                    jq("#contactsHeaderMenu, #tableForContactNavigation").show();
+                }
+
                 jq('#contactsAdvansedFilter').advansedFilter("resize");
             }
             jq("#mainSelectAll").prop("checked", false);
@@ -1866,7 +1937,12 @@ ASC.CRM.ListContactView = (function() {
             ASC.CRM.ListContactView.isFirstLoad = false;
             jq(".containerBodyBlock").children(".loader-page").hide();
             if (!jq("#contactsEmptyScreen").is(":visible")) {
-                jq("#contactsFilterContainer, #tableForContactNavigation").show();
+                jq("#contactsFilterContainer").show();
+
+                if (!jq("#emptyContentForContactsFilter").is(":visible")) {
+                    jq("#contactsHeaderMenu, #tableForContactNavigation").show();
+                }
+                
                 jq('#contactsAdvansedFilter').advansedFilter("resize");
             }
         },
@@ -2033,7 +2109,7 @@ ASC.CRM.ListContactView = (function() {
                 ASC.CRM.ListContactView.deleteContact(contactID, isListView);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#confirmationDeleteOneContactPanel", 500, 500, 0);
+            StudioBlockUIManager.blockUI("#confirmationDeleteOneContactPanel", 500);
         },
 
         deleteContact: function(contactID, isListView) {
@@ -2060,7 +2136,7 @@ ASC.CRM.ListContactView = (function() {
                         },
                         success: function () {
                             ASC.CRM.Common.unbindOnbeforeUnloadEvent();
-                            location.href = "default.aspx";
+                            location.href = "Default.aspx";
                         }
                     });
             }
@@ -2134,7 +2210,7 @@ ASC.CRM.ListContactView = (function() {
                 ASC.CRM.ListContactView.createLink(selectedEmails);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#createLinkPanel", 500, 500, 0);
+            StudioBlockUIManager.blockUI("#createLinkPanel", 500);
         },
 
         createLink: function(emails) {
@@ -2181,26 +2257,18 @@ ASC.CRM.ListContactView = (function() {
         },
 
         checkSMTPSettings: function () {
-            function checkData(data) {
-                return (data || "") === "";
-            }
             var settings = ASC.CRM.Data.smtpSettings;
-            if (settings == null)
-                return false;
-            if (settings.RequiredHostAuthentication)
-                if (checkData(settings.Host) ||
-                    checkData(settings.Port) ||
-                    checkData(settings.HostLogin) ||
-                    checkData(settings.HostPassword) ||
-                    checkData(settings.SenderDisplayName) ||
-                    checkData(settings.SenderEmailAddress))
+
+            if (!settings)
                 return false;
 
-            if (!settings.RequiredHostAuthentication)
-                if (checkData(settings.Host) ||
-                    checkData(settings.Port) ||
-                    checkData(settings.SenderDisplayName)||
-                    checkData(settings.SenderEmailAddress))
+            if (!settings.Host ||
+                !settings.Port ||
+                !settings.SenderDisplayName ||
+                !settings.SenderEmailAddress)
+                return false;
+
+            if (settings.RequiredHostAuthentication && !settings.HostLogin)
                 return false;
 
             return true;
@@ -2273,10 +2341,10 @@ ASC.CRM.ListContactView = (function() {
             jq("#sendEmailDialog").hide();
 
             if (!ASC.CRM.ListContactView.checkSMTPSettings()) {
-                window.location.href = "/management.aspx?type=10";
+                window.location.href = "/Management.aspx?type=10";
                 return false;
             } else {
-                window.location.href = "sender.aspx";
+                window.location.href = "Sender.aspx";
             }
         }
     };
@@ -2402,7 +2470,7 @@ ASC.CRM.ContactFullCardView = (function () {
                     "<div class=\"popup_helper\" id=\"changeContactStatusConfirmation_helpInfo\">",
                     ASC.CRM.Data.IsCRMAdmin === true
                     ? ASC.CRM.Resources.CRMContactResource.ContactStatusGroupChangeHelpForAdmin.format(
-                            '<a href="settings.aspx?type=contact_stage" target="_blank">',
+                            '<a href="Settings.aspx?type=contact_stage" target="_blank">',
                             '</a>')
                     : ASC.CRM.Resources.CRMContactResource.ContactStatusGroupChangeHelpForUser,
                     "</div>",
@@ -2496,7 +2564,7 @@ ASC.CRM.ContactFullCardView = (function () {
                     "<div class=\"popup_helper\" id=\"addTagToContactGroupConfirmation_helpInfo\">",
                     ASC.CRM.Data.IsCRMAdmin === true
                     ? ASC.CRM.Resources.CRMContactResource.AddTagToContactGroupHelpForAdmin.format(
-                            '<a href="settings.aspx?type=tag" target="_blank">',
+                            '<a href="Settings.aspx?type=tag" target="_blank">',
                             '</a>')
                     : ASC.CRM.Resources.CRMContactResource.AddTagToContactGroupHelpForUser,
                     "</div>",
@@ -2562,7 +2630,7 @@ ASC.CRM.ContactFullCardView = (function () {
                     "<div class=\"popup_helper\" id=\"deleteTagFromContactGroupConfirmation_helpInfo\">",
                     ASC.CRM.Data.IsCRMAdmin === true
                     ? ASC.CRM.Resources.CRMContactResource.DeleteTagFromContactGroupHelpForAdmin.format(
-                            '<a href="settings.aspx?type=tag" target="_blank">',
+                            '<a href="Settings.aspx?type=tag" target="_blank">',
                             '</a>')
                     : ASC.CRM.Resources.CRMContactResource.DeleteTagFromContactGroupHelpForUser,
                     "</div>",
@@ -2839,7 +2907,7 @@ ASC.CRM.ContactFullCardView = (function () {
         LoadingBanner.hideLoaderBtn("#changeContactStatusConfirmation");
         jq("#changeContactStatusConfirmation").attr("data-statusValue", statusValue);
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#changeContactStatusConfirmation", 520, 220, 0);
+        StudioBlockUIManager.blockUI("#changeContactStatusConfirmation", 520);
     };
 
     var showAddTagToContactGroupConfirmationPanel = function (params, text) {
@@ -2848,7 +2916,7 @@ ASC.CRM.ContactFullCardView = (function () {
         ASC.CRM.ContactFullCardView.tagParams = params;
         jq("#addTagDialog").hide();
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#addTagToContactGroupConfirmation", 570, 230, 0);
+        StudioBlockUIManager.blockUI("#addTagToContactGroupConfirmation", 570);
     };
 
     var showDeleteTagFromContactGroupConfirmationPanel = function ($element, text) {
@@ -2857,7 +2925,7 @@ ASC.CRM.ContactFullCardView = (function () {
         ASC.CRM.ContactFullCardView.tagParams = $element;
         jq("#addTagDialog").hide();
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#deleteTagFromContactGroupConfirmation", 570, 230, 0);
+        StudioBlockUIManager.blockUI("#deleteTagFromContactGroupConfirmation", 570);
     };
 
     var changeContactStatus = function (statusValue) {
@@ -3063,7 +3131,7 @@ ASC.CRM.ContactFullCardView = (function () {
                             jq.unblockUI();
                         } else {
                             jq("#noAskMailHistoryAnymore").prop("checked", false);
-                            StudioBlockUIManager.blockUI("#writeMailToHistoryConfirmation", 500, 180, 0);
+                            StudioBlockUIManager.blockUI("#writeMailToHistoryConfirmation", 500);
                         }
                     });
 
@@ -3131,7 +3199,7 @@ ASC.CRM.ContactFullCardView = (function () {
         jq("#contactDetailsMenuPanel").hide();
         jq(".mainContainerClass .containerHeaderBlock .menu-small.active").removeClass("active");
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#mergePanel", 400, 400, 0);
+        StudioBlockUIManager.blockUI("#mergePanel", 400);
     };
 
     return {
@@ -3312,7 +3380,7 @@ ASC.CRM.ContactFullCardView = (function () {
                         LoadingBanner.showLoaderBtn("#mergePanel");
                     },
                     success: function (params, contact) {
-                        location.href = ["default.aspx?id=", contact.id, params.isCompany === true ? "" : "&type=people"].join("");
+                        location.href = ["Default.aspx?id=", contact.id, params.isCompany === true ? "" : "&type=people"].join("");
                     },
                     error: function (params, error) {
                         toastr.error(error[0]);
@@ -3551,7 +3619,7 @@ ASC.CRM.ContactDetailsView = (function() {
         ASC.Projects.AllProject.contactID = contactID;
 
         jq("#projectsInContactPanel .createNewProject>div").click(function() {
-            location.href = [StudioManager.getLocationPathToModule("projects"), "projects.aspx?action=add&contactID=", ASC.Projects.AllProject.contactID].join("");
+            location.href = [StudioManager.getLocationPathToModule("Projects"), "Projects.aspx?action=add&contactID=", ASC.Projects.AllProject.contactID].join("");
         });
         getProjectsData(ASC.Projects.AllProject.contactID);
 
@@ -3692,7 +3760,7 @@ ASC.CRM.ContactDetailsView = (function() {
                 ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_invoices"],
                 Header: ASC.CRM.Resources.CRMInvoiceResource.EmptyContentInvoicesHeader,
                 Describe: ASC.CRM.Resources.CRMInvoiceResource.EmptyContentInvoicesDescribe,
-                ButtonHTML: ["<a class='link dotline plus' href='invoices.aspx?action=create&contactID=" + jq.getURLParam("id") + "'>",
+                ButtonHTML: ["<a class='link dotline plus' href='Invoices.aspx?action=create&contactID=" + jq.getURLParam("id") + "'>",
                     ASC.CRM.Resources.CRMInvoiceResource.CreateFirstInvoice,
                     "</a>"].join(''),
             }).insertAfter("#invoiceTable");
@@ -3745,7 +3813,8 @@ ASC.CRM.ContactDetailsView = (function() {
                         isCompany,
                         projectsTabVisible,
                         socialMediaTabVisible,
-                        shareType) {
+                        shareType,
+                        canEdit) {
             _canCreateProjects = ASC.CRM.Data.CanCreateProjects;
 
             _availableTabs = ["profile", "tasks", "deals", "invoices", "files"];
@@ -3760,7 +3829,7 @@ ASC.CRM.ContactDetailsView = (function() {
             ASC.CRM.DealTabView.initTab(contactID);
             ASC.CRM.ListTaskView.initTab(contactID, "contact", 0);
             ASC.CRM.ListInvoiceView.initTab(contactID, "contact");
-            ASC.CRM.SocialMedia.initTab(isCompany);
+            ASC.CRM.SocialMedia.initTab(isCompany, canEdit);
 
             ASC.CRM.ListContactView.isContentRendered = false;
             ASC.CRM.ListInvoiceView.isContentRendered = false;
@@ -4121,7 +4190,7 @@ ASC.CRM.ContactActionView = (function () {
                 ASC.CRM.Resources.CRMJSResource.ConfirmGoToCustomFieldPage,
             "</div>"].join(''),
             OKBtn: ASC.CRM.Resources.CRMCommonResource.OK,
-            OKBtnHref: "settings.aspx?type=custom_field" + view,
+            OKBtnHref: "Settings.aspx?type=custom_field" + view,
             CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel,
             progressText: ""
         }).insertAfter("#otherContactCustomFieldPanel");
@@ -4449,7 +4518,7 @@ ASC.CRM.ContactActionView = (function () {
             !window.SelectedUsers_ContactManager.IDs.includes(Teamlab.profile.id) &&
             !jq("#isPublic").is(":checked") &&
             !confirmation) {
-            StudioBlockUIManager.blockUI("#confirmationAccessRightsPanel", 400, 400, 0);
+            StudioBlockUIManager.blockUI("#confirmationAccessRightsPanel", 400);
             return false;
         }
 
@@ -4542,7 +4611,7 @@ ASC.CRM.ContactActionView = (function () {
                     }).insertAfter("#crm_contactMakerDialog");
 
                     PopupKeyUpActionProvider.EnableEsc = false;
-                    StudioBlockUIManager.blockUI("#saveContactError", 500, 400, 0);
+                    StudioBlockUIManager.blockUI("#saveContactError", 500);
                 }
 
                 var isCompany = (jq("#typeAddedContact").val() === "company"),
@@ -4982,10 +5051,10 @@ ASC.CRM.ContactActionView = (function () {
             if (window.onbeforeunload == null) {//No need the confirmation
                 var isCompany = (jq("#typeAddedContact").val() === "company"),
                     view = isCompany === true ? "#company" : "#person";
-                location.href = "settings.aspx?type=custom_field" + view;
+                location.href = "Settings.aspx?type=custom_field" + view;
             } else {
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500, 200, 0);
+                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500);
             }
         },
 

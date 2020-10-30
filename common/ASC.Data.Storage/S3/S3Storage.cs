@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -58,8 +49,13 @@ namespace ASC.Data.Storage.S3
         private string _recycleDir = "";
         private Uri _bucketRoot;
         private Uri _bucketSSlRoot;
-        private string _region;
+        private string _region = String.Empty;
+        private string _serviceurl;
+        private bool _forcepathstyle;
         private string _secretAccessKeyId = "";
+        private ServerSideEncryptionMethod _sse = ServerSideEncryptionMethod.AES256;
+        private bool _useHttp = true;
+
         private bool _lowerCasing = true;
         private bool _revalidateCloudFront;
         private string _distributionId = string.Empty;
@@ -228,6 +224,7 @@ namespace ASC.Data.Storage.S3
                                  string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5)
         {
             var buffered = stream.GetBuffered();
+
             if (QuotaController != null)
             {
                 QuotaController.QuotaUsedCheck(buffered.Length);
@@ -245,7 +242,7 @@ namespace ASC.Data.Storage.S3
                     BucketName = _bucket,
                     Key = MakePath(domain, path),
                     ContentType = mime,
-                    ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256,
+                    ServerSideEncryptionMethod = _sse,
                     InputStream = buffered,
                     AutoCloseStream = false,
                     Headers =
@@ -342,7 +339,7 @@ namespace ASC.Data.Storage.S3
             {
                 BucketName = _bucket,
                 Key = MakePath(domain, path),
-                ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                ServerSideEncryptionMethod = _sse
             };
 
             using (var s3 = GetClient())
@@ -587,7 +584,7 @@ namespace ASC.Data.Storage.S3
                         DestinationBucket = _bucket,
                         DestinationKey = s3Object.Key.Replace(srckey, dstkey),
                         CannedACL = GetDomainACL(newdomain),
-                        ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                        ServerSideEncryptionMethod = _sse
                     });
 
                     client.DeleteObject(new DeleteObjectRequest
@@ -615,7 +612,7 @@ namespace ASC.Data.Storage.S3
                     DestinationKey = dstKey,
                     CannedACL = GetDomainACL(newdomain),
                     MetadataDirective = S3MetadataDirective.REPLACE,
-                    ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                    ServerSideEncryptionMethod = _sse
                 };
 
                 client.CopyObject(request);
@@ -963,7 +960,7 @@ namespace ASC.Data.Storage.S3
                     DestinationKey = dstKey,
                     CannedACL = GetDomainACL(newdomain),
                     MetadataDirective = S3MetadataDirective.REPLACE,
-                    ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                    ServerSideEncryptionMethod = _sse
                 };
 
                 client.CopyObject(request);
@@ -993,7 +990,7 @@ namespace ASC.Data.Storage.S3
                         DestinationBucket = _bucket,
                         DestinationKey = s3Object.Key.Replace(srckey, dstkey),
                         CannedACL = GetDomainACL(newdomain),
-                        ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                        ServerSideEncryptionMethod = _sse
                     });
 
                     QuotaUsedAdd(newdomain, s3Object.Size);
@@ -1045,7 +1042,52 @@ namespace ASC.Data.Storage.S3
                 _recycleDir = props["recycleDir"];
             }
 
-            _region = props["region"];
+            if (props.ContainsKey("region") && !string.IsNullOrEmpty(props["region"]))
+            {
+                _region = props["region"];
+            }
+
+            if (props.ContainsKey("serviceurl") && !string.IsNullOrEmpty(props["serviceurl"]))
+            {
+                _serviceurl = props["serviceurl"];
+            }
+
+            if (props.ContainsKey("forcepathstyle"))
+            {
+                bool fps;
+                if (bool.TryParse(props["forcepathstyle"], out fps))
+                {
+                    _forcepathstyle = fps;
+                }
+            }
+
+            if (props.ContainsKey("usehttp"))
+            {
+                bool uh;
+                if (bool.TryParse(props["usehttp"], out uh))
+                {
+                    _useHttp = uh;
+                }
+            }
+
+            if (props.ContainsKey("sse") && !string.IsNullOrEmpty(props["sse"]))
+            {
+                switch (props["sse"].ToLower())
+                {
+                    case "none":
+                        _sse = ServerSideEncryptionMethod.None;
+                        break;
+                    case "aes256":
+                        _sse = ServerSideEncryptionMethod.AES256;
+                        break;
+                    case "awskms":
+                        _sse = ServerSideEncryptionMethod.AWSKMS;
+                        break;
+                    default:
+                        _sse = ServerSideEncryptionMethod.None;
+                        break;
+                }
+            }
 
             _bucketRoot = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
                               ? new Uri(props["cname"], UriKind.Absolute)
@@ -1122,7 +1164,7 @@ namespace ASC.Data.Storage.S3
                 DestinationKey = GetRecyclePath(key),
                 CannedACL = GetDomainACL(domain),
                 MetadataDirective = S3MetadataDirective.REPLACE,
-                ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256,
+                ServerSideEncryptionMethod = _sse,
                 StorageClass = S3StorageClass.Glacier,
 
             };
@@ -1138,7 +1180,21 @@ namespace ASC.Data.Storage.S3
 
         private IAmazonS3 GetClient()
         {
-            var cfg = new AmazonS3Config { UseHttp = true, MaxErrorRetry = 3, RegionEndpoint = RegionEndpoint.GetBySystemName(_region) };
+            var cfg = new AmazonS3Config { MaxErrorRetry = 3 };
+
+            if (!String.IsNullOrEmpty(_serviceurl))
+            {
+                cfg.ServiceURL = _serviceurl;
+
+                cfg.ForcePathStyle = _forcepathstyle;
+            }
+            else
+            {
+                cfg.RegionEndpoint = RegionEndpoint.GetBySystemName(_region);
+            }
+
+            cfg.UseHttp = _useHttp;
+
             return new AmazonS3Client(_accessKeyId, _secretAccessKeyId, cfg);
         }
 
@@ -1146,8 +1202,6 @@ namespace ASC.Data.Storage.S3
         {
             throw new NotSupportedException();
         }
-
-
 
         private class ResponseStreamWrapper : Stream
         {

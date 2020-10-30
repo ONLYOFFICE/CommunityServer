@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -43,7 +34,6 @@ using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
-using ASC.Web.Studio.UserControls.Common.Banner;
 using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -61,6 +51,8 @@ namespace ASC.Web.Studio.Masters
         public bool DisabledSidePanel { get; set; }
 
         public bool DisabledTopStudioPanel { get; set; }
+
+        public bool DisabledLayoutMedia { get; set; }
 
         private bool? _enableWebChat;
 
@@ -91,15 +83,14 @@ namespace ASC.Web.Studio.Masters
         protected void Page_Load(object sender, EventArgs e)
         {
             InitScripts();
-            HubUrl = ConfigurationManager.AppSettings["web.hub"] ?? string.Empty;
+
+            HubUrl = ConfigurationManagerExtension.AppSettings["web.hub"] ?? string.Empty;
 
             if (!_enableWebChat.HasValue || _enableWebChat.Value)
             {
                 EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
-                                 WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
-                                                Any(id => id.ID == WebItemManager.TalkProductID) &&
-                                 !(Request.Browser != null && Request.Browser.Browser == "IE" &&
-                                   (Request.Browser.MajorVersion == 8 || Request.Browser.MajorVersion == 9 || Request.Browser.MajorVersion == 10));
+                                 WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).Any(id => id.ID == WebItemManager.TalkProductID) &&
+                                 !(Request.Browser != null && Request.Browser.Browser == "IE" && Request.Browser.MajorVersion < 11);
             }
 
             IsMobile = MobileDetector.IsMobile;
@@ -129,11 +120,6 @@ namespace ASC.Web.Studio.Masters
             if (!EmailActivated && !CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated && EmailActivationSettings.LoadForCurrentUser().Show)
             {
                 activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
-            }
-
-            if (AffiliateHelper.BannerAvailable || CoreContext.Configuration.Personal)
-            {
-                BannerHolder.Controls.Add(LoadControl(Banner.Location));
             }
 
             if (ThirdPartyBanner.Display && !Request.DesktopApp())
@@ -260,6 +246,11 @@ namespace ASC.Web.Studio.Masters
         {
             var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
 
+            if (!isAdmin)
+            {
+                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
+            }
+
             RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);
         }
 
@@ -268,7 +259,7 @@ namespace ASC.Web.Studio.Masters
         public BaseTemplate AddStyles(Func<string, string> converter, params string[] src)
         {
             foreach (var s in src)
-            {                
+            {
                 if (s.Contains(ColorThemesSettings.ThemeFolderTemplate))
                 {
                     if (ThemeStyles == null) continue;

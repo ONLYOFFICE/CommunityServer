@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -341,28 +332,6 @@ window.Teamlab = (function () {
             REMOVE,
             'people/thirdparty/unlinkaccount.json',
             data,
-            options
-        );
-    };
-
-    var updateEncryptionAddress = function (params, data, options) {
-        return addRequest(
-            null,
-            params,
-            UPDATE,
-            'encryption/address.json',
-            data,
-            options
-        );
-    };
-
-    var getEncryptionAccess = function (params, fileId, options) {
-        return addRequest(
-            null,
-            params,
-            GET,
-            'encryption/access/' + fileId + '.json',
-            null,
             options
         );
     };
@@ -1842,10 +1811,23 @@ window.Teamlab = (function () {
         });
     };
 
+    var getCalendarCaldavUrl = function (calendarId) {
+        jq.ajax({
+            type: "get",
+            url: ASC.Resources.Master.ApiPath + "calendar/"+ calendarId + "/caldavurl.json",
+            complete: function (d) {
+                var data = jq.evalJSON(d.responseText);
+                if (data.status != 0) {
+                    console.log('Get caldav url error');
+                }
+            }
+        });
+    };
+
     var removePrjProject = function (id, options) {
         getPrjTeam({}, id,
             function (params, team) {
-                removeCaldavProjectCalendar(id, team.map(user => user.id));
+                removeCaldavProjectCalendar(id, jq.map(team, function (user) { return user.id; }));
             }
         );
         addRequest(
@@ -1865,7 +1847,7 @@ window.Teamlab = (function () {
                 var projectid = data.projectids[i];
                 getPrjTeam({}, projectid,
                     function (params, team) {
-                        removeCaldavProjectCalendar(projectid, team.map(user => user.id));
+                        removeCaldavProjectCalendar(projectid, jq.map(team, function (user) { return user.id; }));
                     }
                 );
             }());
@@ -2795,7 +2777,7 @@ window.Teamlab = (function () {
             null,
             params,
             UPDATE,
-            'files/' + params.fileId + '/update.json?encrypted=' + params.encrypted,
+            'files/' + params.fileId + '/update.json?encrypted=' + params.encrypted + '&forcesave=' + params.forcesave,
             data,
             options
         );
@@ -2951,6 +2933,93 @@ window.Teamlab = (function () {
             },
             options
         );
+    };
+
+    var filesDisplayRecent = function (set, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/displayrecent.json",
+            {
+                set: set
+            },
+            options
+        );
+    };
+
+    var filesDisplayFavorites = function (set, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/settings/favorites.json",
+            {
+                set: set
+            },
+            options
+        );
+    };
+
+    var addFilesFavorites = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/favorites.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeFilesFavorites = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'files/favorites.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var filesDisplayTemplates = function (set, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/settings/templates.json",
+            {
+                set: set
+            },
+            options
+        );
+    };
+
+    var addFilesTemplates = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/templates.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeFilesTemplates = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'files/templates.json',
+            data,
+            options
+        );
+        return true;
     };
     /* </documents> */
 
@@ -6826,7 +6895,7 @@ window.Teamlab = (function () {
         );
     };
 
-    var connectMailServerInfo = function (params, ip, sqlip, user, password, options) {
+    var connectMailServerInfo = function (params, ip, sqlip, database, user, password, options) {
         return addRequest(
             null,
             params,
@@ -6835,6 +6904,7 @@ window.Teamlab = (function () {
             {
                 ip: ip,
                 sqlip: sqlip,
+                database: database,
                 user: user,
                 password: password
             },
@@ -6842,7 +6912,7 @@ window.Teamlab = (function () {
         );
     };
 
-    var saveMailServerInfo = function (params, ip, sqlip, user, password, token, host, options) {
+    var saveMailServerInfo = function (params, ip, sqlip, database, user, password, token, host, options) {
         return addRequest(
             null,
             params,
@@ -6851,6 +6921,7 @@ window.Teamlab = (function () {
             {
                 ip: ip,
                 sqlip: sqlip,
+                database: database,
                 user: user,
                 password: password,
                 token: token,
@@ -7211,6 +7282,39 @@ window.Teamlab = (function () {
         );
     };
 
+    var telegramLink = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'settings/telegramlink.json',
+            null,
+            options
+        );
+    };
+
+    var telegramIsConnected = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'settings/telegramisconnected.json',
+            null,
+            options
+        );
+    };
+
+    var telegramDisconnect = function (options) {
+        return addRequest(
+            null,
+            null,
+            REMOVE,
+            'settings/telegramdisconnect.json',
+            null,
+            options
+        );
+    };
+
     var closeWelcomePopup = function () {
         return addRequest(
             null,
@@ -7293,6 +7397,39 @@ window.Teamlab = (function () {
             params,
             GET,
             'settings/smtp/test/status.json',
+            null,
+            options
+        );
+    };
+
+    var setPrivacyRoom = function (params, enable, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'privacyroom.json',
+            { enable: enable },
+            options
+        );
+    };
+
+    var setEncryptionKeys = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'privacyroom/keys.json',
+            data,
+            options
+        );
+    };
+
+    var getEncryptionAccess = function (params, fileId, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'privacyroom/access/' + fileId + '.json',
             null,
             options
         );
@@ -7512,6 +7649,17 @@ window.Teamlab = (function () {
             params,
             GET,
             "settings/storage/progress.json",
+            null,
+            options
+        );
+    };
+
+    var getEncryptionProgress = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            "settings/encryption/progress.json",
             null,
             options
         );
@@ -8028,6 +8176,18 @@ window.Teamlab = (function () {
 
     //#endregion
 
+    var markGiftAsReaded = function (params, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "portal/gift/mark.json",
+            null,
+            options
+        );
+        return true;
+    };
+
     return {
         events: customEvents,
 
@@ -8063,9 +8223,6 @@ window.Teamlab = (function () {
         remindPwd: remindPwd,
         thirdPartyLinkAccount: thirdPartyLinkAccount,
         thirdPartyUnLinkAccount: thirdPartyUnLinkAccount,
-
-        updateEncryptionAddress: updateEncryptionAddress,
-        getEncryptionAccess: getEncryptionAccess,
 
         addProfile: addProfile,
         getProfile: getProfile,
@@ -8285,6 +8442,13 @@ window.Teamlab = (function () {
         saveDocServiceUrl: saveDocServiceUrl,
         filesStoreOriginal: filesStoreOriginal,
         hideConfirmConvert: hideConfirmConvert,
+        filesDisplayFavorites: filesDisplayFavorites,
+        filesDisplayRecent: filesDisplayRecent,
+        addFilesFavorites: addFilesFavorites,
+        removeFilesFavorites: removeFilesFavorites,
+        filesDisplayTemplates: filesDisplayTemplates,
+        addFilesTemplates: addFilesTemplates,
+        removeFilesTemplates: removeFilesTemplates,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -8343,6 +8507,7 @@ window.Teamlab = (function () {
         removePrjTask: removePrjTask,
         removePrjTasks: removePrjTasks,
         removeCaldavProjectCalendar: removeCaldavProjectCalendar,
+        getCalendarCaldavUrl: getCalendarCaldavUrl,
         addCrmTask: addCrmTask,
         addCrmTaskGroup: addCrmTaskGroup,
         getCrmTask: getCrmTask,
@@ -8645,6 +8810,10 @@ window.Teamlab = (function () {
         testPortalSmtpSettings: testPortalSmtpSettings,
         getTestPortalSmtpSettingsResult: getTestPortalSmtpSettingsResult,
 
+        setPrivacyRoom: setPrivacyRoom,
+        setEncryptionKeys: setEncryptionKeys,
+        getEncryptionAccess: getEncryptionAccess,
+
         getAuditEvents: getAuditEvents,
         getLoginEvents: getLoginEvents,
         createLoginHistoryReport: createLoginHistoryReport,
@@ -8663,6 +8832,10 @@ window.Teamlab = (function () {
         tfaappcodes: tfaappcodes,
         tfaAppRequestNewCodes: tfaAppRequestNewCodes,
         tfaAppNewApp: tfaAppNewApp,
+
+        telegramLink: telegramLink,
+        telegramIsConnected: telegramIsConnected,
+        telegramDisconnect: telegramDisconnect,
 
         closeWelcomePopup: closeWelcomePopup,
         setColorTheme: setColorTheme,
@@ -8707,6 +8880,8 @@ window.Teamlab = (function () {
         resetToDefaultStorage: resetToDefaultStorage,
         getStorageProgress: getStorageProgress,
 
+        getEncryptionProgress: getEncryptionProgress,
+
         getBarPromotions: getBarPromotions,
         markBarPromotion: markBarPromotion,
         getBarTips: getBarTips,
@@ -8733,7 +8908,9 @@ window.Teamlab = (function () {
         startRemove: startRemove,
 
         addImportUser: addImportUser,
-        getImportStatus: getImportStatus
+        getImportStatus: getImportStatus,
+
+        markGiftAsReaded: markGiftAsReaded
 
 };
 })();

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -174,8 +165,7 @@ ASC.CRM.InvoiceItemsView = (function () {
 
     var _renderNoInvoiceItemsEmptyScreen = function () {
         jq("#invoiceItemsTable tbody tr").remove();
-        jq("#invoiceItemsList").hide();
-        jq("#invoiceItemsFilterContainer").hide();
+        jq("#invoiceItemsFilterContainer, #invoiceItemsHeaderMenu, #invoiceItemsList, #tableForInvoiceItemsNavigation").hide();
         ASC.CRM.Common.hideExportButtons();
         jq("#emptyContentForInvoiceItemsFilter").addClass("display-none");
         jq("#invoiceItemsEmptyScreen").removeClass("display-none");
@@ -183,7 +173,7 @@ ASC.CRM.InvoiceItemsView = (function () {
 
     var _renderNoInvoiceItemsForQueryEmptyScreen = function () {
         jq("#invoiceItemsTable tbody tr").remove();
-        jq("#invoiceItemsList").hide();
+        jq("#invoiceItemsHeaderMenu, #invoiceItemsList, #tableForInvoiceItemsNavigation").hide();
         ASC.CRM.Common.hideExportButtons();
         jq("#mainSelectAllInvoiceItems").attr("disabled", true);
         jq("#invoiceItemsEmptyScreen").addClass("display-none");
@@ -201,7 +191,7 @@ ASC.CRM.InvoiceItemsView = (function () {
         if (invoiceItem == null) return;
 
         if (invoiceItem.canEdit) {
-            jq("#invoiceItemsActionMenu .editInvoiceItemLink").attr("href", jq.format("settings.aspx?type=invoice_items&action=manage&id={0}", invoiceItemID)).show();
+            jq("#invoiceItemsActionMenu .editInvoiceItemLink").attr("href", jq.format("Settings.aspx?type=invoice_items&action=manage&id={0}", invoiceItemID)).show();
         } else {
             jq("#invoiceItemsActionMenu .editInvoiceItemLink").removeAttr("href").hide();
         }
@@ -224,7 +214,7 @@ ASC.CRM.InvoiceItemsView = (function () {
             _deleteInvoiceItem(itemID);
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#confirmationDeleteOneItemPanel", 500, 500, 0);
+        StudioBlockUIManager.blockUI("#confirmationDeleteOneItemPanel", 500);
     };
 
     var _deleteInvoiceItem = function (id) {
@@ -312,7 +302,7 @@ ASC.CRM.InvoiceItemsView = (function () {
             jq("invoiceItemsEmptyScreen").addClass("display-none");
             jq("#emptyContentForInvoiceItemsFilter").addClass("display-none");
             jq("#invoiceItemsTable tbody tr").remove();
-            jq("#tableForInvoiceItemsNavigation").show();
+            jq("#invoiceItemsFilterContainer, #invoiceItemsHeaderMenu, #tableForInvoiceItemsNavigation").show();
             jq("#mainSelectAllInvoiceItems").attr("disabled", true);
             ASC.CRM.Common.hideExportButtons();
             LoadingBanner.hideLoading();
@@ -338,7 +328,7 @@ ASC.CRM.InvoiceItemsView = (function () {
         ASC.CRM.InvoiceItemsView.invoiceItemsList = invoiceItems;
 
 
-        jq("#invoiceItemsList").show();
+        jq("#invoiceItemsFilterContainer, #invoiceItemsHeaderMenu, #invoiceItemsList").show();
         jq("#invoiceItemsTable tbody").replaceWith(jq.tmpl("invoiceItemsListTmpl", { invoiceItems: ASC.CRM.InvoiceItemsView.invoiceItemsList }));
         ASC.CRM.Common.tooltip(".invoiceItemTitle", "tooltip", false);
         ASC.CRM.Common.tooltip(".invoiceTax1>div", "tooltipTax1", true);
@@ -490,14 +480,14 @@ ASC.CRM.InvoiceItemsView = (function () {
         ScrolledGroupMenu.init({
             menuSelector: "#invoiceItemsHeaderMenu",
             menuAnchorSelector: "#invoiceItemsHeaderMenu .menuActionCreateNew",
-            menuSpacerSelector: "#invoiceItemsList .header-menu-spacer",
+            menuSpacerSelector: "main .filter-content .header-menu-spacer",
             userFuncInTop: function () { jq("#invoiceItemsHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function () { jq("#invoiceItemsHeaderMenu .menu-action-on-top").show(); }
         });
 
 
         jq("#invoiceItemsHeaderMenu .menuActionCreateNew").on("click", function() {
-            location.href = "settings.aspx?type=invoice_items&action=manage";
+            location.href = "Settings.aspx?type=invoice_items&action=manage";
         });
 
     };
@@ -606,7 +596,7 @@ ASC.CRM.InvoiceItemsView = (function () {
 
     var _initEmptyScreen = function () {
         //init emptyScreen for all list
-        var buttonHtml = ["<a class='link dotline plus' href='settings.aspx?type=invoice_items&action=manage'>",
+        var buttonHtml = ["<a class='link dotline plus' href='Settings.aspx?type=invoice_items&action=manage'>",
             ASC.CRM.Resources.CRMInvoiceResource.CreateFirstInvoiceItem,
             "</a>"].join('');
 
@@ -804,7 +794,6 @@ ASC.CRM.InvoiceItemActionView = (function () {
         jq("#crm_invoiceItemMakerDialog .button:not(.disable)").addClass("disable");
 
         var priceVal = jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice").val()),
-            quantityVal = jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemQuantity").val()),
             trackInventory = jq("#invoiceItemInventoryStock").prop("checked"),
             stockQuantityVal = trackInventory == true ? jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemStockQuantity").val()) : "0",
 
@@ -813,8 +802,7 @@ ASC.CRM.InvoiceItemActionView = (function () {
                 description: jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemDescr").val()),
                 price: Number(priceVal.replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.')),
                 sku: jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemSKU").val()),
-                quantity: parseInt(quantityVal || "0"),
-                stockQuantity: parseInt(stockQuantityVal),
+                stockQuantity: Number(stockQuantityVal.replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.')),
                 trackInventory: trackInventory,
                 invoiceTax1id: jq("#tax1Select").val(),
                 invoiceTax2id: jq("#tax2Select").val()
@@ -832,11 +820,6 @@ ASC.CRM.InvoiceItemActionView = (function () {
                 AddRequiredErrorText(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"), ASC.CRM.Resources.CRMInvoiceResource.ErrorIncorrectPrice + " (max " + ASC.CRM.Data.MaxInvoiceItemPrice + ")");
             }
             ShowRequiredError(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"));
-            isValid = false;
-        }
-
-        if (isNaN(item.quantity)) {
-            jq("#crm_invoiceItemMakerDialog .invoiceItemQuantity").parent().children(".requiredErrorText").show();
             isValid = false;
         }
 
@@ -864,9 +847,9 @@ ASC.CRM.InvoiceItemActionView = (function () {
             {
                 success: function (params, item) {
                     if (backToList) {
-                        location.href = "settings.aspx?type=invoice_items";
+                        location.href = "Settings.aspx?type=invoice_items";
                     } else {
-                        location.href = "settings.aspx?type=invoice_items&action=manage";
+                        location.href = "Settings.aspx?type=invoice_items&action=manage";
                     }
                 },
                 before: function () {
@@ -886,9 +869,9 @@ ASC.CRM.InvoiceItemActionView = (function () {
             {
                 success: function (params, item) {
                     if (backToList) {
-                        location.href = "settings.aspx?type=invoice_items";
+                        location.href = "Settings.aspx?type=invoice_items";
                     } else {
-                        location.href = "settings.aspx?type=invoice_items&action=manage";
+                        location.href = "Settings.aspx?type=invoice_items&action=manage";
                     }
                 },
                 before: function () { },
@@ -917,13 +900,8 @@ ASC.CRM.InvoiceItemActionView = (function () {
                     jq("#crm_invoiceItemMakerDialog .invoiceItemSKU").val(invItem.stockKeepingUnit);
                     jq("#crm_invoiceItemMakerDialog .invoiceItemTitle").val(invItem.title);
                     jq("#crm_invoiceItemMakerDialog .invoiceItemDescr").text(invItem.description);
-                    jq("#crm_invoiceItemMakerDialog .invoiceItemPrice").val((invItem.price + "").replace('.', ASC.CRM.Data.CurrencyDecimalSeparator));
-
-
-                    jq("#crm_invoiceItemMakerDialog .invoiceItemQuantity").val(invItem.quantity);
-
-
-                    jq("#crm_invoiceItemMakerDialog .invoiceItemStockQuantity").val(invItem.stockQuantity);
+                    jq("#crm_invoiceItemMakerDialog .invoiceItemPrice").val(invItem.price.toFixed(2).replace('.', ASC.CRM.Data.CurrencyDecimalSeparator));
+                    jq("#crm_invoiceItemMakerDialog .invoiceItemStockQuantity").val(invItem.stockQuantity.toFixed(2).replace('.', ASC.CRM.Data.CurrencyDecimalSeparator));
                     selectedInvoiceTax1ID = invItem.invoiceTax1ID;
                     selectedInvoiceTax2ID = invItem.invoiceTax2ID;
                     trackInventory = invItem.trackInventory;
@@ -984,13 +962,6 @@ ASC.CRM.InvoiceItemActionView = (function () {
                 }
             });
             
-            jq.forceNumber({
-                parent: "#crm_invoiceItemMakerDialog",
-                input: ".invoiceItemQuantity, .invoiceItemStockQuantity",
-                integerOnly: true,
-                positiveOnly: true
-            });
-
             jq("#iventoryStockHelpSwitcher").on("click", function () {
                 jq(this).helper({ BlockHelperID: 'iventoryStockHelpInfo' });
             });
@@ -1009,7 +980,7 @@ ASC.CRM.InvoiceItemActionView = (function () {
 
             jq.forceNumber({
                 parent: "#crm_invoiceItemMakerDialog",
-                input: ".invoiceItemPrice",
+                input: ".invoiceItemStockQuantity, .invoiceItemPrice",
                 integerOnly: false,
                 positiveOnly: true,
                 separator: ASC.CRM.Data.CurrencyDecimalSeparator,
@@ -1166,11 +1137,11 @@ ASC.CRM.InvoiceTaxesView = (function () {
         } else {
             jq('#manageTax div.containerHeaderBlock td:first').text(ASC.CRM.Resources.CRMInvoiceResource.AddTaxHeaderText);
             LoadingBanner.strLoading = ASC.CRM.Resources.CRMInvoiceResource.AddTaxProcessText;
-            tax = { name: "", rate: "0", description: "" };
+            tax = { name: "", rate: 0, description: "" };
         }
 
         jq("#manageTax .taxName").val(tax.name);
-        jq("#manageTax .taxRate").val(tax.rate);
+        jq("#manageTax .taxRate").val(tax.rate.toFixed(2).replace('.', ASC.CRM.Data.CurrencyDecimalSeparator));
         jq("#manageTax textarea").val(tax.description);
         RemoveRequiredErrorClass(jq("#manageTax .taxName"));
         RemoveRequiredErrorClass(jq("#manageTax .taxRate"));
@@ -1184,7 +1155,7 @@ ASC.CRM.InvoiceTaxesView = (function () {
         });
 
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#manageTax", 400, 380, 0);
+        StudioBlockUIManager.blockUI("#manageTax", 400);
     };
 
     var _showConfirmationPanelForDelete = function (title, taxID) {
@@ -1194,7 +1165,7 @@ ASC.CRM.InvoiceTaxesView = (function () {
             _deleteTax(taxID);
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#confirmationDeleteOneTaxPanel", 500, 500, 0);
+        StudioBlockUIManager.blockUI("#confirmationDeleteOneTaxPanel", 500);
     };
 
     var _addOrUpdateTax = function (id) {

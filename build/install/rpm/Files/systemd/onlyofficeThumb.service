@@ -1,0 +1,19 @@
+[Unit]
+Description=ONLYOFFICE Thumb Service
+After=network.target syslog.target
+
+[Service]
+Type=forking
+ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeThumb'
+ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeThumb /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.Thumbnails.Svc.Launcher,ASC.Thumbnails.Svc\" --log Thumb
+Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=no
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

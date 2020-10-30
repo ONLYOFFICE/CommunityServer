@@ -150,18 +150,6 @@
   <data name="Blogs" xml:space="preserve">
     <value>Blogs</value>
   </data>
-  <data name="BlogsModuleFirstLine" xml:space="preserve">
-    <value>Share your ideas and experiences with others</value>
-  </data>
-  <data name="BlogsModuleLink1" xml:space="preserve">
-    <value>Add post</value>
-  </data>
-  <data name="BlogsModuleSecondLine" xml:space="preserve">
-    <value>Read and comment the thoughts of other users</value>
-  </data>
-  <data name="BlogsModuleTitle" xml:space="preserve">
-    <value>Blogs</value>
-  </data>
   <data name="Bookmark" xml:space="preserve">
     <value>Bookmark</value>
   </data>
@@ -177,25 +165,10 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-  <data name="DashboardTitle" xml:space="preserve">
-    <value>Business Collaboration tools</value>
-  </data>
   <data name="Employees" xml:space="preserve">
     <value>{!Users}</value>
   </data>
   <data name="Events" xml:space="preserve">
-    <value>Events</value>
-  </data>
-  <data name="EventsModuleFirstLine" xml:space="preserve">
-    <value>Share the latest news and learn opinions of other users</value>
-  </data>
-  <data name="EventsModuleLink" xml:space="preserve">
-    <value>Add event</value>
-  </data>
-  <data name="EventsModuleSecondLine" xml:space="preserve">
-    <value>Post important announcements for your colleagues</value>
-  </data>
-  <data name="EventsModuleTitle" xml:space="preserve">
     <value>Events</value>
   </data>
   <data name="Favorites" xml:space="preserve">
@@ -215,18 +188,6 @@
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
-  </data>
-  <data name="HelpModuleFirstLine" xml:space="preserve">
-    <value>Find answers to most frequently asked questions</value>
-  </data>
-  <data name="HelpModuleLink" xml:space="preserve">
-    <value>Visit our help center</value>
-  </data>
-  <data name="HelpModuleSecondLine" xml:space="preserve">
-    <value>Read user guides, tips and tricks, watch video</value>
-  </data>
-  <data name="HelpModuleTitle" xml:space="preserve">
-    <value>Help Center</value>
   </data>
   <data name="Index" xml:space="preserve">
     <value>Index</value>
@@ -306,19 +267,49 @@
   <data name="Wiki" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="WikiModuleFirstLine" xml:space="preserve">
-    <value>Create and store all your bookmarks in one place</value>
-  </data>
-  <data name="WikiModuleLink2" xml:space="preserve">
-    <value>Add bookmark</value>
-  </data>
-  <data name="WikiModuleSecondLine" xml:space="preserve">
-    <value>Share interesting bookmarks you have with others</value>
-  </data>
-  <data name="WikiModuleTitle" xml:space="preserve">
-    <value>Bookmarks</value>
-  </data>
   <data name="ProductDescriptionShort" xml:space="preserve">
     <value>Create events and posts in blogs. Organize polls. Make bookmarks and share them with other users.</value>
+  </data>
+  <data name="DashboardCreateWelcomePost" xml:space="preserve">
+    <value>Create welcome post</value>
+  </data>
+  <data name="DashboardDiscussWithTeam" xml:space="preserve">
+    <value>Discuss with team</value>
+  </data>
+  <data name="DashboardDiscussWithTeamFirstLine" xml:space="preserve">
+    <value>Create corporate blogs and forums.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamSecondLine" xml:space="preserve">
+    <value>Add polls and surveys.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamThirdLine" xml:space="preserve">
+    <value>Exchange instant messages using Talk.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPosted" xml:space="preserve">
+    <value>Keep your team posted</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
+    <value>Create a group chat or a mass mailings in Talk.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
+    <value>Configure notifications about shared docs, deadlines and teammates' birthdays.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
+    <value>Use Firebase to never miss a message again.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledge" xml:space="preserve">
+    <value>Share news &amp; knowledge</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeFirstLine" xml:space="preserve">
+    <value>Create corporate news board.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
+    <value>Add and share bookmarks to useful web resources.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeThirdLine" xml:space="preserve">
+    <value>Maintain corporate wiki.</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>Forum post</value>
   </data>
 </root>

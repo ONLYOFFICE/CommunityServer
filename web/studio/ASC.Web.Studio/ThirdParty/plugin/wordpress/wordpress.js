@@ -25,7 +25,7 @@
             window.open("/thirdparty/wordpress.aspx", null, "width=500,height=700");
         });
         $('#delete-site').on('click', function () {
-            if (confirm("Do you really want to delete this site?")) {
+            if (confirm(getMessage("Do you really want to delete this site?"))) {
                 $.ajax({
                     url: '/api/2.0/files/wordpress-delete',
                     type: "GET",
@@ -60,6 +60,7 @@
                 window.Asc.plugin.executeMethod("GetFileHTML", []);
             }
         });
+        window.Asc.plugin.onTranslate = applyTranslations;
     };
 
     window.Asc.plugin.onMethodReturn = function (returnValue) {
@@ -80,6 +81,20 @@
         this.executeCommand("close", '');
     };
 
+    function applyTranslations() {
+        var elements = document.getElementsByClassName("i18n");
+
+        for (var i = 0; i < elements.length; i++) {
+            var el = elements[i];
+            if (el.attributes["placeholder"]) el.attributes["placeholder"].value = getMessage(el.attributes["placeholder"].value);
+            if (el.innerText) el.innerText = getMessage(el.innerText);
+        }
+    }
+
+    function getMessage(key) {
+        return window.Asc.plugin.tr(key);
+    }
+
     function sentToWordpress(data) {
         $.ajax({
             url: '/api/2.0/files/wordpress',
@@ -90,9 +105,9 @@
                 if (res.response) {
                     $('#title')[0].value = "";
                     if (post.status == 0)
-                        alert("The current document was successfully saved on the website");
+                        alert(getMessage("The current document was successfully saved on the website"));
                     else
-                        alert("The current document was successfully published on the website");
+                        alert(getMessage("The current document was successfully published on the website"));
                         showButtons(true);
                 } else {
                     alert("Error");

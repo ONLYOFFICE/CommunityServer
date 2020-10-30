@@ -1,59 +1,41 @@
-﻿<script id="invoicesListBaseTmpl" type="text/x-jquery-tmpl">
+﻿<script id="invoicesListFilterTmpl" type="text/x-jquery-tmpl">
     <div id="invoiceFilterContainer">
         <div id="invoiceAdvansedFilter"></div>
     </div>
+    <ul id="invoiceHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
+        <li class="menuAction menuActionSelectAll menuActionSelectLonely">
+            <div class="menuActionSelect">
+                <input type="checkbox" id="mainSelectAllInvoices" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListInvoiceView.selectAll(this);" />
+            </div>
+        </li>
+        <li class="menuAction menuActionChangeStatus" title="${ASC.CRM.Resources.CRMInvoiceResource.ChangeInvoiceStatus}">
+            <span>${ASC.CRM.Resources.CRMInvoiceResource.ChangeInvoiceStatus}</span>
+            <div class="down_arrow"></div>
+        </li>
+        <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
+        </li>
 
-    <div id="invoiceList" style="display:none; min-height: 400px;">
-        <ul id="invoiceHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
-            <li class="menuAction menuActionSelectAll menuActionSelectLonely">
-                <div class="menuActionSelect">
-                    <input type="checkbox" id="mainSelectAllInvoices" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListInvoiceView.selectAll(this);" />
-                </div>
-            </li>
-            <li class="menuAction menuActionChangeStatus" title="${ASC.CRM.Resources.CRMInvoiceResource.ChangeInvoiceStatus}">
-                <span>${ASC.CRM.Resources.CRMInvoiceResource.ChangeInvoiceStatus}</span>
-                <div class="down_arrow"></div>
-            </li>
-            <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
-                <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
-            </li>
+        <li class="menu-action-simple-pagenav">
+        </li>
+        <li class="menu-action-checked-count">
+            <span></span>
+            <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListInvoiceView.deselectAll();">
+                ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
+            </a>
+        </li>
+        <li class="menu-action-on-top">
+            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+                ${ASC.CRM.Resources.CRMCommonResource.OnTop}
+            </a>
+        </li>
+    </ul>
+    <div class="header-menu-spacer">&nbsp;</div>
+</script>
 
-            <li class="menu-action-simple-pagenav">
-            </li>
-            <li class="menu-action-checked-count">
-                <span></span>
-                <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListInvoiceView.deselectAll();">
-                    ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
-                </a>
-            </li>
-            <li class="menu-action-on-top">
-                <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
-                    ${ASC.CRM.Resources.CRMCommonResource.OnTop}
-                </a>
-            </li>
-        </ul>
-        <div class="header-menu-spacer">&nbsp;</div>
-
-        <div id="changeStatusDialog" class="studio-action-panel group-actions changeStatusDialog">
-            <ul class="dropdown-content mobile-overflow"></ul>
-        </div>
-
-        <table id="invoiceTable" class="table-list padding4" cellpadding="0" cellspacing="0">
-            <colgroup>
-                <col style="width: 22px;"/>
-                <col style="width: 1%;"/>
-                <col/>
-                <col style="width: 1%;"/>
-                <col style="width: 1%;"/>
-                <col style="width: 1%;"/>
-                <col style="width: 40px;"/>
-            </colgroup>
-            <tbody>
-            </tbody>
-        </table>
-
-        <table id="tableForInvoiceNavigation" class="crm-navigationPanel" cellpadding="4" cellspacing="0" border="0">
-            <tbody>
+<script id="invoicesListPagingTmpl" type="text/x-jquery-tmpl">
+    <table id="tableForInvoiceNavigation" class="crm-navigationPanel" cellpadding="0" cellspacing="0" border="0">
+        <tbody>
             <tr>
                 <td>
                     <div id="divForInvoicePager">
@@ -71,24 +53,48 @@
                     </select>
                 </td>
             </tr>
+        </tbody>
+    </table>
+</script>
+
+<script id="invoicesListBaseTmpl" type="text/x-jquery-tmpl">
+
+    <div id="invoiceList" style="display:none;">
+        <table id="invoiceTable" class="table-list padding4" cellpadding="0" cellspacing="0">
+            <colgroup>
+                <col style="width: 22px;"/>
+                <col style="width: 1%;"/>
+                <col/>
+                <col style="width: 1%;"/>
+                <col style="width: 1%;"/>
+                <col style="width: 1%;"/>
+                <col style="width: 40px;"/>
+            </colgroup>
+            <tbody>
             </tbody>
         </table>
+    </div>
+    
+    <div id="changeStatusDialog" class="studio-action-panel group-actions changeStatusDialog">
+        <ul class="dropdown-content mobile-overflow"></ul>
     </div>
 
     <div id="invoiceActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="showProfileLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.ShowInvoiceProfile}</a></li>
-            <li><a class="showProfileLinkNewTab dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.ShowInvoiceProfileNewTab}</a></li>
+            <li><a class="showProfileLink dropdown-item with-icon user">${ASC.CRM.Resources.CRMInvoiceResource.ShowInvoiceProfile}</a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item with-icon new-tab">${ASC.CRM.Resources.CRMInvoiceResource.ShowInvoiceProfileNewTab}</a></li>
+            <li class="dropdown-item-seporator"></li>
             {{if ASC.CRM.Data.CanDownloadInvoices == true}}
-            <li><a class="downloadLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.Download}</a></li>
+            <li><a class="downloadLink dropdown-item with-icon download">${ASC.CRM.Resources.CRMInvoiceResource.Download}</a></li>
             {{/if}}
-            <li><a class="printLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.Print}</a></li>
+            <li><a class="printLink dropdown-item with-icon print">${ASC.CRM.Resources.CRMInvoiceResource.Print}</a></li>
             {{if ASC.CRM.Data.CanDownloadInvoices == true}}
-            <li><a class="sendLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.SendByEmail}</a></li>
+            <li><a class="sendLink dropdown-item with-icon email">${ASC.CRM.Resources.CRMInvoiceResource.SendByEmail}</a></li>
             {{/if}}
-            <li><a class="duplicateInvoiceLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.DuplicateInvoice}</a></li>
-            <li><a class="editInvoiceLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.EditInvoice}</a></li>
-            <li><a class="deleteInvoiceLink dropdown-item">${ASC.CRM.Resources.CRMInvoiceResource.DeleteThisInvoice}</a></li>
+            <li><a class="duplicateInvoiceLink dropdown-item with-icon move-or-copy">${ASC.CRM.Resources.CRMInvoiceResource.DuplicateInvoice}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="editInvoiceLink dropdown-item with-icon edit">${ASC.CRM.Resources.CRMInvoiceResource.EditInvoice}</a></li>
+            <li><a class="deleteInvoiceLink dropdown-item with-icon delete">${ASC.CRM.Resources.CRMInvoiceResource.DeleteThisInvoice}</a></li>
         </ul>
     </div>
 
@@ -101,7 +107,6 @@
     </div>
 
 </script>
-
 
 <script id="invoiceListTmpl" type="text/x-jquery-tmpl">
     <tbody>
@@ -118,7 +123,7 @@
         </td>
         {{/if}} 
         <td>
-            <a class="linkHeaderMedium invoiceNumber {{if status.id == 3}}gray-text{{/if}}{{if debtor == true}}red-text{{/if}}" href="invoices.aspx?id=${id}" title="${number}">
+            <a class="linkHeaderMedium invoiceNumber {{if status.id == 3}}gray-text{{/if}}{{if debtor == true}}red-text{{/if}}" href="Invoices.aspx?id=${id}" title="${number}">
                 ${number}
             </a>
             <div class="{{if status.id == 3}}gray-text{{/if}}">
@@ -131,12 +136,12 @@
             {{if contact != null}}
                 <div>
                 {{if contact.isCompany == true}}
-                    <a href="default.aspx?id=${contact.id}" data-id="${contact.id}"
+                    <a href="Default.aspx?id=${contact.id}" data-id="${contact.id}"
                             id="invoice_${id}_company_${contact.id}" class="linkMedium crm-companyInfoCardLink {{if status.id == 3}}gray-text{{/if}}">
                         ${contact.displayName}
                     </a>
                 {{else}}
-                    <a href="default.aspx?id=${contact.id}&type=people" data-id="${contact.id}"
+                    <a href="Default.aspx?id=${contact.id}&type=people" data-id="${contact.id}"
                             id="invoice_${id}_person_${contact.id}" class="linkMedium crm-peopleInfoCardLink {{if status.id == 3}}gray-text{{/if}}">
                         ${contact.displayName}
                     </a>
@@ -270,13 +275,13 @@
                 </div>
             </div>
             <div class="tbl-cell quantity">
-                <input type="text" value="${quantity}" class="textEdit" name="iLineQuantity_${id}_"/>
+                <input type="text" value="${quantity.toFixed(2)}" class="textEdit" name="iLineQuantity_${id}_"/>
             </div>
             <div class="tbl-cell price">
                 <input type="text" value="${price.toFixed(2)}" class="textEdit" name="iLinePrice_${id}_"/>
             </div>
             <div class="tbl-cell discount">
-                <input type="text" value="${discount}" class="textEdit" name="iLineDiscount_${id}_"/>(%)
+                <input type="text" value="${discount.toFixed(2)}" class="textEdit" name="iLineDiscount_${id}_"/>(%)
             </div>
             <div class="tbl-cell tax1">
                 <div class="custom-input">

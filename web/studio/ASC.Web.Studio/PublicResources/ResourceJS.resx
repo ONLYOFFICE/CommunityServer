@@ -627,8 +627,8 @@
   <data name="SelectorVisitor" xml:space="preserve">
     <value>Guest</value>
   </data>
-  <data name="SendTariffRequest" xml:space="preserve">
-    <value>Request was sent successfully</value>
+  <data name="SendTariffRequest1" xml:space="preserve">
+    <value>Запрос успешно отправлен. В ближайшее время с вами свяжется наш менеджер.</value>
   </data>
   <data name="ShareInviteLinkDscr" xml:space="preserve">
     <value>I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice</value>

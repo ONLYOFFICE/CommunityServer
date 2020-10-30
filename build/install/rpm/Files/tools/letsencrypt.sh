@@ -2,7 +2,7 @@
 
 set -e
 
-LETSENCRYPT_ROOT_DIR="/etc/letsencrypt/live";
+LETSENCRYPT_ROOT_DIR="/etc/letsencrypt";
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
 
 _domains="";
@@ -17,24 +17,22 @@ mkdir -p ${ROOT_DIR}
 
 certbot certonly --expand --webroot -w ${ROOT_DIR} --noninteractive --agree-tos --email support@$1 $_domains;
 
-cp /etc/letsencrypt/live/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
-cp /etc/letsencrypt/live/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
-cp /etc/letsencrypt/live/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
 
-cat > ${DIR}/letsencrypt_cron.sh <<END
-certbot renew >> /var/log/le-renew.log
-cp ${LETSENCRYPT_ROOT_DIR}/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
-cp ${LETSENCRYPT_ROOT_DIR}/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
-cp ${LETSENCRYPT_ROOT_DIR}/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
-openssl pkcs12 -export -out ${ROOT_DIR}/onlyoffice.pfx -inkey ${ROOT_DIR}/onlyoffice.key -in ${ROOT_DIR}/onlyoffice.crt -password pass:onlyoffice
-chown onlyoffice:onlyoffice ${ROOT_DIR}/onlyoffice.pfx
+cat > ${LETSENCRYPT_ROOT_DIR}/renewal-hooks/deploy/communityserver.sh <<END
+#!/bin/bash
+
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
+
 service nginx reload
+
 END
 
-chmod a+x ${DIR}/letsencrypt_cron.sh
-
-cat > /etc/cron.d/letsencrypt <<END
-@weekly root ${DIR}/letsencrypt_cron.sh
-END
+chmod a+x ${LETSENCRYPT_ROOT_DIR}/renewal-hooks/deploy/communityserver.sh
 
 source $DIR/default-onlyoffice-ssl.sh
+

@@ -926,6 +926,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make a VoIP call.
+        /// </summary>
+        public static string MakeVoIPCall {
+            get {
+                return ResourceManager.GetString("MakeVoIPCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cases.
         /// </summary>
         public static string ManyCases {
@@ -1543,6 +1552,51 @@ namespace ASC.Web.CRM.Resources {
         public static string VoipCallType {
             get {
                 return ResourceManager.GetString("VoipCallType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To learn more, visit our {0}Help Center{1}.
+        /// </summary>
+        public static string VoipSettingsLearnMore {
+            get {
+                return ResourceManager.GetString("VoipSettingsLearnMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To do it, go to your portal settings and open the Integration -&gt; Third-Party Services section.
+        /// </summary>
+        public static string VoipSettingsPanelAdminText {
+            get {
+                return ResourceManager.GetString("VoipSettingsPanelAdminText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VoIP Calls.
+        /// </summary>
+        public static string VoipSettingsPanelHeader {
+            get {
+                return ResourceManager.GetString("VoipSettingsPanelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To make and receive VoIP calls, you need to connect the Twilio service..
+        /// </summary>
+        public static string VoipSettingsPanelText {
+            get {
+                return ResourceManager.GetString("VoipSettingsPanelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To do it, please contact your portal administrator..
+        /// </summary>
+        public static string VoipSettingsPanelUserText {
+            get {
+                return ResourceManager.GetString("VoipSettingsPanelUserText", resourceCulture);
             }
         }
         

@@ -126,6 +126,9 @@
   <data name="AceStatusEnum_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Custom Filter</value>
+  </data>
   <data name="AceStatusEnum_FillForms" xml:space="preserve">
     <value>Form Filling</value>
   </data>
@@ -180,6 +183,9 @@
   <data name="ButtonConvertOpen" xml:space="preserve">
     <value>Convert &amp; Open</value>
   </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>Create by Template</value>
+  </data>
   <data name="ButtonDelete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -188,6 +194,9 @@
   </data>
   <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Remove from favorite</value>
   </data>
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
@@ -296,9 +305,6 @@
   </data>
   <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
     <value>Conversion takes too much time.</value>
-  </data>
-  <data name="ErrorMassage_CreateNewFolderInTrash" xml:space="preserve">
-    <value>You are not allowed to create folders in the Recycle Bin</value>
   </data>
   <data name="ErrorMassage_DocServiceException" xml:space="preserve">
     <value>Error occurred in the Documents Service</value>
@@ -435,6 +441,9 @@
   <data name="Everyone" xml:space="preserve">
     <value>Everyone</value>
   </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Recent</value>
+  </data>
   <data name="Favorites" xml:space="preserve">
     <value>Favorites</value>
   </data>
@@ -484,10 +493,11 @@
     <value>Do the same as a user|Link Dropbox, Box and other accounts in the 'Common Documents' section|Set up access rights to the documents and folders in the 'Common Documents' section</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
-    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
+    <value>Create, edit, and share office documents. Collaborate on them in real-time. 100% compatibility with docx, xlsx, pptx guaranteed.</value>
   </data>
   <data name="ProductDescriptionEx" xml:space="preserve">
-    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
+    <value>Edit, share and collaborate on office documents in real-time. Create and manage common docs for the whole team to access. 
+100% compatibility with docx, xlsx, pptx.</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>Documents</value>
@@ -616,12 +626,63 @@
     <value>ver.</value>
   </data>
   <data name="IndexTitle" xml:space="preserve">
-    <value>Search by contents of documents</value>
+    <value>Search in documents content</value>
   </data>
   <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
     <value>The operation was canceled</value>
   </data>
   <data name="ProductDescriptionShort" xml:space="preserve">
-    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
+    <value>View and download shared documents. Upload files to shared folders. 100% compatibility with docx, xlsx, pptx guaranteed.</value>
+  </data>
+  <data name="DashboardGoToMyDocuments" xml:space="preserve">
+    <value>Go to My documents</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfy" xml:space="preserve">
+    <value>Make co-editing comfy</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyFirstLine" xml:space="preserve">
+    <value>Switch between two co-editing modes.</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfySecondLine" xml:space="preserve">
+    <value>Choose Fast mode to see what others are typing in real-time.</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyThirdLine" xml:space="preserve">
+    <value>Enable Strict mode to lock paragraph and work more privately.</value>
+  </data>
+  <data name="DashboardShareFiles" xml:space="preserve">
+    <value>Share files</value>
+  </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>Share files with your team or publicly. Embed docs into websites.</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>Grand access for viewing, editing, reviewing, commenting, filling forms.</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>Send docs for electronic signature.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationTools" xml:space="preserve">
+    <value>Use more collaboration tools</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsFirstLine" xml:space="preserve">
+    <value>Review docs and suggest edits with Track Changes.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>Add comments, address them to a specific person.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsThirdLine" xml:space="preserve">
+    <value>View version history and restore previous versions.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocs" xml:space="preserve">
+    <value>Work with office docs</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsFirstLine" xml:space="preserve">
+    <value>Store and edit documents, spreadsheets, and presentations.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsSecondLine" xml:space="preserve">
+    <value>Enjoy highest compatibility with docx, xlsx, and pptx.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsThirdLine" xml:space="preserve">
+    <value>Connect 3rd party storages, e.g. Google Drive, Dropbox, Box, OneDrive.</value>
   </data>
 </root>

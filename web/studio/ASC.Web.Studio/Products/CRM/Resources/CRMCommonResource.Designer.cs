@@ -19,7 +19,7 @@ namespace ASC.Web.CRM.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CRMCommonResource {
@@ -534,15 +534,6 @@ namespace ASC.Web.CRM.Resources {
         public static string CreateDate {
             get {
                 return ResourceManager.GetString("CreateDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create Invoices.
-        /// </summary>
-        public static string CreateInvoices {
-            get {
-                return ResourceManager.GetString("CreateInvoices", resourceCulture);
             }
         }
         
@@ -1294,119 +1285,146 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Relations with Customers.
+        ///   Looks up a localized string similar to Communicate with clients.
         /// </summary>
-        public static string DashboardTitle {
+        public static string DashboardCommunicateWithClients {
             get {
-                return ResourceManager.GetString("DashboardTitle", resourceCulture);
+                return ResourceManager.GetString("DashboardCommunicateWithClients", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fill in various contact details, link persons with companies..
+        ///   Looks up a localized string similar to Send invoices to your clients..
         /// </summary>
-        public static string DashContactsDetails {
+        public static string DashboardCommunicateWithClientsFirstLine {
             get {
-                return ResourceManager.GetString("DashContactsDetails", resourceCulture);
+                return ResourceManager.GetString("DashboardCommunicateWithClientsFirstLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add contacts manually or import the list from file..
+        ///   Looks up a localized string similar to Make VoIP calls with Twilio integration..
         /// </summary>
-        public static string DashContactsImport {
+        public static string DashboardCommunicateWithClientsSecondLine {
             get {
-                return ResourceManager.GetString("DashContactsImport", resourceCulture);
+                return ResourceManager.GetString("DashboardCommunicateWithClientsSecondLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use the mass mailing feature to address multiple contacts..
+        ///   Looks up a localized string similar to Organize mass mailings and meetings..
         /// </summary>
-        public static string DashContactsMail {
+        public static string DashboardCommunicateWithClientsThirdLine {
             get {
-                return ResourceManager.GetString("DashContactsMail", resourceCulture);
+                return ResourceManager.GetString("DashboardCommunicateWithClientsThirdLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change CRM module settings, adapting it maximally to your needs..
+        ///   Looks up a localized string similar to Create clients database.
         /// </summary>
-        public static string DashCustomizeCRM {
+        public static string DashboardCreateClientsDatabase {
             get {
-                return ResourceManager.GetString("DashCustomizeCRM", resourceCulture);
+                return ResourceManager.GetString("DashboardCreateClientsDatabase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customize user fields, task categories or opportunity stages..
+        ///   Looks up a localized string similar to Add contacts manually, get from web-to-lead form, or import from csv/email..
         /// </summary>
-        public static string DashCustomizeFields {
+        public static string DashboardCreateClientsDatabaseFirstLine {
             get {
-                return ResourceManager.GetString("DashCustomizeFields", resourceCulture);
+                return ResourceManager.GetString("DashboardCreateClientsDatabaseFirstLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use website contact form to add new contacts right from your site..
+        ///   Looks up a localized string similar to Fill in contact details, link people with companies and their social networks..
         /// </summary>
-        public static string DashCustomizeWebsite {
+        public static string DashboardCreateClientsDatabaseSecondLine {
             get {
-                return ResourceManager.GetString("DashCustomizeWebsite", resourceCulture);
+                return ResourceManager.GetString("DashboardCreateClientsDatabaseSecondLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Simplify invoice creation adding products and services..
+        ///   Looks up a localized string similar to Structure contacts using types/tags, adjust temperature levels..
         /// </summary>
-        public static string DashInvoiceProductsAndServices {
+        public static string DashboardCreateClientsDatabaseThirdLine {
             get {
-                return ResourceManager.GetString("DashInvoiceProductsAndServices", resourceCulture);
+                return ResourceManager.GetString("DashboardCreateClientsDatabaseThirdLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add taxes specific to certain countries and use them in invoices..
+        ///   Looks up a localized string similar to Customize your CRM.
         /// </summary>
-        public static string DashInvoiceTaxes {
+        public static string DashboardCustomizeYourCrm {
             get {
-                return ResourceManager.GetString("DashInvoiceTaxes", resourceCulture);
+                return ResourceManager.GetString("DashboardCustomizeYourCrm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Issue invoices to your clients right from the portal interface..
+        ///   Looks up a localized string similar to Adjust CRM settings, grant access rights, set up currency/exchange rates..
         /// </summary>
-        public static string DashIssueInvoices {
+        public static string DashboardCustomizeYourCrmFirstLine {
             get {
-                return ResourceManager.GetString("DashIssueInvoices", resourceCulture);
+                return ResourceManager.GetString("DashboardCustomizeYourCrmFirstLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add opportunities, set budget and estimate success probability..
+        ///   Looks up a localized string similar to Add new contacts types/user fields, create your own web-to-lead forms..
         /// </summary>
-        public static string DashSalesOpportunities {
+        public static string DashboardCustomizeYourCrmSecondLine {
             get {
-                return ResourceManager.GetString("DashSalesOpportunities", resourceCulture);
+                return ResourceManager.GetString("DashboardCustomizeYourCrmSecondLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organize cases and specify the list of their participants..
+        ///   Looks up a localized string similar to Describe your business process using customizable opportunity stages..
         /// </summary>
-        public static string DashSalesParticipants {
+        public static string DashboardCustomizeYourCrmThirdLine {
             get {
-                return ResourceManager.GetString("DashSalesParticipants", resourceCulture);
+                return ResourceManager.GetString("DashboardCustomizeYourCrmThirdLine", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assign tasks to CRM managers linking them with the contacts..
+        ///   Looks up a localized string similar to Track sales.
         /// </summary>
-        public static string DashSalesTasks {
+        public static string DashboardTrackSales {
             get {
-                return ResourceManager.GetString("DashSalesTasks", resourceCulture);
+                return ResourceManager.GetString("DashboardTrackSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign tasks to managers, link them with contacts..
+        /// </summary>
+        public static string DashboardTrackSalesFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackSalesFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add opportunities, set budget, analyze potential deal success..
+        /// </summary>
+        public static string DashboardTrackSalesSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackSalesSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set deadline/task reminders, generate reports..
+        /// </summary>
+        public static string DashboardTrackSalesThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardTrackSalesThirdLine", resourceCulture);
             }
         }
         
@@ -2194,15 +2212,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Contacts.
-        /// </summary>
-        public static string ManageContacts {
-            get {
-                return ResourceManager.GetString("ManageContacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string Message {
@@ -2699,15 +2708,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set up &amp; Customize.
-        /// </summary>
-        public static string SetUpCustomize {
-            get {
-                return ResourceManager.GetString("SetUpCustomize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show.
         /// </summary>
         public static string Show {
@@ -2938,15 +2938,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Track Sales.
-        /// </summary>
-        public static string TrackSales {
-            get {
-                return ResourceManager.GetString("TrackSales", resourceCulture);
             }
         }
         

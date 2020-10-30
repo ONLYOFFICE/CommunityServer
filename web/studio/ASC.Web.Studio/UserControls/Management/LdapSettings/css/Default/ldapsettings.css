@@ -1,0 +1,93 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.ldap-settings-user-container, .ldap-settings-group-container, .ldap-settings-auth-container {    
+    clear: both;
+}
+
+.ldap-settings-user-container, .ldap-settings-group-container {
+    margin: 0 0 32px 0;
+}
+
+.ldap-settings-column {
+    float: left;
+    margin: 0 40px 0 0;
+}
+
+.ldap-settings-second-column {
+    float: left;
+}
+
+.ldap-settings-title {
+    margin: 0 0 20px 0;
+}
+
+.ldap-settings-empty-field, .ldap-settings-incorrect-number {
+    float: right;
+}
+
+.ldap-settings-disabled, .ldap-settings-disabled-all {
+    color: #d1d1d1;
+    cursor: default;
+    -moz-user-select:-moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ldap-settings-label-checkbox {
+    margin: 0 2px 22px 0;
+    float: left;
+    clear: both;
+}
+
+.ldap-settings-label-checkbox input {
+    margin: 0 3px 2px 0;
+    vertical-align: middle;
+}
+
+.ldap-settings-block {
+    margin: 14px 0 0 0;
+}
+
+.ldap-settings-text {
+    padding: 0 0 4px 0;
+    font-weight: bold;
+}
+
+.ldap-settings-main-container .textEdit {
+    padding: 1px;
+    height: 24px;
+    width: 250px;
+}
+
+.ldap-settings-helper-help-class {
+    float: left;
+}
+
+.ldap-settings-progressbar-container {
+    width: 548px;
+    margin: 20px 0 0 0;
+}
+
+.ldap-settings-descr,
+.ldap-settings_warnings {
+    margin-bottom: 28px;
+}

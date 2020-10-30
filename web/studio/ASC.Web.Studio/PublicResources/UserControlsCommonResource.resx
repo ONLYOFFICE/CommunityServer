@@ -168,17 +168,11 @@
   <data name="BannerBitly" xml:space="preserve">
     <value>Shorten portal invitation links and links for shared documents using Bitly</value>
   </data>
-  <data name="BannerDocuSign" xml:space="preserve">
-    <value>Sign the documents electronically using DocuSign technology</value>
-  </data>
   <data name="BannerSocial" xml:space="preserve">
     <value>Log in to the portal using your social accounts and search for contacts</value>
   </data>
   <data name="BannerStorage" xml:space="preserve">
     <value>Connect your favorite cloud storage services and store all your files in one place</value>
-  </data>
-  <data name="BannerTwilio" xml:space="preserve">
-    <value>Call the CRM contacts right from the portal with Twilio API</value>
   </data>
   <data name="Bookmark" xml:space="preserve">
     <value>Bookmark</value>
@@ -444,11 +438,11 @@
   <data name="LblTo" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="LicenseActivateButton" xml:space="preserve">
-    <value>Activate Now</value>
+  <data name="LicenseActivateButtonV11" xml:space="preserve">
+    <value>Activate</value>
   </data>
-  <data name="LicenseActivateDescr" xml:space="preserve">
-    <value>To activate ONLYOFFICE Enterprise Edition you need to buy a license key.</value>
+  <data name="LicenseActivateDescrV11" xml:space="preserve">
+    <value>If you have already purchased the renewal, upload the license file and press Activate.</value>
   </data>
   <data name="LicenseActivateHeader" xml:space="preserve">
     <value>Activate ONLYOFFICE Enterprise Edition</value>
@@ -462,11 +456,11 @@
   <data name="LicenseKeyHeader" xml:space="preserve">
     <value>License Activation File</value>
   </data>
-  <data name="LicenseKeyLabel" xml:space="preserve">
-    <value>Upload Your License File</value>
+  <data name="LicenseKeyLabelV11" xml:space="preserve">
+    <value>Upload License</value>
   </data>
-  <data name="LicenseKeyBuyLabel" xml:space="preserve">
-    <value>Buy a License</value>
+  <data name="LicenseKeyBuyLabelV11" xml:space="preserve">
+    <value>Buy license</value>
   </data>
   <data name="HostedBuyLabel" xml:space="preserve">
     <value>Portal payment</value>
@@ -474,11 +468,11 @@
   <data name="HostedBuyDescr" xml:space="preserve">
     <value>If you want to pay for your ONLYOFFICE portal, click the Buy Now button.</value>
   </data>
-  <data name="SalesQuestions" xml:space="preserve">
-    <value>Have a questions? Please, contact our sales department at {0}</value>
+  <data name="SalesQuestionsV11" xml:space="preserve">
+    <value>For any purchase questions, contact us at {0}</value>
   </data>
-  <data name="LicenseKeyBuyDescr" xml:space="preserve">
-    <value>If you want to review or buy an ONLYOFFICE license, click the Buy Now button. You will be redirected to the ONLYOFFICE order page on the Avangate website.</value>
+  <data name="LicenseKeyBuyDescrV11" xml:space="preserve">
+    <value>Purchase the renewal now. Note that you will be redirected to Avangate.</value>
   </data>
   <data name="LicenseKeyNotCorrect" xml:space="preserve">
     <value>License key is not correct</value>
@@ -678,6 +672,9 @@
   <data name="Subtask" xml:space="preserve">
     <value>Subtask</value>
   </data>
+  <data name="SubscribeSite" xml:space="preserve">
+    <value>I want to subscribe to the ONLYOFFICE newsletter</value>
+  </data>
   <data name="TariffBasicPrice" xml:space="preserve">
     <value>Basic price</value>
   </data>
@@ -717,6 +714,12 @@
   <data name="TariffNonProfit" xml:space="preserve">
     <value>You are using a plan for nonprofit organization.</value>
   </data>
+  <data name="TariffNotPaidStandalone2" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license{1}.</value>
+  </data>
+  <data name="TariffNotPaidStandaloneSupport" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support is no longer available for your license{1}.</value>
+  </data>
   <data name="TariffOverdueDesktop" xml:space="preserve">
     <value>{0}The portal payment is overdue.{1} {2}To continue using ONLYOFFICE collaboration features, {2}prolong the existing pricing plan or select another one.</value>
   </data>
@@ -728,6 +731,9 @@
   </data>
   <data name="TariffOverdueStandalone2" xml:space="preserve">
     <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}.</value>
+  </data>
+  <data name="TariffOverdueStandaloneSupport" xml:space="preserve">
+    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support are no longer available for your license since {2}{1}.</value>
   </data>
   <data name="TariffPaidPlan" xml:space="preserve">
     <value>You are using {0} - {1} active users plan.</value>
@@ -837,8 +843,8 @@
   <data name="TodayAt" xml:space="preserve">
     <value>Today at</value>
   </data>
-  <data name="LicenseActivateAndGet" xml:space="preserve">
-    <value>Please activate ONLYOFFICE and get:</value>
+  <data name="LicenseActivateAndGetV11" xml:space="preserve">
+    <value>Renew subscription to get:</value>
   </data>
   <data name="HostedPayAndGet" xml:space="preserve">
     <value>Please pay for your ONLYOFFICE and get:</value>
@@ -849,17 +855,17 @@
   <data name="LicenseModulesList" xml:space="preserve">
     <value>{0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}</value>
   </data>
-  <data name="LicenseModulesControlPanel" xml:space="preserve">
-    <value>Control Panel</value>
+  <data name="LicenseModulesPrivateV11" xml:space="preserve">
+    <value>Private Room for encrypted collaboration,</value>
   </data>
-  <data name="LicenseModulesMultitenancy" xml:space="preserve">
-    <value>Multitenancy</value>
+  <data name="LicenseModulesMobileV11" xml:space="preserve">
+    <value>mobile web editors,</value>
   </data>
-  <data name="LicenseModulesUpdates" xml:space="preserve">
-    <value>ONLYOFFICE Updates</value>
+  <data name="LicenseModulesUpdatesV11" xml:space="preserve">
+    <value>regular functionality and security updates during 1 year,</value>
   </data>
-  <data name="LicenseModulesSupport" xml:space="preserve">
-    <value>One Year Support</value>
+  <data name="LicenseModulesSupportV11" xml:space="preserve">
+    <value>1 year of professional tech support service.</value>
   </data>
   <data name="LicenseRequestHeader" xml:space="preserve">
     <value>Discover your special offer</value>
@@ -921,11 +927,11 @@
   <data name="YesterdayAt" xml:space="preserve">
     <value>Yesterday at</value>
   </data>
-  <data name="LicensedUnder" xml:space="preserve">
-    <value>This software is licensed under {0}GNU GPL v.3{1}</value>
+  <data name="LicensedUnderApache" xml:space="preserve">
+    <value>This software is licensed under {0}Apache License, Version 2.0{1}</value>
   </data>
   <data name="SourceCode" xml:space="preserve">
-    <value>Source code is availible on {0}GitHub{1}</value>
+    <value>Source code is available on {0}GitHub{1}</value>
   </data>
   <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
     <value>The file could not be added as you have exceeded your storage space quota. Please delete the outdated files or contact our support team for more information.</value>
@@ -995,5 +1001,11 @@
   </data>
   <data name="MediaViewerPlay" xml:space="preserve">
     <value>Play</value>
+  </data>
+  <data name="LicenseModulesProV11" xml:space="preserve">
+    <value>ONLYOFFICE editors with pro features,</value>
+  </data>
+  <data name="SupportQuestionsV11" xml:space="preserve">
+    <value>For solving technical issues, use {0}</value>
   </data>
 </root>

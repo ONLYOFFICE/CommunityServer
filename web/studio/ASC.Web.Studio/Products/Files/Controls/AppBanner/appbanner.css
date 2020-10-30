@@ -1,0 +1,61 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+.mobile-app-tree {
+    margin-top: 20px;
+}
+
+.mobile-app-banner {
+    background-position: 50%;
+    background-size: 100%;
+    cursor: pointer;
+    float: left;
+    height: 32px;
+    margin-right: 4px;
+    margin-top: 8px;
+    width: 32px;
+}
+
+.mobile-app-win {
+    background-image: url("images/win_gray.svg");
+}
+.mobile-app-win:hover {
+    background-image: url("images/win.svg");
+}
+.mobile-app-mac {
+    background-image: url("images/mac_gray.svg");
+}
+.mobile-app-mac:hover {
+    background-image: url("images/mac.svg");
+}
+.mobile-app-linux {
+    background-image: url("images/linux_gray.svg");
+}
+.mobile-app-linux:hover {
+    background-image: url("images/linux.svg");
+}
+.mobile-app-android {
+    background-image: url("images/android_gray.svg");
+}
+.mobile-app-android:hover {
+    background-image: url("images/android.svg");
+}
+.mobile-app-ios {
+    background-image: url("images/ios_gray.svg");
+}
+.mobile-app-ios:hover {
+    background-image: url("images/ios.svg");
+}

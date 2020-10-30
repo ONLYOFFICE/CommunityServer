@@ -35,6 +35,7 @@ function makeRequest(apiMethod, req, options, onSuccess){
 }
 
 function makeHeaders(req, options) {
+	options.gzip = true;
     options.headers = {};
     
     if (req.cookies && req.cookies['asc_auth_key']) {

@@ -1,70 +1,60 @@
 ﻿<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BlankModal.ascx.cs" Inherits="ASC.Web.Mail.Controls.BlankModal" %>
-<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
+<%@ Import Namespace="ASC.Web.Mail.Configuration" %>
 
 <div class="backdrop hidden" blank-page=""></div>
 
-<div blank-page="" class="dashboard-center-box mail <%= IsAdmin() ? "for-admin" : "for-user" %> hidden">
-    <div class="header">
-        <span class="close" onclick=" blankModal.close(); ">&times;</span><%= MailResource.BlankModalHeader %>
-    </div>
-    <div class="content clearFix">
-        <% if (IsAdmin() && ASC.Web.Mail.Configuration.Settings.IsAdministrationPageAvailable())
-           { %>
-            <div class="module-block">
-                <div class="img server"></div>
-                <div class="title"><%= MailResource.BlankModalMailServerTitle %></div>
-                <ul>
-                    <li><%= MailResource.BlankModalMailServerTip1 %></li>
-                    <% if (CoreContext.Configuration.Standalone)
-                       { %>
-                           <li><%= MailResource.BlankModalMailServerTip2Stanalone %></li> 
-                    <% }
-                       else
-                       {%>
-                           <li><%= MailResource.BlankModalMailServerTip2 %></li>
-                      <% } %>
-                    <li><%= MailResource.BlankModalMailServerTip3 %></li>
-                </ul>
+<div id="content" blank-page="" class="dashboard-center-box mail hidden">
+    <a class="close">&times;</a>
+    <div class="content">
+        <div class="slick-carousel">
+            <% if (IsAdmin() && Settings.IsAdministrationPageAvailable())
+                { %>
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img use-mail-server"></div>
+                <div class="text">
+                    <div class="title"><%= MailResource.DashboardUseMailServer %></div>
+                    <p><%= MailResource.DashboardUseMailServerFirstLine %></p>
+                    <p><%= MailResource.DashboardUseMailServerSecondLine %></p>
+                    <p><%= MailResource.DashboardUseMailServerThirdLine %></p>
+                </div>
             </div>
-        <% } %>
-        <div class="module-block">
-            <div class="img contacts"></div>
-            <div class="title"><%= MailResource.BlankModalAccountsTitle %></div>
-            <ul>
-                <li><%= MailResource.BlankModalAccountsTip1 %></li>
-                <li><%= MailResource.BlankModalAccountsTip2 %></li>
-                <li><%= MailResource.BlankModalAccountsTip3 %></li>
-            </ul>
-        </div>
-        <div class="module-block">
-            <div class="img tags"></div>
-            <div class="title"><%= MailResource.BlankModalTagsTitle %></div>
-            <ul>
-                <li><%= MailResource.BlankModalTagsTip1 %></li>
-                <li><%= MailResource.BlankModalTagsTip2 %></li>
-                <li><%= MailResource.BlankModalTagsTip3 %></li>
-            </ul>
-        </div>
-        <% if (IsCrmAvailable())
-           { %>
-            <div class="module-block">
-                <div class="img crm"></div>
-                <div class="title"><%= MailResource.BlankModalCRMTitle %></div>
-                <ul>
-                    <li><%= MailResource.BlankModalCRMTip1 %></li>
-                    <li><%= MailResource.BlankModalCRMTip2 %></li>
-                    <li><%= MailResource.BlankModalCRMTip3 %></li>
-                </ul>
+            <% } %>
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img collect-all-emails-in-one-place"></div>
+                <div class="text">
+                    <div class="title"><%= MailResource.DashboardCollectAllEmailsInOnePlace %></div>
+                    <p><%= MailResource.DashboardCollectAllEmailsInOnePlaceFirstLine %></p>
+                    <p><%= MailResource.DashboardCollectAllEmailsInOnePlaceSecondLine %></p>
+                    <p><%= MailResource.DashboardCollectAllEmailsInOnePlaceThirdLine %></p>
+                </div>
             </div>
-        <% } %>
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img structure-correspondence"></div>
+                <div class="text">
+                    <div class="title"><%= MailResource.DashboardStructureCorrespondence %></div>
+                    <p><%= MailResource.DashboardStructureCorrespondenceFirstLine %></p>
+                    <p><%= MailResource.DashboardStructureCorrespondenceSecondLine %></p>
+                    <p><%= MailResource.DashboardStructureCorrespondenceThirdLine %></p>
+                </div>
+            </div>
+            <div class="module-block slick-carousel-item clearFix">
+                <div class="img communicate-easily"></div>
+                <div class="text">
+                    <div class="title"><%= MailResource.DashboardCommunicateEasily %></div>
+                    <p><%= MailResource.DashboardCommunicateEasilyFirstLine %></p>
+                    <p><%= MailResource.DashboardCommunicateEasilySecondLine %></p>
+                    <p><%= MailResource.DashboardCommunicateEasilyThirdLine %></p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="dashboard-buttons">
         <a class="button huge create-button" href="javascript:void(0)" onclick=" blankModal.addAccount(); "><%= MailResource.BlankModalCreateBtn %></a>
         <% if (IsAdmin())
            { %>
-            <% if (ASC.Web.Mail.Configuration.Settings.IsAdministrationPageAvailable())
+            <% if (Settings.IsAdministrationPageAvailable())
                { %>
             <span class="or-split"><%= MailResource.Or %></span>
             <a class="link create-button-link" href="javascript:void(0)" onclick=" blankModal.setUpDomain(); "><%= MailResource.BlankModalSetUpDomainBtn %></a>
@@ -72,7 +62,7 @@
         <% }
            else
            { %>
-            <% if (ASC.Web.Mail.Configuration.Settings.IsMailCommonDomainAvailable())
+            <% if (Settings.IsMailCommonDomainAvailable())
                { %>
             <span class="or-split"><%= MailResource.Or %></span>
             <a class="link create-button-link" href="javascript:void(0)" onclick=" blankModal.addMailbox(); "><%= MailResource.BlankModalCreateMailboxBtn %></a>

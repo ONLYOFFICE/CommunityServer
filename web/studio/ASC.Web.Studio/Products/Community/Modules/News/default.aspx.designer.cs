@@ -13,6 +13,15 @@ namespace ASC.Web.Community.News {
     public partial class Default {
         
         /// <summary>
+        /// SubscribeLinkBlock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal SubscribeLinkBlock;
+        
+        /// <summary>
         /// MessageShow control.
         /// </summary>
         /// <remarks>
@@ -40,15 +49,6 @@ namespace ASC.Web.Community.News {
         protected global::System.Web.UI.WebControls.Repeater FeedRepeater;
         
         /// <summary>
-        /// pgNavigator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.PageNavigator pgNavigator;
-        
-        /// <summary>
         /// FeedView control.
         /// </summary>
         /// <remarks>
@@ -56,15 +56,6 @@ namespace ASC.Web.Community.News {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel FeedView;
-        
-        /// <summary>
-        /// SubscribeLinkBlock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal SubscribeLinkBlock;
         
         /// <summary>
         /// FeedViewCtrl control.
@@ -92,5 +83,14 @@ namespace ASC.Web.Community.News {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnField;
+        
+        /// <summary>
+        /// pgNavigator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.Controls.Common.PageNavigator pgNavigator;
     }
 }

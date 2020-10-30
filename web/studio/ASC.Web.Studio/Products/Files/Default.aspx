@@ -5,6 +5,8 @@
 <%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" EnableViewStateMac="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Files._Default" %>
 
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
@@ -14,13 +16,22 @@
 <%@ MasterType TypeName="ASC.Web.Files.Masters.BasicTemplate" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
-    <% var uri = new UriBuilder(Request.Url)
+    <% if (!CoreContext.Configuration.CustomMode)
+       { %>
+    <% var uri = new UriBuilder(Request.GetUrlRewriter())
        {
            Path = "",
-           Query = "email=" + HttpUtility.UrlEncode(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email),
+           Query = "email=" + HttpUtility.UrlEncode(CurrentUser.Email),
        };
     %>
     <meta name="apple-itunes-app" content="app-id=944896972, app-argument=<%= HttpUtility.HtmlEncode(uri) %>" />
+    <% } %>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="CreateButtonContent">
+    <div class="page-menu">
+        <asp:PlaceHolder ID="CreateButtonHolder" runat="server"></asp:PlaceHolder>
+    </div>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTSidePanel">
@@ -28,16 +39,16 @@
         <asp:PlaceHolder ID="CommonSideHolder" runat="server"></asp:PlaceHolder>
     </div>
 
-    <% if (!Desktop && CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)
+    <% if (!Desktop && CoreContext.Configuration.Personal && false)
        { %>
     <a href="#more" class="morefeatures-link banner-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
     <% } %>
 
-    <% if (!Desktop && DisplayAppsBanner && (!CoreContext.Configuration.Personal || (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)))
-       { %>
-    <a href="https://itunes.apple.com/app/onlyoffice-documents/id944896972?mt=8" target="_blank"
-        class="mobile-app-banner banner-link gray-text"><%= string.Format(FilesUCResource.AppStore, "<br>", "<span>", "</span>") %></a>
-    <% } %>
+    <asp:PlaceHolder ID="AppBannerHolder" runat="server" />
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="FilterContent">
+    <asp:PlaceHolder ID="FilterHolder" runat="server" />
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTPageContent">
@@ -64,6 +75,8 @@
             <%= FilesUCResource.ConfirmDelete %>
         </label>
 
+        <% if (!CurrentUser.IsVisitor())
+           { %>
         <br />
         <br />
         <br />
@@ -80,17 +93,46 @@
         <label for="cbxForcesave">
             <%= FilesUCResource.SettingForcesave %>
         </label>
-        <% if (Global.IsAdministrator) 
+        <br />
+        <br />
+        <br />
+        <span class="header-base"><%= FilesUCResource.SettingSection %></span>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxFavorites" class="on-off-checkbox" <%= FilesSettings.FavoritesSection ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxFavorites">
+            <%= FilesUCResource.SettingFavorite %>
+        </label>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxRecent" class="on-off-checkbox" <%= FilesSettings.RecentSection ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxRecent">
+            <%= FilesUCResource.SettingRecent %>
+        </label>
+        <% if (FileUtility.ExtsWebTemplate.Any())
            { %>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxTemplates" class="on-off-checkbox" <%= FilesSettings.TemplatesSection ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxTemplates">
+            <%= FilesUCResource.SettingTemplates %>
+        </label>
+        <% } %>
+        <% } %>
+    </div>
+
+    <% if (Global.IsAdministrator) 
+       { %>
+    <div id="settingAdmin">
+        <span class="header-base"><%= FilesUCResource.SettingVersions %></span>
         <br />
         <br />
         <input type="checkbox" id="cbxStoreForcesave" class="on-off-checkbox" <%= FilesSettings.StoreForcesave ? "checked='checked'" : "" %> />
         <label for="cbxStoreForcesave">
             <%= FilesUCResource.SettingStoreForcesave %>
         </label>
-        <% } %>
 
-        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop) 
+        <% if (!CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop) 
            { %>
         <br />
         <br />
@@ -104,6 +146,7 @@
         </label>
         <% } %>
     </div>
+    <% } %>
 
     <div id="settingThirdPartyPanel">
         <asp:PlaceHolder runat="server" ID="SettingPanelHolder"></asp:PlaceHolder>

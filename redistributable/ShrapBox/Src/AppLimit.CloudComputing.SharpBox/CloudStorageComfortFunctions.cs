@@ -722,6 +722,8 @@ namespace AppLimit.CloudComputing.SharpBox
                     return StorageProvider.WebDav.WebDavConfiguration.GetHiDriveConfiguration();
                 case nSupportedCloudConfigurations.Google:
                     return StorageProvider.GoogleDocs.GoogleDocsConfiguration.GetStandartConfiguration();
+                case nSupportedCloudConfigurations.kDrive:
+                    return StorageProvider.WebDav.WebDavConfiguration.GetkDriveConfiguration();
                 case nSupportedCloudConfigurations.Yandex:
                     return StorageProvider.WebDav.WebDavConfiguration.GetYandexConfiguration();
                 case nSupportedCloudConfigurations.SkyDrive:

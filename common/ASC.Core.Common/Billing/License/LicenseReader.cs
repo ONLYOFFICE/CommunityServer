@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -28,9 +19,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -40,7 +29,7 @@ namespace ASC.Core.Billing
     public static class LicenseReader
     {
         private static readonly ILog Log = LogManager.GetLogger("ASC");
-        private static readonly string LicensePath;
+        public static readonly string LicensePath;
         private static readonly string LicensePathTemp;
 
         public const string CustomerIdKey = "CustomerId";
@@ -49,7 +38,7 @@ namespace ASC.Core.Billing
 
         static LicenseReader()
         {
-            LicensePath = ConfigurationManager.AppSettings["license.file.path"];
+            LicensePath = (ConfigurationManagerExtension.AppSettings["license.file.path"] ?? "").Trim();
             LicensePathTemp = LicensePath + ".tmp";
         }
 
@@ -205,36 +194,46 @@ namespace ASC.Core.Billing
             var defaultQuota = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT);
 
             var quota = new TenantQuota(-1000)
-                {
-                    ActiveUsers = license.ActiveUsers,
-                    MaxFileSize = defaultQuota.MaxFileSize,
-                    MaxTotalSize = defaultQuota.MaxTotalSize,
-                    Name = "license",
-                    HasDomain = true,
-                    Audit = true,
-                    ControlPanel = true,
-                    HealthCheck = true,
-                    Ldap = true,
-                    Sso = true,
-                    WhiteLabel = license.WhiteLabel || license.Customization,
-                    Update = true,
-                    Support = true,
-                    Trial = license.Trial,
-                    CountPortals = license.PortalCount,
-                };
-            CoreContext.TenantManager.SaveTenantQuota(quota);
-
-            if (defaultQuota.CountPortals != license.PortalCount)
             {
-                defaultQuota.CountPortals = license.PortalCount;
-                CoreContext.TenantManager.SaveTenantQuota(defaultQuota);
+                ActiveUsers = license.ActiveUsers,
+                MaxFileSize = defaultQuota.MaxFileSize,
+                MaxTotalSize = defaultQuota.MaxTotalSize,
+                Name = "license",
+                DocsEdition = true,
+                HasDomain = true,
+                Audit = true,
+                ControlPanel = true,
+                HealthCheck = true,
+                Ldap = true,
+                Sso = true,
+                Customization = license.Customization,
+                WhiteLabel = license.WhiteLabel || license.Customization,
+                Branding = license.Branding,
+                SSBranding = license.SSBranding,
+                Update = true,
+                Support = true,
+                Trial = license.Trial,
+                CountPortals = license.PortalCount,
+                DiscEncryption = true,
+                PrivacyRoom = true,
+            };
+
+            if (defaultQuota.Name != "overdue" && !defaultQuota.Trial)
+            {
+                quota.WhiteLabel |= defaultQuota.WhiteLabel;
+                quota.Branding |= defaultQuota.Branding;
+                quota.SSBranding |= defaultQuota.SSBranding;
+
+                quota.CountPortals = Math.Max(defaultQuota.CountPortals, quota.CountPortals);
             }
 
+            CoreContext.TenantManager.SaveTenantQuota(quota);
+
             var tariff = new Tariff
-                {
-                    QuotaId = quota.Id,
-                    DueDate = license.DueDate,
-                };
+            {
+                QuotaId = quota.Id,
+                DueDate = license.DueDate,
+            };
 
             CoreContext.PaymentManager.SetTariff(-1, tariff);
 
@@ -271,13 +270,17 @@ namespace ASC.Core.Billing
         {
             get
             {
+                // release sign is not longer requered
+                return _date;
+
+                /*
                 if (_date != DateTime.MinValue) return _date;
 
                 _date = DateTime.MaxValue;
                 try
                 {
-                    var versionDate = ConfigurationManager.AppSettings["version.release-date"];
-                    var sign = ConfigurationManager.AppSettings["version.release-date.sign"];
+                    var versionDate = ConfigurationManagerExtension.AppSettings["version.release-date"];
+                    var sign = ConfigurationManagerExtension.AppSettings["version.release-date.sign"];
 
                     if (!sign.StartsWith("ASC "))
                     {
@@ -294,9 +297,9 @@ namespace ASC.Core.Billing
                     var date = splitted[1];
                     var orighash = splitted[2];
 
-                    var skey = ConfigurationManager.AppSettings["core.machinekey"];
+                    var skey = MachinePseudoKeys.GetMachineConstant();
 
-                    using (var hasher = new HMACSHA1(Encoding.UTF8.GetBytes(skey)))
+                    using (var hasher = new HMACSHA1(skey))
                     {
                         var data = string.Join("\n", date, pkey);
                         var hash = hasher.ComputeHash(Encoding.UTF8.GetBytes(data));
@@ -315,7 +318,7 @@ namespace ASC.Core.Billing
                 {
                     LogManager.GetLogger("ASC").Error("VersionReleaseDate", ex);
                 }
-                return _date;
+                return _date;*/
             }
         }
     }

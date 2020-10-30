@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -225,10 +216,30 @@ var CommentsManagerObj = new function() {
         StudioConfirm.OpenDialog('', fn);
     };
 
+    function changeUploadHandlerPath(commentId) {
+        var uploadUrl = CommentsManagerObj.CkUploadHandlerPath;
+
+        if (commentId) {
+            var url = new URL(CommentsManagerObj.CkUploadHandlerPath);
+            var searchParams = url.searchParams;
+            searchParams.set("iid", commentId);
+            url.search = searchParams.toString();
+            uploadUrl = url.toString();
+        }
+
+        if (CommentsManagerObj.editorInstance &&
+            CommentsManagerObj.editorInstance.status == "ready" &&
+            uploadUrl != CommentsManagerObj.editorInstance.config.filebrowserUploadUrl) {
+            CommentsManagerObj.editorInstance.destroy();
+            buildEditorInstance(uploadUrl);
+        }
+    }
+
     function editCommentClick(elt) {
         var id = jq(elt).attr("id").replace("edit_", "");
 
         CommentsManagerObj.obj = id;
+        changeUploadHandlerPath(id);
         setParentComment("");
         setAction("update", id);
         showCommentBox(id);
@@ -240,11 +251,20 @@ var CommentsManagerObj = new function() {
         var id = jq(elt).attr("id").replace("response_", "");
 
         CommentsManagerObj.obj = id;
+        changeUploadHandlerPath(null);
         setParentComment(id);
         setAction("add", null);
         showCommentBox("", elt);
 
         return false;
+    };
+
+    function copyToClipboard(elt) {
+        var id = jq(elt).attr("id").replace("clip_", "");
+        var link = window.location.href.replace(window.location.hash, '') + '#comment_' + id
+        jq('#commentsClip').val(link).select();
+        document.execCommand('copy');
+        window.toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
     };
 
     function redraw() {
@@ -262,14 +282,20 @@ var CommentsManagerObj = new function() {
         }
     };
 
+    function scrollToElement(target) {
+        var parent = jq(jq("body").css("overflow") == "hidden" ? '.mainPageContent' : 'body');
+        parent.scrollTo(target, 500);
+    }
+
     function hidePreview() {
-        jq(window).scrollTop(jq('#commentBox').position().top, { speed: 500 });
+        scrollToElement('#commentBox', 500);
         jq('#previewBox').hide("slow");
     };
 
     function addNewComment() {
         if (CommentsManagerObj.editorInstance) {
             CommentsManagerObj.obj = null;
+            changeUploadHandlerPath(null);
             setParentComment("");
             setAction("add", null);
             showCommentBox("", null);
@@ -291,8 +317,7 @@ var CommentsManagerObj = new function() {
         });
 
         jq('#previewBoxBody').html(html);
-        jq('#previewBox').show();
-        jq(window).scrollTop(jq('#previewBox').position().top, { speed: 500 });
+        scrollToElement(jq('#previewBox').show(), 500);
     };
 
     function callBackAddComment(params, response) {
@@ -353,7 +378,7 @@ var CommentsManagerObj = new function() {
         CommentsManagerObj.currentCommentID = obj.attr("id").replace("comment_", "");
 
 
-        jq(window).scrollTop(obj.position().top, { speed: 500 });
+        scrollToElement(obj, 500);
 
         obj.css({ "background-color": "#ffffcc" });
         obj.animate({ backgroundColor: '#ffffff' }, 1000);
@@ -373,7 +398,7 @@ var CommentsManagerObj = new function() {
 
         CommentsManagerObj.currentCommentID = params.commentid;
 
-        jq(window).scrollTop(obj.position().top, { speed: 500 });
+        scrollToElement(obj, 500);
 
         obj.css({ "background-color": "#ffffcc" });
         obj.animate({ backgroundColor: '#ffffff' }, 1000);
@@ -410,7 +435,7 @@ var CommentsManagerObj = new function() {
 
         jq('#commentBox').show();
 
-        jq(window).scrollTop(jq('#commentBox').position().top, { speed: 500 });
+        scrollToElement(jq('#commentBox .middle-button-container'), 500);
         jq('#previewBox').hide();
 
         setTimeout(function () {
@@ -427,6 +452,34 @@ var CommentsManagerObj = new function() {
 
         if (comment_id != null)
             jq('#hdnCommentID').val(comment_id);
+    };
+
+    function buildEditorInstance(uploadUrl) {
+        CommentsManagerObj.editorInstance =
+            jq("#commentEditor" + CommentsManagerObj._jsObjName)
+                .ckeditor(
+                    {
+                        toolbar: "Comment",
+                        extraPlugins: "teamlabquote,codemirror",
+                        filebrowserUploadUrl: uploadUrl || CommentsManagerObj.CkUploadHandlerPath,
+                        height: "200"
+                    })
+                .editor;
+
+        CommentsManagerObj.editorInstance.keystrokeHandler.keystrokes[window.CKEDITOR.CTRL + 13] = "ctrlEnter";
+        CommentsManagerObj.editorInstance.addCommand("ctrlEnter", {
+            exec: function (editor, data) {
+                addCommentClick();
+            }
+        });
+
+        CommentsManagerObj.editorInstance.on("change", function () {
+            if (this.getData() == "") {
+                jq("#btnPreview").addClass("disable");
+            } else {
+                jq("#btnPreview").removeClass("disable");
+            }
+        });
     };
 
     this.Init = function () {
@@ -457,36 +510,23 @@ var CommentsManagerObj = new function() {
 
         jq("#mainCommentsContainer").on("click", "[id^=response_]", function () { responseCommentClick(this); });
 
-        ckeditorConnector.load(function () {
-            CommentsManagerObj.editorInstance =
-                jq("#commentEditor" + CommentsManagerObj._jsObjName)
-                    .ckeditor(
-                        {
-                            toolbar: "Comment",
-                            extraPlugins: "teamlabquote,codemirror",
-                            filebrowserUploadUrl: CommentsManagerObj.CkUploadHandlerPath,
-                            height: "200"
-                        })
-                    .editor;
+        jq("#mainCommentsContainer").on("click", "[id^=clip_]", function () { copyToClipboard(this); });
 
-            CommentsManagerObj.editorInstance.keystrokeHandler.keystrokes[window.CKEDITOR.CTRL + 13] = "ctrlEnter";
-            CommentsManagerObj.editorInstance.addCommand("ctrlEnter", {
-                exec: function (editor, data) {
-                    addCommentClick();
-                }
-            });
-            
-            CommentsManagerObj.editorInstance.on("change",  function() {
-                if (this.getData() == "") {
-                    jq("#btnPreview").addClass("disable");
-                } else {
-                    jq("#btnPreview").removeClass("disable");
-                }
-            });
-        });
+        ckeditorConnector.load(buildEditorInstance);
 
         if (CommentsManagerObj.onLoadComplete && typeof CommentsManagerObj.onLoadComplete == "function") {
             CommentsManagerObj.onLoadComplete();
+        }
+
+        var hash = window.location.hash;
+        if (hash) {
+            setTimeout(function () { window.scrollTo(0, 0); }, 0);
+            if (hash.indexOf("#comment_") == 0) {
+                setTimeout(function () {
+                    scrollToElement(hash, 500);
+                    jq(hash).css({ "background-color": "#ffffcc" }).animate({ backgroundColor: '#ffffff' }, 1000);
+                }, 1000);
+            }
         }
     };
 

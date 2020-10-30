@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -31,6 +22,7 @@ using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
@@ -152,8 +144,7 @@ namespace ASC.Web.Files.Utils
                             RemoveFromCahce(rootFolder.ID, userID);
                         }
                     }
-
-                    if (obj.FileEntry.RootFolderType == FolderType.COMMON)
+                    else if (obj.FileEntry.RootFolderType == FolderType.COMMON)
                     {
                         userIDs.ForEach(userID => RemoveFromCahce(Global.FolderCommon, userID));
 
@@ -169,6 +160,24 @@ namespace ASC.Web.Files.Utils
 
                                                     RemoveFromCahce(Global.FolderCommon, userID);
                                                 });
+                        }
+                    }
+                    else if (obj.FileEntry.RootFolderType == FolderType.Privacy)
+                    {
+                        foreach (var userID in userIDs)
+                        {
+                            var privacyFolderId = folderDao.GetFolderIDPrivacy(false, userID);
+                            if (Equals(privacyFolderId, 0)) continue;
+
+                            var rootFolder = folderDao.GetFolder(privacyFolderId);
+                            if (rootFolder == null) continue;
+
+                            if (userEntriesData.ContainsKey(userID))
+                                userEntriesData[userID].Add(rootFolder);
+                            else
+                                userEntriesData.Add(userID, new List<FileEntry> { rootFolder });
+
+                            RemoveFromCahce(rootFolder.ID, userID);
                         }
                     }
 
@@ -271,6 +280,7 @@ namespace ASC.Web.Files.Utils
                 object folderID;
                 int valueNew;
                 var userFolderId = folderDao.GetFolderIDUser(false, userID);
+                var privacyFolderId = folderDao.GetFolderIDPrivacy(false, userID);
 
                 var removeTags = new List<Tag>();
 
@@ -334,6 +344,13 @@ namespace ASC.Web.Files.Utils
                         cacheFolderId = rootFolderId = Global.FolderShare;
                     else
                         cacheFolderId = userFolderId;
+                }
+                else if (rootFolder.RootFolderType == FolderType.Privacy)
+                {
+                    if (!Equals(privacyFolderId, 0))
+                    {
+                        cacheFolderId = rootFolderId = privacyFolderId;
+                    }
                 }
                 else if (rootFolder.RootFolderType == FolderType.SHARE)
                 {
@@ -401,6 +418,11 @@ namespace ASC.Web.Files.Utils
                     Global.FolderShare,
                     Global.FolderProjects
                 };
+
+            if (PrivacyRoomSettings.Enabled)
+            {
+                rootIds.Add(Global.FolderPrivacy);
+            }
 
             var requestIds = new List<object>();
             var news = new Dictionary<object, int>();
@@ -480,7 +502,8 @@ namespace ASC.Web.Files.Utils
                     var entry = tag.EntryType == FileEntryType.File
                                     ? (FileEntry)fileDao.GetFile(tag.EntryId)
                                     : (FileEntry)folderDao.GetFolder(tag.EntryId);
-                    if (entry != null)
+                    if (entry != null
+                        && (!entry.ProviderEntry || FilesSettings.EnableThirdParty))
                     {
                         entryTags.Add(entry, tag);
                     }

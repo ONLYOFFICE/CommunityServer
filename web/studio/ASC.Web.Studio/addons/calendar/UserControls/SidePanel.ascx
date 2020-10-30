@@ -4,9 +4,7 @@
 
 
 <div class="page-menu">
-    
-    <div id="calendarSidePanelActions"></div>
-    
+
     <div id="calendarSidePanelContent"></div>
 
 </div>

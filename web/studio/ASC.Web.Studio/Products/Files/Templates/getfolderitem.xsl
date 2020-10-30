@@ -8,6 +8,9 @@
     <li name="addRow">
       <xsl:attribute name="class">
         file-row folder-row new-folder item-row
+        <xsl:if test="contains(file_status, 'IsFavorite')">
+          on-favorite
+        </xsl:if>
         <xsl:if test="provider_key != ''">
           third-party-entry
         </xsl:if>
@@ -213,6 +216,12 @@
         <xsl:if test="contains(file_status, 'IsEditingAlone')">
           on-edit-alone
         </xsl:if>
+        <xsl:if test="contains(file_status, 'IsFavorite')">
+          on-favorite
+        </xsl:if>
+        <xsl:if test="contains(file_status, 'IsTemplate')">
+          is-template
+        </xsl:if>
         <xsl:if test="provider_key != ''">
           third-party-entry
         </xsl:if>
@@ -269,6 +278,11 @@
             </xsl:attribute>
           </a>
           <div class="file-editing pencil"></div>
+          <div class="favorite">
+            <xsl:attribute name="title">
+              <resource name="fres.ButtonRemoveFavorite" />
+            </xsl:attribute>
+          </div>
           <div class="file-lock">
             <xsl:if test="locked_by != ''">
               <xsl:attribute name="data-name">
@@ -279,6 +293,11 @@
           <div class="convert-action pencil">
             <xsl:attribute name="title">
               <resource name="fres.ButtonConvertOpen" />
+            </xsl:attribute>
+          </div>
+          <div class="template-action">
+            <xsl:attribute name="title">
+              <resource name="fres.ButtonCreateByTemplate" />
             </xsl:attribute>
           </div>
           <xsl:if test="version > 1">

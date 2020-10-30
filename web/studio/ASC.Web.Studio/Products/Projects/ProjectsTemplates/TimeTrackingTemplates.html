@@ -12,7 +12,7 @@
                 ${displayDateCreation}
         </td>
         <td class="pm-ts-noteColumn stretch">
-                <a href="tasks.aspx?prjID=${relatedProject}&id=${relatedTask}">${relatedTaskTitle}</a>
+                <a href="Tasks.aspx?prjID=${relatedProject}&id=${relatedTask}">${relatedTaskTitle}</a>
                 <span>${note}</span>
         </td>
         <td class="pm-ts-hoursColumn">
@@ -28,7 +28,7 @@
 
         <td class="pm-ts-actionsColumn">
         {{if canEdit == true}}
-            <div class="entity-menu"></div>
+            <div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
         {{/if}}
         </td>
 </tr>

@@ -6,7 +6,6 @@
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<div id="CaseTabs"></div>
 
 <div id="profileTab" class="display-none">
     <asp:PlaceHolder runat="server" ID="_phProfileView"></asp:PlaceHolder>
@@ -34,7 +33,7 @@
 <div id="caseDetailsMenuPanel" class="studio-action-panel">
     <ul class="dropdown-content">
         <li>
-            <a class="dropdown-item" href="<%= String.Format("cases.aspx?id={0}&action=manage", TargetCase.ID) %>"
+            <a class="dropdown-item" href="<%= String.Format("Cases.aspx?id={0}&action=manage", TargetCase.ID) %>"
                     title="<%= CRMCasesResource.EditCase %>">
                 <%= CRMCasesResource.EditCase %>
             </a>

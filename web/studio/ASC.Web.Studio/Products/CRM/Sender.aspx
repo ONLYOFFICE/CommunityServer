@@ -3,10 +3,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sender.aspx.cs" MasterPageFile="~/Products/CRM/Masters/BasicTemplate.Master" Inherits="ASC.Web.CRM.Sender" %>
 <%@ MasterType TypeName="ASC.Web.CRM.BasicTemplate" %>
 
-<asp:Content ID="PageContentWithoutCommonContainer" ContentPlaceHolderID="BTPageContentWithoutCommonContainer" runat="server">
-    <asp:PlaceHolder ID="_navigationPanelContent" runat="server"></asp:PlaceHolder>
-</asp:Content>
-
 <asp:Content ID="CommonContainer" ContentPlaceHolderID="BTPageContent" runat="server">
     <asp:PlaceHolder ID="SenderHolder" runat="server"></asp:PlaceHolder>
 </asp:Content>

@@ -64,7 +64,7 @@
                 </select>
             </div>
             <%--<div class="task-filter-container">
-                <a class="link underline" href="tasks.aspx?prjID=<%=Project.ID%>" target="_blank"><%=ProjectsJSResource.ToTaskList %></a>        если список будет формироваться из разных проектов, то эта ссылка не нужна
+                <a class="link underline" href="Tasks.aspx?prjID=<%=Project.ID%>" target="_blank"><%=ProjectsJSResource.ToTaskList %></a>        если список будет формироваться из разных проектов, то эта ссылка не нужна
             </div>--%>
         </div>
         <div class="mode-button-container">

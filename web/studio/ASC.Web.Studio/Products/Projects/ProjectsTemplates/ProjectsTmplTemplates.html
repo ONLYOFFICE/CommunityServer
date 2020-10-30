@@ -4,7 +4,7 @@
             <span class="daysCount" value="${duration}"><span>${duration}</span></span>
             <div class="titleContainerEdit"><span class="title">${title}</span></div>
             <a class="addTask"> + ${ASC.Projects.Resources.ProjectTemplatesResource.Task}</a>
-            <span class="entity-menu"></span>
+            <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
         </div>
         {{if displayTasks}}
         <div class="milestoneTasksContainer" style="display: block;">
@@ -15,7 +15,7 @@
                 {{each(i, task) tasks}}
                     <div id="${number}_${i+1}" class="task menuButtonContainer with-entity-menu">
                          <div class="titleContainer"><span class="title">${task.title}</span></div>
-                        <span class="entity-menu"></span>
+                        <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
                     </div>
                 {{/each}}
             </div>
@@ -26,7 +26,7 @@
 <script id="projects_templatesEditTaskTmpl" type="text/x-jquery-tmpl">
     <div class="task menuButtonContainer with-entity-menu" id="t_${number}">
           <div class="titleContainer"><span class="title">${title}</span></div>
-          <span class="entity-menu"></span>
+          <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
     </div>
 </script> 
 
@@ -40,7 +40,7 @@
             <span class="dueDate"><span>${date}</span></span>
             <div class="titleContainer"><span class="title">${title}</span></div>
             <a class="addTask"> + ${ASC.Projects.Resources.ProjectTemplatesResource.Task}</a>
-            <span class="entity-menu"></span>
+            <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
             {{if chooseRep}}
             <span class="chooseResponsible">
                 <span class="link dotline" guid="${chooseRep.id}">${chooseRep.name}</span>
@@ -56,7 +56,7 @@
                 {{each(i, task) tasks}}
                     <div id="${number}_${i+1}" class="task menuButtonContainer with-entity-menu">
                         <div class="titleContainer"><span class="title">${task.title}</span></div>
-                        <span class="entity-menu"></span>
+                        <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
                         {{if chooseRep}}
                         <span class="chooseResponsible nobody">
                             <span class="link dotline">${ASC.Projects.Resources.ProjectsJSResource.ChooseResponsible}</span>
@@ -71,7 +71,7 @@
 <script id="projects_templatesCreateTaskTmpl" type="text/x-jquery-tmpl">
     <div class="task menuButtonContainer with-entity-menu" id="t_${number}">
           <div class="titleContainer"><span class="title">${title}</span></div>
-          <span class="entity-menu"></span>
+          <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
             {{if chooseRep}}
                     <span class="chooseResponsible">
                         <span class="link dotline" guid="${chooseRep.id}">${chooseRep.name}</span>
@@ -94,11 +94,11 @@
 <script id="projects_templateTmpl" type="text/x-jquery-tmpl">
     <tr class="with-entity-menu template menuButtonContainer" id="${id}">
         <td class="stretch">
-            <a href="projectTemplates.aspx?id=${id}&action=edit" class="title">${title}</a>
+            <a href="ProjectTemplates.aspx?id=${id}&action=edit" class="title">${title}</a>
             <span class="description">(${milestones} ${ASC.Projects.Resources.ProjectTemplatesResource.Milestones}, ${tasks} ${ASC.Projects.Resources.ProjectTemplatesResource.Tasks})</span>
         </td>
         <td>
-            <span class="entity-menu"></span>
+            <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
         </td>
     </tr>
 </script>

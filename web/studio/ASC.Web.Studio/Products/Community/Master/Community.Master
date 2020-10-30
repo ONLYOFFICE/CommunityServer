@@ -11,11 +11,8 @@
     <ucc:feedcontrol runat="server" title="Onlyoffice Community" AutoFill="true" />
 </asp:Content>
 
-<asp:Content ContentPlaceHolderID="TopContent" runat="server">
-</asp:Content>
-
-<asp:Content ContentPlaceHolderID="PageContent" runat="server">
-    <asp:ContentPlaceHolder ID="CommunityPageContent" runat="server" />
+<asp:Content ContentPlaceHolderID="CreateButtonContent" runat="server">
+    <asp:PlaceHolder ID="CommunityCreateButtonContent" runat="server" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SidePanel" runat="server">
@@ -27,3 +24,16 @@
         <script type="text/javascript" src="<%= SetupInfo.UserVoiceURL %>"> </script>
     <% } %>
 </asp:Content>
+
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
+    <asp:ContentPlaceHolder ID="CommunityTitleContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <asp:ContentPlaceHolder ID="CommunityPageContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PagingContent" runat="server">
+    <asp:ContentPlaceHolder ID="CommunityPagingContent" runat="server" />
+</asp:Content>
+

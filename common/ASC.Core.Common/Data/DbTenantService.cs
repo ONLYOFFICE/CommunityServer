@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -30,16 +21,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Security.Cryptography;
 
 namespace ASC.Core.Data
 {
@@ -81,18 +69,70 @@ namespace ASC.Core.Data
         {
             if (string.IsNullOrEmpty(login)) throw new ArgumentNullException("login");
 
-            var q = TenantsQuery(Exp.Empty)
-                .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
-                .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
-                .Where("t.status", (int)TenantStatus.Active)
-                .Where(login.Contains('@') ? "u.email" : "u.id", login)
-                .Where("u.status", EmployeeStatus.Active)
-                .Where("u.removed", false);
-            if (passwordHash != null)
+            if (passwordHash == null)
             {
-                q.Where("s.pwdhash", passwordHash);
+                var q = TenantsQuery(Exp.Empty)
+                    .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
+                    .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
+                    .Where("t.status", (int)TenantStatus.Active)
+                    .Where(login.Contains('@') ? "u.email" : "u.id", login)
+                    .Where("u.status", EmployeeStatus.Active)
+                    .Where("u.removed", false);
+
+                return ExecList(q).ConvertAll(ToTenant);
             }
-            return ExecList(q).ConvertAll(ToTenant);
+
+            Guid userId;
+            if (Guid.TryParse(login, out userId))
+            {
+                var q = TenantsQuery(Exp.Empty)
+                    .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
+                    .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
+                    .Where("t.status", (int)TenantStatus.Active)
+                    .Where("u.id", userId)
+                    .Where("u.status", EmployeeStatus.Active)
+                    .Where("u.removed", false)
+                    .Where(Exp.Or(
+                            Exp.Eq("s.pwdhash", GetPasswordHash(userId, passwordHash)),
+                            Exp.Eq("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256)) //todo: remove old scheme
+                        ));
+
+                return ExecList(q).ConvertAll(ToTenant);
+            }
+            else
+            {
+                var q = TenantsQuery(Exp.Empty)
+                    .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
+                    .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
+                    .Where("t.status", (int)TenantStatus.Active)
+                    .Where(login.Contains('@') ? "u.email" : "u.id", login)
+                    .Where("u.status", EmployeeStatus.Active)
+                    .Where("u.removed", false)
+                    .Where("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256));
+
+                //old password
+                var result = ExecList(q).ConvertAll(ToTenant);
+
+                var usersQuery = new SqlQuery("core_user u")
+                    .Select("u.id")
+                    .Where("u.email", login)
+                    .Where("u.status", EmployeeStatus.Active)
+                    .Where("u.removed", false);
+
+                var passwordHashs = ExecList(usersQuery).ConvertAll(r =>
+                        GetPasswordHash(new Guid((string)r[0]), passwordHash)
+                    );
+
+                q = TenantsQuery(Exp.Empty)
+                    .InnerJoin("core_usersecurity s", Exp.EqColumns("t.id", "s.tenant"))
+                    .Where(Exp.In("s.pwdhash", passwordHashs));
+
+                //new password
+                result = result.Concat(ExecList(q).ConvertAll(ToTenant)).ToList();
+                result.Distinct();
+
+                return result;
+            }
         }
 
         public Tenant GetTenant(int id)
@@ -149,7 +189,7 @@ namespace ASC.Core.Data
                         .SetMaxResults(1);
                     t.Version = db.ExecuteScalar<int>(q);
 
-                    var i = new SqlInsert("tenants_tenants", true)
+                    var i = new SqlInsert("tenants_tenants")
                         .InColumnValue("id", t.TenantId)
                         .InColumnValue("alias", t.TenantAlias.ToLowerInvariant())
                         .InColumnValue("mappeddomain", !string.IsNullOrEmpty(t.MappedDomain) ? t.MappedDomain.ToLowerInvariant() : null)

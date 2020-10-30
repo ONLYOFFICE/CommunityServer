@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -87,6 +78,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             Settings = AdditionalWhiteLabelSettings.Instance;
             Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Settings.FeedbackAndSupportUrl = CommonLinkUtility.GetRegionalUrl(Settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
         }
@@ -107,7 +99,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     return "<b>" + Resource.TariffTrial + "</b> "
                            + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
-                                  ? string.Format(Resource.TariffExpiredDateStandalone, CurrentTariff.DueDate.Date.ToLongDateString())
+                                  ? string.Format(Resource.TariffExpiredDateStandaloneV11, CurrentTariff.DueDate.Date.ToLongDateString())
                                   : string.Empty);
                 }
                 return String.Format(Resource.TariffTrialOverdue.HtmlEncode(),
@@ -121,11 +113,28 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 return "<b>" + (CoreContext.Configuration.CustomMode ? CustomModeResource.TariffPaidStandaloneCustomMode.HtmlEncode() : UserControlsCommonResource.TariffPaidStandalone.HtmlEncode()) + "</b> "
                        + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
-                              ? string.Format(Resource.TariffExpiredDateStandalone, CurrentTariff.DueDate.Date.ToLongDateString())
+                              ? string.Format(Resource.TariffExpiredDateStandaloneV11, CurrentTariff.DueDate.Date.ToLongDateString())
                               : string.Empty);
             }
 
-            return String.Format(CoreContext.Configuration.CustomMode ? CustomModeResource.TariffOverdueStandaloneCustomMode.HtmlEncode() : UserControlsCommonResource.TariffOverdueStandalone2.HtmlEncode(),
+            if (CurrentTariff.LicenseDate == DateTime.MaxValue)
+            {
+                return String.Format(
+                CoreContext.Configuration.CustomMode
+                    ? CustomModeResource.TariffNotPaidStandaloneCustomMode.HtmlEncode()
+                    : CurrentQuota.Update
+                        ? UserControlsCommonResource.TariffNotPaidStandaloneSupport.HtmlEncode()
+                        : UserControlsCommonResource.TariffNotPaidStandalone2.HtmlEncode(),
+                                 "<span class='tariff-marked'>",
+                                 "</span>");
+            }
+
+            return String.Format(
+                CoreContext.Configuration.CustomMode
+                    ? CustomModeResource.TariffOverdueStandaloneCustomMode.HtmlEncode()
+                    : CurrentQuota.Update
+                        ? UserControlsCommonResource.TariffOverdueStandaloneSupport.HtmlEncode()
+                        : UserControlsCommonResource.TariffOverdueStandalone2.HtmlEncode(),
                                  "<span class='tariff-marked'>",
                                  "</span>",
                                  CurrentTariff.LicenseDate.Date.ToLongDateString());

@@ -616,4 +616,22 @@ Are you sure you want to continue anyway?</value>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Country</value>
   </data>
+  <data name="MakeVoIPCall" xml:space="preserve">
+    <value>Make a VoIP call</value>
+  </data>
+  <data name="VoipSettingsLearnMore" xml:space="preserve">
+    <value>To learn more, visit our {0}Help Center{1}</value>
+  </data>
+  <data name="VoipSettingsPanelAdminText" xml:space="preserve">
+    <value>To do it, go to your portal settings and open the Integration -&gt; Third-Party Services section</value>
+  </data>
+  <data name="VoipSettingsPanelHeader" xml:space="preserve">
+    <value>VoIP Calls</value>
+  </data>
+  <data name="VoipSettingsPanelText" xml:space="preserve">
+    <value>To make and receive VoIP calls, you need to connect the Twilio service.</value>
+  </data>
+  <data name="VoipSettingsPanelUserText" xml:space="preserve">
+    <value>To do it, please contact your portal administrator.</value>
+  </data>
 </root>

@@ -5,28 +5,13 @@
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
-<div class="header-base settingsHeader"><%= HeaderText %></div>
-<p class="settingsFirstDescription"><%= DescriptionText %></p>
-<p class="settingsSecondDescription"><%= DescriptionTextEditDelete%></p>
-
-<div class="clearFix settingsNewItemBlock">
-    <a id="createNewItem" class="gray button">
-        <span class="plus"><%= AddListButtonText%></span>
-    </a>
-    <% if (CurrentTypeValue == ListType.ContactStatus) { %>
-    <div class="settingsConfirmDialogBlock">
-        <input type="checkbox" id="cbx_ChangeContactStatusWithoutAsking" <% if (ASC.Web.CRM.Classes.Global.TenantSettings.ChangeContactStatusGroupAuto != null) { %>checked="checked"<% } %> />
-        <label for="cbx_ChangeContactStatusWithoutAsking"><%= CRMSettingResource.ChangeContactStatusWithoutAskingSettingsLabel %></label>
-    </div>
-    <% } %>
-</div>
-
 <ul id="listView">
 </ul>
+
 <div id="listItemActionMenu" class="studio-action-panel" data-listitemid="" data-relativecount="">
     <ul class="dropdown-content">
-        <li class="editItem"><a class="dropdown-item" onclick="ASC.CRM.ListItemView.showEditItemPanel();"><%= EditText %></a></li>
-        <li class="deleteItem"><a class="dropdown-item" onclick="ASC.CRM.ListItemView.deleteItem();"><%= DeleteText %></a></li>
+        <li class="editItem"><a class="dropdown-item with-icon edit" onclick="ASC.CRM.ListItemView.showEditItemPanel();"><%= EditText %></a></li>
+        <li class="deleteItem"><a class="dropdown-item with-icon delete" onclick="ASC.CRM.ListItemView.deleteItem();"><%= DeleteText %></a></li>
     </ul>
 </div>
 
@@ -38,10 +23,8 @@
 </div>
 <% } %>
 
-
 <% if (CurrentTypeValue == ListType.TaskCategory) %>
 <% { %>
-
 <div id="selectItemForReplacePopUpBody" class="display-none">
     <div id="itemForReplaceSelectorContainer" class="headerPanelSmall-splitter">
         <p><%= CRMSettingResource.SelectTaskCategoryForReplace%></p>
@@ -54,8 +37,6 @@
         </a>
     </div>
 </div>
-
-
 <div id="iconsPanel_<%= (int)CurrentTypeValue %>" class="iconsPanelSettings studio-action-panel" style="width: 148px;height: 112px;">
     <label class="task_category task_category_call" title="<%= CRMTaskResource.TaskCategory_Call %>" data-imgName="task_category_call.png"></label>
     <label class="task_category task_category_deal" title="<%= CRMTaskResource.TaskCategory_Deal %>" data-imgName="task_category_deal.png"></label>

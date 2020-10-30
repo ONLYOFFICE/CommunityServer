@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -81,7 +72,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         {
             get
             {
-                return TenantExtra.EnableTarrifSettings && TenantExtra.Enterprise && !TenantExtra.EnterprisePaid;
+                return TenantExtra.EnableTarrifSettings && TenantExtra.Enterprise;
             }
         }
 
@@ -93,6 +84,10 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         }
 
         protected bool ShowPortalRename { get; set; }
+
+        protected Web.Core.Utility.PasswordSettings PasswordSetting;
+
+        protected string OpensourceLicenseAgreementsUrl { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -107,12 +102,19 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             _dateandtimeHolder.Controls.Add(timeAndLanguage);
 
             ShowPortalRename = SetupInfo.IsVisibleSettings("PortalRename");
+
+            PasswordSetting = Web.Core.Utility.PasswordSettings.Load();
+
+            OpensourceLicenseAgreementsUrl = string.IsNullOrEmpty(Web.Core.Files.FilesLinkUtility.DocServiceApiUrl)
+                ? "http://www.apache.org/licenses/LICENSE-2.0"
+                : "https://help.onlyoffice.com/Products/Files/doceditor.aspx?fileid=6762822&doc=ODdtYzFDVGtXNU9Xd3VMWktoQ25ZZTZWbkpqZmZETWNGTnZQM0JKUVFHVT0_IjY3NjI4MjIi0";
         }
 
         private void InitScript()
         {
             Page.RegisterBodyScripts(
                 "~/js/uploader/jquery.fileupload.js",
+                "~/js/third-party/xregexp.js",
                 "~/UserControls/FirstTime/js/manager.js")
                 .RegisterStyle("~/UserControls/FirstTime/css/emailandpassword.less");
 
@@ -131,7 +133,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         [AjaxMethod]
         [SecurityPassthrough]
-        public object SaveData(string email, string pwd, string lng, string promocode, string amiid, bool analytics)
+        public object SaveData(string email, string passwordHash, string lng, string promocode, string amiid, bool analytics, bool subscribeFromSite)
         {
             try
             {
@@ -166,8 +168,10 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     throw new Exception(Resource.EmailAndPasswordIncorrectEmail);
                 }
 
-                UserManagerWrapper.CheckPasswordPolicy(pwd);
-                SecurityContext.SetUserPassword(currentUser.ID, pwd);
+                if (String.IsNullOrEmpty(passwordHash))
+                    throw new Exception(Resource.ErrorPasswordEmpty);
+
+                SecurityContext.SetUserPasswordHash(currentUser.ID, passwordHash);
 
                 email = email.Trim();
                 if (currentUser.Email != email)
@@ -208,7 +212,15 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                 TrySetLanguage(tenant, lng);
 
                 StudioNotifyService.Instance.SendCongratulations(currentUser);
+                StudioNotifyService.Instance.SendRegData(currentUser);
                 FirstTimeTenantSettings.SendInstallInfo(currentUser);
+
+                if (subscribeFromSite
+                    && TenantExtra.Opensource
+                    && !CoreContext.Configuration.CustomMode)
+                {
+                    SubscribeFromSite(currentUser);
+                }
 
                 return new { Status = 1, Message = Resource.EmailAndPasswordSaved };
             }
@@ -275,6 +287,45 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             }
 
             return string.IsNullOrEmpty(_amiId) || _amiId != customAmiId;
+        }
+
+        private static void SubscribeFromSite(UserInfo user)
+        {
+            try
+            {
+                var url = (SetupInfo.TeamlabSiteRedirect ?? "").Trim().TrimEnd('/');
+                if (string.IsNullOrEmpty(url)) return;
+
+                url += "/post.ashx";
+
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.Timeout = 10000;
+
+                var bodyString = string.Format("type=sendsubscription&email={0}", HttpUtility.UrlEncode(user.Email));
+                var bytes = Encoding.UTF8.GetBytes(bodyString);
+                request.ContentLength = bytes.Length;
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    if (stream == null) throw new Exception("Response is null");
+
+                    using (var reader = new StreamReader(stream))
+                    {
+                        LogManager.GetLogger("ASC.Web.FirstTime").Debug("Subscribe response: " + reader.ReadToEnd());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                LogManager.GetLogger("ASC.Web.FirstTime").Error("Subscribe request", e);
+            }
         }
     }
 }

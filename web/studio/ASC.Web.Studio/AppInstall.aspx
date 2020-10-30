@@ -1,8 +1,8 @@
-﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="AppInstall.aspx.cs" Inherits="ASC.Web.Studio.AppInstall" %>
+﻿<%@ Page MasterPageFile="~/Masters/BaseTemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="AppInstall.aspx.cs" Inherits="ASC.Web.Studio.AppInstall" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="Resources" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PageContent" runat="server">
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
 <div class="Container">
     <div class="Caption">
         <h2><%= Resource.FreeOfficeDesktopDndMobileApps %></h2>

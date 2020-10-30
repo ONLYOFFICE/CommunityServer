@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -31,7 +22,9 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using AjaxPro;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
@@ -59,7 +52,13 @@ namespace ASC.Web.Studio
 
         protected virtual bool MayPhoneNotActivate { get; set; }
 
-        protected virtual bool CheckWizardCompleted { get { return true; } }
+        protected virtual bool CheckWizardCompleted
+        {
+            get
+            {
+                return !CoreContext.Configuration.Standalone || Request.QueryString["warmup"] != "true";
+            }
+        }
 
         protected static ILog Log
         {
@@ -73,7 +72,7 @@ namespace ASC.Web.Studio
                 var s = WizardSettings.Load();
                 if (!s.Completed)
                 {
-                    Response.Redirect("~/wizard.aspx");
+                    Response.Redirect("~/Wizard.aspx");
                 }
             }
 
@@ -90,7 +89,7 @@ namespace ASC.Web.Studio
                 {
                     var refererURL = GetRefererUrl();
                     Session["refererURL"] = refererURL;
-                    var authUrl = "~/auth.aspx";
+                    var authUrl = "~/Auth.aspx";
                     if (Request.DesktopApp())
                     {
                         authUrl += "?desktop=" + Request["desktop"];
@@ -101,7 +100,10 @@ namespace ASC.Web.Studio
 
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!MayNotPaid && (TenantStatisticsProvider.IsNotPaid() || TenantExtra.UpdatedWithoutLicense))
+            if (!MayNotPaid
+                && TenantExtra.EnableTarrifSettings
+                && (TenantStatisticsProvider.IsNotPaid() || TenantExtra.UpdatedWithoutLicense)
+                && WarmUp.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true")
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
                 {
@@ -111,6 +113,22 @@ namespace ASC.Web.Studio
                 else
                 {
                     Response.Redirect(TenantExtra.GetTariffPageLink() + (Request.DesktopApp() ? "?desktop=true" : ""), true);
+                }
+            }
+
+            if (!MayPhoneNotActivate
+                && SecurityContext.IsAuthenticated)
+            {
+                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable
+                    && (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))
+                {
+                    Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.PhoneActivation), true);
+                }
+
+                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable
+                    && !TfaAppUserSettings.EnableForUser(user.ID))
+                {
+                    Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.TfaActivation), true);
                 }
             }
 
@@ -128,7 +146,7 @@ namespace ASC.Web.Studio
                 if (webitem.ID == WebItemManager.PeopleProductID
                     && string.Equals(GetType().BaseType.FullName, "ASC.Web.People.Profile"))
                 {
-                    Response.Redirect("~/my.aspx", true);
+                    Response.Redirect("~/My.aspx", true);
                 }
 
                 Response.Redirect("~/", true);
@@ -215,8 +233,8 @@ namespace ASC.Web.Studio
 
                         var redirectUrl = String.Format("/{0}/{1}", cultureInfo.TwoLetterISOLanguageName, Request.Path);
 
-                        if (redirectUrl.EndsWith("auth.aspx", StringComparison.InvariantCulture))
-                            redirectUrl = redirectUrl.Remove(redirectUrl.IndexOf("auth.aspx", StringComparison.Ordinal));
+                        if (redirectUrl.EndsWith("Auth.aspx", StringComparison.InvariantCultureIgnoreCase))
+                            redirectUrl = redirectUrl.Remove(redirectUrl.IndexOf("Auth.aspx", StringComparison.OrdinalIgnoreCase));
 
                         Response.Redirect(redirectUrl, true);
 
@@ -240,7 +258,7 @@ namespace ASC.Web.Studio
             else if (!String.IsNullOrEmpty(Request["email"]))
             {
                 var user = CoreContext.UserManager.GetUserByEmail(Request["email"]);
-                
+
                 if (user.ID.Equals(Constants.LostUser.ID))
                 {
                     return;

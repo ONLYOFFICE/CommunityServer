@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -613,39 +604,59 @@ namespace ASC.Api.Projects
                 throw new ItemNotFoundException("Milestone not found");
             }
 
-            task.Responsibles = new List<Guid>(responsibles.Distinct());
+            var distinctResponsibles = new List<Guid>(responsibles.Distinct());
 
-            task.Deadline = Update.IfNotEquals(task.Deadline, deadline);
-            task.Description = Update.IfNotEquals(task.Description, description);
+            var hasChanges = !(task.Responsibles.Count == distinctResponsibles.Count && task.Responsibles.All(distinctResponsibles.Contains));
+
+            task.Responsibles = distinctResponsibles;
+
+            task.Deadline = Update.IfNotEquals(TenantUtil.DateTimeToUtc(task.Deadline), deadline, ref hasChanges);
+            task.Description = Update.IfNotEquals(task.Description, description, ref hasChanges);
 
             if (priority.HasValue)
             {
-                task.Priority = Update.IfNotEquals(task.Priority, priority.Value);
+                task.Priority = Update.IfNotEquals(task.Priority, priority.Value, ref hasChanges);
             }
 
-            task.Title = Update.IfNotEmptyAndNotEquals(task.Title, title);
-            task.Milestone = Update.IfNotEquals(task.Milestone, milestoneid);
-            task.StartDate = Update.IfNotEquals(task.StartDate, startDate);
+            task.Title = Update.IfNotEmptyAndNotEquals(task.Title, title, ref hasChanges);
+            task.Milestone = Update.IfNotEquals(task.Milestone, milestoneid, ref hasChanges);
+            task.StartDate = Update.IfNotEquals(TenantUtil.DateTimeToUtc(task.StartDate), startDate, ref hasChanges);
 
             if (projectID.HasValue)
             {
-                var project = EngineFactory.ProjectEngine.GetByID((int)projectID).NotFoundIfNull();
-                task.Project = project;
+                if (task.Project.ID != projectID.Value)
+                {
+                    var project = EngineFactory.ProjectEngine.GetByID(projectID.Value).NotFoundIfNull();
+                    task.Project = project;
+                    hasChanges = true;
+                }
             }
 
             if (progress.HasValue)
             {
-                task.Progress = progress.Value;
+                task.Progress = Update.IfNotEquals(task.Progress, progress.Value, ref hasChanges);
             }
 
-            taskEngine.SaveOrUpdate(task, null, notify);
+            if (hasChanges)
+            {
+                taskEngine.SaveOrUpdate(task, null, notify);
+            }
 
             if (status.HasValue)
             {
-                taskEngine.ChangeStatus(task, CustomTaskStatus.GetDefaults().First(r => r.StatusType == status.Value));
+                var newStatus = CustomTaskStatus.GetDefaults().First(r => r.StatusType == status.Value);
+
+                if (task.Status != newStatus.StatusType || task.CustomTaskStatus != newStatus.Id)
+                {
+                    hasChanges = true;
+                    taskEngine.ChangeStatus(task, newStatus);
+                }
             }
 
-            MessageService.Send(Request, MessageAction.TaskUpdated, MessageTarget.Create(task.ID), task.Project.Title, task.Title);
+            if (hasChanges)
+            {
+                MessageService.Send(Request, MessageAction.TaskUpdated, MessageTarget.Create(task.ID), task.Project.Title, task.Title);
+            }
 
             return GetTask(taskid);
         }
@@ -962,11 +973,16 @@ namespace ASC.Api.Projects
             var task = EngineFactory.TaskEngine.GetByID(taskid).NotFoundIfNull();
             var subtask = task.SubTasks.Find(r => r.ID == subtaskid).NotFoundIfNull();
 
-            subtask.Responsible = responsible;
-            subtask.Title = Update.IfNotEmptyAndNotEquals(subtask.Title, title);
+            var hasChanges = false;
 
-            EngineFactory.SubtaskEngine.SaveOrUpdate(subtask, task);
-            MessageService.Send(Request, MessageAction.SubtaskUpdated, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
+            subtask.Responsible = Update.IfNotEquals(subtask.Responsible, responsible, ref hasChanges);
+            subtask.Title = Update.IfNotEmptyAndNotEquals(subtask.Title, title, ref hasChanges);
+
+            if (hasChanges)
+            {
+                EngineFactory.SubtaskEngine.SaveOrUpdate(subtask, task);
+                MessageService.Send(Request, MessageAction.SubtaskUpdated, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
+            }
 
             return new SubtaskWrapper(this, subtask, task);
         }

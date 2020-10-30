@@ -19,7 +19,7 @@ namespace ASC.Web.Community.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CommunityResource {
@@ -160,42 +160,6 @@ namespace ASC.Web.Community.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share your ideas and experiences with others.
-        /// </summary>
-        public static string BlogsModuleFirstLine {
-            get {
-                return ResourceManager.GetString("BlogsModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add post.
-        /// </summary>
-        public static string BlogsModuleLink1 {
-            get {
-                return ResourceManager.GetString("BlogsModuleLink1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Read and comment the thoughts of other users.
-        /// </summary>
-        public static string BlogsModuleSecondLine {
-            get {
-                return ResourceManager.GetString("BlogsModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Blogs.
-        /// </summary>
-        public static string BlogsModuleTitle {
-            get {
-                return ResourceManager.GetString("BlogsModuleTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bookmark.
         /// </summary>
         public static string Bookmark {
@@ -241,11 +205,119 @@ namespace ASC.Web.Community.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Business Collaboration tools.
+        ///   Looks up a localized string similar to Create welcome post.
         /// </summary>
-        public static string DashboardTitle {
+        public static string DashboardCreateWelcomePost {
             get {
-                return ResourceManager.GetString("DashboardTitle", resourceCulture);
+                return ResourceManager.GetString("DashboardCreateWelcomePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discuss with team.
+        /// </summary>
+        public static string DashboardDiscussWithTeam {
+            get {
+                return ResourceManager.GetString("DashboardDiscussWithTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create corporate blogs and forums..
+        /// </summary>
+        public static string DashboardDiscussWithTeamFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardDiscussWithTeamFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add polls and surveys..
+        /// </summary>
+        public static string DashboardDiscussWithTeamSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardDiscussWithTeamSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exchange instant messages using Talk..
+        /// </summary>
+        public static string DashboardDiscussWithTeamThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardDiscussWithTeamThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep your team posted.
+        /// </summary>
+        public static string DashboardKeepYourTeamPosted {
+            get {
+                return ResourceManager.GetString("DashboardKeepYourTeamPosted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a group chat or a mass mailings in Talk..
+        /// </summary>
+        public static string DashboardKeepYourTeamPostedFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardKeepYourTeamPostedFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure notifications about shared docs, deadlines and teammates&apos; birthdays..
+        /// </summary>
+        public static string DashboardKeepYourTeamPostedSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardKeepYourTeamPostedSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Firebase to never miss a message again..
+        /// </summary>
+        public static string DashboardKeepYourTeamPostedThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardKeepYourTeamPostedThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share news &amp; knowledge.
+        /// </summary>
+        public static string DashboardShareNewsAndKnowledge {
+            get {
+                return ResourceManager.GetString("DashboardShareNewsAndKnowledge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create corporate news board..
+        /// </summary>
+        public static string DashboardShareNewsAndKnowledgeFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardShareNewsAndKnowledgeFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add and share bookmarks to useful web resources..
+        /// </summary>
+        public static string DashboardShareNewsAndKnowledgeSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardShareNewsAndKnowledgeSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintain corporate wiki..
+        /// </summary>
+        public static string DashboardShareNewsAndKnowledgeThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardShareNewsAndKnowledgeThirdLine", resourceCulture);
             }
         }
         
@@ -264,42 +336,6 @@ namespace ASC.Web.Community.Resources {
         public static string Events {
             get {
                 return ResourceManager.GetString("Events", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share the latest news and learn opinions of other users.
-        /// </summary>
-        public static string EventsModuleFirstLine {
-            get {
-                return ResourceManager.GetString("EventsModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add event.
-        /// </summary>
-        public static string EventsModuleLink {
-            get {
-                return ResourceManager.GetString("EventsModuleLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Post important announcements for your colleagues.
-        /// </summary>
-        public static string EventsModuleSecondLine {
-            get {
-                return ResourceManager.GetString("EventsModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Events.
-        /// </summary>
-        public static string EventsModuleTitle {
-            get {
-                return ResourceManager.GetString("EventsModuleTitle", resourceCulture);
             }
         }
         
@@ -340,6 +376,15 @@ namespace ASC.Web.Community.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forum post.
+        /// </summary>
+        public static string ForumPost {
+            get {
+                return ResourceManager.GetString("ForumPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forums.
         /// </summary>
         public static string Forums {
@@ -354,42 +399,6 @@ namespace ASC.Web.Community.Resources {
         public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Find answers to most frequently asked questions.
-        /// </summary>
-        public static string HelpModuleFirstLine {
-            get {
-                return ResourceManager.GetString("HelpModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Visit our help center.
-        /// </summary>
-        public static string HelpModuleLink {
-            get {
-                return ResourceManager.GetString("HelpModuleLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Read user guides, tips and tricks, watch video.
-        /// </summary>
-        public static string HelpModuleSecondLine {
-            get {
-                return ResourceManager.GetString("HelpModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help Center.
-        /// </summary>
-        public static string HelpModuleTitle {
-            get {
-                return ResourceManager.GetString("HelpModuleTitle", resourceCulture);
             }
         }
         
@@ -633,42 +642,6 @@ namespace ASC.Web.Community.Resources {
         public static string Wiki {
             get {
                 return ResourceManager.GetString("Wiki", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create and store all your bookmarks in one place.
-        /// </summary>
-        public static string WikiModuleFirstLine {
-            get {
-                return ResourceManager.GetString("WikiModuleFirstLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add bookmark.
-        /// </summary>
-        public static string WikiModuleLink2 {
-            get {
-                return ResourceManager.GetString("WikiModuleLink2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share interesting bookmarks you have with others.
-        /// </summary>
-        public static string WikiModuleSecondLine {
-            get {
-                return ResourceManager.GetString("WikiModuleSecondLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bookmarks.
-        /// </summary>
-        public static string WikiModuleTitle {
-            get {
-                return ResourceManager.GetString("WikiModuleTitle", resourceCulture);
             }
         }
     }

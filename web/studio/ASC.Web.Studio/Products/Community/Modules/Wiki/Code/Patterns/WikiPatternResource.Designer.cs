@@ -115,6 +115,15 @@ namespace ASC.Web.Community.Wiki.Code.Patterns {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community. New Wiki page added: [$PageName]($URL).
+        /// </summary>
+        public static string subject_1_tg {
+            get {
+                return ResourceManager.GetString("subject_1_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. Wiki page edited: $PageName.
         /// </summary>
         public static string subject_2 {
@@ -124,11 +133,29 @@ namespace ASC.Web.Community.Wiki.Code.Patterns {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community. Wiki page edited: [$PageName]($URL).
+        /// </summary>
+        public static string subject_2_tg {
+            get {
+                return ResourceManager.GetString("subject_2_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. New comment to Wiki page: $PageName.
         /// </summary>
         public static string subject_3 {
             get {
                 return ResourceManager.GetString("subject_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. New comment to Wiki page: [$PageName]($URL).
+        /// </summary>
+        public static string subject_3_tg {
+            get {
+                return ResourceManager.GetString("subject_3_tg", resourceCulture);
             }
         }
     }

@@ -21,7 +21,7 @@
     <div id="history_uploadContainer" class="history_uploadContainer">
     </div>
     <div id="pm_upload_pnl" style="padding:15px 0 10px;">
-        <div class="clearFix" id="pm_swf_button_container">
+        <div class="clearFix" id="pm_swf_button_container" style="position:relative;">
             <a id="pm_upload_btn" class="button gray middle pm_upload_btn"><%= CRMCommonResource.UploadFile%></a>
         </div>
     </div>

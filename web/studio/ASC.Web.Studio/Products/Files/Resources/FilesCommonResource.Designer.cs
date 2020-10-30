@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesCommonResource {
@@ -84,6 +84,15 @@ namespace ASC.Web.Files.Resources {
         public static string AceStatusEnum_Comment {
             get {
                 return ResourceManager.GetString("AceStatusEnum_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Filter.
+        /// </summary>
+        public static string AceStatusEnum_CustomFilter {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_CustomFilter", resourceCulture);
             }
         }
         
@@ -250,6 +259,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create by Template.
+        /// </summary>
+        public static string ButtonCreateByTemplate {
+            get {
+                return ResourceManager.GetString("ButtonCreateByTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string ButtonDelete {
@@ -273,6 +291,15 @@ namespace ASC.Web.Files.Resources {
         public static string ButtonEdit {
             get {
                 return ResourceManager.GetString("ButtonEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from favorite.
+        /// </summary>
+        public static string ButtonRemoveFavorite {
+            get {
+                return ResourceManager.GetString("ButtonRemoveFavorite", resourceCulture);
             }
         }
         
@@ -466,6 +493,159 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to My documents.
+        /// </summary>
+        public static string DashboardGoToMyDocuments {
+            get {
+                return ResourceManager.GetString("DashboardGoToMyDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make co-editing comfy.
+        /// </summary>
+        public static string DashboardMakeCoEditingComfy {
+            get {
+                return ResourceManager.GetString("DashboardMakeCoEditingComfy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch between two co-editing modes..
+        /// </summary>
+        public static string DashboardMakeCoEditingComfyFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardMakeCoEditingComfyFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Fast mode to see what others are typing in real-time..
+        /// </summary>
+        public static string DashboardMakeCoEditingComfySecondLine {
+            get {
+                return ResourceManager.GetString("DashboardMakeCoEditingComfySecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Strict mode to lock paragraph and work more privately..
+        /// </summary>
+        public static string DashboardMakeCoEditingComfyThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardMakeCoEditingComfyThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share files.
+        /// </summary>
+        public static string DashboardShareFiles {
+            get {
+                return ResourceManager.GetString("DashboardShareFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share files with your team or publicly. Embed docs into websites..
+        /// </summary>
+        public static string DashboardShareFilesFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand access for viewing, editing, reviewing, commenting, filling forms..
+        /// </summary>
+        public static string DashboardShareFilesSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send docs for electronic signature..
+        /// </summary>
+        public static string DashboardShareFilesThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use more collaboration tools.
+        /// </summary>
+        public static string DashboardUseMoreCollaborationTools {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreCollaborationTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review docs and suggest edits with Track Changes..
+        /// </summary>
+        public static string DashboardUseMoreCollaborationToolsFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreCollaborationToolsFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add comments, address them to a specific person..
+        /// </summary>
+        public static string DashboardUseMoreCollaborationToolsSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreCollaborationToolsSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View version history and restore previous versions..
+        /// </summary>
+        public static string DashboardUseMoreCollaborationToolsThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardUseMoreCollaborationToolsThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work with office docs.
+        /// </summary>
+        public static string DashboardWorkWithOfficeDocs {
+            get {
+                return ResourceManager.GetString("DashboardWorkWithOfficeDocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store and edit documents, spreadsheets, and presentations..
+        /// </summary>
+        public static string DashboardWorkWithOfficeDocsFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardWorkWithOfficeDocsFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enjoy highest compatibility with docx, xlsx, and pptx..
+        /// </summary>
+        public static string DashboardWorkWithOfficeDocsSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardWorkWithOfficeDocsSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect 3rd party storages, e.g. Google Drive, Dropbox, Box, OneDrive..
+        /// </summary>
+        public static string DashboardWorkWithOfficeDocsThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardWorkWithOfficeDocsThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         public static string Department {
@@ -606,15 +786,6 @@ namespace ASC.Web.Files.Resources {
         public static string ErrorMassage_ConvertTimeout {
             get {
                 return ResourceManager.GetString("ErrorMassage_ConvertTimeout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are not allowed to create folders in the Recycle Bin.
-        /// </summary>
-        public static string ErrorMassage_CreateNewFolderInTrash {
-            get {
-                return ResourceManager.GetString("ErrorMassage_CreateNewFolderInTrash", resourceCulture);
             }
         }
         
@@ -1096,7 +1267,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search by contents of documents.
+        ///   Looks up a localized string similar to Search in documents content.
         /// </summary>
         public static string IndexTitle {
             get {
@@ -1177,7 +1348,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place..
+        ///   Looks up a localized string similar to Create, edit, and share office documents. Collaborate on them in real-time. 100% compatibility with docx, xlsx, pptx guaranteed..
         /// </summary>
         public static string ProductDescription {
             get {
@@ -1186,7 +1357,8 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place..
+        ///   Looks up a localized string similar to Edit, share and collaborate on office documents in real-time. Create and manage common docs for the whole team to access. 
+        ///100% compatibility with docx, xlsx, pptx..
         /// </summary>
         public static string ProductDescriptionEx {
             get {
@@ -1195,7 +1367,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place..
+        ///   Looks up a localized string similar to View and download shared documents. Upload files to shared folders. 100% compatibility with docx, xlsx, pptx guaranteed..
         /// </summary>
         public static string ProductDescriptionShort {
             get {
@@ -1227,6 +1399,15 @@ namespace ASC.Web.Files.Resources {
         public static string ProfileRemoved {
             get {
                 return ResourceManager.GetString("ProfileRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent.
+        /// </summary>
+        public static string Recent {
+            get {
+                return ResourceManager.GetString("Recent", resourceCulture);
             }
         }
         

@@ -375,9 +375,6 @@
   <data name="FormInvoiceItemPrice" xml:space="preserve">
     <value>Price</value>
   </data>
-  <data name="FormInvoiceItemQuantity" xml:space="preserve">
-    <value>Quantity</value>
-  </data>
   <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
     <value>Stock quantity</value>
   </data>
@@ -400,7 +397,7 @@
     <value>Consignee</value>
   </data>
   <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
-    <value>Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href="settings.aspx?type=common" target="_blank"&gt;Common Settings&lt;/a&gt;</value>
+    <value>Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href="Settings.aspx?type=common" target="_blank"&gt;Common Settings&lt;/a&gt;</value>
   </data>
   <data name="InvoiceItemActiveStatus" xml:space="preserve">
     <value>Active</value>

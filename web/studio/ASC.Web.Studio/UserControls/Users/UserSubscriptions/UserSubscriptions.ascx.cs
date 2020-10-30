@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -325,16 +316,7 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             var notifyBy = ConvertToNotifyByValue(StudioSubscriptionManager.Instance, Actions.SendWhatsNew);
 
-            return string.Format(@"
-<select id='NotifyByCombobox_WhatsNew' class='comboBox notify-by-combobox' onchange='CommonSubscriptionManager.SetWhatsNewNotifyByMethod(jq(this).val());'>
-	<option class='optionItem' value='0'{3}>{0}</option>
-	<option class='optionItem' value='1'{4}>{1}</option>
-	<option class='optionItem' value='2'{5}>{2}</option>
-</select>",
-                                 Resources.Resource.NotifyByEmail, Resources.Resource.NotifyByTMTalk, Resources.Resource.NotifyByEmailAndTMTalk,
-                                 0 == notifyBy ? " selected='selected'" : string.Empty,
-                                 1 == notifyBy ? " selected='selected'" : string.Empty,
-                                 2 == notifyBy ? " selected='selected'" : string.Empty);
+            return string.Format("<span class=\"subsSelector subs-notice-text\" data-notify=\"{0}\" data-function=\"SetWhatsNewNotifyByMethod\"></span>", (int)notifyBy);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
@@ -343,7 +325,7 @@ namespace ASC.Web.Studio.UserControls.Users
             try
             {
                 var resp = new AjaxResponse();
-                var notifyByList = ConvertToNotifyByList(notifyBy);
+                var notifyByList = ConvertToNotifyByList((NotifyBy)notifyBy);
                 SetNotifyBySubsriptionTypes(notifyByList, StudioSubscriptionManager.Instance, Actions.SendWhatsNew);
                 return resp;
             }
@@ -427,7 +409,7 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             return TenantExtra.Saas && SetupInfo.IsVisibleSettings("SpamSubscription");
         }
-        
+
         private const string TeamlabSiteDbId = "teamlabsite";
 
         private const string TemplateUnsubscribeTable = "template_unsubscribe";
@@ -538,16 +520,7 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             var notifyBy = ConvertToNotifyByValue(StudioSubscriptionManager.Instance, Actions.AdminNotify);
 
-            return string.Format(@"
-<select id='NotifyByCombobox_AdminNotify' class='comboBox notify-by-combobox' onchange='CommonSubscriptionManager.SetAdminNotifyNotifyByMethod(jq(this).val());'>
-	<option class='optionItem' value='0'{3}>{0}</option>
-	<option class='optionItem' value='1'{4}>{1}</option>
-	<option class='optionItem' value='2'{5}>{2}</option>
-</select>",
-                                 Resources.Resource.NotifyByEmail, Resources.Resource.NotifyByTMTalk, Resources.Resource.NotifyByEmailAndTMTalk,
-                                 0 == notifyBy ? " selected='selected'" : string.Empty,
-                                 1 == notifyBy ? " selected='selected'" : string.Empty,
-                                 2 == notifyBy ? " selected='selected'" : string.Empty);
+            return string.Format("<span class=\"subsSelector subs-notice-text\" data-notify=\"{0}\" data-function=\"SetAdminNotifyNotifyByMethod\"></span>", (int)notifyBy);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
@@ -556,7 +529,7 @@ namespace ASC.Web.Studio.UserControls.Users
             try
             {
                 var resp = new AjaxResponse();
-                var notifyByList = ConvertToNotifyByList(notifyBy);
+                var notifyByList = ConvertToNotifyByList((NotifyBy)notifyBy);
                 SetNotifyBySubsriptionTypes(notifyByList, StudioSubscriptionManager.Instance, Actions.AdminNotify);
                 return resp;
             }
@@ -773,7 +746,7 @@ namespace ASC.Web.Studio.UserControls.Users
             var resp = new AjaxResponse { rs2 = productID.ToString() };
             try
             {
-                var notifyByList = ConvertToNotifyByList(notifyBy);
+                var notifyByList = ConvertToNotifyByList((NotifyBy)notifyBy);
 
                 var productSubscriptionManager = WebItemManager.Instance[productID].Context.SubscriptionManager as IProductSubscriptionManager;
                 if (productSubscriptionManager.GroupByType == GroupByType.Modules)
@@ -800,23 +773,44 @@ namespace ASC.Web.Studio.UserControls.Users
             return null;
         }
 
-        private static IList<string> ConvertToNotifyByList(int notifyBy)
+        private static IList<string> ConvertToNotifyByList(NotifyBy notifyBy)
         {
             IList<string> notifyByList = new List<string>();
-            switch (notifyBy)
-            {
-                case 0:
-                    notifyByList.Add(ASC.Core.Configuration.Constants.NotifyEMailSenderSysName);
-                    break;
-                case 1:
-                    notifyByList.Add(ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName);
-                    break;
-                case 2:
-                    notifyByList.Add(ASC.Core.Configuration.Constants.NotifyEMailSenderSysName);
-                    notifyByList.Add(ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName);
-                    break;
-            }
+
+            NotifyByBindings.Keys.Where(n => notifyBy.HasFlag(n)).ToList().ForEach(n => notifyByList.Add(NotifyByBindings[n]));
+
             return notifyByList;
+        }
+
+        [Flags]
+        public enum NotifyBy
+        {
+            None = 0,
+            Email = 1,
+            TMTalk = 2,
+            Push = 4,
+            Telegram = 8,
+            SignalR = 16
+        }
+
+        protected static readonly Dictionary<NotifyBy, string> NotifyByBindings = new Dictionary<NotifyBy, string>()
+        {
+            { NotifyBy.Email, ASC.Core.Configuration.Constants.NotifyEMailSenderSysName },
+            { NotifyBy.TMTalk, ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName },
+            { NotifyBy.Telegram, ASC.Core.Configuration.Constants.NotifyTelegramSenderSysName }
+        };
+        protected static readonly Dictionary<string, NotifyBy> NotifyByBindingsReverse = NotifyByBindings.ToDictionary(kv => kv.Value, kv => kv.Key);
+
+        protected string GetNotifyLabel(NotifyBy notify)
+        {
+            try
+            {
+                return Resources.Resource.ResourceManager.GetString("NotifyBy" + notify.ToString());
+            }
+            catch
+            {
+                return "Unknown";
+            }
         }
 
         private void SetNotifyBySubsriptionTypes(IList<string> notifyByList, ISubscriptionManager subscriptionManager)
@@ -839,7 +833,7 @@ namespace ASC.Web.Studio.UserControls.Users
                     notifyByList.ToArray());
         }
 
-        private int GetNotifyByMethod(Guid itemID)
+        private NotifyBy GetNotifyByMethod(Guid itemID)
         {
             var productSubscriptionManager = WebItemManager.Instance[itemID].Context.SubscriptionManager as IProductSubscriptionManager;
             if (productSubscriptionManager == null)
@@ -865,33 +859,20 @@ namespace ASC.Web.Studio.UserControls.Users
             return 0;
         }
 
-        private int ConvertToNotifyByValue(ISubscriptionManager subscriptionManager, SubscriptionType s)
+        private NotifyBy ConvertToNotifyByValue(ISubscriptionManager subscriptionManager, SubscriptionType s)
         {
             return ConvertToNotifyByValue(subscriptionManager, s.NotifyAction);
         }
 
-        private int ConvertToNotifyByValue(ISubscriptionManager subscriptionManager, INotifyAction action)
+        private NotifyBy ConvertToNotifyByValue(ISubscriptionManager subscriptionManager, INotifyAction action)
         {
-            var notifyByArray = subscriptionManager.SubscriptionProvider.GetSubscriptionMethod(action, GetCurrentRecipient());
-            if (notifyByArray.Length == 1)
-            {
-                if (notifyByArray.Contains(ASC.Core.Configuration.Constants.NotifyEMailSenderSysName))
-                {
-                    return 0;
-                }
-                if (notifyByArray.Contains(ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName))
-                {
-                    return 1;
-                }
-            }
-            if (notifyByArray.Length == 2)
-            {
-                if (notifyByArray.Contains(ASC.Core.Configuration.Constants.NotifyEMailSenderSysName) && notifyByArray.Contains(ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName))
-                {
-                    return 2;
-                }
-            }
-            return 0;
+            var notifyByArray = subscriptionManager.SubscriptionProvider.GetSubscriptionMethod(action, GetCurrentRecipient()).ToList();
+
+            var notify = NotifyBy.None;
+
+            notifyByArray.ForEach(n => notify |= NotifyByBindingsReverse[n]);
+
+            return notify;
         }
     }
 }

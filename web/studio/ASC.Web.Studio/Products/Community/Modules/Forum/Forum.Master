@@ -1,25 +1,30 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
-<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Master/Community.master" CodeBehind="Forum.master.cs" Inherits="ASC.Web.Community.Forum.ForumMasterPage" %>
+
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Master/Community.Master" CodeBehind="Forum.Master.cs" Inherits="ASC.Web.Community.Forum.ForumMasterPage" %>
 
 <%@ Register Assembly="ASC.Web.Community" Namespace="ASC.Web.UserControls.Forum.Common" TagPrefix="ascwc" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<asp:Content ID="HeaderContent" ContentPlaceHolderID="CommunityPageHeader" runat="server">
-    <ascwc:ForumScriptProvider runat="server" id="_scriptProvider"></ascwc:ForumScriptProvider>
-    <asp:ContentPlaceHolder runat="server" ID="ForumPageHeader"></asp:ContentPlaceHolder>
+
+<asp:Content ContentPlaceHolderID="CommunityPageHeader" runat="server">
+    <ascwc:ForumScriptProvider id="_scriptProvider" runat="server"/>
+    <asp:ContentPlaceHolder ID="ForumPageHeader" runat="server"/>
 </asp:Content>
 
-<asp:Content ID="PageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">
-    <asp:PlaceHolder runat="server" ID="_forumMakerHolder"></asp:PlaceHolder> 
+<asp:Content ContentPlaceHolderID="CommunityTitleContent" runat="server">
+    <asp:ContentPlaceHolder ID="ForumTitleContent" runat="server"/>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="CommunityPageContent" runat="server">
+    <asp:PlaceHolder ID="_forumMakerHolder" runat="server"/>
     <sc:Container ID="ForumContainer" runat="server">
-    <Header/>
-    <Body>
-    <asp:ContentPlaceHolder id="ForumPageContent" runat="server">
-    </asp:ContentPlaceHolder>
-    </Body>
+        <Header/>
+        <Body>
+            <asp:ContentPlaceHolder id="ForumPageContent" runat="server"/>
+        </Body>
     </sc:Container>
 </asp:Content>
-<asp:Content ID="SidePanel" ContentPlaceHolderID="CommunitySidePanel" runat="server">
-    <asp:ContentPlaceHolder runat="server" ID="ForumSidePanel">
-    </asp:ContentPlaceHolder>
+
+<asp:Content ContentPlaceHolderID="CommunityPagingContent" runat="server">
+    <asp:ContentPlaceHolder ID="ForumPagingContent" runat="server"/>
 </asp:Content>

@@ -15,12 +15,21 @@ $PostText
 $PostURL
     </body>
   </pattern>
+  <pattern id="new post in topic" sender="telegram.sender">
+    <subject resource="|subject_PostInTopicEmailPattern_tg|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$PostText
+    </body>
+  </pattern>
 
   <pattern id="new post by tag" sender="email.sender" reference="new post in topic"/>
   <pattern id="new post by tag" sender="messanger.sender" reference="new post in topic"/>
+  <pattern id="new post by tag" sender="telegram.sender" reference="new post in topic"/>
 
   <pattern id="new post in thread" sender="email.sender" reference="new post in topic"/>
   <pattern id="new post in thread" sender="messanger.sender" reference="new post in topic"/>
+  <pattern id="new post in thread" sender="telegram.sender" reference="new post in topic"/>
 
   <!--New Topic in Forums-->
   <pattern id="new topic in forum" sender="email.sender">
@@ -34,6 +43,13 @@ $PostURL
 $PostText
 
 $PostURL
+    </body>
+  </pattern>
+  <pattern id="new topic in forum" sender="telegram.sender">
+    <subject resource="|subject_TopicInForumEmailPattern_tg|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$PostText
     </body>
   </pattern>
 </patterns>

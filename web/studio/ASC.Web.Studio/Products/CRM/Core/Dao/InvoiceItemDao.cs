@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -176,7 +167,7 @@ namespace ASC.CRM.Core.Dao
                         sqlQuery.OrderBy("price", orderBy.IsAsc);
                         break;
                     case InvoiceItemSortedByType.Quantity:
-                        sqlQuery.OrderBy("case when track_inventory = 1 then stock_quantity else quantity end", orderBy.IsAsc).OrderBy("title", true);
+                        sqlQuery.OrderBy("stock_quantity", orderBy.IsAsc).OrderBy("title", true);
                         break;
                     case InvoiceItemSortedByType.Created:
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);
@@ -289,7 +280,6 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("description", invoiceItem.Description)
                               .InColumnValue("stock_keeping_unit", invoiceItem.StockKeepingUnit)
                               .InColumnValue("price", invoiceItem.Price)
-                              .InColumnValue("quantity", invoiceItem.Quantity)
                               .InColumnValue("stock_quantity", invoiceItem.StockQuantity)
                               .InColumnValue("track_inventory", invoiceItem.TrackInventory)
                               .InColumnValue("invoice_tax1_id", invoiceItem.InvoiceTax1ID)
@@ -321,7 +311,6 @@ namespace ASC.CRM.Core.Dao
                         .Set("description", invoiceItem.Description)
                         .Set("stock_keeping_unit", invoiceItem.StockKeepingUnit)
                         .Set("price", invoiceItem.Price)
-                        .Set("quantity", invoiceItem.Quantity)
                         .Set("stock_quantity", invoiceItem.StockQuantity)
                         .Set("track_inventory", invoiceItem.TrackInventory)
                         .Set("invoice_tax1_id", invoiceItem.InvoiceTax1ID)
@@ -399,16 +388,15 @@ namespace ASC.CRM.Core.Dao
                     Description = Convert.ToString(row[2]),
                     StockKeepingUnit = Convert.ToString(row[3]),
                     Price = Convert.ToDecimal(row[4]),
-                    Quantity = Convert.ToInt32(row[5]),
-                    StockQuantity = Convert.ToInt32(row[6]),
-                    TrackInventory = Convert.ToBoolean(row[7]),
-                    InvoiceTax1ID = Convert.ToInt32(row[8]),
-                    InvoiceTax2ID = Convert.ToInt32(row[9]),
-                    Currency = Convert.ToString(row[10]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[11].ToString())),
-                    CreateBy = ToGuid(row[12]),
-                    LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[13].ToString())),
-                    LastModifedBy = ToGuid(row[14])
+                    StockQuantity = Convert.ToDecimal(row[5]),
+                    TrackInventory = Convert.ToBoolean(row[6]),
+                    InvoiceTax1ID = Convert.ToInt32(row[7]),
+                    InvoiceTax2ID = Convert.ToInt32(row[8]),
+                    Currency = Convert.ToString(row[9]),
+                    CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[10].ToString())),
+                    CreateBy = ToGuid(row[11]),
+                    LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[12].ToString())),
+                    LastModifedBy = ToGuid(row[13])
                 };
         }
 
@@ -421,7 +409,6 @@ namespace ASC.CRM.Core.Dao
                     "description",
                     "stock_keeping_unit",
                     "price",
-                    "quantity",
                     "stock_quantity",
                     "track_inventory",
                     "invoice_tax1_id",

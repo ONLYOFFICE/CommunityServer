@@ -1,12 +1,12 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 
-<%@ Page Language="C#" MasterPageFile="~/products/people/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="ASC.Web.People.Profile" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/People/Masters/PeopleBaseTemplate.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="ASC.Web.People.Profile" %>
 
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PeoplePageContent" runat="server">
+<asp:Content ContentPlaceHolderID="TitleContent" runat="server">
     <div class="clearFix profile-title header-with-menu">
         <span class="header text-overflow" title="<%= ProfileHelper.UserInfo.DisplayUserName(true) %>"><%= ProfileHelper.UserInfo.DisplayUserName(true) %></span>
         
@@ -24,6 +24,9 @@
 
         <asp:PlaceHolder ID="actionsHolder" runat="server" />
     </div>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PeoplePageContent" runat="server">
     <div class="profile-container">
         <asp:PlaceHolder ID="CommonContainerHolder" runat="server" />
     </div>

@@ -19,49 +19,58 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
-<head runat="server">
-    <title><%= (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode() %></title>
-    <meta property="og:image" id="MetaImageOG" content="" />
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" id="MetaTitleOG" content=""/>
-    <meta property="og:description" id="MetaDescriptionOG" content=""/>
-    <meta property="og:url" id="CanonicalURLOG" content=""/>
+    <head runat="server">
+        <title><%= (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode() %></title>
+        <meta property="og:image" id="MetaImageOG" content="" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" id="MetaTitleOG" content=""/>
+        <meta property="og:description" id="MetaDescriptionOG" content=""/>
+        <meta property="og:url" id="CanonicalURLOG" content=""/>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="keywords" id="MetaKeywords" content="" runat="server" />
-    <meta name="description" id="MetaDescription" content="" runat="server" />
+        <meta name="keywords" id="MetaKeywords" content="" runat="server" />
+        <meta name="description" id="MetaDescription" content="" runat="server" />
 
 
-    <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
+        <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
 
-    <% if (!String.IsNullOrEmpty(SetupInfo.FontOpenSansUrl))
-       { %>
-    <%= string.Format("<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", SetupInfo.FontOpenSansUrl) %>
-    <% }
-       else
-       { %>
-    <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
-    <% } %>
+        <% if (!String.IsNullOrEmpty(SetupInfo.FontOpenSansUrl))
+           { %>
+        <%= string.Format("<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", SetupInfo.FontOpenSansUrl) %>
+        <% }
+           else
+           { %>
+        <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
+        <% } %>
 
-    <master:ThemeStyles ID="ThemeStyles" runat="server" />
-    <master:CommonStyles ID="CommonStyles" runat="server" />
-    <rbc:ResourceStyleBundleControl ID="StaticStyle" runat="server" />
-    <% if (WebSkin.HasCurrentCultureCssFile)
-        {
-            AddStyles(ResolveUrl, "~/skins/default/common_style.css".Replace("css", CultureInfo.CurrentCulture.Name.ToLower() + ".css"));
-        }
-    %>
-    <master:HeadStyles ID="HeadStyles" runat="server" />
+        <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/layout.css") %>" />
+        <% if (!DisabledLayoutMedia) { %>
+        <link type="text/css" rel="stylesheet" href="<%= ResolveUrl(Request.DesktopApp() ? "~/skins/default/layout-desktop.css" : "~/skins/default/layout-media.css") %>" />
+        <% } %>
 
-    <%= RenderCustomScript() %>
-    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+        <master:ThemeStyles ID="ThemeStyles" runat="server" />
+        <master:CommonStyles ID="CommonStyles" runat="server" />
+        <rbc:ResourceStyleBundleControl ID="StaticStyle" runat="server" />
 
-    <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
-    <link rel="manifest" href="/manifest.json" />
-</head>
+        <% if (WebSkin.HasCurrentCultureCssFile)
+           {
+               AddStyles(ResolveUrl, "~/skins/default/common_style.css".Replace("css", CultureInfo.CurrentCulture.Name.ToLower() + ".css"));
+           } %>
+
+        <master:HeadStyles ID="HeadStyles" runat="server" />
+
+        <%= RenderCustomScript() %>
+        <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+
+        <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
+        <link rel="manifest" href="/manifest.json" />
+
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/asc/core/headscript.js") %>"></script>
+
+    </head>
 <body class="<%= ColorThemeClass %>
     <%= IsMobile ? "mobile" : "" %>
     <%= Request.DesktopApp() ? "desktop" : "" %>
@@ -72,51 +81,63 @@
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
 
     <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">
-
+        
         <%= RenderStatRequest() %>
-
-        <div class="main-content">
-            <div id="studioPageContent">
-                <asp:ContentPlaceHolder runat="server" ID="TopContent" />
-                <div class="mainPageLayout">
-                    <table class="mainPageTable <%= !DisabledSidePanel ? "with-mainPageTableSidePanel" : "" %>" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <% if (!DisabledSidePanel)
-                                   { %>
-                                <td class="borderBase mainPageTableSidePanel">
-                                    <div id="studio_sidePanel" class="<%= EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
-                                        <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
-                                        <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
-                                        <asp:PlaceHolder ID="BannerHolder" runat="server" />
-                                    </div>
-                                    <% if (EnabledWebChat && !IsMobile)
-                                       { %>
-                                    <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
-                                    <% } %>
-                                </td>
-                                <% } %>
-                                <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
-                                <td class="mainPageContent" valign="top">
-
-                                    <noscript>
-                                        <div class="info-box excl"><%= Resource.ErrorNoscript %></div>
-                                    </noscript>
-
-                                    <asp:PlaceHolder ID="TariffNotifyHolder" runat="server" />
-                                    <asp:PlaceHolder ID="activateEmailPanel" runat="server" />
-                                    <asp:PlaceHolder ID="_contentHolder" runat="server" />
-                                    <asp:ContentPlaceHolder ID="PageContent" runat="server" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="container" style="position: absolute; top: 0; left: 0;"></div>
+        
+        <div id="studioPageContent" class="studio-container <%= DisabledSidePanel ? "disabled-side-panel" : "" %>">
+            <header>
+                <div class="header-content">
+                    <asp:ContentPlaceHolder runat="server" ID="TopContent" />
                 </div>
-            </div>
-            <asp:ContentPlaceHolder ID="FooterContent" runat="server" />
-        </div>
+            </header>
+            <% if (!DisabledSidePanel)
+               { %>
+            <nav id="studio_sidePanel" class="mainPageTableSidePanel <%= EnabledWebChat ? "with-chat" : ""  %>">
+                <div class="new-content">
+                    <asp:ContentPlaceHolder ID="CreateButtonContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                <div class="nav-content webkit-scrollbar">
+                    <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
+                    <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
+                    <asp:PlaceHolder ID="BannerHolder" runat="server" />
+                </div>
+                <% if (EnabledWebChat && !IsMobile)
+                    { %>
+                <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
+                <% } %>
+            </nav>
+            <aside class="borderBase">
+                <div class="aside-content webkit-scrollbar">
+                    <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
+                </div>
+            </aside>
+            <% } %>
+            <main>
+                <div class="bar-content">
+                    <noscript>
+                        <div class="info-box excl"><%= Resource.ErrorNoscript %></div>
+                    </noscript>
+                    <asp:PlaceHolder ID="TariffNotifyHolder" runat="server" />
+                    <asp:PlaceHolder ID="activateEmailPanel" runat="server" />
+                    <asp:PlaceHolder ID="_contentHolder" runat="server" />
+                </div>
+                <div class="title-content">
+                    <asp:ContentPlaceHolder ID="TitleContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                <div class="filter-content">
+                    <asp:ContentPlaceHolder ID="FilterContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                <div class="page-content mainPageContent webkit-scrollbar">
+                    <asp:ContentPlaceHolder ID="PageContent" runat="server" />
+                </div>
+                <div class="paging-content">
+                    <asp:ContentPlaceHolder ID="PagingContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </main>
+        </div> 
     </form>
+
+    <div id="container" style="position: absolute; top: 0; left: 0;"></div>
 
     <master:HeadScripts ID="HeadScripts" runat="server" />
 

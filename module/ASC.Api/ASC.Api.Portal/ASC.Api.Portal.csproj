@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Portal</RootNamespace>
     <AssemblyName>ASC.Api.Portal</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -47,7 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -55,13 +55,6 @@
     <NoWarn>1591</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="PortalApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +88,10 @@
       <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
       <Name>ASC.ElasticSearch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
+      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
+      <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
@@ -107,6 +104,13 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

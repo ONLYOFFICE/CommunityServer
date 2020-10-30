@@ -31,6 +31,15 @@ namespace ASC.Web.Community.Forum {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ForumPageHeader;
         
         /// <summary>
+        /// ForumTitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ForumTitleContent;
+        
+        /// <summary>
         /// _forumMakerHolder control.
         /// </summary>
         /// <remarks>
@@ -58,12 +67,12 @@ namespace ASC.Web.Community.Forum {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ForumPageContent;
         
         /// <summary>
-        /// ForumSidePanel control.
+        /// ForumPagingContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ForumSidePanel;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ForumPagingContent;
     }
 }

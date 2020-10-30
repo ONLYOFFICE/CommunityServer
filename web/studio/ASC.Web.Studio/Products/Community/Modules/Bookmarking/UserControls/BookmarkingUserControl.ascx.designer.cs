@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.UserControls.Bookmarking {
-    
-    
-    public partial class BookmarkingUserControl {
-        
+namespace ASC.Web.UserControls.Bookmarking
+{
+
+
+    public partial class BookmarkingUserControl
+    {
+
         /// <summary>
         /// BookmarksMainPanel control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ASC.Web.UserControls.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl BookmarksMainPanel;
-        
+
         /// <summary>
         /// BookmarkingSortPanel control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace ASC.Web.UserControls.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl BookmarkingSortPanel;
-        
+
         /// <summary>
         /// CreateBookmarkPanel control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace ASC.Web.UserControls.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CreateBookmarkPanel;
-        
+
         /// <summary>
         /// BookmarkingRemoveFromFavouritePopupContainer control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace ASC.Web.UserControls.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl BookmarkingRemoveFromFavouritePopupContainer;
-        
+
         /// <summary>
         /// BookmarksHolder control.
         /// </summary>
@@ -56,14 +58,5 @@ namespace ASC.Web.UserControls.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl BookmarksHolder;
-        
-        /// <summary>
-        /// BookmarkingPaginationContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl BookmarkingPaginationContainer;
     }
 }

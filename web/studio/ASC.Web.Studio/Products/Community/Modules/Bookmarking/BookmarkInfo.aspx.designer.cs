@@ -13,6 +13,15 @@ namespace ASC.Web.Community.Bookmarking {
     public partial class BookmarkInfo {
         
         /// <summary>
+        /// BookmarkingHeaderPageContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder BookmarkingHeaderPageContent;
+        
+        /// <summary>
         /// BookmarkingPageContent control.
         /// </summary>
         /// <remarks>
@@ -20,14 +29,5 @@ namespace ASC.Web.Community.Bookmarking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder BookmarkingPageContent;
-        
-        /// <summary>
-        /// BookmarkingSideHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BookmarkingSideHolder;
     }
 }

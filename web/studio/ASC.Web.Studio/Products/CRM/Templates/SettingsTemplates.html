@@ -725,9 +725,7 @@
         <td class="invoiceItemQuantity">
             <div>
                 {{if trackInvenory === true}}
-                    ${stockQuantity}
-                {{else quantity != 0}}
-                    ${quantity}
+                    ${stockQuantity.toFixed(2).replace('.', ASC.CRM.Data.CurrencyDecimalSeparator)}
                 {{/if}}
              </div>
         </td>
@@ -754,7 +752,7 @@
         </td>
         <td>
             <div class="invoiceTaxRate">
-                ${rate}
+                ${rate.toFixed(2).replace('.', ASC.CRM.Data.CurrencyDecimalSeparator)}
             </div>
         </td>
 

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -361,6 +352,61 @@ namespace ASC.Mail.Core.Engine
             var userFolderXMailDao = daoFactory.CreateUserFolderXMailDao(Tenant, User);
 
             userFolderXMailDao.Remove(ids);
+        }
+
+        public void RecalculateCounters(IDaoFactory daoFactory, List<int> userFolderIds)
+        {
+            var chainDao = daoFactory.CreateChainDao(Tenant, User);
+            var mailInfoDao = daoFactory.CreateMailInfoDao(Tenant, User);
+
+            var totalUfMessList = mailInfoDao.GetMailUserFolderCount(userFolderIds);
+            var unreadUfMessUfList = mailInfoDao.GetMailUserFolderCount(userFolderIds, true);
+            var totalUfConvList = chainDao.GetChainUserFolderCount(userFolderIds);
+            var unreadUfConvUfList = chainDao.GetChainUserFolderCount(userFolderIds, true);
+
+            foreach (var id in userFolderIds.Select(id => (uint)id))
+            {
+                int totalMess;
+                totalUfMessList.TryGetValue(id, out totalMess);
+
+                int unreadMess;
+                unreadUfMessUfList.TryGetValue(id, out unreadMess);
+
+                int totalConv;
+                totalUfConvList.TryGetValue(id, out totalConv);
+
+                int unreadConv;
+                unreadUfConvUfList.TryGetValue(id, out unreadConv);
+
+                SetFolderCounters(daoFactory, id,
+                    unreadMess, totalMess, unreadConv, totalConv);
+            }
+        }
+
+        public void SetFolderCounters(
+            IDaoFactory daoFactory,
+            uint userFolderId,
+            int? unreadMess = null,
+            int? totalMess = null,
+            int? unreadConv = null,
+            int? totalConv = null)
+        {
+            try
+            {
+                var res = daoFactory.CreateUserFolderDao(Tenant, User)
+                    .SetFolderCounters(userFolderId, unreadMess, totalMess, unreadConv,
+                        totalConv);
+
+                if (res == 0)
+                    throw new Exception("Need recalculation");
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("UserFolderEngine->SetFolderCounters() Exception: {0}", ex.ToString());
+                //TODO: Think about recalculation
+                //var engine = new EngineFactory(Tenant, User);
+                //engine.OperationEngine.RecalculateFolders();
+            }
         }
 
         public void ChangeFolderCounters(

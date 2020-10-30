@@ -5,13 +5,21 @@
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="HeaderContent">
-    <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="CreateButtonContent">
+    <asp:ContentPlaceHolder ID="CreateButtonContent" runat="server"/>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="SidePanel">
-    <asp:ContentPlaceHolder ID="BTSidePanel" runat="server"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="BTSidePanel" runat="server"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="FilterContent">
+    <asp:ContentPlaceHolder ID="FilterContent" runat="server" />
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="PageContent">
-    <asp:ContentPlaceHolder ID="BTPageContent" runat="server"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="BTPageContent" runat="server"/>
 </asp:Content>

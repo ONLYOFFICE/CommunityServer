@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -42,7 +33,7 @@ ASC.Projects.Description = (function () {
         }
 
         handler = teamlab.bind(teamlab.events.getPrjProject, function (params, currentproject) {
-            if (!document.location.pathname.endsWith("projects.aspx")) return;
+            if (!document.location.pathname.toLowerCase().endsWith("projects.aspx")) return;
             project = currentproject;
             show();
         });
@@ -112,7 +103,7 @@ ASC.Projects.Description = (function () {
             .push(projectResource.ProjectLeader, project.responsible.displayName)
             .push(resources.ProjectsFilterResource.ByCreateDate, project.displayDateCrtdate)
             .push(resources.CommonResource.Description, jq.linksParser(formatDescription(project.description)))
-            .push(projectResource.Tags, tags)
+            .push(projectResource.Tags, formatDescription(tags))
             .setStatuses(statuses)
             .setCurrentStatus(currentStatus)
             .setStatusRight(project.canEdit)
@@ -227,7 +218,7 @@ ASC.Projects.AllProject = (function () {
                     button: {
                         title: res ? res.ProjectResource.CreateFirstProject : "",
                         onclick: function () {
-                            location.href = "projects.aspx?action=add";
+                            location.href = "Projects.aspx?action=add";
                         },
                         canCreate: function() {
                             return ASC.Projects.Master.CanCreateProject;
@@ -279,7 +270,7 @@ ASC.Projects.AllProject = (function () {
                 getItem: getProjectByTarget,
                 selector: '.nameProject a',
                 getLink: function (item) {
-                    return "projects.aspx?prjID=" + item.id + "#";
+                    return "Projects.aspx?prjID=" + item.id + "#";
                 }
             });
 
@@ -335,15 +326,15 @@ ASC.Projects.AllProject = (function () {
         $projectsTable.show();
     };
 
-    var moduleLocationPath = StudioManager.getLocationPathToModule("projects");
+    var moduleLocationPath = StudioManager.getLocationPathToModule("Projects");
 
     function getProjTmpl(proj) {
         return jq.extend(proj, {
-            projLink: jq.format('{0}tasks.aspx?prjID={1}', moduleLocationPath, proj.id),
-            linkMilest: jq.format('{0}milestones.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
-            linkTasks: jq.format('{0}tasks.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
+            projLink: jq.format('{0}Tasks.aspx?prjID={1}', moduleLocationPath, proj.id),
+            linkMilest: jq.format('{0}Milestones.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
+            linkTasks: jq.format('{0}Tasks.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
             participants: proj.participantCount ? proj.participantCount - 1 : "",
-            linkParticip: jq.format('{0}projectteam.aspx?prjID={1}', moduleLocationPath, proj.id),
+            linkParticip: jq.format('{0}ProjectTeam.aspx?prjID={1}', moduleLocationPath, proj.id),
             isSimpleView: isSimpleView || false
         });
     };
@@ -388,6 +379,15 @@ ASC.Projects.AllProject = (function () {
             success: function (params, project) {
                 setProject(project);
                 changeCboxStatus(project);
+                if (status == 1 || status == 2) {
+                    teamlab.getPrjTeam({}, id,
+                        function (params, team) {
+                            teamlab.removeCaldavProjectCalendar(id, jq.map(team, function (user) { return user.id; }));
+                        }
+                    );
+                } else if (status == 0) {
+                    teamlab.getCalendarCaldavUrl("Project_" + id);
+                }
             }
         });
     };

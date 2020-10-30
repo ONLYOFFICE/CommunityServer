@@ -13,6 +13,9 @@
         <li>
           <xsl:attribute name="class">
             file-row folder-row item-row
+            <xsl:if test="contains(file_status, 'IsFavorite')">
+              on-favorite
+            </xsl:if>
             <xsl:if test="provider_key != ''">
               third-party-entry
             </xsl:if>
@@ -220,6 +223,12 @@
             <xsl:if test="contains(file_status, 'IsEditingAlone')">
               on-edit-alone
             </xsl:if>
+            <xsl:if test="contains(file_status, 'IsFavorite')">
+              on-favorite
+            </xsl:if>
+            <xsl:if test="contains(file_status, 'IsTemplate')">
+              is-template
+            </xsl:if>
             <xsl:if test="provider_key != ''">
               third-party-entry
             </xsl:if>
@@ -286,6 +295,16 @@
               <div class="convert-action pencil">
                 <xsl:attribute name="title">
                   <resource name="fres.ButtonConvertOpen" />
+                </xsl:attribute>
+              </div>
+              <div class="template-action">
+                <xsl:attribute name="title">
+                  <resource name="fres.ButtonCreateByTemplate" />
+                </xsl:attribute>
+              </div>
+              <div class="favorite">
+                <xsl:attribute name="title">
+                  <resource name="fres.ButtonRemoveFavorite" />
                 </xsl:attribute>
               </div>
               <xsl:if test="version > 1">

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -101,7 +92,7 @@ ASC.CRM.SettingsPage = (function() {
             _createField();
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#manageField", 400, 400, 0);
+        StudioBlockUIManager.blockUI("#manageField", 400);
     };
 
     var _initOtherActionMenu = function() {
@@ -567,7 +558,7 @@ ASC.CRM.SettingsPage = (function() {
             if (field.relativeItemsCount == 0) {
                 _deleteFieldComplete(fieldid, liObj);
             } else {
-                StudioBlockUIManager.blockUI("#deleteFieldConfirmation", 500, 180, 0);
+                StudioBlockUIManager.blockUI("#deleteFieldConfirmation", 500);
             }
 
         },
@@ -642,7 +633,7 @@ ASC.CRM.SettingsPage = (function() {
                 _editField(liObj, field, index);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#manageField", 400, 400, 0);
+            StudioBlockUIManager.blockUI("#manageField", 400);
         },
 
         selectTypeEvent: function(selectObj) {
@@ -902,7 +893,7 @@ ASC.CRM.ListItemView = (function() {
         RemoveRequiredErrorClass(jq("#manageItem input:first"));
         PopupKeyUpActionProvider.CloseDialogAction = "javascript:jq('.iconsPanelSettings').hide();jq('#colorsPanel').hide();jq('#popup_colorsPanel').hide();";
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#manageItem", 400, 400, 0);
+        StudioBlockUIManager.blockUI("#manageItem", 400);
 
         if (!ASC.CRM.ListItemView.IsDropdownToggleRegistered) {
             ASC.CRM.ListItemView.IsDropdownToggleRegistered = true;
@@ -1030,7 +1021,7 @@ ASC.CRM.ListItemView = (function() {
 
             hash.push(jq.toJSON(filtervaluehash));
             anchor = jq.base64.encode(hash.join(';'));
-            item.relativeItemsUrl = "default.aspx#" + anchor;
+            item.relativeItemsUrl = "Default.aspx#" + anchor;
         }
         if (ASC.CRM.ListItemView.CurrentType == 2) { //Task category
             //hash.push('{"id":"sorter","type":"sorter","params":"eyJpZCI6ImNhdGVnb3J5IiwiZGVmIjpmYWxzZSwiZHNjIjpmYWxzZSwic29ydE9yZGVyIjoiYXNjZW5kaW5nIn0="}');
@@ -1046,7 +1037,7 @@ ASC.CRM.ListItemView = (function() {
 
             hash.push(jq.toJSON(filtervaluehash));
             anchor = jq.base64.encode(hash.join(';'));
-            item.relativeItemsUrl = "tasks.aspx#" + anchor;
+            item.relativeItemsUrl = "Tasks.aspx#" + anchor;
         }
 
         if (ASC.CRM.ListItemView.CurrentType == 4) { //Contact type
@@ -1063,7 +1054,7 @@ ASC.CRM.ListItemView = (function() {
 
             hash.push(jq.toJSON(filtervaluehash));
             anchor = jq.base64.encode(hash.join(';'));
-            item.relativeItemsUrl = "default.aspx#" + anchor;
+            item.relativeItemsUrl = "Default.aspx#" + anchor;
         }
     };
 
@@ -1367,7 +1358,7 @@ ASC.CRM.ListItemView = (function() {
             RemoveRequiredErrorClass(jq("#manageItem input:first"));
             PopupKeyUpActionProvider.CloseDialogAction = "javascript:jq('.iconsPanelSettings').hide();jq('#colorsPanel').hide();jq('#popup_colorsPanel').hide();";
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#manageItem", 400, 400, 0);
+            StudioBlockUIManager.blockUI("#manageItem", 400);
 
             if (!ASC.CRM.ListItemView.IsDropdownToggleRegistered) {
                 ASC.CRM.ListItemView.IsDropdownToggleRegistered = true;
@@ -1488,7 +1479,7 @@ ASC.CRM.ListItemView = (function() {
                     });
                 });
 
-                StudioBlockUIManager.blockUI("#selectItemForReplacePopUp", 500, 300, 0);
+                StudioBlockUIManager.blockUI("#selectItemForReplacePopUp", 500);
 
             } else {
                 Teamlab.removeCrmListItem({ liObj: liObj }, ASC.CRM.ListItemView.CurrentType, listitemid, 0, {
@@ -1622,7 +1613,7 @@ ASC.CRM.DealMilestoneView = (function() {
         RemoveRequiredErrorClass(jq("#manageDealMilestone .title"));
 
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#manageDealMilestone", 400, 500, 0);
+        StudioBlockUIManager.blockUI("#manageDealMilestone", 400);
 
         if (!ASC.CRM.DealMilestoneView.IsDropdownToggleRegistered) {
             ASC.CRM.DealMilestoneView.IsDropdownToggleRegistered = true;
@@ -1685,7 +1676,7 @@ ASC.CRM.DealMilestoneView = (function() {
 
         hash.push(jq.toJSON(filtervaluehash));
         var anchor = jq.base64.encode(hash.join(';'));
-        dealMilestone.relativeItemsUrl = "deals.aspx#" + anchor;
+        dealMilestone.relativeItemsUrl = "Deals.aspx#" + anchor;
     };
 
     var _readDealMilestoneData = function(sortOrder) {
@@ -1927,7 +1918,7 @@ ASC.CRM.DealMilestoneView = (function() {
 
             RemoveRequiredErrorClass(jq("#manageDealMilestone .title"));
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#manageDealMilestone", 400, 500, 0);
+            StudioBlockUIManager.blockUI("#manageDealMilestone", 400);
 
             if (!ASC.CRM.DealMilestoneView.IsDropdownToggleRegistered) {
                 ASC.CRM.DealMilestoneView.IsDropdownToggleRegistered = true;
@@ -1997,7 +1988,7 @@ ASC.CRM.TagSettingsView = (function() {
         jq("#tagTitle").val("");
         RemoveRequiredErrorClass(jq("#tagTitle"));
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#manageTag", 400, 400, 0);
+        StudioBlockUIManager.blockUI("#manageTag", 400);
     };
 
     var _deleteUnusedTags = function() {
@@ -2017,7 +2008,7 @@ ASC.CRM.TagSettingsView = (function() {
         var hash = [],
             filtervaluehash = {},
             anchor = "",
-            baseUrl = "default.aspx";
+            baseUrl = "Default.aspx";
         //hash.push('{"id":"sorter","type":"sorter","params":"eyJpZCI6InRpdGxlIiwiZGVmIjp0cnVlLCJkc2MiOmZhbHNlLCJzb3J0T3JkZXIiOiJhc2NlbmRpbmcifQ=="}');
 
         filtervaluehash = {
@@ -2033,11 +2024,11 @@ ASC.CRM.TagSettingsView = (function() {
         anchor = jq.base64.encode(hash.join(';'));
 
         if (type == "contacts") {
-            baseUrl = "default.aspx";
+            baseUrl = "Default.aspx";
         } else if (type == "opportunity") {
-            baseUrl = "deals.aspx";
+            baseUrl = "Deals.aspx";
         } else if (type == "case") {
-            baseUrl = "cases.aspx";
+            baseUrl = "Cases.aspx";
         }
         tag.relativeItemsUrl = baseUrl + "#" + anchor;
     };
@@ -2614,31 +2605,31 @@ ASC.CRM.TaskTemplateView = (function() {
                 title: ASC.CRM.Resources.CRMSettingResource.BothPersonAndCompany,
                 selected: type === "contact",
                 divID: "contTagsFake",
-                href: "settings.aspx?type=task_template&view=contact"
+                href: "Settings.aspx?type=task_template&view=contact"
             },
             {
                 title: ASC.CRM.Resources.CRMSettingResource.JustForCompany,
                 selected: type === "company",
                 divID: "contTagsFake",
-                href: "settings.aspx?type=task_template&view=company"
+                href: "Settings.aspx?type=task_template&view=company"
             },
             {
                 title: ASC.CRM.Resources.CRMSettingResource.JustForPerson,
                 selected: type === "person",
                 divID: "contTagsFake",
-                href: "settings.aspx?type=task_template&view=person"
+                href: "Settings.aspx?type=task_template&view=person"
             },
             {
                 title: ASC.CRM.Resources.CRMCommonResource.DealModuleName,
                 selected: type === "opportunity",
                 divID: "dealTagsFake",
-                href: "settings.aspx?type=task_template&view=opportunity"
+                href: "Settings.aspx?type=task_template&view=opportunity"
             },
             {
                 title: ASC.CRM.Resources.CRMCommonResource.CasesModuleName,
                 selected: type === "case",
                 divID: "caseTagsFake",
-                href: "settings.aspx?type=task_template&view=case"
+                href: "Settings.aspx?type=task_template&view=case"
             }]
         });
     };
@@ -2692,13 +2683,13 @@ ASC.CRM.TaskTemplateView = (function() {
             if (!id) {
                 ASC.CRM.TaskTemplateView.initTemplateConatainerPanel();
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#templateConatainerPanel", 500, 500, 0);
+                StudioBlockUIManager.blockUI("#templateConatainerPanel", 500);
             } else {
                 Teamlab.getCrmEntityTaskTemplateContainer({}, id, {
                     success: function(params, templateContainer) {
                         ASC.CRM.TaskTemplateView.initTemplateConatainerPanel(templateContainer);
                         PopupKeyUpActionProvider.EnableEsc = false;
-                        StudioBlockUIManager.blockUI("#templateConatainerPanel", 500, 500, 0);
+                        StudioBlockUIManager.blockUI("#templateConatainerPanel", 500);
                     }
                 });
             }
@@ -2825,13 +2816,13 @@ ASC.CRM.TaskTemplateView = (function() {
             if (!id) {
                 ASC.CRM.TaskTemplateView.initTemplatePanel(containerid);
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#templatePanel", 500, 500, 0);
+                StudioBlockUIManager.blockUI("#templatePanel", 500);
             } else {
                 Teamlab.getCrmEntityTaskTemplate({}, id, {
                     success: function(params, template) {
                         ASC.CRM.TaskTemplateView.initTemplatePanel(containerid, template);
                         PopupKeyUpActionProvider.EnableEsc = false;
-                        StudioBlockUIManager.blockUI("#templatePanel", 500, 500, 0);
+                        StudioBlockUIManager.blockUI("#templatePanel", 500);
                     }
                 });
             }

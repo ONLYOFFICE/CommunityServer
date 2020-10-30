@@ -1,11 +1,12 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true" CodeBehind="EditBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.EditBlog" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.Master" AutoEventWireup="true" CodeBehind="EditBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.EditBlog" Title="Untitled Page" %>
 
 <%@ Import Namespace="ASC.Blogs.Core.Resources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="CommunityPageHeader" runat="server">
+
+<asp:Content ContentPlaceHolderID="CommunityPageHeader" runat="server">
  
     <script type="text/javascript">
     function callback(result)
@@ -18,7 +19,15 @@
     </script>
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="CommunityPageContent" runat="server">
+
+<asp:Content ContentPlaceHolderID="CommunityTitleContent" runat="server">
+    <div class="BlogsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
+        <span class="main-title-icon blogs"></span>
+        <span class="header"><%=HttpUtility.HtmlEncode(BlogsResource.EditPostTitle)%></span>
+    </div>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="CommunityPageContent" runat="server">
     <sc:Container id="mainContainer" runat="server">
         <header>
         </header>
@@ -45,7 +54,7 @@
                 <div class="headerPanelSmall-splitter">
                     <b><%=BlogsResource.ContentTitle %>:</b>
                 </div>
-                <textarea id="ckEditor" name="blog_text" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
+                <textarea id="ckEditor" name="blog_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%=_text%></textarea>
             </div>
             <div class="headerPanel-splitter">
                 <div class="headerPanelSmall-splitter">
@@ -82,10 +91,8 @@
             </div>
             </div>
             <div id="previewHolder" style="display: none;">
-            <asp:PlaceHolder ID="PlaceHolderPreview" runat="server"></asp:PlaceHolder>
+                <asp:PlaceHolder ID="PlaceHolderPreview" runat="server"/>
             </div>
         </body>
     </sc:Container>
-</asp:Content>
-<asp:Content ID="SidePanel" ContentPlaceHolderID="CommunitySidePanel" runat="server">
 </asp:Content>

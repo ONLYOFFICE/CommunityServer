@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -31,19 +22,23 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading;
+
 using ASC.Common.Logging;
 using ASC.Mail.Core;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Data.Imap;
 using ASC.Mail.Enums;
 using ASC.Mail.Extensions;
+
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
 using MailKit.Search;
 using MailKit.Security;
+
 using MimeKit;
+
 using AuthenticationException = MailKit.Security.AuthenticationException;
 using MailFolder = ASC.Mail.Data.Contracts.MailFolder;
 using Pop3Client = MailKit.Net.Pop3.Pop3Client;
@@ -62,10 +57,6 @@ namespace ASC.Mail.Clients
 
         private CancellationToken CancelToken { get; set; }
         private CancellationTokenSource StopTokenSource { get; set; }
-
-        private const int CONNECT_TIMEOUT = 10000;
-        private const int ENABLE_UTF8_TIMEOUT = 10000;
-        private const int LOGIN_TIMEOUT = 30000;
 
         /// <summary>
         /// Occurs when the client has been successfully authenticated.
@@ -169,7 +160,7 @@ namespace ASC.Mail.Clients
             if (enableDsn)
             {
                 Smtp = new DsnSmtpClient(protocolLogger,
-                    DeliveryStatusNotification.Success | 
+                    DeliveryStatusNotification.Success |
                     DeliveryStatusNotification.Failure |
                     DeliveryStatusNotification.Delay)
                 {
@@ -208,7 +199,7 @@ namespace ASC.Mail.Clients
                 var index = Convert.ToInt32(elements[0]);
                 var folderId = Convert.ToInt32(elements[1]);
 
-                if (folderId != (int) FolderType.Inbox)
+                if (folderId != (int)FolderType.Inbox)
                     throw new ArgumentException("uidl is invalid. Only INBOX folder is supported.");
 
                 var inbox = Imap.Inbox;
@@ -395,7 +386,7 @@ namespace ASC.Mail.Clients
 
         public static MimeMessage ParseMimeMessage(Stream emlStream)
         {
-           var options = new ParserOptions
+            var options = new ParserOptions
             {
                 AddressParserComplianceMode = RfcComplianceMode.Loose,
                 ParameterComplianceMode = RfcComplianceMode.Loose,
@@ -455,7 +446,7 @@ namespace ASC.Mail.Clients
 
                 var t = Imap.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerConnectionTimeout, CancelToken))
                     throw new TimeoutException("Imap.ConnectAsync timeout");
 
                 if (enableUtf8 && (Imap.Capabilities & ImapCapabilities.UTF8Accept) != ImapCapabilities.None)
@@ -464,7 +455,7 @@ namespace ASC.Mail.Clients
 
                     t = Imap.EnableUTF8Async(CancelToken);
 
-                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                    if (!t.Wait(Defines.MailServerEnableUtf8Timeout, CancelToken))
                         throw new TimeoutException("Imap.EnableUTF8Async timeout");
                 }
 
@@ -485,7 +476,7 @@ namespace ASC.Mail.Clients
                     t = Imap.AuthenticateAsync(oauth2, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))
                 {
                     Imap.Authenticated -= ImapOnAuthenticated;
                     throw new TimeoutException("Imap.AuthenticateAsync timeout");
@@ -569,42 +560,88 @@ namespace ASC.Mail.Clients
             }
         }
 
-        private static bool CompareFolders(IMailFolder f1, IMailFolder f2)
+        private static bool IsInbox(IMailFolder folder)
         {
-            Func<IMailFolder, bool> isInbox = (f) => f.Attributes.HasFlag(FolderAttributes.Inbox) ||
-                                                     f.Name.Equals("inbox", StringComparison.InvariantCultureIgnoreCase);
+            return folder.Attributes.HasFlag(FolderAttributes.Inbox) ||
+                   folder.Name.Equals("inbox", StringComparison.InvariantCultureIgnoreCase) ||
+                   folder.FullName.Equals("inbox", StringComparison.InvariantCultureIgnoreCase);
+        }
 
-            Func<IMailFolder, bool> isSent = (f) => f.Attributes.HasFlag(FolderAttributes.Sent) || 
-                                                    f.Name.Equals("sent", StringComparison.InvariantCultureIgnoreCase) ||
-                                                    f.Name.Equals("sent items", StringComparison.InvariantCultureIgnoreCase);
+        private static bool IsSent(IMailFolder folder)
+        {
+            return folder.Attributes.HasFlag(FolderAttributes.Sent) ||
+                   folder.Name.Equals("sent", StringComparison.InvariantCultureIgnoreCase) ||
+                   folder.FullName.Equals("sent", StringComparison.InvariantCultureIgnoreCase) ||
+                   folder.Name.Equals("sent items", StringComparison.InvariantCultureIgnoreCase) ||
+                   folder.FullName.Equals("sent items", StringComparison.InvariantCultureIgnoreCase);
+        }
 
-            Func<IMailFolder, bool> isSpam = (f) => f.Attributes.HasFlag(FolderAttributes.Junk) ||
-                                                    f.Name.Equals("spam", StringComparison.InvariantCultureIgnoreCase) ||
-                                                    f.Name.Equals("junk", StringComparison.InvariantCultureIgnoreCase) ||
-                                                    f.Name.Equals("bulk", StringComparison.InvariantCultureIgnoreCase);
+        private static bool IsSpam(IMailFolder f)
+        {
+            return f.Attributes.HasFlag(FolderAttributes.Junk) ||
+                f.Name.Equals("spam", StringComparison.InvariantCultureIgnoreCase) ||
+                f.FullName.Equals("spam", StringComparison.InvariantCultureIgnoreCase) ||
+                f.Name.Equals("junk", StringComparison.InvariantCultureIgnoreCase) ||
+                f.FullName.Equals("junk", StringComparison.InvariantCultureIgnoreCase) ||
+                f.Name.Equals("bulk", StringComparison.InvariantCultureIgnoreCase) ||
+                f.FullName.Equals("bulk", StringComparison.InvariantCultureIgnoreCase);
+        }
 
-            if (isInbox(f1))
-                return true;
+        private static IEnumerable<IMailFolder> SortByUsage(IEnumerable<IMailFolder> folders)
+        {
+            var inboxList = new List<IMailFolder>();
+            var sentList = new List<IMailFolder>();
+            var spamList = new List<IMailFolder>();
+            var otherList = new List<IMailFolder>();
 
-            if (isSent(f1) && !isInbox(f2))
-                return true;
+            foreach (var folder in folders)
+            {
+                if (IsInbox(folder))
+                {
+                    inboxList.Add(folder);
+                    continue;
+                }
+                else if (IsSent(folder))
+                {
+                    sentList.Add(folder);
+                    continue;
+                }
+                else if (IsSpam(folder))
+                {
+                    spamList.Add(folder);
+                    continue;
+                }
 
-            return isSpam(f1) && !isInbox(f2) && !isSent(f2);
+                otherList.Add(folder);
+            }
+
+            var resultFolders = new List<IMailFolder>();
+
+            resultFolders.AddRange(inboxList);
+            resultFolders.AddRange(sentList);
+            resultFolders.AddRange(spamList);
+            resultFolders.AddRange(otherList);
+
+            return resultFolders;
         }
 
         private IEnumerable<IMailFolder> GetImapFolders()
         {
             Log.Debug("GetImapFolders()");
 
-            var personal = Imap.GetFolders(Imap.PersonalNamespaces[0], true, CancelToken).ToList();
+            var personalFolders = Imap.GetFolders(Imap.PersonalNamespaces[0], true, CancelToken).ToList();
 
-            if (!personal.Any(mb => mb.Name.Equals("inbox", StringComparison.InvariantCultureIgnoreCase)))
-                personal.Add(Imap.Inbox);
+            var inboxCount = personalFolders.Count(mb => mb.FullName.Equals("inbox", StringComparison.InvariantCultureIgnoreCase));
 
-            var folders = new List<IMailFolder>(personal);
+            if (inboxCount == 0)
+            {
+                personalFolders.Add(Imap.Inbox);
+            }
+
+            var folders = new List<IMailFolder>(personalFolders);
 
             foreach (var folder in
-                personal.Where(
+                personalFolders.Where(
                     f => f.Attributes.HasFlag(FolderAttributes.HasChildren)))
             {
                 folders.AddRange(GetImapSubFolders(folder));
@@ -621,9 +658,9 @@ namespace ASC.Mail.Clients
             if (folders.Count <= 1)
                 return folders;
 
-            folders.Sort((f1, f2) => CompareFolders(f1, f2) ? -1 : CompareFolders(f2, f1) ? 1 : 0);
+            var resultList = SortByUsage(folders);
 
-            return folders;
+            return resultList;
         }
 
         private IEnumerable<IMailFolder> GetImapSubFolders(IMailFolder folder)
@@ -650,7 +687,7 @@ namespace ASC.Mail.Clients
 
                 return subfolders;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.ErrorFormat("GetImapSubFolders: {0} Exception: {1}", folder.Name, ex.Message);
             }
@@ -663,7 +700,7 @@ namespace ASC.Mail.Clients
             var loaded = 0;
 
             ImapFolderUids folderUids;
-            if (!Account.ImapIntervals.TryGetValue(folder.Name, out folderUids))
+            if (!Account.ImapIntervals.TryGetValue(folder.FullName, out folderUids))
             {
                 Account.ImapFolderChanged = true;
                 folderUids = new ImapFolderUids(new List<int> { 1, int.MaxValue }, 1, folder.UidValidity); // by default - mailbox never was processed before
@@ -680,7 +717,7 @@ namespace ASC.Mail.Clients
 
             if (!folderUids.UidValidity.HasValue)
             {
-                Log.DebugFormat("Folder '{0}' Save UIDVALIDITY = {1}", folder.Name, folder.UidValidity);
+                Log.DebugFormat("Folder Name = '{0}' FullName = '{1}' Save UIDVALIDITY = {2}", folder.Name, folder.FullName, folder.UidValidity);
                 folderUids.UidValidity = folder.UidValidity; // Update UidValidity
             }
 
@@ -711,7 +748,7 @@ namespace ASC.Mail.Clients
                     : Math.Max(uidsInterval.To, first));
 
                 var infoList = GetMessagesSummaryInfo(folder,
-                    limitMessages > 0 ? uidsCollection.Take(limitMessages*3).ToList() : uidsCollection);
+                    limitMessages > 0 ? uidsCollection.Take(limitMessages * 3).ToList() : uidsCollection);
 
                 foreach (var uid in uidsCollection)
                 {
@@ -739,7 +776,7 @@ namespace ASC.Mail.Clients
                         }
 
                         var unread = info != null &&
-                                     (info.UserFlags.Contains("\\Unseen") ||
+                                     (info.Keywords.Contains("\\Unseen") ||
                                       info.Flags.HasValue && !info.Flags.Value.HasFlag(MessageFlags.Seen));
 
                         message.FixEncodingIssues(Log);
@@ -796,15 +833,15 @@ namespace ASC.Mail.Clients
 
             var updatedImapFolderUids = new ImapFolderUids(imapIntervals.ToIndexes(), beginDateUid, folder.UidValidity);
 
-            if (!Account.ImapIntervals.Keys.Contains(folder.Name))
+            if (!Account.ImapIntervals.Keys.Contains(folder.FullName))
             {
                 Account.ImapFolderChanged = true;
-                Account.ImapIntervals.Add(folder.Name, updatedImapFolderUids);
+                Account.ImapIntervals.Add(folder.FullName, updatedImapFolderUids);
             }
-            else if (Account.ImapIntervals[folder.Name] != updatedImapFolderUids)
+            else if (Account.ImapIntervals[folder.FullName] != updatedImapFolderUids)
             {
                 Account.ImapFolderChanged = true;
-                Account.ImapIntervals[folder.Name] = updatedImapFolderUids;
+                Account.ImapIntervals[folder.FullName] = updatedImapFolderUids;
             }
 
             return loaded;
@@ -897,7 +934,7 @@ namespace ASC.Mail.Clients
                 tasksConfig.ImapFlags.Any() &&
                 tasksConfig.ImapFlags.ContainsKey(folderName))
             {
-                folderId = (FolderType) tasksConfig.ImapFlags[folderName];
+                folderId = (FolderType)tasksConfig.ImapFlags[folderName];
                 return new MailFolder(folderId, folder.Name);
             }
 
@@ -915,9 +952,9 @@ namespace ASC.Mail.Clients
             }
 
             if (tasksConfig.DefaultFolders == null || !tasksConfig.DefaultFolders.ContainsKey(folderName))
-                return new MailFolder(FolderType.Inbox, folder.Name, new[] {folder.FullName});
+                return new MailFolder(FolderType.Inbox, folder.Name, new[] { folder.FullName });
 
-            folderId = (FolderType) tasksConfig.DefaultFolders[folderName];
+            folderId = (FolderType)tasksConfig.DefaultFolders[folderName];
             return new MailFolder(folderId, folder.Name);
         }
 
@@ -946,21 +983,21 @@ namespace ASC.Mail.Clients
 
                 var domainSpecialFolders = specialDomainFolders[Account.Server];
 
-                if(domainSpecialFolders == null)
+                if (domainSpecialFolders == null)
                     continue;
 
                 var foundKey = domainSpecialFolders.Keys.FirstOrDefault(
                     k => k.Equals(folderName, StringComparison.InvariantCultureIgnoreCase));
 
-                if(foundKey == null)
+                if (foundKey == null)
                     continue;
 
                 var info = domainSpecialFolders[foundKey];
 
-                if(info.skip)
+                if (info.skip)
                     continue;
 
-                if (info.folder_id != FolderType.Sent) 
+                if (info.folder_id != FolderType.Sent)
                     continue;
 
                 sendFolder = folder;
@@ -1048,7 +1085,7 @@ namespace ASC.Mail.Clients
 
                 var t = Pop.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerConnectionTimeout, CancelToken))
                     throw new TimeoutException("Pop.ConnectAsync timeout");
 
                 if (enableUtf8 && (Pop.Capabilities & Pop3Capabilities.UTF8) != Pop3Capabilities.None)
@@ -1057,7 +1094,7 @@ namespace ASC.Mail.Clients
 
                     t = Pop.EnableUTF8Async(CancelToken);
 
-                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                    if (!t.Wait(Defines.MailServerEnableUtf8Timeout, CancelToken))
                         throw new TimeoutException("Pop.EnableUTF8Async timeout");
                 }
 
@@ -1078,7 +1115,7 @@ namespace ASC.Mail.Clients
                     t = Pop.AuthenticateAsync(oauth2, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))
                 {
                     Pop.Authenticated -= PopOnAuthenticated;
                     throw new TimeoutException("Pop.AuthenticateAsync timeout");
@@ -1300,7 +1337,7 @@ namespace ASC.Mail.Clients
 
                 var t = Smtp.ConnectAsync(Account.SmtpServer, Account.SmtpPort, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerConnectionTimeout, CancelToken))
                     throw new TimeoutException("Smtp.ConnectAsync timeout");
 
                 if (!Account.SmtpAuth)
@@ -1328,7 +1365,7 @@ namespace ASC.Mail.Clients
                     t = Smtp.AuthenticateAsync(oauth2, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))
                 {
                     Smtp.Authenticated -= SmtpOnAuthenticated;
                     throw new TimeoutException("Smtp.AuthenticateAsync timeout");

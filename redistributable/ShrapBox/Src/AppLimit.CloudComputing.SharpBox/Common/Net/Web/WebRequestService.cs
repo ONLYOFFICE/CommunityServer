@@ -454,13 +454,17 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web
             NetworkCredential networkCredential;
             if (code == (int)HttpStatusCode.Unauthorized && request is HttpWebRequest && (networkCredential = credentials as NetworkCredential) != null)
             {
-                var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 // get authentication method
-                var authMethod = search.Match(errorInfo.Response.Headers["WWW-Authenticate"]).Value;
-                var newCredentials = new CredentialCache { { new Uri((new Uri(url)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
+                var header = errorInfo.Response.Headers["WWW-Authenticate"];
+                if (!string.IsNullOrEmpty(header))
+                {
+                    var search = new Regex(@"^\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                    var authMethod = search.Match(header).Value;
+                    var newCredentials = new CredentialCache { { new Uri((new Uri(url)).GetLeftPart(UriPartial.Authority)), authMethod, networkCredential } };
 
-                // do it again
-                return PerformSimpleWebCall(url, method, newCredentials, content, context, out code, out errorInfo);
+                    // do it again
+                    return PerformSimpleWebCall(url, method, newCredentials, content, context, out code, out errorInfo);
+                }
             }
 
             // go ahead

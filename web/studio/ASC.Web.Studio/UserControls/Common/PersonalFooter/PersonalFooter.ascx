@@ -6,7 +6,7 @@
 <div class="personal-footer">
     <div class="personal-footer_w clearFix">
         <ul class="personal-footer-links">
-            <li><a href="<%= CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) %>" target="_blank"><%= Resource.AuthTermsService %></a></li>
+            <li><a href="<%= CommonLinkUtility.ToAbsolute("~/Terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) %>" target="_blank"><%= Resource.AuthTermsService %></a></li>
             <li><a href="https://www.onlyoffice.com" target="blank"><%= Resource.CorporateUse %></a></li>
         </ul>
         <div class="personal-footer_rights">

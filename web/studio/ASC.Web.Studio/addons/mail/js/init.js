@@ -1,32 +1,23 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
 
 (function($) {
 
-    $(function() {
+    $(function () {
         TMMail.init();
 
         window.MailResource = ASC.Mail.Resources.MailResource;
@@ -68,46 +59,46 @@
         accountsPage.setDefaultAccountIfItDoesNotExist();
 
         $('#createNewMailBtn').click(function (e) {
-                if (e.isPropagationStopped()) {
-                    return;
-                }
-                createNewMail();
-            });
+            if (e.isPropagationStopped()) {
+                return;
+            }
+            createNewMail();
+        });
 
         $('#check_email_btn').click(function (e) {
-                if (e.isPropagationStopped()) {
-                    return;
-                }
+            if (e.isPropagationStopped()) {
+                return;
+            }
 
-                if (!accountsManager.any()) {
-                    return;
-                }
+            if (!accountsManager.any()) {
+                return;
+            }
 
-                if (!TMMail.pageIs('inbox')) {
-                    mailBox.unmarkAllPanels();
-                    ASC.Controls.AnchorController.move(TMMail.sysfolders.inbox.name);
-                }
-                serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
-                mailAlerts.check();
-            });
+            if (!TMMail.pageIs('inbox')) {
+                mailBox.unmarkAllPanels();
+                ASC.Controls.AnchorController.move(TMMail.sysfolders.inbox.name);
+            }
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            mailAlerts.check();
+        });
 
         $('#settingsLabel').click(function () {
-                var $settingsPanel = $(this).parents('.menu-item.sub-list');
-                if ($settingsPanel.hasClass('open')) {
-                    $settingsPanel.removeClass('open');
-                } else {
-                    $settingsPanel.addClass('open');
-                }
-            });
+            var $settingsPanel = $(this).parents('.menu-item.sub-list');
+            if ($settingsPanel.hasClass('open')) {
+                $settingsPanel.removeClass('open');
+            } else {
+                $settingsPanel.addClass('open');
+            }
+        });
 
         $('#addressBookLabel').click(function () {
-                var $settingsPanel = $(this).parents('.menu-item.sub-list');
-                if ($settingsPanel.hasClass('open')) {
-                    $settingsPanel.removeClass('open');
-                } else {
-                    $settingsPanel.addClass('open');
-                }
-            });
+            var $settingsPanel = $(this).parents('.menu-item.sub-list');
+            if ($settingsPanel.hasClass('open')) {
+                $settingsPanel.removeClass('open');
+            } else {
+                $settingsPanel.addClass('open');
+            }
+        });
 
         var foldersContainer = $('#foldersContainer');
         var messagesListGroupButtons = $('#MessagesListGroupButtons');
@@ -147,15 +138,15 @@
         }
 
         $(document).on("mousedown", function (e) {
-                    if (e.ctrlKey) { // Dirty trick: hide FF blue selection of some tags
-                        if (e.preventDefault)
-                            e.preventDefault();
-                        else
-                            e.returnValue = false;
-                    }
-                });
+            if (e.ctrlKey) { // Dirty trick: hide FF blue selection of some tags
+                if (e.preventDefault)
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+            }
+        });
 
-        $(".mainPageTableSidePanel").on("resize", function(event, ui) {
+        $(".mainPageTableSidePanel").on("resize", function (event, ui) {
             TMMail.resizeContent();
         });
 
@@ -192,24 +183,27 @@
             }
         }
 
-        $('#studioPageContent .mainPageContent')
-            .selectable({
-                delay: 150,
-                filter: "tr.row",
-                cancel:
-                    "a, button, select, label, input, .checkbox, .importance, .from, .subject, .menuAction, .menu_column, " +
-                        ".contentMenu, .entity-menu, .filterPanel, #id_accounts_page, #id_tags_page, #id_administration_page, " +
-                        "#mailCommonSettings, #user_folders_page, #editMessagePage, .itemWrapper, #filtersEmptyScreen, " +
-                        "#editFilterPage, #filtersContainer",
-                start: deselectAll,
-                selecting: function(event, ui) {
-                    $(ui.selecting)
-                        .each(updateSelection);
-                },
-                unselecting: function(event, ui) {
-                    $(ui.unselecting)
-                        .each(updateSelection);
-                }
-            });
+        if(!jq.browser.mobile)
+        {
+            $('main')
+                .selectable({
+                    delay: 150,
+                    filter: ".row",
+                    cancel:
+                        "a, button, select, label, input, .checkbox, .importance, .from, .subject, .menuAction, .menu_column, " +
+                            ".contentMenu, .entity-menu, .filterPanel, #id_accounts_page, #id_tags_page, #id_administration_page, " +
+                            "#mailCommonSettings, #user_folders_page, #editMessagePage, .itemWrapper, #filtersEmptyScreen, " +
+                            "#editFilterPage, #filtersContainer",
+                    start: deselectAll,
+                    selecting: function(event, ui) {
+                        $(ui.selecting)
+                            .each(updateSelection);
+                    },
+                    unselecting: function(event, ui) {
+                        $(ui.unselecting)
+                            .each(updateSelection);
+                    }
+                });
+        }
     }
 })(jQuery);

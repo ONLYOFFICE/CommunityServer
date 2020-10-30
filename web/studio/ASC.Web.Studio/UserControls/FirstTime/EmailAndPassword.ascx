@@ -3,6 +3,7 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -12,10 +13,12 @@
         <div class="clearFix">
             <div class="pwd clearFix">
                 <div class="label">
-                    <%= Resource.EmailAndPasswordTypePassword %> <span class="info"><%= Resource.EmailAndPasswordTypePasswordRecommendations %></span><span>*</span>
+                    <%= Resource.EmailAndPasswordTypePassword %> <span class="info"><%= string.Format(Resource.EmailAndPasswordTypePasswordRecommendation, PasswordSetting.MinLength) %></span><span>*</span>
                 </div>
                 <div class="float-left">
-                    <input type="password" id="newPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>" />
+                    <input type="password" id="newPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>"
+                        data-regex="<%: ASC.Web.Core.Utility.PasswordSettings.GetPasswordRegex(PasswordSetting) %>"
+                        data-help="<%= UserManagerWrapper.GetPasswordHelpMessage() %>" />
                 </div>
             </div>
             <div class="pwd">
@@ -52,7 +55,7 @@
         <div class="header-base"><%= UserControlsCommonResource.LicenseKeyHeader %></div>
         <div class="pwd">
             <div class="label">
-                <%= UserControlsCommonResource.LicenseKeyLabel %><span>*</span>
+                <%= UserControlsCommonResource.LicenseKeyLabelV11 %><span>*</span>
             </div>
             <div class="clearFix">
                 <input type="file" id="uploadButton" />
@@ -71,7 +74,7 @@
             </span>
             <span class="email">
                 <span class="emailAddress">
-                    <%= CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email %>
+                    <%= CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.HtmlEncode() %>
                 </span>
                 <span class="changeEmail">
                     <span id="dvChangeMail"><a class="info link dotline blue" onclick="ASC.Controls.EmailAndPasswordManager.ShowChangeEmailAddress();"><%= Resource.EmailAndPasswordTypeChangeIt %></a></span>
@@ -111,13 +114,18 @@
     <label for="policyAccepted">
         <%= string.Format(UserControlsCommonResource.LicenseAgreements,
                           "<a href=\"" + Settings.LicenseAgreementsUrl + "\" target=\"_blank\">",
-                          "</a>") %></label>
+                          "</a>") %><span>*</span></label>
 </div>
 <% }
    else if (TenantExtra.Opensource && !CoreContext.Configuration.CustomMode)
    { %>
+<div class="subscribe-accept">
+    <input type="checkbox" id="subscribeFromSite" />
+    <label for="subscribeFromSite">
+        <%= UserControlsCommonResource.SubscribeSite %></label>
+</div>
 <div class="analytics-accept">
-    <input type="checkbox" id="analyticsAcceptedOpenSource" checked="checked">
+    <input type="checkbox" id="analyticsAcceptedOpenSource" />
     <label for="analyticsAcceptedOpenSource">
         <%= string.Format(UserControlsCommonResource.AnalyticsOpenSource) %></label>
 </div>
@@ -125,7 +133,7 @@
     <input type="checkbox" id="policyAcceptedOpenSource">
     <label for="policyAcceptedOpenSource">
         <%= string.Format(UserControlsCommonResource.LicenseAgreements,
-                          "<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" target=\"_blank\">",
-                          "</a>") %></label>
+                          "<a href=\"" + OpensourceLicenseAgreementsUrl + "\" target=\"_blank\">",
+                          "</a>") %><span>*</span></label>
 </div>
 <% } %>

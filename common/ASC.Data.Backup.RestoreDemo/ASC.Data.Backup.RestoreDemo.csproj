@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Data.Backup.RestoreDemo</RootNamespace>
     <AssemblyName>ASC.Data.Backup.RestoreDemo</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +24,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -39,7 +39,7 @@
       <HintPath>..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+      <HintPath>..\..\packages\MySql.Data.8.0.18\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

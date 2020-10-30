@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -103,7 +94,7 @@ ASC.CRM.ListCasesView = (function() {
 
         if (!ASC.CRM.ListCasesView.isFirstLoad) {
             LoadingBanner.displayLoading();
-            jq("#caseFilterContainer, #caseList").show();
+            jq("#caseFilterContainer, #casesHeaderMenu, #caseList, #tableForCasesNavigation").show();
             jq('#casesAdvansedFilter').advansedFilter("resize");
         }
         jq("#mainSelectAllCases").prop("checked", false);
@@ -169,8 +160,7 @@ ASC.CRM.ListCasesView = (function() {
 
     var _renderNoCasesEmptyScreen = function() {
         jq("#caseTable tbody tr").remove();
-        jq("#caseList").hide();
-        jq("#caseFilterContainer").hide();
+        jq("#caseFilterContainer, #casesHeaderMenu, #caseList, #tableForCasesNavigation").hide();
         ASC.CRM.Common.hideExportButtons();
         jq("#emptyContentForCasesFilter").hide();
         jq("#casesEmptyScreen").show();
@@ -178,7 +168,8 @@ ASC.CRM.ListCasesView = (function() {
 
     var _renderNoCasesForQueryEmptyScreen = function() {
         jq("#caseTable tbody tr").remove();
-        jq("#caseList").hide();
+        jq("#casesHeaderMenu, #caseList, #tableForCasesNavigation").hide();
+        jq("#caseFilterContainer").show();
         ASC.CRM.Common.hideExportButtons();
         jq("#mainSelectAllCases").attr("disabled", true);
         jq("#casesEmptyScreen").hide();
@@ -195,7 +186,7 @@ ASC.CRM.ListCasesView = (function() {
         }
         if (caseItem == null) return;
 
-        jq("#caseActionMenu .editCaseLink").attr("href", jq.format("cases.aspx?id={0}&action=manage", caseID));
+        jq("#caseActionMenu .editCaseLink").attr("href", jq.format("Cases.aspx?id={0}&action=manage", caseID));
 
         jq("#caseActionMenu .deleteCaseLink").unbind("click").bind("click", function() {
             jq("#caseActionMenu").hide();
@@ -204,12 +195,12 @@ ASC.CRM.ListCasesView = (function() {
             ASC.CRM.ListCasesView.showConfirmationPanelForDelete(caseItem.title, caseID, true);
         });
 
-        jq("#caseActionMenu .showProfileLink").attr("href", jq.format("cases.aspx?id={0}", caseID));
+        jq("#caseActionMenu .showProfileLink").attr("href", jq.format("Cases.aspx?id={0}", caseID));
 
         jq("#caseActionMenu .showProfileLinkNewTab").unbind("click").bind("click", function () {
             jq("#caseActionMenu").hide();
             jq("#caseTable .entity-menu.active").removeClass("active");
-            window.open(jq.format("cases.aspx?id={0}", caseID), "_blank");
+            window.open(jq.format("Cases.aspx?id={0}", caseID), "_blank");
         });
 
         if (ASC.CRM.Data.IsCRMAdmin === true || Teamlab.profile.id == caseItem.createdBy.id) {
@@ -223,8 +214,10 @@ ASC.CRM.ListCasesView = (function() {
 
                 _showSetPermissionsPanel({ isBatch: false });
             });
+            jq("#caseActionMenu .dropdown-item-seporator:first").show();
         } else {
             jq("#caseActionMenu .setPermissionsLink").hide();
+            jq("#caseActionMenu .dropdown-item-seporator:first").hide();
         }
     };
 
@@ -278,8 +271,6 @@ ASC.CRM.ListCasesView = (function() {
 
         if (ASC.CRM.ListCasesView.noCasesForQuery) {
             _renderNoCasesForQueryEmptyScreen();
-
-            jq("#caseFilterContainer").show();
             _resizeFilter();
             ASC.CRM.ListCasesView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
             return false;
@@ -324,7 +315,7 @@ ASC.CRM.ListCasesView = (function() {
         ASC.CRM.ListCasesView.casesList = cases;
 
         jq("#caseTable tbody").replaceWith(jq.tmpl("caseListTmpl", { cases: ASC.CRM.ListCasesView.casesList }));
-        jq("#caseList").show();
+        jq("#casesHeaderMenu, #caseList, #tableForCasesNavigation").show();
 
         ASC.CRM.ListCasesView.checkFullSelection();
 
@@ -340,7 +331,7 @@ ASC.CRM.ListCasesView = (function() {
         ASC.CRM.ListContactView.isFirstLoad = false;
         jq(".containerBodyBlock").children(".loader-page").hide();
         if (!jq("#casesEmptyScreen").is(":visible") && !jq("#emptyContentForCasesFilter").is(":visible")) {
-            jq("#caseFilterContainer, #caseList").show();
+            jq("#caseFilterContainer, #casesHeaderMenu, #caseList, #tableForCasesNavigation").show();
             jq('#casesAdvansedFilter').advansedFilter("resize");
         }
     };
@@ -549,14 +540,20 @@ ASC.CRM.ListCasesView = (function() {
         });
 
 
-        jq("#caseTable").unbind("contextmenu").bind("contextmenu", function(event) {
+        jq("body").unbind("contextmenu").bind("contextmenu", function(event) {
             var e = jq.fixEvent(event);
 
             if (typeof e == "undefined" || !e) {
                 return true;
             }
-            var target = jq(e.srcElement || e.target),
-                caseId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
+            var target = jq(e.srcElement || e.target);
+
+            if (!target.parents("#caseTable").length) {
+                jq("#caseActionMenu").hide();
+                return true;
+            }
+
+            var caseId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!caseId) {
                 return true;
             }
@@ -574,7 +571,7 @@ ASC.CRM.ListCasesView = (function() {
         ScrolledGroupMenu.init({
             menuSelector: "#casesHeaderMenu",
             menuAnchorSelector: "#mainSelectAllCases",
-            menuSpacerSelector: "#caseList .header-menu-spacer",
+            menuSpacerSelector: "main .filter-content .header-menu-spacer",
             userFuncInTop: function() { jq("#casesHeaderMenu .menu-action-on-top").hide(); },
             userFuncNotInTop: function() { jq("#casesHeaderMenu .menu-action-on-top").show(); }
         });
@@ -675,7 +672,7 @@ ASC.CRM.ListCasesView = (function() {
         }
         LoadingBanner.hideLoaderBtn("#deleteCasesPanel");
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#deleteCasesPanel", 500, 500, 0);
+        StudioBlockUIManager.blockUI("#deleteCasesPanel", 500);
     };
 
     var _showSetPermissionsPanel = function(params) {
@@ -700,7 +697,7 @@ ASC.CRM.ListCasesView = (function() {
             _setPermissions(params);
         });
         PopupKeyUpActionProvider.EnableEsc = false;
-        StudioBlockUIManager.blockUI("#setPermissionsCasesPanel", 600, 500, 0);
+        StudioBlockUIManager.blockUI("#setPermissionsCasesPanel", 600);
     };
 
     var _setPermissions = function(params) {
@@ -818,12 +815,12 @@ ASC.CRM.ListCasesView = (function() {
     var _initEmptyScreen = function () {
         //init emptyScreen for all list
 
-        var buttonHtml = ["<a class='link dotline plus' href='cases.aspx?action=manage'>",
+        var buttonHtml = ["<a class='link dotline plus' href='Cases.aspx?action=manage'>",
             ASC.CRM.Resources.CRMCasesResource.CreateFirstCase,
             "</a>"].join('');
         
         if (jq.browser.mobile !== true) {
-            buttonHtml += ["<br/><a class='crm-importLink link' href='cases.aspx?action=import'>",
+            buttonHtml += ["<br/><a class='crm-importLink link' href='Cases.aspx?action=import'>",
                 ASC.CRM.Resources.CRMCasesResource.ImportCases,
                 "</a>"].join('');
         }
@@ -879,14 +876,16 @@ ASC.CRM.ListCasesView = (function() {
             ASC.CRM.ListCasesView.advansedFilter = null;
         },
 
-        init: function (parentSelector) {
+        init: function (parentSelector, filterSelector, pagingSelector) {
             if (jq(parentSelector).length == 0) return;
             ASC.CRM.Common.setDocumentTitle(ASC.CRM.Resources.CRMCasesResource.AllCases);
 
             ASC.CRM.ListCasesView.clear();
             jq(parentSelector).removeClass("display-none");
 
-            jq.tmpl("casesListBaseTmpl", {IsCRMAdmin: ASC.CRM.Data.IsCRMAdmin}).appendTo(parentSelector);
+            jq.tmpl("casesListFilterTmpl").appendTo(filterSelector);
+            jq.tmpl("casesListBaseTmpl", { IsCRMAdmin: ASC.CRM.Data.IsCRMAdmin }).appendTo(parentSelector);
+            jq.tmpl("casesListPagingTmpl").appendTo(pagingSelector);
 
             jq('#privatePanelWrapper').appendTo("#permissionsCasesPanelInnerHtml");
 
@@ -1079,7 +1078,7 @@ ASC.CRM.ListCasesView = (function() {
                 ASC.CRM.ListCasesView.deleteCase(caseID, isListView);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#confirmationDeleteOneCasePanel", 500, 500, 0);
+            StudioBlockUIManager.blockUI("#confirmationDeleteOneCasePanel", 500);
         },
 
         deleteCase: function(caseID, isListView) {
@@ -1101,7 +1100,7 @@ ASC.CRM.ListCasesView = (function() {
                         },
                         success: function () {
                             ASC.CRM.Common.unbindOnbeforeUnloadEvent();
-                            location.href = "cases.aspx";
+                            location.href = "Cases.aspx";
                         }
                     });
             }
@@ -1160,7 +1159,7 @@ ASC.CRM.CasesActionView = (function() {
                 ASC.CRM.Resources.CRMJSResource.ConfirmGoToCustomFieldPage,
             "</div>"].join(''),
             OKBtn: ASC.CRM.Resources.CRMCommonResource.OK,
-            OKBtnHref: "settings.aspx?type=custom_field#case",
+            OKBtnHref: "Settings.aspx?type=custom_field#case",
             CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel,
             progressText: ""
         }).insertAfter("#otherCasesCustomFieldPanel");
@@ -1203,7 +1202,14 @@ ASC.CRM.CasesActionView = (function() {
             presetSelectedContactsJson: window.casesActionSelectedContacts
         });
 
-        ASC.CRM.ListContactView.renderSimpleContent(true, false);
+        if (window.entityData && window.entityData.id) {
+            ASC.CRM.ListContactView.renderSimpleContent(true, false);
+        } else {
+            var contactID = parseInt(jq.getURLParam("contactID"));
+            if (contactID && window.casesContactSelector.SelectedContacts.length == 1 && contactID == window.casesContactSelector.SelectedContacts[0]) {
+                _getAndRenderCrmContact(contactID, false);
+            }
+        }
 
         if (window.casesContactSelector.SelectedContacts.length > 0) {
             jq("#casesContactListBox").parent().removeClass('hiddenFields');
@@ -1251,19 +1257,23 @@ ASC.CRM.CasesActionView = (function() {
             window.casesContactSelector.SelectedContacts.push(contact.id);
             ASC.CRM.Common.RegisterContactInfoCard();
         } else {
-
-            Teamlab.getCrmContact({}, obj.id, {
-                success: function (par, contact) {
-                    ASC.CRM.Common.contactItemFactory(contact, { showUnlinkBtn: true, showActionMenu: false });
-                    jq.tmpl("simpleContactTmpl", contact).prependTo("#contactTable tbody");
-                    jq("#casesContactListBox").parent().removeClass('hiddenFields');
-                    ASC.CRM.Common.RegisterContactInfoCard();
-
-                    window.casesContactSelector.SelectedContacts.push(contact.id);
-                    //ASC.CRM.ContactSelector.Cache = {};
-                }
-            });
+            _getAndRenderCrmContact(obj.id, true);
         }
+    };
+
+    var _getAndRenderCrmContact = function (id, addToSelector) {
+        Teamlab.getCrmContact({}, id, {
+            success: function (par, contact) {
+                ASC.CRM.Common.contactItemFactory(contact, { showUnlinkBtn: true, showActionMenu: false });
+                jq.tmpl("simpleContactTmpl", contact).prependTo("#contactTable tbody");
+                jq("#casesContactListBox").parent().removeClass('hiddenFields');
+                ASC.CRM.Common.RegisterContactInfoCard();
+                if (addToSelector) {
+                    window.casesContactSelector.SelectedContacts.push(contact.id);
+                }
+                //ASC.CRM.ContactSelector.Cache = {};
+            }
+        });
     };
 
     var _removeContactFromCase = function (id) {
@@ -1306,7 +1316,7 @@ ASC.CRM.CasesActionView = (function() {
                 }).insertAfter("#crm_caseMakerDialog");
 
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#saveCasesError", 500, 400, 0);
+                StudioBlockUIManager.blockUI("#saveCasesError", 500);
             }
 
             initFields();
@@ -1419,10 +1429,10 @@ ASC.CRM.CasesActionView = (function() {
 
         showGotoAddSettingsPanel: function () {
             if (window.onbeforeunload == null) {//No need the confirmation
-                location.href = "settings.aspx?type=custom_field#case";
+                location.href = "Settings.aspx?type=custom_field#case";
             } else {
                 PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500, 200, 0);
+                StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500);
             }
         }
     };

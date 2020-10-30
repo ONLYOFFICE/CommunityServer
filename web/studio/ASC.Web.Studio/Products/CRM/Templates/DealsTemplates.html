@@ -1,13 +1,43 @@
-﻿
-<script id="dealsListBaseTmpl" type="text/x-jquery-tmpl">
+﻿<script id="dealsListFilterTmpl" type="text/x-jquery-tmpl">
     <div id="dealFilterContainer">
         <div id="dealsAdvansedFilter"></div>
     </div>
+    <ul id="dealHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
+        <li class="menuAction menuActionSelectAll menuActionSelectLonely">
+            <div class="menuActionSelect">
+                <input type="checkbox" id="mainSelectAllDeals" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListDealView.selectAll(this);" />
+            </div>
+        </li>
+        <li class="menuAction menuActionAddTag" title="${ASC.CRM.Resources.CRMCommonResource.AddNewTag}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.AddNewTag}</span>
+            <div class="down_arrow"></div>
+        </li>
+        <li class="menuAction menuActionPermissions" title="${ASC.CRM.Resources.CRMCommonResource.SetPermissions}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.SetPermissions}</span>
+        </li>
+        <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
+            <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
+        </li>
+        <li class="menu-action-simple-pagenav">
+        </li>
+        <li class="menu-action-checked-count">
+            <span></span>
+            <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListDealView.deselectAll();">
+                ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
+            </a>
+        </li>
+        <li class="menu-action-on-top">
+            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+                ${ASC.CRM.Resources.CRMCommonResource.OnTop}
+            </a>
+        </li>
+    </ul>
+    <div class="header-menu-spacer" style="display: none;">&nbsp;</div>
+</script>
 
-    <div id="dealList" class="clearFix" style="display:none; min-height: 400px;">
-
-        <table id="tableForDealNavigation" class="crm-navigationPanel" cellpadding="4" cellspacing="0" border="0">
-            <tbody>
+<script id="dealsListPagingTmpl" type="text/x-jquery-tmpl">
+    <table id="tableForDealNavigation" class="crm-navigationPanel" cellpadding="0" cellspacing="0" border="0">
+        <tbody>
             <tr>
                 <td>
                     <div id="divForDealPager">
@@ -29,9 +59,13 @@
                     </select>
                 </td>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</script>
+
+<script id="dealsListBaseTmpl" type="text/x-jquery-tmpl">
+
+    <div id="dealList" class="clearFix" style="display:none;"></div>
 
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
         ${ASC.CRM.Resources.CRMDealResource.TooltipStages}
@@ -68,54 +102,22 @@
 
     <div id="dealActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="showProfileLink dropdown-item">${ASC.CRM.Resources.CRMDealResource.ShowDealProfile}</a></li>
-            <li><a class="showProfileLinkNewTab dropdown-item">${ASC.CRM.Resources.CRMDealResource.ShowDealProfileNewTab}</a></li>
-            <li><a class="setPermissionsLink dropdown-item">${ASC.CRM.Resources.CRMCommonResource.SetPermissions}</a></li>
+            <li><a class="showProfileLink dropdown-item with-icon user">${ASC.CRM.Resources.CRMDealResource.ShowDealProfile}</a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item with-icon new-tab">${ASC.CRM.Resources.CRMDealResource.ShowDealProfileNewTab}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="setPermissionsLink dropdown-item with-icon permissions">${ASC.CRM.Resources.CRMCommonResource.SetPermissions}</a></li>
             {{if CanCreateProjects}}
-            <li><a class="createProject dropdown-item" target="_blank">${ASC.CRM.Resources.CRMCommonResource.CreateNewProject}</a></li>
+            <li><a class="createProject dropdown-item with-icon project" target="_blank">${ASC.CRM.Resources.CRMCommonResource.CreateNewProject}</a></li>
             {{/if}}
-            <li><a class="editDealLink dropdown-item">${ASC.CRM.Resources.CRMDealResource.EditThisDealButton}</a></li>
-            <li><a class="deleteDealLink dropdown-item">${ASC.CRM.Resources.CRMDealResource.DeleteDeal}</a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="editDealLink dropdown-item with-icon edit">${ASC.CRM.Resources.CRMDealResource.EditThisDealButton}</a></li>
+            <li><a class="deleteDealLink dropdown-item with-icon delete">${ASC.CRM.Resources.CRMDealResource.DeleteDeal}</a></li>
         </ul>
     </div>
 
 </script>
 
 <script id="dealExtendedListTmpl" type="text/x-jquery-tmpl">
-    {{if contactID == 0}}
-    <ul id="dealHeaderMenu" class="clearFix contentMenu contentMenuDisplayAll">
-        <li class="menuAction menuActionSelectAll menuActionSelectLonely">
-            <div class="menuActionSelect">
-                <input type="checkbox" id="mainSelectAllDeals" title="${ASC.CRM.Resources.CRMCommonResource.SelectAll}" onclick="ASC.CRM.ListDealView.selectAll(this);" />
-            </div>
-        </li>
-        <li class="menuAction menuActionAddTag" title="${ASC.CRM.Resources.CRMCommonResource.AddNewTag}">
-            <span>${ASC.CRM.Resources.CRMCommonResource.AddNewTag}</span>
-            <div class="down_arrow"></div>
-        </li>
-        <li class="menuAction menuActionPermissions" title="${ASC.CRM.Resources.CRMCommonResource.SetPermissions}">
-            <span>${ASC.CRM.Resources.CRMCommonResource.SetPermissions}</span>
-        </li>
-        <li class="menuAction menuActionDelete" title="${ASC.CRM.Resources.CRMCommonResource.Delete}">
-            <span>${ASC.CRM.Resources.CRMCommonResource.Delete}</span>
-        </li>
-        <li class="menu-action-simple-pagenav">
-        </li>
-        <li class="menu-action-checked-count">
-            <span></span>
-            <a class="linkDescribe baseLinkAction" style="margin-left:10px;" onclick="ASC.CRM.ListDealView.deselectAll();">
-                ${ASC.CRM.Resources.CRMCommonResource.DeselectAll}
-            </a>
-        </li>
-        <li class="menu-action-on-top">
-            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
-                ${ASC.CRM.Resources.CRMCommonResource.OnTop}
-            </a>
-        </li>
-    </ul>
-    <div class="header-menu-spacer" style="display: none;">&nbsp;</div>
-    {{/if}}
-
     <table id="dealTable" class="table-list padding4" cellpadding="0" cellspacing="0">
         <colgroup>
             {{if contactID == 0}}
@@ -174,7 +176,7 @@
                     <label class="crm-private-lock"></label>
                 {{/if}}
 
-                <a id="dealTitle_${id}" href="deals.aspx?id=${id}"
+                <a id="dealTitle_${id}" href="Deals.aspx?id=${id}"
                     class="${classForTitle}"
                     dscr_label="${ASC.CRM.Resources.CRMCommonResource.Description}" dscr_value="${description}"
                     resp_label="${ASC.CRM.Resources.CRMCommonResource.Responsible}" resp_value="${responsible.displayName}">
@@ -208,12 +210,12 @@
             {{if contact != null}}
                 <div>
                 {{if contact.isCompany == true}}
-                    <a href="default.aspx?id=${contact.id}" data-id="${contact.id}"
+                    <a href="Default.aspx?id=${contact.id}" data-id="${contact.id}"
                             id="deal_${id}_company_${contact.id}" class="linkMedium crm-companyInfoCardLink">
                         ${contact.displayName}
                     </a>
                 {{else}}
-                    <a href="default.aspx?id=${contact.id}&type=people" data-id="${contact.id}"
+                    <a href="Default.aspx?id=${contact.id}&type=people" data-id="${contact.id}"
                             id="deal_${id}_person_${contact.id}" class="linkMedium crm-peopleInfoCardLink">
                         ${contact.displayName}
                     </a>

@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -70,7 +61,7 @@ namespace ASC.Mail.Aggregator.CollectionService
         private readonly ILog _log;
         private readonly ILog _logStat;
         private readonly CancellationTokenSource _cancelTokenSource;
-        readonly ManualResetEvent _resetEvent;
+        private ManualResetEvent _resetEvent;
         private Timer _workTimer;
         private readonly TasksConfig _tasksConfig;
         private readonly QueueManager _queueManager;
@@ -120,21 +111,19 @@ namespace ASC.Mail.Aggregator.CollectionService
                     _tasksConfig.MaxMessagesPerSession = -1;
 
                 _taskSecondsLifetime =
-                    TimeSpan.FromSeconds(ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"] != null
-                        ? Convert.ToInt32(ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"])
+                    TimeSpan.FromSeconds(ConfigurationManagerExtension.AppSettings["mail.task-process-lifetime-seconds"] != null
+                        ? Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.task-process-lifetime-seconds"])
                         : 300);
 
                 _queueManager = new QueueManager(_tasksConfig, _log);
-
-                _resetEvent = new ManualResetEvent(false);
 
                 _cancelTokenSource = new CancellationTokenSource();
 
                 _taskFactory = new TaskFactory();
 
-                _tsTaskStateCheckInterval = ConfigurationManager.AppSettings["mail.task-check-state-seconds"] != null
+                _tsTaskStateCheckInterval = ConfigurationManagerExtension.AppSettings["mail.task-check-state-seconds"] != null
                         ? TimeSpan.FromSeconds(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.task-check-state-seconds"]))
+                            Convert.ToInt32(ConfigurationManagerExtension.AppSettings["mail.task-check-state-seconds"]))
                         : TimeSpan.FromSeconds(30);
 
                 if (_tasksConfig.EnableSignalr)
@@ -149,6 +138,8 @@ namespace ASC.Mail.Aggregator.CollectionService
             catch (Exception ex)
             {
                 _log.FatalFormat("CollectorService error under construct: {0}", ex.ToString());
+
+                throw ex;
             }
         }
 
@@ -199,9 +190,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                     _workTimer = null;
                 }
 
-                if (_resetEvent != null)
-                    _resetEvent.Set();
-
                 if (_queueManager != null)
                     _queueManager.Dispose();
 
@@ -214,10 +202,13 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
             finally
             {
-                base.OnStop();
-            }
+                _log.Info("Stop service\r\n");
 
-            _log.Info("Stop service\r\n");
+                base.OnStop();
+
+                if (_resetEvent != null)
+                    _resetEvent.Set();
+            }
         }
 
         /// <summary>
@@ -257,6 +248,7 @@ namespace ASC.Mail.Aggregator.CollectionService
         {
             _log.Info("Service Start in console-daemon mode");
             OnStart(null);
+            _resetEvent = new ManualResetEvent(false);
             Console.CancelKeyPress += (sender, e) => OnStop();
             _resetEvent.WaitOne();
         }
@@ -797,6 +789,8 @@ namespace ASC.Mail.Aggregator.CollectionService
                 log.ErrorFormat("[ClientOnGetMessage] Exception:\r\n{0}\r\n", ex.ToString());
 
                 failed = true;
+
+                throw ex;
             }
             finally
             {
@@ -895,104 +889,112 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         private void DoOptionalOperations(MailMessageData message, MimeMessage mimeMessage, MailBoxData mailbox, MailFolder folder, ILog log)
         {
-            var factory = new EngineFactory(mailbox.TenantId, mailbox.UserId, log);
-
-           var tagIds = new List<int>();
-
-            if (folder.Tags.Any())
+            try
             {
-                log.Debug("DoOptionalOperations->GetOrCreateTags()");
+                var factory = new EngineFactory(mailbox.TenantId, mailbox.UserId, log);
 
-                tagIds = factory.TagEngine.GetOrCreateTags(mailbox.TenantId, mailbox.UserId, folder.Tags);
-            }
+                var tagIds = new List<int>();
 
-            log.Debug("DoOptionalOperations->IsCrmAvailable()");
-
-            if (IsCrmAvailable(mailbox, log))
-            {
-                log.Debug("DoOptionalOperations->GetCrmTags()");
-
-                var crmTagIds = factory.TagEngine.GetCrmTags(message.FromEmail);
-
-                if (crmTagIds.Any())
+                if (folder.Tags.Any())
                 {
-                    if (tagIds == null)
-                        tagIds = new List<int>();
+                    log.Debug("DoOptionalOperations->GetOrCreateTags()");
 
-                    tagIds.AddRange(crmTagIds.Select(t => t.Id));
+                    tagIds = factory.TagEngine.GetOrCreateTags(mailbox.TenantId, mailbox.UserId, folder.Tags);
                 }
-            }
 
-            if (tagIds.Any())
-            {
-                if (message.TagIds == null || !message.TagIds.Any())
-                    message.TagIds = tagIds;
-                else
-                    message.TagIds.AddRange(tagIds);
+                log.Debug("DoOptionalOperations->IsCrmAvailable()");
 
-                message.TagIds = message.TagIds.Distinct().ToList();
-            }
-
-            log.Debug("DoOptionalOperations->AddMessageToIndex()");
-
-            var wrapper = message.ToMailWrapper(mailbox.TenantId, new Guid(mailbox.UserId));
-
-            factory.IndexEngine.Add(wrapper);
-
-            foreach (var tagId in tagIds)
-            {
-                try
+                if (IsCrmAvailable(mailbox, log))
                 {
-                    log.DebugFormat("DoOptionalOperations->SetMessagesTag(tagId: {0})", tagId);
+                    log.Debug("DoOptionalOperations->GetCrmTags()");
 
-                    factory.TagEngine.SetMessagesTag(new List<int> { message.Id }, tagId);
+                    var crmTagIds = factory.TagEngine.GetCrmTags(message.FromEmail);
+
+                    if (crmTagIds.Any())
+                    {
+                        if (tagIds == null)
+                            tagIds = new List<int>();
+
+                        tagIds.AddRange(crmTagIds.Select(t => t.Id));
+                    }
                 }
-                catch (Exception e)
+
+                if (tagIds.Any())
                 {
-                    log.ErrorFormat(
-                        "SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
-                        mailbox.TenantId, mailbox.UserId, message.Id, e.ToString(),
-                        tagIds != null ? string.Join(",", tagIds) : "null");
+                    if (message.TagIds == null || !message.TagIds.Any())
+                        message.TagIds = tagIds;
+                    else
+                        message.TagIds.AddRange(tagIds);
+
+                    message.TagIds = message.TagIds.Distinct().ToList();
                 }
+
+                log.Debug("DoOptionalOperations->AddMessageToIndex()");
+
+                var wrapper = message.ToMailWrapper(mailbox.TenantId, new Guid(mailbox.UserId));
+
+                factory.IndexEngine.Add(wrapper);
+
+                foreach (var tagId in tagIds)
+                {
+                    try
+                    {
+                        log.DebugFormat("DoOptionalOperations->SetMessagesTag(tagId: {0})", tagId);
+
+                        factory.TagEngine.SetMessagesTag(new List<int> { message.Id }, tagId);
+                    }
+                    catch (Exception e)
+                    {
+                        log.ErrorFormat(
+                            "SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
+                            mailbox.TenantId, mailbox.UserId, message.Id, e.ToString(),
+                            tagIds != null ? string.Join(",", tagIds) : "null");
+                    }
+                }
+
+                log.Debug("DoOptionalOperations->AddRelationshipEventForLinkedAccounts()");
+
+                factory.CrmLinkEngine.AddRelationshipEventForLinkedAccounts(mailbox, message, _tasksConfig.DefaultApiSchema);
+
+                log.Debug("DoOptionalOperations->SaveEmailInData()");
+
+                factory.EmailInEngine.SaveEmailInData(mailbox, message, _tasksConfig.DefaultApiSchema);
+
+                log.Debug("DoOptionalOperations->SendAutoreply()");
+
+                factory.AutoreplyEngine.SendAutoreply(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+                log.Debug("DoOptionalOperations->UploadIcsToCalendar()");
+
+                if (folder.Folder != Enums.FolderType.Spam)
+                {
+                    factory
+                        .CalendarEngine
+                        .UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
+                            message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
+                            _tasksConfig.DefaultApiSchema);
+                }
+
+                if (_tasksConfig.SaveOriginalMessage)
+                {
+                    log.Debug("DoOptionalOperations->StoreMailEml()");
+                    StoreMailEml(mailbox.TenantId, mailbox.UserId, message.StreamId, mimeMessage, log);
+                }
+
+                log.Debug("DoOptionalOperations->ApplyFilters()");
+
+                var filters = GetFilters(factory, log);
+
+                factory.FilterEngine.ApplyFilters(message, mailbox, folder, filters);
+
+                log.Debug("DoOptionalOperations->NotifySignalrIfNeed()");
+
+                NotifySignalrIfNeed(mailbox, log);
             }
-
-            log.Debug("DoOptionalOperations->AddRelationshipEventForLinkedAccounts()");
-
-            factory.CrmLinkEngine.AddRelationshipEventForLinkedAccounts(mailbox, message, _tasksConfig.DefaultApiSchema);
-
-            log.Debug("DoOptionalOperations->SaveEmailInData()");
-
-            factory.EmailInEngine.SaveEmailInData(mailbox, message, _tasksConfig.DefaultApiSchema);
-
-            log.Debug("DoOptionalOperations->SendAutoreply()");
-
-            factory.AutoreplyEngine.SendAutoreply(mailbox, message, _tasksConfig.DefaultApiSchema, log);
-
-            log.Debug("DoOptionalOperations->UploadIcsToCalendar()");
-
-            if (folder.Folder != Enums.FolderType.Spam) {
-                factory
-                    .CalendarEngine
-                    .UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
-                        message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
-                        _tasksConfig.DefaultApiSchema);
-            }
-
-            if (_tasksConfig.SaveOriginalMessage)
+            catch (Exception ex)
             {
-                log.Debug("DoOptionalOperations->StoreMailEml()");
-                StoreMailEml(mailbox.TenantId, mailbox.UserId, message.StreamId, mimeMessage, log);
+                log.ErrorFormat("DoOptionalOperations() Exception:\r\n{0}\r\n", ex.ToString());
             }
-
-            log.Debug("DoOptionalOperations->ApplyFilters()");
-
-            var filters = GetFilters(factory, log);
-
-            factory.FilterEngine.ApplyFilters(message, mailbox, folder, filters);
-
-            log.Debug("DoOptionalOperations->NotifySignalrIfNeed()");
-
-            NotifySignalrIfNeed(mailbox, log);
         }
 
         public string StoreMailEml(int tenant, string user, string streamId, MimeMessage message, ILog log)

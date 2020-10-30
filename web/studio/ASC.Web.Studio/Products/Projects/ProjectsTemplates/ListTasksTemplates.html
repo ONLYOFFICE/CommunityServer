@@ -2,7 +2,7 @@
     <div class="task with-entity-menu clearFix{{if !$item.data.subtasks.length}} noSubtasks{{/if}}{{if $item.data.canEdit}} canedit{{/if}}{{if $item.data.status == 2}} closed{{/if}}" taskid="${id}">
 
         {{if ($item.data.canEdit && !Teamlab.profile.isVisitor) || $item.data.canCreateTimeSpend || $item.data.canDelete}}
-        <div class="entity-menu"></div>
+        <div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
         {{else}}
         <div class="nomenupoint"></div>
         {{/if}}
@@ -18,7 +18,7 @@
                 {{if $item.data.priority == 1}}
                 <span class="high_priority"></span>
                 {{/if}}
-                <a href="tasks.aspx?prjID=${projectOwner.id}&id=${id}" class="linkHeaderMedium{{if $item.data.status == 2}} gray-text{{/if}}">
+                <a href="Tasks.aspx?prjID=${projectOwner.id}&id=${id}" class="linkHeaderMedium{{if $item.data.status == 2}} gray-text{{/if}}">
                     ${title}
                 </a>
             </div>

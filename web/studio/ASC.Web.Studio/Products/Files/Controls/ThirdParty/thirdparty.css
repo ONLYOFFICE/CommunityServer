@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -35,6 +26,7 @@ body .OneDrive,
 body .SkyDrive,
 body .SharePoint,
 body .WebDav,
+body .kDrive,
 body .Yandex,
 body .Nextcloud,
 body .OwnCloud {
@@ -68,6 +60,9 @@ body .SharePoint.SkyDrive {
 }
 body .WebDav {
     background-image: url("images/svg/icon_webdav.svg");
+}
+body .kDrive {
+    background-image: url("images/svg/icon_kdrive.svg");
 }
 body .Yandex {
     background-image: url("images/svg/icon_yandex_disk.svg");
@@ -149,6 +144,9 @@ only screen and (                min-resolution: 2dppx)
 }
 .jstree .third-party-entry .jstree-icon.WebDav  {
     background-image: url("images/svg/icon_webdav_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.kDrive {
+    background-image: url("images/svg/icon_kdrive_monochrome.svg");
 }
 .jstree .third-party-entry .jstree-icon.Yandex {
     background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
@@ -353,6 +351,9 @@ only screen and (                min-resolution: 2dppx)
     background-position: 50%;
 
 }
+.add-account-big.kDrive {
+    background-image: url("images/svg/logo_kdrive.svg");
+}
 .add-account-big.Yandex.ru {
     background-image: url("images/svg/logo_yandex_ru.svg");     
 }
@@ -394,7 +395,7 @@ only screen and (                min-resolution: 2dppx)
     Tree panel
 *******************************************************************************/
 .tree-thirdparty {
-    margin-top: 24px;
+    margin-top: 20px;
 }
 .tree-thirdparty-list {
     list-style: none;
@@ -437,6 +438,10 @@ only screen and (                min-resolution: 2dppx)
 }
 .tree-thirdparty-list .add-account-button.WebDav  {
     background-image: url("images/svg/icon_webdav_monochrome.svg");
+    opacity: 0.4;
+}
+.tree-thirdparty-list .add-account-button.kDrive {
+    background-image: url("images/svg/icon_kdrive_monochrome.svg");
     opacity: 0.4;
 }
 .tree-thirdparty-list .add-account-button.Yandex {
@@ -494,6 +499,10 @@ only screen and (                min-resolution: 2dppx)
 .tree-thirdparty-list .add-account-button.WebDav:hover   {
     opacity: 1;
     color: #0082C9;
+}
+.tree-thirdparty-list .add-account-button.kDrive:hover  {
+    background-image: url("images/svg/icon_kdrive.svg");
+    opacity: 1;
 }
 .tree-thirdparty-list .add-account-button.Yandex:hover  {
     background-image: url("images/svg/icon_yandex-disk.svg");

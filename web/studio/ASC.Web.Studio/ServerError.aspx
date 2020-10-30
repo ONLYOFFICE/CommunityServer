@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" CodeBehind="ServerError.aspx.cs" EnableViewState="false" Inherits="ASC.Web.Studio.ServerError" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="ServerError.aspx.cs" EnableViewState="false" Inherits="ASC.Web.Studio.ServerError" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="Resources" %>
 

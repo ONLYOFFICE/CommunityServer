@@ -20,7 +20,7 @@
 
 <script id="voip-call-view-tmpl" type="text/x-jquery-tmpl">
     <div class="header-with-menu">
-        <a href="settings.aspx?type=voip.calls" class="header-back-link"></a>
+        <a href="Settings.aspx?type=voip.calls" class="header-back-link"></a>
         <span>${ASC.CRM.Resources.CRMVoipResource.Call} ${'#' + id}</span>
     </div>
     <div id="call-info-box">
@@ -63,11 +63,11 @@
     {{if $data > 0}}
     <div>
         ${ASC.CRM.Resources.CRMVoipResource.NumbersCountMsg}: <strong>${$data}</strong>.
-        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NumbersCountDscrMsg, '<a href="settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
+        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NumbersCountDscrMsg, '<a href="Settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
     </div>
     {{else}}
     <div>
-        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NoNumbersMsg, '<a href="settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
+        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NoNumbersMsg, '<a href="Settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
     </div>
     {{/if}}
 </script>
@@ -112,7 +112,7 @@
             <div class="cell actions entity-menu">
                 <div class="studio-action-panel">
                     <ul class="dropdown-content">
-                        <li id="add-ringtone-${audioType}-btn" class="dropdown-item">${ASC.CRM.Resources.CRMVoipResource.AddRingtoneBtn}</li>
+                        <li id="add-ringtone-${audioType}-btn" class="dropdown-item with-icon ringtone">${ASC.CRM.Resources.CRMVoipResource.AddRingtoneBtn}</li>
                     </ul>
                 </div>
             </div>
@@ -297,8 +297,8 @@
             <div class="cell actions entity-menu">
                 <div class="studio-action-panel">
                     <ul class="dropdown-content">
-                        <li class="dropdown-item edit-number-btn">${ASC.CRM.Resources.CRMVoipResource.EditBtn}</li>
-                        <li class="dropdown-item show-remove-number-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteBtn}</li>
+                        <li class="dropdown-item with-icon edit edit-number-btn">${ASC.CRM.Resources.CRMVoipResource.EditBtn}</li>
+                        <li class="dropdown-item with-icon delete show-remove-number-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteBtn}</li>
                     </ul>
                 </div>
             </div>

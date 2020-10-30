@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -146,7 +137,7 @@ jq(document).ready(function () {
         .replaceWith(jq("#aboutCompanyPopupBody").removeClass("display-none").addClass("containerBodyBlock"));
 
     $aboutBtn.on("click", function () {
-        StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680, 600);
+        StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680);
         jq('.studio-action-panel').hide();
     });
 
@@ -163,7 +154,7 @@ jq(document).ready(function () {
             .replaceWith(jq("#appsPopupBody").removeClass("display-none").addClass("containerBodyBlock"));
 
         $appsBtn.on("click", function () {
-            StudioBlockUIManager.blockUI('#appsPopup', 565, 500);
+            StudioBlockUIManager.blockUI('#appsPopup', 565);
             jq('.studio-action-panel').hide();
         });
     }
@@ -181,12 +172,51 @@ jq(document).ready(function () {
         jq("#debugInfoPopUp .button.blue.middle").on("click", function(){jq.unblockUI();});
 
         $debugBtn.on("click", function () {
-            StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000, 300, -300);
+            StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000);
             jq('.studio-action-panel').hide();
         });
     }
     if (jQuery.browser.msie || /iPad|iPhone|iPod/.test(navigator.userAgent) || /Sailfish/.test(navigator.userAgent) || /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
         svg4everybody();
+    }
+
+
+    var $dropGiftPopupPanel = jq("#studio_dropGiftPopupPanel");
+
+    if ($dropGiftPopupPanel.length) {
+        jq.dropdownToggle({
+            switcherSelector: ".studio-top-panel .giftBox",
+            dropdownID: "studio_dropGiftPopupPanel",
+            addTop: 5,
+            addLeft: -392
+        });
+
+        $dropGiftPopupPanel.find(".left-btn").on("click", function () {
+            if (Teamlab.profile.isAdmin) {
+                $dropGiftPopupPanel.hide();
+                location.href = jq(this).data("url");
+            } else {
+                $dropGiftPopupPanel.hide();
+            }
+        });
+
+        $dropGiftPopupPanel.find(".right-btn").on("click", function () {
+            if (Teamlab.profile.isAdmin) {
+                $dropGiftPopupPanel.hide();
+            } else {
+                Teamlab.markGiftAsReaded({}, {
+                    success: function () {
+                        $dropGiftPopupPanel.hide();
+                        jq(".studio-top-panel .giftBox").remove();
+                    },
+                    error: function (p, e) {
+                        $dropGiftPopupPanel.hide();
+                        jq(".studio-top-panel .giftBox").remove();
+                        window.console.error(e);
+                    }
+                });
+            }
+        });
     }
 });
 
@@ -316,6 +346,9 @@ var UnreadMailManager = new function () {
                         if (mails[i].isNew) {
                             if (unreadMails.length >= 10)
                                 break;
+
+                            if (!mails[i].subject || mails[i].subject.length === 0)
+                                mails[i].subject = ASC.Resources.Master.Resource.MailNoSubject;
 
                             var unreadMail = getMailTemplate(mails[i]);
                             unreadMails.push(unreadMail);

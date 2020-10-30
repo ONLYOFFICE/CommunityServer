@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -33,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -42,7 +34,9 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.ElasticSearch.Core;
 using ASC.ElasticSearch.Service;
+
 using Elasticsearch.Net;
+
 using Nest;
 
 namespace ASC.ElasticSearch
@@ -99,7 +93,7 @@ namespace ASC.ElasticSearch
                 var portion = new List<T>();
                 var portionStart = 0;
 
-                for (var  i = 0; i < data.Count; i++)
+                for (var i = 0; i < data.Count; i++)
                 {
                     var t = data[i];
                     var runBulk = i == data.Count - 1;
@@ -202,7 +196,7 @@ namespace ASC.ElasticSearch
 
         internal void Delete(T data, bool immediately = true)
         {
-            Client.Instance.Delete<T>(data, r=> GetMetaForDelete(r, immediately));
+            Client.Instance.Delete<T>(data, r => GetMetaForDelete(r, immediately));
         }
 
         internal void Delete(Expression<Func<Selector<T>, Selector<T>>> expression, int tenantId, bool immediately = true)
@@ -212,12 +206,12 @@ namespace ASC.ElasticSearch
 
         public void Flush()
         {
-            Client.Instance.Flush(new FlushRequest(IndexName));
+            Client.Instance.Indices.Flush(new FlushRequest(IndexName));
         }
 
         public void Refresh()
         {
-            Client.Instance.Refresh(new RefreshRequest(IndexName));
+            Client.Instance.Indices.Refresh(new RefreshRequest(IndexName));
         }
 
         internal bool CheckExist(T data)
@@ -230,7 +224,7 @@ namespace ASC.ElasticSearch
                 {
                     if (IsExist) return true;
 
-                    IsExist = Client.Instance.IndexExists(data.IndexName).Exists;
+                    IsExist = Client.Instance.Indices.Exists(data.IndexName).Exists;
                     Cts = new CancellationTokenSource();
                     if (IsExist) return true;
                 }
@@ -245,14 +239,14 @@ namespace ASC.ElasticSearch
         void IIndexer.Check()
         {
             var data = new T();
-            if(!CheckExist(data)) return;
+            if (!CheckExist(data)) return;
 
             var result = false;
-            var currentMappings = Client.Instance.GetMapping<T>(r => r.Index(data.IndexName));
+            var currentMappings = Client.Instance.Indices.GetMapping<T>(r => r.Index(data.IndexName));
             var newMappings = GetMappings(data).Invoke(new CreateIndexDescriptor(data.IndexName));
 
             var newMappingDict = new Dictionary<string, string>();
-            var props = newMappings.Mappings.SelectMany(r => r.Value.Properties).ToList();
+            var props = newMappings.Mappings.Properties.ToList();
             foreach (var prop in props.Where(r => r.Key.Property != null && r.Key.Property.Name != "Document"))
             {
                 var propKey = prop.Key.Property.Name.ToLowerCamelCase();
@@ -275,7 +269,7 @@ namespace ASC.ElasticSearch
 
             foreach (var ind in currentMappings.Indices)
             {
-                foreach (var prop in ind.Value.Mappings.SelectMany(r => r.Value.Properties).Where(r => r.Key.Name != "document"))
+                foreach (var prop in ind.Value.Mappings.Properties.Where(r => r.Key.Name != "document"))
                 {
                     var key = ind.Key.Name + "." + prop.Key.Name.ToLowerCamelCase();
 
@@ -323,7 +317,7 @@ namespace ASC.ElasticSearch
             }
 
             Logger.DebugFormat("Delete {0}", Wrapper.IndexName);
-            Client.Instance.DeleteIndex(Wrapper.IndexName);
+            Client.Instance.Indices.Delete(Wrapper.IndexName);
             Notify.Publish(this, CacheNotifyAction.Any);
             CreateIfNotExist(new T());
         }
@@ -346,9 +340,9 @@ namespace ASC.ElasticSearch
 
             if (meta.Item1 != 0)
             {
-                var step = (meta.Item2 - meta.Item3 + 1)/meta.Item1;
+                var step = (meta.Item2 - meta.Item3 + 1) / meta.Item1;
 
-                if(step == 0)
+                if (step == 0)
                 {
                     step = 1;
                 }
@@ -403,7 +397,7 @@ namespace ASC.ElasticSearch
 
         private void CreateIfNotExist(T data)
         {
-            try 
+            try
             {
                 if (CheckExist(data)) return;
 
@@ -414,11 +408,11 @@ namespace ASC.ElasticSearch
 
                     if (!columns.Any() && !nestedColumns.Any())
                     {
-                        Client.Instance.CreateIndex(data.IndexName);
+                        Client.Instance.Indices.Create(data.IndexName);
                     }
                     else
                     {
-                        Client.Instance.CreateIndex(data.IndexName, GetMappings(data));
+                        Client.Instance.Indices.Create(data.IndexName, GetMappings(data));
                     }
 
                     IsExist = true;
@@ -475,7 +469,7 @@ namespace ASC.ElasticSearch
 
                     if (isNested)
                     {
-                        prop = c.Key.GenericTypeArguments[0] ;
+                        prop = c.Key.GenericTypeArguments[0];
                         nested = p.GetType().GetMethod("Nested");
                         typeDescriptor = typeof(NestedPropertyDescriptor<,>);
                     }
@@ -511,9 +505,9 @@ namespace ASC.ElasticSearch
                 return p;
             };
 
-            return  c =>
-                c.Settings(r => r.Analysis(a => a.Analyzers(analyzers).CharFilters(d => d.HtmlStrip(CharFilter.html.ToString()).Mapping(CharFilter.io.ToString(), m => m.Mappings("ё => е", "Ё => Е")))))
-                 .Mappings(r => r.Map<T>(m => m.AutoMap<T>().Properties(data.GetProperties<T>()).Properties(nestedSelector)));
+            return c =>
+               c.Settings(r => r.Analysis(a => a.Analyzers(analyzers).CharFilters(d => d.HtmlStrip(CharFilter.html.ToString()).Mapping(CharFilter.io.ToString(), m => m.Mappings("ё => е", "Ё => Е")))))
+                .Map<T>(m => m.AutoMap<T>().Properties(data.GetProperties<T>()).Properties(nestedSelector));
         }
 
         private IIndexRequest<T> GetMeta(IndexDescriptor<T> request, T data, bool immediately = true)
@@ -697,7 +691,7 @@ namespace ASC.ElasticSearch
         private IDeleteRequest GetMetaForDelete(DeleteDescriptor<T> request, bool immediately = true)
         {
             var result = request.Index(IndexName);
-            if(immediately)
+            if (immediately)
             {
                 result.Refresh(Elasticsearch.Net.Refresh.True);
             }
@@ -739,10 +733,7 @@ namespace ASC.ElasticSearch
                         subQuery.Select("concat(\"[\", group_concat(JSON_ARRAY(" + string.Join(",", joinCols) + ") SEPARATOR ','), \"]\")");
                     }
 
-                    foreach (var con in joinWrapper.GetConditions(joinAlias))
-                    {
-                        subQuery.Where(con.Key, con.Value);
-                    }
+                    joinWrapper.AddConditions(joinAlias, subQuery);
 
                     AddJoins(joinWrapper, subQuery, joinAlias, true);
 
@@ -776,10 +767,7 @@ namespace ASC.ElasticSearch
                             break;
                     }
 
-                    foreach (var con in joinWrapper.GetConditions(joinAlias))
-                    {
-                        dataQuery.Where(con.Key, con.Value);
-                    }
+                    joinWrapper.AddConditions(joinAlias, dataQuery);
                 }
             }
         }
@@ -819,13 +807,10 @@ namespace ASC.ElasticSearch
             if (!string.IsNullOrEmpty(tenantIdColumn))
             {
                 dataQuery.InnerJoin("tenants_tenants t", Exp.EqColumns(tenantIdColumn, "t.id"))
-                    .Where("t.status", (int) TenantStatus.Active);
+                    .Where("t.status", (int)TenantStatus.Active);
             }
 
-            foreach (var con in Wrapper.GetConditions(Alias))
-            {
-                dataQuery.Where(con.Key, con.Value);
-            }
+            Wrapper.AddConditions(Alias, dataQuery);
 
             AddJoins(Wrapper, dataQuery, Alias);
 
@@ -866,10 +851,7 @@ namespace ASC.ElasticSearch
                         .Where("t.status", TenantStatus.Active);
                 }
 
-                foreach (var con in Wrapper.GetConditions(Alias))
-                {
-                    dataQuery.Where(con.Key, con.Value);
-                }
+                Wrapper.AddConditions(Alias, dataQuery);
 
                 if (!DateTime.MinValue.Equals(lastIndexed))
                 {

@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Community" %>
 
-<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Modules/News/news.Master" EnableViewState="false" CodeBehind="default.aspx.cs" Inherits="ASC.Web.Community.News.Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Modules/News/News.Master" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.News.Default" %>
 
 <%@ Import Namespace="ASC.Web.Community.News.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.News.Code" %>
@@ -12,9 +12,23 @@
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<asp:Content ID="PageContent" ContentPlaceHolderID="NewsContents" runat="server">
-    <asp:Panel ID="MessageShow" runat="server" Visible="false">        
-    </asp:Panel>
+<asp:Content ContentPlaceHolderID="NewsTitleContent" runat="server">
+    <% if(!string.IsNullOrEmpty(EventTitle)) { %>
+    <div class="eventsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
+        <span class="main-title-icon events"></span>
+        <span class="header"><%=HttpUtility.HtmlEncode(EventTitle)%></span>
+        <% if(!CommunitySecurity.IsOutsider()) { %>
+        <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
+        <span class="menu-small"></span>
+        <% } %>
+    </div>
+    <% } %>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="NewsContents" runat="server">
+
+    <asp:Panel ID="MessageShow" runat="server" Visible="false"/>
+
     <asp:Panel ID="ContentView" runat="server" CssClass="ContentView">
         <asp:Repeater ID="FeedRepeater" runat="server">
             <HeaderTemplate>
@@ -30,7 +44,7 @@
             <ItemTemplate>
                 <tr class="news-row">
                     <fc:FeedItem ID="FeedControl" runat="server" Feed='<%#(Container.DataItem as Feed)%>'
-                        FeedType='<%#Request["type"]%>' FeedLink='<%#string.Format("~/products/community/modules/news/?docid={0}{1}",(Container.DataItem as Feed).Id, Info.UserIdAttribute)%>'
+                        FeedType='<%#Request["type"]%>' FeedLink='<%#string.Format("~/Products/Community/Modules/News/Default.aspx?docid={0}{1}",(Container.DataItem as Feed).Id, Info.UserIdAttribute)%>'
                         IsEditVisible='<%#ASC.Web.Community.Product.CommunitySecurity.CheckPermissions(ASC.Web.Community.News.NewsConst.Action_Add)%>' EditUrlWithParam='<%#FeedItemUrlWithParam%>'>
                     </fc:FeedItem>
                 </tr>
@@ -40,9 +54,25 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
-        <% if(FeedsCount>0) { %>
+    </asp:Panel>
+
+    <asp:Panel ID="FeedView" runat="server" Visible="false">
+        <div id="viewItem">
+            <fc:FeedView id="FeedViewCtrl" runat="server">
+            </fc:FeedView>
+            <scl:CommentsList ID="commentList" Simple="true" runat="server" Style="width: 100%;">
+            </scl:CommentsList>
+            <asp:HiddenField runat="server" ID="hdnField" />
+        </div>
+    </asp:Panel>
+
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="NewsPagingContent" runat="server">
+
+    <% if (FeedsCount>0) { %>
         <div class="navigationLinkBox news">
-            <table id="tableForNavigation" cellpadding="4" cellspacing="0">
+            <table id="tableForNavigation" cellpadding="0" cellspacing="0">
                 <tbody>
                 <tr>
                     <td>
@@ -65,23 +95,6 @@
                 </tbody>
             </table>
         </div>
-        <% } %>
-    </asp:Panel>
-    <asp:Panel ID="FeedView" runat="server" Visible="false">
-        <div class="eventsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
-            <span class="main-title-icon events"></span>
-            <span class="header"><%=HttpUtility.HtmlEncode(EventTitle)%></span>
-            <% if(!CommunitySecurity.IsOutsider()) { %>
-            <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
-            <span class="menu-small"></span>
-            <% } %>
-        </div>
-        <div id="viewItem">
-            <fc:FeedView id="FeedViewCtrl" runat="server">
-            </fc:FeedView>
-            <scl:CommentsList ID="commentList" Simple="true" runat="server" Style="width: 100%;">
-            </scl:CommentsList>
-            <asp:HiddenField runat="server" ID="hdnField" />
-        </div>
-    </asp:Panel>
+    <% } %>
+
 </asp:Content>

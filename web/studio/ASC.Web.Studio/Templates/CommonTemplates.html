@@ -150,7 +150,7 @@
 <script id="template-accountLinkCtrl" type="text/x-jquery-tmpl">
     <ul class="account-links tabs-content">
         {{each(i, acc) infos}}
-        <li class="${acc.Provider}{{if acc.Linked == true}} connected{{/if}}">
+        <li class="${acc.Provider}{{if acc.Linked == true}} connected{{/if}} ${lang}">
             <span class="icon"></span>
             <span>
                 {{if acc.Linked == true}}
@@ -213,49 +213,57 @@
                                     <td style="padding-left: 16px;">
                                         <table cellpadding="0" cellspacing="0" style="font-family: 'Open Sans', Tahoma, Arial; border-collapse: collapse;">
                                             <tbody>
-                                            <tr>
-                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhenLabel}:</td>
-                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
-                                                    ${dateEvent}
-                                                </td>
-                                            </tr>
-                                            {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null }}
-                                            <tr>
-                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarRecurrenceLabel}:</td>
-                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
-                                                    ${rruleText}
-                                                </td>
-                                            </tr>
-                                            {{/if}}
-                                            <tr>
-                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhereLabel}:</td>
-                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" {{if typeof(location) !='undefined' && location !=''&& location !=null }}title="${location}"{{/if}}>
-                                                    {{if typeof(location) != 'undefined' && location != '' && location != null }}
-                                                    ${location}
-                                                    {{if typeof(mapUrl) != 'undefined' && mapUrl != '' && mapUrl != null }}
-                                                    &nbsp;<a href="${mapUrl}" target="_blank" style="color: #333333;">(${ASC.Resources.Master.TemplateResource.MailIcsCalendarMapLabel})</a>
-                                                    {{/if}}
-                                                    {{else}}
-                                                    ${ASC.Resources.Master.TemplateResource.MailIcsCalendarNoLocationLabel}
-                                                    {{/if}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhoLabel}:</td>
-                                                <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
-                                                    {{if orgEmail !== '' }}
-                                                    <a title="${orgEmail}" name="${orgName}" href="${mailToHref}" style="color: #333333;">
-                                                        {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null }}
-                                                        ${orgName}
-                                                        {{else}}
-                                                        ${orgEmail}
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhenLabel}:</td>
+                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
+                                                        ${dateEvent}
+                                                    </td>
+                                                </tr>
+                                                {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null }}
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarRecurrenceLabel}:</td>
+                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" title="${dateEvent}">
+                                                        ${rruleText}
+                                                    </td>
+                                                </tr>
+                                                {{/if}}
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhereLabel}:</td>
+                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" {{if typeof(location) !='undefined' && location !=''&& location !=null }} title="${location}" {{/if}}>
+                                                        {{if typeof(location) != 'undefined' && location != '' && location != null }}
+                                                        ${location}
+                                                        {{if typeof(mapUrl) != 'undefined' && mapUrl != '' && mapUrl != null }}
+                                                        &nbsp;<a href="${mapUrl}" target="_blank" style="color: #333333;">(${ASC.Resources.Master.TemplateResource.MailIcsCalendarMapLabel})</a>
                                                         {{/if}}
-                                                    </a>
-                                                    {{else}}
-                                                    ${orgName}
-                                                    {{/if}}&nbsp;(${ASC.Resources.Master.TemplateResource.MailIcsCalendarOrganizerLabel})
-                                                </td>
-                                            </tr>
+                                                        {{else}}
+                                                        ${ASC.Resources.Master.TemplateResource.MailIcsCalendarNoLocationLabel}
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarWhoLabel}:</td>
+                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
+                                                        {{if orgEmail !== '' }}
+                                                        <a title="${orgEmail}" name="${orgName}" href="${mailToHref}" style="color: #333333;">
+                                                            {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null }}
+                                                            ${orgName}
+                                                            {{else}}
+                                                            ${orgEmail}
+                                                            {{/if}}
+                                                        </a>
+                                                        {{else}}
+                                                        ${orgName}
+                                                        {{/if}}&nbsp;(${ASC.Resources.Master.TemplateResource.MailIcsCalendarOrganizerLabel})
+                                                    </td>
+                                                </tr>
+                                                {{if typeof(description) != 'undefined' && description != '' && description != null }}
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarDescriptionLabel}:</td>
+                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
+                                                        ${description}
+                                                    </td>
+                                                </tr>
+                                                {{/if}}
                                             </tbody>
                                         </table>
                                     </td>

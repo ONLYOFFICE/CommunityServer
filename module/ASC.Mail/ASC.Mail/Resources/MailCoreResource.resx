@@ -124,7 +124,7 @@
     <value>{0} files not found</value>
   </data>
   <data name="IndexTitle" xml:space="preserve">
-    <value>Search by contents of mails</value>
+    <value>Search in mail messages content</value>
   </data>
   <data name="NoAttachmentsInMessage" xml:space="preserve">
     <value>No attachments in message</value>

@@ -57,7 +57,7 @@
 				<% }
                  else
                  { %>				
-				<a href="default.aspx" class="button gray big">
+				<a href="Default.aspx" class="button gray big">
 				<% } %>
 					<%= BookmarkingUCResource.Cancel%>
 				</a>
@@ -121,7 +121,7 @@
 				<% }
               else
               { %>				
-				<a href="default.aspx" class="button gray big">
+				<a href="Default.aspx" class="button gray big">
 				<% } %>
 					<%= BookmarkingUCResource.Cancel%>
 				</a>				

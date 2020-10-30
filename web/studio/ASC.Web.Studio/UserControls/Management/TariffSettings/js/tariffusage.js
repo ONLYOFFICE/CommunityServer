@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -49,7 +40,8 @@ var TariffSettings = new function () {
 
         jq("#currencyHelpSwitcher").click(function () { jq(this).helper({BlockHelperID: "currencyHelp"}) });
 
-        PhoneController.Init(jq(".text-edit-phone"), CountriesManager.countriesList, ["US"]);
+        var country = jq(".text-edit-phone").attr("data-country");
+        PhoneController.Init(jq(".text-edit-phone"), CountriesManager.countriesList, [country, "US"]);
 
         initMainProperties();
         initSlider();
@@ -61,7 +53,8 @@ var TariffSettings = new function () {
         }).toArray();
 
 
-        _maxTariff = _tariffsMaxUsers[_tariffsMaxUsers.length - 1];
+        _maxTariff = _tariffsMaxUsers[_tariffsMaxUsers.length - 1] || 0;
+        jq(".tariff-header").toggle(_maxTariff != 0);
         _defaultTariff = jq(".tariff-slider-container").attr("data-default");
         _minTariff = jq(".tariff-slider-container").attr("data-min");
 
@@ -238,37 +231,6 @@ var TariffSettings = new function () {
         }
     };
 
-    var clickOnBuy = function () {
-        if (!jq("#buyRecommendationDialog").length) {
-            return true;
-        }
-
-        jq("#buyRecommendationOk").attr("href", jq(this).attr("href"));
-
-        StudioBlockUIManager.blockUI("#buyRecommendationDialog", 550, 300, 0);
-        PopupKeyUpActionProvider.EnterAction = "location.href = jq(\"#buyRecommendationOk\").attr(\"href\");";
-        PopupKeyUpActionProvider.CloseDialogAction = "TariffSettings.dialogRecommendationClose();";
-
-        return false;
-    };
-
-    var hideBuyRecommendation = function (obj) {
-        var dontDisplay = jq(obj).is(":checked");
-        TariffUsageController.SaveHideRecommendation(dontDisplay,
-            function (result) {
-                if (result.error != null) {
-                    toastr.error(result.error.Message);
-                    return;
-                }
-            });
-    };
-
-    var dialogRecommendationClose = function () {
-        if (jq("#buyRecommendationDisplay").is(":checked")) {
-            jq("#buyRecommendationDialog").remove();
-        }
-    };
-
     var showDowngradeDialog = function () {
         var tariff = jq(".tariff-item:visible");
         var quotaActiveUsers = tariff.attr("data-users");
@@ -276,20 +238,25 @@ var TariffSettings = new function () {
         jq("#downgradeUsers").html(quotaActiveUsers);
         jq("#downgradeStorage").html(quotaStorageSize);
 
-        StudioBlockUIManager.blockUI("#tafirrDowngradeDialog", 450, 300, 0);
+        StudioBlockUIManager.blockUI("#tafirrDowngradeDialog", 450);
     };
 
     var requestTariff = function () {
         var fname = jq(".text-edit-fname").val().trim();
         var lname = jq(".text-edit-lname").val().trim();
-        var title = jq(".text-edit-title").val().trim();
+        var title = (jq(".text-edit-title").val() || "").trim();
         var email = jq(".text-edit-email").val().trim();
         var phone = jq(".text-edit-phone").val().trim();
         var ctitle = jq(".text-edit-ctitle").val().trim();
         var csize = jq(".text-edit-csize").val().trim();
-        var site = jq(".text-edit-site").val().trim();
-        var message = jq(".text-edit-message").val().trim();
-        if (!fname.length || !email.length || !message.length || !phone.length || !ctitle.length || !csize.length || !site.length) {
+        var site = (jq(".text-edit-site").val() || "").trim();
+        var message = (jq(".text-edit-message").val() || "").trim();
+        if (!fname.length || !lname.length || !email.length || !phone.length || !ctitle.length || !csize.length) {
+            toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
+            return;
+        }
+        if (!site.length && jq(".text-edit-site").is(":visible")
+            || !message.length && jq(".text-edit-message").is(":visible")) {
             toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
             return;
         }
@@ -300,18 +267,14 @@ var TariffSettings = new function () {
                     toastr.error(result.error.Message);
                     return;
                 }
-                toastr.success(ASC.Resources.Master.Resource.SendTariffRequest);
+                toastr.success(ASC.Resources.Master.Resource.SendTariffRequest1);
             });
     };
 
     return {
         init: init,
 
-        clickOnBuy: clickOnBuy,
-
         showDowngradeDialog: showDowngradeDialog,
-        hideBuyRecommendation: hideBuyRecommendation,
-        dialogRecommendationClose: dialogRecommendationClose,
 
         requestTariff: requestTariff,
     };
@@ -320,16 +283,9 @@ var TariffSettings = new function () {
 jq(function () {
     TariffSettings.init();
 
-    jq(".tariffs-panel").on("click", ".tariffs-buy-action:not(.disable)", TariffSettings.clickOnBuy);
-
     jq(".tariff-user-warn-link").click(function () {
         TariffSettings.showDowngradeDialog();
         return false;
-    });
-
-    jq("#buyRecommendationDisplay").click(function () {
-        TariffSettings.hideBuyRecommendation(this);
-        return true;
     });
 
     jq(".tariff-request").click(TariffSettings.requestTariff);

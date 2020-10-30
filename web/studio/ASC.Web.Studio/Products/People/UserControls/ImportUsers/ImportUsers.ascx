@@ -12,7 +12,6 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id='importAreaBlock' class='importAreaBlock'>
-    <div class="import-header"><%= CustomNamingPeople.Substitute<Resources.Resource>("ImportContactsHeader").HtmlEncode()%></div>
     <div id="wizardSteps"></div><br /><br />
     <div id="file-option">
         <div class="file-name-select">

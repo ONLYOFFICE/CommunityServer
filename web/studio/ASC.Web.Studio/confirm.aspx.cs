@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -91,6 +82,7 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableSettings = true;
             Master.TopStudioPanel.DisableTariff = true;
             Master.TopStudioPanel.DisableLoginPersonal = true;
+            Master.TopStudioPanel.DisableGift = true;
 
             _email = (Request["email"] ?? "").Trim();
 
@@ -164,7 +156,7 @@ namespace ASC.Web.Studio
                             {
                                 if (!CoreContext.UserManager.UserExists(user.ID) || user.Status != EmployeeStatus.Active)
                                 {
-                                    ShowError(Resource.ErrorUserNotFound);
+                                    ShowError(Auth.MessageKey.ErrorUserNotFound);
                                     return false;
                                 }
 
@@ -229,15 +221,9 @@ namespace ASC.Web.Studio
                     break;
 
                 case ConfirmType.PasswordChange:
+                    var hash = CoreContext.Authentication.GetUserPasswordStamp(CoreContext.UserManager.GetUserByEmail(_email).ID).ToString("s");
 
-                    var userHash = !String.IsNullOrEmpty(Request["p"]) && Request["p"] == "1";
-
-                    var hash = String.Empty;
-
-                    if (userHash)
-                       hash = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
-                    
-                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + (string.IsNullOrEmpty(hash) ? string.Empty : Hasher.Base64Hash(hash)), key, validInterval);
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + hash, key, validInterval);
                     break;
 
                 default:
@@ -247,21 +233,21 @@ namespace ASC.Web.Studio
 
             if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Expired)
             {
-                ShowError(Resource.ErrorExpiredActivationLink);
+                ShowError(Auth.MessageKey.ErrorExpiredActivationLink);
                 return false;
             }
 
             if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Invalid)
             {
                 ShowError(_type == ConfirmType.LinkInvite
-                              ? Resource.ErrorInvalidActivationLink
-                              : Resource.ErrorConfirmURLError);
+                              ? Auth.MessageKey.ErrorInvalidActivationLink
+                              : Auth.MessageKey.ErrorConfirmURLError);
                 return false;
             }
 
             if (!string.IsNullOrEmpty(_email) && !_email.TestEmailRegex())
             {
-                ShowError(Resource.ErrorNotCorrectEmail);
+                ShowError(Auth.MessageKey.ErrorNotCorrectEmail);
                 return false;
             }
 
@@ -303,7 +289,7 @@ namespace ASC.Web.Studio
                     var user = CoreContext.UserManager.GetUserByEmail(_email);
                     if (user.ID.Equals(Constants.LostUser.ID))
                     {
-                        ShowError(Resource.ErrorUserNotFound);
+                        ShowError(Auth.MessageKey.ErrorUserNotFound);
                         return;
                     }
 
@@ -335,7 +321,7 @@ namespace ASC.Web.Studio
 
             if (user.ID.Equals(Constants.LostUser.ID))
             {
-                ShowError(Resource.ErrorConfirmURLError);
+                ShowError(Auth.MessageKey.ErrorConfirmURLError);
             }
             else if (user.ActivationStatus.HasFlag(EmployeeActivationStatus.Activated))
             {
@@ -374,27 +360,27 @@ namespace ASC.Web.Studio
 
                 if (user.IsLDAP())
                 {
-                    redirectUrl = String.Format("~/auth.aspx?ldap-login={0}", user.UserName);
+                    redirectUrl = String.Format("~/Auth.aspx?ldap-login={0}", user.UserName);
                 }
                 else
                 {
-                    redirectUrl= String.Format("~/auth.aspx?confirmed-email={0}", email);
+                    redirectUrl= String.Format("~/Auth.aspx?confirmed-email={0}", email);
                 }
 
                 Response.Redirect(redirectUrl, true);
             }
         }
 
-        private void ShowError(string error)
+        private void ShowError(Auth.MessageKey messageKey = Auth.MessageKey.None)
         {
             if (SecurityContext.IsAuthenticated)
             {
-                ErrorMessage = error;
+                ErrorMessage = Auth.GetAuthMessage(messageKey);
                 _confirmHolder.Visible = false;
             }
             else
             {
-                Response.Redirect(string.Format("~/auth.aspx?m={0}", HttpUtility.UrlEncode(error)));
+                Response.Redirect(string.Format("~/Auth.aspx?am={0}", (int)messageKey));
             }
         }
 
@@ -414,7 +400,7 @@ namespace ASC.Web.Studio
             }
             else
             {
-                url = SecurityContext.IsAuthenticated ? "~/wizard.aspx" : "~/auth.aspx";
+                url = SecurityContext.IsAuthenticated ? "~/Wizard.aspx" : "~/Auth.aspx";
             }
 
             if (Request.DesktopApp())

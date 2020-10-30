@@ -49,9 +49,9 @@
                 <ul class="dropdown-content">
                 <% if (CommunitySecurity.CheckPermissions(post, ASC.Blogs.Core.Constants.Action_EditRemovePost)) %>
                 <% { %>
-                <li><a class="dropdown-item" href="editblog.aspx?blogid=<%= Request.QueryString["blogid"] %>"><%= BlogsResource.EditBlogLink %></a></li>
+                <li><a class="dropdown-item" href="EditBlog.aspx?blogid=<%= Request.QueryString["blogid"] %>"><%= BlogsResource.EditBlogLink %></a></li>
                 <li><a class="dropdown-item" onclick="javascript:return confirm('<%= BlogsResource.ConfirmRemovePostMessage %>')"
-                    href="editblog.aspx?blogid=<%= Request.QueryString["blogid"] %>&action=delete" ><%= BlogsResource.DeleteBlogLink %></a></li>
+                    href="EditBlog.aspx?blogid=<%= Request.QueryString["blogid"] %>&action=delete" ><%= BlogsResource.DeleteBlogLink %></a></li>
                 <% } %>
                 </ul>
             </div>

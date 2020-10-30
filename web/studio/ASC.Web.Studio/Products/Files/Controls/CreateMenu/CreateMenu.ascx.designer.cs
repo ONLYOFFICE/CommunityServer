@@ -7,9 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Files.Controls {
-    
-    
-    public partial class CreateMenu {
+namespace ASC.Web.Files.Controls
+{
+
+
+    public partial class CreateMenu
+    {
     }
 }

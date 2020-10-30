@@ -11,9 +11,6 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 
-<!-- -->
-<div id="ContactTabs"></div>
-
 <div id="profileTab" class="display-none">
     <asp:PlaceHolder runat="server" ID="_phProfileView"></asp:PlaceHolder>
 </div>
@@ -61,18 +58,20 @@
     </table>
     <div id="invoiceActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="showProfileLink dropdown-item"><%= CRMInvoiceResource.ShowInvoiceProfile %></a></li>
-            <li><a class="showProfileLinkNewTab dropdown-item"><%= CRMInvoiceResource.ShowInvoiceProfileNewTab %></a></li>
+            <li><a class="showProfileLink dropdown-item with-icon user"><%= CRMInvoiceResource.ShowInvoiceProfile %></a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item with-icon new-tab"><%= CRMInvoiceResource.ShowInvoiceProfileNewTab %></a></li>
+            <li class="dropdown-item-seporator"></li>
             <% if (Global.CanDownloadInvoices) { %>
-            <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
+            <li><a class="downloadLink dropdown-item with-icon download"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>
-            <li><a class="printLink dropdown-item"><%= CRMInvoiceResource.Print %></a></li>
+            <li><a class="printLink dropdown-item with-icon print"><%= CRMInvoiceResource.Print %></a></li>
             <% if (Global.CanDownloadInvoices) { %>
-            <li><a class="sendLink dropdown-item"><%= CRMInvoiceResource.SendByEmail %></a></li>
+            <li><a class="sendLink dropdown-item with-icon email"><%= CRMInvoiceResource.SendByEmail %></a></li>
             <% } %>
-            <li><a class="editInvoiceLink dropdown-item"><%= CRMInvoiceResource.EditInvoice %></a></li>
-            <li><a class="duplicateInvoiceLink dropdown-item"><%= CRMInvoiceResource.DuplicateInvoice %></a></li>
-            <li><a class="deleteInvoiceLink dropdown-item"><%= CRMInvoiceResource.DeleteThisInvoice %></a></li>
+            <li><a class="duplicateInvoiceLink dropdown-item with-icon move-or-copy"><%= CRMInvoiceResource.DuplicateInvoice %></a></li>
+            <li class="dropdown-item-seporator"></li>
+            <li><a class="editInvoiceLink dropdown-item with-icon edit"><%= CRMInvoiceResource.EditInvoice %></a></li>
+            <li><a class="deleteInvoiceLink dropdown-item with-icon delete"><%= CRMInvoiceResource.DeleteThisInvoice %></a></li>
         </ul>
     </div>
 </div>
@@ -141,7 +140,7 @@
 <div id="contactDetailsMenuPanel" class="studio-action-panel">
     <ul class="dropdown-content">
         <li>
-            <a class="dropdown-item" href="<%= String.Format("default.aspx?id={0}&action=manage{1}",
+            <a class="dropdown-item" href="<%= String.Format("Default.aspx?id={0}&action=manage{1}",
                 TargetContact.ID, (TargetContact is Company) ? string.Empty : "&type=people") %>">
                 <%= (TargetContact is Company) ? CRMContactResource.EditProfileCompany : CRMContactResource.EditProfilePerson %>
             </a>

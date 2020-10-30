@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UserControlsCommonResource {
@@ -214,15 +214,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign the documents electronically using DocuSign technology.
-        /// </summary>
-        public static string BannerDocuSign {
-            get {
-                return ResourceManager.GetString("BannerDocuSign", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Log in to the portal using your social accounts and search for contacts.
         /// </summary>
         public static string BannerSocial {
@@ -237,15 +228,6 @@ namespace Resources {
         public static string BannerStorage {
             get {
                 return ResourceManager.GetString("BannerStorage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Call the CRM contacts right from the portal with Twilio API.
-        /// </summary>
-        public static string BannerTwilio {
-            get {
-                return ResourceManager.GetString("BannerTwilio", resourceCulture);
             }
         }
         
@@ -1087,29 +1069,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please activate ONLYOFFICE and get:.
+        ///   Looks up a localized string similar to Renew subscription to get:.
         /// </summary>
-        public static string LicenseActivateAndGet {
+        public static string LicenseActivateAndGetV11 {
             get {
-                return ResourceManager.GetString("LicenseActivateAndGet", resourceCulture);
+                return ResourceManager.GetString("LicenseActivateAndGetV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate Now.
+        ///   Looks up a localized string similar to Activate.
         /// </summary>
-        public static string LicenseActivateButton {
+        public static string LicenseActivateButtonV11 {
             get {
-                return ResourceManager.GetString("LicenseActivateButton", resourceCulture);
+                return ResourceManager.GetString("LicenseActivateButtonV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To activate ONLYOFFICE Enterprise Edition you need to buy a license key..
+        ///   Looks up a localized string similar to If you have already purchased the renewal, upload the license file and press Activate..
         /// </summary>
-        public static string LicenseActivateDescr {
+        public static string LicenseActivateDescrV11 {
             get {
-                return ResourceManager.GetString("LicenseActivateDescr", resourceCulture);
+                return ResourceManager.GetString("LicenseActivateDescrV11", resourceCulture);
             }
         }
         
@@ -1132,11 +1114,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This software is licensed under {0}GNU GPL v.3{1}.
+        ///   Looks up a localized string similar to This software is licensed under {0}Apache License, Version 2.0{1}.
         /// </summary>
-        public static string LicensedUnder {
+        public static string LicensedUnderApache {
             get {
-                return ResourceManager.GetString("LicensedUnder", resourceCulture);
+                return ResourceManager.GetString("LicensedUnderApache", resourceCulture);
             }
         }
         
@@ -1150,20 +1132,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you want to review or buy an ONLYOFFICE license, click the Buy Now button. You will be redirected to the ONLYOFFICE order page on the Avangate website..
+        ///   Looks up a localized string similar to Purchase the renewal now. Note that you will be redirected to Avangate..
         /// </summary>
-        public static string LicenseKeyBuyDescr {
+        public static string LicenseKeyBuyDescrV11 {
             get {
-                return ResourceManager.GetString("LicenseKeyBuyDescr", resourceCulture);
+                return ResourceManager.GetString("LicenseKeyBuyDescrV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy a License.
+        ///   Looks up a localized string similar to Buy license.
         /// </summary>
-        public static string LicenseKeyBuyLabel {
+        public static string LicenseKeyBuyLabelV11 {
             get {
-                return ResourceManager.GetString("LicenseKeyBuyLabel", resourceCulture);
+                return ResourceManager.GetString("LicenseKeyBuyLabelV11", resourceCulture);
             }
         }
         
@@ -1177,11 +1159,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Your License File.
+        ///   Looks up a localized string similar to Upload License.
         /// </summary>
-        public static string LicenseKeyLabel {
+        public static string LicenseKeyLabelV11 {
             get {
-                return ResourceManager.GetString("LicenseKeyLabel", resourceCulture);
+                return ResourceManager.GetString("LicenseKeyLabelV11", resourceCulture);
             }
         }
         
@@ -1213,15 +1195,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control Panel.
-        /// </summary>
-        public static string LicenseModulesControlPanel {
-            get {
-                return ResourceManager.GetString("LicenseModulesControlPanel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}.
         /// </summary>
         public static string LicenseModulesList {
@@ -1231,29 +1204,47 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multitenancy.
+        ///   Looks up a localized string similar to mobile web editors,.
         /// </summary>
-        public static string LicenseModulesMultitenancy {
+        public static string LicenseModulesMobileV11 {
             get {
-                return ResourceManager.GetString("LicenseModulesMultitenancy", resourceCulture);
+                return ResourceManager.GetString("LicenseModulesMobileV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One Year Support.
+        ///   Looks up a localized string similar to Private Room for encrypted collaboration,.
         /// </summary>
-        public static string LicenseModulesSupport {
+        public static string LicenseModulesPrivateV11 {
             get {
-                return ResourceManager.GetString("LicenseModulesSupport", resourceCulture);
+                return ResourceManager.GetString("LicenseModulesPrivateV11", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Updates.
+        ///   Looks up a localized string similar to ONLYOFFICE editors with pro features,.
         /// </summary>
-        public static string LicenseModulesUpdates {
+        public static string LicenseModulesProV11 {
             get {
-                return ResourceManager.GetString("LicenseModulesUpdates", resourceCulture);
+                return ResourceManager.GetString("LicenseModulesProV11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 year of professional tech support service..
+        /// </summary>
+        public static string LicenseModulesSupportV11 {
+            get {
+                return ResourceManager.GetString("LicenseModulesSupportV11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to regular functionality and security updates during 1 year,.
+        /// </summary>
+        public static string LicenseModulesUpdatesV11 {
+            get {
+                return ResourceManager.GetString("LicenseModulesUpdatesV11", resourceCulture);
             }
         }
         
@@ -1870,11 +1861,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Have a questions? Please, contact our sales department at {0}.
+        ///   Looks up a localized string similar to For any purchase questions, contact us at {0}.
         /// </summary>
-        public static string SalesQuestions {
+        public static string SalesQuestionsV11 {
             get {
-                return ResourceManager.GetString("SalesQuestions", resourceCulture);
+                return ResourceManager.GetString("SalesQuestionsV11", resourceCulture);
             }
         }
         
@@ -1996,11 +1987,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source code is availible on {0}GitHub{1}.
+        ///   Looks up a localized string similar to Source code is available on {0}GitHub{1}.
         /// </summary>
         public static string SourceCode {
             get {
                 return ResourceManager.GetString("SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I want to subscribe to the ONLYOFFICE newsletter.
+        /// </summary>
+        public static string SubscribeSite {
+            get {
+                return ResourceManager.GetString("SubscribeSite", resourceCulture);
             }
         }
         
@@ -2010,6 +2010,15 @@ namespace Resources {
         public static string Subtask {
             get {
                 return ResourceManager.GetString("Subtask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For solving technical issues, use {0}.
+        /// </summary>
+        public static string SupportQuestionsV11 {
+            get {
+                return ResourceManager.GetString("SupportQuestionsV11", resourceCulture);
             }
         }
         
@@ -2131,6 +2140,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license{1}..
+        /// </summary>
+        public static string TariffNotPaidStandalone2 {
+            get {
+                return ResourceManager.GetString("TariffNotPaidStandalone2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}Support is no longer available for your license{1}..
+        /// </summary>
+        public static string TariffNotPaidStandaloneSupport {
+            get {
+                return ResourceManager.GetString("TariffNotPaidStandaloneSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}The portal payment is overdue.{1} {2}To continue using ONLYOFFICE collaboration features, {2}prolong the existing pricing plan or select another one..
         /// </summary>
         public static string TariffOverdueDesktop {
@@ -2163,6 +2190,15 @@ namespace Resources {
         public static string TariffOverdueStandalone2 {
             get {
                 return ResourceManager.GetString("TariffOverdueStandalone2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are using ONLYOFFICE™ Enterprise Edition. {0}Support are no longer available for your license since {2}{1}..
+        /// </summary>
+        public static string TariffOverdueStandaloneSupport {
+            get {
+                return ResourceManager.GetString("TariffOverdueStandaloneSupport", resourceCulture);
             }
         }
         

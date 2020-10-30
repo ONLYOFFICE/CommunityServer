@@ -150,6 +150,15 @@ namespace ASC.Web.Studio.Masters
         protected global::System.Web.UI.WebControls.ContentPlaceHolder TopContent;
 
         /// <summary>
+        /// CreateButtonContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CreateButtonContent;
+
+        /// <summary>
         /// SidePanel control.
         /// </summary>
         /// <remarks>
@@ -222,6 +231,24 @@ namespace ASC.Web.Studio.Masters
         protected global::System.Web.UI.WebControls.PlaceHolder _contentHolder;
 
         /// <summary>
+        /// TitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
+
+        /// <summary>
+        /// FilterContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder FilterContent;
+
+        /// <summary>
         /// PageContent control.
         /// </summary>
         /// <remarks>
@@ -231,13 +258,13 @@ namespace ASC.Web.Studio.Masters
         protected global::System.Web.UI.WebControls.ContentPlaceHolder PageContent;
 
         /// <summary>
-        /// FooterContent control.
+        /// PagingContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FooterContent;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder PagingContent;
 
         /// <summary>
         /// HeadScripts control.

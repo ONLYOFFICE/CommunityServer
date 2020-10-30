@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Core</RootNamespace>
     <AssemblyName>ASC.Web.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
@@ -49,7 +49,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -57,100 +57,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin">
-      <HintPath>..\..\..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
-    </Reference>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>..\..\..\packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.S3">
-      <HintPath>..\..\..\packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll</HintPath>
-    </Reference>
-    <Reference Include="dotless.Core">
-      <HintPath>..\..\..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="JWT">
-      <HintPath>..\..\..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Flurl">
-      <HintPath>..\..\packages\Flurl.Signed.2.3.0\lib\netstandard1.4\Flurl.dll</HintPath>
-    </Reference>
-    <Reference Include="Flurl.Http">
-      <HintPath>..\..\packages\Flurl.Http.Signed.1.1.2\lib\net45\Flurl.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Api.Gax">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Api.Gax.2.3.0\lib\net45\Google.Api.Gax.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Api.Gax.Rest">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Api.Gax.Rest.2.3.0\lib\net45\Google.Api.Gax.Rest.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.1.32.2\lib\net45\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Auth.1.32.2\lib\net45\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Core.1.32.2\lib\net45\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Storage.v1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Storage.v1.1.32.2.1189\lib\net45\Google.Apis.Storage.v1.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Cloud.Storage.V1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Cloud.Storage.V1.2.1.0\lib\net45\Google.Cloud.Storage.V1.dll</HintPath>
-    </Reference>
-    <Reference Include="openstacknet">
-      <HintPath>..\..\packages\openstack.net.1.7.7\lib\net45\openstacknet.dll</HintPath>
-    </Reference>
-    <Reference Include="SelectelSharp, Version=0.8.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\SelectelSharp.0.8.5\lib\net462\SelectelSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Routing">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="Twilio">
-      <HintPath>..\..\..\packages\Twilio.5.6.0\lib\net451\Twilio.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AddonContext.cs" />
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -198,6 +106,9 @@
     <Compile Include="Users\UserPhotoThumbnailManager.cs" />
     <Compile Include="Utility\PasswordSettings.cs" />
     <Compile Include="Utility\UrlShortener.cs" />
+    <Compile Include="WarmupPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="WhiteLabel\AdditionalWhiteLabelSettings.cs" />
     <Compile Include="WhiteLabel\CompanyWhiteLabelSettings.cs" />
     <Compile Include="WhiteLabel\MailWhiteLabelSettings.cs" />
@@ -223,7 +134,6 @@
     </Compile>
     <Compile Include="Utility\Settings\TenantAccessSettings.cs" />
     <Compile Include="WebItemSecurityInfo.cs" />
-    <Compile Include="Extensions\ClientScriptManagerExtension.cs" />
     <Compile Include="Extensions\WebItemExtension.cs" />
     <Compile Include="Helpers\AuthorizationHelper.cs" />
     <Compile Include="IAddon.cs" />
@@ -317,5 +227,41 @@
       <Name>ASC.VoipService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AjaxMin">
+      <Version>5.14.5506.26202</Version>
+    </PackageReference>
+    <PackageReference Include="AjaxPro.2">
+      <Version>2.9.17.2</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.S3">
+      <Version>3.3.110.50</Version>
+    </PackageReference>
+    <PackageReference Include="dotless">
+      <Version>1.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="JWT">
+      <Version>1.3.4</Version>
+    </PackageReference>
+    <PackageReference Include="SelectelSharp">
+      <Version>0.8.5</Version>
+    </PackageReference>
+    <PackageReference Include="Twilio">
+      <Version>5.6.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'WebGrease'">
+        <Aliases>signed</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
 </Project>

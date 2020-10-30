@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -148,6 +139,12 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+        public static bool ThirdPartyBannerEnabled
+        {
+            get;
+            private set;
+        }
+
         public static string NoTenantRedirectURL
         {
             get;
@@ -209,21 +206,18 @@ namespace ASC.Web.Studio.Core
 
         public static bool IsSecretEmail(string email)
         {
-            var s = web_autotest_secret_email;
             //the point is not needed in gmail.com
-            email = Regex.Replace(email ?? "", "\\.*(?=\\S*(@gmail.com$))", "");
-            return !string.IsNullOrEmpty(s) && s.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries).Contains(email, StringComparer.CurrentCultureIgnoreCase);
+            email = Regex.Replace(email ?? "", "\\.*(?=\\S*(@gmail.com$))", "").ToLower();
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(web_autotest_secret_email))
+                return false;
+
+            var regex = new Regex(web_autotest_secret_email, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
+            return regex.IsMatch(email);
         }
 
         public static bool DisplayMobappBanner(string product)
         {
             return web_display_mobapps_banner.Contains(product, StringComparer.InvariantCultureIgnoreCase);
-        }
-
-        public static bool DisplayPersonalBanners
-        {
-            get;
-            private set;
         }
 
         public static string ShareTwitterUrl
@@ -250,7 +244,7 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static string VoipEnabled
+        public static bool VoipEnabled
         {
             get;
             private set;
@@ -397,7 +391,8 @@ namespace ASC.Web.Studio.Core
 
             TeamlabSiteRedirect = GetAppSettings("web.teamlab-site", string.Empty);
             ChunkUploadSize = GetAppSettings("files.uploader.chunk-size", 5 * 1024 * 1024);
-            ThirdPartyAuthEnabled = String.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true");
+            ThirdPartyAuthEnabled = string.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true");
+            ThirdPartyBannerEnabled = string.Equals(GetAppSettings("web.thirdparty-banner", "false"), "true");
             NoTenantRedirectURL = GetAppSettings("web.notenant-url", "");
             CustomScripts = GetAppSettings("web.custom-scripts", string.Empty).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -410,7 +405,7 @@ namespace ASC.Web.Studio.Core
             ValidAuthKeyInterval = GetAppSettings("auth.validinterval", TimeSpan.FromHours(1));
 
             SalesEmail = GetAppSettings("web.payment.email", "sales@onlyoffice.com");
-            web_autotest_secret_email = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
+            web_autotest_secret_email = (ConfigurationManagerExtension.AppSettings["web.autotest.secret-email"] ?? "").Trim();
 
             RecaptchaPublicKey = GetAppSettings("web.recaptcha.public-key", "");
             RecaptchaPrivateKey = GetAppSettings("web.recaptcha.private-key", "");
@@ -418,13 +413,12 @@ namespace ASC.Web.Studio.Core
             LoginThreshold = Convert.ToInt32(GetAppSettings("web.login.threshold", "0"));
             if (LoginThreshold < 1) LoginThreshold = 5;
 
-            web_display_mobapps_banner = (ConfigurationManager.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            DisplayPersonalBanners = GetAppSettings("web.display.personal.banners", false);
+            web_display_mobapps_banner = (ConfigurationManagerExtension.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");
             ShareFacebookUrl = GetAppSettings("web.share.facebook", "");
             ControlPanelUrl = GetAppSettings("web.controlpanel.url", "");
             FontOpenSansUrl = GetAppSettings("web.font.opensans.url", "");
-            VoipEnabled = GetAppSettings("voip.enabled", "false");
+            VoipEnabled = GetAppSettings("voip.enabled", true);
             StartProductList = GetAppSettings("web.start.product.list", "");
             SsoSamlLoginUrl = GetAppSettings("web.sso.saml.login.url", "");
             SsoSamlLogoutUrl = GetAppSettings("web.sso.saml.logout.url", "");
@@ -458,9 +452,9 @@ namespace ASC.Web.Studio.Core
 
         private static string GetAppSettings(string key, string defaultValue)
         {
-            var result = ConfigurationManager.AppSettings[key] ?? defaultValue;
+            var result = ConfigurationManagerExtension.AppSettings[key] ?? defaultValue;
 
-            if (!String.IsNullOrEmpty(result))
+            if (!string.IsNullOrEmpty(result))
                 result = result.Trim();
 
             return result;
@@ -469,7 +463,7 @@ namespace ASC.Web.Studio.Core
 
         private static T GetAppSettings<T>(string key, T defaultValue)
         {
-            var configSetting = ConfigurationManager.AppSettings[key];
+            var configSetting = ConfigurationManagerExtension.AppSettings[key];
             if (!string.IsNullOrEmpty(configSetting))
             {
                 configSetting = configSetting.Trim();

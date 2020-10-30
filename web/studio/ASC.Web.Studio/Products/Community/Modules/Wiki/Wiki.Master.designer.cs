@@ -22,6 +22,15 @@ namespace ASC.Web.Community.Wiki {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
         
         /// <summary>
+        /// WikiTitleContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder WikiTitleContent;
+        
+        /// <summary>
         /// MainWikiContainer control.
         /// </summary>
         /// <remarks>

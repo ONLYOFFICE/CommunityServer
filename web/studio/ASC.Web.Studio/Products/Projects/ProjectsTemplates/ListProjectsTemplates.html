@@ -80,9 +80,11 @@
             </td>
             {{/if}}
 
-            <td class="menupoint-container">
-                <div class="entity-menu"></div>
-            </td>
+        <td class="menupoint-container">
+            {{if !(isVisitor && isMe)}}
+            <div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
+            {{/if}}
+        </td>
         </tr>
         {{/each}}
         </tbody>
@@ -174,7 +176,7 @@
             </div>
             <div class="popup_helper" id="AnswerForRestrictAccessTeam">
                 <p>
-                    {{html ASC.Projects.Resources.CommonResource.HelpAnswerRestrictAccessTeam}}
+                    {{html Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerRestrictAccessTeam)}}
                     {{if ASC.Resources.Master.HelpLink}}
                     <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
                     {{/if}}

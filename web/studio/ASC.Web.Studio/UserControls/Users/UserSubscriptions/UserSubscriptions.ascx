@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserSubscriptions.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserSubscriptions" %>
+<%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
 
 
 <script id="subscribtionObjectsTemplate" type="text/x-jquery-tmpl">
@@ -117,40 +118,56 @@
        <div id="studio_product_subscribeBox_${item.Id}">
 
         <div class="tabs-block">
-          <div class="subscribe-link">
-            {{if item.CanUnSubscribe}}
-              <a class="unsubscribe baseLinkAction" href="javascript:CommonSubscriptionManager.UnsubscribeProduct('${item.Id}', '${item.Name}');"><%=Resources.Resource.UnsubscribeButton%></a>
-              <span> <%=Resources.Resource.SubscriptionFromAll%> ${item.Name}</span>
-            {{/if}}
-          </div>
             <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%> </span>
-            <select id="NotifyByCombobox_${item.Id}" class="comboBox notify-by-combobox" onchange="CommonSubscriptionManager.SetNotifyByMethod('${item.Id}', jq(this).val());">
-              {{if item.NotifyType == 0}}
-                <option class="optionItem" value="0" selected="selected">
-              {{else}}
-                <option class="optionItem" value="0">
-              {{/if}}
-              <%=Resources.Resource.NotifyByEmail%></option>
-
-              {{if item.NotifyType == 1}}
-                <option class="optionItem" value="1" selected="selected">
-              {{else}}
-                <option class="optionItem" value="1">
-              {{/if}}
-              <%=Resources.Resource.NotifyByTMTalk%></option>
-
-              {{if item.NotifyType == 2}}
-                <option class="optionItem" value="2" selected="selected">
-              {{else}}
-                <option class="optionItem" value="2">
-              {{/if}}
-              <%=Resources.Resource.NotifyByEmailAndTMTalk%></option>
-            </select>
+            <span class="subsSelector subs-notice-text" data-id="${item.Id}" data-notify="${item.NotifyType}" data-function="SetNotifyByMethod"></span>
+            <br /><br />
+            <div class="subscribe-link">
+                {{if item.CanUnSubscribe}}
+                    <a class="unsubscribe baseLinkAction" href="javascript:CommonSubscriptionManager.UnsubscribeProduct('${item.Id}', '${item.Name}');"><%=Resources.Resource.UnsubscribeButton%></a>
+                    <span> <%=Resources.Resource.SubscriptionFromAll%> ${item.Name}</span>
+                {{/if}}
+            </div>
         </div>
       </div>
         </div>	
       </div>   
   {{/each}}
+</script>
+
+<script id="subsSelectorTemplate" type="text/x-jquery-tmpl">
+    <span class="subType">
+        <label>
+            <input type="checkbox" data-value="<%= (int)NotifyBy.Email %>" ${(type & <%= (int)NotifyBy.Email %>) > 0 ? 'checked' : ''} />
+            <span><%= GetNotifyLabel(NotifyBy.Email) %></span>
+        </label>
+    </span>
+    <% if (ConfigurationManagerExtension.AppSettings["web.talk"] == "true") { %>
+    <span class="splitter"></span>
+    <span class="subType">
+        <label>
+            <input type="checkbox" data-value="<%= (int)NotifyBy.TMTalk %>" ${(type & <%= (int)NotifyBy.TMTalk %>) > 0 ? 'checked' : ''} />
+            <span><%= GetNotifyLabel(NotifyBy.TMTalk) %></span>
+        </label>
+    </span>
+    <% } %>
+    <% if (TelegramLoginProvider.Instance.IsEnabled()) { %>
+    <span class="splitter"></span>
+    <span class="subType">    
+        <input class="display-none" type="checkbox" data-value="<%= (int)NotifyBy.Telegram %>" ${(type & <%= (int)NotifyBy.Telegram %>) > 0 ? 'checked' : ''} />
+        <span class="baseLinkAction tgConnector"><span><%= Resources.Resource.AssociateAccountConnect %> </span><%= GetNotifyLabel(NotifyBy.Telegram) %></span>
+    </span>
+    <% } %>
+</script>
+
+<script id="telegramConnectTemplate" type="text/x-jquery-tmpl">
+    <div id="telegramConnect" class="display-none popupbox-border popupbox-loader">
+        <div id="tgConnect"><%= Resources.Resource.TelegramHowToConnect %></div>
+        <div id="tgConnected"><%= Resources.Resource.TelegramConnected %></div>
+        <br>
+        <div id="tgLink"><a target="_blank"></a></div>
+        <div id="tgCopy"><br><span class="baseLinkAction"><%= Resources.Resource.CopyToClipboard %></span></div>
+        <div id="tgDisconnect" class="button gray"><%= Resources.Resource.AssociateAccountDisconnect %></div>
+    </div>
 </script>
 
 
@@ -179,14 +196,14 @@
             </div>
             <% } %>
             <br/>
-            <div class="<%= IsAdmin ? "clearFix" : "" %>">
+            <div class="clearFix">
                 <span id="studio_newSubscriptionButton" class="sub-button"><%=RenderWhatsNewSubscriptionState()%></span>
                 <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionDailyNews%></span>
                 <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%></span>
                 <%=RenderWhatsNewNotifyByCombobox() %>
             </div>
             <% if (IsAdmin) { %> 
-            <div>
+            <div class="clearFix">
                 <span id="studio_adminSubscriptionButton" class="sub-button"><%=RenderAdminNotifySubscriptionState()%></span>
                 <span class="subs-notice-text right-indent"><%= Resources.Resource.SubscribtionAdminNotifications%></span>
                 <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%></span>

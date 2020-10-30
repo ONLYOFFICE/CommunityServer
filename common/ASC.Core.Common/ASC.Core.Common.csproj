@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Core.Common</RootNamespace>
     <AssemblyName>ASC.Core.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -33,60 +33,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Autofac">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.CloudFront">
-      <HintPath>..\..\packages\AWSSDK.CloudFront.3.3.10.10\lib\net45\AWSSDK.CloudFront.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>..\..\packages\AWSSDK.Core.3.3.29\lib\net45\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.S3">
-      <HintPath>..\..\packages\AWSSDK.S3.3.3.26.2\lib\net45\AWSSDK.S3.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.SimpleEmail">
-      <HintPath>..\..\packages\AWSSDK.SimpleEmail.3.3.7.2\lib\net45\AWSSDK.SimpleEmail.dll</HintPath>
-    </Reference>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.2.0.4\lib\net45\MailKit.dll</HintPath>
-    </Reference>
-    <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StackExchange.Redis">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net472\StackExchange.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis.Extensions.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.4.0.5\lib\net472\StackExchange.Redis.Extensions.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCommonLinkUtility.cs" />
     <Compile Include="Billing\BillingClient.cs" />
@@ -164,6 +112,12 @@
     <Compile Include="Context\WorkContext.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Notify\DirectSubscriptionProvider.cs" />
+    <Compile Include="Notify\Telegram\Dao\CachedTelegramDao.cs" />
+    <Compile Include="Notify\Telegram\Dao\TelegramDao.cs" />
+    <Compile Include="Notify\Telegram\Dao\TelegramUser.cs" />
+    <Compile Include="Notify\Telegram\ITelegramLoginProvider.cs" />
+    <Compile Include="Notify\Telegram\ITelegramService.cs" />
+    <Compile Include="Notify\Senders\TelegramSender.cs" />
     <Compile Include="Notify\Signalr\ISignalrService.cs" />
     <Compile Include="Notify\Jabber\JabberServiceClient.cs" />
     <Compile Include="Notify\Jabber\IJabberService.cs" />
@@ -188,10 +142,14 @@
     <Compile Include="Notify\Senders\AWSSender.cs" />
     <Compile Include="Notify\EmailSenderSink.cs" />
     <Compile Include="Notify\Signalr\SignalrServiceClient.cs" />
+    <Compile Include="Notify\Telegram\TelegramHelper.cs" />
+    <Compile Include="Notify\Telegram\TelegramSenderSink.cs" />
+    <Compile Include="Notify\Telegram\TelegramServiceClient.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Tenants\TenantControlPanelSettings.cs" />
     <Compile Include="Tenants\TenantAnalyticsSettings.cs" />
     <Compile Include="Tenants\TenantAuditSettings.cs" />
     <Compile Include="Tenants\TenantCookieSettings.cs" />
@@ -234,6 +192,37 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>5.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.CloudFront">
+      <Version>3.3.101.126</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.S3">
+      <Version>3.3.110.50</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.SimpleEmail">
+      <Version>3.3.101.130</Version>
+    </PackageReference>
+    <PackageReference Include="MailKit">
+      <Version>2.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.X509Certificates">
+      <Version>4.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

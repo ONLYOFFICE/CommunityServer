@@ -123,7 +123,7 @@
                     <%= string.Format(UserControlsCommonResource.TariffNameSMonth,
                                       "<div class=\"tariffs-name\">",
                                       "</div>",
-                                      MonthIsDisable ? SetStar(Resource.TariffRemarkDisabledMonth) : "") %>
+                                      MonthIsDisable ? SetStar(CurrentQuota.Year3 ? Resource.TariffRemarkDisabledYear : Resource.TariffRemarkDisabledMonth) : "") %>
                 </div>
             </td>
             <td width="30%" valign="bottom">
@@ -309,12 +309,12 @@
         <p class="confirm-block-text gray-text">
             <%= Resource.FirstName %><span class="required-mark">*</span>
         </p>
-        <input type="text" maxlength="64" tabindex="1" class="text-edit-fname text-edit" required="required" placeholder="<%= Resource.FirstName %>" value="<%= userInfo.FirstName %>">
+        <input type="text" maxlength="64" tabindex="1" class="text-edit-fname text-edit" required="required" placeholder="<%= Resource.FirstName %>" value="<%= userInfo.FirstName.HtmlEncode() %>">
 
         <p class="confirm-block-text gray-text">
             <%= Resource.LastName %><span class="required-mark">*</span>
         </p>
-        <input type="text" maxlength="64" tabindex="2" class="text-edit-lname text-edit" required="required" placeholder="<%= Resource.LastName %>" value="<%= userInfo.LastName %>">
+        <input type="text" maxlength="64" tabindex="2" class="text-edit-lname text-edit" required="required" placeholder="<%= Resource.LastName %>" value="<%= userInfo.LastName.HtmlEncode() %>">
 
         <p class="confirm-block-text gray-text">
             <%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>
@@ -324,12 +324,13 @@
         <p class="confirm-block-text gray-text">
             <%= Resource.Email %><span class="required-mark">*</span>
         </p>
-        <input type="email" maxlength="64" tabindex="4" class="text-edit-email text-edit" required="required" placeholder="<%= Resource.Email %>" value="<%= userInfo.Email %>">
+        <input type="email" maxlength="64" tabindex="4" class="text-edit-email text-edit" required="required" placeholder="<%= Resource.Email %>" value="<%= userInfo.Email.HtmlEncode() %>">
 
         <p class="confirm-block-text gray-text">
             <%= Resource.TitlePhone %><span class="required-mark">*</span>
         </p>
-        <input type="text" maxlength="64" tabindex="5" class="text-edit-phone text-edit" required="required" title="<%= Resource.TitlePhone %>" pattern="\+?\d{4,63}" placeholder="<%= Resource.TitlePhone %>" value="<%= userInfo.MobilePhone %>">
+        <input type="text" maxlength="64" tabindex="5" class="text-edit-phone text-edit" required="required" title="<%= Resource.TitlePhone %>"
+             pattern="\+?\d{4,63}" placeholder="<%= Resource.TitlePhone %>" value="<%= userInfo.MobilePhone %>" data-country="<%= PhoneCountry %>">
 
         <p class="confirm-block-text gray-text">
             <%= UserControlsCommonResource.CompanyTitle %><span class="required-mark">*</span>
@@ -386,9 +387,6 @@
             <span class="support-mail-btn">
                 <a class="link dotline" href="mailto:support@onlyoffice.com"><%= Resource.SupportBlockEmailBth %></a>
             </span>
-            <span class="support-chat-btn">
-                <a class="link dotline" onclick="window.LC_API.open_chat_window()"><%= Resource.SupportBlockChatBtn %></a>
-            </span>
         </div>
     </div>
 </div>
@@ -429,34 +427,3 @@
         </Body>
     </sc:Container>
 </div>
-
-<% if (!HideBuyRecommendation && false)
-   { %>
-<div id="buyRecommendationDialog" class="display-none">
-    <sc:Container runat="server" ID="buyRecommendationContainer">
-        <Header><%= Resource.TariffBuyRecommendationTitle%></Header>
-        <Body>
-            <span><%: Resource.TariffBuyRecommendation %></span>
-            <br />
-            <br />
-            <label>
-                <input type="checkbox" id="buyRecommendationDisplay" class="checkbox" />
-                <%= Resource.LabelDontShowMessage %>
-            </label>
-            <div class="middle-button-container">
-                <a id="buyRecommendationOk" class="button gray middle">
-                    <%= Resource.OKButton %>
-                </a>
-            </div>
-        </Body>
-    </sc:Container>
-</div>
-<% } %>
-
-<!-- BEGIN livechatinc.com Code -->
-<div class="livechat online" style="display: none; margin-top: 24px;">
-    <a href="javascript:window.LC_API.open_chat_window();">
-        <img style="max-width: 983px;" title="<%= Resource.SupportByChat %>" src="<%= GetChatBannerPath() %>" />
-    </a>
-</div>
-<!-- END livechatinc.com Code -->

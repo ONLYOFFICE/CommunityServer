@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -126,7 +117,7 @@ window.ASC.Files.UI = (function () {
         result.title = (dataObject.attr("data-title") || "").trim();
         result.version = dataObject.attr("data-version") | 0;
         result.version_group = dataObject.attr("data-version_group") | 0;
-        result.folderUrl = dataObject.attr("data-folderUrl");
+        result.folderUrl = dataObject.attr("data-folder_url") ;
         result.folder_id = dataObject.attr("data-folder_id");
         result.encrypted = dataObject.attr("data-encrypted") === "true";
 
@@ -210,9 +201,7 @@ window.ASC.Files.UI = (function () {
         jq("#switchViewFolder").toggleClass("compact", toCompact === true);
         jq("#filesMainContent").toggleClass("compact", toCompact === true);
         if (ASC.Files.Folders.showMore && toCompact !== true) {
-            if (jq(document).height() - jq(window).height() <= jq(window).scrollTop() + 350) {
-                ASC.Files.Folders.showMore();
-            }
+            ASC.Files.UI.trackShowMore();
         }
 
         if (ASC.Files.Mouse) {
@@ -221,7 +210,7 @@ window.ASC.Files.UI = (function () {
     };
 
     var isSettingsPanel = function () {
-        return jq("#settingCommon, #settingThirdPartyPanel, #helpPanel").is(":visible");
+        return jq("#settingCommon, #settingAdmin, #settingThirdPartyPanel, #helpPanel").is(":visible");
     };
 
     var fixContentHeaderWidth = function () {
@@ -303,6 +292,29 @@ window.ASC.Files.UI = (function () {
         }
     };
 
+    var trackShowMore = function(wideScreen) {
+        if (typeof(wideScreen) == "undefined") {
+            wideScreen = jq(window).width() >= 1200;
+        }
+        if (wideScreen) {
+            if (jq(".files-content-panel").height() - jq(".mainPageContent").height() <= jq(".mainPageContent").scrollTop() + 350) {
+                ASC.Files.Folders.showMore();
+            }
+        } else {
+            if (jq(document).height() - jq(window).height() <= jq(window).scrollTop() + 350) {
+                ASC.Files.Folders.showMore();
+            }
+        }
+    };
+
+    var trackShowMoreTemplates = function () {
+        var listTemplate = jq("#filesTemplateList .file-row");
+
+        if (listTemplate.eq(listTemplate.length - 1).position().top == 271) {
+            ASC.Files.Folders.getTemplateList(true);
+        }
+    }
+
     var blockObjectById = function (entryType, entryId, value, message, incycle) {
         return ASC.Files.UI.blockObject(ASC.Files.UI.getEntryObject(entryType, entryId), value, message, incycle);
     };
@@ -379,6 +391,7 @@ window.ASC.Files.UI = (function () {
 
             if (ASC.Files.Folders.folderContainer == "trash") {
                 entryObj.find(".file-lock").remove();
+                entryObj.find(".template-action").remove();
                 entryObj.find(".entry-descr .title-created").remove();
                 entryObj.find(".entry-descr .title-removed").show();
                 if (entryType == "folder") {
@@ -440,7 +453,11 @@ window.ASC.Files.UI = (function () {
                             entryObj.find(".file-edit").attr("href", entryUrl);
                         }
 
-                        if (ASC.Files.UI.editableFile(entryData) && (!entryData.encrypted || ASC.Files.Utility.CanWebEncrypt(entryTitle) && ASC.Desktop && ASC.Desktop.encryptionSupport())) {
+                        if (ASC.Files.UI.editableFile(entryData)
+                            && (!entryData.encrypted
+                            || ASC.Files.Folders.folderContainer == "privacy"
+                                && ASC.Files.Utility.CanWebEncrypt(entryTitle)
+                                && ASC.Desktop && ASC.Desktop.encryptionSupport())) {
                             ASC.Files.UI.lockEditFile(entryObj, ASC.Files.UI.editingFile(entryObj));
                             entryObj.find(".convert-action").remove();
                             if (ASC.Files.Utility.CanCoAuhtoring(entryTitle) && !entryObj.hasClass("on-edit-alone")) {
@@ -459,9 +476,13 @@ window.ASC.Files.UI = (function () {
                     }
 
                     if (entryData.encrypted
-                        && (!ASC.Desktop
+                        && (ASC.Files.Folders.folderContainer != "privacy"
+                            || !ASC.Desktop
                             || !ASC.Desktop.encryptionSupport()
                             || ASC.Resources.Master.Personal)) {
+                        entryObj.addClass("without-share");
+                    } else if (ASC.Resources.Master.Personal
+                        && !ASC.Files.Utility.CanWebView(entryTitle)) {
                         entryObj.addClass("without-share");
                     }
                 } else if (ASC.Files.Folders.folderContainer != "trash") {
@@ -476,6 +497,7 @@ window.ASC.Files.UI = (function () {
 
                 if (!jq("#filesMainContent").hasClass("without-share")
                     && (ASC.Files.Folders.folderContainer == "forme" && !ASC.Files.UI.accessEdit(entryData, entryObj)
+                        || ASC.Files.Folders.folderContainer == "privacy" && (entryType == "folder" || !ASC.Files.UI.accessEdit(entryData, entryObj))
                         || ASC.Resources.Master.Personal && entryType == "folder"
                         || Teamlab.profile.isVisitor === true)) {
                     entryObj.addClass("without-share");
@@ -689,6 +711,18 @@ window.ASC.Files.UI = (function () {
                 return false;
             }
 
+            if (entryId == ASC.Files.Constants.FOLDER_ID_RECENT) {
+                return false;
+            }
+
+            if (entryId == ASC.Files.Constants.FOLDER_ID_FAVORITES) {
+                return false;
+            }
+
+            if (entryId == ASC.Files.Constants.FOLDER_ID_TEMPLATES) {
+                return false;
+            }
+
             if (entryId == ASC.Files.Constants.FOLDER_ID_TRASH) {
                 return false;
             }
@@ -711,6 +745,7 @@ window.ASC.Files.UI = (function () {
             case ASC.Files.Constants.AceStatusEnum.Read:
             case ASC.Files.Constants.AceStatusEnum.Restrict:
                 return false;
+            case ASC.Files.Constants.AceStatusEnum.CustomFilter:
             case ASC.Files.Constants.AceStatusEnum.Review:
             case ASC.Files.Constants.AceStatusEnum.FillForms:
             case ASC.Files.Constants.AceStatusEnum.Comment:
@@ -719,6 +754,9 @@ window.ASC.Files.UI = (function () {
                 if (entryData
                     && entryData.entryType == "folder"
                     && (entryData.entryId === ASC.Files.Constants.FOLDER_ID_SHARE
+                        || entryData.entryId === ASC.Files.Constants.FOLDER_ID_RECENT
+                        || entryData.entryId === ASC.Files.Constants.FOLDER_ID_FAVORITES
+                        || entryData.entryId === ASC.Files.Constants.FOLDER_ID_TEMPLATES
                         || entryData.entryId === ASC.Files.Constants.FOLDER_ID_PROJECT
                         || entryData.entryId === ASC.Files.Constants.FOLDER_ID_TRASH)) {
                     return false;
@@ -752,7 +790,10 @@ window.ASC.Files.UI = (function () {
             return false;
         }
 
-        if (ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PROJECT) {
+        if (ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PROJECT
+            || ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_RECENT
+            || ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_FAVORITES
+            || ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_TEMPLATES) {
             return false;
         }
 
@@ -792,7 +833,7 @@ window.ASC.Files.UI = (function () {
 
     var checkEditing = function () {
 
-        var list = jq(".files-content-panel #filesMainContent .file-row.on-edit:not(.cannot-edit)");
+        var list = jq(".files-content-panel #filesMainContent .file-row.on-edit:visible:not(.cannot-edit)");
         if (list.length == 0) {
             return;
         }
@@ -852,10 +893,16 @@ window.ASC.Files.UI = (function () {
 
         var htmlTootlip = ASC.Files.TemplateManager.translateFromString(stringData);
 
-        jq("#entryTooltip").html(htmlTootlip);
+        var $selector = entryObj.find(".thumb-" + entryType);
+        var $dropdown = jq("#entryTooltip");
+        var $window = jq(window);
+        var addTop = 12;
 
-        var toUp = jq("#filesMainContent .file-row").length > 10 && entryObj.is("#filesMainContent .file-row:gt(-4)");
-        jq.dropdownToggle().toggle(entryObj.find(".thumb-" + entryType), "entryTooltip", toUp ? -12 : 0, 0, false, null, null, null, toUp);
+        $dropdown.html(htmlTootlip);
+
+        var toUp = $selector.offset().top + $selector.outerHeight() + $dropdown.outerHeight() + addTop > $window.height() + $window.scrollTop();
+
+        jq.dropdownToggle().toggle($selector, "entryTooltip", toUp ? addTop : 0, 0, false, null, null, null, toUp);
     };
 
     var hideEntryTooltip = function () {
@@ -926,12 +973,13 @@ window.ASC.Files.UI = (function () {
         if (!show) {
             jq("#treeViewContainer .selected").removeClass("selected");
             jq("#treeViewContainer .parent-selected").removeClass("parent-selected");
+            jq("#mainContentHeader, .files-filter").hide();
         }
 
         jq("#treeSecondary .currentCategory").removeClass("currentCategory");
         jq("#treeSecondary .active").removeClass("active");
 
-        jq("#settingCommon").hide();
+        jq("#settingCommon, #settingAdmin").hide();
         jq("#settingThirdPartyPanel").hide();
         jq("#helpPanel").hide();
         jq("#moreFeatures").hide();
@@ -968,6 +1016,16 @@ window.ASC.Files.UI = (function () {
         ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleSettingsCommon);
     };
 
+    var displayAdminSetting = function () {
+        ASC.Files.UI.hideAllContent();
+        LoadingBanner.hideLoading();
+        jq("#treeSetting").addClass("currentCategory open");
+        jq(".settings-link-admin").addClass("active");
+        jq("#settingAdmin").show();
+
+        ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleSettingsAdmin);
+    };
+
     var displayMoreFeaturs = function () {
         ASC.Files.UI.hideAllContent();
         LoadingBanner.hideLoading();
@@ -981,7 +1039,7 @@ window.ASC.Files.UI = (function () {
         if (!jq("#personalLimitExceedStoragePanel").length) {
             return false;
         }
-        ASC.Files.UI.blockUI("#personalLimitExceedStoragePanel", 500, 300, 0);
+        ASC.Files.UI.blockUI("#personalLimitExceedStoragePanel", 500);
         return true;
     };
 
@@ -989,7 +1047,7 @@ window.ASC.Files.UI = (function () {
         if (!jq("#tariffLimitExceedStoragePanel").length) {
             return false;
         }
-        ASC.Files.UI.blockUI("#tariffLimitExceedStoragePanel", 500, 300, 0);
+        ASC.Files.UI.blockUI("#tariffLimitExceedStoragePanel", 500);
         return true;
     };
 
@@ -997,16 +1055,16 @@ window.ASC.Files.UI = (function () {
         if (!jq("#tariffLimitExceedFileSizePanel").length) {
             return false;
         }
-        ASC.Files.UI.blockUI("#tariffLimitExceedFileSizePanel", 500, 300, 0);
+        ASC.Files.UI.blockUI("#tariffLimitExceedFileSizePanel", 500);
         return true;
     };
 
-    var blockUI = function (obj, width, height, top) {
+    var blockUI = function (obj, width) {
         if (ASC.Files.Mouse) {
             ASC.Files.Mouse.finishMoveTo();
             ASC.Files.Mouse.finishSelecting();
         }
-        return StudioBlockUIManager.blockUI(obj, width, height, top);
+        return StudioBlockUIManager.blockUI(obj, width);
     };
 
     var setProgressValue = function (progressBar, value) {
@@ -1116,6 +1174,9 @@ window.ASC.Files.UI = (function () {
         fixContentHeaderWidth: fixContentHeaderWidth,
         stickMovingPanel: stickMovingPanel,
 
+        trackShowMore: trackShowMore,
+        trackShowMoreTemplates: trackShowMoreTemplates,
+
         displayEntryTooltip: displayEntryTooltip,
         hideEntryTooltip: hideEntryTooltip,
         timeTooltip: timeTooltip,
@@ -1126,6 +1187,7 @@ window.ASC.Files.UI = (function () {
         hideAllContent: hideAllContent,
         displayHelp: displayHelp,
         displayCommonSetting: displayCommonSetting,
+        displayAdminSetting: displayAdminSetting,
         displayMoreFeaturs: displayMoreFeaturs,
 
         displayPersonalLimitStorageExceed: displayPersonalLimitStorageExceed,
@@ -1308,6 +1370,5 @@ window.ASC.Files.UI = (function () {
             ASC.Files.Actions.hideAllActionPanels();
         });
 
-        jq(".mobile-app-banner").trackEvent("mobileApp-banner", "action-click", "app-store");
     });
 })(jQuery);

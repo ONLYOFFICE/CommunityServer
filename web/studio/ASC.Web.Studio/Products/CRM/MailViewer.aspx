@@ -5,10 +5,6 @@
 
 <%@ MasterType TypeName="ASC.Web.CRM.BasicTemplate" %>
 
-<asp:Content ID="PageContentWithoutCommonContainer" ContentPlaceHolderID="BTPageContentWithoutCommonContainer" runat="server">
-
-</asp:Content>
-
 <asp:Content ID="CommonContainer" ContentPlaceHolderID="BTPageContent" runat="server">
     <div id="mailHistoryEventContainer">
         <div class="messageHeader"></div>

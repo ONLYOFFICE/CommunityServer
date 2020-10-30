@@ -6,17 +6,6 @@
 <%@ Import Namespace="Resources" %>
 
 <div id="userProfileEditPage" class="containerBodyBlock">
-    <div class="clearFix profile-title header-with-menu">
-        <span id="titleEditProfile" class="header text-overflow"><%= PageTitle.HtmlEncode() %></span>
-        <% if (IsPageEditProfileFlag && (CurrentUserIsPeopleAdmin || ProfileIsMe)) { %>
-            <% if (ProfileIsLdap) { %>
-            <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
-            <% } %>
-            <% if (ProfileIsSso) { %>
-            <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
-            <% } %>
-        <% } %>
-    </div>
     <div class="profile-action-content clearFix">
         <div class="profile-photo-block">
             <div class="profile-user-photo">
@@ -92,7 +81,7 @@
                 </td>
                 <td class="userdata-value requiredField">
                     <div id="inputUserEmail">
-                        <input type="text" id="profileEmail" value="<%= Email %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag || ProfileIsLdap ? "disabled" : "" %> <%= ProfileIsLdap ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (ProfileIsSso ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : " title=\"" + Resource.Email + "\"") %>/>
+                        <input type="text" id="profileEmail" value="<%= Email %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag ? "disabled" : "" %> <%= ProfileIsLdap ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (ProfileIsSso ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : " title=\"" + Resource.Email + "\"") %>/>
                         <span class="emailInfo"></span>
                         <% if (!IsPageEditProfileFlag  && !IsTrial) { %>
                         <a id="createEmailOnDomain" class="link dotline" style="display:none;"><%= Resource.CreateEmailOnDomain %></a>
@@ -256,7 +245,7 @@
     </div>
     <div id="contactInfoContainer" class="tabs-content contacts-group">
         <div class="field-with-actions default">
-            <select class="group-field">
+            <select class="group-field top-align">
                 <option class="optionItem mail" value="mail" selected="selected"><%= Resource.TitleEmail %></option>
                 <option class="optionItem phone" value="phone"><%= Resource.TitlePhone %></option>
                 <option class="optionItem mobphone" value="mobphone"><%= Resource.TitleMobphone %></option>

@@ -8,17 +8,17 @@ BEGIN
 
 	IF NOT EXISTS(SELECT 1 FROM tenants_tenants LIMIT 1) THEN
 		start transaction;
-		select uuid() into @user_id;
-		insert into tenants_tenants(alias, name, creationdatetime, owner_id) values ('localhost','Web Office',UTC_TIMESTAMP(), @user_id);
-		select last_insert_id() into @tenant_id;
-		insert ignore into core_user(id, firstname, lastname, username, tenant, email, workfromdate, last_modified) values (@user_id,'Administrator','','administrator',@tenant_id,'', utc_timestamp(), utc_timestamp());
-		insert ignore into core_usersecurity(tenant, userid, pwdhash, pwdhashsha512) values (@tenant_id,@user_id,'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=','l/DFJ5yg4oh1F6Qp7uDhBw==');
-		insert ignore into core_usergroup(tenant, userid, groupid, ref_type) values (@tenant_id,@user_id,'cd84e66b-b803-40fc-99f9-b2969a54a1de',0);
-		insert ignore into webstudio_settings (tenantid, id, userid, data) values (@tenant_id, '9a925891-1f92-4ed7-b277-d6f649739f06', '00000000-0000-0000-0000-000000000000', '{"Completed":false}');
+		select uuid() into user_id;
+		insert into tenants_tenants(alias, name, creationdatetime, owner_id) values ('localhost','Web Office',UTC_TIMESTAMP(), user_id);
+		select last_insert_id() into tenant_id;
+		insert ignore into core_user(id, firstname, lastname, username, tenant, email, workfromdate, last_modified) values (user_id,'Administrator','','administrator',tenant_id,'', utc_timestamp(), utc_timestamp());
+		insert ignore into core_usersecurity(tenant, userid, pwdhash) values (tenant_id,user_id,'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');
+		insert ignore into core_usergroup(tenant, userid, groupid, ref_type) values (tenant_id,user_id,'cd84e66b-b803-40fc-99f9-b2969a54a1de',0);
+		insert ignore into webstudio_settings (tenantid, id, userid, data) values (tenant_id, '9a925891-1f92-4ed7-b277-d6f649739f06', '00000000-0000-0000-0000-000000000000', '{"Completed":false}');
 		commit;
 	END IF;
 
-	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 10995116277760, 10000, 'sso,domain,audit,controlpanel,healthcheck,ldap,portals:2');
+	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 10995116277760, 10000, 'domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom');
 	replace into core_settings(tenant, id, value) values (-1, 'SmtpSettings', 0xF052E090A1A3750DADCD4E9961DA04AA51EF0197E2C0623CF12C5838BFA40A9B48BAEFCBE371587731D7E3DC9E7C6009742F9E415D56DB0F0AE08E32F8904B2C441CC657C64543EAEE262044A28B4335DCB0F0C4E9401D891FA06369F984CA2D475C86C237917961C5827769831585230A66AC7787E6FB56FD3E37389267A46A);
 	insert ignore into core_settings(tenant, id, value) values (-1, 'FullTextSearchSettings', 0x0878CF0599B517CAA2D3DAED9D064C3EDCEEAF431F35A6F642DCADA04817E3513227BBB1DE6E2BABEB9E1077B2CF318C489814545E877501F633FBBE94022CFCDD025B5395973AF510943408BB56962EE35DA35F2F8374CF5FD12695359449D7CEFBC2C7BD112AE58752179AA2A59E5E17801E580CCC60FAEC8EBDD3D612C4886666D96D6CF060605E64C90A1FAA80C0);
 	insert ignore into core_settings(tenant, id, value) values (-1, 'CompanyWhiteLabelSettings', 0xF547048A4865171587D9CEBC8A496C601D96031F2C1C3E9160353942EE765DACD316F4B5F42892436FC4A21B9A6DF8FFD3BC4036B47E3A5A1B4C881B26609869FEBB6848BD88C02EEAC6A4CCB3E8F404290812F0E6E124A552BE81A58C64BB8BD3C9A8C0EDE1F9421281DE0C7AF82733C0B754E97EFFFA5A75607A91957896CBECF9563FC831300DC8E7C930A55B298EB82D6F69E0ED6E4D8752607F1881F61B032306E0F069A5F69F086A177EB41AC06F889EB0B39CBFD4B5CDB763E996554DEADB9C71CF3EF86F4A0354A864A10639DFD29B5C6D5DCDA9D4B0988EE406948BCB54C6A70ADC6C00577174285CEBCD76);

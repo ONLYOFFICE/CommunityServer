@@ -1,25 +1,16 @@
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2020
- *
- * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
- * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
- * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
- * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- *
- * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
- * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
- *
- * You can contact Ascensio System SIA by email at sales@onlyoffice.com
- *
- * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
- * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
- *
- * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
- * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
- * in every copy of the program you distribute. 
- * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
 */
 
@@ -542,7 +533,7 @@ namespace ASC.Api.CRM
                     Description = invoiceLines[i].Description,
                     Quantity = invoiceLines[i].Quantity,
                     Price = invoiceLines[i].Price,
-                    Discount = Convert.ToInt32(invoiceLines[i].Discount)
+                    Discount = invoiceLines[i].Discount
                 };
 
                 line.ID = DaoFactory.InvoiceLineDao.SaveOrUpdateInvoiceLine(line);
@@ -912,9 +903,9 @@ namespace ASC.Api.CRM
             int invoiceTax2Id,
             int sortOrder,
             string description,
-            int quantity,
+            decimal quantity,
             decimal price,
-            int discount
+            decimal discount
             )
         {
             var invoiceLine = new InvoiceLine
@@ -971,9 +962,9 @@ namespace ASC.Api.CRM
             int invoiceTax2Id,
             int sortOrder,
             string description,
-            int quantity,
+            decimal quantity,
             decimal price,
-            int discount
+            decimal discount
             )
         {
             if (invoiceId <= 0)
@@ -1042,12 +1033,12 @@ namespace ASC.Api.CRM
 
             if (invoice.ContactID > 0)
             {
-                result.Contact = ToContactBaseWithEmailWrapper(DaoFactory.ContactDao.GetByID(invoice.ContactID));
+                result.Contact = ToContactBaseWrapperQuick(DaoFactory.ContactDao.GetByID(invoice.ContactID));
             }
 
             if (invoice.ConsigneeID > 0)
             {
-                result.Consignee = ToContactBaseWithEmailWrapper(DaoFactory.ContactDao.GetByID(invoice.ConsigneeID));
+                result.Consignee = ToContactBaseWrapperQuick(DaoFactory.ContactDao.GetByID(invoice.ConsigneeID));
             }
 
             if (invoice.EntityID > 0)
@@ -1067,7 +1058,6 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="description">Item description</param>
         /// <param optional="false" name="price">Item price</param>
         /// <param optional="true" name="sku">Item stock keeping unit</param>
-        /// <param optional="true" name="quantity">Item quantity</param>
         /// <param optional="true" name="stockQuantity">Item stock quantity</param>
         /// <param optional="true" name="trackInventory">Track inventory</param>
         /// <param optional="true" name="invoiceTax1id">Item first invoice tax ID</param>
@@ -1081,8 +1071,7 @@ namespace ASC.Api.CRM
             string description,
             decimal price,
             string sku,
-            int quantity,
-            int stockQuantity,
+            decimal stockQuantity,
             bool trackInventory,
             int invoiceTax1id,
             int invoiceTax2id)
@@ -1099,7 +1088,6 @@ namespace ASC.Api.CRM
                     Description = description,
                     Price = price,
                     StockKeepingUnit = sku,
-                    Quantity = quantity,
                     StockQuantity = stockQuantity,
                     TrackInventory = trackInventory,
                     InvoiceTax1ID = invoiceTax1id,
@@ -1120,7 +1108,6 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="description">Item description</param>
         /// <param optional="false" name="price">Item price</param>
         /// <param optional="true" name="sku">Item stock keeping unit</param>
-        /// <param optional="true" name="quantity">Item quantity</param>
         /// <param optional="true" name="stockQuantity">Item stock quantity</param>
         /// <param optional="true" name="trackInventory">Track inventory</param>
         /// <param optional="true" name="invoiceTax1id">Item first invoice tax ID</param>
@@ -1134,8 +1121,7 @@ namespace ASC.Api.CRM
                                                     string description,
                                                     decimal price,
                                                     string sku,
-                                                    int quantity,
-                                                    int stockQuantity,
+                                                    decimal stockQuantity,
                                                     bool trackInventory,
                                                     int invoiceTax1id,
                                                     int invoiceTax2id)
@@ -1155,7 +1141,6 @@ namespace ASC.Api.CRM
                     Description = description,
                     Price = price,
                     StockKeepingUnit = sku,
-                    Quantity = quantity,
                     StockQuantity = stockQuantity,
                     TrackInventory = trackInventory,
                     InvoiceTax1ID = invoiceTax1id,
@@ -1421,12 +1406,12 @@ namespace ASC.Api.CRM
 
             if (invoice.ContactID > 0)
             {
-                result.Contact = ToContactBaseWithEmailWrapper(DaoFactory.ContactDao.GetByID(invoice.ContactID));
+                result.Contact = ToContactBaseWrapperQuick(DaoFactory.ContactDao.GetByID(invoice.ContactID));
             }
 
             if (invoice.ConsigneeID > 0)
             {
-                result.Consignee = ToContactBaseWithEmailWrapper(DaoFactory.ContactDao.GetByID(invoice.ConsigneeID));
+                result.Consignee = ToContactBaseWrapperQuick(DaoFactory.ContactDao.GetByID(invoice.ConsigneeID));
             }
 
             if (invoice.EntityID > 0)
@@ -1467,21 +1452,58 @@ namespace ASC.Api.CRM
             return new InvoiceLineWrapper(invoiceLine);
         }
 
-        private IEnumerable<InvoiceBaseWrapper> ToListInvoiceBaseWrappers(ICollection<Invoice> items)
+        private IEnumerable<InvoiceBaseWrapper> ToListInvoiceBaseWrappers(ICollection<Invoice> invoices)
         {
-            if (items == null || items.Count == 0) return new List<InvoiceWrapper>();
+            if (invoices == null || invoices.Count == 0) return new List<InvoiceWrapper>();
 
             var result = new List<InvoiceBaseWrapper>();
 
+            var invoiceIDs = new HashSet<int>();
+            var contactIDs = new HashSet<int>();
+            var dealsIDs = new HashSet<int>();
 
-            var contactIDs = items.Select(item => item.ContactID);
-            contactIDs.ToList().AddRange(items.Select(item => item.ConsigneeID));
+            foreach (var invoice in invoices)
+            {
+                invoiceIDs.Add(invoice.ID);
+                contactIDs.Add(invoice.ContactID);
+                contactIDs.Add(invoice.ConsigneeID);
+                dealsIDs.Add(invoice.EntityID);
+            }
 
-            var contacts = DaoFactory.ContactDao.GetContacts(contactIDs.Distinct().ToArray())
-                                     .ToDictionary(item => item.ID, ToContactBaseWithEmailWrapper);
+            var contacts = DaoFactory.ContactDao.GetContacts(contactIDs.ToArray())
+                            .ToDictionary(contact => contact.ID, ToContactBaseWrapperQuick);
 
+            var deals = DaoFactory.DealDao.GetDeals(dealsIDs.ToArray())
+                            .ToDictionary(
+                                deal => deal.ID,
+                                deal => new EntityWrapper
+                                {
+                                    EntityId = deal.ID,
+                                    EntityTitle = deal.Title,
+                                    EntityType = "opportunity"
+                                }
+                            );
 
-            foreach (var invoice in items)
+            var invoiceLines = DaoFactory.InvoiceLineDao.GetInvoicesLines(invoiceIDs.ToArray());
+
+            var invoiceTaxIDs = new HashSet<int>();
+
+            foreach (var invoiceLine in invoiceLines)
+            {
+                invoiceTaxIDs.Add(invoiceLine.InvoiceTax1ID);
+                invoiceTaxIDs.Add(invoiceLine.InvoiceTax2ID);
+            }
+
+            var invoiceTaxes = DaoFactory.InvoiceTaxDao.GetByID(invoiceTaxIDs.ToArray());
+
+            var invoiceCosts = invoiceLines
+                                .GroupBy(invoiceLine => invoiceLine.InvoiceID)
+                                .ToDictionary(
+                                    item => item.Key,
+                                    item => DaoFactory.InvoiceDao.CalculateInvoiceCost(item.Select(invoiceLine => invoiceLine), invoiceTaxes)
+                                );
+
+            foreach (var invoice in invoices)
             {
                 var invoiceWrapper = new InvoiceBaseWrapper(invoice);
 
@@ -1492,15 +1514,18 @@ namespace ASC.Api.CRM
 
                 if (contacts.ContainsKey(invoice.ConsigneeID))
                 {
-                    invoiceWrapper.Consignee = contacts[invoice.ContactID];
+                    invoiceWrapper.Consignee = contacts[invoice.ConsigneeID];
                 }
 
                 if (invoice.EntityID > 0)
                 {
-                    invoiceWrapper.Entity = ToEntityWrapper(invoice.EntityType, invoice.EntityID); //Need to optimize
+                    invoiceWrapper.Entity = deals[invoice.EntityID];
                 }
 
-                invoiceWrapper.Cost = invoice.GetInvoiceCost(DaoFactory);
+                if (invoiceCosts.ContainsKey(invoice.ID))
+                {
+                    invoiceWrapper.Cost = invoiceCosts[invoice.ID];
+                }
 
                 result.Add(invoiceWrapper);
             }

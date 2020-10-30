@@ -22,6 +22,15 @@ namespace ASC.Web.Files.Masters {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder BTHeaderContent;
         
         /// <summary>
+        /// CreateButtonContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CreateButtonContent;
+        
+        /// <summary>
         /// BTSidePanel control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace ASC.Web.Files.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder BTSidePanel;
+        
+        /// <summary>
+        /// FilterContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder FilterContent;
         
         /// <summary>
         /// BTPageContent control.
