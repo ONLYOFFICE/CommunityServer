@@ -70,9 +70,7 @@ Docker Image: [https://github.com/ONLYOFFICE/Docker-CommunityServer](https://git
 
 License: [Apache](https://www.apache.org/licenses/LICENSE-2.0)
 
-SaaS version: [https://www.onlyoffice.com/cloud-office.aspx](https://www.onlyoffice.com/cloud-office.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS "https://www.onlyoffice.com/cloud-office.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS")
-
-On-premise: [https://www.onlyoffice.com/workspace.aspx](https://www.onlyoffice.com/workspace.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS)
+ONLYOFFICE Workspace: [https://www.onlyoffice.com/workspace.aspx](https://www.onlyoffice.com/workspace.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS)
 
 ## User feedback and support
 
