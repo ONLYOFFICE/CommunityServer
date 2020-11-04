@@ -80,6 +80,7 @@ namespace ASC.Core.Data
                 }
 
                 var users = ExecList(q).ConvertAll(ToUser);
+                UserInfo result = null;
                 foreach(var user in users)
                 {
                     RegeneratePassword(tenant, user.ID);
@@ -92,23 +93,38 @@ namespace ASC.Core.Data
                             Exp.Eq("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256)) //todo: remove old scheme
                                    ));
                     var count = ExecScalar<int>(q);
-                    if (count > 0) return user;
+                    if (count > 0)
+                    {
+                        if (tenant != Tenant.DEFAULT_TENANT) return user;
+
+                        //need for regenerate all passwords only
+                        //todo: remove with old scheme
+                        result = user;
+                    }
                 }
 
-                return null;
+                return result;
             }
         }
 
         //todo: remove
         private void RegeneratePassword(int tenant, Guid userId)
         {
-            var q = Query("core_usersecurity", tenant).Select("pwdhashsha512").Where("userid", userId.ToString());
-            var h2 = ExecScalar<string>(q);
-            if (string.IsNullOrEmpty(h2)) return;
+            var q = new SqlQuery("core_usersecurity")
+                .Select("tenant", "pwdhashsha512")
+                .Where("userid", userId.ToString());
+            if (tenant != Tenant.DEFAULT_TENANT)
+            {
+                q.Where("tenant", tenant);
+            }
+            var result = ExecList(q)
+                .ConvertAll(r => new Tuple<int, string>(Convert.ToInt32(r[0]), (string)r[1]))
+                .FirstOrDefault();
+            if (result == null || string.IsNullOrEmpty(result.Item2)) return;
 
-            var password = Crypto.GetV(h2, 1, false);
+            var password = Crypto.GetV(result.Item2, 1, false);
             var passwordHash = PasswordHasher.GetClientPassword(password);
-            SetUserPasswordHash(tenant, userId, passwordHash);
+            SetUserPasswordHash(result.Item1, userId, passwordHash);
         }
 
         public UserInfo SaveUser(int tenant, UserInfo user)

@@ -1,0 +1,72 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+table.MainBlogsTable
+{
+    width: 100%;
+    border-bottom: 1px dotted #D1D1D1;
+}
+table.MainBlogsTable td.avatarContainer
+{
+    width: 85px;
+}
+
+.ContentMainBlog
+{
+    margin: 12px 8px 0;
+}
+
+.TagsMainBlog
+{
+    margin: 20px 8px 0;
+}
+.TagsImgMainBlog
+{
+    margin-bottom:-2px;
+    margin-right:2px;
+}
+
+.BlogsBodyBlock {
+    padding-left: 0px; 
+}
+
+#tableForNavigation {
+    height: 24px;
+    width: 100%;
+}
+
+.navigationLinkBox .tl-combobox {
+    background: url("images/comboarrow_bottom.png") no-repeat scroll right center transparent;
+    margin-bottom: 1px;
+    vertical-align: middle;
+}
+
+.navigationLinkBox .tl-combobox .combobox-title .inner-text {
+    border-bottom: 1px dotted #666666;
+    color: #666666;
+}
+.table-border-dotted {
+     border-bottom: 1px dotted #D1D1D1;
+}
+
+.MainBlogsTable .author-title {
+    display: inline-block;
+}
+.MainBlogsTable .author-name {
+    display: inline-block;
+    margin-left: 12px;
+}

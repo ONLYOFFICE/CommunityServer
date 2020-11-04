@@ -1,0 +1,276 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.forums-row:hover
+{
+   background-color: #E6E6E6;
+}
+.forums-row.view-content:hover
+{
+   background-color:transparent;
+}
+.forums-row:hover .link
+{
+    text-decoration: underline;
+}
+
+.forum_thrCategBox
+{       
+    display:block; 
+    padding:5px;
+    margin:0px;    
+}
+
+.forum_mesBox
+{
+    display:block;
+    padding:5px 5px 15px 5px;  
+    height: expression( this.scrollHeight < 100 ? "100px" : "auto" ); /* sets max-height for IE */
+    min-height:100px;
+    overflow:auto; 
+    overflow-x:auto;
+    overflow-y:hidden;     
+}
+.forum_mesBoxPreview
+{
+    display:block;
+    padding:5px 5px 15px 5px;    
+    height: expression( this.scrollHeight < 100 ? "100px" : "auto" ); /* sets max-height for IE */
+    min-height:100px;
+    overflow:auto; 
+    overflow-x:auto;
+    overflow-y:hidden;    
+}
+.forum_postBoxUserSection
+{
+	width:150px;
+	overflow:hidden;
+}
+
+.forum_attachmentsBox
+{   
+    margin:5px;    
+    padding:5px;
+}
+.forum_attachItem
+{   
+    border-right:none;
+    border-left:none;
+    border-top:none;   
+    margin:2px 0px; padding:2px;
+}
+
+.forum_upItemBox
+{   
+	margin-top:3px;
+    padding:2px 0px;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+}
+
+.forum_sh_item
+{    
+    border-top:none;
+    cursor:pointer; 
+    padding:0px;
+    margin:0px;
+    border:solid 1px #c7c7c7;
+    border-top:none;
+    background-color:#ffffff;
+}
+.forum_sh_itemselect
+{
+    border-top:none;
+    cursor:pointer;
+    padding:0px;
+    margin:0px;
+    border:solid 1px #c7c7c7;
+    border-top:none;
+    background-color:#edf6fd;
+}
+.forum_uploader
+{       
+    padding:5px;
+}
+.forum_columnHeader
+{
+	color: #82878D;
+	font-size:12px;
+	border-bottom:solid 1px #D1D1D1;
+	padding-bottom:5px;
+}
+
+
+.postClass
+{
+    
+}
+
+/* File Uploader*/
+
+.forum_uploadContainer
+{
+	margin: 10px 0 0 0; 
+	max-height: 150px;
+	width: 100%; 
+	overflow: auto;
+}
+
+*+html .forum_uploadContainer table
+{
+	width:507px !important;
+	z-index:290;	
+}
+*+html div.studioFileUploaderProgressBar
+{
+	z-index:190;
+	max-width:507px;
+}
+.files_uploadIcon
+{
+	background: url(images/upload.png) no-repeat;
+	height:32px;
+	width:32px;
+}
+.forum_deleteLinkCSSClass
+{
+	background:url("images/trash.png") no-repeat scroll center center transparent;
+	cursor:pointer;
+	height:12px;
+	width:12px;
+	display:inline-block;
+	margin-top:2px;
+	text-decoration:none !important;
+}
+.forum_loadingCSSClass
+{
+	background:url("images/loader_small.gif") no-repeat scroll center center transparent;
+	cursor:default;
+	height:24px;
+	width:24px;
+	display:inline-block;
+	margin-top:2px;
+	margin-left:-5px;
+	text-decoration:none !important;
+}
+.forum_completeCSSClass
+{
+	background:url("images/complete.png") no-repeat scroll center center transparent;
+	cursor:default;
+	height:12px;
+	width:12px;
+	display:inline-block;
+	margin-top:2px;
+	text-decoration:none !important;
+}
+
+
+#forum_uploadDialogContainer
+{
+    padding: 15px; border: 1px solid #d1d1d1
+}
+
+#forum_uploadDialogContainer #forum_uploadContainer
+{
+    margin: 10px 0 0 0; 
+	max-height: 120px;
+	width: 100%; 
+	overflow: auto;
+}
+
+#forum_uploadDialogContainer #forum_uploadContainer div.fu_item
+{
+    margin:0;
+    padding:0;
+}
+#forum_uploadDialogContainer #forum_uploadContainer div.fu_item:first-child
+{
+    border-top:1px solid #d1d1d1;
+}
+
+#forum_uploadDialogContainer #forum_upload_pnl
+{
+    padding: 15px 0 10px;
+    position: relative;
+    height: 22px;
+}
+
+
+#forum_uploadDialogContainer #forum_upload_pnl #switcher
+{
+    float:right;
+}
+
+#forum_uploadDialogContainer .forum_overAllProcessBarCssClass
+{
+	height:8px;
+	width:100%;
+	border: 1px solid #d1d1d1;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	margin-top:10px;
+}
+#forum_uploadDialogContainer .forum_overAllProcessBarCssClass div
+{
+	height:8px;
+	background:url("images/back-progress.png") repeat-x !important;
+}
+
+#forum_uploadDialogContainer .forum_uploadIcon
+{
+	background: url(images/upload.png) no-repeat;
+	height:32px;
+	width:32px;
+}
+
+a.forum_uploadButton
+{
+	float:left;
+	cursor:pointer;
+	position: absolute !important;
+}
+*html a.forum_uploadButton {margin-left:0px !important}
+*+html a.forum_uploadButton {margin-left:0px !important}
+
+#tableForNavigation {
+    height: 24px;
+    width: 100%;
+}
+
+.navigationLinkBox .tl-combobox {
+    background: url("images/comboarrow_bottom.png") no-repeat scroll right center transparent;
+    margin-bottom: 1px;
+    vertical-align: middle;
+}
+
+.navigationLinkBox .tl-combobox .combobox-title .inner-text {
+    border-bottom: 1px dotted #666666;
+    color: #666666;
+}
+
+.text11px {
+    font-size: 11px;
+}
+
+.forum-page-parent {
+    color: #666666;
+    font-size: 12px;
+    padding-bottom:8px;
+    text-align: right;
+}

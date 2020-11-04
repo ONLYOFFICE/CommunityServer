@@ -172,8 +172,13 @@ var defineBodyMediaClass = function () {
 
         Teamlab.getBarPromotions({}, isDesktop, {
             success: function(params, content) {
-                if (content)
-                    eval(content);
+                try {
+                    if (content) {
+                        eval(content);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
         });
     }
@@ -192,8 +197,13 @@ var defineBodyMediaClass = function () {
 
         Teamlab.getBarTips({}, isDesktop, {
             success: function (params, content) {
-                if (content)
-                    eval(content);
+                try {
+                    if (content) {
+                        eval(content);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
         });
     }

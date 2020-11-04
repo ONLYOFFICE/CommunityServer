@@ -1,0 +1,234 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@textColorRed:          #cc3300;
+@textColorGreen:        #6b931f;
+@linkColor:             #116d9d;
+
+@defaultBgColor:        #fff;
+@textColor:             #333;
+@textColorGrayDark:     #83888d;
+@textColorGrayLight:    #b2b2b2;
+@textColorBlackDark:    #666;
+@textColorBlackLight:   #999;
+
+@borderColor:           #d1d1d1;
+@hoverRowColor:         #f2f2f2;
+
+
+@grayButtonTextColor:           @textColorBlackDark;
+@grayButtonTextColorDisable:    @textColorBlackLight;
+
+
+.noneSelect () {
+    touch-callout: none;
+    -o-touch-callout: none;
+    -moz-touch-callout: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.opacityStyle(@op:60)
+{
+    filter:alpha(opacity=@op);
+    -moz-opacity:@op/100;
+    -khtml-opacity:@op/100;
+    -webkit-opacity: @op/100;
+    opacity:@op/100;
+}
+
+.borderRadius (@value: 3px) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
+}
+
+.borderRadiusLeft (@value: 3px) {
+    border-bottom-left-radius: @value;
+    border-top-left-radius: @value;
+    -moz-border-radius-bottomleft: @value;
+    -moz-border-radius-topleft: @value;
+    -webkit-border-top-left-radius: @value;
+    -webkit-border-bottom-left-radius: @value;
+}
+
+.shadow (@radius:4px) {
+    box-shadow: 0 2px @radius rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 2px @radius rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow:0 2px @radius rgba(0, 0, 0, 0.5);
+}
+
+.boxShadow (@blurRadius: 4px) {
+    background: #FFF;
+    border: 1px solid #D1D1D1;
+    .shadow(@blurRadius);
+}
+
+// Text overflow
+// Requires inline-block or block for proper styling
+.ellipsis () {
+    text-overflow: ellipsis; -o-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; -ms-text-overflow: ellipsis;
+}
+.text-overflow(@maxWidth: auto) {
+   .ellipsis ();
+   overflow: hidden;
+   max-width: @maxWidth;
+}
+.text-overflow-nowrap(@maxWidth: auto) {
+    .text-overflow(@maxWidth);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.linkStyle (@colorLink: #333){
+    color:@colorLink;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: none;
+}
+
+.textStyle (@colorText: #333, @sizeText: 12px){
+    color: @colorText;
+    font-size: @sizeText;
+}
+
+.textDotted(){
+    border-bottom:1px dotted;
+    text-decoration:none;
+}
+
+.resetListStyle (@marginValue: 0, @paddingValue: 0) {
+    list-style: none;
+    margin: @marginValue;
+    padding: @paddingValue;
+}
+.arrow-down (@size, @bg) {
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @bg;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+}
+// Gradient
+// -------------------------
+
+
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+.gradient-horizontal(@start-color: #555, @start-percent: 0%, @end-color: #333, @end-percent: 100%) {
+    background-color: @end-color;
+    background-image: -webkit-gradient(linear, @start-percent top, @end-percent top, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(left, color-stop(@start-color @start-percent), color-stop(@end-color @end-percent)); // Safari 5.1+, Chrome 10+
+    background-image: -moz-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
+    background-image:  linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
+    background-repeat: repeat-x;
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
+}
+ 
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+.gradient-vertical(@start-color: #555, @start-percent: 0%, @end-color: #333, @end-percent: 100%) {
+    background-color: @end-color;
+    background-image: -webkit-gradient(linear, left @start-percent, left @end-percent, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(top, @start-color, @start-percent, @end-color, @end-percent); // Safari 5.1+, Chrome 10+
+    background-image:  -moz-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
+    background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
+    background-repeat: repeat-x;
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+}
+
+.bg-vertical-gradient(@start-color, @end-color) {
+    .gradient-vertical(@start-color, 0%, @end-color, 100%);
+ }
+
+.bg-horizontal-gradient(@start-color, @end-color) {
+   .gradient-horizontal(@start-color, 0%, @end-color, 100%);
+ }
+
+.bg-gradient-with-image (@img, @img-width, @img-height, @start-color, @end-color) {
+
+    background: url(@img) no-repeat scroll @img-width @img-height, @end-color; /* ��� ������ �������� */
+    background: url(@img) no-repeat scroll @img-width @img-height, -moz-linear-gradient(bottom, @start-color, @end-color); /* Firefox 3.6+ */
+    background: url(@img) no-repeat scroll @img-width @img-height, -webkit-linear-gradient(bottom, @start-color, @end-color); /* Chrome 10+, Safari 5.1+ */
+    background: url(@img) no-repeat scroll @img-width @img-height, -o-linear-gradient(bottom, @start-color, @end-color); /* Opera 11.10+ */
+    background: url(@img) no-repeat scroll @img-width @img-height, -ms-linear-gradient(center bottom, @start-color, @end-color); /* IE10 */
+    background: url(@img) no-repeat scroll @img-width @img-height, linear-gradient(bottom, @start-color, @end-color); /* CSS3 */
+}
+
+
+.crm-actionLinkBase(@size: 16px) {
+    cursor: pointer;
+    display: inline-block;
+    height: @size;
+    width: @size;
+    text-decoration:none;
+}
+.crm-img-pseudo-base(@top: 0, @left: 0, @height: 16px, @width: 16px) {
+    content: " ";
+    display: block;
+    height: @height;
+    position: absolute;
+    left: @left;
+    top: @top;
+    width: @width;
+}
+
+.crm-null-sized() {
+    height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 0;
+}
+
+.clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.img-rotate(@time:1.3s)
+{
+    -webkit-animation:spin @time linear infinite;
+    -moz-animation:spin @time linear infinite;
+    animation:spin @time linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.rotateTransform(@deg) {
+    -webkit-transform: rotate(@deg);
+    -moz-transform: rotate(@deg);
+    -ms-transform: rotate(@deg);
+    -o-transform: rotate(@deg);
+}

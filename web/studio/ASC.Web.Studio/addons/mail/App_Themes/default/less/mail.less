@@ -1,0 +1,1563 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "common.less";
+@import "icons.less";
+@import "messages.less";
+@import "message.less";
+@import "tags.less";
+@import "attachments.less";
+@import "popup.less";
+@import "accountspanel.less";
+@import "accounts.less";
+@import "contacts.less";
+@import "settings.less";
+@import "crm_integration.less";
+@import "accountpopup.less";
+@import "print.less";
+@import "administration.less";
+@import "calendar.less";
+@import "filters.less";
+@import "folders.less";
+
+#firstLoader {
+    position: fixed;
+    top: 400px;
+    left: 50%;
+}
+
+.savedtime {
+    padding: @message-spliter-width / 4 @message-spliter-width 0 0;
+
+    .savedtime-value {
+        padding-left: @base-distance / 4;
+    }
+}
+
+.sysfolder .mail-navigation-table .pagerCurrentPosition,.sysfolder .mail-navigation-table .pagerNavigationLinkCSSClass,.sysfolder #TotalItems.mail-grayText,.sysfolder .mail-grayText.mail-navigation-total {
+    display: none;
+}
+
+div#itemContainer span.button:hover, div#itemContainer span.button.hover {
+    text-decoration: none;
+}
+
+div[id^="fu_item_"] {
+    td:last-child {
+        width: 100px !important;
+        text-align: center;
+    }
+}
+
+.clearFix.disabled {
+    background: none !important;
+}
+
+#itemContainer {
+    .head {
+        .value-group.compose {
+            label {
+                color: #83888D;
+                width: 55px;
+                margin-left: 0;
+                float: left;
+            }
+        }
+    }
+}
+
+#actionContainer {
+    .menu-action-simple-pagenav {
+        margin-left: 15px;
+    }
+}
+
+.media-width-0-1100 {
+    #actionContainer {
+        .menu-action-checked-count {
+            margin-left: 0;
+            padding: 3px 5px 0 0px;
+
+            div {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 65px;
+            }
+        }
+
+        .menu-action-simple-pagenav {
+            margin-left: 0;
+        }
+    }
+}
+
+a.anchorLinkButton {
+    float: right;
+    margin-top: 3px;
+}
+
+.actionPanel {
+    display: none;
+    position: absolute;
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #D1D1D1;
+    padding: 4px;
+    margin-top: 5px;
+    z-index: @z-dropdown;
+    min-width: 16px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    .action {
+        line-height: 24px;
+        text-align: left;
+        padding: 0 12px;
+
+        &.active {
+            cursor: pointer;
+
+            &:hover {
+                background-color: #e9e9e9;
+                text-decoration: none;
+                -moz-border-radius: 2px;
+                -webkit-border-radius: 2px;
+                border-radius: 2px;
+            }
+        }
+
+        .explanation {
+            color: rgb(153, 153, 153);
+        }
+    }
+
+    .tag {
+        margin: 5px 3px 0 0;
+        padding: 0 10px 0 0;
+        -ms-text-overflow: clip;
+        -o-text-overflow: clip;
+        text-overflow: clip;
+    }
+
+    .actionPanelContent {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 325px;
+    }
+
+    .popup-corner.bottom {
+        background: url("@{base-icon-sprite-url}") no-repeat -10px -80px;
+        width: 9px;
+        height: 5px;
+        top: auto;
+        bottom: -5px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .h_line {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        min-width: 180px;
+    }
+
+    .popup-corner.colors {
+        margin-top: -7px;
+    }
+
+    .actionPanelSection {
+        color: #333;
+        font-size: 12px;
+        font-weight: normal;
+        margin-bottom: 8px;
+        margin-left: 8px;
+    }
+
+    .popup-corner {
+        background: url("@{base-icon-sprite-url}") no-repeat;
+        .icon-mixin (0,4);
+        width: 9px;
+        height: 5px;
+        margin-top: -15px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .a_delemiter {
+        float: none;
+        padding: 0;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1px;
+        border-top: 1px solid rgb(209, 209, 209);
+    }
+
+    .popup-corner.right {
+        left: auto;
+        right: 10px;
+    }
+
+    .disabled {
+        background: none;
+    }
+}
+
+label.checkbox, label.mark_all_checkbox {
+    width: 100% !important;
+    cursor: pointer;
+    color: #333 !important;
+}
+
+.settings {
+    color: #999999;
+    cursor: pointer;
+}
+
+.menu-action-simple-pagenav {
+    .pagerNextButtonCSSClass {
+        margin-left: @message-spliter-width;
+    }
+    .pagerPrevButtonCSSClass {
+        margin-right: 0;
+    }
+    div {
+        padding: 2px 5px 0 0;
+        margin-left: 0;
+    }
+}
+
+div#itemContainer div.pages-navigation a.button.page, div#itemContainer div.pages-navigation span.button.page {
+    width: 22px;
+    min-width: 1px;
+}
+
+.top-margin-menu {
+    margin-top: 24px !important;
+}
+
+.contentMenu {
+    display: block;
+    padding-left: 0;
+    width: 100%;
+    z-index: @z-stick;
+}
+
+.wrap-helper-elements {
+    overflow-y: auto;
+    width: 100%;
+    height: 300px;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-navigation span.button {
+    background: #FFF;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 0 5px 0 0;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+}
+
+.textfield {
+    .searchClear.composetoclear {
+        margin-left: 553px;
+        margin-top: -20px;
+        position: absolute;
+    }
+}
+
+* {
+    html {
+        .large-loading {
+            height: 100px !important;
+        }
+
+        div#itemContainer {
+            div.pages-navigation {
+                span.button {
+                    width: 50px;
+                }
+
+                    span.button.page.current {
+                        width: 22px;
+                    }
+            }
+        }
+    }
+}
+
+.filterPanel {
+    margin-bottom: 16px;
+}
+
+.leftPanelsDelimiter {
+    width: 200px;
+    height: 1px;
+    border-top: 1px solid #d7d8dc;
+}
+
+.viewTitle {
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    height: 20px;
+}
+
+.mail-gray-text {
+    color: #83888D !important;
+}
+
+.menu-item:hover {
+    .delete_mails {
+        opacity: 1;
+    }
+}
+
+.lattersCount {
+    padding-right: 8px;
+    color: #333333;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+
+    .new-label-menu {
+        margin: 2px -2px 0 6px;
+    }
+}
+
+.row.selected {
+    background: #f2f2f2;
+
+    .tagArrow {
+        background-position: right -40px;
+        background-repeat: no-repeat;
+    }
+}
+
+.plus.plusmail {
+    background: url("@{base-icon-sprite-url}") no-repeat;
+    .icon-mixin (2, 3);
+    width: 11px;
+    height: 11px;
+    display: inline-block;
+    float: left;
+    margin: 6px 0 0 5px;
+    cursor: pointer;
+}
+
+.td_attach {
+    position: absolute;
+    right: 135px;
+}
+
+.folderName {
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+    width: 140px;
+    height: 31px;
+    line-height: 31px;
+}
+
+.custom-combobox.colorFilterItem {
+    max-width: 140px !important;
+}
+
+#id_contacts_page {
+    .column {
+        margin-top: 0;
+
+        .row {
+            .description {
+                .labels {
+                    padding-top: 1px;
+                }
+            }
+        }
+    }
+}
+
+div.studioSideBoxMailBody {
+    padding: 5px 0 10px;
+}
+
+.advanced {
+    .progressContainer {
+        .loader {
+            padding-left: 18px;
+            margin-left: 2px;
+        }
+    }
+}
+
+.page-menu {
+    .menu-actions {
+        .menu-main-button.middle.create-new {
+            width: 198px;
+        }
+    }
+}
+
+.stick-panel {
+    position: fixed;
+    top: 0;
+    z-index: @z-stick;
+}
+
+.simpleWrapper {
+    width: auto;
+    margin: 0;
+
+    #attachment_upload_pnl {
+        margin-top: 6px;
+        margin-bottom: 20px;
+
+        .attachLink {
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        #attachments_limit_txt {
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll, 
+        .link:active.deleteAll, 
+        .link:hover.deleteAll, 
+        .link:visited.deleteAll {
+            display: inline-block;
+            margin-left: 16px;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll:after {
+            background: url("@{base-icon-sprite-url}") no-repeat -57px -84px;
+            content: "";
+            cursor: pointer;
+            display: block;
+            height: 20px;
+            left: -17px;
+            margin-top: -12px;
+            position: absolute;
+            top: 50%;
+            width: 14px;
+        }
+    }
+}
+
+.subject, .subject a {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: #333;
+    border-radius: 0;
+}
+
+div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-navigation span.button {
+    min-width: 50px;
+    cursor: pointer;
+    border: 1px solid #C7C7C7;
+}
+
+.del {
+    p {
+        margin-top: 10px !important;
+    }
+}
+
+.mark_all_checkbox {
+    input {
+        width: 13px;
+        height: 13px;
+        padding: 0;
+        margin:0;
+        vertical-align: bottom;
+        position: relative;
+        top: 14px;
+        *overflow: hidden;
+    }
+
+    span {
+        display: block;
+        padding-left: 15px;
+        text-indent: 6px;
+    }
+}
+
+.error-popup {
+    ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .text {
+        margin-right:10px;
+    }
+
+    li {
+        label.error {
+            font-weight: normal;
+        }
+    }
+}
+
+.baseLinkArrowDown {
+    margin: 0 0 2px 3px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-width: 4px 4px 0 4px;
+    border-color: #666 transparent transparent transparent;
+    border-style: solid solid outset solid;
+}
+
+#tagsPanel, #tagsPanel span {
+    cursor: default;
+}
+
+.containerBodyBlock div.buttons.new-account, .containerBodyBlock div.buttons.new-tag {
+    margin: 0;
+}
+
+div.studioSideBoxMailHeader {
+    border-bottom: 1px solid #C7C7C7;
+    color: #333;
+    font-size: 18px;
+    padding: 0 0 5px 0;
+}
+
+.containerBodyBlock div.receive .encryptionTypeSelect, .containerBodyBlock div.send .encryptionTypeSelect {
+    height: 26px;
+    line-height: 22px;
+    width: 224px;
+    display: inline;
+    margin-top: 5px;
+}
+
+a.disable,
+a.disable:hover {
+    cursor: default;
+    color: rgb(153, 153, 153);
+}
+
+.td_check {
+    input {
+        margin: 0 0 0 12px;
+        padding: 0;
+    }
+}
+
+.containerBodyBlock div.buttons a, .containerBodyBlock div.buttons button {
+    margin-right: 4px;
+}
+
+.error-popup.account_error {
+    background-image: none;
+    padding: 10px;
+    text-align: left;
+    font-weight: normal;
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.mail-navigation-table {
+    width: 100%;
+    height: 24px;
+    .tl-combobox {
+        margin-bottom: 1px;
+        vertical-align: middle;
+        .combobox-title {
+            .inner-text {
+                color: #83888D;
+                border-bottom: 1px dotted #83888D;
+            }
+        }
+    }
+}
+
+.container.body {
+    #MessageBodyContainer {
+        width: 100% !important;
+    }
+}
+
+.progressContainer {
+    min-height: 32px;
+    .loader {
+        background: url("@{imaqes-base-url}loader/loader_16.gif") 0 8px no-repeat;
+        padding-left: 20px;
+        line-height: 32px;
+        color: #999;
+    }
+}
+
+.more_lnk {
+    margin: 0 5px 0 10px;
+    text-align:right;
+    display:inline-block;
+    cursor: pointer;
+    
+    .gray {
+        border-bottom: none;
+        color: #333;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+
+div.overDeleting {
+    position: absolute;
+    left: 0;
+    height: 35px;
+    width: 100%;
+    background: url("@{imaqes-base-url}loader/loader_16_dark.gif") 10px 10px no-repeat;
+}
+
+.clearfix {
+    min-height: 0;
+    max-height: 120px;
+    overflow-y: auto;
+    width: 293px;
+    margin-bottom: 16px;
+}
+
+.row:hover {
+    .tagArrow {
+        background-position: right -60px;
+        background-repeat: no-repeat;
+    }
+}
+
+noindex:-moz-any-link {
+    margin-right: 3px !important;
+    margin-top: -25px;
+}
+
+.menu-main-button {
+    span:first-child {
+        width: 145px !important;
+    }
+}
+
+.large-loading {
+    background: url("@{imaqes-base-url}loader/loader32.gif") center center no-repeat !important;
+    min-height: 100px !important;
+}
+
+input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+div.checkbox {
+    width: 36px;
+    margin: 6px 0px 0 7px;
+}
+
+table#newMessage div.helper div.mailbox-from-helper, table#newMessage div.helper div.mailbox-to-helper {
+    background: #FFF;
+    border: 1px solid #8e908f;
+    padding: 0 3px 0 3px;
+}
+
+#tagsColorsPanel {
+    padding: 2px 0 2px 4px;
+    display: none;
+    #tagsColorsContent {
+        display: block;
+        width: 164px;
+        div {
+            width: 16px;
+            height: 16px;
+            float: left;
+            margin: 2px;
+            cursor: pointer;
+        }
+    }
+}
+
+tr.edittag {
+    display: none;
+    background: #edf6fd;
+}
+
+.mailContentWrapper {
+    width: auto;
+    margin: 0 24px 0 27px;
+}
+
+span.editTag {
+    display: none;
+    width: 133px;
+    text-align: center;
+    padding: 2px 0px;
+    float: right;
+}
+
+.header-page {
+    margin-bottom: 24px;
+}
+
+.newMessageWrap {
+    padding-top: 2px;
+    b {
+        color: #333;
+    }
+    .disabled {
+        background: none;
+        color: gray;
+    }
+}
+
+.delete_mails {
+    background: url("@{base-icon-sprite-url}") no-repeat;
+    .icon-mixin (3, 3);
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    opacity: 0;
+    margin-bottom: -1px;
+}
+
+.attachment-grouped-message {
+    position: absolute;
+    top: 0.1em;
+    right: 120px;
+    padding-left: 20px;
+}
+
+textarea {
+    padding:3px 1px 3px 3px;
+    overflow:auto;
+}
+
+.itemWrapper {
+    .AddToCRMContacts {
+        margin-left: 25px;
+        display: inline;
+        vertical-align: baseline;
+    }
+}
+
+.mail-navigation-total {
+    margin-right: 20px;
+}
+
+.messageHeader {
+    .menu-action-simple-pagenav {
+        margin-left: 8px !important;
+    }
+
+    .sort-icon {
+        display: inline-block;
+        float: right;
+        width: 16px;
+        height: 16px;
+        margin: 4px 0 0 0;
+        cursor: pointer;
+    }
+
+    .sort-icon.desc {
+        background: url("@{base-icon-sprite-url}") 0 0 no-repeat transparent;
+    }
+
+    .sort-icon.asc {
+        background: url("@{base-icon-sprite-url}") 0 -20px no-repeat transparent;
+    }
+
+    .collapse-conversation {
+        display: inline-block;
+        margin: 3px 8px 0 0;
+        color: #666;
+        font-size: 11px;
+        border-bottom: 1px dotted #666;
+        cursor: pointer;
+    }
+}
+
+.bright-blue, .wild-pink {
+    .contentMenuWrapper {
+        .menuAction.btnNext.unlockAction {
+            .arrow-right {
+                border-left: 5px solid #ffffff;
+            }
+        }
+
+        .menuAction.btnPrev.unlockAction {
+            .arrow-left {
+                border-right: 5px solid #ffffff;
+            }
+        }
+        .menuAction.btnNext {
+            .arrow-right {
+                border-left: 5px solid #ffffff;
+            }
+        }
+
+        .menuAction.btnPrev {
+            .arrow-left {
+                border-right: 5px solid #ffffff;
+            }
+        }
+    }
+}
+
+
+
+.contentMenuWrapper {
+    height: 30px;
+
+    .menuAction.btnNext {
+        height: 17px;
+        width: 10px;
+        
+        .arrow-right {
+          width: 0; 
+          height: 0; 
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;  
+          border-left: 5px solid #999999;
+          margin-top: 4px;
+          margin-left: 3px;
+        }
+    }
+    
+    .menuAction.btnNext.unlockAction {
+        .arrow-right {  
+            border-left: 5px solid dimgray; 
+        }
+    }
+
+    .menuAction.btnPrev {
+        height: 17px;
+        width: 10px;
+        margin-left: 8px;
+
+        .arrow-left {
+          width: 0; 
+          height: 0; 
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;  
+          border-right: 5px solid #999999; 
+          margin-top: 4px;
+          margin-left: 2px;
+        }
+    }
+
+    .menuAction.btnPrev.unlockAction {
+       .arrow-left {  
+            border-right: 5px solid dimgray; 
+        }
+    }
+}
+
+.no-messages {
+    height: 24px;
+    padding-top: 8px;
+    line-height: 8px;
+}
+
+.selector-wrapper {
+    .combobox-selector {
+        display: inline-block !important;
+    }
+
+    .advanced-selector-search {
+        margin: 0;
+    }
+
+    .advanced-selector-search-btn {
+        cursor: pointer;
+    }
+
+    .studio-action-panel {
+        top: 21px;
+        padding: 10px;
+    }
+
+    .input-filter {
+        padding: 3px 20px 0 3px;
+        input {
+            height: 14px;
+            font-size: 12px;
+            padding: 0 1px 0 3px;
+            border: medium none;
+            outline: medium none;
+            width: 100% !important;
+            overflow:hidden;
+            margin-right: 5px;
+        }
+    }
+
+    input[type="checkbox"] {
+        overflow: visible;
+        padding:0;
+    }
+}
+
+.containerBodyBlock div.receive .portBox, .containerBodyBlock div.send .portBox {
+    width: 52px;
+    display: inline;
+}
+
+.fullSizeLabel {
+    font-weight: normal;
+    padding-left: 5px;
+    color: gray;
+}
+
+.dashboard-center-box {
+    .content .module-block .img {
+        &.use-mail-server
+        {
+            background-image: url("@{imaqes-base-url}/dashboard/use-mail-server.png");
+        }
+        &.collect-all-emails-in-one-place
+        {
+            background-image: url("@{imaqes-base-url}/dashboard/collect-all-emails-in-one-place.png");
+        }
+        &.structure-correspondence
+        {
+            background-image: url("@{imaqes-base-url}/dashboard/structure-correspondence.png");
+        }
+        &.communicate-easily
+        {
+            background-image: url("@{imaqes-base-url}/dashboard/communicate-easily.png");
+        }
+    }
+
+    .dashboard-buttons {
+        .or-split {
+            font-size: 18px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .create-button-link {
+            font-size: 18px;
+            text-decoration: underline;
+            vertical-align: middle;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.mail-navigation-pager {
+    display: inline-block;
+    clear: right;
+
+}
+
+.composeTitle {
+    font-size: 18px !important;
+}
+
+.td_datetime {
+    color: #83888d;
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    div {
+        width: 130px;
+        span.time {
+            position: absolute;
+            right: 0;
+            margin-right: 10px;
+        }
+        span.date {
+            width: 65px;
+            text-align: right;
+            display: inline-block;
+        }
+    }
+}
+
+.containerBodyBlock {
+    color: #333;
+
+    input[type="email"],
+    input[type="password"] {
+        &:focus {
+            outline: none;
+            border: solid 1px #3186af;
+        }
+    }
+
+    .mail-confirmationAction {
+        margin-top: 10px;
+
+        p {
+            margin-top: 1px !important;
+        }
+
+        .attentionText {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .questionText {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+    }
+
+    .reassignOption {
+        margin-bottom: 10px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+
+        &.disabled {
+            color: gray;
+        }
+    }
+
+    .needReassign {
+        margin-left: 0px;
+    }
+
+    .hint {
+        font-size: 14px;
+        color: #999999;
+        margin-bottom: 9px;
+    }
+
+    div.del {
+        margin-bottom: 27px;
+    }
+
+    .error-popup {
+        margin: 16px 0;
+    }
+
+    div.buttons {
+        clear: both;
+        margin-top: 29px;
+    }
+
+    .markAllLabel {
+        display: block;
+        font-family: 'Open Sans';
+        font-size: 12px;
+        font-weight: bold;
+        margin: 9px 0 -2px 0;
+    }
+}
+
+#tags_panel {
+    #id_tags_panel_content {
+        max-height: 100px;
+        overflow-y: hidden;
+
+        .tag {
+            margin: 5px 5px 0 0;
+            padding: 0 10px 0 0;
+            height: 20px;
+            -ms-text-overflow: clip;
+            -o-text-overflow: clip;
+            text-overflow: clip;
+        }
+    }
+
+    .more {
+        margin-top: -20px;
+        position: relative;
+
+        .shadow {
+            background: url("@{background-sprite-url}") repeat-x 0 0;
+            height: 20px;
+        }
+
+        .text {
+            color: #999;
+            height: 19px;
+            display: inline-block;
+        }
+    }
+
+    &.left-margin,
+    .more.left-margin {
+        margin-left: 17px;
+    }
+}
+
+#tagsPanelContent {
+
+    .existsTags {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-left: 8px;
+    }
+
+    .createTagMenu {
+        background: none;
+        border: 0;
+        color: #333333;
+        cursor: pointer;
+        display: block;
+        font-size: 12px;
+        line-height: 24px;
+        margin: 0;
+        padding: 0 12px;
+        text-decoration: none;
+    }
+
+    .createTagMenu:hover {
+        background-color: #e9e9e9;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+
+        .entertag_button {
+            text-decoration: none;
+        }
+    }
+}
+
+* html table#newMessage div.helper div.mailbox-from-helper, * html table#newMessage div.helper div.mailbox-to-helper {
+    position: absolute;
+}
+
+.checkbox, .radiobox {
+    span {
+        line-height: 19px;
+        margin: 3px 0 0 3px;
+        vertical-align: middle;
+    }
+    input {
+        height: 19px;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-left: 0;
+    }
+}
+
+.radiobox {
+    input {
+        margin-top: 0;
+    }
+}
+
+div.error-popup {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.fromAccountSelector {
+    margin-top: 10px;
+}
+
+.column {
+    .row:hover {
+        .delete_attachment {
+            background-position: -16px 0;
+        }
+    }
+}
+
+input {
+    padding:3px 1px 3px 3px;
+    overflow:hidden;
+}
+
+.account_error {
+    .attempt_header {
+        font-weight: bold;
+    }
+}
+
+.containerBodyBlock div.receive div.requiredField .authenticationTypeBox, .containerBodyBlock div.send div.requiredField .authenticationTypeBox {
+    height: 26px;
+    line-height: 22px;
+    width: 157px;
+    float: right;
+    margin-right: -4px;
+}
+
+.placeholder {
+    color: #999;
+}
+
+.subject {
+    .fromblock {
+        padding-left: 8px;
+        margin-right: 5px;
+        float: left;
+        display: block;
+        width: 204px;
+        height: 33px;
+        .author {
+            display:inline-block;
+            max-width:180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.noContentBlock {
+    .img {
+        width: @blank-icon-width;
+        height: @blank-icon-height;
+        margin-right: 12px;
+        margin-top: 10px;
+        background-image: url("@{blank-icon-sprite-url}");
+
+        &.trash {
+            .blank-icon-mixin (1,2);
+        }
+
+        &.contacts {
+            .blank-icon-mixin (0,0);
+        }
+
+        &.inbox {
+            .blank-icon-mixin (1,0);
+        }
+
+        &.spam {
+            .blank-icon-mixin (0,2);
+        }
+
+        &.drafts {
+            .blank-icon-mixin (1,1);
+        }
+
+        &.sent {
+            .blank-icon-mixin (0,1);
+        }
+
+        &.filter {
+            background-image: url("@{common-images-url}empty_screen_filter.png");
+        }
+
+        &.accounts {
+            .blank-icon-mixin(0,3);
+        }
+
+        &.tags {
+            .blank-icon-mixin(1,3);
+        }
+
+        &.domains {
+            .blank-icon-mixin(0,5);
+        }
+
+        &.userfolder {
+            background-position: -135px -906px;
+        }
+
+        &.userFilter {
+            background-position: 5px -1056px;
+        }
+    }
+}
+
+.settings:hover {
+    text-decoration: none !important;
+}
+
+.hidden {
+    display: none;
+}
+
+@media screen and (max-height: 768px)
+{
+    .mail_wysiwyg_editor
+    {
+        min-height: 237px;
+
+        .cke_contents.cke_reset
+        {
+            min-height: 237px;
+        }
+    }
+}
+
+@media screen and (min-height: 768px)
+{
+    .mail_wysiwyg_editor
+    {
+        min-height: 400px;
+
+        .cke_contents.cke_reset
+        {
+            min-height: 400px;
+        }
+    }
+}
+body.media-width-0-1200
+{
+    .hidden-min {
+        display: none !important;
+    }
+}
+
+.mail_wysiwyg_editor {
+    .cke_chrome {
+        width: auto !important;
+    }
+}
+
+.loadingBanner
+{
+    z-index: @z-popup;
+}
+
+#add-first-account
+{
+    text-align: left;
+
+    .img_accounts
+    {
+        background: url("@{blank-icon-sprite-url}") no-repeat 1px -599px;
+        width: 104px;
+        min-height: 100px;
+        margin: 0 12px 0 -4px;
+        float: left;
+        background-repeat: no-repeat;
+    }
+
+    .body
+    {
+        .title
+        {
+            font-weight: bolder;
+            font-size: 14px;
+        }
+
+        .info
+        {
+            padding-top: 4px;
+            line-height: 14px;
+        }
+
+        .question
+        {
+            line-height: 12px;
+        }
+    }
+
+    .buttons
+    {
+        clear: both;
+        margin: 15px 0 0 2px;
+
+        .button
+        {
+            clear: both;
+            margin-right: @message-spliter-width;
+        }
+    }
+}
+
+.stick-over {
+  z-index: @z-stick-over;
+}
+
+/* End Loading animation */
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.loader-fx {
+    .loader-middle {
+        display: inline-block;
+    }
+
+    .loader-middle-lable {
+        display: inline-block;
+        line-height: 22px;
+        vertical-align: text-bottom;
+        padding-left: 4px;
+    }
+}
+
+/* End Loading animation */
+
+.ui-controlgroup {
+    margin-right: 7px;
+    display: flex;
+
+    .ui-controlgroup-item {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 13px;
+        height: 15px;
+        color: #666666;
+        background-color: #dedede;
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f3f3f3), to(#dedede));
+        background-image: -webkit-linear-gradient(top, #f3f3f3, 0%, #dedede, 100%);
+        background-image: -moz-linear-gradient(top, #f3f3f3 0%, #dedede 100%);
+        background-image: linear-gradient(to bottom, #f3f3f3 0%, #dedede 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff3f3f3', endColorstr='#ffdedede', GradientType=0);
+        border: 1px solid #bfbfbf;
+        white-space: nowrap !important;
+    }
+
+    .ui-checkboxradio-checked,
+    .ui-widget-content .ui-state-active, 
+    .ui-widget-header .ui-state-active, 
+    a.ui-button:active, 
+    .ui-button:active, 
+    .ui-button.ui-state-active:hover {
+        border: 1px solid #bfbfbf;
+        background: #fff;
+        color: #666666;
+    }
+
+    .ui-state-active:hover {
+        border: 1px solid #bfbfbf;
+        background: gray; 
+        color: #666666;
+    }
+
+    .ui-corner-left {
+        border-right: none !important;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .ui-corner-right {
+        border-left: none !important;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .ui-visual-focus {
+        box-shadow: none;
+    }
+
+    .ui-checkboxradio-label {
+        padding: 5px 23px 3px 23px;
+        white-space: nowrap;
+    }
+}
+
+.ui-selectable-helper {
+    background-color: #6CA3BF;
+    border: 1px solid #034;
+    cursor: default;
+    display: block;
+    height: 0;
+    opacity: 0.3;
+    position: absolute;
+    width: 0;
+    z-index: 254;
+}
+
+/*******************************************************************************
+    Mouse moving
+*******************************************************************************/
+
+@drag-color: #fcf6e0;
+@drag-hover-color: #F9EEC2;
+
+.mailMouseMove,
+.mailMouseMove * {
+    cursor: alias !important;
+}
+
+#mailMovingTooltip {
+    cursor: alias !important;
+    display: block;
+    font-size: 12px;
+    height: auto;
+    line-height: 24px;
+    margin-left: 13px;
+    margin-top: 6px;
+    max-width: 500px;
+    padding: 4px 16px;
+    position: absolute;
+    word-wrap: break-word;
+    z-index: 301;
+}
+#mailMovingTooltip, #ie#fix {
+    cursor: alias !important;
+}
+* + html #mailMovingTooltip {
+    cursor: move;
+}
+
+.mailMoveTo {
+    background: @drag-color;
+
+    &:hover {
+        background: @drag-hover-color;
+    }
+}
+
+.mailMoveToUserFolder .jstree-wholerow {
+    background: @drag-color;
+}
+
+.mailMoveToUserFolderHover {
+    background: @drag-hover-color !important;
+}
+
+*:focus {
+    outline: none;
+}

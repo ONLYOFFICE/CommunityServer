@@ -37,14 +37,13 @@
 <asp:Content runat="server" ContentPlaceHolderID="BTSidePanel">
     <div class="page-menu">
         <asp:PlaceHolder ID="CommonSideHolder" runat="server"></asp:PlaceHolder>
+        <asp:PlaceHolder ID="AppBannerHolder" runat="server" />
     </div>
 
     <% if (!Desktop && CoreContext.Configuration.Personal && false)
        { %>
     <a href="#more" class="morefeatures-link banner-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
     <% } %>
-
-    <asp:PlaceHolder ID="AppBannerHolder" runat="server" />
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="FilterContent">

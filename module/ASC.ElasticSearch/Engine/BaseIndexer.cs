@@ -324,6 +324,7 @@ namespace ASC.ElasticSearch
 
         void IIndexer.IndexAll()
         {
+            var now = DateTime.UtcNow;
             var idColumn = Wrapper.GetColumnName(ColumnTypeEnum.Id, Alias);
             var tenantIdColumn = Wrapper.GetColumnName(ColumnTypeEnum.TenantId, Alias);
             var lastModifiedColumn = Wrapper.GetColumnName(ColumnTypeEnum.LastModified, Alias);
@@ -360,7 +361,11 @@ namespace ASC.ElasticSearch
 
             using (var db = DbManager.FromHttpContext("default"))
             {
-                db.ExecuteNonQuery(new SqlInsert("webstudio_index", true).InColumnValue("index_name", Wrapper.IndexName));
+                db.ExecuteNonQuery(
+                    new SqlInsert("webstudio_index", true)
+                    .InColumnValue("index_name", Wrapper.IndexName)
+                    .InColumnValue("last_modified", now)
+                    );
             }
 
             Logger.DebugFormat("index completed {0}", Wrapper.IndexName);

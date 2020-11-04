@@ -1,0 +1,193 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+
+/* List Facebook UserInfo, List Twitter UserInfo */
+#sm_tbl_UserList {
+    border-collapse: collapse;
+    padding: 0px;
+    width: 100%;
+
+    .sm_tbl_UserList_clmnAvatar {
+        width: 50px;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .sm_tbl_UserList_clmnUserName {
+        padding: 5px 0 5px 10px;
+    }
+
+    .sm_tbl_UserList_clmnBtRelate {
+        width: 80px;
+        padding: 5px 5px 5px 10px;
+    }
+
+    .sm_tbl_UserList_NotFound {
+        text-align: center;
+        margin: 10px;
+    }
+}
+
+
+
+
+
+.sm_message_line {
+    border-top: 1px solid #d1d1d1;
+    padding: 5px 0;
+}
+.sn_userName {
+    color: Black !important;
+}
+.sn_user_icon {
+    float: left;
+    margin: 0 15px;
+    width: 34px;
+}
+.sn_message_icon {
+    float: left;
+    text-align: center;
+    width: 30px;
+}
+.sn_message_block {
+    float: left;
+    width: 90%;
+}
+.sn_message_text {
+    margin: 2px 0;
+}
+.sn_small_img {
+    float: left;
+    margin-right: 10px;
+}
+.sm_messagesList_ErrorDescription {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+
+/* ContactDetailsView - Window with user avatars*/
+#divLoadPhotoFromSocialMedia {
+    width: 100%;
+    height: 50px;
+    margin-top: -16px;
+}
+#divLoadPhotoWindow h4 {
+    margin-bottom: 5px;
+}
+
+#divLoadPhotoFromPC {
+    .fileUploadDscr {
+        margin-left: 12px;
+    }
+
+    .fileUploadError {
+        color: #CC0000;
+        display: none;
+        font: 12px Tahoma;
+        margin-left: 12px;
+    }
+}
+
+#divImagesHolder {
+    width: 100%;
+    height: 70px;
+    overflow: auto;
+    display: none;
+
+    > div.describe-text {
+        margin-top: 4px;
+    }
+}
+
+#divLoadPhotoDefault {
+    margin-top: 10px;
+}
+
+#divAjaxImageContainerPhotoLoad {
+    margin-left: 220px;
+    display: none;
+    position: absolute;
+    top: 185px;
+}
+
+.ImageHolderOuter {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid #fff;
+
+    img {
+        padding: 2px;
+
+        &:hover {
+            border: 2px solid #1A6DB3 !important;
+            padding: 0px;
+        }
+    }
+}
+
+.AvatarImage {
+    width: 50px;
+    height: 50px;
+}
+/* ContactActionView */
+
+#divSMProfilesWindow {
+    display: none;
+    width: 420px;
+    background-color: @defaultBgColor;
+    .borderRadius(10px);
+
+    .cancel_cross {
+        background: url("../images/icons.png") 0 -718px no-repeat transparent;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        right: -5px;
+        top: -5px;
+        width: 16px;
+        position: absolute;
+    }
+    .divNoProfiles {
+        display: none;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .divWait {
+        text-align: center;
+        display: none;
+    }
+    .divHeader {
+        margin: 15px;
+        text-align: center;
+        position: relative;
+    }
+
+    .divSMProfilesWindowBody {
+        margin: 10px;
+        max-height: 200px;
+        min-height: 30px;
+        overflow: auto;
+    }
+}

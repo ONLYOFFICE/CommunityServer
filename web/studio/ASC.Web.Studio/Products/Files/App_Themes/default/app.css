@@ -1,0 +1,79 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.files-app-center {
+    text-align: center;
+}
+.files-app-content {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: left;
+    width: 450px;
+}
+.files-app-content-create {
+    margin-top: 150px;
+    width: 320px;
+}
+.files-app-baner {
+    background: url("images/personal_convert.png") no-repeat left center transparent;
+    height: 150px;
+    margin: 45px 0;
+}
+.files-app-checkbox {
+    display: block;
+    margin: 20px 0;
+}
+.files-app-checkbox > input {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.app-filename {
+    border-radius: 3px;
+    color: #434341;
+    font-size: 14px;
+    margin: 14px 0 20px;
+    padding: 8px 10px;
+    width: 300px;
+}
+.files-app-types {
+    margin: 14px -23px 45px;
+}
+.files-app-create {
+    background: no-repeat center top transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    height: 140px;
+    margin-right: 25px;
+    overflow: visible;
+    padding: 98px 0 0;
+    text-align: center;
+    width: 105px;
+    white-space: normal;
+}
+.files-app-create.document {
+    background-image: url("images/file_docx.png");
+}
+.files-app-create.spreadsheet {
+    background-image: url("images/file_xlsx.png");
+}
+.files-app-create.presentation {
+    background-image: url("images/file_pptx.png");
+    margin-right: 0;
+}

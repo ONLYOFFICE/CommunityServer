@@ -1,0 +1,147 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import 'settings.less';
+
+.crm_popup {
+    margin-top: 0px;
+
+    .choose_contact {
+        margin-bottom: @base-distance /2;
+    }
+
+    .search_panel {
+        position: relative;
+        width: @search_panel_width;
+        height: @base-distance * 3;
+
+        .search_input {
+            width: @search_input_width;
+            height: 18px;
+            margin: 0px;
+            border: solid 1px @popup-search-input-color;
+            padding-left: @base-distance * 3;
+        }
+
+        .search_image {
+            position: absolute;
+            top: 6px;
+            left: 5px;
+            height: 16px;
+            width: 16px;
+            background-color: #B7B7B7;
+        }
+
+        .lupe {
+            -webkit-mask-image: url(/skins/default/imagescss/search_16.png);
+            mask-image: url(/skins/default/imagescss/search_16.png);
+        }
+
+        .crm_search_loading_icon {
+            position: absolute;
+            top: 6px;
+            left: 5px;
+        }
+    }
+
+    .choose_contact {
+        padding-top: 14px;
+    }
+
+    .linked_table_parent {
+        margin-top: 3.5*@base-distance;
+        max-height: 210px;
+        padding-bottom: 1px; /*Fix for correct view in IE browsers. If u delete it scroll will show in crmLinkPopup*/
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .linked_contacts_table {
+            width: 100%;
+
+            tr {
+                height: @row-height;
+
+                td {
+                    border: solid 1px @popup-search-input-color;
+                    border-left: none;
+                    border-right: none;
+
+                    &.linked_entity_row_avatar_column {
+                        width: 40px;
+
+                        .case {
+                            background: url("@{base-icon-sprite-url}") no-repeat 0 -120px;
+                            height: 40px;
+                        }
+
+                        .opportunities {
+                            background: url("@{base-icon-sprite-url}") no-repeat -40px -120px;
+                            height: 40px;
+                        }
+                    }
+
+
+                    &.linked_entity_row_title_column {
+                        padding-left: @base-distance;
+                        padding-right: @base-distance;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                    }
+
+                    &.linked_entity_row_button_column {
+                        width: 20px;
+
+                        .unlink_entity {
+                            background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
+                            width: 16px;
+                            height: 16px;
+
+                            &:hover {
+                                background-position: -20px -20px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    background: @full-view-row-bg;
+
+                    .linked_entity_row_title_column .link {
+                        text-decoration: underline;
+                    }
+
+                    .unlink_entity {
+                        background-position: -20px -20px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .entity-type {
+        margin-top: @base-distance /2;
+        width: 120px;
+    }
+
+    .loader {
+        height: 42px;
+        width: 32px;
+        margin: auto;
+        padding-top: 20px;
+    }
+}

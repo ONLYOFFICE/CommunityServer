@@ -1,0 +1,210 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import 'settings.less';
+
+.accounts_list {
+    @border-style: @messages-border-style;
+    width: 100%;
+    table-layout: fixed;
+
+    .row {
+        height: @row-height;
+        border-bottom: @border-style;
+        /* zero cell padding */
+        > * {
+            padding: 0;
+        }
+
+        td {
+            word-wrap: break-word;
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                max-width: 95%;
+                display: inline-block;
+            }
+        }
+
+        .default_account_button_column {
+            width: 24px;
+        }
+
+        .address {
+            max-width: 40%;
+
+            .accountname {
+                margin-left: @message-spliter-width;
+            }
+        }
+
+        .aliases_list {
+            .email {
+                display: block;
+                float: left;
+                width: auto;
+                margin: 0px;
+                max-width: 73%;
+                height: 18px;
+                color: #333333;
+                font-size: 12px;
+                text-decoration: none;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            &.one_email {
+                .email {
+                    max-width: 95%;
+                }
+            }
+
+            .more-aliases {
+                margin: 0 5px 0 10px;
+                text-align: right;
+                display: inline-block;
+            }
+        }
+
+        .notify_column {
+            word-wrap: normal;
+
+            .notification {
+                display: none;
+                color: #83888d;
+                cursor: default;
+                float: right;
+                padding-right: @base-distance * 2;
+            }
+        }
+
+        .manage_signature_column {
+            width: @row-height * 5.5;
+            text-align: right;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .menu_column {
+            width: @row-height;
+            padding-right: @message-spliter-width;
+
+            .entity-menu {
+                float: right;
+                margin: 0;
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+
+            .set_as_default_account_icon {
+                background-position: 0px -16px;
+                cursor: pointer;
+            }
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+
+        &:hover,
+        &.selected {
+            .notification {
+                display: inline-block;
+            }
+        }
+
+        &.disabled {
+            .address .accountname {
+                color: gray;
+                background: none;
+            }
+        }
+    }
+}
+
+.manage_signature {
+    .use_singature {
+        display: block;
+        margin: @base-distance * 2 0 @base-distance * 2 0;
+    }
+}
+
+.mail_autoreply {
+    .turn_autoreply, .only_contacts {
+        display: block;
+        margin: 5px 0 5px 0;
+    }
+
+    .bold {
+        margin-bottom: @base-distance / 2;
+    }
+
+    .mail_autoreply_to_date_bold {
+        margin-bottom: 0;
+    }
+
+    .mail_autoreply_from_to_date {
+        margin: 0 0 12px 0;
+    }
+
+    .mail_autoreply_from_date, .mail_autoreply_to_date {
+        display: inline-block;
+    }
+
+    .mail_autoreply_subject {
+        margin: 0 0 @base-distance * 2;
+    }
+
+    #autoreplySubject {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        width: 476px;
+    }
+
+    .textEditCalendar {
+        cursor: pointer;
+        margin-right: 13px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+}
+
+
+.default_account_button_column {
+    .default_account_icon_block, .group_default_account_icon_block {
+        margin-left: 8px;
+        height: 16px;
+        width: 16px;
+    }
+
+    .default_account_icon_block {
+        background: url(../images/mark_sprite.png) no-repeat transparent;
+        cursor: pointer;
+    }
+
+    .set_as_default_account_icon {
+        background-position: 0px 0px;
+    }
+
+    .default_account_icon {
+        background-position: 0px -32px;
+    }
+}

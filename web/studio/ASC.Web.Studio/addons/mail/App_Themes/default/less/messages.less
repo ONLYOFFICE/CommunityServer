@@ -1,0 +1,203 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "settings.less";
+
+.messages {
+    @border-style: @messages-border-style;
+    @muted-font-color: @messages-muted-font-color;
+
+    width: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    -ms-grid-rows: 34px;
+    grid-auto-rows: 34px;
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .row {
+        height: @row-height;
+        border-bottom: @border-style;
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: 24px @row-height @row-height*6 1fr 40px @row-height*2 @row-height*2;
+        grid-template-columns: 24px @row-height @row-height*6 1fr 40px @row-height*2 @row-height*2;
+        -ms-touch-action: auto;
+        touch-action: auto;
+
+        .a-mixin () {
+            > a {
+                height: @row-height;
+                line-height: @row-height;
+                width: 100%;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .centered-childs () {
+            * {
+                margin: auto;
+                display: block;
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+
+            .tagArrow {
+                background-position: right -60px;
+                background-repeat: no-repeat;
+            }
+
+            .author {
+                text-decoration: underline !important;
+            }
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+
+            .tagArrow {
+                background-position: right -40px;
+                background-repeat: no-repeat;
+            }
+        }
+
+
+        &.new {
+            .from .author,
+            .from .chain-counter,
+            .subject a {
+                font-weight: bold;
+            }
+        }
+        /* zero cell padding */
+        > * {
+            padding: 0;
+        }
+
+        .checkbox {
+            cursor: pointer;
+            margin: 5px 0px 0 -1px;
+            -ms-grid-column: 1;
+
+            input {
+                margin-left: 9px;
+                float: none;
+            }
+        }
+
+        .importance {
+            cursor: pointer;
+            margin: 11px 0px 0 -1px;
+            -ms-grid-column: 2;
+            .centered-childs();
+        }
+
+        .from {
+            word-wrap: break-word;
+            -ms-grid-column: 3;
+            .a-mixin();
+
+            .author {
+                max-width: @row-height * 5;
+                float: left;
+                height: @row-height;
+                line-height: @row-height;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .chain-counter {
+                padding: 0 floor((@row-height - @icon-height) / 4);
+                display: inline-block;
+            }
+        }
+
+        .subject {
+            -ms-grid-column: 4;
+            .a-mixin();
+
+            a .more-tags {
+                margin: 0 10px 0 5px;
+                color: #333;
+                cursor: pointer;
+                font-weight: normal;
+            }
+
+            .tag {
+                float: left;
+                margin: floor((@row-height - 19px) / 2) 5px floor((@row-height - 19px) / 2) 0;
+            }
+        }
+
+        .attachment {
+            -ms-grid-column: 5;
+            .a-mixin();
+            .centered-childs();
+
+            > a > [class^="icon-"], [class*=" icon-"] {
+                margin-top: floor((@row-height - @icon-height) / 2);
+            }
+        }
+
+        .folder {
+            width: @row-height * 2;
+            text-align: left;
+            color: @muted-font-color;
+            word-wrap: break-all;
+            text-transform: capitalize;
+            padding-left: @base-distance;
+            .a-mixin();
+        }
+
+        .date {
+            -ms-grid-column: 6;
+        }
+
+        .date,
+        .time {
+            text-align: right;
+            color: @muted-font-color;
+            word-wrap: break-word;
+            .a-mixin();
+        }
+
+        .time {
+            padding-right: floor((@row-height - @icon-height) / 2);
+            -ms-grid-column: 7;
+        }
+    }
+}
+
+#checkFilterResults {
+    .messages {
+        .row {
+            -ms-grid-columns: @row-height @row-height*6 1fr @row-height*2 40px @row-height*2 @row-height*2;
+            grid-template-columns: @row-height @row-height*6 1fr @row-height*2 40px @row-height*2 @row-height*2;
+        }
+    }
+}

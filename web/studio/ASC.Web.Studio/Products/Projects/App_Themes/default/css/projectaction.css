@@ -1,0 +1,145 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.mainContainerClass > .containerHeaderBlock table td > div:last-child {
+    display: none;
+}
+
+#pageHeader #TemplatesComboboxContainer {
+    float: right;
+    padding-top: 4px;
+    margin-right: 5px;
+}
+
+#pageHeader #TemplatesComboboxContainer .viewSwitcherItem {
+    padding: 0px;
+    margin-right: 4px;
+}
+
+.dottedHeader .headerPanel {
+    display: inline-block;
+    border-bottom: 1px dotted #3C4046;
+    cursor: pointer;
+}
+
+#projectTitleContainer .inputTitleContainer,
+#projectTagsContainer .dottedHeaderContent {
+    width: 500px;
+}
+
+#projectDescriptionContainer textarea {
+    resize: vertical;
+}
+
+#projectManagerContainer .headerPanelSmall,
+#projectTeamContainer .headerPanelSmall,
+#projectStatusContainer .headerPanelSmall {
+    margin-bottom:15px;
+}
+
+#projectManagerContainer .notifyManagerContainer {
+    padding-top: 10px;
+}
+
+#notifyManagerCheckbox {
+    margin: 3px 0px 0px;
+    padding: 0px;
+    float: left;
+}
+
+#projectManagerContainer label {
+    padding-left: 5px;
+}
+
+#projectStatusContainer {
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+
+#projectStatusContainer .headerPanel {
+    margin-bottom: 7px;
+}
+
+#projectTeamContainer {
+    margin-bottom: 19px;
+}
+
+#projectParticipantsContainer {
+    display: none;
+    overflow: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#projectContactsContainer {
+    margin-bottom: 20px;
+}
+
+    #projectContactsContainer.border-bottom {
+        border-bottom: 1px solid #D1D1D1;
+    }
+
+    #projectContactsContainer .no-linked-contacts {
+        display: none;
+    }
+
+    #projectContactsContainer .headerPanelSmall {
+        margin-bottom: 10px;
+    }
+
+    #projectContactsContainer .crm-contact {
+        border-top: 1px solid #D1D1D1;
+        padding: 9px 20px;
+    }
+
+#projectTagsContainer .describe-text {
+    margin-bottom: 12px;
+}
+
+.checkboxContainer,
+#projectTagsContainer {
+    margin-bottom: 22px;
+}
+
+#tagsContainer {
+    margin-top: 12px;
+    display: block;
+}
+
+.checkboxContainer input[type='checkbox'] {
+    margin: 3px 0px 0px;
+    padding: 0px;
+    float: left;
+}
+
+.checkboxContainer label {
+    padding-left: 5px;
+}
+
+#projectActionsContainer #projectDeleteButton {
+    margin-right: 0px;
+    float: right;
+    line-height: 17px;
+}
+
+.HelpCenterSwitcher {
+    margin-left: 5px;
+}
+
+#projectManager {
+    display: none;
+}

@@ -1,0 +1,159 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+/*******************************************************************************
+ListCasesView.ascx
+*******************************************************************************/
+#caseList {
+}
+#caseFilterContainer, #casesHeaderMenu, #emptyContentForCasesFilter, #casesEmptyScreen, #tableForCasesNavigation {
+    display: none;
+}
+#divForCasesPager {
+    display: inline-block;
+    clear: right;
+}
+#totalCasesOnPage {
+    margin-right: 20px;
+}
+#casesHeaderMenu {
+    width: auto;
+}
+#caseTable {
+    >tbody > tr {
+        height: 44px;
+    }
+
+    input[type="checkbox"] {
+        margin: 15px 0 15px 2px;
+    }
+}
+/*******************************************************************************
+CasesDetailsView.ascx
+*******************************************************************************/
+
+#CaseTabs {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#caseProfile {
+    margin-top: -15px;
+}
+#caseParticipantPanel {
+    display: none;
+    margin-bottom: 16px;
+    width: 500px;
+}
+/*******************************************************************************
+CasesActionView.ascx
+*******************************************************************************/
+#crm_caseMakerDialog {
+    dl {
+        dt {
+            margin: 5px 0 5px;
+        }
+
+        dd {
+            clear: both;
+            position: relative;
+            width: 100%;
+        }
+
+        &.assignedCasesContacts {
+            width: 704px;
+        }
+    }
+
+    .case_info {
+        margin-top: 5px;
+        width: 700px;
+
+        dt.headerToggleBlock {
+            margin: 24px 0 8px;
+        }
+
+        dl input[type="checkbox"] {
+            margin: 0 2px 0 0;
+            vertical-align: middle;
+        }
+
+        .casePrivatePanel {
+            margin-top: 26px;
+        }
+
+        >:not(.casePrivatePanel) input {
+            padding: 1px 2px;
+
+            &.textEditCalendar {
+                padding: 1px 18px 1px 1px !important;
+            }
+
+            &[type="checkbox"] {
+                margin: 0 2px 0 0;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .middle-button-container {
+        min-width: 750px;
+    }
+
+    .requiredField .headerPanelSmall {
+        margin: 5px 0 7px;
+    }
+
+    textarea {
+        padding: 1px 2px;
+
+        &[id^="custom_field_"] {
+            max-width: 700px;
+            min-width: 175px;
+        }
+    }
+
+    select {
+        padding: 0;
+    }
+}
+
+body.media-width-0-1200,
+body.media-width-min {
+    #crm_caseMakerDialog {
+        .middle-button-container {
+            min-width: 670px;
+        }
+
+        .case_info {
+            width: 670px;
+        }
+
+        dl.assignedCasesContacts {
+            width: 674px;
+        }
+    }
+}
+
+
+#membersCasesSelectorsContainer > div {
+    margin-bottom: 4px;
+    position: relative;
+}
+#crm_caseMakerDialog #tagsContainer {
+    position: inherit;
+}

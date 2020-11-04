@@ -1,0 +1,653 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "settings.less";
+
+@base-input-width: @base-distance * 20;
+
+.delete_entity {
+    background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
+    width: 16px;
+    height: 16px;
+
+    &:hover {
+        background-position: -20px -20px;
+        cursor: pointer;
+    }
+}
+
+#id_administration_page {
+    .containerBodyBlock {
+
+        .row, .head {
+            height: @row-height;
+            text-align: left;
+
+            .menu_column {
+                padding-right: @base-distance;
+                width: 24px;
+
+                .entity-menu {
+                    float: right;
+                    margin: 0;
+                }
+            }
+        }
+
+        .domain_table_container:first-child {
+            padding-top: 21px;
+        }
+
+        .expander-icon {
+            margin: 2px 3px 1px 4px;
+
+            &.open {
+                margin: 5px 3px 0 0;
+                border-bottom: 3px solid transparent;
+            }
+        }
+
+        .domain_table_container {
+            padding-top: 10px;
+
+            .domain {
+                margin-bottom: @base-distance;
+
+                .domain_menu {
+                    margin-left: @base-distance;
+                    -webkit-user-select: none;
+                    -khtml-user-select: none;
+                    -moz-user-select: none;
+                    -o-user-select: none;
+                    user-select: none;
+                    cursor: pointer;
+
+                    .help_center_column {
+                        .HelpCenterSwitcher {
+                            margin-bottom: -2px;
+                        }
+                    }
+
+                    .name_column {
+                        .name {
+                            font-size: 16px;
+                        }
+                    }
+
+                    .menu_column {
+                        .entity-menu {
+                            margin: 2px 0 0 6px;
+                        }
+                    }
+
+                    .verify_dns_column {
+                        .verify_dns {
+                            color: #c00;
+                            margin-left: @base-distance * 2;
+
+                            .text {
+                                padding-right:4px;
+                            }
+
+                            .link {
+                                color: #c00;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .blankContent {
+                width: 685px;
+                padding-left: 6px;
+
+                .infoImg {
+                    vertical-align: top;
+
+                    .icon {
+                        background-image: url("../images/add-mailboxes_32.png");
+                        height: 32px;
+                        width: 32px;
+                        margin-top: -4px;
+                    }
+                }
+
+                .info {
+                    margin: 0 0 0 @base-distance;
+                }
+
+                .create_new_mailbox {
+                    margin: @base-distance 0 0 @base-distance * 5;
+                }
+            }
+
+            .domain_content {
+                margin-bottom: @base-distance * 2;
+
+                .add_panel {
+                    margin-bottom: @base-distance * 2;
+                    padding-left: 6px;
+
+                    .create_new_mailbox {
+                        margin-right: @base-distance * 2;
+                    }
+                }
+
+                .group_table_container {
+                    margin-bottom: @base-distance * 2;
+
+                    .group_menu {
+
+                        .name_column {
+                            padding-left: @base-distance;
+
+                            .group_name {
+                                cursor: pointer;
+                                display: inline;
+                                width: auto;
+
+                                .group_icon {
+                                    display: inline-block;
+                                    background: url("@{base-group-icon-url}") no-repeat;
+                                    width: 12px;
+                                    height: 12px;
+                                    margin: 0 0 -1px 0;
+                                    padding-right:4px;
+                                }
+                            }
+                        }
+
+                        .menu_column {
+                            .entity-menu {
+                                margin: 2px 0 0 6px;
+                            }
+                        }
+                    }
+
+                    .group_content, .mailboxes_content {
+                        margin-left: @base-distance * 2;
+
+                        .mailbox_table {
+                            width: 100%;
+                            table-layout: fixed;
+
+                            .head {
+                                color: #83888d;
+
+                                th {
+                                    font-weight: normal;
+                                    cursor: pointer;
+
+                                    span {
+                                        font-weight: bold;
+                                        line-height: @icon-height;
+                                    }
+                                }
+
+                                .addresses_column {
+                                    padding-left: @base-distance;
+                                    padding-right: @base-distance * 2;
+                                    width: 25%;
+                                }
+
+                                .sender_column, .aliases_column {
+                                    width: 25%;
+                                }
+                            }
+
+                            .row {
+                                border-bottom: @messages-border-style;
+
+                                &:first-child {
+                                    border-top: @messages-border-style;
+                                }
+
+                                .addresses_column {
+                                    padding-left: @base-distance;
+                                    padding-right: @base-distance * 2;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                }
+
+                                .sender_column {
+                                    padding-right: @base-distance * 2;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                }
+
+                                .aliases_column {
+                                    padding-right: @base-distance * 2;
+
+                                    .mailbox_aliases {
+                                        white-space: nowrap;
+                                        overflow: hidden;
+
+                                        .email {
+                                            display: block;
+                                            float: left;
+                                            overflow: hidden !important;
+                                            width: auto !important;
+                                            margin: 0px !important;
+                                            text-overflow: ellipsis;
+                                            max-width: 50%;
+                                            height: 18px;
+
+                                            &.one_email {
+                                                max-width: 95%;
+                                            }
+                                        }
+
+                                        .more_aliases {
+                                            display: inline;
+                                            cursor: pointer;
+                                            margin-left: @base-distance;
+                                        }
+                                    }
+                                }
+
+                                .user_column {
+                                    word-wrap: break-word;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    padding-right: @base-distance * 2;
+                                }
+
+                                &:hover {
+                                    background-color: @hovered-row_bg;
+
+                                    .more_aliases {
+                                        border-bottom: 1px dotted;
+                                        text-decoration: none;
+                                        color: #333333;
+                                        font-size: 12px;
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .mailboxes_content {
+                        &.shared {
+                            .mailbox_table {
+                                .head {
+                                    .aliases_column {
+                                        display: none;
+                                    }
+
+                                    .addresses_column, .sender_column {
+                                        width: 33%;
+                                    }
+                                }
+
+                                .row {
+                                    .aliases_column {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.popupContainerClass {
+    #mail_server_domain_dns_settings {
+        .unverified_warning {
+            margin-bottom: 16px;
+        }
+
+        .verified_icon {
+            vertical-align: top;
+
+            .icon {
+                margin-top: 2px;
+                background: url("@{base-dns-sprite-url}") no-repeat;
+                background-position: 0 0;
+                height: 16px;
+                width: 20px;
+
+                &.verified {
+                    background-position: 0 @base-sprite-cell * -1;
+                }
+            }
+        }
+
+        .progressContainer {
+            margin-top: -12px;
+        }
+
+        .buttons {
+            margin-top: 0;
+        }
+    }
+
+    #mail_server_create_domain_wizard {
+        .progressContainer {
+            margin-top: -1px;
+        }
+
+        .wizard_action {
+            margin-bottom: 17px;
+        }
+
+        .web_domain {
+            width: 331px;
+        }
+
+        .buttons {
+            .step {
+                padding: 4px 8px 5px;
+                color: #b2b2b2;
+            }
+        }
+    }
+
+    #mail_server_domain_dns_settings,
+    #mail_server_create_domain_wizard {
+        .dns_record {
+            margin-left: @base-distance;
+            word-break: break-all;
+
+            .dns_record_info {
+                font-size: 14px;
+            }
+
+            .dkim_record {
+                word-wrap: break-word;
+                word-break: break-all;
+                text-align: justify;
+            }
+        }
+    }
+
+    #mail_server_create_mailbox_popup,
+    #mail_server_create_mailgroup_popup,
+    #mail_server_edit_mailbox {
+        .mailboxNameEdit,
+        .aliasNameBlock {
+            padding-right: @base-distance;
+            width: 200px;
+
+            .textEdit {
+                width: 100%;
+            }
+        }
+
+        .domainName {
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    #mail_server_create_mailbox_popup {
+        .domainName {
+            max-width: 160px;
+        }
+    }
+
+    #mail_server_create_mailgroup_popup {
+        .domainName {
+            max-width: 264px;
+        }
+    }
+
+    #mail_server_edit_mailbox {
+        .domainName {
+            max-width: 248px;
+        }
+
+        .addAlias {
+            margin: 3px 0 0 8px;
+        }
+    }
+
+    #mail_server_create_mailbox_popup,
+    #mail_server_edit_mailbox {
+        .senderName {
+            width: 340px;
+        }
+    }
+
+    #mail_server_create_mailbox_popup {
+        .textEdit {
+            margin-left: 0;
+        }
+
+        table {
+            width: 100%;
+
+            #mailboxUserContainer {
+
+                .headerPanelSmall {
+                    display: inline-block;
+                    font-weight: bold;
+                    padding-right: @base-distance;
+                }
+
+                #mailboxUserSelector {
+                    display: inline-block;
+                    position: relative;
+                }
+            }
+        }
+
+        .header-address {
+            .bold {
+                margin-bottom: 3px;
+            }
+        }
+    }
+
+    #mail_server_create_mailgroup_popup,
+    #mail_server_edit_mailbox,
+    #mail_server_edit_group {
+        .textEdit {
+            margin-left: 0;
+        }
+
+        .header-address {
+            word-break: break-all;
+            word-wrap: break-word;
+
+            .bold {
+                margin-bottom: 3px;
+            }
+        }
+
+        .mailbox_table,
+        .mailbox_aliases {
+            width: 100%;
+            max-height: @base-distance * 20;
+            overflow-y: auto;
+            margin-top: @base-distance * 2;
+
+            tr {
+                border: solid 1px #d1d1d1;
+                border-left: none;
+                border-right: none;
+                height: 33px;
+            }
+
+            .mailbox_address_column {
+                padding-left: 8px;
+                padding-right: 8px;
+                word-wrap: break-word;
+                word-break: break-all;
+            }
+
+            .delete_entity_column {
+                width: 20px;
+            }
+
+            .mailbox_address,
+            .alias_address {
+                line-height: 20px;
+                display: inline-block;
+                float: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #333333;
+            }
+
+            .delete_entity {
+                background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                cursor: pointer;
+
+                &:hover {
+                    background-position-y: -20px;
+                }
+            }
+        }
+    }
+
+    .empty_list {
+        margin-top: 0;
+    }
+
+    #mail_server_change_mailbox_password_popup {
+        .mailboxTitle {
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        #passValue {
+            height: 20px;
+            width: 243px;
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 4px;
+        }
+
+        #passwordGen {
+            width: 16px;
+            background-color: #83888d;
+            -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/rotate.svg);
+            mask-image: url(/UserControls/Users/UserProfile/css/images/rotate.svg);
+            margin-left: 4px;
+            display: inline-block;
+        }
+
+        .validationBlock {
+            position: relative;
+            height: 44px;
+
+            #bubleBlock {
+                position: absolute;
+                left: 314px;
+                top: -4px;
+
+                #passwordInfo {
+                    width: 180px;
+                    padding: 8px 12px 10px;
+                    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+                    position: relative;
+                    background: white;
+
+                    .infoItem {
+                        color: #a9adb0;
+                        padding-left: 6px;
+                    }
+
+                        .infoItem.red {
+                            color: #b40404;
+                        }
+
+                        .infoItem.green {
+                            color: #44bb00;
+                        }
+                }
+
+                .triangle {
+                    width: 0;
+                    height: 0;
+                    border-width: 9px 10px 9px 0px;
+                    border-color: transparent white transparent transparent;
+                    border-style: solid;
+                    filter: drop-shadow(-2px 1px 1px rgba(163, 163, 163, 0.55));
+                    position: absolute;
+                    top: 8px;
+                    left: -10px;
+                }
+            }
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            #passwordShowLabel {
+                position: absolute;
+                top: 6px;
+                left: 254px;
+                height: 16px;
+                width: 16px;
+                background-color: #83888d;
+            }
+
+                #passwordShowLabel.hidePwd {
+                    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+                    mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+                }
+
+                #passwordShowLabel.showPwd {
+                    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+                    mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+                }
+
+            .validationProgress {
+                position: absolute;
+                width: 0px;
+                max-width: 278px;
+                height: 2px;
+                top: 28px;
+            }
+
+            #clip {
+                position: absolute;
+                left: -1000px;
+            }
+
+            #copyValues {
+                border-bottom: 1px dotted black;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+#domainsEmptyScreen {
+    .linkMseFaq {
+        background: url("../images/ms-exchange.png") 0 3px no-repeat;
+        width: 15px;
+        height: 15px;
+        margin-left: 22px;
+        padding-left: 22px;
+        white-space: nowrap;
+    }
+}

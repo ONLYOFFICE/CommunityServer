@@ -69,12 +69,12 @@
         <asp:PlaceHolder ID="VideoGuides" runat="server"/>
     </ul>
 
-</div>
+    <% if (CurrentUserAdmin && ASC.Web.Studio.ThirdParty.ImportContacts.Import.Enable)
+        { %>
+    <div class="people-import-banner">
+        <div class="people-import-banner_text"><%= PeopleResource.ImportPeople %></div>
+        <div class="people-import-banner_img"></div>
+    </div>
+    <% } %>
 
-<% if (CurrentUserAdmin && ASC.Web.Studio.ThirdParty.ImportContacts.Import.Enable)
-    { %>
-<div class="people-import-banner">
-    <div class="people-import-banner_text"><%= PeopleResource.ImportPeople %></div>
-    <div class="people-import-banner_img"></div>
 </div>
-<% } %>

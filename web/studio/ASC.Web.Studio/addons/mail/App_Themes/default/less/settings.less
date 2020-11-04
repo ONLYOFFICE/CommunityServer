@@ -1,0 +1,74 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/* common settings */
+@imaqes-base-url: "../images/";
+@common-imaqescss-url: "/skins/default/imagescss/";
+@common-images-url: "/skins/default/images/";
+@base-distance: 8px;
+@row-height: 33px;
+@address-book-row-height: 40px;
+@selected-row_bg: #f2f2f2;
+@hovered-row_bg: #e5e5e5;
+
+/* icons params */
+@icon-height: 15px;
+@icon-width: 15px;
+@blank-icon-height: 150px;
+@blank-icon-width: 150px;
+@base-sprite-cell: 20px;
+@blank-icon-sprite-cell: 150px;
+@blank-icon-sprite-url: "@{imaqes-base-url}blank_sprite.png";
+@background-sprite-url: "@{imaqes-base-url}background_sprite.png";
+@base-icon-sprite-url: "@{imaqes-base-url}base_sprite.png";
+@base-group-icon-url: "@{imaqes-base-url}icon_group.png";
+@base-dns-sprite-url: "@{imaqes-base-url}dns_sprite.png";
+
+
+/* messages list params */
+@messages-border-style: 1px solid #d7d8dc;
+@messages-muted-font-color: #83888d;
+
+
+/* message or conversation page */
+@short-view-row-bg: #e5e5e5;
+@full-view-row-bg: #f2f2f2;
+
+/* message head */
+@message-head-row-height: 27px;
+@message-spliter-width: 8px;
+
+/* first popup */
+@central-box-width: 1000px;
+@central-box-column-width: 290px;
+@central-box-split-margin: 30px;
+
+/*link to crm popup*/
+@popup-search-input-color: #d1d1d1;
+@search_panel_width: 450px;
+@search_input_width: 448px;
+
+/* z indexes */
+@z-top: 9000;
+@z-popup: 4500;
+@z-stick-over: 2001;
+@z-stick: 200;
+@z-dropdown: 200;
+
+.blank-icon-mixin (@w, @h) {
+  background-position: (@blank-icon-sprite-cell * @w * -1) (@blank-icon-sprite-cell * @h * -1);
+}

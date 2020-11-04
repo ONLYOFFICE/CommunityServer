@@ -176,7 +176,7 @@ namespace ASC.ElasticSearch
             {
                 Indexer.Index(data, immediately);
             }
-            catch (AggregateException e)
+            catch (AggregateException e) //ElasticsearchClientException
             {
                 if (e.InnerExceptions.Count == 0) throw;
 
@@ -187,7 +187,7 @@ namespace ASC.ElasticSearch
                 {
                     Logger.Error("inner", inner.Response.OriginalException);
 
-                    if (inner.Response.HttpStatusCode == 413)
+                    if (inner.Response.HttpStatusCode == 413 || inner.Response.HttpStatusCode == 403)
                     {
                         data.ForEach(r => Index(r, immediately));
                     }
@@ -375,6 +375,7 @@ namespace ASC.ElasticSearch
                 }
                 else
                 {
+                    LogManager.GetLogger("ASC.Indexer").Fatal("FactoryIndexer container == null");
                     return;
                 }
 

@@ -1,0 +1,758 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+.crm-settings-color-base() {
+    width: 16px;
+    height: 16px;
+    float: left;
+    cursor: pointer;
+    
+    &.style1 {background-color:#f48454;}
+    &.style2 {background-color:#ffb45e;}
+    &.style3 {background-color:#ffd267;}
+    &.style4 {background-color:#b7d269;}
+    &.style5 {background-color:#6bbd72;}
+    &.style6 {background-color:#77cf9a;}
+    &.style7 {background-color:#6ac6dd;}
+    &.style8 {background-color:#4682b6;}
+    &.style9 {background-color:#6a9ad2;}
+    &.style10 {background-color:#8a98d8;}
+    &.style11 {background-color:#7e6eb2;}
+    &.style12 {background-color:#b58fd6;}
+    &.style13 {background-color:#d28cc8;}
+    &.style14 {background-color:#e795c1;}
+    &.style15 {background-color:#f2a9be;}
+    &.style16 {background-color:#df7895;}
+}
+
+.crm-settings-list-base(@line-min-height: 50px) {
+    margin: 0px;
+    padding: 0px;
+
+    li, li:hover {
+        list-style: none outside none;
+        margin: 0 0 -1px -15px;
+        min-height: @line-min-height;
+        position: relative;
+
+        > table {
+            clear: both;
+            width: 100%;
+            border: none;
+            height: @line-min-height;
+
+            td {
+                border-left: none;
+                border-right: none;
+                padding: 5px;
+
+                .ajax_loader {
+                    position: absolute;
+                    right: 12px;
+                    top: 50%;
+                    margin-top: -8px;
+                }
+            }
+        }
+    }
+
+
+    .count_link_items > a {
+        text-decoration: none;
+    }
+
+    div.sort_drag_handle {
+        background-color: @defaultBgColor;
+        background-image: url("../images/drag.png") !important;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-left: 1px solid #D1D1D1 !important;
+        cursor: move;
+        display: none;
+        left: 0;
+        min-height: 16px;
+        width: 15px;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        z-index: 500;
+        .borderRadiusLeft(5px);
+    }
+
+
+    li:hover {
+        background-color: #F2F2F2;
+        z-index: 500;
+
+        .count_link_items > a {
+            text-decoration: underline;
+        }
+
+        div.sort_drag_handle {
+            display: block;
+        }
+    }
+
+    .currentColor {
+        .crm-settings-color-base();
+        margin: 2px;
+    }
+}
+
+.crm-settings-manage-popup() {
+    dt {
+        clear: left;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    dd {
+        margin-bottom: 10px;
+    }
+
+    input, textarea {
+        width: 320px;
+    }
+
+    .change_icon,
+    .change_color {
+        margin-left: 5px;
+    }
+
+    .selectedColor {
+        .crm-settings-color-base();
+    }
+}
+
+.colorsPanelSettings {
+    height: 40px;
+    padding: 2px !important;
+    width: 160px;
+
+    span {
+        .crm-settings-color-base();
+        margin:2px;
+
+    }
+}
+
+
+#customFieldList {
+    .crm-settings-list-base;
+    display: none;
+
+    textarea {
+        resize: none;
+    }
+
+    .headerCollapse, .headerExpand {
+        color: #333333;
+        cursor: pointer;
+        padding: 0 0 0 20px !important;
+        position: relative;
+
+        &:after {
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+        }
+    }
+
+    .headerCollapse:after {
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid #83888D;
+            border-top: 6px solid transparent;
+            left: 5px;
+            margin-top: -7px;
+    }
+
+    .headerExpand:after {
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #83888D;
+        left: 2px;
+        margin-top: -4px;
+    }
+
+    div.checkbox_list label {
+        display: block;
+    }
+}
+
+#createNewField {
+    display: inline-block;
+    float: left;
+}
+
+#manageField {
+    .crm-settings-manage-popup();
+
+    dd {
+        input {
+            width: 90%;
+        }
+
+        select {
+            width: 322px;
+        }
+
+        .requiredErrorText {
+            margin-right: 27px;
+        }
+    }
+
+    dt.field_mask,
+    dd.field_mask {
+        display: none;
+    }
+
+    dl ul {
+        margin: -2px 0 0;
+        max-height: 200px;
+        overflow: auto;
+        padding: 1px 0;
+
+        li {
+            padding: 0px;
+            list-style: none;
+            margin: 10px 0 0 0;
+
+            label.deleteBtn {
+                background: url("../images/icons.png") 0 -263px no-repeat transparent;
+                cursor: pointer;
+                display: inline-block;
+                height: 16px;
+                margin-top: -1px;
+                vertical-align: middle;
+                width: 16px;
+            }
+        }
+
+            li:first-child {
+                margin-top: 0px;
+            }
+    }
+}
+
+#addOptionButton {
+    border-bottom-color: #8E908F;
+    color: #272727;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+
+#customFieldActionMenu,
+#dealMilestoneActionMenu,
+#listItemActionMenu {
+    z-index: 501;
+}
+#emptyListItemContent,
+#emptyDealMilestoneContent,
+#emptyTeplateContent {
+    display: none;
+}
+
+.iconsPanelSettings {
+    padding: 4px;
+}
+.iconsPanelSettings label.event_category,
+.iconsPanelSettings label.task_category,
+#listView label.currentIcon {
+    border: solid 1px Transparent;
+    cursor: pointer;
+    float: left;
+    margin: 1px;
+}
+.iconsPanelSettings label.event_category:hover,
+.iconsPanelSettings label.task_category:hover,
+#listView label.currentIcon:hover {
+    border: 1px solid #D5D5D5;
+    background-color: #F5F5F5;
+}
+
+
+#listView {
+    .crm-settings-list-base;
+    
+    li div.ajax_change_icon {
+        position: absolute;
+        left: 26px;
+        top: 50%;
+        margin-top: -12px;
+    }
+}
+
+#manageItem {
+    .crm-settings-manage-popup();
+    label.selectedIcon {
+        border: solid 1px Transparent;
+        margin: -3px;
+    }
+}
+
+#dealMilestoneList {
+    .crm-settings-list-base;
+}
+
+#manageDealMilestone {
+    .crm-settings-manage-popup();
+    ul {
+        display: block;
+        margin-bottom: -10px;
+        margin-top: -5px;
+        padding: 5px;
+
+        li {
+            line-height: 9pt;
+            list-style: none outside none;
+            margin-left: 20px;
+            padding: 5px 2px;
+
+            > input {
+                margin-left: -20px;
+                vertical-align: middle;
+                width: auto;
+            }
+
+            > label {
+                vertical-align: bottom;
+            }
+        }
+    }
+}
+
+.fakeTabContainer {
+    padding: 0;
+    margin: 0;
+    border: 0 none;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/*************************
+* Tags
+**************************/
+
+#tagList {
+    .crm-settings-list-base(40px);
+    display: none;
+
+    li, li:hover {
+        margin: 0 0 -1px 0;
+    }
+
+    div.ajax_loader {
+        margin-right: 16px;
+    }
+
+    .title {
+        vertical-align: middle;
+        padding-left: 15px;
+        .text-overflow(500px);
+    }
+}
+
+#TagSettingsTabs, #CustomFieldsTabs, #TaskTemplateViewTabs {
+    margin-bottom: 20px;
+}
+
+/*************************
+* Task Templates
+**************************/
+.templateHeader-splitter {
+    margin-bottom: 15px;
+}
+.templateHeaderSmall-splitter {
+    margin-bottom: 5px;
+}
+.templateTitle {
+    color: #1A6DB3 !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.divForTemplateTitle {
+    max-width: 360px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#templateConatainerContent {
+    display: none;
+    margin: 0px;
+    padding: 0px;
+
+    .headerCollapse,
+    .headerExpand {
+        color: #1A6DB3;
+        cursor: pointer;
+        padding: 0 0 0 20px !important;
+    }
+
+    .headerCollapse {
+        background: url("../images/icons.png") 0 -103px no-repeat transparent;
+    }
+
+    .headerExpand {
+        background: url("../images/icons.png") 0 -131px no-repeat transparent;
+    }
+
+    li, li:hover {
+        list-style: none outside none;
+        margin-bottom: -1px;
+        min-height: 50px;
+    }
+
+    .templateContainer_row {
+        width: 100%;
+        height: 50px;
+    }
+
+    table.templateContainer_row td {
+        border-left: none;
+        border-right: none;
+        padding: 5px;
+    }
+
+    img.loaderImg, li:hover img.loaderImg {
+        cursor: pointer;
+        margin: 0 2px;
+        width: 16px;
+        height: 16px;
+    }
+}
+/*************************
+* Web to Lead Forms and Custom Settings
+**************************/
+.settingsHeader {
+    margin-bottom: 20px;
+
+    &.settingsHeaderLogo, &.settingsHeaderAddress {
+        margin-top: 35px;
+    }
+}
+.settingsHeaderWithDigit {
+    margin-bottom: 12px;
+    margin-top: 19px;
+
+    td {
+        vertical-align: top;
+
+        label {
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -6px;
+        }
+    }
+}
+.settingsFirstDescription {
+    margin: 10px 0;
+}
+.settingsSecondDescription {
+    margin: 10px 0 20px;
+}
+.settingsNewItemBlock {
+    margin: 0 0 8px 0;
+
+    .settingsConfirmDialogBlock {
+        float: right;
+
+        input {
+            float: left;
+        }
+
+        label {
+            float:left;
+            padding: 2px 0 0 4px;
+        }
+    }
+}
+.panelSplitter {
+    margin-bottom: 10px;
+}
+dl.pm-flexible dt {
+    float: left;
+    text-align: right;
+}
+#propertiesPanel {
+    dt {
+        padding-bottom: 15px;
+        width: 100px;
+        padding-top: 2px;
+    }
+
+    dd {
+        margin-left: 110px;
+        padding-bottom: 15px;
+    }
+}
+td.digits {
+    color: #3186AF;
+    float: left;
+    font-family: Verdana;
+    font-size: 46px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+.error_info_panel {
+    background-color: #FEECD6;
+}
+#properties_webFormKey .refreshBtn {
+    background: url("../images/icons.png") 0 -743px no-repeat transparent;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 5px;
+    height: 16px;
+    width: 16px;
+    text-decoration:none;
+}
+
+#sendTestMailPanel {
+    .testMailFieldsTable {
+        border-collapse: collapse;
+        padding: 0;
+        width: 100%;
+        margin-bottom: 2px;
+
+        td {
+            height: 28px;
+        }
+        .bold {
+            white-space: nowrap;
+        }
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+
+    .testMailBodyField {
+        resize: none;
+    }
+}
+
+#SMTPSettingsPannel {
+    margin-right:24px;
+    min-width: 420px;
+}
+#tbxHost,
+#tbxHostLogin,
+#tbxHostPassword,
+#tbxSenderDisplayName,
+#tbxSenderEmailAddress {
+    width: 200px;
+}
+#tbxPort {
+    width: 50px;
+    float: left;
+}
+#cbxAuthentication {
+    margin:4px 6px 0 10px;
+    float: left;
+}
+#cbxEnableSSL {
+    float: left;
+    margin-left: 0px;
+    margin-right: 6px;
+}
+#SMTPSettingsPannel>table {
+    margin-left: -4px;
+}
+
+/*******************************************************************************
+InvoiceItemView.ascx, InvoiceTaxesView.ascx
+*******************************************************************************/
+#invoiceItemsHeaderMenu {
+    display: block;
+    width: auto;
+}
+#invoiceItemsList,
+#invoiceTaxesList {
+    display: none;
+}
+
+#invoiceItemsFilterContainer, #invoiceItemsHeaderMenu, #tableForInvoiceItemsNavigation {
+    display: none;
+}
+#divForInvoiceItemsPager {
+    clear: right;
+    display: inline-block;
+}
+#totalInvoiceItemssOnPage {
+    margin-right: 20px;
+}
+#invoiceItemsHeaderMenu {
+    width: auto;
+}
+#invoiceItemsTable > tbody > tr,
+#invoiceTaxesTable > tbody > tr {
+    height: 44px;
+}
+#invoiceItemsTable input[type="checkbox"] {
+    margin: 15px 0 15px 2px;
+}
+#totalInvoiceItemsOnPage {
+    margin-right: 20px;
+}
+#invoiceItemsTable .invoiceItemSKU,
+#invoiceItemsTable .invoiceTaxes div,
+#invoiceItemsTable .invoiceItemQuantity div,
+#invoiceItemsTable .invoiceItemPrice div,
+#invoiceTaxesTable .invoiceTaxName,
+#invoiceTaxesTable .invoiceTaxRate,
+#invoiceTaxesTable .invoiceTaxDscr  {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+
+    padding: 0 8px;
+}
+
+#invoiceItemsList .invoiceItemSKU,
+#invoiceItemsList .invoiceItemQuantity div,
+#invoiceItemsList .invoiceItemPrice div,
+#invoiceItemsList .invoiceTaxes div {
+    max-width: 150px;
+}
+
+.tooltip[id^='tooltipTaxes'] {
+    min-width: 150px;
+}
+#invoiceTaxesTable .invoiceTaxName,
+#invoiceTaxesTable .invoiceTaxRate {
+    max-width: 200px;
+}
+#invoiceTaxesTable .invoiceTaxDscr {
+    max-width: 800px;
+}
+
+/*******************************************************************************
+InvoiceItemActionView.ascx
+*******************************************************************************/
+#crm_invoiceItemMakerDialog {
+    margin-top: 16px;
+}
+#crm_invoiceItemMakerDialog .item_info {
+    width: 310px;
+}
+#crm_invoiceItemMakerDialog input.textEdit,
+#crm_invoiceItemMakerDialog textarea,
+#crm_invoiceItemMakerDialog select {
+    width: 100%;
+}
+#crm_invoiceItemMakerDialog input.invoiceItemPrice {
+    width: 75px;
+}
+
+#crm_invoiceItemMakerDialog .invoiceItemTaxesTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+#invoiceItemInventoryStock {
+    vertical-align: middle;
+    margin-top: 0;
+    margin-left: 0;
+}
+#crm_invoiceItemMakerDialog .currentQuantity {
+    margin-top: 8px;
+    position: relative;
+}
+
+/*******************************************************************************
+InvoiceTax action popup panel
+*******************************************************************************/
+#manageTax {
+    .taxName, textarea {
+        width: 100%;
+    }
+
+    .taxRate {
+        width: 50px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .requiredField {
+        margin-bottom: 10px;
+    }
+
+    .header-base-small {
+        margin-bottom: 5px;
+    }
+}
+
+
+#settings_organisation_profile {
+    .settingsOrganisationProfileName,
+    .companyLogoComtainer {
+        width: 360px;
+        margin-right: 15px;
+    }
+
+    .contact_photo {
+        max-height: 150px;
+        max-width: 200px;
+    }
+
+    .address-tbl {
+        float: left;
+        max-width: 360px;
+        width: 360px;
+        margin-right: 15px;
+    }
+    .fileUploadError {
+        color: #CC0000;
+        display: none;
+        font: 12px Tahoma;
+    }
+}
+
+/*******************************************************************************
+Currency Settings
+*******************************************************************************/
+#currencySettingsPannel {
+    width: 400px;
+}
+#defaultCurrency {
+    margin-bottom: 22px;    
+}
+#addCurrencyRate {
+    margin-top: -4px;
+}
+#currencyRateList {
+    margin-top: 32px;
+}
+.currency-rate-item {
+    margin-top: 16px;
+
+    span {
+        display: inline-block;
+        width: 35px;
+        text-align: center;
+    }
+
+    .crm-deleteLink {
+        height: 14px;
+    }
+}

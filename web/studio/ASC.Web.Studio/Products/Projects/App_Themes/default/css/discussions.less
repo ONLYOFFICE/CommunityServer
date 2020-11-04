@@ -1,0 +1,169 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+#emptyListDiscussion {
+    display: none;
+}
+
+#discussionsList {
+    display: none;
+
+    .discussionContainer {
+        min-height: 82px;
+        border-top: 1px solid #C5C5C5;
+
+        .discussionHeaderContainer {
+            padding-bottom: 20px;
+
+            .discussionHeader {
+                color: #111111;
+                font-size: 24px;
+            }
+        }
+
+        .discussionAuthorAvatar {
+            float: left;
+            text-align: center;
+
+            img {
+                font-weight: bold;
+                color: blue;
+                width: 82px;
+                height: 82px;
+            }
+        }
+
+        .discussionDescriptionContainer {
+            margin-left: 98px;
+            overflow: hidden;
+            max-width: 70%;
+
+           .discussionText {
+                overflow: hidden;
+                padding: 8px 8px 16px;
+                word-wrap: break-word;	
+            }
+
+           .discussionCreatedDate {
+                color: #787878;
+                font-size: 12px;
+                padding-left: 5px;
+            }
+        }
+
+        .discussionAuthorTitle {
+            color: #787878;
+            font-size: 12px;
+        }
+
+    }
+
+    .title-list a {
+        white-space: normal;
+    }
+
+    .status {
+        background-color: #e6e6e6;
+        color: #83888d;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 10px;
+        padding: 2px 5px;
+        margin: 2px 0 0 8px;
+        max-width: 60px;
+        overflow: hidden;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+}
+
+.discussionTitle {
+    margin: 0px 0px 8px;
+    overflow: hidden;
+}
+
+
+/*----discussion action-----*/
+
+#discussionProjectContainer {
+	margin-bottom: 20px;
+    margin-right: 190px;
+}
+
+#discussionTitleContainer
+{
+	margin-bottom: 20px;	
+}
+
+#discussionTextContainer
+{
+	margin-bottom: 20px;	
+}
+
+#discussionButtonsContainer
+{ 
+	margin-bottom: 20px;
+}
+
+#discussionTabsContent
+{
+    clear: left;
+    padding-top: 20px;
+    width: 100%
+}
+
+#discussionParticipantsContainer {
+    .userLink {
+        padding-left: 18px;
+    }
+    .inviteMessage {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+}
+
+
+#discussionPreviewContainer
+{
+	display: none;
+	padding-left: 15px;
+}
+
+/*----discussion details-----*/
+#discussionCommentsContainer #commentsTitle,
+#discussionCommentsContainer #noComments{
+	display: none !important;
+}
+
+#discussionCommentsContainer #mainCommentsContainer
+{
+	width: 100% !important;
+}
+
+#currentLink
+{
+	display: none;
+}
+
+.items-display-list_i.gray .item-name{
+    color: #83888D;
+}
+
+#discussionParticipantsTable, #discussionParticipants {
+    margin-top: 10px;
+}

@@ -1,0 +1,306 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+
+#voip-quick-view {
+    display: none;
+}
+
+.phone-popup
+{
+    display: none;
+}
+
+#existing-numbers-empty-box {
+    display: none;
+    margin-top: 10px;
+}
+
+#existing-numbers-list {
+    display: none;
+    width: 700px;
+    margin-top: 25px;
+
+    .number {
+        &:hover .number-box {
+            background-color: #f2f2f2;
+        }
+
+        &#existing-numbers-header {
+            line-height: 32px;
+            color: #808080;
+            font-weight: normal;
+            font-size: 12px;
+
+            &:hover .number-box {
+                background-color: transparent;
+            }
+
+            .number-box .title {
+                width: 410px;
+                font-weight: normal;
+                font-size: 12px;
+            }
+        }
+
+        .cell {
+            height: 32px;
+            float: left;
+
+            .on_off_button {
+                margin-top: 8px;
+            }
+        }
+
+        .number-box {
+            border-bottom: 1px solid #d1d1d1;
+
+            &.selected, &.operator-selected {
+                background-color: #f2f2f2;
+            }
+
+            &.selected .actions {
+                background-position: center bottom;
+            }
+
+            .switcher {
+                width: 30px;
+                cursor: pointer;
+
+                .expander-icon {
+                    margin-top: 12px;
+                    margin-left: 8px;
+                }
+            }
+
+            .title {
+                width: 380px;
+                line-height: 32px;
+                font-size: 14px;
+                font-weight: bold;
+
+                .support-level {
+                    margin-left: 10px;
+                    color: #808080;
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+            }
+
+            .outgoing-calls {
+                width: 130px;
+            }
+
+            .voicemail {
+                width: 130px;
+            }
+
+            .recording-calls {
+                width: 130px;
+            }
+
+            .actions {
+                margin-top: 6px;
+                width: 14px;
+                height: 14px;
+
+                .studio-action-panel {
+                    .dropdown-item a {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+
+        .operators-box {
+            display: none;
+            border-bottom: 1px solid #d1d1d1;
+            padding-left: 30px;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .add-operators-box {
+                height: 32px;
+                border-bottom: 1px solid #d1d1d1;
+
+                .add-operators-btn {
+                    margin-top: 6px; 
+                }
+            }
+
+            .operator {
+                height: 32px;
+                border-bottom: 1px solid #d1d1d1;
+
+                &.selected {
+                    background-color: #f2f2f2;
+
+                    .actions {
+                        background-position: center bottom;
+                    }
+                }
+
+                &:hover {
+                    background-color: #f2f2f2;
+                }
+
+                .title {
+                    width: 380px;
+                    line-height: 32px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 7px;
+                        vertical-align: middle;
+                    }
+                }
+
+                .outgoing-calls {
+                    width: 130px;
+                }
+
+                .voicemail {
+                    width: 130px;
+                }
+
+                .recording-calls {
+                    width: 130px;
+                }
+
+                .actions {
+                    margin-top: 6px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+    }
+}
+
+#number-type-selector {
+    margin-bottom: 15px;
+    width: 250px;
+}
+
+#country-selector-box {
+    border: 1px solid #c7c7c7;
+    height: 21px;
+    line-height: 21px;
+    position: relative;
+    width: 475px;
+    float: left;
+
+    #country-selector, #country-code, #country-input, #country-input-clear-btn {
+        float: left;
+    }
+
+    #country-selector {
+        margin: 5px;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    #country-code {
+        margin-right: 5px;
+        margin-left: 15px;
+    }
+
+    #country-input {
+        border: none;
+        margin: 0;
+        padding: 0;
+        height: 21px;
+        line-height: 17px;
+        width: 300px;
+        font-size: 12px;
+    }
+
+    #country-input-clear-btn {
+        display: none;
+        margin-top: 2px;
+        margin-right: 3px;
+        float: right;
+    }
+
+    .studio-action-panel {
+        top: 21px;
+        left: -7px;
+
+        .dropdown-item {
+            width: 200px;
+            max-width: 200px;
+
+            .voip-flag {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+#country-selector-search-btn {
+    float: right;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.numbers-box {
+    margin: 10px 0 40px;
+    border-top: 1px solid #dadada;
+    height: 250px;
+    
+    overflow-y: auto;
+    
+    .number {
+        line-height: 32px;
+        border-bottom: 1px solid #dadada;
+
+        input[type=radio], .number-value {
+            display: inline-block;
+        }
+
+        input[type=radio] {
+            margin: -3px 5px 0 5px;
+            vertical-align: middle;
+        }
+
+        .number-value {
+            font-weight: bold;
+        }
+    }
+
+    .numbers-loader {
+        display: none;
+        background: url("../images/loader_24.gif") no-repeat scroll left center transparent;
+        font-size: 14px;
+        margin: 50px 0 0 50px;
+        padding: 10px 0 10px 40px;
+    }
+
+    .numbers-empty-msg, #available-numbers-empty-search-msg {
+        display: none;
+        font-size: 14px;
+        margin: 50px 0 0 50px;
+    }
+}
+
+#show-link-phone-popup-btn{
+    margin-left: 25px;
+}

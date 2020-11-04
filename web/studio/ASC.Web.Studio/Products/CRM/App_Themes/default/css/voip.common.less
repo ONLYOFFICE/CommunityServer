@@ -1,0 +1,142 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+
+#voip-common-view {
+    display: none;
+    
+    .common-setting-item {
+        margin-bottom: 29px;
+
+        .header-base-small {
+            margin-bottom: 8px;
+        }
+
+        #queue-size-selector, #queue-wait-time-selector, #operator-pause-selector {
+            width: 250px;
+        }
+    }
+
+    #ringtones-list {
+        width: 830px;
+        margin-top: 30px;
+
+        .cell {
+            height: 32px;
+            float: left;
+        }
+
+        .ringtone-group {
+
+            &.header {
+                .cell {
+                    line-height: 32px;
+                    color: #808080;
+                    font-size: 12px;
+                    width: 830px;
+                }
+
+                .ringtone-group-box:hover {
+                    background-color: transparent;
+                }
+            }
+
+            &:hover .ringtone-group-box, &:hover .ringtone:hover {
+                background-color: #f2f2f2;
+            }
+
+            .ringtone-group-box {
+                border-bottom: 1px solid #d1d1d1;
+                
+                &.selected, &.ringtone-selected {
+                    background-color: #f2f2f2;
+                }
+
+                &.selected .actions {
+                    background-position: center bottom;
+                }
+
+                .switcher {
+                    width: 30px;
+                    cursor: pointer;
+
+                    .expander-icon {
+                        margin-top: 12px;
+                        margin-left: 8px;
+                    }
+                }
+
+                .title {
+                    width: 770px;
+                    line-height: 32px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                .actions {
+                    margin-top: 6px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+
+            .ringtones-box {
+                display: none;
+                padding-left: 30px;
+
+                .ringtone {
+                    border-bottom: 1px solid #d1d1d1;
+
+                    &.selected {
+                        background-color: #f2f2f2;
+
+                        .actions {
+                            background-position: center bottom;
+                        }
+                    }
+
+                    .title {
+                        width: 770px;
+                        line-height: 32px;
+                        font-size: 12px;
+                        font-weight: normal;
+                        position: relative;
+
+                        .loader16 {
+                            display: none;
+                            float: left;
+                            position: relative;
+                            left: -20px;
+                            top: 8px;
+                        }
+
+                        .btn-icon {
+                            margin-right: 5px;
+                        }
+                    }
+
+                    .actions {
+                        margin-top: 6px;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

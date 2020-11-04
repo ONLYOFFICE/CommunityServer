@@ -1,0 +1,305 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "settings.less";
+
+.tag {
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px 5px 0 0;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+
+  .name {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 19px;
+    height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+  }
+
+  &.color {
+    .outer {
+      padding: 2px;
+      border: 1px solid #C7C7C7;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .inner {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+
+  .square, .entertagname .square {
+    margin: 5px 4px 0 0;
+    display: inline-block;
+    width: 5px;
+    height: 9px;
+    cursor: pointer;
+    float: left;
+  }
+
+  &.tagArrow:hover {
+    .tagDelete {
+      display: inline-block;
+    }
+    .name {
+      border-bottom: none;
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    .square {
+      background-color: #e9e9e9 !important;
+      cursor: default;
+    }
+    .name {
+      cursor: default;
+      color:  #999;
+    }
+
+    &:hover {
+      .name {
+        background: none !important;
+      }
+    }
+  }
+}
+
+.tagArrow {
+    height: 20px;
+    line-height: 20px;
+    background: url("@{background-sprite-url}") right -20px no-repeat;
+    color: white;
+    padding: 0 10px 0 7px;
+    position: relative;
+    font-weight: normal;
+
+    .name {
+        color: white;
+    }
+}
+
+.tagDelete {
+    cursor: pointer;
+    width: 11px;
+    height: 12px;
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    display: none;
+    background: url("@{base-icon-sprite-url}") -40px -40px no-repeat;
+    margin-left: 3px;
+}
+
+.tag1 { background-color: #F48454; }
+.tag2 { background-color: #FFB45E; }
+.tag3 { background-color: #D4CD67; }
+.tag4 { background-color: #B7D269; }
+.tag5 { background-color: #6BBD72; }
+.tag6 { background-color: #77CF9A; }
+.tag7 { background-color: #6AC6DD; }
+.tag8 { background-color: #4682B6; }
+.tag9 { background-color: #6A9AD2; }
+.tag10 { background-color: #8A98D8; }
+.tag11 { background-color: #7E6EB2; }
+.tag12 { background-color: #B58FD6; }
+.tag13 { background-color: #D28CC8; }
+.tag14 { background-color: #E795C1; }
+.tag15 { background-color: #F2A9BE; }
+.tag16 { background-color: #DF7895; }
+
+.tag_list {
+    @border-style: @messages-border-style;
+    width: 100%;
+    table-layout: fixed;
+
+    .tag_item {
+        height: @row-height;
+        border-bottom: @border-style;
+        /* zero cell padding */
+        > * {
+            padding: 0;
+        }
+
+        .label {
+            .tag {
+                margin-left: @message-spliter-width;
+                cursor: default;
+            }
+        }
+
+        .addresses {
+            text-align: right;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 95%;
+        }
+
+        .notify_column {
+            padding-right: @message-spliter-width;
+
+            .notification {
+                display: none;
+                color: #83888d;
+                cursor: default;
+                float: right;
+                width: 350px;
+                text-align: right;
+            }
+        }
+
+        .menu_column {
+            padding-right: @message-spliter-width;
+
+            .entity-menu {
+                float: right;
+                right: 0px;
+                margin: 0;
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+
+        &:hover,
+        &.selected {
+            .notification {
+                display: inline-block;
+            }
+
+            .more_lnk {
+                .gray {
+                    border-bottom: 1px dotted #333;
+                }
+            }
+        }
+    }
+}
+
+.linked_addresses {
+    .addemail {
+        width: 278px !important;
+        margin-bottom: 0 !important;
+        float: left;
+    }
+}
+
+#tagWnd {
+    .required-hint {
+        position: absolute;
+        right: 16px;
+        max-width: 44%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #mail_CreateTag_Name {
+        position: relative;
+
+        .required-hint {
+            top: -19px;
+        }
+
+        .tag {
+            margin: 0 6px 0 -1px;
+        }
+
+        #mail_tag_name {
+            margin-bottom: 10px;
+            display: inline-block;
+            width: 250px;
+        }
+    }
+
+    #mail_CreateTag_Email {
+        position: relative;
+
+        .headerPanelSmall:after {
+            content: "";
+        }
+
+        .required-hint {
+            top: 1px;
+            max-width: 35%;
+        }
+    }
+
+        #mail_CreateTag_Email.requiredFieldError {
+            input[type="email"]:focus {
+                border-color: #c00;
+            }
+        }
+
+    #deleteTagShure {
+        word-break: break-all;
+    }
+
+    .clearFix.save {
+        height: 32px;
+        width: 275px;
+    }
+}
+
+.tagEditEmailList {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    #mail_EmailsContainer {
+        margin-top: 16px;
+        max-height: 122px;
+        padding-bottom: 1px;
+        .tagAddress {
+            line-height: 20px;
+            display: inline-block;
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #333333;
+            max-width: 256px;
+        }
+
+        .removeTagAddress {
+            background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            cursor: pointer;
+            margin: 3px 0 0 8px;
+
+            &:hover {
+                background-position-y: -20px;
+            }
+        }
+    }
+}

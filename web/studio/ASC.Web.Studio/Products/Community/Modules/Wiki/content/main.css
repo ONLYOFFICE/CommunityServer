@@ -1,0 +1,479 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+body 
+{
+	margin:0;
+	padding:0;
+}
+
+
+div.wikiList
+{
+	border: solid 1px #333;
+	height: 100%;
+	margin: 0 5px;
+	width: 150px;
+}
+
+
+.wiki div.wikiEdit
+{
+	width: 100%;
+	background:White;
+}
+
+div.wiki { font-size: 12px; color:#000; background-color: #fff;  }
+.wiki h1 { font-size: 24px; border-bottom: solid 1px #000; }
+.wiki h2 { font-size: 21px; border-bottom: solid 1px #000; }
+.wiki h3 { font-size: 18px; }
+.wiki h4 { font-size: 14px; font-weight:bold; }
+.wiki h5 { }
+
+.wiki a[name].hAncor
+{
+	background:none;
+	border: none;	
+	display:block;
+}
+
+.wiki .FCK__Anchor
+{
+	display:none !important;
+	width:0px  !important;
+	height:0px  !important;
+}
+
+.wiki h1 img.FCK__Anchor, .wiki h2 img.FCK__Anchor, .wiki h3 img.FCK__Anchor, .wiki h4 img.FCK__Anchor, .wiki h5 img.FCK__Anchor
+{
+	background:transporent !important;
+	width:0px;
+}
+
+
+
+.wiki .editsection a
+{
+	color:#333333 !important;
+}
+
+.wiki .editsection 
+{
+	float:right;
+	margin:0 5px;
+	font-weight:normal;
+	font-size: 12px;
+}
+
+.wiki .editsection 
+{
+	float:right;
+	margin:0 5px;
+	font-weight:normal;
+}
+
+.wiki h1 .editsection 
+{
+	padding-top:14px;
+	
+}
+
+.wiki h2 .editsection 
+{
+	padding-top:9px;
+}
+
+.wiki h3 .editsection 
+{
+	padding-top:2px;
+}
+
+.wiki h4 .editsection 
+{
+	
+}
+
+
+
+
+.wiki a.external { background: url(external.png) center right no-repeat; padding-right: 13px; }
+.wiki a.secure { background: url(lock_icon.gif) center right no-repeat; padding-right: 16px; }
+.wiki a.mail { background: url(mail_icon.gif) center right no-repeat; padding-right: 18px; padding-bottom: 2px; }
+.wiki a.internalNotExists { color:Red !important; }
+.wiki a.ftp { background: url(file_icon.gif) center right no-repeat; padding-right: 16px; }
+.wiki a:link { color: #002bb8; text-decoration: none; }
+.wiki a:visited { color: #5a3696; text-decoration: none; }
+.wiki a:active { text-decoration: none; }
+.wiki a:hover { text-decoration: underline; }
+
+.wiki dt { font-weight: bold; margin-top: 1pt; margin-bottom: 1pt; }
+.wiki pre 
+{
+	background-color:#F9F9F9;
+	border:1px dashed #2F6FAB;
+	color:black;
+	line-height:1.1em;
+	padding:1em;
+	margin:1em;
+}
+
+.wiki .categoriesArea
+{
+	background-color: #F9F9F9;
+    border: 1px solid #AAAAAA;
+    color: black;
+    line-height: 1.1em;
+    margin: 1em 0;
+    padding: 1em;
+    word-wrap: break-word;
+}
+
+.wiki hr { color: #CCCCCC; height: 1px; width: 80%; text-align: center; }
+
+.wiki table { background-color: White; }
+.wiki th { font-size: 9pt; }
+.wiki td { font-size: 9pt; }
+
+.wiki ol li { list-style-type: decimal }
+.wiki ol li li { list-style-type: lower-alpha }
+.wiki ol li li li { list-style-type: lower-roman }
+.wiki ol li li li li { list-style-type: none }
+
+div.TOC { background-color:#EEEEEE; border:1px solid #CCCCCC; margin-bottom:15px; padding:15px 10px 20px 0; width:266px; overflow:hidden;}
+div.TOC div.TOC1 {  }
+div.TOC div.TOC2 { margin-left: 20px; }
+div.TOC div.TOC3 { margin-left: 40px; }
+div.TOC span.TOCNr { display:inline-block; padding-right:6px; text-align:right; width:30px; float:left; }
+div.TOC div {padding:3px 0; clear:both;}
+div.TOC div a { word-wrap: break-word; clear:right; display:inline-block; float:right;}
+div.TOC div.TOC1 a{ width:230px;  }
+div.TOC div.TOC2 a{ width:210px; }
+div.TOC div.TOC3 a{ width:190px; }
+
+div.LinkTOC { font-size: 80%; border-top: 1px solid #CCCCCC; padding-top: 5px; }
+div.LinkTOC span.LinkTOCNr { width: 25px; }
+
+
+
+/*MarkupToolbarDiv styles*/
+.wiki div.MarkupToolbarDiv
+{
+	
+}
+
+.wiki  div.MarkupToolbarDiv .toolbarbutton
+{
+	width:16px;
+	height:16px;
+	margin:2px;
+	display:inline-block;
+	cursor:pointer;
+	background:none;
+}
+
+.wiki  div.MarkupToolbarDiv .toolbarbuttonAdditional
+{
+	display:inline-block;
+	zoom:1;
+	*display:inline;
+}
+
+.wiki  div.MarkupToolbarDiv .toolbarbutton:hover
+{
+	background: solid 1px Blue;
+}
+
+.wiki  div.MarkupToolbarDiv .Bold
+{
+	background: url(bold.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Italic
+{
+	background: url(italic.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Underlined
+{
+	background: url(underlined.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Striked
+{
+	background: url(striked.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .H1
+{
+	background: url(h1.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .H2
+{
+	background: url(h2.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .H3
+{
+	background: url(h3.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .H4
+{
+	background: url(h4.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Superscript
+{
+	background: url(superscript.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Subscript
+{
+	background: url(subscript.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .PageLink
+{
+	background: url(pagelink.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .FileLink
+{
+	background: url(file.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .ExternalLink
+{
+	background: url(link.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Image
+{
+	background: url(image.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Anchor
+{
+	background: url(anchor.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .LineBreak
+{
+	background: url(br.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .SpetialTags
+{
+	background: url(specialtags.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .HR
+{
+	background: url(hr.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .CodeInline
+{
+	background: url(code.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .CodeEscaped
+{
+	background: url(pre.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Escape
+{
+	background: url(escape.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .NoWiki
+{
+	background: url(nowiki.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .NoBr
+{
+	background: url(nobr.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .WrapperBox
+{
+	background: url(box.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Comment
+{
+	background: url(comment.png) top left no-repeat;
+}
+
+.wiki  div.MarkupToolbarDiv .Symbols
+{
+	background: url(symbol.png) top left no-repeat;
+}
+
+/*End MarkupToolbarDiv styles*/
+
+/*Wiki Image containers*/
+.wiki div.thumb 
+{
+	border-color:white;
+	border-style:solid;
+	margin-bottom:0.5em;
+	width:auto;
+}
+
+.wiki div.tright, .wiki div.floatright
+{
+	border:medium none;
+	margin:0.5em 0 0.8em 1.4em;
+}
+
+.wiki div.tleft, .wiki div.floatleft
+{
+	border:medium none;
+	margin:0.5em 1.4em 0.8em 0;
+}
+
+.wiki div.tright, .wiki div.floatright
+{
+	border-width:0.5em 0 0.8em 1.4em;
+	clear:right;
+	float:right;
+}
+
+.wiki div.tleft, .wiki div.floatleft
+{
+	border-width:0.5em 1.4em 0.8em 0;
+	clear:left;
+	float:left;
+}
+
+.wiki div.tcenter div.thumbinner, .wiki div.floatcenter img
+{
+	margin:0px auto !important;
+}
+
+.wiki div.floatcenter img
+{
+	display:block;
+}
+
+.wiki div.thumbinner 
+{
+	background-color:#F9F9F9;
+	border:1px solid #CCCCCC;
+	font-size:94%;
+	overflow:hidden;
+	padding:3px !important;
+	text-align:center;
+}
+
+.wiki  .thumbinner 
+{
+	min-width:100px;
+}
+
+.wiki  a.image 
+{
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	background:transparent none repeat scroll 0 0;
+	color:#002BB8;
+	text-decoration:none;
+}
+
+.wiki  img 
+{
+	border:medium none;
+	vertical-align:middle;
+}
+
+.wiki  .thumbimage 
+{
+	border:1px solid #CCCCCC;
+}
+
+.wiki div.thumb div a img 
+{
+	background-color:#FFFFFF;
+}
+
+
+.wiki div.thumbcaption 
+{
+	border:medium none;
+	font-size:94%;
+	line-height:1.4em;
+	padding:3px !important;
+	text-align:left;
+}
+
+.wiki .thumbcaption 
+{
+	text-align:left;
+}
+
+.wiki div.magnify a, div.magnify img 
+{
+	-moz-background-clip:border !important;
+	-moz-background-inline-policy:continuous !important;
+	-moz-background-origin:padding !important;
+	background:transparent none repeat scroll 0 0 ;
+	border:medium none !important;
+	display:block;
+}
+
+.wiki a.enlarge
+{
+	width:15px;
+	height:11px;
+	background: url(enlarge.png) center right no-repeat !important;
+	float:right;
+	clear:right;
+}
+
+
+.wiki .codestyle pre 
+{
+	 margin: 0px;
+	 padding: 0px;
+	 border: none 0px #000; 
+	 background-color: #ffffff;
+}
+
+.wiki .wikiTOC
+{
+	background-color:#B4FFCC;
+	border:1px solid #75C88F;
+	position:relative;
+	padding:5px;
+	width:30%;
+}
+
+.wiki .wikiTOC div
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0px;
+	right:0px;
+	top:0px;
+	z-index:5;
+}

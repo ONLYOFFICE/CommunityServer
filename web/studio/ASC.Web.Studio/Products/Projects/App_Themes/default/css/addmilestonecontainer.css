@@ -1,0 +1,361 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/*--popup--*/
+#templateActionPanel,
+#projectMemberPanel,
+#milestoneActions,
+#taskActionPanel{
+    width: 160px;
+}
+#projectMemberPanel ul {
+    max-height: 180px;
+}
+
+/*--entity-menu--*/
+.entity-menu{  
+	float: right;
+	margin-top: -5px;
+}
+.menuButtonContainer.open .entity-menu,
+.menuButtonContainer.open .entity-menu:hover,
+.menuButtonContainer.open:hover .entity-menu,
+.open .mainInfo.menuButtonContainer .entity-menu,
+.open .mainInfo.menuButtonContainer .entity-menu:hover,
+.open .mainInfo.menuButtonContainer:hover .entity-menu{
+    background-position: center bottom;
+}
+
+/*----end common------*/
+
+
+/*---------edit template-------*/
+
+#addMilestone, #addNotAssignTask {
+	padding-left: 15px;
+	margin: 24px 0;
+}
+
+#addTaskContainer.edit {
+    margin-bottom: 4px;
+}
+
+#addMilestoneContainer div:first-child,
+#addTaskContainer div:first-child {
+	border: 1px solid #D1D1D1;
+	padding: 1px;
+}
+#addMilestoneContainer div:first-child{
+    margin: 24px 0 12px 0;
+    width: 95%;
+}
+
+#addTaskContainer div:first-child{
+    margin-top: 4px;
+    width: 94%;
+}
+#addMilestoneContainer div,
+#addTaskContainer div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+#addMilestoneContainer div {
+    margin-top: 13px;
+}
+#addTaskContainer div {
+    margin-top: 3px;
+}
+#addMilestoneContainer,
+#addTaskContainer {
+	display: none;
+}
+
+#addMilestoneContainer.red-border,
+#addTaskContainer.red-border {
+    border-color: #CC0000;
+}
+#addMilestoneContainer #newMilestoneTitle {
+	border: none;
+	width: 70%;
+}
+#addMilestoneContainer select {
+	width: 100px;
+	border:1px solid #D1D1D1;
+	margin-right: 10px;
+}
+#addTaskContainer #newTaskTitle {
+	border: none;
+	margin-left: 15px;
+	width: 75%;
+}
+
+
+body.media-width-0-1500:not(.media-width-0-1300) #addMilestoneContainer div:first-child {
+    width: 94%;
+}
+
+body.media-width-0-1500:not(.media-width-0-1300) #addTaskContainer div:first-child {
+    width: 93%;
+}
+
+body.media-width-0-1500:not(.media-width-0-1300) #addMilestoneContainer #newMilestoneTitle {
+    width: 65%;
+}
+
+body.media-width-0-1500:not(.media-width-0-1300) #addTaskContainer #newTaskTitle {
+	width: 75%;
+}
+
+
+body.media-width-0-1300:not(.media-width-0-1200) #addMilestoneContainer div:first-child {
+    width: 93%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addTaskContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addMilestoneContainer #newMilestoneTitle {
+    width: 60%;
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addTaskContainer #newTaskTitle {
+	width: 70%;
+}
+
+
+body.media-width-0-1200:not(.media-width-0-1100) #addMilestoneContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addTaskContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addMilestoneContainer #newMilestoneTitle {
+    width: 55%;
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addTaskContainer #newTaskTitle {
+	width: 65%;
+}
+
+body.media-width-0-1100 #addMilestoneContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1100 #addTaskContainer div:first-child {
+    width: 90%;    
+}
+body.media-width-0-1100 #addMilestoneContainer #newMilestoneTitle {
+    width: 45%;
+}
+body.media-width-0-1100 #addTaskContainer #newTaskTitle {
+	width: 60%;
+}
+
+
+/*----list milestones-----*/
+#listAddedMilestone {
+	clear: left;
+}
+.milestone:not(:first-of-type) {
+    margin-top: 20px;
+}
+.milestone .mainInfo {
+	height: auto;
+	padding: 4px 15px;
+	font-size: 14px;
+    font-weight:bold;
+}
+.milestone .mainInfo .addTask {
+	margin-left: 15px;
+	color: #333;
+	border-bottom: 1px dotted #333333;
+    padding: 0;
+	font-size: 11px;
+	display: none;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.milestone .mainInfo:hover .addTask {
+	display: inline-block;
+    vertical-align: top;
+}
+.milestone .mainInfo .entity-menu, .task .entity-menu {
+	margin-top: -2px;
+}
+.milestone .mainInfo:hover {
+	background-color: #F5F5F5;
+}
+.milestone.open .mainInfo{
+	background-color: #F5F5F5;
+}
+
+.milestone .mainInfo .daysCount,
+.milestone .mainInfo .dueDate {
+	color: #83888D;
+	margin-right: 10px;
+	width: 85px;
+	display: inline-block;
+    vertical-align: top;
+}
+.milestone .mainInfo:hover .daysCount span,
+.milestone .mainInfo:hover .dueDate span{
+	border-bottom: 1px dotted #83888D;
+	cursor: pointer;
+}
+
+.milestone .mainInfo .titleContainer,
+.milestone .mainInfo .titleContainerEdit {
+	display: inline-block;
+}
+
+.milestone .mainInfo .titleContainer {
+    max-width: 70%;
+}
+
+.milestone .mainInfo .titleContainerEdit {
+    max-width: 85%;
+}
+
+.milestone .mainInfo .title {
+	color: #333;
+    word-break: break-all;
+}
+
+
+
+.milestone .mainInfo:hover .title {
+	border-bottom: 1px dotted #333;
+	cursor: pointer;
+}
+
+body.media-width-0-1200 .milestone .mainInfo .title,
+body.media-width-0-1200 .task .title
+{
+    max-width: 400px;
+}
+
+/*--list tasks--*/
+.milestoneTasksContainer{ display: none;}
+
+.listTasks .titleContainer,
+#listNoAssignListTask .titleContainer {
+    display: inline-block;
+    max-width: 80%;
+}
+
+.task {
+	height: auto;
+	padding: 6px 15px 6px 35px;
+	font-weight:normal;
+    border-top: 1px solid #D1D1D1;
+    line-height: 20px;
+}
+.task:last-child {
+    border-bottom: 1px solid #D1D1D1;
+}
+.task.open {
+	background-color: #F5F5F5;
+}
+.task:hover {
+	background-color: #F5F5F5;
+}
+.task:hover .title {
+	border-bottom: 1px dotted #333;
+}
+.task .title{
+    word-break: break-all;
+}
+.addTaskContainer {
+	padding-left: 35px;
+	padding-bottom: 10px;
+    padding-top: 6px;
+	display: none;
+}
+.addTaskContainer a,
+.addTaskContainer a:hover,
+.addTaskContainer a:active,
+.addTaskContainer a:visited, 
+#addMilestone a,
+#addMilestone a:hover,
+#addMilestone a:active,
+#addMilestone a:visited {
+    color: #333;
+}
+
+#noAssignTaskContainer .addTaskContainer {
+	display: inline-block;
+}
+.unlocatedTaskTitle 
+{
+	color: #666;
+	font-size: 14px;
+    font-weight:bold;	
+    padding-left: 15px;
+}
+.disable.ActionButton,
+.disable.ActionButton:hover {
+ 	color: #999;
+ 	border-color: #D1D1D1;
+	cursor: default;
+	background-color: #E8E8E8;
+	background-image: none;
+}
+/*---------end edit template-------*/
+
+/*-------create project from template----*/
+
+
+#addMilestoneContainer .textEditCalendar {
+	height: 16px;
+}
+
+/*---choose responsible---*/
+.chooseResponsible {
+	float: right;
+	margin-right: 14px;
+	font-weight: normal;
+	font-size: 12px;
+	background: url("../images/small-icons.png") no-repeat right -82px;
+	padding-top: 2px;
+	padding-right: 18px;
+	cursor: pointer;
+	width: 145px;
+	text-align: right
+}
+
+.chooseResponsible.nobody {
+	display: none;
+}
+.task:hover > .chooseResponsible.nobody,
+.task.open > .chooseResponsible.nobody,
+.mainInfo:hover .chooseResponsible.nobody,
+.milestone.open .mainInfo .chooseResponsible.nobody {
+	display: inline-block;
+}
+
+/*--add task container---*/
+
+#addMilestoneContainer .chooseResponsible,
+#addTaskContainer .chooseResponsible {
+	margin-right: 51px;
+	display: inline-block;
+}
+
+.chooseResponsible .link.dotline {
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}

@@ -1,0 +1,276 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/*--popup--*/
+#templateActionPanel,
+.projects-templates-container #projectMemberPanel,
+.projects-templates-container #milestoneActions,
+.projects-templates-container #taskActionPanel{
+    width: 160px;
+}
+.projects-templates-container #projectMemberPanel ul {
+    max-height: 180px;
+    overflow: auto;
+}
+
+/*--entity-menu--*/
+.projects-templates-container .entity-menu{  
+	float: right;
+	margin-top: -5px;
+}
+.projects-templates-container .menuButtonContainer.open .entity-menu,
+.projects-templates-container .menuButtonContainer.open .entity-menu,
+.projects-templates-container .menuButtonContainer.open .entity-menu:hover,
+.projects-templates-container .menuButtonContainer.open:hover .entity-menu,
+.projects-templates-container .open .mainInfo.menuButtonContainer .entity-menu,
+.projects-templates-container .open .mainInfo.menuButtonContainer .entity-menu:hover,
+.projects-templates-container .open .mainInfo.menuButtonContainer:hover .entity-menu{
+    background-position: center bottom;
+}
+
+/*----end common------*/
+
+/*-----list templates----*/
+.projects-templates-container #emptyListTemplates .projectsEmpty {
+	border: none;
+	text-decoration: underline !important;
+}
+.projects-templates-container #listTemplates {
+    border-collapse: collapse;
+	border-bottom: 1px solid #D1D1D1;
+	margin-top:11px;
+    table-layout: fixed;   
+    width: 100%;
+}
+.projects-templates-container #listTemplates .template td{
+	padding: 8px;
+	border-top: 1px solid #D1D1D1;
+}
+.projects-templates-container #listTemplates .template:hover {
+	background-color: #F5F5F5;
+}
+
+.projects-templates-container #listTemplates .template a.title {
+	font-weight: bold;
+	color: #333;
+	text-decoration: none;
+	margin-right: 5px;
+	max-width: 85%;
+    overflow: hidden;
+    float: left;
+}
+.projects-templates-container #listTemplates .template:hover a.title {
+	text-decoration: underline;
+}
+.projects-templates-container #listTemplates .template span.description {
+	color: #666668;
+}
+.projects-templates-container #listTemplates .template td:last-child {
+    width: 24px;
+}
+.projects-templates-container #listTemplates .template .entity-menu {
+    margin-top: 0;
+}
+/*----end list templates--------*/
+
+/*---------edit template-------*/
+
+.projects-templates-container #templateTitle, #projectTitle 
+{
+	padding-left: 10px; 
+	width: 99%;
+	height: 20px;
+}
+.projects-templates-container #addMilestone, #addNotAssignTask {
+	padding-left: 15px;
+	margin: 24px 0;
+}
+
+.projects-templates-container #addTaskContainer.edit {
+    margin-bottom: 4px;
+}
+
+.projects-templates-container #addMilestoneContainer div:first-child,
+.projects-templates-container #addTaskContainer div:first-child {
+	border: 1px solid #D1D1D1;
+	padding: 1px;
+}
+.projects-templates-container #addMilestoneContainer div:first-child{
+    margin: 24px 0 12px 0;
+    width: 95%;
+}
+
+.projects-templates-container #addTaskContainer div:first-child{
+    margin-top: 4px;
+    width: 94%;
+}
+.projects-templates-container #addMilestoneContainer div,
+.projects-templates-container #addTaskContainer div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+.projects-templates-container #addMilestoneContainer div {
+    margin-top: 13px;
+}
+.projects-templates-container #addTaskContainer div {
+    margin-top: 3px;
+}
+.projects-templates-container #addMilestoneContainer,
+.projects-templates-container #addTaskContainer {
+	display: none;
+}
+
+.projects-templates-container #addMilestoneContainer.red-border,
+.projects-templates-container #addTaskContainer.red-border {
+    border-color: #CC0000;
+}
+.projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+	border: none;
+	width: 70%;
+}
+.projects-templates-container #addMilestoneContainer select {
+	width: 100px;
+	border:1px solid #D1D1D1;
+	margin-right: 10px;
+}
+.projects-templates-container #addTaskContainer #newTaskTitle {
+	border: none;
+	margin-left: 15px;
+	width: 75%;
+}
+
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 94%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addTaskContainer div:first-child {
+    width: 93%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 65%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 75%;
+}
+
+
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 93%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addTaskContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 60%;
+}
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 70%;
+}
+
+     
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addTaskContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 55%;
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 65%;
+}
+
+
+body.media-width-0-1100 .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1100 .projects-templates-container #addTaskContainer div:first-child {
+    width: 90%;    
+}
+body.media-width-0-1100 .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 45%;
+}
+body.media-width-0-1100 .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 60%;
+}
+
+/*---------end edit template-------*/
+
+/*-------create project from template----*/
+.projects-templates-container #projectDescription {
+	width: 100%;
+	height: 70px;
+	resize: none;
+}
+.projects-templates-container .notify-container label {
+    padding-left: 5px;
+}
+.projects-templates-container #notifyManagerCheckbox,
+.projects-templates-container  #notifyResponsibles {
+    margin: 3px 0 0;
+    padding: 0;
+	float: left;
+}
+
+.projects-templates-container #projectTeamContainer #manageTeamButton {
+  border-color:#333;
+  color:#333;
+  margin-left: 15px;
+}
+.projects-templates-container #projectTeamContainer #Team {
+	overflow: hidden;
+	display: none;
+}
+    .projects-templates-container #projectTeamContainer #Team .items-display-list {
+        margin-top: 15px;
+    }
+.projects-templates-container #addMilestoneContainer .textEditCalendar {
+	height: 16px;
+}
+
+/*---choose responsible---*/
+.projects-templates-container .chooseResponsible {
+	float: right;
+	margin-right: 14px;
+	font-weight: normal;
+	font-size: 12px;
+	background: url("../images/small-icons.png") no-repeat right -82px;
+	padding-top: 2px;
+	padding-right: 18px;
+	cursor: pointer;
+	width: 145px;
+	text-align: right
+}
+
+.projects-templates-container .chooseResponsible.nobody {
+	display: none;
+}
+.projects-templates-container .task:hover > .chooseResponsible.nobody,
+.projects-templates-container  .task.open > .chooseResponsible.nobody,
+.projects-templates-container .mainInfo:hover .chooseResponsible.nobody,
+.projects-templates-container .milestone.open .mainInfo .chooseResponsible.nobody {
+	display: inline-block;
+}
+
+/*--add task container---*/
+
+.projects-templates-container #addMilestoneContainer .chooseResponsible,
+.projects-templates-container #addTaskContainer .chooseResponsible {
+	margin-right: 51px;
+	display: inline-block;
+}

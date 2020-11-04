@@ -1,0 +1,103 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+#importTools .field-container {
+    width: 400px;
+}
+#importTools .field-container .textEdit {
+    width: 400px;
+    height: 20px;
+}
+#importTools .big-margin-top {
+    margin-top: 32px;
+}
+#importTools .middle-margin-top {
+    margin-top: 16px;
+}
+#importTools .min-margin-top {
+    margin-top: 8px;
+}
+#importTools .checkbox-container {
+    margin-bottom: 14px;
+}
+#importTools .checkbox-container input {
+    margin: 3px 3px 0 0;
+    vertical-align: text-top;
+}
+#import_info_popup .import-statuses-container {
+    margin-top: 16px;
+    height: 100px;
+    max-height: 100px;
+    overflow:auto;
+    border: solid 1px #DCDCDC;
+}
+#import_info_popup .importStatusClosed{
+	background: url("../images/common-icons.png") no-repeat 0 -40px;
+	padding-left: 16px;
+}
+#import_info_popup .importStatus{
+	padding-left: 10px;
+}
+
+#chooseProjectsPopup .basecamp-projects-container {
+    max-height: 150px;
+    overflow:auto;
+    border-bottom: solid 1px #DCDCDC;
+    list-style-type: none;
+    margin: 0;
+    margin-top: 16px;
+    padding: 0;
+}
+
+#chooseProjectsPopup .basecamp-projects-container li {
+    display: block;
+    padding: 8px 10px;
+    background-color: #f3f3f3;
+    border-top: solid 1px #DCDCDC;
+}
+#chooseProjectsPopup .basecamp-projects-container li.unchecked {
+    background-color: #fff;
+}
+#chooseProjectsPopup .basecamp-projects-container li input,
+#chooseProjectsPopup .archived-proj-note input,
+#chooseProjectsPopup .active-proj-note input {
+    margin-right: 12px;
+    padding: 0;
+}
+#chooseProjectsPopup .basecamp-projects-container li label,
+#chooseProjectsPopup .archived-proj-note label,
+#chooseProjectsPopup .active-proj-note label {
+    margin-top: 3px;
+    vertical-align: top;
+    display: inline-block;
+    max-width: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#chooseProjectsPopup .archived-proj-note {
+    margin-top: 16px;
+}
+#chooseProjectsPopup .active-proj-note {
+    margin-top: 10px;
+}
+
+#popupImportErrorContainer .popup-header {
+	 color: #333333;
+    font-size: 18px;
+    font-weight: normal;
+}

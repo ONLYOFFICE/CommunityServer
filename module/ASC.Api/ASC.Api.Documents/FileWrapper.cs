@@ -160,7 +160,8 @@ namespace ASC.Api.Documents
                     FileExst = ".txt",
                     FileType = FileType.Document,
                     UpdatedBy = EmployeeWraper.GetSample(),
-                    ContentLength = 12345.ToString(CultureInfo.InvariantCulture),
+                    ContentLength = "12.06 KB", //12345
+                    PureContentLength = 12345,
                     FileStatus = FileStatus.IsNew,
                     FolderId = 12334,
                     Version = 3,

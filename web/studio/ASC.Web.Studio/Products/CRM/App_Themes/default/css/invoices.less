@@ -1,0 +1,865 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+/*******************************************************************************
+ListInvoiceView.ascx
+*******************************************************************************/
+#invoiceList {
+}
+#invoiceFilterContainer,
+#emptyContentForInvoiceFilter,
+#invoiceEmptyScreen,
+#tableForInvoiceNavigation,
+#invoiceHeaderMenu {
+    display: none;
+}
+#divForInvoicePager {
+    display: inline-block;
+    clear: right;
+}
+#totalInvoicesOnPage {
+    margin-right: 20px;
+}
+#invoiceHeaderMenu {
+    width: auto;
+}
+#invoiceTable {
+    >tbody > tr {
+        height: 44px;
+    }
+
+    input[type="checkbox"] {
+        margin: 15px 0 15px 2px;
+    }
+
+    td > div:not(.entity-menu) {
+        padding: 0 8px;
+
+        &.baseList_loaderImg {
+            padding: 0;
+        }
+    }
+
+
+    .invoiceStatus {
+        padding: 0 12px;
+
+        div {
+            padding: 0;
+            margin-bottom: 1px;
+            .text-overflow-nowrap(100px);
+            cursor: pointer;
+        }
+    }
+
+    tr:hover .invoiceStatus div {
+        padding-top: 1px;
+        border-bottom: 1px dotted;
+    }
+
+    .invoiceSum div,
+    .invoiceDueDate div {
+        .text-overflow-nowrap(150px);
+    }
+
+    .invoiceNumber {
+        max-width: 300px;
+        min-width: 70px;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 8px;
+        .text-overflow-nowrap;
+    }
+    .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+        max-width: 300px;
+    }
+}
+
+
+body.media-width-0-1400 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 260px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 220px;
+        }
+        .invoiceSum div {
+            max-width: 140px;
+        }
+    }
+}
+body.media-width-0-1350 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 250px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 210px;
+        }
+        .invoiceSum div {
+            max-width: 130px;
+        }
+    }
+}
+body.media-width-0-1300 {
+   #invoiceTable {
+        .invoiceNumber {
+            max-width: 230px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 190px;
+        }
+        .invoiceSum div {
+            max-width: 120px;
+        }
+    }
+}
+body.media-width-0-1250 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 200px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 170px;
+        }
+        .invoiceSum div {
+            max-width: 110px;
+        }
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 180px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 150px;
+        }
+        .invoiceSum div {
+            max-width: 100px;
+        }
+    }
+}
+
+
+
+
+/*******************************************************************************
+ListInvoiceView: custom contactSelector filter
+*******************************************************************************/
+
+#selector_invoiceContactSelectorForFilter {
+    display: inline-block;
+    margin: 1px 0 0 0;
+    > div {
+        margin: 0 !important;
+    }
+}
+#selectorContent_invoiceContactSelectorForFilter_0 {
+    margin: 0 !important;
+    width: 250px;
+    table td {
+        border: 0 none;
+    }
+}
+#infoContent_invoiceContactSelectorForFilter_0 > table {
+    line-height: 12px;
+
+    .splitter {
+        .text-overflow(130px);
+        display: inline-block;
+    }
+    .crm-editLink {
+        position: relative;
+        top: -4px;
+    }
+}
+
+#selectorContent_invoiceContactSelectorForFilter_0 .textEdit{
+    height:14px;
+    font-size: 12px;
+}
+#searchImg_invoiceContactSelectorForFilter_0,
+#loaderImg_invoiceContactSelectorForFilter_0,
+#selectorContent_invoiceContactSelectorForFilter_0 > table .crossButton{
+    height: 14px;
+}
+
+#invoiceAdvansedFilter div.advansed-filter-container div.advansed-filter-filters div.filter-item-custom-contact span.selector-wrapper{
+    max-width: 260px;
+}
+
+/*******************************************************************************
+ListActionView.ascx
+*******************************************************************************/
+#crm_invoiceMakerDialog {
+    .invoice_info {
+        margin-top: 5px;
+        width: 700px;
+    }
+    .invoice-lines {
+        margin-top: 16px;
+        width: 700px;
+    }
+    .header-bottom-splitter
+    {
+        margin: 0 0 6px;
+    }
+    .duedate-link {
+        font-weight: normal;
+
+        &.selected {
+            font-weight: bold;
+            border-bottom: medium none;
+        }
+    }
+}
+
+#selectItemDialog .loader-container, #selectTaxDialog .loader-container {
+    top: -20px;
+    white-space: nowrap;
+}
+#invoiceNumber, #exchangeRate {
+    width: 93px;
+}
+#invoiceTerms, #invoiceDescription, #defaultTerms {
+    height: 80px;
+    resize: none;
+    width: 100%;
+}
+#invoiceLanguage, #invoiceCurrency {
+    width: 300px;
+}
+#invoicePurchaseOrderNumber {
+    width: 298px;
+}
+#invoiceContactSelectorContainer, #invoiceConsigneeSelectorContainer
+{
+    min-height: 21px;
+
+    .contactSelector-selectorContent
+    {
+        width: 300px;
+    }
+}
+#invoiceOpportunitySelectorContainer
+{
+    min-height: 23px;
+    
+    #opportunityContainer
+    {
+        position: relative;
+        line-height: 23px;
+
+        .crm-removeLink
+        {
+            margin-left: 4px;
+            position: absolute;
+            top: 4px;
+        }
+    }
+}
+#consigneeEqualClientCbx {
+    float: left;
+    margin: 2px 8px 0 0;
+}
+#setDefaultTermsBtn {
+    margin-top: 6px;
+    display: inline-block;
+}
+
+/*invoice lines table*/
+#invoiceLineTableContainer {
+    .tbl {
+        width: 100%;
+    }
+
+    .tbl-row {
+    }
+
+    .tbl-header-row {
+        height: 32px;
+        color: #82878D;
+    }
+
+    .tbl-body-row {
+        position: relative;
+
+        .crm-removeLink, .crm-moveLink {
+            display: none;
+        }
+
+        &:hover {
+            .crm-removeLink, .crm-moveLink {
+                display: block;
+            }
+        }
+
+        &.ui-sortable-helper {
+            background-color: #F2F2F2;
+        }
+    }
+
+    .tbl-add-row {
+        padding: 0 6px 10px 16px;
+        line-height: 20px;
+        height: 20px;
+        border-bottom: 1px solid #C7C7C7;
+    }
+
+    .tbl-subtotal-row {
+        height: 32px;
+        border-bottom: medium none;
+    }
+
+    .tbl-total-row {
+        height: 32px;
+        font-weight: bold;
+
+        .tbl-cell {
+            border-bottom: 1px solid #C7C7C7;
+            border-top: 1px solid #C7C7C7;
+        }
+    }
+
+    .tbl-cell {
+        float: left;
+        padding: 6px 4px;
+        line-height: 20px;
+        height: 20px;
+
+        &.item {
+            .custom-input {
+                input, input:focus {
+                    width: 250px !important;
+                }
+            }
+        }
+        &.tax1, &.tax2 {
+            .custom-input {
+                input, input:focus {
+                    width: 39px !important;
+                }
+            }
+        }
+    }
+
+    .sorter {
+        left: 4px;
+        margin-top: -8px;
+        position: absolute;
+        top: 50%;
+        width: 4px;
+    }
+
+    .item {
+        width: 270px;
+        padding-left: 16px;
+    }
+
+    .description {
+        min-height: 20px;
+        line-height: 20px;
+        padding: 0 28px 16px 16px;
+
+        textarea {
+            width: 100%;
+            resize: none;
+            height: 18px;
+            max-height: 80px;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .quantity {
+        width: 50px;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .price {
+        width: 50px;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .discount {
+        white-space: nowrap;
+        width: 60px;
+
+        input {
+            margin-right: 4px;
+            width: 35px;
+        }
+    }
+
+    .tax1 {
+        width: 59px;
+    }
+
+    .tax2 {
+        width: 59px;
+    }
+
+    .amount {
+        .text-overflow();
+        width: 60px;
+        text-align: right;
+        padding-right: 28px;
+    }
+
+    .action {
+        margin-top: -8px;
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        width: 16px;
+    }
+
+    .total-label {
+        width: 180px;
+        margin-left: 410px;
+
+        >span.taxLineName {
+            .text-overflow-nowrap(120px);
+            float: left;
+        }
+
+        >span.taxLineRate {
+            .text-overflow-nowrap(60px);
+        }
+    }
+
+    .total-value {
+        .text-overflow();
+        width: 70px;
+        text-align: right;
+        padding-right: 28px;
+    }
+}
+
+/*change number format dialog*/
+#numberFormatDialog {
+    #autogenCbx {
+        float: left;
+        margin: 2px 8px 0 0;
+    }
+
+    label[for="autogenCbx"] {
+        vertical-align: middle;
+    }
+
+    .number-prefix {
+        float: left;
+        margin-right: 16px;
+    }
+
+    .number-number {
+    }
+}
+
+/*dropdown dialog for select and create items*/
+.selector {
+    padding: 0;
+    > div {
+        float: left;
+        height: 200px;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .left-side {
+        border-right: 1px solid #C7C7C7;
+        display: none;
+
+        .textEdit {
+            width: 196px;
+
+            &.small{
+                width: 50px;
+            }
+        }
+
+        .button-container {
+            bottom: 10px;
+            position: absolute;
+        }
+    }
+
+    .right-side {
+        .custom-input input, .custom-input input:focus {
+            width: 180px !important;
+        }
+    }
+}
+
+/*customization dropdown dialogs for select and create items*/
+#selectItemDialog
+{
+    .custom-list
+    {
+        max-height: 140px;
+
+        &.large
+        {
+            max-height: 160px;
+        }
+    }
+}
+#selectTaxDialog
+{
+    .custom-list
+    {
+        max-height: 170px;
+    }
+
+    .set-default-btn
+    {
+        &.right
+        {
+            float: right;
+        }
+    }
+
+    .createTaxError {
+        color: #CC0000;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        text-overflow: ellipsis;
+        top: -24px;
+        white-space: nowrap;
+        width: 170px;
+        display:none;
+    }
+}
+
+/*custom input for comboboxes or serch input*/
+.custom-input {
+    border: 1px solid #C7C7C7;
+    height: 18px;
+
+    input, input:focus {
+        border: medium none !important;
+        outline: medium none !important;
+        float: left;
+        font-size: 12px;
+        height: 16px;
+        padding: 1px;
+        width: calc(~"100% - 18px") !important;
+    }
+
+    .icon {
+        cursor: pointer;
+        float: left;
+        height: 18px;
+        width: 16px;
+        position: relative;
+
+        &.drop-down:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #83888D;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
+        }
+
+        &.serch {
+            background: url("../images/icons.png") no-repeat scroll -1px -390px #FFFFFF;
+        }
+    }
+}
+  
+
+/*custom ul list*/
+.custom-list {
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    border-top: 1px solid #C7C7C7;
+    width: 100%;
+
+    li {
+        line-height: 20px;
+        list-style-type: none;
+        border-bottom: 1px solid #C7C7C7;
+        margin: 0;
+        padding: 0;
+
+
+        &:hover {
+            background-color: #E6E6E6;
+        }
+
+        a {
+            .text-overflow-nowrap();
+            color: #333333;
+            display: block;
+            padding: 2% 4%;
+            text-decoration: none;
+            margin: 0;
+        }
+    }
+}
+
+/*******************************************************************************
+ListDetailsView.ascx
+*******************************************************************************/
+
+.invoice-container,
+.invoice-container * {
+    font-family: Arial;
+} 
+
+.invoice-container
+{
+    margin-top: 20px;
+    position: relative;
+    width: 168mm;
+    min-height: 259mm;
+    padding: 19mm 5mm 19mm 5mm;
+    .boxShadow;
+}
+
+body.media-width-1145-0 {
+ .invoice-container {
+    padding: 19mm 14mm 19mm 28mm;
+ }
+}
+body.media-width-0-1144 {
+ .invoice-container {
+    padding: 19mm 10mm 19mm 24mm;
+ }
+}
+body.media-width-0-1120 {
+ .invoice-container {
+    padding: 19mm 9mm 19mm 19mm;
+ }
+}
+body.media-width-0-1096 {
+ .invoice-container {
+    padding: 19mm 8mm 19mm 15mm;
+ }
+}
+body.media-width-0-1072 {
+ .invoice-container {
+    padding: 19mm 7mm 19mm 11mm;
+ }
+}
+body.media-width-0-1048 {
+ .invoice-container {
+    padding: 19mm 6mm 19mm 7mm;
+ }
+}
+body.media-width-0-1024,
+body.media-width-min {
+ .invoice-container {
+    padding: 19mm 5mm 19mm 5mm;
+ }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #crm_invoiceMakerDialog .invoice_info {
+        width: 670px;
+    }
+    #crm_invoiceMakerDialog .invoice-lines {
+        width: 670px;
+
+        .tbl-cell.item {
+            .custom-input {
+                input, input:focus {
+                    width: 220px !important;
+                }
+            }
+        }
+
+    }
+    #invoiceLineTableContainer .item {
+        width: 240px;
+    }
+    #invoiceLineTableContainer .total-label {
+        margin-left: 380px;
+    }
+}
+.invoice-status
+{
+    display: inline-block;
+    padding: 4px 24px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+
+    &.draft, &.rejected
+    {
+        background: #E3E3E3;
+    }
+    &.sent
+    {
+        background: #F0D892;
+    }
+    &.overdue
+    {
+        background: #FCBDA9;
+    }
+    &.paid
+    {
+        background: #C9E695;
+    }
+}
+
+.invoice-data
+{
+    background-color: #FFFFFF;
+    font-size: 10pt;
+    color: #333;
+
+    table
+    {
+        border-collapse: collapse;
+        font-size: 10pt;
+        color: #333;
+        width: 100%;
+
+        td
+        {
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+
+        .width-50
+        {
+            max-width: 84mm;
+            min-width: 84mm;
+            width: 84mm;
+        }
+
+        .width-40
+        {
+            max-width: 65.0833mm;
+            min-width: 65.0833mm;
+            width: 65.0833mm;
+        }
+
+        .width-30
+        {
+            max-width: 48.2833mm;
+            min-width: 48.2833mm;
+            width: 48.2833mm;
+        }
+
+        .width-25
+        {
+            max-width: 39.8833mm;
+            min-width: 39.8833mm;
+            width: 39.8833mm;
+        }
+
+        .width-20
+        {
+            max-width: 31.4833mm;
+            min-width: 31.4833mm;
+            width: 31.4833mm;
+        }
+
+        .width-10
+        {
+            max-width: 14.6833mm;
+            min-width: 14.6833mm;
+            width: 14.6833mm;
+        }
+
+        .width-5
+        {
+            max-width: 6.2833mm;
+            min-width: 6.2833mm;
+            width: 6.2833mm;
+        }
+
+        .text-right
+        {
+            text-align: right;
+        }
+
+        .border-bottom-gray
+        {
+            border-bottom: 0.264583mm solid #eee;
+        }
+
+        .background-gray
+        {
+            background-color: #eee;
+        }
+
+        .font-gray
+        {
+            color: #999;
+        }
+
+        .font-22
+        {
+            font-size: 22pt;
+        }
+
+        .font-16
+        {
+            font-size: 16pt;
+        }
+
+        .font-bold
+        {
+            font-weight: bold;
+        }
+
+        .logo
+        {
+            max-height: 39.6875mm;
+            max-width: 52.9167mm;
+        }
+
+        .invoice-number
+        {
+            padding: 0 1.05833mm;
+        }
+
+        &.tbl-items
+        {
+            font-size: 8pt;
+
+            td
+            {
+                padding: 1.9mm 1.05833mm;
+            }
+        }
+    }
+}

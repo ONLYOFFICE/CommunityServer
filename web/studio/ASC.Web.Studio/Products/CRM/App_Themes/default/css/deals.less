@@ -1,0 +1,301 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+
+/*******************************************************************************
+DealListView
+*******************************************************************************/
+#dealTable>tbody>tr{
+    height: 50px;
+}
+#dealList {
+    tfoot td {
+        padding-bottom: 0px;
+        &:first-child {
+            vertical-align: top;
+        }
+    }
+    td.dealTitle > div{
+        .text-overflow(400px);
+        width: 400px;
+        padding: 4px 0 4px 4px;
+        text-align: left;
+    }
+    td.dealBidValue > div{
+        .text-overflow(180px);
+        width: 180px;
+        text-align: right;
+    }
+}
+
+#dealList td > span,
+#dealList td.dealBidValue > div > span,
+#dealList td.dealTitle > div > a{
+    line-height: 14px;
+}
+
+#dealListTotal dt{
+    float: left;
+}
+#dealFilterContainer, #dealHeaderMenu, #tableForDealNavigation {
+    display:none;
+}
+#dealButtonsPanel{
+    display: none;
+    margin-bottom: 15px;
+}
+#dealList .showTotalAmount{
+    display: none;
+}
+#dealList .showTotalAmount, #dealList .showTotalAmount:hover, #dealList .showTotalAmount:active{
+    color: @textColorBlackDark;
+}
+#showMoreDealsButtons{
+    display:inline-block;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+#divForDealPager{
+    display: inline-block;
+    clear: right;
+}
+#totalDealsOnPage{
+    margin-right: 20px;
+}
+#dealHeaderMenu {
+    width: auto;
+}
+
+body.media-width-0-1400 {
+    #dealList td.dealTitle > div {
+        max-width: 350px;
+        width: 350px;
+    }
+}
+body.media-width-0-1350 {
+    #dealList td.dealTitle > div {
+        max-width: 300px;
+        width: 300px;
+    }
+}
+body.media-width-0-1300 {
+    #dealList td.dealTitle > div {
+        max-width: 270px;
+        width: 270px;
+    }
+}
+body.media-width-0-1250 {
+    #dealList td.dealTitle > div {
+        max-width: 220px;
+        width: 220px;
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #dealList td.dealTitle > div {
+        max-width: 170px;
+        width: 170px;
+    }
+}
+body.media-width-min {
+    #dealList td.dealTitle > div {
+        white-space: nowrap;
+    }
+}
+
+/*******************************************************************************
+DealActionView.ascx
+*******************************************************************************/
+#crm_dealMakerDialog {
+    .deal_info {
+        margin-top: 5px;
+        width: 700px;
+
+        dl {
+            dt {
+                margin-bottom: 5px;
+                margin-top: 10px;
+
+                &.headerToggleBlock {
+                    margin: 24px 0 8px;
+                }
+            }
+
+            dd {
+                clear: both;
+                width: 100%;
+            }
+
+            #dealMilestone {
+                max-width: 670px;
+            }
+
+            #dealClientContainer, #dealMembersBody, .assignedDealContacts {
+                width: 704px;
+            }
+        }
+
+        .dealPrivatePanel {
+            margin-top: 26px;
+        }
+
+        >:not(.dealPrivatePanel) input {
+            padding: 1px 2px;
+
+            &.textEditCalendar {
+                padding: 1px 18px 1px 5px !important;
+            }
+
+            &[type="checkbox"] {
+                margin: 0 2px 0 0;
+                vertical-align: middle;
+            }
+        }
+
+        textarea {
+            padding: 1px 2px;
+
+            &[id^="custom_field_"] {
+                max-width: 700px;
+                min-width: 175px;
+            }
+        }
+
+        select {
+            padding: 0;
+        }
+    }
+
+    .middle-button-container {
+        min-width: 770px;
+    }
+}
+
+body.media-width-0-1200,
+body.media-width-min {
+    #crm_dealMakerDialog {
+        .deal_info {
+            width: 670px;
+        }
+
+        .middle-button-container {
+            min-width: 670px;
+        }
+
+        .deal_info dl #dealClientContainer,
+        .deal_info dl #dealMembersBody,
+        .deal_info dl .assignedDealContacts {
+            width: 674px;
+        }
+    }
+}
+/*******************************************************************************
+DealDetailsView.ascx
+*******************************************************************************/
+
+#DealTabs {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#dealProfile {
+    margin-top: -15px;
+}
+#membersDealSelectorsContainer {
+    width: 98%;
+
+    > div {
+        margin-bottom: 4px;
+        position: relative;
+    }
+}
+#selector_dealClientSelector .contactSelector-item.hasMembers .crm-addNewLink{
+    display: none;
+}
+#dealParticipantPanel{
+    display: none;
+    margin-bottom: 16px;
+    width: 500px;
+}
+
+/*******************************************************************************
+ExchangeRateView
+*******************************************************************************/
+#totalAmountContent, #convertRateContent, #exchangeRateContent {
+    height: 455px;
+}
+#totalAmountContent, #exchangeRateContent {
+    margin-top: 10px;
+}
+
+#totalOnPage {
+    display: none;
+    float: right;
+    width: 100%;
+    text-align: right;
+
+    td {
+        vertical-align: top;
+    }
+}
+#ratesTable {
+    table-layout: fixed;
+
+    td {
+        text-align: right;
+    }
+
+    th {
+        height: 0;
+        padding: 0;
+    }
+}
+
+#exchangeRateContent .ratesTableContainer {
+    height: 422px;
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+#conversionResult, #conversionRate,  #introducedAmount {
+    padding-left: 10px;
+    text-align: left;
+}
+#convertAmount {
+    margin-top: 10px;
+}
+#amount, #fromCurrency, #toCurrency {
+    width: 100%
+}
+#convertRateContent dt {
+    margin: 10px 0 5px 0;
+}
+#convertRateContent table {
+    float: right;
+    min-width: 250px;
+
+    td {
+        line-height: 20px;
+    }
+}
+/*******************************************************************************
+*******************************************************************************/
+
+/* <filter: my-contact> */
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter-item-custom-contact .daterange-selector{display:inline-block;}
+
+/* </filter: custom-contact> */

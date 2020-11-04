@@ -1,0 +1,176 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+/*******************************************************************************
+ListTaskView.ascx
+*******************************************************************************/
+
+#taskList {
+    .divForTaskTitle{
+        padding-left: 1px;
+        .text-overflow(600px);
+    }
+    .divForEntity{
+        .text-overflow(200px);
+
+        .crm-peopleInfoCardLink, .crm-companyInfoCardLink{
+            display: inline;
+        }
+    }
+    .divForUser {
+        overflow: hidden;
+        width: 116px;
+        &:not(.removedUser) span{
+            color: @textColor;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            margin-bottom: 1px;
+            white-space: nowrap;
+        }
+    }
+
+    tr:hover .divForUser:not(.removedUser) span{
+        padding-top: 1px;
+        border-bottom: 1px dotted #000000;
+    }
+}
+
+
+#taskFilterContainer, #tableForTaskNavigation {
+    display:none;
+}
+
+#taskTable {
+    thead td {
+        height: 0;
+        padding: 0;
+    }
+
+    tbody {
+        tr {
+            height: 50px;
+            width: 100%;
+        }
+
+        td {
+            text-align: left;
+            min-height: 50px;
+        }
+
+        .ajax_edit_task {
+            display:none;
+            margin-left: 8px;
+        }
+    }
+}
+ 
+#totalTasksOnPage {
+    margin-right: 20px;
+}
+
+/*******************************************************************************
+taskStatusesMenu
+*******************************************************************************/
+
+#taskStatusListContainer li .dropdown-item {
+    background-image: url("../images/icons.png");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+#taskStatusListContainer li.open .dropdown-item {
+    background-position: 8px -517px;
+}
+#taskStatusListContainer li.closed .dropdown-item {
+    background-position: 8px -535px;
+}
+#taskTable .changeStatusCombobox .open,
+#taskTable .changeStatusCombobox .overdue {
+    background: url("../images/icons.png") 0 -518px no-repeat transparent;
+}
+#taskTable .changeStatusCombobox .closed {
+    background: url("../images/icons.png") 0 -536px no-repeat transparent;
+}
+
+#taskTable {
+    .check {
+        margin-left: 4px;
+    }
+
+    .changeStatusCombobox {
+        border: 1px solid transparent;
+        display: block;
+        height: 22px;
+        margin-top: 3px;
+        text-align: center;
+        width: 38px;
+
+        &.canEdit {
+            border: 1px solid @borderColor;
+            cursor: pointer;
+            position: relative;
+            .borderRadius(3px);
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid #B8B8B8;
+                content: "";
+                height: 0;
+                position: absolute;
+                right: 6px;
+                top: 50%;
+                width: 0;
+                margin-top: -1px;
+            }
+        }
+    }
+
+        tr:hover .changeStatusCombobox.canEdit,
+        .changeStatusCombobox.canEdit.selected {
+            background-color: #eaeaea;
+            border-color: #A8A8A8;
+
+            &:after {
+                border-top-color: #888888;
+            }
+        }
+
+        .changeStatusCombobox span {
+            display: block;
+            margin: 0 0 3px 4px;
+            height: 16px;
+            width: 16px;
+        }
+} 
+
+
+/*******************************************************************************
+TaskActionView.ascx
+*******************************************************************************/
+#taskDeadline {
+    width: 75px;
+}
+#addTaskPanel .connectWithContactContainer {
+    max-height:145px;
+    min-height:21px;
+    overflow-y:auto;
+}
+#taskAlertInterval {
+    min-width: 130px;
+}

@@ -1,0 +1,55 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.ftUnknown, .ftArchive, .ftVideo, .ftAudio, .ftImage, .ftSpreadsheet, .ftPresentation, .ftDocument
+{
+	background-position: 7px center !important;
+	background-repeat:no-repeat;
+}
+
+.ftUnknown
+{
+	background-image:url('../images/filetype/file_na.png');
+}
+.ftArchive
+{
+	background-image:url('../images/filetype/file_zip.png');
+}
+.ftVideo
+{
+	background-image:url('../images/filetype/file_mpg.png');
+}
+.ftAudio
+{
+	background-image:url('../images/filetype/file_sound.png');
+}
+.ftImage
+{
+	background-image:url('../images/filetype/file_image.png');
+}
+.ftSpreadsheet
+{
+	background-image:url('../images/filetype/file_xls.png');
+}
+.ftPresentation
+{
+	background-image:url('../images/filetype/file_ppt.png');
+}
+.ftDocument
+{
+	background-image:url('../images/filetype/file_txt.png');
+}

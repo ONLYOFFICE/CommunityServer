@@ -1517,7 +1517,7 @@ namespace ASC.Api.CRM
                     invoiceWrapper.Consignee = contacts[invoice.ConsigneeID];
                 }
 
-                if (invoice.EntityID > 0)
+                if (invoice.EntityID > 0 && deals.ContainsKey(invoice.EntityID))
                 {
                     invoiceWrapper.Entity = deals[invoice.EntityID];
                 }

@@ -1,0 +1,114 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.generated-report-filter-container #generateNewReport, .generated-report-buttons {
+    visibility: hidden;
+}
+.generated-report-container.borderBase {
+    border: none;
+}
+.generated-report-container a 
+{
+	color:#000000 !important;
+	font-size:12px;
+	font-weight:normal;
+	text-decoration : none !important;
+}
+
+.sortable
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+.sortable thead th
+{
+	cursor: pointer;
+	color: #000000;
+	font-size: 12px;
+}
+.generated-report-container .sortable tbody td
+{
+	text-align: left;
+	border-left: none;
+	border-right: none;
+	vertical-align: middle;
+}
+
+.generated-report-container .sortable tr:last-child td,
+.generated-report-container .pm-tablebase tr:last-child td {
+    border-bottom: medium none;
+}
+
+.report-tableColumnHeader
+{
+	border-bottom: none;
+	color: #333;
+	text-decoration:none;
+}
+
+/********heders**********/
+a.report-big-header,
+a.report-middle-header,
+a.report-small-header,
+a.report-big-header:visited,
+a.report-middle-header:visited,
+a.report-small-header:visited, 
+a.report-big-header:hover,
+a.report-middle-header:hover,
+a.report-small-header:hover,
+a.report-big-header:active,
+a.report-middle-header:active,
+a.report-small-header:active   {
+    font-weight: bold;
+    color: #333;
+    text-decoration:none;
+}
+
+a.report-big-header:hover,
+a.report-middle-header:hover,
+a.report-small-header:hover {
+    text-decoration: underline;
+}
+
+a.report-big-header {
+    font-size: 16px;
+}
+a.report-middle-header {
+    font-size: 14px;
+}
+/*----*/
+
+.borderBase 
+{
+	border:1px solid #333;
+}
+
+.mainContainerClass
+{
+    border: none !important;
+}
+.mainPageLayout
+{
+    margin: 0 !important;
+    width: 100% !important;
+}
+.gray-text, .red-text
+{
+	color:#333 !important;
+}
+
+

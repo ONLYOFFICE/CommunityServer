@@ -1,0 +1,836 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+/*******************************************************************************
+Default.aspx
+*******************************************************************************/
+
+.gray{
+    color: @textColorGrayDark;
+}
+.right{
+    float: right;
+}
+.hiddenFields{
+    display: none !important;
+}
+
+/*******************************************************************************
+sliders
+*******************************************************************************/
+
+.ui-slider{
+    position: relative;
+    width: 100%;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default{
+    outline: medium none;
+}
+.ui-slider .ui-slider-handle{
+    background-color: #dedede;
+    background: url( "../images/icons.png" ) -1px -500px no-repeat transparent;
+    border: 1px solid #aaaaaa;
+    cursor: pointer;
+    margin-left: -0.4em;
+    top: -0.3em;
+    height: 12px;
+    overflow: visible !important;
+    position: absolute;
+    width: 8px;
+    z-index: 2;
+    .borderRadius(3px);
+}
+.ui-slider a{
+    text-decoration: none;
+}
+.ui-slider ol,
+.ui-slider li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ui-slider ol{
+    position: relative;
+    width: 100%;
+}
+.ui-slider li{
+    position: absolute;
+    overflow: visible;
+}
+#loyaltySliderDetails {
+    background-color: @defaultBgColor;
+    float: left;
+    height: 19px;
+    overflow: visible !important;
+    width: 170px;
+    margin-top: 2px;
+}
+#contactGeneralList .HelpCenterSwitcher {
+    margin-left: 4px;
+}
+#loyaltySliderDetails .ui-slider{
+    background-color: @defaultBgColor;
+    border: none;
+}
+#loyaltySliderDetails .ui-slider li{
+    border: 1px solid #AAAAAA;
+}
+#loyaltySliderDetails .ui-slider .ui-slider-handle{
+    background-color: #DEDEDE;
+    border: 1px solid #AAAAAA;
+    height: 15px;
+    margin-left: -0.4em;
+    top: -0.25em;
+    width: 8px;
+}
+.ui-slider .ui-slider-tooltip{
+    display: none;
+    min-width: 20px;
+}
+.ui-slider .ui-state-active .ui-slider-tooltip,
+.ui-slider .ui-state-focus .ui-slider-tooltip,
+.ui-slider .ui-state-hover .ui-slider-tooltip{
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 9px;
+    text-align: center;
+    padding: 5px;
+    font-size: .9em;
+    width: auto;
+    height: auto;
+    left: -17px;
+    margin-left: 0;
+    white-space: nowrap;
+}
+.ui-slider .ui-slider-tooltip-hide .ui-slider-tooltip{
+    display: none;
+}
+.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down,
+.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner{
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom-width: 0;
+    background: none;
+}
+.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down{
+    border-left: 7px dashed transparent;
+    border-right: 7px dashed transparent;
+    border-top-width: 8px;
+    bottom: -8px;
+    right: auto;
+    left: 20px;
+    margin-left: -7px;
+}
+.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner{
+    border-left: 6px dashed transparent;
+    border-right: 6px dashed transparent;
+    border-top: 7px solid #fff;
+    bottom: auto;
+    top: -9px;
+    left: -6px;
+}
+
+/*******************************************************************************
+ListContactView.ascx
+*******************************************************************************/
+
+#emptyContentForContactsFilter, #contactsEmptyScreen {
+    display: none;
+}
+#divForContactPager {
+    display: inline-block;
+    clear: right;
+}
+#totalContactsOnPage {
+    margin-right: 20px;
+}
+
+.sendProcessInfo td {
+    padding-bottom: 10px;
+    min-height: 15px;
+    vertical-align: top;
+}
+
+#companyTable {
+    td {
+        height: 40px;
+    }
+
+    .addPrimaryDataInput {
+        display: none;
+        width: 185px;
+    }
+
+    .contactTitle {
+        line-height: 20px;
+        max-width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .primaryDataContainer {
+        height: 20px;
+        line-height: 20px;
+        vertical-align: middle;
+        width: 190px;
+        overflow-x: hidden;
+        .text-overflow-nowrap(190px);
+        span {
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    }
+
+    .nearestTask {
+        display: inline-block;
+        width: 200px;
+        line-height: 20px;
+    }
+}
+
+#contactsHeaderMenu {
+    display: none;
+    width: auto;
+}
+.contactItemPhotoImg {
+    border: 1px solid #C7C7C7;
+    overflow: hidden;
+    background-color: #FFF;
+}
+.contactItemPhotoImgContainer {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    position: relative;
+    margin-left: 4px;
+
+    &.sharedContact:after {
+        background: url( "../images/icons.png") 0 -768px no-repeat transparent;
+        .crm-img-pseudo-base(auto, -2px, 12px, 12px);
+        bottom: -2px;
+    }
+}
+img.contact-info-link-img {
+    cursor: pointer;
+    background-color: transparent !important;
+}
+body.media-width-0-1300 {
+    #companyTable {
+        .contactTitle {
+            max-width: 380px;
+        }
+
+       .primaryDataContainer {
+            width: 128px;
+        }
+       .addPrimaryDataInput {
+            width: 123px;
+        }
+
+        .nearestTask {
+            width: 110px;
+        }
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #companyTable {
+        .contactTitle {
+            max-width: 200px;
+        }
+
+        .primaryDataContainer {
+            width: 118px;
+        }
+        .addPrimaryDataInput {
+            width: 113px;
+        }
+
+        .nearestTask {
+            width: 100px;
+        }
+    }
+}
+#previewAttachments label.previewAttachment{
+    background: url( "../images/icons.png" ) 0 -415px no-repeat;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+}
+
+/*******************************************************************************
+ContactActionView.ascx
+*******************************************************************************/
+#contactProfileEdit {
+    width: 100%;
+    min-width: 900px;
+
+    >tbody > tr > td {
+        vertical-align: top;
+    }
+
+    .contactInfo {
+
+        >:not(.contactManagerPanel) input {
+            padding: 1px 2px;
+
+            &.textEditCalendar {
+                padding: 1px 18px 1px 1px !important;
+            }
+        }
+
+        textarea {
+            padding: 1px 2px;
+
+            &[id^="custom_field_"] {
+                max-width: 720px;
+                min-width: 175px;
+            }
+        }
+
+        select {
+            padding: 0;
+        }
+
+        .requiredField {
+            .headerPanelSmall {
+                margin: 5px 0 4px;
+                color: #3C4046;
+                font-weight: bold;
+            }
+
+            .requiredErrorText {
+                margin: 3px -4px 0 0;
+            }
+        }
+
+
+        .info_for_person {
+            width: 100%;
+            max-width: 1000px;
+
+            input {
+                width: 100%;
+            }
+
+            .info_for_person_table {
+                width: 100%;
+                max-width: 1000px;
+
+                > tbody > tr > td {
+                    padding-bottom: 5px;
+                    vertical-align: top;
+                }
+            }
+
+            .bold {
+                margin: 5px 0 4px;
+                display: inline-block;
+            }
+        }
+
+        .info_for_company {
+            width: 715px;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .contactManager-selectorContent {
+            margin-top: 10px;
+        }
+
+        .contactManagerPanel {
+            margin-top: 24px;
+
+            .contactManager-selectorContent .groupSelectorBox {
+                margin-left: 200px;
+                white-space: nowrap;
+                width: 200px;
+            }
+        }
+    }
+
+    dt.headerToggleBlock {
+        margin: 24px 0 8px;
+    }
+
+    .additionInfo {
+        width: 200px;
+        float: right;
+    }
+
+    .name-container-block {
+        white-space: nowrap;
+
+        input[type="text"] {
+            width: 200px;
+        }
+    }
+
+    .baseInfo_contactOverview {
+        display: block;
+        float: left;
+        height: auto;
+        margin: 0;
+        overflow: auto;
+        padding: 2px;
+        width: 494px;
+        resize: none;
+    }
+}
+
+#generalListEdit {
+    margin-top: 16px;
+
+    dt {
+        clear: both;
+        margin: 5px 0 5px;
+    }
+
+    dd {
+        clear: both;
+        position: relative;
+        width: 100%;
+
+        input.generalField {
+            width: 90%;
+        }
+    }
+
+    .bold {
+        margin: 5px 0 5px;
+        display: inline-block;
+    }
+
+    input[type="checkbox"] {
+        vertical-align: middle;
+        margin: 0 2px 0 0;
+    }
+
+    #tagsContainer {
+        position: inherit;
+
+        > div {
+            min-height: 24px;
+        }
+    }
+
+    .input_with_type {
+        float: left;
+        border-spacing: 0;
+        height: 18px;
+        padding: 1px;
+        position: relative;
+        vertical-align: top;
+        width: 500px;
+
+        input {
+            border: medium none;
+            outline: medium none;
+            padding: 0;
+            width: 100%;
+        }
+
+        a {
+            border-bottom: 1px dotted;
+            color: #646567;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 11px;
+            margin-left: 7px;
+            margin-right: 14px;
+            position: relative;
+            text-decoration: none;
+            white-space: nowrap;
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid #83888D;
+                content: "";
+                display: block;
+                height: 0;
+                margin-top: -2px;
+                position: absolute;
+                right: -11px;
+                top: 50%;
+                width: 0;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .actions_for_item {
+        clear: right;
+        display: inline-block;
+        min-width: 70px;
+
+        a {
+            float: left;
+        }
+    }
+
+    .crm-addNewLink,
+    .crm-deleteLink {
+        margin: 1px;
+        position: relative;
+    }
+
+    .is_primary {
+        background-image: url( "../images/icons.png");
+        background-repeat: no-repeat;
+        background-color: transparent;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        margin: 1px;
+        position: relative;
+        width: 16px;
+    }
+
+    .primary_field {
+        background-position: 0 -369px;
+    }
+
+    .not_primary_field {
+        background-position: 0 -351px;
+    }
+}
+
+#emailContainer > div,
+#phoneContainer > div,
+#websiteAndSocialProfilesContainer > div,
+#addressContainer > div,
+#overviewContainer > div {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+#assignedContactsListEdit {
+    dt.assignedContacts {
+        margin: 15px 0 0 0;
+    }
+
+    dt.assignedContactsLink {
+        margin: 20px 0 0 0;
+    }
+
+    dd.assignedContactsLink {
+        margin: 0 0 27px 0;
+    }
+
+    .assignedContacts {
+        width: 500px;
+    }
+}
+
+#uploadPhoto {
+    display: inline-block;
+    margin: 10px 0 10px 0;
+}
+
+.contact-photo {
+    border: 1px solid #BFBFBF;
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    text-align: center;
+    width: 200px;
+
+    img {
+        border: medium none;
+        display: block;
+        margin: 0 auto;
+        max-height: 200px;
+        max-width: 200px;
+        padding: 0;
+    }
+
+    .linkChangePhoto {
+        border-top: 1px solid #BFBFBF;
+        cursor: pointer;
+        display: block;
+        padding: 8px 0;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        width: 200px;
+    }
+}
+
+.contact-photo-img {
+    max-height: 200px;
+    min-height: 50px;
+    width: 200px;
+    display: inline-block;
+    position: relative;
+
+    &.sharedContact:after {
+        background: url( "../images/icons.png") 0 -783px no-repeat transparent;
+        .crm-img-pseudo-base(auto, 8px, 22px, 22px);
+        bottom: 8px;
+    }
+}
+
+
+/*
+#contactPhoto .contact_photo, #contactProfile .contact_photo {
+    border: 1px solid #C7C7C7;
+    margin-bottom: 5px;
+    max-width: 150px;
+}
+*/
+
+#addressContainer {
+    .address-tbl {
+        float: left;
+        width: 500px;
+        max-width: 500px;
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #contactProfileEdit .name-container-block input[type="text"] {
+        width: 140px;
+    }
+    #contactProfileEdit {
+        min-width: 680px;
+    }    
+    #addressContainer table {
+        max-width: 390px;
+        width: 390px;
+    }
+    #contactProfileEdit .contactInfo .info_for_company {
+        width: 450px;
+    }
+    #contactProfileEdit .baseInfo_contactOverview {
+        width: 350px;
+    }
+    #generalListEdit .input_with_type {
+        width: 350px;
+    }
+}
+
+#websiteAndSocialProfilesContainer .find_profile{
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    margin: 1px;
+    position: relative;
+    width: 16px;
+
+    &:before{content: " "; position: absolute; width: 7px; height: 7px; border: 2px solid  #8d9195; .borderRadius(7px); top: 2px; left: 1px; }
+    &:after{content: " "; position: absolute; width: 0; height: 6px; border-right: 2px solid  #8d9195; top: 10px; left: 11px; .rotateTransform(135deg); }
+}
+
+#companySelectorsContainer {
+    .delete_company_for_person {
+        background: url("../images/icons.png") 0 -263px no-repeat transparent;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        margin: 2px;
+        position: absolute;
+        width: 16px;
+        top: 0px;
+        right: -30px;
+    }
+
+    > div {
+        margin-bottom: 8px;
+        position: relative;
+    }
+
+    table {
+        table-layout: fixed;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    input {
+        padding: 0 !important;
+    }
+}
+
+#advUserSelectorListView_ContactManager {
+    float: left;
+}
+
+#contactTypeContainer .contactTypeSelect,
+#currencyContainer .currencySelect {
+    margin-bottom: 8px;
+    min-width: 150px;
+}
+/*******************************************************************************
+ContactDetailsView.ascx
+*******************************************************************************/
+#ContactTabs {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#contactProfile .contactInfo {
+    width: 100%;
+}
+#contactProfile .contactInfo tbody tr td{
+    vertical-align: top;
+}
+#contactProfile tr.headerToggleBlock {}
+#contactGeneralList {
+    margin-top: 0px;
+}
+#contactGeneralList .writeEmail {
+    margin-left: 8px;
+}
+#contactGeneralList tr.viewMailingHistory td a {
+    margin-top: 5px;
+}
+
+#contactProfile {
+    .collectionItem {
+        margin-bottom: 6px;
+        width: 100%;
+    }
+
+    >table:not(#contactHistoryTable) input {
+        margin: 0;
+    }
+}
+
+#changeLogo {
+    clear: both;
+    margin-left: 0;
+    outline: none;
+}
+
+#listContactsToMerge {
+    display: block;
+    margin-top: 10px;
+    padding: 5px;
+    max-height: 250px;
+    overflow: auto;
+
+    li {
+        list-style: none;
+        padding: 5px 2px;
+        margin-left: 20px;
+
+        > input {
+            vertical-align: middle;
+            margin-left: -20px;
+        }
+
+        > span {
+            vertical-align: middle;
+        }
+    }
+
+    .noMatches {
+        position: fixed;
+    }
+}
+#listContactsToMerge .contactToMergeSelectorContainer {
+    display:inline-block;
+    vertical-align: top;
+    width: 99%;
+    margin-left: -20px;
+}
+#peopleInCompanyPanel{
+    display: none;
+    margin-bottom: 16px;
+    width: 500px;
+}
+#projectsInContactPanel{
+    display: none;
+    width: 500px;
+    color: #999999;
+}
+#projectsInContactPanel .menuAction{
+    display: block;
+}
+#projectsInContactPanel .createNewProject{
+    width:95%;
+}
+#projectsInContactPanel select>option {
+    max-width: 300px;
+}
+#projectsInContactPanel select, #projectsInContactPanel select>option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#dealsInContactPanel{
+    display: none;
+    margin-bottom: 16px;
+    width: 500px;
+}
+#changeContactStatusConfirmation .noAskingCCSAnymore {
+    display: inline-block;
+    line-height: 16px;
+    margin: 16px 0 0 -4px;
+}
+.noAskingATCAnymore, .noAskingWMHAnymore {
+    line-height: 16px;
+    margin: 16px 0 0 -4px;
+}
+/*******************************************************************************
+HistoryView.ascx
+*******************************************************************************/
+
+.companyPlannedEventsLine{
+    width: 100%;
+    height: 50px;
+}
+.relationshipButtonsPannel{
+    display: inline-block;
+    height: 30px;
+    padding-top: 5px;
+    position: relative;
+    width: 100%;
+}
+
+/********************************************************************************
+SocialMedia
+********************************************************************************/
+
+.sm_UserSearchView_ErrorDescription{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+.select-container{
+  position:relative;
+}
+.select-container.type-select-container{
+  min-width:180px;
+}
+.select-container.tags-select-container{
+  min-width:160px;
+}
+/********************************************************************************
+Page Navigation
+********************************************************************************/
+#contactsFilterContainer, #tableForContactNavigation {
+    display: none;
+}

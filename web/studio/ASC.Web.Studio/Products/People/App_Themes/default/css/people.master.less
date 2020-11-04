@@ -1,0 +1,589 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../../../skins/base.less";
+
+.ui-btn .inner-text {
+    .borderRadius();
+    background-color: #fff;
+}
+
+
+.toggle-menu .menu-container,
+.custom-statusbox .statusbox-container {
+  .boxShadow();
+}
+
+.toggle-menu .menu-title,
+.custom-statusbox .statusbox-title {
+  .noneSelect();
+}
+
+.toggle-menu .menu-helper,
+.custom-statusbox .statusbox-helper {
+  display: block;
+  width: 100%;
+  height: 1px;
+  line-height: 1px;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  z-index: 2;
+  cursor: default;
+}
+
+.withHoverArrowDown {
+    cursor: pointer;
+    padding: 0 12px 0 0;
+    position: relative;
+
+    &.active:after {
+        display: block;
+    }
+}
+
+.btn.email:after, .withHoverArrowDown:after {
+    display: block;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #666666;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -2px;
+    width: 0;
+    text-align: center;
+}
+.ui-btn {
+    display: inline-block;
+    line-height: 18px;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333 !important;
+    white-space: nowrap;
+}
+.ui-btn .inner-text {
+    display: inline-block;
+    background: #E9EAEA;
+    border: 1px solid #B8B8B8;
+    padding: 0 12px 0 18px;
+}
+.ui-btn.back:after {
+    display: inline-block;
+    background: url(../imgs/btn-subtr.png) left center no-repeat;
+    width: 12px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    color: #FFF;
+    text-align: center;
+    content: " ";
+}
+
+.linkAction.button.blue,
+a.linkAction.button.blue:hover,
+a.linkAction.button.blue:visited {
+    margin-right:8px;
+    color: #FFF;
+    text-decoration: none;
+}
+
+#sideNavInviteLink {
+    position: relative;
+}
+
+#peopleFilter {
+    margin-top: 16px;
+}
+
+#tableForPeopleNavigation {
+    height: 24px;
+    width: 100%;
+
+    .tl-combobox {
+        margin-bottom: 1px;
+        vertical-align: middle;
+    }
+}
+#departmentManager .result-name {
+    max-width: 328px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#totalUsers {
+    margin-right: 20px;
+}
+table.table-list tbody tr:hover .link.dotted {
+    border-bottom: 1px dotted;
+    text-decoration: none;
+}
+
+#peopleData .ui-btn {
+    display: block;
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#peopleData .profile.invalid-by-filter {
+    display: none;
+}
+#peopleData .ava {
+    display: inline-block;
+    position: relative;
+
+    img {
+        background: #fff;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        border: 1px solid #c7c7c7;
+    }
+
+    .role {
+        left: -2px;
+        position: absolute;
+        top: 23px;
+    }
+}
+#peopleData .email.btn {
+    cursor: pointer;
+    display: inline-block;
+}
+#peopleData .profile {
+    .ava .status {
+        display: block;
+        height: 16px;
+        left: 9px;
+        position: absolute;
+        top: 10px;
+        width: 16px;
+    }
+
+    &.blocked .ava .status {
+        background: url(../imgs/icon-user-blocked-small.png) center no-repeat;
+    }
+
+    &.waited {
+        .ava .status {
+            background: url(../imgs/icon-user-wait-small.png) center no-repeat;
+        }
+        .name,
+        td a.link.bold {
+            color: #83888D;
+        }
+    }
+}
+
+
+#peopleData .group, 
+#peopleData .info {
+    white-space: nowrap;
+    max-width:115px;
+}
+#peopleData .info .red-text {
+    float:left;
+    margin-right:2px;
+}
+
+#peopleData .info .btn.email,
+#peopleData .info .email .email {
+    display:inline-block;
+    height: 18px;
+    max-width:250px;
+    overflow: hidden;
+    padding-right: 13px;
+    position:relative;
+    text-overflow:ellipsis;
+}
+#peopleData .info .red-text + .email .email {
+      max-width: 200px;
+}
+
+#peopleData .profile.hover{
+    background-color: #f2f2f2;
+}
+
+#peopleData .email:after, .withHoverArrowDown:after {
+    display: none;
+}
+#peopleData .profile.hover .email:after,
+#peopleData .profile:hover .email:after,
+#peopleData .profile:hover .withHoverArrowDown:after {
+    display: block;
+}
+
+#peopleData .profile .birthday {
+    background: url(../imgs/birthday.png) 0 0 no-repeat;
+    color: #ff9000;
+    display: inline-block;
+    margin-left: 2px;
+    padding: 4px 0 4px 20px;
+}
+
+#peopleData td.name,
+#peopleData td.group,
+#peopleData td.location
+{
+    max-width:200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#peopleData td.name .title .manager{
+    background-color: #C9E0F1;
+    border-radius: 2px;
+    padding: 1px 4px;
+}
+.profile-header {
+    position: relative;
+
+    .ui-btn,
+    .profile-title {
+        float: left;
+    }
+}
+.profile-title {
+    display: inline-block;
+    height: 35px;
+    white-space: nowrap;
+    margin: 0 0 32px 0;
+
+    &.default-title {
+        margin: 0;
+    }
+
+    .header {
+        display: inline-block;
+        max-width: 600px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+body.media-width-0-1450 {
+    #peopleData .info .btn.email,
+    #peopleData .info .email .email{
+        max-width: 150px;
+    }
+    #peopleData .info .red-text + .email .email {
+        max-width: 100px;
+    }
+}
+
+body.media-width-0-1200 {
+    #peopleData td.name,
+    #peopleData td.group,
+    #peopleData td.location
+    {
+        max-width:120px;
+    }
+}
+
+body.media-width-0-1100 {
+    #peopleData .info .btn.email,
+    #peopleData .info .email .email{
+        max-width: 120px;
+    }
+    #peopleData .info .red-text + .email .email {
+        max-width: 70px;
+    }
+    #peopleData td.name,
+    #peopleData td.group,
+    #peopleData td.location {
+        max-width: 120px;
+    }
+}
+
+/*******************************************************************************
+header menu elements for group operations
+*******************************************************************************/
+#mainDeselectAll {
+    margin-left:10px;
+}
+.user-list-for-group-operation {
+    border: 1px solid #D1D1D1;
+    margin-top: 16px;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px 16px;
+}
+.user-list-for-group-operation input[type="checkbox"]
+{
+    vertical-align:middle;
+    }
+#changeTypeDialog .containerBodyBlock,
+#changeStatusDialog .containerBodyBlock,
+#resendInviteDialog .containerBodyBlock,
+#deleteUsersDialog .containerBodyBlock{
+    line-height: 20px;
+}
+
+/*******************************************************************************
+            Menu Action
+*******************************************************************************/
+
+
+/*@media all and (max-width: 1300px) {
+    .menuAction.menuRemoveUsers {
+        display: none;
+    }
+}
+@media all and (max-width: 1280px) {
+    .menuAction.menuWriteLetter  {
+        display: none;
+    }
+}
+
+@media all and (max-width: 1180px) {
+    .menuAction.menuSendInvite {
+        display: none;
+    }
+}*/
+
+.menuAction.otherFunctions {
+    /*display: none;
+
+    li {
+        display: none;
+    }*/
+
+    /*@media all and (max-width: 1300px) {
+        display: block; 
+        
+        li.menuRemoveUsers {
+            display: block;
+        }
+    }
+
+    @media all and (max-width: 1280px) {
+        li.menuWriteLetter {
+            display: block;
+        }
+    }
+
+    @media all and (max-width: 1180px) {
+        li.menuSendInvite {
+            display: block;
+        }
+    }*/
+
+    .studio-action-panel {
+        cursor: default;
+        z-index: 400;
+
+        .dropdown-content li {
+            text-align: left;
+
+            a {
+                color: #b2b2b2;
+                cursor: default;
+                display: block;
+                height: 100%;
+                text-decoration: none;
+            }
+
+            &.unlockAction a {
+                color: #333;
+                cursor: pointer;
+            }
+        }
+    }
+}
+#membersDepartmentList {
+    max-width: 290px;
+
+    li .result-name {
+        max-width: 300px;
+    }
+}
+.members-dep-list {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/*******************************************************************************
+        Banner for the import people
+*******************************************************************************/
+
+.people-import-banner {
+    margin: 20px 0 0;
+}
+.people-import-banner_text {
+    color: #83888d;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.people-import-banner_img {
+    background: url(../imgs/people_import.png) no-repeat 0 0 transparent;
+    cursor:pointer;
+    height: 32px;
+    width: 223px;
+
+    &:hover {
+        background-position: center bottom;
+    }
+}
+
+.sso-lock::after,
+.sso-lock-big::after {
+    content: "SSO";
+    background-color: #D0E3B5;
+    border-radius: 2px;
+    
+}
+
+.sso-lock::after {
+    font-size: 9px;
+    margin-left: 2px;
+    vertical-align: middle;
+    padding: 0px 8px;
+}
+
+.sso-lock-big::after {
+    font-size: 12px;
+    vertical-align: top;
+    padding: 2px 5px;
+}
+/*******************************************************************************
+        Delete Profile Page
+*******************************************************************************/
+
+.action-container  {
+
+    .user-selector-container {
+        margin-bottom: 40px;
+    }
+
+    #userSelector {
+        font-weight: bold;
+        margin: 0 12px 0 0;
+        position: relative;
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #212121;
+            content: "";
+            position: absolute;
+            top: 8px;
+            right: -12px;
+        }
+    }
+
+    .list-container {
+        margin-bottom: 16px;
+
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        li {
+          padding-left: 12px;
+          text-indent: -12px;
+          margin-top: 4px;
+        }
+
+        li:before {
+          content: "—";
+          padding-right: 6px;
+        }
+    }
+
+    .warning-header {
+        margin: 20px 0;
+        font-size: 18px;
+    }
+
+    .delete-profile-container {
+        margin-top: 32px;
+
+        input[type=checkbox] {
+            float: left;
+            margin: 2px 5px 0 0;
+        }
+    }
+}
+
+.progress-container {
+
+    .progress-block {
+        margin-top: 32px;
+
+        .progress-row {
+            padding: 0;
+            margin: 0 0 8px 0;
+
+            .progress-title {
+                float: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 120px;
+            }
+
+            .progress-desc {
+                float: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 560px;
+
+                div {
+                    line-height: 16px;
+                    padding-left: 22px;
+                }
+
+                .started {
+                    background: url("../imgs/loader.gif") no-repeat 0 0 transparent;
+                }
+
+                .finished {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px -16px transparent;
+                }
+
+                .aborted {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px -32px transparent;
+                }
+
+                .error {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px 0px transparent;
+                }
+            }
+        }
+    }
+}
+
+#confirmInput {
+    margin-top: 16px;
+    width: 99%;
+}
+
+#groupListContainer {
+    .menu-item-label {
+        white-space: nowrap;
+    }
+}

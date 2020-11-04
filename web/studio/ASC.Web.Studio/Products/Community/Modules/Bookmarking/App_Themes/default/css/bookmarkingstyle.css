@@ -1,0 +1,329 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.bookmarks-row {
+    border-left:  medium none;
+    border-right: medium none;
+    margin-bottom: -1px;
+}
+
+.bookmarks-row:hover
+{
+   background-color: #E6E6E6;
+}
+
+.bookmarks-row:hover .linkHeader
+{
+   text-decoration: underline;
+}
+
+.bookmarkingContentArea
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.bookmarkingAreaWithMargin10
+{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.bookmarkingInputUrl, .bookmarkingInputText, .bookmarkingInputTextArea
+{
+	width: 100%;
+	background-color: #FFFFFF;
+	border: 1px solid #C7C7C7;
+	resize: none;
+}
+
+.bookmarkingInputUrl, .bookmarkingInputText
+{
+	height: 19px;
+}
+
+.bookmarkingAreaWithRightMargin10
+{
+	margin-right: 10px;
+}
+
+.bookmarkingRaitingCenterGold
+{
+	background-image: url('imagescss/yell01_star.png');
+	width: 26px;
+	height: 19px;
+}
+
+.bookmarkingRaitingCenterGrey
+{
+	background-image: url('imagescss/wh01_star.png');
+	width: 26px;
+	height: 19px;
+}
+
+.bookmarkingRaitingCenterSimpleMode
+{
+	background-image: url('imagescss/goldStar.gif');
+	width: 25px;
+	height: 25px;
+}
+
+.bookmarkingRaitingRight
+{
+	background-image: url('imagescss/wh03_end.png');
+	width: 10px;
+	height: 19px;
+}
+
+.bookmarkingRaitingRightGold
+{
+	background-image: url('imagescss/yell03_end.png');
+	width: 10px;
+	height: 19px;
+}
+
+.bookmarkingRaitingLeftGold
+{
+	background-image: url('imagescss/yel02_bg.gif');
+	min-width: 10px;
+	max-width: 300px;
+	height: 25px;
+}
+
+.bookmarkingRaitingLeftCornerGold
+{
+	background-image: url('imagescss/yel01.gif');
+	width: 15px;
+	height: 25px;
+}
+
+.bookmarkingRaitingLeftGrey
+{
+	background-image: url('imagescss/wh02_bg.gif');
+	min-width: 10px;
+	max-width: 300px;
+	height: 25px;
+}
+
+.bookmarkingRaitingLeftCornerGrey
+{
+	background-image: url('imagescss/wh01.gif');
+	width: 15px;
+	height: 25px;
+}
+
+.bookmarkingRaitingLabel
+{
+	background-image: url('imagescss/wh02_bg.png');
+	height: 19px;
+}
+
+.bookmarkingRaitingGoldLabel
+{
+	background-image: url('imagescss/yell02_bg.png');
+	height: 19px;
+}
+
+.bookmarkDescriptionPanel
+{
+}
+
+.bookmarkDescriptionPanel a:link
+{
+	color: #555555;
+	text-decoration: none;
+}
+.bookmarkDescriptionPanel a:visited
+{
+	color: #555555;
+	text-decoration: none;
+}
+.bookmarkDescriptionPanel a:active
+{
+	color: #555555;
+	text-decoration: none;
+}
+
+.bookmarkDescriptionPanel a:hover
+{
+	color: #000000;
+	text-decoration: none;
+}
+
+.bookmarkingAreaWithHand
+{
+	cursor: pointer;
+}
+
+.bookmarkingAreaWithBottomBorder
+{
+	border-bottom: solid 1px #D1D1D1;
+	margin-bottom: 8px;
+}
+
+.bookmarkingAddBookmarkImage
+{
+	background: url('imagescss/add_book.gif') no-repeat scroll 0 bottom transparent;
+	display: inline-block;
+	padding-left: 17px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.bookmarkingCreateNewBookmarkContainer
+{
+	padding-left: 5px;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.bookmarkingThumbnail
+{
+	width: 96px;
+	height: 72px;
+	/*float: left;
+	margin-right: 15px;*/
+	border: solid 1px #c7c7c7;
+}
+
+.bookmarkingCommentsDiv
+{
+	background-image: url('imagescss/comment.gif');
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+}
+
+.bookmarkingTag16
+{
+	background-image: url('imagescss/tag_16.gif');
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+.bookmarkingInfoArea
+{
+	width: 92%;
+}
+
+.bookmarkingSingleBookmarkDescriptionArea
+{
+	margin-top: 6px;	
+}
+
+.bookmarkingDetailsDivWithImage
+{
+	background: url("imagescss/bookmarking_details.png") no-repeat scroll 0 bottom transparent;
+	display: inline-block;
+	padding: 0 0 0 17px;
+	height: 15px;
+}
+
+.bookmarkingEditDivWithImage
+{
+	background: url("imagescss/16_edit.png") no-repeat scroll 0 top transparent;
+	display: inline-block;
+	padding: 0 0 0 17px;
+	height: 16px;
+}
+
+.bookmarkingAddToFavouritesPlus
+{
+	background: url("imagescss/plus_add.png") no-repeat scroll 0 bottom transparent;
+	display: inline-block;
+	width: 23px;
+	height: 19px;
+}
+
+.bookmarkingRemoveFromFavourites
+{
+	background: url("imagescss/remove.png") no-repeat scroll 0 bottom transparent;
+	display: inline-block;
+	width: 23px;
+	height: 19px;
+}
+
+.bookmarkingSingleBookmarkArea
+{
+	padding-bottom: 14px;
+	padding-top: 14px;
+	border-bottom: 1px solid #D1D1D1;
+}
+
+.bookmarkingGreyText
+{
+	color: #646567;
+}
+
+.bookmarkingAddToFavouritePanelWithMargin
+{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.bookmarkingPagination
+{
+	margin-top: 0px;
+}
+
+.boormarkedByAreaWithBorder
+{	
+	border-bottom: solid 1px #D1D1D1;
+}
+
+.bookmarkingAreaWithWhiteBackground
+{
+	background-color: #ffffff;
+}
+
+img:-moz-broken,
+img:-moz-user-disabled {
+    -moz-force-broken-image-icon: 1;
+}
+
+.marginnone {
+    margin-bottom: 0px;
+}
+
+#tableForNavigation {
+    height: 24px;
+    width: 100%;
+}
+
+.navigationLinkBox .tl-combobox {
+    background: url("imagescss/comboarrow_bottom.png") no-repeat scroll right center transparent;
+    margin-bottom: 1px;
+    vertical-align: middle;
+}
+
+.navigationLinkBox .tl-combobox .combobox-title .inner-text {
+    border-bottom: 1px dotted #666666;
+    color: #666666;
+}
+
+.bookmarks-content {
+    max-width: 550px;
+    vertical-align: top;
+}
+
+#BookmarkToRemoveFromFavouriteName {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

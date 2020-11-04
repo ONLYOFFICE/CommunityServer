@@ -1,0 +1,196 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "base.less";
+
+#voip-numbers-view {
+    display: none;
+
+    #empty-numbers-list-msg {
+        display: none;
+    }
+
+    .voip-divider {
+        width: 830px;
+        border-top: 1px solid #d1d1d1;
+    }
+
+    #number-selector-box {
+        .settings-block {
+            margin-bottom: 28px;
+        }
+    }
+
+    #alias-setting-box {
+        margin-top: 13px;
+    }
+
+    #ringtones-setting-box {
+        .settings-block {
+            margin-bottom: 26px;
+        }
+    }
+
+    #buttons-box {
+        margin-top: 20px;
+
+        #save-settings-btn {
+            margin-right: 10px;
+        }
+    }
+
+
+    .settings-block {
+        &#ringtones-setting {
+            .button {
+                vertical-align: top;
+                margin-left: 5px;
+            }
+        }
+
+        #number-selector,
+        #number-alias-input,
+        #greeting-ringtone-selector,
+        #hold-ringtone-selector,
+        #queue-wait-ringtone-selector,
+        #voicemail-ringtone-selector {
+            width: 250px;
+        }
+
+        .quick-setting-item {
+            margin-bottom: 15px;
+
+            .on_off_button {
+                vertical-align: top;
+                margin-right: 12px;
+            }
+        }
+
+        .ringtone-setting-item {
+            margin-bottom: 10px;
+
+            .header-base-small {
+                margin-bottom: 5px;
+            }
+
+            .button {
+                vertical-align: top;
+            }
+            
+            input {
+                height: 0;
+                left: -1000px;
+                position: absolute;
+                width: 0;
+            }
+        }
+    }
+
+    .working-hours-inputs-box {
+        margin-left: 55px;
+        margin-top: 15px;
+
+        .textEdit {
+            width: 60px;
+            text-align: center;
+        }
+
+        .working-hours-error {
+            display: none;
+            color: #cc0000
+        }
+    }
+
+    
+    #operators-box {
+        margin-top: 50px;
+
+        .header-base {
+            margin-bottom: 20px;
+        }
+
+        #add-operators-btn {
+            margin-bottom: 12px;
+        }
+
+        #operators-list {
+            width: 830px;
+            margin-bottom: 50px;
+        
+            #operators-list-header {
+                line-height: 32px;
+                color: #808080;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+
+            .cell {
+                height: 32px;
+                float: left;
+
+                .on_off_button {
+                    margin-top: 8px;
+                }
+            }
+
+            .operator {
+                height: 32px;
+                border-bottom: 1px solid #d1d1d1;
+
+                &.selected {
+                    background-color: #f2f2f2;
+
+                    .actions {
+                        background-position: center bottom;
+                    }
+                }
+
+                &:hover {
+                    background-color: #f2f2f2;
+                }
+
+                .title {
+                    width: 540px;
+                    line-height: 32px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 7px;
+                        vertical-align: middle;
+                    }
+                }
+
+                .outgoing-calls {
+                    width: 130px;
+                }
+
+                .incoming-recording {
+                    width: 130px;
+                }
+
+                .actions {
+                    margin-top: 6px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+    }
+}

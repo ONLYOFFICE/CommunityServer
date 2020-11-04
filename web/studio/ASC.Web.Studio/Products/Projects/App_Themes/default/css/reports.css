@@ -1,0 +1,341 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/*----left menu-----*/
+.aside-content {
+    background-color: #F2F2F2;
+}
+
+.reports-menu-container {
+    padding: 16px 24px;
+    width: 208px;
+}
+
+.reports-menu-container .reports-category {
+    font-size: 14px;
+    line-height: 24px;
+    display: inline-block;
+}
+.reports-menu-container .reports-category.templates {
+    margin-top: 26px;
+}
+.reports-menu-container .reports-category.templates.display-none {
+    display: none;
+}
+
+.reports-menu-container .reports-category.generated {
+    margin-top: 26px;
+    text-decoration: none;
+    color: #333;
+}
+
+.reports-menu-container .reports-category.generated.active {
+    color:#116D9D;
+}
+
+.reports-menu-container ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin-left: 8px;
+}
+.reports-menu-container ul li {
+    padding: 4px 0 5px;
+}
+.reports-menu-container ul .menu-report-name{
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.reports-menu-container ul .menu-report-name:hover {
+    text-decoration: underline;
+}
+.reports-menu-container ul .menu-report-name.active,
+.reports-menu-container ul .menu-report-name.active:hover {
+    color:#116D9D;
+    cursor: default;
+    text-decoration: none;
+}
+
+/*-----report view------*/
+.report-name {
+    margin-top: 13px;
+    font-size: 19px;
+}
+.report-description {
+    display: inline;
+    height: 180px;
+}
+.report-description > ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-style: italic;
+}
+.report-description > ul li {
+    display: block;
+    margin-top: 17px;
+}
+.option-container {
+    overflow: hidden;
+}
+.option-container input,
+.popup-checkbox-container input {
+    margin-left: 0;
+    margin-bottom: 0;
+}
+.option-container label,
+.popup-checkbox-container label {
+    vertical-align: top;
+}
+/*----template popup------*/
+.template-params,
+.popup-checkbox-container,
+.variant-conteiner {
+    margin-top: 13px;
+}
+
+.template-params .period-cbox {
+    width: 180px;
+}
+.variant-conteiner .comboBox {
+    width: 70px;
+}
+.variant-conteiner #week.comboBox {
+    width: 130px;
+}
+.variant-conteiner #week.comboBox,
+.variant-conteiner #month.comboBox {
+    margin-right: 5px;
+}
+/*-----template view------*/
+.input-name-container {
+    margin-top: 13px;
+}
+.input-name-container input {
+    font-size: 19px;
+    width: 60%;
+    height: 29px;
+}
+#removeReport {
+    float: right;
+}
+
+/*----report filter----*/
+.report-filter-container {
+    clear: both;
+    margin-top: 9px;
+}
+.report-filter-container select {
+    max-width: 120px;
+}
+.view-task-block .task-option-header {
+    font-size: 17px;
+    margin-bottom: 0;
+}
+
+/* filter item container */
+.filter-item-container {
+    float: left;
+    margin-right: 24px;
+    margin-top: 17px;
+}
+.filter-option-container {
+    margin-top:26px;
+}
+.filter-item-container .describe-text {
+    display: block;
+    float: left;
+}
+.filter-option-container label, 
+.filter-item-container label {
+    vertical-align: top;
+}
+#otherInterval{
+    display:inline-block;
+}
+#otherInterval input {
+    display: block;
+    position: relative;
+    margin-top: -6px;
+    float: left;
+}
+#otherInterval .splitter-input {
+    float: left;
+    width: 8px;
+    height: 5px;
+}
+
+.report-inline-container {
+    display: inline-block;
+}
+/*--generated report---*/
+
+.generated-report-container {
+    width: 950px;
+    padding: 24px;
+    margin: 0 auto;
+}
+.generated-report-header-container {
+    overflow: hidden;
+}
+.generated-report-header-container .report-name {
+    float: left;
+    margin-top: 0;
+}
+.generated-report-header-container .generated-report-buttons {
+    float: right;
+}
+.generated-report-header-container .generation-date {
+    color: #83888D;
+}
+.generated-report-filter-container .report-filter-container {
+    margin-top: 0;
+}
+.generated-report-filter-container{
+    margin-bottom: 24px;
+    margin-top: 5px;
+}
+#exportPopup #neverShowPopup {
+    float: left;
+}
+#exportPopup label {
+    float: left;
+    padding-left: 5px;
+    margin-top: 1px;
+}
+#exportPopup .middle-button-container {
+    overflow: hidden;
+}
+.neverShowContainer {
+    margin-top: 24px;
+}
+/*---headers----*/
+
+a.report-big-header,
+a.report-middle-header,
+a.report-small-header,
+a.report-big-header:visited,
+a.report-middle-header:visited,
+a.report-small-header:visited, 
+a.report-big-header:hover,
+a.report-middle-header:hover,
+a.report-small-header:hover,
+a.report-big-header:active,
+a.report-middle-header:active,
+a.report-small-header:active   {
+    font-weight: bold;
+    color: #333;
+    text-decoration:none;
+}
+
+a.report-big-header:hover,
+a.report-middle-header:hover,
+a.report-small-header:hover {
+    text-decoration:undeline;
+}
+
+a.report-big-header {
+    font-size: 16px;
+}
+a.report-middle-header {
+    font-size: 14px;
+}
+
+/*---links----*/
+
+#reportBody tr td a:link,
+#reportBody tr td a:visited,
+#reportBody tr td a:hover,
+#reportBody tr td a:active {
+    color: #333;
+    outline: none;
+}
+#reportBody tr td a:link,
+#reportBody tr td a:visited,
+#reportBody tr td a:active {
+    text-decoration: none;
+}
+
+#reportBody tr td a:hover {
+    text-decoration: underline;
+}
+
+/*-----report table---*/
+.generated-report-container .sortable
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+.generated-report-container .sortable thead span {
+    display: inline-block;
+}
+.generated-report-container .sortable td
+{
+	text-align: left;
+	border-left: none;
+	border-right: none;
+	vertical-align: middle;
+}
+
+.pm-tablebase.no-sorted thead td {
+    color:#333;
+    border: none;
+}
+
+.generated-report-container .sortable tr:last-child td,
+.generated-report-container .pm-tablebase tr:last-child td {
+    border-bottom: medium none;
+}
+
+.report-tableColumnHeader
+{
+	border-bottom: 1px dotted;
+	color: #333;
+	text-decoration:none;
+	cursor:pointer;
+	
+	user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    MozUserSelect:none
+}
+
+/*---sort icon---*/
+.generated-report-container #sorttable_sortfwdind,
+.generated-report-container #sorttable_sortrevind {
+    background: url("../images/sort-btn.gif") 0 center no-repeat;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    cursor:pointer;
+    vertical-align: bottom;
+    margin-left: 3px;
+    color: transparent;
+}
+.generated-report-container #sorttable_sortfwdind {
+    background-position: -32px center;
+}
+.generated-report-container #sorttable_sortrevind {
+    background-position: -16px center;
+}
+#reportBody.noContentBlock {
+    display: block;
+}

@@ -1,0 +1,95 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/* Birthdays page */
+.birthday-content-splitter {
+    margin-bottom: 16px;
+}
+.birthday-header {
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
+}
+.birthday-date {
+    text-align: center;
+}
+.user-card-list {
+    border-left: 1px dotted #D1D1D1;
+    display: inline-block;
+    padding-left: 8px;
+}
+.user-card,
+.small-user-card {
+    float: left;
+    margin: 4px;
+    width: 330px;
+}
+.user-card .user-avatar {
+    padding: 4px;
+    float: left;
+}
+.user-card .user-info {
+    float: left;
+    margin: 8px 0 0 16px;
+    width: 200px;
+    overflow: hidden;
+}
+.user-card .user-info-title {
+    margin: 8px 0;
+}
+.small-user-card .user-avatar {
+    float: left;
+}
+.small-user-card .user-info {
+    float: left;
+    margin: 4px 0 0 16px;
+    width: 260px;
+    overflow: hidden;
+}
+.small-user-card .user-info .link {
+    white-space: nowrap;
+}
+.small-user-card .user-info-title {
+    margin-top: 6px;
+}
+.birthday-remind {
+    display: none;
+    padding-top: 2px;
+}
+.birthday-remind-active {
+    background-color: #F7E3AC;
+    color: #DA9038;
+    padding: 2px 8px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: none;
+}
+.birthday-remind-active a {
+    background: url("images/white_cross.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 8px;
+    margin-left: 4px;
+    width: 8px;
+}
+.tableBase tr:hover .small-user-card:not(.active) .birthday-remind {
+    display: inline-block;
+}
+.small-user-card.active .birthday-remind-active {
+    display: inline-block;
+}

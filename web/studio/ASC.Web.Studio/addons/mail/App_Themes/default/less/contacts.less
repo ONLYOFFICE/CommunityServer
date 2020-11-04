@@ -1,0 +1,269 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2020
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import 'settings.less';
+@import 'mixins.less';
+
+.contacts_list {
+    @border-style: @messages-border-style;
+    width: 100%;
+    table-layout: fixed;
+
+    .row {
+        height: @address-book-row-height;
+        border-bottom: @border-style;
+        /* zero cell padding */
+        > * {
+            padding: 0;
+        }
+
+        .checkbox {
+            cursor: pointer;
+            width: @row-height;
+
+            input {
+                margin-left: 9px;
+                float: none;
+            }
+        }
+
+        .avatar_container {
+            width: @address-book-row-height;
+            padding: 4px;
+
+            .contact_avatar_fake, .contact_avatar {
+                border: 1px solid #c7c7c7;
+                height: 32px;
+                width: 32px;
+                background-color: #fff;
+            }
+
+            .contact_avatar_fake {
+                display: block;
+            }
+        }
+
+        .info {
+            width: 25%;
+            word-wrap: break-word;
+            vertical-align: middle;
+
+            .name {
+                .box-sizing(border-box);
+                padding-right: @row-height * 0.25;
+                width: 100%;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-weight: bold;
+            }
+            .title, .crm_company {
+                .box-sizing(border-box);
+                padding-right: @row-height * 0.25;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 8.25px;
+                width: 100%;
+            }
+        }
+
+        .emails_list {
+            .emails {
+                white-space: nowrap;
+                overflow: hidden;
+
+                .email {
+                    display: block;
+                    float: left;
+                    overflow: hidden !important;
+                    width: auto !important;
+                    margin: 0px !important;
+                    text-overflow: ellipsis;
+                    max-width: 50%;
+                    height: 18px;
+
+                    .contactEmail {
+                        color: #333333;
+                        font-size: 12px;
+                        text-decoration: none;
+                        cursor: pointer;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                }
+
+                &.oneEmail {
+                    .email {
+                        max-width: 95%;
+                    }
+                }
+            }
+        }
+
+        .phones_list {
+            .phones {
+                white-space: nowrap;
+                overflow: hidden;
+
+                .phone {
+                    display: block;
+                    float: left;
+                    overflow: hidden !important;
+                    width: auto !important;
+                    margin: 0px !important;
+                    text-overflow: ellipsis;
+                    max-width: 50%;
+                    height: 18px;
+
+                    .contactPhone {
+                        color: #333333;
+                        font-size: 12px;
+                        text-decoration: none;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                }
+
+                &.onePhone {
+                    .phone {
+                        max-width: 95%;
+                    }
+                }
+            }
+        }
+
+        .tags_info {
+            .labels {
+                .tag {
+                    margin: 0 5px 0 0;
+                    display: block;
+                    float: left;
+                    cursor: default;
+                }
+            }
+        }
+
+        .menu_column {
+            width: @row-height;
+            padding-right: 9px;
+
+            .entity-menu {
+                float: right;
+                margin: 0;
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+
+            .notification {
+                display: inline-block;
+            }
+
+            .contactEmail {
+                text-decoration: underline !important;
+            }
+
+            .more_lnk {
+                .gray {
+                    border-bottom: 1px dotted #333;
+                }
+            }
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+    }
+}
+.menuActionSendEmail
+{
+    span
+    {
+        max-width: none;
+    }
+}
+
+.popupContainerClass {
+    table {
+        width: 100%;
+
+        .contactNmeBlock {
+            margin-bottom: @base-distance * 2;
+
+            .contactName {
+                width: 314px;
+            }
+        }
+
+        .contactAddlBlock {
+            margin-bottom: @base-distance * 2;
+        }
+
+        .contactEmail, .contactPhone {
+            width: 314px;
+        }
+
+        .contactEmails, .contactPhones {
+            margin: @base-distance 0 0 0;
+            width: 100%;
+            max-height: 64px;
+            overflow-y: auto;
+
+            .value {
+                line-height: 20px;
+                display: inline-block;
+                float: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #333333;
+                max-width: 256px;
+            }
+
+            .delete_entity {
+                background: url("../images/base_sprite.png") -20px 0 no-repeat;
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                cursor: pointer;
+                float: left;
+                margin: 2px 0 0 8px;
+
+                &:hover {
+                    background-position-y: -20px;
+                }
+            }
+        }
+
+        #contact-add-phones {
+            .headerPanelSmall {
+                &:after {
+                    content: "";
+                }
+            }
+        }
+
+        .contactDescription {
+            width: 314px;
+            height: 52px;
+            resize: none;
+        }
+    }
+}

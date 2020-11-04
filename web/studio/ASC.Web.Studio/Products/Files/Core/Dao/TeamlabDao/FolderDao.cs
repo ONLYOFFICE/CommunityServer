@@ -421,14 +421,14 @@ namespace ASC.Files.Core.Data
                 folder.FolderType = FolderType.DEFAULT;
 
             var copy = new Folder
-                {
-                    ParentFolderID = toFolderId,
-                    RootFolderId = toFolder.RootFolderId,
-                    RootFolderCreator = toFolder.RootFolderCreator,
-                    RootFolderType = toFolder.RootFolderType,
-                    Title = folder.Title,
-                    FolderType = folder.FolderType
-                };
+            {
+                ParentFolderID = toFolderId,
+                RootFolderId = toFolder.RootFolderId,
+                RootFolderCreator = toFolder.RootFolderCreator,
+                RootFolderType = toFolder.RootFolderType,
+                Title = folder.Title,
+                FolderType = folder.FolderType
+            };
 
             copy = GetFolder(SaveFolder(copy));
 
@@ -540,8 +540,8 @@ namespace ASC.Files.Core.Data
         {
             dbManager.ExecuteNonQuery(
                 Update("files_folder")
-                    .Set("foldersCount = (select count(*) - 1 from files_folder_tree where parent_id = id)")
-                    .Where(Exp.In("id", new SqlQuery("files_folder_tree").Select("parent_id").Where("folder_id", id))));
+                .InnerJoin("files_folder_tree fft", Exp.EqColumns("id", "fft.parent_id") & Exp.Eq("folder_id", id))
+                    .Set("foldersCount = (select count(*) - 1 from files_folder_tree where parent_id = id)"));
         }
 
         #region Only for TMFolderDao
@@ -814,7 +814,7 @@ namespace ASC.Files.Core.Data
                 Query("files_bunch_objects")
                     .Select("left_node", "right_node")
                     .Where(Exp.In("left_node", folderIDs.Select(folderID => (folderID ?? string.Empty).ToString()).ToList())))
-                    .ToDictionary(r=> r[0].ToString(), r=> r[1].ToString());
+                    .ToDictionary(r => r[0].ToString(), r => r[1].ToString());
         }
 
         private String GetProjectTitle(object folderID)
@@ -872,22 +872,22 @@ namespace ASC.Files.Core.Data
         protected Folder ToFolder(object[] r)
         {
             var f = new Folder
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    ParentFolderID = Convert.ToInt32(r[1]),
-                    Title = Convert.ToString(r[2]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
-                    CreateBy = new Guid(r[4].ToString()),
-                    ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
-                    ModifiedBy = new Guid(r[6].ToString()),
-                    FolderType = (FolderType)Convert.ToInt32(r[7]),
-                    TotalSubFolders = Convert.ToInt32(r[8]),
-                    TotalFiles = Convert.ToInt32(r[9]),
-                    RootFolderType = ParseRootFolderType(r[10]),
-                    RootFolderCreator = ParseRootFolderCreator(r[10]),
-                    RootFolderId = ParseRootFolderId(r[10]),
-                    Shared = Convert.ToBoolean(r[11]),
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                ParentFolderID = Convert.ToInt32(r[1]),
+                Title = Convert.ToString(r[2]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
+                CreateBy = new Guid(r[4].ToString()),
+                ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                ModifiedBy = new Guid(r[6].ToString()),
+                FolderType = (FolderType)Convert.ToInt32(r[7]),
+                TotalSubFolders = Convert.ToInt32(r[8]),
+                TotalFiles = Convert.ToInt32(r[9]),
+                RootFolderType = ParseRootFolderType(r[10]),
+                RootFolderCreator = ParseRootFolderCreator(r[10]),
+                RootFolderId = ParseRootFolderId(r[10]),
+                Shared = Convert.ToBoolean(r[11]),
+            };
             switch (f.FolderType)
             {
                 case FolderType.COMMON:
