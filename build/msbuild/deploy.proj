@@ -124,16 +124,21 @@
     <CreateItem Include="$(OutDir)WebStudio\web.appsettings.config;$(OutDir)WebStudio\web.connections.config;$(OutDir)WebStudio\web.storage.config;$(OutDir)WebStudio\web.autofac.config;$(OutDir)WebStudio\web.consumers.config">
       <Output ItemName="WebConfigurationFiles" TaskParameter="Include" />
     </CreateItem>
+    <Copy Condition="Exists('$(RootDir)build\ManageServices.bat')" SourceFiles="$(RootDir)build\ManageServices.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
     <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFiles="$(OutDir)Services\MailAggregator\web.storage.config" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
     <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
     <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.autofac.config" DestinationFolder="$(OutDir)Services\%(MailServiceToDeploy.Identity)\" />
-    <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="$(DeployTo)=='COM' Or $(DeployTo)=='EU.COM' Or $(DeployTo)=='SG.COM' Or $(DeployTo)=='INFO'" />
-    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition=" $(DeployTo)=='SERVER' Or $(DeployTo)=='UNIX.SERVER' Or $(DeployTo)=='AMI.SERVER' " />
+    <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
+    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition="'$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='AMI.SERVER'" />
     <Delete Files="$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll" Condition=" Exists( '$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll' ) " />
     <XmlUpdate XmlFileName="$(OutDir)Services\MailAggregator\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
     <XmlUpdate XmlFileName="$(OutDir)Services\MailCleaner\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
+    <ItemGroup>
+      <EncryptionDeleteList Include="$(OutDir)**\ASC.Data.Encryption.*" />
+    </ItemGroup>
+    <Delete Files="@(EncryptionDeleteList)" Condition="'$(DeployTo)'=='RU' Or '$(DeployTo)'=='R7-OFFICE.RU' Or '$(DeployTo)'=='R7-OFFICE.SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER'" />
   </Target>
   <Target Name="DeployService">
     <Message Text="Deploying service $(ServiceName)" />
@@ -324,11 +329,14 @@
     <RegexReplace Expression="(.+)\." Input="$(DeployTo)">
       <Output PropertyName="Substitution" TaskParameter="Output" />
     </RegexReplace>
+    <Message Text="ChangeConfigs: SubstitutionsRoot: /configuration/substitutions/$(Substitution)" />
     <XmlMassUpdate Condition="$(Substitution) != $(DeployTo)" ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(Substitution)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
     <RegexReplace Expression="^[^.]*\." Input="$(DeployTo)">
       <Output PropertyName="SubstitutionNext" TaskParameter="Output" />
     </RegexReplace>
+    <Message Text="ChangeConfigs: SubstitutionsRoot: /configuration/substitutions/$(SubstitutionNext)" />
     <XmlMassUpdate Condition="$(Substitution) != $(SubstitutionNext)" ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(SubstitutionNext)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
+    <Message Text="ChangeConfigs: SubstitutionsRoot: /configuration/substitutions/$(DeployTo)" />
     <XmlMassUpdate ContentFile="%(ConfigFiles.FullPath)" ContentRoot="/" SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)" SubstitutionsRoot="/configuration/substitutions/$(DeployTo)" NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity" />
   </Target>
   <Target Name="CopyConfigsForBackup">
