@@ -101,7 +101,7 @@ namespace ASC.Core.Configuration
             {
                 throw new ArgumentException("Empty user name.", "userName");
             }
-            if (string.IsNullOrEmpty("password"))
+            if (string.IsNullOrEmpty(password))
             {
                 throw new ArgumentException("Empty password.", "password");
             }
